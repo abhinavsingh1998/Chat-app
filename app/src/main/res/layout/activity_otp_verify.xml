@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_color">
+
+    <ImageView
+        android:id="@+id/header_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_size_100"
+        android:layout_marginTop="@dimen/margin_size_30"
+        android:layout_marginRight="@dimen/margin_size_100"
+        android:background="@drawable/login_hoabl"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_size_30"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/margin_size_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_text">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.emproto.core.textviews.CustomTextView
+                android:id="@+id/tv_login"
+                style="@style/text_style_blue_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_size_28"
+                android:gravity="start|center"
+                android:layout_marginTop="@dimen/margin_size_55"
+                android:text="@string/verify_otp"
+                app:fontName="@font/montserrat_regular"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/layout_otp_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_45"
+                android:gravity="start|center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/tv_login">
+
+                <com.emproto.core.textviews.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_18sdp"
+                    app:fontName="@string/jost_regular"
+                    android:gravity="start|center"
+                    style="@style/text_style_text_color_14"
+                    android:text="@string/enter_digits" />
+
+                <com.emproto.core.textviews.CustomTextView
+                    android:id="@+id/tv_mobileNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    app:fontName="@string/jost_medium"
+                    android:gravity="start|center"
+                    android:text="+91-999 999 9999"
+                    style="@style/text_style_blue_12" />
+
+                <com.emproto.core.textviews.CustomTextView
+                    android:id="@+id/et_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_size_12"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    app:fontName="@string/jost_regular"
+                    android:gravity="start|center"
+                    android:text="@string/change_number"
+                    style="@style/text_style_blue_12"/>
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/login_edittext"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_otp"
+                android:layout_marginLeft="@dimen/margin_size_28"
+                android:layout_marginTop="@dimen/margin_size_45"
+                android:layout_marginRight="@dimen/margin_size_28"
+                android:orientation="vertical"
+                app:hintTextColor="@color/app_color"
+                app:layout_constraintTop_toBottomOf="@+id/layout_otp_text"
+                app:placeholderText="@string/type_here"
+                app:prefixTextColor="@color/text_color">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etOtp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/jost_medium"
+                    android:gravity="center|left"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/text_color"
+                    android:textColorHint="@color/text_grey_color" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

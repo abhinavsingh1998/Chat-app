@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:width="@dimen/_8sdp"
+        android:height="@dimen/_8sdp"
+        android:left="@dimen/_4sdp"
+        android:right="@dimen/_4sdp">
+
+        <rotate android:fromDegrees="45">
+
+
+            <shape android:shape="oval">
+
+                <solid android:color="@color/uncircle_indicator_color" />
+
+            </shape>
+        </rotate>
+    </item>
+</layer-list>

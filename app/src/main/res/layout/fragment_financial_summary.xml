@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:context=".feature.home.views.fragments.FinancialSummaryFragment">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/financial_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginBottom="@dimen/margin_size_137"
+        android:layout_marginTop="@dimen/margin_size_30"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <com.emproto.core.textviews.CustomTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_bg"
+        android:drawableEnd="@drawable/ic_baseline_arrow_right"
+        android:fontFamily="@font/jost_medium"
+        android:paddingStart="@dimen/margin_size_45"
+        android:paddingTop="@dimen/margin_size_12"
+        android:paddingEnd="@dimen/margin_size_45"
+        android:paddingBottom="@dimen/margin_size_12"
+        android:text="Manage Projects"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_14"
+        android:layout_marginBottom="@dimen/margin_size_40"
+        android:layout_marginLeft="@dimen/margin_size_80"
+        android:layout_marginTop="@dimen/margin_size_40"
+        android:layout_marginRight="@dimen/margin_size_80"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/financial_recycler" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

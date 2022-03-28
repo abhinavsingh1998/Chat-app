@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="NO_INTERNET">No Internet available</string>
+    <string name="internet_slow">Uh-oh! Your internet is slow or disconnected. Connect again</string>
+    <string name="jost_bold">jost_bold</string>
+    <string name="jost_medium">jost_medium</string>
+    <string name="jost_regular">jost_regular</string>
+    <string name="jost_light">jost_light</string>
+    <string name="sheldon">sheldon</string>
+    <string name="sheldon_italic">sheldon_italic</string>
+    <string name="shelldon">shelldon</string>
+    <string name="montserrat_bold">montserrat_bold</string>
+    <string name="montserrat_medium">montserrat_medium</string>
+    <string name="montserrat_regular">montserrat_regular</string>
+    <string name="dinpro">dinpro</string>
+    <string name="dinpro_light">dinpro_light</string>
+    <string name="dinpro_medium">dinpro_medium</string>
+    <string name="read_more"> READ MORE</string>
+    <string name="read_less"> READ LESS</string>
+    <string name="helvetica_bold">helvetica_bold</string>
+</resources>

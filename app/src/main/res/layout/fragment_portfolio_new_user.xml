@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".feature.home.views.fragments.PortfolioNewUserFragment"
+    android:background="@drawable/homescreen_curve">
+
+    <ImageView
+        android:id="@+id/portfolio_top_img"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/portfolio_image"
+        android:layout_marginTop="@dimen/margin_size_60"
+        android:layout_marginLeft="@dimen/margin_size_18"
+        android:layout_marginRight="@dimen/margin_size_18"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <com.emproto.core.textviews.CustomTextView
+        android:id="@+id/add_you_project"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/jost_light"
+        android:textSize="@dimen/text_size_20"
+        android:textColor="@color/text_color"
+        android:text="@string/add_your_first_project"
+        android:layout_marginStart="@dimen/margin_size_100"
+        android:layout_marginEnd="@dimen/margin_size_100"
+        android:layout_marginTop="@dimen/margin_size_35"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/portfolio_top_img"/>
+
+    <com.emproto.core.textviews.CustomTextView
+        android:id="@+id/instriction"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_size_12"
+        android:layout_marginLeft="@dimen/margin_size_50"
+        android:layout_marginRight="@dimen/margin_size_50"
+        android:fontFamily="@font/jost_regular"
+        android:textAlignment="center"
+        android:text="@string/instriction_txt"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/add_you_project" />
+
+    <com.emproto.core.textviews.CustomTextView
+        style="@style/text_style_white_16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_bg"
+        android:textAlignment="center"
+        android:paddingStart="@dimen/margin_size_45"
+        android:paddingTop="@dimen/margin_size_12"
+        android:paddingEnd="@dimen/margin_size_45"
+        android:paddingBottom="@dimen/margin_size_12"
+        android:layout_marginStart="@dimen/margin_size_25"
+        android:layout_marginEnd="@dimen/margin_size_25"
+        android:layout_marginTop="@dimen/margin_size_50"
+        android:layout_marginBottom="@dimen/margin_size_65"
+        app:fontName="@font/jost_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/instriction"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Explore New Investment Projects"
+        android:textSize="@dimen/text_size_14"
+        android:drawableStart="@drawable/profit"
+        android:drawableEnd="@drawable/ic_baseline_arrow_right"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_size_4">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_banner_card"
+        android:layout_width="@dimen/margin_size_200"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cv_main_outer_card">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/banner_background"
+            android:paddingBottom="@dimen/margin_size_8">
+
+            <ImageView
+                android:id="@+id/iv_banner_icon"
+                android:layout_width="@dimen/margin_size_14"
+                android:layout_height="@dimen/margin_size_14"
+                android:src="@drawable/ic_view"
+                android:layout_margin="@dimen/margin_size_6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_banner_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jost_regular"
+                android:text="Buy SKUs flat at a discount of 15%/sqft (Rs.300/sqft off)"
+                android:textSize="@dimen/text_size_11"
+                android:textColor="@color/text_brown_color"
+                android:layout_marginStart="@dimen/margin_size_4"
+                android:layout_marginEnd="@dimen/margin_size_15"
+                android:layout_marginBottom="@dimen/margin_size_8"
+                app:layout_constraintStart_toEndOf="@id/iv_banner_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/iv_banner_icon" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_main_outer_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/margin_size_6"
+        app:cardElevation="@dimen/_3sdp"
+        app:cardPreventCornerOverlap="false"
+        android:layout_marginTop="@dimen/margin_size_10"
+        android:layout_marginHorizontal="@dimen/margin_size_4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cv_banner_card"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_size_4">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_top_view"
+                android:layout_width="@dimen/margin_size_200"
+                android:layout_height="@dimen/margin_size_200"
+                app:cardCornerRadius="@dimen/margin_size_6"
+                app:cardElevation="@dimen/margin_size_4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_top_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/iv_item_image"
+                        android:layout_width="@dimen/margin_size_200"
+                        android:layout_height="@dimen/margin_size_200"
+                        android:background="@drawable/ic_home"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/new_investment_page_image"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_view"
+                        android:layout_width="@dimen/margin_size_55"
+                        android:layout_height="@dimen/margin_size_20"
+                        android:layout_margin="@dimen/margin_size_6"
+                        android:alpha="0.3"
+                        android:backgroundTint="@color/homescreen_background"
+                        app:cardCornerRadius="@dimen/margin_size_4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/view_image"
+                        android:layout_width="@dimen/margin_size_13"
+                        android:layout_height="@dimen/margin_size_9"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/margin_size_8"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_view"
+                        app:layout_constraintBottom_toBottomOf="@id/cv_view"
+                        app:layout_constraintStart_toStartOf="@id/cv_view"
+                        app:layout_constraintTop_toTopOf="@id/cv_view" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_size_3"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="1.5k"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_11"
+                        app:layout_constraintBottom_toBottomOf="@id/view_image"
+                        app:layout_constraintStart_toEndOf="@id/view_image"
+                        app:layout_constraintTop_toTopOf="@id/view_image" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_location_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:alpha="0.54"
+                        android:background="@color/black"
+                        app:layout_constraintBottom_toTopOf="@id/cl_bottom_view"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <ImageView
+                            android:id="@+id/location_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <com.emproto.core.textviews.CustomTextView
+                            android:id="@+id/tv_item_location_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/margin_size_12"
+                            android:layout_marginVertical="@dimen/margin_size_4"
+                            android:fontFamily="@font/jost_regular"
+                            android:singleLine="true"
+                            android:text="Isle of Bliss"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_12"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.emproto.core.textviews.CustomTextView
+                            android:id="@+id/tv_item_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pune, Maharashtra"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_10"
+                            android:textStyle="normal"
+                            app:layout_constraintStart_toStartOf="@id/tv_item_location_name"
+                            app:layout_constraintTop_toBottomOf="@id/tv_item_location_name" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_bottom_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:alpha="0.74"
+                        android:background="@color/black"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <ImageView
+                            android:id="@+id/bottom_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_item_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_size_12"
+                            android:layout_marginEnd="@dimen/margin_size_10"
+                            android:fontFamily="@font/jost_regular"
+                            android:text="$20L Onwards"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_11"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@id/bottom_image"
+                            app:layout_constraintStart_toStartOf="@id/bottom_image"
+                            app:layout_constraintTop_toTopOf="@id/bottom_image" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_item_area"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_size_10"
+                            android:layout_marginEnd="@dimen/margin_size_9"
+                            android:fontFamily="@font/jost_regular"
+                            android:text="2000 Sqft Onwards"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_11"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_item_amount"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/tv_item_amount"
+                            app:layout_constraintTop_toTopOf="@id/tv_item_amount" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cv_item_rating_bg"
+                        android:layout_width="61dp"
+                        android:layout_height="26dp"
+                        android:backgroundTint="@color/black"
+                        app:cardPreventCornerOverlap="false"
+                        app:layout_constraintBottom_toBottomOf="@id/cl_location_view"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/cl_location_view"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialCardView.Cut.item_investment">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/rating_linear"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/iv_rating"
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_marginStart="@dimen/margin_size_13"
+                                android:src="@drawable/ic_upward_double_arrow_green"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_rating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_size_4"
+                                android:fontFamily="@font/jost_bold"
+                                android:text="5%"
+                                android:textColor="@android:color/holo_green_dark"
+                                android:textSize="@dimen/text_size_10"
+                                app:layout_constraintBottom_toBottomOf="@id/iv_rating"
+                                app:layout_constraintStart_toEndOf="@id/iv_rating"
+                                app:layout_constraintTop_toTopOf="@id/iv_rating" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_item_location_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_size_10"
+                android:layout_marginVertical="@dimen/margin_size_10"
+                android:fontFamily="@font/jost_light"
+                android:text="Beach side lifestyle near Mumbai with luxurious amenities and affordable rates"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_11"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_bottom_arrow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_top_view" />
+
+            <ImageView
+                android:id="@+id/iv_bottom_arrow"
+                android:layout_width="14dp"
+                android:layout_height="7dp"
+                android:layout_marginEnd="@dimen/margin_size_12"
+                android:src="@drawable/ic_arrow_forward_black"
+                app:layout_constraintBottom_toBottomOf="@id/tv_item_location_info"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_item_location_info"
+                app:layout_constraintTop_toTopOf="@id/tv_item_location_info" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_apply_now"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/margin_size_14"
+        android:fontFamily="@font/jost_medium"
+        android:text="Apply Now"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cv_main_outer_card" />
+
+    <ImageView
+        android:id="@+id/iv_bottom_outer_arrow"
+        android:layout_width="@dimen/margin_size_14"
+        android:layout_height="7dp"
+        android:layout_marginStart="@dimen/margin_size_4"
+        android:src="@drawable/ic_arrow_forward_black"
+        app:layout_constraintBottom_toBottomOf="@id/tv_apply_now"
+        app:layout_constraintStart_toEndOf="@id/tv_apply_now"
+        app:layout_constraintTop_toTopOf="@id/tv_apply_now" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

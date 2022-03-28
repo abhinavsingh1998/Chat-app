@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_price_trends_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_size_13"
+        android:layout_marginTop="58dp"
+        android:fontFamily="@font/jost_regular"
+        android:text="Price Trends"
+        android:textColor="@color/text_light_black_color"
+        android:textSize="@dimen/text_size_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_rise_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_size_5"
+        android:fontFamily="@font/jost_regular"
+        android:text="Rise in last 1 Year"
+        android:textSize="@dimen/text_size_12"
+        app:layout_constraintBottom_toBottomOf="@id/tv_price_trends_title"
+        app:layout_constraintEnd_toStartOf="@id/tv_rating"
+        app:layout_constraintTop_toTopOf="@id/tv_price_trends_title" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_size_4"
+        android:fontFamily="@font/jost_bold"
+        android:text="5%"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="@dimen/text_size_10"
+        app:layout_constraintBottom_toBottomOf="@id/iv_rating"
+        app:layout_constraintEnd_toStartOf="@id/iv_rating"
+        app:layout_constraintTop_toTopOf="@id/iv_rating" />
+
+    <ImageView
+        android:id="@+id/iv_rating"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginEnd="@dimen/margin_size_13"
+        android:src="@drawable/ic_upward_double_arrow_green"
+        app:layout_constraintBottom_toBottomOf="@id/tv_price_trends_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_price_trends_title" />
+
+    <ImageView
+        android:id="@+id/iv_price_trends_graph"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_size_200"
+        android:layout_marginHorizontal="@dimen/margin_size_13"
+        android:layout_marginVertical="@dimen/margin_size_12"
+        android:src="@drawable/project_detail_price_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_price_trends_title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_size_4"
+    >
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_key_pillar_card"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_size_4"
+        app:cardElevation="@dimen/_3sdp"
+        app:cardCornerRadius="@dimen/margin_size_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_premium_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_size_13"
+                android:layout_marginTop="@dimen/margin_size_16"
+                android:src="@drawable/premium_location_image"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_premium_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_6"
+                android:layout_marginEnd="@dimen/margin_size_12"
+                android:text="@string/premium_location"
+                android:textSize="@dimen/text_size_12"
+                app:layout_constraintBottom_toBottomOf="@id/iv_premium_location"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_premium_location"
+                app:layout_constraintTop_toTopOf="@id/iv_premium_location" />
+
+            <View
+                android:id="@+id/top_line"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="@color/line_view_color"
+                android:layout_marginTop="@dimen/margin_size_15"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_premium_location" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_point_one"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_size_6"
+                android:layout_marginEnd="@dimen/margin_size_13"
+                android:fontFamily="@font/jost_regular"
+                android:text="Point 1 goes here Point 1 goes here"
+                android:textColor="@color/text_blue_color"
+                android:textSize="@dimen/text_size_11"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/iv_premium_location"
+                app:layout_constraintTop_toBottomOf="@id/top_line" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_point_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_size_6"
+                android:layout_marginEnd="@dimen/margin_size_13"
+                android:fontFamily="@font/jost_regular"
+                android:text="Point 1 goes here Point 1 goes here"
+                android:textColor="@color/text_blue_color"
+                android:textSize="@dimen/text_size_11"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tv_point_one"
+                app:layout_constraintTop_toBottomOf="@id/tv_point_one" />
+
+            <View
+                android:id="@+id/bottom_line"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="@color/line_view_color"
+                android:layout_marginTop="@dimen/margin_size_7"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_point_two" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_size_13"
+                android:fontFamily="@font/jost_medium"
+                android:text="@string/details"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_10"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bottom_line" />
+
+            <ImageView
+                android:id="@+id/iv_details_arrow"
+                android:layout_width="@dimen/margin_size_12"
+                android:layout_height="7dp"
+                android:layout_marginStart="@dimen/margin_size_4"
+                android:src="@drawable/ic_arrow_forward_black"
+                app:layout_constraintBottom_toBottomOf="@id/tv_details"
+                app:layout_constraintStart_toEndOf="@id/tv_details"
+                app:layout_constraintTop_toTopOf="@id/tv_details" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

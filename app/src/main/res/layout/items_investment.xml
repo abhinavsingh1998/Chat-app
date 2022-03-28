@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/margin_size_200"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_size_6"
+    app:cardElevation="@dimen/_5sdp"
+    app:cardPreventCornerOverlap="false">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_size_4"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/view_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/mountain" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|end|top"
+                android:layout_margin="@dimen/margin_size_6"
+                android:background="@drawable/views_backgroud"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_size_8"
+                    android:layout_marginTop="@dimen/margin_size_6"
+                    android:layout_marginBottom="@dimen/margin_size_6"
+                    android:src="@drawable/ic_view" />
+
+                <com.emproto.core.textviews.CustomTextView
+                    style="@style/text_style_white_11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_size_3"
+                    android:layout_marginTop="@dimen/margin_size_6"
+                    android:layout_marginRight="@dimen/margin_size_10"
+                    android:layout_marginBottom="@dimen/margin_size_6"
+                    android:text="1.5K"
+                    app:fontName="@string/jost_regular" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:background="@drawable/layout_background"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.emproto.core.textviews.CustomTextView
+                        style="@style/text_style_white_11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_4"
+                        android:text="Tomorrow Land"
+                        app:fontName="@string/jost_regular" />
+
+                    <com.emproto.core.textviews.CustomTextView
+                        style="@style/text_style_lightbrown_11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_2"
+                        android:layout_marginBottom="@dimen/margin_size_4"
+                        android:singleLine="true"
+                        android:text="Pune, Maharashtra"
+                        app:fontName="@string/jost_regular" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <com.emproto.core.textviews.CustomTextView
+                        style="@style/text_style_lightbrown_11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/margin_size_6"
+                        android:layout_marginBottom="@dimen/margin_size_3"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="₹20 \nLakhs"
+                        app:fontName="@string/jost_regular" />
+
+                    <com.emproto.core.textviews.CustomTextView
+                        style="@style/text_style_lightbrown_11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/margin_size_6"
+                        android:layout_marginBottom="@dimen/margin_size_3"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="2000 \nSqft"
+                        app:fontName="@string/jost_regular" />
+
+                    <com.emproto.core.textviews.CustomTextView
+                        style="@style/text_style_lightbrown_11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/margin_size_6"
+                        android:layout_marginBottom="@dimen/margin_size_3"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="^ \n5%"
+                        app:fontName="@string/jost_regular" />
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/description"
+            style="@style/text_style_text_color_11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_size_10"
+            android:layout_marginTop="@dimen/margin_size_6"
+            android:layout_marginBottom="@dimen/margin_size_8"
+            android:drawableEnd="@drawable/ic_black_long_rightarrow"
+            android:drawablePadding="@dimen/margin_size_4"
+            android:gravity="start|center"
+            android:text="Beach side lifestyle near Mumbai with luxurious amenities and affordable rates"
+            app:fontName="@string/jost_light"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.emproto.core.textviews.CustomTextView
+            style="@style/text_style_text_color_12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_size_18"
+            android:drawableEnd="@drawable/ic_black_long_rightarrow"
+            android:gravity="center"
+            android:padding="@dimen/margin_size_4"
+            android:text="@string/apply_now"
+            app:fontName="@string/jost_medium" />
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

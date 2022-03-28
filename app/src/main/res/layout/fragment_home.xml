@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_color">
+
+    <include
+        android:id="@+id/search_layout"
+        layout="@layout/toolbar_with_filter" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:elevation="@dimen/_4sdp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_layout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/main_layout1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/margin_size_10"
+                android:background="@drawable/homescreen_curve"
+                android:paddingBottom="@dimen/margin_size_30"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/investment_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.emproto.core.textviews.CustomTextView
+                        android:id="@+id/present"
+                        style="@style/text_style_text_color_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_6"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:singleLine="true"
+                        android:text="@string/presenting"
+                        app:fontName="@string/jost_regular"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/header_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_6"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/present">
+
+                        <View
+                            android:id="@+id/view"
+                            android:layout_width="@dimen/margin_size_90"
+                            android:layout_height="1dp"
+                            android:background="#b6b3d0"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.emproto.core.textviews.CustomTextView
+                            style="@style/text_style_text_color_14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:minLines="1"
+                            android:singleLine="true"
+                            android:text="@string/new_generation"
+                            app:fontName="@string/sheldon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/view_2"
+                            app:layout_constraintStart_toEndOf="@id/view"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/view_2"
+                            android:layout_width="@dimen/margin_size_90"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="@dimen/margin_size_6"
+                            android:background="#b6b3d0"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/investment_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/_8sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/investment_layout" />
+
+                <com.emproto.core.textviews.CustomTextView
+                    android:id="@+id/tv_viewall_investments"
+                    style="@style/text_style_text_color_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_30"
+                    android:drawableEnd="@drawable/ic_black_long_rightarrow"
+                    android:drawablePadding="@dimen/margin_size_4"
+                    android:gravity="center"
+                    android:padding="@dimen/margin_size_4"
+                    android:singleLine="true"
+                    android:text="@string/view_all_properties"
+                    app:fontName="@string/jost_medium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/investment_recyclerview" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <include
+                android:id="@+id/kyc_layout"
+                layout="@layout/layout_kyc"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/margin_size_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_layout1" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/main_layout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/homescreen_curve"
+                app:layout_constraintTop_toBottomOf="@id/kyc_layout">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/project_updates_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/text1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:singleLine="true"
+                        android:text="@string/your_project"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_14"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/project_updates_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/text1" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/latest_updates_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/_8sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/project_updates_layout">
+
+                    <com.emproto.core.textviews.CustomTextView
+                        android:id="@+id/textview2"
+                        style="@style/text_style_text_color_16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:singleLine="true"
+                        android:text="@string/latest_updates"
+                        app:fontName="@string/jost_regular"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.emproto.core.textviews.CustomTextView
+                        android:id="@+id/tv_seeall"
+                        style="@style/text_style_blue_16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_black_long_rightarrow"
+                        android:drawablePadding="@dimen/margin_size_4"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:singleLine="true"
+                        android:text="@string/see_all"
+                        app:fontName="@string/jost_regular"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/lates_updates_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textview2" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/hoabl_promises_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/_8sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/latest_updates_layout">
+
+                    <com.emproto.core.textviews.CustomTextView
+                        android:id="@+id/textview4"
+                        style="@style/text_style_text_color_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="@string/promise_wekeep"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.emproto.core.textviews.CustomTextView
+                        android:id="@+id/tv_seeall_promise"
+                        style="@style/text_style_blue_16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_black_long_rightarrow"
+                        android:drawablePadding="@dimen/margin_size_4"
+                        android:singleLine="true"
+                        android:text="@string/see_all"
+                        app:fontName="@string/jost_regular"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/hoabl_promises_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textview4" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/insights_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/_8sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hoabl_promises_layout">
+
+                    <com.emproto.core.textviews.CustomTextView
+                        android:id="@+id/textview5"
+                        style="@style/text_style_text_color_16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="@string/insights_foryou"
+                        app:fontName="@string/jost_regular"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.emproto.core.textviews.CustomTextView
+                        android:id="@+id/tv_seeall_insights"
+                        style="@style/text_style_blue_16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_black_long_rightarrow"
+                        android:drawablePadding="@dimen/margin_size_4"
+                        android:singleLine="true"
+                        android:text="@string/see_all"
+                        app:fontName="@string/jost_regular"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/insights_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textview5" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/testimonials_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/_8sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/insights_layout">
+
+                    <com.emproto.core.textviews.CustomTextView
+                        android:id="@+id/textview6"
+                        style="@style/text_style_text_color_16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="@string/testimonial"
+                        app:fontName="@string/jost_regular"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.emproto.core.textviews.CustomTextView
+                        android:id="@+id/tv_seeall_testimonial"
+                        style="@style/text_style_blue_16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_black_long_rightarrow"
+                        android:drawablePadding="@dimen/margin_size_4"
+                        android:singleLine="true"
+                        android:text="@string/see_all"
+                        app:fontName="@string/jost_regular"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/testimonials_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textview6" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/shareJoy_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_30"
+                    android:layout_marginBottom="@dimen/margin_size_20"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/testimonials_layout">
+
+                    <View
+                        android:id="@+id/view1"
+                        android:layout_width="@dimen/margin_size_120"
+                        android:layout_height="1dp"
+                        android:background="#b6b3d0"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.emproto.core.textviews.CustomTextView
+                        android:id="@+id/share_text"
+                        style="@style/text_style_blue_32"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_size_6"
+                        android:text="@string/share_joy"
+                        app:fontName="@string/sheldon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/view2"
+                        app:layout_constraintStart_toEndOf="@id/view1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/view2"
+                        android:layout_width="@dimen/margin_size_120"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/margin_size_6"
+                        android:background="#b6b3d0"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.emproto.core.textviews.CustomTextView
+                    android:id="@+id/tv_refer"
+                    style="@style/text_style_text_color_11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="83dp"
+                    android:layout_marginTop="@dimen/margin_size_20"
+                    android:layout_marginRight="83dp"
+                    android:text="@string/refer"
+                    app:fontName="@string/jost_regular"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/shareJoy_layout" />
+
+                <LinearLayout
+                    android:id="@+id/referral_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_size_12"
+                    android:layout_marginTop="@dimen/margin_size_30"
+                    android:layout_marginRight="@dimen/margin_size_12"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_refer">
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/et_name"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/margin_size_12"
+                        android:layout_marginRight="@dimen/margin_size_12"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:hint="@string/enter_name"
+                        app:boxBackgroundMode="outline"
+                        app:hintTextColor="@color/app_color"
+                        app:placeholderText="@string/type_here">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etName"
+                            style="@style/text_style_text_color_12"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start|center"
+                            android:background="@null"
+                            android:fontFamily="@font/jost_medium"
+                            android:gravity="center|left"
+                            android:inputType="textPersonName"
+                            android:padding="@dimen/margin_size_24"
+                            android:letterSpacing="0.2"
+                            android:textColorHint="@color/text_grey_color" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/layout_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/margin_size_12"
+                        android:gravity="center"
+                        android:layout_weight="1">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/login_edittext"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/enter_your_phonenumber"
+                            app:hintTextColor="@color/app_color"
+                            app:prefixText="+91"
+                            app:prefixTextColor="@color/text_color"
+                            android:orientation="vertical"
+                            app:placeholderText="@string/type_here">
+
+                            <EditText
+                                android:id="@+id/etMobile1"
+                                style="@style/text_style_text_color_14"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center|left"
+                                android:background="@null"
+                                android:fontFamily="@font/jost_medium"
+                                android:gravity="center|left"
+                                android:inputType="number"
+                                android:letterSpacing="0.2"
+                                android:maxLength="10"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:textColorHint="@color/text_grey_color" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <com.emproto.core.textviews.CustomTextView
+                    android:id="@+id/getOtp_button"
+                    style="@style/text_style_white_11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_size_80"
+                    android:layout_marginTop="@dimen/margin_size_20"
+                    android:layout_marginRight="@dimen/margin_size_80"
+                    android:background="@drawable/button_bg"
+                    android:paddingStart="@dimen/margin_size_20"
+                    android:paddingTop="@dimen/margin_size_12"
+                    android:paddingEnd="@dimen/margin_size_20"
+                    android:paddingBottom="@dimen/margin_size_12"
+                    android:text="Refer Mohit Kumar &amp; earn Rewards"
+                    android:textAlignment="center"
+                    app:fontName="@font/jost_medium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/referral_layout" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_size_6"
+                    android:layout_marginTop="@dimen/margin_size_35"
+                    android:layout_marginRight="@dimen/margin_size_6"
+                    android:background="@drawable/share_bg"
+                    android:paddingBottom="@dimen/margin_size_40"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/getOtp_button">
+
+                    <LinearLayout
+                        android:id="@+id/layout_share"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/margin_size_15"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.emproto.core.textviews.CustomTextView
+                            android:id="@+id/text_share"
+                            style="@style/text_style_light_grey_12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_size_6"
+                            android:text="@string/share"
+                            app:fontName="@string/jost_regular" />
+
+                        <com.emproto.core.textviews.CustomTextView
+                            android:id="@+id/text_appnam"
+                            style="@style/text_style_light_grey_12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_size_6"
+                            android:text="@string/hoabl_app"
+                            app:fontName="@string/jost_medium" />
+
+                        <com.emproto.core.textviews.CustomTextView
+                            android:id="@+id/text_friends"
+                            style="@style/text_style_light_grey_12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_size_6"
+                            android:text="@string/friends"
+                            app:fontName="@string/jost_regular" />
+
+                    </LinearLayout>
+
+                    <com.emproto.core.textviews.CustomTextView
+                        style="@style/text_style_white_11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:background="@drawable/share_background"
+                        android:drawableLeft="@drawable/ic_share"
+                        android:padding="@dimen/margin_size_15"
+                        android:text="@string/share"
+                        android:textAllCaps="true"
+                        app:fontName="@string/jost_medium"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:textAllCaps="true" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
