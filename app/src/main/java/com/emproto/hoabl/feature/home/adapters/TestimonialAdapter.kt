@@ -27,8 +27,7 @@ class TestimonialAdapter(context: Context, list: List<String>) : RecyclerView.Ad
         return list.size
     }
 
-    inner class MyViewHolder(binding: ItemTestimonialsBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class MyViewHolder(binding: ItemTestimonialsBinding) : RecyclerView.ViewHolder(binding.root) {
         var binding: ItemTestimonialsBinding
 
         init {

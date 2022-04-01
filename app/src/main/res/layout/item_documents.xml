@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:outlineSpotShadowColor="#19000000"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/margin_size_6"
+    app:cardElevation="@dimen/margin_size_4"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/image_document"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_size_12"
+            android:layout_marginTop="@dimen/margin_size_10"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_docs"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_size_16"
+            android:layout_marginBottom="@dimen/margin_size_10"
+            android:src="@drawable/ic_black_long_rightarrow"
+            app:layout_constraintBottom_toBottomOf="@id/image_document"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/tv_document_name"
+            style="@style/text_style_text_color_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_size_12"
+            android:layout_marginTop="@dimen/margin_size_4"
+            android:layout_marginRight="@dimen/margin_size_17"
+            android:layout_marginBottom="@dimen/margin_size_10"
+            android:gravity="start|center"
+            android:text="document.pdf"
+            app:fontName="@string/jost_regular"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_document" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

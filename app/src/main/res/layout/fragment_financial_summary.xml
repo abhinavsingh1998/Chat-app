@@ -21,6 +21,7 @@
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <com.emproto.core.textviews.CustomTextView
+        android:id="@+id/btn_manage_projects"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_bg"

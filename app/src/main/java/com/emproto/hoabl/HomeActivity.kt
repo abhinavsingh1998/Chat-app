@@ -11,8 +11,13 @@ import androidx.fragment.app.FragmentTransaction
 import com.emproto.core.BaseActivity
 import com.emproto.hoabl.databinding.ActivityHomeBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.home.views.fragments.*
-import com.emproto.hoabl.fragments.*
+import com.emproto.hoabl.feature.home.views.fragments.FinancialAndProjectFragment
+import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
+import com.emproto.hoabl.feature.home.views.fragments.PortfolioNewUserFragment
+import com.emproto.hoabl.feature.investment.views.InvestmentFragment
+import com.emproto.hoabl.fragments.PortfolioFragment
+import com.emproto.hoabl.fragments.ProfileFragment
+import com.emproto.hoabl.fragments.PromisesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -94,7 +99,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 replaceFragment(favouriteFragment.javaClass, "", true, bundle, null, 0, false)
             }
             ScreenPortfolio -> {
-                val membershipFragment = PortfolioNewUserFragment()
+                val membershipFragment = FinancialAndProjectFragment()
                 membershipFragment.setArguments(bundle)
                 replaceFragment(membershipFragment.javaClass, "", true, bundle, null, 0, false)
             }

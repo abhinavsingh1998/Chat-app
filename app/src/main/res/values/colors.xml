@@ -11,6 +11,7 @@
     <color name="view_bgcolor">#49ffffff</color>
     <color name="text_color">#17171c</color>
     <color name="light_text_color">#28282e</color>
+    <color name="liquidity_text_color">#56575e</color>
     <color name="lighttext_color">#202023</color>
     <color name="thick_blue">#272165</color>
     <color name="error_text_color">#f45353</color>
@@ -32,13 +33,15 @@
     <color name="progress_secondary">#8affffff</color>
     <color name="progress_max_active">@color/white</color>
     <color name="text_gold_color">#928336</color>
-    <color name="text_brown_color">#4a4632</color>
+    <color name="gold_color">#957c00</color>
+    <color name="light_gold_color">#ae9100</color>
     <color name="text_thick_brown_color">#706a4a</color>
     <color name="text_lite_brown_color">#6e6c61</color>
     <color name="trouble_back">#c42b2c38</color>
     <color name="normal_text_color">#d3d3d9</color>
     <color name="background_grey_color">#f7f7f7</color>
     <color name="background_yellow_color">#fff2b2</color>
+    <color name="text_brown_color">#7b6c1c</color>
     <color name="text_red_color">#fa6c6c</color>
     <color name="text_brown_dark_color">#968e65</color>
     <color name="text_light_black_color">#16161c</color>
@@ -58,4 +61,9 @@
     <color name="category_location_ash_color">#918fa3</color>
     <color name="category_item_light_ash_color">#f4f4f6</color>
     <color name="category_bottom_ash_line_color">#dcdbe6</color>
+    <color name="light_appcolor">#cdceed</color>
+    <color name="opp_doc_info_card_color">#454130</color>
+    <color name="opp_doc_ash_line">#b6b3d0</color>
+    <color name="opp_doc_item_text_color">#b7000000</color>
+    <color name="land_skus_text_black_color">#28282e</color>
 </resources>

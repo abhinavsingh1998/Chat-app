@@ -33,7 +33,7 @@ class FinancialAndProjectFragment : BaseFragment(){
        tabLayout=  binding.testimonialsTab
        viewPager= binding.viewPager2
 
-        val adapter = PortfolioPagerAdapter(fragmentManager, lifecycle)
+        val adapter = PortfolioPagerAdapter(childFragmentManager, lifecycle)
         viewPager.adapter = adapter
 
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL

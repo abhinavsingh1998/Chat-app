@@ -210,7 +210,7 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_dot_layout"
-            android:layout_width="@dimen/margin_size_100"
+            android:layout_width="@dimen/margin_size_90"
             android:layout_height="wrap_content"
             app:tabBackground="@drawable/tab_selector"
             app:tabGravity="center"
@@ -288,6 +288,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_size_10"
             android:layout_marginEnd="11dp"
+            app:cardCornerRadius="@dimen/margin_size_8"
             app:layout_constraintBottom_toBottomOf="@id/cv_price_range"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/cv_price_range"

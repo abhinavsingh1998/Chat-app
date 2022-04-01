@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="18" project-jdk-type="JavaSDK">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/activity_home.xml" value="0.15462962962962962" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/fragment_financial_and_project.xml" value="0.1" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/fragment_investment.xml" value="0.17395833333333333" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/fragment_investment_layout.xml" value="0.17395833333333333" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/fragment_portfolio_new_user.xml" value="0.15462962962962962" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/fragment_portfolio_specificview.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

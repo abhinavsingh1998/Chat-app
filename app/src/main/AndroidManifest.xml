@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_SMS"/>
 
     <application
         android:name=".HoablApplication"
@@ -14,27 +15,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HOABL"
         android:usesCleartextTraffic="true">
-
         <activity
             android:name=".feature.home.views.IntroSliderActivity"
             android:exported="true"
             android:theme="@style/Theme.HOABL">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-
 
         <activity
             android:name=".feature.home.login.AuthActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.HOABL_BLACK_BAR"
-            android:windowSoftInputMode="adjustNothing"/>
+            android:windowSoftInputMode="adjustNothing">
 
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
 
         <activity
             android:name=".feature.home.login.SignUpActivity"
@@ -48,7 +48,14 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.HOABL_BLACK_BAR"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" >
+
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
 
         <activity
             android:name=".feature.home.views.ProjectDetailsExpandView"

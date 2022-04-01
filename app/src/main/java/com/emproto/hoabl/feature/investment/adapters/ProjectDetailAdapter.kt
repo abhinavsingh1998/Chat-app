@@ -1,18 +1,19 @@
-package com.emproto.hoabl.feature.home.adapters
+package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
-import com.emproto.hoabl.model.ProjectDetailItem
+import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.model.ViewItem
 import com.google.android.material.tabs.TabLayoutMediator
 
-class ProjectDetailAdapter(private val context: Context, private val list:List<ProjectDetailItem>):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ProjectDetailAdapter(private val context: Context, private val list:List<RecyclerViewItem>):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val VIEW_TYPE_ONE = 1
@@ -39,6 +40,7 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<P
     private lateinit var promisesAdapter: PromisesAdapter
     private lateinit var faqAdapter: FaqAdapter
     private lateinit var similarInvestmentsAdapter: InvestmentAdapter
+    private lateinit var onItemClickListener : View.OnClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
@@ -86,7 +88,6 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<P
 
     private inner class ProjectTopCardViewHolder(val binding: ProjectDetailTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-
             binding.ivSmallTopImage.setImageResource(R.drawable.new_investment_page_image)
             val listViews = ArrayList<ViewItem>()
             listViews.add(ViewItem(1, R.drawable.new_investment_page_image))
@@ -110,6 +111,8 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<P
             binding.projectDetailViewPager.setPageTransformer(comPosPageTarn)
             TabLayoutMediator(binding.tabDotLayout,binding.projectDetailViewPager){ _, _ ->
             }.attach()
+            itemView.tag = this
+            binding.tvOpportunityDoc.setOnClickListener(onItemClickListener)
         }
     }
 
@@ -154,6 +157,9 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<P
             val itemList = arrayListOf<String>("1", "2", "3", "4", "5")
             skuAdapter = SkuAdapter(itemList)
             binding.rvSkus.adapter = skuAdapter
+
+            itemView.tag = this
+            binding.tvSkusSeeAll.setOnClickListener(onItemClickListener)
         }
     }
 
@@ -204,5 +210,9 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<P
             similarInvestmentsAdapter = InvestmentAdapter(context, itemList)
             binding.rvSimilarInvestment.adapter = similarInvestmentsAdapter
         }
+    }
+
+    fun setItemClickListener(clickListener: View.OnClickListener) {
+        onItemClickListener = clickListener
     }
 }

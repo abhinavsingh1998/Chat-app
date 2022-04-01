@@ -25,7 +25,7 @@
             android:layout_marginTop="@dimen/margin_size_5"
             android:layout_marginBottom="@dimen/margin_size_3"
             android:scaleType="fitXY"
-            android:src="@drawable/bitmap"
+            android:src="@drawable/hoabl_logo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
