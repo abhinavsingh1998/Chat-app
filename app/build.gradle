@@ -38,7 +38,7 @@ android {
 }
 
 dependencies {
-
+    implementation 'com.mikhaellopez:circularimageview:4.3.0'
     implementation "androidx.core:core-ktx:$ktxVersion"
     implementation "androidx.appcompat:appcompat:$appCompactVersion"
     implementation "com.google.android.material:material:$materialVersion"

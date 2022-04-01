@@ -6,6 +6,15 @@
     <string name="portfolio">Portfolio</string>
     <string name="promises">Promises</string>
     <string name="profile">Profile</string>
+
+    <string name="transactions_text">Transactions</string>
+    <string name="land_transacted">land_transacted</string>
+    <string name="security_tv">SECURITY</string>
+    <string name="how_to_apply">How to apply</string>
+    <string name="selected_item">Selected item:</string>
+    <string name="dialog_msg_auth">Please enter Password</string>
+    <string name="dialog_title_auth">Lock Screen</string>
+
     <string name="login">Login</string>
     <string name="mobile_number">Mobile Number</string>
     <string name="enter_mobile">Enter Mobile Number</string>
@@ -121,7 +130,7 @@
     <string name="view_more">View More</string>
     <string name="DemoText">The Isle of Bliss is phase 2 of Codename Bliss Dapoli, a seaside lifestyle plotting development from The House of Abhinandan Lodha</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="And_your_name">And your name</string>
     <string name="First_name_hint">First Name </string>
     <string name="Second_name_hint">Second Name </string>
@@ -142,12 +151,76 @@
     <string name="choose_skus">choose_skus</string>
     <string name="premium_location">premium_location</string>
     <string name="details">details</string>
+    <string-array name="Languages">
+        <item>All</item>
+        <item>Kotlin</item>
+        <item>Swift</item>
+        <item>Python</item>
+        <item>Scala</item>
+        <item>Perl</item>
+    </string-array>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="help_centre_about_us">Help Centre - About Us</string>
+    <string name="About_us">Help Centre - About Us</string>
+    <string name="Description">We are building a platform that will bring anyone who wants to create wealth to join the New Generation LandTM revolution. Now is your time. You can buy, maintain and liquidate land with amazing ease, conﬁdence and trust. Whether you’re a ﬁrst time buyer or a seasoned investor, we’ve got you covered. We ensure a completely secure experience for our members by keeping track of every single nuance of the ownership journey to</string>
+    <string name="Selling_land_Text">WE ARE NOT SELLING LAND</string>
+    <string name="Changing_land_Text">WE’RE CHANGING LAND FOREVER</string>
+    <string name="Presenting_Text">presenting New Generation LandTM for the New Generation of India</string>
+    <string name="Description2">We are changing what it means to own land. We are making it liquid, so that you’re never stuck with it. We are changing everything that is wrong with it – the red tape, the hassles and the risk. We are using technology to make it fully transparent, easy and desirable. We are modernising and democratising land like no one else in history. But our biggest promise is that we aren’t with you just for the long run, we are with you forever.</string>
+    <string name="name">Anuj Singh</string>
+    <string name="editprofile">EditProfile</string>
+    <string name="my_accounts">My Accounts</string>
+    <string name="payment">Payment Settings, Refferal, Rewards</string>
+
+    <string name="location">Location Prompt , SMS, Push Notification</string>
+    <string name="profile_security">Security</string>
+    <string name="security_description">Report emergency, control authentication, etc</string>
+    <string name="help_centre">Help Centre</string>
+    <string name="contact_description">Contact, About Us , Privacy Policy,Chat</string>
+    <string name="confirmation_text">Not Anuj Singh?</string>
+    <string name="app_version">App Version:v0.22</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="upload_new_picture">Upload New Picture</string>
+    <string name="remove_picture">Remove Picture</string>
+    <string name="personal_details">Personal Details</string>
+
+    <string name="lastname">LastName</string>
+
+    <string name="email">Email</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="gender">Gender</string>
+    <string name="address_detail">Address Detail</string>
+    <string name="floor_and_house_number">Floor and House number</string>
+    <string name="enter_complete_address">Enter complete address</string>
+    <string name="enter_locality">Enter Locality</string>
+    <string name="pincode">PinCode</string>
+    <string name="city">City</string>
+    <string name="state">State</string>
+    <string name="save_and_update">Save and Update</string>
+    <string name="settings_text">Settings</string>
+    <string name="emergency_text1">Report a security emergency</string>
+    <string name="Settings">Settings</string>
+    <string name="my_account">My Account</string>
+    <string name="payment_history">Payment History</string>
+
+    <string name="need_input_discussion">Need input/discussion</string>
+    <string name="kyc">KYC</string>
+    <string name="documents">Documents</string>
+    <string name="help_centre_faqs">Help Centre - FAQs</string>
+    <string name="popular_categories">Popular Categories</string>
+    <string name="general">General</string>
+    <string name="investment">Investment</string>
+    <string name="payments">Payments</string>
+    <string name="category_1">Category 1</string>
+    <string name="settings_text2">Settings</string>
+    <string name="emergency_text">Report a security emergency</string>
     <string name="see_project_details">See Project Details</string>
     <string name="view_timeline">View Timeline</string>
     <string name="facility_management">Facility Management</string>
     <string name="now_manage_bookings">Now manage your bookings, complaints, visitors, vehicles, etc with ease</string>
     <string name="manage_now">Manage Now</string>
-    <string name="documents">Documents</string>
     <string name="view_upload_documents">VIEW&amp;UPLOAD DOCUMENTS></string>
     <string name="latest_videos_images">Latest Images &amp; Videos </string>
     <string name="last_update">Last Update on</string>

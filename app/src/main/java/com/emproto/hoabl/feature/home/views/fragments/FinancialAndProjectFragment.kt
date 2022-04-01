@@ -15,9 +15,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class FinancialAndProjectFragment : BaseFragment(){
 
-    val tabNames = arrayOf(
-        "Financial Summary",
-        "Manage Projects"
+    val tabNames = arrayOf("Financial Summary", "Manage Projects"
     )
 
     lateinit var binding: FragmentFinancialAndProjectBinding

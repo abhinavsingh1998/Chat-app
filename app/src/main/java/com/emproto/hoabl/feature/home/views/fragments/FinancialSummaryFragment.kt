@@ -25,8 +25,6 @@ class FinancialSummaryFragment : BaseFragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentFinancialSummaryBinding.inflate(layoutInflater)
-
-
         binding.financialRecycler.layoutManager = LinearLayoutManager(requireContext())
 
         val detailAdapter = FinancialSummaryAdapter(requireContext(), initData())
