@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -49,6 +50,12 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         if (savedInstanceState == null) {
             activityHomeActivity.includeNavigation.bottomNavigation.selectedItemId=  R.id.navigation_hoabl  // change to whichever id should be default
         }
+
+        activityHomeActivity.searchLayout.imageBack.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(p0: View?) {
+                onBackPressed()
+            }
+        })
 
     }
 
@@ -190,5 +197,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             }
         }
     }
+
 
 }

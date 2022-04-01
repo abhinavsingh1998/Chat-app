@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.emproto.core.BaseFragment
 import com.emproto.core.Database.TableModel.SearchModel
+import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.MVVM.home.HomeFactory
 import com.emproto.hoabl.MVVM.home.HomeViewModel
 import com.emproto.hoabl.databinding.FragmentSearchResultBinding
@@ -77,12 +78,12 @@ class SearchResultFragment : BaseFragment() {
     }
 
     private fun initClickListener() {
-        fragmentSearchResultBinding.toolbar.search.addTextChangedListener(object : TextWatcher{
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.search.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (p0.toString().isNotEmpty()){
                     val searchModel=SearchModel(searchName = p0.toString())
                   //  homeViewModel.insertRecord(searchModel)
-                    fragmentSearchResultBinding.toolbar.search.setText(p0.toString())
+                    (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.search.setText(p0.toString())
                 }
             }
 
