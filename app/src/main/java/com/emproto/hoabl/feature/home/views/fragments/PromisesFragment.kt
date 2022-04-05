@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.emproto.core.BaseFragment
+import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.databinding.FragmentPromisesBinding
 
 class PromisesFragment : BaseFragment() {
@@ -14,6 +15,7 @@ class PromisesFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
         binding= FragmentPromisesBinding.inflate(layoutInflater)
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility=View.VISIBLE
 
         initView()
         return binding.root

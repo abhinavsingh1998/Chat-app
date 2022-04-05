@@ -32,6 +32,8 @@ class InvestmentFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentInvestmentLayoutBinding.inflate(layoutInflater)
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility=View.VISIBLE
+
         return binding.root
     }
 

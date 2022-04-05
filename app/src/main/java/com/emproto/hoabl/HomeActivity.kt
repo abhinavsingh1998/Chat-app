@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.emproto.core.BaseActivity
@@ -14,9 +15,7 @@ import com.emproto.hoabl.databinding.ActivityHomeBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.fragments.FinancialAndProjectFragment
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
-import com.emproto.hoabl.feature.home.views.fragments.PortfolioNewUserFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
-import com.emproto.hoabl.fragments.PortfolioFragment
 import com.emproto.hoabl.fragments.ProfileFragment
 import com.emproto.hoabl.fragments.PromisesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -25,7 +24,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     val ScreenHome = 0
     val ScreenInvestment = 1
-    val ScreenPortfolio= 2
+    val ScreenPortfolio = 2
     val ScreenPromises = 3
     val ScreenProfile = 4
     var CurrentScreen = -1
@@ -33,25 +32,29 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private var mContext: Context? = null
     private var closeApp = false
     private var toolbar: Toolbar? = null
-    lateinit var activityHomeActivity:ActivityHomeBinding
+    lateinit var activityHomeActivity: ActivityHomeBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activityHomeActivity= ActivityHomeBinding.inflate(layoutInflater)
+        activityHomeActivity = ActivityHomeBinding.inflate(layoutInflater)
         (application as HomeComponentProvider).homeComponent().inject(this)
         setContentView(activityHomeActivity.root)
         mContext = this
 //        SharedPref.init(mContext)
         contentFrame = R.id.container
 //        navigation = findViewById(R.id.bottomNavigation)
-        activityHomeActivity.includeNavigation.bottomNavigation.setOnNavigationItemSelectedListener(this)
+        activityHomeActivity.includeNavigation.bottomNavigation.setOnNavigationItemSelectedListener(
+            this
+        )
 
         if (savedInstanceState == null) {
-            activityHomeActivity.includeNavigation.bottomNavigation.selectedItemId=  R.id.navigation_hoabl  // change to whichever id should be default
+            activityHomeActivity.includeNavigation.bottomNavigation.selectedItemId =
+                R.id.navigation_hoabl  // change to whichever id should be default
         }
 
-        activityHomeActivity.searchLayout.imageBack.setOnClickListener(object : View.OnClickListener{
+        activityHomeActivity.searchLayout.imageBack.setOnClickListener(object :
+            View.OnClickListener {
             override fun onClick(p0: View?) {
                 onBackPressed()
             }
@@ -134,10 +137,10 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     ) {
         try {
             val finalTag: String
-                if (extraTag != null && extraTag.equals(""))
-                    finalTag=fragmentClass.simpleName + extraTag
-                else
-                    finalTag=fragmentClass.simpleName
+            if (extraTag != null && extraTag.equals(""))
+                finalTag = fragmentClass.simpleName + extraTag
+            else
+                finalTag = fragmentClass.simpleName
 
             val isPopBackStack = supportFragmentManager.popBackStackImmediate(finalTag, 0)
             if (!isPopBackStack) {
@@ -156,7 +159,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                     if (fragmentForResult != null) {
                         fragment.setTargetFragment(fragmentForResult, targetRequestCode)
                     }
-                    val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+                    val fragmentTransaction: FragmentTransaction =
+                        supportFragmentManager.beginTransaction()
 //                    fragmentTransaction.setCustomAnimations()
                     fragmentTransaction.replace(contentFrame, fragment, finalTag)
                     if (addToBackStack) fragmentTransaction.addToBackStack(finalTag)
@@ -168,6 +172,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             e.printStackTrace()
         }
     }
+
 
     override fun onBackPressed() {
         if (getCurrentFragment() is HomeFragment) {
@@ -183,16 +188,16 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         }
     }
 
-    fun addFragment(fragment:Fragment, showAnimation:Boolean){
+    fun addFragment(fragment: Fragment, showAnimation: Boolean) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        when(showAnimation){
+        when (showAnimation) {
             false -> {
-                fragmentTransaction.replace(R.id.container,fragment,fragment.javaClass.name)
+                fragmentTransaction.replace(R.id.container, fragment, fragment.javaClass.name)
                     .addToBackStack(fragment.javaClass.name).commit()
             }
             true -> {
-                fragmentTransaction.setCustomAnimations(R.anim.enter,R.anim.exit)
-                    .replace(R.id.container,fragment,fragment.javaClass.name)
+                fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit)
+                    .replace(R.id.container, fragment, fragment.javaClass.name)
                     .addToBackStack(fragment.javaClass.name).commit()
             }
         }

@@ -41,18 +41,18 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/profile_image"
-                        android:layout_width="@dimen/margin_size_40"
-                        android:layout_height="@dimen/margin_size_40"
-                        android:layout_marginLeft="@dimen/margin_size_14"
-                        android:layout_marginTop="@dimen/margin_size_33"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_size_12"
+                        android:layout_marginTop="@dimen/margin_size_20"
                         app:cardCornerRadius="@dimen/margin_size_35"
                         app:cardPreventCornerOverlap="false"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/margin_size_70"
+                            android:layout_height="@dimen/margin_size_70"
                             android:scaleType="fitXY"
                             android:src="@drawable/mountain" />
                     </androidx.cardview.widget.CardView>

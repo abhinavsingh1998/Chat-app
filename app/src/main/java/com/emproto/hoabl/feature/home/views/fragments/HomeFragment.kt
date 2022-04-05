@@ -39,6 +39,8 @@ class HomeFragment : BaseFragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility=View.VISIBLE
+
         //homeViewModel= ViewModelProvider(this,factory)[HomeViewModel::class.java]
         initView()
         initClickListener()
