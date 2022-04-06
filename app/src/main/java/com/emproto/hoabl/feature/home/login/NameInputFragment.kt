@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.home.views.fragments
+package com.emproto.hoabl.feature.home.login
 
 
 import android.content.Intent

@@ -1,9 +1,6 @@
-
 package com.emproto.hoabl.feature.home.login
 
 import android.Manifest
-import android.app.Dialog
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Paint
@@ -11,24 +8,20 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
-import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityOtpVerifyBinding
-import com.emproto.hoabl.feature.home.views.fragments.NameInputFragment
 
 
 class OTPVerificationFragment : BaseFragment() {
 
     private lateinit var activityOtpVerifyBinding: ActivityOtpVerifyBinding
     var countOtp: Int = 3
-   /// lateinit var dialog: Dialog
+    /// lateinit var dialog: Dialog
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private var isReadSMSGranted = false
     val permissionRequest: MutableList<String> = ArrayList()
@@ -53,11 +46,15 @@ class OTPVerificationFragment : BaseFragment() {
         activityOtpVerifyBinding = ActivityOtpVerifyBinding.inflate(layoutInflater)
         initView()
         initClickListener()
-        launchPermissionDialog()
         return activityOtpVerifyBinding.root
     }
 
     private fun initView() {
+        permissionLauncher=registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){
+                permissions->
+            isReadSMSGranted=permissions[Manifest.permission.READ_SMS] ?: isReadSMSGranted
+        }
+        requestPermission()
         activityOtpVerifyBinding.tvMobileNumber.text = mobileno
         activityOtpVerifyBinding.tvMobileNumber.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         /*getTimerCount()
@@ -85,8 +82,11 @@ class OTPVerificationFragment : BaseFragment() {
             override fun afterTextChanged(s: Editable?) {
                 if (s?.length == 6) {
                     if (isNetworkAvailable(activityOtpVerifyBinding.root)) {
-                        startActivity(Intent(requireContext(), HomeActivity::class.java))
-                        dialog.dismiss()
+
+                        (requireActivity() as AuthActivity).replaceFragment(
+                            NameInputFragment(),true)
+                       // startActivity(Intent(requireContext(), HomeActivity::class.java))
+                        // dialog.dismiss()
 
                     } else {
                         activityOtpVerifyBinding.layout1.setBackgroundColor(resources.getColor(R.color.background_grey))

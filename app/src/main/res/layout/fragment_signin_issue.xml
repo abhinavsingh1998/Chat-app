@@ -37,6 +37,7 @@
                     android:fontFamily="@font/montserrat_regular"
                     android:text="@string/trouble_signing_in"
                     android:textColor="@color/text_color"
+                    android:textAlignment="textStart"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -53,7 +54,7 @@
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/issue_header"
                     android:layout_width="0dp"
-                    style="text_style_text_black_color_20"
+                    style="@style/text_style_text_black_color_18"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_size_30"
                     android:fontFamily="@font/jost_regular"
@@ -76,43 +77,39 @@
 
                     <RadioButton
                         android:id="@+id/issue_one"
+                        style="@style/text_style_grey_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Unable to enter phone number"
-                        android:fontFamily="@font/jost_regular"
-                        android:textSize="@dimen/text_size_14"/>
+                        android:fontFamily="@font/jost_regular" />
                     <RadioButton
                         android:id="@+id/issue_two"
+                        style="@style/text_style_grey_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Unable to change country code"
-                        android:fontFamily="@font/jost_regular"
-                        android:textSize="@dimen/text_size_14"/>
+                        android:fontFamily="@font/jost_regular" />
                     <RadioButton
                         android:id="@+id/issue_three"
+                        style="@style/text_style_grey_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Did not get OTP"
-                        android:fontFamily="@font/jost_regular"
-                        android:textSize="@dimen/text_size_14"/>
+                        android:fontFamily="@font/jost_regular"/>
                     <RadioButton
                         android:id="@+id/issue_four"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="OTP Expired"
                         android:fontFamily="@font/jost_regular"
-                        android:textSize="@dimen/text_size_14"/>
+                        style="@style/text_style_grey_14"/>
                     <RadioButton
                         android:id="@+id/issue_five"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Number Blocked"
                         android:fontFamily="@font/jost_regular"
-                        android:textSize="@dimen/text_size_14"/>
-
-
-
-
+                        style="@style/text_style_grey_14"/>
 
                 </RadioGroup>
 
@@ -128,17 +125,18 @@
                     app:boxStrokeColor="@color/app_color"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
+                    app:boxStrokeWidthFocused="0.8dp"
                     app:layout_constraintTop_toBottomOf="@id/issue_list">
 
                     <EditText
                         android:id="@+id/edit_issues"
+                        style="@style/text_style_text_color_16"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="left"
                         android:hint="@string/describe_your_issue_in_few_words"
                         android:fontFamily="@font/jost_medium"
-                        android:inputType="textCapSentences"
-                        android:textSize="@dimen/text_size_12" />
+                        android:inputType="textCapSentences"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -146,14 +144,15 @@
                     android:id="@+id/details_header"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    style="@style/text_style_text_color_16"
                     android:text="Your details"
-                    android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size_16"
                     android:fontFamily="@font/jost_regular"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/edit_issues_layout"
                     android:layout_marginTop="@dimen/margin_size_30"
+                    android:textAlignment="textStart"
                     android:layout_marginLeft="28dp"/>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -162,28 +161,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_size_28"
-                    android:layout_marginTop="@dimen/margin_size_25"
+                    android:layout_marginTop="@dimen/margin_size_20"
                     android:layout_marginRight="@dimen/margin_size_28"
                     android:hint="@string/enter_your_phonenumber"
-                    app:boxStrokeWidth="0.5dp"
+                    app:boxStrokeWidthFocused="0.7dp"
                     app:layout_constraintEnd_toStartOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/details_header">
+                    app:prefixText="+91"
+                    app:hintTextColor="@color/app_color"
+                    app:layout_constraintTop_toBottomOf="@id/details_header"
+                    app:placeholderText="@string/type_here">
 
                     <EditText
                         android:id="@+id/etMobileNumber"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        style="@style/text_style_text_color_16"
                         android:layout_gravity="center|left"
                         android:fontFamily="@font/jost_medium"
                         android:gravity="center|left"
                         android:inputType="number"
                         android:maxLength="10"
                         android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:textColor="@color/text_color"
-                        android:textColorHint="@color/text_grey_color"
-                        android:textSize="@dimen/margin_size_12" />
+                        android:paddingRight="10dp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -196,22 +196,24 @@
                     android:layout_marginTop="@dimen/margin_size_20"
                     android:layout_marginRight="@dimen/margin_size_28"
                     android:hint="@string/enter_your_email"
+                    app:boxStrokeWidthFocused="0.7dp"
                     app:layout_constraintEnd_toStartOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/num_Layout">
+                    app:layout_constraintTop_toBottomOf="@id/num_Layout"
+                    app:placeholderText="@string/type_here">
 
                     <EditText
                         android:id="@+id/email_input"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        style="@style/text_style_text_color_16"
                         android:layout_gravity="center|left"
                         android:fontFamily="@font/jost_medium"
                         android:gravity="center|left"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:textColor="@color/text_color"
-                        android:textColorHint="@color/text_grey_color"
-                        android:textSize="@dimen/margin_size_14" />
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/text_color"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.emproto.core.textviews.CustomTextView
@@ -222,7 +224,7 @@
                     android:background="@drawable/unselect_button_bg"
                     android:clickable="false"
                     android:drawableRight="@drawable/ic_baseline_arrow_right"
-                    android:drawablePadding="@dimen/_2sdp"
+                    android:paddingRight="@dimen/margin_size_50"
                     android:enabled="false"
                     android:textAlignment="center"
                     app:fontName="@font/jost_medium"

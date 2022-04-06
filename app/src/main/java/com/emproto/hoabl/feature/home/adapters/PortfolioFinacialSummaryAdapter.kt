@@ -10,7 +10,7 @@ import com.emproto.hoabl.databinding.PortfolioInvestmentCardBinding
 import com.emproto.hoabl.databinding.ProjectDetailTopLayoutBinding
 import com.emproto.hoabl.model.FinancialSummaryItems
 import com.emproto.hoabl.model.FinancialSummaryList
-import com.emproto.hoabl.model.ProjectDetailItem
+import com.emproto.hoabl.model.RecyclerViewItem
 
 class PortfolioFinacialSummaryAdapter (private val context: Context, private val list:List<FinancialSummaryList>):
     RecyclerView.Adapter<RecyclerView.ViewHolder>(){
