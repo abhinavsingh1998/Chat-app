@@ -34,6 +34,7 @@
     <dimen name="margin_size_8">8dp</dimen>
     <dimen name="margin_size_9">9dp</dimen>
     <dimen name="margin_size_10">10dp</dimen>
+    <dimen name="margin_size_11">11dp</dimen>
     <dimen name="margin_size_12">12dp</dimen>
     <dimen name="margin_size_13">13dp</dimen>
     <dimen name="margin_size_14">14dp</dimen>
@@ -45,6 +46,7 @@
     <dimen name="margin_size_20">20dp</dimen>
     <dimen name="margin_size_21">21dp</dimen>
     <dimen name="margin_size_22">22dp</dimen>
+    <dimen name="margin_size_23">23dp</dimen>
     <dimen name="margin_size_24">24dp</dimen>
     <dimen name="margin_size_25">25dp</dimen>
     <dimen name="margin_size_26">26dp</dimen>
@@ -63,7 +65,7 @@
     <dimen name="margin_size_45">45dp</dimen>
     <dimen name="margin_size_47">47dp</dimen>
     <dimen name="margin_size_50">50dp</dimen>
-    <dimen name="margin_size_51">5dp</dimen>
+    <dimen name="margin_size_51">51dp</dimen>
     <dimen name="margin_size_52">52dp</dimen>
     <dimen name="margin_size_55">55dp</dimen>
     <dimen name="margin_size_60">60dp</dimen>
@@ -118,6 +120,7 @@
     <dimen name="text_size_30">30sp</dimen>
     <dimen name="text_size_32">32sp</dimen>
     <dimen name="text_size_33">33sp</dimen>
+    <dimen name="text_size_39">39sp</dimen>
     <dimen name="price_text_size">12dp</dimen>
     <dimen name="add_btn_padd">20dp</dimen>
     <dimen name="quantity_btn_height">32dp</dimen>

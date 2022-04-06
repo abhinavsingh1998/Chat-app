@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
 import com.emproto.core.BaseFragment
+import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.databinding.FragmentFinancialAndProjectBinding
 import com.emproto.hoabl.feature.home.adapters.PortfolioPagerAdapter
 import com.google.android.material.tabs.TabLayout
@@ -29,11 +30,13 @@ class FinancialAndProjectFragment : BaseFragment(){
     ): View {
         binding = FragmentFinancialAndProjectBinding.inflate(layoutInflater)
 
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility=View.VISIBLE
 
-       tabLayout=  binding.testimonialsTab
+
+        tabLayout=  binding.testimonialsTab
        viewPager= binding.viewPager2
 
-        val adapter = PortfolioPagerAdapter(fragmentManager, lifecycle)
+        val adapter = PortfolioPagerAdapter(childFragmentManager, lifecycle)
         viewPager.adapter = adapter
 
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL

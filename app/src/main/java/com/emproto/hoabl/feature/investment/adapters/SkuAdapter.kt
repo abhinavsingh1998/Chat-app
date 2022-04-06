@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.home.adapters
+package com.emproto.hoabl.feature.investment.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

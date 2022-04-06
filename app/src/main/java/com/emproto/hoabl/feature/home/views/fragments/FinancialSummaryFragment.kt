@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.emproto.core.BaseActivity
 import com.emproto.core.BaseFragment
+import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.databinding.FragmentFinancialSummaryBinding
 import com.emproto.hoabl.feature.home.adapters.PortfolioInvestmentCardAdapter
 import com.emproto.hoabl.model.FinancialSummaryItems
@@ -29,6 +31,13 @@ class FinancialSummaryFragment : BaseFragment() {
 
         val detailAdapter = PortfolioInvestmentCardAdapter(requireContext(), initData())
         binding.financialRecycler.adapter = detailAdapter
+
+        binding.btnManageProjects.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(p0: View?) {
+                (requireActivity()as HomeActivity).addFragment(PortfolioSpecificViewFragment.newInstance(),true)
+            }
+
+        })
 
         return binding.root
     }

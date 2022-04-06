@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.adapters.InsightsAdapter
 import com.emproto.hoabl.adapters.LatestUpdateAdapter
@@ -36,7 +37,7 @@ class LatestUpdatesFragment : BaseFragment() {
         list.add("22L-2.5 Cr")
         list.add("22L-2.5 Cr")
         latestUpdateAdapter= LatestUpdateAdapter(requireActivity(),list)
-        gridLayoutManager= GridLayoutManager(requireContext(),2,)
+        gridLayoutManager= GridLayoutManager(requireContext(),2,LinearLayoutManager.VERTICAL,false)
         fragmentLatestUpdatesBinding.recyclerLatestUpdates.layoutManager=gridLayoutManager
         fragmentLatestUpdatesBinding.recyclerLatestUpdates.adapter=latestUpdateAdapter
     }

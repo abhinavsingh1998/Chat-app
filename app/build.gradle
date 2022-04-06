@@ -44,7 +44,7 @@ dependencies {
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constrainVersion"
     implementation "androidx.legacy:legacy-support-v4:$legacy_version"
-    implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.0'
+    //implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.0'
     testImplementation "junit:junit:$jUnit"
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -62,5 +62,5 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_core_version"
     //lifecycle
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_viewmodel_version"
-    implementation "com.hbb20:ccp:2.3.1"
+  //  implementation "com.hbb20:ccp:2.3.1"
 }

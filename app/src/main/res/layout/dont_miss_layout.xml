@@ -6,9 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/margin_size_20"
-    android:layout_marginVertical="@dimen/margin_size_30"
+    android:layout_marginTop="@dimen/margin_size_30"
     android:background="@drawable/inv_dont_miss_background"
-    app:layout_constraintBottom_toTopOf="@id/tv_smart_deal"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/cv_top">
 

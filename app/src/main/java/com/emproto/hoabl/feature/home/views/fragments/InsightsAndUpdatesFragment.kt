@@ -48,12 +48,7 @@ class InsightsAndUpdatesFragment : BaseFragment() {
     }
 
     private fun initClickListener() {
-        fragmentInsightsUpdatesBinding.searchLayout.imageBack.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(p0: View?) {
-                (requireActivity() as HomeActivity).onBackPressed()
-            }
 
-        })
     }
 
     class ViewPagerAdapter(fm: FragmentManager, behavior: Int) :

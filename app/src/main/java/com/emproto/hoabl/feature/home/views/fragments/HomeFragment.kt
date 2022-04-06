@@ -1,25 +1,21 @@
 package com.emproto.hoabl.feature.home.views.fragments
 
-import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.HomeActivity
-import com.emproto.hoabl.MVVM.home.HomeFactory
 import com.emproto.hoabl.MVVM.home.HomeViewModel
-import com.emproto.hoabl.MVVM.repositories.HomeRepository
-import com.emproto.hoabl.adapters.*
 import com.emproto.hoabl.adapters.HoABLPromisesAdapter
-import com.emproto.hoabl.feature.home.adapters.InvestmentAdapter
+import com.emproto.hoabl.adapters.InsightsAdapter
+import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
 import com.emproto.hoabl.adapters.LatestUpdateAdapter
-import com.emproto.hoabl.adapters.ProjectsUpdateAdapter
+import com.emproto.hoabl.adapters.TestimonialAdapter
 import com.emproto.hoabl.databinding.FragmentHomeBinding
-import javax.inject.Inject
 
 
 class HomeFragment : BaseFragment() {
@@ -43,6 +39,8 @@ class HomeFragment : BaseFragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility=View.VISIBLE
+
         //homeViewModel= ViewModelProvider(this,factory)[HomeViewModel::class.java]
         initView()
         initClickListener()
@@ -50,9 +48,8 @@ class HomeFragment : BaseFragment() {
     }
 
 
-
     private fun initView() {
-        binding.searchLayout.imageBack.visibility=View.GONE
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible=true
 
         val list: ArrayList<String> = ArrayList()
         list.add("22L-2.5 Cr")
@@ -90,23 +87,24 @@ class HomeFragment : BaseFragment() {
         binding.hoablPromisesRecyclerview.adapter = hoABLPromisesAdapter
     }
 
-    fun initClickListener(){
-        binding.tvSeeallInsights.setOnClickListener(object : View.OnClickListener{
+    fun initClickListener() {
+        binding.tvSeeallInsights.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                (requireActivity() as HomeActivity).addFragment(InsightsAndUpdatesFragment.newInstance(),true)
+                (requireActivity() as HomeActivity).addFragment(
+                    InsightsAndUpdatesFragment.newInstance(),
+                    true
+                )
             }
 
         })
 
-        binding.searchLayout.search.setOnClickListener(object :View.OnClickListener{
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.search.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                (requireActivity() as HomeActivity).addFragment(SearchResultFragment.newInstance(),true)
+                (requireActivity() as HomeActivity).addFragment(SearchResultFragment.newInstance(), true)
             }
         })
 
     }
-
-
 
 
 }

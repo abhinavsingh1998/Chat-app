@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.emproto.core.BaseFragment
+import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.databinding.FragmentProfileBinding
 
 class ProfileFragment : BaseFragment() {
@@ -22,6 +23,7 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun initView() {
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility=View.GONE
         binding.verisonName.text= "Verion  "+ com.emproto.hoabl.BuildConfig.VERSION_NAME
     }
 }

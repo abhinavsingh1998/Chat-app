@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.home.adapters
+package com.emproto.hoabl.feature.investment.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.CustomImageLayoutBinding
 import com.emproto.hoabl.model.ViewItem
 
-class VideoDroneAdapter(private val list:List<ViewItem>):RecyclerView.Adapter<VideoDroneAdapter.MyViewHolder>() {
+class ProjectDetailViewPagerAdapter(private val imageList: List<ViewItem>) : RecyclerView.Adapter<ProjectDetailViewPagerAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: CustomImageLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -17,11 +17,12 @@ class VideoDroneAdapter(private val list:List<ViewItem>):RecyclerView.Adapter<Vi
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val element = list[position]
+        val element = imageList[position]
         Glide.with(holder.itemView.context)
             .load(element.imageDrawable)
             .into(holder.binding.image)
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = imageList.size
+
 }

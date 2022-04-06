@@ -1,84 +1,69 @@
+
 package com.emproto.hoabl.feature.home.views.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.R
-import com.emproto.hoabl.adapters.InvestmentViewPagerAdapter
 import com.emproto.hoabl.databinding.FragmentInvestmentBinding
-import com.emproto.hoabl.feature.home.adapters.InvestmentAdapter
+import com.emproto.hoabl.feature.home.views.ProjectDetailsExpandView
+import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
 import com.emproto.hoabl.model.ViewItem
 
-class InvestmentFragment : BaseFragment(),View.OnClickListener {
-
-    private lateinit var binding: FragmentInvestmentBinding
-    private lateinit var adapter: InvestmentViewPagerAdapter
+class InvestMentFragment : BaseFragment() {
+    private lateinit var listViews: ArrayList<ViewItem>
+   // private lateinit var adapter: ImageviewPagerAdapter
     private lateinit var investmentAdapter: InvestmentAdapter
-    private lateinit var smartDealsLinearLayoutManager: LinearLayoutManager
-    private lateinit var trendingProjectsLinearLayoutManager: LinearLayoutManager
+    private lateinit var linearLayoutManager: LinearLayoutManager
+    private var currentIndex: Int = 0
+    lateinit var binding: FragmentInvestmentBinding
 
-    private var listViews = ArrayList<ViewItem>()
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
         binding = FragmentInvestmentBinding.inflate(layoutInflater)
+        initUI()
+        initListener()
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setClickListeners()
-        setUpViewPager()
-        setUpSmartDeals()
-        setUpTrendingProjects()
-    }
 
-    private fun setClickListeners() {
-        binding.clOuterCard.setOnClickListener(this)
-        binding.tvSmartDealSeeAll.setOnClickListener(this)
-    }
-
-    private val viewListener = object : ViewPager2.OnPageChangeCallback() {
-        override fun onPageSelected(position: Int) {
-            super.onPageSelected(position)
-            val pos = position
-        }
-    }
-
-    private fun setUpViewPager() {
+    private fun initUI() {
         listViews = ArrayList()
-        listViews.add(ViewItem(1, R.drawable.new_investment_page_image))
-        listViews.add(ViewItem(2, R.drawable.new_investment_page_image))
-        listViews.add(ViewItem(3, R.drawable.new_investment_page_image))
-        listViews.add(ViewItem(4, R.drawable.new_investment_page_image))
-        listViews.add(ViewItem(5, R.drawable.new_investment_page_image))
+        listViews.add(ViewItem(1, R.drawable.ic_arrow_down))
+        listViews.add(ViewItem(2, R.drawable.ic_bookmark))
+        listViews.add(ViewItem(3, R.drawable.ic_arrow_left))
+        listViews.add(ViewItem(4, R.drawable.ic_bookmark))
+        listViews.add(ViewItem(5, R.drawable.ic_arrow_drop))
 
-        adapter = InvestmentViewPagerAdapter(listViews)
+       /* adapter = ImageviewPagerAdapter(requireActivity(), listViews)
         binding.viewPager.adapter = adapter
+        addPageIndicators()
+        binding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
 
-        binding.viewPager.registerOnPageChangeCallback(viewListener)
-    }
+            }
 
-    private fun setUpSmartDeals() {
-        val list: ArrayList<String> = ArrayList()
-        list.add("22L-2.5 Cr")
-        list.add("22L-2.5 Cr")
-        list.add("22L-2.5 Cr")
-        list.add("22L-2.5 Cr")
-        list.add("22L-2.5 Cr")
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int,
+            ) {
 
-        investmentAdapter = InvestmentAdapter(requireActivity(), list, "SmartDeals")
-        smartDealsLinearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        binding.rvSmartDeals.layoutManager = smartDealsLinearLayoutManager
-        binding.rvSmartDeals.adapter = investmentAdapter
-    }
+            }
 
-    private fun setUpTrendingProjects() {
+            override fun onPageSelected(position: Int) {
+                updatePageIndicator(position)
+            }
+        })*/
+
         val list: ArrayList<String> = ArrayList()
         list.add("22L-2.5 Cr")
         list.add("22L-2.5 Cr")
@@ -87,21 +72,44 @@ class InvestmentFragment : BaseFragment(),View.OnClickListener {
         list.add("22L-2.5 Cr")
 
         investmentAdapter = InvestmentAdapter(requireActivity(), list)
-        trendingProjectsLinearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        binding.rvTrendingProjects.layoutManager= trendingProjectsLinearLayoutManager
-        binding.rvTrendingProjects.adapter= investmentAdapter
+        linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+//        binding.smartdealsRecyclerview.layoutManager = linearLayoutManager
+//        binding.smartdealsRecyclerview.adapter = investmentAdapter
+
+
     }
 
-    override fun onClick(v: View) {
-        when(v.id){
-            R.id.cl_outer_card -> { (requireActivity() as HomeActivity).addFragment(ProjectDetailFragment(),false) }
-            R.id.tv_smart_deal_see_all -> { (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),false)}
+
+    private fun initListener() {
+        binding.imageLayout.setOnClickListener {
+            startActivity(Intent(activity, ProjectDetailsExpandView::class.java))
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        binding.viewPager.unregisterOnPageChangeCallback(viewListener)
-    }
-
+//    private fun addPageIndicators() {
+//        binding.slider.removeAllViews()
+//        for (i in listViews.indices) {
+//            val view = ImageView(requireActivity())
+//            view.setImageResource(R.drawable.unselected_circle)
+//
+//            binding.slider.addView(view)
+//        }
+//        updatePageIndicator(currentIndex)
+//    }
+//
+//    fun updatePageIndicator(position: Int) {
+//        var imageView: ImageView
+//        val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+//            LinearLayout.LayoutParams.WRAP_CONTENT)
+//        lp.setMargins(5, 0, 5, 0)
+//        for (i in 0 until binding.slider.childCount) {
+//            imageView = binding.slider.getChildAt(i) as ImageView
+//            imageView.layoutParams = lp
+//            if (position == i) {
+//                imageView.setImageResource(R.drawable.selected_circle)
+//            } else {
+//                imageView.setImageResource(R.drawable.unselected_circle)
+//            }
+//        }
+//    }
 }
