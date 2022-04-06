@@ -18,8 +18,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/margin_size_10"
-            >
+            android:layout_marginTop="@dimen/margin_size_10">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/main_layout1"
@@ -48,9 +47,9 @@
                         android:maxLines="1"
                         android:minLines="1"
                         android:singleLine="true"
-                        android:textStyle="bold"
                         android:text="@string/presenting"
                         app:fontName="@string/jost_regular"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -73,7 +72,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
+                        <com.emproto.core.textviews.CustomTextView
                             style="@style/text_style_text_color_14"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -81,8 +80,7 @@
                             android:minLines="1"
                             android:singleLine="true"
                             android:text="@string/new_generation"
-                            android:textSize="@dimen/text_size_25"
-                            android:fontFamily="@font/shelldon"
+                            app:fontName="@string/sheldon"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/view_2"
                             app:layout_constraintStart_toEndOf="@id/view"
@@ -379,14 +377,14 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
+                    <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/share_text"
                         style="@style/text_style_blue_32"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_size_6"
                         android:text="@string/share_joy"
-                        android:fontFamily="@font/shelldon"
+                        app:fontName="@string/sheldon"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/view2"
                         app:layout_constraintStart_toEndOf="@id/view1"
