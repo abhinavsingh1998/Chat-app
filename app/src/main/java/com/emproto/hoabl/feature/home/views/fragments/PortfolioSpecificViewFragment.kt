@@ -89,10 +89,6 @@ class PortfolioSpecificViewFragment : BaseFragment() {
     }
 
     private fun initClickListeners() {
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.setOnClickListener(object :View.OnClickListener {
-            override fun onClick(p0: View?) {
-                (requireActivity() as HomeActivity).onBackPressed()
-            }
-        })
+
     }
 }

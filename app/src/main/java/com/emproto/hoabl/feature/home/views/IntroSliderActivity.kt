@@ -13,10 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseActivity
 import com.emproto.core.button.OnButtonClickListener
 import com.emproto.core.storyViewMaker.StoriesProgressView
-import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityIntrosliderBinding
-import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.login.AuthActivity
 
 

@@ -18,8 +18,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/margin_size_10"
-            >
+            android:layout_marginTop="@dimen/margin_size_10">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/main_layout1"
@@ -74,14 +73,14 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <com.emproto.core.textviews.CustomTextView
-                            style="@style/text_style_text_color_14"
+                            style="@style/text_style_text_color_25"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
                             android:minLines="1"
                             android:singleLine="true"
                             android:text="@string/new_generation"
-                            app:fontName="@string/sheldon"
+                            app:fontName="@string/shelldon"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/view_2"
                             app:layout_constraintStart_toEndOf="@id/view"
@@ -235,7 +234,7 @@
 
                     <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/textview4"
-                        style="@style/text_style_text_color_14"
+                        style="@style/text_style_text_color_16"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
@@ -385,7 +384,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_size_6"
                         android:text="@string/share_joy"
-                        app:fontName="@string/sheldon"
+                        app:fontName="@string/shelldon"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/view2"
                         app:layout_constraintStart_toEndOf="@id/view1"
@@ -425,8 +424,7 @@
                     android:layout_marginRight="@dimen/margin_size_12"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:orientation="horizontal"
-                    android:weightSum="2"
+                    android:orientation="vertical"
                     app:layout_constraintTop_toBottomOf="@id/tv_refer">
 
 
@@ -435,11 +433,9 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="@dimen/margin_size_12"
-                        android:layout_marginRight="@dimen/margin_size_12"
                         android:layout_gravity="center"
                         android:gravity="center"
+                        android:layout_marginTop="@dimen/margin_size_4"
                         android:hint="@string/enter_name"
                         app:boxBackgroundMode="outline"
                         app:hintTextColor="@color/app_color"
@@ -455,7 +451,7 @@
                             android:fontFamily="@font/jost_medium"
                             android:gravity="center|left"
                             android:inputType="textPersonName"
-                            android:padding="@dimen/margin_size_24"
+                            android:padding="@dimen/margin_size_18"
                             android:letterSpacing="0.2"
                             android:textColorHint="@color/text_grey_color" />
 
@@ -465,18 +461,17 @@
                     <LinearLayout
                         android:id="@+id/layout_edittext"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/margin_size_4"
                         android:layout_gravity="center"
-                        android:layout_marginRight="@dimen/margin_size_12"
-                        android:gravity="center"
-                        android:layout_weight="1">
+                        android:gravity="center">
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/login_edittext"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:hint="@string/enter_your_phonenumber"
                             app:hintTextColor="@color/app_color"
                             app:prefixText="+91"
@@ -488,7 +483,7 @@
                                 android:id="@+id/etMobile1"
                                 style="@style/text_style_text_color_14"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center|left"
                                 android:background="@null"
                                 android:fontFamily="@font/jost_medium"
