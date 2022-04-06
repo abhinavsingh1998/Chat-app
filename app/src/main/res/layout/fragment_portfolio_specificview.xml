@@ -18,8 +18,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/margin_size_10"
-            >
+            android:layout_marginTop="@dimen/margin_size_10">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/main_layout"
@@ -624,9 +623,9 @@
 
                     <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/text1"
+                        style="@style/text_style_light_gold_color_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/text_style_light_gold_color_14"
                         android:layout_marginLeft="@dimen/margin_size_26"
                         android:layout_marginTop="@dimen/margin_size_16"
                         android:gravity="start|center"
@@ -638,9 +637,9 @@
 
 
                     <com.emproto.core.textviews.CustomTextView
+                        style="@style/text_style_gold_color_11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/text_style_gold_color_11"
                         android:layout_marginLeft="@dimen/margin_size_28"
                         android:layout_marginTop="@dimen/margin_size_10"
                         android:layout_marginBottom="@dimen/margin_size_17"
@@ -690,7 +689,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_size_6"
                         android:text="@string/share_joy"
-                        app:fontName="@string/sheldon"
+                        app:fontName="@string/shelldon"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/view2"
                         app:layout_constraintStart_toEndOf="@id/view1"
@@ -725,13 +724,12 @@
                     android:id="@+id/referral_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_size_10"
+                    android:layout_marginLeft="@dimen/margin_size_12"
                     android:layout_marginTop="@dimen/margin_size_30"
-                    android:layout_marginRight="@dimen/margin_size_10"
-                    android:orientation="horizontal"
-                    android:weightSum="2"
+                    android:layout_marginRight="@dimen/margin_size_12"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    android:orientation="vertical"
                     app:layout_constraintTop_toBottomOf="@id/tv_refer">
 
 
@@ -741,10 +739,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/margin_size_10"
-                        android:layout_marginRight="@dimen/margin_size_10"
-                        android:layout_weight="1"
                         android:gravity="center"
+                        android:layout_marginTop="@dimen/margin_size_4"
                         android:hint="@string/enter_name"
                         app:boxBackgroundMode="outline"
                         app:hintTextColor="@color/app_color"
@@ -760,8 +756,8 @@
                             android:fontFamily="@font/jost_medium"
                             android:gravity="center|left"
                             android:inputType="textPersonName"
+                            android:padding="@dimen/margin_size_18"
                             android:letterSpacing="0.2"
-                            android:padding="@dimen/margin_size_24"
                             android:textColorHint="@color/text_grey_color" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -770,35 +766,38 @@
                     <LinearLayout
                         android:id="@+id/layout_edittext"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/margin_size_4"
                         android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        android:gravity="center">
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/login_edittext"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:hint="@string/enter_your_phonenumber"
-                            android:orientation="vertical"
                             app:hintTextColor="@color/app_color"
-                            app:placeholderText="@string/type_here"
                             app:prefixText="+91"
-                            app:prefixTextColor="@color/text_color">
+                            app:prefixTextColor="@color/text_color"
+                            android:orientation="vertical"
+                            app:placeholderText="@string/type_here">
 
                             <EditText
                                 android:id="@+id/etMobile1"
                                 style="@style/text_style_text_color_14"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center|left"
                                 android:background="@null"
                                 android:fontFamily="@font/jost_medium"
                                 android:gravity="center|left"
                                 android:inputType="number"
+                                android:letterSpacing="0.2"
                                 android:maxLength="10"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
                                 android:textColorHint="@color/text_grey_color" />
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
@@ -832,8 +831,8 @@
                     android:layout_marginLeft="@dimen/margin_size_6"
                     android:layout_marginTop="@dimen/margin_size_35"
                     android:layout_marginRight="@dimen/margin_size_6"
-                    android:background="@drawable/share_bg"
                     android:layout_marginBottom="@dimen/margin_size_20"
+                    android:background="@drawable/share_bg"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/getOtp_button">
@@ -844,9 +843,9 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="@dimen/margin_size_15"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <com.emproto.core.textviews.CustomTextView
                             android:id="@+id/text_share"
@@ -896,21 +895,21 @@
                     android:id="@+id/faq_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_size_30"
                     android:layout_marginLeft="@dimen/margin_size_12"
+                    android:layout_marginTop="@dimen/margin_size_30"
                     android:layout_marginRight="@dimen/margin_size_12"
-                    app:layout_constraintTop_toBottomOf="@id/share_layout"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
+                    app:layout_constraintTop_toBottomOf="@id/share_layout">
 
                     <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/faqs"
+                        style="@style/text_style_text_color_16"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/text_style_text_color_16"
-                        app:layout_constraintTop_toTopOf="parent"
+                        android:text="@string/frequentl_asked_questions"
                         app:layout_constraintStart_toStartOf="parent"
-                        android:text="@string/frequentl_asked_questions"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerview_faq"
@@ -918,43 +917,44 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/faqs"/>
+                        app:layout_constraintTop_toBottomOf="@id/faqs" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/button_faq_ask"
+                    style="@style/text_style_white_11"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:minHeight="@dimen/margin_size_40"
-                    app:layout_constraintTop_toBottomOf="@id/faq_layout"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:background="@drawable/button_bg"
-                    android:text="@string/ask_here"
-                    android:singleLine="true"
-                    app:fontName="@string/jost_medium"
-                    style="@style/text_style_white_11"
-                    android:layout_marginBottom="@dimen/margin_size_30"
                     android:layout_marginLeft="@dimen/margin_size_50"
+                    android:layout_marginTop="@dimen/margin_size_30"
                     android:layout_marginRight="@dimen/margin_size_50"
-                    android:layout_marginTop="@dimen/margin_size_30"/>
+                    android:layout_marginBottom="@dimen/margin_size_30"
+                    android:background="@drawable/button_bg"
+                    android:minHeight="@dimen/margin_size_40"
+                    android:singleLine="true"
+                    android:text="@string/ask_here"
+                    app:fontName="@string/jost_medium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/faq_layout" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:paddingBottom="@dimen/margin_size_12"
                     android:layout_margin="@dimen/margin_size_12"
-                    app:layout_constraintTop_toBottomOf="@id/button_faq_ask"
+                    android:paddingBottom="@dimen/margin_size_12"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
+                    app:layout_constraintTop_toBottomOf="@id/button_faq_ask">
+
                     <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/textsimilar"
-                        style="@style/text_style_text_color_14"
+                        style="@style/text_style_text_color_16"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
-                        app:fontName="@string/jost_regular"
                         android:text="@string/similar_investments"
+                        app:fontName="@string/jost_regular"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
