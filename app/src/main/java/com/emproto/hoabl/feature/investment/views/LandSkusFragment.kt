@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentLandSkusBinding
 import com.emproto.hoabl.feature.investment.adapters.LandSkusAdapter
+import com.emproto.hoabl.feature.investment.dialogs.ConfirmationDialog
 import com.emproto.hoabl.model.RecyclerViewItem
 import java.util.ArrayList
 
@@ -18,11 +19,12 @@ class LandSkusFragment:BaseFragment() {
     private lateinit var binding: FragmentLandSkusBinding
     private lateinit var landSkusAdapter: LandSkusAdapter
 
-    private val onLandSkusItemClickListener =
+    val onLandSkusItemClickListener =
         View.OnClickListener { view ->
             when (view.id) {
                 R.id.tv_item_land_skus_apply_now -> {
-                    Toast.makeText(this.requireContext(), "Hello boys!!!", Toast.LENGTH_SHORT).show()
+                    val confirmationDialog = ConfirmationDialog()
+                    confirmationDialog.show(this.parentFragmentManager,"ConfirmationDialog")
                 }
             }
         }
@@ -41,13 +43,11 @@ class LandSkusFragment:BaseFragment() {
         val list = ArrayList<RecyclerViewItem>()
         list.add(RecyclerViewItem(1))
         list.add(RecyclerViewItem(2))
+        list.add(RecyclerViewItem(3))
 
-        landSkusAdapter = LandSkusAdapter(list)
+        landSkusAdapter = LandSkusAdapter(this,list)
         binding.rvLandSkus.adapter = landSkusAdapter
-        landSkusAdapter.setItemClickListener(onLandSkusItemClickListener)
     }
-
-
 
 
 }

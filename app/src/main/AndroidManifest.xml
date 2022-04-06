@@ -20,6 +20,7 @@
             android:exported="true"
             android:theme="@style/Theme.HOABL">
 
+
         </activity>
 
         <activity
@@ -29,11 +30,6 @@
             android:theme="@style/Theme.HOABL_BLACK_BAR"
             android:windowSoftInputMode="adjustNothing">
 
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
         </activity>
 
         <activity
@@ -51,10 +47,11 @@
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" >
 
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
         </activity>
 
         <activity

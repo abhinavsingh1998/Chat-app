@@ -16,7 +16,7 @@ class ProjectDetailFragment:BaseFragment() {
 
     private lateinit var binding:ProjectDetailLayoutBinding
 
-    private val onItemClickListener =
+    val onItemClickListener =
         View.OnClickListener { view ->
             when (view.id) {
                 R.id.tv_opportunity_doc ->{

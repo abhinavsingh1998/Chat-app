@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_size_4"
+        android:layout_marginVertical="@dimen/margin_size_6"
+        app:cardCornerRadius="@dimen/margin_size_4"
+        app:cardElevation="@dimen/_3sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_land_sku_image_applied"
+                android:layout_width="73dp"
+                android:layout_height="73dp"
+                android:layout_margin="@dimen/margin_size_10"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_land_sku_image_applied"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/new_investment_page_image" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_item_land_skus_name_applied"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_9"
+                android:fontFamily="@font/jost_medium"
+                android:text="Marina"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_14"
+                app:layout_constraintEnd_toStartOf="@id/iv_applied_image"
+                app:layout_constraintStart_toEndOf="@id/cv_land_sku_image_applied"
+                app:layout_constraintTop_toTopOf="@id/cv_land_sku_image_applied" />
+
+            <ImageView
+                android:id="@+id/iv_applied_image"
+                android:layout_width="@dimen/margin_size_13"
+                android:layout_height="@dimen/margin_size_13"
+                android:layout_marginStart="@dimen/margin_size_4"
+                android:src="@drawable/submitted_tick_image"
+                app:layout_constraintBottom_toBottomOf="@id/tv_item_land_skus_name_applied"
+                app:layout_constraintStart_toEndOf="@id/tv_item_land_skus_name_applied"
+                app:layout_constraintTop_toTopOf="@id/tv_item_land_skus_name_applied" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_item_land_skus_description_applied"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_3"
+                android:layout_marginEnd="@dimen/margin_size_5"
+                android:ellipsize="marquee"
+                android:fontFamily="@font/jost_light"
+                android:maxLines="2"
+                android:text="Beach side lifestyle near Mumbai with luxurious amenities,affordable rates,good surroundings"
+                android:textColor="@color/land_skus_text_black_color"
+                android:textSize="@dimen/text_size_10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tv_item_land_skus_name_applied"
+                app:layout_constraintTop_toBottomOf="@id/tv_item_land_skus_name_applied" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_item_land_skus_applied"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_size_11"
+                android:fontFamily="@font/jost_medium"
+                android:text="Applied"
+                android:textColor="@color/text_grey_color"
+                android:textSize="@dimen/text_size_12"
+                app:layout_constraintBottom_toBottomOf="@id/tv_item_land_skus_name_applied"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_item_land_skus_name_applied" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_item_land_skus_price_applied"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jost_medium"
+                android:text="₹2L- 2.4L"
+                android:textColor="@color/text_violet_dark_color"
+                android:textSize="@dimen/text_size_12"
+                app:layout_constraintBottom_toBottomOf="@id/cv_land_sku_image_applied"
+                app:layout_constraintStart_toStartOf="@id/tv_item_land_skus_name_applied" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_item_land_skus_area_applied"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_12"
+                android:fontFamily="@font/jost_medium"
+                android:text="2500 - 2650 Sqft"
+                android:textColor="@color/text_violet_dark_color"
+                android:textSize="@dimen/text_size_12"
+                app:layout_constraintBottom_toBottomOf="@id/cv_land_sku_image_applied"
+                app:layout_constraintStart_toEndOf="@id/tv_item_land_skus_price_applied" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

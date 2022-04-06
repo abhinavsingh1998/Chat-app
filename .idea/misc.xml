@@ -3,18 +3,29 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/activity_home.xml" value="0.15462962962962962" />
-        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/fragment_financial_and_project.xml" value="0.1" />
-        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/fragment_home.xml" value="0.1" />
-        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/fragment_investment.xml" value="0.17395833333333333" />
-        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/fragment_investment_layout.xml" value="0.17395833333333333" />
-        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/fragment_portfolio_new_user.xml" value="0.15462962962962962" />
-        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/fragment_portfolio_specificview.xml" value="0.1" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/drawable/all_corner_radius_white_bg.xml" value="0.136" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/drawable/custom_thumb.xml" value="0.136" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/drawable/custom_track.xml" value="0.136" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/activity_auth.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/activity_home.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/activity_login.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/application_submitted_dialog.xml" value="0.264" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/apply_confirmation_dialog.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/fragment_insights_updates.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/fragment_investment_layout.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/fragment_land_skus.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_land_skus.xml" value="0.264" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_land_skus_applied.xml" value="0.264" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_skus.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/land_skus_applied_layout.xml" value="0.2" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/land_skus_top_layout.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/new_investment_top_layout.xml" value="0.4" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/project_detail_top_layout.xml" value="0.20925925925925926" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/video_drone_layout.xml" value="0.259375" />
       </map>
     </option>
   </component>
-  <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

@@ -138,10 +138,10 @@
     <string name="monday">Monday</string>
     <string name="tuesday">Tuesday</string>
     <string name="wednesday">Wednesday</string>
-    <string name="video_drone_text">video_drone_text</string>
-    <string name="choose_skus">choose_skus</string>
-    <string name="premium_location">premium_location</string>
-    <string name="details">details</string>
+    <string name="video_drone_text">Video &amp; Drone Videos</string>
+    <string name="choose_skus">Choose SKUs and Apply</string>
+    <string name="premium_location">Premium Location</string>
+    <string name="details">Details</string>
     <string name="see_project_details">See Project Details</string>
     <string name="view_timeline">View Timeline</string>
     <string name="facility_management">Facility Management</string>
