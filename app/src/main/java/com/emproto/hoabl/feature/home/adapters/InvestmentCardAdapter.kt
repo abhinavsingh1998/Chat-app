@@ -10,7 +10,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FinancialSummryItemsBinding
 import com.emproto.hoabl.model.FinancialSummaryItems
 
-class FinancialSummaryAdapter( context: Context, list: ArrayList<FinancialSummaryItems>): RecyclerView.Adapter<FinancialSummaryAdapter.MyViewHolder>() {
+class PortfolioInvestmentCardAdapter( context: Context, list: ArrayList<FinancialSummaryItems>): RecyclerView.Adapter<PortfolioInvestmentCardAdapter.MyViewHolder>() {
 
     var list: ArrayList<FinancialSummaryItems>
     var mcontext:Context
@@ -18,7 +18,7 @@ class FinancialSummaryAdapter( context: Context, list: ArrayList<FinancialSummar
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ): FinancialSummaryAdapter.MyViewHolder {
+    ): PortfolioInvestmentCardAdapter.MyViewHolder {
 
         val binding: FinancialSummryItemsBinding =
             FinancialSummryItemsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -26,7 +26,7 @@ class FinancialSummaryAdapter( context: Context, list: ArrayList<FinancialSummar
     }
 
     @SuppressLint("ResourceAsColor")
-    override fun onBindViewHolder(holder: FinancialSummaryAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PortfolioInvestmentCardAdapter.MyViewHolder, position: Int) {
 
 
                 holder.binding.cardName1.setText(list.get(position).cardName_1)

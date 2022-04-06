@@ -63,7 +63,7 @@
                     android:layout_marginLeft="@dimen/_18sdp"
                     app:fontName="@string/jost_regular"
                     android:gravity="start|center"
-                    style="@style/text_style_text_color_14"
+                    style="@style/text_style_text_color_16"
                     android:text="@string/enter_digits" />
 
                 <com.emproto.core.textviews.CustomTextView
@@ -99,6 +99,7 @@
                 android:layout_marginRight="@dimen/margin_size_28"
                 android:orientation="vertical"
                 app:hintTextColor="@color/app_color"
+                app:boxStrokeWidthFocused="0.7dp"
                 app:layout_constraintTop_toBottomOf="@+id/layout_otp_text"
                 app:placeholderText="@string/type_here"
                 app:prefixTextColor="@color/text_color">

@@ -23,7 +23,7 @@
     <string name="explore_investment">Explore New Investment</string>
     <string name="browse_deal">Browse deals with HoABL</string>
     <string name="get_exclusive">Get exclusive investment deal</string>
-    <string name="verify_otp">VERIFY OTP</string>
+    <string name="verify_otp">Verify OTP</string>
     <string name="enter_digits">Enter 6-digit OTP sent to</string>
     <string name="change_number"><u>EDIT</u></string>
     <string name="enter_otp">Enter OTP</string>
@@ -122,9 +122,9 @@
     <string name="DemoText">The Isle of Bliss is phase 2 of Codename Bliss Dapoli, a seaside lifestyle plotting development from The House of Abhinandan Lodha</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="And_your_name">And your name</string>
+    <string name="And_your_name">And your name?</string>
     <string name="First_name_hint">First Name </string>
-    <string name="Second_name_hint">Second Name </string>
+    <string name="Second_name_hint">Last Name </string>
     <string name="submit_and_con">Submit and Continue</string>
     <string name="trouble_signing_in">Trouble Signing in?</string>
     <string name="whats_the_issue">Whtas the issue</string>

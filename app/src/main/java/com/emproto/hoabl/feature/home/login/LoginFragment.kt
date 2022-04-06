@@ -57,7 +57,7 @@ class LoginFragment : BaseFragment() {
         })
         activityLoginActivity.getOtpButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                (requireActivity() as AuthActivity).addFragment(
+                (requireActivity() as AuthActivity).replaceFragment(
                     OTPVerificationFragment.newInstance(
                         activityLoginActivity.etMobile1.text.toString()
                     ),true)

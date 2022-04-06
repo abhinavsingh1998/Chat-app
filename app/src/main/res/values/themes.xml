@@ -189,6 +189,7 @@
         <item name="android:textColor">@color/text_fullgrey_color</item>
         <item name="singleLine">true</item>
     </style>
+
     <style name="text_style_lightgrey_14">
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/text_size_14</item>
@@ -274,6 +275,11 @@
     <style name="text_style_text_black_color_17">
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/text_size_17</item>
+        <item name="android:textColor">@color/text_black_color</item>
+    </style>
+    <style name="text_style_text_black_color_20">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_20</item>
         <item name="android:textColor">@color/text_black_color</item>
     </style>
     <style name="text_style_daiog_text_color_12">

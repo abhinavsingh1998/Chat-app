@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentFinancialSummaryBinding
-import com.emproto.hoabl.feature.home.adapters.FinancialSummaryAdapter
+import com.emproto.hoabl.feature.home.adapters.PortfolioInvestmentCardAdapter
 import com.emproto.hoabl.model.FinancialSummaryItems
 
 
@@ -15,7 +15,7 @@ class FinancialSummaryFragment : BaseFragment() {
 
 
     lateinit var binding: FragmentFinancialSummaryBinding
-    lateinit var adapter: FinancialSummaryAdapter
+    lateinit var adapter: PortfolioInvestmentCardAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,7 +27,7 @@ class FinancialSummaryFragment : BaseFragment() {
 
         binding.financialRecycler.layoutManager = LinearLayoutManager(requireContext())
 
-        val detailAdapter = FinancialSummaryAdapter(requireContext(), initData())
+        val detailAdapter = PortfolioInvestmentCardAdapter(requireContext(), initData())
         binding.financialRecycler.adapter = detailAdapter
 
         return binding.root

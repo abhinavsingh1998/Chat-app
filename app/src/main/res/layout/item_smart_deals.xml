@@ -277,7 +277,7 @@
                 android:fontFamily="@font/jost_light"
                 android:text="Beach side lifestyle near Mumbai with luxurious amenities and affordable rates"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_11"
+                android:textSize="@dimen/text_size_13"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/iv_bottom_arrow"
                 app:layout_constraintStart_toStartOf="parent"

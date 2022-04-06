@@ -1,4 +1,3 @@
-
 package com.emproto.hoabl.feature.home.login
 
 import android.Manifest
@@ -19,6 +18,7 @@ import com.emproto.core.BaseFragment
 import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityOtpVerifyBinding
+import com.emproto.hoabl.feature.home.views.fragments.NameInputFragment
 
 
 class OTPVerificationFragment : BaseFragment() {
@@ -43,7 +43,7 @@ class OTPVerificationFragment : BaseFragment() {
         fun newInstance(mobileNumber: String): OTPVerificationFragment {
             val fragment = OTPVerificationFragment()
             val bundle = Bundle()
-            mobileno = bundle.getString("mobilenumber", mobileNumber)
+            mobileno = bundle.getString("mobilenumber", " +91 $mobileNumber ")
             fragment.arguments = bundle
             return fragment
         }
@@ -89,7 +89,7 @@ class OTPVerificationFragment : BaseFragment() {
             override fun afterTextChanged(s: Editable?) {
                 if (s?.length == 6) {
                     if (isNetworkAvailable(activityOtpVerifyBinding.root)) {
-                        startActivity(Intent(requireContext(), HomeActivity::class.java))
+                        (requireActivity() as AuthActivity).replaceFragment(NameInputFragment(),true)
                         dialog.dismiss()
 
                     } else {

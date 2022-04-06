@@ -57,7 +57,7 @@ class OTPVerificationFragment : BaseFragment() {
                 if (s?.length == 6) {
                     if (isNetworkAvailable(activityOtpVerifyBinding.root)) {
                         activityOtpVerifyBinding.layout1.alpha = 1.0F
-                        (requireActivity() as AuthActivity).addFragment(NameInputFragment(), true)
+                        (requireActivity() as AuthActivity).replaceFragment(NameInputFragment(), true)
                     } else {
                         activityOtpVerifyBinding.layout1.setBackgroundColor(resources.getColor(R.color.background_grey))
                         activityOtpVerifyBinding.layout1.alpha = 0.8F

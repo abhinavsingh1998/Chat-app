@@ -1,5 +1,6 @@
-package com.emproto.hoabl.feature.home.views.fragments
+package com.emproto.hoabl.feature.home.login
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,15 +21,14 @@ class SigninIssueFragment : BottomSheetDialogFragment() {
 
     }
 
-//    @SuppressLint("ResourceAsColor")
-//    private fun radio_event(){
-//
-//        binding.issueList.setOnClickListener(View.OnClickListener {
-//
-//            binding.issueOne.setBackgroundColor(R.color.black)
-//        })
-//    }
+    @SuppressLint("ResourceAsColor")
+    private fun radio_event(){
 
+        binding.issueList.setOnClickListener(View.OnClickListener {
+
+
+        })
+    }
 
 }
 

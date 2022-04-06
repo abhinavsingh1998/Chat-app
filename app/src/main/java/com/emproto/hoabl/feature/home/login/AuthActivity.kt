@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import com.emproto.core.BaseActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityAuthBinding
-import com.emproto.hoabl.feature.home.views.fragments.SigninIssueFragment
 
 class AuthActivity : BaseActivity() {
 
@@ -67,8 +66,5 @@ class AuthActivity : BaseActivity() {
             SigninIssueFragment()
         signinIssueFragment.show(supportFragmentManager,
             "add_photo_dialog_fragment")
-        
     }
-
-
 }
