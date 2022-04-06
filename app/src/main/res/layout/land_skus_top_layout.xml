@@ -20,7 +20,7 @@
             android:fontFamily="@font/jost_medium"
             android:text="Land SKUs (4)"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_12"
+            android:textSize="@dimen/text_size_14"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +34,7 @@
             android:fontFamily="@font/jost_regular"
             android:text="You can apply for multiple SKUs."
             android:textColor="@color/text_lightgrey_color"
-            android:textSize="@dimen/text_size_11"
+            android:textSize="@dimen/text_size_12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_land_skus_title"
             app:layout_constraintTop_toBottomOf="@id/tv_land_skus_title" />

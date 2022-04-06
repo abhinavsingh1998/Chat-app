@@ -98,7 +98,7 @@ class HomeFragment : BaseFragment() {
 
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.search.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                (requireActivity() as HomeActivity).addFragment(SearchResultFragment.newInstance(), true)
+//                (requireActivity() as HomeActivity).addFragment(SearchResultFragment.newInstance(), true)
             }
         })
 

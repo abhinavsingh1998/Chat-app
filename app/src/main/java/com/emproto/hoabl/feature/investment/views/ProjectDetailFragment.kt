@@ -37,7 +37,15 @@ class ProjectDetailFragment:BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpUI()
+        setUpRecyclerView()
+    }
 
+    private fun setUpUI() {
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
+    }
+
+    private fun setUpRecyclerView(){
         val list = ArrayList<RecyclerViewItem>()
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_ONE))
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_TWO))
@@ -58,7 +66,5 @@ class ProjectDetailFragment:BaseFragment() {
         binding.rvProjectDetail.adapter = adapter
         adapter.setItemClickListener(onItemClickListener)
     }
-
-
 
 }

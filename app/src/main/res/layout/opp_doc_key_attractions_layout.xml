@@ -25,7 +25,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Dapoli: The hidden Jewel of the Konkan"
-        android:textSize="@dimen/text_size_11"
+        android:textSize="@dimen/text_size_14"
         android:fontFamily="@font/jost_regular"
         android:textColor="@color/text_lightgrey_color"
         android:layout_marginTop="@dimen/margin_size_4"

@@ -37,7 +37,12 @@ class InvestmentFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpUI()
         setUpRecyclerView()
+    }
+
+    private fun setUpUI() {
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.VISIBLE
     }
 
     private fun setUpRecyclerView() {

@@ -66,4 +66,6 @@
     <color name="opp_doc_ash_line">#b6b3d0</color>
     <color name="opp_doc_item_text_color">#b7000000</color>
     <color name="land_skus_text_black_color">#28282e</color>
+    <color name="text_gold_colr">#66570d</color>
+    <color name="text_ash_light_color">#d9dae5</color>
 </resources>

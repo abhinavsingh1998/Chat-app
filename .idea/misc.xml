@@ -3,25 +3,61 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/drawable-anydpi/ic_bookmark_black.xml" value="0.145" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/drawable/all_corner_radius_white_bg.xml" value="0.136" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/drawable/custom_thumb.xml" value="0.136" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/drawable/custom_track.xml" value="0.136" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/drawable/ic_bookmark_grey.xml" value="0.145" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/drawable/ic_share_black.xml" value="0.145" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/activity_auth.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/activity_home.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/activity_login.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/application_submitted_dialog.xml" value="0.264" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/apply_confirmation_dialog.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/bottom_nav_menu.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/dont_miss_layout.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/dont_miss_layout_pd.xml" value="0.2" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/faq_layout.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/fragment_category_list.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/fragment_insights_updates.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/fragment_investment_layout.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/fragment_land_skus.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/fragment_media_gallery.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/fragment_opportunity_docs.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/fragment_photos.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_category_list.xml" value="0.264" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_faq.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_key_pillar.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_land_skus.xml" value="0.264" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_land_skus_applied.xml" value="0.264" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_location_infrastructure.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_opp_doc_destination.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_promises.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_skus.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_smart_deals.xml" value="0.264" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/key_attractions_layout.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/key_pillars_layout.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/land_skus_applied_layout.xml" value="0.2" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/land_skus_top_layout.xml" value="0.259375" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/new_investment_top_layout.xml" value="0.4" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/project_detail_top_layout.xml" value="0.20925925925925926" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/location_infrastructure_layout.xml" value="0.22592592592592592" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/new_investment_testimonials_card.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/new_investment_top_layout.xml" value="0.264" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/not_convinced_layout.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/opp_doc_expected_growth_layout.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/opp_doc_key_attractions_layout.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/opp_docs_destination_layout.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/opp_docs_top_layout.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/price_trends_layout.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/project_amenities_layout.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/project_detail_top_layout.xml" value="0.264" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/promises_layout.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/similar_investments_layout.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/skus_layout.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/smart_deals_layout.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/trending_projects_layout.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/video_drone_layout.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/view_map_layout.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/menu/bottom_navigation.xml" value="0.259375" />
       </map>
     </option>
   </component>

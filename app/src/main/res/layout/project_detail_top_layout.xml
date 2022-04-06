@@ -38,26 +38,25 @@
             android:layout_marginHorizontal="@dimen/margin_size_8"
             android:gravity="start|top|center"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@id/cv_small_top_image"
             app:layout_constraintStart_toEndOf="@id/cv_small_top_image"
             app:layout_constraintTop_toTopOf="@id/cv_small_top_image">
 
-            <com.emproto.core.textviews.CustomTextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/jost_regular"
                 android:singleLine="true"
                 android:text="Isle of Bliss"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_12"
+                android:textSize="@dimen/text_size_14"
                 android:textStyle="bold" />
 
-            <com.emproto.core.textviews.CustomTextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pune, Maharashtra"
-                android:textColor="@color/text_black_color"
-                android:textSize="@dimen/text_size_10"
+                android:textColor="@color/land_skus_text_black_color"
+                android:textSize="@dimen/text_size_12"
                 android:textStyle="normal" />
         </LinearLayout>
 
@@ -69,6 +68,7 @@
             android:fontFamily="@font/jost_regular"
             android:text="Rise in last 1 Year"
             android:textSize="@dimen/text_size_12"
+            android:textColor="@color/category_location_ash_color"
             app:layout_constraintStart_toEndOf="@id/text_address_layout"
             app:layout_constraintTop_toTopOf="@id/text_address_layout" />
 
@@ -80,7 +80,7 @@
             android:fontFamily="@font/jost_bold"
             android:text="5%"
             android:textColor="@android:color/holo_green_dark"
-            android:textSize="@dimen/text_size_10"
+            android:textSize="@dimen/text_size_12"
             app:layout_constraintBottom_toBottomOf="@id/tv_rise_year"
             app:layout_constraintStart_toEndOf="@id/tv_rise_year"
             app:layout_constraintTop_toTopOf="@id/tv_rise_year"
@@ -88,8 +88,8 @@
 
         <ImageView
             android:id="@+id/iv_pd_rating"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
             android:layout_marginEnd="@dimen/margin_size_13"
             android:src="@drawable/ic_upward_double_arrow_green"
             app:layout_constraintStart_toEndOf="@id/tv_rating"
@@ -101,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_size_16"
-            android:src="@drawable/ic_bookmark"
+            android:src="@drawable/ic_bookmark_black"
             app:layout_constraintBottom_toBottomOf="@id/cv_small_top_image"
             app:layout_constraintEnd_toStartOf="@id/iv_share_icon"
             app:layout_constraintTop_toTopOf="@id/cv_small_top_image" />
@@ -111,7 +111,7 @@
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_marginEnd="@dimen/margin_size_16"
-            android:src="@drawable/ic_share"
+            android:src="@drawable/ic_share_black"
             app:layout_constraintBottom_toBottomOf="@id/cv_small_top_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/cv_small_top_image" />
@@ -123,7 +123,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/margin_size_6"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_view"
+            android:src="@drawable/ic_visibility"
             app:layout_constraintStart_toStartOf="@id/text_address_layout"
             app:layout_constraintTop_toBottomOf="@id/cv_small_top_image" />
 
@@ -135,7 +135,7 @@
             android:fontFamily="@font/jost_regular"
             android:text="6.5k"
             android:textColor="@color/text_blue_color"
-            android:textSize="@dimen/text_size_10"
+            android:textSize="@dimen/text_size_12"
             app:layout_constraintBottom_toBottomOf="@id/iv_view_image"
             app:layout_constraintStart_toEndOf="@id/iv_view_image"
             app:layout_constraintTop_toTopOf="@id/iv_view_image" />
@@ -160,7 +160,7 @@
             android:fontFamily="@font/jost_bold"
             android:text="48:43:44 Hrs Left"
             android:textColor="@color/text_red_color"
-            android:textSize="@dimen/text_size_10"
+            android:textSize="@dimen/text_size_12"
             app:layout_constraintBottom_toBottomOf="@id/iv_duration_image"
             app:layout_constraintStart_toEndOf="@id/iv_duration_image"
             app:layout_constraintTop_toTopOf="@id/iv_duration_image" />
@@ -228,7 +228,7 @@
             android:lineSpacingMultiplier="1.5"
             android:text="The Isle of Bliss is phase 2 of Codename Bliss Dapoli, a seaside lifestyle plotting development from The House of Abhinandan Lodha…READ MORE"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_12"
+            android:textSize="@dimen/text_size_14"
             android:fontFamily="@font/jost_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -339,7 +339,7 @@
             android:fontFamily="@font/jost_medium"
             android:text="View Opportunity Document"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_10"
+            android:textSize="@dimen/text_size_12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cv_price_range" />

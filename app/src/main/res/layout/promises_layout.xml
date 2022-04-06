@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:text="@string/see_all"
         android:textColor="@color/text_blue_color"
-        android:textSize="@dimen/text_size_11"
+        android:textSize="@dimen/text_size_12"
         app:layout_constraintBottom_toBottomOf="@id/tv_promises_title"
         app:layout_constraintEnd_toStartOf="@+id/iv_promises_arrow"
         app:layout_constraintTop_toTopOf="@id/tv_promises_title" />
