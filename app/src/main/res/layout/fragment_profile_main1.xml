@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:fillViewport="true"
-    android:layout_height="match_parent">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:background="@color/purple_700"
-        android:layout_height="match_parent">
-        <View
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="#676ac0">
+
+
+    <View
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,7 +17,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
-
 
     </View>
 
@@ -46,7 +43,7 @@
         android:layout_marginLeft="19dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/jostmedium"
-        android:text="Anuj Singh"
+        android:text="@string/name"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="normal"
@@ -54,8 +51,8 @@
         app:layout_constraintTop_toTopOf="@+id/view" />
 
 
-    <ImageView
-        android:id="@+id/view5"
+    <ImageButton
+        android:id="@+id/imageeditprofile"
         android:layout_width="11dp"
         android:layout_height="11dp"
         android:layout_marginStart="19dp"
@@ -65,17 +62,17 @@
         app:layout_constraintTop_toBottomOf="@+id/tv" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/eprofile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/jostregular"
-        android:text="EditProfile"
+        android:text="@string/editprofile"
         android:textColor="#676ac0"
         android:textSize="12sp"
         android:textStyle="normal"
-        app:layout_constraintStart_toEndOf="@+id/view5"
+        app:layout_constraintStart_toEndOf="@+id/imageeditprofile"
         app:layout_constraintTop_toBottomOf="@+id/tv" />
 
     <View
@@ -85,18 +82,26 @@
         android:layout_marginTop="28dp"
         android:background="#E3E2E2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"/>
+        app:layout_constraintTop_toBottomOf="@+id/eprofile"/>
+
+    <View
+        android:id="@+id/AccountView"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view3" />
 
     <ImageView
         android:id="@+id/view4"
         android:layout_width="22dp"
         android:layout_height="26dp"
         android:layout_marginStart="23dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginBottom="27dp"
-        android:background="@drawable/ic_profile2"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/ic_profile"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view3" />
+        app:layout_constraintTop_toBottomOf="@+id/view3" />
 
 
     <TextView
@@ -104,20 +109,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/jostmedium"
-        android:text="My Accounts"
+        android:text="@string/my_accounts"
         android:textColor="#17171c"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/view4"
-        app:layout_constraintTop_toTopOf="@+id/view3" />
+        app:layout_constraintTop_toTopOf="@+id/AccountView" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:fontFamily="@font/jostregular"
-        android:text="Payment Settings, Refferal, Rewards"
+        android:text="@string/payment"
         android:textColor="#9192a0"
         android:textSize="11sp"
         android:textStyle="normal"
@@ -125,32 +130,41 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <ImageView
+        android:id="@+id/ivrightarrow"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="39dp"
-        android:layout_marginEnd="39dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="48dp"
         android:src="@drawable/rightarrow"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view3" />
+        app:layout_constraintTop_toBottomOf="@+id/view3" />
 
     <View
         android:id="@+id/view6"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginTop="75dp"
         android:background="#E3E2E2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view3" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AccountView" />
+
+    <View
+        android:id="@+id/settingsView"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AccountView" />
 
     <ImageView
-        android:id="@+id/view7"
+        android:id="@+id/imageviewsettings"
         android:layout_width="30dp"
         android:layout_height="25dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="27dp"
         android:background="@drawable/shape"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view6" />
+        app:layout_constraintTop_toBottomOf="@+id/AccountView"/>
 
     <TextView
         android:id="@+id/textView6"
@@ -159,86 +173,98 @@
         android:layout_marginStart="18dp"
         android:layout_marginTop="23dp"
         android:fontFamily="@font/jostmedium"
-        android:text="Settings"
+        android:text="@string/settings"
         android:textColor="#17171c"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/view7"
-        app:layout_constraintTop_toBottomOf="@+id/view6" />
+        app:layout_constraintStart_toEndOf="@+id/imageviewsettings"
+        app:layout_constraintTop_toBottomOf="@+id/AccountView" />
 
     <TextView
 
+        android:id="@+id/textView3"
         android:layout_width="160dp"
         android:layout_height="17dp"
         android:layout_marginStart="18dp"
         android:layout_marginTop="44dp"
         android:fontFamily="@font/jostregular"
-        android:text="Location Prompt , SMS, Push Notification"
+        android:text="@string/location"
         android:textColor="#9192a0"
         android:textSize="11sp"
         android:textStyle="normal"
-        app:layout_constraintStart_toEndOf="@+id/view7"
+        app:layout_constraintStart_toEndOf="@+id/imageviewsettings"
         app:layout_constraintTop_toBottomOf="@+id/view6"
         tools:text="Location Prompt , SMS, Push Notification" />
 
     <ImageView
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="37dp"
-        android:layout_marginEnd="39dp"
-        android:background="@drawable/rightarrow"
+        android:layout_marginRight="39dp"
+        android:src="@drawable/rightarrow"
         app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintTop_toBottomOf="@+id/view6" />
 
     <View
         android:id="@+id/view9"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginTop="155dp"
         android:background="#E3E2E2"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view3"/>
+        app:layout_constraintTop_toBottomOf="@+id/settingsView" />
+
+    <View
+        android:id="@+id/securityView"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingsView" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imageSecurityLock"
         android:layout_width="21dp"
         android:layout_height="26dp"
         android:layout_marginStart="23dp"
         android:layout_marginTop="27dp"
         android:background="@drawable/securitylock"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view9" />
+        app:layout_constraintTop_toTopOf="@+id/securityView" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="36dp"
         android:fontFamily="@font/jostmedium"
-        android:text="Security"
+        android:text="@string/profile_security"
         android:textColor="#17171c"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/view9" />
+        app:layout_constraintStart_toEndOf="@+id/imageSecurityLock"
+        app:layout_constraintTop_toBottomOf="@+id/settingsView" />
 
-    <TextView
+        <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="41dp"
         android:fontFamily="@font/jostregular"
-        android:text="Report emergency, control authentication, etc"
+        android:text="@string/security_description"
         android:textColor="#9192a0"
         android:textSize="11sp"
         android:textStyle="normal"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintStart_toEndOf="@+id/imageSecurityLock"
         app:layout_constraintTop_toBottomOf="@+id/view9" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="37dp"
-        android:layout_marginEnd="39dp"
+        android:layout_marginRight="39dp"
         android:background="@drawable/rightarrow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view9" />
@@ -252,8 +278,16 @@
         app:layout_constraintTop_toBottomOf="@+id/view9"
         tools:layout_editor_absoluteX="0dp"/>
 
-    <ImageView
-        android:id="@+id/imageView2"
+    <View
+        android:id="@+id/messageView"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/vie"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vie" />
+        <ImageView
+        android:id="@+id/imageViewMessage"
         android:layout_width="25dp"
         android:layout_height="26dp"
         android:layout_marginLeft="21dp"
@@ -269,11 +303,11 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/jostmedium"
-        android:text="Help Centre"
+        android:text="@string/help_centre"
         android:textColor="#17171c"
         android:textSize="12sp"
         android:textStyle="normal"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/imageViewMessage"
         app:layout_constraintTop_toBottomOf="@+id/vie" />
 
     <TextView
@@ -282,11 +316,11 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="41dp"
         android:fontFamily="@font/jostregular"
-        android:text="Contact, About Us , Privacy Policy,Chat"
+        android:text="@string/contact_description"
         android:textColor="#9192a0"
         android:textSize="11sp"
         android:textStyle="normal"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/imageViewMessage"
         app:layout_constraintTop_toBottomOf="@+id/vie" />
 
     <ImageView
@@ -307,7 +341,8 @@
         app:layout_constraintTop_toBottomOf="@+id/vie"
         tools:layout_editor_absoluteX="0dp"/>
 
-    <TextView
+
+        <TextView
         android:id="@+id/textView4"
         android:layout_width="86dp"
         android:layout_height="18dp"
@@ -316,7 +351,7 @@
         android:layout_marginRight="137dp"
         android:fontFamily="@font/jostregular"
         android:gravity="center_horizontal"
-        android:text="Not Anuj Singh?"
+        android:text="@string/confirmation_text"
         android:textColor="#9192a0"
         android:textSize="12sp"
         android:textStyle="normal"
@@ -326,16 +361,16 @@
         app:layout_constraintTop_toBottomOf="@+id/tvvie" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/Logoutbtn"
         android:layout_width="match_parent"
-        android:layout_height="32dp"
+        android:layout_height="30dp"
         android:layout_marginLeft="136dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="136dp"
         android:background="@drawable/btnshape"
         android:text="Logout"
         android:textColor="@color/white"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -349,16 +384,14 @@
         android:layout_marginBottom="43dp"
         android:fontFamily="@font/jostregular"
         android:gravity="center_horizontal"
-        android:text="App Version:v0.22"
+        android:text="@string/app_version"
         android:textColor="#9192a0"
         android:textSize="12sp"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
 
 
 
