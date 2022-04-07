@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.emproto.core.BaseActivity
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.databinding.FragmentFinancialSummaryBinding

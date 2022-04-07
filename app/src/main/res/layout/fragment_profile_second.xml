@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:fillViewport="true"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:background="#676ac0"
+        android:layout_height="wrap_content">
+
+
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_size_55"
+            android:layout_marginEnd="@dimen/margin_size_10"
+            android:background="@drawable/shape1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+        <ImageView
+            android:id="@+id/arrowimage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_23"
+            android:layout_marginTop="@dimen/margin_size_27"
+            android:background="@drawable/ic_path"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view" />
+
+        <TextView
+            android:id="@+id/edit_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_6"
+            android:layout_marginTop="@dimen/margin_size_24"
+            android:layout_marginEnd="@dimen/margin_size_244"
+            android:fontFamily="@font/jostmedium"
+            android:text="@string/edit_prof"
+            android:textColor="#676ac0"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.07"
+            app:layout_constraintStart_toEndOf="@+id/arrowimage"
+            app:layout_constraintTop_toTopOf="@+id/view" />
+
+        <TextView
+            android:id="@+id/profile_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_28"
+            android:layout_marginTop="@dimen/margin_size_74"
+            android:fontFamily="@font/jostbold"
+            android:lineSpacingExtra="0sp"
+            android:text="@string/profile_picture"
+            android:textColor="#16161c"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view" />
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="87dp"
+            android:layout_marginStart="@dimen/margin_size_33"
+            android:layout_marginTop="@dimen/margin_size_19"
+            android:src="@drawable/img"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_picture">
+
+        </com.mikhaellopez.circularimageview.CircularImageView>
+
+        <ImageView
+            android:id="@+id/upload_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_24"
+            android:layout_marginTop="@dimen/margin_size_125"
+            android:background="@drawable/ic_upload_6"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/view" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_8"
+            android:layout_marginTop="@dimen/margin_size_125"
+            android:text="@string/upload_new_picture"
+            style="text_style_lightgrey_12"
+            android:textStyle="normal"
+            app:layout_constraintStart_toEndOf="@+id/upload_image"
+            app:layout_constraintTop_toTopOf="@+id/view" />
+
+        <ImageView
+            android:id="@+id/remove_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_145"
+            android:layout_marginTop="@dimen/margin_size_25"
+            android:background="@drawable/ic_remove_4"
+            android:fontFamily="@font/jostmedium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/upload_image" />
+
+        <TextView
+
+            android:id="@+id/tvremove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_8"
+            android:layout_marginTop="@dimen/margin_size_18"
+            android:fontFamily="@font/jostregular"
+            android:text="@string/remove_picture"
+
+
+            style="text_style_lightgrey_12"
+            android:textStyle="normal"
+            app:layout_constraintStart_toEndOf="@+id/remove_image"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+        <TextView
+
+            android:id="@+id/tv_personal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_28"
+            android:layout_marginTop="@dimen/margin_size_230"
+            android:fontFamily="@font/jostmedium"
+            android:lineSpacingExtra="0sp"
+            android:text="@string/personal_details"
+            android:textColor="#16161c"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tv_FirstName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_28"
+            android:layout_marginTop="@dimen/margin_size_14"
+            android:layout_marginRight="@dimen/margin_size_28"
+            android:hint="@string/first_name"
+            android:textColor="#676ac0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/view"
+            app:layout_constraintTop_toBottomOf="@+id/tv_personal">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/jostmedium"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="344dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tv_LastName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_28"
+            android:layout_marginTop="@dimen/margin_size_20"
+            android:layout_marginRight="@dimen/margin_size_28"
+            android:hint="@string/last_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_FirstName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/jostmedium" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tv_PhoneNumber"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_size_28"
+            android:layout_marginTop="@dimen/margin_size_20"
+            android:layout_marginRight="@dimen/margin_size_28"
+            android:hint="@string/phone_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_LastName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/jostmedium" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tv_Email"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_size_28"
+            android:layout_marginTop="@dimen/margin_size_20"
+            android:layout_marginRight="@dimen/margin_size_28"
+            android:hint="@string/email"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_PhoneNumber">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/jostmedium" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dob"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_size_28"
+            android:layout_marginTop="@dimen/margin_size_20"
+            android:hint="@string/date_of_birth_dob"
+            app:layout_constraintEnd_toStartOf="@+id/textInputLayout5"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Email">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvDatePicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_baseline_calendar_month_24"
+                android:editable="false"
+                android:fontFamily="@font/jostmedium" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout5"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_5"
+            android:layout_marginTop="@dimen/margin_size_10"
+            android:hint="@string/gender"
+            android:layout_marginEnd="28dp"
+            app:layout_constraintBottom_toTopOf="@+id/add_details"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/dob"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Email">
+
+            <com.google.android.material.textfield.TextInputEditText
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_path_10_copy"
+                android:fontFamily="@font/jostmedium" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/add_details"
+            android:layout_width="358dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="@dimen/margin_size_28"
+            android:layout_marginTop="670dp"
+            android:fontFamily="@font/jostmedium"
+            android:lineSpacingExtra="0sp"
+            android:text="@string/Address_details"
+            android:textColor="#16161c"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view"
+            tools:text="Address Details" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/floor_house_num"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_28"
+            android:layout_marginTop="@dimen/margin_size_25"
+            android:layout_marginEnd="@dimen/margin_size_28"
+            android:hint="@string/Floor_and_House_Number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_details">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jostmedium" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/com_add"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_size_28"
+            android:layout_marginTop="@dimen/margin_size_20"
+            android:layout_marginRight="@dimen/margin_size_28"
+            android:hint="@string/Enter_complete_Address"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/floor_house_num">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/jostmedium" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tv_locality"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_size_28"
+            android:layout_marginTop="@dimen/margin_size_20"
+            android:layout_marginRight="@dimen/margin_size_28"
+            android:hint="@string/Enter_Layality"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.631"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/com_add">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jostmedium" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/pincode"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_size_28"
+            android:layout_marginTop="@dimen/margin_size_20"
+            android:layout_marginRight="@dimen/margin_size_28"
+            android:hint="@string/Pincode"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.719"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_locality">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jostmedium" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tv_city"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_28"
+            android:layout_marginTop="@dimen/margin_size_20"
+            android:hint="@string/City"
+            app:layout_constraintEnd_toStartOf="@+id/state"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pincode">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_path_10_copy"
+                android:fontFamily="@font/jostmedium" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/state"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="181dp"
+            android:layout_height="61dp"
+            android:layout_marginStart="@dimen/margin_size_10"
+            android:layout_marginTop="@dimen/margin_size_20"
+            android:layout_marginEnd="@dimen/margin_size_28"
+            android:hint="@string/State"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_city"
+            app:layout_constraintTop_toBottomOf="@+id/pincode">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="153dp"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_path_10_copy"
+                android:fontFamily="@font/jostmedium" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_size_70"
+            android:id="@+id/save_and_update"
+            android:layout_marginTop="@dimen/margin_size_130"
+            android:layout_marginRight="@dimen/margin_size_70"
+            android:layout_marginBottom="@dimen/margin_size_40"
+            android:padding="10dp"
+            android:background="@drawable/btnshape"
+            android:fontFamily="@font/jostmedium"
+            android:gravity="center_horizontal|center"
+            android:text="@string/save_and_update"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_city" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

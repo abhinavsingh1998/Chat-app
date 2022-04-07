@@ -1,9 +1,6 @@
 package com.emproto.hoabl.di
 
 import com.emproto.hoabl.HomeActivity
-import com.emproto.hoabl.feature.home.views.IntroSliderActivity
-import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
-import com.emproto.hoabl.feature.home.views.fragments.SearchResultFragment
 import dagger.Component
 import javax.inject.Singleton
 
