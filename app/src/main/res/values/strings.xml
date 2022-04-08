@@ -166,14 +166,13 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="help_centre_about_us">Help Centre - About Us</string>
-<!--    <string name="About_us">Help Centre - About Us</string>-->
     <string name="Description">We are building a platform that will bring anyone who wants to create wealth to join the New Generation LandTM revolution. Now is your time. You can buy, maintain and liquidate land with amazing ease, conﬁdence and trust. Whether you’re a ﬁrst time buyer or a seasoned investor, we’ve got you covered. We ensure a completely secure experience for our members by keeping track of every single nuance of the ownership journey to</string>
     <string name="Selling_land_Text">WE ARE NOT SELLING LAND</string>
     <string name="Changing_land_Text">WE ARE CHANGING LAND FOREVER</string>
     <string name="Presenting_Text">presenting New Generation LandTM for the New Generation of India</string>
     <string name="Description2">We are changing what it means to own land. We are making it liquid, so that you’re never stuck with it. We are changing everything that is wrong with it – the red tape, the hassles and the risk. We are using technology to make it fully transparent, easy and desirable. We are modernising and democratising land like no one else in history. But our biggest promise is that we aren’t with you just for the long run, we are with you forever.</string>
     <string name="name">Anuj Singh</string>
-    <string name="editprofile">EditProfile</string>
+    <string name="edit_profile">Edit Profile</string>
     <string name="my_accounts">My Accounts</string>
     <string name="payment">Payment Settings, Refferal, Rewards</string>
 
@@ -182,33 +181,23 @@
     <string name="security_description">Report emergency, control authentication, etc</string>
     <string name="help_centre">Help Centre</string>
     <string name="contact_description">Contact, About Us , Privacy Policy,Chat</string>
-
-    <string name="app_version">App Version</string>
-
     <string name="profile_picture">Profile Picture</string>
     <string name="upload_new_picture">Upload New Picture</string>
     <string name="remove_picture">Remove Picture</string>
     <string name="personal_details">Personal Details</string>
-
     <string name="lastname">LastName</string>
-
-
     <string name="save_and_update">Save and Update</string>
-    <string name="settings_text">Settings</string>
+<!--    <string name="settings_text">Settings</string>-->
     <string name="emergency_text1">Report a security emergency</string>
     <string name="Settings">Settings</string>
     <string name="my_account">My Account</string>
-<!--    <string name="payment_history">Payment History</string>-->
 
-<!--    <string name="need_input_discussion">Need input/discussion</string>-->
     <string name="kyc">KYC</string>
-<!--    <string name="help_centre_faqs">Help Centre FAQs</string>-->
-<!--    <string name="popular_categories">Popular Categories</string>-->
     <string name="general">General</string>
     <string name="investment">Investment</string>
     <string name="payments">Payments</string>
     <string name="category_1">Category 1</string>
-    <string name="settings_text2">Settings</string>
+<!--    <string name="settings_text2">Settings</string>-->
     <string name="emergency_text">Report a security emergency</string>
     <string name="see_project_details">See Project Details</string>
     <string name="view_timeline">View Timeline</string>
@@ -238,7 +227,6 @@
     <string name="popular_categories">Categories</string>
     <string name="confirmation_text">confirmation_text</string>
     <string name="City">City</string>
-    <string name="edit_profile">Edit_profile</string>
     <string name="email">Email</string>
     <string name="date_of_birth">Dob</string>
     <string name="gender">Gender</string>
@@ -254,10 +242,8 @@
     <string name="not_anuj_singh">Not Anuj Singh?</string>
     <string name="app_version_v0_22">App Version: v0.22</string>
     <string name="last_name">Last Name</string>
-    <string name="edit_prof">Edit Profile</string>
     <string name="date_of_birth_dob">Date Of Birth</string>
     <string name="My_account">My Account</string>
-    <string name="about_us">About us</string>
     <string name="location_access">Location Access</string>
     <string name="control_location_access_here">Control location access here</string>
     <string name="wants_to_connect">Wants to Connect?</string>
@@ -268,13 +254,12 @@
     <string name="personal_details_string">Personal Details</string>
     <string name="report_a_security_emergency">Report a security emergency</string>
     <string name="payment_history_text">Payment History</string>
-    <string name="kyc_text">Kyc</string>
     <string name="search_faq">Search-Faq</string>
-    <string name="see_all_text">SEE ALL</string>
     <string name="general_text">General</string>
     <string name="investment_string">Investment</string>
     <string name="payments_string">Payments</string>
     <string name="category">Category</string>
     <string name="answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer">Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer</string>
     <string name="view_1_textview">View 1 TextView</string>
+    <string name="health_center">Health Center</string>
 </resources>

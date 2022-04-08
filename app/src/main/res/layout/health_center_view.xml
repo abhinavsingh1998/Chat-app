@@ -7,10 +7,10 @@
 
 
     <View
-        android:id="@+id/view2"
+        android:id="@+id/full_view_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
+        android:background="@color/category_item_light_ash_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -18,57 +18,68 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <TextView
-        android:id="@+id/Security"
+    <ImageView
+        android:id="@+id/hoabelImgfaq"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin_size_28"
+        android:layout_marginTop="@dimen/margin_size_24"
+        android:src="@drawable/ic_faq"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_security"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_size_18"
+        android:layout_marginTop="@dimen/margin_size_23"
+        android:text="@string/location_access"
         android:fontFamily="@font/jostmedium"
-        android:text="Location Access"
-        android:textColor="#17171c"
-        android:textSize="12sp"
-        android:textStyle="normal"
-        app:layout_constraintStart_toStartOf="@+id/view2"
+        style="@style/text_style_text_color_14"
+        app:layout_constraintStart_toEndOf="@+id/hoabelImgfaq"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
         android:id="@+id/tv_loc"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/margin_size_19"
+        android:text="@string/control_location_access_here"
         android:fontFamily="@font/jostregular"
-        android:text="Control location access here"
-        android:textColor="#9192a0"
-        android:textSize="11sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Security" />
+        style="@style/text_style_lightgrey_14"
+        app:layout_constraintStart_toEndOf="@+id/hoabelImgfaq"
+        app:layout_constraintTop_toBottomOf="@+id/tv_security" />
 
     <ImageView
-        android:id="@+id/imgarrow"
+        android:id="@+id/img_arrow1"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_size_16"
+        android:layout_marginEnd="@dimen/margin_size_24"
+        android:layout_marginBottom="@dimen/margin_size_16"
         android:src="@drawable/arrow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:id="@+id/view19"
+        android:id="@+id/line_view"
         android:layout_width="wrap_content"
         android:layout_height="2dp"
-    android:layout_marginTop="@dimen/margin_size_20"
+        android:layout_margin="8dp"
         android:background="#DCD8D8DA"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_loc"
         app:layout_constraintVertical_bias="0.035" />
 
 
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

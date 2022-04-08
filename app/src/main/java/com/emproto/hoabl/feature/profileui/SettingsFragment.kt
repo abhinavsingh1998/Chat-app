@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.profile
+package com.emproto.hoabl.feature.profileui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -17,7 +17,7 @@ import com.emproto.hoabl.feature.home.profileAdapter.SettingsData
 class SettingsFragment:Fragment() {
     lateinit var binding: FragmentSettingsBinding
     lateinit var adapter: SettingsAdapter
-    lateinit var iv_arrow_left:ImageView
+    lateinit var ivarrowleft:ImageView
     lateinit var settings_view:View
     val bundle = Bundle()
     companion object{

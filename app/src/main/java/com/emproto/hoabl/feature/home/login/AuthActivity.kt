@@ -19,7 +19,6 @@ class AuthActivity : BaseActivity() {
         initView()
         initClickListener()
     }
-
     private fun initClickListener() {
 
         activityAuthBinding.textTrouble.setOnClickListener(View.OnClickListener {

@@ -8,20 +8,20 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
-import com.emproto.hoabl.feature.home.profileAdapter.data.Data
+import com.emproto.hoabl.feature.home.profileAdapter.data.SecurityData
 
-class HoabelRecyclerAdapter(context: Context, list: ArrayList<Data>) :
+class SecurityAdapter(context: Context, list: ArrayList<SecurityData>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-        const val VIEW_TYPE_ONE = 1
-        const val VIEW_TYPE_TWO = 2
-        const val VIEW_TYPE_THREE = 3
+        const val VIEW_SECURITY_ONE = 1
+        const val VIEW_SECURITY_TWO = 2
+        const val VIEW_SECURITY_THREE = 3
 
     }
 
     private val context: Context = context
-    var list: ArrayList<Data> = list
+    var list: ArrayList<SecurityData> = list
 
     private inner class View1ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
@@ -57,18 +57,18 @@ class HoabelRecyclerAdapter(context: Context, list: ArrayList<Data>) :
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == VIEW_TYPE_ONE) {
+        if (viewType == VIEW_SECURITY_ONE) {
             return View1ViewHolder(
-                LayoutInflater.from(context).inflate(R.layout.item_view_1, parent, false)
+                LayoutInflater.from(context).inflate(R.layout.security_view_1, parent, false)
             )
         }
-        else if (viewType == VIEW_TYPE_TWO){
+        else if (viewType == VIEW_SECURITY_TWO){
             return View2ViewHolder(
-                LayoutInflater.from(context).inflate(R.layout.item_view_2, parent, false)
+                LayoutInflater.from(context).inflate(R.layout.security_view_2, parent, false)
             )
         }
         return View3ViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.item_view_3, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.security_view_3, parent, false)
         )
     }
 
@@ -77,9 +77,9 @@ class HoabelRecyclerAdapter(context: Context, list: ArrayList<Data>) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (list[position].viewType === VIEW_TYPE_ONE) {
+        if (list[position].viewType === VIEW_SECURITY_ONE) {
             (holder as View1ViewHolder).bind(position)
-        } else if(list[position].viewType === VIEW_TYPE_TWO) {
+        } else if(list[position].viewType === VIEW_SECURITY_TWO) {
             (holder as View2ViewHolder).bind(position)
         }
         else{

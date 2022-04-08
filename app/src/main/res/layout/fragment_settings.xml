@@ -7,13 +7,13 @@
     android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="#676ac0"
+        android:background="@color/app_color"
         android:layout_height="match_parent">
 
         <View
             android:id="@+id/view_full"
             android:layout_width="wrap_content"
-            android:layout_height="750dp"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin_size_55"
             android:background="@drawable/shape1"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -26,8 +26,8 @@
         <ImageView
             android:id="@+id/ivarrowleft"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_size_14"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_size_23"
             android:layout_marginTop="@dimen/margin_size_27"
             android:background="@drawable/ic_path"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,15 +37,12 @@
 
             android:id="@+id/tv_settings"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_size_24"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_size_17"
             android:layout_marginTop="@dimen/margin_size_24"
             android:fontFamily="@font/jostmedium"
             android:text="@string/settings"
-            style ="text_style_blue_16"
-            android:textColor="#676ac0"
-
-            android:textStyle="normal"
+            style ="@style/text_style_blue_16"
             app:layout_constraintStart_toEndOf="@+id/ivarrowleft"
             app:layout_constraintTop_toTopOf="@+id/view_full" />
 
@@ -64,9 +61,6 @@
             android:id="@+id/recyclerview1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:layout_marginStart="@dimen/margin_size_4"
-            android:layout_marginTop="@dimen/margin_size_6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/horizontal_line_view">

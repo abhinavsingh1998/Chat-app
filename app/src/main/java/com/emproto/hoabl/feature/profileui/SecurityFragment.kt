@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.profile
+package com.emproto.hoabl.feature.profileui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,8 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentSecurityBinding
-import com.emproto.hoabl.feature.home.profileAdapter.data.Data
-import com.emproto.hoabl.feature.home.profileAdapter.HoabelRecyclerAdapter
+import com.emproto.hoabl.feature.home.profileAdapter.SecurityAdapter
+import com.emproto.hoabl.feature.home.profileAdapter.data.SecurityData
+
 
 
 class SecurityFragment : Fragment() {
@@ -26,7 +27,7 @@ class SecurityFragment : Fragment() {
     ): View? {
         binding = FragmentSecurityBinding.inflate(inflater, container, false)
         binding.recyclerView.layoutManager= LinearLayoutManager(requireContext())
-        val detailAdapter= HoabelRecyclerAdapter(requireContext(),initData())
+        val detailAdapter= SecurityAdapter(requireContext(),initData())
         binding.recyclerView.adapter= detailAdapter
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible=true
         initClickListener()
@@ -39,13 +40,13 @@ class SecurityFragment : Fragment() {
                 (requireActivity()as HomeActivity).replaceFragment(profileFragment.javaClass, "", true, bundle, null, 0, false)}
         })
     }
-    private fun initData(): ArrayList<Data> {
-        val dataList: ArrayList<Data> = ArrayList<Data>()
-        dataList.add(Data(HoabelRecyclerAdapter.VIEW_TYPE_ONE, "Control location access here","Mobile Pin Authentication",
+    private fun initData(): ArrayList<SecurityData> {
+        val dataList: ArrayList<SecurityData> = ArrayList<SecurityData>()
+        dataList.add(SecurityData(SecurityAdapter.VIEW_SECURITY_ONE, "Control location access here","Mobile Pin Authentication",
             R.drawable.arrow))
-        dataList.add(Data(HoabelRecyclerAdapter.VIEW_TYPE_TWO, "Control location access here","Whatsapp Communication",
+        dataList.add(SecurityData(SecurityAdapter.VIEW_SECURITY_TWO, "Control location access here","Whatsapp Communication",
             R.drawable.arrow))
-        dataList.add(Data(HoabelRecyclerAdapter.VIEW_TYPE_THREE, "Control location access here","Read Security",
+        dataList.add(SecurityData(SecurityAdapter.VIEW_SECURITY_THREE, "Control location access here","Read Security",
             R.drawable.arrow))
 
 

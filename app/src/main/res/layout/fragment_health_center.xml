@@ -7,14 +7,14 @@
     android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="#676ac0"
+        android:background="@color/app_color"
         android:layout_height="match_parent">
 
         <View
             android:id="@+id/completeView"
             android:layout_width="wrap_content"
-            android:layout_height="750dp"
-            android:layout_marginTop="90dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_size_55"
             android:background="@drawable/shape1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,9 +26,9 @@
         <ImageView
             android:id="@+id/ivleftarrow"
             android:layout_width="wrap_content"
-            android:layout_height="14dp"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="27dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_size_23"
+            android:layout_marginTop="@dimen/margin_size_27"
             android:background="@drawable/ic_path"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/completeView" />
@@ -36,14 +36,12 @@
 
             android:id="@+id/tvhealthCenter"
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_size_17"
+            android:layout_marginTop="@dimen/margin_size_24"
+            android:text="@string/health_center"
             android:fontFamily="@font/jostmedium"
-            android:text="Health Center"
-            style ="text_style_blue_16"
-            android:textColor="#676ac0"
-            android:textStyle="normal"
+            style ="@style/text_style_blue_16"
             app:layout_constraintStart_toEndOf="@+id/ivleftarrow"
             app:layout_constraintTop_toTopOf="@+id/completeView" />
 
@@ -66,9 +64,6 @@
             app:layout_constraintTop_toBottomOf="@+id/divideView"
             tools:layout_editor_absoluteX="-12dp">
         </androidx.recyclerview.widget.RecyclerView>
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

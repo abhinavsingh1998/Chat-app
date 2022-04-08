@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.profile
+package com.emproto.hoabl.feature.profileui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,13 +14,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentHealthCenterBinding
-import com.emproto.hoabl.feature.home.profileAdapter.data.DataHoabel
-import com.emproto.hoabl.feature.home.profileAdapter.HoabelHealthRecyclerViewAdapter
+import com.emproto.hoabl.feature.home.profileAdapter.HoabelHealthAdapter
+import com.emproto.hoabl.feature.home.profileAdapter.data.DataHealthCenter
 
 
 class HealthCenterFragment : Fragment() {
+
     lateinit var binding: FragmentHealthCenterBinding
-    lateinit var adapter: HoabelHealthRecyclerViewAdapter
+    lateinit var adapter: HoabelHealthAdapter
     lateinit var button: Button
     lateinit var ivleftarrow:ImageView
     lateinit var hoabelImg:ImageView
@@ -29,37 +30,43 @@ class HealthCenterFragment : Fragment() {
     val bundle = Bundle()
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
+
         binding = FragmentHealthCenterBinding.inflate(inflater, container, false)
         binding.recyclerView.layoutManager= LinearLayoutManager(requireContext())
-        val detailAdapter= HoabelHealthRecyclerViewAdapter(requireContext(),initData())
+        val detailAdapter= HoabelHealthAdapter(requireContext(),initData())
         binding.recyclerView.adapter= detailAdapter
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible=true
         initClickListener()
         return binding.root
+
     }
+
     private fun initClickListener() {
-
-
         binding.ivleftarrow.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
                 val profileFragment = ProfileFragment()
                 (requireActivity()as HomeActivity).replaceFragment(profileFragment.javaClass, "", true, bundle, null, 0, false)}
         })
+
         binding.tvhealthCenter.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
                 val faqFragment = FaqFragment()
                 (requireActivity()as HomeActivity).replaceFragment(faqFragment.javaClass, "", true, bundle, null, 0, false)}
         })
 
+
     }
-    private fun initData(): ArrayList<DataHoabel> {
-        val dataList: ArrayList<DataHoabel> = ArrayList<DataHoabel>()
-        dataList.add(DataHoabel(HoabelHealthRecyclerViewAdapter.VIEW_TYPE_ONE, "Read all our FAQs here","Frequently Asked Questions",
+
+    private fun initData(): ArrayList<DataHealthCenter> {
+        val dataList: ArrayList<DataHealthCenter> = ArrayList<DataHealthCenter>()
+        dataList.add(DataHealthCenter(HoabelHealthAdapter.VIEW_HELP_CENTER_ONE, "Read all our FAQs here","Frequently Asked Questions",
             R.drawable.ic_faq,
             R.drawable.ic_path,
             R.drawable.ic_faq,"Chat with us",
@@ -67,28 +74,28 @@ class HealthCenterFragment : Fragment() {
                     "Call us: +91 123 123 1231\n" +
                     "Email us: help@hoabl.in"))
 
-        dataList.add(DataHoabel(HoabelHealthRecyclerViewAdapter.VIEW_TYPE_ONE, "Read our privacy policy","Privacy Policy",
+        dataList.add(DataHealthCenter(HoabelHealthAdapter.VIEW_HELP_CENTER_ONE, "Read our privacy policy","Privacy Policy",
             R.drawable.ic_privacy_policy,
             R.drawable.ic_path,
             R.drawable.ic_privacy_policy,"Chat with us",
             R.drawable.ic_path,"Or\n" +
                     "Call us: +91 123 123 1231\n" +
                     "Email us: help@hoabl.in"))
-        dataList.add(DataHoabel(HoabelHealthRecyclerViewAdapter.VIEW_TYPE_ONE, "Read everything you want to know about us","About Us",
+        dataList.add(DataHealthCenter(HoabelHealthAdapter.VIEW_HELP_CENTER_ONE, "Read everything you want to know about us","About Us",
             R.drawable.ic_info_button,
             R.drawable.ic_path,
             R.drawable.ic_info_button,"Chat with us",
             R.drawable.ic_path,"Or\n" +
                     "Call us: +91 123 123 1231\n" +
                     "Email us: help@hoabl.in"))
-        dataList.add(DataHoabel(HoabelHealthRecyclerViewAdapter.VIEW_TYPE_ONE, "This will help us improve the app for you","Share your feedback",
+        dataList.add(DataHealthCenter(HoabelHealthAdapter.VIEW_HELP_CENTER_ONE, "This will help us improve the app for you","Share your feedback",
             R.drawable.ic_feedback,
             R.drawable.ic_path,
             R.drawable.ic_feedback,"Chat with us",
             R.drawable.ic_path,"Or\n" +
                     "Call us: +91 123 123 1231\n" +
                     "Email us: help@hoabl.in"))
-        dataList.add(DataHoabel(HoabelHealthRecyclerViewAdapter.VIEW_TYPE_ONE, "Let us know your love for us! Rate us on the store","Rate us!",
+        dataList.add(DataHealthCenter(HoabelHealthAdapter.VIEW_HELP_CENTER_ONE, "Let us know your love for us! Rate us on the store","Rate us!",
             R.drawable.ic_rating_2,
             R.drawable.ic_rating_2,
             R.drawable.ic_faq,"Chat with us",
@@ -96,15 +103,20 @@ class HealthCenterFragment : Fragment() {
                     "Call us: +91 123 123 1231\n" +
                     "Email us: help@hoabl.in"))
 
-        dataList.add(DataHoabel(HoabelHealthRecyclerViewAdapter.VIEW_TYPE_TWO, "Want to connect?","hii",
+        dataList.add(DataHealthCenter(HoabelHealthAdapter.VIEW_HELP_CENTER_TWO, "Want to connect?","hii",
             R.drawable.ic_faq,
             R.drawable.ic_path,
             R.drawable.ic_faq,"Chat with us",
             R.drawable.ic_path,"Or\n" +
+
                     "Call us: +91 123 123 1231\n" +
+
                     "Email us: help@hoabl.in"))
+
         return dataList
+
     }
+
 
 
 

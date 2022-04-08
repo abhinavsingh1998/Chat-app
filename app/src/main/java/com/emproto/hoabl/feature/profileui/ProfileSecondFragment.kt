@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.profile
+package com.emproto.hoabl.feature.profileui
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -37,7 +37,6 @@ class ProfileSecondFragment : Fragment() {
             myCalender.set(Calendar.YEAR, year)
             myCalender.set(Calendar.MONTH, month)
             myCalender.set(Calendar.DAY_OF_MONTH, dayofMonth)
-//            updateLable(myCalender)
         }
         initClickListener()
         return binding.root

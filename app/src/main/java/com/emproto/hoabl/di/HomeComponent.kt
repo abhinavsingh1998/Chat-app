@@ -7,6 +7,5 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [HomeModule::class, HomeAppModule::class])
 interface HomeComponent {
-    //fun inject(activity: IntroSliderActivity)
     fun inject(activity: HomeActivity)
 }

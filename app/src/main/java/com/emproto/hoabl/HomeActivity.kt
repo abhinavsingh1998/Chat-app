@@ -16,7 +16,7 @@ import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.fragments.FinancialAndProjectFragment
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
-import com.emproto.hoabl.feature.profile.ProfileFragment
+import com.emproto.hoabl.feature.profileui.ProfileFragment
 import com.emproto.hoabl.fragments.PromisesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 

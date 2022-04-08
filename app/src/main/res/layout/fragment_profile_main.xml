@@ -4,28 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:background="#676ac0">
-
+    android:background="@color/app_color">
 
     <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/complete_view"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="@dimen/margin_size_55"
         android:background="@drawable/shape1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-
-    </View>
+        app:layout_constraintVertical_bias="0.0"/>
 
     <com.mikhaellopez.circularimageview.CircularImageView
-        android:id="@+id/imageView"
+        android:id="@+id/circular_imageView"
         android:layout_width="wrap_content"
         android:layout_height="86dp"
-        android:layout_marginStart="@dimen/margin_size_18"
+        android:layout_marginStart="@dimen/margin_size_17"
         android:layout_marginTop="@dimen/margin_size_24"
         android:src="@drawable/img"
         app:civ_shadow="true"
@@ -39,51 +35,45 @@
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_size_20"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_size_19"
         android:layout_marginTop="@dimen/margin_size_10"
         android:fontFamily="@font/jostmedium"
+        style ="@style/text_style_text_color_16"
         android:text="@string/name"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        android:textStyle="normal"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/view" />
+        app:layout_constraintStart_toEndOf="@+id/circular_imageView"
+        app:layout_constraintTop_toTopOf="@+id/complete_view" />
 
 
     <ImageButton
-        android:id="@+id/imageeditprofile"
+        android:id="@+id/image_edit_profile"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_size_20"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_size_24"
         android:layout_marginTop="@dimen/margin_size_10"
         android:background="@drawable/ic_writing_2"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/circular_imageView"
         app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
     <TextView
-        android:id="@+id/eprofile"
+        android:id="@+id/edit_profile"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_8"
         android:layout_marginTop="@dimen/margin_size_8"
-        style="text_style_blue_12"
-        android:fontFamily="@font/jostregular"
-        android:text="@string/editprofile"
-        android:textColor="#676ac0"
-        android:textSize="12sp"
-        android:textStyle="normal"
-        app:layout_constraintStart_toEndOf="@+id/imageeditprofile"
+        style="@style/text_style_blue_14"
+        android:text="@string/edit_profile"
+        app:layout_constraintStart_toEndOf="@+id/image_edit_profile"
         app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
     <View
-        android:id="@+id/view3"
-        android:layout_width="match_parent"
+        android:id="@+id/divider_line"
+        android:layout_width="wrap_content"
         android:layout_height="2dp"
         android:layout_marginTop="@dimen/margin_size_32"
         android:background="#E3E2E2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eprofile"/>
+        app:layout_constraintTop_toBottomOf="@+id/edit_profile"/>
 
     <View
         android:id="@+id/AccountView"
@@ -91,42 +81,40 @@
         android:layout_height="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view3" />
+        app:layout_constraintTop_toBottomOf="@+id/divider_line" />
 
     <ImageView
-        android:id="@+id/view4"
+        android:id="@+id/profile_imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_size_23"
         android:layout_marginTop="@dimen/margin_size_27"
         android:background="@drawable/ic_profile"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view3" />
+        app:layout_constraintTop_toBottomOf="@+id/divider_line" />
 
 
     <TextView
         android:id="@+id/my_accout_tv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_20"
         android:layout_marginTop="@dimen/margin_size_23"
+        style="@style/text_style_text_color_14"
         android:fontFamily="@font/jostmedium"
         android:text="@string/my_accounts"
-        android:textColor="#17171c"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/view4"
+        app:layout_constraintStart_toEndOf="@+id/profile_imageView"
         app:layout_constraintTop_toTopOf="@+id/AccountView" />
 
     <TextView
         android:id="@+id/kyc_tv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_20"
         android:fontFamily="@font/jostregular"
         android:text="@string/payment_history_kyc"
-        style="text_style_light_grey_12"
-        android:textStyle="normal"
-        app:layout_constraintStart_toEndOf="@+id/view4"
+        style="style@text_style_light_grey_14"
+        app:layout_constraintStart_toEndOf="@+id/profile_imageView"
         app:layout_constraintTop_toBottomOf="@+id/my_accout_tv" />
 
     <ImageView
@@ -137,11 +125,11 @@
         android:layout_marginEnd="@dimen/margin_size_39"
         android:src="@drawable/rightarrow"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view3" />
+        app:layout_constraintTop_toBottomOf="@+id/divider_line" />
 
     <View
-        android:id="@+id/view6"
-        android:layout_width="match_parent"
+        android:id="@+id/divide_line_view"
+        android:layout_width="wrap_content"
         android:layout_height="2dp"
         android:background="#E3E2E2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -159,23 +147,22 @@
     <ImageView
         android:id="@+id/imageviewsettings"
         android:layout_width="wrap_content"
-        android:layout_height="25dp"
+        android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_20"
-        android:layout_marginTop="@dimen/margin_size_25"
+        android:layout_marginTop="@dimen/margin_size_27"
         android:background="@drawable/shape"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/AccountView"/>
 
     <TextView
-        android:id="@+id/tv_settings_view"
+        android:id="@+id/tv_settings"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_20"
-        android:layout_marginTop="@dimen/margin_size_20"
+        android:layout_marginTop="@dimen/margin_size_23"
         android:fontFamily="@font/jostmedium"
         android:text="@string/settings"
-        android:textColor="#17171c"
-        android:textSize="12sp"
+        style="@style/text_style_text_color_14"
         app:layout_constraintStart_toEndOf="@+id/imageviewsettings"
         app:layout_constraintTop_toBottomOf="@+id/AccountView" />
 
@@ -183,28 +170,28 @@
 
         android:id="@+id/textView_location"
         android:layout_width="wrap_content"
-        android:layout_height="17dp"
+        android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_20"
         android:fontFamily="@font/jostregular"
         android:text="@string/location_prompt_sms_push_notification"
         android:textStyle="normal"
-        style="text_style_light_grey_12"
+        style="text_style_light_grey_14"
         app:layout_constraintStart_toEndOf="@+id/imageviewsettings"
-        app:layout_constraintTop_toBottomOf="@+id/tv_settings_view"
+        app:layout_constraintTop_toBottomOf="@+id/tv_settings"
         tools:text="Location Prompt , SMS, Push Notification" />
 
     <ImageView
-
+        android:id="@+id/img_right"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="@dimen/margin_size_39"
         android:layout_marginEnd="@dimen/margin_size_39"
         android:src="@drawable/rightarrow"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view6" />
+        app:layout_constraintTop_toBottomOf="@+id/divide_line_view" />
 
     <View
-        android:id="@+id/view9"
+        android:id="@+id/line_divider"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#E3E2E2"
@@ -222,9 +209,9 @@
     <ImageView
         android:id="@+id/imageSecurityLock"
         android:layout_width="wrap_content"
-        android:layout_height="25dp"
+        android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_20"
-        android:layout_marginTop="@dimen/margin_size_25"
+        android:layout_marginTop="@dimen/margin_size_27"
         android:background="@drawable/securitylock"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/securityView" />
@@ -232,125 +219,119 @@
     <TextView
         android:id="@+id/textView_Security"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_20"
         android:layout_marginTop="@dimen/margin_size_25"
         android:fontFamily="@font/jostmedium"
         android:text="@string/profile_security"
-        android:textColor="#17171c"
-        android:textSize="12sp"
+        style="@style/text_style_text_color_14"
         app:layout_constraintStart_toEndOf="@+id/imageSecurityLock"
         app:layout_constraintTop_toBottomOf="@+id/settingsView" />
 
     <TextView
         android:id="@+id/textView_emergency"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_20"
         android:fontFamily="@font/jostregular"
         android:text="@string/report_emergency_control_authentication_etc"
-        style="text_style_light_grey_12"
-        android:textStyle="normal"
+        style="text_style_light_grey_14"
         app:layout_constraintStart_toEndOf="@+id/imageSecurityLock"
         app:layout_constraintTop_toBottomOf="@+id/textView_Security" />
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="@dimen/margin_size_39"
         android:layout_marginEnd="@dimen/margin_size_39"
         android:background="@drawable/rightarrow"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view9" />
+        app:layout_constraintTop_toBottomOf="@+id/line_divider" />
 
     <View
-        android:id="@+id/vie"
-        android:layout_width="match_parent"
+        android:id="@+id/horizontlline_view"
+        android:layout_width="wrap_content"
         android:layout_height="2dp"
         android:layout_marginTop="@dimen/margin_size_80"
         android:background="#E3E2E2"
-        app:layout_constraintTop_toBottomOf="@+id/view9"
-        tools:layout_editor_absoluteX="0dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line_divider" />
 
     <View
         android:id="@+id/messageView"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
-        app:layout_constraintEnd_toEndOf="@+id/vie"
+        app:layout_constraintEnd_toEndOf="@+id/horizontlline_view"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vie" />
+        app:layout_constraintTop_toBottomOf="@+id/horizontlline_view" />
 
     <ImageView
         android:id="@+id/imageViewMessage"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_20"
-        android:layout_marginTop="@dimen/margin_size_20"
+        android:layout_marginTop="@dimen/margin_size_27"
         android:background="@drawable/helpmesg"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vie" />
+        app:layout_constraintTop_toBottomOf="@+id/horizontlline_view" />
 
     <TextView
         android:id="@+id/textView_helpcenter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_size_20"
-        android:layout_marginTop="@dimen/margin_size_20"
+        android:layout_marginTop="@dimen/margin_size_25"
         android:fontFamily="@font/jostmedium"
         android:text="@string/help_centre"
-        android:textColor="#17171c"
-        android:textSize="12sp"
-        android:textStyle="normal"
+        style="@style/text_style_text_color_14"
         app:layout_constraintStart_toEndOf="@+id/imageViewMessage"
-        app:layout_constraintTop_toBottomOf="@+id/vie" />
+        app:layout_constraintTop_toBottomOf="@+id/horizontlline_view" />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_20"
         android:id="@+id/Contact"
         android:fontFamily="@font/jostregular"
         android:text="@string/contact_about_us_privacy_policy_chat"
-        style="text_style_light_grey_12"
-        android:textStyle="normal"
+        style="style@text_style_light_grey_14"
         app:layout_constraintStart_toEndOf="@+id/imageViewMessage"
         app:layout_constraintTop_toBottomOf="@+id/textView_helpcenter" />
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="@dimen/margin_size_39"
         android:layout_marginEnd="@dimen/margin_size_39"
         android:background="@drawable/rightarrow"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vie" />
+        app:layout_constraintTop_toBottomOf="@+id/horizontlline_view" />
 
     <View
-        android:id="@+id/tvvie"
+        android:id="@+id/View_line"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_marginTop="@dimen/margin_size_80"
         android:background="#E3E2E2"
-        app:layout_constraintTop_toBottomOf="@+id/vie"
+        app:layout_constraintTop_toBottomOf="@+id/horizontlline_view"
         tools:layout_editor_absoluteX="0dp"/>
 
 
         <TextView
         android:id="@+id/btn_confirmation"
         android:layout_width="wrap_content"
+            android:layout_height="0dp"
         style="@style/text_style_grey_14"
-        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/marginSize"
         android:layout_marginTop="@dimen/margin_size_43"
         android:layout_marginRight="@dimen/marginSize"
         android:fontFamily="@font/jostregular"
-        android:gravity="center_horizontal"
         android:text="@string/not_anuj_singh"
-        android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.436"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvvie" />
+        app:layout_constraintTop_toBottomOf="@+id/View_line" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/Logoutbtn"
@@ -359,14 +340,12 @@
         android:layout_marginLeft="@dimen/margin"
         android:layout_marginTop="@dimen/margin_size_8"
         android:layout_marginRight="@dimen/marginSize"
+        style="@style/text_style_text_color_14"
         android:background="@drawable/btnshape"
         android:fontFamily="@font/jostmedium"
-        android:gravity="center_horizontal|center"
         android:text="@string/logout_text"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="11sp"
-        android:textStyle="normal"
         app:layout_constraintBottom_toTopOf="@+id/version"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -382,9 +361,9 @@
         android:fontFamily="@font/jostregular"
         android:gravity="center_horizontal"
         android:text="@string/app_version_v0_22"
-        style="text_style_light_grey_12"
+        style="@style/text_style_grey_14"
         android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintBottom_toBottomOf="@+id/complete_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

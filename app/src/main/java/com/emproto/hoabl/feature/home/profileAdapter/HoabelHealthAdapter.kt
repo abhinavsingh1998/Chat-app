@@ -8,18 +8,18 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
-import com.emproto.hoabl.feature.home.profileAdapter.data.DataHoabel
+import com.emproto.hoabl.feature.home.profileAdapter.data.DataHealthCenter
 
-class HoabelHealthRecyclerViewAdapter(context: Context, list: ArrayList<DataHoabel>) :
+class HoabelHealthAdapter(context: Context, list: ArrayList<DataHealthCenter>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-        const val VIEW_TYPE_ONE = 1
-        const val VIEW_TYPE_TWO = 2
+        const val VIEW_HELP_CENTER_ONE = 1
+        const val VIEW_HELP_CENTER_TWO = 2
     }
 
     private val context: Context = context
-    var list: ArrayList<DataHoabel> = list
+    var list: ArrayList<DataHealthCenter> = list
 
 
 
@@ -41,7 +41,7 @@ class HoabelHealthRecyclerViewAdapter(context: Context, list: ArrayList<DataHoab
 
     private inner class View2ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
-        var message: TextView = itemView.findViewById(R.id.textView)
+        var message: TextView = itemView.findViewById(R.id.tv_wants_to_connect)
         fun bind(position: Int) {
             val recyclerViewModel = list[position]
             message.text = recyclerViewModel.textData
@@ -50,13 +50,13 @@ class HoabelHealthRecyclerViewAdapter(context: Context, list: ArrayList<DataHoab
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == VIEW_TYPE_ONE) {
+        if (viewType == VIEW_HELP_CENTER_ONE) {
             return View1ViewHolder(
-                LayoutInflater.from(context).inflate(R.layout.hoabelview, parent, false)
+                LayoutInflater.from(context).inflate(R.layout.health_center_view, parent, false)
             )
         }
         return View2ViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.hoabelview2, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.health_center_view2, parent, false)
         )
     }
 
@@ -65,7 +65,7 @@ class HoabelHealthRecyclerViewAdapter(context: Context, list: ArrayList<DataHoab
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (list[position].viewType === VIEW_TYPE_ONE) {
+        if (list[position].viewType === VIEW_HELP_CENTER_ONE) {
             (holder as View1ViewHolder).bind(position)
         } else {
             (holder as View2ViewHolder).bind(position)

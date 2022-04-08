@@ -1,5 +1,4 @@
-package com.emproto.hoabl.feature.profile
-
+package com.emproto.hoabl.feature.profileui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +14,8 @@ import com.emproto.hoabl.databinding.FragmentProfileMainBinding
 class ProfileFragment : BaseFragment() {
 
     lateinit var binding: FragmentProfileMainBinding
-    lateinit var imageeditprofile: ImageButton
-    lateinit var eprofile: TextView
+    lateinit var image_edit_profile: ImageButton
+    lateinit var edit_profile: TextView
     lateinit var ivrightarrow: ImageView
     lateinit var imageviewsettings: ImageView
     lateinit var imageSecurityLock: ImageView
@@ -43,7 +42,7 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun initClickListener() {
-        binding.eprofile.setOnClickListener(object : View.OnClickListener {
+        binding.editProfile.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
                 val profileSecondFragment = ProfileSecondFragment()
                 (requireActivity()as HomeActivity).replaceFragment(profileSecondFragment.javaClass, "", true, bundle, null, 0, false)}

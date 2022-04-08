@@ -38,7 +38,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.mikhaellopez:circularimageview:4.3.0'
     implementation "androidx.core:core-ktx:$ktxVersion"
     implementation "androidx.appcompat:appcompat:$appCompactVersion"
     implementation "com.google.android.material:material:$materialVersion"
@@ -62,8 +61,6 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_core_version"
     //lifecycle
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_viewmodel_version"
-  //  implementation "com.hbb20:ccp:2.3.1"
-
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'me.relex:circleindicator:2.1.4'
     implementation 'com.mikhaellopez:circularimageview:4.3.0'

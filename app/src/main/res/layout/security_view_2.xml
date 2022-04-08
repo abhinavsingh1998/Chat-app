@@ -23,10 +23,8 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/jostmedium"
+        style="@style/text_style_text_color_14"
         android:text="Whatsapp Communication"
-        android:textColor="#17171c"
-        android:textSize="12sp"
-        android:textStyle="normal"
         app:layout_constraintStart_toStartOf="@+id/view2"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,9 +35,7 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="28dp"
         android:fontFamily="@font/jostregular"
-        android:textColor="#9192a0"
-        android:textSize="11sp"
-        android:textStyle="normal"
+        style="@style/text_style_lightgrey_14"
         app:layout_constraintStart_toStartOf="@+id/view2"
         app:layout_constraintTop_toTopOf="parent"
         android:text="Control location access here" />

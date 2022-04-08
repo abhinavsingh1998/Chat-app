@@ -30,7 +30,7 @@ class SettingsAdapter (private val newsList:ArrayList<SettingsData>):RecyclerVie
     class MyViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
         val tvHeading:TextView= itemView.findViewById(R.id.tvHeading)
         val desc:TextView= itemView.findViewById(R.id.desc)
-//        val Switch:SwitchCompat=itemView.findViewById(R.id.Switch)
+
     }
 
 }
