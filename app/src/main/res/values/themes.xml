@@ -324,6 +324,12 @@
         <item name="android:textColor">@color/text_color</item>
         <item name="singleLine">true</item>
     </style>
+    <style name="text_style_text_14">
+        <item name="android:gravity">center|left</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="singleLine">true</item>
+    </style>
 
     <style name="text_style_text_color_16">
         <item name="android:gravity">center</item>
