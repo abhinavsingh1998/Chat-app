@@ -36,7 +36,7 @@ class ProfileFragment : BaseFragment() {
 
 
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible=true
-        (requireActivity()as HomeActivity).activityHomeActivity.searchLayout.topView.isVisible= false
+        (requireActivity()as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible= false
         initClickListener()
         return binding.root
     }
