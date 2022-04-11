@@ -16,7 +16,7 @@ import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.fragments.FinancialAndProjectFragment
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
-import com.emproto.hoabl.fragments.ProfileFragment
+import com.emproto.hoabl.feature.profileui.ProfileFragment
 import com.emproto.hoabl.fragments.PromisesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -49,7 +49,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         )
 
         if (savedInstanceState == null) {
-            activityHomeActivity.includeNavigation.bottomNavigation.selectedItemId =
+            activityHomeActivity.includeNavigation.bottomNavigation.selectedItemId=
                 R.id.navigation_hoabl  // change to whichever id should be default
         }
 
@@ -138,9 +138,9 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         try {
             val finalTag: String
             if (extraTag != null && extraTag.equals(""))
-                finalTag = fragmentClass.simpleName + extraTag
+                finalTag=fragmentClass.simpleName + extraTag
             else
-                finalTag = fragmentClass.simpleName
+                finalTag=fragmentClass.simpleName
 
             val isPopBackStack = supportFragmentManager.popBackStackImmediate(finalTag, 0)
             if (!isPopBackStack) {
@@ -197,7 +197,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             }
             true -> {
                 fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit)
-                    .replace(R.id.container, fragment, fragment.javaClass.name)
+                    .replace(R.id.container,fragment,fragment.javaClass.name)
                     .addToBackStack(fragment.javaClass.name).commit()
             }
         }
