@@ -151,9 +151,6 @@
     <string name="choose_skus">choose_skus</string>
     <string name="premium_location">premium_location</string>
     <string name="details">details</string>
-    <string name="testimonials">testimonials</string>
-    <string name="similar_investments">similar_investments</string>
-    <string name="view_on_map">view_on_map</string>
     <string-array name="Languages">
         <item>All</item>
         <item>Kotlin</item>
@@ -262,4 +259,5 @@
     <string name="answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer">Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer</string>
     <string name="view_1_textview">View 1 TextView</string>
     <string name="health_center">Health Center</string>
+    <string name="documents">Documents</string>
 </resources>
