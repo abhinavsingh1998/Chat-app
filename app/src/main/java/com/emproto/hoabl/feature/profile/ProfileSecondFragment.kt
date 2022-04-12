@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.profileui
+package com.emproto.hoabl.feature.profile
 
 import android.app.DatePickerDialog
 import android.os.Bundle

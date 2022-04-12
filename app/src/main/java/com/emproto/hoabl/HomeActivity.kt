@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.emproto.core.BaseActivity
@@ -16,7 +15,7 @@ import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.fragments.FinancialAndProjectFragment
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
-import com.emproto.hoabl.feature.profileui.ProfileFragment
+import com.emproto.hoabl.feature.profile.ProfileFragment
 import com.emproto.hoabl.fragments.PromisesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
