@@ -184,7 +184,7 @@
     <string name="personal_details">Personal Details</string>
     <string name="lastname">LastName</string>
     <string name="save_and_update">Save and Update</string>
-<!--    <string name="settings_text">Settings</string>-->
+    <!--    <string name="settings_text">Settings</string>-->
     <string name="emergency_text1">Report a security emergency</string>
     <string name="Settings">Settings</string>
     <string name="my_account">My Account</string>
@@ -194,7 +194,7 @@
     <string name="investment">Investment</string>
     <string name="payments">Payments</string>
     <string name="category_1">Category 1</string>
-<!--    <string name="settings_text2">Settings</string>-->
+    <!--    <string name="settings_text2">Settings</string>-->
     <string name="emergency_text">Report a security emergency</string>
     <string name="see_project_details">See Project Details</string>
     <string name="view_timeline">View Timeline</string>
@@ -259,4 +259,9 @@
     <string name="answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer">Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer</string>
     <string name="view_1_textview">View 1 TextView</string>
     <string name="health_center">Health Center</string>
+    <string name="new_generation_land_is_now_safe_and_secure_owning_land_will_never_feel_like_a_gamble_again">New Generation Land is now safe and secure. Owning land will never feel like a gamble again.</string>
+    <string name="read_our_terms_amp_conditions"><![CDATA[Read our Terms & Conditions]]></string>
+    <string name="just_invest_we_have_your_back">Just Invest We have your back!</string>
+    <string name="buy_maintain_and_liquidate_land_with_amazing_ease_con_dence_and_trust">Buy, maintain and liquidate land with amazing ease, conﬁdence and trust.</string>
+    <string name="desc">Desc</string>
 </resources>
