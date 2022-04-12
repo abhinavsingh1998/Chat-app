@@ -10,13 +10,14 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.core.BaseFragment
 import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentHoabelPromisesBinding
 import com.emproto.hoabl.feature.home.promisesUi.data.DataModel
 
 
-class HoabelPromises : Fragment() {
+class HoabelPromises : BaseFragment() {
 
     lateinit var binding: FragmentHoabelPromisesBinding
     private lateinit var adapter: HoabelPromiseAdapter
@@ -71,20 +72,13 @@ class HoabelPromises : Fragment() {
             R.drawable.ic_path_33289,
             R.drawable.ic_combined_shape__2_))
         adapter.setDataList(dataList)
-        initClickListener()
+
         binding.recyclerView.adapter = adapter
         adapter.setItemClickListener(onItemClickListener)
         return binding.root
     }
 
-    private fun initClickListener() {
-        binding.tvPromise.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                val firstPromiseScreenFragment =PromiseSecondScreenFragment()
-                (requireActivity()as HomeActivity).replaceFragment(firstPromiseScreenFragment.javaClass, "", true, bundle, null, 0, false)}
-        })
 
-    }
 }
 
 

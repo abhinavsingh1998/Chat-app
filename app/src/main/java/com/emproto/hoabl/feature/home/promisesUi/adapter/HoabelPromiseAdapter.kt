@@ -58,7 +58,6 @@ class HoabelPromiseAdapter(var context: Context) : RecyclerView.Adapter<HoabelPr
 
 
     }
-
     override fun getItemCount() = dataList.size
 
     fun setItemClickListener(clickListener: View.OnClickListener) {
