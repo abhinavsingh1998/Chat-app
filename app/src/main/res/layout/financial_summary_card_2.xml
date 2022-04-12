@@ -9,10 +9,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_size_30"
-        android:layout_marginLeft="@dimen/margin_size_12"
+        android:layout_marginStart="@dimen/margin_size_12"
         app:layout_constraintTop_toTopOf="parent"
         android:text="Summary - Ongoing Investments"
-        android:fontFamily="@font/jost_regular"
+        android:fontFamily="@font/jost_medium"
         android:textSize="@dimen/text_size_18"
         android:textColor="@color/text_color"
         app:layout_constraintLeft_toLeftOf="parent"/>
@@ -22,11 +22,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_size_14"
-        android:layout_marginLeft="@dimen/margin_size_12"
-        android:layout_marginRight="@dimen/margin_size_210"
+        android:layout_marginHorizontal="@dimen/margin_size_12"
         app:layout_constraintTop_toBottomOf="@id/content_header"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/cardView_2"
         android:background="@drawable/financial_summary_light_card">
 
         <com.emproto.core.textviews.CustomTextView
@@ -37,8 +36,8 @@
             android:layout_marginTop="@dimen/margin_size_14"
             android:layout_marginBottom="@dimen/margin_size_37"
             android:text="No. of Products"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_12"
+            android:fontFamily="@font/jost_medium"
+            style="@style/text_style_text_color_16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -51,8 +50,8 @@
             android:layout_marginTop="@dimen/margin_size_3"
             android:layout_marginBottom="@dimen/margin_size_14"
             android:text="2"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_13"
+            android:fontFamily="@font/jost_regular"
+            style="@style/text_style_text_brown_color_14"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/card_name_1" />
@@ -62,14 +61,11 @@
         android:id="@+id/cardView_2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_size_210"
-        android:layout_marginTop="12dp"
-        android:layout_marginRight="@dimen/margin_size_12"
+        android:layout_marginEnd="@dimen/margin_size_12"
         android:background="@drawable/financial_summary_light_card"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/content_header">
+        app:layout_constraintStart_toEndOf="@id/cardView_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/cardView_1">
 
         <com.emproto.core.textviews.CustomTextView
             android:id="@+id/card_name_2"
@@ -78,9 +74,9 @@
             android:layout_marginLeft="@dimen/margin_size_14"
             android:layout_marginTop="@dimen/margin_size_14"
             android:layout_marginBottom="@dimen/margin_size_37"
-            android:text="No. of Products"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_12"
+            android:text="Sqft Applied"
+            android:fontFamily="@font/jost_medium"
+            style="@style/text_style_text_color_16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -92,9 +88,9 @@
             android:layout_marginLeft="@dimen/margin_size_14"
             android:layout_marginTop="@dimen/margin_size_3"
             android:layout_marginBottom="@dimen/margin_size_14"
-            android:text="2"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_13"
+            android:text="3600"
+            android:fontFamily="@font/jost_regular"
+            style="@style/text_style_text_brown_color_14"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/card_name_2" />
@@ -105,11 +101,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_size_12"
-        android:layout_marginLeft="@dimen/margin_size_12"
-        android:layout_marginRight="@dimen/margin_size_210"
+        android:layout_marginHorizontal="@dimen/margin_size_12"
         app:layout_constraintTop_toBottomOf="@id/cardView_1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/card_View_4"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/financial_summary_light_card">
 
         <com.emproto.core.textviews.CustomTextView
@@ -119,9 +115,9 @@
             android:layout_marginLeft="@dimen/margin_size_14"
             android:layout_marginTop="@dimen/margin_size_14"
             android:layout_marginBottom="@dimen/margin_size_37"
-            android:text="No. of Products"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_12"
+            android:text="Amount Invested"
+            android:fontFamily="@font/jost_medium"
+            style="@style/text_style_text_color_16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -133,9 +129,9 @@
             android:layout_marginLeft="@dimen/margin_size_14"
             android:layout_marginTop="@dimen/margin_size_3"
             android:layout_marginBottom="@dimen/margin_size_14"
-            android:text="2"
-            android:textColor="@color/text_black_color"
-            android:textSize="@dimen/text_size_13"
+            android:text="₹ 36,00,000"
+            android:fontFamily="@font/jost_regular"
+            style="@style/text_style_text_brown_color_14"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/card_name_3" />
@@ -145,14 +141,12 @@
         android:id="@+id/card_View_4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_size_210"
-        android:layout_marginTop="@dimen/margin_size_12"
         android:layout_marginRight="@dimen/margin_size_12"
         android:background="@drawable/financial_summary_light_card"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView_2">
+        app:layout_constraintBottom_toBottomOf="@id/cardView_3"
+        app:layout_constraintStart_toEndOf="@id/cardView_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cardView_3">
 
         <com.emproto.core.textviews.CustomTextView
             android:id="@+id/card_name_4"
@@ -161,9 +155,9 @@
             android:layout_marginLeft="@dimen/margin_size_14"
             android:layout_marginTop="@dimen/margin_size_14"
             android:layout_marginBottom="@dimen/margin_size_37"
-            android:text="No. of Products"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_12"
+            android:text="Amount Pending"
+            android:fontFamily="@font/jost_medium"
+            style="@style/text_style_text_color_16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -175,9 +169,9 @@
             android:layout_marginLeft="@dimen/margin_size_14"
             android:layout_marginTop="@dimen/margin_size_3"
             android:layout_marginBottom="@dimen/margin_size_14"
-            android:text="2"
-            android:textColor="@color/text_black_color"
-            android:textSize="@dimen/text_size_13"
+            android:text="₹ 36,00,000"
+            android:fontFamily="@font/jost_regular"
+            style="@style/text_style_text_brown_color_14"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/card_name_4" />

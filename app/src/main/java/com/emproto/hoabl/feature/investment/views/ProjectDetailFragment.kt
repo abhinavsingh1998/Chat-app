@@ -9,6 +9,7 @@ import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ProjectDetailLayoutBinding
 import com.emproto.hoabl.feature.investment.adapters.ProjectDetailAdapter
+import com.emproto.hoabl.feature.investment.views.mediagallery.MediaGalleryFragment
 import com.emproto.hoabl.model.RecyclerViewItem
 
 
@@ -26,6 +27,10 @@ class ProjectDetailFragment:BaseFragment() {
                 R.id.tv_skus_see_all -> {
                     val landSkusFragment = LandSkusFragment()
                     (requireActivity() as HomeActivity).replaceFragment(landSkusFragment.javaClass, "", true, null, null, 0, false)
+                }
+                R.id.tv_video_drone_see_all -> {
+                    val mediaGalleryFragment = MediaGalleryFragment()
+                    (requireActivity() as HomeActivity).replaceFragment(mediaGalleryFragment.javaClass,"",true,null,null,0,false)
                 }
             }
         }

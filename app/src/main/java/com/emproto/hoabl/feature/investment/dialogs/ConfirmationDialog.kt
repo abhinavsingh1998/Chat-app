@@ -40,7 +40,7 @@ class ConfirmationDialog() :DialogFragment(),View.OnClickListener {
         dialog!!.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
-    override fun onClick(v: View) {
+    override fun onClick(v:View) {
         when(v.id){
             R.id.tv_yes_text -> {
                 dialog?.dismiss()

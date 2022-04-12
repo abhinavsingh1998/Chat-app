@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_ongoing_investment_title"
+        style="@style/text_style_text_light_black_color_18"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_size_12"
+        android:layout_marginTop="@dimen/margin_size_30"
+        android:fontFamily="@font/jost_medium"
+        android:text="Ongoing Investments"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_ongoing_investment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_ongoing_investment_title"
+        tools:itemCount="1"
+        tools:listitem="@layout/item_completed_investments" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_manage_projects"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_size_80"
+        android:background="@drawable/button_bg"
+        android:drawableEnd="@drawable/ic_baseline_arrow_right"
+        android:paddingStart="@dimen/margin_size_45"
+        android:paddingTop="@dimen/margin_size_12"
+        android:paddingEnd="@dimen/margin_size_45"
+        android:paddingBottom="@dimen/margin_size_12"
+        android:layout_marginVertical="@dimen/margin_size_50"
+        android:text="Manage Projects"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_ongoing_investment" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

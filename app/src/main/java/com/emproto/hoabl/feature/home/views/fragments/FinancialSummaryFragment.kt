@@ -5,57 +5,54 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseActivity
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.HomeActivity
+import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentFinancialSummaryBinding
+import com.emproto.hoabl.feature.home.adapters.FinancialSumAdapter
 import com.emproto.hoabl.feature.home.adapters.FinancialSummaryAdapter
+import com.emproto.hoabl.feature.investment.views.LandSkusFragment
+import com.emproto.hoabl.feature.investment.views.OpportunityDocsFragment
+import com.emproto.hoabl.feature.investment.views.mediagallery.MediaGalleryFragment
 import com.emproto.hoabl.model.FinancialSummaryItems
+import com.emproto.hoabl.model.RecyclerViewItem
 
 
 class FinancialSummaryFragment : BaseFragment() {
 
+    private lateinit var binding: FragmentFinancialSummaryBinding
+    private lateinit var adapter: FinancialSumAdapter
 
-    lateinit var binding: FragmentFinancialSummaryBinding
-    lateinit var adapter: FinancialSummaryAdapter
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        binding = FragmentFinancialSummaryBinding.inflate(layoutInflater)
-
-
-        binding.financialRecycler.layoutManager = LinearLayoutManager(requireContext())
-
-        val detailAdapter = FinancialSummaryAdapter(requireContext(), initData())
-        binding.financialRecycler.adapter = detailAdapter
-
-        binding.btnManageProjects.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(p0: View?) {
-                (requireActivity()as HomeActivity).addFragment(PortfolioSpecificViewFragment.newInstance(),true)
+    private val onItemClickListener =
+        View.OnClickListener { view ->
+            when (view.id) {
+                R.id.btn_manage_projects ->{
+                    val portfolioSpecificViewFragment = PortfolioSpecificViewFragment()
+                    (requireActivity() as HomeActivity).replaceFragment(portfolioSpecificViewFragment.javaClass, "", true, null, null, 0, false)
+                }
             }
-
-        })
-
+        }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
+        binding = FragmentFinancialSummaryBinding.inflate(layoutInflater)
         return binding.root
     }
 
-    private fun initData(): ArrayList<FinancialSummaryItems> {
-        val itemList: ArrayList<FinancialSummaryItems> = ArrayList<FinancialSummaryItems>()
-
-        itemList.add(FinancialSummaryItems("No. of Products", "2",
-            "Area in Sqft", "3600",
-            "Amount Invested", "36,00,000",
-            "Avg Estimated Appreciation", "+4%"))
-        itemList.add(FinancialSummaryItems("No. of Products", "2",
-            "Sqft Applied", "3600",
-            "Amount Invested", "36,00,000",
-            "Amount Pending", "36,00,000"))
-
-        return itemList
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpRecyclerView()
     }
 
+    private fun setUpRecyclerView() {
+        val list = ArrayList<RecyclerViewItem>()
+        list.add(RecyclerViewItem(1))
+        list.add(RecyclerViewItem(2))
+        list.add(RecyclerViewItem(3))
+        list.add(RecyclerViewItem(4))
+        adapter = FinancialSumAdapter(requireContext(), list)
+        binding.financialRecycler.adapter = adapter
+        adapter.setItemClickListener(onItemClickListener)
+    }
 
 }

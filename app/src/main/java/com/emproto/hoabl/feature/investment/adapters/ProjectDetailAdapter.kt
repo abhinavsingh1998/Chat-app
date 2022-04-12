@@ -146,6 +146,7 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<R
             itemList.add(ViewItem(5, R.drawable.new_investment_page_image))
             videoDroneAdapter = VideoDroneAdapter(itemList)
             binding.rvVideoDrone.adapter = videoDroneAdapter
+            binding.tvVideoDroneSeeAll.setOnClickListener(onItemClickListener)
         }
     }
 
