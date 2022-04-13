@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.MVVM.home.HomeViewModel
-import com.emproto.hoabl.adapters.HoABLPromisesAdapter
+import com.emproto.hoabl.feature.home.adapters.HoABLPromisesAdapter
 import com.emproto.hoabl.adapters.InsightsAdapter
 import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
 import com.emproto.hoabl.adapters.LatestUpdateAdapter

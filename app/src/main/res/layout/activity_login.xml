@@ -47,72 +47,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!--
-                        <LinearLayout
-                            android:id="@+id/linearLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_marginLeft="@dimen/margin_size_28"
-                            android:layout_marginTop="@dimen/margin_size_45"
-                            android:layout_marginRight="@dimen/margin_size_28"
-                            android:background="@drawable/edittext_bg"
-                            android:orientation="horizontal"
-                            android:visibility="gone"
-                            app:layout_constraintEnd_toStartOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_login">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:drawableEnd="@drawable/ic_arrow_down"
-                                android:gravity="center"
-                                android:padding="8dp"
-                                android:text="+91"
-                                android:textColor="@color/black" />
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                app:boxBackgroundMode="none"
-                                android:layout_gravity="center|start"
-                                android:gravity="center|start"
-                                android:hint="@string/enter_your_phonenumber">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:drawableEnd="@drawable/ic_arrow_down"
-                                    android:gravity="center"
-                                    android:padding="8dp"
-                                    android:text="+91"
-                                    android:textColor="@color/black"
-                                    android:visibility="gone" />
-
-
-                                <EditText
-                                    android:id="@+id/etMobileNumber"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_gravity="center|left"
-                                    android:fontFamily="@font/jost_medium"
-                                    android:gravity="center|left"
-                                    android:inputType="number"
-                                    android:maxLength="10"
-                                    android:paddingLeft="10dp"
-                                    android:paddingRight="10dp"
-                                    android:textColor="@color/text_color"
-                                    android:textColorHint="@color/text_grey_color"
-                                    android:textSize="@dimen/margin_size_12" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-                        </LinearLayout>
-            -->
-
             <LinearLayout
                 android:id="@+id/layout_edittext"
                 android:layout_width="match_parent"
@@ -123,7 +57,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_login">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/login_edittext"
+                    android:id="@+id/login_edittext_layout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -131,12 +65,12 @@
                     android:layout_marginTop="@dimen/margin_size_45"
                     android:layout_marginRight="@dimen/margin_size_28"
                     android:hint="@string/enter_your_phonenumber"
-                    app:hintTextColor="@color/app_color"
-                    app:prefixText="+91"
-                    app:boxStrokeWidthFocused="0.7dp"
-                    app:prefixTextColor="@color/text_color"
                     android:orientation="vertical"
-                    app:placeholderText="@string/type_here">
+                    app:boxStrokeWidthFocused="0.7dp"
+                    app:hintTextColor="@color/app_color"
+                    app:placeholderText="@string/type_here"
+                    app:prefixText="+91"
+                    app:prefixTextColor="@color/text_color">
 
 
                     <EditText
@@ -153,12 +87,11 @@
                         android:maxLength="10"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-
                         android:textColorHint="@color/text_grey_color" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
 
+            </LinearLayout>
             <com.emproto.core.textviews.CustomTextView
                 android:id="@+id/otp_text"
                 style="@style/text_style_lightgrey_14"
@@ -169,7 +102,7 @@
                 android:text="@string/otp"
                 app:fontName="@string/jost_medium"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_edittext" />
+                app:layout_constraintTop_toBottomOf="@id/layout_edittext"/>
 
             <com.emproto.core.textviews.CustomTextView
                 android:id="@+id/text"
@@ -198,17 +131,17 @@
                     android:id="@+id/whats_com_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="true"
                     android:thumb="@drawable/custom_thumb"
-                    app:track="@drawable/custom_track"
-                    android:checked="false"/>
+                    app:track="@drawable/custom_track" />
 
                 <TextView
                     style="@style/text_style_lightgrey_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_8"
-                    android:text="@string/whatsapp"
-                    android:fontFamily="@font/jost_regular"/>
+                    android:fontFamily="@font/jost_regular"
+                    android:text="@string/whatsapp" />
 
             </LinearLayout>
 
@@ -240,8 +173,8 @@
                 style="@style/text_style_text_color_14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_size_20"
                 android:layout_marginStart="@dimen/margin_size_28"
+                android:layout_marginTop="@dimen/margin_size_20"
                 android:layout_marginEnd="@dimen/margin_size_28"
                 android:text="@string/login_terms_text"
                 app:fontName="@string/jost_regular"

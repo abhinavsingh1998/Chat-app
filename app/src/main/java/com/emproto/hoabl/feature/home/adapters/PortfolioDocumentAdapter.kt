@@ -4,9 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.emproto.hoabl.adapters.HoABLPromisesAdapter
 import com.emproto.hoabl.databinding.ItemDocumentsBinding
-import com.emproto.hoabl.databinding.ItemHoablPromisesBinding
 
 class PortfolioDocumentAdapter (context: Context, list: List<String>) : RecyclerView.Adapter<PortfolioDocumentAdapter.MyViewHolder>() {
 

@@ -46,6 +46,7 @@ class CustomTextView : androidx.appcompat.widget.AppCompatTextView {
             "montserrat_regular" -> R.font.montserrat_regular
             "sign_ainter_house_cript" -> R.font.sign_ainter_house_cript
             "shelldon" -> R.font.shelldon
+            "jost_italic" -> R.font.jost_italic
 
             else -> R.font.jost_regular
         }

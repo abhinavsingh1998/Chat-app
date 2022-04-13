@@ -4,7 +4,7 @@
     android:layout_width="@dimen/margin_size_150"
     android:layout_height="@dimen/margin_size_150"
     app:cardCornerRadius="@dimen/_5sdp"
-    app:cardElevation="@dimen/_4sdp"
+    android:outlineSpotShadowColor="#000000"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true">
 

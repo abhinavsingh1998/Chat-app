@@ -146,15 +146,14 @@
 
                         <com.emproto.core.textviews.CustomTextView
                             android:id="@+id/tv_item_location_name"
+                            style="@style/text_style_white_12"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="@dimen/margin_size_12"
                             android:layout_marginVertical="@dimen/margin_size_4"
-                            android:fontFamily="@font/jost_regular"
+                            android:fontFamily="@font/jost_bold"
                             android:singleLine="true"
                             android:text="Isle of Bliss"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/text_size_12"
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -274,7 +273,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_size_10"
                 android:layout_marginVertical="@dimen/margin_size_10"
-                android:fontFamily="@font/jost_light"
+                android:fontFamily="@font/jost_regular"
                 android:text="Beach side lifestyle near Mumbai with luxurious amenities and affordable rates"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_13"
@@ -317,7 +316,7 @@
         android:layout_width="@dimen/margin_size_14"
         android:layout_height="7dp"
         android:layout_marginStart="@dimen/margin_size_4"
-        android:src="@drawable/ic_arrow_forward_black"
+        android:src="@drawable/ic_black_long_rightarrow"
         app:layout_constraintBottom_toBottomOf="@id/tv_apply_now"
         app:layout_constraintStart_toEndOf="@id/tv_apply_now"
         app:layout_constraintTop_toTopOf="@id/tv_apply_now" />

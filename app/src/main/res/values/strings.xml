@@ -165,4 +165,7 @@
     <string name="price_text_draft">$20 L\nOnwards</string>
     <string name="area_text_draft">2000 sqft\nOnwards</string>
     <string name="price_text">Price</string>
+    <string name="continue_txt">Continue</string>
+    <string name="confirmation_msg">Your query has been submitted successfully.</string>
+    <!--    <string name="resend_otp">RESEND OTP</string>-->
 </resources>

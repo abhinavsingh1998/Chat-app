@@ -10,8 +10,8 @@ import android.view.ViewGroup
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityOtpVerifyBinding
-import com.emproto.hoabl.feature.home.login.AuthActivity
-import com.emproto.hoabl.feature.home.login.NameInputFragment
+import com.emproto.hoabl.feature.login.AuthActivity
+import com.emproto.hoabl.feature.login.NameInputFragment
 
 
 class OTPVerificationFragment : BaseFragment() {

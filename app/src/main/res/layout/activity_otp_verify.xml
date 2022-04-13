@@ -111,14 +111,28 @@
                     android:fontFamily="@font/jost_medium"
                     android:gravity="center|left"
                     android:inputType="number"
+                    android:letterSpacing="1"
                     android:maxLength="6"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:textColor="@color/text_color"
                     android:textColorHint="@color/text_grey_color" />
 
+
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.emproto.core.textviews.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_style_blue_14"
+                android:fontFamily="@font/jost_bold"
+                android:layout_marginEnd="@dimen/margin_size_18"
+                android:text="@string/resend_otp"
+                android:textStyle="bold"
+                app:layout_constraintRight_toRightOf="@+id/login_edittext"
+                app:layout_constraintTop_toTopOf="@+id/login_edittext"
+                app:layout_constraintBottom_toBottomOf="@+id/login_edittext"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

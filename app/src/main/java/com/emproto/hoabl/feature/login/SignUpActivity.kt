@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.home.login
+package com.emproto.hoabl.feature.login
 
 import android.os.Bundle
 import com.emproto.core.BaseActivity

@@ -28,7 +28,7 @@
         </activity>
 
         <activity
-            android:name=".feature.home.login.AuthActivity"
+            android:name="com.emproto.hoabl.feature.login.AuthActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.HOABL_BLACK_BAR"
@@ -42,7 +42,7 @@
         </activity>
 
         <activity
-            android:name=".feature.home.login.SignUpActivity"
+            android:name="com.emproto.hoabl.feature.login.SignUpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.HOABL_BLACK_BAR"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
