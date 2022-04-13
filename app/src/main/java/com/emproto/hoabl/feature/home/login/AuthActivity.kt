@@ -16,12 +16,9 @@ class AuthActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         activityAuthBinding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(activityAuthBinding.root)
-
-
         initView()
         initClickListener()
     }
-
     private fun initClickListener() {
 
         activityAuthBinding.textTrouble.setOnClickListener(View.OnClickListener {

@@ -72,7 +72,7 @@ class NameInputFragment : BaseFragment() {
                             getDrawable(requireContext(), R.drawable.button_bg)
 
                         binding.submitBtn.setOnClickListener(View.OnClickListener {
-                            startActivity(Intent(requireContext(),HomeActivity::class.java))
+                            startActivity(Intent(requireContext(), HomeActivity::class.java))
                         })
                     }
                 }
@@ -106,7 +106,7 @@ class NameInputFragment : BaseFragment() {
                             getDrawable(requireContext(), R.drawable.button_bg)
 
                         binding.submitBtn.setOnClickListener(View.OnClickListener {
-                            startActivity(Intent(requireContext(),HomeActivity::class.java))
+                            startActivity(Intent(requireContext(), HomeActivity::class.java))
                         })
 
                     }

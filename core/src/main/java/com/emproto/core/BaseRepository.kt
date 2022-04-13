@@ -2,11 +2,6 @@ package com.emproto.core
 
 import android.app.Application
 
-abstract class BaseRepository{
+abstract class BaseRepository(val application: Application){
 
-    open var application: Application? = null
-
-    open fun BaseRepository(application: Application?) {
-        this.application = application
-    }
 }

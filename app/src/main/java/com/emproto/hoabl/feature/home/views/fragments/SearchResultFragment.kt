@@ -7,17 +7,12 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.emproto.core.BaseFragment
 import com.emproto.core.Database.TableModel.SearchModel
-import com.emproto.hoabl.MVVM.home.HomeFactory
-import com.emproto.hoabl.MVVM.home.HomeViewModel
+import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.databinding.FragmentSearchResultBinding
 import com.emproto.hoabl.feature.home.adapters.SearchResultAdapter
-import javax.inject.Inject
 
 class SearchResultFragment : BaseFragment() {
 
@@ -77,21 +72,21 @@ class SearchResultFragment : BaseFragment() {
     }
 
     private fun initClickListener() {
-//        fragmentSearchResultBinding.toolbar.search.addTextChangedListener(object : TextWatcher{
-//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//                if (p0.toString().isNotEmpty()){
-//                    val searchModel=SearchModel(searchName = p0.toString())
-//                  //  homeViewModel.insertRecord(searchModel)
-//                    fragmentSearchResultBinding.toolbar.search.setText(p0.toString())
-//                }
-//            }
-//
-//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//            }
-//
-//            override fun afterTextChanged(p0: Editable?) {
-//            }
-//        })
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.search.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (p0.toString().isNotEmpty()){
+                    val searchModel=SearchModel(searchName = p0.toString())
+                  //  homeViewModel.insertRecord(searchModel)
+                    (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.search.setText(p0.toString())
+                }
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+        })
 
     }
 
