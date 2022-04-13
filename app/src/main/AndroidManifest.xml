@@ -19,11 +19,6 @@
             android:name=".feature.home.views.IntroSliderActivity"
             android:exported="true"
             android:theme="@style/Theme.HOABL">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
 
@@ -34,11 +29,6 @@
             android:theme="@style/Theme.HOABL_BLACK_BAR"
             android:windowSoftInputMode="adjustNothing">
 
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
         </activity>
 
         <activity
@@ -55,11 +45,11 @@
             android:theme="@style/Theme.HOABL_BLACK_BAR"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
 
-           <!-- <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
 
         <activity

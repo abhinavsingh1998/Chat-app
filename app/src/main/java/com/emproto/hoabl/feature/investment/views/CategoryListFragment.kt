@@ -32,11 +32,16 @@ class CategoryListFragment:BaseFragment(),View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpUI()
         setUpClickListeners()
         setUpCategoryAdapter()
         setUpPriceSpinner()
         setUpAreaSpinner()
         setUpValiditySpinner()
+    }
+
+    private fun setUpUI() {
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
     }
 
     private fun setUpValiditySpinner() {
@@ -102,9 +107,9 @@ class CategoryListFragment:BaseFragment(),View.OnClickListener {
     }
 
     private fun setUpClickListeners() {
-        binding.cvFilterPriceCard.setOnClickListener(this)
-        binding.cvFilterAreaCard.setOnClickListener(this)
-        binding.cvFilterValidityCard.setOnClickListener(this)
+//        binding.cvFilterPriceCard.setOnClickListener(this)
+//        binding.cvFilterAreaCard.setOnClickListener(this)
+//        binding.cvFilterValidityCard.setOnClickListener(this)
     }
 
     private fun setUpCategoryAdapter() {
@@ -122,7 +127,7 @@ class CategoryListFragment:BaseFragment(),View.OnClickListener {
     }
 
     private val itemClickListener = object : ItemClickListener {
-        override fun onItemClicked(item: String) {
+        override fun onItemClicked(view: View, position: Int, item: String) {
             val projectDetailFragment = ProjectDetailFragment()
             (requireActivity() as HomeActivity).replaceFragment(projectDetailFragment.javaClass, "", true, null, null, 0, false)
         }

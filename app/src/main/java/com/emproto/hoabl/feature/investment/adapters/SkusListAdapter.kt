@@ -23,7 +23,7 @@ class SkusListAdapter(private val list:List<String>):RecyclerView.Adapter<SkusLi
 
     override fun getItemCount(): Int = list.size
 
-    fun setItemClickListener(clickListener: View.OnClickListener) {
+    fun setSkusListItemClickListener(clickListener: View.OnClickListener) {
         onItemClickListener = clickListener
     }
 

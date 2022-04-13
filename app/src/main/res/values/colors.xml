@@ -66,4 +66,17 @@
     <color name="opp_doc_ash_line">#b6b3d0</color>
     <color name="opp_doc_item_text_color">#b7000000</color>
     <color name="land_skus_text_black_color">#28282e</color>
+    <color name="text_gold_colr">#66570d</color>
+    <color name="text_ash_light_color">#d9dae5</color>
+    <color name="photos_filter_text_color">#e7e8fe</color>
+    <color name="photos_filter_selected_text_color">#d8d9e0</color>
+    <color name="dark_ash_background_color">#e4e4e9</color>
+    <color name="completed_investment_ash_line">#eeeef8</color>
+    <color name="completed_investment_ash_text_color">#878790</color>
+    <color name="ash_background_color">#ebebf0</color>
+    <color name="rating_green_color">#23a740</color>
+    <color name="completed_inv_brown_color_text">#434030</color>
+    <color name="rating_percent_green_color">#21b342</color>
+    <color name="rating_dark_green_color">#5ee67c</color>
+    <color name="rating_dark_green">#44b75d</color>
 </resources>

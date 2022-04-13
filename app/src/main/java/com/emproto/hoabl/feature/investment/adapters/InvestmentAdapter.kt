@@ -18,9 +18,7 @@ class InvestmentAdapter(val context: Context, list: List<String>, private val th
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        when(theme){
-            "SmartDeals" -> holder.binding.cvBannerCard.visibility = View.VISIBLE
-        }
+
     }
 
     override fun getItemCount(): Int {

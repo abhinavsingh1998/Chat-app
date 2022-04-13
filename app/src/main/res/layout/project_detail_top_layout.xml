@@ -38,26 +38,24 @@
             android:layout_marginHorizontal="@dimen/margin_size_8"
             android:gravity="start|top|center"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@id/cv_small_top_image"
             app:layout_constraintStart_toEndOf="@id/cv_small_top_image"
             app:layout_constraintTop_toTopOf="@id/cv_small_top_image">
 
-            <com.emproto.core.textviews.CustomTextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/jost_regular"
+                android:fontFamily="@font/jost_medium"
                 android:singleLine="true"
                 android:text="Isle of Bliss"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_12"
+                style="@style/text_style_text_black_color_14"
                 android:textStyle="bold" />
 
-            <com.emproto.core.textviews.CustomTextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pune, Maharashtra"
-                android:textColor="@color/text_black_color"
-                android:textSize="@dimen/text_size_10"
+                android:fontFamily="@font/jost_regular"
+                style="@style/text_style_text_light_black_color_12"
                 android:textStyle="normal" />
         </LinearLayout>
 
@@ -68,7 +66,7 @@
             android:layout_marginHorizontal="@dimen/margin_size_5"
             android:fontFamily="@font/jost_regular"
             android:text="Rise in last 1 Year"
-            android:textSize="@dimen/text_size_12"
+            style="@style/text_style_medium_grey_12"
             app:layout_constraintStart_toEndOf="@id/text_address_layout"
             app:layout_constraintTop_toTopOf="@id/text_address_layout" />
 
@@ -79,8 +77,7 @@
             android:layout_marginStart="@dimen/margin_size_4"
             android:fontFamily="@font/jost_bold"
             android:text="5%"
-            android:textColor="@android:color/holo_green_dark"
-            android:textSize="@dimen/text_size_10"
+            style="@style/text_style_dark_green_color_12"
             app:layout_constraintBottom_toBottomOf="@id/tv_rise_year"
             app:layout_constraintStart_toEndOf="@id/tv_rise_year"
             app:layout_constraintTop_toTopOf="@id/tv_rise_year"
@@ -88,8 +85,8 @@
 
         <ImageView
             android:id="@+id/iv_pd_rating"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
             android:layout_marginEnd="@dimen/margin_size_13"
             android:src="@drawable/ic_upward_double_arrow_green"
             app:layout_constraintStart_toEndOf="@id/tv_rating"
@@ -101,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_size_16"
-            android:src="@drawable/ic_bookmark"
+            android:src="@drawable/ic_favourite"
             app:layout_constraintBottom_toBottomOf="@id/cv_small_top_image"
             app:layout_constraintEnd_toStartOf="@id/iv_share_icon"
             app:layout_constraintTop_toTopOf="@id/cv_small_top_image" />
@@ -111,7 +108,7 @@
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_marginEnd="@dimen/margin_size_16"
-            android:src="@drawable/ic_share"
+            android:src="@drawable/ic_share_black"
             app:layout_constraintBottom_toBottomOf="@id/cv_small_top_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/cv_small_top_image" />
@@ -123,7 +120,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/margin_size_6"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_view"
+            android:src="@drawable/ic_visibility"
             app:layout_constraintStart_toStartOf="@id/text_address_layout"
             app:layout_constraintTop_toBottomOf="@id/cv_small_top_image" />
 
@@ -134,8 +131,7 @@
             android:layout_margin="@dimen/margin_size_3"
             android:fontFamily="@font/jost_regular"
             android:text="6.5k"
-            android:textColor="@color/text_blue_color"
-            android:textSize="@dimen/text_size_10"
+            style="@style/text_style_blue_12"
             app:layout_constraintBottom_toBottomOf="@id/iv_view_image"
             app:layout_constraintStart_toEndOf="@id/iv_view_image"
             app:layout_constraintTop_toTopOf="@id/iv_view_image" />
@@ -159,8 +155,7 @@
             android:layout_margin="@dimen/margin_size_3"
             android:fontFamily="@font/jost_bold"
             android:text="48:43:44 Hrs Left"
-            android:textColor="@color/text_red_color"
-            android:textSize="@dimen/text_size_10"
+            style="@style/text_style_dark_red_12"
             app:layout_constraintBottom_toBottomOf="@id/iv_duration_image"
             app:layout_constraintStart_toEndOf="@id/iv_duration_image"
             app:layout_constraintTop_toTopOf="@id/iv_duration_image" />
@@ -170,7 +165,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_size_7"
-            android:layout_marginTop="@dimen/margin_size_10"
+            android:layout_marginTop="@dimen/margin_size_20"
             android:background="@drawable/left_corner_radius_bg"
             android:backgroundTint="@color/background_yellow_color"
             android:paddingHorizontal="@dimen/margin_size_18"
@@ -179,7 +174,7 @@
             android:textColor="@color/black"
             app:layout_constraintEnd_toStartOf="@id/tv_apply_now"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_view_image" />
+            app:layout_constraintTop_toBottomOf="@id/cv_price_range" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_apply_now"
@@ -206,7 +201,7 @@
             android:paddingHorizontal="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_project_view_info" />
+            app:layout_constraintTop_toBottomOf="@id/tv_view_count" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_dot_layout"
@@ -227,8 +222,7 @@
             android:layout_marginVertical="@dimen/margin_size_12"
             android:lineSpacingMultiplier="1.5"
             android:text="The Isle of Bliss is phase 2 of Codename Bliss Dapoli, a seaside lifestyle plotting development from The House of Abhinandan Lodha…READ MORE"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_12"
+            style="@style/text_style_text_black_color_14"
             android:fontFamily="@font/jost_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -256,10 +250,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/margin_size_16"
                     android:layout_marginTop="@dimen/margin_size_10"
-                    android:fontFamily="@font/jost_bold"
+                    android:fontFamily="@font/jost_semibold"
                     android:text="₹2L - ₹2CR"
-                    android:textSize="@dimen/text_size_18"
-                    android:textColor="@color/black"
+                    style="@style/text_style_text_black_color_18"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -339,7 +332,8 @@
             android:fontFamily="@font/jost_medium"
             android:text="View Opportunity Document"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_10"
+            android:textSize="@dimen/text_size_12"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cv_price_range" />
@@ -349,6 +343,7 @@
             android:layout_width="@dimen/margin_size_14"
             android:layout_height="@dimen/margin_size_7"
             android:layout_marginStart="@dimen/margin_size_4"
+            android:visibility="gone"
             android:src="@drawable/ic_arrow_forward_black"
             app:layout_constraintBottom_toBottomOf="@id/tv_opportunity_doc"
             app:layout_constraintStart_toEndOf="@id/tv_opportunity_doc"

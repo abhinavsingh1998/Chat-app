@@ -39,7 +39,12 @@ class InvestmentFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpUI()
         setUpRecyclerView()
+    }
+
+    private fun setUpUI() {
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.VISIBLE
     }
 
     private fun setUpRecyclerView() {
@@ -53,12 +58,5 @@ class InvestmentFragment : BaseFragment() {
         binding.rvInvestmentPage.adapter= newInvestmentAdapter
         newInvestmentAdapter.setItemClickListener(onInvestmentItemClickListener)
     }
-
-//    override fun onClick(v: View) {
-//        when(v.id){
-//            R.id.tv_smart_deal_see_all -> { (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),false)}
-//            R.id.tv_trending_projects_see_all -> { (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),false) }
-//        }
-//    }
 
 }

@@ -42,7 +42,7 @@
         android:backgroundTint="@color/black"
         android:textAllCaps="false"
         android:fontFamily="@font/jost_medium"
-        android:textSize="@dimen/text_size_10"
+        android:textSize="@dimen/text_size_12"
         android:text="Have any questions? Ask Here"
         android:layout_marginTop="@dimen/margin_size_20"
         android:layout_marginHorizontal="@dimen/margin_size_52"
