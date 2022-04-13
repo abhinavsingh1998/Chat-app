@@ -5,6 +5,7 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/item_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -14,8 +15,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:padding="10dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="10dp">
 
             <View
                 android:id="@+id/fullview_Hoabel"
@@ -41,13 +42,13 @@
 
             <TextView
                 android:id="@+id/title"
+                style="@style/text_style_text_color_16"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/jostbold"
                 android:text="@string/security"
-                style="@style/text_style_text_color_16"
                 android:textColor="#494a67"
                 app:layout_constraintStart_toStartOf="@+id/fullview_Hoabel"
                 app:layout_constraintTop_toBottomOf="@+id/image" />
@@ -67,11 +68,11 @@
                 style="@style/text_style_text_color_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textAlignment="textStart"
                 android:layout_marginTop="@dimen/margin_size_5"
                 android:layout_marginEnd="@dimen/margin_size_35"
                 android:fontFamily="@font/jostregular"
                 android:text="@string/desc"
+                android:textAlignment="textStart"
                 app:layout_constraintEnd_toEndOf="@+id/fullview_Hoabel"
                 app:layout_constraintStart_toStartOf="@id/title"
                 app:layout_constraintTop_toBottomOf="@+id/title" />
