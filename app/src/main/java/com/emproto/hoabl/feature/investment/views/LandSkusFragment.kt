@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
+import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentLandSkusBinding
 import com.emproto.hoabl.feature.investment.adapters.LandSkusAdapter
@@ -41,7 +42,7 @@ class LandSkusFragment:BaseFragment() {
     }
 
     private fun setUpUI() {
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
+        (activity as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
     }
 
     private fun setUpRecyclerview() {

@@ -45,6 +45,37 @@
     <string name="first_name">First Name *</string>
     <string name="help_us">Help us with your</string>
 
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="help_centre_about_us">Help Centre - About Us</string>
+    <string name="Description">We are building a platform that will bring anyone who wants to create wealth to join the New Generation LandTM revolution. Now is your time. You can buy, maintain and liquidate land with amazing ease, conﬁdence and trust. Whether you’re a ﬁrst time buyer or a seasoned investor, we’ve got you covered. We ensure a completely secure experience for our members by keeping track of every single nuance of the ownership journey to</string>
+    <string name="Selling_land_Text">WE ARE NOT SELLING LAND</string>
+    <string name="Changing_land_Text">WE ARE CHANGING LAND FOREVER</string>
+    <string name="Presenting_Text">presenting New Generation LandTM for the New Generation of India</string>
+    <string name="Description2">We are changing what it means to own land. We are making it liquid, so that you’re never stuck with it. We are changing everything that is wrong with it – the red tape, the hassles and the risk. We are using technology to make it fully transparent, easy and desirable. We are modernising and democratising land like no one else in history. But our biggest promise is that we aren’t with you just for the long run, we are with you forever.</string>
+    <string name="name">Anuj Singh</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="my_accounts">My Accounts</string>
+    <string name="payment">Payment Settings, Refferal, Rewards</string>
+
+    <string name="kyc">KYC</string>
+    <string name="general">General</string>
+    <string name="investment">Investment</string>
+    <string name="payments">Payments</string>
+    <string name="category_1">Category 1</string>
+
+    <string name="location">Location Prompt , SMS, Push Notification</string>
+    <string name="profile_security">Security</string>
+    <string name="security_description">Report emergency, control authentication, etc</string>
+    <string name="help_centre">Help Centre</string>
+    <string name="contact_description">Contact, About Us , Privacy Policy,Chat</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="upload_new_picture">Upload New Picture</string>
+    <string name="remove_picture">Remove Picture</string>
+    <string name="personal_details">Personal Details</string>
+    <string name="lastname">LastName</string>
+    <string name="save_and_update">Save and Update</string>
+
+
     <string name="see_all">SEE ALL</string>
     <string name="new_launch_soon">New Launch</string>
     <string name="my_portfolio">My Portfolio Summary</string>
@@ -169,8 +200,8 @@
     <string name="testimonials">Testimonials</string>
     <string name="similar_investments">Similar Investments</string>
     <string name="view_on_map">View on Map</string>
-    <string name="price_text_draft"> 20 LnOnwards</string>
-    <string name="area_text_draft">2000 sqftnOnwards</string>
+    <string name="price_text_draft"> 20 L Onwards</string>
+    <string name="area_text_draft">200sqft Onwards</string>
     <string name="price_text">Price</string>
     <string name="payment_history" />
     <string name="need_input_discussion">Need input/discussion</string>

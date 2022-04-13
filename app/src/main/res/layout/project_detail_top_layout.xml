@@ -242,7 +242,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/project_detail_price_ash_bg">
+                android:background="@drawable/project_detail_price_bg">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_price_range"
