@@ -11,6 +11,10 @@ import com.emproto.networklayer.response.OtpResponse
 import retrofit2.Response
 import javax.inject.Inject
 
+/**
+ * RegistrationDataSource
+ * All End point needed for login module to be specified here too.
+ */
 public class RegistrationDataSource(val application: Application) {
     @Inject
     lateinit var apiService: ApiService

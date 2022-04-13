@@ -13,7 +13,9 @@ import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityLoginBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.viewmodels.AuthViewmodel
 import com.emproto.hoabl.viewmodels.HomeViewModel
+import com.emproto.hoabl.viewmodels.factory.AuthFactory
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.request.OtpRequest
 import com.emproto.networklayer.response.enums.Status
@@ -23,8 +25,8 @@ class LoginFragment : BaseFragment() {
     private lateinit var activityLoginActivity: ActivityLoginBinding
 
     @Inject
-    lateinit var homeFactory: HomeFactory
-    lateinit var homeViewModel: HomeViewModel
+    lateinit var authFactory: AuthFactory
+    lateinit var authViewModel: AuthViewmodel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +34,7 @@ class LoginFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
-        homeViewModel = ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
+        authViewModel = ViewModelProvider(requireActivity(), authFactory)[AuthViewmodel::class.java]
         activityLoginActivity = ActivityLoginBinding.inflate(inflater, container, false)
         initView()
         initClickListeners()
@@ -71,33 +73,36 @@ class LoginFragment : BaseFragment() {
             }
 
         })
+        //TODO to star next screen without calling api
         activityLoginActivity.getOtpButton.setOnClickListener {
-            (requireActivity() as AuthActivity).addFragment(
-                OTPVerificationFragment.newInstance(
-                    activityLoginActivity.etMobile1.text.toString()
-                ), true
-            )
+            //TODO uncomment for no api call
+//            (requireActivity() as AuthActivity).addFragment(
+//                OTPVerificationFragment.newInstance(
+//                    activityLoginActivity.etMobile1.text.toString()
+//                ), true
+//            )
+
+            val otpRequest = OtpRequest(activityLoginActivity.etMobile1.text.toString())
+            authViewModel.getOtp(otpRequest).observe(viewLifecycleOwner, Observer {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        (requireActivity() as AuthActivity).addFragment(
+                            OTPVerificationFragment.newInstance(
+                                activityLoginActivity.etMobile1.text.toString()
+                            ), true
+                        )
+                    }
+                    Status.ERROR -> {
+                        activityLoginActivity.getOtpButton.visibility = View.VISIBLE
+                        activityLoginActivity.progressBar.visibility = View.GONE
+                    }
+                    Status.LOADING -> {
+                        activityLoginActivity.getOtpButton.visibility = View.GONE
+                        activityLoginActivity.progressBar.visibility = View.VISIBLE
+                    }
+                }
+            })
         }
-//            val otpRequest = OtpRequest(activityLoginActivity.etMobile1.text.toString())
-//            homeViewModel.getOtp(otpRequest).observe(viewLifecycleOwner, Observer {
-//                when (it.status) {
-//                    Status.SUCCESS -> {
-//                        (requireActivity() as AuthActivity).addFragment(
-//                            OTPVerificationFragment.newInstance(
-//                                activityLoginActivity.etMobile1.text.toString()
-//                            ), true
-//                        )
-//                    }
-//                    Status.ERROR -> {
-//                        activityLoginActivity.getOtpButton.visibility = View.VISIBLE
-//                        activityLoginActivity.progressBar.visibility = View.GONE
-//                    }
-//                    Status.LOADING -> {
-//                        activityLoginActivity.getOtpButton.visibility = View.GONE
-//                        activityLoginActivity.progressBar.visibility = View.VISIBLE
-//                    }
-//                }
-//            })
     }
 
 }
