@@ -22,22 +22,10 @@ class HoabelPromises : BaseFragment() {
     lateinit var binding: FragmentHoabelPromisesBinding
     private lateinit var adapter: HoabelPromiseAdapter
     lateinit var recyclerView: RecyclerView
-    lateinit var tv_promise:TextView
+    lateinit var tv_promise: TextView
     private var dataList = ArrayList<DataModel>()
     val bundle = Bundle()
-    private val onItemClickListener =
-        View.OnClickListener { view ->
-            when (view.id) {
-                R.id.title ->{
-                    val firstPromiseScreenFragment = PromiseSecondScreenFragment()
-                    (requireActivity() as HomeActivity).replaceFragment(firstPromiseScreenFragment.javaClass, "", true, null, null, 0, false)
-                }
-                R.id.fullview_Hoabel -> {
-                    val firstPromiseScreenFragment= PromiseSecondScreenFragment()
-                    (requireActivity() as HomeActivity).replaceFragment(firstPromiseScreenFragment.javaClass, "", true, null, null, 0, false)
-                }
-            }
-        }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,36 +33,73 @@ class HoabelPromises : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHoabelPromisesBinding.inflate(inflater, container, false)
-        binding.recyclerView.layoutManager= GridLayoutManager(requireContext(),2)
-        val adapter= HoabelPromiseAdapter(requireContext())
-        binding.recyclerView.adapter= adapter
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible = true
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
+            true
 
+        val dataList = ArrayList<DataModel>()
+        dataList.add(
+            DataModel(
+                "Security", "100% safe and secure physical possession",
+                R.drawable.securitylock,
+                R.drawable.ic_combined_shape__2_
+            )
+        )
+        dataList.add(
+            DataModel(
+                "Wealth", "100% assured resale with Capital Protection",
+                R.drawable.ic_group_64,
+                R.drawable.ic_combined_shape__2_
+            )
+        )
+        dataList.add(
+            DataModel(
+                "Transperancy", "100% Money back before registration.",
+                R.drawable.ic_path_33289,
+                R.drawable.ic_combined_shape__2_
+            )
+        )
+        dataList.add(
+            DataModel(
+                "Liquidity", "Owning land will never feel like a gamble again.",
+                R.drawable.ic_path_33289,
+                R.drawable.ic_combined_shape__2_
+            )
+        )
+        dataList.add(
+            DataModel(
+                "Liquidity", "Owning land will never feel like a gamble again.",
+                R.drawable.ic_path_33289,
+                R.drawable.ic_combined_shape__2_
+            )
+        )
+        dataList.add(
+            DataModel(
+                "Liquidity", "Owning land will never feel like a gamble again.",
+                R.drawable.ic_path_33289,
+                R.drawable.ic_combined_shape__2_
+            )
+        )
 
+        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        val adapter = HoabelPromiseAdapter(
+            requireContext(),
+            dataList,
+            object : HoabelPromiseAdapter.PromisedItemInterface {
+                override fun onClickItem(position: Int) {
+                    val firstPromiseScreenFragment = PromiseSecondScreenFragment()
+                    (requireActivity() as HomeActivity).replaceFragment(
+                        firstPromiseScreenFragment.javaClass,
+                        "",
+                        true,
+                        null,
+                        null,
+                        0,
+                        false
+                    )
+                }
 
-
-        dataList.add(DataModel("Security","100% safe and secure physical possession",
-            R.drawable.securitylock,
-            R.drawable.ic_combined_shape__2_))
-        dataList.add(DataModel("Wealth","100% assured resale with Capital Protection",
-            R.drawable.ic_group_64,
-            R.drawable.ic_combined_shape__2_))
-        dataList.add(DataModel("Transperancy","100% Money back before registration.",
-            R.drawable.ic_path_33289,
-            R.drawable.ic_combined_shape__2_))
-        dataList.add(DataModel("Liquidity","Owning land will never feel like a gamble again.",
-            R.drawable.ic_path_33289,
-            R.drawable.ic_combined_shape__2_))
-        dataList.add(DataModel("Liquidity","Owning land will never feel like a gamble again.",
-            R.drawable.ic_path_33289,
-            R.drawable.ic_combined_shape__2_))
-        dataList.add(DataModel("Liquidity","Owning land will never feel like a gamble again.",
-            R.drawable.ic_path_33289,
-            R.drawable.ic_combined_shape__2_))
-        adapter.setDataList(dataList)
-
+            })
         binding.recyclerView.adapter = adapter
-        adapter.setItemClickListener(onItemClickListener)
         return binding.root
     }
 
