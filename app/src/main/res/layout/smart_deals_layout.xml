@@ -22,8 +22,7 @@
             android:layout_marginTop="@dimen/margin_size_30"
             android:fontFamily="@font/jost_regular"
             android:text="Smart Deals"
-            android:textColor="@color/text_light_black_color"
-            android:textSize="@dimen/text_size_18"
+            style="@style/text_style_text_light_black_color_18"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,8 +34,7 @@
             android:layout_marginTop="@dimen/margin_size_6"
             android:fontFamily="@font/jost_regular"
             android:text="Hurry! Only a few left"
-            android:textColor="@color/text_lightgrey_color"
-            android:textSize="@dimen/text_size_14"
+            style="@style/text_style_lightgrey_14"
             app:layout_constraintStart_toStartOf="@id/tv_smart_deals_title"
             app:layout_constraintTop_toBottomOf="@id/tv_smart_deals_title" />
 
@@ -45,8 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/see_all"
-            android:textColor="@color/text_blue_color"
-            android:textSize="@dimen/text_size_14"
+            style="@style/text_style_blue_14"
             app:layout_constraintBottom_toBottomOf="@id/tv_smart_deals_title"
             app:layout_constraintEnd_toStartOf="@+id/iv_video_drone_arrow_sd"
             app:layout_constraintTop_toTopOf="@id/tv_smart_deals_title" />

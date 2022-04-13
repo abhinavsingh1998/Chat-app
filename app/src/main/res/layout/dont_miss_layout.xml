@@ -19,8 +19,7 @@
         android:layout_marginTop="@dimen/margin_size_25"
         android:fontFamily="@font/jost_regular"
         android:text="Don’t Miss Out"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_18"
+        style="@style/text_style_white_18"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,8 +31,7 @@
         android:layout_marginEnd="@dimen/margin_size_12"
         android:fontFamily="@font/jost_regular"
         android:text="Your Exclusive Oppurtunity to buy land in a breathing beach side estate"
-        android:textColor="@color/text_ash_light_color"
-        android:textSize="@dimen/text_size_14"
+        style="@style/text_style_light_white_14"
         app:layout_constraintEnd_toStartOf="@id/iv_dont_miss_static_image"
         app:layout_constraintStart_toStartOf="@id/tv_dont_miss"
         app:layout_constraintTop_toBottomOf="@id/tv_dont_miss" />

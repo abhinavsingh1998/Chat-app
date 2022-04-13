@@ -127,11 +127,6 @@ class CategoryListFragment:BaseFragment(),View.OnClickListener {
     }
 
     private val itemClickListener = object : ItemClickListener {
-//        override fun onItemClicked(item: String) {
-//            val projectDetailFragment = ProjectDetailFragment()
-//            (requireActivity() as HomeActivity).replaceFragment(projectDetailFragment.javaClass, "", true, null, null, 0, false)
-//        }
-
         override fun onItemClicked(view: View, position: Int, item: String) {
             val projectDetailFragment = ProjectDetailFragment()
             (requireActivity() as HomeActivity).replaceFragment(projectDetailFragment.javaClass, "", true, null, null, 0, false)

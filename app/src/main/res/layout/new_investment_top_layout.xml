@@ -12,17 +12,12 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_new_launch"
+            style="@style/text_style_text_black_color_16"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin_size_17"
             android:fontFamily="@font/jost_regular"
-            android:maxLines="1"
-            android:minLines="1"
-            android:singleLine="true"
             android:text="@string/new_launch_soon"
-            android:textAlignment="center"
-            android:textColor="@color/text_black_color"
-            android:textSize="@dimen/text_size_16"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,6 +25,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_coming_soon"
+            style="@style/text_style_text_color_25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_size_7"
@@ -37,8 +33,6 @@
             android:fontFamily="@font/shelldon"
             android:text="@string/coming_soon"
             android:textAlignment="center"
-            android:textColor="@color/text_black_color"
-            android:textSize="@dimen/text_size_24"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/vw_coming_soon2"
             app:layout_constraintStart_toEndOf="@+id/vw_coming_soon1"
@@ -134,21 +128,20 @@
                             app:layout_constraintTop_toTopOf="@id/cv_small_image">
 
                             <com.google.android.material.textview.MaterialTextView
+                                style="@style/text_style_light_black_color_14"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/jost_regular"
                                 android:singleLine="true"
                                 android:text="Isle of Bliss"
-                                android:textColor="@color/opp_doc_item_text_color"
-                                android:textSize="@dimen/text_size_14"
                                 android:textStyle="bold" />
 
                             <com.google.android.material.textview.MaterialTextView
+                                style="@style/text_style_light_black_color_14"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/jost_regular"
                                 android:text="Pune, Maharashtra"
-                                android:textColor="@color/opp_doc_item_text_color"
                                 android:textSize="@dimen/text_size_14"
                                 android:textStyle="normal" />
                         </LinearLayout>
@@ -173,13 +166,12 @@
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:id="@+id/tv_rating"
+                                style="@style/text_style_dark_green_color_14"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/margin_size_4"
                                 android:fontFamily="@font/jost_bold"
-                                android:text="5%"
-                                android:textColor="@android:color/holo_green_dark"
-                                android:textSize="@dimen/text_size_14" />
+                                android:text="5%" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -197,10 +189,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="end"
-                                android:fontFamily="@font/helvetica_bold"
+                                android:fontFamily="@font/jost_medium"
                                 android:text="#20 L"
-                                android:textColor="@color/text_color"
-                                android:textSize="@dimen/text_size_14" />
+                                style="@style/text_style_text_color_14" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:id="@+id/tv_amount_onwards"
@@ -210,8 +201,7 @@
                                 android:layout_marginStart="@dimen/margin_size_2"
                                 android:fontFamily="@font/jost_light"
                                 android:text="Onwards"
-                                android:textColor="@color/text_color"
-                                android:textSize="@dimen/text_size_14" />
+                                style="@style/text_style_text_color_14" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -229,10 +219,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="end"
-                                android:fontFamily="@font/helvetica_bold"
+                                android:fontFamily="@font/jost_medium"
                                 android:text="2000 sqft"
-                                android:textColor="@color/text_color"
-                                android:textSize="@dimen/text_size_14" />
+                                style="@style/text_style_text_color_14" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:id="@+id/tv_area_onwards"
@@ -242,8 +231,7 @@
                                 android:layout_marginStart="@dimen/margin_size_2"
                                 android:fontFamily="@font/jost_light"
                                 android:text="Onwards"
-                                android:textColor="@color/text_color"
-                                android:textSize="@dimen/text_size_14" />
+                                style="@style/text_style_text_color_14"/>
                         </LinearLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -267,8 +255,7 @@
                                 android:fontFamily="@font/jost_light"
                                 android:lineSpacingMultiplier="1"
                                 android:text="Beach side lifestyle near Mumbai with luxurious amenities and affordable rates"
-                                android:textColor="@color/text_color"
-                                android:textSize="@dimen/text_size_15"
+                                style="@style/text_style__text_color_15"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toStartOf="@id/iv_place_info_arrow"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -294,8 +281,7 @@
                             android:paddingHorizontal="@dimen/margin_size_18"
                             android:paddingVertical="@dimen/margin_size_10"
                             android:text="20 People saw this project in 7 days"
-                            android:textColor="@color/text_gold_color"
-                            android:textSize="@dimen/text_size_14"
+                            style="@style/text_style_dark_gold_color_14"
                             app:layout_constraintEnd_toStartOf="@id/tv_apply_now"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/cl_place_info" />
@@ -309,8 +295,7 @@
                             android:paddingHorizontal="@dimen/margin_size_18"
                             android:paddingVertical="@dimen/margin_size_10"
                             android:text="Apply now"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/text_size_14"
+                            style="@style/text_style_white_14"
                             app:layout_constraintBottom_toBottomOf="@id/tv_view_info"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/tv_view_info"

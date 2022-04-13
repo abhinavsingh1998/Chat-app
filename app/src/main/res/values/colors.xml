@@ -76,4 +76,7 @@
     <color name="ash_background_color">#ebebf0</color>
     <color name="rating_green_color">#23a740</color>
     <color name="completed_inv_brown_color_text">#434030</color>
+    <color name="rating_percent_green_color">#21b342</color>
+    <color name="rating_dark_green_color">#5ee67c</color>
+    <color name="rating_dark_green">#44b75d</color>
 </resources>

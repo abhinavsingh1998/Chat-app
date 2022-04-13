@@ -59,11 +59,4 @@ class InvestmentFragment : BaseFragment() {
         newInvestmentAdapter.setItemClickListener(onInvestmentItemClickListener)
     }
 
-//    override fun onClick(v: View) {
-//        when(v.id){
-//            R.id.tv_smart_deal_see_all -> { (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),false)}
-//            R.id.tv_trending_projects_see_all -> { (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),false) }
-//        }
-//    }
-
 }
