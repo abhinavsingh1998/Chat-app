@@ -9,15 +9,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class HomeAppModule {
-
-    private var app: Application? = null
-    private var context: Context? = null
-
-    constructor(app: Application, context: Context) {
-        this.app = app
-        this.context = context
-    }
+class HomeAppModule(var application: Application, var context: Context) {
 
     @Provides
     @Singleton
@@ -29,16 +21,16 @@ class HomeAppModule {
     @Provides
     @Singleton
     fun getRoomDbInstance(): HoablAppDataBase {
-        return HoablAppDataBase.getAppDataBaseInstance(provideApplication()!!)!!
+        return HoablAppDataBase.getAppDataBaseInstance(provideApplication())!!
     }
 
     @Provides
-    fun provideApplication(): Application? {
-        return app
+    fun provideApplication(): Application {
+        return application
     }
 
     @Provides
-    fun provideContext(): Context? {
+    fun provideContext(): Context {
         return context
     }
 }

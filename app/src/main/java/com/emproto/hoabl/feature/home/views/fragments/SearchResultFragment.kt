@@ -7,18 +7,12 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.emproto.core.BaseFragment
 import com.emproto.core.Database.TableModel.SearchModel
 import com.emproto.hoabl.HomeActivity
-import com.emproto.hoabl.MVVM.home.HomeFactory
-import com.emproto.hoabl.MVVM.home.HomeViewModel
 import com.emproto.hoabl.databinding.FragmentSearchResultBinding
 import com.emproto.hoabl.feature.home.adapters.SearchResultAdapter
-import javax.inject.Inject
 
 class SearchResultFragment : BaseFragment() {
 
