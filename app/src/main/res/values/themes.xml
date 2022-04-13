@@ -277,6 +277,11 @@
         <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@color/gold_color</item>
     </style>
+    <style name="text_style_gold_18">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:textColor">@color/gold_color</item>
+    </style>
     <style name="text_style_light_gold_color_14">
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/text_size_14</item>
@@ -305,6 +310,7 @@
         <item name="android:textColor">@color/light_text_color</item>
         <item name="singleLine">true</item>
     </style>
+
     <style name="text_style_liquidity_text_color_10">
         <item name="android:gravity">start|center</item>
         <item name="android:textSize">@dimen/text_size_10</item>
@@ -348,7 +354,11 @@
         <item name="android:textSize">@dimen/text_size_11</item>
         <item name="android:textColor">@color/text_color</item>
     </style>
-
+    <style name="text_style_text_color_20">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_20</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
     <style name="text_style_text_color_12">
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/text_size_12</item>
@@ -396,6 +406,13 @@
         <item name="android:textColor">@color/text_color</item>
         <item name="singleLine">true</item>
     </style>
+
+    <style name="text_style_text_14">
+        <item name="android:gravity">center|left</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="singleLine">true</item>
+    </style>
     <style name="text_style_text_color_25">
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/text_size_25</item>
@@ -417,9 +434,20 @@
         <item name="android:textColor">@color/text_color</item>
         <item name="singleLine">true</item>
     </style>
-
     <style name="text_style_text_color_16">
         <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="singleLine">true</item>
+    </style>
+    <style name="text_style_text_color_18">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="singleLine">true</item>
+    </style>
+    <style name="text_style_color_18">
+        <item name="android:gravity">center|left</item>
         <item name="android:textSize">@dimen/text_size_16</item>
         <item name="android:textColor">@color/text_color</item>
         <item name="singleLine">true</item>
@@ -462,5 +490,10 @@
     </style>
     <style parent="@android:style/Widget.Spinner" name="SpinnerWithNoArrow">
         <item name="android:background">@android:drawable/edit_text</item>
+    </style>
+    <style name="RoundCorner" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
+        <item name="color">@color/white</item>
     </style>
 </resources>

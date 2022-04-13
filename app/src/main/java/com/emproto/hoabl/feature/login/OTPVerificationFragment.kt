@@ -1,6 +1,9 @@
 package com.emproto.hoabl.feature.login
 
 import android.Manifest
+import android.app.Dialog
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Paint
 import android.os.Bundle
@@ -11,15 +14,18 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.emproto.core.BaseFragment
+import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityOtpVerifyBinding
+import com.emproto.hoabl.feature.home.login.AuthActivity
+import com.emproto.hoabl.feature.home.views.fragments.NameInputFragment
 
 
 class OTPVerificationFragment : BaseFragment() {
 
     private lateinit var activityOtpVerifyBinding: ActivityOtpVerifyBinding
     var countOtp: Int = 3
-    /// lateinit var dialog: Dialog
+   /// lateinit var dialog: Dialog
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private var isReadSMSGranted = false
     val permissionRequest: MutableList<String> = ArrayList()
@@ -49,7 +55,7 @@ class OTPVerificationFragment : BaseFragment() {
 
     private fun initView() {
         permissionLauncher=registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){
-                permissions->
+            permissions->
             isReadSMSGranted=permissions[Manifest.permission.READ_SMS] ?: isReadSMSGranted
         }
         requestPermission()

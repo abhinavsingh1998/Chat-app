@@ -7,18 +7,22 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseActivity
 import com.emproto.hoabl.databinding.ActivityHomeBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.fragments.FinancialAndProjectFragment
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
-import com.emproto.hoabl.fragments.ProfileFragment
+import com.emproto.hoabl.feature.home.promisesUi.HoabelPromises
+import com.emproto.hoabl.feature.profileui.ProfileFragment
 import com.emproto.hoabl.fragments.PromisesFragment
+import com.emproto.hoabl.viewmodels.HomeViewModel
+import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import javax.inject.Inject
 
 class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -33,12 +37,17 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private var closeApp = false
     private var toolbar: Toolbar? = null
     lateinit var activityHomeActivity: ActivityHomeBinding
+    @Inject
+    lateinit var factory:HomeFactory
+    lateinit var homeViewModel:HomeViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityHomeActivity = ActivityHomeBinding.inflate(layoutInflater)
         (application as HomeComponentProvider).homeComponent().inject(this)
+        homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+
         setContentView(activityHomeActivity.root)
         mContext = this
 //        SharedPref.init(mContext)
@@ -49,7 +58,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         )
 
         if (savedInstanceState == null) {
-            activityHomeActivity.includeNavigation.bottomNavigation.selectedItemId =
+            activityHomeActivity.includeNavigation.bottomNavigation.selectedItemId=
                 R.id.navigation_hoabl  // change to whichever id should be default
         }
 
@@ -114,7 +123,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 replaceFragment(membershipFragment.javaClass, "", true, bundle, null, 0, false)
             }
             ScreenPromises -> {
-                val cartFragment = PromisesFragment()
+                val cartFragment = HoabelPromises()
                 cartFragment.setArguments(bundle)
                 replaceFragment(cartFragment.javaClass, "", true, bundle, null, 0, false)
             }
@@ -138,9 +147,9 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         try {
             val finalTag: String
             if (extraTag != null && extraTag.equals(""))
-                finalTag = fragmentClass.simpleName + extraTag
+                finalTag=fragmentClass.simpleName + extraTag
             else
-                finalTag = fragmentClass.simpleName
+                finalTag=fragmentClass.simpleName
 
             val isPopBackStack = supportFragmentManager.popBackStackImmediate(finalTag, 0)
             if (!isPopBackStack) {
@@ -197,7 +206,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             }
             true -> {
                 fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit)
-                    .replace(R.id.container, fragment, fragment.javaClass.name)
+                    .replace(R.id.container,fragment,fragment.javaClass.name)
                     .addToBackStack(fragment.javaClass.name).commit()
             }
         }

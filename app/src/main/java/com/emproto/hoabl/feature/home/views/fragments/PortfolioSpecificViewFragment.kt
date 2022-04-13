@@ -13,7 +13,7 @@ import com.emproto.hoabl.databinding.FragmentPortfolioSpecificviewBinding
 import com.emproto.hoabl.feature.home.adapters.PortfolioDocumentAdapter
 import com.emproto.hoabl.feature.home.adapters.ProjectPromisesAdapter
 import com.emproto.hoabl.feature.home.adapters.VideosAdapter
-import com.emproto.hoabl.feature.investment.adapters.FaqAdapter
+import com.emproto.hoabl.feature.home.profileAdapter.FaqAdapter
 import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
 
 class PortfolioSpecificViewFragment : BaseFragment() {

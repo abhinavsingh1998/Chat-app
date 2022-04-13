@@ -1,4 +1,4 @@
-package com.emproto.datalayer.di
+package com.emproto.networklayer.di
 
 import android.app.Application
 import dagger.Module

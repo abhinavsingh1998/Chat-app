@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.login
+package com.emproto.hoabl.feature.home.views.fragments
 
 
 import android.content.Intent
@@ -15,6 +15,7 @@ import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentNameInputBinding
 import com.emproto.hoabl.feature.investment.dialogs.ConfirmationDialog
+import com.emproto.hoabl.feature.login.SucessDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 

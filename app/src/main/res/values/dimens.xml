@@ -53,9 +53,13 @@
     <dimen name="margin_size_26">26dp</dimen>
     <dimen name="margin_size_27">27dp</dimen>
     <dimen name="margin_size_27.8">27.8dp</dimen>
+    <dimen name="margin_size_163.5">163.5dp</dimen>
     <dimen name="margin_size_28">28dp</dimen>
     <dimen name="margin_size_29">29dp</dimen>
     <dimen name="margin_size_30">30dp</dimen>
+    <dimen name="margin_size_39">39dp</dimen>
+    <dimen name="margin_size_32">32dp</dimen>
+    <dimen name="margin_size_31.5">31.5dp</dimen>
     <dimen name="margin_size_33">33dp</dimen>
     <dimen name="margin_size_35">35dp</dimen>
     <dimen name="margin_size_37">37dp</dimen>
@@ -64,29 +68,41 @@
     <dimen name="margin_size_40">40dp</dimen>
     <dimen name="margin_size_42">42dp</dimen>
     <dimen name="margin_size_43">43dp</dimen>
+    <dimen name="margin_size_44">44dp</dimen>
     <dimen name="margin_size_45">45dp</dimen>
+    <dimen name="margin_size_46">46dp</dimen>
     <dimen name="margin_size_47">47dp</dimen>
     <dimen name="margin_size_50">50dp</dimen>
     <dimen name="margin_size_51">51dp</dimen>
     <dimen name="margin_size_52">52dp</dimen>
     <dimen name="margin_size_55">55dp</dimen>
+    <dimen name="margin_size_57">57dp</dimen>
     <dimen name="margin_size_60">60dp</dimen>
     <dimen name="margin_size_65">65dp</dimen>
     <dimen name="margin_size_70">70dp</dimen>
+    <dimen name="margin_size_74">74dp</dimen>
     <dimen name="margin_size_75">75dp</dimen>
     <dimen name="margin_size_80">80dp</dimen>
     <dimen name="margin_size_85">85dp</dimen>
     <dimen name="margin_size_87">87dp</dimen>
+    <dimen name="margin_size_88">88dp</dimen>
     <dimen name="margin_size_90">90dp</dimen>
     <dimen name="margin_size_98">98dp</dimen>
     <dimen name="margin_size_100">100dp</dimen>
     <dimen name="margin_size_108">108dp</dimen>
     <dimen name="margin_size_116">116dp</dimen>
     <dimen name="margin_size_120">120dp</dimen>
+    <dimen name="margin_size_112">112dp</dimen>
+    <dimen name="margin_size_124">124dp</dimen>
     <dimen name="margin_size_125">125dp</dimen>
+    <dimen name="margin_size_127">127dp</dimen>
     <dimen name="margin_size_128">128dp</dimen>
+    <dimen name="margin_size_134">134dp</dimen>
+    <dimen name="margin_size_214">214dp</dimen>
+    <dimen name="margin_size_130">130dp</dimen>
     <dimen name="margin_size_137">137dp</dimen>
     <dimen name="margin_size_140">140dp</dimen>
+    <dimen name="margin_size_148">148dp</dimen>
     <dimen name="margin_size_150">150dp</dimen>
     <dimen name="margin_size_160">160dp</dimen>
     <dimen name="margin_size_180">180dp</dimen>
@@ -95,7 +111,9 @@
     <dimen name="margin_size_210">210dp</dimen>
     <dimen name="margin_size_220">220dp</dimen>
     <dimen name="margin_size_230">230dp</dimen>
+    <dimen name="margin_size_244">244dp</dimen>
     <dimen name="margin_size_250">250dp</dimen>
+    <dimen name="margin_size_257">257dp</dimen>
     <dimen name="margin_size_269">269dp</dimen>
     <dimen name="margin_size_300">300dp</dimen>
 
@@ -133,5 +151,7 @@
     <dimen name="track_order_txt_size">34sp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="marginSize">137dp</dimen>
+    <dimen name="margin">136dp</dimen>
 
 </resources>

@@ -8,7 +8,7 @@ class HoablApplication : Application(), HomeComponentProvider {
     override fun homeComponent(): HomeComponent {
         return DaggerHomeComponent.builder()
             .homeAppModule(HomeAppModule(this, applicationContext))
-            .homeModule(HomeModule(this)).build()
+            .build()
     }
 
 

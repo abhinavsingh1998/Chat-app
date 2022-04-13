@@ -5,17 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.MVVM.home.HomeViewModel
 import com.emproto.hoabl.feature.home.adapters.HoABLPromisesAdapter
+import com.emproto.hoabl.viewmodels.factory.HomeFactory
+import com.emproto.hoabl.viewmodels.HomeViewModel
+import com.emproto.hoabl.adapters.HoABLPromisesAdapter
 import com.emproto.hoabl.adapters.InsightsAdapter
 import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
 import com.emproto.hoabl.adapters.LatestUpdateAdapter
 import com.emproto.hoabl.adapters.TestimonialAdapter
 import com.emproto.hoabl.databinding.FragmentHomeBinding
+import com.emproto.hoabl.di.HomeComponentProvider
+import javax.inject.Inject
 
 
 class HomeFragment : BaseFragment() {
@@ -30,8 +36,8 @@ class HomeFragment : BaseFragment() {
 
     lateinit var homeViewModel: HomeViewModel
 
-    /*@Inject
-    lateinit var factory: HomeFactory*/
+    @Inject
+    lateinit var factory: HomeFactory
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,9 +45,8 @@ class HomeFragment : BaseFragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility=View.VISIBLE
-
-        //homeViewModel= ViewModelProvider(this,factory)[HomeViewModel::class.java]
+        (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
+        homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
         initView()
         initClickListener()
         return binding.root
@@ -49,7 +54,10 @@ class HomeFragment : BaseFragment() {
 
 
     private fun initView() {
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible=true
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
+            View.VISIBLE
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
+            true
 
         val list: ArrayList<String> = ArrayList()
         list.add("22L-2.5 Cr")
@@ -98,11 +106,15 @@ class HomeFragment : BaseFragment() {
 
         })
 
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.search.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                (requireActivity() as HomeActivity).addFragment(SearchResultFragment.newInstance(), true)
-            }
-        })
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.search.setOnClickListener(
+            object : View.OnClickListener {
+                override fun onClick(p0: View?) {
+                    (requireActivity() as HomeActivity).addFragment(
+                        SearchResultFragment.newInstance(),
+                        true
+                    )
+                }
+            })
 
     }
 

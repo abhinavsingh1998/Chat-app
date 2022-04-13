@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.login
+package com.emproto.hoabl.feature.home.login
 
 import android.os.Bundle
 import android.view.View
@@ -7,8 +7,10 @@ import com.emproto.core.BaseActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityAuthBinding
 import com.emproto.hoabl.databinding.FragmentSigninIssueBinding
+import com.emproto.hoabl.feature.login.LoginFragment
+import com.emproto.hoabl.feature.login.SigninIssueFragment
 
- class AuthActivity : BaseActivity() {
+class AuthActivity : BaseActivity() {
 
     lateinit var activityAuthBinding:ActivityAuthBinding
 
@@ -19,10 +21,9 @@ import com.emproto.hoabl.databinding.FragmentSigninIssueBinding
         activityAuthBinding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(activityAuthBinding.root)
 
+
         initView()
-
         initClickListener()
-
     }
 
     private fun initClickListener() {

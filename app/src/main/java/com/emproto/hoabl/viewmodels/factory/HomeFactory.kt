@@ -1,25 +1,22 @@
-package com.emproto.hoabl.MVVM.home
+package com.emproto.hoabl.viewmodels.factory
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.emproto.hoabl.MVVM.repositories.HomeRepository
+import com.emproto.hoabl.repository.HomeRepository
+import com.emproto.hoabl.viewmodels.HomeViewModel
 import javax.inject.Inject
 
 
-class HomeFactory @Inject constructor(application: Application,homeRepository: HomeRepository): ViewModelProvider.Factory {
+class HomeFactory @Inject constructor(application: Application, homeRepository: HomeRepository) :
+    ViewModelProvider.Factory {
 
-    var mApplication: Application
-    var mhomeRepository: HomeRepository
-
-    init {
-        mApplication=application
-        mhomeRepository=homeRepository
-    }
+    var application: Application = application
+    var homeRepository: HomeRepository = homeRepository
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-            return HomeViewModel(mApplication, mhomeRepository) as T
+            return HomeViewModel(application, homeRepository) as T
         }
 
         throw IllegalArgumentException("Viewmodel is not valid")

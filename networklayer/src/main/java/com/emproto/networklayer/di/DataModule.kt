@@ -1,6 +1,7 @@
 package com.emproto.datalayer.di
 
 import android.app.Application
+import com.emproto.networklayer.ApiConstants
 import com.emproto.networklayer.ApiService
 import dagger.Module
 import dagger.Provides
@@ -13,8 +14,6 @@ import javax.inject.Singleton
 
 @Module
 class DataModule(private val application: Application) {
-    private val BASE_URL:String= "www.com.com"
-
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit {
@@ -30,7 +29,7 @@ class DataModule(private val application: Application) {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .client(httpClient.build())
-            .baseUrl(BASE_URL).build()
+            .baseUrl(ApiConstants.BASE_URL_DEV).build()
     }
 
     @Provides
