@@ -1,11 +1,13 @@
 package com.emproto.hoabl.feature.investment.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemSkusBinding
 
 class SkuAdapter(private val list:List<String>):RecyclerView.Adapter<SkuAdapter.MyViewHolder>() {
+
 
     inner class MyViewHolder(var binding: ItemSkusBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -19,4 +21,5 @@ class SkuAdapter(private val list:List<String>):RecyclerView.Adapter<SkuAdapter.
     }
 
     override fun getItemCount(): Int = list.size
+
 }

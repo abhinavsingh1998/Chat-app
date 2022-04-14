@@ -1,8 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">HOABL app</string>
     <string name="hoabl">HOABL</string>
     <string name="hoabl_app">HOABL APP</string>
-    <string name="new_investment">New Investment</string>
+    <string name="new_investment">Investment</string>
     <string name="portfolio">Portfolio</string>
     <string name="promises">Promises</string>
     <string name="profile">Profile</string>
@@ -23,7 +24,7 @@
     <string name="trouble_login"><u>Trouble Signing In?</u></string>
     <string name="get_otp">Get OTP</string>
     <string name="submit_and_continue">Submit and Continue</string>
-    <string name="get_skip">Skip and Get Started</string>
+    <string name="get_skip">Skip &amp; Get Started</string>
     <string name="manage_portfolio">Manage Portfolio</string>
     <string name="portfolio_ease">Manage your portfolio with ease</string>
     <string name="track_progress">Track daily portfolio progress</string>
@@ -32,7 +33,7 @@
     <string name="explore_investment">Explore New Investment</string>
     <string name="browse_deal">Browse deals with HoABL</string>
     <string name="get_exclusive">Get exclusive investment deal</string>
-    <string name="verify_otp">Verify OTP</string>
+    <string name="verify_otp">VERIFY OTP</string>
     <string name="enter_digits">Enter 6-digit OTP sent to</string>
     <string name="change_number"><u>EDIT</u></string>
     <string name="enter_otp">Enter OTP</string>
@@ -131,13 +132,12 @@
     <string name="view_more">View More</string>
     <string name="DemoText">The Isle of Bliss is phase 2 of Codename Bliss Dapoli, a seaside lifestyle plotting development from The House of Abhinandan Lodha</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="And_your_name">And your name</string>
     <string name="First_name_hint">First Name </string>
-    <string name="Second_name_hint">Last Name </string>
+    <string name="Second_name_hint">Second Name </string>
     <string name="submit_and_con">Submit and Continue</string>
     <string name="trouble_signing_in">Trouble Signing in?</string>
-    <string name="whats_the_issue">Whtas the issue?</string>
+    <string name="whats_the_issue">Whtas the issue</string>
     <string name="unable_to_enter_num">Unable to enter phone number</string>
     <string name="describe_your_issue_in_few_words">Describe your issue in few words</string>
     <string name="submit_btn_txt">Submit</string>
@@ -148,10 +148,10 @@
     <string name="monday">Monday</string>
     <string name="tuesday">Tuesday</string>
     <string name="wednesday">Wednesday</string>
-    <string name="video_drone_text">video_drone_text</string>
-    <string name="choose_skus">choose_skus</string>
-    <string name="premium_location">premium_location</string>
-    <string name="details">details</string>
+    <string name="video_drone_text">Video &amp; Drone Videos</string>
+    <string name="choose_skus">Choose SKUs and Apply</string>
+    <string name="premium_location">Premium Location</string>
+    <string name="details">Details</string>
     <string name="see_project_details">See Project Details</string>
     <string name="view_timeline">View Timeline</string>
     <string name="facility_management">Facility Management</string>
@@ -162,7 +162,7 @@
     <string name="last_update">Last Update on</string>
     <string name="project_promises">Project Promises</string>
     <string name="liquidity">Liquidity</string>
-    <string name="just_additional">With Just an nadditional 5 lakhs,you ncan upgrade your next nInvestment SKU</string>
+    <string name="just_additional">With Just an \nadditional 5 lakhs,you \ncan upgrade your next \nInvestment SKU</string>
     <string name="see_details_now">See Details Now</string>
     <string name="frequentl_asked_questions">Frequently asked Questions</string>
     <string name="ask_here">Have any questions Ask Here</string>
@@ -171,8 +171,8 @@
     <string name="testimonials">Testimonials</string>
     <string name="similar_investments">Similar Investments</string>
     <string name="view_on_map">View on Map</string>
-    <string name="price_text_draft"> 20 LnOnwards</string>
-    <string name="area_text_draft">2000 sqftnOnwards</string>
+    <string name="price_text_draft"> 20 L Onwards</string>
+    <string name="area_text_draft">200sqft Onwards</string>
     <string name="price_text">Price</string>
     <string name="payment_history" />
     <string name="need_input_discussion">Need input/discussion</string>

@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:text="Karde Beach"
                 android:fontFamily="@font/jost_regular"
-                android:textSize="@dimen/text_size_12"
+                android:textSize="@dimen/text_size_14"
                 android:layout_marginStart="@dimen/margin_size_12"
                 android:textColor="@color/text_color"
                 app:layout_constraintStart_toEndOf="@id/iv_key_attraction_item_image"

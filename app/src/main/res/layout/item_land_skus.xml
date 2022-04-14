@@ -23,8 +23,8 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cv_land_sku_image"
-                android:layout_width="73dp"
-                android:layout_height="73dp"
+                android:layout_width="83dp"
+                android:layout_height="83dp"
                 android:layout_margin="@dimen/margin_size_10"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:text="Beach side lifestyle near Mumbai with luxurious amenities,affordable rates,good surroundings"
                 android:textColor="@color/land_skus_text_black_color"
-                android:textSize="@dimen/text_size_10"
+                android:textSize="@dimen/text_size_12"
                 android:maxLines="2"
                 android:ellipsize="marquee"
                 android:layout_marginEnd="@dimen/margin_size_5"

@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
+import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
-import com.emproto.hoabl.feature.home.profileAdapter.FaqAdapter
+import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.model.ViewItem
 import com.google.android.material.tabs.TabLayoutMediator
@@ -145,6 +146,7 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<R
             itemList.add(ViewItem(5, R.drawable.new_investment_page_image))
             videoDroneAdapter = VideoDroneAdapter(itemList)
             binding.rvVideoDrone.adapter = videoDroneAdapter
+            binding.tvVideoDroneSeeAll.setOnClickListener(onItemClickListener)
         }
     }
 
@@ -158,7 +160,6 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<R
             val itemList = arrayListOf<String>("1", "2", "3", "4", "5")
             skuAdapter = SkuAdapter(itemList)
             binding.rvSkus.adapter = skuAdapter
-
             itemView.tag = this
             binding.tvSkusSeeAll.setOnClickListener(onItemClickListener)
         }

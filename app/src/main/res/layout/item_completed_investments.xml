@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_completed_investment_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="@dimen/margin_size_0"
+        android:layout_marginHorizontal="@dimen/margin_size_12"
+        android:layout_marginVertical="@dimen/margin_size_15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cv_completed_investment_graph_card">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_completed_investment_image"
+                android:layout_width="@dimen/margin_size_41"
+                android:layout_height="@dimen/margin_size_41"
+                android:elevation="@dimen/_2sdp"
+                app:cardCornerRadius="@dimen/margin_size_4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_completed_investment_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/new_investment_page_image" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_completed_investment_name"
+                style="@style/text_style_text_color_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_6"
+                android:layout_marginEnd="@dimen/margin_size_12"
+                android:fontFamily="@font/jost_regular"
+                android:text="Tomorrow Land"
+                android:textAlignment="textStart"
+                app:layout_constraintStart_toEndOf="@id/cv_completed_investment_image"
+                app:layout_constraintTop_toTopOf="@id/cv_completed_investment_image" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_completed_investment_location"
+                style="@style/text_style_medium_grey_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_size_12"
+                android:fontFamily="@font/jost_regular"
+                android:text="Pune, Maharashtra"
+                app:layout_constraintStart_toStartOf="@id/tv_completed_investment_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_completed_investment_name" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_completed_investment_project_text"
+                style="@style/text_style_text_color_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_5"
+                android:fontFamily="@font/jost_medium"
+                android:text="Marina"
+                android:textAlignment="textStart"
+                app:layout_constraintTop_toBottomOf="@id/cv_completed_investment_image"
+                app:layout_constraintBottom_toTopOf="@id/tv_completed_investment_project_code"
+                app:layout_constraintStart_toStartOf="@id/cv_completed_investment_image" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_completed_investment_project_code"
+                style="@style/text_style_blue_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_2"
+                android:layout_marginBottom="@dimen/margin_size_10"
+                android:fontFamily="@font/jost_medium"
+                android:text="Hoabl/Dap/A404"
+                android:textAlignment="textStart"
+                app:layout_constraintTop_toBottomOf="@id/tv_completed_investment_project_text"
+                app:layout_constraintStart_toStartOf="@id/cv_completed_investment_image" />
+
+            <View
+                android:id="@+id/view_dark_bg"
+                android:layout_width="@dimen/margin_size_26"
+                android:layout_height="0dp"
+                android:background="@color/dark_ash_background_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_completed_investment_drop_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_down"
+                app:layout_constraintBottom_toBottomOf="@id/view_dark_bg"
+                app:layout_constraintEnd_toEndOf="@id/view_dark_bg"
+                app:layout_constraintStart_toStartOf="@id/view_dark_bg"
+                app:layout_constraintTop_toTopOf="@id/view_dark_bg" />
+
+            <ImageView
+                android:id="@+id/iv_completed_investment_upward_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_upward"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/view_dark_bg"
+                app:layout_constraintEnd_toEndOf="@id/view_dark_bg"
+                app:layout_constraintStart_toStartOf="@id/view_dark_bg"
+                app:layout_constraintTop_toTopOf="@id/view_dark_bg" />
+
+            <View
+                android:id="@+id/view_light_bg"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/margin_size_12"
+                android:background="@color/text_light_grey_color"
+                app:layout_constraintBottom_toBottomOf="@id/view_dark_bg"
+                app:layout_constraintEnd_toStartOf="@id/view_dark_bg"
+                app:layout_constraintStart_toEndOf="@id/tv_completed_investment_location"
+                app:layout_constraintTop_toTopOf="@id/view_dark_bg" />
+
+            <ImageView
+                android:id="@+id/iv_completed_investment_graph_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="@dimen/margin_size_12"
+                android:src="@color/text_ash_light_color"
+                app:layout_constraintBottom_toBottomOf="@id/tv_completed_investment_location"
+                app:layout_constraintEnd_toEndOf="@id/view_light_bg"
+                app:layout_constraintStart_toStartOf="@id/view_light_bg"
+                app:layout_constraintTop_toTopOf="@id/view_light_bg" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_completed_investment_price"
+                style="@style/text_style_text_black_color_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_8"
+                android:fontFamily="@font/jost_medium"
+                android:text="₹32.34"
+                app:layout_constraintEnd_toStartOf="@id/tv_completed_investment_area"
+                app:layout_constraintStart_toStartOf="@id/view_light_bg"
+                app:layout_constraintTop_toBottomOf="@id/iv_completed_investment_graph_image" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_completed_investment_price_unit"
+                style="@style/text_style_text_black_color_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_2"
+                android:layout_marginBottom="@dimen/margin_size_10"
+                android:fontFamily="@font/jost_light"
+                android:text="Lakhs"
+                app:layout_constraintBottom_toBottomOf="@id/view_light_bg"
+                app:layout_constraintEnd_toEndOf="@id/tv_completed_investment_price"
+                app:layout_constraintStart_toStartOf="@id/tv_completed_investment_price"
+                app:layout_constraintTop_toBottomOf="@id/tv_completed_investment_price" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_completed_investment_area"
+                style="@style/text_style_text_black_color_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jost_medium"
+                android:text="2000"
+                app:layout_constraintEnd_toStartOf="@id/tv_completed_investment_rating"
+                app:layout_constraintStart_toEndOf="@id/tv_completed_investment_price"
+                app:layout_constraintTop_toTopOf="@id/tv_completed_investment_price" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_completed_investment_area_unit"
+                style="@style/text_style_text_black_color_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_2"
+                android:layout_marginBottom="@dimen/margin_size_10"
+                android:fontFamily="@font/jost_light"
+                android:text="Sqft"
+                app:layout_constraintBottom_toBottomOf="@id/view_light_bg"
+                app:layout_constraintEnd_toEndOf="@id/tv_completed_investment_area"
+                app:layout_constraintStart_toStartOf="@id/tv_completed_investment_area"
+                app:layout_constraintTop_toBottomOf="@id/tv_completed_investment_area" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_completed_investment_rating"
+                style="@style/text_style_text_black_color_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jost_medium"
+                android:text="+5%"
+                app:layout_constraintEnd_toEndOf="@id/view_light_bg"
+                app:layout_constraintStart_toEndOf="@id/tv_completed_investment_area"
+                app:layout_constraintTop_toTopOf="@id/tv_completed_investment_area" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_completed_investment_rating_unit"
+                style="@style/text_style_text_black_color_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_2"
+                android:layout_marginBottom="@dimen/margin_size_10"
+                android:fontFamily="@font/jost_light"
+                android:text="EA"
+                app:layout_constraintBottom_toBottomOf="@id/view_light_bg"
+                app:layout_constraintEnd_toEndOf="@id/tv_completed_investment_rating"
+                app:layout_constraintStart_toStartOf="@id/tv_completed_investment_rating"
+                app:layout_constraintTop_toBottomOf="@id/tv_completed_investment_rating" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_completed_investment_graph_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginHorizontal="@dimen/margin_size_12"
+        android:layout_marginTop="@dimen/margin_size_9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cv_completed_investment_card">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_completed_investment_graph"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_size_200"
+                android:layout_margin="@dimen/margin_size_9"
+                android:src="@color/text_ash_light_color"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view_graph_line"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_size_1"
+                android:layout_marginTop="@dimen/margin_size_6"
+                android:background="@color/completed_investment_ash_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_completed_investment_graph" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_estimated_appreciation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_size_9"
+                android:layout_marginTop="@dimen/margin_size_5"
+                app:cardCornerRadius="@dimen/margin_size_6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_graph_line">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/ash_background_color">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_estimated_appreciation"
+                        style="@style/text_style_text_color_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_size_9"
+                        android:layout_marginTop="@dimen/margin_size_10"
+                        android:fontFamily="@font/jost_bold"
+                        android:text="Your Estimated Appreciation"
+                        android:textAlignment="textStart"
+                        app:layout_constraintBottom_toTopOf="@id/tv_estimated_appreciation_description"
+                        app:layout_constraintEnd_toStartOf="@id/curved_view"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_estimated_appreciation_description"
+                        style="@style/text_style_light_grey_12"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_size_9"
+                        android:layout_marginTop="@dimen/margin_size_10"
+                        android:layout_marginBottom="@dimen/margin_size_9"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="Loren Ipsum dolor siat Loren Ipsum dolor Ipsum dolor siat Loren Ipsum dolor siat "
+                        android:textAlignment="textStart"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/curved_view"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_estimated_appreciation" />
+
+                    <View
+                        android:id="@+id/curved_view"
+                        android:layout_width="75dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/left_bigger_corner_radius_bg"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_appreciation_rating"
+                        style="@style/text_style_green_text_color_18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="5.4%"
+                        app:layout_constraintBottom_toBottomOf="@id/curved_view"
+                        app:layout_constraintEnd_toEndOf="@id/curved_view"
+                        app:layout_constraintStart_toStartOf="@id/curved_view"
+                        app:layout_constraintTop_toTopOf="@id/curved_view" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_project_estimated_appreciation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_size_9"
+                android:layout_marginTop="@dimen/margin_size_5"
+                android:layout_marginBottom="@dimen/margin_size_9"
+                app:cardCornerRadius="@dimen/margin_size_6"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_estimated_appreciation">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/ash_background_color">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_project_estimated_appreciation"
+                        style="@style/text_style_text_color_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_size_9"
+                        android:layout_marginTop="@dimen/margin_size_10"
+                        android:fontFamily="@font/jost_bold"
+                        android:text="Project Estimated Appreciation"
+                        android:textAlignment="textStart"
+                        app:layout_constraintBottom_toTopOf="@id/tv_project_estimated_appreciation_description"
+                        app:layout_constraintEnd_toStartOf="@id/project_curved_view"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_project_estimated_appreciation_description"
+                        style="@style/text_style_light_grey_12"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_size_9"
+                        android:layout_marginTop="@dimen/margin_size_10"
+                        android:layout_marginBottom="@dimen/margin_size_9"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="Loren Ipsum dolor siat Loren Ipsum dolor Ipsum dolor siat Loren Ipsum dolor siat "
+                        android:textAlignment="textStart"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/project_curved_view"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_project_estimated_appreciation" />
+
+                    <View
+                        android:id="@+id/project_curved_view"
+                        android:layout_width="75dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/left_bigger_corner_radius_bg"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_project_appreciation_rating"
+                        style="@style/text_style_text_color_18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="12.6%"
+                        app:layout_constraintBottom_toBottomOf="@id/project_curved_view"
+                        app:layout_constraintEnd_toEndOf="@id/project_curved_view"
+                        app:layout_constraintStart_toStartOf="@id/project_curved_view"
+                        app:layout_constraintTop_toTopOf="@id/project_curved_view" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_size_1"
+        android:layout_marginTop="@dimen/margin_size_14"
+        android:background="@color/category_bottom_ash_line_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cv_completed_investment_graph_card" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
