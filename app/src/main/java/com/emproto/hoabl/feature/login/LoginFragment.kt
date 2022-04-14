@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.home.login
+package com.emproto.hoabl.feature.login
 
 import android.os.Build
 import android.os.Bundle
@@ -14,9 +14,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityLoginBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.viewmodels.AuthViewmodel
-import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.AuthFactory
-import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.request.OtpRequest
 import com.emproto.networklayer.response.enums.Status
 import javax.inject.Inject

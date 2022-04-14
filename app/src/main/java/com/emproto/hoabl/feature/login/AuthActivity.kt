@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.home.login
+package com.emproto.hoabl.feature.login
 
 import android.os.Bundle
 import android.view.View
@@ -6,9 +6,6 @@ import androidx.fragment.app.Fragment
 import com.emproto.core.BaseActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityAuthBinding
-import com.emproto.hoabl.databinding.FragmentSigninIssueBinding
-import com.emproto.hoabl.feature.login.LoginFragment
-import com.emproto.hoabl.feature.login.SigninIssueFragment
 
 class AuthActivity : BaseActivity() {
 

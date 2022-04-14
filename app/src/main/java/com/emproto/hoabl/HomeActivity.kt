@@ -37,9 +37,10 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private var closeApp = false
     private var toolbar: Toolbar? = null
     lateinit var activityHomeActivity: ActivityHomeBinding
+
     @Inject
-    lateinit var factory:HomeFactory
-    lateinit var homeViewModel:HomeViewModel
+    lateinit var factory: HomeFactory
+    lateinit var homeViewModel: HomeViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +59,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         )
 
         if (savedInstanceState == null) {
-            activityHomeActivity.includeNavigation.bottomNavigation.selectedItemId=
+            activityHomeActivity.includeNavigation.bottomNavigation.selectedItemId =
                 R.id.navigation_hoabl  // change to whichever id should be default
         }
 
@@ -89,6 +90,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 openScreen(ScreenPortfolio, "", false)
                 return true
             }
+
             R.id.navigation_promises -> {
                 openScreen(ScreenPromises, "", false)
                 return true
@@ -96,9 +98,10 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             R.id.navigation_profile -> {
                 openScreen(ScreenProfile, "", false)
                 return true
+
             }
         }
-        return false
+            return false
     }
 
     private fun openScreen(screen: Int, metaData: String, isInit: Boolean) {
@@ -142,14 +145,14 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         bundle: Bundle?,
         fragmentForResult: Fragment?,
         targetRequestCode: Int,
-        replaceWithAnimation: Boolean
+        replaceWithAnimation: Boolean,
     ) {
         try {
             val finalTag: String
             if (extraTag != null && extraTag.equals(""))
-                finalTag=fragmentClass.simpleName + extraTag
+                finalTag = fragmentClass.simpleName + extraTag
             else
-                finalTag=fragmentClass.simpleName
+                finalTag = fragmentClass.simpleName
 
             val isPopBackStack = supportFragmentManager.popBackStackImmediate(finalTag, 0)
             if (!isPopBackStack) {
@@ -206,7 +209,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             }
             true -> {
                 fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit)
-                    .replace(R.id.container,fragment,fragment.javaClass.name)
+                    .replace(R.id.container, fragment, fragment.javaClass.name)
                     .addToBackStack(fragment.javaClass.name).commit()
             }
         }

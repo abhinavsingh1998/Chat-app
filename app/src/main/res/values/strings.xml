@@ -41,6 +41,7 @@
     <string name="resend"><b><u>RESEND OTP</u></b></string>
     <string name="otp_verified"><b>OTP Verified!</b></string>
     <string name="NO_INTERNET">No Internet available</string>
+    <style name="general">General</style>
     <string name="onestep">Hey, \nJust one last step</string>
     <string name="first_name">First Name </string>
     <string name="help_us">Help us with your</string>
@@ -219,8 +220,27 @@
     <string name="just_invest_we_have_your_back">Just Invest We have your back!</string>
     <string name="buy_maintain_and_liquidate_land_with_amazing_ease_con_dence_and_trust">Buy, maintain and liquidate land with amazing ease, conﬁdence and trust.</string>
     <string name="desc">Desc</string>
+    <string name="save_and_update">Desc</string>
     <string name="documents">Documents</string>
     <string name="continue_txt">Continue</string>
     <string name="confirmation_msg">Your query has been submitted successfully.</string>
-    <!--    <string name="resend_otp">RESEND OTP</string>-->
+    <string name="help_centre_about_us">Help Centre - About Us</string>
+    <string name="Description">We are building a platform that will bring anyone who wants to create wealth to join the New Generation LandTM revolution. Now is your time. You can buy, maintain and liquidate land with amazing ease, conﬁdence and trust. Whether you’re a ﬁrst time buyer or a seasoned investor, we’ve got you covered. We ensure a completely secure experience for our members by keeping track of every single nuance of the ownership journey to</string>
+    <string name="Selling_land_Text">WE ARE NOT SELLING LAND</string>
+    <string name="Changing_land_Text">WE’RE CHANGING LAND FOREVER</string>
+    <string name="Presenting_Text">presenting New Generation LandTM for the New Generation of India</string>
+    <string name="Description2">We are changing what it means to own land. We are making it liquid, so that you’re never stuck with it. We are changing everything that is wrong with it – the red tape, the hassles and the risk. We are using technology to make it fully transparent, easy and desirable. We are modernising and democratising land like no one else in history. But our biggest promise is that we aren’t with you just for the long run, we are with you forever.</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="upload_new_picture">Upload New Picture</string>
+    <string name="remove_picture">Remove Picture</string>
+    <string name="personal_details">Personal Details</string>
+    <string name="kyc">KYC</string>
+    <string name="general">General</string>
+    <string name="investment">Investment</string>
+    <string name="payments">Payments</string>
+    <string name="name">Name</string>
+    <string name="my_accounts">My Accounts</string>
+    <string name="profile_security">Profile And Security</string>
+    <string name="help_centre">help Center</string>
 </resources>

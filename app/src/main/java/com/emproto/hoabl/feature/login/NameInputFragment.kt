@@ -1,7 +1,6 @@
-package com.emproto.hoabl.feature.home.views.fragments
+package com.emproto.hoabl.feature.login
 
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -11,15 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentNameInputBinding
-import com.emproto.hoabl.feature.investment.dialogs.ConfirmationDialog
-import com.emproto.hoabl.feature.login.SucessDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
-class NameInputFragment : BaseFragment() {
+class  NameInputFragment : BaseFragment() {
 
 
     lateinit var binding: FragmentNameInputBinding
