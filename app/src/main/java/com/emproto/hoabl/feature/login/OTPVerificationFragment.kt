@@ -1,7 +1,6 @@
-package com.emproto.hoabl.feature.home.login
+package com.emproto.hoabl.feature.login
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Paint
 import android.os.Bundle
@@ -12,7 +11,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityOtpVerifyBinding
 
@@ -82,8 +80,11 @@ class OTPVerificationFragment : BaseFragment() {
             override fun afterTextChanged(s: Editable?) {
                 if (s?.length == 6) {
                     if (isNetworkAvailable(activityOtpVerifyBinding.root)) {
-                        startActivity(Intent(requireContext(), HomeActivity::class.java))
-                       // dialog.dismiss()
+
+                        (requireActivity() as AuthActivity).replaceFragment(
+                            NameInputFragment(),true)
+                       // startActivity(Intent(requireContext(), HomeActivity::class.java))
+                        // dialog.dismiss()
 
                     } else {
                         activityOtpVerifyBinding.layout1.setBackgroundColor(resources.getColor(R.color.background_grey))

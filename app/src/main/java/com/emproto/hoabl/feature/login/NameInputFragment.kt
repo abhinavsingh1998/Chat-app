@@ -1,7 +1,6 @@
-package com.emproto.hoabl.feature.home.views.fragments
+package com.emproto.hoabl.feature.login
 
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -11,13 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentNameInputBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
-class NameInputFragment : BaseFragment() {
+class  NameInputFragment : BaseFragment() {
 
 
     lateinit var binding: FragmentNameInputBinding
@@ -72,7 +70,8 @@ class NameInputFragment : BaseFragment() {
                             getDrawable(requireContext(), R.drawable.button_bg)
 
                         binding.submitBtn.setOnClickListener(View.OnClickListener {
-                            startActivity(Intent(requireContext(), HomeActivity::class.java))
+                            val dialog= SucessDialogFragment()
+                            dialog.show(parentFragmentManager,"Welcome Card")
                         })
                     }
                 }
@@ -106,7 +105,8 @@ class NameInputFragment : BaseFragment() {
                             getDrawable(requireContext(), R.drawable.button_bg)
 
                         binding.submitBtn.setOnClickListener(View.OnClickListener {
-                            startActivity(Intent(requireContext(), HomeActivity::class.java))
+                            val dialog= SucessDialogFragment()
+                            dialog.show(parentFragmentManager,"Welcome Card")
                         })
 
                     }

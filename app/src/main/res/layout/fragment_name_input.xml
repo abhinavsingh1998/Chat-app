@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".feature.home.views.fragments.NameInputFragment"
+    tools:context=".feature.login.NameInputFragment"
     android:background="@color/app_color">
 
     <ImageView
@@ -69,10 +69,13 @@
                 app:layout_constraintTop_toBottomOf="@id/add_name"
                 android:hint="@string/First_name_hint"
                 app:hintEnabled="true"
-                app:boxStrokeColor="@color/app_color">
+                app:boxStrokeWidthFocused="0.7dp"
+                app:boxStrokeColor="@color/app_color"
+                app:placeholderText="@string/type_here">
 
                 <EditText
                     android:id="@+id/first_name"
+                    style="@style/text_style_text_color_16"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/jost_medium"
@@ -82,8 +85,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/text_color"
                     android:textColorHint="@color/text_grey_color"
-                    android:textSize="@dimen/margin_size_12"
-                    android:inputType="textCapSentences"/>
+                    android:inputType="textPersonName|textCapSentences" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -99,11 +101,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/first_name_input_layout"
                 android:hint="@string/Second_name_hint"
+                app:boxStrokeWidthFocused="0.7dp"
                 app:hintEnabled="true"
-                app:boxStrokeColor="@color/app_color">
+                app:boxStrokeColor="@color/app_color"
+                app:placeholderText="@string/type_here">
 
                 <EditText
                     android:id="@+id/second_name"
+                    style="@style/text_style_text_color_16"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingLeft="10dp"
@@ -112,8 +117,7 @@
                     android:fontFamily="@font/jost_medium"
                     android:textColor="@color/text_color"
                     android:textColorHint="@color/text_grey_color"
-                    android:textSize="@dimen/margin_size_12"
-                    android:inputType="textCapSentences"/>
+                    android:inputType="textPersonName|textCapSentences"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -127,7 +131,7 @@
                 android:background="@drawable/unselect_button_bg"
                 android:clickable="false"
                 android:drawableRight="@drawable/ic_baseline_arrow_right"
-                android:drawablePadding="@dimen/_2sdp"
+                android:drawablePadding="@dimen/_5sdp"
                 android:enabled="true"
                 android:textAlignment="center"
                 app:fontName="@font/jost_medium"

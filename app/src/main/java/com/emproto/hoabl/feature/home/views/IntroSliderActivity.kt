@@ -15,7 +15,7 @@ import com.emproto.core.button.OnButtonClickListener
 import com.emproto.core.storyViewMaker.StoriesProgressView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityIntrosliderBinding
-import com.emproto.hoabl.feature.home.login.AuthActivity
+import com.emproto.hoabl.feature.login.AuthActivity
 
 
 class IntroSliderActivity : BaseActivity(), StoriesProgressView.StoriesListener {

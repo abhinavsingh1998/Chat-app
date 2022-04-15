@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.home.login
+package com.emproto.hoabl.feature.login
 
 import android.os.Bundle
 import android.view.View
@@ -6,19 +6,23 @@ import androidx.fragment.app.Fragment
 import com.emproto.core.BaseActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityAuthBinding
-import com.emproto.hoabl.feature.home.views.fragments.SigninIssueFragment
 
 class AuthActivity : BaseActivity() {
 
     lateinit var activityAuthBinding:ActivityAuthBinding
 
+    val signinIssueFragment: SigninIssueFragment = SigninIssueFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityAuthBinding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(activityAuthBinding.root)
+
+
         initView()
         initClickListener()
     }
+
     private fun initClickListener() {
 
         activityAuthBinding.textTrouble.setOnClickListener(View.OnClickListener {
@@ -60,12 +64,8 @@ class AuthActivity : BaseActivity() {
 
     private fun launch_bottom_sheet(){
 
-        val signinIssueFragment: SigninIssueFragment =
-            SigninIssueFragment()
         signinIssueFragment.show(supportFragmentManager,
             "add_photo_dialog_fragment")
-        
     }
-
 
 }

@@ -124,7 +124,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_login">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/login_edittext"
+                    android:id="@+id/login_edittext_layout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -141,14 +141,14 @@
 
                     <EditText
                         android:id="@+id/etMobile1"
-                        style="@style/text_style_text_color_14"
+                        style="@style/text_style_text_color_16"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center|left"
                         android:background="@null"
                         android:fontFamily="@font/jost_medium"
                         android:gravity="center|left"
-                        android:inputType="number"
+                        android:inputType="phone"
                         android:letterSpacing="0.2"
                         android:maxLength="10"
                         android:paddingLeft="10dp"
@@ -156,11 +156,11 @@
                         android:textColorHint="@color/text_grey_color" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
 
+            </LinearLayout>
             <com.emproto.core.textviews.CustomTextView
                 android:id="@+id/otp_text"
-                style="@style/text_style_lightgrey_12"
+                style="@style/text_style_lightgrey_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_size_28"
@@ -168,11 +168,11 @@
                 android:text="@string/otp"
                 app:fontName="@string/jost_medium"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_edittext" />
+                app:layout_constraintTop_toBottomOf="@id/layout_edittext"/>
 
             <com.emproto.core.textviews.CustomTextView
                 android:id="@+id/text"
-                style="@style/text_style_lightgrey_12"
+                style="@style/text_style_lightgrey_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_2sdp"
@@ -197,15 +197,16 @@
                     android:id="@+id/whats_com_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="false"
+                    android:checked="true"
                     android:thumb="@drawable/custom_thumb"
                     app:track="@drawable/custom_track" />
 
                 <TextView
-                    style="@style/text_style_lightgrey_12"
+                    style="@style/text_style_lightgrey_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_8"
+                    android:fontFamily="@font/jost_regular"
                     android:text="@string/whatsapp" />
 
             </LinearLayout>
@@ -235,10 +236,12 @@
 
             <com.emproto.core.textviews.CustomTextView
                 android:id="@+id/text_terms"
-                style="@style/text_style_text_color_10"
+                style="@style/text_style_text_color_14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_28"
                 android:layout_marginTop="@dimen/margin_size_20"
+                android:layout_marginEnd="@dimen/margin_size_28"
                 android:text="@string/login_terms_text"
                 app:fontName="@string/jost_regular"
                 app:layout_constraintTop_toBottomOf="@id/getOtp_button" />

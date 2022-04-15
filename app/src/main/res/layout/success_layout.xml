@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/app_color">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/margin_size_75"
-        android:background="@color/cardview_light_background"
-        app:cardCornerRadius="@dimen/_10sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/margin_size_5">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -23,7 +15,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_size_75"
-                android:layout_marginTop="@dimen/margin_size_19"
+                android:layout_marginTop="@dimen/margin_size_36"
                 android:layout_marginEnd="@dimen/margin_size_75"
                 android:fontFamily="@font/jost_medium"
                 android:text="@string/registration_complete"
@@ -54,85 +46,74 @@
                 app:layout_constraintStart_toEndOf="@id/registration_complete_header"
                 app:layout_constraintTop_toTopOf="@+id/registration_complete_header" />
 
-            <androidx.cardview.widget.CardView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/welcome_card"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/margin_size_128"
-                android:layout_marginStart="@dimen/margin_size_20"
-                android:layout_marginTop="@dimen/margin_size_27"
-                android:layout_marginEnd="@dimen/margin_size_20"
+                android:layout_height="108dp"
+                android:background="@drawable/greeting_card_layout"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginHorizontal="@dimen/margin_size_21"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/registration_complete_header">
+                app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/greeting_card_layout">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_size_50"
-                        android:src="@drawable/greeting_msg"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="80dp"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="@dimen/margin_size_29"
+                    android:src="@drawable/greeting_msg"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.emproto.core.textviews.CustomTextView
-                        android:id="@+id/name_tag"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_size_150"
-                        android:layout_marginTop="@dimen/margin_size_43"
-                        android:layout_marginRight="@dimen/margin_size_87"
-                        android:fontFamily="@font/sign_ainter_house_cript"
-                        android:text="Dear Anuj,"
-                        android:textColor="@color/greeting_txt_color"
-                        android:textSize="@dimen/text_size_20"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/name_tag"
+                    style="@style/text_greting_style_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_30"
+                    android:layout_marginLeft="@dimen/margin_size_23"
+                    android:fontFamily="@font/jost_italic"
+                    android:text="Dear Anuj,"
+                    android:textColor="@color/greeting_txt_color"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.emproto.core.textviews.CustomTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_size_150"
-                        android:layout_marginTop="@dimen/margin_size_10"
-                        android:fontFamily="@font/sign_ainter_house_cript"
-                        android:text="Welcome to the family"
-                        android:textColor="@color/greeting_txt_color"
-                        android:textSize="@dimen/text_size_17"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/name_tag" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
+                <com.emproto.core.textviews.CustomTextView
+                    style="@style/text_greting_style_16"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_10"
+                    android:fontFamily="@font/jost_italic"
+                    android:text="Welcome to the family"
+                    android:textColor="@color/greeting_txt_color"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/name_tag"
+                    app:layout_constraintTop_toBottomOf="@id/name_tag" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <com.emproto.core.textviews.CustomTextView
-                android:id="@+id/greting_msg_2"
+                android:id="@+id/continue_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/text_style_text_color_16"
                 android:layout_marginLeft="@dimen/margin_size_42"
                 android:layout_marginTop="@dimen/margin_size_33"
                 android:layout_marginRight="@dimen/margin_size_42"
+                android:layout_marginBottom="@dimen/margin_size_24"
                 android:fontFamily="@font/jost_medium"
-                android:text="Jump in to the world of new generation land"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_16"
+                android:drawableRight="@drawable/ic_baseline_black_arrow_right"
+                android:drawableTint="#000000"
+                android:text="@string/continue_txt"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/welcome_card" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:src="@drawable/path_img"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/greting_msg_2" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

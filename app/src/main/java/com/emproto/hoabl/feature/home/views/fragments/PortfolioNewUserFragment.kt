@@ -5,17 +5,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.R
+import com.emproto.hoabl.HomeActivity
+import com.emproto.hoabl.databinding.FragmentPortfolioNewUserBinding
 
 
 class PortfolioNewUserFragment : BaseFragment() {
+
+    lateinit var binding:FragmentPortfolioNewUserBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_portfolio_new_user, container, false)
+
+        binding = FragmentPortfolioNewUserBinding.inflate(layoutInflater)
+
+        binding.exploreBtn.setOnClickListener(View.OnClickListener {
+
+            (requireActivity() as HomeActivity).addFragment(FinancialAndProjectFragment(), true)
+        })
+
+        return binding.root
     }
 
 

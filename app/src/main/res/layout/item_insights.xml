@@ -6,7 +6,8 @@
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/_5sdp"
     android:layout_gravity="center_horizontal"
-    app:cardElevation="@dimen/_4sdp"
+    app:cardElevation="@dimen/_2sdp"
+    android:layout_margin="@dimen/margin_size_4"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true">
 
@@ -32,7 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/mountain"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="centerInside"/>
 
                 <ImageView
                     android:layout_width="@dimen/margin_size_26"
