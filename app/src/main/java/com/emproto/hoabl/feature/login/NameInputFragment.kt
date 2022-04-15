@@ -12,7 +12,6 @@ import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentNameInputBinding
-import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
 class  NameInputFragment : BaseFragment() {
@@ -22,8 +21,6 @@ class  NameInputFragment : BaseFragment() {
     var charSequence1: Editable? = null
     var charSequence2: Editable? = null
 //    lateinit var fragmentSigninIssueBinding:FragmentSigninIssueBinding
-
-    lateinit var bottom_sheet: BottomSheetDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

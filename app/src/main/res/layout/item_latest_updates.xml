@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/margin_size_2">
 
+
         <androidx.cardview.widget.CardView
             android:id="@+id/image_card"
             android:layout_width="match_parent"
@@ -60,7 +61,7 @@
 
         <com.emproto.core.textviews.CustomTextView
             android:id="@+id/tv_location"
-            style="@style/text_style_lightgrey_13"
+            style="@style/text_style_grey_13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_size_6"

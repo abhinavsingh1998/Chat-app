@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/trouble_back"
-
     app:behavior_hideable="false"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
@@ -29,7 +28,7 @@
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/header_text"
                     android:layout_width="0dp"
-                    style="@style/text_style_text_black_color_20"
+                    style="@style/text_style_text_color_20"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_28"
                     android:layout_marginTop="@dimen/margin_size_30"

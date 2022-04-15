@@ -30,7 +30,7 @@ class LoginFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         authViewModel = ViewModelProvider(requireActivity(), authFactory)[AuthViewmodel::class.java]
         activityLoginActivity = ActivityLoginBinding.inflate(inflater, container, false)

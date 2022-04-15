@@ -243,4 +243,5 @@
     <string name="my_accounts">My Accounts</string>
     <string name="profile_security">Profile And Security</string>
     <string name="help_centre">help Center</string>
+    <string name="title">Title</string>
 </resources>
