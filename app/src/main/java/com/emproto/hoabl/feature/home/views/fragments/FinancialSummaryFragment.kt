@@ -12,11 +12,6 @@ import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentFinancialSummaryBinding
 import com.emproto.hoabl.feature.home.adapters.FinancialSumAdapter
-import com.emproto.hoabl.feature.home.adapters.FinancialSummaryAdapter
-import com.emproto.hoabl.feature.investment.views.LandSkusFragment
-import com.emproto.hoabl.feature.investment.views.OpportunityDocsFragment
-import com.emproto.hoabl.feature.investment.views.mediagallery.MediaGalleryFragment
-import com.emproto.hoabl.model.FinancialSummaryItems
 import com.emproto.hoabl.model.RecyclerViewItem
 
 
