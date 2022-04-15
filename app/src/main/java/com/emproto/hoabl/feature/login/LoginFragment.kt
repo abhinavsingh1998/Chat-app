@@ -71,7 +71,7 @@ class LoginFragment : BaseFragment() {
             }
 
         })
-        //TODO to star next screen without calling api
+
         activityLoginActivity.getOtpButton.setOnClickListener {
             //TODO uncomment for no api call
 //            (requireActivity() as AuthActivity).addFragment(
