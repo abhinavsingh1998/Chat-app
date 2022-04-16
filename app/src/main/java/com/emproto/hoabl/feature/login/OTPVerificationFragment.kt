@@ -12,14 +12,15 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.ActivityOtpVerifyBinding
+import com.emproto.hoabl.databinding.FragmentVerifyOtpBinding
 
 
 class OTPVerificationFragment : BaseFragment() {
 
-    private lateinit var activityOtpVerifyBinding: ActivityOtpVerifyBinding
+    private lateinit var mBinding: FragmentVerifyOtpBinding
     var countOtp: Int = 3
-   /// lateinit var dialog: Dialog
+
+    /// lateinit var dialog: Dialog
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private var isReadSMSGranted = false
     val permissionRequest: MutableList<String> = ArrayList()
@@ -41,20 +42,20 @@ class OTPVerificationFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activityOtpVerifyBinding = ActivityOtpVerifyBinding.inflate(layoutInflater)
+        mBinding = FragmentVerifyOtpBinding.inflate(layoutInflater)
         initView()
         initClickListener()
-        return activityOtpVerifyBinding.root
+        return mBinding.root
     }
 
     private fun initView() {
-        permissionLauncher=registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){
-            permissions->
-            isReadSMSGranted=permissions[Manifest.permission.READ_SMS] ?: isReadSMSGranted
-        }
+        permissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+                isReadSMSGranted = permissions[Manifest.permission.READ_SMS] ?: isReadSMSGranted
+            }
         requestPermission()
-        activityOtpVerifyBinding.tvMobileNumber.text = mobileno
-        activityOtpVerifyBinding.tvMobileNumber.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+        mBinding.tvMobileNumber.text = mobileno
+        mBinding.tvMobileNumber.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         /*getTimerCount()
         activityOtpVerifyBinding.textResend.setOnClickListener {
             countOtp--
@@ -66,29 +67,30 @@ class OTPVerificationFragment : BaseFragment() {
     }
 
     private fun initClickListener() {
-        activityOtpVerifyBinding.etOtp.addTextChangedListener(object : TextWatcher {
+        mBinding.etOtp.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s?.length == 5 && s?.length <= 6) {
-                    showSnackMessage("please enter valid OTP", activityOtpVerifyBinding.root)
+                    showSnackMessage("please enter valid OTP", mBinding.root)
                 }
             }
 
             override fun afterTextChanged(s: Editable?) {
                 if (s?.length == 6) {
-                    if (isNetworkAvailable(activityOtpVerifyBinding.root)) {
+                    if (isNetworkAvailable(mBinding.root)) {
 
                         (requireActivity() as AuthActivity).replaceFragment(
-                            NameInputFragment(),true)
-                       // startActivity(Intent(requireContext(), HomeActivity::class.java))
+                            NameInputFragment(), true
+                        )
+                        // startActivity(Intent(requireContext(), HomeActivity::class.java))
                         // dialog.dismiss()
 
                     } else {
-                        activityOtpVerifyBinding.layout1.setBackgroundColor(resources.getColor(R.color.background_grey))
-                        showSnackBar(activityOtpVerifyBinding.root)
+                        mBinding.layout1.setBackgroundColor(resources.getColor(R.color.background_grey))
+                        showSnackBar(mBinding.root)
                     }
                 }
             }
@@ -117,14 +119,17 @@ class OTPVerificationFragment : BaseFragment() {
         }.start()
     }*/
 
-    private fun requestPermission(){
-        isReadSMSGranted=ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.READ_SMS)==PackageManager.PERMISSION_GRANTED
+    private fun requestPermission() {
+        isReadSMSGranted = ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.READ_SMS
+        ) == PackageManager.PERMISSION_GRANTED
 
 
-        if (!isReadSMSGranted){
+        if (!isReadSMSGranted) {
             permissionRequest.add(Manifest.permission.READ_SMS)
         }
-        if (permissionRequest.isNotEmpty()){
+        if (permissionRequest.isNotEmpty()) {
             permissionLauncher.launch(permissionRequest.toTypedArray())
         }
     }
