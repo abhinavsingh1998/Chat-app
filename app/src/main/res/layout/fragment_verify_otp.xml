@@ -40,8 +40,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_size_28"
-                android:gravity="start|center"
                 android:layout_marginTop="@dimen/margin_size_55"
+                android:gravity="start|center"
                 android:text="@string/verify_otp"
                 app:fontName="@font/montserrat_regular"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -58,34 +58,34 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_login">
 
                 <com.emproto.core.textviews.CustomTextView
+                    style="@style/text_style_text_color_16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_18sdp"
-                    app:fontName="@string/jost_regular"
                     android:gravity="start|center"
-                    style="@style/text_style_text_color_16"
-                    android:text="@string/enter_digits" />
+                    android:text="@string/enter_digits"
+                    app:fontName="@string/jost_regular" />
 
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/tv_mobileNumber"
+                    style="@style/text_style_blue_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_2sdp"
-                    app:fontName="@string/jost_medium"
                     android:gravity="start|center"
                     android:text="+91-999 999 9999"
-                    style="@style/text_style_blue_12" />
+                    app:fontName="@string/jost_medium" />
 
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/et_edit"
+                    style="@style/text_style_blue_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_size_12"
                     android:layout_marginRight="@dimen/_10sdp"
-                    app:fontName="@string/jost_regular"
                     android:gravity="start|center"
                     android:text="@string/change_number"
-                    style="@style/text_style_blue_12"/>
+                    app:fontName="@string/jost_regular" />
             </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -93,13 +93,13 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/enter_otp"
                 android:layout_marginLeft="@dimen/margin_size_28"
                 android:layout_marginTop="@dimen/margin_size_45"
                 android:layout_marginRight="@dimen/margin_size_28"
+                android:hint="@string/enter_otp"
                 android:orientation="vertical"
-                app:hintTextColor="@color/app_color"
                 app:boxStrokeWidthFocused="0.7dp"
+                app:hintTextColor="@color/app_color"
                 app:layout_constraintTop_toBottomOf="@+id/layout_otp_text"
                 app:placeholderText="@string/type_here"
                 app:prefixTextColor="@color/text_color">
@@ -122,17 +122,16 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.emproto.core.textviews.CustomTextView
+                style="@style/text_style_blue_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/text_style_blue_14"
-                android:fontFamily="@font/jost_bold"
                 android:layout_marginEnd="@dimen/margin_size_18"
+                android:fontFamily="@font/jost_bold"
                 android:text="@string/resend_otp"
-                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/login_edittext"
                 app:layout_constraintRight_toRightOf="@+id/login_edittext"
                 app:layout_constraintTop_toTopOf="@+id/login_edittext"
-                app:layout_constraintBottom_toBottomOf="@+id/login_edittext"
-                />
+                app:layout_constraintVertical_bias="0.54" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

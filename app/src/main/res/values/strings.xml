@@ -20,7 +20,7 @@
     <string name="mobile_number">Mobile Number</string>
     <string name="enter_mobile">Enter Mobile Number</string>
     <string name="whatsapp">Whatsapp Communications</string>
-    <string name="login_terms_text">By login in, you are agreeing to our <u>Terms of services</u> and <u>Privacy policy</u></string>
+    <string name="login_terms_text">By login in, you are agreeing to our <u>Terms of services</u> \n and <u>Privacy policy</u></string>
     <string name="trouble_login"><u>Trouble Signing In?</u></string>
     <string name="get_otp">Get OTP</string>
     <string name="submit_and_continue">Submit and Continue</string>
