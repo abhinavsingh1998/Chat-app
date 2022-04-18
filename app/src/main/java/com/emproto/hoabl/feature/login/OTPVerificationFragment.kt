@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.login
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Paint
 import android.os.Bundle
@@ -10,9 +11,19 @@ import android.view.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
+import com.emproto.networklayer.preferences.AppPreference
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentVerifyOtpBinding
+import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.viewmodels.AuthViewmodel
+import com.emproto.hoabl.viewmodels.factory.AuthFactory
+import com.emproto.networklayer.request.login.OtpVerifyRequest
+import com.emproto.networklayer.response.enums.Status
+import javax.inject.Inject
 
 
 class OTPVerificationFragment : BaseFragment() {
@@ -24,6 +35,14 @@ class OTPVerificationFragment : BaseFragment() {
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private var isReadSMSGranted = false
     val permissionRequest: MutableList<String> = ArrayList()
+
+    @Inject
+    lateinit var authFactory: AuthFactory
+    lateinit var authViewModel: AuthViewmodel
+
+    @Inject
+    lateinit var appPreference: AppPreference
+
 
     companion object {
         var mobileno: String = ""
@@ -42,6 +61,8 @@ class OTPVerificationFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
+        authViewModel = ViewModelProvider(requireActivity(), authFactory)[AuthViewmodel::class.java]
         mBinding = FragmentVerifyOtpBinding.inflate(layoutInflater)
         initView()
         initClickListener()
@@ -74,20 +95,52 @@ class OTPVerificationFragment : BaseFragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s?.length == 5 && s?.length <= 6) {
-                    showSnackMessage("please enter valid OTP", mBinding.root)
+                    showSnackMessage("Please Enter Valid Otp", mBinding.root)
                 }
             }
 
             override fun afterTextChanged(s: Editable?) {
                 if (s?.length == 6) {
                     if (isNetworkAvailable(mBinding.root)) {
+                        val otpVerifyRequest = OtpVerifyRequest(s.toString(), mobileno, false)
 
-                        (requireActivity() as AuthActivity).replaceFragment(
-                            NameInputFragment(), true
-                        )
-                        // startActivity(Intent(requireContext(), HomeActivity::class.java))
-                        // dialog.dismiss()
+                        authViewModel.verifyOtp(otpVerifyRequest).observe(viewLifecycleOwner,
+                            Observer {
+                                when (it.status) {
+                                    Status.LOADING -> {
+                                        mBinding.loader.visibility = View.VISIBLE
+                                    }
+                                    Status.ERROR -> {
+                                        mBinding.loader.visibility = View.INVISIBLE
+                                    }
+                                    Status.SUCCESS -> {
+                                        //save token to preference
+                                        mBinding.loader.visibility = View.INVISIBLE
+                                        it.data?.let {
+                                            appPreference.setToken(it.token)
+                                            if (it.user.contactType == "prelead") {
+                                                requireActivity().supportFragmentManager.popBackStack()
+                                                (requireActivity() as AuthActivity).replaceFragment(
+                                                    NameInputFragment.newInstance(
+                                                        it.user.firstName,
+                                                        it.user.lastName
+                                                    ), true
+                                                )
+                                            } else {
+                                                appPreference.saveLogin(true)
+                                                startActivity(
+                                                    Intent(
+                                                        requireContext(),
+                                                        HomeActivity::class.java
+                                                    )
+                                                )
+                                                requireActivity().finish()
+                                            }
+                                        }
 
+                                    }
+                                }
+                            })
                     } else {
                         mBinding.layout1.setBackgroundColor(resources.getColor(R.color.background_grey))
                         showSnackBar(mBinding.root)

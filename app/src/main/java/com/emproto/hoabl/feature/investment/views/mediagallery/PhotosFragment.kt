@@ -1,18 +1,13 @@
 package com.emproto.hoabl.feature.investment.views.mediagallery
 
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.HomeActivity
-import com.emproto.hoabl.R
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentPhotosBinding
 import com.emproto.hoabl.feature.investment.adapters.MediaPhotosAdapter
-import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.model.MediaGalleryItem
 import com.emproto.hoabl.utils.ItemClickListener
 

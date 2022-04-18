@@ -6,10 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.RegistrationDataSource
-import com.emproto.networklayer.request.OtpRequest
+import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.response.BaseResponse
-import com.emproto.networklayer.response.LoginResponse
-import com.emproto.networklayer.response.OtpResponse
+import com.emproto.networklayer.response.login.OtpResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
