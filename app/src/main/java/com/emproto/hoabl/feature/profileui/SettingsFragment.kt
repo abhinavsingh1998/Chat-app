@@ -35,7 +35,7 @@ class SettingsFragment:Fragment() {
         binding = FragmentSettingsBinding.inflate(layoutInflater)
         binding.recyclerview1.layoutManager = LinearLayoutManager(requireContext())
 
-        val detailAdapter = SettingsAdapter(initData())
+        val detailAdapter = SettingsAdapter(requireContext(),initData())
         binding.recyclerview1.adapter = detailAdapter
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible=true
         initClickListener()

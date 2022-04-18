@@ -187,7 +187,7 @@
     <string name="gender">Gender</string>
     <string name="Address_details">Address details</string>
     <string name="Enter_complete_Address">Enter complete Address</string>
-    <string name="Enter_Layality">Enter Layality</string>
+    <string name="Enter_Locality">Enter Locality</string>
     <string name="Pincode">Pincode</string>
     <string name="State">State</string>
     <string name="Floor_and_House_Number">Floor and House Number</string>
@@ -216,13 +216,13 @@
     <string name="category">Category</string>
     <string name="answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer">Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer</string>
     <string name="view_1_textview">View 1 TextView</string>
-    <string name="health_center">Health Center</string>
+    <string name="help_center">Help Center</string>
     <string name="new_generation_land_is_now_safe_and_secure_owning_land_will_never_feel_like_a_gamble_again">New Generation Land is now safe and secure. Owning land will never feel like a gamble again.</string>
     <string name="read_our_terms_amp_conditions"><![CDATA[Read our Terms & Conditions]]></string>
     <string name="just_invest_we_have_your_back">Just Invest We have your back!</string>
     <string name="buy_maintain_and_liquidate_land_with_amazing_ease_con_dence_and_trust">Buy, maintain and liquidate land with amazing ease, conﬁdence and trust.</string>
     <string name="desc">Desc</string>
-    <string name="save_and_update">Desc</string>
+    <string name="save_and_update">Save and Update</string>
     <string name="documents">Documents</string>
     <string name="continue_txt">Continue</string>
     <string name="confirmation_msg">Your query has been submitted successfully.</string>
@@ -246,4 +246,12 @@
     <string name="profile_security">Profile And Security</string>
     <string name="help_centre">help Center</string>
     <string name="title">Title</string>
+    <string name="aadhar_card">Aadhar Card</string>
+    <string name="phone_num">+91 897 160 0316</string>
+    <string name="view_document">View Document</string>
+    <string name="pan_card">Pan Card</string>
+    <string name="isle_of_bliss">Isle of Bliss</string>
+    <string name="see_receipt">See Receipt</string>
+    <string name="this_page_will_be_activated_after_possession_handover_is_done">This page will be activated after possession handover is done</string>
+    <string name="okay">OKAY</string>
 </resources>

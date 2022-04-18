@@ -26,10 +26,10 @@ class ProfileFragment : BaseFragment() {
     lateinit var imageviewsettings: ImageView
     lateinit var imageSecurityLock: ImageView
     lateinit var imageViewMessage: ImageView
-    lateinit var AccountView: View
-    lateinit var settingsView: View
-    lateinit var securityView: View
-    lateinit var messageView: View
+    lateinit var AccountView:View
+    lateinit var settingsView:View
+    lateinit var help_center_tv:View
+    lateinit var messageView:View
     val bundle = Bundle()
 
     @Inject
@@ -69,7 +69,7 @@ class ProfileFragment : BaseFragment() {
         })
         binding.AccountView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                val accountDetailsFragment = Account_Details_Fragment()
+                val accountDetailsFragment = AccountDetailsFragment()
                 (requireActivity() as HomeActivity).replaceFragment(
                     accountDetailsFragment.javaClass,
                     "",
@@ -85,7 +85,7 @@ class ProfileFragment : BaseFragment() {
         binding.settingsView.setOnClickListener(
             object : View.OnClickListener {
                 override fun onClick(p0: View?) {
-                    val settingsFragment = SettingsFragment()
+                    val settingsFragment = SecurityFragment()
                     (requireActivity() as HomeActivity).replaceFragment(
                         settingsFragment.javaClass,
                         "",
@@ -99,24 +99,7 @@ class ProfileFragment : BaseFragment() {
 
             }
         )
-        binding.securityView.setOnClickListener(
-            object : View.OnClickListener {
-                override fun onClick(p0: View?) {
-                    val securityFragment = SecurityFragment()
-                    (requireActivity() as HomeActivity).replaceFragment(
-                        securityFragment.javaClass,
-                        "",
-                        true,
-                        bundle,
-                        null,
-                        0,
-                        false
-                    )
-                }
-
-            }
-        )
-        binding.messageView.setOnClickListener(
+        binding.helpCenterTv.setOnClickListener(
             object : View.OnClickListener {
                 override fun onClick(p0: View?) {
                     val healthCenterFragment = HealthCenterFragment()
@@ -133,6 +116,7 @@ class ProfileFragment : BaseFragment() {
 
             }
         )
+
 
         binding.Logoutbtn.setOnClickListener {
             appPreference.saveLogin(false)

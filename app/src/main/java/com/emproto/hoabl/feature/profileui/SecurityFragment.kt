@@ -6,51 +6,39 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.view.isVisible
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentSecurityBinding
 import com.emproto.hoabl.feature.home.profileAdapter.SecurityAdapter
-import com.emproto.hoabl.feature.home.profileAdapter.data.SecurityData
-
+import com.emproto.hoabl.feature.home.profileAdapter.SettingsAdapter
+import com.emproto.hoabl.model.RecyclerViewItem
 
 
 class SecurityFragment : Fragment() {
     lateinit var binding: FragmentSecurityBinding
-    lateinit var leftarrowimage:ImageView
+    lateinit var adapter: SettingsAdapter
+    lateinit var leftarrowimage: ImageView
     val bundle = Bundle()
+
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentSecurityBinding.inflate(inflater, container, false)
-        binding.recyclerView.layoutManager= LinearLayoutManager(requireContext())
-        val detailAdapter= SecurityAdapter(requireContext(),initData())
-        binding.recyclerView.adapter= detailAdapter
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible=true
-        initClickListener()
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentSecurityBinding.inflate(layoutInflater)
         return binding.root
-    }
-    private fun initClickListener() {
-        binding.leftarrowimage.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                val profileFragment = ProfileFragment()
-                (requireActivity()as HomeActivity).replaceFragment(profileFragment.javaClass, "", true, bundle, null, 0, false)}
-        })
-    }
-    private fun initData(): ArrayList<SecurityData> {
-        val dataList: ArrayList<SecurityData> = ArrayList<SecurityData>()
-        dataList.add(SecurityData(SecurityAdapter.VIEW_SECURITY_ONE, "Control location access here","Mobile Pin Authentication",
-            R.drawable.arrow))
-        dataList.add(SecurityData(SecurityAdapter.VIEW_SECURITY_TWO, "Control location access here","Whatsapp Communication",
-            R.drawable.arrow))
-        dataList.add(SecurityData(SecurityAdapter.VIEW_SECURITY_THREE, "Control location access here","Read Security",
-            R.drawable.arrow))
 
-
-      return dataList
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        fun initData(): ArrayList<RecyclerViewItem> {
+            val dataList: ArrayList<RecyclerViewItem> = ArrayList<RecyclerViewItem>()
+            dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_AUTHENTICATE))
+            dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_WHATSAPP_COMMUNICATION))
+            dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_LOCATION))
+            dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SETTINGS_ALL_OPTIONS))
+            return dataList
+        }
+
+        val adapter = SecurityAdapter(this.requireContext(), initData())
+        binding.recyclerView.adapter = adapter
+    }
 }
+

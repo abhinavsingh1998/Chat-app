@@ -8,10 +8,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
+import com.emproto.hoabl.databinding.LandSkusTopLayoutBinding
 import com.emproto.hoabl.feature.home.profileAdapter.data.DataHealthCenter
+import com.emproto.hoabl.feature.home.promisesUi.adapter.HoabelPromiseAdapter
+import com.emproto.hoabl.feature.investment.adapters.LandSkusAdapter
+import com.emproto.hoabl.feature.investment.adapters.SkusListAdapter
 
 class HoabelHealthAdapter(context: Context, list: ArrayList<DataHealthCenter>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private lateinit var onItemClickListener : View.OnClickListener
+    lateinit var faqAdapter:FaqAdapter
 
     companion object {
         const val VIEW_HELP_CENTER_ONE = 1
@@ -22,10 +28,9 @@ class HoabelHealthAdapter(context: Context, list: ArrayList<DataHealthCenter>) :
     var list: ArrayList<DataHealthCenter> = list
 
 
-
-
     private inner class View1ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
+
         var message: TextView = itemView.findViewById(R.id.tv_security)
         var hoabelImg:ImageView= itemView.findViewById(R.id.hoabelImgfaq)
 
@@ -33,12 +38,8 @@ class HoabelHealthAdapter(context: Context, list: ArrayList<DataHealthCenter>) :
             val recyclerViewModel = list[position]
             message.text = recyclerViewModel.tv_security
             hoabelImg.setImageResource(recyclerViewModel.hoabelImg)
-
-
-
         }
     }
-
     private inner class View2ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         var message: TextView = itemView.findViewById(R.id.tv_wants_to_connect)
@@ -48,7 +49,6 @@ class HoabelHealthAdapter(context: Context, list: ArrayList<DataHealthCenter>) :
 
         }
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == VIEW_HELP_CENTER_ONE) {
             return View1ViewHolder(
@@ -71,8 +71,8 @@ class HoabelHealthAdapter(context: Context, list: ArrayList<DataHealthCenter>) :
             (holder as View2ViewHolder).bind(position)
         }
     }
-
     override fun getItemViewType(position: Int): Int {
         return list[position].viewType
     }
+
 }

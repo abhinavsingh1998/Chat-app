@@ -4,14 +4,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:background="@color/app_color"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/app_color">
 
             <View
                 android:id="@+id/fullView"
@@ -19,7 +23,7 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/margin_size_55"
                 android:layout_marginEnd="@dimen/margin_size_10"
-                android:background="@drawable/shape1"
+                android:background="@drawable/shape2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -31,7 +35,7 @@
                 android:id="@+id/imgArrow"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginStart="@dimen/margin_size_23"
+                android:layout_marginStart="@dimen/margin_size_24"
                 android:layout_marginTop="@dimen/margin_size_27"
                 android:background="@drawable/ic_path"
                 app:layout_constraintStart_toStartOf="parent"
@@ -39,201 +43,217 @@
 
             <TextView
                 android:id="@+id/tv_Account"
+                style="@style/text_style_blue_16"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginStart="@dimen/margin_size_17"
+                android:layout_marginStart="@dimen/margin_size_16"
                 android:layout_marginTop="@dimen/margin_size_24"
                 android:fontFamily="@font/jostmedium"
                 android:text="@string/My_account"
-                style ="@style/text_style_blue_16"
                 app:layout_constraintStart_toEndOf="@+id/imgArrow"
                 app:layout_constraintTop_toTopOf="@+id/fullView" />
 
-            <TextView
-                android:id="@+id/tvPayments"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/jostregular"
-                android:lineSpacingExtra="0sp"
-                android:text="@string/payment_history_text"
-                style="style/text_style_text_color_18"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_Account" />
-
-            <TextView
-                android:id="@+id/seeall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_size_134"
-                android:fontFamily="@font/jostregular"
-                android:text="@string/see_all"
-                style="@style/text_style_blue_12"
-                app:layout_constraintEnd_toStartOf="@+id/iv_RightArrow"
-                app:layout_constraintStart_toEndOf="@+id/tvPayments"
-                app:layout_constraintBottom_toBottomOf="@id/tvPayments"
-                app:layout_constraintTop_toTopOf="@+id/tvPayments" />
-
-            <ImageView
-                android:id="@+id/iv_RightArrow"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginEnd="@dimen/margin_size_28"
-                android:src="@drawable/ic_baseline_arrow_right_alt"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvPayments"
-                app:layout_constraintBottom_toBottomOf="@id/tvPayments"/>
-
-            <View
-                android:id="@+id/viewDiscuss"
-                android:layout_width="match_parent"
-                android:layout_height="99dp"
-                android:layout_marginStart="@dimen/margin_size_28"
-                android:layout_marginTop="@dimen/margin_size_14"
-                android:layout_marginEnd="@dimen/margin_size_28"
-                android:background="#d3d3d9"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.25"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvPayments" />
-
-            <TextView
-                android:id="@+id/tv_Discuss"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/margin_size_90"
-                android:layout_marginTop="41dp"
-                android:fontFamily="@font/jostmedium"
-                android:text="@string/need_input_discussion"
-                style ="@style/text_style_grey_14"
-                app:layout_constraintStart_toStartOf="@+id/viewDiscuss"
-                app:layout_constraintTop_toTopOf="@+id/viewDiscuss" />
 
             <TextView
                 android:id="@+id/tv_kyc"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/jostregular"
-                android:lineSpacingExtra="0sp"
                 style="style/text_style_text_color_18"
-                android:text="@string/kyc"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewDiscuss" />
-
-            <TextView
-                android:id="@+id/tv_seeall"
-                style="@style/text_style_blue_12"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/margin_size_214"
-                android:layout_marginTop="@dimen/margin_size_30"
-                android:fontFamily="@font/jostregular"
-                android:text="@string/see_all"
-                app:layout_constraintEnd_toStartOf="@+id/iv_arrow_right"
-                app:layout_constraintStart_toEndOf="@+id/tv_kyc"
-                app:layout_constraintTop_toBottomOf="@+id/viewDiscuss" />
-
-            <ImageView
-                android:id="@+id/iv_arrow_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_size_35"
-                android:layout_marginEnd="@dimen/margin_size_28"
-                android:layout_marginBottom="@dimen/margin_size_18"
-                android:src="@drawable/ic_baseline_arrow_right_alt"
-                app:layout_constraintBottom_toTopOf="@+id/view_Kyc"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewDiscuss" />
+                android:layout_marginStart="@dimen/margin_size_16"
+                android:layout_marginTop="@dimen/margin_size_26"
+                android:fontFamily="@font/jostregular"
+                android:text="@string/kyc"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgArrow" />
 
             <View
-                android:id="@+id/view_Kyc"
-                android:layout_width="match_parent"
-                android:layout_height="99dp"
-                android:layout_marginLeft="@dimen/margin_size_28"
-                android:layout_marginTop="@dimen/margin_size_60"
-                android:layout_marginRight="@dimen/margin_size_28"
-                android:background="#d3d3d9"
+                android:id="@+id/View_aadhar"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="@dimen/margin_size_16"
+                android:layout_marginTop="@dimen/margin_size_14"
+                android:layout_marginEnd="@dimen/margin_size_16"
+                android:background="@drawable/shape2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewDiscuss" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_kyc" />
 
             <TextView
-                android:id="@+id/tv_Discuss2"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/margin_size_90"
-                android:layout_marginTop="41dp"
-                android:fontFamily="@font/jostmedium"
-                android:text="@string/need_input_discussion"
-                style ="@style/text_style_grey_14"
-                app:layout_constraintStart_toStartOf="@+id/view_Kyc"
-                app:layout_constraintTop_toTopOf="@+id/view_Kyc" />
+                android:id="@+id/tv_aadhar"
+                style="@style/text_style_text_color_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/jostregular"
+                android:text="Aadhar Card"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/View_aadhar" />
 
+            <TextView
+                android:id="@+id/documentview_link"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_163.5"
+                android:layout_marginTop="@dimen/margin_size_9"
+                android:layout_marginEnd="@dimen/margin_size_0"
+                android:fontFamily="@font/jostregular"
+                android:text="@string/view_document"
+                style="@style/text_style_blue_12"
+                app:layout_constraintEnd_toEndOf="@+id/View_aadhar"
+                app:layout_constraintStart_toEndOf="@+id/tv_aadhar"
+                app:layout_constraintTop_toTopOf="@+id/View_aadhar" />
+
+
+            <View
+                android:id="@+id/document_view_link_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="182dp"
+                android:layout_marginEnd="@dimen/margin_size_30"
+                android:background="@color/app_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/tv_aadhar"
+                app:layout_constraintTop_toBottomOf="@+id/documentview_link" />
+
+            <View
+                android:id="@+id/pan_view"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="@dimen/margin_size_16"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="@dimen/margin_size_16"
+                android:background="@drawable/shape2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/View_aadhar" />
+
+            <TextView
+                android:id="@+id/tv_pan"
+                style="@style/text_style_text_color_14"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginStart="@dimen/margin_size_16"
+                android:layout_marginTop="@dimen/margin_size_8"
+                android:fontFamily="@font/jostregular"
+                android:text="@string/pan_card"
+                app:layout_constraintStart_toStartOf="@+id/pan_view"
+                app:layout_constraintTop_toBottomOf="@+id/View_aadhar" />
+
+            <TextView
+                android:id="@+id/tv_document_link2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_163.5"
+                android:layout_marginTop="@dimen/margin_size_9"
+                android:layout_marginEnd="@dimen/margin_size_0"
+                android:fontFamily="@font/jostregular"
+                android:text="@string/view_document"
+                style="@style/text_style_blue_12"
+                app:layout_constraintEnd_toEndOf="@+id/pan_view"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/tv_pan"
+                app:layout_constraintTop_toTopOf="@+id/pan_view" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="182dp"
+                android:layout_marginEnd="@dimen/margin_size_32"
+                android:background="@color/app_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.71"
+                app:layout_constraintStart_toEndOf="@+id/tv_pan"
+                app:layout_constraintTop_toBottomOf="@+id/tv_document_link2" />
 
             <TextView
                 android:id="@+id/tv_Doc"
-                android:layout_width="wrap_content"
+                style="style/text_style_text_color_18"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_size_28"
+                android:layout_marginStart="@dimen/margin_size_16"
                 android:layout_marginTop="@dimen/margin_size_30"
                 android:fontFamily="@font/jostregular"
-                android:lineSpacingExtra="0sp"
                 android:text="@string/documents"
-                style="style/text_style_text_color_18"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_Kyc" />
+                app:layout_constraintTop_toBottomOf="@+id/pan_view" />
+
 
             <TextView
                 android:id="@+id/see_tv"
-                android:layout_width="wrap_content"
-                android:layout_marginTop="@dimen/margin_size_30"
-                android:layout_marginEnd="@dimen/margin_size_8"
-                android:layout_height="0dp"
-                android:fontFamily="@font/jostregular"
                 style="@style/text_style_blue_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_190"
+                android:layout_marginTop="@dimen/margin_size_30"
+                android:layout_marginEnd="@dimen/margin_size_11"
+                android:fontFamily="@font/jostregular"
                 android:text="@string/see_all"
-                app:layout_constraintEnd_toStartOf="@+id/arrow_right_iv"
-                app:layout_constraintTop_toBottomOf="@+id/view_Kyc" />
+                app:layout_constraintStart_toEndOf="@+id/tv_Doc"
+                app:layout_constraintTop_toBottomOf="@+id/pan_view" />
 
             <ImageView
                 android:id="@+id/arrow_right_iv"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_size_28"
-                android:layout_marginEnd="@dimen/margin_size_28"
-                android:layout_marginBottom="@dimen/margin_size_18"
+                android:layout_marginStart="@dimen/margin_size_8"
+                android:layout_marginTop="@dimen/margin_size_30"
+                android:layout_marginEnd="@dimen/margin_size_17"
                 android:src="@drawable/ic_baseline_arrow_right_alt"
-                app:layout_constraintBottom_toTopOf="@+id/view_pager2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_Kyc" />
+                app:layout_constraintStart_toEndOf="@+id/see_tv"
+                app:layout_constraintTop_toBottomOf="@+id/pan_view" />
 
 
             <androidx.viewpager2.widget.ViewPager2
-                android:padding="100dp"
                 android:id="@+id/view_pager2"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="match_parent"
                 android:layout_above="@+id/indicator"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="@dimen/margin_size_28"
-                android:layout_marginEnd="@dimen/margin_size_28"
                 android:layout_marginTop="@dimen/margin_size_32"
+                android:layout_marginEnd="@dimen/margin_size_28"
+                android:padding="100dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_Doc" />
 
             <me.relex.circleindicator.CircleIndicator3
                 android:id="@+id/indicator"
-                android:layout_width="324dp"
-                android:layout_height="37dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
                 android:background="#D3D4D5"
-                app:layout_constraintBottom_toBottomOf="@+id/fullView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_pager2"
-                app:layout_constraintVertical_bias="0.083" />
+                app:layout_constraintTop_toBottomOf="@+id/view_pager2" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_16"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="@dimen/margin_size_230"
+                android:fontFamily="@font/jostregular"
+                android:lineSpacingExtra="0sp"
+                android:text="Payment History"
+                android:textColor="#16161c"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/indicator" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/account_details_recycler_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

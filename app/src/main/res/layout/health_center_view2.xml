@@ -22,66 +22,91 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:layout_marginTop="@dimen/margin_size_6"
-        android:background="@drawable/black"
-        android:layout_marginStart="@dimen/margin_size_112"
-        android:layout_marginEnd="@dimen/margin_size_112"
+
+    <com.emproto.core.textviews.CustomTextView
+        android:id="@+id/save_and_update"
+        style="@style/text_style_white_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/portfolio_btn_shape"
+        android:drawableLeft="@drawable/ic_chat_4"
+        android:drawableRight="@drawable/ic_combined_shape_copy_5"
+        android:layout_marginStart="@dimen/margin_size_50"
+        android:layout_marginEnd="@dimen/margin_size_50"
+        android:drawablePadding="@dimen/_2sdp"
+        android:paddingStart="@dimen/margin_size_45"
+        android:paddingTop="@dimen/margin_size_12"
+        android:paddingEnd="@dimen/margin_size_45"
+        android:paddingBottom="@dimen/margin_size_12"
+        android:text="@string/chat_with_us"
+
+        app:fontName="@font/jost_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_wants_to_connect" />
 
-    <ImageView
-        android:id="@+id/img"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginRight="7dp"
-        android:layout_marginLeft="7dp"
-        android:src="@drawable/ic_chat_4"
-        app:layout_constraintStart_toStartOf="@+id/view"
-        app:layout_constraintTop_toTopOf="@+id/view" />
+<!--    <View-->
+<!--        android:id="@+id/view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="32dp"-->
+<!--        android:layout_marginTop="@dimen/margin_size_6"-->
+<!--        android:background="@drawable/black"-->
+<!--        android:layout_marginStart="@dimen/margin_size_112"-->
+<!--        android:layout_marginEnd="@dimen/margin_size_112"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tv_wants_to_connect" />-->
 
-    <TextView
-        android:id="@+id/tv_chat"
-        android:layout_width="65dp"
-        android:layout_height="18dp"
-        android:text="@string/chat_with_us"
-        android:fontFamily="@font/jostregular"
-        android:layout_marginTop="@dimen/margin_size_7"
-        android:layout_marginStart="@dimen/margin_size_10"
-        style="style/text_style_white_14"
-        app:layout_constraintStart_toEndOf="@+id/img"
-        app:layout_constraintTop_toTopOf="@+id/view" />
+<!--    <ImageView-->
+<!--        android:id="@+id/img"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginTop="7dp"-->
+<!--        android:layout_marginRight="7dp"-->
+<!--        android:layout_marginLeft="7dp"-->
+<!--        android:src="@drawable/ic_chat_4"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/view"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/view" />-->
 
-    <ImageView
-        android:id="@+id/path"
-        android:layout_width="30dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="@dimen/margin_size_4"
-        android:src="@drawable/arrow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.42"
-        app:layout_constraintStart_toEndOf="@+id/img"
-        app:layout_constraintTop_toTopOf="@+id/view" />
+<!--    <TextView-->
+<!--        android:id="@+id/tv_chat"-->
+<!--        android:layout_width="65dp"-->
+<!--        android:layout_height="18dp"-->
+<!--        android:text="@string/chat_with_us"-->
+<!--        android:fontFamily="@font/jostregular"-->
+<!--        android:layout_marginTop="@dimen/margin_size_7"-->
+<!--        android:layout_marginStart="@dimen/margin_size_10"-->
+<!--        style="style/text_style_white_14"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/img"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/view" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/path"-->
+<!--        android:layout_width="30dp"-->
+<!--        android:layout_height="18dp"-->
+<!--        android:layout_marginTop="@dimen/margin_size_4"-->
+<!--        android:src="@drawable/arrow"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.42"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/img"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/view" />-->
 
     <TextView
         android:id="@+id/info"
+        style="@style/text_style_lightgrey_12"
         android:layout_width="122dp"
         android:layout_height="48dp"
+        android:layout_marginBottom="@dimen/margin_size_17"
         android:layout_marginStart="@dimen/margin_size_112"
-        android:layout_marginTop="@dimen/margin_size_10"
+        android:layout_marginTop="@dimen/margin_size_14"
         android:layout_marginEnd="@dimen/margin_size_112"
         android:fontFamily="@font/jostmedium"
-       style="@style/text_style_lightgrey_12"
         android:text="@string/information"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
-
+        app:layout_constraintTop_toBottomOf="@+id/save_and_update" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentHealthCenterBinding
 import com.emproto.hoabl.feature.home.profileAdapter.HoabelHealthAdapter
 import com.emproto.hoabl.feature.home.profileAdapter.data.DataHealthCenter
+import com.emproto.hoabl.feature.home.promisesUi.PromiseSecondScreenFragment
 
 
 class HealthCenterFragment : Fragment() {
@@ -25,11 +26,25 @@ class HealthCenterFragment : Fragment() {
     lateinit var button: Button
     lateinit var ivleftarrow:ImageView
     lateinit var hoabelImg:ImageView
+    lateinit var full_view_tv:View
+    lateinit var tv_security:TextView
     lateinit var tvhealthCenter:TextView
     lateinit var recyclerView: RecyclerView
     val bundle = Bundle()
 
-
+    private val onItemClickListener =
+        View.OnClickListener { view ->
+            when (view.id) {
+                R.id.full_view_tv ->{
+                    val faqFragment = FaqFragment()
+                    (requireActivity() as HomeActivity).replaceFragment(faqFragment.javaClass, "", true, null, null, 0, false)
+                }
+                R.id.tv_security -> {
+                    val faqFragment= FaqFragment()
+                    (requireActivity() as HomeActivity).replaceFragment(faqFragment.javaClass, "", true, null, null, 0, false)
+                }
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,

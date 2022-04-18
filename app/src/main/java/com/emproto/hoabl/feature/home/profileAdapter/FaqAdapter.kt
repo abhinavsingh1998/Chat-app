@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemFaqBinding
 
 class FaqAdapter(private val list:List<String>):RecyclerView.Adapter<FaqAdapter.FaqViewHolder>() {
+    private lateinit var onItemClickListener : View.OnClickListener
     inner class FaqViewHolder(var binding: ItemFaqBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FaqViewHolder {
@@ -29,4 +30,7 @@ class FaqAdapter(private val list:List<String>):RecyclerView.Adapter<FaqAdapter.
     }
 
     override fun getItemCount(): Int = list.size
+    fun setItemClickListener(clickListener: View.OnClickListener) {
+        onItemClickListener = clickListener
+    }
 }
