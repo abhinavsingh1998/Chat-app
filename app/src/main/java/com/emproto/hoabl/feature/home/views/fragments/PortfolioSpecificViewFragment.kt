@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.databinding.FragmentPortfolioSpecificviewBinding
 import com.emproto.hoabl.feature.home.adapters.PortfolioDocumentAdapter
 import com.emproto.hoabl.feature.home.adapters.ProjectPromisesAdapter

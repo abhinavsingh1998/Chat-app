@@ -10,7 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.core.view.isVisible
-import com.emproto.hoabl.HomeActivity
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentProfileSecondBinding
 
 import java.util.*

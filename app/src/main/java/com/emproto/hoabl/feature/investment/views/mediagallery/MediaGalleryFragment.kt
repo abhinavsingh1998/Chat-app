@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.databinding.FragmentMediaGalleryBinding
 import com.emproto.hoabl.feature.investment.adapters.MediaViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator

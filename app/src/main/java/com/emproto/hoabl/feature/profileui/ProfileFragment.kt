@@ -1,4 +1,6 @@
 package com.emproto.hoabl.feature.profileui
+
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +10,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.HomeActivity
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentProfileMainBinding
+import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.login.AuthActivity
+import com.emproto.networklayer.preferences.AppPreference
+import javax.inject.Inject
 
 class ProfileFragment : BaseFragment() {
 
@@ -20,11 +26,14 @@ class ProfileFragment : BaseFragment() {
     lateinit var imageviewsettings: ImageView
     lateinit var imageSecurityLock: ImageView
     lateinit var imageViewMessage: ImageView
-    lateinit var AccountView:View
-    lateinit var settingsView:View
-    lateinit var securityView:View
-    lateinit var messageView:View
+    lateinit var AccountView: View
+    lateinit var settingsView: View
+    lateinit var securityView: View
+    lateinit var messageView: View
     val bundle = Bundle()
+
+    @Inject
+    lateinit var appPreference: AppPreference
 
 
     override fun onCreateView(
@@ -32,11 +41,13 @@ class ProfileFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         binding = FragmentProfileMainBinding.inflate(inflater, container, false)
-
-
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible=true
-        (requireActivity()as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible= false
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
+            true
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible =
+            false
         initClickListener()
         return binding.root
     }
@@ -45,19 +56,46 @@ class ProfileFragment : BaseFragment() {
         binding.editProfile.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
                 val profileSecondFragment = ProfileSecondFragment()
-                (requireActivity()as HomeActivity).replaceFragment(profileSecondFragment.javaClass, "", true, bundle, null, 0, false)}
+                (requireActivity() as HomeActivity).replaceFragment(
+                    profileSecondFragment.javaClass,
+                    "",
+                    true,
+                    bundle,
+                    null,
+                    0,
+                    false
+                )
+            }
         })
         binding.AccountView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
                 val accountDetailsFragment = Account_Details_Fragment()
-                (requireActivity()as HomeActivity).replaceFragment(accountDetailsFragment.javaClass, "", true, bundle, null, 0, false)}
+                (requireActivity() as HomeActivity).replaceFragment(
+                    accountDetailsFragment.javaClass,
+                    "",
+                    true,
+                    bundle,
+                    null,
+                    0,
+                    false
+                )
+            }
 
         })
         binding.settingsView.setOnClickListener(
             object : View.OnClickListener {
                 override fun onClick(p0: View?) {
                     val settingsFragment = SettingsFragment()
-                    (requireActivity()as HomeActivity).replaceFragment(settingsFragment.javaClass, "", true, bundle, null, 0, false)}
+                    (requireActivity() as HomeActivity).replaceFragment(
+                        settingsFragment.javaClass,
+                        "",
+                        true,
+                        bundle,
+                        null,
+                        0,
+                        false
+                    )
+                }
 
             }
         )
@@ -65,7 +103,16 @@ class ProfileFragment : BaseFragment() {
             object : View.OnClickListener {
                 override fun onClick(p0: View?) {
                     val securityFragment = SecurityFragment()
-                    (requireActivity()as HomeActivity).replaceFragment(securityFragment.javaClass, "", true, bundle, null, 0, false)}
+                    (requireActivity() as HomeActivity).replaceFragment(
+                        securityFragment.javaClass,
+                        "",
+                        true,
+                        bundle,
+                        null,
+                        0,
+                        false
+                    )
+                }
 
             }
         )
@@ -73,10 +120,25 @@ class ProfileFragment : BaseFragment() {
             object : View.OnClickListener {
                 override fun onClick(p0: View?) {
                     val healthCenterFragment = HealthCenterFragment()
-                    (requireActivity()as HomeActivity).replaceFragment(healthCenterFragment.javaClass, "", true, bundle, null, 0, false)}
+                    (requireActivity() as HomeActivity).replaceFragment(
+                        healthCenterFragment.javaClass,
+                        "",
+                        true,
+                        bundle,
+                        null,
+                        0,
+                        false
+                    )
+                }
 
             }
         )
+
+        binding.Logoutbtn.setOnClickListener {
+            appPreference.saveLogin(false)
+            startActivity(Intent(context, AuthActivity::class.java))
+            requireActivity().finish()
+        }
 
     }
 }

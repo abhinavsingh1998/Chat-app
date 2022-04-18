@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.emproto.hoabl.HomeActivity
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentFaqBinding
 import com.emproto.hoabl.feature.home.profileAdapter.data.FaqData
 import com.emproto.hoabl.feature.home.profileAdapter.FaqViewAdapter

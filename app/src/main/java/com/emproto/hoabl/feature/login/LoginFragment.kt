@@ -10,12 +10,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentLoginBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.viewmodels.AuthViewmodel
 import com.emproto.hoabl.viewmodels.factory.AuthFactory
-import com.emproto.networklayer.request.OtpRequest
+import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.response.enums.Status
 import javax.inject.Inject
 
@@ -25,6 +26,9 @@ class LoginFragment : BaseFragment() {
     @Inject
     lateinit var authFactory: AuthFactory
     lateinit var authViewModel: AuthViewmodel
+
+    @Inject
+    lateinit var appPreference: AppPreference
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,32 +78,32 @@ class LoginFragment : BaseFragment() {
 
         mBinding.getOtpButton.setOnClickListener {
             //TODO uncomment for no api call
-            (requireActivity() as AuthActivity).addFragment(
-                OTPVerificationFragment.newInstance(
-                    mBinding.etMobile1.text.toString()
-                ), true
-            )
+//            (requireActivity() as AuthActivity).replaceFragment(
+//                OTPVerificationFragment.newInstance(
+//                    mBinding.etMobile1.text.toString()
+//                ), true
+//            )
 
-//            val otpRequest = OtpRequest(mBinding.etMobile1.text.toString())
-//            authViewModel.getOtp(otpRequest).observe(viewLifecycleOwner, Observer {
-//                when (it.status) {
-//                    Status.SUCCESS -> {
-//                        (requireActivity() as AuthActivity).addFragment(
-//                            OTPVerificationFragment.newInstance(
-//                                mBinding.etMobile1.text.toString()
-//                            ), true
-//                        )
-//                    }
-//                    Status.ERROR -> {
-//                        mBinding.getOtpButton.visibility = View.VISIBLE
-//                        mBinding.progressBar.visibility = View.INVISIBLE
-//                    }
-//                    Status.LOADING -> {
-//                        mBinding.getOtpButton.visibility = View.INVISIBLE
-//                        mBinding.progressBar.visibility = View.VISIBLE
-//                    }
-//                }
-//            })
+            val otpRequest = OtpRequest(mBinding.etMobile1.text.toString())
+            authViewModel.getOtp(otpRequest).observe(viewLifecycleOwner, Observer {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        (requireActivity() as AuthActivity).addFragment(
+                            OTPVerificationFragment.newInstance(
+                                mBinding.etMobile1.text.toString()
+                            ), true
+                        )
+                    }
+                    Status.ERROR -> {
+                        mBinding.getOtpButton.visibility = View.VISIBLE
+                        mBinding.progressBar.visibility = View.INVISIBLE
+                    }
+                    Status.LOADING -> {
+                        mBinding.getOtpButton.visibility = View.INVISIBLE
+                        mBinding.progressBar.visibility = View.VISIBLE
+                    }
+                }
+            })
         }
     }
 

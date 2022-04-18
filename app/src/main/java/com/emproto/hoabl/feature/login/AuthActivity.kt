@@ -9,7 +9,7 @@ import com.emproto.hoabl.databinding.ActivityAuthBinding
 
 class AuthActivity : BaseActivity() {
 
-    lateinit var activityAuthBinding:ActivityAuthBinding
+    lateinit var activityAuthBinding: ActivityAuthBinding
 
     val signinIssueFragment: SigninIssueFragment = SigninIssueFragment()
 
@@ -31,7 +31,7 @@ class AuthActivity : BaseActivity() {
     }
 
     private fun initView() {
-        addFragment(LoginFragment(),true)
+        replaceFragment(LoginFragment(), true)
     }
 
 
@@ -62,10 +62,19 @@ class AuthActivity : BaseActivity() {
         }
     }
 
-    private fun launch_bottom_sheet(){
+    private fun launch_bottom_sheet() {
 
-        signinIssueFragment.show(supportFragmentManager,
-            "add_photo_dialog_fragment")
+        signinIssueFragment.show(
+            supportFragmentManager,
+            "add_photo_dialog_fragment"
+        )
     }
 
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount == 1) {
+            finish()
+        } else {
+            super.onBackPressed()
+        }
+    }
 }

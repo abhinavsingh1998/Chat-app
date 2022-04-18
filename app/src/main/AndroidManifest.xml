@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.emproto.hoabl">
+    package="com.emproto.hoabl" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -14,51 +14,46 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HOABL"
-        android:usesCleartextTraffic="true">
-
+        android:usesCleartextTraffic="true" >
         <activity
-            android:name=".feature.home.views.IntroSliderActivity"
-            android:exported="true"
-            android:theme="@style/Theme.HOABL">
-
+            android:name=".HoablSplashActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <activity
-            android:name="com.emproto.hoabl.feature.login.AuthActivity"
+            android:name=".feature.login.IntroSliderActivity"
+            android:exported="true"
+            android:theme="@style/Theme.HOABL" >
+        </activity>
+
+        <activity
+            android:name=".feature.login.AuthActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.HOABL_BLACK_BAR"
-            android:windowSoftInputMode="adjustNothing">
-
-        </activity>
-
+            android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name="com.emproto.hoabl.feature.login.SignUpActivity"
+            android:name=".feature.login.SignUpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.HOABL_BLACK_BAR"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
-
         <activity
-            android:name=".HomeActivity"
+            android:name=".feature.home.views.HomeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.HOABL_BLACK_BAR"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
-        </activity>
-
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
             android:name=".feature.home.views.ProjectDetailsExpandView"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.HOABL_BLACK_BAR"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
-
     </application>
 
 </manifest>

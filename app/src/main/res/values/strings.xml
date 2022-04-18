@@ -42,7 +42,9 @@
     <string name="resend"><b><u>RESEND OTP</u></b></string>
     <string name="otp_verified"><b>OTP Verified!</b></string>
     <string name="NO_INTERNET">No Internet available</string>
+
     <style name="general">General</style>
+
     <string name="onestep">Hey, \nJust one last step</string>
     <string name="first_name">First Name </string>
     <string name="help_us">Help us with your</string>
