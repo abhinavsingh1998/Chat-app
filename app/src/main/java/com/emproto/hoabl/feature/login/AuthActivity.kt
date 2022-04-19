@@ -11,13 +11,12 @@ class AuthActivity : BaseActivity() {
 
     lateinit var activityAuthBinding: ActivityAuthBinding
 
-    val signinIssueFragment: SigninIssueFragment = SigninIssueFragment()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityAuthBinding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(activityAuthBinding.root)
-
 
         initView()
         initClickListener()
@@ -64,6 +63,7 @@ class AuthActivity : BaseActivity() {
 
     private fun launch_bottom_sheet() {
 
+        val signinIssueFragment: SigninIssueFragment = SigninIssueFragment()
         signinIssueFragment.show(
             supportFragmentManager,
             "add_photo_dialog_fragment"

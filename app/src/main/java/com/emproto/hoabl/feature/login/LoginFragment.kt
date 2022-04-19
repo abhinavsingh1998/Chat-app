@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
@@ -33,7 +34,7 @@ class LoginFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         authViewModel = ViewModelProvider(requireActivity(), authFactory)[AuthViewmodel::class.java]
@@ -97,6 +98,8 @@ class LoginFragment : BaseFragment() {
                     Status.ERROR -> {
                         mBinding.getOtpButton.visibility = View.VISIBLE
                         mBinding.progressBar.visibility = View.INVISIBLE
+                        it.data
+                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
                     }
                     Status.LOADING -> {
                         mBinding.getOtpButton.visibility = View.INVISIBLE
