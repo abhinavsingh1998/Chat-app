@@ -122,8 +122,8 @@ class OTPVerificationFragment : BaseFragment() {
                                                 requireActivity().supportFragmentManager.popBackStack()
                                                 (requireActivity() as AuthActivity).replaceFragment(
                                                     NameInputFragment.newInstance(
-                                                        "",
-                                                        ""
+                                                        if (it.user.firstName != null) it.user.firstName else "",
+                                                        if (it.user.lastName != null) it.user.lastName else ""
                                                     ), true
                                                 )
                                             } else {

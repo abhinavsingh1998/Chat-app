@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -95,7 +96,7 @@ class SigninIssueFragment : BottomSheetDialogFragment() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-
+                binding.numLayout.error = ""
                 charSequence1 = p0
                 charSequence2 = null
                 if (p0.toString().isNullOrEmpty() || charSequence2.toString().isNullOrEmpty()) {
@@ -103,8 +104,10 @@ class SigninIssueFragment : BottomSheetDialogFragment() {
                     binding.submitBtn.isClickable = false
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         binding.submitBtn.background =
-                            AppCompatResources.getDrawable(requireContext(),
-                                R.drawable.unselect_button_bg)
+                            AppCompatResources.getDrawable(
+                                requireContext(),
+                                R.drawable.unselect_button_bg
+                            )
                     }
                 } else {
                     binding.submitBtn.isEnabled = true
@@ -126,7 +129,7 @@ class SigninIssueFragment : BottomSheetDialogFragment() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-
+                binding.emailLayout.error = ""
                 charSequence2 = p0
                 charSequence1 = null
                 if (charSequence1.toString().isNullOrEmpty() || p0.toString().isNullOrEmpty()) {
@@ -134,8 +137,10 @@ class SigninIssueFragment : BottomSheetDialogFragment() {
                     binding.submitBtn.isClickable = false
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         binding.submitBtn.background =
-                            AppCompatResources.getDrawable(requireContext(),
-                                R.drawable.unselect_button_bg)
+                            AppCompatResources.getDrawable(
+                                requireContext(),
+                                R.drawable.unselect_button_bg
+                            )
                     }
                 } else {
                     binding.submitBtn.isEnabled = true
@@ -153,13 +158,23 @@ class SigninIssueFragment : BottomSheetDialogFragment() {
 
         binding.submitBtn.setOnClickListener(View.OnClickListener {
 
+            if (binding.mobileNumInput.text.length != 10) {
+                binding.numLayout.error = "Please Enter Valid Phone No."
+                return@OnClickListener
+            }
+            if (!binding.emailInput.text.isValidEmail()) {
+                binding.emailLayout.error = "Please Enter Valid Email"
+                return@OnClickListener
+            }
+
             val troubleSigningRequest = TroubleSigningRequest(
                 "1001",
                 "91",
                 binding.editIssues.text.toString(),
                 binding.emailInput.text.toString(),
                 issueChecked(),
-                binding.mobileNumInput.text.toString())
+                binding.mobileNumInput.text.toString()
+            )
 
             authViewModel.submitTroubleCase(troubleSigningRequest).observe(viewLifecycleOwner,
                 Observer {
@@ -168,14 +183,18 @@ class SigninIssueFragment : BottomSheetDialogFragment() {
 
                             binding.progressBar.visibility = View.GONE
                             binding.submitBtn.visibility = View.VISIBLE
-
+                            dismiss()
                             val dialog = IssueSubmittedConfirmationFragment()
                             dialog.isCancelable = true
                             dialog.show(parentFragmentManager, "Submit Card")
                         }
                         Status.ERROR -> {
+                            dismiss()
                             binding.submitBtn.visibility = View.VISIBLE
                             binding.progressBar.visibility = View.INVISIBLE
+                            (requireActivity() as AuthActivity).showErrorToast(
+                                it.message!!
+                            )
                         }
                         Status.LOADING -> {
                             binding.submitBtn.visibility = View.INVISIBLE
@@ -188,6 +207,10 @@ class SigninIssueFragment : BottomSheetDialogFragment() {
         })
 
     }
+
+    fun CharSequence?.isValidEmail() =
+        !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
 
 }
 

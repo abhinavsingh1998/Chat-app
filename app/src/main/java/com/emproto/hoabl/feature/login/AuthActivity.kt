@@ -12,7 +12,6 @@ class AuthActivity : BaseActivity() {
     lateinit var activityAuthBinding: ActivityAuthBinding
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityAuthBinding = ActivityAuthBinding.inflate(layoutInflater)
@@ -76,5 +75,9 @@ class AuthActivity : BaseActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    fun showErrorToast(message: String) {
+        showErrorView(activityAuthBinding.root, message)
     }
 }

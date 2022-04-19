@@ -30,4 +30,5 @@
     <color name="color_text_selected">#000000</color>
     <color name="color_text_normal">#9192a0</color>
     <color name="grey_line">#b6b3d0</color>
+    <color name="error_color">#f45353</color>
 </resources>

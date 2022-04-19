@@ -40,7 +40,7 @@ class AuthRepository @Inject constructor(application: Application) : BaseReposit
                 if (request.isSuccessful) {
                     loginResponse.postValue(BaseResponse.success(request.body()!!))
                 } else {
-                    loginResponse.postValue(BaseResponse.error(ApiConstants.COMMON_MSG))
+                    loginResponse.postValue(BaseResponse.error(request.message()))
                 }
             } catch (e: Exception) {
                 loginResponse.postValue(BaseResponse.error(e.localizedMessage))
@@ -65,7 +65,7 @@ class AuthRepository @Inject constructor(application: Application) : BaseReposit
                 if (request.isSuccessful) {
                     mVerifyOtpResponse.postValue(BaseResponse.success(request.body()!!))
                 } else {
-                    mVerifyOtpResponse.postValue(BaseResponse.Companion.error(ApiConstants.COMMON_MSG))
+                    mVerifyOtpResponse.postValue(BaseResponse.Companion.error(request.message()))
                 }
             } catch (e: Exception) {
                 mVerifyOtpResponse.postValue(BaseResponse.error(e.message!!))
@@ -90,7 +90,7 @@ class AuthRepository @Inject constructor(application: Application) : BaseReposit
                 if (request.isSuccessful) {
                     mAddUsernameResponse.postValue(BaseResponse.success(request.body()!!))
                 } else {
-                    mAddUsernameResponse.postValue(BaseResponse.Companion.error(ApiConstants.COMMON_MSG))
+                    mAddUsernameResponse.postValue(BaseResponse.Companion.error(request.message()))
                 }
 
             } catch (e: Exception) {
@@ -116,7 +116,7 @@ class AuthRepository @Inject constructor(application: Application) : BaseReposit
                 if (request.isSuccessful) {
                     mCaseResponse.postValue(BaseResponse.success(request.body()!!))
                 } else {
-                    mCaseResponse.postValue(BaseResponse.Companion.error(ApiConstants.COMMON_MSG))
+                    mCaseResponse.postValue(BaseResponse.Companion.error(request.message()))
                 }
 
             } catch (e: Exception) {
