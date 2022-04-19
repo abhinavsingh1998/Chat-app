@@ -71,10 +71,6 @@ class NameInputFragment : BaseFragment() {
 
         initClickListner()
 
-//        binding.troubleTxt.setOnClickListener {
-//            launch_bottom_sheet()
-//
-//        }
         return binding.root
     }
 
@@ -181,7 +177,6 @@ class NameInputFragment : BaseFragment() {
                     }
 
                 })
-
         })
     }
 

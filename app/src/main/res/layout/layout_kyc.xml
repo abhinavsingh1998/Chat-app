@@ -44,7 +44,7 @@
         android:id="@+id/kyc_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/kyc_card_color"
+        app:cardBackgroundColor="@color/white"
         app:layout_constraintTop_toBottomOf="@id/layout1"
         app:cardElevation="@dimen/margin_size_4"
         app:cardCornerRadius="@dimen/margin_size_6"

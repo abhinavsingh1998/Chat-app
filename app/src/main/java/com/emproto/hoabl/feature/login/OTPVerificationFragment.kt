@@ -122,8 +122,8 @@ class OTPVerificationFragment : BaseFragment() {
                                                 requireActivity().supportFragmentManager.popBackStack()
                                                 (requireActivity() as AuthActivity).replaceFragment(
                                                     NameInputFragment.newInstance(
-                                                        it.user.firstName,
-                                                        it.user.lastName
+                                                        "",
+                                                        ""
                                                     ), true
                                                 )
                                             } else {
@@ -186,39 +186,6 @@ class OTPVerificationFragment : BaseFragment() {
             permissionLauncher.launch(permissionRequest.toTypedArray())
         }
     }
-
-//    private fun launchPermissionDialog() {
-//        dialog = Dialog(requireContext(), android.R.style.Theme_Dialog)
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-//        dialog.setContentView(R.layout.dailog_permissions)
-//        dialog.setCanceledOnTouchOutside(true)
-//        val allow: TextView = dialog.findViewById(R.id.allow) as TextView
-//        val dontAllow: TextView = dialog.findViewById(R.id.dont_allow) as TextView
-//        allow.setOnClickListener(object : View.OnClickListener {
-//            override fun onClick(p0: View?) {
-//                permissionRequest.add(Manifest.permission.READ_SMS)
-//                dialog.dismiss()
-//            }
-//        })
-//
-//        dontAllow.setOnClickListener(object : View.OnClickListener {
-//            override fun onClick(p0: View?) {
-//                dialog.dismiss()
-//            }
-//
-//        })
-//        dialog.setCanceledOnTouchOutside(false)
-//        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
-//        dialog.window?.setFlags(
-//            WindowManager.LayoutParams.FLAG_DIM_BEHIND,
-//            WindowManager.LayoutParams.FLAG_BLUR_BEHIND
-//        )
-//        dialog.getWindow()?.setLayout(
-//            ConstraintLayout.LayoutParams.MATCH_PARENT,
-//            ConstraintLayout.LayoutParams.WRAP_CONTENT
-//        )
-//        dialog.show()
-//    }
 
 
 }

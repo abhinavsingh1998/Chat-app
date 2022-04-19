@@ -3,7 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="../../../../layout/custom_preview.xml" value="0.2490740740740741" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/drawable/custom_thumb.xml" value="0.138" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/drawable/custom_track.xml" value="0.138" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/drawable/greeting_card_layout.xml" value="0.116" />
@@ -30,10 +29,11 @@
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_faq.xml" value="0.16666666666666666" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_financial_and_project.xml" value="0.14130434782608695" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_financial_summary.xml" value="0.14130434782608695" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_home.xml" value="0.16666666666666666" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_insights_updates.xml" value="0.14130434782608695" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_investment.xml" value="0.14130434782608695" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_issue_submitted_confirmation.xml" value="0.3333333333333333" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_login.xml" value="0.4466666666666667" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_name_input.xml" value="0.3333333333333333" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_portfolio.xml" value="0.14130434782608695" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_portfolio_new_user.xml" value="0.22" />
@@ -67,18 +67,10 @@
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/success_layout.xml" value="0.22" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/testimonals_list_view.xml" value="0.129981884057971" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/core/src/main/res/layout/custom_snackbar_view.xml" value="0.129981884057971" />
-        <entry key="app/src/main/res/drawable/button_bg.xml" value="0.31666666666666665" />
-        <entry key="app/src/main/res/drawable/ic_baseline_arrow_right.xml" value="0.31666666666666665" />
-        <entry key="app/src/main/res/layout/activity_hoabl_splash.xml" value="0.19429347826086957" />
-        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.19429347826086957" />
-        <entry key="app/src/main/res/layout/fragment_name_input.xml" value="0.29635416666666664" />
-        <entry key="app/src/main/res/layout/fragment_profile_main.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_verify_otp.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/success_layout.xml" value="0.1308876811594203" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="18" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="18" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
