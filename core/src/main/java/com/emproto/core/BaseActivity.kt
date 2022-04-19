@@ -13,12 +13,13 @@ import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import com.google.android.material.snackbar.Snackbar
 
 
-abstract class BaseActivity : AppCompatActivity(){
+abstract class BaseActivity : AppCompatActivity() {
 
     var view: View? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,6 +74,20 @@ abstract class BaseActivity : AppCompatActivity(){
         }
         return false
     }
+
+    fun showErrorView(view: View?, text: String) {
+        val snackbar = Snackbar.make(view!!, "", Snackbar.LENGTH_LONG)
+        val customSnackView: View = layoutInflater.inflate(R.layout.error_layout, null)
+        val message = customSnackView.findViewById<TextView>(R.id.error_text)
+        message.text = text
+        val snackbarLayout = snackbar.view as Snackbar.SnackbarLayout
+        snackbarLayout.setPadding(0, 0, 0, 0)
+        // add the custom snack bar layout to snackbar layout
+        snackbarLayout.addView(customSnackView, 0)
+
+        snackbar.show()
+    }
+
 
     fun showSnackBar(view: View?) {
         val snackbar = Snackbar.make(view!!, "", Snackbar.LENGTH_LONG)
