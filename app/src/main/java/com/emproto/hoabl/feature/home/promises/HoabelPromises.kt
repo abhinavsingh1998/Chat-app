@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentHoabelPromisesBinding
 import com.emproto.hoabl.feature.home.promises.data.DataModel
+import com.emproto.hoabl.feature.home.promises.data.PromisesData
 
 
 class HoabelPromises : BaseFragment() {
@@ -34,7 +35,6 @@ class HoabelPromises : BaseFragment() {
         binding = FragmentHoabelPromisesBinding.inflate(inflater, container, false)
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             true
-
         val dataList = ArrayList<DataModel>()
         dataList.add(
             DataModel(
@@ -78,27 +78,36 @@ class HoabelPromises : BaseFragment() {
                 R.drawable.ic_combined_shape__2_
             )
         )
+        dataList.add(
+            DataModel(
+                "Liquidity", "Owning land will never feel like a gamble again.",
+                R.drawable.ic_path_33289,
+                R.drawable.ic_combined_shape__2_
+            )
+        )
+        dataList.add(
+            DataModel(
+                "Liquidity", "Owning land will never feel like a gamble again.",
+                R.drawable.ic_path_33289,
+                R.drawable.ic_combined_shape__2_
+            )
+        )
+        val list = ArrayList<PromisesData>()
+        list.add(PromisesData(HoabelPromiseAdapter.TYPE_HEADER, "", "", emptyList()))
+        list.add(PromisesData(HoabelPromiseAdapter.TYPE_LIST, "", "", dataList))
 
-        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-        val adapter = HoabelPromiseAdapter(
+        binding.listPromises.layoutManager = LinearLayoutManager(requireActivity())
+        binding.listPromises.adapter = HoabelPromiseAdapter(
             requireContext(),
-            dataList,
+            list,
             object : HoabelPromiseAdapter.PromisedItemInterface {
                 override fun onClickItem(position: Int) {
-                    val firstPromiseScreenFragment = PromiseSecondScreenFragment()
-                    (requireActivity() as HomeActivity).replaceFragment(
-                        firstPromiseScreenFragment.javaClass,
-                        "",
-                        true,
-                        null,
-                        null,
-                        0,
-                        false
-                    )
+                    (requireActivity() as HomeActivity).addFragment(PromisesDetailsFragment(), false)
                 }
 
             })
-        binding.recyclerView.adapter = adapter
+
+
         return binding.root
     }
 

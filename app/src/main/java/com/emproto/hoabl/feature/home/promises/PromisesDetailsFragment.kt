@@ -1,5 +1,6 @@
 package com.emproto.hoabl.feature.home.promises
 
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,19 +11,19 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.FragmentPromiseSecondScreenBinding
-import com.emproto.hoabl.feature.home.promises.adapter.PromiseSecondScreenAdapter
+import com.emproto.hoabl.databinding.FragmentPromiseDetailsBinding
+import com.emproto.hoabl.feature.home.promises.adapter.PromiseDetailsAdapter
 
-import com.emproto.hoabl.feature.home.promises.data.SecondScreenPromiseData
+import com.emproto.hoabl.feature.home.promises.data.DetailsScreenData
 
 
-class PromiseSecondScreenFragment : Fragment() {
+class PromisesDetailsFragment : Fragment() {
 
-    lateinit var binding: FragmentPromiseSecondScreenBinding
-    lateinit var adapter: PromiseSecondScreenAdapter
+    lateinit var binding: FragmentPromiseDetailsBinding
+    lateinit var adapter: PromiseDetailsAdapter
     lateinit var button: Button
 
-    private lateinit var newArrayList: ArrayList<SecondScreenPromiseData>
+    private lateinit var newArrayList: ArrayList<DetailsScreenData>
     lateinit var imageId: Array<Int>
     lateinit var heading: Array<String>
     val bundle = Bundle()
@@ -34,9 +35,9 @@ class PromiseSecondScreenFragment : Fragment() {
         savedInstanceState: Bundle?
 
     ): View? {
-        binding = FragmentPromiseSecondScreenBinding.inflate(inflater, container, false)
+        binding = FragmentPromiseDetailsBinding.inflate(inflater, container, false)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val detailadapter = PromiseSecondScreenAdapter(requireContext(),initData())
+        val detailadapter = PromiseDetailsAdapter(requireContext(), initData())
         binding.recyclerView.adapter = detailadapter
         binding.recyclerView.setHasFixedSize(true)
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
@@ -44,29 +45,42 @@ class PromiseSecondScreenFragment : Fragment() {
 
         getUserData()
         return binding.root
-    }
-    private fun initData(): ArrayList<SecondScreenPromiseData> {
-        val dataList: ArrayList<SecondScreenPromiseData> = ArrayList<SecondScreenPromiseData>()
 
-        newArrayList = arrayListOf<SecondScreenPromiseData>()
-        imageId = arrayOf(R.drawable.ic_circle,
-            R.drawable.ic_circle,
-            R.drawable.ic_circle,
-            R.drawable.ic_circle,
-            R.drawable.ic_circle)
-        heading =
-            arrayOf("New Generation Land is now safe and secure. Owning land will never feel like a gamble again.",
-                "New Generation Land is now safe and secure. Owning land will never feel like a gamble again.",
-                "New Generation Land is now safe and secure. Owning land will never feel like a gamble again.",
-                "New Generation Land is now safe and secure. Owning land will never feel like a gamble again.",
-                "New Generation Land is now safe and secure. Owning land will never feel like a gamble again.")
-        return dataList
+
     }
+
+    private fun initData(): ArrayList<DetailsScreenData> {
+        val dataList: ArrayList<DetailsScreenData> = ArrayList<DetailsScreenData>()
+
+        newArrayList = arrayListOf<DetailsScreenData>()
+        imageId = arrayOf(
+            R.drawable.ic_circle,
+            R.drawable.ic_circle,
+            R.drawable.ic_circle,
+            R.drawable.ic_circle,
+            R.drawable.ic_circle
+        )
+        heading =
+            arrayOf(
+                "New Generation Land is now safe and secure. Owning land will never feel like a gamble again.",
+                "New Generation Land is now safe and secure. Owning land will never feel like a gamble again.",
+                "New Generation Land is now safe and secure. Owning land will never feel like a gamble again.",
+                "New Generation Land is now safe and secure. Owning land will never feel like a gamble again.",
+                "New Generation Land is now safe and secure. Owning land will never feel like a gamble again."
+            )
+
+        binding.textViewTAndC.setPaintFlags(binding.textViewTAndC.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
+
+
+        return dataList
+
+    }
+
     private fun getUserData() {
         for (i in imageId.indices) {
-            val news = SecondScreenPromiseData(imageId[i], heading[i])
+            val news = DetailsScreenData(imageId[i], heading[i])
             newArrayList.add(news)
         }
-       binding.recyclerView.adapter = PromiseSecondScreenAdapter(requireContext(),newArrayList)
+        binding.recyclerView.adapter = PromiseDetailsAdapter(requireContext(), newArrayList)
     }
 }
