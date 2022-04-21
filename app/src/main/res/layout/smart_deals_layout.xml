@@ -40,6 +40,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_smart_deals_see_all"
+            style="@style/text_style_blue_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/see_all"

@@ -33,7 +33,7 @@
     <string name="explore_investment">Explore New Investment</string>
     <string name="browse_deal">Browse deals with HoABL</string>
     <string name="get_exclusive">Get exclusive investment deal</string>
-    <string name="verify_otp">Verify OTP</string>
+    <string name="verify_otp">VERIFY OTP</string>
     <string name="enter_digits">Enter 6-digit OTP sent to</string>
     <string name="change_number"><u>EDIT</u></string>
     <string name="enter_otp">Enter OTP</string>
@@ -103,7 +103,6 @@
     <string name="enter_your_phonenumber">Enter Your Phone Number</string>
     <string name="enter_your_email">Enter Your Email Address</string>
     <string name="sent_otp">will be sent to this number</string>
-    <string name="mobile_no_error">Please enter a valid 10-digit number.</string>
     <string name="otp">OTP </string>
     <string name="type_here">Type here</string>
     <string name="hoabl_permission_title">“HoABL” would like to send \nand view SMS messages</string>
@@ -189,7 +188,7 @@
     <string name="gender">Gender</string>
     <string name="Address_details">Address details</string>
     <string name="Enter_complete_Address">Enter complete Address</string>
-    <string name="Enter_Locality">Enter Locality</string>
+    <string name="Enter_Layality">Enter Layality</string>
     <string name="Pincode">Pincode</string>
     <string name="State">State</string>
     <string name="Floor_and_House_Number">Floor and House Number</string>
@@ -246,7 +245,7 @@
     <string name="name">Name</string>
     <string name="my_accounts">My Accounts</string>
     <string name="profile_security">Profile And Security</string>
-    <string name="help_centre">Help Center</string>
+    <string name="help_centre">help Center</string>
     <string name="title">Title</string>
     <string name="aadhar_card">Aadhar Card</string>
     <string name="phone_num">+91 897 160 0316</string>
