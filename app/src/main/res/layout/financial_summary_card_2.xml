@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/cl_ongoing_investments"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.emproto.core.textviews.CustomTextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/content_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_size_30"
+        android:layout_marginTop="@dimen/margin_size_24"
         android:layout_marginStart="@dimen/margin_size_12"
         app:layout_constraintTop_toTopOf="parent"
         android:text="Summary - Ongoing Investments"
         android:fontFamily="@font/jost_medium"
         android:textSize="@dimen/text_size_18"
         android:textColor="@color/text_color"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cardView_1"
@@ -115,7 +117,7 @@
             android:layout_marginLeft="@dimen/margin_size_14"
             android:layout_marginTop="@dimen/margin_size_14"
             android:layout_marginBottom="@dimen/margin_size_37"
-            android:text="Amount Invested"
+            android:text="@string/amount_paid"
             android:fontFamily="@font/jost_medium"
             style="@style/text_style_text_color_16"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -175,7 +177,30 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/card_name_4" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <ImageView
+            android:id="@+id/iv_amount_pending"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@drawable/ic_info"
+            android:tooltipText="Investor Estimated Appreciation"
+            android:layout_marginStart="@dimen/margin_size_6"
+            app:layout_constraintStart_toEndOf="@id/card_name_4"
+            app:layout_constraintTop_toTopOf="@id/card_name_4"
+            app:layout_constraintBottom_toBottomOf="@id/card_name_4"/>
+
+        <ImageView
+            android:id="@+id/iv_amount"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@drawable/ic_info_white_bg"
+            android:visibility="gone"
+            android:tooltipText="Investor Estimated Appreciation"
+            android:layout_marginStart="@dimen/margin_size_6"
+            app:layout_constraintStart_toEndOf="@id/content_txt_4"
+            app:layout_constraintTop_toTopOf="@id/content_txt_4"
+            app:layout_constraintBottom_toBottomOf="@id/content_txt_4"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

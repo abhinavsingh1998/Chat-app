@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.home.views.fragments
+package com.emproto.hoabl.feature.portfolio.views
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentFinancialAndProjectBinding
-import com.emproto.hoabl.feature.home.adapters.PortfolioPagerAdapter
+import com.emproto.hoabl.feature.portfolio.adapters.PortfolioPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 

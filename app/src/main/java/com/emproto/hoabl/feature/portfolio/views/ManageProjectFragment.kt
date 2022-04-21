@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.home.views.fragments
+package com.emproto.hoabl.feature.portfolio.views
 
 import android.os.Bundle
 import android.view.LayoutInflater

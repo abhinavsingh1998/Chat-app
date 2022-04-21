@@ -255,4 +255,21 @@
     <string name="see_receipt">See Receipt</string>
     <string name="this_page_will_be_activated_after_possession_handover_is_done">This page will be activated after possession handover is done</string>
     <string name="okay">OKAY</string>
+    <string name="share_the_joy">Share the joy</string>
+    <string name="refer_now">Refer Now</string>
+    <string name="share_hoabl_friends">Share HOABL APP with your friends</string>
+    <string name="manage_projects">Manage Project</string>
+    <string name="invest_now">Invest Now</string>
+    <string name="blockchain">BLOCKCHAIN</string>
+    <string name="amount_paid">Amount Paid</string>
+    <string name="view_booking_journey">View Booking Journey</string>
+    <string name="paid">Paid</string>
+    <string name="pending">Pending</string>
+    <string name="area">Area</string>
+    <string name="allocation_date">Allocation Date</string>
+    <string name="possession_date">Possession Date</string>
+    <string name="see_project_details">See Project Details</string>
+    <string name="view_timeline">View Timeline</string>
+    <string name="reg_draft_text">MAHARERA Registration No. Phase I - P52800031035\nMAHARERA Registration No. Phase II- P52800031036</string>
+    <string name="attention_text">The following items need your attention</string>
 </resources>

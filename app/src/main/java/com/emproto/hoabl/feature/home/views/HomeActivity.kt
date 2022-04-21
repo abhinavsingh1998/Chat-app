@@ -14,7 +14,7 @@ import com.emproto.core.BaseActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityHomeBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.home.views.fragments.FinancialAndProjectFragment
+import com.emproto.hoabl.feature.portfolio.views.FinancialAndProjectFragment
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
 import com.emproto.hoabl.feature.promises.HoabelPromises
@@ -121,9 +121,9 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 replaceFragment(favouriteFragment.javaClass, "", true, bundle, null, 0, false)
             }
             ScreenPortfolio -> {
-                val membershipFragment = FinancialAndProjectFragment()
-                membershipFragment.setArguments(bundle)
-                replaceFragment(membershipFragment.javaClass, "", true, bundle, null, 0, false)
+                val portfolioFragment = PortfolioFragment()
+                portfolioFragment.setArguments(bundle)
+                replaceFragment(portfolioFragment.javaClass, "", true, bundle, null, 0, false)
             }
             ScreenPromises -> {
                 val cartFragment = HoabelPromises()

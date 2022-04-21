@@ -79,4 +79,10 @@
     <color name="rating_percent_green_color">#21b342</color>
     <color name="rating_dark_green_color">#5ee67c</color>
     <color name="rating_dark_green">#44b75d</color>
+    <color name="share_text_grey_color">#565661</color>
+    <color name="dark_brown_color">#7a7458</color>
+    <color name="light_brown_color">#e1d7a5</color>
+    <color name="thick_brown_color">#4a4632</color>
+    <color name="view_more_brown_color">#83773d</color>
+    <color name="reg_no_black_color">#313131</color>
 </resources>
