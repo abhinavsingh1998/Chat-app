@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.home.promises.adapter
+package com.emproto.hoabl.feature.promises.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
-import com.emproto.hoabl.feature.home.promises.data.DetailsScreenData
+import com.emproto.hoabl.feature.promises.data.DetailsScreenData
 
 
 class PromiseDetailsAdapter(

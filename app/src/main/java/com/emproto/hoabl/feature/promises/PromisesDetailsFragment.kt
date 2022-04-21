@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.home.promises
+package com.emproto.hoabl.feature.promises
 
 import android.graphics.Paint
 import android.os.Bundle
@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentPromiseDetailsBinding
-import com.emproto.hoabl.feature.home.promises.adapter.PromiseDetailsAdapter
+import com.emproto.hoabl.feature.promises.adapter.PromiseDetailsAdapter
 
-import com.emproto.hoabl.feature.home.promises.data.DetailsScreenData
+import com.emproto.hoabl.feature.promises.data.DetailsScreenData
 
 
 class PromisesDetailsFragment : Fragment() {

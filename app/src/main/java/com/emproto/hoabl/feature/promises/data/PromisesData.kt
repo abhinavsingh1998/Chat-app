@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.home.promises.data
+package com.emproto.hoabl.feature.promises.data
 
 data class PromisesData(
     val viewTyppe: Int,

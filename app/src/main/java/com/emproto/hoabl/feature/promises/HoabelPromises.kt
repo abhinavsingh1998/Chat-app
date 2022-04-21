@@ -1,6 +1,6 @@
-package com.emproto.hoabl.feature.home.promises
+package com.emproto.hoabl.feature.promises
 
-import com.emproto.hoabl.feature.home.promises.adapter.HoabelPromiseAdapter
+import com.emproto.hoabl.feature.promises.adapter.HoabelPromiseAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +13,8 @@ import com.emproto.core.BaseFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentHoabelPromisesBinding
-import com.emproto.hoabl.feature.home.promises.data.DataModel
-import com.emproto.hoabl.feature.home.promises.data.PromisesData
+import com.emproto.hoabl.feature.promises.data.DataModel
+import com.emproto.hoabl.feature.promises.data.PromisesData
 
 
 class HoabelPromises : BaseFragment() {

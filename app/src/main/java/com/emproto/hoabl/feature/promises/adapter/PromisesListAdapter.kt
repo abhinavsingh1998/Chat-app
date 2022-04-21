@@ -1,11 +1,11 @@
-package com.emproto.hoabl.feature.home.promises.adapter
+package com.emproto.hoabl.feature.promises.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.PromisesViewBinding
-import com.emproto.hoabl.feature.home.promises.data.DataModel
+import com.emproto.hoabl.feature.promises.data.DataModel
 
 
 class PromisesListAdapter(
