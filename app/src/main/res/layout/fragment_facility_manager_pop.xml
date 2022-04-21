@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#A42B2C38"
+    android:background="#c42b2c38"
     android:layout_height="match_parent">
 
     <View
