@@ -20,6 +20,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import org.json.JSONObject
+
 
 class AuthRepository @Inject constructor(application: Application) : BaseRepository(application) {
     private val parentJob = Job()
@@ -40,7 +42,13 @@ class AuthRepository @Inject constructor(application: Application) : BaseReposit
                 if (request.isSuccessful) {
                     loginResponse.postValue(BaseResponse.success(request.body()!!))
                 } else {
-                    loginResponse.postValue(BaseResponse.error(request.message()))
+                    loginResponse.postValue(
+                        BaseResponse.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
                 }
             } catch (e: Exception) {
                 loginResponse.postValue(BaseResponse.error(e.localizedMessage))
@@ -124,5 +132,12 @@ class AuthRepository @Inject constructor(application: Application) : BaseReposit
             }
         }
         return mCaseResponse
+    }
+
+    fun getErrorMessage(body: String): String {
+        var message = "Bad Request"
+        val jObjError = JSONObject(body)
+        message = jObjError.getString("message")
+        return message
     }
 }

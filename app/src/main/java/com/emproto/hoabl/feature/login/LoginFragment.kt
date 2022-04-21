@@ -85,7 +85,7 @@ class LoginFragment : BaseFragment() {
 //                ), true
 //            )
 
-            val otpRequest = OtpRequest(mBinding.etMobile1.text.toString(), "+91", "IN")
+            val otpRequest = OtpRequest(mBinding.etMobile1.text.toString(), "", "IN")
             authViewModel.getOtp(otpRequest).observe(viewLifecycleOwner, Observer {
                 when (it.status) {
                     Status.SUCCESS -> {
@@ -99,7 +99,9 @@ class LoginFragment : BaseFragment() {
                         mBinding.getOtpButton.visibility = View.VISIBLE
                         mBinding.progressBar.visibility = View.INVISIBLE
                         it.data
-                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                        (requireActivity() as AuthActivity).showErrorToast(
+                            it.message!!
+                        )
                     }
                     Status.LOADING -> {
                         mBinding.getOtpButton.visibility = View.INVISIBLE
