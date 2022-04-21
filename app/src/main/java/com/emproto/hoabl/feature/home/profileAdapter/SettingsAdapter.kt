@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 
 
-class SettingsAdapter (context: Context, private val newsList:ArrayList<SettingsData>):RecyclerView.Adapter<SettingsAdapter.MyViewHolder>(){
+class SettingsAdapter (context: Context, private val settingsList:ArrayList<SettingsData>):RecyclerView.Adapter<SettingsAdapter.MyViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
@@ -18,14 +18,14 @@ class SettingsAdapter (context: Context, private val newsList:ArrayList<Settings
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentItem= newsList[position]
+        val currentItem= settingsList[position]
         holder.tvHeading.text= currentItem.heading
         holder.desc.text= currentItem.desc
 
     }
 
     override fun getItemCount(): Int {
-        return newsList.size
+        return settingsList.size
     }
 
     class MyViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){

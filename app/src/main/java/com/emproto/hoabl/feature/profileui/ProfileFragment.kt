@@ -29,6 +29,7 @@ class ProfileFragment : BaseFragment() {
     lateinit var AccountView:View
     lateinit var settingsView:View
     lateinit var help_center_tv:View
+    lateinit var facility_management:View
     lateinit var messageView:View
     val bundle = Bundle()
 
@@ -116,7 +117,23 @@ class ProfileFragment : BaseFragment() {
 
             }
         )
+        binding.facilityManagement.setOnClickListener(
+            object : View.OnClickListener {
+                override fun onClick(p0: View?) {
+                    val facilityManagerPopViewFragment = FacilityManagerPopViewFragment()
+                    (requireActivity() as HomeActivity).replaceFragment(
+                        facilityManagerPopViewFragment.javaClass,
+                        "",
+                        true,
+                        bundle,
+                        null,
+                        0,
+                        false
+                    )
+                }
 
+            }
+        )
 
         binding.Logoutbtn.setOnClickListener {
             appPreference.saveLogin(false)

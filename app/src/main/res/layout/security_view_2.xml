@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <View
-        android:id="@+id/view2"
+        android:id="@+id/dialog_line_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#ffffff"
@@ -25,7 +25,7 @@
         android:fontFamily="@font/jostmedium"
         style="@style/text_style_text_color_14"
         android:text="Whatsapp Communication"
-        app:layout_constraintStart_toStartOf="@+id/view2"
+        app:layout_constraintStart_toStartOf="@+id/dialog_line_view"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -36,7 +36,7 @@
         android:layout_marginTop="28dp"
         android:fontFamily="@font/jostregular"
         style="@style/text_style_lightgrey_14"
-        app:layout_constraintStart_toStartOf="@+id/view2"
+        app:layout_constraintStart_toStartOf="@+id/dialog_line_view"
         app:layout_constraintTop_toTopOf="parent"
         android:text="Control location access here" />
 
@@ -46,7 +46,7 @@
         android:layout_height="20dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="28dp"
-        app:layout_constraintEnd_toEndOf="@+id/view2"
+        app:layout_constraintEnd_toEndOf="@+id/dialog_line_view"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 

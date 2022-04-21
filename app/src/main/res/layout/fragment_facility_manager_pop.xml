@@ -2,32 +2,49 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:background="#A42B2C38"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvratingHeaderTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_marginStart="23dp"
-        android:layout_marginEnd="22dp"
-        android:text="@string/this_page_will_be_activated_after_possession_handover_is_done"
-        android:textColor="#1c1c1c"
-        android:textSize="14sp"
-        android:layout_marginTop="43dp"
-        android:textStyle="normal"
+    <View
+        android:id="@+id/dialog_view"
+        android:layout_width="0dp"
+        android:layout_height="157dp"
+        android:layout_marginStart="@dimen/margin_size_37"
+        android:layout_marginTop="321dp"
+        android:layout_marginEnd="@dimen/margin_size_37"
+        android:layout_marginBottom="321dp"
+        android:background="@color/background_grey_color"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.532"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/view2"
+    <TextView
+        android:id="@+id/tvratingHeaderTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_size_23"
+        android:layout_marginTop="@dimen/margin_size_43"
+        android:layout_marginEnd="@dimen/margin_size_23"
+        android:gravity="center_horizontal"
+        android:text="@string/this_page_will_be_activated_after_possession_handover_is_done"
+        style="@style/text_style_text_color_16"
+        android:fontFamily="@font/jostmedium"
+        app:layout_constraintEnd_toEndOf="@+id/dialog_view"
+        app:layout_constraintStart_toStartOf="@+id/dialog_view"
+        app:layout_constraintTop_toTopOf="@+id/dialog_view" />
+
+        <View
+        android:id="@+id/dialog_line_view"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="20dp"
         android:background="#b6b3d0"
+            android:layout_marginStart="@dimen/margin_size_37"
         app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/margin_size_37"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvratingHeaderTextView" />
 
@@ -38,12 +55,9 @@
         android:layout_height="20dp"
         android:layout_marginStart="123dp"
         android:layout_marginEnd="123dp"
-        android:textStyle="bold"
-        android:textSize="14sp"
-        android:textColor="#676ac0"
-        android:gravity="center_horizontal"
+        style="@style/text_style_blue_16"
         android:text="@string/okay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view2" />
+        app:layout_constraintTop_toTopOf="@+id/dialog_line_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>

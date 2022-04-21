@@ -28,7 +28,6 @@
         style="@style/text_style_white_14"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
         android:background="@drawable/portfolio_btn_shape"
         android:drawableLeft="@drawable/ic_chat_4"
         android:drawableRight="@drawable/ic_combined_shape_copy_5"

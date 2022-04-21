@@ -8,11 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.LandSkusTopLayoutBinding
 import com.emproto.hoabl.feature.home.profileAdapter.data.DataHealthCenter
-import com.emproto.hoabl.feature.home.promisesUi.adapter.HoabelPromiseAdapter
-import com.emproto.hoabl.feature.investment.adapters.LandSkusAdapter
-import com.emproto.hoabl.feature.investment.adapters.SkusListAdapter
 
 class HoabelHealthAdapter(context: Context, list: ArrayList<DataHealthCenter>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -20,8 +16,8 @@ class HoabelHealthAdapter(context: Context, list: ArrayList<DataHealthCenter>) :
     lateinit var faqAdapter:FaqAdapter
 
     companion object {
-        const val VIEW_HELP_CENTER_ONE = 1
-        const val VIEW_HELP_CENTER_TWO = 2
+        const val VIEW_HELP_CENTER_LOCATION_ACCESS = 1
+        const val VIEW_HELP_CENTER_CONNECT = 2
     }
 
     private val context: Context = context
@@ -50,7 +46,7 @@ class HoabelHealthAdapter(context: Context, list: ArrayList<DataHealthCenter>) :
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == VIEW_HELP_CENTER_ONE) {
+        if (viewType == VIEW_HELP_CENTER_LOCATION_ACCESS) {
             return View1ViewHolder(
                 LayoutInflater.from(context).inflate(R.layout.health_center_view, parent, false)
             )
@@ -65,7 +61,7 @@ class HoabelHealthAdapter(context: Context, list: ArrayList<DataHealthCenter>) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (list[position].viewType === VIEW_HELP_CENTER_ONE) {
+        if (list[position].viewType === VIEW_HELP_CENTER_LOCATION_ACCESS) {
             (holder as View1ViewHolder).bind(position)
         } else {
             (holder as View2ViewHolder).bind(position)

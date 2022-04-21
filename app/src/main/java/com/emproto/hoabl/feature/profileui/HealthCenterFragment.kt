@@ -16,7 +16,6 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentHealthCenterBinding
 import com.emproto.hoabl.feature.home.profileAdapter.HoabelHealthAdapter
 import com.emproto.hoabl.feature.home.profileAdapter.data.DataHealthCenter
-import com.emproto.hoabl.feature.home.promisesUi.PromiseSecondScreenFragment
 
 
 class HealthCenterFragment : Fragment() {
@@ -81,7 +80,7 @@ class HealthCenterFragment : Fragment() {
 
     private fun initData(): ArrayList<DataHealthCenter> {
         val dataList: ArrayList<DataHealthCenter> = ArrayList<DataHealthCenter>()
-        dataList.add(DataHealthCenter(HoabelHealthAdapter.VIEW_HELP_CENTER_ONE, "Read all our FAQs here","Frequently Asked Questions",
+        dataList.add(DataHealthCenter(HoabelHealthAdapter.VIEW_HELP_CENTER_LOCATION_ACCESS, "Read all our FAQs here","Frequently Asked Questions",
             R.drawable.ic_faq,
             R.drawable.ic_path,
             R.drawable.ic_faq,"Chat with us",
@@ -89,28 +88,28 @@ class HealthCenterFragment : Fragment() {
                     "Call us: +91 123 123 1231\n" +
                     "Email us: help@hoabl.in"))
 
-        dataList.add(DataHealthCenter(HoabelHealthAdapter.VIEW_HELP_CENTER_ONE, "Read our privacy policy","Privacy Policy",
+        dataList.add(DataHealthCenter(HoabelHealthAdapter.VIEW_HELP_CENTER_LOCATION_ACCESS, "Read our privacy policy","Privacy Policy",
             R.drawable.ic_privacy_policy,
             R.drawable.ic_path,
             R.drawable.ic_privacy_policy,"Chat with us",
             R.drawable.ic_path,"Or\n" +
                     "Call us: +91 123 123 1231\n" +
                     "Email us: help@hoabl.in"))
-        dataList.add(DataHealthCenter(HoabelHealthAdapter.VIEW_HELP_CENTER_ONE, "Read everything you want to know about us","About Us",
+        dataList.add(DataHealthCenter(HoabelHealthAdapter.VIEW_HELP_CENTER_LOCATION_ACCESS, "Read everything you want to know about us","About Us",
             R.drawable.ic_info_button,
             R.drawable.ic_path,
             R.drawable.ic_info_button,"Chat with us",
             R.drawable.ic_path,"Or\n" +
                     "Call us: +91 123 123 1231\n" +
                     "Email us: help@hoabl.in"))
-        dataList.add(DataHealthCenter(HoabelHealthAdapter.VIEW_HELP_CENTER_ONE, "This will help us improve the app for you","Share your feedback",
+        dataList.add(DataHealthCenter(HoabelHealthAdapter.VIEW_HELP_CENTER_LOCATION_ACCESS, "This will help us improve the app for you","Share your feedback",
             R.drawable.ic_feedback,
             R.drawable.ic_path,
             R.drawable.ic_feedback,"Chat with us",
             R.drawable.ic_path,"Or\n" +
                     "Call us: +91 123 123 1231\n" +
                     "Email us: help@hoabl.in"))
-        dataList.add(DataHealthCenter(HoabelHealthAdapter.VIEW_HELP_CENTER_ONE, "Let us know your love for us! Rate us on the store","Rate us!",
+        dataList.add(DataHealthCenter(HoabelHealthAdapter.VIEW_HELP_CENTER_LOCATION_ACCESS, "Let us know your love for us! Rate us on the store","Rate us!",
             R.drawable.ic_rating_2,
             R.drawable.ic_rating_2,
             R.drawable.ic_faq,"Chat with us",
@@ -118,7 +117,7 @@ class HealthCenterFragment : Fragment() {
                     "Call us: +91 123 123 1231\n" +
                     "Email us: help@hoabl.in"))
 
-        dataList.add(DataHealthCenter(HoabelHealthAdapter.VIEW_HELP_CENTER_TWO, "Want to connect?","hii",
+        dataList.add(DataHealthCenter(HoabelHealthAdapter.VIEW_HELP_CENTER_CONNECT, "Want to connect?","hii",
             R.drawable.ic_faq,
             R.drawable.ic_path,
             R.drawable.ic_faq,"Chat with us",
