@@ -17,7 +17,7 @@ import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.fragments.FinancialAndProjectFragment
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
-import com.emproto.hoabl.feature.home.promises.HoabelPromises
+import com.emproto.hoabl.feature.promises.HoabelPromises
 import com.emproto.hoabl.feature.profile.ProfileFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory

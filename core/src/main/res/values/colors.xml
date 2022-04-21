@@ -31,4 +31,6 @@
     <color name="color_text_normal">#9192a0</color>
     <color name="grey_line">#b6b3d0</color>
     <color name="error_color">#f45353</color>
+    <color name="primarytext_color">#16161C</color>
+    <color name="primarytext_color2">#313131</color>
 </resources>
