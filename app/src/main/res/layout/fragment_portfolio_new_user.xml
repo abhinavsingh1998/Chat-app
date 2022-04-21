@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".feature.home.views.fragments.PortfolioNewUserFragment"
+    tools:context=".feature.portfolio.views.PortfolioNewUserFragment"
     android:background="@drawable/homescreen_curve">
 
     <ImageView
         android:id="@+id/portfolio_top_img"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/portfolio_image"
+        android:src="@drawable/portfolio_add_image"
         android:layout_marginTop="@dimen/margin_size_60"
         android:layout_marginLeft="@dimen/margin_size_18"
         android:layout_marginRight="@dimen/margin_size_18"
@@ -73,7 +73,5 @@
         android:textSize="@dimen/text_size_14"
         android:drawableStart="@drawable/profit"
         android:drawableEnd="@drawable/ic_baseline_arrow_right"/>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

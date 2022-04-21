@@ -13,12 +13,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseActivity
 import com.emproto.hoabl.databinding.ActivityHomeBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.home.views.fragments.FinancialAndProjectFragment
+import com.emproto.hoabl.feature.portfolio.views.FinancialAndProjectFragment
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
 import com.emproto.hoabl.feature.home.promisesUi.HoabelPromises
+import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
 import com.emproto.hoabl.feature.profileui.ProfileFragment
-import com.emproto.hoabl.fragments.PromisesFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -118,9 +118,9 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 replaceFragment(favouriteFragment.javaClass, "", true, bundle, null, 0, false)
             }
             ScreenPortfolio -> {
-                val membershipFragment = FinancialAndProjectFragment()
-                membershipFragment.setArguments(bundle)
-                replaceFragment(membershipFragment.javaClass, "", true, bundle, null, 0, false)
+                val portfolioFragment = PortfolioFragment()
+                portfolioFragment.setArguments(bundle)
+                replaceFragment(portfolioFragment.javaClass, "", true, bundle, null, 0, false)
             }
             ScreenPromises -> {
                 val cartFragment = HoabelPromises()
