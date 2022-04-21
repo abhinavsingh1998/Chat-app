@@ -691,12 +691,12 @@
                         android:text="@string/share_joy"
                         app:fontName="@string/shelldon"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/view2"
+                        app:layout_constraintEnd_toStartOf="@id/dialog_line_view"
                         app:layout_constraintStart_toEndOf="@id/view1"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <View
-                        android:id="@+id/view2"
+                        android:id="@+id/dialog_line_view"
                         android:layout_width="@dimen/margin_size_120"
                         android:layout_height="1dp"
                         android:layout_marginLeft="@dimen/margin_size_6"

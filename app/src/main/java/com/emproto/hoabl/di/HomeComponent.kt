@@ -7,7 +7,7 @@ import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.login.NameInputFragment
 import com.emproto.hoabl.feature.login.OTPVerificationFragment
 import com.emproto.hoabl.feature.login.SigninIssueFragment
-import com.emproto.hoabl.feature.profileui.ProfileFragment
+import com.emproto.hoabl.feature.profile.ProfileFragment
 import dagger.Component
 import javax.inject.Singleton
 

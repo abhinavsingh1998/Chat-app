@@ -87,7 +87,7 @@
         android:id="@+id/profile_imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_size_23"
+        android:layout_marginStart="@dimen/margin_size_19"
         android:layout_marginTop="@dimen/margin_size_27"
         android:background="@drawable/ic_profile"
         app:layout_constraintStart_toStartOf="parent"
@@ -148,9 +148,9 @@
         android:id="@+id/imageviewsettings"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/margin_size_20"
+        android:layout_marginStart="@dimen/margin_size_19"
         android:layout_marginTop="@dimen/margin_size_27"
-        android:background="@drawable/shape"
+        android:background="@drawable/shield"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/AccountView"/>
 
@@ -173,7 +173,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_20"
         android:fontFamily="@font/jostregular"
-        android:text="@string/location_prompt_sms_push_notification"
+        android:text="@string/report_emergency_control_authentication_etc"
         android:textStyle="normal"
         style="text_style_light_grey_14"
         app:layout_constraintStart_toEndOf="@+id/imageviewsettings"
@@ -199,7 +199,7 @@
         app:layout_constraintTop_toBottomOf="@+id/settingsView" />
 
     <View
-        android:id="@+id/securityView"
+        android:id="@+id/help_center_tv"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -210,11 +210,11 @@
         android:id="@+id/imageSecurityLock"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/margin_size_20"
+        android:layout_marginStart="@dimen/margin_size_19"
         android:layout_marginTop="@dimen/margin_size_27"
-        android:background="@drawable/securitylock"
+        android:background="@drawable/helpmesg"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/securityView" />
+        app:layout_constraintTop_toTopOf="@+id/help_center_tv" />
 
     <TextView
         android:id="@+id/textView_Security"
@@ -223,7 +223,7 @@
         android:layout_marginStart="@dimen/margin_size_20"
         android:layout_marginTop="@dimen/margin_size_25"
         android:fontFamily="@font/jostmedium"
-        android:text="@string/profile_security"
+        android:text="@string/help_centre"
         style="@style/text_style_text_color_14"
         app:layout_constraintStart_toEndOf="@+id/imageSecurityLock"
         app:layout_constraintTop_toBottomOf="@+id/settingsView" />
@@ -234,7 +234,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_20"
         android:fontFamily="@font/jostregular"
-        android:text="@string/report_emergency_control_authentication_etc"
+        android:text="@string/contact_about_us_privacy_policy_chat"
         style="text_style_light_grey_14"
         app:layout_constraintStart_toEndOf="@+id/imageSecurityLock"
         app:layout_constraintTop_toBottomOf="@+id/textView_Security" />
@@ -259,7 +259,7 @@
         app:layout_constraintTop_toBottomOf="@+id/line_divider" />
 
     <View
-        android:id="@+id/messageView"
+        android:id="@+id/facility_management"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
         app:layout_constraintEnd_toEndOf="@+id/horizontlline_view"
@@ -270,9 +270,9 @@
         android:id="@+id/imageViewMessage"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/margin_size_20"
+        android:layout_marginStart="@dimen/margin_size_19"
         android:layout_marginTop="@dimen/margin_size_27"
-        android:background="@drawable/helpmesg"
+        android:background="@drawable/management_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/horizontlline_view" />
 
@@ -283,7 +283,7 @@
         android:layout_marginStart="@dimen/margin_size_20"
         android:layout_marginTop="@dimen/margin_size_25"
         android:fontFamily="@font/jostmedium"
-        android:text="@string/help_centre"
+        android:text="Facility Management"
         style="@style/text_style_text_color_14"
         app:layout_constraintStart_toEndOf="@+id/imageViewMessage"
         app:layout_constraintTop_toBottomOf="@+id/horizontlline_view" />
@@ -294,7 +294,7 @@
         android:layout_marginStart="@dimen/margin_size_20"
         android:id="@+id/Contact"
         android:fontFamily="@font/jostregular"
-        android:text="@string/contact_about_us_privacy_policy_chat"
+        android:text="Manage your land, book, etc"
         style="style@text_style_light_grey_14"
         app:layout_constraintStart_toEndOf="@+id/imageViewMessage"
         app:layout_constraintTop_toBottomOf="@+id/textView_helpcenter" />

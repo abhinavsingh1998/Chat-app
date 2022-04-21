@@ -39,7 +39,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/margin_size_17"
             android:layout_marginTop="@dimen/margin_size_24"
-            android:text="@string/health_center"
+            android:text="@string/help_center"
             android:fontFamily="@font/jostmedium"
             style ="@style/text_style_blue_16"
             app:layout_constraintStart_toEndOf="@+id/ivleftarrow"

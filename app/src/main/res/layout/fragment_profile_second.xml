@@ -56,7 +56,7 @@
             android:id="@+id/profile_picture"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/margin_size_28"
+            android:layout_marginStart="@dimen/margin_size_16"
             android:layout_marginTop="@dimen/margin_size_74"
             android:fontFamily="@font/jostregular"
             android:lineSpacingExtra="0sp"
@@ -132,7 +132,7 @@
             android:id="@+id/tv_personal"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/margin_size_28"
+            android:layout_marginStart="@dimen/margin_size_16"
             android:layout_marginTop="@dimen/margin_size_30"
             android:fontFamily="@font/jostregular"
             android:lineSpacingExtra="0sp"
@@ -141,37 +141,88 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
+        <TextView
+            android:id="@+id/tv_enter_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="17dp"
+            android:fontFamily="@font/jostregular"
+            android:text="@string/enter_name"
+            style="@style/text_style_light_grey_12"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_personal" />
+
+        <TextView
+            android:id="@+id/enter_number_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_size_17"
+            android:layout_marginStart="@dimen/margin_size_60"
+            android:layout_marginEnd="@dimen/margin_size_183"
+            style="@style/text_style_light_grey_12"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:fontFamily="@font/jostregular"
+            android:text="@string/phone_number"
+            app:layout_constraintStart_toEndOf="@+id/tv_enter_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_personal" />
+
+        <TextView
+            android:id="@+id/textview_enter_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_16"
+            android:layout_marginTop="0dp"
+            android:fontFamily="@font/jost_medium"
+            android:text="@string/name"
+            style="@style/text_style_text_color_14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_enter_name" />
+
+
+        <TextView
+            android:id="@+id/enter_phonenumber_textview"
+            style="@style/text_style_text_color_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="@dimen/margin_size_153"
+            android:fontFamily="@font/jost_medium"
+            android:text="@string/phone_num"
+            app:layout_constraintStart_toStartOf="@+id/enter_number_textview"
+            app:layout_constraintTop_toBottomOf="@+id/enter_number_textview" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tv_FirstName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/margin_size_28"
+            android:layout_marginStart="@dimen/margin_size_16"
             android:layout_marginTop="@dimen/margin_size_25"
-            android:layout_marginEnd="@dimen/margin_size_28"
+            android:layout_marginEnd="@dimen/margin_size_16"
             android:hint="@string/first_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_personal">
+            app:layout_constraintTop_toBottomOf="@+id/textview_enter_name">
 
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/jostmedium"
-                style="@style/text_style_text_14"
+                style="@style/text_style_text_color_16"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:layout_editor_absoluteY="344dp" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tv_LastName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_size_28"
+            android:layout_marginStart="@dimen/margin_size_16"
             android:layout_marginTop="@dimen/margin_size_20"
-            android:layout_marginEnd="@dimen/margin_size_28"
+            android:layout_marginEnd="@dimen/margin_size_16"
             android:hint="@string/last_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -181,7 +232,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                style="@style/text_style_text_14"
+                style="@style/text_style_text_color_16"
                 android:fontFamily="@font/jostmedium" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -191,9 +242,9 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_size_28"
+            android:layout_marginStart="@dimen/margin_size_16"
             android:layout_marginTop="@dimen/margin_size_20"
-            android:layout_marginRight="@dimen/margin_size_28"
+            android:layout_marginEnd="@dimen/margin_size_16"
             android:hint="@string/phone_number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -203,7 +254,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                style="@style/text_style_text_14"
+                style="@style/text_style_text_color_16"
                 android:fontFamily="@font/jostmedium" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -214,9 +265,9 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_size_28"
+            android:layout_marginStart="@dimen/margin_size_16"
             android:layout_marginTop="@dimen/margin_size_20"
-            android:layout_marginRight="@dimen/margin_size_28"
+            android:layout_marginEnd="@dimen/margin_size_16"
             android:hint="@string/email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -225,7 +276,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                style="@style/text_style_text_14"
+                style="@style/text_style_text_color_16"
 
                 android:fontFamily="@font/jostmedium" />
 
@@ -237,7 +288,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_size_28"
+            android:layout_marginLeft="@dimen/margin_size_16"
             android:layout_marginTop="@dimen/margin_size_20"
             android:hint="@string/date_of_birth_dob"
             app:layout_constraintEnd_toStartOf="@+id/textInputLayout5"
@@ -251,7 +302,7 @@
                 android:id="@+id/tvDatePicker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/text_style_text_14"
+                style="@style/text_style_text_color_16"
                 android:drawableEnd="@drawable/ic_baseline_calendar_month_24"
                 android:editable="false"
                 android:fontFamily="@font/jostmedium" />
@@ -267,20 +318,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_size_5"
-            android:layout_marginTop="@dimen/margin_size_18"
+            android:layout_marginTop="@dimen/margin_size_20"
+            android:layout_marginEnd="@dimen/margin_size_16"
             android:hint="@string/gender"
-            android:layout_marginEnd="28dp"
-            app:layout_constraintBottom_toTopOf="@+id/add_details"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/dob"
             app:layout_constraintTop_toBottomOf="@+id/tv_Email">
 
 
             <com.google.android.material.textfield.TextInputEditText
+                style="@style/text_style_text_color_16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/text_style_text_14"
                 android:drawableEnd="@drawable/ic_path_10_copy"
                 android:fontFamily="@font/jostmedium" />
 
@@ -290,16 +339,16 @@
         <TextView
 
             android:id="@+id/add_details"
-            android:layout_width="358dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="@dimen/margin_size_28"
-            android:layout_marginTop="670dp"
+            style="@style/text_style_color_18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_16"
+            android:layout_marginTop="@dimen/margin_size_30"
             android:fontFamily="@font/jostmedium"
             android:lineSpacingExtra="0sp"
             android:text="@string/Address_details"
-            style="@style/text_style_color_18"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view" />
+            app:layout_constraintTop_toBottomOf="@+id/dob" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -307,9 +356,9 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_size_28"
+            android:layout_marginStart="@dimen/margin_size_16"
             android:layout_marginTop="@dimen/margin_size_25"
-            android:layout_marginEnd="@dimen/margin_size_28"
+            android:layout_marginEnd="@dimen/margin_size_16"
             android:hint="@string/Floor_and_House_Number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -320,7 +369,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/text_style_text_14"
+                style="@style/text_style_text_color_16"
                 android:fontFamily="@font/jostmedium" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -332,9 +381,9 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_size_28"
+            android:layout_marginStart="@dimen/margin_size_16"
             android:layout_marginTop="@dimen/margin_size_20"
-            android:layout_marginRight="@dimen/margin_size_28"
+            android:layout_marginEnd="@dimen/margin_size_16"
             android:hint="@string/Enter_complete_Address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -345,7 +394,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                style="@style/text_style_text_14"
+                style="@style/text_style_text_color_16"
                 android:fontFamily="@font/jostmedium" />
 
 
@@ -359,10 +408,10 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_size_28"
+            android:layout_marginStart="@dimen/margin_size_16"
             android:layout_marginTop="@dimen/margin_size_20"
-            android:layout_marginRight="@dimen/margin_size_28"
-            android:hint="@string/Enter_Layality"
+            android:layout_marginEnd="@dimen/margin_size_16"
+            android:hint="@string/Enter_Locality"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.631"
             app:layout_constraintStart_toStartOf="parent"
@@ -372,7 +421,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/text_style_text_14"
+                style="@style/text_style_text_color_16"
                 android:fontFamily="@font/jostmedium" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -384,9 +433,9 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_size_28"
+            android:layout_marginStart="@dimen/margin_size_16"
             android:layout_marginTop="@dimen/margin_size_20"
-            android:layout_marginRight="@dimen/margin_size_28"
+            android:layout_marginEnd="@dimen/margin_size_16"
             android:hint="@string/Pincode"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.719"
@@ -397,7 +446,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/text_style_text_14"
+                style="@style/text_style_text_color_16"
                 android:fontFamily="@font/jostmedium" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -409,7 +458,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_size_28"
+            android:layout_marginStart="@dimen/margin_size_16"
             android:layout_marginTop="@dimen/margin_size_20"
             android:hint="@string/City"
             app:layout_constraintEnd_toStartOf="@+id/state"
@@ -423,7 +472,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/text_style_text_14"
+                style="@style/text_style_text_color_16"
                 android:drawableEnd="@drawable/ic_path_10_copy"
                 android:fontFamily="@font/jostmedium" />
 
@@ -440,7 +489,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_size_10"
             android:layout_marginTop="@dimen/margin_size_20"
-            android:layout_marginRight="@dimen/margin_size_28"
+            android:layout_marginEnd="@dimen/margin_size_16"
             android:hint="@string/State"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -450,38 +499,39 @@
 
             <com.google.android.material.textfield.TextInputEditText
 
-                android:layout_width="153dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/text_style_text_14"
+                style="@style/text_style_text_color_16"
                 android:drawableEnd="@drawable/ic_path_10_copy"
                 android:fontFamily="@font/jostmedium" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
-        <androidx.appcompat.widget.AppCompatButton
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_size_70"
+        <com.emproto.core.textviews.CustomTextView
             android:id="@+id/save_and_update"
-            android:layout_marginTop="@dimen/margin_size_130"
-            android:layout_marginRight="@dimen/margin_size_70"
-            android:layout_marginBottom="@dimen/margin_size_40"
-            android:padding="10dp"
-            android:background="@drawable/btnshape"
-            android:fontFamily="@font/jostmedium"
-            android:gravity="center_horizontal|center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_25"
+            android:layout_marginTop="59dp"
+            android:layout_marginEnd="@dimen/margin_size_25"
+            android:layout_marginBottom="@dimen/margin_size_30"
+            android:background="@drawable/portfolio_btn_shape"
+            android:drawablePadding="@dimen/_2sdp"
+            android:paddingStart="@dimen/margin_size_45"
+            android:paddingTop="@dimen/margin_size_12"
+            android:paddingEnd="@dimen/margin_size_45"
+            android:paddingBottom="@dimen/margin_size_12"
             android:text="@string/save_and_update"
             android:textAllCaps="false"
             style="@style/text_style_white_20"
+            android:textAlignment="center"
+            app:fontName="@font/jost_medium"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_city" />
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

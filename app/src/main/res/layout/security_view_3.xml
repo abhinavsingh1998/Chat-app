@@ -7,7 +7,7 @@
 
 
     <View
-        android:id="@+id/view2"
+        android:id="@+id/dialog_line_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#ffffff"
@@ -27,7 +27,7 @@
         android:fontFamily="@font/jostmedium"
         android:text="Location Access"
         style="@style/text_style_text_color_14"
-        app:layout_constraintStart_toStartOf="@+id/view2"
+        app:layout_constraintStart_toStartOf="@+id/dialog_line_view"
         app:layout_constraintTop_toTopOf="parent" />
 
 
