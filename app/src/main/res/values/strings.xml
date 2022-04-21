@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">HOABL app</string>
     <string name="hoabl">HOABL</string>
@@ -19,7 +20,7 @@
     <string name="mobile_number">Mobile Number</string>
     <string name="enter_mobile">Enter Mobile Number</string>
     <string name="whatsapp">Whatsapp Communications</string>
-    <string name="login_terms_text">By login in, you are agreeing to our Terms of services \n and Privacy policy</string>
+    <string name="login_terms_text">By login in, you are agreeing to our <u>Terms of services</u> \n and <u>Privacy policy</u></string>
     <string name="trouble_login"><u>Trouble Signing In?</u></string>
     <string name="get_otp">Get OTP</string>
     <string name="submit_and_continue">Submit and Continue</string>
@@ -138,8 +139,8 @@
     <string name="First_name_hint">First Name *</string>
     <string name="Second_name_hint">Second Name </string>
     <string name="submit_and_con">Submit and Continue</string>
-    <string name="trouble_signing_in">Trouble Signing In?</string>
-    <string name="whats_the_issue">Whtas the issue</string>
+    <string name="trouble_signing_in">Trouble Signing in?</string>
+    <string name="whats_the_issue">What is the issue?</string>
     <string name="unable_to_enter_num">Unable to enter phone number</string>
     <string name="describe_your_issue_in_few_words">Describe your issue in few words</string>
     <string name="submit_btn_txt">Submit</string>
@@ -224,21 +225,6 @@
     <string name="desc">Desc</string>
     <string name="save_and_update">Save and Update</string>
     <string name="documents">Documents</string>
-    <string name="share_the_joy">Share the joy</string>
-    <string name="refer_now">Refer Now</string>
-    <string name="share_hoabl_friends">Share HOABL APP with your friends</string>
-    <string name="manage_projects">Manage Project</string>
-    <string name="invest_now">Invest Now</string>
-    <string name="blockchain">BLOCKCHAIN</string>
-    <string name="amount_paid">Amount Paid</string>
-    <string name="view_booking_journey">View Booking Journey</string>
-    <string name="paid">Paid</string>
-    <string name="pending">Pending</string>
-    <string name="area">Area</string>
-    <string name="allocation_date">Allocation Date</string>
-    <string name="possession_date">Possession Date</string>
-    <string name="reg_draft_text">MAHARERA Registration No. Phase I - P52800031035\nMAHARERA Registration No. Phase II- P52800031036</string>
-    <string name="attention_text">The following items need your attention</string>
     <string name="continue_txt">Continue</string>
     <string name="confirmation_msg">Your query has been submitted successfully.</string>
     <string name="help_centre_about_us">Help Centre - About Us</string>
@@ -256,7 +242,7 @@
     <string name="general">General</string>
     <string name="investment">Investment</string>
     <string name="payments">Payments</string>
-    <string name="name">Anuj Singh</string>
+    <string name="name">Name</string>
     <string name="my_accounts">My Accounts</string>
     <string name="profile_security">Profile And Security</string>
     <string name="help_centre">Help Center</string>

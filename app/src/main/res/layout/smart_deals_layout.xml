@@ -19,8 +19,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_size_13"
-            android:layout_marginTop="@dimen/margin_size_30"
-            android:fontFamily="@font/jost_regular"
+            android:layout_marginTop="@dimen/margin_size_35"
+            android:fontFamily="@font/jost_medium"
             android:text="Smart Deals"
             style="@style/text_style_text_light_black_color_18"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,8 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_size_13"
-            android:layout_marginTop="@dimen/margin_size_6"
-            android:visibility="visible"
+            android:layout_marginTop="@dimen/margin_size_4"
             android:fontFamily="@font/jost_regular"
             android:text="Hurry! Only a few left"
             style="@style/text_style_lightgrey_14"
@@ -44,20 +43,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/see_all"
-            style="@style/text_style_blue_14"
-            app:layout_constraintBottom_toBottomOf="@id/tv_smart_deals_title"
-            app:layout_constraintEnd_toStartOf="@+id/iv_video_drone_arrow_sd"
-            app:layout_constraintTop_toTopOf="@id/tv_smart_deals_title" />
-
-        <ImageView
-            android:id="@+id/iv_video_drone_arrow_sd"
-            android:layout_width="@dimen/margin_size_14"
-            android:layout_height="@dimen/margin_size_7"
-            android:layout_marginEnd="@dimen/margin_size_15"
-            android:src="@drawable/ic_arrow_forward_blue"
-            app:layout_constraintBottom_toBottomOf="@id/tv_smart_deals_see_all"
+            android:maxLines="1"
+            android:minLines="1"
+            android:drawableEnd="@drawable/ic_black_long_rightarrow"
+            android:drawablePadding="@dimen/margin_size_4"
+            android:singleLine="true"
+            app:fontName="@string/jost_regular"
+            android:layout_marginEnd="@dimen/margin_size_16"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_smart_deals_see_all" />
+            app:layout_constraintTop_toTopOf="@id/tv_smart_deals_title"
+            app:layout_constraintBottom_toBottomOf="@id/tv_smart_deals_title"/>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_smart_deals_nv"
