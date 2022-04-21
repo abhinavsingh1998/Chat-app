@@ -85,7 +85,7 @@ class LoginFragment : BaseFragment() {
 //                ), true
 //            )
 
-            val otpRequest = OtpRequest(mBinding.etMobile1.text.toString(), "", "IN")
+            val otpRequest = OtpRequest(mBinding.etMobile1.text.toString(), "+91", "IN")
             authViewModel.getOtp(otpRequest).observe(viewLifecycleOwner, Observer {
                 when (it.status) {
                     Status.SUCCESS -> {
