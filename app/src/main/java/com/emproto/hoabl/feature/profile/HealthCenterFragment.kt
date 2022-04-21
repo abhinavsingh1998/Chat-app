@@ -38,10 +38,6 @@ class HealthCenterFragment : Fragment() {
                     val faqFragment = FaqFragment()
                     (requireActivity() as HomeActivity).replaceFragment(faqFragment.javaClass, "", true, null, null, 0, false)
                 }
-                R.id.tv_security -> {
-                    val faqFragment= FaqFragment()
-                    (requireActivity() as HomeActivity).replaceFragment(faqFragment.javaClass, "", true, null, null, 0, false)
-                }
             }
         }
 
@@ -59,9 +55,7 @@ class HealthCenterFragment : Fragment() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible=true
         initClickListener()
         return binding.root
-
     }
-
     private fun initClickListener() {
         binding.ivleftarrow.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
