@@ -19,7 +19,7 @@
     <string name="mobile_number">Mobile Number</string>
     <string name="enter_mobile">Enter Mobile Number</string>
     <string name="whatsapp">Whatsapp Communications</string>
-    <string name="login_terms_text">By login in, you are agreeing to our <u>Terms of services</u> and <u>Privacy policy</u></string>
+    <string name="login_terms_text">By login in, you are agreeing to our <u>Terms of services</u> \n and <u>Privacy policy</u></string>
     <string name="trouble_login"><u>Trouble Signing In?</u></string>
     <string name="get_otp">Get OTP</string>
     <string name="submit_and_continue">Submit and Continue</string>
@@ -41,40 +41,12 @@
     <string name="resend"><b><u>RESEND OTP</u></b></string>
     <string name="otp_verified"><b>OTP Verified!</b></string>
     <string name="NO_INTERNET">No Internet available</string>
+
+    <style name="general">General</style>
+
     <string name="onestep">Hey, \nJust one last step</string>
-    <string name="first_name">First Name *</string>
+    <string name="first_name">First Name </string>
     <string name="help_us">Help us with your</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="help_centre_about_us">Help Centre - About Us</string>
-    <string name="Description">We are building a platform that will bring anyone who wants to create wealth to join the New Generation LandTM revolution. Now is your time. You can buy, maintain and liquidate land with amazing ease, conﬁdence and trust. Whether you’re a ﬁrst time buyer or a seasoned investor, we’ve got you covered. We ensure a completely secure experience for our members by keeping track of every single nuance of the ownership journey to</string>
-    <string name="Selling_land_Text">WE ARE NOT SELLING LAND</string>
-    <string name="Changing_land_Text">WE ARE CHANGING LAND FOREVER</string>
-    <string name="Presenting_Text">presenting New Generation LandTM for the New Generation of India</string>
-    <string name="Description2">We are changing what it means to own land. We are making it liquid, so that you’re never stuck with it. We are changing everything that is wrong with it – the red tape, the hassles and the risk. We are using technology to make it fully transparent, easy and desirable. We are modernising and democratising land like no one else in history. But our biggest promise is that we aren’t with you just for the long run, we are with you forever.</string>
-    <string name="name">Anuj Singh</string>
-    <string name="edit_profile">Edit Profile</string>
-    <string name="my_accounts">My Accounts</string>
-    <string name="payment">Payment Settings, Refferal, Rewards</string>
-
-    <string name="kyc">KYC</string>
-    <string name="general">General</string>
-    <string name="investment">Investment</string>
-    <string name="payments">Payments</string>
-    <string name="category_1">Category 1</string>
-
-    <string name="location">Location Prompt , SMS, Push Notification</string>
-    <string name="profile_security">Security</string>
-    <string name="security_description">Report emergency, control authentication, etc</string>
-    <string name="help_centre">Help Centre</string>
-    <string name="contact_description">Contact, About Us , Privacy Policy,Chat</string>
-    <string name="profile_picture">Profile Picture</string>
-    <string name="upload_new_picture">Upload New Picture</string>
-    <string name="remove_picture">Remove Picture</string>
-    <string name="personal_details">Personal Details</string>
-    <string name="lastname">LastName</string>
-    <string name="save_and_update">Save and Update</string>
-
 
     <string name="see_all">SEE ALL</string>
     <string name="new_launch_soon">New Launch</string>
@@ -124,7 +96,7 @@
     <string name="smart_deals">Smart Deals</string>
     <string name="total_projects">Total Projects</string>
     <string name="completed">Completed</string>
-    <string name="intro1">New Generation Land is for everyone. Explore all new investments</string>
+    <string name="intro1">New Generation Land is for everyone. \nExplore all new investments</string>
     <string name="intro2">Promises, are meant to be kept, and we keep it that way too!</string>
     <string name="intro3">Strong Security System to keep your valuables safe and secure</string>
     <string name="enter_your_phonenumber">Enter Your Phone Number</string>
@@ -214,7 +186,7 @@
     <string name="gender">Gender</string>
     <string name="Address_details">Address details</string>
     <string name="Enter_complete_Address">Enter complete Address</string>
-    <string name="Enter_Layality">Enter Layality</string>
+    <string name="Enter_Locality">Enter Locality</string>
     <string name="Pincode">Pincode</string>
     <string name="State">State</string>
     <string name="Floor_and_House_Number">Floor and House Number</string>
@@ -243,12 +215,13 @@
     <string name="category">Category</string>
     <string name="answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer_will_be_written_here_answer_will_answer">Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer will be written here. Answer will Answer</string>
     <string name="view_1_textview">View 1 TextView</string>
-    <string name="health_center">Health Center</string>
+    <string name="help_center">Help Center</string>
     <string name="new_generation_land_is_now_safe_and_secure_owning_land_will_never_feel_like_a_gamble_again">New Generation Land is now safe and secure. Owning land will never feel like a gamble again.</string>
     <string name="read_our_terms_amp_conditions"><![CDATA[Read our Terms & Conditions]]></string>
-    <string name="just_invest_we_have_your_back">Just Invest We have your back!</string>
+    <string name="just_invest_we_have_your_back">Just Invest \nWe have your back!</string>
     <string name="buy_maintain_and_liquidate_land_with_amazing_ease_con_dence_and_trust">Buy, maintain and liquidate land with amazing ease, conﬁdence and trust.</string>
     <string name="desc">Desc</string>
+    <string name="save_and_update">Save and Update</string>
     <string name="documents">Documents</string>
     <string name="share_the_joy">Share the joy</string>
     <string name="refer_now">Refer Now</string>
@@ -267,4 +240,34 @@
     <string name="view_timeline">View Timeline</string>
     <string name="reg_draft_text">MAHARERA Registration No. Phase I - P52800031035\nMAHARERA Registration No. Phase II- P52800031036</string>
     <string name="attention_text">The following items need your attention</string>
+    <string name="continue_txt">Continue</string>
+    <string name="confirmation_msg">Your query has been submitted successfully.</string>
+    <string name="help_centre_about_us">Help Centre - About Us</string>
+    <string name="Description">We are building a platform that will bring anyone who wants to create wealth to join the New Generation LandTM revolution. Now is your time. You can buy, maintain and liquidate land with amazing ease, conﬁdence and trust. Whether you’re a ﬁrst time buyer or a seasoned investor, we’ve got you covered. We ensure a completely secure experience for our members by keeping track of every single nuance of the ownership journey to</string>
+    <string name="Selling_land_Text">WE ARE NOT SELLING LAND</string>
+    <string name="Changing_land_Text">WE’RE CHANGING LAND FOREVER</string>
+    <string name="Presenting_Text">presenting New Generation LandTM for the New Generation of India</string>
+    <string name="Description2">We are changing what it means to own land. We are making it liquid, so that you’re never stuck with it. We are changing everything that is wrong with it – the red tape, the hassles and the risk. We are using technology to make it fully transparent, easy and desirable. We are modernising and democratising land like no one else in history. But our biggest promise is that we aren’t with you just for the long run, we are with you forever.</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="upload_new_picture">Upload New Picture</string>
+    <string name="remove_picture">Remove Picture</string>
+    <string name="personal_details">Personal Details</string>
+    <string name="kyc">KYC</string>
+    <string name="general">General</string>
+    <string name="investment">Investment</string>
+    <string name="payments">Payments</string>
+    <string name="name">Anuj Singh</string>
+    <string name="my_accounts">My Accounts</string>
+    <string name="profile_security">Profile And Security</string>
+    <string name="help_centre">help Center</string>
+    <string name="title">Title</string>
+    <string name="aadhar_card">Aadhar Card</string>
+    <string name="phone_num">+91 897 160 0316</string>
+    <string name="view_document">View Document</string>
+    <string name="pan_card">Pan Card</string>
+    <string name="isle_of_bliss">Isle of Bliss</string>
+    <string name="see_receipt">See Receipt</string>
+    <string name="this_page_will_be_activated_after_possession_handover_is_done">This page will be activated after possession handover is done</string>
+    <string name="okay">OKAY</string>
 </resources>

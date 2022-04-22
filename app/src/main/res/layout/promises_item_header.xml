@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_size_160"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/bg_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/curve"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView5"
+            style="@style/text_medium_gold_18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/just_invest_we_have_your_back"
+            app:layout_constraintStart_toStartOf="@+id/bg_image"
+            app:layout_constraintTop_toTopOf="@+id/bg_image" />
+
+        <TextView
+            android:id="@+id/textView8"
+            style="@style/text_regular_text_color_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="left"
+            android:text="@string/buy_maintain_and_liquidate_land_with_amazing_ease_con_dence_and_trust"
+            app:layout_constraintEnd_toStartOf="@+id/iv_handshake"
+            app:layout_constraintStart_toStartOf="@+id/bg_image"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <ImageView
+            android:id="@+id/iv_handshake"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_size_38"
+            android:layout_marginRight="@dimen/margin_size_20"
+            android:layout_marginBottom="@dimen/margin_size_35"
+            android:background="@drawable/image"
+            app:layout_constraintBottom_toBottomOf="@+id/bg_image"
+            app:layout_constraintEnd_toEndOf="@+id/bg_image"
+            app:layout_constraintTop_toTopOf="@+id/bg_image" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView9"
+        style="@style/text_pcolor1_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:text="About Promises"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    <TextView
+        android:id="@+id/textView10"
+        style="@style/text_light_black_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="20dp"
+        android:lineSpacingExtra="@dimen/margin_size_8"
+        android:text="Neque porro quisquam estp qui dolorem ipsu porro quisquam estp qui ipsu. Neque porro quisquam estp qui dolorem ipsu porro quisquam estp qui ipsu.Neque porro quisquam estp qui dolorem ipsu porro quisquam estp qui ipsu.Neque porro quisquam estp qui dolorem."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

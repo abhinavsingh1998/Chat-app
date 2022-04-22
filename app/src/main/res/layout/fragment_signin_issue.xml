@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/trouble_back"
-
     app:behavior_hideable="false"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/issue_card_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/homescreen_curve"
@@ -18,7 +18,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -29,6 +29,7 @@
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/header_text"
                     android:layout_width="0dp"
+                    style="@style/text_style_text_color_20"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_28"
                     android:layout_marginTop="@dimen/margin_size_30"
@@ -36,16 +37,18 @@
                     android:fontFamily="@font/montserrat_regular"
                     android:text="@string/trouble_signing_in"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/text_size_21"
+                    android:textAlignment="textStart"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    android:id="@+id/sheet_close_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_size_28"
                     android:src="@drawable/ic_close"
+                    android:clickable="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="@id/header_text" />
@@ -53,12 +56,12 @@
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/issue_header"
                     android:layout_width="0dp"
+                    style="@style/text_style_text_black_color_18"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_size_30"
-                    android:fontFamily="@font/jost_regular"
+                    android:fontFamily="@font/jost_medium"
                     android:text="@string/whats_the_issue"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/text_size_16"
                     app:layout_constraintLeft_toLeftOf="@id/header_text"
                     app:layout_constraintTop_toBottomOf="@id/header_text" />
 
@@ -76,43 +79,56 @@
 
                     <RadioButton
                         android:id="@+id/issue_one"
+                        style="@style/text_style_lightgrey_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Unable to enter phone number"
-                        android:fontFamily="@font/jost_regular"
-                        android:textSize="@dimen/text_size_14"/>
+                        android:fontFamily="@font/jost_regular" />
                     <RadioButton
                         android:id="@+id/issue_two"
+                        style="@style/text_style_lightgrey_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Unable to change country code"
-                        android:fontFamily="@font/jost_regular"
-                        android:textSize="@dimen/text_size_14"/>
+                        android:fontFamily="@font/jost_regular" />
                     <RadioButton
                         android:id="@+id/issue_three"
+                        style="@style/text_style_lightgrey_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Did not get OTP"
-                        android:fontFamily="@font/jost_regular"
-                        android:textSize="@dimen/text_size_14"/>
+                        android:fontFamily="@font/jost_regular"/>
                     <RadioButton
                         android:id="@+id/issue_four"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="OTP Expired"
                         android:fontFamily="@font/jost_regular"
-                        android:textSize="@dimen/text_size_14"/>
+                        style="@style/text_style_lightgrey_14"/>
+
                     <RadioButton
                         android:id="@+id/issue_five"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Number Blocked"
                         android:fontFamily="@font/jost_regular"
-                        android:textSize="@dimen/text_size_14"/>
+                        style="@style/text_style_lightgrey_14"/>
 
+                    <RadioButton
+                        android:id="@+id/issue_six"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="My issue is not listed"
+                        android:fontFamily="@font/jost_regular"
+                        style="@style/text_style_lightgrey_14"/>
 
-
-
+                    <RadioButton
+                        android:id="@+id/issue_seven"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Others"
+                        android:fontFamily="@font/jost_regular"
+                        style="@style/text_style_lightgrey_14"/>
 
                 </RadioGroup>
 
@@ -128,17 +144,18 @@
                     app:boxStrokeColor="@color/app_color"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
+                    app:boxStrokeWidthFocused="0.8dp"
                     app:layout_constraintTop_toBottomOf="@id/issue_list">
 
                     <EditText
                         android:id="@+id/edit_issues"
+                        style="@style/text_style_text_color_16"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="left"
                         android:hint="@string/describe_your_issue_in_few_words"
                         android:fontFamily="@font/jost_medium"
-                        android:inputType="textCapSentences"
-                        android:textSize="@dimen/text_size_12" />
+                        android:inputType="textCapSentences"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -146,15 +163,15 @@
                     android:id="@+id/details_header"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    style="@style/text_style_text_black_color_18"
                     android:text="Your details"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/text_size_16"
-                    android:fontFamily="@font/jost_regular"
+                    android:fontFamily="@font/jost_medium"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/edit_issues_layout"
                     android:layout_marginTop="@dimen/margin_size_30"
-                    android:layout_marginLeft="28dp"/>
+                    android:textAlignment="textStart"
+                    android:layout_marginLeft="@dimen/margin_size_28"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/num_Layout"
@@ -162,27 +179,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_size_28"
-                    android:layout_marginTop="@dimen/margin_size_25"
+                    android:layout_marginTop="@dimen/margin_size_20"
                     android:layout_marginRight="@dimen/margin_size_28"
-                    android:hint="@string/enter_your_phonenumber"
+                    app:boxStrokeWidthFocused="0.7dp"
                     app:layout_constraintEnd_toStartOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/details_header">
+                    app:prefixText="+91"
+                    app:hintTextColor="@color/app_color"
+                    app:layout_constraintTop_toBottomOf="@id/details_header"
+                    app:placeholderText="@string/type_here">
 
                     <EditText
-                        android:id="@+id/etMobileNumber"
+                        android:id="@+id/mobile_num_input"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        style="@style/text_style_text_color_16"
                         android:layout_gravity="center|left"
                         android:fontFamily="@font/jost_medium"
+                        android:hint="@string/enter_your_phonenumber"
                         android:gravity="center|left"
                         android:inputType="number"
                         android:maxLength="10"
                         android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:textColor="@color/text_color"
-                        android:textColorHint="@color/text_grey_color"
-                        android:textSize="@dimen/margin_size_12" />
+                        android:paddingRight="10dp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -195,33 +214,36 @@
                     android:layout_marginTop="@dimen/margin_size_20"
                     android:layout_marginRight="@dimen/margin_size_28"
                     android:hint="@string/enter_your_email"
+                    app:boxStrokeWidthFocused="0.7dp"
                     app:layout_constraintEnd_toStartOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/num_Layout">
+                    app:layout_constraintTop_toBottomOf="@id/num_Layout"
+                    app:placeholderText="@string/type_here">
 
                     <EditText
                         android:id="@+id/email_input"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        style="@style/text_style_text_color_16"
                         android:layout_gravity="center|left"
                         android:fontFamily="@font/jost_medium"
                         android:gravity="center|left"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:textColor="@color/text_color"
-                        android:textColorHint="@color/text_grey_color"
-                        android:textSize="@dimen/margin_size_12" />
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/text_color"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.emproto.core.textviews.CustomTextView
-                    android:id="@+id/getOtp_button"
+                    android:id="@+id/submit_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/text_style_white_16"
                     android:layout_margin="@dimen/margin_size_60"
                     android:background="@drawable/unselect_button_bg"
                     android:clickable="false"
                     android:drawableRight="@drawable/ic_baseline_arrow_right"
-                    android:drawablePadding="@dimen/_2sdp"
+                    android:paddingRight="@dimen/margin_size_50"
                     android:enabled="false"
                     android:textAlignment="center"
                     app:fontName="@font/jost_medium"
@@ -230,7 +252,6 @@
                     android:paddingEnd="@dimen/margin_size_45"
                     android:paddingBottom="@dimen/margin_size_12"
                     android:text="@string/submit_btn_txt"
-                    style="@style/text_style_white_16"
                     android:layout_marginLeft="@dimen/margin_size_87"
                     android:layout_marginRight="@dimen/margin_size_87"
                     android:layout_marginBottom="@dimen/margin_size_30"
@@ -239,9 +260,21 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/email_Layout" />
 
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_size_60"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/submit_btn"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/submit_btn" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
 
     </androidx.cardview.widget.CardView>

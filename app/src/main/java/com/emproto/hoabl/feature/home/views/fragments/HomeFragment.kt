@@ -9,10 +9,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.HomeActivity
+import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.adapters.HoABLPromisesAdapter
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.HomeViewModel
-import com.emproto.hoabl.adapters.HoABLPromisesAdapter
 import com.emproto.hoabl.adapters.InsightsAdapter
 import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
 import com.emproto.hoabl.adapters.LatestUpdateAdapter

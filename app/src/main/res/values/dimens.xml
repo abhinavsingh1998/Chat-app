@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources
     xmlns:tools="http://schemas.android.com/tools">
+    <dimen name="_1sdp">2.00dp</dimen>
     <dimen name="_2sdp">3.00dp</dimen>
     <dimen name="_3sdp">4.50dp</dimen>
     <dimen name="_4sdp">6.00dp</dimen>
@@ -54,6 +55,7 @@
     <dimen name="margin_size_27.8">27.8dp</dimen>
     <dimen name="margin_size_163.5">163.5dp</dimen>
     <dimen name="margin_size_28">28dp</dimen>
+    <dimen name="margin_size_29">29dp</dimen>
     <dimen name="margin_size_30">30dp</dimen>
     <dimen name="margin_size_39">39dp</dimen>
     <dimen name="margin_size_32">32dp</dimen>
@@ -87,8 +89,10 @@
     <dimen name="margin_size_87">87dp</dimen>
     <dimen name="margin_size_88">88dp</dimen>
     <dimen name="margin_size_90">90dp</dimen>
+    <dimen name="margin_size_98">98dp</dimen>
     <dimen name="margin_size_100">100dp</dimen>
     <dimen name="margin_size_108">108dp</dimen>
+    <dimen name="margin_size_116">116dp</dimen>
     <dimen name="margin_size_120">120dp</dimen>
     <dimen name="margin_size_112">112dp</dimen>
     <dimen name="margin_size_124">124dp</dimen>
@@ -102,9 +106,11 @@
     <dimen name="margin_size_140">140dp</dimen>
     <dimen name="margin_size_148">148dp</dimen>
     <dimen name="margin_size_150">150dp</dimen>
+    <dimen name="margin_size_153">153dp</dimen>
     <dimen name="margin_size_160">160dp</dimen>
     <dimen name="margin_size_170">170dp</dimen>
     <dimen name="margin_size_180">180dp</dimen>
+    <dimen name="margin_size_183">183dp</dimen>
     <dimen name="margin_size_186">186dp</dimen>
     <dimen name="margin_size_190">190dp</dimen>
     <dimen name="margin_size_200">200dp</dimen>
@@ -138,6 +144,7 @@
     <dimen name="text_size_24">24sp</dimen>
     <dimen name="text_size_25">25sp</dimen>
     <dimen name="text_size_26">26sp</dimen>
+    <dimen name="text_size_27">27sp</dimen>
     <dimen name="text_size_28">28sp</dimen>
     <dimen name="text_size_30">30sp</dimen>
     <dimen name="text_size_32">32sp</dimen>

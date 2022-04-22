@@ -40,10 +40,9 @@
 
                     <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/present"
-                        style="@style/text_style_text_color_14"
+                        style="@style/text_style_text_color_16"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_size_6"
                         android:maxLines="1"
                         android:minLines="1"
                         android:singleLine="true"
@@ -73,7 +72,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <com.emproto.core.textviews.CustomTextView
-                            style="@style/text_style_text_color_25"
+                            style="@style/text_style_text_color_30"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
@@ -81,6 +80,7 @@
                             android:singleLine="true"
                             android:text="@string/new_generation"
                             app:fontName="@string/shelldon"
+                            android:textStyle="normal"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/view_2"
                             app:layout_constraintStart_toEndOf="@id/view"
@@ -102,7 +102,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/investment_recyclerview"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_8sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -110,14 +110,17 @@
 
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/tv_viewall_investments"
-                    style="@style/text_style_text_color_10"
+                    style="@style/text_style_white_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_size_30"
-                    android:drawableEnd="@drawable/ic_black_long_rightarrow"
+                    android:layout_marginTop="@dimen/margin_size_20"
+                    android:drawableEnd="@drawable/arrow_right_"
                     android:drawablePadding="@dimen/margin_size_4"
                     android:gravity="center"
-                    android:padding="@dimen/margin_size_4"
+                    android:paddingTop="@dimen/margin_size_7"
+                    android:paddingBottom="@dimen/margin_size_7"
+                    android:paddingHorizontal="@dimen/margin_size_35"
+                    android:background="@drawable/button_bg"
                     android:singleLine="true"
                     android:text="@string/view_all_properties"
                     app:fontName="@string/jost_medium"
@@ -170,7 +173,7 @@
                         android:id="@+id/project_updates_recyclerview"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/margin_size_5"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/text1" />
@@ -180,27 +183,28 @@
                     android:id="@+id/latest_updates_layout"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_margin="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/margin_size_30"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/project_updates_layout">
 
                     <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/textview2"
-                        style="@style/text_style_text_color_16"
+                        style="@style/text_style_text_black_color_18"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
                         android:minLines="1"
+                        android:layout_marginStart="@dimen/margin_size_12"
                         android:singleLine="true"
                         android:text="@string/latest_updates"
-                        app:fontName="@string/jost_regular"
+                        app:fontName="@string/jost_medium"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/tv_seeall"
-                        style="@style/text_style_blue_16"
+                        style="@style/text_style_blue_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableEnd="@drawable/ic_black_long_rightarrow"
@@ -210,6 +214,7 @@
                         android:singleLine="true"
                         android:text="@string/see_all"
                         app:fontName="@string/jost_regular"
+                        android:layout_marginEnd="@dimen/margin_size_16"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -217,7 +222,8 @@
                         android:id="@+id/lates_updates_recyclerview"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/margin_size_5"
+                        android:paddingLeft="@dimen/margin_size_8"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/textview2" />
@@ -227,40 +233,44 @@
                     android:id="@+id/hoabl_promises_layout"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_margin="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/margin_size_30"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/latest_updates_layout">
 
                     <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/textview4"
-                        style="@style/text_style_text_color_16"
+                        style="@style/text_style_text_black_color_18"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
-                        app:fontName="@string/jost_regular"
+                        android:layout_marginStart="@dimen/margin_size_12"
+                        app:fontName="@string/jost_medium"
                         android:text="@string/promise_wekeep"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/tv_seeall_promise"
-                        style="@style/text_style_blue_16"
+                        style="@style/text_style_blue_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_size_12"
                         android:drawableEnd="@drawable/ic_black_long_rightarrow"
                         android:drawablePadding="@dimen/margin_size_4"
                         android:singleLine="true"
                         android:text="@string/see_all"
                         app:fontName="@string/jost_regular"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="@id/textview4"
+                        app:layout_constraintBottom_toBottomOf="@id/textview4"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/hoabl_promises_recyclerview"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_5"
+                        android:paddingLeft="@dimen/margin_size_8"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -272,40 +282,42 @@
                     android:id="@+id/insights_layout"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_margin="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/margin_size_30"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/hoabl_promises_layout">
 
                     <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/textview5"
-                        style="@style/text_style_text_color_16"
+                        style="@style/text_style_text_black_color_18"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
+                        android:layout_marginStart="@dimen/margin_size_12"
                         android:text="@string/insights_foryou"
-                        app:fontName="@string/jost_regular"
+                        app:fontName="@string/jost_medium"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/tv_seeall_insights"
-                        style="@style/text_style_blue_16"
+                        style="@style/text_style_blue_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_size_12"
                         android:drawableEnd="@drawable/ic_black_long_rightarrow"
                         android:drawablePadding="@dimen/margin_size_4"
                         android:singleLine="true"
                         android:text="@string/see_all"
                         app:fontName="@string/jost_regular"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="@id/textview5" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/insights_recyclerview"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_3"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -317,25 +329,26 @@
                     android:id="@+id/testimonials_layout"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_margin="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/margin_size_30"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/insights_layout">
 
                     <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/textview6"
-                        style="@style/text_style_text_color_16"
+                        style="@style/text_style_text_black_color_18"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_12"
                         android:singleLine="true"
                         android:text="@string/testimonial"
-                        app:fontName="@string/jost_regular"
+                        app:fontName="@string/jost_medium"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/tv_seeall_testimonial"
-                        style="@style/text_style_blue_16"
+                        style="@style/text_style_blue_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableEnd="@drawable/ic_black_long_rightarrow"
@@ -386,12 +399,12 @@
                         android:text="@string/share_joy"
                         app:fontName="@string/shelldon"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/view2"
+                        app:layout_constraintEnd_toStartOf="@id/dialog_line_view"
                         app:layout_constraintStart_toEndOf="@id/view1"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <View
-                        android:id="@+id/view2"
+                        android:id="@+id/dialog_line_view"
                         android:layout_width="@dimen/margin_size_120"
                         android:layout_height="1dp"
                         android:layout_marginLeft="@dimen/margin_size_6"
@@ -403,12 +416,12 @@
 
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/tv_refer"
-                    style="@style/text_style_text_color_11"
+                    style="@style/text_style_text_color_14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="83dp"
+                    android:layout_marginLeft="63dp"
                     android:layout_marginTop="@dimen/margin_size_20"
-                    android:layout_marginRight="83dp"
+                    android:layout_marginRight="63dp"
                     android:text="@string/refer"
                     app:fontName="@string/jost_regular"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -436,6 +449,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:layout_marginTop="@dimen/margin_size_4"
+                        app:boxStrokeWidthFocused="0.7dp"
                         android:hint="@string/enter_name"
                         app:boxBackgroundMode="outline"
                         app:hintTextColor="@color/app_color"
@@ -443,7 +457,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etName"
-                            style="@style/text_style_text_color_12"
+                            style="@style/text_style_text_color_16"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|center"
@@ -473,6 +487,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/enter_your_phonenumber"
+                            app:boxStrokeWidthFocused="0.7dp"
                             app:hintTextColor="@color/app_color"
                             app:prefixText="+91"
                             app:prefixTextColor="@color/text_color"
@@ -481,7 +496,7 @@
 
                             <EditText
                                 android:id="@+id/etMobile1"
-                                style="@style/text_style_text_color_14"
+                                style="@style/text_style_text_color_16"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center|left"

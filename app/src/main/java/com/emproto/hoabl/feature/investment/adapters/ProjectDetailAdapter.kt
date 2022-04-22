@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
-import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
-import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.model.ViewItem
 import com.google.android.material.tabs.TabLayoutMediator

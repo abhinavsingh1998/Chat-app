@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModel
 import com.emproto.core.Database.Dao.HomeSearchDao
 import com.emproto.core.Database.TableModel.SearchModel
 import com.emproto.hoabl.repository.HomeRepository
-import com.emproto.networklayer.request.OtpRequest
+import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.response.BaseResponse
-import com.emproto.networklayer.response.OtpResponse
+import com.emproto.networklayer.response.login.OtpResponse
 import javax.inject.Inject
 
 class HomeViewModel(var mapplication: Application, var mhomeRepository: HomeRepository) :

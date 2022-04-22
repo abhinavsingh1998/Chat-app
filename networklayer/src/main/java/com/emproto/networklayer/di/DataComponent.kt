@@ -1,6 +1,7 @@
-package com.emproto.datalayer.di
+package com.emproto.networklayer.di
 
 import com.emproto.networklayer.di.DataAppModule
+import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.feature.RegistrationDataSource
 import dagger.Component
 import javax.inject.Singleton

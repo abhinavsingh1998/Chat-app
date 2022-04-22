@@ -11,8 +11,6 @@ android {
     defaultConfig {
         minSdk 19
         targetSdk 32
-        versionCode 1
-        versionName "1.0"
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -67,6 +65,5 @@ dependencies {
     //Room Database
     api "androidx.room:room-runtime:$roomDBVersion"
     kapt "androidx.room:room-compiler:$roomDBVersion"
-
 
 }
