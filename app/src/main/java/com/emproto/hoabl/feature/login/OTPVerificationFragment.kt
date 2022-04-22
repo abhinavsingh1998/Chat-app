@@ -46,11 +46,13 @@ class OTPVerificationFragment : BaseFragment() {
 
     companion object {
         var mobileno: String = ""
+        var countryCode: String = ""
 
-        fun newInstance(mobileNumber: String): OTPVerificationFragment {
+        fun newInstance(mobileNumber: String, cCode: String): OTPVerificationFragment {
             val fragment = OTPVerificationFragment()
             val bundle = Bundle()
             mobileno = bundle.getString("mobilenumber", mobileNumber)
+            countryCode = bundle.getString("countrycode", cCode)
             fragment.arguments = bundle
             return fragment
         }
@@ -75,7 +77,7 @@ class OTPVerificationFragment : BaseFragment() {
                 isReadSMSGranted = permissions[Manifest.permission.READ_SMS] ?: isReadSMSGranted
             }
         requestPermission()
-        mBinding.tvMobileNumber.text = mobileno
+        mBinding.tvMobileNumber.text = "$countryCode-$mobileno"
         mBinding.tvMobileNumber.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         /*getTimerCount()
         activityOtpVerifyBinding.textResend.setOnClickListener {
@@ -94,14 +96,13 @@ class OTPVerificationFragment : BaseFragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s?.length == 5 && s?.length!! <= 6) {
-                    showSnackMessage("Please Enter Valid Otp", mBinding.root)
-                }
+
             }
 
             override fun afterTextChanged(s: Editable?) {
                 if (s?.length == 6) {
                     if (isNetworkAvailable(mBinding.root)) {
+                        hideSoftKeyboard()
                         val otpVerifyRequest = OtpVerifyRequest(s.toString(), mobileno, false)
 
                         authViewModel.verifyOtp(otpVerifyRequest).observe(viewLifecycleOwner,
@@ -112,6 +113,9 @@ class OTPVerificationFragment : BaseFragment() {
                                     }
                                     Status.ERROR -> {
                                         mBinding.loader.visibility = View.INVISIBLE
+                                        (requireActivity() as AuthActivity).showErrorToast(
+                                            it.message!!
+                                        )
                                     }
                                     Status.SUCCESS -> {
                                         //save token to preference

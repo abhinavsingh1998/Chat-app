@@ -33,6 +33,7 @@ class LoginFragment : BaseFragment() {
     lateinit var authFactory: AuthFactory
     lateinit var authViewModel: AuthViewmodel
     var hMobileNo = ""
+    var hCountryCode = ""
 
     @Inject
     lateinit var appPreference: AppPreference
@@ -61,7 +62,8 @@ class LoginFragment : BaseFragment() {
     private fun initClickListeners() {
 
         mBinding.inputMobile.onValueChangeListner(object : OnValueChangedListener {
-            override fun onValueChanged(value: String?) {
+            override fun onValueChanged(value: String?, countryCode: String) {
+                hCountryCode = countryCode
                 mBinding.otpText.visibility = View.VISIBLE
                 mBinding.textError.visibility = View.GONE
             }
@@ -122,7 +124,7 @@ class LoginFragment : BaseFragment() {
                     Status.SUCCESS -> {
                         (requireActivity() as AuthActivity).addFragment(
                             OTPVerificationFragment.newInstance(
-                                hMobileNo
+                                hMobileNo, "+91"
                             ), true
                         )
                     }

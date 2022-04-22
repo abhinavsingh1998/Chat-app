@@ -41,7 +41,7 @@
                 android:layout_marginTop="@dimen/margin_size_55"
                 android:gravity="start|center"
                 android:text="@string/verify_otp"
-                app:fontName="@font/montserrat_regular"
+                app:fontName="@string/montserrat_regular"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -59,7 +59,7 @@
                     style="@style/text_style_text_color_16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_18sdp"
+                    android:layout_marginStart="@dimen/_18sdp"
                     android:gravity="start|center"
                     android:text="@string/enter_digits"
                     app:fontName="@string/jost_regular" />
@@ -124,7 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margin_size_18"
-                android:fontFamily="@font/jost_bold"
+                app:fontName="@string/jost_bold"
                 android:text="@string/resend_otp"
                 app:layout_constraintBottom_toBottomOf="@+id/login_edittext"
                 app:layout_constraintRight_toRightOf="@+id/login_edittext"
