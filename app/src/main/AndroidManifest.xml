@@ -44,7 +44,7 @@
             android:theme="@style/Theme.HOABL_BLACK_BAR"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
-            android:name=".feature.home.views.HomeActivity"
+            android:name=".HomeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"

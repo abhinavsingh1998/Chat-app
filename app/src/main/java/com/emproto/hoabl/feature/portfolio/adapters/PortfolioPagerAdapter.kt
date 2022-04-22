@@ -5,7 +5,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.emproto.hoabl.feature.portfolio.views.PortfolioExistingUsersFragment
-import com.emproto.hoabl.feature.portfolio.views.ManageProjectFragment
 
 
 class PortfolioPagerAdapter(fragmentManager: FragmentManager?, lifecycle: Lifecycle) :
@@ -24,6 +23,6 @@ class PortfolioPagerAdapter(fragmentManager: FragmentManager?, lifecycle: Lifecy
             0 -> return PortfolioExistingUsersFragment()
 
         }
-        return ManageProjectFragment()
+        return PortfolioExistingUsersFragment()
     }
     }

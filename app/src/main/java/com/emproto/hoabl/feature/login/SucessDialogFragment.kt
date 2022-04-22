@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.databinding.SuccessLayoutBinding
 
 

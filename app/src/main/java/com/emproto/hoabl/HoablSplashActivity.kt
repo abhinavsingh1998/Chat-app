@@ -8,7 +8,6 @@ import android.view.View
 import com.emproto.core.BaseActivity
 import com.emproto.hoabl.databinding.ActivityHoablSplashBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.login.IntroSliderActivity
 import com.emproto.networklayer.preferences.AppPreference
 import javax.inject.Inject
