@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"/>
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/circular_imageView"
@@ -34,12 +34,12 @@
 
     <TextView
         android:id="@+id/tv_name"
+        style="@style/text_style_text_color_16"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_19"
         android:layout_marginTop="@dimen/margin_size_10"
         android:fontFamily="@font/jostmedium"
-        style ="@style/text_style_text_color_16"
         android:text="@string/name"
         app:layout_constraintStart_toEndOf="@+id/circular_imageView"
         app:layout_constraintTop_toTopOf="@+id/complete_view" />
@@ -47,21 +47,21 @@
 
     <ImageButton
         android:id="@+id/image_edit_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/margin_size_24"
-        android:layout_marginTop="@dimen/margin_size_10"
-        android:background="@drawable/ic_writing_2"
-        app:layout_constraintStart_toEndOf="@+id/circular_imageView"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:background="@drawable/ic_edit_profile"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_profile"
+        app:layout_constraintStart_toStartOf="@+id/tv_name"
+        app:layout_constraintTop_toTopOf="@+id/edit_profile" />
 
     <TextView
         android:id="@+id/edit_profile"
+        style="@style/text_style_blue_14"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_8"
         android:layout_marginTop="@dimen/margin_size_8"
-        style="@style/text_style_blue_14"
+        android:fontFamily="@font/jost_regular"
         android:text="@string/edit_profile"
         app:layout_constraintStart_toEndOf="@+id/image_edit_profile"
         app:layout_constraintTop_toBottomOf="@+id/tv_name" />
@@ -73,10 +73,10 @@
         android:layout_marginTop="@dimen/margin_size_32"
         android:background="#E3E2E2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_profile"/>
+        app:layout_constraintTop_toBottomOf="@+id/edit_profile" />
 
     <View
-        android:id="@+id/AccountView"
+        android:id="@+id/view_account"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,35 +85,35 @@
 
     <ImageView
         android:id="@+id/profile_imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/margin_size_25"
+        android:layout_height="@dimen/margin_size_25"
         android:layout_marginStart="@dimen/margin_size_19"
         android:layout_marginTop="@dimen/margin_size_27"
-        android:background="@drawable/ic_profile"
+        android:src="@drawable/ic_profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider_line" />
 
 
     <TextView
         android:id="@+id/my_accout_tv"
+        style="@style/text_style_text_color_14"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_20"
         android:layout_marginTop="@dimen/margin_size_23"
-        style="@style/text_style_text_color_14"
         android:fontFamily="@font/jostmedium"
         android:text="@string/my_accounts"
         app:layout_constraintStart_toEndOf="@+id/profile_imageView"
-        app:layout_constraintTop_toTopOf="@+id/AccountView" />
+        app:layout_constraintTop_toTopOf="@+id/view_account" />
 
     <TextView
         android:id="@+id/kyc_tv"
+        style="style@text_style_light_grey_14"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_20"
         android:fontFamily="@font/jostregular"
         android:text="@string/payment_history_kyc"
-        style="style@text_style_light_grey_14"
         app:layout_constraintStart_toEndOf="@+id/profile_imageView"
         app:layout_constraintTop_toBottomOf="@+id/my_accout_tv" />
 
@@ -134,7 +134,7 @@
         android:background="#E3E2E2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AccountView" />
+        app:layout_constraintTop_toBottomOf="@+id/view_account" />
 
     <View
         android:id="@+id/settingsView"
@@ -142,40 +142,40 @@
         android:layout_height="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AccountView" />
+        app:layout_constraintTop_toBottomOf="@+id/view_account" />
 
     <ImageView
         android:id="@+id/imageviewsettings"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/margin_size_25"
+        android:layout_height="@dimen/margin_size_25"
         android:layout_marginStart="@dimen/margin_size_19"
         android:layout_marginTop="@dimen/margin_size_27"
-        android:background="@drawable/shield"
+        android:src="@drawable/shield"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AccountView"/>
+        app:layout_constraintTop_toBottomOf="@+id/view_account" />
 
     <TextView
         android:id="@+id/tv_settings"
+        style="@style/text_style_text_color_14"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_20"
         android:layout_marginTop="@dimen/margin_size_23"
         android:fontFamily="@font/jostmedium"
         android:text="@string/settings"
-        style="@style/text_style_text_color_14"
         app:layout_constraintStart_toEndOf="@+id/imageviewsettings"
-        app:layout_constraintTop_toBottomOf="@+id/AccountView" />
+        app:layout_constraintTop_toBottomOf="@+id/view_account" />
 
     <TextView
 
         android:id="@+id/textView_location"
+        style="text_style_light_grey_14"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_20"
         android:fontFamily="@font/jostregular"
         android:text="@string/report_emergency_control_authentication_etc"
         android:textStyle="normal"
-        style="text_style_light_grey_14"
         app:layout_constraintStart_toEndOf="@+id/imageviewsettings"
         app:layout_constraintTop_toBottomOf="@+id/tv_settings"
         tools:text="Location Prompt , SMS, Push Notification" />
@@ -208,34 +208,34 @@
 
     <ImageView
         android:id="@+id/imageSecurityLock"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/margin_size_25"
+        android:layout_height="@dimen/margin_size_25"
         android:layout_marginStart="@dimen/margin_size_19"
         android:layout_marginTop="@dimen/margin_size_27"
-        android:background="@drawable/helpmesg"
+        android:src="@drawable/helpmesg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/help_center_tv" />
 
     <TextView
         android:id="@+id/textView_Security"
+        style="@style/text_style_text_color_14"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_20"
         android:layout_marginTop="@dimen/margin_size_25"
         android:fontFamily="@font/jostmedium"
         android:text="@string/help_centre"
-        style="@style/text_style_text_color_14"
         app:layout_constraintStart_toEndOf="@+id/imageSecurityLock"
         app:layout_constraintTop_toBottomOf="@+id/settingsView" />
 
     <TextView
         android:id="@+id/textView_emergency"
+        style="text_style_light_grey_14"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_20"
         android:fontFamily="@font/jostregular"
         android:text="@string/contact_about_us_privacy_policy_chat"
-        style="text_style_light_grey_14"
         app:layout_constraintStart_toEndOf="@+id/imageSecurityLock"
         app:layout_constraintTop_toBottomOf="@+id/textView_Security" />
 
@@ -268,34 +268,34 @@
 
     <ImageView
         android:id="@+id/imageViewMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/margin_size_25"
+        android:layout_height="@dimen/margin_size_25"
         android:layout_marginStart="@dimen/margin_size_19"
         android:layout_marginTop="@dimen/margin_size_27"
-        android:background="@drawable/management_image"
+        android:src="@drawable/management_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/horizontlline_view" />
 
     <TextView
         android:id="@+id/textView_helpcenter"
+        style="@style/text_style_text_color_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_size_20"
         android:layout_marginTop="@dimen/margin_size_25"
         android:fontFamily="@font/jostmedium"
         android:text="Facility Management"
-        style="@style/text_style_text_color_14"
         app:layout_constraintStart_toEndOf="@+id/imageViewMessage"
         app:layout_constraintTop_toBottomOf="@+id/horizontlline_view" />
 
     <TextView
+        android:id="@+id/Contact"
+        style="style@text_style_light_grey_14"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_size_20"
-        android:id="@+id/Contact"
         android:fontFamily="@font/jostregular"
         android:text="Manage your land, book, etc"
-        style="style@text_style_light_grey_14"
         app:layout_constraintStart_toEndOf="@+id/imageViewMessage"
         app:layout_constraintTop_toBottomOf="@+id/textView_helpcenter" />
 
@@ -315,32 +315,17 @@
         android:layout_marginTop="@dimen/margin_size_80"
         android:background="#E3E2E2"
         app:layout_constraintTop_toBottomOf="@+id/horizontlline_view"
-        tools:layout_editor_absoluteX="0dp"/>
+        tools:layout_editor_absoluteX="0dp" />
 
-
-        <TextView
-        android:id="@+id/btn_confirmation"
-        android:layout_width="wrap_content"
-            android:layout_height="0dp"
-        style="@style/text_style_grey_14"
-        android:layout_marginLeft="@dimen/marginSize"
-        android:layout_marginTop="@dimen/margin_size_43"
-        android:layout_marginRight="@dimen/marginSize"
-        android:fontFamily="@font/jostregular"
-        android:text="@string/not_anuj_singh"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.436"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/View_line" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/Logoutbtn"
+        style="@style/text_style_text_color_14"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin"
-        android:layout_marginTop="@dimen/margin_size_8"
         android:layout_marginRight="@dimen/marginSize"
-        style="@style/text_style_text_color_14"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/btnshape"
         android:fontFamily="@font/jostmedium"
         android:text="@string/logout_text"
@@ -348,26 +333,25 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/version"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_confirmation"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/version"
+        style="@style/text_style_grey_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_size_125"
-        android:layout_marginRight="@dimen/margin_size_130"
+        android:layout_marginStart="125dp"
+        android:layout_marginEnd="130dp"
         android:layout_marginBottom="@dimen/margin_size_40"
         android:fontFamily="@font/jostregular"
         android:gravity="center_horizontal"
         android:text="@string/app_version_v0_22"
-        style="@style/text_style_grey_14"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@+id/complete_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

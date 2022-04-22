@@ -9,24 +9,22 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import androidx.core.view.isVisible
+import com.emproto.hoabl.databinding.FragmentEditProfileBinding
 import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.databinding.FragmentProfileSecondBinding
 import java.text.SimpleDateFormat
 
 import java.util.*
 
 
-class ProfileSecondFragment : Fragment() {
-    lateinit var binding: FragmentProfileSecondBinding
-    private lateinit var button: Button
-    private lateinit var arrowimage: ImageView
+class EditProfileFragment : Fragment() {
+    lateinit var binding: FragmentEditProfileBinding
     val bundle = Bundle()
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentProfileSecondBinding.inflate(inflater, container, false)
+        binding = FragmentEditProfileBinding.inflate(inflater, container, false)
 
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =false
 
