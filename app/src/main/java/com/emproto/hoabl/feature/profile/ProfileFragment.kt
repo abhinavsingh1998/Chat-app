@@ -10,9 +10,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.emproto.core.BaseFragment
+<<<<<<< HEAD
 import com.emproto.hoabl.HomeActivity
+=======
+>>>>>>> 18f31f70846a8f1a1f13937359f0310e561d1e04
 import com.emproto.hoabl.databinding.FragmentProfileMainBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.networklayer.preferences.AppPreference
 import javax.inject.Inject
@@ -26,11 +30,11 @@ class ProfileFragment : BaseFragment() {
     lateinit var imageviewsettings: ImageView
     lateinit var imageSecurityLock: ImageView
     lateinit var imageViewMessage: ImageView
-    lateinit var AccountView:View
-    lateinit var settingsView:View
-    lateinit var help_center_tv:View
-    lateinit var facility_management:View
-    lateinit var messageView:View
+    lateinit var AccountView: View
+    lateinit var settingsView: View
+    lateinit var help_center_tv: View
+    lateinit var facility_management: View
+    lateinit var messageView: View
     val bundle = Bundle()
 
     @Inject
@@ -56,30 +60,14 @@ class ProfileFragment : BaseFragment() {
     private fun initClickListener() {
         binding.editProfile.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                val profileSecondFragment = ProfileSecondFragment()
-                (requireActivity() as HomeActivity).replaceFragment(
-                    profileSecondFragment.javaClass,
-                    "",
-                    true,
-                    bundle,
-                    null,
-                    0,
-                    false
-                )
+                val profileSecondFragment = EditProfileFragment()
+                (requireActivity() as HomeActivity).addFragment(profileSecondFragment, false)
             }
         })
-        binding.AccountView.setOnClickListener(object : View.OnClickListener {
+        binding.viewAccount.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
                 val accountDetailsFragment = AccountDetailsFragment()
-                (requireActivity() as HomeActivity).replaceFragment(
-                    accountDetailsFragment.javaClass,
-                    "",
-                    true,
-                    bundle,
-                    null,
-                    0,
-                    false
-                )
+                (requireActivity() as HomeActivity).addFragment(accountDetailsFragment, false)
             }
 
         })

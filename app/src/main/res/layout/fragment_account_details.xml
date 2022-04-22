@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -56,7 +55,7 @@
 
             <TextView
                 android:id="@+id/tv_kyc"
-                style="style/text_style_text_color_18"
+                style="@style/text_style_text_color_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_size_16"
@@ -92,6 +91,7 @@
 
             <TextView
                 android:id="@+id/documentview_link"
+                style="@style/text_style_blue_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_size_163.5"
@@ -99,7 +99,6 @@
                 android:layout_marginEnd="@dimen/margin_size_0"
                 android:fontFamily="@font/jostregular"
                 android:text="@string/view_document"
-                style="@style/text_style_blue_12"
                 app:layout_constraintEnd_toEndOf="@+id/View_aadhar"
                 app:layout_constraintStart_toEndOf="@+id/tv_aadhar"
                 app:layout_constraintTop_toTopOf="@+id/View_aadhar" />
@@ -143,6 +142,7 @@
 
             <TextView
                 android:id="@+id/tv_document_link2"
+                style="@style/text_style_blue_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_size_163.5"
@@ -150,7 +150,6 @@
                 android:layout_marginEnd="@dimen/margin_size_0"
                 android:fontFamily="@font/jostregular"
                 android:text="@string/view_document"
-                style="@style/text_style_blue_12"
                 app:layout_constraintEnd_toEndOf="@+id/pan_view"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/tv_pan"
@@ -169,7 +168,7 @@
 
             <TextView
                 android:id="@+id/tv_Doc"
-                style="style/text_style_text_color_18"
+                style="@style/text_style_text_color_16"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_size_16"
@@ -206,29 +205,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/pan_view" />
 
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/view_pager2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/indicator"
-                android:layout_centerInParent="true"
-                android:layout_marginStart="@dimen/margin_size_28"
-                android:layout_marginTop="@dimen/margin_size_32"
-                android:layout_marginEnd="@dimen/margin_size_28"
-                android:padding="100dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_Doc" />
-
-            <me.relex.circleindicator.CircleIndicator3
-                android:id="@+id/indicator"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_alignParentBottom="true"
-                android:background="#D3D4D5"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_pager2" />
-
             <TextView
                 android:id="@+id/textView11"
                 android:layout_width="0dp"
@@ -245,7 +221,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/indicator" />
+                app:layout_constraintTop_toBottomOf="@+id/arrow_right_iv" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/account_details_recycler_view"

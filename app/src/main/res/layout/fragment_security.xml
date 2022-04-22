@@ -34,14 +34,13 @@
             app:layout_constraintTop_toTopOf="@+id/View_Complete" />
 
         <TextView
-
             android:id="@+id/textview_Settings"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/margin_size_17"
             android:layout_marginTop="@dimen/margin_size_24"
             android:fontFamily="@font/jostmedium"
-            android:text="@string/security"
+            android:text="@string/settings"
             style ="@style/text_style_blue_16"
             app:layout_constraintStart_toEndOf="@+id/leftarrowimage"
             app:layout_constraintTop_toTopOf="@+id/View_Complete" />

@@ -6,8 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
 import com.emproto.core.BaseFragment
+<<<<<<< HEAD
 import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.databinding.FragmentFinancialAndProjectBinding
+=======
+import com.emproto.hoabl.databinding.FragmentFinancialAndProjectBinding
+import com.emproto.hoabl.feature.home.views.HomeActivity
+>>>>>>> 18f31f70846a8f1a1f13937359f0310e561d1e04
 import com.emproto.hoabl.feature.portfolio.adapters.PortfolioPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator

@@ -10,9 +10,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.emproto.core.BaseFragment
 import com.emproto.core.Database.TableModel.SearchModel
+<<<<<<< HEAD
 import com.emproto.hoabl.HomeActivity
+=======
+>>>>>>> 18f31f70846a8f1a1f13937359f0310e561d1e04
 import com.emproto.hoabl.databinding.FragmentSearchResultBinding
 import com.emproto.hoabl.feature.home.adapters.SearchResultAdapter
+import com.emproto.hoabl.feature.home.views.HomeActivity
 
 class SearchResultFragment : BaseFragment() {
 

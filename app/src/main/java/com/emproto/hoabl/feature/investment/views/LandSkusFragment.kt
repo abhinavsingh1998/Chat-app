@@ -5,9 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.emproto.core.BaseFragment
+<<<<<<< HEAD
 import com.emproto.hoabl.HomeActivity
+=======
+>>>>>>> 18f31f70846a8f1a1f13937359f0310e561d1e04
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentLandSkusBinding
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.LandSkusAdapter
 import com.emproto.hoabl.feature.investment.dialogs.ConfirmationDialog
 import com.emproto.hoabl.model.RecyclerViewItem
