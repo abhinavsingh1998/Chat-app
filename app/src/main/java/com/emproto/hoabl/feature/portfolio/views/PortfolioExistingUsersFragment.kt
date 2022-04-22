@@ -5,12 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentFinancialSummaryBinding
 import com.emproto.hoabl.feature.portfolio.adapters.ExistingUsersAdapter
-import com.emproto.hoabl.feature.home.adapters.FinancialSumAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 
 

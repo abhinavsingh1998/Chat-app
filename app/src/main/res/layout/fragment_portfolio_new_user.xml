@@ -75,7 +75,3 @@
             android:drawableStart="@drawable/profit"
             android:drawableEnd="@drawable/ic_baseline_arrow_right"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
