@@ -60,7 +60,6 @@ class PortfolioFragment : BaseFragment(),View.OnClickListener {
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                     super.onAuthenticationError(errorCode, errString)
-                    Toast.makeText(context, "Authentication error: $errString", Toast.LENGTH_SHORT).show()
                     if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
                         keyguardManager =  (activity as HomeActivity).getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
                         val intent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
