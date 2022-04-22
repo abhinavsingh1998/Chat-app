@@ -9,12 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-<<<<<<< HEAD
 import com.emproto.hoabl.HomeActivity
-=======
->>>>>>> 18f31f70846a8f1a1f13937359f0310e561d1e04
 import com.emproto.hoabl.databinding.FragmentFaqBinding
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.profile.data.FaqData
 import com.emproto.hoabl.feature.profile.adapter.FaqViewAdapter
 

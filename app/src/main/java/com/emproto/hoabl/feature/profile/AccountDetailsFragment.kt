@@ -7,16 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.view.isVisible
-<<<<<<< HEAD
 import com.emproto.hoabl.HomeActivity
-=======
->>>>>>> 18f31f70846a8f1a1f13937359f0310e561d1e04
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentAccountDetailsBinding
 import com.emproto.hoabl.databinding.FragmentProfileMainBinding
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.profile.adapter.AccountDetailsFragmentAdapter
 import com.emproto.hoabl.feature.profile.data.AccountDetailsData
 

@@ -8,14 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.emproto.core.BaseFragment
-<<<<<<< HEAD
-import com.emproto.hoabl.HomeActivity
-=======
->>>>>>> 18f31f70846a8f1a1f13937359f0310e561d1e04
 
+import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentInsightsUpdatesBinding
-import com.emproto.hoabl.feature.home.views.HomeActivity
 
 class InsightsAndUpdatesFragment : BaseFragment() {
 

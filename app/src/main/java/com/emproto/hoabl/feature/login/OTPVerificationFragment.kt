@@ -16,13 +16,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
 import com.emproto.networklayer.preferences.AppPreference
-<<<<<<< HEAD
 import com.emproto.hoabl.HomeActivity
-=======
->>>>>>> 18f31f70846a8f1a1f13937359f0310e561d1e04
 import com.emproto.hoabl.databinding.FragmentVerifyOtpBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.AuthViewmodel
 import com.emproto.hoabl.viewmodels.factory.AuthFactory
 import com.emproto.networklayer.request.login.OtpVerifyRequest

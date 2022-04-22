@@ -10,13 +10,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.emproto.core.BaseFragment
-<<<<<<< HEAD
 import com.emproto.hoabl.HomeActivity
-=======
->>>>>>> 18f31f70846a8f1a1f13937359f0310e561d1e04
 import com.emproto.hoabl.databinding.FragmentProfileMainBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.networklayer.preferences.AppPreference
 import javax.inject.Inject

@@ -13,19 +13,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseActivity
 import com.emproto.hoabl.databinding.ActivityHomeBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-<<<<<<< HEAD
-import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
-import com.emproto.hoabl.feature.investment.views.InvestmentFragment
-import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
-=======
-import com.emproto.hoabl.feature.portfolio.views.FinancialAndProjectFragment
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
 import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
 import com.emproto.hoabl.feature.promises.HoabelPromises
->>>>>>> 18f31f70846a8f1a1f13937359f0310e561d1e04
 import com.emproto.hoabl.feature.profile.ProfileFragment
-import com.emproto.hoabl.feature.promises.HoabelPromises
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
