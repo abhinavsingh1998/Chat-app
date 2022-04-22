@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +21,7 @@ import com.emproto.hoabl.adapters.LatestUpdateAdapter
 import com.emproto.hoabl.adapters.TestimonialAdapter
 import com.emproto.hoabl.databinding.FragmentHomeBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.login.SucessDialogFragment
 import javax.inject.Inject
 
 
@@ -48,6 +50,7 @@ class HomeFragment : BaseFragment() {
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
         initView()
         initClickListener()
+        referNow()
         return binding.root
     }
 
@@ -117,5 +120,15 @@ class HomeFragment : BaseFragment() {
 
     }
 
+    private fun referNow(){
+
+        binding.referBtn.setOnClickListener(View.OnClickListener {
+
+            val dialog = ReferralDialog()
+            dialog.isCancelable = true
+            dialog.show(parentFragmentManager, "Refrral card")
+
+        })
+    }
 
 }
