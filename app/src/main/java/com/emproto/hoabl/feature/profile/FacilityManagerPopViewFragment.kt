@@ -39,18 +39,9 @@ class FacilityManagerPopViewFragment:DialogFragment() {
     }
 
     private fun initClickListener() {
-        binding.dialogView.setOnClickListener(object : View.OnClickListener {
+        binding.actionOk.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                val profileFragment = ProfileFragment()
-                (requireActivity() as HomeActivity).replaceFragment(
-                    profileFragment.javaClass,
-                    "",
-                    true,
-                    bundle,
-                    null,
-                    0,
-                    false
-                )
+               requireActivity().supportFragmentManager.popBackStack()
             }
         })
 
