@@ -75,7 +75,7 @@ class NewInvestmentAdapter(private val context: Context, val list:List<RecyclerV
             list.add("22L-2.5 Cr")
             list.add("22L-2.5 Cr")
 
-            investmentAdapter = InvestmentAdapter(context, list, "SmartDeals")
+            investmentAdapter = InvestmentAdapter(context, list)
             smartDealsLinearLayoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             binding.rvSmartDealsNv.layoutManager = smartDealsLinearLayoutManager
             binding.rvSmartDealsNv.adapter = investmentAdapter

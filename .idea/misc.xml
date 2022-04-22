@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.253125" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/drawable/custom_thumb.xml" value="0.138" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/drawable/custom_track.xml" value="0.138" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/drawable/greeting_card_layout.xml" value="0.116" />
@@ -71,15 +72,19 @@
         <entry key="app/src/main/res/drawable-hdpi/shape1.xml" value="0.23177083333333334" />
         <entry key="app/src/main/res/layout/fragment_account_details.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_portfolio_new_user.xml" value="0.14583333333333334" />
         <entry key="app/src/main/res/layout/fragment_profile_main.xml" value="0.45" />
         <entry key="app/src/main/res/layout/fragment_profile_second.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_security.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.20885416666666667" />
+        <entry key="app/src/main/res/layout/fragment_signin_issue.xml" value="0.221875" />
+        <entry key="app/src/main/res/layout/fragment_verify_otp.xml" value="0.5440613026819924" />
         <entry key="app/src/main/res/layout/security_view_1.xml" value="0.20885416666666667" />
+        <entry key="core/src/main/res/layout/custom_edittext.xml" value="0.5" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="18" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="18" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

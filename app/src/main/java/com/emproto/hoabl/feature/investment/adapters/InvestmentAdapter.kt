@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 
-class InvestmentAdapter(val context: Context, list: List<String>, private val theme:String = "Home") : RecyclerView.Adapter<InvestmentAdapter.MyViewHolder>() {
+class InvestmentAdapter(val context: Context, list: List<String>) : RecyclerView.Adapter<InvestmentAdapter.MyViewHolder>() {
 
     var list: List<String>
     var mcontext:Context

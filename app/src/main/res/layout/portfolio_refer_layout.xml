@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/text_blue_color"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_corner_radius_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_portfolio_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_size_10"
+            android:src="@drawable/portfolio_add_image"
+            app:layout_constraintEnd_toStartOf="@id/tv_share_with_joy"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_share_with_joy"
+            style="@style/text_style_blue_32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_size_80"
+            android:layout_marginEnd="@dimen/margin_size_45"
+            android:fontFamily="@font/shelldon"
+            android:text="@string/share_the_joy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_refer_now"
+            style="@style/text_style_white_16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_size_11"
+            android:layout_marginEnd="@dimen/margin_size_21"
+            android:background="@drawable/button_bg"
+            android:drawableEnd="@drawable/arrow_right_"
+            android:paddingStart="@dimen/margin_size_15"
+            android:paddingEnd="@dimen/margin_size_25"
+            android:text="@string/refer_now"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_share_with_joy"
+            app:layout_constraintTop_toBottomOf="@id/tv_share_with_joy" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_share_text"
+            style="@style/text_style_grey_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_12"
+            android:layout_marginBottom="@dimen/margin_size_30"
+            android:background="@drawable/left_corner_radius_bg"
+            android:fontFamily="@font/jost_medium"
+            android:paddingHorizontal="@dimen/margin_size_24"
+            android:paddingVertical="@dimen/margin_size_9"
+            android:text="@string/share_hoabl_friends"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_portfolio_share" />
+
+        <View
+            android:id="@+id/view_share_bg"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/margin_size_12"
+            android:background="@drawable/right_corner_radius_bg"
+            android:backgroundTint="@color/text_blue_color"
+            app:layout_constraintBottom_toBottomOf="@id/tv_share_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_share_text"
+            app:layout_constraintTop_toTopOf="@id/tv_share_text" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_share_friends"
+            style="@style/text_style_white_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/right_corner_radius_bg"
+            android:backgroundTint="@color/text_blue_color"
+            android:fontFamily="@font/jost_medium"
+            android:text="SHARE"
+            app:layout_constraintBottom_toBottomOf="@id/view_share_bg"
+            app:layout_constraintEnd_toEndOf="@id/view_share_bg"
+            app:layout_constraintStart_toStartOf="@id/view_share_bg"
+            app:layout_constraintTop_toTopOf="@id/view_share_bg" />
+
+        <ImageView
+            android:id="@+id/iv_portfolio_share_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_size_6"
+            android:src="@drawable/ic_share_small"
+            app:layout_constraintBottom_toBottomOf="@id/tv_share_friends"
+            app:layout_constraintEnd_toStartOf="@id/tv_share_friends"
+            app:layout_constraintTop_toTopOf="@id/tv_share_friends" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
