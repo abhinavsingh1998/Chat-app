@@ -11,7 +11,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentFacilityManagerPopBinding
-import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.HomeActivity
 
 class FacilityManagerPopViewFragment:DialogFragment() {
     lateinit var binding: FragmentFacilityManagerPopBinding

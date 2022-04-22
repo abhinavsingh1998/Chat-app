@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.HomeActivity
 import com.emproto.hoabl.databinding.FragmentOpportunityDocsBinding
 import com.emproto.hoabl.feature.investment.adapters.OpportunityDocsAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
