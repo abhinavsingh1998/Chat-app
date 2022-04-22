@@ -45,7 +45,7 @@ class PhotosFragment:BaseFragment() {
         list.add(MediaGalleryItem(1,"Photos"))
         list.add(MediaGalleryItem(2,"Photos"))
 
-        mediaPhotosAdapter = MediaPhotosAdapter(this,list,itemClickListener)
+        mediaPhotosAdapter = MediaPhotosAdapter(list,itemClickListener)
         binding.rvMainPhotos.adapter = mediaPhotosAdapter
 
     }

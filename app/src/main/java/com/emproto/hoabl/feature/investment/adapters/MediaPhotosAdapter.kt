@@ -11,7 +11,7 @@ import com.emproto.hoabl.feature.investment.views.mediagallery.VideosFragment
 import com.emproto.hoabl.model.MediaGalleryItem
 import com.emproto.hoabl.utils.ItemClickListener
 
-class MediaPhotosAdapter(private val fragment:PhotosFragment,private val itemList:List<MediaGalleryItem>,private val clickListener: ItemClickListener):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MediaPhotosAdapter(private val itemList:List<MediaGalleryItem>,private val clickListener: ItemClickListener):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object{
         const val PHOTOS_VIEW_TYPE_ONE = 1

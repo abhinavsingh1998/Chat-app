@@ -33,10 +33,12 @@
         app:layout_constraintBottom_toBottomOf="@id/iv_close_button"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <androidx.viewpager2.widget.ViewPager2
+    <ImageView
         android:id="@+id/vp_media_photo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/margin_size_200"
+        android:src="@drawable/new_investment_page_image"
+        android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
