@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.emproto.hoabl.databinding.SuccessLayoutBinding
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.databinding.SuccessLayoutBinding
 
 
 class SucessDialogFragment : DialogFragment(), View.OnClickListener {

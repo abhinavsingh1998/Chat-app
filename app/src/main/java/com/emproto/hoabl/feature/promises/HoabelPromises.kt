@@ -10,9 +10,9 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentHoabelPromisesBinding
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.promises.data.DataModel
 import com.emproto.hoabl.feature.promises.data.PromisesData
 

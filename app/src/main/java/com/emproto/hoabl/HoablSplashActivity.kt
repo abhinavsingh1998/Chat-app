@@ -1,10 +1,8 @@
 package com.emproto.hoabl
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.view.View
 import com.emproto.core.BaseActivity
 import com.emproto.hoabl.databinding.ActivityHoablSplashBinding
 import com.emproto.hoabl.di.HomeComponentProvider

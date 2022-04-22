@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.isVisible
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentAboutUsBinding
 import com.emproto.hoabl.databinding.FragmentProfileMainBinding
-import com.emproto.hoabl.feature.home.views.HomeActivity
 
 
 class AboutUsFragment : Fragment() {

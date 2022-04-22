@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
+
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.home.adapters.HoABLPromisesAdapter
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.HomeViewModel
@@ -18,7 +20,6 @@ import com.emproto.hoabl.adapters.LatestUpdateAdapter
 import com.emproto.hoabl.adapters.TestimonialAdapter
 import com.emproto.hoabl.databinding.FragmentHomeBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import javax.inject.Inject
 
 

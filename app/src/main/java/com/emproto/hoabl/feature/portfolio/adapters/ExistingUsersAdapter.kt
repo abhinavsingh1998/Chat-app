@@ -84,7 +84,7 @@ class ExistingUsersAdapter(private val context: Context, private val list:List<R
             binding.contentTxt1.setTextColor(Color.WHITE)
             binding.contentTxt2.setTextColor(Color.WHITE)
             binding.contentTxt3.setTextColor(Color.WHITE)
-            binding.contentTxt4.setTextColor(Color.BLUE)
+            binding.contentTxt4.setTextColor(ContextCompat.getColor(context,R.color.portfolio_blue_color))
 
             binding.cardName1.text = "No. of Products"
             binding.cardName2.text = "Area in Sqft"

@@ -14,7 +14,6 @@ import com.emproto.core.BaseActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityHomeBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.portfolio.views.FinancialAndProjectFragment
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
 import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
@@ -38,7 +37,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private var closeApp = false
     private var toolbar: Toolbar? = null
     lateinit var activityHomeActivity: ActivityHomeBinding
-
     @Inject
     lateinit var factory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
@@ -91,7 +89,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 openScreen(ScreenPortfolio, "", false)
                 return true
             }
-
             R.id.navigation_promises -> {
                 openScreen(ScreenPromises, "", false)
                 return true
@@ -99,10 +96,9 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             R.id.navigation_profile -> {
                 openScreen(ScreenProfile, "", false)
                 return true
-
             }
         }
-            return false
+        return false
     }
 
     private fun openScreen(screen: Int, metaData: String, isInit: Boolean) {
@@ -146,14 +142,14 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         bundle: Bundle?,
         fragmentForResult: Fragment?,
         targetRequestCode: Int,
-        replaceWithAnimation: Boolean,
+        replaceWithAnimation: Boolean
     ) {
         try {
             val finalTag: String
             if (extraTag != null && extraTag.equals(""))
-                finalTag = fragmentClass.simpleName + extraTag
+                finalTag=fragmentClass.simpleName + extraTag
             else
-                finalTag = fragmentClass.simpleName
+                finalTag=fragmentClass.simpleName
 
             val isPopBackStack = supportFragmentManager.popBackStackImmediate(finalTag, 0)
             if (!isPopBackStack) {
@@ -210,7 +206,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             }
             true -> {
                 fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit)
-                    .replace(R.id.container, fragment, fragment.javaClass.name)
+                    .replace(R.id.container,fragment,fragment.javaClass.name)
                     .addToBackStack(fragment.javaClass.name).commit()
             }
         }
