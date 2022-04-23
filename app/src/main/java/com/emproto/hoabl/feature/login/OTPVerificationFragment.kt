@@ -122,7 +122,9 @@ class OTPVerificationFragment : BaseFragment() {
                                         mBinding.loader.visibility = View.INVISIBLE
                                         it.data?.let {
                                             appPreference.setToken(it.token)
-                                            if (it.user.contactType == "prelead") {
+                                            if (it.user.contactType == "prelead" &&
+                                                it.user.firstName.isNullOrBlank()
+                                            ) {
                                                 requireActivity().supportFragmentManager.popBackStack()
                                                 (requireActivity() as AuthActivity).replaceFragment(
                                                     NameInputFragment.newInstance(

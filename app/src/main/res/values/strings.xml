@@ -19,7 +19,7 @@
     <string name="mobile_number">Mobile Number</string>
     <string name="enter_mobile">Enter Mobile Number</string>
     <string name="whatsapp">Whatsapp Communications</string>
-    <string name="login_terms_text">By login in, you are agreeing to our <u>Terms of services</u> \n and <u>Privacy policy</u></string>
+    <string name="login_terms_text">By login in, you are agreeing to our Terms of services \n and Privacy policy</string>
     <string name="trouble_login"><u>Trouble Signing In?</u></string>
     <string name="get_otp">Get OTP</string>
     <string name="submit_and_continue">Submit and Continue</string>
@@ -135,10 +135,10 @@
     <string name="DemoText">The Isle of Bliss is phase 2 of Codename Bliss Dapoli, a seaside lifestyle plotting development from The House of Abhinandan Lodha</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="And_your_name">And your name</string>
-    <string name="First_name_hint">First Name </string>
+    <string name="First_name_hint">First Name *</string>
     <string name="Second_name_hint">Second Name </string>
     <string name="submit_and_con">Submit and Continue</string>
-    <string name="trouble_signing_in">Trouble Signing in?</string>
+    <string name="trouble_signing_in">Trouble Signing In?</string>
     <string name="whats_the_issue">Whtas the issue</string>
     <string name="unable_to_enter_num">Unable to enter phone number</string>
     <string name="describe_your_issue_in_few_words">Describe your issue in few words</string>

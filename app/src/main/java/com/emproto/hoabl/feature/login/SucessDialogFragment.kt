@@ -20,6 +20,11 @@ class SucessDialogFragment : DialogFragment(), View.OnClickListener {
     ): View? {
         sucessLayoutBinding = SuccessLayoutBinding.inflate(inflater, container, false)
 
+        arguments?.let {
+            val firstName = it.getString("FirstName")
+            sucessLayoutBinding.nameTag.text = "Dear $firstName"
+        }
+
         sucessLayoutBinding.continueBtn.setOnClickListener(View.OnClickListener {
             startActivity(Intent(requireContext(), HomeActivity::class.java))
             requireActivity().finish()

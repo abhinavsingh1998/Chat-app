@@ -94,8 +94,7 @@ class NameInputFragment : BaseFragment() {
             override fun afterTextChanged(p0: Editable?) {
 
                 charSequence1 = p0
-                charSequence2 = null
-                if (p0.toString().isNullOrEmpty() || charSequence2.toString().isNullOrEmpty()) {
+                if (p0.toString().isNullOrEmpty()) {
                     binding.submitBtn.isEnabled = false
                     binding.submitBtn.isClickable = false
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -124,25 +123,6 @@ class NameInputFragment : BaseFragment() {
 
             override fun afterTextChanged(p0: Editable?) {
 
-                charSequence2 = p0
-                charSequence1 = null
-                if (charSequence1.toString().isNullOrEmpty() || p0.toString().isNullOrEmpty()) {
-                    binding.submitBtn.isEnabled = false
-                    binding.submitBtn.isClickable = false
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        binding.submitBtn.background =
-                            getDrawable(requireContext(), R.drawable.unselect_button_bg)
-                    }
-                } else {
-                    binding.submitBtn.isEnabled = true
-                    binding.submitBtn.isClickable = true
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        binding.submitBtn.background =
-                            getDrawable(requireContext(), R.drawable.button_bg)
-
-
-                    }
-                }
             }
 
         })
@@ -166,6 +146,9 @@ class NameInputFragment : BaseFragment() {
                                 binding.loader.visibility = View.GONE
                                 binding.submitBtn.visibility = View.VISIBLE
                                 val dialog = SucessDialogFragment()
+                                val bundle = Bundle()
+                                bundle.putString("FirstName", binding.firstName.text.toString())
+                                dialog.arguments = bundle
                                 dialog.isCancelable = false
                                 dialog.show(parentFragmentManager, "Welcome Card")
                             }

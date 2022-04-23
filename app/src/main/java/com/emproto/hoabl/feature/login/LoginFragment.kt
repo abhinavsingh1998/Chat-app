@@ -1,9 +1,8 @@
 package com.emproto.hoabl.feature.login
 
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +22,13 @@ import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.response.enums.Status
 import javax.inject.Inject
 import android.graphics.Typeface
+import android.text.*
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import com.emproto.core.databinding.TermsConditionDialogBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
 class LoginFragment : BaseFragment() {
@@ -34,6 +39,8 @@ class LoginFragment : BaseFragment() {
     lateinit var authViewModel: AuthViewmodel
     var hMobileNo = ""
     var hCountryCode = ""
+    lateinit var bottomSheetDialog: BottomSheetDialog
+    lateinit var termsConditionDialogBinding: TermsConditionDialogBinding
 
     @Inject
     lateinit var appPreference: AppPreference
@@ -57,6 +64,24 @@ class LoginFragment : BaseFragment() {
         list.add("+1")
         list.add("+311")
         mBinding.inputMobile.addDropDownValues(list)
+
+        bottomSheetDialog = BottomSheetDialog(requireContext())
+        termsConditionDialogBinding = TermsConditionDialogBinding.inflate(layoutInflater)
+        bottomSheetDialog.setContentView(termsConditionDialogBinding.root)
+
+        mBinding.textTerms.makeLinks(
+            Pair("Terms of services", View.OnClickListener {
+                bottomSheetDialog.show()
+            }),
+            Pair("Privacy policy", View.OnClickListener {
+                Toast.makeText(requireContext(), "Privacy Policy Clicked", Toast.LENGTH_SHORT)
+                    .show()
+            })
+        )
+
+        termsConditionDialogBinding.acitonClose.setOnClickListener {
+            bottomSheetDialog.dismiss()
+        }
     }
 
     private fun initClickListeners() {
@@ -143,6 +168,37 @@ class LoginFragment : BaseFragment() {
                 }
             })
         }
+    }
+
+    private fun TextView.makeLinks(vararg links: Pair<String, View.OnClickListener>) {
+        val spannableString = SpannableString(this.text)
+        var startIndexOfLink = -1
+        for (link in links) {
+            val clickableSpan = object : ClickableSpan() {
+                override fun updateDrawState(textPaint: TextPaint) {
+                    // use this to change the link color
+                    textPaint.color = Color.BLACK
+                    // toggle below value to enable/disable
+                    // the underline shown below the clickable text
+                    textPaint.isUnderlineText = true
+                }
+
+                override fun onClick(view: View) {
+                    Selection.setSelection((view as TextView).text as Spannable, 0)
+                    view.invalidate()
+                    link.second.onClick(view)
+                }
+            }
+            startIndexOfLink = this.text.toString().indexOf(link.first, startIndexOfLink + 1)
+//      if(startIndexOfLink == -1) continue // todo if you want to verify your texts contains links text
+            spannableString.setSpan(
+                clickableSpan, startIndexOfLink, startIndexOfLink + link.first.length,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+        this.movementMethod =
+            LinkMovementMethod.getInstance() // without LinkMovementMethod, link can not click
+        this.setText(spannableString, TextView.BufferType.SPANNABLE)
     }
 
 }
