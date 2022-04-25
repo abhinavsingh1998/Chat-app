@@ -10,7 +10,6 @@
 
 
         <TextView
-
             android:id="@+id/tv_settings"
             style="@style/text_style_color_18"
             android:layout_width="wrap_content"
@@ -27,7 +26,7 @@
             android:id="@+id/horizontal_line_view"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
-            android:layout_marginTop="@dimen/margin_size_35"
+            android:layout_marginTop="10dp"
             android:background="#E3E1E1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

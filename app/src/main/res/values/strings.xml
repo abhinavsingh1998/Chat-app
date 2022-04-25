@@ -203,7 +203,7 @@
     <string name="control_location_access_here">Control location access here</string>
     <string name="wants_to_connect">Wants to Connect?</string>
     <string name="chat_with_us">Chat with us</string>
-    <string name="information">Or Call us: +91 123 123 1231 Email us: help@hoabl.in</string>
+    <string name="information">Or \n Call us: +91 123 123 1231 \nEmail us: help@hoabl.in</string>
     <string name="contact_about_us_privacy_policy_chat">Contact, About Us , Privacy Policy,Chat</string>
     <string name="logout_text">Logout</string>
     <string name="personal_details_string">Personal Details</string>
@@ -270,4 +270,6 @@
     <string name="this_page_will_be_activated_after_possession_handover_is_done">This page will be activated after possession handover is done</string>
     <string name="okay">OKAY</string>
     <string name="settings">Settings</string>
+    <string name="view">View</string>
+    <string name="securityandsetting">Security &amp; Settings</string>
 </resources>

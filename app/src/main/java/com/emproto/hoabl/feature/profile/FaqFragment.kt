@@ -41,7 +41,7 @@ class FaqFragment : Fragment() {
         })
         binding.ivarrow1.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                val healthCenterFragment = HealthCenterFragment()
+                val healthCenterFragment = HelpCenterFragment()
                 (requireActivity()as HomeActivity).replaceFragment(healthCenterFragment.javaClass, "", true, bundle, null, 0, false)}
         })
     }
