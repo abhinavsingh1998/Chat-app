@@ -12,8 +12,10 @@ import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.snackbar.Snackbar
@@ -45,20 +47,22 @@ abstract class BaseFragment : Fragment() {
         ).show()
     }
 
-   /* override fun onNetworkChange(isConnected: Boolean) {
-        if (!isConnected){
-            showSnackBar(view)
-        }
-    }*/
+    /* override fun onNetworkChange(isConnected: Boolean) {
+         if (!isConnected){
+             showSnackBar(view)
+         }
+     }*/
 
     fun isNetworkAvailable(view: View?): Boolean {
-        val connectivityManager = requireActivity().
-            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val network = connectivityManager.activeNetwork // network is currently in a high power state for performing data transmission.
+            val network =
+                connectivityManager.activeNetwork // network is currently in a high power state for performing data transmission.
             Log.d("Network", "active network $network")
             network ?: return false // return false if network is null
-            val actNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false // return false if Network Capabilities is null
+            val actNetwork = connectivityManager.getNetworkCapabilities(network)
+                ?: return false // return false if Network Capabilities is null
             return when {
                 actNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> { // check if wifi is connected
                     Log.d("Network", "wifi connected")
@@ -121,6 +125,20 @@ abstract class BaseFragment : Fragment() {
         } else false
     }
 
+    open fun hideSoftKeyboard() {
+        try {
+            val inputMethodManager =
+                requireActivity().getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
+            if (inputMethodManager.isAcceptingText) {
+                inputMethodManager.hideSoftInputFromWindow(
+                    requireActivity().currentFocus!!.windowToken,
+                    0
+                )
+            } else {
+            }
+        } catch (e: Exception) {
+        }
+    }
 
 
 }

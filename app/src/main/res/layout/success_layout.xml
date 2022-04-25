@@ -59,7 +59,7 @@
 
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/aciton_close"
                     android:layout_width="80dp"
                     android:layout_height="45dp"
                     android:layout_marginLeft="@dimen/margin_size_29"
@@ -76,10 +76,10 @@
                     android:layout_marginTop="@dimen/margin_size_30"
                     android:layout_marginLeft="@dimen/margin_size_23"
                     android:fontFamily="@font/jost_italic"
-                    android:text="Dear Anuj,"
+                    android:text=""
                     android:textColor="@color/greeting_txt_color"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintStart_toEndOf="@+id/aciton_close"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.emproto.core.textviews.CustomTextView

@@ -67,7 +67,7 @@
 
 
         <com.mikhaellopez.circularimageview.CircularImageView
-            android:id="@+id/imageView"
+            android:id="@+id/aciton_close"
             android:layout_width="wrap_content"
             android:layout_height="87dp"
             android:layout_marginStart="@dimen/margin_size_33"
@@ -85,7 +85,7 @@
             android:layout_marginStart="@dimen/margin_size_20"
             android:background="@drawable/ic_upload_6"
             app:layout_constraintBottom_toBottomOf="@+id/upload_new_picture"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/aciton_close"
             app:layout_constraintTop_toTopOf="@+id/upload_new_picture" />
 
         <TextView
@@ -97,7 +97,7 @@
             android:layout_marginTop="20dp"
             android:text="@string/upload_new_picture"
             app:layout_constraintStart_toEndOf="@+id/upload_image"
-            app:layout_constraintTop_toTopOf="@+id/imageView" />
+            app:layout_constraintTop_toTopOf="@+id/aciton_close" />
 
 
         <ImageView
@@ -108,7 +108,7 @@
             android:background="@drawable/ic_remove_4"
             android:fontFamily="@font/jostmedium"
             app:layout_constraintBottom_toBottomOf="@+id/tvremove"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/aciton_close"
             app:layout_constraintTop_toTopOf="@+id/tvremove" />
 
 
@@ -136,7 +136,7 @@
             android:lineSpacingExtra="0sp"
             android:text="@string/personal_details"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/aciton_close" />
 
         <TextView
             android:id="@+id/tv_enter_name"

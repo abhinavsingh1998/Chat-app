@@ -34,6 +34,8 @@ class CustomEdittext : ConstraintLayout {
     private lateinit var hintTextView: TextView
     private lateinit var backGroundView: View
     private lateinit var appContext: Context
+    private var textValue = ""
+    private var dropDownValue = ""
 
 
     private var hintText = ""
@@ -81,7 +83,7 @@ class CustomEdittext : ConstraintLayout {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (onValueChangeListner != null) {
-                    onValueChangeListner!!.onValueChanged(p0.toString())
+                    onValueChangeListner!!.onValueChanged(p0.toString(), dropDownValue)
                 }
             }
 
@@ -114,6 +116,11 @@ class CustomEdittext : ConstraintLayout {
         dropDownValues = ArrayList<String>()
         listItemAdapter = ListItemAdapter(context, dropDownValues, object : OnItemClickListener {
             override fun onItemClicked(value: String, index: Int) {
+                dropDownValue = value
+                if (onValueChangeListner != null) {
+                    onValueChangeListner!!.onValueChanged(textValue, value)
+                }
+                countryCodeText.text = value
                 alertDialog!!.cancel()
                 refreshView()
             }
@@ -127,6 +134,9 @@ class CustomEdittext : ConstraintLayout {
         dropdownView.setOnClickListener {
             alertDialog.show()
         }
+        countryCodeText.setOnClickListener {
+            alertDialog.show()
+        }
 
 
         textWatcher = object : TextWatcher {
@@ -135,6 +145,7 @@ class CustomEdittext : ConstraintLayout {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 //show default color for edittext
+                textValue = p0.toString()
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     editText.setTextColor(appContext.getColor(R.color.black))
                     countryCodeText.setTextColor(appContext.getColor(R.color.black))
@@ -142,11 +153,12 @@ class CustomEdittext : ConstraintLayout {
                     backGroundView.background = appContext.getDrawable(R.drawable.custom_et_bg)
                 }
                 if (onValueChangeListner != null) {
-                    onValueChangeListner!!.onValueChanged(p0.toString())
+                    onValueChangeListner!!.onValueChanged(p0.toString(), dropDownValue)
                 }
             }
 
             override fun afterTextChanged(p0: Editable?) {
+                textValue = p0.toString()
                 if (onValueChangeListner != null) {
                     onValueChangeListner!!.afterValueChanges(p0.toString())
                 }
@@ -199,6 +211,7 @@ class CustomEdittext : ConstraintLayout {
     }
 
     public fun addDropDownValues(list: List<String>) {
+        dropDownValue = list[0]
         dropDownValues.clear()
         dropDownValues.addAll(list)
 
