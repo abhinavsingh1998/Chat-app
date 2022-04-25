@@ -1,50 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:fillViewport="true"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/app_color">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@color/app_color"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_size_55"
+        android:background="@drawable/shape2">
 
-        <View
-            android:id="@+id/completeView"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/margin_size_55"
-            android:background="@drawable/shape1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
 
-        <ImageView
-            android:id="@+id/ivleftarrow"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/back_action"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_size_23"
-            android:layout_marginTop="@dimen/margin_size_27"
-            android:background="@drawable/ic_path"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/completeView" />
-        <TextView
-
-            android:id="@+id/tvhealthCenter"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/margin_size_17"
             android:layout_marginTop="@dimen/margin_size_24"
-            android:text="@string/help_center"
-            android:fontFamily="@font/jostmedium"
-            style ="@style/text_style_blue_16"
-            app:layout_constraintStart_toEndOf="@+id/ivleftarrow"
-            app:layout_constraintTop_toTopOf="@+id/completeView" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <ImageView
+                android:id="@+id/imgArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_path"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_Account"
+                style="@style/text_style_blue_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/jostmedium"
+                android:text="@string/help_center"
+                app:layout_constraintStart_toEndOf="@+id/imgArrow"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:id="@+id/divideView"
@@ -54,7 +53,7 @@
             android:background="#E3E1E1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvhealthCenter" />
+            app:layout_constraintTop_toBottomOf="@+id/back_action" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/healthCenterRecyclerView"
@@ -62,9 +61,8 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             app:layout_constraintTop_toBottomOf="@+id/divideView"
-            tools:layout_editor_absoluteX="-12dp">
-        </androidx.recyclerview.widget.RecyclerView>
+            tools:layout_editor_absoluteX="-12dp"></androidx.recyclerview.widget.RecyclerView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

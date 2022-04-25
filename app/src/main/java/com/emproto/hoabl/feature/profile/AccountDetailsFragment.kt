@@ -61,7 +61,7 @@ class AccountDetailsFragment : Fragment() {
     }
 
     private fun initClickListener() {
-        binding.imgArrow.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
+        binding.backAction.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
     }
 
     private fun initData(): ArrayList<AccountDetailsData> {

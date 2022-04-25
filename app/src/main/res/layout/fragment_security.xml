@@ -4,47 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:background="@color/app_color">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/app_color">
+        android:layout_marginTop="@dimen/margin_size_55"
+        android:background="@drawable/shape2">
 
-        <View
-            android:id="@+id/View_Complete"
+        <RelativeLayout
+            android:id="@+id/back_action"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/margin_size_55"
-            android:background="@drawable/shape1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <ImageView
-            android:id="@+id/leftarrowimage"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_size_23"
-            android:layout_marginTop="@dimen/margin_size_27"
-            android:background="@drawable/ic_path"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/View_Complete" />
-
-        <TextView
-            android:id="@+id/textview_Settings"
-            style="@style/text_style_blue_16"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/margin_size_17"
             android:layout_marginTop="@dimen/margin_size_24"
-            android:fontFamily="@font/jostmedium"
-            android:text="@string/securityandsetting"
-            app:layout_constraintStart_toEndOf="@+id/leftarrowimage"
-            app:layout_constraintTop_toTopOf="@+id/View_Complete" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/arrowimage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_path" />
+
+            <TextView
+                android:id="@+id/edit_profile"
+                style="@style/text_style_blue_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_16"
+                android:layout_toRightOf="@+id/arrowimage"
+                android:fontFamily="@font/jostmedium"
+                android:text="@string/securityandsetting" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/security_tv"
@@ -56,7 +49,7 @@
             android:fontFamily="@font/jostregular"
             android:text="Security"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/leftarrowimage" />
+            app:layout_constraintTop_toBottomOf="@+id/back_action" />
 
         <com.emproto.core.textviews.CustomTextView
             android:id="@+id/button_View"
@@ -99,8 +92,7 @@
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.956"
-            app:layout_constraintStart_toEndOf="@+id/View_Complete"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_line">
 
         </androidx.recyclerview.widget.RecyclerView>

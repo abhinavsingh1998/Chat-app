@@ -1,257 +1,252 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <androidx.core.widget.NestedScrollView
+    android:layout_height="match_parent"
+    android:background="@color/app_color">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_size_55"
+        android:background="@drawable/shape2">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:background="@color/app_color"
-            android:layout_height="wrap_content">
-
-            <View
-                android:id="@+id/fullview"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/margin_size_55"
-                android:layout_marginEnd="@dimen/margin_size_10"
-                android:background="@drawable/shape1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+            android:id="@+id/back_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_23"
+            android:layout_marginTop="@dimen/margin_size_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/ivarrow1"
+                android:id="@+id/imgArrow"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/margin_size_23"
-                android:layout_marginTop="@dimen/margin_size_27"
-                android:background="@drawable/ic_path"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_path"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/fullview" />
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
-                android:id="@+id/tvhelpcenter"
+                android:id="@+id/tv_Account"
+                style="@style/text_style_blue_16"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/margin_size_17"
-                android:layout_marginTop="@dimen/margin_size_24"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:fontFamily="@font/jostmedium"
                 android:text="@string/faq"
-                style ="@style/text_style_blue_16"
-                app:layout_constraintStart_toEndOf="@+id/ivarrow1"
-                app:layout_constraintTop_toTopOf="@+id/fullview" />
-
-            <View
-                android:id="@+id/view_search"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginStart="@dimen/margin_size_12"
-                android:layout_marginTop="@dimen/margin_size_30"
-                android:layout_marginEnd="@dimen/margin_size_12"
-                android:background="@drawable/shape2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvhelpcenter" />
-
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/margin_size_4"
-                android:layout_marginStart="@dimen/margin_size_8"
-                app:layout_constraintStart_toStartOf="@+id/view_search"
-                app:layout_constraintTop_toTopOf="@+id/view_search" />
-
-
-            <View
-                android:id="@+id/vertical_line"
-                android:layout_width="1dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="16dp"
-                android:background="#B4BABA"
-                app:layout_constraintBottom_toBottomOf="@+id/view_search"
-                app:layout_constraintEnd_toStartOf="@+id/iv_search"
-                app:layout_constraintTop_toTopOf="@+id/view_search"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <ImageView
-                android:id="@+id/iv_search"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginEnd="6dp"
-                android:src="@drawable/icshape3"
-                app:layout_constraintEnd_toStartOf="@+id/et_Search_Faq"
-                app:layout_constraintTop_toTopOf="@+id/view_search" />
-
-            <EditText
-                android:id="@+id/et_Search_Faq"
-                android:layout_width="240dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginEnd="12dp"
-                android:background="@android:color/transparent"
-                android:fontFamily="@font/jostregular"
-                android:hint="@string/search_faq"
-                style ="@style/text_style_text_color_10"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/view_search"
-                tools:text="Search FAQs" />
-
-            <TextView
-                android:id="@+id/tv_Popular"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/margin_size_12"
-                android:layout_marginTop="@dimen/margin_size_30"
-                android:fontFamily="@font/jostregular"
-                android:lineSpacingExtra="0sp"
-                android:text="@string/popular_categories"
-                style="style/text_style_text_color_18"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_search" />
-
-            <TextView
-                android:id="@+id/tv_seeAll"
-                style="@style/text_style_blue_12"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/margin_size_30"
-                android:layout_marginEnd="@dimen/margin_size_6"
-                android:layout_marginStart="@dimen/margin_size_148"
-                android:fontFamily="@font/jostmedium"
-                android:text="@string/see_all"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_Popular"
-                app:layout_constraintTop_toBottomOf="@+id/view_search" />
-
-            <ImageView
-                android:id="@+id/imageView_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_size_35"
-                android:layout_marginStart="@dimen/margin_size_10"
-                android:src="@drawable/rightarrow"
-                app:layout_constraintStart_toEndOf="@+id/tv_seeAll"
-                app:layout_constraintTop_toBottomOf="@+id/view_search" />
-
-
-
-            <View
-                android:id="@+id/view_faq"
-                android:layout_width="107dp"
-                android:layout_height="41dp"
-                android:layout_marginStart="@dimen/margin_size_13"
-                android:layout_marginTop="@dimen/margin_size_14"
-                android:background="@drawable/faq"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_Popular" />
-
-            <TextView
-                android:id="@+id/tv_general"
-                android:layout_width="0dp"
-                android:layout_height="18dp"
-                android:layout_marginStart="@dimen/margin_size_20"
-                android:layout_marginTop="@dimen/margin_size_24"
-                android:fontFamily="@font/jostmedium"
-                android:text="@string/general"
-                style="@style/text_style_text_color_14"
-                app:layout_constraintStart_toStartOf="@+id/view_faq"
-                app:layout_constraintTop_toBottomOf="@+id/tv_Popular" />
-
-            <View
-                android:id="@+id/view_investment"
-                android:layout_width="107dp"
-                android:layout_height="41dp"
-                android:layout_marginStart="@dimen/margin_size_20"
-                android:layout_marginTop="@dimen/margin_size_12"
-                android:background="@drawable/faq"
-                app:layout_constraintStart_toEndOf="@+id/view_faq"
-                app:layout_constraintTop_toBottomOf="@+id/tv_Popular" />
-
-            <TextView
-                android:id="@+id/tv_investment"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/margin_size_12"
-                android:layout_marginTop="@dimen/margin_size_12"
-                android:fontFamily="@font/jostmedium"
-                android:text="@string/investment"
-                style ="@style/text_style_text_color_14"
-                app:layout_constraintStart_toStartOf="@+id/view_investment"
-                app:layout_constraintTop_toTopOf="@+id/view_investment" />
-
-            <View
-                android:id="@+id/view_Payments"
-                android:layout_width="107dp"
-                android:layout_height="41dp"
-                android:layout_marginStart="@dimen/margin_size_8"
-                android:layout_marginTop="@dimen/margin_size_14"
-                android:background="@drawable/faq"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/view_investment"
-                app:layout_constraintTop_toBottomOf="@+id/tv_Popular" />
-
-            <TextView
-                android:id="@+id/tv_payments"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/margin_size_12"
-                android:fontFamily="@font/jostmedium"
-                android:text="@string/payments"
-                style ="@style/text_style_text_color_14"
-                android:layout_marginTop="@dimen/margin_size_12"
-                app:layout_constraintStart_toStartOf="@+id/view_Payments"
-                app:layout_constraintTop_toTopOf="@+id/view_Payments" />
-
-            <View
-                android:id="@+id/line_view2"
-                android:layout_width="wrap_content"
-                android:layout_height="2dp"
-                android:layout_marginTop="@dimen/margin_size_20"
-                android:background="#eeeeee"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_faq" />
-
-            <TextView
-                android:id="@+id/tv_Category"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginLeft="@dimen/margin_size_14"
-                android:layout_marginTop="@dimen/margin_size_20"
-                android:fontFamily="@font/jostregular"
-                android:lineSpacingExtra="0sp"
-                android:text="@string/category"
-                style="style/text_style_text_color_18"
-                android:textColor="#16161c"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/line_view2" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/healthCenterRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_size_6"
-                android:padding="6dp"
-                android:layout_marginHorizontal="@dimen/margin_size_14"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_Category" />
-
+                app:layout_constraintStart_toEndOf="@+id/imgArrow"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </androidx.core.widget.NestedScrollView>
+        <View
+            android:id="@+id/view_search"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginStart="@dimen/margin_size_12"
+            android:layout_marginTop="@dimen/margin_size_30"
+            android:layout_marginEnd="@dimen/margin_size_12"
+            android:background="@drawable/shape2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/back_action" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_size_8"
+            android:layout_marginTop="@dimen/margin_size_4"
+            app:layout_constraintStart_toStartOf="@+id/view_search"
+            app:layout_constraintTop_toTopOf="@+id/view_search" />
+
+
+        <View
+            android:id="@+id/vertical_line"
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            android:background="#B4BABA"
+            app:layout_constraintBottom_toBottomOf="@+id/view_search"
+            app:layout_constraintEnd_toStartOf="@+id/iv_search"
+            app:layout_constraintTop_toTopOf="@+id/view_search"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="6dp"
+            android:src="@drawable/icshape3"
+            app:layout_constraintEnd_toStartOf="@+id/et_Search_Faq"
+            app:layout_constraintTop_toTopOf="@+id/view_search" />
+
+        <EditText
+            android:id="@+id/et_Search_Faq"
+            style="@style/text_style_text_color_10"
+            android:layout_width="240dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="12dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/jostregular"
+            android:hint="@string/search_faq"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view_search"
+            tools:text="Search FAQs" />
+
+        <TextView
+            android:id="@+id/tv_Popular"
+            style="style/text_style_text_color_18"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_size_12"
+            android:layout_marginTop="@dimen/margin_size_30"
+            android:fontFamily="@font/jostregular"
+            android:lineSpacingExtra="0sp"
+            android:text="@string/popular_categories"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_search" />
+
+        <TextView
+            android:id="@+id/tv_seeAll"
+            style="@style/text_style_blue_12"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_size_148"
+            android:layout_marginTop="@dimen/margin_size_30"
+            android:layout_marginEnd="@dimen/margin_size_6"
+            android:fontFamily="@font/jostmedium"
+            android:text="@string/see_all"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_Popular"
+            app:layout_constraintTop_toBottomOf="@+id/view_search" />
+
+        <ImageView
+            android:id="@+id/imageView_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_10"
+            android:layout_marginTop="@dimen/margin_size_35"
+            android:src="@drawable/rightarrow"
+            app:layout_constraintStart_toEndOf="@+id/tv_seeAll"
+            app:layout_constraintTop_toBottomOf="@+id/view_search" />
+
+
+        <View
+            android:id="@+id/view_faq"
+            android:layout_width="107dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="@dimen/margin_size_13"
+            android:layout_marginTop="@dimen/margin_size_14"
+            android:background="@drawable/faq"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Popular" />
+
+        <TextView
+            android:id="@+id/tv_general"
+            style="@style/text_style_text_color_14"
+            android:layout_width="0dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="@dimen/margin_size_20"
+            android:layout_marginTop="@dimen/margin_size_24"
+            android:fontFamily="@font/jostmedium"
+            android:text="@string/general"
+            app:layout_constraintStart_toStartOf="@+id/view_faq"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Popular" />
+
+        <View
+            android:id="@+id/view_investment"
+            android:layout_width="107dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="@dimen/margin_size_20"
+            android:layout_marginTop="@dimen/margin_size_12"
+            android:background="@drawable/faq"
+            app:layout_constraintStart_toEndOf="@+id/view_faq"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Popular" />
+
+        <TextView
+            android:id="@+id/tv_investment"
+            style="@style/text_style_text_color_14"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_size_12"
+            android:layout_marginTop="@dimen/margin_size_12"
+            android:fontFamily="@font/jostmedium"
+            android:text="@string/investment"
+            app:layout_constraintStart_toStartOf="@+id/view_investment"
+            app:layout_constraintTop_toTopOf="@+id/view_investment" />
+
+        <View
+            android:id="@+id/view_Payments"
+            android:layout_width="107dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="@dimen/margin_size_8"
+            android:layout_marginTop="@dimen/margin_size_14"
+            android:background="@drawable/faq"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/view_investment"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Popular" />
+
+        <TextView
+            android:id="@+id/tv_payments"
+            style="@style/text_style_text_color_14"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_size_12"
+            android:layout_marginTop="@dimen/margin_size_12"
+            android:fontFamily="@font/jostmedium"
+            android:text="@string/payments"
+            app:layout_constraintStart_toStartOf="@+id/view_Payments"
+            app:layout_constraintTop_toTopOf="@+id/view_Payments" />
+
+        <View
+            android:id="@+id/line_view2"
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_marginTop="@dimen/margin_size_20"
+            android:background="#eeeeee"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_faq" />
+
+        <TextView
+            android:id="@+id/tv_Category"
+            style="style/text_style_text_color_18"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/margin_size_14"
+            android:layout_marginTop="@dimen/margin_size_20"
+            android:fontFamily="@font/jostregular"
+            android:lineSpacingExtra="0sp"
+            android:text="@string/category"
+            android:textColor="#16161c"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/line_view2" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/healthCenterRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_size_14"
+            android:layout_marginTop="@dimen/margin_size_6"
+            android:padding="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Category" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

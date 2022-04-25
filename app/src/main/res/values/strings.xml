@@ -272,4 +272,5 @@
     <string name="settings">Settings</string>
     <string name="view">View</string>
     <string name="securityandsetting">Security &amp; Settings</string>
+    <string name="privacypolicy">Privacy Policy</string>
 </resources>

@@ -36,6 +36,12 @@ class HelpCenterFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHealthCenterBinding.inflate(inflater, container, false)
+        initView()
+
+        return binding.root
+    }
+
+    private fun initView() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             true
 
@@ -111,14 +117,20 @@ class HelpCenterFragment : BaseFragment() {
                             )
                         }
                         1 -> {
-
+                            (requireActivity() as HomeActivity).addFragment(
+                                PrivacyFragment(),
+                                false
+                            )
                         }
                     }
 
                 }
 
             })
-        return binding.root
+        //back click
+        binding.backAction.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
     }
 
 
