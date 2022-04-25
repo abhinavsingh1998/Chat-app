@@ -4,78 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <View
-        android:id="@+id/dialog_line_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
     <TextView
         android:id="@+id/tvmobile"
+        style="@style/text_style_text_color_14"
         android:layout_width="wrap_content"
         android:layout_height="18dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
         android:fontFamily="@font/jostmedium"
-        style="@style/text_style_text_color_14"
-        android:text="Location Access"
-        app:layout_constraintStart_toStartOf="@+id/dialog_line_view"
+        android:text="Mobile Pin Authentication"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
         android:id="@+id/tv_loc"
+        style="@style/text_style_lightgrey_14"
         android:layout_width="wrap_content"
         android:layout_height="16dp"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="16dp"
         android:fontFamily="@font/jostregular"
         android:text="Control location access here"
-        style="@style/text_style_lightgrey_14"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvmobile" />
 
-
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="14dp"
-        android:layout_height="17dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/ic_siren"
-        app:layout_constraintStart_toEndOf="@+id/tvmobile"
-        app:layout_constraintTop_toTopOf="@+id/dialog_line_view" />
-
     <TextView
         android:id="@+id/auth"
+        style="@style/text_style_light_grey_12"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/jostbold"
         android:text="RE-AUTHENTICATE"
-        style="@style/text_style_light_grey_12"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:layout_width="wrap_content"
-        android:layout_height="2dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="14dp"
         android:background="#DCD8D8DA"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/auth"
-        app:layout_constraintVertical_bias="0.035" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_loc" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

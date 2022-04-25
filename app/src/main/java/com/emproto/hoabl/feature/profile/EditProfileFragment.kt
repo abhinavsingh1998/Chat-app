@@ -24,7 +24,8 @@ class EditProfileFragment : Fragment() {
     ): View? {
         binding = FragmentEditProfileBinding.inflate(inflater, container, false)
 
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =false
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
+            false
 
 
         val myCalender = Calendar.getInstance()
@@ -34,31 +35,37 @@ class EditProfileFragment : Fragment() {
             myCalender.set(Calendar.DAY_OF_MONTH, dayofMonth)
             updateLable(myCalender)
         }
-        binding.tvDatePicker.setOnFocusChangeListener(object :View.OnFocusChangeListener{
+        binding.tvDatePicker.setOnFocusChangeListener(object : View.OnFocusChangeListener {
             override fun onFocusChange(p0: View?, p1: Boolean) {
                 if (p1) {
                     context?.let {
-                        DatePickerDialog(it,
+                        DatePickerDialog(
+                            it,
                             datePicker,
                             myCalender.get(Calendar.YEAR),
                             myCalender.get(Calendar.MONTH),
-                            myCalender.get(Calendar.DAY_OF_MONTH)).show()
+                            myCalender.get(Calendar.DAY_OF_MONTH)
+                        ).show()
                     }
                 }
-            }})
+            }
+        })
         binding.tvDatePicker.setOnClickListener {
             context?.let { it1 ->
-                DatePickerDialog(it1,
+                DatePickerDialog(
+                    it1,
                     datePicker,
                     myCalender.get(Calendar.YEAR),
                     myCalender.get(Calendar.MONTH),
-                    myCalender.get(Calendar.DAY_OF_MONTH)).show()
+                    myCalender.get(Calendar.DAY_OF_MONTH)
+                ).show()
             }
         }
 
         initClickListener()
         return binding.root
     }
+
     private fun updateLable(myCalendar: Calendar) {
         val myFormat = "dd-MM-yyyy"
         val sdf = SimpleDateFormat(myFormat, Locale.UK)
@@ -66,16 +73,9 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun initClickListener() {
-        binding.arrowimage.setOnClickListener(object : View.OnClickListener {
+        binding.backAction.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                val profileFragment = ProfileFragment()
-                (requireActivity() as HomeActivity).replaceFragment(profileFragment.javaClass,
-                    "",
-                    true,
-                    bundle,
-                    null,
-                    0,
-                    false)
+                requireActivity().supportFragmentManager.popBackStack()
             }
         })
 

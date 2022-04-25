@@ -1,98 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:fillViewport="true"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/app_color">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@color/app_color"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_size_55"
+        android:background="@drawable/shape2">
 
-        <View
-            android:id="@+id/View_Complete"
+        <RelativeLayout
+            android:id="@+id/back_action"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/margin_size_55"
-            android:background="@drawable/shape1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <ImageView
-            android:id="@+id/leftarrowimage"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_size_23"
-            android:layout_marginTop="@dimen/margin_size_27"
-            android:background="@drawable/ic_path"
+            android:layout_marginTop="@dimen/margin_size_24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/View_Complete" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/arrowimage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_path" />
+
+            <TextView
+                android:id="@+id/edit_profile"
+                style="@style/text_style_blue_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_16"
+                android:layout_toRightOf="@+id/arrowimage"
+                android:fontFamily="@font/jostmedium"
+                android:text="@string/securityandsetting" />
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/textview_Settings"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/margin_size_17"
-            android:layout_marginTop="@dimen/margin_size_24"
-            android:fontFamily="@font/jostmedium"
-            android:text="@string/settings"
-            style ="@style/text_style_blue_16"
-            app:layout_constraintStart_toEndOf="@+id/leftarrowimage"
-            app:layout_constraintTop_toTopOf="@+id/View_Complete" />
+            android:id="@+id/security_tv"
+            style="@style/text_style_color_18"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_14"
+            android:layout_marginTop="@dimen/margin_size_33"
+            android:fontFamily="@font/jostregular"
+            android:text="Security"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/back_action" />
 
         <com.emproto.core.textviews.CustomTextView
             android:id="@+id/button_View"
+            style="@style/text_style_white_14"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_size_46"
-            android:layout_marginEnd="@dimen/margin_size_46"
             android:layout_marginTop="@dimen/margin_size_24"
+            android:layout_marginEnd="@dimen/margin_size_46"
             android:background="@drawable/red"
             android:drawableLeft="@drawable/ic_siren"
             android:drawableRight="@drawable/arrow_right_"
-            android:paddingTop="@dimen/margin_size_10"
+            android:fontFamily="@font/jostregular"
+            android:gravity="center_horizontal|center"
             android:paddingLeft="@dimen/margin_size_10"
+            android:paddingTop="@dimen/margin_size_10"
             android:paddingRight="@dimen/margin_size_10"
             android:paddingBottom="@dimen/margin_size_12"
-            android:fontFamily="@font/jostregular"
             android:text="@string/report_a_security_emergency"
-            android:gravity="center_horizontal|center"
-            style ="@style/text_style_white_14"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textview_Settings" />
-        <View
+            app:layout_constraintTop_toBottomOf="@+id/security_tv" />
 
+        <View
             android:id="@+id/view_line"
             android:layout_width="wrap_content"
-            android:layout_height="2dp"
-            android:layout_marginTop="@dimen/margin_size_30"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
             android:background="#E3E1E1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_View" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/healthCenterRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_size_4"
-            android:layout_marginTop="@dimen/margin_size_45"
             android:background="@color/white"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.956"
-            app:layout_constraintStart_toEndOf="@+id/View_Complete"
-            app:layout_constraintTop_toBottomOf="@+id/button_View">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_line">
 
         </androidx.recyclerview.widget.RecyclerView>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
