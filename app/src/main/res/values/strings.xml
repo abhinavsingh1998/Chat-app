@@ -269,4 +269,11 @@
     <string name="see_receipt">See Receipt</string>
     <string name="this_page_will_be_activated_after_possession_handover_is_done">This page will be activated after possession handover is done</string>
     <string name="okay">OKAY</string>
+    <string name="facility_management_desc">Now manage your bookings, complaints, visitors, vehicles, etc with ease</string>
+    <string name="document_label">Document Label</string>
+    <string name="view"><u>View</u></string>
+    <string name="more_abt_promises">Want to know more about Promises? Click here</string>
+    <string name="read_all">Read All</string>
+    <string name="application_submitted">Application Submitted!</string>
+    <string name="thanking_text">Thank you for your application. Our team is going to reach out to you soon!</string>
 </resources>

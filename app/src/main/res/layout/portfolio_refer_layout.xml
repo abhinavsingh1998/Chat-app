@@ -35,18 +35,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/btn_refer_now"
             style="@style/text_style_white_16"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_size_11"
             android:layout_marginEnd="@dimen/margin_size_21"
-            android:background="@drawable/button_bg"
+            android:paddingVertical="@dimen/margin_size_10"
+            android:background="@drawable/all_corner_radius_black_bg"
             android:drawableEnd="@drawable/arrow_right_"
             android:paddingStart="@dimen/margin_size_15"
             android:paddingEnd="@dimen/margin_size_25"
             android:text="@string/refer_now"
+            android:textAlignment="center"
             android:textAllCaps="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_share_with_joy"

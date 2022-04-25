@@ -45,7 +45,7 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp_attention"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/margin_size_200"
+        android:layout_height="@dimen/margin_size_130"
         android:layout_marginTop="@dimen/margin_size_13"
         android:layout_marginHorizontal="@dimen/margin_size_16"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +57,7 @@
         android:layout_width="@dimen/margin_size_90"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/text_blue_color"
-        app:tabBackground="@drawable/tab_selector"
+        app:tabBackground="@drawable/tab_selector_white"
         app:tabGravity="center"
         app:tabIndicatorHeight="0dp"
         android:layout_marginBottom="@dimen/margin_size_6"

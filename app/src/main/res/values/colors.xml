@@ -86,4 +86,6 @@
     <color name="view_more_brown_color">#83773d</color>
     <color name="reg_no_black_color">#313131</color>
     <color name="portfolio_blue_color">#999cff</color>
+    <color name="doc_label_black_color">#17171c</color>
+    <color name="latest_images_blue_color">#32304f</color>
 </resources>
