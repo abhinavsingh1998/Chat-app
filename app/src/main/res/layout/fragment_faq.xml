@@ -158,7 +158,7 @@
 
             <TextView
                 android:id="@+id/tv_general"
-                android:layout_width="43dp"
+                android:layout_width="0dp"
                 android:layout_height="18dp"
                 android:layout_marginStart="@dimen/margin_size_20"
                 android:layout_marginTop="@dimen/margin_size_24"
@@ -238,7 +238,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/line_view2" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+                android:id="@+id/healthCenterRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_size_6"

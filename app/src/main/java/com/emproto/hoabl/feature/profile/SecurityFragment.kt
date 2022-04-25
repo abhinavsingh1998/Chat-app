@@ -38,7 +38,7 @@ class SecurityFragment : Fragment() {
         }
 
         val adapter = SecurityAdapter(this.requireContext(), initData())
-        binding.recyclerView.adapter = adapter
+        binding.healthCenterRecyclerView.adapter = adapter
     }
 }
 

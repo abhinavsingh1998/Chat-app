@@ -9,11 +9,7 @@ import com.emproto.hoabl.databinding.PromisesItemDataBinding
 import com.emproto.hoabl.databinding.PromisesItemHeaderBinding
 import com.emproto.hoabl.feature.promises.data.PromisesData
 
-class HoabelPromiseAdapter (
-    var context: Context,
-    val dataList: ArrayList<PromisesData>,
-    val itemInterface: PromisedItemInterface
-) :
+class HoabelPromiseAdapter (var context: Context, val dataList: ArrayList<PromisesData>, val itemInterface: PromisedItemInterface) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {

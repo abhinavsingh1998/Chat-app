@@ -38,17 +38,16 @@ class SettingsFragment:Fragment() {
         val detailAdapter = SettingsAdapter(requireContext(),initData())
         binding.recyclerview1.adapter = detailAdapter
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible=true
-        initClickListener()
         return binding.root
     }
 
-    private fun initClickListener() {
-        binding.ivarrowleft.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                val profileFragment = ProfileFragment()
-                (requireActivity()as HomeActivity).replaceFragment(profileFragment.javaClass, "", true, bundle, null, 0, false)}
-        })
-    }
+//    private fun initClickListener() {
+//        binding.ivarrowleft.setOnClickListener(object : View.OnClickListener {
+//            override fun onClick(p0: View?) {
+//                val profileFragment = ProfileFragment()
+//                (requireActivity()as HomeActivity).replaceFragment(profileFragment.javaClass, "", true, bundle, null, 0, false)}
+//        })
+//    }
     private fun initData(): ArrayList<SettingsData> {
         val newsList: ArrayList<SettingsData> = ArrayList<SettingsData>()
         newsList.add(SettingsData("Location", " Control location access here", ))

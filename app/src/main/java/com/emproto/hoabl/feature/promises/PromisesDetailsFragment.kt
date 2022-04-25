@@ -36,10 +36,10 @@ class PromisesDetailsFragment : Fragment() {
 
     ): View? {
         binding = FragmentPromiseDetailsBinding.inflate(inflater, container, false)
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.promiseDetailsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         val detailadapter = PromiseDetailsAdapter(requireContext(), initData())
-        binding.recyclerView.adapter = detailadapter
-        binding.recyclerView.setHasFixedSize(true)
+        binding.promiseDetailsRecyclerView.adapter = detailadapter
+        binding.promiseDetailsRecyclerView.setHasFixedSize(true)
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             true
 
@@ -81,6 +81,6 @@ class PromisesDetailsFragment : Fragment() {
             val news = DetailsScreenData(imageId[i], heading[i])
             newArrayList.add(news)
         }
-        binding.recyclerView.adapter = PromiseDetailsAdapter(requireContext(), newArrayList)
+        binding.promiseDetailsRecyclerView.adapter = PromiseDetailsAdapter(requireContext(), newArrayList)
     }
 }

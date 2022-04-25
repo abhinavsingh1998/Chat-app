@@ -45,6 +45,18 @@
             app:layout_constraintStart_toEndOf="@+id/leftarrowimage"
             app:layout_constraintTop_toTopOf="@+id/View_Complete" />
 
+        <TextView
+            android:id="@+id/security_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/jostregular"
+           style="@style/text_style_color_18"
+           android:text="Security"
+            android:layout_marginTop="@dimen/margin_size_33"
+            android:layout_marginStart="@dimen/margin_size_14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/leftarrowimage" />
+
         <com.emproto.core.textviews.CustomTextView
             android:id="@+id/button_View"
             android:layout_width="0dp"
@@ -66,7 +78,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textview_Settings" />
+            app:layout_constraintTop_toBottomOf="@+id/security_tv" />
         <View
 
             android:id="@+id/view_line"
@@ -79,7 +91,7 @@
             app:layout_constraintTop_toBottomOf="@+id/button_View" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/healthCenterRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_size_4"

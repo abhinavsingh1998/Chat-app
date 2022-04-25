@@ -24,10 +24,10 @@ class FaqFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentFaqBinding.inflate(inflater, container, false)
-        binding.recyclerView.layoutManager= LinearLayoutManager(requireContext())
+        binding.healthCenterRecyclerView.layoutManager= LinearLayoutManager(requireContext())
         val detailAdapter= FaqViewAdapter(requireContext(),initData())
 
-        binding.recyclerView.adapter= detailAdapter
+        binding.healthCenterRecyclerView.adapter= detailAdapter
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible=true
         initClickListener()
         return binding.root
