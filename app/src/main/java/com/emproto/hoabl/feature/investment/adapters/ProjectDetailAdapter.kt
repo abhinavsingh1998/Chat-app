@@ -113,6 +113,7 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<R
             }.attach()
             itemView.tag = this
             binding.tvOpportunityDoc.setOnClickListener(onItemClickListener)
+
         }
     }
 
