@@ -110,6 +110,7 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/drawable/viewpager_selected_dot_white.xml" value="0.154" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/application_submitted_dialog.xml" value="0.24259259259259258" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/custom_image_layout.xml" value="0.259375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/documents_bottom_sheet.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/documents_layout.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/dont_miss_layout_pd.xml" value="0.24259259259259258" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/facility_management.xml" value="0.259375" />
@@ -122,10 +123,13 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_attention.xml" value="0.24259259259259258" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_completed_investments.xml" value="0.24259259259259258" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_faq.xml" value="0.24259259259259258" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_key_pillar.xml" value="0.24259259259259258" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_latest_images_videos.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_portfolio_documents.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_project_promises.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_promises.xml" value="0.24259259259259258" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_skus.xml" value="0.24259259259259258" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/item_smart_deals.xml" value="0.24259259259259258" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/latest_images_videos_layout.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/pending_items_layout.xml" value="0.24259259259259258" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_android/app/src/main/res/layout/portfolio_applicable_promises.xml" value="0.259375" />

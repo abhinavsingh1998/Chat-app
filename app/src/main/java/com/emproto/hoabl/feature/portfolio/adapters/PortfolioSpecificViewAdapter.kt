@@ -106,7 +106,7 @@ class PortfolioSpecificViewAdapter(private val context: Context, private val lis
             val list = arrayListOf<String>("1","2","3")
             documentsAdapter = DocumentsAdapter(list)
             binding.rvDocuments.adapter = documentsAdapter
-
+            binding.tvDocumentsSeeAll.setOnClickListener(onItemClickListener)
         }
     }
 

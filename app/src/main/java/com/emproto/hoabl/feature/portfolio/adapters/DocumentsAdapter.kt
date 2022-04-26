@@ -9,7 +9,7 @@ import com.emproto.hoabl.databinding.ItemLandSkusBinding
 import com.emproto.hoabl.databinding.ItemPortfolioDocumentsBinding
 import com.emproto.hoabl.feature.investment.adapters.SkusListAdapter
 
-class DocumentsAdapter (private val list:List<String>): RecyclerView.Adapter<DocumentsAdapter.DocumentsViewHolder>() {
+class DocumentsAdapter (private val list:List<String>,private val docImageVisibility:Boolean = false): RecyclerView.Adapter<DocumentsAdapter.DocumentsViewHolder>() {
 
     private lateinit var onItemClickListener : View.OnClickListener
 
@@ -21,7 +21,9 @@ class DocumentsAdapter (private val list:List<String>): RecyclerView.Adapter<Doc
     }
 
     override fun onBindViewHolder(holder: DocumentsViewHolder, position: Int) {
-
+        when(docImageVisibility){
+            true -> holder.binding.ivDocsImage.visibility = View.VISIBLE
+        }
     }
 
     override fun getItemCount(): Int = list.size
