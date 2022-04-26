@@ -76,6 +76,22 @@ class PortfolioSpecificViewAdapter(private val context: Context, private val lis
     private inner class ProjectSpecificTopViewHolder(private val binding: PortfolioSpecificViewTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             binding.btnApplyNow.setOnClickListener(onItemClickListener)
+            binding.tvViewMore.setOnClickListener{
+                binding.tvViewLess.visibility = View.VISIBLE
+                binding.ivViewMoreArrowUpward.visibility = View.VISIBLE
+                binding.cvMoreInfoCard.visibility = View.VISIBLE
+
+                binding.tvViewMore.visibility = View.GONE
+                binding.ivViewMoreDropDown.visibility = View.GONE
+            }
+            binding.tvViewLess.setOnClickListener{
+                binding.tvViewLess.visibility = View.GONE
+                binding.ivViewMoreArrowUpward.visibility = View.GONE
+                binding.cvMoreInfoCard.visibility = View.GONE
+
+                binding.tvViewMore.visibility = View.VISIBLE
+                binding.ivViewMoreDropDown.visibility = View.VISIBLE
+            }
         }
     }
 

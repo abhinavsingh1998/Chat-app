@@ -271,7 +271,7 @@
     <string name="okay">OKAY</string>
     <string name="facility_management_desc">Now manage your bookings, complaints, visitors, vehicles, etc with ease</string>
     <string name="document_label">Document Label</string>
-    <string name="view"><u>View</u></string>
+    <string name="view_underlined"><u>View</u></string>
     <string name="more_abt_promises">Want to know more about Promises? Click here</string>
     <string name="read_all">Read All</string>
     <string name="application_submitted">Application Submitted!</string>
@@ -280,4 +280,16 @@
     <string name="view">View</string>
     <string name="securityandsetting">Security &amp; Settings</string>
     <string name="privacypolicy">Privacy Policy</string>
+    <string name="view_less">View less</string>
+    <string name="land_id">Land ID</string>
+    <string name="sku_type">SKU Type</string>
+    <string name="investment_amount">Investment amount</string>
+    <string name="amount_pending">Amount pending</string>
+    <string name="registry_amount">Registry Amount</string>
+    <string name="other_expenses">Other Expenses</string>
+    <string name="latitude">Latitude</string>
+    <string name="Longitude">Longitude</string>
+    <string name="altitude">Altitude</string>
+    <string name="current_owners">Current Owners:</string>
+    <string name="draft_owners_name">"Abhishek Jaiswal                      Ruchika Khandelia \nDeepak Kumar"</string>
 </resources>

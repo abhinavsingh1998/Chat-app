@@ -319,31 +319,42 @@
     </style>
 
     //textSize_14
+    <style name="text_style_dark_black_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/portfolio_info_text</item>
+    </style>
+
     <style name="text_style_reg_black_color_14">
         <item name="android:gravity">start</item>
         <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@color/reg_no_black_color</item>
     </style>
+
     <style name="text_style_view_more_brown_color_14">
         <item name="android:gravity">start</item>
         <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@color/view_more_brown_color</item>
     </style>
+
     <style name="text_style_thick_brown_color_14">
         <item name="android:gravity">start</item>
         <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@color/thick_brown_color</item>
     </style>
+
     <style name="text_style_medium_gold_color_14">
         <item name="android:gravity">start</item>
         <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@color/text_gold_color</item>
     </style>
+
     <style name="text_style_dark_brown_14">
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@color/dark_brown_color</item>
     </style>
+
     <style name="text_style_light_grey_14">
         <item name="android:gravity">start|center</item>
         <item name="android:textSize">@dimen/text_size_14</item>
