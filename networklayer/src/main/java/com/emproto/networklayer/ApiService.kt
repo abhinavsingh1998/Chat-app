@@ -8,10 +8,9 @@ import com.emproto.networklayer.response.login.AddNameResponse
 import com.emproto.networklayer.response.login.OtpResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.login.VerifyOtpResponse
+import com.emproto.networklayer.response.promises.PromisesResponse
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.POST
-import retrofit2.http.PUT
+import retrofit2.http.*
 
 /**
  * @author Hoabl.
@@ -32,5 +31,8 @@ public interface ApiService {
 
     @POST(ApiConstants.TROUBLE_SIGNING)
     suspend fun submitTroubleCase(@Body troubleSigningRequest: TroubleSigningRequest): Response<TroubleSigningResponse>
+
+    @GET(ApiConstants.PROMISES)
+    suspend fun getPromises(@Query("pageType") pageType: Int): Response<PromisesResponse>
 
 }
