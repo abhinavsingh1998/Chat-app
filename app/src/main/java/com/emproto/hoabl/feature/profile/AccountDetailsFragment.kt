@@ -14,6 +14,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentAccountDetailsBinding
 import com.emproto.hoabl.databinding.FragmentProfileMainBinding
 import com.emproto.hoabl.feature.profile.adapter.AccountDetailsFragmentAdapter
+import com.emproto.hoabl.feature.profile.adapter.DocumentKycAdapter
 import com.emproto.hoabl.feature.profile.data.AccountDetailsData
 
 class AccountDetailsFragment : Fragment() {
@@ -31,34 +32,36 @@ class AccountDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        FragmentProfileMainBinding.inflate(inflater, container, false)
         binding = FragmentAccountDetailsBinding.inflate(inflater, container, false)
-        binding.accountDetailsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val detailAdapter = AccountDetailsFragmentAdapter(initData())
-        binding.accountDetailsRecyclerView.adapter = detailAdapter
+
+        initView()
+
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             true
+
         initClickListener()
 
         return binding.root
     }
 
-    private fun initClickListener() {
-        binding.imgArrow.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                val profileFragment = ProfileFragment()
-                (requireActivity() as HomeActivity).replaceFragment(
-                    profileFragment.javaClass,
-                    "",
-                    true,
-                    bundle,
-                    null,
-                    0,
-                    false
-                )
-            }
-        })
+    private fun initView() {
+        val list = ArrayList<String>()
+        list.add("Address proof")
+        list.add("Pan Card")
+        list.add("Cancelled Check")
+        binding.listKyc.layoutManager = LinearLayoutManager(requireContext())
+        binding.listKyc.adapter = DocumentKycAdapter(requireContext(), list)
 
+        binding.listDocuments.layoutManager = LinearLayoutManager(requireContext())
+        binding.listDocuments.adapter = DocumentKycAdapter(requireContext(), list)
+
+        binding.listPaymenthistory.layoutManager = LinearLayoutManager(requireContext())
+        val detailAdapter = AccountDetailsFragmentAdapter(initData())
+        binding.listPaymenthistory.adapter = detailAdapter
+    }
+
+    private fun initClickListener() {
+        binding.backAction.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
     }
 
     private fun initData(): ArrayList<AccountDetailsData> {

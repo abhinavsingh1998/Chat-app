@@ -1,74 +1,88 @@
 package com.emproto.hoabl.feature.profile.adapter
 
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.emproto.hoabl.R
-import com.emproto.hoabl.feature.profile.data.DataHealthCenter
+import com.emproto.hoabl.databinding.*
+import com.emproto.hoabl.feature.profile.data.HelpModel
 
-class HoabelHealthAdapter(context: Context, list: ArrayList<DataHealthCenter>) :
+
+class HoabelHealthAdapter(
+    var context: Context,
+    val dataList: ArrayList<HelpModel>,
+    val itemInterface: HelpItemInterface
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private lateinit var onItemClickListener : View.OnClickListener
-    lateinit var faqAdapter: FaqAdapter
+
 
     companion object {
-        const val VIEW_HELP_CENTER_LOCATION_ACCESS = 1
-        const val VIEW_HELP_CENTER_CONNECT = 2
+        const val VIEW_ITEM = 0
+        const val VIEW_FOOTER = 1
     }
 
-    private val context: Context = context
-    var list: ArrayList<DataHealthCenter> = list
 
-
-    private inner class HoabelHealthSecurityViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
-
-        var message: TextView = itemView.findViewById(R.id.tv_security)
-        var hoabelImg:ImageView= itemView.findViewById(R.id.hoabelImgfaq)
-
-        fun bind(position: Int) {
-            val recyclerViewModel = list[position]
-            message.text = recyclerViewModel.tv_security
-            hoabelImg.setImageResource(recyclerViewModel.hoabelImg)
-        }
+    override fun getItemViewType(position: Int): Int {
+        return dataList[position].viewType
     }
-    private inner class HoabelHealthConnectViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
-        var message: TextView = itemView.findViewById(R.id.tv_wants_to_connect)
-        fun bind(position: Int) {
-            val recyclerViewModel = list[position]
-            message.text = recyclerViewModel.textData
 
-        }
-    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == VIEW_HELP_CENTER_LOCATION_ACCESS) {
-            return HoabelHealthSecurityViewHolder(
-                LayoutInflater.from(context).inflate(R.layout.health_center_view, parent, false)
-            )
-        }
-        return HoabelHealthConnectViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.health_center_view2, parent, false)
-        )
-    }
+        when (viewType) {
+            VIEW_ITEM -> {
+                val view =
+                    HealthCenterViewBinding.inflate(
+                        LayoutInflater.from(parent.context), parent,
+                        false
+                    )
+                return HoablHealthViewHolder(view)
+            }
 
-    override fun getItemCount(): Int {
-        return list.size
+            else -> {
+                val view =
+                    HealthCenterFooterBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                return HoablHealthFooterHolder(view)
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (list[position].viewType === VIEW_HELP_CENTER_LOCATION_ACCESS) {
-            (holder as HoabelHealthSecurityViewHolder).bind(position)
-        } else {
-            (holder as HoabelHealthConnectViewHolder).bind(position)
+        when (holder.itemViewType) {
+            VIEW_ITEM -> {
+                val item = dataList[holder.layoutPosition].data
+                val header_holder = holder as HoabelHealthAdapter.HoablHealthViewHolder
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    header_holder.binding.ivIcon.setImageResource(item.img)
+                }
+                header_holder.binding.tvTitle.text = item.title
+                header_holder.binding.tvDescirption.text = item.description
+                header_holder.binding.hoabelView.setOnClickListener {
+                    itemInterface.onClickItem(holder.layoutPosition)
+                }
+
+            }
+            HoabelHealthAdapter.VIEW_FOOTER -> {
+                val listHolder = holder as HoabelHealthAdapter.HoablHealthFooterHolder
+//                listHolder.binding.helpItems.layoutManager = GridLayoutManager(context, 2)
+//                listHolder.binding.helpItems.adapter =
+//                    HelpListAdapter(context, dataList[position].data, itemInterface)
+            }
         }
     }
-    override fun getItemViewType(position: Int): Int {
-        return list[position].viewType
-    }
 
+    override fun getItemCount() = dataList.size
+    inner class HoablHealthViewHolder(var binding: HealthCenterViewBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    inner class HoablHealthFooterHolder(var binding: HealthCenterFooterBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    interface HelpItemInterface {
+        fun onClickItem(position: Int)
+    }
 }

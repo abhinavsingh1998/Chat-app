@@ -20,7 +20,6 @@ class AboutUsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        FragmentProfileMainBinding.inflate(inflater, container, false)
         binding= FragmentAboutUsBinding.inflate(inflater,container,false)
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible=true
         initClickListener()
@@ -28,10 +27,10 @@ class AboutUsFragment : Fragment() {
     }
     private fun initClickListener() {
 
-        binding.ivarrow.setOnClickListener(object : View.OnClickListener {
+        binding.backAction.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                val healthCenterFragment = HealthCenterFragment()
-                (requireActivity()as HomeActivity).replaceFragment(healthCenterFragment.javaClass, "", true, bundle, null, 0, false)}
+              requireActivity().supportFragmentManager.popBackStack()
+            }
         })
 
     }

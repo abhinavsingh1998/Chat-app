@@ -79,7 +79,7 @@
         </View>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/promise_detailsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -100,7 +100,7 @@
             android:paddingBottom="@dimen/margin_size_20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView">
+            app:layout_constraintTop_toBottomOf="@+id/promise_detailsRecyclerView">
 
             <TextView
                 android:id="@+id/textview_apply"

@@ -19,7 +19,7 @@
     <string name="mobile_number">Mobile Number</string>
     <string name="enter_mobile">Enter Mobile Number</string>
     <string name="whatsapp">Whatsapp Communications</string>
-    <string name="login_terms_text">By login in, you are agreeing to our <u>Terms of services</u> \n and <u>Privacy policy</u></string>
+    <string name="login_terms_text">By login in, you are agreeing to our Terms of services \n and Privacy policy</string>
     <string name="trouble_login"><u>Trouble Signing In?</u></string>
     <string name="get_otp">Get OTP</string>
     <string name="submit_and_continue">Submit and Continue</string>
@@ -32,7 +32,7 @@
     <string name="explore_investment">Explore New Investment</string>
     <string name="browse_deal">Browse deals with HoABL</string>
     <string name="get_exclusive">Get exclusive investment deal</string>
-    <string name="verify_otp">VERIFY OTP</string>
+    <string name="verify_otp">Verify OTP</string>
     <string name="enter_digits">Enter 6-digit OTP sent to</string>
     <string name="change_number"><u>EDIT</u></string>
     <string name="enter_otp">Enter OTP</string>
@@ -85,7 +85,7 @@
     <string name="referral_code">Referral Code, app download link</string>
     <string name="security">Security</string>
     <string name="whatsapp_pin"><![CDATA[Whatsapp & PIN authentication, Security Tip, Report]]></string>
-    <string name="settings">Security &amp; Setting</string>
+
     <string name="location_prompt"><![CDATA[Location prompt, SMS & Push Notification, Google assistant access]]></string>
     <string name="help">Help</string>
     <string name="contact_aboutus">Contact, About Us, Privacy Policy, Ratings, Chat</string>
@@ -135,10 +135,10 @@
     <string name="DemoText">The Isle of Bliss is phase 2 of Codename Bliss Dapoli, a seaside lifestyle plotting development from The House of Abhinandan Lodha</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="And_your_name">And your name</string>
-    <string name="First_name_hint">First Name </string>
+    <string name="First_name_hint">First Name *</string>
     <string name="Second_name_hint">Second Name </string>
     <string name="submit_and_con">Submit and Continue</string>
-    <string name="trouble_signing_in">Trouble Signing in?</string>
+    <string name="trouble_signing_in">Trouble Signing In?</string>
     <string name="whats_the_issue">Whtas the issue</string>
     <string name="unable_to_enter_num">Unable to enter phone number</string>
     <string name="describe_your_issue_in_few_words">Describe your issue in few words</string>
@@ -203,7 +203,7 @@
     <string name="control_location_access_here">Control location access here</string>
     <string name="wants_to_connect">Wants to Connect?</string>
     <string name="chat_with_us">Chat with us</string>
-    <string name="information">Or Call us: +91 123 123 1231 Email us: help@hoabl.in</string>
+    <string name="information">Or \n Call us: +91 123 123 1231 \nEmail us: help@hoabl.in</string>
     <string name="contact_about_us_privacy_policy_chat">Contact, About Us , Privacy Policy,Chat</string>
     <string name="logout_text">Logout</string>
     <string name="personal_details_string">Personal Details</string>
@@ -276,4 +276,8 @@
     <string name="read_all">Read All</string>
     <string name="application_submitted">Application Submitted!</string>
     <string name="thanking_text">Thank you for your application. Our team is going to reach out to you soon!</string>
+    <string name="settings">Settings</string>
+    <string name="view">View</string>
+    <string name="securityandsetting">Security &amp; Settings</string>
+    <string name="privacypolicy">Privacy Policy</string>
 </resources>

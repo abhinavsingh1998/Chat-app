@@ -56,8 +56,8 @@ class ProfileFragment : BaseFragment() {
     private fun initClickListener() {
         binding.editProfile.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                val profileSecondFragment = EditProfileFragment()
-                (requireActivity() as HomeActivity).addFragment(profileSecondFragment, false)
+                val editProfile = EditProfileFragment()
+                (requireActivity() as HomeActivity).addFragment(editProfile, false)
             }
         })
         binding.viewAccount.setOnClickListener(object : View.OnClickListener {
@@ -71,15 +71,7 @@ class ProfileFragment : BaseFragment() {
             object : View.OnClickListener {
                 override fun onClick(p0: View?) {
                     val settingsFragment = SecurityFragment()
-                    (requireActivity() as HomeActivity).replaceFragment(
-                        settingsFragment.javaClass,
-                        "",
-                        true,
-                        bundle,
-                        null,
-                        0,
-                        false
-                    )
+                    (requireActivity() as HomeActivity).addFragment(settingsFragment, false)
                 }
 
             }
@@ -87,16 +79,8 @@ class ProfileFragment : BaseFragment() {
         binding.helpCenterTv.setOnClickListener(
             object : View.OnClickListener {
                 override fun onClick(p0: View?) {
-                    val healthCenterFragment = HealthCenterFragment()
-                    (requireActivity() as HomeActivity).replaceFragment(
-                        healthCenterFragment.javaClass,
-                        "",
-                        true,
-                        bundle,
-                        null,
-                        0,
-                        false
-                    )
+                    val helpCenterFragment = HelpCenterFragment()
+                    (requireActivity() as HomeActivity).addFragment(helpCenterFragment, false)
                 }
 
             }
@@ -105,13 +89,8 @@ class ProfileFragment : BaseFragment() {
             object : View.OnClickListener {
                 override fun onClick(p0: View?) {
                     val facilityManagerPopViewFragment = FacilityManagerPopViewFragment()
-                    (requireActivity() as HomeActivity).replaceFragment(
-                        facilityManagerPopViewFragment.javaClass,
-                        "",
-                        true,
-                        bundle,
-                        null,
-                        0,
+                    (requireActivity() as HomeActivity).addFragment(
+                        facilityManagerPopViewFragment,
                         false
                     )
                 }
