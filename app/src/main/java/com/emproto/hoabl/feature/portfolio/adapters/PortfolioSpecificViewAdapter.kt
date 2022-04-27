@@ -1,9 +1,11 @@
 package com.emproto.hoabl.feature.portfolio.adapters
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.BounceInterpolator
 import android.view.animation.TranslateAnimation
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
@@ -81,8 +83,8 @@ class PortfolioSpecificViewAdapter(private val context: Context, private val lis
             binding.tvViewMore.setOnClickListener{
                 binding.tvViewLess.visibility = View.VISIBLE
                 binding.ivViewMoreArrowUpward.visibility = View.VISIBLE
-                binding.cvMoreInfoCard.visibility = View.VISIBLE
-//                slideToBottom(binding.cvMoreInfoCard)
+//                binding.cvMoreInfoCard.visibility = View.VISIBLE
+                moveBottom(binding.cvMoreInfoCard)
 
                 binding.tvViewMore.visibility = View.GONE
                 binding.ivViewMoreDropDown.visibility = View.GONE
@@ -105,6 +107,15 @@ class PortfolioSpecificViewAdapter(private val context: Context, private val lis
         view.startAnimation(animate)
         view.visibility = View.VISIBLE
     }
+
+    fun moveBottom(view:View){
+        val moveAnim: ObjectAnimator = ObjectAnimator.ofFloat(view, "Y", 1000f)
+        moveAnim.duration = 2000
+        moveAnim.interpolator = BounceInterpolator()
+        moveAnim.start()
+        view.visibility = View.VISIBLE
+    }
+
 
     private inner class PendingViewHolder(private val binding: PendingItemsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){

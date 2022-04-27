@@ -292,4 +292,5 @@
     <string name="altitude">Altitude</string>
     <string name="current_owners">Current Owners:</string>
     <string name="draft_owners_name">"Abhishek Jaiswal                      Ruchika Khandelia \nDeepak Kumar"</string>
+    <string name="avg_estimated_appreciation">Avg Estimated Appreciation</string>
 </resources>

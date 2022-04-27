@@ -91,4 +91,5 @@
     <color name="portfolio_light_brown_color">#87ffffff</color>
     <color name="portfolio_info_text">#262312</color>
     <color name="brown_dashed_line_color">#8b8773</color>
+    <color name="share_ash_bg_color">#ccc</color>
 </resources>
