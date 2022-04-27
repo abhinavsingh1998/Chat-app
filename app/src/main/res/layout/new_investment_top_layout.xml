@@ -12,58 +12,37 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_new_launch"
-            style="@style/text_style_text_black_color_16"
+            style="@style/text_style_text_color_16"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin_size_17"
             android:fontFamily="@font/jost_regular"
             android:text="@string/new_launch_soon"
-            android:textStyle="normal"
+            android:layout_marginStart="@dimen/margin_size_12"
+            android:textAlignment="textStart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_coming_soon"
-            style="@style/text_style_text_color_25"
-            android:layout_width="wrap_content"
+            style="@style/text_style_lightgrey_14"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_size_7"
             android:layout_marginVertical="@dimen/margin_size_6"
-            android:fontFamily="@font/shelldon"
+            android:fontFamily="@font/jost_regular"
             android:text="@string/coming_soon"
             android:textAlignment="center"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/vw_coming_soon2"
-            app:layout_constraintStart_toEndOf="@+id/vw_coming_soon1"
+            app:layout_constraintStart_toStartOf="@+id/tv_new_launch"
             app:layout_constraintTop_toBottomOf="@id/tv_new_launch" />
-
-        <View
-            android:id="@+id/vw_coming_soon1"
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:background="@color/grey_line"
-            app:layout_constraintBottom_toBottomOf="@id/tv_coming_soon"
-            app:layout_constraintEnd_toStartOf="@id/tv_coming_soon"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_coming_soon" />
-
-        <View
-            android:id="@+id/vw_coming_soon2"
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:background="@color/grey_line"
-            app:layout_constraintBottom_toBottomOf="@id/tv_coming_soon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_coming_soon"
-            app:layout_constraintTop_toTopOf="@id/tv_coming_soon" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/margin_size_18"
             android:layout_marginBottom="@dimen/_4sdp"
             app:cardCornerRadius="@dimen/margin_size_8"
             app:cardElevation="@dimen/_2sdp"

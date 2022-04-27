@@ -91,15 +91,19 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/cl_category_bottom_view"
                         android:layout_width="match_parent"
-                        android:layout_height="44dp"
+                        android:layout_height="wrap_content"
                         android:alpha="0.74"
                         android:background="@color/black"
+                        android:layout_marginTop="@dimen/margin_size_40"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent">
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0">
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_category_price"
+                            style="@style/text_style_white_color_13"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginVertical="@dimen/margin_size_5"
@@ -107,7 +111,6 @@
                             android:fontFamily="@font/jost_medium"
                             android:text="@string/price_text_draft"
                             android:textAlignment="center"
-                            style="@style/text_style_white_color_13"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/tv_category_area"
                             app:layout_constraintStart_toStartOf="parent"
@@ -115,18 +118,19 @@
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_category_area"
+                            style="@style/text_style_white_color_13"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/margin_size_5"
                             android:layout_marginStart="@dimen/margin_size_18"
                             android:layout_marginEnd="12dp"
                             android:fontFamily="@font/jost_medium"
                             android:text="@string/area_text_draft"
                             android:textAlignment="center"
-                            style="@style/text_style_white_color_13"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/tv_category_price"
-                            app:layout_constraintTop_toTopOf="@id/tv_category_price"
-                            app:layout_constraintBottom_toBottomOf="@id/tv_category_price"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -137,12 +141,14 @@
             <LinearLayout
                 android:id="@+id/text_name_layout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start|top|center"
+                android:layout_height="0dp"
+                android:gravity="start"
                 android:layout_marginHorizontal="@dimen/margin_size_9"
                 android:orientation="vertical"
+                android:visibility="gone"
                 app:layout_constraintStart_toEndOf="@id/cv_category_image"
-                app:layout_constraintTop_toTopOf="@id/cv_category_image">
+                app:layout_constraintTop_toTopOf="@id/cv_category_image"
+                app:layout_constraintBottom_toTopOf="@id/category_bottom_view_bg">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
@@ -166,6 +172,7 @@
                 android:id="@+id/iv_category_rating"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
+                android:visibility="gone"
                 android:layout_marginHorizontal="@dimen/margin_size_5"
                 android:src="@drawable/ic_upward_double_arrow_dark_green"
                 app:layout_constraintBottom_toBottomOf="@id/tv_category_rating"
@@ -179,6 +186,7 @@
                 android:layout_marginEnd="@dimen/margin_size_12"
                 android:fontFamily="@font/jost_bold"
                 android:text="5%"
+                android:visibility="gone"
                 android:textColor="@color/rating_dark_green"
                 android:textSize="@dimen/text_size_14"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -197,8 +205,9 @@
             <View
                 android:id="@+id/category_bottom_view_bg"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/margin_size_50"
                 android:background="@color/category_item_light_ash_color"
+                app:layout_constraintTop_toTopOf="@id/cl_category_bottom_view"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
