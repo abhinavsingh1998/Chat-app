@@ -165,6 +165,7 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<R
 
     private inner class ProjectAmenitiesViewHolder(private val binding: ProjectAmenitiesLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
+            binding.tvProjectAmenitiesAll.setOnClickListener(onItemClickListener)
         }
     }
 

@@ -4,13 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ProjectDetailLayoutBinding
+import com.emproto.hoabl.feature.investment.adapters.ProjectAmenitiesAdapter
 import com.emproto.hoabl.feature.investment.adapters.ProjectDetailAdapter
 import com.emproto.hoabl.feature.investment.views.mediagallery.MediaGalleryFragment
 import com.emproto.hoabl.model.RecyclerViewItem
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
 class ProjectDetailFragment:BaseFragment() {
@@ -31,6 +35,17 @@ class ProjectDetailFragment:BaseFragment() {
                 R.id.tv_video_drone_see_all -> {
                     val mediaGalleryFragment = MediaGalleryFragment()
                     (requireActivity() as HomeActivity).replaceFragment(mediaGalleryFragment.javaClass,"",true,null,null,0,false)
+                }
+                R.id.tv_project_amenities_all -> {
+                    val docsBottomSheet = BottomSheetDialog(this.requireContext())
+                    docsBottomSheet.setContentView(R.layout.project_amenities_dialog_layout)
+                    val list = arrayListOf<String>("1","2","3","4","1","2","3","4","1","2","3","4","1","2","3","4")
+                    val adapter = ProjectAmenitiesAdapter(this.requireContext(),list)
+                    docsBottomSheet.findViewById<RecyclerView>(R.id.rv_project_amenities_item_recycler)?.adapter = adapter
+                    docsBottomSheet.findViewById<ImageView>(R.id.iv_project_amenities_close)?.setOnClickListener {
+                        docsBottomSheet.dismiss()
+                    }
+                    docsBottomSheet.show()
                 }
             }
         }
