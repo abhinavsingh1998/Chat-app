@@ -4,16 +4,18 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import android.view.animation.TranslateAnimation
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.home.adapters.HoABLPromisesAdapter
-import com.emproto.hoabl.feature.home.adapters.ProjectPromisesAdapter
-import com.emproto.hoabl.feature.investment.adapters.*
+import com.emproto.hoabl.feature.investment.adapters.FaqAdapter
+import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
+import com.emproto.hoabl.feature.investment.adapters.VideoDroneAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.model.ViewItem
 import com.google.android.material.tabs.TabLayoutMediator
+
 
 class PortfolioSpecificViewAdapter(private val context: Context, private val list:List<RecyclerViewItem>):
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -80,6 +82,7 @@ class PortfolioSpecificViewAdapter(private val context: Context, private val lis
                 binding.tvViewLess.visibility = View.VISIBLE
                 binding.ivViewMoreArrowUpward.visibility = View.VISIBLE
                 binding.cvMoreInfoCard.visibility = View.VISIBLE
+//                slideToBottom(binding.cvMoreInfoCard)
 
                 binding.tvViewMore.visibility = View.GONE
                 binding.ivViewMoreDropDown.visibility = View.GONE
@@ -93,6 +96,14 @@ class PortfolioSpecificViewAdapter(private val context: Context, private val lis
                 binding.ivViewMoreDropDown.visibility = View.VISIBLE
             }
         }
+    }
+
+    fun slideToBottom(view: View) {
+        val animate = TranslateAnimation(0f, 0f, 0f, view.height.toFloat() * 0.95f)
+        animate.duration = 500
+        animate.fillAfter = false
+        view.startAnimation(animate)
+        view.visibility = View.VISIBLE
     }
 
     private inner class PendingViewHolder(private val binding: PendingItemsLayoutBinding):RecyclerView.ViewHolder(binding.root){
