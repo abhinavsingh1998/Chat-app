@@ -140,10 +140,4 @@ class AuthRepository @Inject constructor(application: Application) : BaseReposit
         return mCaseResponse
     }
 
-    fun getErrorMessage(body: String): String {
-        var message = "Bad Request"
-        val jObjError = JSONObject(body)
-        message = jObjError.getString("message")
-        return message
-    }
 }
