@@ -16,7 +16,7 @@ import com.emproto.hoabl.databinding.ReferralDialogBinding
 class ReferralDialog : DialogFragment(), View.OnClickListener {
 
 
-    lateinit var mBinding:ReferralDialogBinding
+    lateinit var mBinding: ReferralDialogBinding
     var charSequence1: Editable? = null
     var charSequence2: Editable? = null
 
@@ -24,7 +24,7 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        mBinding=ReferralDialogBinding.inflate(inflater, container,false)
+        mBinding = ReferralDialogBinding.inflate(inflater, container, false)
 
         initClickListner()
         return mBinding.root
@@ -37,7 +37,6 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
     private fun initClickListner() {
         mBinding.referralName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
 
 
             }

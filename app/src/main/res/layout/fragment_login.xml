@@ -121,7 +121,7 @@
                 android:id="@+id/switch_whatspp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="false"
+                android:checked="true"
                 android:thumb="@drawable/custom_thumb"
                 app:track="@drawable/custom_track" />
 

@@ -17,8 +17,10 @@ class MyProjectsFragment : BaseFragment() {
     lateinit var linearLayoutManager: LinearLayoutManager
 
 
-    override fun onCreateView(inflater: LayoutInflater,
-        container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?, savedInstanceState: Bundle?,
+    ): View? {
 
         fragmentMyProjectsBinding = FragmentMyProjectsBinding.inflate(layoutInflater)
 
@@ -27,18 +29,18 @@ class MyProjectsFragment : BaseFragment() {
     }
 
     private fun initView() {
-        val list:ArrayList<String> = arrayListOf()
+        val list: ArrayList<String> = arrayListOf()
         list.add("22L-2.5 Cr")
         list.add("22L-2.5 Cr")
         list.add("22L-2.5 Cr")
         list.add("22L-2.5 Cr")
 
-        myProjectsAdapter= MyProjectsAdapter(requireActivity(),list)
-        linearLayoutManager= LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL,false)
-        fragmentMyProjectsBinding.ongoingRecyclerview.layoutManager=linearLayoutManager
-        fragmentMyProjectsBinding.ongoingRecyclerview.adapter=myProjectsAdapter
+        myProjectsAdapter = MyProjectsAdapter(requireActivity(), list)
+        linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+        fragmentMyProjectsBinding.ongoingRecyclerview.layoutManager = linearLayoutManager
+        fragmentMyProjectsBinding.ongoingRecyclerview.adapter = myProjectsAdapter
 
-        fragmentMyProjectsBinding.ongoingAll.setOnClickListener(object :View.OnClickListener{
+        fragmentMyProjectsBinding.ongoingAll.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
 
             }

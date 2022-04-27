@@ -14,15 +14,15 @@ class MyPortfolioFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
-        fragmentMyPortfolioBinding= FragmentMyPortfolioBinding.inflate(layoutInflater)
+        fragmentMyPortfolioBinding = FragmentMyPortfolioBinding.inflate(layoutInflater)
         initView()
         return fragmentMyPortfolioBinding.root
     }
 
     private fun initView() {
-        
+
     }
 
 }

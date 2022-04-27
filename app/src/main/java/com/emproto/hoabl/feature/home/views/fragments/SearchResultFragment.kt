@@ -26,7 +26,7 @@ class SearchResultFragment : BaseFragment() {
     lateinit var searchResultAdapter: SearchResultAdapter
     lateinit var gridLayoutManager: GridLayoutManager
 
-    companion object{
+    companion object {
         fun newInstance(): SearchResultFragment {
             val fragment = SearchResultFragment()
             /*val bundle = Bundle()
@@ -38,10 +38,10 @@ class SearchResultFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
-        fragmentSearchResultBinding= FragmentSearchResultBinding.inflate(layoutInflater)
-       // homeViewModel=ViewModelProvider(this,homeFactory).get(HomeViewModel::class.java)
+        fragmentSearchResultBinding = FragmentSearchResultBinding.inflate(layoutInflater)
+        // homeViewModel=ViewModelProvider(this,homeFactory).get(HomeViewModel::class.java)
 
         initView()
         initObserver()
@@ -62,10 +62,10 @@ class SearchResultFragment : BaseFragment() {
     }
 
     private fun setrecentAdapter(t: List<SearchModel>) {
-        searchResultAdapter= SearchResultAdapter(requireContext(),t)
-        gridLayoutManager= GridLayoutManager(requireContext(),3)
-        fragmentSearchResultBinding.recyclerviewRecent.layoutManager=gridLayoutManager
-        fragmentSearchResultBinding.recyclerviewRecent.adapter=searchResultAdapter
+        searchResultAdapter = SearchResultAdapter(requireContext(), t)
+        gridLayoutManager = GridLayoutManager(requireContext(), 3)
+        fragmentSearchResultBinding.recyclerviewRecent.layoutManager = gridLayoutManager
+        fragmentSearchResultBinding.recyclerviewRecent.adapter = searchResultAdapter
     }
 
     private fun initView() {
@@ -73,21 +73,23 @@ class SearchResultFragment : BaseFragment() {
     }
 
     private fun initClickListener() {
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.search.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (p0.toString().isNotEmpty()){
-                    val searchModel=SearchModel(searchName = p0.toString())
-                  //  homeViewModel.insertRecord(searchModel)
-                    (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.search.setText(p0.toString())
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.search.addTextChangedListener(
+            object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    if (p0.toString().isNotEmpty()) {
+                        val searchModel = SearchModel(searchName = p0.toString())
+                        //  homeViewModel.insertRecord(searchModel)
+                        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.search.setText(
+                            p0.toString())
+                    }
                 }
-            }
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                }
 
-            override fun afterTextChanged(p0: Editable?) {
-            }
-        })
+                override fun afterTextChanged(p0: Editable?) {
+                }
+            })
 
     }
 

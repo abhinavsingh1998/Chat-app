@@ -9,13 +9,16 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentPromisesBinding
 
 class PromisesFragment : BaseFragment() {
-    lateinit var binding:FragmentPromisesBinding
+    lateinit var binding: FragmentPromisesBinding
 
-    override fun onCreateView(inflater: LayoutInflater,
+    override fun onCreateView(
+        inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
-        binding= FragmentPromisesBinding.inflate(layoutInflater)
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility=View.VISIBLE
+        savedInstanceState: Bundle?,
+    ): View? {
+        binding = FragmentPromisesBinding.inflate(layoutInflater)
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
+            View.VISIBLE
 
         initView()
         return binding.root
