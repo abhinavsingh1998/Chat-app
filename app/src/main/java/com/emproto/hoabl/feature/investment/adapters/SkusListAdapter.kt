@@ -18,7 +18,7 @@ class SkusListAdapter(private val list:List<String>):RecyclerView.Adapter<SkusLi
     }
 
     override fun onBindViewHolder(holder: SkusListViewHolder, position: Int) {
-        holder.binding.tvItemLandSkusApplyNow.setOnClickListener(onItemClickListener)
+        holder.binding.btnApplyNow.setOnClickListener(onItemClickListener)
     }
 
     override fun getItemCount(): Int = list.size

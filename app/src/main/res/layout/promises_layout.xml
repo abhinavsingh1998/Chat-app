@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_size_13"
         android:layout_marginTop="@dimen/margin_size_28"
-        android:fontFamily="@font/jost_regular"
+        android:fontFamily="@font/jost_medium"
         android:text="Promises securing these investments"
         android:textColor="@color/text_light_black_color"
         android:textSize="@dimen/text_size_16"
@@ -53,5 +53,36 @@
         app:layout_constraintTop_toBottomOf="@id/tv_promises_title"
         tools:itemCount="5"
         tools:listitem="@layout/item_promises" />
+    
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_apply_now"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/apply_now"
+        android:layout_marginHorizontal="@dimen/margin_size_7"
+        android:background="@drawable/all_corner_radius_white_bg"
+        android:backgroundTint="@color/black"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:visibility="gone"
+        android:textSize="@dimen/text_size_14"
+        android:layout_marginTop="@dimen/margin_size_19"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_promises"/>
+
+    <ImageView
+        android:id="@+id/iv_still_not_convinced"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_size_103"
+        android:src="@color/ash_background_color"
+        android:layout_marginHorizontal="@dimen/margin_size_20"
+        android:layout_marginTop="@dimen/margin_size_32"
+        android:layout_marginBottom="@dimen/margin_size_8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_apply_now"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

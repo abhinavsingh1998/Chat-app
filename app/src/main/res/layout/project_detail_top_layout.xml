@@ -180,14 +180,15 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_apply_now"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/margin_size_5"
+            android:layout_height="0dp"
             android:layout_marginEnd="@dimen/margin_size_7"
             android:background="@drawable/right_corner_radius_bg"
             android:backgroundTint="@color/black"
             android:paddingHorizontal="@dimen/margin_size_18"
             android:paddingVertical="@dimen/margin_size_10"
             android:text="Apply now"
+            android:gravity="center"
+            android:textAlignment="center"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@id/tv_project_view_info"
             app:layout_constraintEnd_toEndOf="parent"
@@ -348,6 +349,34 @@
             app:layout_constraintBottom_toBottomOf="@id/tv_opportunity_doc"
             app:layout_constraintStart_toEndOf="@id/tv_opportunity_doc"
             app:layout_constraintTop_toTopOf="@id/tv_opportunity_doc" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_registration_number"
+            style="@style/text_style_reg_black_color_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_size_16"
+            android:layout_marginTop="@dimen/margin_size_14"
+            android:drawableEnd="@drawable/ic_info"
+            android:drawablePadding="@dimen/_8sdp"
+            android:fontFamily="@font/jost_light"
+            android:lineSpacingMultiplier="1.3"
+            android:text="@string/reg_draft_text"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_project_view_info" />
+
+        <ImageView
+            android:id="@+id/iv_why_invest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/investment_dont_miss_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_registration_number"
+            android:layout_marginTop="@dimen/margin_size_20"
+            android:layout_marginHorizontal="@dimen/margin_size_20"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

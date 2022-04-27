@@ -64,7 +64,6 @@ class ProjectDetailFragment:BaseFragment() {
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_TEN))
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_ELEVEN))
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_TWELVE))
-        list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_THIRTEEN))
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_FOURTEEN))
 
         val adapter = ProjectDetailAdapter(this.requireContext(),list)

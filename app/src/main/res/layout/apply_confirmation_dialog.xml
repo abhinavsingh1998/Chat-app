@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="@dimen/margin_size_8"
-    app:cardElevation="@dimen/_3sdp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/margin_size_8"
+    app:cardElevation="@dimen/_3sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,7 +18,7 @@
             android:layout_marginHorizontal="@dimen/margin_size_19"
             android:layout_marginTop="@dimen/margin_size_25"
             android:fontFamily="@font/jost_medium"
-            android:text="Are you sure?"
+            android:text="Are you sure you want to apply for this SKU?"
             android:textAlignment="center"
             android:textColor="@color/text_black_color"
             android:textSize="@dimen/text_size_14"
@@ -27,20 +26,73 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_dialog_info"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_project_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_size_19"
-            android:layout_marginTop="@dimen/margin_size_8"
-            android:fontFamily="@font/jost_regular"
-            android:text="Applying for ‘Marina’"
-            android:textAlignment="center"
-            android:textColor="@color/text_violet_dark_color"
-            android:textSize="@dimen/text_size_12"
+            android:background="@drawable/confirm_project_background"
+            android:layout_marginHorizontal="@dimen/margin_size_16"
+            android:layout_marginVertical="@dimen/margin_size_14"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_dialog_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_dialog_title">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_item_land_skus_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_25"
+                android:layout_marginTop="@dimen/margin_size_6"
+                android:fontFamily="@font/jost_bold"
+                android:text="Marina"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_16"
+                app:layout_constraintEnd_toStartOf="@id/tv_item_land_skus_area"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_item_land_skus_area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_12"
+                android:fontFamily="@font/jost_medium"
+                android:text="2500 - 2650 Sqft"
+                android:textColor="@color/text_violet_dark_color"
+                android:textSize="@dimen/text_size_14"
+                app:layout_constraintBottom_toBottomOf="@id/tv_item_land_skus_name"
+                app:layout_constraintStart_toEndOf="@id/tv_item_land_skus_name"
+                app:layout_constraintTop_toTopOf="@id/tv_item_land_skus_name" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_item_land_skus_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_8"
+                android:fontFamily="@font/jost_medium"
+                android:text="₹2L- 2.4L"
+                android:textColor="@color/text_blue_color"
+                android:textSize="@dimen/text_size_14"
+                app:layout_constraintStart_toStartOf="@id/tv_item_land_skus_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_item_land_skus_name" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_item_land_skus_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_size_10"
+                android:layout_marginEnd="@dimen/margin_size_15"
+                android:ellipsize="marquee"
+                android:fontFamily="@font/jost_light"
+                android:text="Beach side lifestyle near Mumbai with luxurious amenities,affordable rates,good surroundings"
+                android:textColor="@color/land_skus_text_black_color"
+                android:textSize="@dimen/text_size_12"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tv_item_land_skus_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_item_land_skus_price" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:id="@+id/view_line"
@@ -50,7 +102,7 @@
             android:background="@color/unselected_button_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_dialog_info" />
+            app:layout_constraintTop_toBottomOf="@id/cl_project_info" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_no_text"
