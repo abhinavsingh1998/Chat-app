@@ -1,128 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <androidx.core.widget.NestedScrollView
+    android:layout_height="match_parent"
+    android:background="@color/app_color">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
+        android:background="@drawable/shape2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:background="@color/app_color"
-            android:layout_height="match_parent">
-
-            <View
-                android:id="@+id/full_View"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/margin_size_55"
-                android:layout_marginEnd="@dimen/margin_size_10"
-                android:background="@drawable/shape1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+            android:id="@+id/back_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_23"
+            android:layout_marginTop="@dimen/margin_size_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/ivarrow"
+                android:id="@+id/imgArrow"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/margin_size_23"
-                android:layout_marginTop="@dimen/margin_size_27"
-                android:background="@drawable/ic_path"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_path"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/full_View" />
-            <TextView
+                app:layout_constraintTop_toTopOf="parent" />
 
-                android:id="@+id/tv_Aboutus"
+            <TextView
+                android:id="@+id/tv_Account"
+                style="@style/text_style_blue_16"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/margin_size_17"
-                android:layout_marginTop="@dimen/margin_size_24"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:fontFamily="@font/jostmedium"
                 android:text="@string/help_centre_about_us"
-                style ="@style/text_style_blue_16"
-                app:layout_constraintStart_toEndOf="@+id/ivarrow"
-                app:layout_constraintTop_toTopOf="@+id/full_View" />
+                app:layout_constraintStart_toEndOf="@+id/imgArrow"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_description"
-                style="@style/text_style_grey_14"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_size_28"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="@dimen/margin_size_33"
-                android:fontFamily="@font/jostregular"
-                android:text="@string/Description"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_Aboutus" />
-
-            <TextView
-                android:id="@+id/tv_desc2"
-                style="@style/text_style_text_color_20"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginLeft="@dimen/margin_size_28"
-                android:layout_marginTop="@dimen/margin_size_30"
-                android:fontFamily="@font/jostbold"
-                android:text="@string/Selling_land_Text"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_description" />
-
-            <TextView
-                android:id="@+id/tv_desc3"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/margin_size_28"
-                android:layout_marginTop="@dimen/margin_size_18"
-                android:fontFamily="@font/jostbold"
-                android:text="@string/Changing_land_Text"
-                android:layout_marginEnd="@dimen/margin_size_160"
-                style="@style/text_style_text_color_20"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_desc2" />
-
-            <TextView
-
-                android:id="@+id/tv_desc4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/margin_size_28"
-                android:layout_marginTop="@dimen/margin_size_18"
-                android:layout_marginEnd="@dimen/margin_size_160"
-                android:fontFamily="@font/jostmedium"
-                android:lineSpacingMultiplier="2"
-                android:text="@string/Presenting_Text"
-                style ="text_style_grey_14"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.106"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_desc3" />
-
-            <TextView
-                android:id="@+id/tv_description4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/margin_size_28"
-                android:layout_marginStart="@dimen/margin_size_28"
-                android:layout_marginEnd="@dimen/margin_size_33"
-                android:layout_marginTop="28dp"
-                android:fontFamily="@font/jostregular"
-                android:text="@string/Description2"
-                style ="@style/text_style_grey_14"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_desc4" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.core.widget.NestedScrollView>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/back_action">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_description"
+                    style="@style/text_style_grey_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_size_28"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="@dimen/margin_size_33"
+                    android:fontFamily="@font/jostregular"
+                    android:text="@string/Description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_desc2"
+                    style="@style/text_style_text_color_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_size_28"
+                    android:layout_marginTop="@dimen/margin_size_30"
+                    android:fontFamily="@font/jostbold"
+                    android:text="@string/Selling_land_Text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+
+                <TextView
+                    android:id="@+id/tv_desc3"
+                    style="@style/text_style_text_color_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_size_28"
+                    android:layout_marginTop="@dimen/margin_size_18"
+                    android:layout_marginEnd="@dimen/margin_size_160"
+                    android:fontFamily="@font/jostbold"
+                    android:text="@string/Changing_land_Text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_desc2" />
+
+                <TextView
+
+                    android:id="@+id/tv_desc4"
+                    style="text_style_grey_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_size_28"
+                    android:layout_marginTop="@dimen/margin_size_18"
+                    android:layout_marginEnd="@dimen/margin_size_160"
+                    android:fontFamily="@font/jostmedium"
+                    android:lineSpacingMultiplier="2"
+                    android:text="@string/Presenting_Text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_desc3" />
+
+                <TextView
+                    android:id="@+id/tv_description4"
+                    style="@style/text_style_grey_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_size_28"
+                    android:layout_marginLeft="@dimen/margin_size_28"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginEnd="@dimen/margin_size_33"
+                    android:fontFamily="@font/jostregular"
+                    android:text="@string/Description2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_desc4" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

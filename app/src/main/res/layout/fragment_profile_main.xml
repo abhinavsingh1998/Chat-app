@@ -320,12 +320,13 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/Logoutbtn"
-        style="@style/text_style_text_color_14"
+        style="@style/text_regular_text_color_14"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin"
         android:layout_marginRight="@dimen/marginSize"
         android:layout_marginBottom="24dp"
+        android:layout_marginTop="@dimen/margin_size_140"
         android:background="@drawable/btnshape"
         android:fontFamily="@font/jostmedium"
         android:text="@string/logout_text"
@@ -333,7 +334,8 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/version"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/View_line" />
 
     <TextView
         android:id="@+id/version"

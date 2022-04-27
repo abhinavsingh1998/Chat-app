@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/margin_size_10"
@@ -35,7 +36,7 @@
                 android:layout_marginStart="@dimen/margin_size_20"
                 android:layout_marginTop="@dimen/margin_size_24"
                 android:layout_marginEnd="@dimen/margin_size_112"
-                android:src="@drawable/ic_path"
+                android:src="@drawable/securitylock"
                 app:layout_constraintEnd_toEndOf="@+id/fullview_Hoabel"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,18 +59,18 @@
                 android:id="@+id/arrowImage"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginTop="@dimen/margin_size_53"
                 android:layout_marginEnd="@dimen/margin_size_44"
                 android:src="@drawable/ic_combined_shape__2_"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/fullview_Hoabel" />
+                app:layout_constraintTop_toTopOf="@+id/title" />
 
             <TextView
                 android:id="@+id/desc"
                 style="@style/text_style_text_color_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_size_5"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="@dimen/margin_size_35"
                 android:fontFamily="@font/jostregular"
                 android:text="@string/desc"

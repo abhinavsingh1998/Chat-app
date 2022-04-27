@@ -6,3 +6,7 @@ data class DataModel(
     var image: Int,
     var arrowImage: Int
 )
+/////Data model is a original data class
+/////Promise new data
+///HealthCenter is original
+////HelpModel a new data

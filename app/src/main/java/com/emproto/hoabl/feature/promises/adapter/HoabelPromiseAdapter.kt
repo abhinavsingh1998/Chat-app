@@ -9,7 +9,7 @@ import com.emproto.hoabl.databinding.PromisesItemDataBinding
 import com.emproto.hoabl.databinding.PromisesItemHeaderBinding
 import com.emproto.hoabl.feature.promises.data.PromisesData
 
-class HoabelPromiseAdapter (
+class HoabelPromiseAdapter(
     var context: Context,
     val dataList: ArrayList<PromisesData>,
     val itemInterface: PromisedItemInterface
@@ -61,6 +61,10 @@ class HoabelPromiseAdapter (
         when (position) {
             TYPE_HEADER -> {
                 val header_holder = holder as PromisesHeaderViewHolder
+                header_holder.binding.tvTitle.text =
+                    dataList[holder.layoutPosition].headerData!!.sectionName
+                header_holder.binding.tvDescription.text =
+                    dataList[holder.layoutPosition].headerData!!.shortDescription
             }
             TYPE_LIST -> {
                 val listHolder = holder as HoablPromiseViewHolder

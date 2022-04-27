@@ -73,7 +73,13 @@ class AuthRepository @Inject constructor(application: Application) : BaseReposit
                 if (request.isSuccessful) {
                     mVerifyOtpResponse.postValue(BaseResponse.success(request.body()!!))
                 } else {
-                    mVerifyOtpResponse.postValue(BaseResponse.Companion.error(request.message()))
+                    mVerifyOtpResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
                 }
             } catch (e: Exception) {
                 mVerifyOtpResponse.postValue(BaseResponse.error(e.message!!))
@@ -134,10 +140,4 @@ class AuthRepository @Inject constructor(application: Application) : BaseReposit
         return mCaseResponse
     }
 
-    fun getErrorMessage(body: String): String {
-        var message = "Bad Request"
-        val jObjError = JSONObject(body)
-        message = jObjError.getString("message")
-        return message
-    }
 }
