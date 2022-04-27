@@ -15,10 +15,10 @@
             style="@style/text_style_text_color_16"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_size_12"
             android:layout_marginTop="@dimen/margin_size_17"
             android:fontFamily="@font/jost_regular"
             android:text="@string/new_launch_soon"
-            android:layout_marginStart="@dimen/margin_size_12"
             android:textAlignment="textStart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -153,65 +153,33 @@
                                 android:text="5%" />
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:id="@+id/amount_linear"
-                            android:layout_width="wrap_content"
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_amount"
+                            style="@style/text_style_text_color_14"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/margin_size_24"
-                            android:orientation="horizontal"
-                            app:layout_constraintBottom_toTopOf="@id/area_linear"
+                            android:textAlignment="textEnd"
+                            android:fontFamily="@font/jost_medium"
+                            android:text="#20 L Onwards"
+                            android:layout_marginEnd="@dimen/margin_size_11"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/rating_linear">
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toEndOf="@id/rating_linear"
+                            app:layout_constraintTop_toTopOf="@id/text_layout" />
 
-                            <com.google.android.material.textview.MaterialTextView
-                                android:id="@+id/tv_amount"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="end"
-                                android:fontFamily="@font/jost_medium"
-                                android:text="#20 L"
-                                style="@style/text_style_text_color_14" />
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:id="@+id/tv_amount_onwards"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginStart="@dimen/margin_size_2"
-                                android:fontFamily="@font/jost_light"
-                                android:text="Onwards"
-                                style="@style/text_style_text_color_14" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/area_linear"
-                            android:layout_width="wrap_content"
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_area"
+                            style="@style/text_style_text_color_14"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/margin_size_24"
-                            android:orientation="horizontal"
-                            app:layout_constraintBottom_toBottomOf="@id/rating_linear"
+                            android:textAlignment="textEnd"
+                            android:fontFamily="@font/jost_medium"
+                            android:text="#2000 sqft Onwards"
+                            android:layout_marginEnd="@dimen/margin_size_11"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/amount_linear">
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:id="@+id/tv_area"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="end"
-                                android:fontFamily="@font/jost_medium"
-                                android:text="2000 sqft"
-                                style="@style/text_style_text_color_14" />
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:id="@+id/tv_area_onwards"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginStart="@dimen/margin_size_2"
-                                android:fontFamily="@font/jost_light"
-                                android:text="Onwards"
-                                style="@style/text_style_text_color_14"/>
-                        </LinearLayout>
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toEndOf="@id/rating_linear"
+                            app:layout_constraintTop_toBottomOf="@id/tv_amount" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/cl_place_info"
@@ -223,10 +191,11 @@
                             android:paddingVertical="@dimen/margin_size_5"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/cv_small_image">
+                            app:layout_constraintTop_toBottomOf="@id/tv_area">
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:id="@+id/tv_background_grey"
+                                style="@style/text_style__text_color_15"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginVertical="@dimen/margin_size_5"
@@ -234,7 +203,6 @@
                                 android:fontFamily="@font/jost_light"
                                 android:lineSpacingMultiplier="1"
                                 android:text="Beach side lifestyle near Mumbai with luxurious amenities and affordable rates"
-                                style="@style/text_style__text_color_15"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toStartOf="@id/iv_place_info_arrow"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -253,6 +221,7 @@
 
                         <com.emproto.core.textviews.CustomTextView
                             android:id="@+id/tv_view_info"
+                            style="@style/text_style_dark_gold_color_14"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:background="@color/background_yellow_color"
@@ -260,13 +229,13 @@
                             android:paddingHorizontal="@dimen/margin_size_18"
                             android:paddingVertical="@dimen/margin_size_10"
                             android:text="20 People saw this project in 7 days"
-                            style="@style/text_style_dark_gold_color_14"
                             app:layout_constraintEnd_toStartOf="@id/tv_apply_now"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/cl_place_info" />
 
                         <com.emproto.core.textviews.CustomTextView
                             android:id="@+id/tv_apply_now"
+                            style="@style/text_style_white_14"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginVertical="@dimen/margin_size_5"
@@ -274,7 +243,6 @@
                             android:paddingHorizontal="@dimen/margin_size_18"
                             android:paddingVertical="@dimen/margin_size_10"
                             android:text="Apply now"
-                            style="@style/text_style_white_14"
                             app:layout_constraintBottom_toBottomOf="@id/tv_view_info"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/tv_view_info"

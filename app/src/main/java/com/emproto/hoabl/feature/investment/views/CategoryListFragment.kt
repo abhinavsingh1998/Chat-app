@@ -35,76 +35,12 @@ class CategoryListFragment:BaseFragment(),View.OnClickListener {
         setUpUI()
         setUpClickListeners()
         setUpCategoryAdapter()
-        setUpPriceSpinner()
-        setUpAreaSpinner()
-        setUpValiditySpinner()
     }
 
     private fun setUpUI() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
     }
 
-    private fun setUpValiditySpinner() {
-        val arrayAdapter = ArrayAdapter(this.requireContext(),android.R.layout.simple_spinner_item,validitySpinnerArray)
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.validitySpinner.onItemSelectedListener = validityItemListener
-        binding.validitySpinner.adapter = arrayAdapter
-    }
-
-    private val priceItemListener = object: AdapterView.OnItemSelectedListener{
-        override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
-            val item = parent?.getItemAtPosition(pos)
-            if(priceCheck >= 1){
-                binding.tvFilterPrice.text = item.toString()
-            }else{
-                priceCheck++
-            }
-        }
-        override fun onNothingSelected(p0: AdapterView<*>?) {
-
-        }
-    }
-
-    private val areaItemListener = object: AdapterView.OnItemSelectedListener{
-        override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
-            val item = parent?.getItemAtPosition(pos)
-            if(areaCheck >= 1){
-                binding.tvFilterArea.text = item.toString()
-            }else{
-                areaCheck++
-            }
-        }
-        override fun onNothingSelected(p0: AdapterView<*>?) {
-
-        }
-    }
-
-    private val validityItemListener = object: AdapterView.OnItemSelectedListener{
-        override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
-            val item = parent?.getItemAtPosition(pos)
-            if(validityCheck >= 1){
-                binding.tvFilterValidity.text = item.toString()
-            }else{
-                validityCheck++
-            }
-        }
-        override fun onNothingSelected(p0: AdapterView<*>?) {
-        }
-    }
-
-    private fun setUpPriceSpinner() {
-        val arrayAdapter = ArrayAdapter(this.requireContext(),android.R.layout.simple_spinner_item,priceSpinnerArray)
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.priceSpinner.onItemSelectedListener = priceItemListener
-        binding.priceSpinner.adapter = arrayAdapter
-    }
-
-    private fun setUpAreaSpinner() {
-        val arrayAdapter = ArrayAdapter(this.requireContext(),android.R.layout.simple_spinner_item,areaSpinnerArray)
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.areaSpinner.onItemSelectedListener = areaItemListener
-        binding.areaSpinner.adapter = arrayAdapter
-    }
 
     private fun setUpClickListeners() {
 //        binding.cvFilterPriceCard.setOnClickListener(this)
@@ -120,9 +56,9 @@ class CategoryListFragment:BaseFragment(),View.OnClickListener {
 
     override fun onClick(v: View) {
         when(v.id){
-            R.id.cv_filter_price_card -> binding.priceSpinner.performClick()
-            R.id.cv_filter_area_card -> binding.areaSpinner.performClick()
-            R.id.cv_filter_validity_card -> binding.validitySpinner.performClick()
+//            R.id.cv_filter_price_card -> binding.priceSpinner.performClick()
+//            R.id.cv_filter_area_card -> binding.areaSpinner.performClick()
+//            R.id.cv_filter_validity_card -> binding.validitySpinner.performClick()
         }
     }
 

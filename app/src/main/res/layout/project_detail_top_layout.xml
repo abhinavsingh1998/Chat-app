@@ -72,16 +72,15 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_rating"
+            style="@style/text_style_dark_green_color_12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_size_4"
             android:fontFamily="@font/jost_bold"
             android:text="5%"
-            style="@style/text_style_dark_green_color_12"
             app:layout_constraintBottom_toBottomOf="@id/tv_rise_year"
             app:layout_constraintStart_toEndOf="@id/tv_rise_year"
-            app:layout_constraintTop_toTopOf="@id/tv_rise_year"
-            app:layout_constraintEnd_toStartOf="@id/iv_pd_rating"/>
+            app:layout_constraintTop_toTopOf="@id/tv_rise_year" />
 
         <ImageView
             android:id="@+id/iv_pd_rating"
@@ -89,8 +88,10 @@
             android:layout_height="14dp"
             android:layout_marginEnd="@dimen/margin_size_13"
             android:src="@drawable/ic_upward_double_arrow_green"
-            app:layout_constraintStart_toEndOf="@id/tv_rating"
             app:layout_constraintBottom_toBottomOf="@id/tv_rating"
+            app:layout_constraintEnd_toStartOf="@id/iv_bookmark_icon"
+            app:layout_constraintHorizontal_bias="0.15"
+            app:layout_constraintStart_toEndOf="@id/tv_rating"
             app:layout_constraintTop_toTopOf="@id/tv_rating" />
 
         <ImageView
@@ -118,7 +119,7 @@
             android:layout_width="@dimen/margin_size_13"
             android:layout_height="@dimen/margin_size_12"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_size_6"
+            android:layout_marginTop="@dimen/margin_size_12"
             android:scaleType="fitXY"
             android:src="@drawable/ic_visibility"
             app:layout_constraintStart_toStartOf="@id/text_address_layout"
@@ -242,7 +243,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/project_detail_price_bg">
+                android:background="@color/ash_background_color">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_price_range"
@@ -262,9 +263,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_size_10"
-                    android:fontFamily="@font/jost_medium"
+                    android:fontFamily="@font/jost_mediumitalic"
                     android:text="Prize range"
-                    android:textColor="@color/text_brown_dark_color"
+                    android:textColor="@color/text_lightgrey_color"
                     android:textSize="@dimen/text_size_14"
                     android:textStyle="italic"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -290,7 +291,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/project_detail_price_bg">
+                android:background="@color/ash_background_color">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_area_range"
@@ -311,11 +312,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_size_10"
-                    android:fontFamily="@font/jost_medium"
+                    android:fontFamily="@font/jost_mediumitalic"
                     android:text="Area available"
-                    android:textColor="@color/text_brown_dark_color"
+                    android:textColor="@color/text_lightgrey_color"
                     android:textSize="@dimen/text_size_14"
-                    android:textStyle="italic"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/tv_area_range"
                     app:layout_constraintStart_toStartOf="@id/tv_area_range"
