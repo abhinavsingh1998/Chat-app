@@ -10,13 +10,19 @@ import com.emproto.hoabl.repository.HomeRepository
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.login.OtpResponse
+import com.emproto.networklayer.response.promises.HoablPagesOrPromise
+import com.emproto.networklayer.response.promises.PromisesResponse
 import javax.inject.Inject
 
-class HomeViewModel(var mapplication: Application, var mhomeRepository: HomeRepository) :
+class HomeViewModel(
+    private var mapplication: Application,
+    private var mhomeRepository: HomeRepository
+) :
     ViewModel() {
 
-    var application: Application = mapplication
-    var homeRepository: HomeRepository = mhomeRepository
+    private var application: Application = mapplication
+    private var homeRepository: HomeRepository = mhomeRepository
+    private var promise = MutableLiveData<HoablPagesOrPromise>()
 
     @Inject
     lateinit var homeSearchDao: HomeSearchDao
@@ -37,8 +43,17 @@ class HomeViewModel(var mapplication: Application, var mhomeRepository: HomeRepo
         getAllRecords()
     }
 
-    fun getOtp(otpRequest: OtpRequest): LiveData<BaseResponse<OtpResponse>> {
-        return homeRepository.getLoginResponse(otpRequest);
+    fun getPromises(pageType: Int): LiveData<BaseResponse<PromisesResponse>> {
+        return homeRepository.getPromises(pageType)
     }
+
+    fun setSelectedPromise(promise: HoablPagesOrPromise) {
+        this.promise.postValue(promise)
+    }
+
+    fun getSelectedPromise(): LiveData<HoablPagesOrPromise> {
+        return promise
+    }
+
 
 }
