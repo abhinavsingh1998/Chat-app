@@ -95,6 +95,7 @@
     <dimen name="margin_size_116">116dp</dimen>
     <dimen name="margin_size_120">120dp</dimen>
     <dimen name="margin_size_112">112dp</dimen>
+    <dimen name="margin_size_117">117dp</dimen>
     <dimen name="margin_size_124">124dp</dimen>
     <dimen name="margin_size_125">125dp</dimen>
     <dimen name="margin_size_127">127dp</dimen>
@@ -109,6 +110,7 @@
     <dimen name="margin_size_153">153dp</dimen>
     <dimen name="margin_size_160">160dp</dimen>
     <dimen name="margin_size_170">170dp</dimen>
+    <dimen name="margin_size_177">177dp</dimen>
     <dimen name="margin_size_180">180dp</dimen>
     <dimen name="margin_size_183">183dp</dimen>
     <dimen name="margin_size_186">186dp</dimen>

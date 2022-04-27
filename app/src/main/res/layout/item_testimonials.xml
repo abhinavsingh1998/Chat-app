@@ -30,7 +30,7 @@
                 style="@style/text_style_thick_blue_16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start|center"
+                android:gravity="center"
                 android:text="Rajeev Kumar"
                 android:textStyle=""
                 android:fontFamily="@font/jostmedium" />
@@ -40,7 +40,7 @@
                 style="@style/text_style_text_color_12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start|center"
+                android:gravity="center"
                 android:text="CEO, Futurecorp Inc."
                 app:fontName="@string/jost_regular" />
 

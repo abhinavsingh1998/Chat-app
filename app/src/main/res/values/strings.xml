@@ -118,7 +118,7 @@
     <string name="view_all_properties">View all properties</string>
     <string name="following_attention">The following items need your attention</string>
     <string name="complete_kyc">Complete KYC</string>
-    <string name="please_complete">Please upload your KYC for hassle \nfree experience.</string>
+    <string name="please_complete_payment">Your payment towards Tomorrowland is due on 29th April. Please pay on time to maintain healthy relation.</string>
     <string name="promise_wekeep">Promises we keep</string>
     <string name="testimonial">Testimonials</string>
     <string name="share_joy">Share the joy</string>
@@ -259,7 +259,7 @@
     <string name="view">View</string>
     <string name="securityandsetting">Security &amp; Settings</string>
     <string name="privacypolicy">Privacy Policy</string>
-    <string name="payment_pending">Payment is pending!</string>
+    <string name="payment_pending">Payment is due on 29th April, 2022</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="share_your_friend_txt">Share HOABL APP with your friends</string>
@@ -280,4 +280,6 @@
     <string name="possession_date">Possession Date</string>
     <string name="reg_draft_text"><![CDATA[>MAHARERA Registration No. Phase I - P52800031035\nMAHARERA Registration No. Phase II- P52800031036]]></string>
     <string name="refferal_with_your_friend">Refer your friend</string>
+    <string name="Enter_Locality">Enter Locality</string>
+    <string name="mobile_no_error">Mobile number error</string>
 </resources>

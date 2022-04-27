@@ -59,7 +59,6 @@ class AuthActivity : BaseActivity() {
 
         //for signinissue
         bottomSheetDialog = BottomSheetDialog(this)
-        bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         signingInIssueBiding = FragmentSigninIssueBinding.inflate(layoutInflater)
         bottomSheetDialog.setContentView(signingInIssueBiding.root)
     }

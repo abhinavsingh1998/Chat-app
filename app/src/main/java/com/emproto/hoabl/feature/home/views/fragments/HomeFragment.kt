@@ -22,7 +22,9 @@ import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
 import com.emproto.hoabl.adapters.LatestUpdateAdapter
 import com.emproto.hoabl.adapters.TestimonialAdapter
 import com.emproto.hoabl.databinding.FragmentHomeBinding
+import com.emproto.hoabl.databinding.LayoutKycBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.adapters.PendingPaymentsAdapter
 import com.emproto.hoabl.feature.login.SucessDialogFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import javax.inject.Inject
@@ -37,6 +39,8 @@ class HomeFragment : BaseFragment() {
     private lateinit var latestUpdateAdapter: LatestUpdateAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var hoABLPromisesAdapter: HoABLPromisesAdapter
+    private lateinit var PendingPaymentsAdapter:PendingPaymentsAdapter
+
 
     lateinit var homeViewModel: HomeViewModel
 
@@ -73,6 +77,7 @@ class HomeFragment : BaseFragment() {
 
         val listPromises: ArrayList<String> = arrayListOf("Security", "Transparency", "wealth")
         val listTostimonials:ArrayList<String> = arrayListOf("Rajeev Kumar","Mukesh Singh", "Rohit Roy","Rajeev Kumar","Mukesh Singh", "Rohit Roy" )
+        val PymentList:ArrayList<String> = arrayListOf("1", "2", "3", "4", "5")
 
         investmentAdapter = InvestmentAdapter(requireActivity(), list)
         linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
@@ -85,21 +90,20 @@ class HomeFragment : BaseFragment() {
         binding.insightsRecyclerview.layoutManager = linearLayoutManager
         binding.insightsRecyclerview.adapter = insightsAdapter
 
+        //Testimonial Cards
         testimonialAdapter = TestimonialAdapter(requireActivity(), listTostimonials)
         binding.testimonialsRecyclerview.adapter = testimonialAdapter
-        binding.testimonialsRecyclerview.clipToPadding = false
-        binding.testimonialsRecyclerview.clipChildren = false
-        binding.testimonialsRecyclerview.offscreenPageLimit = 3
-        binding.testimonialsRecyclerview.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-        val comPosPageTarn = CompositePageTransformer()
-        comPosPageTarn.addTransformer(MarginPageTransformer(40))
-        comPosPageTarn.addTransformer { page, pos ->
-            val r: Float = 1 - kotlin.math.abs(pos)
-            page.scaleY = 0.85f + r * 0.20f
-        }
-        binding.testimonialsRecyclerview.setPageTransformer(comPosPageTarn)
         TabLayoutMediator(binding.tabDotLayout,binding.testimonialsRecyclerview){ _, _ ->
         }.attach()
+
+
+        /////////////////////////////
+        PendingPaymentsAdapter = PendingPaymentsAdapter(requireActivity(), PymentList)
+        binding.kycLayoutCard.adapter= PendingPaymentsAdapter
+        TabLayoutMediator(binding.tabDot,binding.kycLayoutCard){ _, _ ->
+        }.attach()
+
+
 
         latestUpdateAdapter = LatestUpdateAdapter(requireActivity(), list)
         linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
