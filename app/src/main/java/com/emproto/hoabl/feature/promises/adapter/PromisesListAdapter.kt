@@ -1,16 +1,19 @@
 package com.emproto.hoabl.feature.promises.adapter
 
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.PromisesViewBinding
 import com.emproto.hoabl.feature.promises.data.DataModel
+import com.emproto.networklayer.response.promises.HoablPagesOrPromise
 
 
 class PromisesListAdapter(
-    context: Context,
-    private val data: List<DataModel>,
+    val context: Context,
+    private val data: List<HoablPagesOrPromise>,
     val itemInterface: HoabelPromiseAdapter.PromisedItemInterface
 
 ) : RecyclerView.Adapter<PromisesListAdapter.PromisesHolder>() {
@@ -23,10 +26,12 @@ class PromisesListAdapter(
 
     override fun onBindViewHolder(holder: PromisesHolder, position: Int) {
         val item = data[position]
-        holder.binding.title.text = item.title
-        holder.binding.desc.text = item.desc
-        holder.binding.image.setImageResource(item.image)
-        holder.binding.arrowImage.setImageResource(item.arrowImage)
+        holder.binding.title.text = item.name
+        holder.binding.desc.text = item.shortDescription
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            holder.binding.image.setImageResource(R.drawable.securitylock)
+        }
+        //holder.binding.arrowImage.setImageResource(item.arrowImage)
         holder.binding.itemCard.setOnClickListener {
             itemInterface.onClickItem(holder.adapterPosition)
         }

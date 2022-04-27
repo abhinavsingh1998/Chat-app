@@ -5,6 +5,8 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.login.*
 import com.emproto.hoabl.feature.profile.ProfileFragment
+import com.emproto.hoabl.feature.promises.HoabelPromises
+import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -19,4 +21,6 @@ interface HomeComponent {
     fun inject(fragment: NameInputFragment)
     fun inject(activity: HoablSplashActivity)
     fun inject(fragment: ProfileFragment)
+    fun inject(fragment: HoabelPromises)
+    fun inject(fragment: PromisesDetailsFragment)
 }

@@ -7,16 +7,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
-import com.emproto.hoabl.feature.promises.data.DetailsScreenData
 
 
 class PromiseDetailsAdapter(
-    context: Context, private val newsList: ArrayList<DetailsScreenData>
+    val context: Context,
+    private val descriptions: List<String>
 ) : RecyclerView.Adapter<PromiseDetailsAdapter.MyViewHolder>() {
 
-
-    private val context: Context = context
-    var list: ArrayList<DetailsScreenData> = newsList
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView =
@@ -25,12 +22,12 @@ class PromiseDetailsAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentItem = newsList[position]
-        holder.tvHeading.text = currentItem.heading
+        val currentItem = descriptions[position]
+        holder.tvHeading.text = currentItem
     }
 
     override fun getItemCount(): Int {
-        return newsList.size
+        return descriptions.size
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

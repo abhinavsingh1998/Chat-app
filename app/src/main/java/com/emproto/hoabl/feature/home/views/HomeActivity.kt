@@ -37,6 +37,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private var closeApp = false
     private var toolbar: Toolbar? = null
     lateinit var activityHomeActivity: ActivityHomeBinding
+
     @Inject
     lateinit var factory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
@@ -147,9 +148,9 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         try {
             val finalTag: String
             if (extraTag != null && extraTag.equals(""))
-                finalTag=fragmentClass.simpleName + extraTag
+                finalTag = fragmentClass.simpleName + extraTag
             else
-                finalTag=fragmentClass.simpleName
+                finalTag = fragmentClass.simpleName
 
             val isPopBackStack = supportFragmentManager.popBackStackImmediate(finalTag, 0)
             if (!isPopBackStack) {
@@ -206,10 +207,14 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             }
             true -> {
                 fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit)
-                    .replace(R.id.container,fragment,fragment.javaClass.name)
+                    .replace(R.id.container, fragment, fragment.javaClass.name)
                     .addToBackStack(fragment.javaClass.name).commit()
             }
         }
+    }
+
+    fun showErrorToast(message: String) {
+        showErrorView(activityHomeActivity.root, message)
     }
 
 
