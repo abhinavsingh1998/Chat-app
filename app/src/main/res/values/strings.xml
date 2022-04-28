@@ -273,4 +273,6 @@
     <string name="view">View</string>
     <string name="securityandsetting">Security &amp; Settings</string>
     <string name="privacypolicy">Privacy Policy</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

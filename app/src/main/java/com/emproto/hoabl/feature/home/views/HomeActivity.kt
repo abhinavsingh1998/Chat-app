@@ -14,6 +14,7 @@ import com.emproto.core.BaseActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityHomeBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
 import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
@@ -70,8 +71,11 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             }
         })
 
-    }
+        activityHomeActivity.searchLayout.headset.setOnClickListener(View.OnClickListener {
+            Toast.makeText(mContext, "Chat bot", Toast.LENGTH_LONG).show()
+        })
 
+    }
     fun getCurrentFragment(): Fragment? {
         return supportFragmentManager.findFragmentById(contentFrame)
     }
