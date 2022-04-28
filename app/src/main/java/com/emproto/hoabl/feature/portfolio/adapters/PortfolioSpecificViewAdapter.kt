@@ -83,8 +83,8 @@ class PortfolioSpecificViewAdapter(private val context: Context, private val lis
             binding.tvViewMore.setOnClickListener{
                 binding.tvViewLess.visibility = View.VISIBLE
                 binding.ivViewMoreArrowUpward.visibility = View.VISIBLE
-//                binding.cvMoreInfoCard.visibility = View.VISIBLE
-                moveBottom(binding.cvMoreInfoCard)
+                binding.cvMoreInfoCard.visibility = View.VISIBLE
+//                moveBottom(binding.cvMoreInfoCard)
 
                 binding.tvViewMore.visibility = View.GONE
                 binding.ivViewMoreDropDown.visibility = View.GONE
