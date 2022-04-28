@@ -42,20 +42,19 @@
                         android:layout_marginTop="@dimen/margin_size_3"
                         android:src="@drawable/ic_visibility"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/tv_banner_text"
-                        />
+                        app:layout_constraintTop_toTopOf="@id/tv_banner_text" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_banner_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/margin_size_6"
                         android:layout_marginStart="@dimen/margin_size_4"
                         android:layout_marginEnd="@dimen/margin_size_15"
                         android:fontFamily="@font/jost_regular"
                         android:text="Buy SKUs flat at a discount of 15%/sqft (Rs.300/sqft off)"
                         android:textColor="@color/text_brown_color"
                         android:textSize="@dimen/text_size_14"
-                        android:layout_marginVertical="@dimen/margin_size_6"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/iv_banner_icon"
@@ -67,39 +66,48 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cv_category_image"
-                android:layout_width="150dp"
-                android:layout_height="94dp"
-                android:layout_marginStart="@dimen/margin_size_4"
+                android:layout_width="180dp"
+                android:layout_height="0dp"
                 android:layout_marginVertical="@dimen/margin_size_4"
+                android:layout_marginStart="@dimen/margin_size_4"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="@dimen/_3sdp"
+                android:fitsSystemWindows="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
                     <ImageView
                         android:id="@+id/iv_category_image"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="0dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/new_investment_page_image" />
+                        android:src="@drawable/new_investment_page_image"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/cl_category_bottom_view"
                         android:layout_width="match_parent"
-                        android:layout_height="44dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_40"
                         android:alpha="0.74"
                         android:background="@color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent">
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0">
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_category_price"
+                            style="@style/text_style_white_color_13"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginVertical="@dimen/margin_size_5"
@@ -107,7 +115,6 @@
                             android:fontFamily="@font/jost_medium"
                             android:text="@string/price_text_draft"
                             android:textAlignment="center"
-                            style="@style/text_style_white_color_13"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/tv_category_area"
                             app:layout_constraintStart_toStartOf="parent"
@@ -115,18 +122,21 @@
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_category_area"
+                            style="@style/text_style_white_color_13"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/margin_size_5"
                             android:layout_marginStart="@dimen/margin_size_18"
                             android:layout_marginEnd="12dp"
                             android:fontFamily="@font/jost_medium"
                             android:text="@string/area_text_draft"
                             android:textAlignment="center"
-                            style="@style/text_style_white_color_13"
+                            android:maxLines="2"
+                            android:ellipsize="end"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/tv_category_price"
-                            app:layout_constraintTop_toTopOf="@id/tv_category_price"
-                            app:layout_constraintBottom_toBottomOf="@id/tv_category_price"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -136,29 +146,33 @@
 
             <LinearLayout
                 android:id="@+id/text_name_layout"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start|top|center"
                 android:layout_marginHorizontal="@dimen/margin_size_9"
+                android:gravity="start"
                 android:orientation="vertical"
+                android:visibility="visible"
+                app:layout_constraintEnd_toStartOf="@id/rating_linear"
+                android:layout_marginBottom="@dimen/margin_size_1"
+                app:layout_constraintBottom_toTopOf="@id/category_bottom_view_bg"
                 app:layout_constraintStart_toEndOf="@id/cv_category_image"
                 app:layout_constraintTop_toTopOf="@id/cv_category_image">
 
                 <com.google.android.material.textview.MaterialTextView
+                    style="@style/text_style_text_color_16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/jost_regular"
                     android:singleLine="true"
                     android:text="Isle of Bliss"
-                    style="@style/text_style_text_color_16"
                     android:textStyle="bold" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    style="@style/text_style_medium_grey_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/jost_regular"
                     android:text="Pune, Maharashtra"
-                    style="@style/text_style_medium_grey_14"
                     android:textStyle="normal" />
             </LinearLayout>
 
@@ -168,6 +182,7 @@
                 android:layout_height="14dp"
                 android:layout_marginHorizontal="@dimen/margin_size_5"
                 android:src="@drawable/ic_upward_double_arrow_dark_green"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/tv_category_rating"
                 app:layout_constraintEnd_toStartOf="@id/tv_category_rating"
                 app:layout_constraintTop_toTopOf="@id/tv_category_rating" />
@@ -181,60 +196,103 @@
                 android:text="5%"
                 android:textColor="@color/rating_dark_green"
                 android:textSize="@dimen/text_size_14"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/text_name_layout" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rating_linear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/iv_forward_arrow_category"
+                app:layout_constraintBottom_toTopOf="@id/iv_forward_arrow_category">
+
+                <ImageView
+                    android:id="@+id/iv_rating"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="@dimen/margin_size_13"
+                    android:src="@drawable/ic_upward_double_arrow_green"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_rating"
+                    style="@style/text_style_dark_green_color_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_size_4"
+                    android:fontFamily="@font/jost_bold"
+                    android:text="5%"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_rating"
+                    app:layout_constraintStart_toEndOf="@id/iv_rating"
+                    app:layout_constraintTop_toTopOf="@id/iv_rating" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
                 android:id="@+id/iv_forward_arrow_category"
                 android:layout_width="@dimen/margin_size_16"
                 android:layout_height="7dp"
-                android:layout_marginTop="@dimen/margin_size_7"
+                android:layout_marginBottom="@dimen/margin_size_7"
                 android:layout_marginEnd="@dimen/margin_size_12"
                 android:src="@drawable/ic_arrow_forward_black"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_category_rating" />
+                app:layout_constraintBottom_toTopOf="@id/category_bottom_view_bg" />
 
-            <View
+            <ImageView
                 android:id="@+id/category_bottom_view_bg"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/category_item_light_ash_color"
+                app:layout_constraintTop_toTopOf="@id/cl_category_bottom_view"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_category_item_info"
+                style="@style/text_style_text_color_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/margin_size_6"
                 android:layout_marginStart="@dimen/margin_size_9"
                 android:layout_marginEnd="@dimen/margin_size_6"
+                android:ellipsize="end"
                 android:fontFamily="@font/jost_light"
-                android:textAlignment="textStart"
+                android:maxLines="2"
                 android:text="Beach side lifestyle near Mumbai with luxurious amenities and affordable rates"
-                style="@style/text_style_text_color_12"
+                android:textAlignment="textStart"
                 app:layout_constraintBottom_toBottomOf="@id/category_bottom_view_bg"
                 app:layout_constraintEnd_toEndOf="@id/category_bottom_view_bg"
                 app:layout_constraintStart_toEndOf="@id/cv_category_image"
-                app:layout_constraintTop_toTopOf="@id/category_bottom_view_bg" />
+                app:layout_constraintTop_toTopOf="@id/category_bottom_view_bg"
+                app:layout_constraintVertical_bias="0.60" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
+    <ImageView
+        android:id="@+id/iv_apply_now_category"
+        android:layout_width="@dimen/margin_size_16"
+        android:layout_height="9dp"
+        android:layout_marginTop="@dimen/margin_size_12"
+        android:layout_marginEnd="@dimen/margin_size_12"
+        android:src="@drawable/ic_arrow_forward_black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cv_category_outer_card" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_apply_now_category"
+        style="@style/text_style_text_black_color_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/jost_medium"
         android:text="@string/apply_now"
-        style="@style/text_style_text_black_color_14"
-        android:drawableEnd="@drawable/ic_black_long_rightarrow"
-        android:drawablePadding="@dimen/margin_size_4"
-        android:layout_marginEnd="@dimen/margin_size_12"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cv_category_outer_card"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="@id/iv_apply_now_category"
+        app:layout_constraintEnd_toStartOf="@id/iv_apply_now_category"
+        app:layout_constraintTop_toTopOf="@id/iv_apply_now_category" />
 
     <View
         android:layout_width="match_parent"

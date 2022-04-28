@@ -14,7 +14,7 @@ class MediaGalleryFragment:BaseFragment() {
     lateinit var binding: FragmentMediaGalleryBinding
     lateinit var mediaViewPagerAdapter: MediaViewPagerAdapter
 
-    private val tabList = arrayListOf<String>("Photos","Videos","Drone Shoots")
+    private val tabList = arrayListOf<String>("Photos","Videos","Drone Shoots","360 photos")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentMediaGalleryBinding.inflate(layoutInflater)

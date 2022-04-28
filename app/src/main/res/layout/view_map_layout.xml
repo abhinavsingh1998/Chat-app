@@ -4,28 +4,16 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_view_map_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_size_28"
-        android:fontFamily="@font/jost_regular"
-        android:text="@string/view_on_map"
-        android:layout_marginHorizontal="@dimen/margin_size_13"
-        android:textColor="@color/text_light_black_color"
-        android:textSize="@dimen/text_size_16"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
     <ImageView
         android:id="@+id/project_detail_map"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/margin_size_180"
-        android:layout_marginHorizontal="@dimen/margin_size_13"
-        android:layout_marginTop="@dimen/margin_size_16"
-        android:src="@drawable/project_detail_price_bg"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:layout_marginHorizontal="@dimen/margin_size_15"
+        android:layout_marginTop="@dimen/margin_size_28"
+        android:src="@drawable/group_13_copy_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_view_map_title" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

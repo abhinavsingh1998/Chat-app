@@ -14,26 +14,40 @@ class OpportunityDocsAdapter(private val context: Context, private val itemList:
         const val OPP_DOCS_VIEW_TYPE_TWO = 2
         const val OPP_DOCS_VIEW_TYPE_THREE = 3
         const val OPP_DOCS_VIEW_TYPE_FOUR = 4
+        const val OPP_DOCS_VIEW_TYPE_FIVE = 5
+        const val OPP_DOCS_VIEW_TYPE_SIX = 6
+        const val OPP_DOCS_VIEW_TYPE_SEVEN = 7
+        const val OPP_DOCS_VIEW_TYPE_EIGHT = 8
     }
 
     private lateinit var keyAttractionsAdapter: KeyAttractionsAdapter
     private lateinit var destinationAdapter: DestinationAdapter
+    private lateinit var currentInfraStoryAdapter: CurrentInfraStoryAdapter
+    private lateinit var upcomingInfraStoryAdapter: UpcomingInfraStoryAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
                 OPP_DOCS_VIEW_TYPE_ONE -> OppDocsTopViewHolder(OppDocsTopLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
-                OPP_DOCS_VIEW_TYPE_TWO -> OppDocsDestinationViewHolder(OppDocsDestinationLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
-                OPP_DOCS_VIEW_TYPE_THREE -> OppDocsExpGrowthViewHolder(OppDocExpectedGrowthLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
-                else -> OppDocsKeyAttractionsViewHolder(OppDocKeyAttractionsLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+                OPP_DOCS_VIEW_TYPE_TWO -> OppDocsExpGrowthViewHolder(OppDocExpectedGrowthLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+                OPP_DOCS_VIEW_TYPE_THREE -> CurrentInfraStoryViewHolder(CurrentInfraStoryLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+                OPP_DOCS_VIEW_TYPE_FOUR -> UpcomingInfraStoryViewHolder(UpcomingInfraStoryLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+                OPP_DOCS_VIEW_TYPE_FIVE -> OppDocsTourismViewHolder(OppDocsDestinationLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+                OPP_DOCS_VIEW_TYPE_SIX -> AboutProjectViewHolder(AboutProjectLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+                OPP_DOCS_VIEW_TYPE_SEVEN -> ProjectAmenitiesViewHolder(ProjectAmenitiesLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+                else -> ApplyViewHolder(ApplyLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(itemList[position].viewType) {
             OPP_DOCS_VIEW_TYPE_ONE -> (holder as OppDocsTopViewHolder).bind(position)
-            OPP_DOCS_VIEW_TYPE_TWO -> (holder as OppDocsDestinationViewHolder).bind(position)
-            OPP_DOCS_VIEW_TYPE_THREE -> (holder as OppDocsExpGrowthViewHolder).bind(position)
-            OPP_DOCS_VIEW_TYPE_FOUR -> (holder as OppDocsKeyAttractionsViewHolder).bind(position)
+            OPP_DOCS_VIEW_TYPE_TWO -> (holder as OppDocsExpGrowthViewHolder).bind(position)
+            OPP_DOCS_VIEW_TYPE_THREE -> (holder as CurrentInfraStoryViewHolder).bind(position)
+            OPP_DOCS_VIEW_TYPE_FOUR -> (holder as UpcomingInfraStoryViewHolder).bind(position)
+            OPP_DOCS_VIEW_TYPE_FIVE -> (holder as OppDocsTourismViewHolder).bind(position)
+            OPP_DOCS_VIEW_TYPE_SIX -> (holder as AboutProjectViewHolder).bind(position)
+            OPP_DOCS_VIEW_TYPE_SEVEN -> (holder as ProjectAmenitiesViewHolder).bind(position)
+            OPP_DOCS_VIEW_TYPE_EIGHT -> (holder as ApplyViewHolder).bind(position)
         }
     }
 
@@ -44,7 +58,29 @@ class OpportunityDocsAdapter(private val context: Context, private val itemList:
         }
     }
 
-    private inner class OppDocsDestinationViewHolder(private val binding: OppDocsDestinationLayoutBinding):RecyclerView.ViewHolder(binding.root){
+    private inner class OppDocsExpGrowthViewHolder(private val binding: OppDocExpectedGrowthLayoutBinding):RecyclerView.ViewHolder(binding.root){
+        fun bind(position: Int){
+
+        }
+    }
+
+    private inner class CurrentInfraStoryViewHolder(private val binding: CurrentInfraStoryLayoutBinding):RecyclerView.ViewHolder(binding.root){
+        fun bind(position: Int){
+            val list = arrayListOf<String>("1","2","3","4","5")
+            currentInfraStoryAdapter = CurrentInfraStoryAdapter(context,list)
+            binding.rvCurrentInfraRecycler.adapter = currentInfraStoryAdapter
+        }
+    }
+
+    private inner class UpcomingInfraStoryViewHolder(private val binding: UpcomingInfraStoryLayoutBinding):RecyclerView.ViewHolder(binding.root){
+        fun bind(position: Int){
+            val list = arrayListOf<String>("1","2","3","4","5")
+            upcomingInfraStoryAdapter = UpcomingInfraStoryAdapter(context,list)
+            binding.rvUpcomingInfraRecycler.adapter = upcomingInfraStoryAdapter
+        }
+    }
+
+    private inner class OppDocsTourismViewHolder(private val binding: OppDocsDestinationLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             val list = arrayListOf<String>("1","2","3","4","5","6")
             destinationAdapter = DestinationAdapter(list)
@@ -52,7 +88,19 @@ class OpportunityDocsAdapter(private val context: Context, private val itemList:
         }
     }
 
-    private inner class OppDocsExpGrowthViewHolder(private val binding: OppDocExpectedGrowthLayoutBinding):RecyclerView.ViewHolder(binding.root){
+    private inner class AboutProjectViewHolder(private val binding: AboutProjectLayoutBinding):RecyclerView.ViewHolder(binding.root){
+        fun bind(position: Int){
+
+        }
+    }
+
+    private inner class ProjectAmenitiesViewHolder(private val binding: ProjectAmenitiesLayoutBinding):RecyclerView.ViewHolder(binding.root){
+        fun bind(position: Int){
+
+        }
+    }
+
+    private inner class ApplyViewHolder(private val binding: ApplyLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
 
         }

@@ -12,7 +12,7 @@ class MediaViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecyc
     :FragmentStateAdapter(fragmentManager,lifecycle) {
 
     companion object {
-        const val NUM_TABS = 3
+        const val NUM_TABS = 4
     }
 
     override fun getItemCount(): Int {
@@ -23,7 +23,8 @@ class MediaViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecyc
         return when(position){
             0 -> PhotosFragment()
             1 -> VideosFragment()
-            else -> DroneFragment()
+            2 -> VideosFragment()
+            else -> VideosFragment()
         }
     }
 

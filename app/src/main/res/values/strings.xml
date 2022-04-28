@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">HOABL app</string>
     <string name="hoabl">HOABL</string>
@@ -175,7 +174,7 @@
     <string name="similar_investments">Similar Investments</string>
     <string name="view_on_map">View on Map</string>
     <string name="price_text_draft"> 20L\nOnwards</string>
-    <string name="area_text_draft">2000sqft\nOnwards</string>
+    <string name="area_text_draft">2000 sqft Onwards</string>
     <string name="price_text">Price</string>
     <string name="payment_history" />
     <string name="need_input_discussion">Need input/discussion</string>
@@ -259,6 +258,9 @@
     <string name="view">View</string>
     <string name="securityandsetting">Security &amp; Settings</string>
     <string name="privacypolicy">Privacy Policy</string>
+    <string name="applied">Applied</string>
+    <string name="current_infra_story">Current Infra story</string>
+    <string name="about_the_project">About the Project</string>
     <string name="payment_pending">Payment is due on 29th April, 2022</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
