@@ -70,6 +70,14 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             }
         })
 
+        activityHomeActivity.searchLayout.headset.setOnClickListener(object :
+            View.OnClickListener {  
+            override fun onClick(p0: View?) {
+                Toast.makeText(applicationContext, "Chat bot", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+
     }
 
     fun getCurrentFragment(): Fragment? {

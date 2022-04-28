@@ -20,9 +20,9 @@ class LatestUpdatesFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
-        fragmentLatestUpdatesBinding= FragmentLatestUpdatesBinding.inflate(layoutInflater)
+        fragmentLatestUpdatesBinding = FragmentLatestUpdatesBinding.inflate(layoutInflater)
         initView()
         initClickListener()
 
@@ -36,10 +36,11 @@ class LatestUpdatesFragment : BaseFragment() {
         list.add("22L-2.5 Cr")
         list.add("22L-2.5 Cr")
         list.add("22L-2.5 Cr")
-        latestUpdateAdapter= LatestUpdateAdapter(requireActivity(),list)
-        gridLayoutManager= GridLayoutManager(requireContext(),2,LinearLayoutManager.VERTICAL,false)
-        fragmentLatestUpdatesBinding.recyclerLatestUpdates.layoutManager=gridLayoutManager
-        fragmentLatestUpdatesBinding.recyclerLatestUpdates.adapter=latestUpdateAdapter
+        latestUpdateAdapter = LatestUpdateAdapter(requireActivity(), list)
+        gridLayoutManager =
+            GridLayoutManager(requireContext(), 2, LinearLayoutManager.VERTICAL, false)
+        fragmentLatestUpdatesBinding.recyclerLatestUpdates.layoutManager = gridLayoutManager
+        fragmentLatestUpdatesBinding.recyclerLatestUpdates.adapter = latestUpdateAdapter
     }
 
     private fun initClickListener() {

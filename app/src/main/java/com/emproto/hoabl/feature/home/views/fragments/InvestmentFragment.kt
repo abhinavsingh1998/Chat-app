@@ -1,4 +1,3 @@
-
 package com.emproto.hoabl.feature.home.views.fragments
 
 import android.content.Intent
@@ -17,7 +16,8 @@ import com.emproto.hoabl.model.ViewItem
 
 class InvestMentFragment : BaseFragment() {
     private lateinit var listViews: ArrayList<ViewItem>
-   // private lateinit var adapter: ImageviewPagerAdapter
+
+    // private lateinit var adapter: ImageviewPagerAdapter
     private lateinit var investmentAdapter: InvestmentAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
     private var currentIndex: Int = 0
@@ -43,26 +43,26 @@ class InvestMentFragment : BaseFragment() {
         listViews.add(ViewItem(4, R.drawable.ic_bookmark))
         listViews.add(ViewItem(5, R.drawable.ic_arrow_drop))
 
-       /* adapter = ImageviewPagerAdapter(requireActivity(), listViews)
-        binding.viewPager.adapter = adapter
-        addPageIndicators()
-        binding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
+        /* adapter = ImageviewPagerAdapter(requireActivity(), listViews)
+         binding.viewPager.adapter = adapter
+         addPageIndicators()
+         binding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+             override fun onPageScrollStateChanged(state: Int) {
 
-            }
+             }
 
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int,
-            ) {
+             override fun onPageScrolled(
+                 position: Int,
+                 positionOffset: Float,
+                 positionOffsetPixels: Int,
+             ) {
 
-            }
+             }
 
-            override fun onPageSelected(position: Int) {
-                updatePageIndicator(position)
-            }
-        })*/
+             override fun onPageSelected(position: Int) {
+                 updatePageIndicator(position)
+             }
+         })*/
 
         val list: ArrayList<String> = ArrayList()
         list.add("22L-2.5 Cr")

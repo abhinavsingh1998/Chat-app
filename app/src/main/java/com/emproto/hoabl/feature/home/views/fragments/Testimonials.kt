@@ -11,7 +11,7 @@ import com.emproto.hoabl.databinding.FragmentTestimonialsBinding
 class Testimonials : BaseFragment() {
 
 
-    private lateinit var binding:FragmentTestimonialsBinding
+    private lateinit var binding: FragmentTestimonialsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,

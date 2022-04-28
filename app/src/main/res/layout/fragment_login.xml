@@ -99,6 +99,7 @@
             android:layout_marginTop="@dimen/margin_size_10"
             android:layout_marginEnd="28dp"
             android:text="@string/mobile_no_error"
+            android:textAlignment="center"
             android:textColor="@color/error_color"
             android:visibility="gone"
             app:fontName="@string/jost_regular"
@@ -120,7 +121,7 @@
                 android:id="@+id/switch_whatspp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="false"
+                android:checked="true"
                 android:thumb="@drawable/custom_thumb"
                 app:track="@drawable/custom_track" />
 
@@ -167,6 +168,7 @@
             android:layout_marginTop="@dimen/margin_size_20"
             android:layout_marginEnd="@dimen/margin_size_28"
             android:text="@string/login_terms_text"
+            android:textAlignment="center"
             app:fontName="@string/jost_regular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -147,7 +147,7 @@ class LoginFragment : BaseFragment() {
             authViewModel.getOtp(otpRequest).observe(viewLifecycleOwner, Observer {
                 when (it.status) {
                     Status.SUCCESS -> {
-                        (requireActivity() as AuthActivity).addFragment(
+                        (requireActivity() as AuthActivity).replaceFragment(
                             OTPVerificationFragment.newInstance(
                                 hMobileNo, "+91"
                             ), true

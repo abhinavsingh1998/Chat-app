@@ -64,7 +64,7 @@ class HoabelPromiseAdapter(
                 header_holder.binding.tvTitle.text =
                     dataList[holder.layoutPosition].headerData!!.sectionName
                 header_holder.binding.tvDescription.text =
-                    dataList[holder.layoutPosition].headerData!!.shortDescription
+                    dataList[holder.layoutPosition].headerData!!.subDescription
             }
             TYPE_LIST -> {
                 val listHolder = holder as HoablPromiseViewHolder
