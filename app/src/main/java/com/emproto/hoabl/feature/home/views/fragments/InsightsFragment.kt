@@ -18,9 +18,9 @@ class InsightsFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
-        fragmentInsightsBinding= FragmentInsightsBinding.inflate(layoutInflater)
+        fragmentInsightsBinding = FragmentInsightsBinding.inflate(layoutInflater)
         initView()
         initClickListener()
         return fragmentInsightsBinding.root
@@ -33,13 +33,13 @@ class InsightsFragment : BaseFragment() {
         list.add("22L-2.5 Cr")
         list.add("22L-2.5 Cr")
         list.add("22L-2.5 Cr")
-        insightsAdapter= InsightsAdapter(requireActivity(),list)
-        gridLayoutManager= GridLayoutManager(requireContext(),2,)
-        fragmentInsightsBinding.recyclerInsights.layoutManager=gridLayoutManager
-        fragmentInsightsBinding.recyclerInsights.adapter=insightsAdapter
+        insightsAdapter = InsightsAdapter(requireActivity(), list)
+        gridLayoutManager = GridLayoutManager(requireContext(), 2)
+        fragmentInsightsBinding.recyclerInsights.layoutManager = gridLayoutManager
+        fragmentInsightsBinding.recyclerInsights.adapter = insightsAdapter
     }
 
-    private fun initClickListener(){
+    private fun initClickListener() {
 
     }
 }

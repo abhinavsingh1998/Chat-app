@@ -15,9 +15,9 @@ import com.emproto.hoabl.databinding.FragmentInsightsUpdatesBinding
 
 class InsightsAndUpdatesFragment : BaseFragment() {
 
-    lateinit var fragmentInsightsUpdatesBinding: FragmentInsightsUpdatesBinding
+    private lateinit var fragmentInsightsUpdatesBinding: FragmentInsightsUpdatesBinding
 
-    companion object{
+    companion object {
         fun newInstance(): InsightsAndUpdatesFragment {
             val fragment = InsightsAndUpdatesFragment()
             /*val bundle = Bundle()
@@ -29,10 +29,11 @@ class InsightsAndUpdatesFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
-        fragmentInsightsUpdatesBinding= FragmentInsightsUpdatesBinding.inflate(layoutInflater)
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility=View.GONE
+        fragmentInsightsUpdatesBinding = FragmentInsightsUpdatesBinding.inflate(layoutInflater)
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
+            View.GONE
         initView()
         initClickListener()
         return fragmentInsightsUpdatesBinding.root

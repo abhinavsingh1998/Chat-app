@@ -43,6 +43,7 @@ class AuthActivity : BaseActivity() {
         setContentView(activityAuthBinding.root)
 
         initView()
+        close_sheet()
         initClickListener()
     }
 
@@ -58,7 +59,6 @@ class AuthActivity : BaseActivity() {
 
         //for signinissue
         bottomSheetDialog = BottomSheetDialog(this)
-        bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         signingInIssueBiding = FragmentSigninIssueBinding.inflate(layoutInflater)
         bottomSheetDialog.setContentView(signingInIssueBiding.root)
     }
@@ -267,5 +267,11 @@ class AuthActivity : BaseActivity() {
                 " "
             }
         }
+    }
+
+    private fun close_sheet(){
+        signingInIssueBiding.sheetCloseBtn.setOnClickListener(View.OnClickListener {
+            bottomSheetDialog.dismiss()
+        })
     }
 }

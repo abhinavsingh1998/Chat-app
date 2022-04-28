@@ -9,6 +9,7 @@ import com.emproto.networklayer.feature.HomeDataSource
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.login.OtpResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import kotlinx.coroutines.CoroutineScope
@@ -33,6 +34,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
     fun getPromises(pageType: Int): LiveData<BaseResponse<PromisesResponse>> {
         val mPromisesResponse = MutableLiveData<BaseResponse<PromisesResponse>>()
         mPromisesResponse.postValue(BaseResponse.loading())
+
         coroutineScope.launch {
             try {
                 val request = HomeDataSource(application).getPromisesData(pageType)
@@ -55,5 +57,41 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
             }
         }
         return mPromisesResponse
+    }
+
+
+    /**
+     * Get all homeData
+     *
+     * @param pageType for promises it #5001
+     * @return
+     */
+    fun getHome(pageType: Int): LiveData<BaseResponse<HomeResponse>>{
+
+        val mHomeResponse = MutableLiveData<BaseResponse<HomeResponse>>()
+        mHomeResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = HomeDataSource(application).getHomeData(pageType)
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mHomeResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mHomeResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mHomeResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mHomeResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mHomeResponse
+
     }
 }
