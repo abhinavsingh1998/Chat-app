@@ -24,7 +24,7 @@ class ProjectDetailFragment:BaseFragment() {
     val onItemClickListener =
         View.OnClickListener { view ->
             when (view.id) {
-                R.id.tv_opportunity_doc ->{
+                R.id.iv_why_invest ->{
                     val opportunityDocsFragment = OpportunityDocsFragment()
                     (requireActivity() as HomeActivity).replaceFragment(opportunityDocsFragment.javaClass, "", true, null, null, 0, false)
                 }
@@ -37,9 +37,9 @@ class ProjectDetailFragment:BaseFragment() {
                     (requireActivity() as HomeActivity).replaceFragment(mediaGalleryFragment.javaClass,"",true,null,null,0,false)
                 }
                 R.id.tv_project_amenities_all -> {
-                    val docsBottomSheet = BottomSheetDialog(this.requireContext())
+                    val docsBottomSheet = BottomSheetDialog(this.requireContext(),R.style.BottomSheetDialogTheme)
                     docsBottomSheet.setContentView(R.layout.project_amenities_dialog_layout)
-                    val list = arrayListOf<String>("1","2","3","4","1","2","3","4","1","2","3","4","1","2","3","4")
+                    val list = arrayListOf<String>("1","2","3","4","1","2","3","4","1","2","3","4","1","2","3","4","1","2","3","4","1","2","3","4","1","2","3","4","1","2","3","4")
                     val adapter = ProjectAmenitiesAdapter(this.requireContext(),list)
                     docsBottomSheet.findViewById<RecyclerView>(R.id.rv_project_amenities_item_recycler)?.adapter = adapter
                     docsBottomSheet.findViewById<ImageView>(R.id.iv_project_amenities_close)?.setOnClickListener {

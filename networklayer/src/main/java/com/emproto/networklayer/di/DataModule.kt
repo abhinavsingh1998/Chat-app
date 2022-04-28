@@ -45,7 +45,7 @@ class DataModule(private val application: Application) {
             addInterceptor(
                 Interceptor { chain ->
                     val request: Request = chain.request().newBuilder()
-                        .addHeader("jwt", getAppPreference().getToken()).build()
+                        .addHeader("jwt", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoyLCJlbWFpbCI6ImtvdXNoaWtAZW1wcm90by5jb20iLCJsYXRlc3RBZG1pbkxvZ0lkIjo5LCJtb2R1bGVzIjpbbnVsbF0sImlzc3VlZEF0IjoxNjUwNDUyMTcyMzkwLCJleHBpcmVkQXQiOjE2NTEwNTY5NzIzOTB9LCJpYXQiOjE2NTA0NTIxNzIsImV4cCI6MTY1MzA0NDE3Mn0.kV40MsoLC3bkdJf9wHtYYqHhhQtGW7h-6pGYwpn5Ca4").build()
                     chain.proceed(request)
                 }).addInterceptor(loggingInterceptor).build()
 

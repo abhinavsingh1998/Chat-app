@@ -274,4 +274,6 @@
     <string name="securityandsetting">Security &amp; Settings</string>
     <string name="privacypolicy">Privacy Policy</string>
     <string name="applied">Applied</string>
+    <string name="current_infra_story">Current Infra story</string>
+    <string name="about_the_project">About the Project</string>
 </resources>

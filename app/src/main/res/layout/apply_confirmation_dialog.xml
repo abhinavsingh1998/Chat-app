@@ -15,7 +15,7 @@
             android:id="@+id/tv_dialog_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_size_19"
+            android:layout_marginHorizontal="@dimen/margin_size_30"
             android:layout_marginTop="@dimen/margin_size_25"
             android:fontFamily="@font/jost_medium"
             android:text="Are you sure you want to apply for this SKU?"

@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cl_land_skus_applied"
-    android:background="@color/white"
+    android:background="@color/text_blue_color"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@drawable/bottom_corner_radius_bg">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_land_skus_items_applied"

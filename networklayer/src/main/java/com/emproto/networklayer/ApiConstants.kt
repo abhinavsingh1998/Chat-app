@@ -11,5 +11,6 @@ object ApiConstants {
     const val TROUBLE_SIGNING = "hoabl-customer/case/sign-in"
 
     const val PROMISES = "hoabl-admin/get-page"
+    const val INVESTMENT = "hoabl-admin/get-page"
 
 }
