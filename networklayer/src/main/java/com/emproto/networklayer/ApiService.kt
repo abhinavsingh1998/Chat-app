@@ -4,6 +4,8 @@ import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
+import com.emproto.networklayer.response.investment.Data
+import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.login.AddNameResponse
 import com.emproto.networklayer.response.login.OtpResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
@@ -34,5 +36,11 @@ public interface ApiService {
 
     @GET(ApiConstants.PROMISES)
     suspend fun getPromises(@Query("pageType") pageType: Int): Response<PromisesResponse>
+
+    @GET(ApiConstants.INVESTMENT)
+    suspend fun getInvestments(@Query("pageType") pageType: Int): Response<Data>
+
+    @GET(ApiConstants.HOME)
+    suspend fun getHome(@Query("pageType") pageType: Int): Response<HomeResponse>
 
 }

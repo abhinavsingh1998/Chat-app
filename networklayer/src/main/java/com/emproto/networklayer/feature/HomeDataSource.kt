@@ -10,6 +10,7 @@ import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
+import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.login.AddNameResponse
 import com.emproto.networklayer.response.login.OtpResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
@@ -34,10 +35,17 @@ public class HomeDataSource(val application: Application) {
         dataComponent.inject(this)
     }
 
+    // home modules apis
+    suspend fun getHomeData(pageType: Int): Response<HomeResponse>{
+        return apiService.getHome(pageType)
+    }
+
     //promises modules apis
     suspend fun getPromisesData(pageType: Int): Response<PromisesResponse> {
         return apiService.getPromises(pageType)
     }
+
+
 
 
 }

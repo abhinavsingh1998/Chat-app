@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/margin_size_8"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.textview.MaterialTextView
@@ -10,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_size_13"
         android:layout_marginTop="@dimen/margin_size_28"
-        android:fontFamily="@font/jost_regular"
+        android:fontFamily="@font/jost_medium"
         android:text="@string/project_amenities"
         android:textColor="@color/text_light_black_color"
         android:textSize="@dimen/text_size_16"
@@ -43,7 +44,7 @@
         android:id="@+id/cv_pa_first_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_size_14"
+        android:layout_marginTop="@dimen/margin_size_16"
         android:elevation="@dimen/_3sdp"
         app:cardCornerRadius="@dimen/margin_size_8"
         app:layout_constraintEnd_toStartOf="@id/cv_pa_second_card"
@@ -134,15 +135,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_size_14"
+        android:layout_marginBottom="@dimen/margin_size_10"
         android:elevation="@dimen/_3sdp"
         app:cardCornerRadius="@dimen/margin_size_8"
         app:layout_constraintEnd_toStartOf="@id/cv_pa_four_card"
         app:layout_constraintStart_toStartOf="@id/tv_project_amenities_title"
-        app:layout_constraintTop_toBottomOf="@id/cv_pa_first_card">
+        app:layout_constraintTop_toBottomOf="@id/cv_pa_first_card"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <ImageView
                 android:id="@+id/iv_pa_third_image"
@@ -219,26 +223,26 @@
 
     </androidx.cardview.widget.CardView>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_project_amenities_see_map"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_size_20"
-        android:fontFamily="@font/jost_medium"
-        android:text="See on map"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_size_14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cv_pa_four_card" />
+<!--    <com.google.android.material.textview.MaterialTextView-->
+<!--        android:id="@+id/tv_project_amenities_see_map"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="@dimen/margin_size_20"-->
+<!--        android:fontFamily="@font/jost_medium"-->
+<!--        android:text="See on map"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="@dimen/text_size_14"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/cv_pa_four_card" />-->
 
-    <ImageView
-        android:id="@+id/iv_project_amenities_see_map_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_size_5"
-        android:src="@drawable/location_image_red"
-        app:layout_constraintBottom_toBottomOf="@id/tv_project_amenities_see_map"
-        app:layout_constraintEnd_toStartOf="@id/tv_project_amenities_see_map"
-        app:layout_constraintTop_toTopOf="@id/tv_project_amenities_see_map" />
+<!--    <ImageView-->
+<!--        android:id="@+id/iv_project_amenities_see_map_image"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="@dimen/margin_size_5"-->
+<!--        android:src="@drawable/location_image_red"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/tv_project_amenities_see_map"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/tv_project_amenities_see_map"-->
+<!--        app:layout_constraintTop_toTopOf="@id/tv_project_amenities_see_map" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

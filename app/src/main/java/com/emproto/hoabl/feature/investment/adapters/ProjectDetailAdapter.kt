@@ -112,7 +112,7 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<R
             TabLayoutMediator(binding.tabDotLayout,binding.projectDetailViewPager){ _, _ ->
             }.attach()
             itemView.tag = this
-            binding.tvOpportunityDoc.setOnClickListener(onItemClickListener)
+            binding.ivWhyInvest.setOnClickListener(onItemClickListener)
         }
     }
 
@@ -165,6 +165,7 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<R
 
     private inner class ProjectAmenitiesViewHolder(private val binding: ProjectAmenitiesLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
+            binding.tvProjectAmenitiesAll.setOnClickListener(onItemClickListener)
         }
     }
 

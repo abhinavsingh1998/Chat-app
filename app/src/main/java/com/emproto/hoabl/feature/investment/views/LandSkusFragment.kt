@@ -21,7 +21,7 @@ class LandSkusFragment:BaseFragment() {
     val onLandSkusItemClickListener =
         View.OnClickListener { view ->
             when (view.id) {
-                R.id.tv_item_land_skus_apply_now -> {
+                R.id.btn_apply_now -> {
                     val confirmationDialog = ConfirmationDialog()
                     confirmationDialog.show(this.parentFragmentManager,"ConfirmationDialog")
                 }
@@ -47,7 +47,7 @@ class LandSkusFragment:BaseFragment() {
         val list = ArrayList<RecyclerViewItem>()
         list.add(RecyclerViewItem(1))
         list.add(RecyclerViewItem(2))
-        list.add(RecyclerViewItem(3))
+//        list.add(RecyclerViewItem(3))
 
         landSkusAdapter = LandSkusAdapter(this,list)
         binding.rvLandSkus.adapter = landSkusAdapter

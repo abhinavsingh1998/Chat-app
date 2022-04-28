@@ -92,4 +92,6 @@
     <color name="portfolio_info_text">#262312</color>
     <color name="brown_dashed_line_color">#8b8773</color>
     <color name="share_ash_bg_color">#ccc</color>
+    <color name="infra_story_bg">#5b000000</color>
+    <color name="story_black_color">#17171c</color>
 </resources>

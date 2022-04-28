@@ -5,6 +5,7 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.PromisesViewBinding
 import com.emproto.hoabl.feature.promises.data.DataModel
@@ -31,6 +32,10 @@ class PromisesListAdapter(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.binding.image.setImageResource(R.drawable.securitylock)
         }
+        Glide.with(context)
+            .load(item.promiseMedia.value.url)
+            .into(holder.binding.image)
+
         //holder.binding.arrowImage.setImageResource(item.arrowImage)
         holder.binding.itemCard.setOnClickListener {
             itemInterface.onClickItem(holder.adapterPosition)

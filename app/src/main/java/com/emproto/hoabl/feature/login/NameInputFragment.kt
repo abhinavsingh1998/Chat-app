@@ -81,6 +81,7 @@ class NameInputFragment : BaseFragment() {
         if (lastName.isNotEmpty()) {
             binding.secondName.setText(lastName)
         }
+
         binding.firstName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 

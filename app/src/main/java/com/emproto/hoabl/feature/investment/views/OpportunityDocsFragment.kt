@@ -36,6 +36,10 @@ class OpportunityDocsFragment:BaseFragment() {
         list.add(RecyclerViewItem(2))
         list.add(RecyclerViewItem(3))
         list.add(RecyclerViewItem(4))
+        list.add(RecyclerViewItem(5))
+        list.add(RecyclerViewItem(6))
+        list.add(RecyclerViewItem(7))
+        list.add(RecyclerViewItem(8))
 
         opportunityDocsAdapter = OpportunityDocsAdapter(this.requireContext(),list)
         binding.rvOppDocs.adapter = opportunityDocsAdapter

@@ -5,53 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <View
-        android:id="@+id/view_left_line"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="@color/opp_doc_ash_line"
-        app:layout_constraintBottom_toBottomOf="@id/tv_opp_doc_destination_title"
-        app:layout_constraintEnd_toStartOf="@id/tv_opp_doc_destination_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_opp_doc_destination_title" />
-
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_opp_doc_destination_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_size_14"
-        android:fontFamily="@font/shelldon"
-        android:text="Dapoli"
-        android:textAlignment="center"
-        android:textColor="@color/text_blue_color"
-        android:textSize="@dimen/text_size_39"
-        app:layout_constraintEnd_toStartOf="@id/view_right_line"
-        app:layout_constraintStart_toEndOf="@id/view_left_line"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/view_right_line"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="@color/opp_doc_ash_line"
-        app:layout_constraintBottom_toBottomOf="@id/tv_opp_doc_destination_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_opp_doc_destination_title"
-        app:layout_constraintTop_toTopOf="@id/tv_opp_doc_destination_title" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_destination_theme"
+        android:id="@+id/tv_tourism_around"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_size_13"
-        android:fontFamily="@font/jost_light"
-        android:text="the Investment destination of the Decade"
-        android:textAlignment="center"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/text_size_14"
+        android:layout_marginHorizontal="@dimen/margin_size_12"
+        android:fontFamily="@font/jost_medium"
+        android:layout_marginTop="@dimen/margin_size_30"
+        android:text="Tourism around"
+        android:textAlignment="textStart"
+        style="@style/text_style_text_light_black_color_16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_opp_doc_destination_title" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_destination"
@@ -63,9 +29,22 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_destination_theme"
+        app:layout_constraintTop_toBottomOf="@id/tv_tourism_around"
         tools:itemCount="5"
         tools:listitem="@layout/item_opp_doc_destination" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_view_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_destination"
+        android:text="@string/view_more"
+        android:textAllCaps="true"
+        android:layout_marginTop="@dimen/margin_size_14"
+        android:layout_marginEnd="@dimen/margin_size_12"
+        style="@style/text_style_blue_14"
+        android:drawableEnd="@drawable/ic_drop_down"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -78,6 +78,14 @@ class HoabelPromises : BaseFragment() {
                                 promisesData.hoablPagesOrPromises
                             )
                         )
+                        list.add(
+                            PromisesData(
+                                HoabelPromiseAdapter.TYPE_DISCLAIMER,
+                                "",
+                                promisesData.promiseSection,
+                                emptyList()
+                            )
+                        )
 
                         binding.listPromises.layoutManager = LinearLayoutManager(requireActivity())
                         binding.listPromises.adapter = HoabelPromiseAdapter(

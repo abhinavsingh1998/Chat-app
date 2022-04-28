@@ -10,6 +10,9 @@ object ApiConstants {
     const val SET_NAME = "hoabl-customer/set_name"
     const val TROUBLE_SIGNING = "hoabl-customer/case/sign-in"
 
+    const val HOME = "hoabl-admin/get-page"
     const val PROMISES = "hoabl-admin/get-page"
+    const val INVESTMENT = "hoabl-admin/get-page"
+
 
 }

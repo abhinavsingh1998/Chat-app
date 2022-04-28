@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.hoabl.databinding.ItemDocumentsBinding
 import com.emproto.hoabl.databinding.ItemInsightsBinding
 import com.emproto.hoabl.databinding.ItemProjectsUpdatesBinding
 import com.emproto.hoabl.databinding.ItemTestimonialsBinding
@@ -20,6 +21,9 @@ class TestimonialAdapter(context: Context, list: List<String>) : RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+
+        var items= list[position]
+        holder.binding.tvName.text= items
 
     }
 

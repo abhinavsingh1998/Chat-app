@@ -58,7 +58,8 @@ class OTPVerificationFragment : BaseFragment() {
                 if (s?.length == 6) {
                     if (isNetworkAvailable(mBinding.root)) {
                         mBinding.layout1.alpha = 1.0F
-                        (requireActivity() as AuthActivity).replaceFragment(NameInputFragment(), true)
+                        (requireActivity() as AuthActivity).replaceFragment(NameInputFragment(),
+                            true)
                     } else {
                         mBinding.layout1.setBackgroundColor(resources.getColor(R.color.background_grey))
                         mBinding.layout1.alpha = 0.8F
@@ -68,7 +69,8 @@ class OTPVerificationFragment : BaseFragment() {
             }
 
         })
-    }}
+    }
+}
 
 
 

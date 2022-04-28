@@ -15,5 +15,6 @@ data class HoablPagesOrPromise(
     val status: String,
     val tAndCUrlLink: String,
     val updatedAt: String,
-    val updatedBy: Any
+    val updatedBy: Any,
+    val promiseMedia:PromisesMedia
 )

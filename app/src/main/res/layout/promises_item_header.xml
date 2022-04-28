@@ -8,23 +8,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="0dp"
-        android:layout_height="@dimen/margin_size_160"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
+        android:background="@drawable/curve"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/bg_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/curve"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView5"
@@ -34,8 +25,8 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:text="@string/just_invest_we_have_your_back"
-            app:layout_constraintStart_toStartOf="@+id/bg_image"
-            app:layout_constraintTop_toTopOf="@+id/bg_image" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView8"
@@ -45,11 +36,14 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"
             android:gravity="left"
             android:text="@string/buy_maintain_and_liquidate_land_with_amazing_ease_con_dence_and_trust"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/iv_handshake"
-            app:layout_constraintStart_toStartOf="@+id/bg_image"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            app:layout_constraintVertical_bias="0.01999998" />
 
         <ImageView
             android:id="@+id/iv_handshake"
@@ -59,9 +53,9 @@
             android:layout_marginRight="@dimen/margin_size_20"
             android:layout_marginBottom="@dimen/margin_size_35"
             android:background="@drawable/image"
-            app:layout_constraintBottom_toBottomOf="@+id/bg_image"
-            app:layout_constraintEnd_toEndOf="@+id/bg_image"
-            app:layout_constraintTop_toTopOf="@+id/bg_image" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

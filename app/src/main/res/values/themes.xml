@@ -325,6 +325,13 @@
         <item name="android:textColor">@color/portfolio_info_text</item>
     </style>
 
+
+    <style name="text_style_black_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/story_black_color</item>
+    </style>
+
     <style name="text_style_reg_black_color_14">
         <item name="android:gravity">start</item>
         <item name="android:textSize">@dimen/text_size_14</item>
@@ -525,6 +532,19 @@
         <item name="android:textSize">@dimen/text_size_16</item>
         <item name="android:textColor">@color/light_appcolor</item>
         <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="text_style_text_light_black_color_16">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/text_light_black_color</item>
+    </style>
+
+    <style name="text_style_thick_blue_16">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/thick_blue</item>
+        <item name="singleLine">true</item>
     </style>
 
     <style name="text_style_daiog_text_color_16">
@@ -732,7 +752,14 @@
 
     <style name="text_style_blue_32">
         <item name="android:gravity">center</item>
-        <item name="android:textSize">@dimen/text_size_32</item>
+        <item name="android:textSize">@dimen/text_size_40</item>
+        <item name="android:textColor">@color/app_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_blue_40">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_40</item>
         <item name="android:textColor">@color/app_color</item>
         <item name="singleLine">true</item>
     </style>

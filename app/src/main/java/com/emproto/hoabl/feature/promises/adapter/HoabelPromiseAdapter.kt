@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.PromisesItemDataBinding
+import com.emproto.hoabl.databinding.PromisesItemDisclaimerBinding
 import com.emproto.hoabl.databinding.PromisesItemHeaderBinding
 import com.emproto.hoabl.feature.promises.data.PromisesData
 
@@ -19,6 +20,7 @@ class HoabelPromiseAdapter(
     companion object {
         const val TYPE_HEADER = 0
         const val TYPE_LIST = 1
+        const val TYPE_DISCLAIMER = 2
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -44,15 +46,25 @@ class HoabelPromiseAdapter(
                     )
                 return HoablPromiseViewHolder(view)
             }
-            else -> {
+            TYPE_DISCLAIMER -> {
                 val view =
-                    PromisesItemDataBinding.inflate(
+                    PromisesItemDisclaimerBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
                     )
-                return HoablPromiseViewHolder(view)
+                return DisclaimerViewHolder(view)
             }
+            else -> {
+                val view =
+                    PromisesItemDisclaimerBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                return DisclaimerViewHolder(view)
+            }
+
         }
 
     }
@@ -64,13 +76,18 @@ class HoabelPromiseAdapter(
                 header_holder.binding.tvTitle.text =
                     dataList[holder.layoutPosition].headerData!!.sectionName
                 header_holder.binding.tvDescription.text =
-                    dataList[holder.layoutPosition].headerData!!.shortDescription
+                    dataList[holder.layoutPosition].headerData!!.subDescription
             }
             TYPE_LIST -> {
                 val listHolder = holder as HoablPromiseViewHolder
                 listHolder.binding.promisesItems.layoutManager = GridLayoutManager(context, 2)
                 listHolder.binding.promisesItems.adapter =
                     PromisesListAdapter(context, dataList[position].data, itemInterface)
+            }
+            TYPE_DISCLAIMER -> {
+                val disclaimerViewHolder = holder as DisclaimerViewHolder
+                disclaimerViewHolder.binding.tvGreetings.text =
+                    dataList[holder.layoutPosition].headerData!!.footerText
             }
         }
     }
@@ -82,6 +99,9 @@ class HoabelPromiseAdapter(
         RecyclerView.ViewHolder(binding.root)
 
     inner class PromisesHeaderViewHolder(var binding: PromisesItemHeaderBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    inner class DisclaimerViewHolder(var binding: PromisesItemDisclaimerBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     interface PromisedItemInterface {

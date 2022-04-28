@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/dialog_curve_bg"
+    tools:context=".feature.home.views.fragments.ReferralDialog">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/share_joy_txt"
+                style="@style/text_style_blue_32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/share_joy"
+                android:fontFamily="@font/seaside"
+                android:layout_marginTop="@dimen/margin_size_28"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <ImageView
+                android:id="@+id/share_joy_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/referral_card"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginHorizontal="@dimen/margin_size_80"
+                android:layout_marginTop="@dimen/margin_size_98"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/close"
+                android:layout_marginTop="@dimen/margin_size_12"
+                android:layout_marginRight="@dimen/margin_size_12"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/name_input_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_46"
+                android:layout_marginHorizontal="@dimen/margin_size_18"
+                android:hint="Name"
+                app:boxStrokeColor="@color/app_color"
+                app:boxStrokeWidthFocused="0.7dp"
+                app:hintEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/share_joy_img"
+                app:placeholderText="@string/type_here">
+
+                <EditText
+                    android:id="@+id/referral_name"
+                    style="@style/text_style_text_color_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/jost_medium"
+                    android:gravity="center|left"
+                    android:inputType="textPersonName|textCapSentences"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_color"
+                    android:textColorHint="@color/text_grey_color" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/number_input_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_21"
+                android:layout_marginHorizontal="@dimen/margin_size_18"
+                android:hint="Phone Number"
+                app:boxStrokeColor="@color/app_color"
+                app:boxStrokeWidthFocused="0.7dp"
+                app:hintEnabled="true"
+                app:prefixText="+91"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/name_input_layout"
+                app:placeholderText="@string/type_here">
+
+                <EditText
+                    android:id="@+id/referral_number"
+                    style="@style/text_style_text_color_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/jost_medium"
+                    android:gravity="center|left"
+                    android:inputType="phone|textCapSentences"
+                    android:letterSpacing="0.2"
+                    android:maxLength="10"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_color"
+                    android:textColorHint="@color/text_grey_color" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.emproto.core.textviews.CustomTextView
+                android:id="@+id/refer_btn"
+                style="@style/text_style_white_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/unselect_button_bg"
+                android:drawablePadding="@dimen/_5sdp"
+                android:enabled="true"
+                android:paddingTop="@dimen/margin_size_12"
+                android:paddingBottom="@dimen/margin_size_12"
+                android:text="@string/refferal_with_your_friend"
+                android:textAlignment="center"
+                app:fontName="@font/jost_medium"
+                android:clickable="false"
+                android:layout_marginHorizontal="@dimen/margin_size_60"
+                android:layout_marginTop="@dimen/margin_size_50"
+                android:layout_marginBottom="@dimen/margin_size_40"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/number_input_layout"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

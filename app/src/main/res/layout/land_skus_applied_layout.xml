@@ -3,45 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cl_land_skus_applied"
+    android:background="@color/text_blue_color"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/text_blue_color">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bottom_corner_radius_bg">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_land_skus_applied"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_size_19"
-            android:layout_marginTop="@dimen/margin_size_15"
-            android:layout_marginEnd="@dimen/margin_size_19"
-            android:fontFamily="@font/jost_regular"
-            android:text="Applied SKUs (2)"
-            android:textColor="@color/text_violet_dark_color"
-            android:textSize="@dimen/text_size_12"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_land_skus_items_applied"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_size_15"
-            android:layout_marginTop="@dimen/margin_size_6"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/margin_size_45"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_land_skus_applied"
+            app:layout_constraintTop_toTopOf="parent"
             tools:itemCount="2"
             tools:listitem="@layout/item_land_skus_applied" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_size_200"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@color/ash_background_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_land_skus_items_applied"
+            android:layout_marginTop="@dimen/margin_size_25"
+            android:layout_marginBottom="@dimen/margin_size_30"
+            android:layout_marginHorizontal="@dimen/margin_size_20"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
