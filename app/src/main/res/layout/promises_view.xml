@@ -17,17 +17,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/curvepath">
 
-            <View
-                android:id="@+id/fullview_Hoabel"
-                android:layout_width="wrap_content"
-                android:layout_height="175dp"
-                android:background="@drawable/curvepath"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/image"
@@ -37,10 +30,10 @@
                 android:layout_marginTop="@dimen/margin_size_24"
                 android:layout_marginEnd="@dimen/margin_size_112"
                 android:src="@drawable/securitylock"
-                app:layout_constraintEnd_toEndOf="@+id/fullview_Hoabel"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/fullview_Hoabel" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/title"
@@ -52,7 +45,7 @@
                 android:fontFamily="@font/jostbold"
                 android:text="@string/security"
                 android:textColor="#494a67"
-                app:layout_constraintStart_toStartOf="@+id/fullview_Hoabel"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/image" />
 
             <ImageView
@@ -72,9 +65,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="@dimen/margin_size_35"
+                android:layout_marginBottom="@dimen/margin_size_25"
                 android:fontFamily="@font/jostregular"
                 android:textAlignment="textStart"
-                app:layout_constraintEnd_toEndOf="@+id/fullview_Hoabel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/title"
                 app:layout_constraintTop_toBottomOf="@+id/title" />
 
