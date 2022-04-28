@@ -8,6 +8,9 @@ import com.emproto.core.Database.Dao.HomeSearchDao
 import com.emproto.core.Database.TableModel.SearchModel
 import com.emproto.hoabl.repository.HomeRepository
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.home.HomeResponse
+import com.emproto.networklayer.response.login.OtpResponse
+import com.emproto.networklayer.response.promises.HoablPagesOrPromise
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
@@ -36,6 +39,7 @@ class HomeViewModel(
         val list = homeSearchDao.getAllSearchDetails()
         allSearchList.postValue(list)
     }
+
     fun insertRecord(searchModel: SearchModel) {
         homeSearchDao.insert(searchModel)
         getAllRecords()
@@ -45,7 +49,7 @@ class HomeViewModel(
         return homeRepository.getPromises(pageType)
     }
 
-    fun setSelectedPromise(promise: HomePagesOrPromise) {
+    fun setSelectedPromise(promise: HoablPagesOrPromise) {
         this.promise.postValue(promise)
     }
 

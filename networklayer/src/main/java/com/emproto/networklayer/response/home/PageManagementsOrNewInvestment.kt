@@ -8,5 +8,6 @@ data class PageManagementsOrNewInvestment(
     val launchName: String,
     val pageManagementAndNewInvestments: PageManagementAndNewInvestments,
     val priceRange: PriceRange,
-    val shortDescription: String
+    val shortDescription: String,
+    val mediaGalleries:List<MediaGallrysItem>
 )

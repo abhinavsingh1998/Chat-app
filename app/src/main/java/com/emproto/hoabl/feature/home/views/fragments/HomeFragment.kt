@@ -1,10 +1,12 @@
 package com.emproto.hoabl.feature.home.views.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +22,9 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
-import com.emproto.networklayer.response.investment.SimilarInvestment
+import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.home.HomeResponse
 import com.google.android.material.tabs.TabLayoutMediator
 import javax.inject.Inject
 
@@ -46,14 +50,57 @@ class HomeFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View {
-        binding = FragmentHomeBinding.inflate(layoutInflater)
+    ): View? {
+
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
         initView()
         initClickListener()
         referNow()
+        initObserver()
         return binding.root
+    }
+
+    private fun initObserver() {
+        homeViewModel.getDashboardData(5001)
+            .observe(viewLifecycleOwner, object : Observer<BaseResponse<HomeResponse>> {
+                override fun onChanged(it: BaseResponse<HomeResponse>?) {
+                    when (it!!.status) {
+                        Status.LOADING -> {
+                            binding.rootView.hide()
+                            binding.loader.show()
+
+                        }
+                        Status.SUCCESS -> {
+                            binding.rootView.show()
+                            binding.loader.hide()
+                            //loading investment list
+                            investmentAdapter = InvestmentAdapter(
+                                requireActivity(),
+                                it.data!!.data.pageManagementsOrNewInvestments
+                            )
+                            linearLayoutManager = LinearLayoutManager(
+                                requireContext(),
+                                RecyclerView.HORIZONTAL,
+                                false
+                            )
+                            binding.investmentList.layoutManager = linearLayoutManager
+                            binding.investmentList.adapter = investmentAdapter
+                            Log.d("Home Fragment", "onChanged: ")
+
+
+                        }
+                        Status.ERROR -> {
+                            //binding.loader.hide()
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                it.message!!
+                            )
+                        }
+                    }
+                }
+
+            })
     }
 
     private fun initView() {
@@ -69,8 +116,6 @@ class HomeFragment : BaseFragment() {
         list.add("22L-2.5 Cr")
         list.add("22L-2.5 Cr")
 
-        val invList = arrayListOf<SimilarInvestment>()
-
         val listPromises: ArrayList<String> = arrayListOf("Security", "Transparency", "wealth")
         val listTostimonials: ArrayList<String> = arrayListOf(
             "Rajeev Kumar",
@@ -82,10 +127,6 @@ class HomeFragment : BaseFragment() {
         )
         val pymentList: ArrayList<String> = arrayListOf("1", "2", "3", "4", "5")
 
-        investmentAdapter = InvestmentAdapter(requireActivity(), invList)
-        linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        binding.investmentRecyclerview.layoutManager = linearLayoutManager
-        binding.investmentRecyclerview.adapter = investmentAdapter
 
 
         insightsAdapter = InsightsAdapter(requireActivity(), list)
@@ -113,10 +154,10 @@ class HomeFragment : BaseFragment() {
         binding.latesUpdatesRecyclerview.layoutManager = linearLayoutManager
         binding.latesUpdatesRecyclerview.adapter = latestUpdateAdapter
 
-//        hoABLPromisesAdapter = HoABLPromisesAdapter(requireActivity(), listPromises)
-//        linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-//        binding.hoablPromisesRecyclerview.layoutManager = linearLayoutManager
-//        binding.hoablPromisesRecyclerview.adapter = hoABLPromisesAdapter
+        hoABLPromisesAdapter = HoABLPromisesAdapter(requireActivity(), listPromises)
+        linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+        binding.hoablPromisesRecyclerview.layoutManager = linearLayoutManager
+        binding.hoablPromisesRecyclerview.adapter = hoABLPromisesAdapter
     }
 
     fun initClickListener() {
