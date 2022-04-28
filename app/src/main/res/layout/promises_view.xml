@@ -73,7 +73,6 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="@dimen/margin_size_35"
                 android:fontFamily="@font/jostregular"
-                android:text="@string/desc"
                 android:textAlignment="textStart"
                 app:layout_constraintEnd_toEndOf="@+id/fullview_Hoabel"
                 app:layout_constraintStart_toStartOf="@id/title"

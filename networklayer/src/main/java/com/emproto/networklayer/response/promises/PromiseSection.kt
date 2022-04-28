@@ -4,5 +4,5 @@ data class PromiseSection(
     val hoablPromiseDisplayName: String,
     val projectPromiseDisplayName: String,
     val sectionName: String,
-    val shortDescription: String
+    val subDescription: String
 )
