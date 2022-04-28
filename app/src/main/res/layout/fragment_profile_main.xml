@@ -326,7 +326,6 @@
         android:layout_marginLeft="@dimen/margin"
         android:layout_marginRight="@dimen/marginSize"
         android:layout_marginBottom="24dp"
-        android:layout_marginTop="@dimen/margin_size_140"
         android:background="@drawable/btnshape"
         android:fontFamily="@font/jostmedium"
         android:text="@string/logout_text"
@@ -334,8 +333,7 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/version"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/View_line" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/version"
