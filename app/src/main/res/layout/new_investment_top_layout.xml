@@ -259,6 +259,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_size_20"
             android:layout_marginTop="@dimen/margin_size_32"
+            android:visibility="gone"
             android:src="@drawable/investment_dont_miss_image"
             app:layout_constraintTop_toBottomOf="@id/cv_top"
             app:layout_constraintBottom_toBottomOf="parent"
