@@ -345,7 +345,7 @@
     </style>
 
     <style name="text_style_light_grey_14">
-        <item name="android:gravity">start|center</item>
+        <item name="android:gravity">start|left</item>
         <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@color/completed_investment_ash_text_color</item>
         <item name="singleLine">true</item>
@@ -382,7 +382,7 @@
     </style>
 
     <style name="text_style_light_black_color_14">
-        <item name="android:gravity">start</item>
+        <item name="android:gravity">start|center</item>
         <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@color/opp_doc_item_text_color</item>
     </style>
@@ -419,7 +419,11 @@
         <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@color/text_lightgrey_color</item>
     </style>
-
+    <style name="text_style_lightgrey14">
+        <item name="android:gravity">center|left</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/text_lightgrey_color</item>
+    </style>
     <style name="text_style_gold_color_14">
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/text_size_14</item>
@@ -469,7 +473,7 @@
     </style>
 
     <style name="text_light_black_14">
-        <item name="android:gravity">center|left</item>
+        <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@color/black</item>
         <item name="fontFamily">@font/jost_light</item>
@@ -571,7 +575,7 @@
     </style>
 
     <style name="text_style_text_black_color_16">
-        <item name="android:gravity">center</item>
+        <item name="android:gravity">center|left</item>
         <item name="android:textSize">@dimen/text_size_16</item>
         <item name="android:textColor">@color/black</item>
         <item name="singleLine">true</item>
@@ -668,7 +672,11 @@
         <item name="android:textSize">@dimen/text_size_20</item>
         <item name="android:textColor">@color/text_color</item>
     </style>
-
+    <style name="text_style_text_color20">
+        <item name="android:gravity">center|left</item>
+        <item name="android:textSize">@dimen/text_size_20</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
 
     <style name="text_style_blue_20">
         <item name="android:gravity">start|center</item>
@@ -796,5 +804,13 @@
 
     <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 </resources>

@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +10,17 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentProfileMainBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.login.AuthActivity
+import com.emproto.hoabl.feature.login.NameInputFragment
+import com.emproto.hoabl.viewmodels.AuthViewmodel
+import com.emproto.hoabl.viewmodels.ProfileViewModel
+import com.emproto.hoabl.viewmodels.factory.AuthFactory
+import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
 import javax.inject.Inject
 
@@ -35,7 +42,6 @@ class ProfileFragment : BaseFragment() {
 
     @Inject
     lateinit var appPreference: AppPreference
-
 
     override fun onCreateView(
         inflater: LayoutInflater,

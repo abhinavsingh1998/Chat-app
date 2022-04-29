@@ -1,12 +1,8 @@
 package com.emproto.hoabl.feature.profile.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.AccountDetailsViewBinding
 import com.emproto.hoabl.feature.profile.data.AccountDetailsData
 
@@ -28,7 +24,6 @@ class AccountDetailsFragmentAdapter(
     override fun getItemCount(): Int {
         return accountdetailsList.size
     }
-
     class MyViewHolder(var binding: AccountDetailsViewBinding) :
         RecyclerView.ViewHolder(binding.root)
 

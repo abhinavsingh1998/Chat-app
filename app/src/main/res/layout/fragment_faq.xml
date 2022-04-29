@@ -159,13 +159,15 @@
             android:id="@+id/tv_general"
             style="@style/text_style_text_color_14"
             android:layout_width="0dp"
-            android:layout_height="18dp"
-            android:layout_marginStart="@dimen/margin_size_20"
-            android:layout_marginTop="@dimen/margin_size_24"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="11dp"
             android:fontFamily="@font/jostmedium"
             android:text="@string/general"
+            app:layout_constraintBottom_toBottomOf="@+id/view_faq"
             app:layout_constraintStart_toStartOf="@+id/view_faq"
-            app:layout_constraintTop_toBottomOf="@+id/tv_Popular" />
+            app:layout_constraintTop_toTopOf="@+id/view_faq" />
 
         <View
             android:id="@+id/view_investment"
@@ -181,11 +183,15 @@
             android:id="@+id/tv_investment"
             style="@style/text_style_text_color_14"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/margin_size_12"
-            android:layout_marginTop="@dimen/margin_size_12"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="33dp"
+            android:layout_marginBottom="11dp"
             android:fontFamily="@font/jostmedium"
             android:text="@string/investment"
+            app:layout_constraintBottom_toBottomOf="@+id/view_investment"
+            app:layout_constraintEnd_toEndOf="@+id/view_investment"
             app:layout_constraintStart_toStartOf="@+id/view_investment"
             app:layout_constraintTop_toTopOf="@+id/view_investment" />
 
@@ -205,10 +211,14 @@
             style="@style/text_style_text_color_14"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/margin_size_12"
-            android:layout_marginTop="@dimen/margin_size_12"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="11dp"
             android:fontFamily="@font/jostmedium"
             android:text="@string/payments"
+            app:layout_constraintBottom_toBottomOf="@+id/view_Payments"
+            app:layout_constraintEnd_toEndOf="@+id/view_Payments"
             app:layout_constraintStart_toStartOf="@+id/view_Payments"
             app:layout_constraintTop_toTopOf="@+id/view_Payments" />
 

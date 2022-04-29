@@ -24,3 +24,4 @@ data class Data(
     val verificationStatus: String,
     val whatsappConsent: Boolean
 )
+

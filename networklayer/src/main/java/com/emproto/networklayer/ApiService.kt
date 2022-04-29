@@ -1,5 +1,7 @@
 package com.emproto.networklayer
 
+import com.emproto.networklayer.profile.EditUserNameRequest
+import com.emproto.networklayer.profile.UploadProfilePictureRequest
 import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
@@ -14,6 +16,8 @@ import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.login.VerifyOtpResponse
 import com.emproto.networklayer.response.portfolio.ivdetails.PortfolioData
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectDetailsResponse
+import com.emproto.networklayer.response.profile.EditProfileResponse
+import com.emproto.networklayer.response.profile.ProfilePictureResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 import retrofit2.Response
@@ -53,6 +57,14 @@ public interface ApiService {
 
     @GET(ApiConstants.PORTFOLIO_DASHBOARD)
     suspend fun getPortfolioDashboard(): Response<PortfolioData>
+
+    @PUT(ApiConstants.EDITPROFILE)
+    suspend fun addUserName(@Body editUserNameRequest: EditUserNameRequest): Response<EditProfileResponse>
+
+    @PUT(ApiConstants.UPLOADPROFILEPICTURE)
+    suspend fun uploadPicture(@Body uploadProfilePictureRequest: UploadProfilePictureRequest): Response<ProfilePictureResponse>
+//    @PUT(ApiConstants.PROFILE)
+//    suspend fun getProfile(@Body editProfileRequest: EditProfile): Response<ProfileResponse>
 
     @GET(ApiConstants.INVESTMENT_DETAILS)
     suspend fun investmentDetails(@Path("inventoryId") id: Int): Response<ProjectDetailsResponse>

@@ -16,7 +16,7 @@ import com.emproto.hoabl.databinding.FragmentProfileMainBinding
 
 class PrivacyFragment : BaseFragment() {
     lateinit var binding: FragmentPrivacyBinding
-    lateinit var ivarrow: ImageView
+
 
     val bundle = Bundle()
 
@@ -27,7 +27,7 @@ class PrivacyFragment : BaseFragment() {
     ): View? {
         binding = FragmentPrivacyBinding.inflate(inflater, container, false)
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
-            true
+            false
         initClickListener()
         return binding.root
     }

@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tvWhatsapp"
         style="@style/text_style_text_color_14"
-        android:layout_width="wrap_content"
-        android:layout_height="18dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="14dp"
         android:fontFamily="@font/jostmedium"
@@ -19,11 +19,12 @@
 
     <TextView
         android:id="@+id/loc"
-        style="@style/text_style_lightgrey_14"
-        android:layout_width="wrap_content"
-        android:layout_height="16dp"
+        style="@style/text_style_lightgrey14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/jostregular"
+        android:layout_marginRight="@dimen/margin_size_10"
         android:text="Control location access here"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvWhatsapp" />

@@ -5,8 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.hoabl.feature.home.views.HomeActivity
@@ -18,8 +16,6 @@ import com.emproto.hoabl.feature.profile.adapter.FaqViewAdapter
 class FaqFragment : Fragment() {
     lateinit var binding: FragmentFaqBinding
     lateinit var adapter: FaqViewAdapter
-    lateinit var ivarrow1: ImageView
-    lateinit var tvhelpcenter: TextView
     val bundle = Bundle()
 
     override fun onCreateView(

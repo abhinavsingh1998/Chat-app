@@ -5,14 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
 import androidx.core.view.isVisible
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentAccountDetailsBinding
-import com.emproto.hoabl.databinding.FragmentProfileMainBinding
 import com.emproto.hoabl.feature.profile.adapter.AccountDetailsFragmentAdapter
 import com.emproto.hoabl.feature.profile.adapter.DocumentKycAdapter
 import com.emproto.hoabl.feature.profile.data.AccountDetailsData
@@ -20,12 +17,6 @@ import com.emproto.hoabl.feature.profile.data.AccountDetailsData
 class AccountDetailsFragment : Fragment() {
     lateinit var binding: FragmentAccountDetailsBinding
     lateinit var adapter: AccountDetailsFragmentAdapter
-    private var titleList = mutableListOf<String>()
-    private var docsList = mutableListOf<String>()
-    private var imageList = mutableListOf<String>()
-
-    lateinit var account_details_recycler_view: RecyclerView
-    lateinit var imgArrow: ImageView
     val bundle = Bundle()
 
 
@@ -49,6 +40,7 @@ class AccountDetailsFragment : Fragment() {
         list.add("Address proof")
         list.add("Pan Card")
         list.add("Cancelled Check")
+        list.add("Bank Account Details")
         binding.listKyc.layoutManager = LinearLayoutManager(requireContext())
         binding.listKyc.adapter = DocumentKycAdapter(requireContext(), list)
 
