@@ -4,12 +4,15 @@ import android.app.Activity.RESULT_OK
 import android.app.KeyguardManager
 import android.content.Context
 import android.content.Intent
+import android.hardware.fingerprint.FingerprintManager
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
+import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import com.emproto.core.BaseFragment
@@ -41,7 +44,6 @@ class PortfolioFragment : BaseFragment(),View.OnClickListener {
         setUpInitialUI()
         setUpClickListeners()
         setUpAuthentication()
-
     }
 
     private fun setUpClickListeners() {
@@ -55,18 +57,19 @@ class PortfolioFragment : BaseFragment(),View.OnClickListener {
 
     private fun setUpAuthentication() {
         executor = ContextCompat.getMainExecutor(this.requireContext())
+        //Biometric dialog
+        promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Biometric login for my app")
+            .setSubtitle("Log in using your biometric credential")
+            .setNegativeButtonText("Use Pattern")
+            .build()
+
         biometricPrompt = BiometricPrompt(this, executor,
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                     super.onAuthenticationError(errorCode, errString)
                     if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
-                        keyguardManager =  (activity as HomeActivity).getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-                        val intent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            keyguardManager.createConfirmDeviceCredentialIntent("Hi,User","Verify your security PIN/Pattern")
-                        } else {
-                            TODO("VERSION.SDK_INT < LOLLIPOP")
-                        }
-                        startActivityForResult(intent, mRequestCode)
+                        setUpKeyGuardManager()
                     } else {
 
                     }
@@ -86,14 +89,23 @@ class PortfolioFragment : BaseFragment(),View.OnClickListener {
                 }
             })
 
-        //Biometric dialog
-        promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Biometric login for my app")
-            .setSubtitle("Log in using your biometric credential")
-            .setNegativeButtonText("Use Pattern")
-            .build()
-        biometricPrompt.authenticate(promptInfo)
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
+            setUpKeyGuardManager()
+        }else{
+            biometricPrompt.authenticate(promptInfo)
+        }
+    }
 
+    fun setUpKeyGuardManager(){
+        keyguardManager =
+            (activity as HomeActivity).getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val intent = keyguardManager.createConfirmDeviceCredentialIntent("Hi,User", "Verify your security PIN/Pattern")
+            startActivityForResult(intent, mRequestCode)
+        } else {
+
+        }
     }
 
     private fun setUpUI(authenticated:Boolean = false){

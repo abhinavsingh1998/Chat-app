@@ -10,6 +10,8 @@ class CompletedInvestmentAdapter(val list: List<String>) : RecyclerView.Adapter<
 
     inner class MyViewHolder(var binding: ItemCompletedInvestmentsBinding) : RecyclerView.ViewHolder(binding.root)
 
+    private lateinit var onItemClickListener : View.OnClickListener
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = ItemCompletedInvestmentsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(view)
@@ -27,8 +29,13 @@ class CompletedInvestmentAdapter(val list: List<String>) : RecyclerView.Adapter<
             holder.binding.ivCompletedInvestmentUpwardArrow.visibility = View.GONE
             holder.binding.ivCompletedInvestmentDropArrow.visibility = View.VISIBLE
         }
+        holder.binding.tvManageProjects.setOnClickListener(onItemClickListener)
 
     }
 
     override fun getItemCount(): Int = list.size
+
+    fun setItemClickListener(clickListener: View.OnClickListener) {
+        onItemClickListener = clickListener
+    }
 }
