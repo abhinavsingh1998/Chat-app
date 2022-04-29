@@ -97,6 +97,7 @@ class PortfolioSpecificViewAdapter(private val context: Context, private val lis
                 binding.tvViewMore.visibility = View.VISIBLE
                 binding.ivViewMoreDropDown.visibility = View.VISIBLE
             }
+            binding.tvViewTimeline.setOnClickListener(onItemClickListener)
         }
     }
 

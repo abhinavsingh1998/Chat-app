@@ -9,18 +9,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentPortfolioSpecificViewBinding
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.ProjectDetailAdapter
 import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
 import com.emproto.hoabl.feature.investment.dialogs.ConfirmationDialog
+import com.emproto.hoabl.feature.investment.views.mediagallery.MediaViewFragment
 import com.emproto.hoabl.feature.portfolio.adapters.DocumentsAdapter
 import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-class PortfolioSpecificProjectView:BaseFragment() {
+class PortfolioSpecificProjectView : BaseFragment() {
 
-    lateinit var binding:FragmentPortfolioSpecificViewBinding
+    lateinit var binding: FragmentPortfolioSpecificViewBinding
     lateinit var portfolioSpecificViewAdapter: PortfolioSpecificViewAdapter
 
     private val onPortfolioSpecificItemClickListener =
@@ -34,20 +36,53 @@ class PortfolioSpecificProjectView:BaseFragment() {
                     applyDialog.show(this.parentFragmentManager, "ApplicationThankingDialog")
                 }
                 R.id.tv_documents_see_all -> {
-                    val docsBottomSheet = BottomSheetDialog(this.requireContext(),R.style.BottomSheetDialogTheme)
+                    val docsBottomSheet =
+                        BottomSheetDialog(this.requireContext(), R.style.BottomSheetDialogTheme)
                     docsBottomSheet.setContentView(R.layout.documents_bottom_sheet)
-                    val list = arrayListOf<String>("1","2","3","4","1","2","3","4","1","2","3","4","1","2","3","4")
-                    val adapter = DocumentsAdapter(list,true)
-                    docsBottomSheet.findViewById<RecyclerView>(R.id.rv_docs_item_recycler)?.adapter = adapter
-                    docsBottomSheet.findViewById<ImageView>(R.id.iv_docs_close)?.setOnClickListener {
-                        docsBottomSheet.dismiss()
-                    }
+                    val list = arrayListOf<String>(
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "1",
+                        "2",
+                        "3",
+                        "4"
+                    )
+                    val adapter = DocumentsAdapter(list, true)
+                    docsBottomSheet.findViewById<RecyclerView>(R.id.rv_docs_item_recycler)?.adapter =
+                        adapter
+                    docsBottomSheet.findViewById<ImageView>(R.id.iv_docs_close)
+                        ?.setOnClickListener {
+                            docsBottomSheet.dismiss()
+                        }
                     docsBottomSheet.show()
+                }
+                R.id.tv_view_timeline -> {
+                    (requireActivity() as HomeActivity).addFragment(
+                        ProjectTimelineFragment.newInstance(
+                            "",
+                            ""
+                        ), false
+                    )
+
                 }
             }
         }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentPortfolioSpecificViewBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -69,7 +104,7 @@ class PortfolioSpecificProjectView:BaseFragment() {
         list.add(RecyclerViewItem(8))
         list.add(RecyclerViewItem(9))
         list.add(RecyclerViewItem(10))
-        portfolioSpecificViewAdapter = PortfolioSpecificViewAdapter(this.requireContext(),list)
+        portfolioSpecificViewAdapter = PortfolioSpecificViewAdapter(this.requireContext(), list)
         binding.rvPortfolioSpecificView.adapter = portfolioSpecificViewAdapter
         portfolioSpecificViewAdapter.setItemClickListener(onPortfolioSpecificItemClickListener)
     }
