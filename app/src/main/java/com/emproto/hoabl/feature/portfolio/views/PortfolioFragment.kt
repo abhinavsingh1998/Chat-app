@@ -70,8 +70,8 @@ class PortfolioFragment : BaseFragment(),View.OnClickListener {
                     super.onAuthenticationError(errorCode, errString)
                     if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
                         setUpKeyGuardManager()
-                    } else {
-
+                    } else if (errorCode == BiometricPrompt.ERROR_NO_BIOMETRICS){
+                        setUpUI(true)
                     }
                 }
 
