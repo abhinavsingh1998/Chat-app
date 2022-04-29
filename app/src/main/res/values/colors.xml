@@ -86,6 +86,12 @@
     <color name="view_more_brown_color">#83773d</color>
     <color name="reg_no_black_color">#313131</color>
     <color name="portfolio_blue_color">#999cff</color>
+    <color name="doc_label_black_color">#17171c</color>
+    <color name="latest_images_blue_color">#32304f</color>
+    <color name="portfolio_light_brown_color">#87ffffff</color>
+    <color name="portfolio_info_text">#262312</color>
+    <color name="brown_dashed_line_color">#8b8773</color>
+    <color name="share_ash_bg_color">#ccc</color>
     <color name="infra_story_bg">#5b000000</color>
     <color name="story_black_color">#17171c</color>
 </resources>

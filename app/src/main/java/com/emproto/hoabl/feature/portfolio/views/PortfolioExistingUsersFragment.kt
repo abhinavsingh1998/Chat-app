@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.emproto.core.BaseFragment
+import com.emproto.hoabl.R
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentFinancialSummaryBinding
 import com.emproto.hoabl.feature.portfolio.adapters.ExistingUsersAdapter
@@ -16,10 +17,13 @@ class PortfolioExistingUsersFragment : BaseFragment() {
     private lateinit var binding: FragmentFinancialSummaryBinding
     private lateinit var adapter: ExistingUsersAdapter
 
-    private val onItemClickListener =
+    val onItemClickListener =
         View.OnClickListener { view ->
             when (view.id) {
-
+                R.id.tv_manage_projects -> {
+                    val portfolioSpecificProjectView = PortfolioSpecificProjectView()
+                    (requireActivity() as HomeActivity).replaceFragment(portfolioSpecificProjectView.javaClass, "", true, null, null, 0, false)
+                }
             }
         }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
@@ -47,7 +51,7 @@ class PortfolioExistingUsersFragment : BaseFragment() {
         list.add(RecyclerViewItem(6))
         list.add(RecyclerViewItem(7))
         list.add(RecyclerViewItem(8))
-        adapter = ExistingUsersAdapter(requireContext(), list)
+        adapter = ExistingUsersAdapter(this,requireContext(), list)
         binding.financialRecycler.adapter = adapter
         adapter.setItemClickListener(onItemClickListener)
     }

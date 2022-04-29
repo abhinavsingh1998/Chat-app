@@ -9,7 +9,7 @@ import androidx.fragment.app.DialogFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ApplicationSubmittedDialogBinding
 
-class ApplicationSubmitDialog:DialogFragment(),View.OnClickListener {
+class ApplicationSubmitDialog(val title:String,val description:String):DialogFragment(),View.OnClickListener {
 
     lateinit var binding:ApplicationSubmittedDialogBinding
 
@@ -22,6 +22,12 @@ class ApplicationSubmitDialog:DialogFragment(),View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpClickListeners()
+        setUpUI()
+    }
+
+    private fun setUpUI() {
+        binding.tvApplicationSubmit.text = title
+        binding.tvApplicationThanks.text = description
     }
 
     private fun setUpClickListeners() {

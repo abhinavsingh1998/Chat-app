@@ -10,9 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
+import com.emproto.hoabl.feature.portfolio.views.PortfolioExistingUsersFragment
 import com.emproto.hoabl.model.RecyclerViewItem
 
-class ExistingUsersAdapter(private val context: Context, private val list:List<RecyclerViewItem>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ExistingUsersAdapter(private val fragment:PortfolioExistingUsersFragment,private val context: Context, private val list:List<RecyclerViewItem>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val PORTFOLIO_EXISTING_USERS_VIEW_TYPE_ONE = 1
@@ -114,6 +115,7 @@ class ExistingUsersAdapter(private val context: Context, private val list:List<R
             val list = arrayListOf<String>("1","2")
             completedInvestmentAdapter = CompletedInvestmentAdapter(list)
             binding.rvCompletedInvestment.adapter = completedInvestmentAdapter
+            completedInvestmentAdapter.setItemClickListener(fragment.onItemClickListener)
         }
     }
 
@@ -122,6 +124,7 @@ class ExistingUsersAdapter(private val context: Context, private val list:List<R
             val list = arrayListOf<String>("1")
             completedInvestmentAdapter = CompletedInvestmentAdapter(list)
             binding.rvOngoingInvestment.adapter = completedInvestmentAdapter
+            completedInvestmentAdapter.setItemClickListener(fragment.onItemClickListener)
         }
     }
 

@@ -4,77 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cv_blockchain"
+    <ImageView
+        android:id="@+id/iv_dont_miss_image"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/margin_size_250"
-        android:layout_marginHorizontal="@dimen/margin_size_20"
+        android:layout_height="wrap_content"
+        android:src="@drawable/group_17"
+        android:scaleType="fitXY"
         android:layout_marginTop="@dimen/margin_size_30"
-        android:backgroundTint="@color/text_blue_dark_color"
-        app:cardCornerRadius="@dimen/margin_size_8"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="@dimen/margin_size_20"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_blockchain"
-                style="@style/text_style_white_18"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_size_20"
-                android:layout_marginTop="@dimen/margin_size_30"
-                android:fontFamily="@font/jost_bold"
-                android:text="@string/blockchain"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_blockchain_description"
-                style="@style/text_style_white_14"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/jost_light"
-                android:layout_marginTop="@dimen/margin_size_10"
-                android:layout_marginEnd="@dimen/margin_size_8"
-                android:text="Loren Ipsum dolor siat Loren Ipsum dolor Ipsum dolor siat Loren Ipsum dolor siat"
-                android:textAlignment="textStart"
-                app:layout_constraintStart_toStartOf="@id/tv_blockchain"
-                app:layout_constraintTop_toBottomOf="@id/tv_blockchain"
-                app:layout_constraintEnd_toStartOf="@id/iv_blockchain_image"/>
-
-            <ImageView
-                android:id="@+id/iv_blockchain_image"
-                android:layout_width="@dimen/margin_size_200"
-                android:layout_height="0dp"
-                android:layout_marginEnd="@dimen/_2sdp"
-                android:src="@drawable/portfolio_image"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_read_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Read more"
-                android:gravity="center"
-                android:textAllCaps="false"
-                android:paddingHorizontal="@dimen/margin_size_16"
-                style="@style/text_style_text_black_color_14"
-                android:background="@drawable/all_corner_big_radius_white"
-                android:backgroundTint="@color/white"
-                app:layout_constraintStart_toStartOf="@id/tv_blockchain"
-                app:layout_constraintTop_toBottomOf="@id/tv_blockchain_description"
-                android:layout_marginTop="@dimen/margin_size_36"
-                />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

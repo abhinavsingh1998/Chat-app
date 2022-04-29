@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_size_4">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_size_8"
+        android:layout_marginVertical="@dimen/margin_size_4"
+        app:cardElevation="@dimen/_1sdp"
+        app:cardCornerRadius="@dimen/margin_size_6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_docs_image"
+                android:layout_width="@dimen/margin_size_15"
+                android:layout_height="@dimen/margin_size_20"
+                android:src="@drawable/ic_docs"
+                android:visibility="gone"
+                android:layout_marginVertical="@dimen/margin_size_12"
+                android:layout_marginStart="@dimen/margin_size_14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_doc_label"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_doc_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/document_label"
+                style="@style/text_light_black_color_14"
+                android:fontFamily="@font/jost_regular"
+                android:layout_marginVertical="@dimen/margin_size_12"
+                android:layout_marginHorizontal="@dimen/margin_size_14"
+                app:layout_constraintEnd_toStartOf="@id/tv_view"
+                app:layout_constraintStart_toEndOf="@id/iv_docs_image"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/view_underlined"
+                style="@style/text_style_blue_14"
+                android:fontFamily="@font/jost_regular"
+                android:layout_marginEnd="@dimen/margin_size_14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_doc_label"
+                app:layout_constraintBottom_toBottomOf="@id/tv_doc_label"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,6 @@ import com.emproto.hoabl.model.ViewItem
 class MediaViewFragment:BaseFragment() {
 
     lateinit var binding:FragmentMediaViewBinding
-    private lateinit var adapter:ProjectDetailViewPagerAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentMediaViewBinding.inflate(layoutInflater)

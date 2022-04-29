@@ -312,7 +312,19 @@
         <item name="android:textColor">@color/category_location_ash_color</item>
     </style>
 
+    <style name="text_dark_blue_color_13">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/latest_images_blue_color</item>
+    </style>
+
     //textSize_14
+    <style name="text_style_dark_black_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/portfolio_info_text</item>
+    </style>
+
 
     <style name="text_style_black_color_14">
         <item name="android:gravity">start</item>
@@ -481,6 +493,24 @@
         <item name="fontFamily">@font/jost_light</item>
     </style>
 
+    <style name="text_light_ash_14">
+        <item name="android:gravity">center|start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/unselected_button_color</item>
+    </style>
+
+    <style name="text_light_black_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/doc_label_black_color</item>
+    </style>
+
+    <style name="text_dark_blue_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/latest_images_blue_color</item>
+    </style>
+
     //textSize_15
 
     <style name="text_style__text_color_15">
@@ -491,10 +521,17 @@
 
     //textSize_16
 
-    <style name="text_style_text_light_black_color_16">
+    <style name="text_light_ash_16">
+        <item name="android:gravity">center|start</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/unselected_button_color</item>
+    </style>
+
+    <style name="text_style_ash_color_16">
         <item name="android:gravity">start</item>
         <item name="android:textSize">@dimen/text_size_16</item>
-        <item name="android:textColor">@color/text_light_black_color</item>
+        <item name="android:textColor">@color/light_appcolor</item>
+        <item name="android:singleLine">true</item>
     </style>
 
     <style name="text_style_thick_blue_16">
@@ -573,6 +610,12 @@
         <item name="fontFamily">@font/jost_regular</item>
     </style>
 
+    <style name="text_style_text_light_black_color_16">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/text_light_black_color</item>
+    </style>
+
     //textSize_17
 
     <style name="text_style_text_black_color_17">
@@ -582,6 +625,13 @@
     </style>
 
     //textSize_18
+
+    <style name="text_style_ash_color_18">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:textColor">@color/light_appcolor</item>
+        <item name="android:singleLine">true</item>
+    </style>
 
     <style name="text_style_color_18">
         <item name="android:gravity">center|left</item>
@@ -643,6 +693,14 @@
         <item name="android:textSize">@dimen/text_size_20</item>
         <item name="android:textColor">@color/app_color</item>
         <item name="singleLine">true</item>
+    </style>
+
+    //textSize_22
+
+    <style name="text_light_black_color_22">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_22</item>
+        <item name="android:textColor">@color/doc_label_black_color</item>
     </style>
 
     //textSize_25
