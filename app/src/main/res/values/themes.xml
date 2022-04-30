@@ -279,7 +279,7 @@
 
     <style name="text_style_grey_13">
         <item name="android:textSize">@dimen/text_size_13</item>
-        <item name="android:textColor">@color/text_grey_color</item>
+        <item name="android:textColor">@color/text_fullgrey_color</item>
     </style>
 
     <style name="text_style_text_color_13">

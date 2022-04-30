@@ -4,26 +4,24 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.emproto.hoabl.databinding.ItemDocumentsBinding
-import com.emproto.hoabl.databinding.ItemInsightsBinding
-import com.emproto.hoabl.databinding.ItemProjectsUpdatesBinding
-import com.emproto.hoabl.databinding.ItemTestimonialsBinding
+import com.emproto.hoabl.databinding.*
+import com.emproto.networklayer.response.home.PageManagementOrLatestUpdate
+import com.emproto.networklayer.response.home.PageManagementsOrTestimonial
 
-class TestimonialAdapter(context: Context, list: List<String>) : RecyclerView.Adapter<TestimonialAdapter.MyViewHolder>() {
+class TestimonialAdapter(val context: Context, val list: List<PageManagementsOrTestimonial>) : RecyclerView.Adapter<TestimonialAdapter.MyViewHolder>() {
 
-    var list: List<String>
-    var mcontext:Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding: ItemTestimonialsBinding =
-            ItemTestimonialsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MyViewHolder(binding)
+        val view = ItemTestimonialsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MyViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val item = list.get(holder.adapterPosition)
 
-        var items= list[position]
-        holder.binding.tvName.text= items
+        holder.binding.tvName.text= item.firstName + " " + item.lastName
+        holder.binding.tvCompanyName.text= item.designation + " " + item.companyName
+        holder.binding.details.text= item.testimonialContent
 
     }
 
@@ -31,16 +29,6 @@ class TestimonialAdapter(context: Context, list: List<String>) : RecyclerView.Ad
         return list.size
     }
 
-    inner class MyViewHolder(binding: ItemTestimonialsBinding) : RecyclerView.ViewHolder(binding.root) {
-        var binding: ItemTestimonialsBinding
-
-        init {
-            this.binding = binding
-        }
-    }
-
-    init {
-        this.list = list
-        this.mcontext=context
-    }
+    inner class MyViewHolder(val binding: ItemTestimonialsBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

@@ -6,20 +6,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemInsightsBinding
 import com.emproto.hoabl.databinding.ItemProjectsUpdatesBinding
+import com.emproto.hoabl.databinding.ItemPromisesBinding
+import com.emproto.networklayer.response.home.HomePagesOrPromise
+import com.emproto.networklayer.response.home.PageManagementOrInsight
 
-class InsightsAdapter(context: Context, list: List<String>) : RecyclerView.Adapter<InsightsAdapter.MyViewHolder>() {
+class InsightsAdapter(val context: Context, val list: List<PageManagementOrInsight>) : RecyclerView.Adapter<InsightsAdapter.MyViewHolder>() {
 
-    var list: List<String>
-    var mcontext:Context
-    lateinit var monInsightsClickItem: OnInsightsClickItem
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding: ItemInsightsBinding =
-            ItemInsightsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MyViewHolder(binding)
+        val view = ItemInsightsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MyViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val item = list.get(holder.adapterPosition)
+        holder.binding.tvVideotitle.text= item.displayTitle
 
     }
 
@@ -27,23 +28,8 @@ class InsightsAdapter(context: Context, list: List<String>) : RecyclerView.Adapt
         return list.size
     }
 
-    inner class MyViewHolder(binding: ItemInsightsBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        var binding: ItemInsightsBinding
-
-        init {
-            this.binding = binding
-        }
-    }
+    inner class MyViewHolder(val binding: ItemInsightsBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
 
-    interface OnInsightsClickItem {
-        fun onclickDetails()
-    }
-
-
-    init {
-        this.list = list
-        this.mcontext=context
-    }
 }

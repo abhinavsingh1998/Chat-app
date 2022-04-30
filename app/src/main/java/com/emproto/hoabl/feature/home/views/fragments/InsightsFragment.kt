@@ -33,10 +33,6 @@ class InsightsFragment : BaseFragment() {
         list.add("22L-2.5 Cr")
         list.add("22L-2.5 Cr")
         list.add("22L-2.5 Cr")
-        insightsAdapter = InsightsAdapter(requireActivity(), list)
-        gridLayoutManager = GridLayoutManager(requireContext(), 2)
-        fragmentInsightsBinding.recyclerInsights.layoutManager = gridLayoutManager
-        fragmentInsightsBinding.recyclerInsights.adapter = insightsAdapter
     }
 
     private fun initClickListener() {

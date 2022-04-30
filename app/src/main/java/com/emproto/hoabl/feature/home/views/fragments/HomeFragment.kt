@@ -87,8 +87,53 @@ class HomeFragment : BaseFragment() {
                             )
                             binding.investmentList.layoutManager = linearLayoutManager
                             binding.investmentList.adapter = investmentAdapter
-                            Log.d("Home Fragment", "onChanged: ")
 
+
+                            //loading latestUpdate list
+                            latestUpdateAdapter = LatestUpdateAdapter(
+                                requireActivity(),
+                                it.data!!.data.pageManagementOrLatestUpdates
+                            )
+                            linearLayoutManager = LinearLayoutManager(
+                                requireContext(),
+                                RecyclerView.HORIZONTAL,
+                                false
+                            )
+                            binding.latesUpdatesRecyclerview.layoutManager = linearLayoutManager
+                            binding.latesUpdatesRecyclerview.adapter = latestUpdateAdapter
+
+                            //loading Promises list
+                            hoABLPromisesAdapter = HoABLPromisesAdapter(
+                                requireActivity(),
+                                it.data!!.data.homePagesOrPromises
+                            )
+                            linearLayoutManager = LinearLayoutManager(
+                                requireContext(),
+                                RecyclerView.HORIZONTAL,
+                                false
+                            )
+                            binding.hoablPromisesRecyclerview.layoutManager = linearLayoutManager
+                            binding.hoablPromisesRecyclerview.adapter = hoABLPromisesAdapter
+
+                            //loading insights list
+                            insightsAdapter = InsightsAdapter(
+                                requireActivity(),
+                                it.data!!.data.pageManagementOrInsights
+                            )
+                            linearLayoutManager = LinearLayoutManager(
+                                requireContext(),
+                                RecyclerView.HORIZONTAL,
+                                false
+                            )
+                            binding.insightsRecyclerview.layoutManager = linearLayoutManager
+                            binding.insightsRecyclerview.adapter = insightsAdapter
+
+
+                            //loading Testimonial Cards list
+                            testimonialAdapter = TestimonialAdapter(requireActivity(), it.data!!.data.pageManagementsOrTestimonials)
+                            binding.testimonialsRecyclerview.adapter = testimonialAdapter
+                            TabLayoutMediator(binding.tabDotLayout, binding.testimonialsRecyclerview) { _, _ ->
+                            }.attach()
 
                         }
                         Status.ERROR -> {
@@ -116,29 +161,7 @@ class HomeFragment : BaseFragment() {
         list.add("22L-2.5 Cr")
         list.add("22L-2.5 Cr")
 
-        val listPromises: ArrayList<String> = arrayListOf("Security", "Transparency", "wealth")
-        val listTostimonials: ArrayList<String> = arrayListOf(
-            "Rajeev Kumar",
-            "Mukesh Singh",
-            "Rohit Roy",
-            "Rajeev Kumar",
-            "Mukesh Singh",
-            "Rohit Roy"
-        )
         val pymentList: ArrayList<String> = arrayListOf("1", "2", "3", "4", "5")
-
-
-
-        insightsAdapter = InsightsAdapter(requireActivity(), list)
-        linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        binding.insightsRecyclerview.layoutManager = linearLayoutManager
-        binding.insightsRecyclerview.adapter = insightsAdapter
-
-        //Testimonial Cards
-        testimonialAdapter = TestimonialAdapter(requireActivity(), listTostimonials)
-        binding.testimonialsRecyclerview.adapter = testimonialAdapter
-        TabLayoutMediator(binding.tabDotLayout, binding.testimonialsRecyclerview) { _, _ ->
-        }.attach()
 
 
         //Pending Payment Card
@@ -146,18 +169,6 @@ class HomeFragment : BaseFragment() {
         binding.kycLayoutCard.adapter = pendingPaymentsAdapter
         TabLayoutMediator(binding.tabDot, binding.kycLayoutCard) { _, _ ->
         }.attach()
-
-
-
-        latestUpdateAdapter = LatestUpdateAdapter(requireActivity(), list)
-        linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        binding.latesUpdatesRecyclerview.layoutManager = linearLayoutManager
-        binding.latesUpdatesRecyclerview.adapter = latestUpdateAdapter
-
-        hoABLPromisesAdapter = HoABLPromisesAdapter(requireActivity(), listPromises)
-        linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        binding.hoablPromisesRecyclerview.layoutManager = linearLayoutManager
-        binding.hoablPromisesRecyclerview.adapter = hoABLPromisesAdapter
     }
 
     fun initClickListener() {

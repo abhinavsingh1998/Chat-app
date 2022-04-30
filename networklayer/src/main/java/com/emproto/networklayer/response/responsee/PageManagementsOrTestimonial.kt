@@ -1,6 +1,4 @@
-package com.emproto.networklayer.response.home
-
-import com.emproto.networklayer.response.responsee.PageManagementAndTestimonials
+package com.emproto.networklayer.response.responsee
 
 data class PageManagementsOrTestimonial(
     val companyName: String,
