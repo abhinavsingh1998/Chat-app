@@ -156,6 +156,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginRight="@dimen/margin_size_14"
+            android:clickable="true"
             android:src="@drawable/ic_customer_support"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

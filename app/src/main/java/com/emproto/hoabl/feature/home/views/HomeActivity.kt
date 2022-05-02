@@ -16,6 +16,7 @@ import com.emproto.hoabl.databinding.ActivityHomeBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
+import com.emproto.hoabl.feature.home.views.fragments.SearchResultFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
 import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
 import com.emproto.hoabl.feature.promises.HoabelPromises
@@ -64,18 +65,27 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 R.id.navigation_hoabl  // change to whichever id should be default
         }
 
-        activityHomeActivity.searchLayout.imageBack.setOnClickListener(object :
-            View.OnClickListener {
-            override fun onClick(p0: View?) {
-                onBackPressed()
-            }
-        })
+        activityHomeActivity.searchLayout.imageBack.setOnClickListener { onBackPressed() }
 
-        activityHomeActivity.searchLayout.headset.setOnClickListener(View.OnClickListener {
-            Toast.makeText(mContext, "Chat bot", Toast.LENGTH_LONG).show()
-        })
+        activityHomeActivity.searchLayout.headset.setOnClickListener {
+            val bundle = Bundle()
+            val chatsFragment = ChatsFragment()
+            chatsFragment.arguments = bundle
+            replaceFragment(
+                chatsFragment.javaClass,
+                "",
+                true,
+                bundle,
+                null,
+                0,
+                false
+            )
+            Toast.makeText(applicationContext, "Chat bot", Toast.LENGTH_SHORT).show()
+        }
+
 
     }
+
     fun getCurrentFragment(): Fragment? {
         return supportFragmentManager.findFragmentById(contentFrame)
     }
