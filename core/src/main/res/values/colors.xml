@@ -33,4 +33,7 @@
     <color name="error_color">#f45353</color>
     <color name="primarytext_color">#16161C</color>
     <color name="primarytext_color2">#313131</color>
+    <color name="primarycolor_3">#28282e</color>
+    <color name="primarycolor_4">#494a67</color>
+    <color name="green">#47b35f</color>
 </resources>

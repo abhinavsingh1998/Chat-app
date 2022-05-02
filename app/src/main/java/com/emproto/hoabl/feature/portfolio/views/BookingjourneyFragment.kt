@@ -5,8 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.FragmentBookingjourneyBinding
+import com.example.portfolioui.adapters.BookingJourneyAdapter
+import com.example.portfolioui.databinding.FragmentBookingjourneyBinding
+import com.example.portfolioui.models.BookingModel
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -35,7 +38,16 @@ class BookingjourneyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         mBinding = FragmentBookingjourneyBinding.inflate(inflater, container, false)
+        initView()
         return mBinding.root
+    }
+
+    private fun initView() {
+        val bookingList = ArrayList<BookingModel>()
+        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_HEADER))
+        mBinding.bookingjourneyList.layoutManager = LinearLayoutManager(requireContext())
+        mBinding.bookingjourneyList.adapter =
+            BookingJourneyAdapter(requireContext(), bookingList, null)
     }
 
     companion object {

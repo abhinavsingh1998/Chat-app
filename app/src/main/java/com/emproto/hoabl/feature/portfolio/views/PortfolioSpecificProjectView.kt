@@ -75,6 +75,14 @@ class PortfolioSpecificProjectView : BaseFragment() {
                     )
 
                 }
+                R.id.tv_view_booking_journey -> {
+                    (requireActivity() as HomeActivity).addFragment(
+                        BookingjourneyFragment.newInstance(
+                            "",
+                            ""
+                        ), false
+                    )
+                }
             }
         }
 

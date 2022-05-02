@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.FragmentProjectTimelineBinding
+import com.example.portfolioui.adapters.TimelineAdapter
+import com.example.portfolioui.databinding.FragmentProjectTimelineBinding
+import com.example.portfolioui.models.TimelineModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,7 +42,22 @@ class ProjectTimelineFragment : BaseFragment() {
     ): View? {
         // Inflate the layout for this fragment
         mBinding = FragmentProjectTimelineBinding.inflate(inflater, container, false)
+        initView()
         return mBinding.root
+    }
+
+    private fun initView() {
+        val timelineList = ArrayList<TimelineModel>()
+        timelineList.add(TimelineModel(TimelineAdapter.TYPE_HEADER))
+        timelineList.add(TimelineModel(TimelineAdapter.TYPE_LIST))
+        timelineList.add(TimelineModel(TimelineAdapter.TYPE_LIST))
+        timelineList.add(TimelineModel(TimelineAdapter.TYPE_LIST))
+        timelineList.add(TimelineModel(TimelineAdapter.TYPE_LIST))
+        timelineList.add(TimelineModel(TimelineAdapter.TYPE_LIST))
+        timelineList.add(TimelineModel(TimelineAdapter.TYPE_LIST))
+
+        mBinding.timelineList.layoutManager = LinearLayoutManager(requireContext())
+        mBinding.timelineList.adapter = TimelineAdapter(requireContext(), timelineList, null)
     }
 
     companion object {

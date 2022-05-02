@@ -16,14 +16,14 @@ import com.emproto.hoabl.model.RecyclerViewItem
 class ExistingUsersAdapter(private val fragment:PortfolioExistingUsersFragment,private val context: Context, private val list:List<RecyclerViewItem>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-        const val PORTFOLIO_EXISTING_USERS_VIEW_TYPE_ONE = 1
-        const val PORTFOLIO_EXISTING_USERS_VIEW_TYPE_TWO = 2
-        const val PORTFOLIO_EXISTING_USERS_VIEW_TYPE_THREE = 3
-        const val PORTFOLIO_EXISTING_USERS_VIEW_TYPE_FOUR = 4
-        const val PORTFOLIO_EXISTING_USERS_VIEW_TYPE_FIVE = 5
-        const val PORTFOLIO_EXISTING_USERS_VIEW_TYPE_SIX = 6
-        const val PORTFOLIO_EXISTING_USERS_VIEW_TYPE_SEVEN = 7
-        const val PORTFOLIO_EXISTING_USERS_VIEW_TYPE_EIGHT = 8
+        const val TYPE_HEADER = 1
+        const val TYPE_SUMMARY_COMPLETED = 2
+        const val TYPE_SUMMARY_ONGOING = 3
+        const val TYPE_COMPLETED_INVESTMENT = 4
+        const val TYPE_ONGOING_INVESTMENT = 5
+        const val TYPE_NUDGE_CARD = 6
+        const val TYPE_WATCHLIST = 7
+        const val TYPE_REFER = 8
     }
 
     private lateinit var completedInvestmentAdapter: CompletedInvestmentAdapter
@@ -32,27 +32,27 @@ class ExistingUsersAdapter(private val fragment:PortfolioExistingUsersFragment,p
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
-            PORTFOLIO_EXISTING_USERS_VIEW_TYPE_ONE -> { TitleViewHolder(PortfolioTitleCardBinding.inflate(LayoutInflater.from(parent.context),parent,false)) }
-            PORTFOLIO_EXISTING_USERS_VIEW_TYPE_TWO -> { SummaryCompletedInvestmentsViewHolder(FinancialSummaryCard2Binding.inflate(LayoutInflater.from(parent.context),parent,false)) }
-            PORTFOLIO_EXISTING_USERS_VIEW_TYPE_THREE -> { SummaryOngoingInvestmentsViewHolder(FinancialSummaryCard2Binding.inflate(LayoutInflater.from(parent.context),parent,false))}
-            PORTFOLIO_EXISTING_USERS_VIEW_TYPE_FOUR -> { CompletedInvestmentsViewHolder(CompletedInvestmentsLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
-            PORTFOLIO_EXISTING_USERS_VIEW_TYPE_FIVE -> { OngoingInvestmentsViewHolder(OngoingInvestmentsLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
-            PORTFOLIO_EXISTING_USERS_VIEW_TYPE_SIX -> { BlockchainViewHolder(BlockchainLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
-            PORTFOLIO_EXISTING_USERS_VIEW_TYPE_SEVEN -> { MyWatchListViewHolder(SmartDealsLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
+            TYPE_HEADER -> { TitleViewHolder(PortfolioTitleCardBinding.inflate(LayoutInflater.from(parent.context),parent,false)) }
+            TYPE_SUMMARY_COMPLETED -> { SummaryCompletedInvestmentsViewHolder(FinancialSummaryCard2Binding.inflate(LayoutInflater.from(parent.context),parent,false)) }
+            TYPE_SUMMARY_ONGOING -> { SummaryOngoingInvestmentsViewHolder(FinancialSummaryCard2Binding.inflate(LayoutInflater.from(parent.context),parent,false))}
+            TYPE_COMPLETED_INVESTMENT -> { CompletedInvestmentsViewHolder(CompletedInvestmentsLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
+            TYPE_ONGOING_INVESTMENT -> { OngoingInvestmentsViewHolder(OngoingInvestmentsLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
+            TYPE_NUDGE_CARD -> { BlockchainViewHolder(BlockchainLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
+            TYPE_WATCHLIST -> { MyWatchListViewHolder(SmartDealsLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
             else -> { PortfolioReferViewHolder(PortfolioReferLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(list[position].viewType) {
-            PORTFOLIO_EXISTING_USERS_VIEW_TYPE_ONE -> (holder as TitleViewHolder).bind(position)
-            PORTFOLIO_EXISTING_USERS_VIEW_TYPE_TWO -> (holder as SummaryCompletedInvestmentsViewHolder).bind(position)
-            PORTFOLIO_EXISTING_USERS_VIEW_TYPE_THREE -> (holder as SummaryOngoingInvestmentsViewHolder).bind(position)
-            PORTFOLIO_EXISTING_USERS_VIEW_TYPE_FOUR -> (holder as CompletedInvestmentsViewHolder).bind(position)
-            PORTFOLIO_EXISTING_USERS_VIEW_TYPE_FIVE -> (holder as OngoingInvestmentsViewHolder).bind(position)
-            PORTFOLIO_EXISTING_USERS_VIEW_TYPE_SIX -> (holder as BlockchainViewHolder).bind(position)
-            PORTFOLIO_EXISTING_USERS_VIEW_TYPE_SEVEN -> (holder as MyWatchListViewHolder).bind(position)
-            PORTFOLIO_EXISTING_USERS_VIEW_TYPE_EIGHT -> (holder as PortfolioReferViewHolder).bind(position)
+            TYPE_HEADER -> (holder as TitleViewHolder).bind(position)
+            TYPE_SUMMARY_COMPLETED -> (holder as SummaryCompletedInvestmentsViewHolder).bind(position)
+            TYPE_SUMMARY_ONGOING -> (holder as SummaryOngoingInvestmentsViewHolder).bind(position)
+            TYPE_COMPLETED_INVESTMENT -> (holder as CompletedInvestmentsViewHolder).bind(position)
+            TYPE_ONGOING_INVESTMENT -> (holder as OngoingInvestmentsViewHolder).bind(position)
+            TYPE_NUDGE_CARD -> (holder as BlockchainViewHolder).bind(position)
+            TYPE_WATCHLIST -> (holder as MyWatchListViewHolder).bind(position)
+            TYPE_REFER -> (holder as PortfolioReferViewHolder).bind(position)
         }
     }
 

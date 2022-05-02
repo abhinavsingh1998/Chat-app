@@ -49,6 +49,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation project(path: ':core')
     implementation project(path: ':networklayer')
+    implementation project(path: ':app:portfolioui')
 
     // dagger
     implementation "com.google.dagger:dagger:$daggerVersion"

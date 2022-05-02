@@ -10,3 +10,4 @@ rootProject.name = "HOABL"
 include ':app'
 include ':core'
 include ':networklayer'
+include ':app:portfolioui'

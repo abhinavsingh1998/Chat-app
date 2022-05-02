@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_completed_investment_title"
+        style="@style/text_style_text_light_black_color_18"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Completed Investments"
-        android:fontFamily="@font/jost_medium"
         android:layout_marginStart="@dimen/margin_size_12"
         android:layout_marginTop="@dimen/margin_size_30"
-        style="@style/text_style_text_light_black_color_18"
+        android:fontFamily="@font/jost_medium"
+        android:text="Completed Investments"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_completed_investment"
@@ -24,8 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_size_21"
         android:layout_marginTop="@dimen/margin_size_14"
-        app:cardCornerRadius="@dimen/margin_size_6"
         android:visibility="gone"
+        app:cardCornerRadius="@dimen/margin_size_6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_completed_investment_title">
 
@@ -40,10 +40,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_size_12"
+                android:layout_marginVertical="@dimen/margin_size_14"
                 android:fontFamily="@font/jost_regular"
                 android:text="You are almost there.Complete all your pending payments and enjoy the benefits of NGL investments."
                 android:textAlignment="textStart"
-                android:layout_marginVertical="@dimen/margin_size_14"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/view_curved"
                 app:layout_constraintStart_toStartOf="parent"
@@ -63,9 +63,9 @@
                 style="@style/text_style_text_black_color_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/jost_medium"
-                android:drawablePadding="@dimen/_4sdp"
                 android:drawableEnd="@drawable/rightarrow"
+                android:drawablePadding="@dimen/_4sdp"
+                android:fontFamily="@font/jost_medium"
                 android:text="@string/details"
                 app:layout_constraintBottom_toBottomOf="@id/view_curved"
                 app:layout_constraintEnd_toEndOf="@id/view_curved"
@@ -79,13 +79,13 @@
         android:id="@+id/rv_completed_investment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cv_completed_investment"
-        app:layout_constraintEnd_toEndOf="parent"
         android:orientation="vertical"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_completed_investments"
-        tools:itemCount="2"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cv_completed_investment"
+        tools:itemCount="2"
+        tools:listitem="@layout/item_completed_investments" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -73,6 +73,10 @@ class PortfolioFragment : BaseFragment(),View.OnClickListener {
                     } else if (errorCode == BiometricPrompt.ERROR_NO_BIOMETRICS){
                         setUpUI(true)
                     }
+                    else{
+                        setUpUI(true)
+
+                    }
                 }
 
                 override fun onAuthenticationSucceeded(
