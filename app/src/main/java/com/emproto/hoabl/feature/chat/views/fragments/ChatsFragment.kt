@@ -5,15 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentChatsBinding
-import com.emproto.hoabl.databinding.FragmentHomeBinding
 import com.emproto.hoabl.feature.chat.adapter.ChatsAdapter
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.model.ChatsModel
 
-class ChatsFragment : Fragment() {
+class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
     lateinit var binding: FragmentChatsBinding
     var chatsModel = ArrayList<ChatsModel>()
 
@@ -51,12 +52,31 @@ class ChatsFragment : Fragment() {
     }
 
     private fun setRecycler() {
-        chatsAdapter = ChatsAdapter(context, chatsModel)
+        chatsAdapter = ChatsAdapter(context, chatsModel, this)
 
         binding.rvChats?.apply {
             adapter = chatsAdapter
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         }
+    }
+
+    override fun onChatItemClick(chatsModel: ChatsModel, view: View, position: Int) {
+        val bundle = Bundle()
+       bundle.putSerializable("chatModel", chatsModel)
+        val chatsDetailFragment = ChatsDetailFragment()
+        chatsDetailFragment.arguments = bundle
+            (requireActivity() as HomeActivity).replaceFragment(chatsDetailFragment.javaClass,
+                "",
+                true,
+                bundle,
+                null,
+                0,
+                false
+            )
+            Toast.makeText(context, "Chat Detail", Toast.LENGTH_SHORT).show()
+
+
+
     }
 
 }

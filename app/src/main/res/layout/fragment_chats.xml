@@ -4,24 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/app_color"
+    android:background="@drawable/shape1"
+
     tools:context=".feature.chat.views.fragments.ChatsFragment">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/complete_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/margin_size_55"
-        android:background="@drawable/shape1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+
         <TextView
             android:id="@+id/tvWelcome"
             android:layout_width="0dp"
-            android:layout_height="36dp"
+            android:layout_height="wrap_content"
             android:textStyle="normal"
             android:textSize="14sp"
-            android:layout_margin="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="12dp"
             android:textColor="#494a67"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,8 +37,8 @@
             />
         <TextView
             android:id="@+id/textLastUpdated"
-            android:layout_width="0dp"
-            android:layout_height="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textStyle="normal"
             android:textSize="14sp"
             android:layout_marginTop="14dp"
@@ -52,8 +48,8 @@
             android:text="Last Updated on:"/>
         <TextView
             android:id="@+id/tvLastUpdatedTime"
-            android:layout_width="0dp"
-            android:layout_height="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textStyle="normal"
             android:textSize="14sp"
             android:textColor="#141615"
@@ -64,15 +60,17 @@
         <TextView
             android:id="@+id/tvLastUpdatedDate"
             android:layout_width="wrap_content"
-            android:layout_height="18dp"
+            android:layout_height="wrap_content"
             android:textStyle="normal"
             android:textSize="14sp"
             android:textColor="#141615"
             android:text="11th March’22"
             android:layout_marginLeft="12dp"
+            android:layout_marginRight="6dp"
             app:layout_constraintTop_toTopOf="@id/tvLastUpdatedTime"
             app:layout_constraintBottom_toBottomOf="@id/tvLastUpdatedTime"
-            app:layout_constraintStart_toEndOf="@id/tvLastUpdatedTime"/>
+            app:layout_constraintStart_toEndOf="@id/tvLastUpdatedTime"
+            app:layout_constraintEnd_toStartOf="@id/clRefresh"/>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clRefresh"
             android:layout_width="26dp"
@@ -107,4 +105,3 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
