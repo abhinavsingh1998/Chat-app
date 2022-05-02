@@ -22,11 +22,24 @@ class PortfolioExistingUsersFragment : BaseFragment() {
             when (view.id) {
                 R.id.tv_manage_projects -> {
                     val portfolioSpecificProjectView = PortfolioSpecificProjectView()
-                    (requireActivity() as HomeActivity).replaceFragment(portfolioSpecificProjectView.javaClass, "", true, null, null, 0, false)
+                    (requireActivity() as HomeActivity).replaceFragment(
+                        portfolioSpecificProjectView.javaClass,
+                        "",
+                        true,
+                        null,
+                        null,
+                        0,
+                        false
+                    )
                 }
             }
         }
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
         binding = FragmentFinancialSummaryBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -38,20 +51,21 @@ class PortfolioExistingUsersFragment : BaseFragment() {
     }
 
     private fun setUpUI() {
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
+            View.GONE
     }
 
     private fun setUpRecyclerView() {
         val list = ArrayList<RecyclerViewItem>()
-        list.add(RecyclerViewItem(1))
-        list.add(RecyclerViewItem(2))
-        list.add(RecyclerViewItem(3))
-        list.add(RecyclerViewItem(4))
-        list.add(RecyclerViewItem(5))
-        list.add(RecyclerViewItem(6))
-        list.add(RecyclerViewItem(7))
-        list.add(RecyclerViewItem(8))
-        adapter = ExistingUsersAdapter(this,requireContext(), list)
+        list.add(RecyclerViewItem(ExistingUsersAdapter.TYPE_HEADER))
+        list.add(RecyclerViewItem(ExistingUsersAdapter.TYPE_SUMMARY_COMPLETED))
+        list.add(RecyclerViewItem(ExistingUsersAdapter.TYPE_SUMMARY_ONGOING))
+        list.add(RecyclerViewItem(ExistingUsersAdapter.TYPE_COMPLETED_INVESTMENT))
+        list.add(RecyclerViewItem(ExistingUsersAdapter.TYPE_ONGOING_INVESTMENT))
+        list.add(RecyclerViewItem(ExistingUsersAdapter.TYPE_NUDGE_CARD))
+        list.add(RecyclerViewItem(ExistingUsersAdapter.TYPE_WATCHLIST))
+        list.add(RecyclerViewItem(ExistingUsersAdapter.TYPE_REFER))
+        adapter = ExistingUsersAdapter(this, requireContext(), list)
         binding.financialRecycler.adapter = adapter
         adapter.setItemClickListener(onItemClickListener)
     }

@@ -103,7 +103,8 @@ class OTPVerificationFragment : BaseFragment() {
                 if (s?.length == 6) {
                     if (isNetworkAvailable(mBinding.root)) {
                         hideSoftKeyboard()
-                        val otpVerifyRequest = OtpVerifyRequest(s.toString(), mobileno, false)
+                        val otpVerifyRequest =
+                            OtpVerifyRequest(s.toString(), mobileno, false, "+91")
 
                         authViewModel.verifyOtp(otpVerifyRequest).observe(viewLifecycleOwner,
                             Observer {

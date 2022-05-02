@@ -19,7 +19,10 @@ import com.emproto.hoabl.model.ViewItem
 import com.google.android.material.tabs.TabLayoutMediator
 
 
-class PortfolioSpecificViewAdapter(private val context: Context, private val list:List<RecyclerViewItem>):
+class PortfolioSpecificViewAdapter(
+    private val context: Context,
+    private val list: List<RecyclerViewItem>
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -44,32 +47,132 @@ class PortfolioSpecificViewAdapter(private val context: Context, private val lis
     private lateinit var onItemClickListener: View.OnClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when(viewType){
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_ONE -> { ProjectSpecificTopViewHolder(PortfolioSpecificViewTopLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false)) }
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_TWO -> { PendingViewHolder(PendingItemsLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_THREE -> { FacilityManagementViewHolder(FacilityManagementLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_FOUR -> { DocumentsViewHolder(DocumentsLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_FIVE -> { LatestImagesVideosViewHolder(LatestImagesVideosLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_SIX -> { ApplicablePromisesViewHolder(PortfolioApplicablePromisesBinding.inflate(LayoutInflater.from(parent.context),parent,false)) }
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_SEVEN -> { PriceTrendsViewHolder(PriceTrendsLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_EIGHT -> { ReferViewHolder(PortfolioSepcificViewReferLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_NINE -> { FaqViewHolder(FaqLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
-            else -> { SimilarInvestmentsViewHolder(TrendingProjectsLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
+        return when (viewType) {
+            PORTFOLIO_SPECIFIC_VIEW_TYPE_ONE -> {
+                ProjectSpecificTopViewHolder(
+                    PortfolioSpecificViewTopLayoutBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                )
+            }
+            PORTFOLIO_SPECIFIC_VIEW_TYPE_TWO -> {
+                PendingViewHolder(
+                    PendingItemsLayoutBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                )
+            }
+            PORTFOLIO_SPECIFIC_VIEW_TYPE_THREE -> {
+                FacilityManagementViewHolder(
+                    FacilityManagementLayoutBinding.inflate(
+                        LayoutInflater.from(
+                            parent.context
+                        ), parent, false
+                    )
+                )
+            }
+            PORTFOLIO_SPECIFIC_VIEW_TYPE_FOUR -> {
+                DocumentsViewHolder(
+                    DocumentsLayoutBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                )
+            }
+            PORTFOLIO_SPECIFIC_VIEW_TYPE_FIVE -> {
+                LatestImagesVideosViewHolder(
+                    LatestImagesVideosLayoutBinding.inflate(
+                        LayoutInflater.from(
+                            parent.context
+                        ), parent, false
+                    )
+                )
+            }
+            PORTFOLIO_SPECIFIC_VIEW_TYPE_SIX -> {
+                ApplicablePromisesViewHolder(
+                    PortfolioApplicablePromisesBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                )
+            }
+            PORTFOLIO_SPECIFIC_VIEW_TYPE_SEVEN -> {
+                PriceTrendsViewHolder(
+                    PriceTrendsLayoutBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                )
+            }
+            PORTFOLIO_SPECIFIC_VIEW_TYPE_EIGHT -> {
+                ReferViewHolder(
+                    PortfolioSepcificViewReferLayoutBinding.inflate(
+                        LayoutInflater.from(
+                            parent.context
+                        ), parent, false
+                    )
+                )
+            }
+            PORTFOLIO_SPECIFIC_VIEW_TYPE_NINE -> {
+                FaqViewHolder(
+                    FaqLayoutBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                )
+            }
+            else -> {
+                SimilarInvestmentsViewHolder(
+                    TrendingProjectsLayoutBinding.inflate(
+                        LayoutInflater.from(
+                            parent.context
+                        ), parent, false
+                    )
+                )
+            }
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(list[position].viewType){
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_ONE -> { (holder as ProjectSpecificTopViewHolder).bind(position)}
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_TWO -> { (holder as PendingViewHolder).bind(position)}
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_THREE -> { (holder as FacilityManagementViewHolder).bind(position)}
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_FOUR -> { (holder as DocumentsViewHolder).bind(position)}
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_FIVE -> { (holder as LatestImagesVideosViewHolder).bind(position)}
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_SIX -> { (holder as ApplicablePromisesViewHolder).bind(position)}
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_SEVEN -> { (holder as PriceTrendsViewHolder).bind(position)}
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_EIGHT -> { (holder as ReferViewHolder).bind(position)}
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_NINE -> { (holder as FaqViewHolder).bind(position)}
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_TEN -> { (holder as SimilarInvestmentsViewHolder).bind(position)}
+        when (list[position].viewType) {
+            PORTFOLIO_SPECIFIC_VIEW_TYPE_ONE -> {
+                (holder as ProjectSpecificTopViewHolder).bind(position)
+            }
+            PORTFOLIO_SPECIFIC_VIEW_TYPE_TWO -> {
+                (holder as PendingViewHolder).bind(position)
+            }
+            PORTFOLIO_SPECIFIC_VIEW_TYPE_THREE -> {
+                (holder as FacilityManagementViewHolder).bind(position)
+            }
+            PORTFOLIO_SPECIFIC_VIEW_TYPE_FOUR -> {
+                (holder as DocumentsViewHolder).bind(position)
+            }
+            PORTFOLIO_SPECIFIC_VIEW_TYPE_FIVE -> {
+                (holder as LatestImagesVideosViewHolder).bind(position)
+            }
+            PORTFOLIO_SPECIFIC_VIEW_TYPE_SIX -> {
+                (holder as ApplicablePromisesViewHolder).bind(position)
+            }
+            PORTFOLIO_SPECIFIC_VIEW_TYPE_SEVEN -> {
+                (holder as PriceTrendsViewHolder).bind(position)
+            }
+            PORTFOLIO_SPECIFIC_VIEW_TYPE_EIGHT -> {
+                (holder as ReferViewHolder).bind(position)
+            }
+            PORTFOLIO_SPECIFIC_VIEW_TYPE_NINE -> {
+                (holder as FaqViewHolder).bind(position)
+            }
+            PORTFOLIO_SPECIFIC_VIEW_TYPE_TEN -> {
+                (holder as SimilarInvestmentsViewHolder).bind(position)
+            }
         }
     }
 
@@ -77,10 +180,11 @@ class PortfolioSpecificViewAdapter(private val context: Context, private val lis
 
     override fun getItemViewType(position: Int): Int = list[position].viewType
 
-    private inner class ProjectSpecificTopViewHolder(private val binding: PortfolioSpecificViewTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
+    private inner class ProjectSpecificTopViewHolder(private val binding: PortfolioSpecificViewTopLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
             binding.btnApplyNow.setOnClickListener(onItemClickListener)
-            binding.tvViewMore.setOnClickListener{
+            binding.tvViewMore.setOnClickListener {
                 binding.tvViewLess.visibility = View.VISIBLE
                 binding.ivViewMoreArrowUpward.visibility = View.VISIBLE
                 binding.cvMoreInfoCard.visibility = View.VISIBLE
@@ -89,7 +193,7 @@ class PortfolioSpecificViewAdapter(private val context: Context, private val lis
                 binding.tvViewMore.visibility = View.GONE
                 binding.ivViewMoreDropDown.visibility = View.GONE
             }
-            binding.tvViewLess.setOnClickListener{
+            binding.tvViewLess.setOnClickListener {
                 binding.tvViewLess.visibility = View.GONE
                 binding.ivViewMoreArrowUpward.visibility = View.GONE
                 binding.cvMoreInfoCard.visibility = View.GONE
@@ -97,6 +201,8 @@ class PortfolioSpecificViewAdapter(private val context: Context, private val lis
                 binding.tvViewMore.visibility = View.VISIBLE
                 binding.ivViewMoreDropDown.visibility = View.VISIBLE
             }
+            binding.tvViewTimeline.setOnClickListener(onItemClickListener)
+            binding.tvViewBookingJourney.setOnClickListener(onItemClickListener)
         }
     }
 
@@ -108,7 +214,7 @@ class PortfolioSpecificViewAdapter(private val context: Context, private val lis
         view.visibility = View.VISIBLE
     }
 
-    fun moveBottom(view:View){
+    fun moveBottom(view: View) {
         val moveAnim: ObjectAnimator = ObjectAnimator.ofFloat(view, "Y", 1000f)
         moveAnim.duration = 2000
         moveAnim.interpolator = BounceInterpolator()
@@ -117,8 +223,9 @@ class PortfolioSpecificViewAdapter(private val context: Context, private val lis
     }
 
 
-    private inner class PendingViewHolder(private val binding: PendingItemsLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
+    private inner class PendingViewHolder(private val binding: PendingItemsLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
 
             val listViews = ArrayList<ViewItem>()
             listViews.add(ViewItem(1, R.drawable.new_investment_page_image))
@@ -129,27 +236,30 @@ class PortfolioSpecificViewAdapter(private val context: Context, private val lis
             specificViewPagerAdapter = PortfolioSpecificViewPagerAdapter(listViews)
             binding.vpAttention.adapter = specificViewPagerAdapter
 
-            TabLayoutMediator(binding.tabDotLayout,binding.vpAttention){ _, _ ->
+            TabLayoutMediator(binding.tabDotLayout, binding.vpAttention) { _, _ ->
             }.attach()
         }
     }
 
-    private inner class FacilityManagementViewHolder(private val binding: FacilityManagementLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
+    private inner class FacilityManagementViewHolder(private val binding: FacilityManagementLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
         }
     }
 
-    private inner class DocumentsViewHolder(private val binding: DocumentsLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
-            val list = arrayListOf<String>("1","2","3")
+    private inner class DocumentsViewHolder(private val binding: DocumentsLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
+            val list = arrayListOf<String>("1", "2", "3")
             documentsAdapter = DocumentsAdapter(list)
             binding.rvDocuments.adapter = documentsAdapter
             binding.tvDocumentsSeeAll.setOnClickListener(onItemClickListener)
         }
     }
 
-    private inner class LatestImagesVideosViewHolder(private val binding: LatestImagesVideosLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
+    private inner class LatestImagesVideosViewHolder(private val binding: LatestImagesVideosLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
             val itemList = ArrayList<ViewItem>()
             itemList.add(ViewItem(1, R.drawable.new_investment_page_image))
             itemList.add(ViewItem(2, R.drawable.new_investment_page_image))
@@ -161,26 +271,30 @@ class PortfolioSpecificViewAdapter(private val context: Context, private val lis
         }
     }
 
-    private inner class ApplicablePromisesViewHolder(private val binding: PortfolioApplicablePromisesBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
+    private inner class ApplicablePromisesViewHolder(private val binding: PortfolioApplicablePromisesBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
             val listPromises: ArrayList<String> = arrayListOf("Security", "Transparency", "Wealth")
-            promisesAdapter = HoABLPromisesAdapter(context,listPromises)
+            promisesAdapter = HoABLPromisesAdapter(context, listPromises)
             binding.rvApplicablePromises.adapter = promisesAdapter
         }
     }
 
-    private inner class PriceTrendsViewHolder(private val binding: PriceTrendsLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
+    private inner class PriceTrendsViewHolder(private val binding: PriceTrendsLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
         }
     }
 
-    private inner class ReferViewHolder(private val binding: PortfolioSepcificViewReferLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
+    private inner class ReferViewHolder(private val binding: PortfolioSepcificViewReferLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
         }
     }
 
-    private inner class FaqViewHolder(private val binding: FaqLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
+    private inner class FaqViewHolder(private val binding: FaqLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
             val itemList = arrayListOf<String>("1", "2", "3", "4", "5")
             faqAdapter = FaqAdapter(itemList)
             binding.rvFaq.adapter = faqAdapter
@@ -190,8 +304,9 @@ class PortfolioSpecificViewAdapter(private val context: Context, private val lis
         }
     }
 
-    private inner class SimilarInvestmentsViewHolder(private val binding: TrendingProjectsLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
+    private inner class SimilarInvestmentsViewHolder(private val binding: TrendingProjectsLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
             val itemList = arrayListOf<String>("1", "2", "3", "4", "5")
             similarInvestmentsAdapter = InvestmentAdapter(context, itemList)
             binding.rvTrendingProjects.adapter = similarInvestmentsAdapter

@@ -3,7 +3,7 @@
     <string name="hoabl">HOABL</string>
     <string name="hoabl_app">HOABL APP</string>
     <string name="new_investment">Investment</string>
-    <string name="portfolio">Portfolio</string>
+    <string name="portfolio">My Portfolio</string>
     <string name="promises">Promises</string>
     <string name="profile">Profile</string>
 
@@ -290,7 +290,7 @@
     <string name="amount_paid">Amount Paid</string>
     <string name="manage_projects">Manage Projects</string>
     <string name="invest_now">Invest Now</string>
-    <string name="attention_text">he following items need your attention</string>
+    <string name="attention_text">The following items need your attention</string>
     <string name="share_the_joy">Share the joy</string>
     <string name="refer_now">Refer Now</string>
     <string name="share_hoabl_friends">Share HOBAL APP with your friends</string>
