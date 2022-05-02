@@ -7,6 +7,7 @@ import com.emproto.networklayer.di.DataAppModule
 import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.response.investment.Data
+import com.emproto.networklayer.response.investment.InvestmentResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import retrofit2.Response
 import javax.inject.Inject
@@ -29,7 +30,7 @@ class InvestmentDataSource(val application: Application) {
     }
 
     //investment modules apis
-    suspend fun getInvestmentsData(pageType: Int): Response<Data> {
+    suspend fun getInvestmentsData(pageType: Int): Response<InvestmentResponse> {
         return apiService.getInvestments(pageType)
     }
 }

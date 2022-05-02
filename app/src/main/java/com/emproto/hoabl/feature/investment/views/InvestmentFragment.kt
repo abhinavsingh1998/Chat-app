@@ -14,11 +14,12 @@ import com.emproto.hoabl.databinding.FragmentInvestmentLayoutBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.investment.adapters.NewInvestmentAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
-import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
-import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.investment.Data
+import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
+import java.io.Serializable
 import javax.inject.Inject
 
 class InvestmentFragment : BaseFragment() {
@@ -29,16 +30,25 @@ class InvestmentFragment : BaseFragment() {
     private lateinit var binding: FragmentInvestmentLayoutBinding
     private lateinit var newInvestmentAdapter: NewInvestmentAdapter
 
+    private lateinit var categoryList: List<PageManagementsOrCollectionOneModel>
+
+    private val smartDealsListBundle = Bundle()
+    private val trendingProjectsListBundle = Bundle()
+
     private val onInvestmentItemClickListener =
         View.OnClickListener { view ->
             when (view.id) {
                 R.id.tv_smart_deals_see_all -> {
                     val categoryListFragment = CategoryListFragment()
-                    (requireActivity() as HomeActivity).replaceFragment(categoryListFragment.javaClass, "", true, null, null, 0, false)
+                    smartDealsListBundle.putString("Category","Smart Deals")
+                    categoryListFragment.arguments = smartDealsListBundle
+                    (requireActivity() as HomeActivity).replaceFragment(categoryListFragment.javaClass, "", true, smartDealsListBundle, null, 0, false)
                 }
                 R.id.tv_trending_projects_see_all -> {
                     val categoryListFragment = CategoryListFragment()
-                    (requireActivity() as HomeActivity).replaceFragment(categoryListFragment.javaClass, "", true, null, null, 0, false)
+                    smartDealsListBundle.putString("Category","Trending Projects")
+                    categoryListFragment.arguments = smartDealsListBundle
+                    (requireActivity() as HomeActivity).replaceFragment(categoryListFragment.javaClass, "", true, smartDealsListBundle, null, 0, false)
                 }
             }
         }
@@ -53,7 +63,6 @@ class InvestmentFragment : BaseFragment() {
         setUpDatas()
         setUpUI()
         callApi()
-        setUpRecyclerView()
     }
 
     private fun setUpDatas() {
@@ -69,29 +78,37 @@ class InvestmentFragment : BaseFragment() {
 
     private fun callApi() {
         investmentViewModel.getInvestments(5002).observe(viewLifecycleOwner, Observer {
-            Log.d("Investment","${it.data?.data.toString()}")
+            Log.d("Investment","${it.data?.toString()}")
             when(it.status){
                 Status.LOADING -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
                 }
                 Status.SUCCESS -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    it.data?.data?.let {  data ->
+                        setUpRecyclerView(data)
+                        categoryList = data.pageManagementsOrCollectionOneModels
+                        smartDealsListBundle.putSerializable("SmartDealsData",data.pageManagementsOrCollectionOneModels as Serializable)
+                        smartDealsListBundle.putSerializable("TrendingProjectsData",data.pageManagementsOrCollectionTwoModels as Serializable)
+                    }
                 }
                 Status.ERROR -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(
+                        it.message!!
+                    )
                 }
             }
         })
     }
 
-    private fun setUpRecyclerView() {
+    private fun setUpRecyclerView(data: Data) {
         val list = ArrayList<RecyclerViewItem>()
         list.add(RecyclerViewItem(NewInvestmentAdapter.INVESTMENT_VIEW_TYPE_ONE))
-        list.add(RecyclerViewItem(NewInvestmentAdapter.INVESTMENT_VIEW_TYPE_TWO))
         list.add(RecyclerViewItem(NewInvestmentAdapter.INVESTMENT_VIEW_TYPE_THREE))
         list.add(RecyclerViewItem(NewInvestmentAdapter.INVESTMENT_VIEW_TYPE_FOUR))
 
-        newInvestmentAdapter = NewInvestmentAdapter(this.requireContext(), list)
+        newInvestmentAdapter = NewInvestmentAdapter((requireActivity() as HomeActivity),this.requireContext(), list, data)
         binding.rvInvestmentPage.adapter= newInvestmentAdapter
         newInvestmentAdapter.setItemClickListener(onInvestmentItemClickListener)
     }

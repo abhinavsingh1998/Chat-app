@@ -8,6 +8,7 @@ import com.emproto.networklayer.feature.HomeDataSource
 import com.emproto.networklayer.feature.InvestmentDataSource
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.investment.Data
+import com.emproto.networklayer.response.investment.InvestmentResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,8 +28,8 @@ class InvestmentRepository @Inject constructor(application: Application) : BaseR
      * @return
      */
 
-    fun getInvestments(pageType: Int): LiveData<BaseResponse<Data>> {
-        val mPromisesResponse = MutableLiveData<BaseResponse<Data>>()
+    fun getInvestments(pageType: Int): LiveData<BaseResponse<InvestmentResponse>> {
+        val mPromisesResponse = MutableLiveData<BaseResponse<InvestmentResponse>>()
         mPromisesResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
