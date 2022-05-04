@@ -170,15 +170,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener {
         when (v.id) {
             R.id.btn_explore_new_investment_project -> {
                 val financialSummaryFragment = PortfolioExistingUsersFragment()
-                (requireActivity() as HomeActivity).replaceFragment(
-                    financialSummaryFragment.javaClass,
-                    "",
-                    true,
-                    null,
-                    null,
-                    0,
-                    false
-                )
+                (requireActivity() as HomeActivity).addFragment(financialSummaryFragment, false)
             }
         }
     }
