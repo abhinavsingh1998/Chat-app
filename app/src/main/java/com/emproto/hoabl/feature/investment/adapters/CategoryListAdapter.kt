@@ -18,7 +18,7 @@ class CategoryListAdapter(private val context: Context,val list:List<PageManagem
         fun bind(view: View, position:Int, item:PageManagementsOrCollectionOneModel, clickListener: ItemClickListener){
             val element = list[position]
             itemView.setOnClickListener{
-                clickListener.onItemClicked(view,position,element.toString())
+                clickListener.onItemClicked(view,position,element.id.toString())
             }
             binding.apply {
                 tvProjectName.text = element.launchName

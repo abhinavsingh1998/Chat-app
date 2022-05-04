@@ -10,13 +10,8 @@ import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.feature.investment.views.CategoryListFragment
 import com.emproto.hoabl.model.RecyclerViewItem
-import com.emproto.hoabl.model.ViewItem
-import com.emproto.networklayer.response.investment.AreaRange
 import com.emproto.networklayer.response.investment.Data
-import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
-import com.emproto.networklayer.response.investment.PriceRange
 
 class NewInvestmentAdapter(private val activity:HomeActivity, private val context: Context, val list:List<RecyclerViewItem>, private val data:Data):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

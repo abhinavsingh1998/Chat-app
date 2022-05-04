@@ -120,12 +120,7 @@ class PortfolioSpecificViewAdapter(private val context: Context, private val lis
     private inner class PendingViewHolder(private val binding: PendingItemsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
 
-            val listViews = ArrayList<ViewItem>()
-            listViews.add(ViewItem(1, R.drawable.new_investment_page_image))
-            listViews.add(ViewItem(2, R.drawable.new_investment_page_image))
-            listViews.add(ViewItem(3, R.drawable.new_investment_page_image))
-            listViews.add(ViewItem(4, R.drawable.new_investment_page_image))
-            listViews.add(ViewItem(5, R.drawable.new_investment_page_image))
+            val listViews = arrayListOf<String>("1","2","3","4","5")
             specificViewPagerAdapter = PortfolioSpecificViewPagerAdapter(listViews)
             binding.vpAttention.adapter = specificViewPagerAdapter
 
@@ -150,12 +145,7 @@ class PortfolioSpecificViewAdapter(private val context: Context, private val lis
 
     private inner class LatestImagesVideosViewHolder(private val binding: LatestImagesVideosLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            val itemList = ArrayList<ViewItem>()
-            itemList.add(ViewItem(1, R.drawable.new_investment_page_image))
-            itemList.add(ViewItem(2, R.drawable.new_investment_page_image))
-            itemList.add(ViewItem(3, R.drawable.new_investment_page_image))
-            itemList.add(ViewItem(4, R.drawable.new_investment_page_image))
-            itemList.add(ViewItem(5, R.drawable.new_investment_page_image))
+            val itemList = arrayListOf<String>()
             latestImagesVideosAdapter = VideoDroneAdapter(itemList)
             binding.rvLatestImagesVideos.adapter = latestImagesVideosAdapter
         }

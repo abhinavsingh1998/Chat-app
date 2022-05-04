@@ -4,10 +4,16 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.model.RecyclerViewItem
+import com.emproto.networklayer.response.investment.OpprotunityDoc
 
-class OpportunityDocsAdapter(private val context: Context, private val itemList:List<RecyclerViewItem>):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class OpportunityDocsAdapter(
+    private val context: Context,
+    private val itemList: List<RecyclerViewItem>,
+    private val data: List<OpprotunityDoc>
+):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val OPP_DOCS_VIEW_TYPE_ONE = 1
@@ -66,43 +72,53 @@ class OpportunityDocsAdapter(private val context: Context, private val itemList:
 
     private inner class CurrentInfraStoryViewHolder(private val binding: CurrentInfraStoryLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            val list = arrayListOf<String>("1","2","3","4","5")
-            currentInfraStoryAdapter = CurrentInfraStoryAdapter(context,list)
+            binding.tvCurrentInfraStory.text = data[0].currentInfraStory.heading
+            currentInfraStoryAdapter = CurrentInfraStoryAdapter(context,data[0].currentInfraStory.stories)
             binding.rvCurrentInfraRecycler.adapter = currentInfraStoryAdapter
         }
     }
 
     private inner class UpcomingInfraStoryViewHolder(private val binding: UpcomingInfraStoryLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            val list = arrayListOf<String>("1","2","3","4","5")
-            upcomingInfraStoryAdapter = UpcomingInfraStoryAdapter(context,list)
+            binding.tvUpcomingInfraStory.text = data[0].upcomingInfraStory.heading
+            upcomingInfraStoryAdapter = UpcomingInfraStoryAdapter(context,data[0].upcomingInfraStory.stories)
             binding.rvUpcomingInfraRecycler.adapter = upcomingInfraStoryAdapter
         }
     }
 
     private inner class OppDocsTourismViewHolder(private val binding: OppDocsDestinationLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            val list = arrayListOf<String>("1","2","3","4","5","6")
-            destinationAdapter = DestinationAdapter(list)
+            destinationAdapter = DestinationAdapter(context,data[0].tourismAround.stories)
             binding.rvDestination.adapter = destinationAdapter
         }
     }
 
     private inner class AboutProjectViewHolder(private val binding: AboutProjectLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-
+            binding.apply {
+                tvAboutProjectTitle.text = data[0].aboutProjects.heading
+                tvAbtProjectInfo.text = data[0].aboutProjects.description
+                Glide.with(context)
+                    .load(data[0].aboutProjects.media.value.url)
+                    .into(ivAbtProjectImage)
+            }
         }
     }
 
     private inner class ProjectAmenitiesViewHolder(private val binding: ProjectAmenitiesLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-
+            binding.apply {
+                tvPaFirstText.text = data[0].projectAminities[0].name
+                tvPaSecondText.text = data[0].projectAminities[1].name
+                tvPaThirdText.text = data[0].projectAminities[2].name
+                tvPaFourText.text = data[0].projectAminities[1].name
+            }
         }
     }
 
     private inner class ApplyViewHolder(private val binding: ApplyLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-
+            binding.tvBookingStarts.text = data[0].pageFooter
         }
     }
 

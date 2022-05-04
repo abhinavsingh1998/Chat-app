@@ -26,9 +26,9 @@ class TrendingProjectsAdapter(val context: Context, val list: List<PageManagemen
             tvItemAmount.text = element.priceRange.from + " Onwards"
             tvNoViews.text = element.fomoContent.noOfViews.toString()
             tvItemArea.text = element.areaRange.from + " Onwards"
-            Glide.with(context)
-                .load(element.mediaGalleries[0].coverImage[0].mediaContent.value.url)
-                .into(holder.binding.ivItemImage)
+//            Glide.with(context)
+//                .load(element.mediaGalleries[0].coverImage[0].mediaContent.value.url)
+//                .into(holder.binding.ivItemImage)
         }
     }
 

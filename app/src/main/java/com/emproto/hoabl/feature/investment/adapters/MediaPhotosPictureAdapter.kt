@@ -1,16 +1,22 @@
 package com.emproto.hoabl.feature.investment.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemPhotosMediaLayoutBinding
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.utils.OnRecyclerViewItemClickListener
+import com.emproto.networklayer.response.investment.Image
 
-class MediaPhotosPictureAdapter(private val itemList:List<Int>,private val itemClickListener : ItemClickListener):RecyclerView.Adapter<MediaPhotosPictureAdapter.ViewHolder>() {
+class MediaPhotosPictureAdapter(private val context: Context,private val itemClickListener: ItemClickListener, private val itemList: List<Image>):RecyclerView.Adapter<MediaPhotosPictureAdapter.ViewHolder>() {
 
     inner class ViewHolder(var binding: ItemPhotosMediaLayoutBinding) : RecyclerView.ViewHolder(binding.root){
+        val image:ImageView = itemView.findViewById(R.id.iv_media_photo)
         fun bind(view:View,position:Int,item:String,clickListener: ItemClickListener){
             itemView.setOnClickListener{
                 clickListener.onItemClicked(view,position,item)
@@ -25,7 +31,9 @@ class MediaPhotosPictureAdapter(private val itemList:List<Int>,private val itemC
 
     override fun onBindViewHolder(holder: MediaPhotosPictureAdapter.ViewHolder, position: Int) {
         val list = itemList[position]
-        holder.binding.ivMediaPhoto.setImageResource(itemList[position])
+        Glide.with(context)
+            .load(list.mediaContent.value.url)
+            .into(holder.image)
         holder.bind(holder.itemView,position,list.toString(),itemClickListener)
     }
 

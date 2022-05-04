@@ -9,7 +9,7 @@ import com.emproto.hoabl.databinding.ItemAttentionBinding
 import com.emproto.hoabl.feature.investment.adapters.ProjectDetailViewPagerAdapter
 import com.emproto.hoabl.model.ViewItem
 
-class PortfolioSpecificViewPagerAdapter(private val imageList: List<ViewItem>) : RecyclerView.Adapter<PortfolioSpecificViewPagerAdapter.MyViewHolder>() {
+class PortfolioSpecificViewPagerAdapter(private val imageList: List<String>) : RecyclerView.Adapter<PortfolioSpecificViewPagerAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: ItemAttentionBinding) : RecyclerView.ViewHolder(binding.root)
 

@@ -8,7 +8,7 @@ import com.emproto.hoabl.databinding.CustomImageLayoutBinding
 import com.emproto.hoabl.databinding.ItemLatestImagesVideosBinding
 import com.emproto.hoabl.model.ViewItem
 
-class VideoDroneAdapter(private val list:List<ViewItem>):RecyclerView.Adapter<VideoDroneAdapter.MyViewHolder>() {
+class VideoDroneAdapter(private val list:List<String>):RecyclerView.Adapter<VideoDroneAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: ItemLatestImagesVideosBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -20,7 +20,7 @@ class VideoDroneAdapter(private val list:List<ViewItem>):RecyclerView.Adapter<Vi
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val element = list[position]
         Glide.with(holder.itemView.context)
-            .load(element.imageDrawable)
+            .load(element)
             .into(holder.binding.ivLatestImage)
     }
 

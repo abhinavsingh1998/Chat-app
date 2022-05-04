@@ -17,7 +17,7 @@ import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionTwoModel
 
-class CategoryListFragment() :BaseFragment(),View.OnClickListener {
+class CategoryListFragment() :BaseFragment() {
 
     private lateinit var binding:FragmentCategoryListBinding
     private lateinit var categoryListAdapter: CategoryListAdapter
@@ -56,16 +56,12 @@ class CategoryListFragment() :BaseFragment(),View.OnClickListener {
         binding.rvCategoryList.adapter = categoryListAdapter
     }
 
-    override fun onClick(v: View) {
-        when(v.id){
-
-        }
-    }
-
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
+            val projectDetailBundle = Bundle()
+            projectDetailBundle.putInt("ProjectId",item.toInt())
             val projectDetailFragment = ProjectDetailFragment()
-            (requireActivity() as HomeActivity).replaceFragment(projectDetailFragment.javaClass, "", true, null, null, 0, false)
+            (requireActivity() as HomeActivity).replaceFragment(projectDetailFragment.javaClass, "", true, projectDetailBundle, null, 0, false)
         }
     }
 

@@ -23,11 +23,12 @@ class VideosFragment:BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val mediaData = (requireParentFragment() as MediaGalleryFragment).data
         val list = ArrayList<MediaGalleryItem>()
-        list.add(MediaGalleryItem(1,"Photos"))
-        list.add(MediaGalleryItem(2,"Photos"))
+        list.add(MediaGalleryItem(1,"Videos"))
+        list.add(MediaGalleryItem(2,"Videos"))
 
-        mediaPhotosAdapter = MediaPhotosAdapter(list,itemClickListener)
+        mediaPhotosAdapter = MediaPhotosAdapter(this.requireContext(),list, itemClickListener, mediaData)
         binding.rvMainPhotos.adapter = mediaPhotosAdapter
 
     }

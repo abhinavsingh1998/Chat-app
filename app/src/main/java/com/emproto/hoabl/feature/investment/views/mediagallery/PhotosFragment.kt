@@ -10,6 +10,7 @@ import com.emproto.hoabl.databinding.FragmentPhotosBinding
 import com.emproto.hoabl.feature.investment.adapters.MediaPhotosAdapter
 import com.emproto.hoabl.model.MediaGalleryItem
 import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.networklayer.response.investment.MediaGallery
 
 class PhotosFragment:BaseFragment() {
 
@@ -37,15 +38,16 @@ class PhotosFragment:BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpRecyclerView()
+        val mediaData = (requireParentFragment() as MediaGalleryFragment).data
+        setUpRecyclerView(mediaData)
     }
 
-    private fun setUpRecyclerView() {
+    private fun setUpRecyclerView(mediaData: List<MediaGallery>) {
         val list = ArrayList<MediaGalleryItem>()
         list.add(MediaGalleryItem(1,"Photos"))
         list.add(MediaGalleryItem(2,"Photos"))
 
-        mediaPhotosAdapter = MediaPhotosAdapter(list,itemClickListener)
+        mediaPhotosAdapter = MediaPhotosAdapter(this.requireContext(),list,itemClickListener,mediaData)
         binding.rvMainPhotos.adapter = mediaPhotosAdapter
 
     }
