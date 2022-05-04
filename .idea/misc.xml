@@ -220,11 +220,13 @@
         <entry key="app/src/main/res/layout/faq_view_1.xml" value="0.19021739130434784" />
         <entry key="app/src/main/res/layout/faq_view_2.xml" value="0.19021739130434784" />
         <entry key="app/src/main/res/layout/faq_view_3.xml" value="0.19021739130434784" />
+        <entry key="app/src/main/res/layout/financial_summary_card_2.xml" value="0.45" />
         <entry key="app/src/main/res/layout/fragment_about_us.xml" value="0.45" />
         <entry key="app/src/main/res/layout/fragment_account__details.xml" value="0.11510416666666666" />
         <entry key="app/src/main/res/layout/fragment_account_details.xml" value="0.4781659388646288" />
         <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.33668678739101277" />
         <entry key="app/src/main/res/layout/fragment_faq.xml" value="0.45" />
+        <entry key="app/src/main/res/layout/fragment_financial_summary.xml" value="0.159375" />
         <entry key="app/src/main/res/layout/fragment_health_center.xml" value="0.25886325267304444" />
         <entry key="app/src/main/res/layout/fragment_hoabel_promises.xml" value="0.21302083333333333" />
         <entry key="app/src/main/res/layout/fragment_portfolio_specificview.xml" value="0.16394927536231885" />
@@ -232,6 +234,7 @@
         <entry key="app/src/main/res/layout/fragment_profile_main.xml" value="0.45" />
         <entry key="app/src/main/res/layout/fragment_profile_second.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_promise_details.xml" value="0.2115036231884058" />
+        <entry key="app/src/main/res/layout/fragment_promises.xml" value="0.2109375" />
         <entry key="app/src/main/res/layout/fragment_security.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_signin_issue.xml" value="0.22604166666666667" />
@@ -239,6 +242,7 @@
         <entry key="app/src/main/res/layout/health_center_view.xml" value="0.45" />
         <entry key="app/src/main/res/layout/health_center_view2.xml" value="0.45" />
         <entry key="app/src/main/res/layout/help_centre.xml" value="0.21614583333333334" />
+        <entry key="app/src/main/res/layout/portfolio_title_card.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/layout/promise_second_view.xml" value="0.375" />
         <entry key="app/src/main/res/layout/promises_item_header.xml" value="0.335" />
         <entry key="app/src/main/res/layout/promises_view.xml" value="0.335" />

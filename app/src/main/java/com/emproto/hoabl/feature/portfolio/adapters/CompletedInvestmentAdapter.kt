@@ -5,8 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemCompletedInvestmentsBinding
+import com.emproto.networklayer.response.portfolio.Project
 
-class CompletedInvestmentAdapter(val list: List<String>) : RecyclerView.Adapter<CompletedInvestmentAdapter.MyViewHolder>()  {
+class CompletedInvestmentAdapter(val list: List<Project>) : RecyclerView.Adapter<CompletedInvestmentAdapter.MyViewHolder>()  {
 
     inner class MyViewHolder(var binding: ItemCompletedInvestmentsBinding) : RecyclerView.ViewHolder(binding.root)
 
