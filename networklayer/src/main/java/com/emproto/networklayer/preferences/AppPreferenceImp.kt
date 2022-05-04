@@ -43,4 +43,12 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
     private fun getBoolean(key: String, defaultValue: Boolean): Boolean {
         return preference.getBoolean(key, defaultValue)
     }
+
+    override fun setNotificationToken(token: String) {
+        saveString(TOKEN, token)
+    }
+
+    override fun getNotificationToken(): String {
+        return getString(TOKEN, "")
+    }
 }

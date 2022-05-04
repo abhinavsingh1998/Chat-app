@@ -6,9 +6,12 @@ import com.emproto.hoabl.feature.investment.views.InvestmentFragment
 import com.emproto.hoabl.feature.login.*
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
+import com.emproto.hoabl.feature.portfolio.views.PortfolioExistingUsersFragment
+import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
 import com.emproto.hoabl.feature.profile.ProfileFragment
 import com.emproto.hoabl.feature.promises.HoabelPromises
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
+import com.emproto.hoabl.notification.MyFirebasemessagingService
 import dagger.Component
 import javax.inject.Singleton
 
@@ -27,4 +30,7 @@ interface HomeComponent {
     fun inject(fragment: PromisesDetailsFragment)
     fun inject(fragment: InvestmentFragment)
     fun inject(fragment: ProjectDetailFragment)
+    fun inject(fragment: PortfolioFragment)
+    fun inject(fragment:PortfolioExistingUsersFragment)
+    fun inject(service: MyFirebasemessagingService)
 }

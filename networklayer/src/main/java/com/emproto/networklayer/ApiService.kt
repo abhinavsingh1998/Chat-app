@@ -12,6 +12,7 @@ import com.emproto.networklayer.response.login.AddNameResponse
 import com.emproto.networklayer.response.login.OtpResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.login.VerifyOtpResponse
+import com.emproto.networklayer.response.portfolio.PortfolioData
 import com.emproto.networklayer.response.promises.PromisesResponse
 import retrofit2.Response
 import retrofit2.http.*
@@ -47,5 +48,8 @@ public interface ApiService {
 
     @GET(ApiConstants.INVESTMENT_PROJECT_DETAIL)
     suspend fun getInvestmentsProjectDetails(@Path("id") id: Int): Response<ProjectDetailResponse>
+
+    @GET(ApiConstants.PORTFOLIO_DASHBOARD)
+    suspend fun getPortfolioDashboard():Response<PortfolioData>
 
 }

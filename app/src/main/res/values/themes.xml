@@ -319,6 +319,7 @@
     </style>
 
     //textSize_14
+
     <style name="text_style_dark_black_color_14">
         <item name="android:gravity">start</item>
         <item name="android:textSize">@dimen/text_size_14</item>
@@ -703,6 +704,13 @@
         <item name="android:textColor">@color/doc_label_black_color</item>
     </style>
 
+    <style name="text_regular_blue_22">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_22</item>
+        <item name="android:textColor">@color/app_color</item>
+        <item name="android:fontFamily">@font/jost_regular</item>
+    </style>
+
     //textSize_25
 
     <style name="text_style_text_color_25">
@@ -806,6 +814,6 @@
     </style>
 
     <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background"> @android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 </resources>
