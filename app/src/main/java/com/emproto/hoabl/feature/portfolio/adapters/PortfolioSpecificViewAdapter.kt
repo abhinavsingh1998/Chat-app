@@ -254,7 +254,7 @@ class PortfolioSpecificViewAdapter(
 
     private inner class LatestImagesVideosViewHolder(private val binding: LatestImagesVideosLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            val itemList = arrayListOf<String>()
+            val itemList = arrayListOf<String>("https://prodcuts-inventory-btf-be-stage.s3-ap-south-1.amazonaws.com/large/rose ambuguet.png","https://prodcuts-inventory-btf-be-stage.s3-ap-south-1.amazonaws.com/large/rose ambuguet.png")
             latestImagesVideosAdapter = VideoDroneAdapter(itemList)
             binding.rvLatestImagesVideos.adapter = latestImagesVideosAdapter
         }
