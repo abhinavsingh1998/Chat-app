@@ -1,7 +1,7 @@
 package com.emproto.hoabl.feature.home.views.fragments
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,9 +17,9 @@ import com.emproto.hoabl.adapters.TestimonialAdapter
 import com.emproto.hoabl.databinding.FragmentHomeBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.adapters.HoABLPromisesAdapter
+import com.emproto.hoabl.feature.home.adapters.InvestmentCardAdapter
 import com.emproto.hoabl.feature.home.adapters.PendingPaymentsAdapter
 import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.response.BaseResponse
@@ -32,7 +32,7 @@ import javax.inject.Inject
 class HomeFragment : BaseFragment() {
 
     lateinit var binding: FragmentHomeBinding
-    private lateinit var investmentAdapter: InvestmentAdapter
+    private lateinit var investmentAdapter: InvestmentCardAdapter
     private lateinit var insightsAdapter: InsightsAdapter
     private lateinit var testimonialAdapter: TestimonialAdapter
     private lateinit var latestUpdateAdapter: LatestUpdateAdapter
@@ -40,11 +40,11 @@ class HomeFragment : BaseFragment() {
     private lateinit var hoABLPromisesAdapter: HoABLPromisesAdapter
     private lateinit var pendingPaymentsAdapter: PendingPaymentsAdapter
 
-
-    private lateinit var homeViewModel: HomeViewModel
+    val appURL= "https://hoabl.in/"
 
     @Inject
     lateinit var factory: HomeFactory
+    lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -75,8 +75,9 @@ class HomeFragment : BaseFragment() {
                         Status.SUCCESS -> {
                             binding.rootView.show()
                             binding.loader.hide()
+
                             //loading investment list
-                            investmentAdapter = InvestmentAdapter(
+                            investmentAdapter = InvestmentCardAdapter(
                                 requireActivity(),
                                 it.data!!.data.pageManagementsOrNewInvestments
                             )
@@ -173,10 +174,37 @@ class HomeFragment : BaseFragment() {
 
     fun initClickListener() {
         binding.tvSeeallInsights.setOnClickListener {
-            (requireActivity() as HomeActivity).addFragment(
-                InsightsAndUpdatesFragment.newInstance(),
-                true
-            )
+            (requireActivity() as HomeActivity).replaceFragment(InsightsFragment::class.java,
+                "",
+                true,
+                null,
+                null,
+                0,
+                false)
+        }
+
+        binding.tvSeeAllUpdate.setOnClickListener {
+            (requireActivity() as HomeActivity).replaceFragment(LatestUpdatesFragment::class.java,
+                "",
+                true,
+                null,
+                null,
+                0,
+                false)
+        }
+
+        binding.tvSeeallTestimonial.setOnClickListener {
+            (requireActivity() as HomeActivity).replaceFragment(Testimonials::class.java,
+                "",
+                true,
+                null,
+                null,
+                0,
+                false)
+        }
+
+        binding.appShareBtn.setOnClickListener {
+            share_app()
         }
 
 
@@ -193,4 +221,11 @@ class HomeFragment : BaseFragment() {
         }
     }
 
+    private fun share_app() {
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        shareIntent.type = "text/plain"
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "The House Of Abhinandan Lodha $appURL")
+        startActivity(shareIntent)
+    }
 }

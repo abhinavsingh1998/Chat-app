@@ -4,84 +4,75 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profile_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:outlineSpotShadowColor="#D8D8DD">
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-    <ImageView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/testimonial_asset"
-        android:layout_marginTop="@dimen/margin_size_28"
-        android:layout_marginLeft="@dimen/margin_size_85"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/profileCard"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="@dimen/margin_size_20"
-        android:layout_marginStart="@dimen/margin_size_105"
-        android:layout_gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:cardCornerRadius="@dimen/margin_size_20">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+
+        <LinearLayout
+            android:id="@+id/text_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            />
-    </androidx.cardview.widget.CardView>
+            android:layout_marginLeft="@dimen/margin_size_8"
+            android:orientation="vertical"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.emproto.core.textviews.CustomTextView
+                android:id="@+id/tv_name"
+                style="@style/text_style_thick_blue_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Rajeev Kumar"
+                android:textStyle=""
+                android:fontFamily="@font/jostmedium" />
+
+            <com.emproto.core.textviews.CustomTextView
+                android:id="@+id/tv_companyName"
+                style="@style/text_style_text_color_14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="CEO, Futurecorp Inc."
+                app:fontName="@string/jost_regular" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.emproto.core.textviews.CustomTextView
-        android:id="@+id/ceo_name"
-        android:layout_width="wrap_content"
+        android:id="@+id/details"
+        style="@style/text_style_text_color_14"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_size_8"
-        app:layout_constraintLeft_toRightOf="@id/profileCard"
-        android:layout_marginTop="@dimen/margin_size_21"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="Sareeja Desai"
-        android:fontFamily="@font/jost_regular"
-        android:textSize="@dimen/text_size_14"
-        android:textColor="#272165"
-        />
+        android:gravity="center"
+        android:layout_marginTop="@dimen/margin_size_12"
+        android:layout_marginLeft="@dimen/margin_size_25"
+        android:layout_marginRight="@dimen/margin_size_25"
+        android:text="Neque porro quisquam estp qui dolorem ipsu porro \nquisquam estp qui ipsu."
+        app:fontName="@string/jost_regular"
+        android:layout_marginBottom="@dimen/margin_size_9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_layout"/>
 
-    <com.emproto.core.textviews.CustomTextView
-        android:id="@+id/designation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_size_8"
-        app:layout_constraintLeft_toRightOf="@id/profileCard"
-        app:layout_constraintTop_toBottomOf="@+id/ceo_name"
-        android:text="CEO, Futurecorp Inc."
-        android:fontFamily="@font/jost_regular"
-        android:textSize="@dimen/text_size_13"
-        android:textColor="@color/text_color"/>
-
-    <com.emproto.core.textviews.CustomTextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_size_10"
-        android:layout_marginStart="@dimen/margin_size_26"
-        android:layout_marginEnd="@dimen/margin_size_26"
-        android:layout_marginBottom="@dimen/margin_size_10"
-        android:text="@string/quotes_txt"
-        android:fontFamily="@font/jost_light"
-        android:textSize="@dimen/text_size_14"
-        android:textColor="@color/text_color"
-        app:layout_constraintTop_toBottomOf="@id/profileCard"
-        app:layout_constraintLeft_toLeftOf="parent"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E3DDDD"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

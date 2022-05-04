@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".feature.home.views.fragments.LatestUpdatesDetailsFragment"
+    android:background="@color/app_color">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/root_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/dialog_curve_bg"
+            android:layout_marginTop="@dimen/margin_size_10">
+
+            <ImageView
+                android:id="@+id/back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back_button"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:clickable="true"
+                android:layout_marginTop="@dimen/margin_size_36"
+                android:layout_marginLeft="@dimen/margin_size_10"/>
+
+            <com.emproto.core.textviews.CustomTextView
+                android:id="@id/title"
+                style="@style/text_style_text_black_color_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_size_10"
+                android:layout_marginTop="@dimen/margin_size_36"
+                android:layout_marginRight="@dimen/margin_size_20"
+                android:fontFamily="@font/jostmedium"
+                android:text="Title goes here goes here title goes here goes here goes here here goes herehere goes"
+                android:textAlignment="viewStart"
+                app:layout_constraintLeft_toRightOf="@id/back_btn"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.emproto.core.textviews.CustomTextView
+                android:id="@+id/tv_name"
+                style="@style/text_style_grey_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Parikrama"
+                android:fontFamily="@font/jost_regular"
+                android:layout_marginTop="@dimen/margin_size_7"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_location"
+                app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/title" />
+
+            <com.emproto.core.textviews.CustomTextView
+                android:id="@+id/tv_location"
+                style="@style/text_style_grey_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_7"
+                android:layout_marginLeft="@dimen/margin_size_4"
+                android:layout_marginRight="@dimen/margin_size_22"
+                android:text="Anjarle, GOA"
+                android:fontFamily="@font/jost_italic"
+                app:layout_constraintLeft_toRightOf="@id/tv_name"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/land_image_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="7dp"
+                android:layout_marginHorizontal="@dimen/margin_size_15"
+                android:layout_marginTop="@dimen/margin_size_18"
+                app:layout_constraintBottom_toTopOf="@id/image_desc"
+                app:layout_constraintTop_toBottomOf="@id/tv_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/image_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:scaleType="fitXY"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/image_desc"
+                style="@style/text_style_dark_grey_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_7"
+                android:fontFamily="@font/jost_light"
+                android:text="Image description goes here goes here"
+                android:textAlignment="viewStart"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="@+id/land_image_1"
+                app:layout_constraintLeft_toRightOf="@id/back_btn"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/land_image_1"
+                app:layout_constraintTop_toBottomOf="@+id/land_image_1" />
+
+            <TextView
+                android:id="@+id/first_details"
+                style="@style/text_style_text_black_color_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jost_light"
+                android:text="@string/updates_details"
+                android:textAlignment="viewStart"
+                android:layout_marginTop="@dimen/margin_size_10"
+                app:layout_constraintRight_toRightOf="@id/land_image_1"
+                app:layout_constraintLeft_toLeftOf="@id/image_desc"
+                app:layout_constraintTop_toBottomOf="@+id/image_desc" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/land_image_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="7dp"
+                android:layout_marginHorizontal="@dimen/margin_size_18"
+                android:layout_marginTop="@dimen/margin_size_15"
+                app:layout_constraintBottom_toTopOf="@id/second_details"
+                app:layout_constraintTop_toBottomOf="@id/first_details"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/image_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:scaleType="fitXY"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/second_details"
+                style="@style/text_style_text_black_color_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jost_light"
+                android:text="@string/updates_details"
+                android:textAlignment="viewStart"
+                android:layout_marginTop="@dimen/margin_size_12"
+                app:layout_constraintLeft_toLeftOf="@id/image_desc"
+                app:layout_constraintRight_toRightOf="@id/land_image_1"
+                app:layout_constraintTop_toBottomOf="@+id/land_image_2" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/land_image_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="7dp"
+                android:layout_marginHorizontal="@dimen/margin_size_18"
+                android:layout_marginTop="@dimen/margin_size_15"
+                app:layout_constraintBottom_toTopOf="@id/third_details"
+                app:layout_constraintTop_toBottomOf="@id/second_details"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/image_3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:scaleType="fitXY"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/third_details"
+                style="@style/text_style_text_black_color_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jost_light"
+                android:text="@string/updates_details"
+                android:textAlignment="viewStart"
+                android:layout_marginBottom="@dimen/margin_size_20"
+                android:layout_marginTop="@dimen/margin_size_12"
+                app:layout_constraintLeft_toLeftOf="@id/image_desc"
+                app:layout_constraintRight_toRightOf="@id/land_image_1"
+                app:layout_constraintTop_toBottomOf="@+id/land_image_3"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+    
+</androidx.constraintlayout.widget.ConstraintLayout>

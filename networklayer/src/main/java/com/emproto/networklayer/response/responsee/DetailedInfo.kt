@@ -1,6 +1,6 @@
 package com.emproto.networklayer.response.responsee
 
-data class InsightsMedia(
+data class DetailedInfo(
     val description: String,
-    val media: Media
+    val media: MediaX
 )

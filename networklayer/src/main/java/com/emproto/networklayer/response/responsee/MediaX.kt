@@ -1,9 +1,8 @@
 package com.emproto.networklayer.response.responsee
 
-data class Media(
+data class MediaX(
     val isActive: Boolean,
     val key: String,
-    val mediaDescription: String,
     val name: String,
-    val value: ValueXX
+    val value: ValueXXX
 )

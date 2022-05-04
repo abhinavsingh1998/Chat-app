@@ -1,7 +1,5 @@
 package com.emproto.networklayer.response.responsee
 
-import com.emproto.networklayer.response.home.DetailedInfo
-
 data class PageManagementOrLatestUpdate(
     val createdAt: String,
     val createdBy: Int,
@@ -11,6 +9,7 @@ data class PageManagementOrLatestUpdate(
     val id: Int,
     val pageManagementAndLatestUpdates: PageManagementAndLatestUpdates,
     val shouldDisplayDate: Boolean,
+    val status: Any,
     val subTitle: String,
     val updateType: String,
     val updatedAt: String,

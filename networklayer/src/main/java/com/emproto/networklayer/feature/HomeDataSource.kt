@@ -41,5 +41,4 @@ public class HomeDataSource(val application: Application) {
         return apiService2.getPromises(pageType)
     }
 
-
 }

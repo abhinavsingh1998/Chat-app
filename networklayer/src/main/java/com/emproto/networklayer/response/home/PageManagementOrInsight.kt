@@ -1,14 +1,17 @@
 package com.emproto.networklayer.response.home
 
+import com.emproto.networklayer.response.responsee.InsightsMedia
+import com.emproto.networklayer.response.responsee.PageManagementAndInsights
+
 data class PageManagementOrInsight(
     val createdAt: String,
     val createdBy: Int,
     val displayTitle: String,
     val id: Int,
-    val insightMedia: InsightMedia,
-    val modifiedBy: Int,
+    val insightsMedia: List<InsightsMedia>,
+    val modifiedBy: Any,
     val pageManagementAndInsights: PageManagementAndInsights,
-    val status: Boolean,
-    val subTitle: String,
+    val priority: Any,
+    val status: String,
     val updatedAt: String
 )

@@ -1,9 +1,9 @@
 package com.emproto.networklayer.response.responsee
 
 data class ValueXX(
-    val height: String,
+    val height: Int,
     val mediaType: String,
-    val size: String,
+    val size: Int,
     val url: String,
-    val width: String
+    val width: Int
 )

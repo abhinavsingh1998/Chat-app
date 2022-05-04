@@ -11,6 +11,7 @@ data class HomePagesOrPromise(
     val id: Int,
     val isHowToApplyActive: Boolean,
     val name: String,
+    val priority: Any,
     val promiseIconType: String,
     val promiseMedia: PromiseMedia,
     val promiseType: String,

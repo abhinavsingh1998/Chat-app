@@ -7,8 +7,11 @@ import androidx.lifecycle.ViewModel
 import com.emproto.core.Database.Dao.HomeSearchDao
 import com.emproto.core.Database.TableModel.SearchModel
 import com.emproto.hoabl.repository.HomeRepository
+import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.home.HomeResponse
+import com.emproto.networklayer.response.home.PageManagementOrInsight
+import com.emproto.networklayer.response.home.PageManagementOrLatestUpdate
 import com.emproto.networklayer.response.login.OtpResponse
 import com.emproto.networklayer.response.promises.HoablPagesOrPromise
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
@@ -25,6 +28,9 @@ class HomeViewModel(
     private var application: Application = mapplication
     private var homeRepository: HomeRepository = mhomeRepository
     private var promise = MutableLiveData<HomePagesOrPromise>()
+    private var promise = MutableLiveData<HoablPagesOrPromise>()
+    private var latestUpdates = MutableLiveData<PageManagementOrLatestUpdate>()
+    private var insights = MutableLiveData<PageManagementOrInsight>()
 
     @Inject
     lateinit var homeSearchDao: HomeSearchDao
@@ -57,9 +63,27 @@ class HomeViewModel(
         return promise
     }
 
+    fun getDashboardData(pageType: Int): LiveData<BaseResponse<HomeResponse>> {
+        return homeRepository.getDashboardData(pageType)
+    }
+
     fun getTermsCondition(pageType: Int): LiveData<BaseResponse<TermsConditionResponse>> {
         return mhomeRepository.getTermsCondition(pageType)
     }
 
+    fun setSeLectedLatestUpdates(latestUpdates: PageManagementOrLatestUpdate){
+        this.latestUpdates.postValue(latestUpdates)
+    }
 
+    fun getSelectedLatestUpdates(): LiveData<PageManagementOrLatestUpdate> {
+        return latestUpdates
+    }
+
+    fun setSeLectedInsights(insights: PageManagementOrInsight){
+        this.insights.postValue(insights)
+    }
+
+    fun getSelectedInsights(): LiveData<PageManagementOrInsight> {
+        return insights
+    }
 }
