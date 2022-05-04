@@ -34,13 +34,8 @@ class ChatsDetailFragment : Fragment() {
         chatsModel = arguments?.getSerializable("chatModel") as? ChatsModel
         binding.tvTitle.text = chatsModel!!.topic
         binding.ivThumb.setImageResource(chatsModel!!.image)
+        binding.ivBack.setOnClickListener { onBackPressed() }
 
-        binding.ivBack.setOnClickListener(object :
-            View.OnClickListener {
-            override fun onClick(p0: View?) {
-                onBackPressed()
-            }
-        })
     }
 
     private fun onBackPressed() {
