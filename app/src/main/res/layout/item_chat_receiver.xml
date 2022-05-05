@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="120dp">
 
     <TextView
         android:id="@+id/tvChatTime"
@@ -27,7 +29,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvChatTime"
         tools:itemCount="2"
         android:layout_marginLeft="2dp"
-        tools:listitem="@layout/item_chat_detail_blue" />
+        tools:listitem="@layout/item_chat_receiver_message" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvChatDetailWhiteCard"
@@ -37,5 +39,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rvChatDetailBlueCard"
         tools:itemCount="4"
-        tools:listitem="@layout/item_chat_detail_white" />
+        tools:listitem="@layout/item_chat_receiver_options" />
 </androidx.constraintlayout.widget.ConstraintLayout>

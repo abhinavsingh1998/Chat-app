@@ -1,22 +1,23 @@
 package com.emproto.hoabl.feature.chat.views.fragments
 
 import android.os.Bundle
-import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
-import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.FragmentChatsBinding
 import com.emproto.hoabl.databinding.FragmentChatsDetailBinding
-import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
-import com.emproto.hoabl.model.ChatsModel
+import com.emproto.hoabl.feature.investment.adapters.ChatsDetailAdapter
+import com.emproto.hoabl.model.*
 
 class ChatsDetailFragment : Fragment() {
     var chatsModel: ChatsModel? = null
+    var chatsDetailModel = ArrayList<ChatsDetailModel>()
+    var msgReceived = ArrayList<MessageReceived>()
+    var msgOptions = ArrayList<MessageOptions>()
+
+
+    private lateinit var chatsDetailAdapter: ChatsDetailAdapter
+
     lateinit var binding: FragmentChatsDetailBinding
 
     override fun onCreateView(
@@ -35,7 +36,34 @@ class ChatsDetailFragment : Fragment() {
         binding.tvTitle.text = chatsModel!!.topic
         binding.ivThumb.setImageResource(chatsModel!!.image)
         binding.ivBack.setOnClickListener { onBackPressed() }
+        setChatsData()
 
+
+    }
+
+    private fun setChatsData() {
+        msgReceived.add(
+            MessageReceived(
+                "0",
+                "Hi Anuj Singh! Thanks for connecting. I am Chat Bot. I will be helping you with your queries today."
+            )
+        )
+        msgReceived.add(
+            MessageReceived(
+                "1",
+                "Please choose the relevant option which describes your issue:"
+            )
+        )
+
+        msgOptions.add(MessageOptions("0", "About Hoabl"))
+        msgOptions.add(MessageOptions("1", "Promises"))
+        msgOptions.add(MessageOptions("2", "Investments"))
+        msgOptions.add(MessageOptions("3", "Others"))
+
+
+        chatsDetailModel.add(ChatsDetailModel(msgReceived, msgOptions, null, TypeOfMessage.RECEIVER, 1651773904410))
+
+        chatsDetailModel.add(ChatsDetailModel(null, null, "About Hoabl", TypeOfMessage.SENDER, 1651773905410))
     }
 
     private fun onBackPressed() {
