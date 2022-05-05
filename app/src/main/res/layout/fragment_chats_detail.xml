@@ -112,12 +112,15 @@
         app:layout_constraintTop_toBottomOf="@id/view1" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="wrap_content"
+        android:id="@+id/rvChat"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/clType"
         app:layout_constraintStart_toStartOf="@id/clSearch"
         app:layout_constraintTop_toBottomOf="@+id/tvDay"
-        tools:listitem="@layout/item_chat_detail_main" />
+        app:layout_constraintEnd_toEndOf="@+id/clSearch"
+        tools:listitem="@layout/item_chat_receiver" />
+
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

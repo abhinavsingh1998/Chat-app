@@ -4,18 +4,23 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable-hdpi/accountshape.xml" value="0.1" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable-hdpi/arrow.xml" value="0.179" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable-hdpi/btnshape.xml" value="0.1" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable-hdpi/circle.xml" value="0.179" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable-v24/bottom_nav_icons.xml" value="0.1" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable-v24/bottom_tint_selector.xml" value="0.179" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable-xxxhdpi/card_bg.xml" value="0.1" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable-xxxhdpi/refresh_bg.xml" value="0.12407407407407407" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable-xxxhdpi/search_bar.xml" value="0.17592592592592593" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable/all_corner_big_radius_white.xml" value="0.1" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable/all_corner_radius_white_bg.xml" value="0.1" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable/banner_background.xml" value="0.179" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable/bottom_corner_radius_bg.xml" value="0.1" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable/button_bg.xml" value="0.1" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable/chat_blue_card.xml" value="0.17592592592592593" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable/clip_bg.xml" value="0.179" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable/curve.xml" value="0.17592592592592593" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable/reply_bg.xml" value="0.179" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable/send_button_bg.xml" value="0.179" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable/type_box.xml" value="0.179" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/activity_home.xml" value="0.1" />
@@ -32,6 +37,12 @@
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/item_chat_detail_main.xml" value="0.4466666666666667" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/item_chat_detail_reply.xml" value="0.17395833333333333" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/item_chat_detail_white.xml" value="0.17395833333333333" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/item_chat_receive.xml" value="0.17395833333333333" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/item_chat_receive_options.xml" value="0.17395833333333333" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/item_chat_receiver.xml" value="0.17395833333333333" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/item_chat_receiver_message.xml" value="0.17239583333333333" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/item_chat_send.xml" value="0.17395833333333333" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/item_chat_sender_message.xml" value="0.17239583333333333" />
       </map>
     </option>
   </component>
