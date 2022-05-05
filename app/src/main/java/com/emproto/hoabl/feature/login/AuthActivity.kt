@@ -18,6 +18,7 @@ import com.emproto.hoabl.databinding.FragmentSigninIssueBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.viewmodels.AuthViewmodel
 import com.emproto.hoabl.viewmodels.factory.AuthFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.response.enums.Status
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -30,6 +31,8 @@ class AuthActivity : BaseActivity() {
     lateinit var authFactory: AuthFactory
     lateinit var authViewModel: AuthViewmodel
 
+    @Inject
+    lateinit var appPreference: AppPreference
     lateinit var activityAuthBinding: ActivityAuthBinding
     lateinit var bottomSheetDialog: BottomSheetDialog
     lateinit var signingInIssueBiding: FragmentSigninIssueBinding
@@ -45,6 +48,7 @@ class AuthActivity : BaseActivity() {
         initView()
         close_sheet()
         initClickListener()
+
     }
 
     private fun initClickListener() {
@@ -93,6 +97,7 @@ class AuthActivity : BaseActivity() {
 
     private fun launch_bottom_sheet() {
 
+        signingInIssueBiding.mobileNumInput.setText(appPreference.getMobilenum())
         bottomSheetDialog.show()
         initClickListner()
 
@@ -270,6 +275,7 @@ class AuthActivity : BaseActivity() {
     }
 
     private fun close_sheet(){
+        appPreference.setMobilenum("")
         signingInIssueBiding.sheetCloseBtn.setOnClickListener(View.OnClickListener {
             bottomSheetDialog.dismiss()
         })

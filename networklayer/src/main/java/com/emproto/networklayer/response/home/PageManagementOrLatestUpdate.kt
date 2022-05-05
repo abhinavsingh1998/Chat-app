@@ -1,6 +1,6 @@
 package com.emproto.networklayer.response.home
 
-data class PageManagementOrLatestUpdate(
+data class    PageManagementOrLatestUpdate(
     val createdAt: String,
     val createdBy: Int,
     val detailedInfo: Any,

@@ -120,6 +120,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.emproto.core.textviews.CustomTextView
+                android:id="@+id/resent_otp"
                 style="@style/text_style_blue_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

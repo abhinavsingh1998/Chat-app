@@ -135,9 +135,9 @@ class NameInputFragment : BaseFragment() {
             )
             authViewModel.addUsernameDetails(addNameRequest)
                 .observe(viewLifecycleOwner, object : Observer<BaseResponse<AddNameResponse>> {
-                    override fun onChanged(t: BaseResponse<AddNameResponse>?) {
+                    override fun onChanged(it: BaseResponse<AddNameResponse>?) {
 
-                        when (t!!.status) {
+                        when (it!!.status) {
                             Status.LOADING -> {
                                 binding.loader.visibility = View.VISIBLE
                                 binding.submitBtn.visibility = View.GONE
@@ -154,6 +154,9 @@ class NameInputFragment : BaseFragment() {
                                 dialog.show(parentFragmentManager, "Welcome Card")
                             }
                             Status.ERROR -> {
+                                (requireActivity() as AuthActivity).showErrorToast(
+                                    it.message!!
+                                )
                                 binding.loader.visibility = View.GONE
                                 binding.submitBtn.visibility = View.VISIBLE
                                 (requireActivity() as AuthActivity).showErrorToast(

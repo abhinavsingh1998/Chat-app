@@ -28,6 +28,7 @@ import android.text.style.ClickableSpan
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import com.emproto.core.databinding.TermsConditionDialogBinding
+import com.emproto.hoabl.databinding.FragmentSigninIssueBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
@@ -91,6 +92,7 @@ class LoginFragment : BaseFragment() {
                 hCountryCode = countryCode
                 mBinding.otpText.visibility = View.VISIBLE
                 mBinding.textError.visibility = View.GONE
+                mBinding.switchWhatspp.isChecked = true
             }
 
             override fun afterValueChanges(value1: String?) {
@@ -98,13 +100,15 @@ class LoginFragment : BaseFragment() {
                 if (value1.isNullOrEmpty()) {
                     mBinding.getOtpButton.isEnabled = false
                     mBinding.getOtpButton.isClickable = false
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        mBinding.getOtpButton.background =
-                            resources.getDrawable(R.drawable.unselect_button_bg)
-                    }
+                    mBinding.switchWhatspp.isChecked = false
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            mBinding.getOtpButton.background =
+                                resources.getDrawable(R.drawable.unselect_button_bg)
+                        }
                 } else {
                     mBinding.getOtpButton.isEnabled = true
                     mBinding.getOtpButton.isClickable = true
+                    appPreference.setMobilenum(hMobileNo)
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         mBinding.getOtpButton.background =
                             resources.getDrawable(R.drawable.button_bg)

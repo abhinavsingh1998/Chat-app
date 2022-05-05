@@ -121,7 +121,7 @@
                 android:id="@+id/switch_whatspp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
+                android:checked="false"
                 android:thumb="@drawable/custom_thumb"
                 app:track="@drawable/custom_track" />
 
@@ -142,7 +142,6 @@
             style="@style/text_style_white_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_size_60"
             android:background="@drawable/unselect_button_bg"
             android:clickable="false"
             android:drawableRight="@drawable/ic_baseline_arrow_right"
@@ -155,6 +154,9 @@
             android:text="@string/get_otp"
             android:textAlignment="center"
             app:fontName="@string/jost_medium"
+            android:layout_marginTop="@dimen/margin_size_60"
+            android:layout_marginBottom="@dimen/margin_size_210"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/switch_layout" />
@@ -162,14 +164,16 @@
         <com.emproto.core.textviews.CustomTextView
             android:id="@+id/text_terms"
             style="@style/text_style_text_color_14"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_size_28"
             android:layout_marginTop="@dimen/margin_size_20"
             android:layout_marginEnd="@dimen/margin_size_28"
+            android:layout_marginBottom="65dp"
             android:text="@string/login_terms_text"
-            android:textAlignment="center"
             app:fontName="@string/jost_regular"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/getOtp_button" />
@@ -181,9 +185,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_size_60"
             android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/getOtp_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/switch_layout" />
+            app:layout_constraintTop_toTopOf="@+id/getOtp_button" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

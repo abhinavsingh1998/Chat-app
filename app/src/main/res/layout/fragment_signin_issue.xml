@@ -82,6 +82,7 @@
                         style="@style/text_style_lightgrey_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@drawable/text_color_selector"
                         android:text="Unable to enter phone number"
                         android:fontFamily="@font/jost_regular" />
                     <RadioButton
@@ -90,18 +91,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Unable to change country code"
+                        android:textColor="@drawable/text_color_selector"
                         android:fontFamily="@font/jost_regular" />
                     <RadioButton
                         android:id="@+id/issue_three"
                         style="@style/text_style_lightgrey_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@drawable/text_color_selector"
                         android:text="Did not get OTP"
                         android:fontFamily="@font/jost_regular"/>
                     <RadioButton
                         android:id="@+id/issue_four"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@drawable/text_color_selector"
                         android:text="OTP Expired"
                         android:fontFamily="@font/jost_regular"
                         style="@style/text_style_lightgrey_14"/>
@@ -110,6 +114,7 @@
                         android:id="@+id/issue_five"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@drawable/text_color_selector"
                         android:text="Number Blocked"
                         android:fontFamily="@font/jost_regular"
                         style="@style/text_style_lightgrey_14"/>
@@ -118,6 +123,7 @@
                         android:id="@+id/issue_six"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@drawable/text_color_selector"
                         android:text="My issue is not listed"
                         android:fontFamily="@font/jost_regular"
                         style="@style/text_style_lightgrey_14"/>
@@ -126,6 +132,7 @@
                         android:id="@+id/issue_seven"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@drawable/text_color_selector"
                         android:text="Others"
                         android:fontFamily="@font/jost_regular"
                         style="@style/text_style_lightgrey_14"/>

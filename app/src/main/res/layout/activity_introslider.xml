@@ -23,6 +23,7 @@
         android:layout_marginLeft="@dimen/margin_size_24"
         android:layout_marginTop="45dp"
         android:layout_marginRight="@dimen/margin_size_24"
+        android:textAlignment="viewStart"
         app:fontFamily="@string/jost_medium"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -33,13 +34,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_size_55"
+        android:layout_marginBottom="150dp"
         android:contentDescription="@null"
         android:src="@drawable/ic_intro_first"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/qotes_Txt" />
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"

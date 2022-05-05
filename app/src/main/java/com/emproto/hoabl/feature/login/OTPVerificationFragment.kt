@@ -11,6 +11,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -24,6 +25,7 @@ import com.emproto.hoabl.databinding.FragmentVerifyOtpBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.viewmodels.AuthViewmodel
 import com.emproto.hoabl.viewmodels.factory.AuthFactory
+import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.response.enums.Status
 import javax.inject.Inject
@@ -76,6 +78,7 @@ class OTPVerificationFragment : BaseFragment() {
         mBinding = FragmentVerifyOtpBinding.inflate(layoutInflater)
         initView()
         initClickListener()
+        resentOtp()
         return mBinding.root
     }
 
@@ -159,6 +162,31 @@ class OTPVerificationFragment : BaseFragment() {
 
         })
 
+    }
+
+    private fun resentOtp(){
+        mBinding.resentOtp.setOnClickListener {
+
+            val otpRequest = OtpRequest(mobileno, "+91", "IN")
+            authViewModel.getOtp(otpRequest).observe(viewLifecycleOwner, Observer {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        mBinding.loader.visibility = View.INVISIBLE
+                        Toast.makeText(requireContext(), "resend OTP successfully", Toast.LENGTH_SHORT).show()
+                    }
+                    Status.ERROR -> {
+                        mBinding.loader.visibility = View.INVISIBLE
+                        it.data
+                        (requireActivity() as AuthActivity).showErrorToast(
+                            it.message!!
+                        )
+                    }
+                    Status.LOADING -> {
+                        mBinding.loader.visibility = View.VISIBLE
+                    }
+                }
+            })
+        }
     }
 
 /*    private fun getTimerCount() {

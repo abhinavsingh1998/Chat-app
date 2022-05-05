@@ -37,7 +37,6 @@ class HomeViewModel(
         val list = homeSearchDao.getAllSearchDetails()
         allSearchList.postValue(list)
     }
-
     fun insertRecord(searchModel: SearchModel) {
         homeSearchDao.insert(searchModel)
         getAllRecords()

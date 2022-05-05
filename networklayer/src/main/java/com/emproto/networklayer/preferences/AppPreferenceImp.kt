@@ -8,6 +8,7 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
     companion object {
         val LOGGEDIN = "login"
         val TOKEN = "token"
+        val Number = "number"
     }
 
     private var preference = context.getSharedPreferences("hoabl-pref", Context.MODE_PRIVATE)
@@ -51,4 +52,14 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
     override fun getNotificationToken(): String {
         return getString(TOKEN, "")
     }
+
+    override fun getMobilenum(): String {
+        return getString(Number, "")
+    }
+
+    override fun setMobilenum(number: String) {
+        saveString(Number, number)
+    }
+
+
 }

@@ -7,4 +7,6 @@ interface AppPreference {
     fun getToken(): String
     fun setNotificationToken(token: String)
     fun getNotificationToken(): String
+    fun getMobilenum(): String
+    fun setMobilenum(number: String)
 }
