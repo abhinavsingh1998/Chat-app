@@ -8,6 +8,7 @@ import com.emproto.hoabl.repository.PortfolioRepository
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.investment.Data
 import com.emproto.networklayer.response.portfolio.PortfolioData
+import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetails
 import com.emproto.networklayer.response.promises.PromisesResponse
 
 class PortfolioViewModel(
@@ -17,5 +18,9 @@ class PortfolioViewModel(
 
     fun getPortfolioDashboard(): LiveData<BaseResponse<PortfolioData>> {
         return portfolioRepository.getPortfolioDashboard()
+    }
+
+    fun getInvestmentDetails(crmId: Int): LiveData<BaseResponse<InvestmentDetails>> {
+        return portfolioRepository.getInvestmentDetails(crmId)
     }
 }

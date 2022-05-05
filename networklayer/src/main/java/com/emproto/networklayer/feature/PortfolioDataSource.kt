@@ -8,6 +8,7 @@ import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.response.investment.Data
 import com.emproto.networklayer.response.portfolio.PortfolioData
+import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetails
 import com.emproto.networklayer.response.promises.PromisesResponse
 import retrofit2.Response
 import javax.inject.Inject
@@ -32,6 +33,11 @@ class PortfolioDataSource(val application: Application) {
     // get portfolio dashboard data
     suspend fun getPortfolioDashboard(): Response<PortfolioData> {
         return apiService.getPortfolioDashboard()
+    }
+
+    //get investment details
+    suspend fun getInvestmentDetails(crmId: Int): Response<InvestmentDetails> {
+        return apiService.investmentDetails(crmId)
     }
 
 

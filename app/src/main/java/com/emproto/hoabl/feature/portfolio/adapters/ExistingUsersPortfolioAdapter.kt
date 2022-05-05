@@ -16,10 +16,10 @@ import com.emproto.networklayer.response.portfolio.Completed
 import com.emproto.networklayer.response.portfolio.Ongoing
 import com.emproto.networklayer.response.portfolio.Project
 
-class ExistingUsersAdapter(
+class ExistingUsersPortfolioAdapter(
     private val context: Context,
     private val list: List<PortfolioModel>,
-    val onItemClickListener: View.OnClickListener
+    val onItemClickListener: ExistingUserInterface
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -224,9 +224,9 @@ class ExistingUsersAdapter(
         fun bind(position: Int) {
             val projectList = list[position].data as List<Project>
 
-            completedInvestmentAdapter = CompletedInvestmentAdapter(projectList)
+            completedInvestmentAdapter =
+                CompletedInvestmentAdapter(context, projectList, onItemClickListener, 0)
             binding.rvCompletedInvestment.adapter = completedInvestmentAdapter
-            completedInvestmentAdapter.setItemClickListener(onItemClickListener)
         }
     }
 
@@ -234,9 +234,9 @@ class ExistingUsersAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             val projectList = list[position].data as List<Project>
-            completedInvestmentAdapter = CompletedInvestmentAdapter(projectList)
+            completedInvestmentAdapter =
+                CompletedInvestmentAdapter(context, projectList, onItemClickListener, 1)
             binding.rvOngoingInvestment.adapter = completedInvestmentAdapter
-            completedInvestmentAdapter.setItemClickListener(onItemClickListener)
         }
     }
 
@@ -264,8 +264,8 @@ class ExistingUsersAdapter(
         }
     }
 
-//    fun setItemClickListener(clickListener: View.OnClickListener) {
-//        onItemClickListener = clickListener
-//    }
+    interface ExistingUserInterface {
+        fun manageProject(position: Int)
+    }
 
 }
