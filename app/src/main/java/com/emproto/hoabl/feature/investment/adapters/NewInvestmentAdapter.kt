@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.model.RecyclerViewItem
-import com.emproto.hoabl.model.ViewItem
+import com.emproto.networklayer.response.investment.Data
 
-class NewInvestmentAdapter(private val context: Context, val list:List<RecyclerViewItem>):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class NewInvestmentAdapter(private val activity:HomeActivity, private val context: Context, val list:List<RecyclerViewItem>, private val data:Data):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val INVESTMENT_VIEW_TYPE_ONE = 1
@@ -21,7 +23,7 @@ class NewInvestmentAdapter(private val context: Context, val list:List<RecyclerV
     }
 
     private lateinit var adapter: InvestmentViewPagerAdapter
-    private lateinit var investmentAdapter: InvestmentAdapter
+    private lateinit var smartDealsAdapter: SmartDealsAdapter
     private lateinit var smartDealsLinearLayoutManager: LinearLayoutManager
     private lateinit var trendingProjectsLinearLayoutManager: LinearLayoutManager
     private lateinit var onItemClickListener : View.OnClickListener
@@ -48,15 +50,26 @@ class NewInvestmentAdapter(private val context: Context, val list:List<RecyclerV
 
     private inner class InvestmentTopViewHolder(private val binding: NewInvestmentTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            val listViews = ArrayList<ViewItem>()
-            listViews.add(ViewItem(1, R.drawable.new_investment_page_image))
-            listViews.add(ViewItem(2, R.drawable.new_investment_page_image))
-            listViews.add(ViewItem(3, R.drawable.new_investment_page_image))
-            listViews.add(ViewItem(4, R.drawable.new_investment_page_image))
-            listViews.add(ViewItem(5, R.drawable.new_investment_page_image))
+            val listViews = ArrayList<String>()
+            listViews.add(data.pageManagementsOrNewInvestments[0].mediaGalleries[0].coverImage[0].mediaContent.value.url)
+            listViews.add(data.pageManagementsOrNewInvestments[0].mediaGalleries[0].coverImage[0].mediaContent.value.url)
+            listViews.add(data.pageManagementsOrNewInvestments[0].mediaGalleries[0].coverImage[0].mediaContent.value.url)
+            listViews.add(data.pageManagementsOrNewInvestments[0].mediaGalleries[0].coverImage[0].mediaContent.value.url)
+            listViews.add(data.pageManagementsOrNewInvestments[0].mediaGalleries[0].coverImage[0].mediaContent.value.url)
             adapter = InvestmentViewPagerAdapter(listViews)
             binding.viewPager.adapter = adapter
             binding.ivSmallImage.setImageResource(R.drawable.new_investment_page_image)
+
+            binding.tvNewLaunch.text = data.newInvestments.displayName
+            binding.tvComingSoon.text = data.newInvestments.subHeading
+            binding.tvInvestmentProjectName.text = data.pageManagementsOrNewInvestments[0].launchName
+            binding.tvAmount.text = data.pageManagementsOrNewInvestments[0].priceRange.from + " Onwards"
+            binding.tvArea.text = data.pageManagementsOrNewInvestments[0].areaRange.from + " Onwards"
+            binding.tvBackgroundGrey.text = data.pageManagementsOrNewInvestments[0].shortDescription
+            binding.tvViewInfo.text = "${data.pageManagementsOrNewInvestments[0].fomoContent.noOfViews} People saw this project in ${data.pageManagementsOrNewInvestments[0].fomoContent.days} days"
+            Glide.with(context)
+                .load(data.promotionAndOffersMedia.value.url)
+                .into(binding.ivDontMissImage)
         }
     }
 
@@ -68,34 +81,28 @@ class NewInvestmentAdapter(private val context: Context, val list:List<RecyclerV
 
     private inner class SmartDealsViewHolder(private val binding: SmartDealsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            val list: ArrayList<String> = ArrayList()
-            list.add("22L-2.5 Cr")
-            list.add("22L-2.5 Cr")
-            list.add("22L-2.5 Cr")
-            list.add("22L-2.5 Cr")
-            list.add("22L-2.5 Cr")
+            binding.tvSmartDealsTitle.text = data.collectionOne.displayName
+            binding.tvSmartDealsSubtitle.text = data.collectionOne.subHeading
+            binding.tvSmartDealsSeeAll.setOnClickListener(onItemClickListener)
 
-            investmentAdapter = InvestmentAdapter(context, list)
+            val list = data.pageManagementsOrCollectionOneModels
+            smartDealsAdapter = SmartDealsAdapter(context, list)
             smartDealsLinearLayoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             binding.rvSmartDealsNv.layoutManager = smartDealsLinearLayoutManager
-            binding.rvSmartDealsNv.adapter = investmentAdapter
-            binding.tvSmartDealsSeeAll.setOnClickListener(onItemClickListener)
+            binding.rvSmartDealsNv.adapter = smartDealsAdapter
         }
     }
 
     private inner class TrendingProjectsViewHolder(private val binding: TrendingProjectsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            val list: ArrayList<String> = ArrayList()
-            list.add("22L-2.5 Cr")
-            list.add("22L-2.5 Cr")
-            list.add("22L-2.5 Cr")
-            list.add("22L-2.5 Cr")
-            list.add("22L-2.5 Cr")
+            binding.tvTrendingProjectsTitle.text = data.collectionTwo.displayName
+            binding.tvTrendingProjectsSubtitle.text = data.collectionTwo.subHeading
 
-            investmentAdapter = InvestmentAdapter(context, list)
+            val list = data.pageManagementsOrCollectionTwoModels
+            smartDealsAdapter = SmartDealsAdapter(context, list)
             trendingProjectsLinearLayoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             binding.rvTrendingProjects.layoutManager= trendingProjectsLinearLayoutManager
-            binding.rvTrendingProjects.adapter= investmentAdapter
+            binding.rvTrendingProjects.adapter= smartDealsAdapter
             binding.tvTrendingProjectsSeeAll.setOnClickListener(onItemClickListener)
         }
     }

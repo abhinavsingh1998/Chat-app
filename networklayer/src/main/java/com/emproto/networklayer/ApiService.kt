@@ -4,8 +4,10 @@ import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
-import com.emproto.networklayer.response.investment.Data
 import com.emproto.networklayer.response.home.HomeResponse
+import com.emproto.networklayer.response.investment.InvestmentResponse
+import com.emproto.networklayer.response.investment.ProjectDetailResponse
+import com.emproto.networklayer.response.investment.ProjectIdResponse
 import com.emproto.networklayer.response.login.AddNameResponse
 import com.emproto.networklayer.response.login.OtpResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
@@ -39,10 +41,13 @@ public interface ApiService {
     suspend fun getPromises(@Query("pageType") pageType: Int): Response<PromisesResponse>
 
     @GET(ApiConstants.INVESTMENT)
-    suspend fun getInvestments(@Query("pageType") pageType: Int): Response<Data>
+    suspend fun getInvestments(@Query("pageType") pageType: Int): Response<InvestmentResponse>
 
     @GET(ApiConstants.HOME)
     suspend fun getHome(@Query("pageType") pageType: Int): Response<HomeResponse>
+
+    @GET(ApiConstants.INVESTMENT_PROJECT_DETAIL)
+    suspend fun getInvestmentsProjectDetails(@Path("id") id: Int): Response<ProjectDetailResponse>
 
     @GET(ApiConstants.PORTFOLIO_DASHBOARD)
     suspend fun getPortfolioDashboard():Response<PortfolioData>

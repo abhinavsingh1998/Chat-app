@@ -159,6 +159,7 @@
                 app:layout_constraintTop_toTopOf="@id/cv_category_image">
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_project_name"
                     style="@style/text_style_text_color_16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -168,6 +169,7 @@
                     android:textStyle="bold" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_project_location"
                     style="@style/text_style_medium_grey_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -2,9 +2,10 @@ package com.emproto.hoabl.di
 
 import com.emproto.hoabl.HoablSplashActivity
 import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
 import com.emproto.hoabl.feature.login.*
+import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
+import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.portfolio.views.PortfolioExistingUsersFragment
 import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
 import com.emproto.hoabl.feature.profile.ProfileFragment
@@ -28,6 +29,7 @@ interface HomeComponent {
     fun inject(fragment: HoabelPromises)
     fun inject(fragment: PromisesDetailsFragment)
     fun inject(fragment: InvestmentFragment)
+    fun inject(fragment: ProjectDetailFragment)
     fun inject(fragment: PortfolioFragment)
     fun inject(fragment:PortfolioExistingUsersFragment)
     fun inject(service: MyFirebasemessagingService)

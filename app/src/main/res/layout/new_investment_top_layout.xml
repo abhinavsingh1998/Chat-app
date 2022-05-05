@@ -46,7 +46,6 @@
             android:layout_marginBottom="@dimen/_4sdp"
             app:cardCornerRadius="@dimen/margin_size_8"
             app:cardElevation="@dimen/_2sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_coming_soon">
@@ -107,6 +106,7 @@
                             app:layout_constraintTop_toTopOf="@id/cv_small_image">
 
                             <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_investment_project_name"
                                 style="@style/text_style_light_black_color_14"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -116,6 +116,7 @@
                                 android:textStyle="bold" />
 
                             <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_investment_project_location"
                                 style="@style/text_style_light_black_color_14"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -253,6 +254,19 @@
                 </FrameLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
+
+        <ImageView
+            android:id="@+id/iv_dont_miss_image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_size_170"
+            android:layout_marginHorizontal="@dimen/margin_size_20"
+            android:layout_marginTop="@dimen/margin_size_32"
+            android:visibility="visible"
+            android:scaleType="fitXY"
+            android:src="@drawable/investment_dont_miss_image"
+            app:layout_constraintTop_toBottomOf="@id/cv_top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/margin_size_6"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

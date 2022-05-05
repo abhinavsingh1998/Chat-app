@@ -4,8 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemLocationInfrastructureBinding
+import com.emproto.networklayer.response.investment.LocInfValues
 
-class LocationInfrastructureAdapter(private val list:List<String>):RecyclerView.Adapter<LocationInfrastructureAdapter.MyViewHolder>() {
+class LocationInfrastructureAdapter(private val list: List<LocInfValues>):RecyclerView.Adapter<LocationInfrastructureAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: ItemLocationInfrastructureBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -15,7 +16,10 @@ class LocationInfrastructureAdapter(private val list:List<String>):RecyclerView.
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
+        val element = list[position]
+        holder.binding.apply {
+            tvLocationName.text  = element.name
+        }
     }
 
     override fun getItemCount(): Int = list.size

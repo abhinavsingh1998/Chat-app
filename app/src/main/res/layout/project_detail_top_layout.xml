@@ -42,6 +42,7 @@
             app:layout_constraintTop_toTopOf="@id/cv_small_top_image">
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_project_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/jost_medium"
@@ -51,6 +52,7 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_project_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pune, Maharashtra"
@@ -226,6 +228,7 @@
             android:text="The Isle of Bliss is phase 2 of Codename Bliss Dapoli, a seaside lifestyle plotting development from The House of Abhinandan Lodha…READ MORE"
             style="@style/text_style_text_black_color_14"
             android:fontFamily="@font/jost_light"
+            app:layout_constraintBottom_toTopOf="@id/cv_area_range"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tab_dot_layout" />
@@ -233,13 +236,13 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_price_range"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/margin_size_12"
+            android:layout_height="0dp"
             android:layout_marginStart="@dimen/margin_size_13"
             app:cardCornerRadius="@dimen/margin_size_8"
             app:layout_constraintEnd_toStartOf="@id/cv_area_range"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_location_information_text">
+            app:layout_constraintBottom_toBottomOf="@id/cv_area_range"
+            app:layout_constraintTop_toTopOf="@id/cv_area_range">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -257,7 +260,8 @@
                     style="@style/text_style_text_black_color_18"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/tv_price_range_text"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_price_range_text"
@@ -268,11 +272,11 @@
                     android:text="Starting Price"
                     android:textColor="@color/text_lightgrey_color"
                     android:textSize="@dimen/text_size_14"
+                    android:layout_marginTop="@dimen/margin_size_4"
                     android:textStyle="italic"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/tv_price_range"
-                    app:layout_constraintStart_toStartOf="@id/tv_price_range"
-                    app:layout_constraintTop_toBottomOf="@id/tv_price_range" />
+                    app:layout_constraintStart_toStartOf="@id/tv_price_range" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
@@ -284,10 +288,10 @@
             android:layout_marginStart="@dimen/margin_size_10"
             android:layout_marginEnd="11dp"
             app:cardCornerRadius="@dimen/margin_size_8"
-            app:layout_constraintBottom_toBottomOf="@id/cv_price_range"
+            android:layout_marginVertical="@dimen/margin_size_12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/cv_price_range"
-            app:layout_constraintTop_toTopOf="@id/cv_price_range">
+            app:layout_constraintTop_toBottomOf="@id/tv_location_information_text">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -315,6 +319,7 @@
                     android:layout_marginBottom="@dimen/margin_size_10"
                     android:fontFamily="@font/jost_mediumitalic"
                     android:text="Starting Area"
+                    android:layout_marginTop="@dimen/margin_size_4"
                     android:textColor="@color/text_lightgrey_color"
                     android:textSize="@dimen/text_size_14"
                     app:layout_constraintBottom_toBottomOf="parent"

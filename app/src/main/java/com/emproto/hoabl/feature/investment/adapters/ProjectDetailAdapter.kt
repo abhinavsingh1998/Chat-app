@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
+import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.model.RecyclerViewItem
-import com.emproto.hoabl.model.ViewItem
+import com.emproto.networklayer.response.investment.PdData
 import com.google.android.material.tabs.TabLayoutMediator
 
-class ProjectDetailAdapter(private val context: Context, private val list:List<RecyclerViewItem>):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ProjectDetailAdapter(private val context: Context, private val list:List<RecyclerViewItem>, private val data:PdData):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val VIEW_TYPE_ONE = 1
@@ -89,12 +90,12 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<R
     private inner class ProjectTopCardViewHolder(val binding: ProjectDetailTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             binding.ivSmallTopImage.setImageResource(R.drawable.new_investment_page_image)
-            val listViews = ArrayList<ViewItem>()
-            listViews.add(ViewItem(1, R.drawable.new_investment_page_image))
-            listViews.add(ViewItem(2, R.drawable.new_investment_page_image))
-            listViews.add(ViewItem(3, R.drawable.new_investment_page_image))
-            listViews.add(ViewItem(4, R.drawable.new_investment_page_image))
-            listViews.add(ViewItem(5, R.drawable.new_investment_page_image))
+            val listViews = ArrayList<String>()
+            listViews.add(data.mediaGalleries[0].coverImage[0].mediaContent.value.url)
+            listViews.add(data.mediaGalleries[0].coverImage[0].mediaContent.value.url)
+            listViews.add(data.mediaGalleries[0].coverImage[0].mediaContent.value.url)
+            listViews.add(data.mediaGalleries[0].coverImage[0].mediaContent.value.url)
+            listViews.add(data.mediaGalleries[0].coverImage[0].mediaContent.value.url)
 
             projectDetailViewPagerAdapter = ProjectDetailViewPagerAdapter(listViews)
             binding.projectDetailViewPager.adapter = projectDetailViewPagerAdapter
@@ -113,6 +114,20 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<R
             }.attach()
             itemView.tag = this
             binding.ivWhyInvest.setOnClickListener(onItemClickListener)
+
+            binding.apply {
+                tvProjectName.text = data.launchName
+                tvProjectLocation.text = "${data.address.city}, ${data.address.state}"
+                tvViewCount.text = data.fomoContent.noOfViews.toString()
+                tvDuration.text = "${data.fomoContent.targetTime.hours}:${data.fomoContent.targetTime.minutes}:${data.fomoContent.targetTime.seconds} Hrs Left"
+                tvLocationInformationText.text = data.shortDescription
+                tvPriceRange.text = data.priceRange.from + " Onwards"
+                tvAreaRange.text = data.areaRange.from + " Onwards"
+                tvProjectViewInfo.text = "${data.fomoContent.noOfViews} People saw this project in ${data.fomoContent.days} days"
+                Glide.with(context)
+                    .load(data.offersAndPromotions.value.url)
+                    .into(ivWhyInvest)
+            }
         }
     }
 
@@ -128,20 +143,16 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<R
 
     private inner class ProjectKeyPillarsViewHolder(private val binding: KeyPillarsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            val itemList = arrayListOf<String>("1","2","3","4","5")
-            keyPillarAdapter = KeyPillarAdapter(context,itemList)
+            keyPillarAdapter = KeyPillarAdapter(context,data.keyPillars.values)
             binding.rvKeyPillars.adapter = keyPillarAdapter
         }
     }
 
     private inner class ProjectVideosDroneViewHolder(private val binding: VideoDroneLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            val itemList = ArrayList<ViewItem>()
-            itemList.add(ViewItem(1, R.drawable.new_investment_page_image))
-            itemList.add(ViewItem(2, R.drawable.new_investment_page_image))
-            itemList.add(ViewItem(3, R.drawable.new_investment_page_image))
-            itemList.add(ViewItem(4, R.drawable.new_investment_page_image))
-            itemList.add(ViewItem(5, R.drawable.new_investment_page_image))
+            val itemList = ArrayList<String>()
+            itemList.add(data.mediaGalleries[0].videos[0].mediaContent.value.url)
+            itemList.add(data.mediaGalleries[0].droneShoots[0].mediaContent.value.url)
             videoDroneAdapter = VideoDroneAdapter(itemList)
             binding.rvVideoDrone.adapter = videoDroneAdapter
             binding.tvVideoDroneSeeAll.setOnClickListener(onItemClickListener)
@@ -165,14 +176,19 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<R
 
     private inner class ProjectAmenitiesViewHolder(private val binding: ProjectAmenitiesLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
+            binding.apply {
+                tvPaFirstText.text = data.opprotunityDocs[0].projectAminities[0].name
+                tvPaSecondText.text = data.opprotunityDocs[0].projectAminities[1].name
+                tvPaThirdText.text = data.opprotunityDocs[0].projectAminities[2].name
+                tvPaFourText.text = data.opprotunityDocs[0].projectAminities[1].name
+            }
             binding.tvProjectAmenitiesAll.setOnClickListener(onItemClickListener)
         }
     }
 
     private inner class ProjectLocationInfrastructureViewHolder(private val binding: LocationInfrastructureLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            val itemList = arrayListOf<String>("1", "2", "3", "4", "5")
-            locationInfrastructureAdapter = LocationInfrastructureAdapter(itemList)
+            locationInfrastructureAdapter = LocationInfrastructureAdapter(data.locationInfrastructure.values)
             binding.rvLocationInfrastructure.adapter = locationInfrastructureAdapter
         }
     }

@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.CustomImageLayoutBinding
 import com.emproto.hoabl.model.ViewItem
 
-class ProjectDetailViewPagerAdapter(private val imageList: List<ViewItem>) : RecyclerView.Adapter<ProjectDetailViewPagerAdapter.MyViewHolder>() {
+class ProjectDetailViewPagerAdapter(private val imageList: List<String>) : RecyclerView.Adapter<ProjectDetailViewPagerAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: CustomImageLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -19,7 +19,7 @@ class ProjectDetailViewPagerAdapter(private val imageList: List<ViewItem>) : Rec
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val element = imageList[position]
         Glide.with(holder.itemView.context)
-            .load(element.imageDrawable)
+            .load(element)
             .into(holder.binding.image)
     }
 

@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.CustomImageLayoutBinding
 import com.emproto.hoabl.model.ViewItem
 
-class InvestmentViewPagerAdapter( private var imageList: List<ViewItem>) :  RecyclerView.Adapter<InvestmentViewPagerAdapter.InvestmentViewHolder>() {
+class InvestmentViewPagerAdapter( private var imageList: List<String>) :  RecyclerView.Adapter<InvestmentViewPagerAdapter.InvestmentViewHolder>() {
 
     inner class InvestmentViewHolder(var binding: CustomImageLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -19,7 +19,7 @@ class InvestmentViewPagerAdapter( private var imageList: List<ViewItem>) :  Recy
     override fun onBindViewHolder(holder: InvestmentViewHolder, position: Int) {
         val element = imageList[position]
         Glide.with(holder.itemView.context)
-            .load(element.imageDrawable)
+            .load(element)
             .into(holder.binding.image)
     }
 

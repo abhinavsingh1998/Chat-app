@@ -9,6 +9,7 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentOpportunityDocsBinding
 import com.emproto.hoabl.feature.investment.adapters.OpportunityDocsAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
+import com.emproto.networklayer.response.investment.OpprotunityDoc
 
 class OpportunityDocsFragment:BaseFragment() {
 
@@ -22,15 +23,16 @@ class OpportunityDocsFragment:BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val data = arguments?.getSerializable("OppDocData") as List<OpprotunityDoc>
         setUpUI()
-        setUpRecyclerView()
+        setUpRecyclerView(data)
     }
 
     private fun setUpUI() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
     }
 
-    private fun setUpRecyclerView() {
+    private fun setUpRecyclerView(data: List<OpprotunityDoc>) {
         val list = ArrayList<RecyclerViewItem>()
         list.add(RecyclerViewItem(1))
         list.add(RecyclerViewItem(2))
@@ -41,7 +43,7 @@ class OpportunityDocsFragment:BaseFragment() {
         list.add(RecyclerViewItem(7))
         list.add(RecyclerViewItem(8))
 
-        opportunityDocsAdapter = OpportunityDocsAdapter(this.requireContext(),list)
+        opportunityDocsAdapter = OpportunityDocsAdapter(this.requireContext(),list,data)
         binding.rvOppDocs.adapter = opportunityDocsAdapter
     }
 

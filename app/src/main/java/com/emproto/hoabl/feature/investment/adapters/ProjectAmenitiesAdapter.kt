@@ -7,11 +7,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.hoabl.databinding.ProjectAmenitiesItemLayoutBinding
+import com.emproto.networklayer.response.investment.ProjectAminity
 
-class ProjectAmenitiesAdapter(val context: Context, list: List<String>) : RecyclerView.Adapter<ProjectAmenitiesAdapter.MyViewHolder>() {
-
-    var list: List<String>
-    var mcontext:Context
+class ProjectAmenitiesAdapter(val context: Context,val list: List<ProjectAminity>) : RecyclerView.Adapter<ProjectAmenitiesAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = ProjectAmenitiesItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -19,7 +17,10 @@ class ProjectAmenitiesAdapter(val context: Context, list: List<String>) : Recycl
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
+        val element = list[position]
+        holder.binding.apply {
+            tvPaFirstText.text = element.name
+        }
     }
 
     override fun getItemCount(): Int {
@@ -28,8 +29,4 @@ class ProjectAmenitiesAdapter(val context: Context, list: List<String>) : Recycl
 
     inner class MyViewHolder(var binding: ProjectAmenitiesItemLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 
-    init {
-        this.list = list
-        this.mcontext = context
-    }
 }

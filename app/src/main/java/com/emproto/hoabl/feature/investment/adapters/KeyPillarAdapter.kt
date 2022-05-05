@@ -5,8 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemKeyPillarBinding
+import com.emproto.networklayer.response.investment.ProjectValue
 
-class KeyPillarAdapter(val context: Context, private val list: List<String>):
+class KeyPillarAdapter(val context: Context, private val list: List<ProjectValue>):
     RecyclerView.Adapter<KeyPillarAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: ItemKeyPillarBinding) : RecyclerView.ViewHolder(binding.root)
@@ -17,7 +18,10 @@ class KeyPillarAdapter(val context: Context, private val list: List<String>):
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
+        val element = list[position]
+        holder.binding.tvPremiumLocation.text = element.name
+        holder.binding.tvPointOne.text = element.points[0]
+        holder.binding.tvPointTwo.text = element.points[1]
     }
 
     override fun getItemCount(): Int = list.size

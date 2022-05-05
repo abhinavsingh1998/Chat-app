@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentMediaGalleryBinding
 import com.emproto.hoabl.feature.investment.adapters.MediaViewPagerAdapter
+import com.emproto.networklayer.response.investment.MediaGallery
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MediaGalleryFragment:BaseFragment() {
@@ -16,6 +17,8 @@ class MediaGalleryFragment:BaseFragment() {
 
     private val tabList = arrayListOf<String>("Photos","Videos","Drone Shoots","360 photos")
 
+    lateinit var data:List<MediaGallery>
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentMediaGalleryBinding.inflate(layoutInflater)
         return binding.root
@@ -23,6 +26,7 @@ class MediaGalleryFragment:BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        data = arguments?.getSerializable("MediaGalleryData") as List<MediaGallery>
         setUpTabLayoutViewPager()
     }
 

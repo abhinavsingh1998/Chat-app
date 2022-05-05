@@ -1,17 +1,21 @@
 package com.emproto.hoabl.feature.investment.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
-import com.emproto.hoabl.feature.investment.views.mediagallery.PhotosFragment
-import com.emproto.hoabl.feature.investment.views.mediagallery.VideosFragment
 import com.emproto.hoabl.model.MediaGalleryItem
 import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.networklayer.response.investment.MediaGallery
 
-class MediaPhotosAdapter(private val itemList:List<MediaGalleryItem>,private val clickListener: ItemClickListener):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MediaPhotosAdapter(
+    private val context:Context,
+    private val itemList: List<MediaGalleryItem>,
+    private val clickListener: ItemClickListener,
+    private val mediaData: List<MediaGallery>
+):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object{
         const val PHOTOS_VIEW_TYPE_ONE = 1
@@ -49,22 +53,14 @@ class MediaPhotosAdapter(private val itemList:List<MediaGalleryItem>,private val
         fun bind(position: Int){
             when(itemList[position].type){
                 "Photos" -> {
-                    val list = arrayListOf<Int>(R.drawable.media_photo_isle_bliss,R.drawable.media_photo_beach,
-                        R.drawable.media_photo_mountain,R.drawable.media_photo_beach,R.drawable.media_photo_isle_bliss,
-                        R.drawable.media_photo_mountain,R.drawable.media_photo_beach,R.drawable.media_photo_isle_bliss,
-                        R.drawable.media_photo_mountain,R.drawable.media_photo_beach,R.drawable.media_photo_isle_bliss,
-                        R.drawable.media_photo_mountain,R.drawable.media_photo_beach,R.drawable.media_photo_isle_bliss)
-                    mediaPhotosPictureAdapter = MediaPhotosPictureAdapter(list,clickListener)
+                    val imageList = mediaData[0].images
+                    mediaPhotosPictureAdapter = MediaPhotosPictureAdapter(context,clickListener,imageList)
                     binding.rvPhotos.adapter = mediaPhotosPictureAdapter
 //                    mediaPhotosPictureAdapter.setMediaPhotoItemClickListener(fragment.onPhotosItemClickListener)
                 }
                 "Videos" -> {
-                    val list = arrayListOf<Int>(R.drawable.media_video_beach_image,R.drawable.media_video_isle_image,
-                        R.drawable.media_video_mountain_image,R.drawable.media_video_beach_image,R.drawable.media_video_mountain_image,
-                        R.drawable.media_video_beach_image,R.drawable.media_video_beach_image,R.drawable.media_video_isle_image,
-                        R.drawable.media_video_mountain_image,R.drawable.media_video_beach_image,R.drawable.media_video_mountain_image,
-                        R.drawable.media_video_isle_image,R.drawable.media_video_mountain_image,R.drawable.media_video_isle_image)
-                    mediaPhotosPictureAdapter = MediaPhotosPictureAdapter(list,clickListener)
+                    val videoList = mediaData[0].images
+                    mediaPhotosPictureAdapter = MediaPhotosPictureAdapter(context,clickListener,videoList)
                     binding.rvPhotos.adapter = mediaPhotosPictureAdapter
                 }
             }
