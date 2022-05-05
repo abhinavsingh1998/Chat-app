@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbarLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/app_color"
-    android:id="@+id/toolbarLayout"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/app_color">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout"
@@ -88,8 +88,8 @@
         android:id="@+id/searh_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingBottom="@dimen/margin_size_14"
         android:layout_marginTop="@dimen/margin_size_12"
+        android:paddingBottom="@dimen/margin_size_14"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout">
@@ -98,65 +98,52 @@
             android:id="@+id/image_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_size_7"
+            android:layout_marginStart="@dimen/margin_size_6"
+            android:padding="@dimen/margin_size_10"
             android:src="@drawable/ic_arrow_left"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/search"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:minWidth="280dp"
-            android:minHeight="@dimen/text_size_32"
+            android:layout_marginLeft="@dimen/margin_size_18"
             android:background="@drawable/login_edittext_bg"
             android:drawableLeft="@drawable/ic_shape_search"
             android:drawablePadding="@dimen/margin_size_6"
+            android:fontFamily="@font/jost_regular"
             android:gravity="start|center"
             android:hint="@string/search"
-            android:textSize="@dimen/text_size_12"
+            android:minHeight="@dimen/text_size_32"
             android:padding="@dimen/_4sdp"
-            android:layout_marginLeft="@dimen/margin_size_18"
             android:textColor="@color/text_color"
             android:textColorHint="@color/search_hint"
+            android:textSize="@dimen/text_size_12"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView2"
             app:layout_constraintStart_toEndOf="@id/image_back"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <FrameLayout
-            android:id="@+id/frame_layout"
+        <ImageView
+            android:id="@+id/imageView2"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginLeft="@dimen/_8sdp"
-            android:layout_marginRight="@dimen/_8sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:src="@drawable/ic_notification"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/headset"
-            app:layout_constraintStart_toEndOf="@id/search"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/notification"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_notifications" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_notification_icon"
-                android:visibility="gone" />
-
-        </FrameLayout>
+            app:layout_constraintStart_toEndOf="@+id/search"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/headset"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginRight="@dimen/margin_size_14"
-            android:src="@drawable/ic_customer_support"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_size_20"
+            android:src="@drawable/ic_chat"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
