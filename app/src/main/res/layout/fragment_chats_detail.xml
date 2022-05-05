@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffffff">
 
     <ImageView
         android:id="@+id/ivBack"
@@ -113,10 +114,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/clType"
         app:layout_constraintStart_toStartOf="@id/clSearch"
         app:layout_constraintTop_toBottomOf="@+id/tvDay"
-        app:layout_constraintBottom_toTopOf="@+id/clType"
         tools:listitem="@layout/item_chat_detail_main" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clType"
@@ -143,23 +145,24 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/clSend"
-    android:layout_width="40dp"
-    android:layout_height="match_parent"
-    android:background="@drawable/send_button_bg"
-    app:layout_constraintEnd_toEndOf="parent">
 
-    <ImageView
-        android:id="@+id/ivSend"
-        android:layout_width="20dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/send"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clSend"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/send_button_bg"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/ivSend"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/send"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
             android:id="@+id/ivOpen"
@@ -167,8 +170,8 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="14dp"
             android:src="@drawable/clip"
-            app:layout_constraintEnd_toStartOf="@id/clSend"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/clSend"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
