@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemChatReceiverBinding
-import com.emproto.hoabl.databinding.ItemChatReceiverMessageBinding
 import com.emproto.hoabl.databinding.ItemChatSenderMessageBinding
 import com.emproto.hoabl.model.ChatsDetailModel
 import com.emproto.hoabl.model.TypeOfMessage
@@ -22,8 +21,8 @@ class ChatsDetailAdapter(private var mContext: Context?,
     lateinit var receiverBinding: ItemChatReceiverBinding
     lateinit var senderMessageBinding: ItemChatSenderMessageBinding
 
-    val Received=1;
-    val Sent=2;
+    private val Received=1
+    private val Sent=2
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
 
