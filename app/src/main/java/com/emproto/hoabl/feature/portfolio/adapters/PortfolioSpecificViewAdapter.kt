@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.portfolio.adapters
 
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,12 @@ import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
 import com.emproto.hoabl.feature.investment.adapters.VideoDroneAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.model.ViewItem
+import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -272,6 +279,44 @@ class PortfolioSpecificViewAdapter(
     private inner class PriceTrendsViewHolder(private val binding: PriceTrendsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
+            val linevalues = ArrayList<Entry>()
+            linevalues.add(Entry(10f, 0.0F))
+            linevalues.add(Entry(20f, 3.0F))
+            linevalues.add(Entry(40f, 2.0F))
+            linevalues.add(Entry(50F,5.0F))
+            linevalues.add(Entry(60F,6.0F))
+            val linedataset = LineDataSet(linevalues, "First")
+            //We add features to our chart
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                linedataset.color = context.getColor(R.color.app_color)
+            }
+
+            linedataset.valueTextSize = 12F
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                linedataset.fillColor = context.getColor(R.color.light_app_color)
+            }
+            linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
+
+            //We connect our data to the UI Screen
+            val data = LineData(linedataset)
+
+            //binding.ivPriceTrendsGraph.setDrawBorders(false);
+            //binding.ivPriceTrendsGraph.setDrawGridBackground(false);
+            binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
+            binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
+            binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false);
+            //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
+            //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
+            binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false);
+            binding.ivPriceTrendsGraph.getXAxis().position = XAxis.XAxisPosition.BOTTOM;
+            //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
+            binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false);
+            binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false);
+            binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false);
+            //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
+            //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
+            binding.ivPriceTrendsGraph.data = data
+            binding.ivPriceTrendsGraph.animateXY(2000, 2000)
         }
     }
 

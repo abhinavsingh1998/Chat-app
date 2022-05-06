@@ -3,6 +3,7 @@ package com.emproto.hoabl
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import androidx.appcompat.app.AppCompatDelegate
 import com.emproto.core.BaseActivity
 import com.emproto.hoabl.databinding.ActivityHoablSplashBinding
 import com.emproto.hoabl.di.HomeComponentProvider

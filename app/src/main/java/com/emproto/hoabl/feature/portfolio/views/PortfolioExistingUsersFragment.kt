@@ -11,9 +11,8 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentFinancialSummaryBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.portfolio.adapters.ExistingUsersAdapter
+import com.emproto.hoabl.feature.portfolio.adapters.ExistingUsersPortfolioAdapter
 import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
-import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.response.BaseResponse
@@ -22,32 +21,15 @@ import com.emproto.networklayer.response.portfolio.PortfolioData
 import javax.inject.Inject
 
 
-class PortfolioExistingUsersFragment : BaseFragment() {
+class PortfolioExistingUsersFragment : BaseFragment(),
+    ExistingUsersPortfolioAdapter.ExistingUserInterface {
 
     private lateinit var binding: FragmentFinancialSummaryBinding
-    private lateinit var adapter: ExistingUsersAdapter
+    private lateinit var adapter: ExistingUsersPortfolioAdapter
 
     @Inject
     lateinit var portfolioFactory: PortfolioFactory
     lateinit var portfolioviewmodel: PortfolioViewModel
-
-    val onItemClickListener =
-        View.OnClickListener { view ->
-            when (view.id) {
-                R.id.tv_manage_projects -> {
-                    val portfolioSpecificProjectView = PortfolioSpecificProjectView()
-                    (requireActivity() as HomeActivity).replaceFragment(
-                        portfolioSpecificProjectView.javaClass,
-                        "",
-                        true,
-                        null,
-                        null,
-                        0,
-                        false
-                    )
-                }
-            }
-        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -83,40 +65,45 @@ class PortfolioExistingUsersFragment : BaseFragment() {
                             binding.financialRecycler.show()
                             t.data?.let {
                                 val list = ArrayList<PortfolioModel>()
-                                list.add(PortfolioModel(ExistingUsersAdapter.TYPE_HEADER, null))
                                 list.add(
                                     PortfolioModel(
-                                        ExistingUsersAdapter.TYPE_SUMMARY_COMPLETED,
+                                        ExistingUsersPortfolioAdapter.TYPE_HEADER,
+                                        null
+                                    )
+                                )
+                                list.add(
+                                    PortfolioModel(
+                                        ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED,
                                         it.data.summary.completed
                                     )
                                 )
                                 list.add(
                                     PortfolioModel(
-                                        ExistingUsersAdapter.TYPE_SUMMARY_ONGOING,
+                                        ExistingUsersPortfolioAdapter.TYPE_SUMMARY_ONGOING,
                                         it.data.summary.ongoing
                                     )
                                 )
                                 list.add(
                                     PortfolioModel(
-                                        ExistingUsersAdapter.TYPE_COMPLETED_INVESTMENT,
+                                        ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
                                         it.data.projects.filter { it.isCompleted }
                                     )
                                 )
                                 list.add(
                                     PortfolioModel(
-                                        ExistingUsersAdapter.TYPE_ONGOING_INVESTMENT,
+                                        ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
                                         it.data.projects.filter { !it.isCompleted }
                                     )
                                 )
-                                list.add(PortfolioModel(ExistingUsersAdapter.TYPE_NUDGE_CARD))
-                                list.add(PortfolioModel(ExistingUsersAdapter.TYPE_WATCHLIST))
-                                list.add(PortfolioModel(ExistingUsersAdapter.TYPE_REFER))
+                                list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_NUDGE_CARD))
+                                list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_WATCHLIST))
+                                list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_REFER))
 
                                 adapter =
-                                    ExistingUsersAdapter(
+                                    ExistingUsersPortfolioAdapter(
                                         requireActivity(),
                                         list,
-                                        onItemClickListener
+                                        this@PortfolioExistingUsersFragment
                                     )
                                 binding.financialRecycler.adapter = adapter
                             }
@@ -142,16 +129,25 @@ class PortfolioExistingUsersFragment : BaseFragment() {
 
     private fun setUpRecyclerView() {
         val list = ArrayList<PortfolioModel>()
-        list.add(PortfolioModel(ExistingUsersAdapter.TYPE_HEADER))
-        list.add(PortfolioModel(ExistingUsersAdapter.TYPE_SUMMARY_COMPLETED))
-        list.add(PortfolioModel(ExistingUsersAdapter.TYPE_SUMMARY_ONGOING))
-        list.add(PortfolioModel(ExistingUsersAdapter.TYPE_COMPLETED_INVESTMENT))
-        list.add(PortfolioModel(ExistingUsersAdapter.TYPE_ONGOING_INVESTMENT))
-        list.add(PortfolioModel(ExistingUsersAdapter.TYPE_NUDGE_CARD))
-        list.add(PortfolioModel(ExistingUsersAdapter.TYPE_WATCHLIST))
-        list.add(PortfolioModel(ExistingUsersAdapter.TYPE_REFER))
-        adapter = ExistingUsersAdapter(requireActivity(), list, onItemClickListener)
+        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_HEADER))
+        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED))
+        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_SUMMARY_ONGOING))
+        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT))
+        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT))
+        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_NUDGE_CARD))
+        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_WATCHLIST))
+        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_REFER))
+        adapter = ExistingUsersPortfolioAdapter(
+            requireActivity(),
+            list,
+            this@PortfolioExistingUsersFragment
+        )
         binding.financialRecycler.adapter = adapter
+    }
+
+    override fun manageProject(position: Int) {
+        val portfolioSpecificProjectView = PortfolioSpecificProjectView()
+        (requireActivity() as HomeActivity).addFragment(portfolioSpecificProjectView, false)
     }
 
 }

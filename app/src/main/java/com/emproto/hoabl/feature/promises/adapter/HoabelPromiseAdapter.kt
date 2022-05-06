@@ -74,9 +74,9 @@ class HoabelPromiseAdapter(
             TYPE_HEADER -> {
                 val header_holder = holder as PromisesHeaderViewHolder
                 header_holder.binding.tvTitle.text =
-                    dataList[holder.layoutPosition].headerData!!.sectionName
+                    dataList[holder.layoutPosition].headerData!!.aboutPromises.sectionHeading
                 header_holder.binding.tvDescription.text =
-                    dataList[holder.layoutPosition].headerData!!.subDescription
+                    dataList[holder.layoutPosition].headerData!!.aboutPromises.subDescription
             }
             TYPE_LIST -> {
                 val listHolder = holder as HoablPromiseViewHolder
@@ -87,7 +87,7 @@ class HoabelPromiseAdapter(
             TYPE_DISCLAIMER -> {
                 val disclaimerViewHolder = holder as DisclaimerViewHolder
                 disclaimerViewHolder.binding.tvGreetings.text =
-                    dataList[holder.layoutPosition].headerData!!.footerText
+                    dataList[holder.layoutPosition].headerData!!.disclaimer
             }
         }
     }

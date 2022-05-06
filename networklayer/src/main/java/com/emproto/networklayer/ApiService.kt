@@ -4,6 +4,7 @@ import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
+import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.investment.InvestmentResponse
 import com.emproto.networklayer.response.investment.ProjectDetailResponse
@@ -13,6 +14,7 @@ import com.emproto.networklayer.response.login.OtpResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.login.VerifyOtpResponse
 import com.emproto.networklayer.response.portfolio.PortfolioData
+import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetails
 import com.emproto.networklayer.response.promises.PromisesResponse
 import retrofit2.Response
 import retrofit2.http.*
@@ -50,6 +52,12 @@ public interface ApiService {
     suspend fun getInvestmentsProjectDetails(@Path("id") id: Int): Response<ProjectDetailResponse>
 
     @GET(ApiConstants.PORTFOLIO_DASHBOARD)
-    suspend fun getPortfolioDashboard():Response<PortfolioData>
+    suspend fun getPortfolioDashboard(): Response<PortfolioData>
+
+    @GET(ApiConstants.PROJECT_INVESTMENT)
+    suspend fun investmentDetails(@Path("crmProjectId") id: Int): Response<InvestmentDetails>
+
+    @GET(ApiConstants.DOC_FILTER)
+    suspend fun documentsList(@Query("projectId") projectId: Int): Response<DocumentsResponse>
 
 }

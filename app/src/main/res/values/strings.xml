@@ -10,7 +10,7 @@
     <string name="transactions_text">Transactions</string>
     <string name="land_transacted">land_transacted</string>
     <string name="security_tv">SECURITY</string>
-    <string name="how_to_apply">How to apply</string>
+    <string name="how_to_apply">How to apply?</string>
     <string name="selected_item">Selected item:</string>
     <string name="dialog_msg_auth">Please enter Password</string>
     <string name="dialog_title_auth">Lock Screen</string>

@@ -8,7 +8,7 @@ data class Data(
     val dateOfBirth: String,
     val email: String,
     val firstName: String,
-    val gender: Int,
+    val gender: String,
     val id: Int,
     val lastName: String,
     val otpVerified: Boolean,

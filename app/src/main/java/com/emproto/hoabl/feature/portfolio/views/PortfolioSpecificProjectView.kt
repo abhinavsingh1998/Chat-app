@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentPortfolioSpecificViewBinding
+import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.ProjectDetailAdapter
 import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
@@ -17,13 +20,21 @@ import com.emproto.hoabl.feature.investment.views.mediagallery.MediaViewFragment
 import com.emproto.hoabl.feature.portfolio.adapters.DocumentsAdapter
 import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
+import com.emproto.hoabl.viewmodels.PortfolioViewModel
+import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
+import com.emproto.networklayer.response.enums.Status
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import javax.inject.Inject
 
 class PortfolioSpecificProjectView : BaseFragment() {
 
     lateinit var binding: FragmentPortfolioSpecificViewBinding
     lateinit var portfolioSpecificViewAdapter: PortfolioSpecificViewAdapter
+
+    @Inject
+    lateinit var portfolioFactory: PortfolioFactory
+    lateinit var portfolioviewmodel: PortfolioViewModel
 
     private val onPortfolioSpecificItemClickListener =
         View.OnClickListener { view ->
@@ -91,13 +102,52 @@ class PortfolioSpecificProjectView : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         binding = FragmentPortfolioSpecificViewBinding.inflate(layoutInflater)
+
+        portfolioviewmodel = ViewModelProvider(
+            requireActivity(),
+            portfolioFactory
+        )[PortfolioViewModel::class.java]
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpRecyclerView()
+        //setUpRecyclerView()
+        initObserver()
+    }
+
+    private fun initObserver() {
+        portfolioviewmodel.getInvestmentDetails(1).observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.LOADING -> {
+
+                }
+                Status.SUCCESS -> {
+                    setUpRecyclerView()
+                }
+                Status.ERROR -> {
+                    setUpRecyclerView()
+                }
+
+            }
+        })
+
+        portfolioviewmodel.getDocumentList(1).observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.LOADING -> {
+
+                }
+                Status.SUCCESS -> {
+
+                }
+                Status.ERROR -> {
+
+                }
+
+            }
+        })
     }
 
     private fun setUpRecyclerView() {
