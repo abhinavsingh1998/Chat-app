@@ -4,11 +4,14 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
+import com.emproto.networklayer.feature.InvestmentDataSource
 import com.emproto.networklayer.feature.ProfileDataSource
-import com.emproto.networklayer.profile.EditUserNameRequest
-import com.emproto.networklayer.profile.UploadProfilePictureRequest
+import com.emproto.networklayer.request.login.profile.EditUserNameRequest
+import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.investment.InvestmentResponse
 import com.emproto.networklayer.response.profile.EditProfileResponse
+import com.emproto.networklayer.response.profile.ProfileCountriesResponse
 import com.emproto.networklayer.response.profile.ProfilePictureResponse
 import com.emproto.networklayer.response.profile.ProfileResponse
 
@@ -65,6 +68,32 @@ class ProfileRepository @Inject constructor(application: Application) : BaseRepo
             }
         }
         return mUploadProfilePicture
+    }
+    fun getCountries(pageType: Int): LiveData<BaseResponse<ProfileCountriesResponse>> {
+        val mCountriesResponse = MutableLiveData<BaseResponse<ProfileCountriesResponse>>()
+        mCountriesResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).getCountry(pageType)
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mCountriesResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mCountriesResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mCountriesResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mCountriesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return  mCountriesResponse
     }
 }
 

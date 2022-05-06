@@ -333,4 +333,9 @@
     <string name="privacy_information">Investement will generate appreciate in Future.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.</string>
     <string name="country">Country</string>
 
+    <string-array name="Gender">
+        <item>Female</item>
+        <item>Male</item>
+    </string-array>
+
 </resources>

@@ -363,29 +363,22 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_size_5"
-                    android:layout_marginTop="@dimen/margin_size_20"
+                    android:layout_marginStart="@dimen/margin_size_16"
                     android:layout_marginEnd="@dimen/margin_size_16"
-                    android:hint="@string/gender"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/dob"
                     app:layout_constraintStart_toEndOf="@+id/dob"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_Email">
+                    app:layout_constraintBottom_toBottomOf="@+id/dob">
 
-                    <EditText
+                    <com.emproto.core.customdropdown.CustomDropDownEdittext
                         android:id="@+id/gender_editText"
-                        style="@style/text_style_text_color_16"
+                        style="@style/text_style_text_color_12"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/jost_medium"
-                        android:gravity="center|left"
-                        android:inputType="textPersonName|textCapSentences"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:textAllCaps="false"
-                        android:textColor="@color/text_color"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="344dp"
-                        android:textColorHint="@color/text_grey_color" />
+                        android:layout_height="wrap_content"
+                        app:hintText="@string/gender"
+                        app:placeholdertext="@string/type_here" />
+
+
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -515,27 +508,24 @@
                     android:layout_marginTop="@dimen/margin_size_20"
                     android:hint="@string/City"
                     app:layout_constraintEnd_toStartOf="@+id/state"
-                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/view"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_locality">
 
-                    <EditText
+                    <com.emproto.core.customdropdown.CustomDropDownEdittext
+                        app:hintText="@string/City"
+                        app:placeholdertext="@string/type_here"
                         android:id="@+id/city"
                         style="@style/text_style_text_color_16"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/jost_medium"
                         android:gravity="center|left"
-                        android:drawableEnd="@drawable/ic_path_10_copy"
                         android:inputType="textPersonName|textCapSentences"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
                         android:textAllCaps="false"
                         android:textColor="@color/text_color"
                         app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="344dp"
-                        android:textColorHint="@color/text_grey_color" />
+                        tools:layout_editor_absoluteY="344dp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -555,10 +545,11 @@
                     app:layout_constraintStart_toEndOf="@+id/tv_city"
                     app:layout_constraintTop_toBottomOf="@+id/tv_locality">
 
-
-                    <EditText
-                        android:id="@+id/state_editText"
+                    <com.emproto.core.customdropdown.CustomDropDownEdittext
                         style="@style/text_style_text_color_16"
+                        app:hintText="@string/State"
+                        app:placeholdertext="@string/type_here"
+                        android:id="@+id/state_editText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/jost_medium"
@@ -588,23 +579,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_city">
 
-
-                    <EditText
+                    <com.emproto.core.customdropdown.CustomDropDownEdittext
                         android:id="@+id/country_editText"
                         style="@style/text_style_text_color_16"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/jost_medium"
                         android:gravity="center|left"
-                        android:drawableEnd="@drawable/ic_path_10_copy"
                         android:inputType="textPersonName|textCapSentences"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
                         android:textAllCaps="false"
                         android:textColor="@color/text_color"
+                        android:textColorHint="@color/text_grey_color"
+                        app:hintText="@string/country"
                         app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="344dp"
-                        android:textColorHint="@color/text_grey_color" />
+                        app:placeholdertext="@string/type_here" />
 
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -629,7 +617,6 @@
                         android:layout_height="match_parent"
                         android:fontFamily="@font/jost_medium"
                         android:gravity="center|left"
-                        android:drawableEnd="@drawable/ic_path_10_copy"
                         android:inputType="textPersonName|textCapSentences"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"

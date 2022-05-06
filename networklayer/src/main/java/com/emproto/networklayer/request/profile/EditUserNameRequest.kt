@@ -1,4 +1,4 @@
-package com.emproto.networklayer.profile
+package com.emproto.networklayer.request.login.profile
 
 data class EditUserNameRequest(
     val firstName : String,
