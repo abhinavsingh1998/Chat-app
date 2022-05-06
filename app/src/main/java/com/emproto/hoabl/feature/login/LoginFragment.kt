@@ -75,8 +75,7 @@ class LoginFragment : BaseFragment() {
                 bottomSheetDialog.show()
             }),
             Pair("Privacy policy", View.OnClickListener {
-                Toast.makeText(requireContext(), "Privacy Policy Clicked", Toast.LENGTH_SHORT)
-                    .show()
+                bottomSheetDialog.show()
             })
         )
 
@@ -134,12 +133,7 @@ class LoginFragment : BaseFragment() {
 
         mBinding.getOtpButton.setOnClickListener {
             //TODO uncomment for no api call
-//            (requireActivity() as AuthActivity).replaceFragment(
-//                OTPVerificationFragment.newInstance(
-//                    mBinding.etMobile1.text.toString()
-//                ), true
-//            )
-            //validate mobile no
+//
             if (hMobileNo.isEmpty() || hMobileNo.length != 10) {
                 mBinding.otpText.visibility = View.INVISIBLE
                 mBinding.textError.visibility = View.VISIBLE
@@ -147,31 +141,50 @@ class LoginFragment : BaseFragment() {
                 return@setOnClickListener
             }
 
+            if (isNetworkAvailable(mBinding.root)) {
+                hideSoftKeyboard()
+                mBinding.layout1.setBackgroundColor(resources.getColor(R.color.app_color))
             val otpRequest = OtpRequest(hMobileNo, "+91", "IN")
             authViewModel.getOtp(otpRequest).observe(viewLifecycleOwner, Observer {
-                when (it.status) {
-                    Status.SUCCESS -> {
-                        (requireActivity() as AuthActivity).replaceFragment(
-                            OTPVerificationFragment.newInstance(
-                                hMobileNo, "+91"
-                            ), true
-                        )
+                    when (it.status) {
+                        Status.SUCCESS -> {
+                            (requireActivity() as AuthActivity).replaceFragment(
+                                OTPVerificationFragment.newInstance(
+                                    hMobileNo, "+91"
+                                ), true
+                            )
+                        }
+                        Status.ERROR -> {
+                            mBinding.getOtpButton.visibility = View.VISIBLE
+                            mBinding.progressBar.visibility = View.INVISIBLE
+                            it.data
+                            (requireActivity() as AuthActivity).showErrorToast(
+                                it.message!!
+                            )
+                        }
+                        Status.LOADING -> {
+                            mBinding.getOtpButton.visibility = View.INVISIBLE
+                            mBinding.progressBar.visibility = View.VISIBLE
+                        }
                     }
-                    Status.ERROR -> {
-                        mBinding.getOtpButton.visibility = View.VISIBLE
-                        mBinding.progressBar.visibility = View.INVISIBLE
-                        it.data
-                        (requireActivity() as AuthActivity).showErrorToast(
-                            it.message!!
-                        )
-                    }
-                    Status.LOADING -> {
-                        mBinding.getOtpButton.visibility = View.INVISIBLE
-                        mBinding.progressBar.visibility = View.VISIBLE
-                    }
-                }
+
             })
         }
+            else{
+                internetOffState()
+            }
+        }
+
+    }
+
+    private fun internetOffState(){
+        mBinding.layout1.setBackgroundColor(resources.getColor(R.color.background_grey))
+        mBinding.getOtpButton.isEnabled=false
+        mBinding.getOtpButton.isClickable=false
+        mBinding.getOtpButton.background =
+            resources.getDrawable(R.drawable.unselect_button_bg)
+        mBinding.switchWhatspp.isChecked= false
+        showSnackBar(mBinding.root)
     }
 
     private fun TextView.makeLinks(vararg links: Pair<String, View.OnClickListener>) {

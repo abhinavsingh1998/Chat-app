@@ -180,37 +180,50 @@
                     android:textAlignment="textStart"
                     android:layout_marginLeft="@dimen/margin_size_28"/>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/num_Layout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <com.emproto.core.customedittext.CustomEdittext
+                    android:id="@+id/input_mobile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_size_28"
-                    android:layout_marginTop="@dimen/margin_size_20"
-                    android:layout_marginRight="@dimen/margin_size_28"
-                    app:boxStrokeWidthFocused="0.7dp"
+                    android:layout_marginStart="@dimen/margin_size_28"
+                    android:layout_marginTop="@dimen/margin_size_40"
+                    android:layout_marginEnd="@dimen/margin_size_28"
                     app:layout_constraintEnd_toStartOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:prefixText="+91"
-                    app:hintTextColor="@color/app_color"
-                    app:layout_constraintTop_toBottomOf="@id/details_header"
-                    app:placeholderText="@string/type_here">
+                    app:hintText="@string/enter_your_phonenumber"
+                    app:placeholdertext="@string/type_here"
+                    app:layout_constraintTop_toBottomOf="@id/details_header"/>
 
-                    <EditText
-                        android:id="@+id/mobile_num_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        style="@style/text_style_text_color_16"
-                        android:layout_gravity="center|left"
-                        android:fontFamily="@font/jost_medium"
-                        android:hint="@string/enter_your_phonenumber"
-                        android:gravity="center|left"
-                        android:inputType="number"
-                        android:maxLength="10"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"/>
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/num_Layout"-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="@dimen/margin_size_28"-->
+<!--                    android:layout_marginTop="@dimen/margin_size_20"-->
+<!--                    android:layout_marginRight="@dimen/margin_size_28"-->
+<!--                    app:boxStrokeWidthFocused="0.7dp"-->
+<!--                    app:layout_constraintEnd_toStartOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:prefixText="+91"-->
+<!--                    app:hintTextColor="@color/app_color"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/details_header"-->
+<!--                    app:placeholderText="@string/type_here">-->
 
-                </com.google.android.material.textfield.TextInputLayout>
+<!--                    <EditText-->
+<!--                        android:id="@+id/mobile_num_input"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        style="@style/text_style_text_color_16"-->
+<!--                        android:layout_gravity="center|left"-->
+<!--                        android:fontFamily="@font/jost_medium"-->
+<!--                        android:hint="@string/enter_your_phonenumber"-->
+<!--                        android:gravity="center|left"-->
+<!--                        android:inputType="number"-->
+<!--                        android:maxLength="10"-->
+<!--                        android:paddingLeft="10dp"-->
+<!--                        android:paddingRight="10dp"/>-->
+
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/email_Layout"
@@ -224,7 +237,7 @@
                     app:boxStrokeWidthFocused="0.7dp"
                     app:layout_constraintEnd_toStartOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/num_Layout"
+                    app:layout_constraintTop_toBottomOf="@id/input_mobile"
                     app:placeholderText="@string/type_here">
 
                     <EditText

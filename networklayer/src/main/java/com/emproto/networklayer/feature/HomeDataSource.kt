@@ -6,15 +6,7 @@ import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.ApiService
 import com.emproto.networklayer.di.DaggerDataComponent
-import com.emproto.networklayer.request.login.AddNameRequest
-import com.emproto.networklayer.request.login.OtpRequest
-import com.emproto.networklayer.request.login.OtpVerifyRequest
-import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.response.home.HomeResponse
-import com.emproto.networklayer.response.login.AddNameResponse
-import com.emproto.networklayer.response.login.OtpResponse
-import com.emproto.networklayer.response.login.TroubleSigningResponse
-import com.emproto.networklayer.response.login.VerifyOtpResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import retrofit2.Response
 import javax.inject.Inject

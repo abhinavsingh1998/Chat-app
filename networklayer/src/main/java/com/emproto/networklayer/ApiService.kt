@@ -8,7 +8,6 @@ import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.investment.InvestmentResponse
 import com.emproto.networklayer.response.investment.ProjectDetailResponse
-import com.emproto.networklayer.response.investment.ProjectIdResponse
 import com.emproto.networklayer.response.login.AddNameResponse
 import com.emproto.networklayer.response.login.OtpResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse

@@ -210,6 +210,10 @@ class CustomEdittext : ConstraintLayout {
         this.onValueChangeListner = onValueChangedListener
     }
 
+    public fun setValue(value: String){
+        editText.setText(value)
+    }
+
     public fun addDropDownValues(list: List<String>) {
         dropDownValue = list[0]
         dropDownValues.clear()

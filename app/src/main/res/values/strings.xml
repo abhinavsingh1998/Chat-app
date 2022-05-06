@@ -99,7 +99,7 @@
     <string name="intro1">New Generation Land is for everyone.Explore all new investments</string>
     <string name="intro2">Promises, are meant to be kept, and we keep it that way too!</string>
     <string name="intro3">Strong Security System to keep your valuables safe and secure</string>
-    <string name="enter_your_phonenumber">Enter Your Phone Number</string>
+    <string name="enter_your_phonenumber">Enter Your Phone Number*</string>
     <string name="enter_your_email">Enter Your Email Address</string>
     <string name="sent_otp">will be sent to this number</string>
     <string name="otp">OTP </string>

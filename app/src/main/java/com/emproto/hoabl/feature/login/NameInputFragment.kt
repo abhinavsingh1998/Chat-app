@@ -141,6 +141,7 @@ class NameInputFragment : BaseFragment() {
                             Status.LOADING -> {
                                 binding.loader.visibility = View.VISIBLE
                                 binding.submitBtn.visibility = View.GONE
+                                8249918462
                             }
                             Status.SUCCESS -> {
                                 appPreference.saveLogin(true)
@@ -152,6 +153,7 @@ class NameInputFragment : BaseFragment() {
                                 dialog.arguments = bundle
                                 dialog.isCancelable = false
                                 dialog.show(parentFragmentManager, "Welcome Card")
+
                             }
                             Status.ERROR -> {
                                 (requireActivity() as AuthActivity).showErrorToast(

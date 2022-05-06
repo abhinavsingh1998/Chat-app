@@ -19,17 +19,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
-import com.emproto.networklayer.preferences.AppPreference
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentVerifyOtpBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.AuthViewmodel
 import com.emproto.hoabl.viewmodels.factory.AuthFactory
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.response.enums.Status
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import javax.inject.Inject
 import com.emproto.hoabl.smsverificatio.SmsBroadcastReceiver
+import com.emproto.networklayer.preferences.AppPreference
 import com.google.android.gms.auth.api.phone.SmsRetriever
 
 
@@ -49,8 +50,14 @@ class OTPVerificationFragment : BaseFragment() {
     lateinit var authFactory: AuthFactory
     lateinit var authViewModel: AuthViewmodel
 
+    lateinit var authActivity: AuthActivity
+
     @Inject
     lateinit var appPreference: AppPreference
+    lateinit var bottomSheetDialog: BottomSheetDialog
+
+
+    var attempts_num= 0
 
     companion object {
         const val TAG = "SMS_USER_CONSENT"
@@ -71,14 +78,18 @@ class OTPVerificationFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         authViewModel = ViewModelProvider(requireActivity(), authFactory)[AuthViewmodel::class.java]
         mBinding = FragmentVerifyOtpBinding.inflate(layoutInflater)
+        authActivity= AuthActivity()
         initView()
         initClickListener()
         resentOtp()
+        otpTimerCount()
+        edit_number()
+
         return mBinding.root
     }
 
@@ -165,14 +176,12 @@ class OTPVerificationFragment : BaseFragment() {
     }
 
     private fun resentOtp(){
-        mBinding.resentOtp.setOnClickListener {
-
             val otpRequest = OtpRequest(mobileno, "+91", "IN")
             authViewModel.getOtp(otpRequest).observe(viewLifecycleOwner, Observer {
                 when (it.status) {
                     Status.SUCCESS -> {
                         mBinding.loader.visibility = View.INVISIBLE
-                        Toast.makeText(requireContext(), "resend OTP successfully", Toast.LENGTH_SHORT).show()
+                       // Toast.makeText(requireContext(), "resend OTP successfully", Toast.LENGTH_LONG).show()
                     }
                     Status.ERROR -> {
                         mBinding.loader.visibility = View.INVISIBLE
@@ -186,7 +195,6 @@ class OTPVerificationFragment : BaseFragment() {
                     }
                 }
             })
-        }
     }
 
 /*    private fun getTimerCount() {
@@ -208,6 +216,12 @@ class OTPVerificationFragment : BaseFragment() {
 
         }.start()
     }*/
+
+    private fun edit_number(){
+        mBinding.etEdit.setOnClickListener(View.OnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        })
+    }
 
     private fun requestPermission() {
         isReadSMSGranted = ContextCompat.checkSelfPermission(
@@ -284,4 +298,21 @@ class OTPVerificationFragment : BaseFragment() {
 
 
 
+    private fun otpTimerCount(){
+        attempts_num = 2
+        mBinding.resentOtp.setOnClickListener(View.OnClickListener {
+            if(attempts_num > 0){
+                resentOtp()
+                mBinding.loginEdittext.setHint("Enter OTP ($attempts_num attempts left)")
+            }
+            else{
+
+                mBinding.loginEdittext.setHint("Enter OTP")
+                Toast.makeText(requireContext(), "You have reached maximum attempts", Toast.LENGTH_LONG).show()
+
+            }
+            --attempts_num
+        })
+
+    }
 }

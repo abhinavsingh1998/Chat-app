@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/layout_1"
     android:background="@color/app_color">
 
     <ImageView
@@ -98,7 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_size_10"
             android:layout_marginEnd="28dp"
-            android:text="@string/mobile_no_error"
+            android:text="Please enter a valid 10-digit number"
             android:textAlignment="center"
             android:textColor="@color/error_color"
             android:visibility="gone"

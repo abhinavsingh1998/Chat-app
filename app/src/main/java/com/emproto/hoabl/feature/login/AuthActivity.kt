@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseActivity
+import com.emproto.core.customedittext.OnValueChangedListener
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityAuthBinding
 import com.emproto.hoabl.databinding.FragmentSigninIssueBinding
@@ -21,7 +22,6 @@ import com.emproto.hoabl.viewmodels.factory.AuthFactory
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.response.enums.Status
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import javax.inject.Inject
 
@@ -36,6 +36,8 @@ class AuthActivity : BaseActivity() {
     lateinit var activityAuthBinding: ActivityAuthBinding
     lateinit var bottomSheetDialog: BottomSheetDialog
     lateinit var signingInIssueBiding: FragmentSigninIssueBinding
+    var issueDetail = ""
+    var hMobileNo = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,15 +47,16 @@ class AuthActivity : BaseActivity() {
         activityAuthBinding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(activityAuthBinding.root)
 
+//        otherIssueCheck()
         initView()
         close_sheet()
         initClickListener()
-
+        editIssuechecked()
     }
 
     private fun initClickListener() {
 
-        activityAuthBinding.textTrouble.setOnClickListener(View.OnClickListener {
+        activityAuthBinding.textTrouble.setOnClickListener({
             launch_bottom_sheet()
         })
     }
@@ -95,12 +98,10 @@ class AuthActivity : BaseActivity() {
         }
     }
 
-    private fun launch_bottom_sheet() {
-
-        signingInIssueBiding.mobileNumInput.setText(appPreference.getMobilenum())
+    fun launch_bottom_sheet() {
+        signingInIssueBiding.inputMobile.setValue(appPreference.getMobilenum())
         bottomSheetDialog.show()
         initClickListner()
-
     }
 
     override fun onBackPressed() {
@@ -117,51 +118,45 @@ class AuthActivity : BaseActivity() {
 
     @SuppressLint("ResourceAsColor")
     private fun initClickListner() {
-        signingInIssueBiding.mobileNumInput.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-
+        hMobileNo= appPreference.getMobilenum()
+        signingInIssueBiding.inputMobile.onValueChangeListner(object : OnValueChangedListener {
+            override fun onValueChanged(value: String?, countryCode: String) {
             }
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                signingInIssueBiding.numLayout.error = ""
-
-                if (p0.toString().isNullOrEmpty()) {
+            @SuppressLint("UseCompatLoadingForDrawables")
+            override fun afterValueChanges(value1: String?) {
+                hMobileNo = value1!!
+                if (value1.isNullOrEmpty()) {
                     signingInIssueBiding.submitBtn.isEnabled = false
                     signingInIssueBiding.submitBtn.isClickable = false
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         signingInIssueBiding.submitBtn.background =
-                            AppCompatResources.getDrawable(
-                                this@AuthActivity,
-                                R.drawable.unselect_button_bg
-                            )
+                            resources.getDrawable(R.drawable.unselect_button_bg)
                     }
                 } else {
                     signingInIssueBiding.submitBtn.isEnabled = true
                     signingInIssueBiding.submitBtn.isClickable = true
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         signingInIssueBiding.submitBtn.background =
-                            AppCompatResources.getDrawable(this@AuthActivity, R.drawable.button_bg)
+                            resources.getDrawable(R.drawable.button_bg)
                     }
                 }
             }
+
         })
 
-        signingInIssueBiding.emailInput.addTextChangedListener(object : TextWatcher {
+        signingInIssueBiding.editIssues.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+
 
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                signingInIssueBiding.emailLayout.error = ""
-
                 if (p0.toString().isNullOrEmpty()) {
                     signingInIssueBiding.submitBtn.isEnabled = false
                     signingInIssueBiding.submitBtn.isClickable = false
@@ -178,24 +173,28 @@ class AuthActivity : BaseActivity() {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         signingInIssueBiding.submitBtn.background =
                             AppCompatResources.getDrawable(this@AuthActivity, R.drawable.button_bg)
-
-
                     }
                 }
+
             }
 
         })
 
         signingInIssueBiding.submitBtn.setOnClickListener(View.OnClickListener {
 
-            if (signingInIssueBiding.mobileNumInput.text.length != 10) {
-                signingInIssueBiding.numLayout.error = "Please Enter Valid Phone No."
+            if (hMobileNo.isEmpty() || hMobileNo.length != 10) {
+                signingInIssueBiding.inputMobile.showError()
                 return@OnClickListener
             }
-            if (!signingInIssueBiding.emailInput.text.isValidEmail()) {
-                signingInIssueBiding.emailLayout.error = "Please Enter Valid Email"
-                return@OnClickListener
+
+
+            if (signingInIssueBiding.issueSeven.isChecked){
+                if (issueDetail.isNullOrEmpty()){
+                    signingInIssueBiding.editIssues.error = "Please describe the issue"
+                    return@OnClickListener
+                }
             }
+
 
             val troubleSigningRequest = TroubleSigningRequest(
                 "1001",
@@ -203,36 +202,36 @@ class AuthActivity : BaseActivity() {
                 signingInIssueBiding.editIssues.text.toString(),
                 signingInIssueBiding.emailInput.text.toString(),
                 issueChecked(),
-                signingInIssueBiding.mobileNumInput.text.toString()
+                hMobileNo
             )
 
-            authViewModel.submitTroubleCase(troubleSigningRequest).observe(this,
-                Observer {
-                    when (it.status) {
-                        Status.SUCCESS -> {
+            authViewModel.submitTroubleCase(troubleSigningRequest).observe(this
+            ) {
+                when (it.status) {
+                    Status.SUCCESS -> {
 
-                            signingInIssueBiding.progressBar.visibility = View.GONE
-                            signingInIssueBiding.submitBtn.visibility = View.VISIBLE
-                            bottomSheetDialog.dismiss()
-                            val dialog = IssueSubmittedConfirmationFragment()
-                            dialog.isCancelable = true
-                            dialog.show(supportFragmentManager, "Submit Card")
-                        }
-                        Status.ERROR -> {
-                            bottomSheetDialog.dismiss()
-                            signingInIssueBiding.submitBtn.visibility = View.VISIBLE
-                            signingInIssueBiding.progressBar.visibility = View.INVISIBLE
-                            showErrorToast(
-                                it.message!!
-                            )
-                        }
-                        Status.LOADING -> {
-                            signingInIssueBiding.submitBtn.visibility = View.INVISIBLE
-                            signingInIssueBiding.progressBar.visibility = View.VISIBLE
-                        }
+                        signingInIssueBiding.progressBar.visibility = View.GONE
+                        signingInIssueBiding.submitBtn.visibility = View.VISIBLE
+                        bottomSheetDialog.dismiss()
+                        val dialog = IssueSubmittedConfirmationFragment()
+                        dialog.isCancelable = true
+                        dialog.show(supportFragmentManager, "Submit Card")
                     }
+                    Status.ERROR -> {
+                        bottomSheetDialog.dismiss()
+                        signingInIssueBiding.submitBtn.visibility = View.VISIBLE
+                        signingInIssueBiding.progressBar.visibility = View.INVISIBLE
+                        showErrorToast(
+                            it.message!!
+                        )
+                    }
+                    Status.LOADING -> {
+                        signingInIssueBiding.submitBtn.visibility = View.INVISIBLE
+                        signingInIssueBiding.progressBar.visibility = View.VISIBLE
+                    }
+                }
 
-                })
+            }
 
         })
 
@@ -274,10 +273,25 @@ class AuthActivity : BaseActivity() {
         }
     }
 
-    private fun close_sheet(){
+    private fun editIssuechecked(){
+        if (signingInIssueBiding.issueSeven.isChecked){
+            if (issueDetail.isNullOrEmpty()){
+                signingInIssueBiding.submitBtn.isEnabled = false
+                signingInIssueBiding.submitBtn.isClickable = false
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    signingInIssueBiding.submitBtn.background =
+                        AppCompatResources.getDrawable(
+                            this@AuthActivity,
+                            R.drawable.unselect_button_bg)
+            }
+        }}
+
+    }
+
+    private fun close_sheet() {
         appPreference.setMobilenum("")
-        signingInIssueBiding.sheetCloseBtn.setOnClickListener(View.OnClickListener {
+        signingInIssueBiding.sheetCloseBtn.setOnClickListener {
             bottomSheetDialog.dismiss()
-        })
+        }
     }
 }

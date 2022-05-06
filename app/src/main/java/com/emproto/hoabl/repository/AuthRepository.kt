@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
-import com.emproto.networklayer.ApiConstants
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
@@ -20,7 +19,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import org.json.JSONObject
 
 
 class AuthRepository @Inject constructor(application: Application) : BaseRepository(application) {
