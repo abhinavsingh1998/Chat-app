@@ -4,6 +4,7 @@ import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
+import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.investment.InvestmentResponse
 import com.emproto.networklayer.response.investment.ProjectDetailResponse
@@ -55,5 +56,8 @@ public interface ApiService {
 
     @GET(ApiConstants.PROJECT_INVESTMENT)
     suspend fun investmentDetails(@Path("crmProjectId") id: Int): Response<InvestmentDetails>
+
+    @GET(ApiConstants.DOC_FILTER)
+    suspend fun documentsList(@Query("projectId") projectId: Int): Response<DocumentsResponse>
 
 }

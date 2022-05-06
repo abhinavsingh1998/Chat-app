@@ -104,7 +104,13 @@ class AuthRepository @Inject constructor(application: Application) : BaseReposit
                 if (request.isSuccessful) {
                     mAddUsernameResponse.postValue(BaseResponse.success(request.body()!!))
                 } else {
-                    mAddUsernameResponse.postValue(BaseResponse.Companion.error(request.message()))
+                    mAddUsernameResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
                 }
 
             } catch (e: Exception) {

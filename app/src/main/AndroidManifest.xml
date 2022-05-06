@@ -36,24 +36,20 @@
             android:name=".feature.login.AuthActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.HOABL_BLACK_BAR"
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".feature.login.SignUpActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.HOABL_BLACK_BAR"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
             android:name=".feature.home.views.HomeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.HOABL_BLACK_BAR"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
             android:name=".feature.home.views.ProjectDetailsExpandView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.HOABL_BLACK_BAR"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
 
         <service

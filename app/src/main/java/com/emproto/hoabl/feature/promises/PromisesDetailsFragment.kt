@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.emproto.core.databinding.TermsConditionDialogBinding
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentPromiseDetailsBinding
@@ -20,6 +21,7 @@ import com.emproto.hoabl.feature.promises.adapter.PromiseDetailsAdapter
 import com.emproto.hoabl.feature.promises.data.DetailsScreenData
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import javax.inject.Inject
 
 
@@ -38,6 +40,9 @@ class PromisesDetailsFragment : Fragment() {
     lateinit var heading: Array<String>
     val bundle = Bundle()
 
+    lateinit var bottomSheetDialog: BottomSheetDialog
+    lateinit var termsConditionDialogBinding: TermsConditionDialogBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,7 +54,7 @@ class PromisesDetailsFragment : Fragment() {
         binding = FragmentPromiseDetailsBinding.inflate(inflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel =
-            ViewModelProvider(requireActivity(), homeFactory).get(HomeViewModel::class.java)
+            ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             true
 
@@ -62,7 +67,22 @@ class PromisesDetailsFragment : Fragment() {
     }
 
     private fun initView() {
+        bottomSheetDialog = BottomSheetDialog(requireContext())
+        termsConditionDialogBinding = TermsConditionDialogBinding.inflate(layoutInflater)
+        bottomSheetDialog.setContentView(termsConditionDialogBinding.root)
         binding.textViewTAndC.setPaintFlags(binding.textViewTAndC.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
+
+        binding.getPortfolioButton.setOnClickListener {
+            //open 3 rd tab portfolio
+            (requireActivity() as HomeActivity).navigate(R.id.navigation_portfolio)
+        }
+        binding.textViewTAndC.setOnClickListener {
+            bottomSheetDialog.show()
+        }
+
+        termsConditionDialogBinding.acitonClose.setOnClickListener {
+            bottomSheetDialog.dismiss()
+        }
     }
 
     private fun initObserver() {

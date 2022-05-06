@@ -11,6 +11,7 @@ import com.emproto.networklayer.response.investment.ProjectDetailResponse
 import com.emproto.networklayer.response.investment.ProjectIdResponse
 import retrofit2.Response
 import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Investment Data Source.
@@ -21,6 +22,7 @@ class InvestmentDataSource(val application: Application) {
 
     @Inject
     lateinit var apiService: ApiService
+
     private var dataComponent: DataComponent =
         DaggerDataComponent.builder().dataAppModule(DataAppModule(application))
             .dataModule(DataModule(application)).build()

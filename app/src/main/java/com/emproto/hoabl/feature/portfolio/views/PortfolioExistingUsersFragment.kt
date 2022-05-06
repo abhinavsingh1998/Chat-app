@@ -147,15 +147,7 @@ class PortfolioExistingUsersFragment : BaseFragment(),
 
     override fun manageProject(position: Int) {
         val portfolioSpecificProjectView = PortfolioSpecificProjectView()
-        (requireActivity() as HomeActivity).replaceFragment(
-            portfolioSpecificProjectView.javaClass,
-            "",
-            true,
-            null,
-            null,
-            0,
-            false
-        )
+        (requireActivity() as HomeActivity).addFragment(portfolioSpecificProjectView, false)
     }
 
 }

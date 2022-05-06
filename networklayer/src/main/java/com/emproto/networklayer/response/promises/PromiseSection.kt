@@ -5,5 +5,8 @@ data class PromiseSection(
     val projectPromiseDisplayName: String,
     val sectionName: String,
     val subDescription: String,
-    val footerText:String
+    val disclaimer: String,
+    val aboutPromises: AboutPromises
 )
+
+data class AboutPromises(val sectionHeading: String, val subDescription: String)

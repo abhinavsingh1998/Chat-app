@@ -8,6 +8,7 @@ import com.emproto.networklayer.feature.HomeDataSource
 import com.emproto.networklayer.feature.InvestmentDataSource
 import com.emproto.networklayer.feature.PortfolioDataSource
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.investment.Data
 import com.emproto.networklayer.response.portfolio.PortfolioData
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetails
@@ -84,5 +85,33 @@ class PortfolioRepository @Inject constructor(application: Application) :
         }
         return mPromisesResponse
     }
+
+    fun getDocumentsListing(projectId: Int): LiveData<BaseResponse<DocumentsResponse>> {
+        val mDocumentsResponse = MutableLiveData<BaseResponse<DocumentsResponse>>()
+        mDocumentsResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = PortfolioDataSource(application).getDocumentsListing(projectId)
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mDocumentsResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mDocumentsResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mDocumentsResponse
+    }
+
 
 }

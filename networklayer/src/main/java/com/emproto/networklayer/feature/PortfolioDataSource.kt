@@ -6,6 +6,7 @@ import com.emproto.networklayer.di.DaggerDataComponent
 import com.emproto.networklayer.di.DataAppModule
 import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
+import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.investment.Data
 import com.emproto.networklayer.response.portfolio.PortfolioData
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetails
@@ -38,6 +39,11 @@ class PortfolioDataSource(val application: Application) {
     //get investment details
     suspend fun getInvestmentDetails(crmId: Int): Response<InvestmentDetails> {
         return apiService.investmentDetails(crmId)
+    }
+
+    //get documents listing
+    suspend fun getDocumentsListing(projectId: Int): Response<DocumentsResponse> {
+        return apiService.documentsList(projectId)
     }
 
 

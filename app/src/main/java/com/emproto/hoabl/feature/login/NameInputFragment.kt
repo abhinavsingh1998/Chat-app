@@ -156,6 +156,9 @@ class NameInputFragment : BaseFragment() {
                             Status.ERROR -> {
                                 binding.loader.visibility = View.GONE
                                 binding.submitBtn.visibility = View.VISIBLE
+                                (requireActivity() as AuthActivity).showErrorToast(
+                                    t.message!!
+                                )
                             }
                         }
                     }

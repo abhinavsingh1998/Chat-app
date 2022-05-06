@@ -125,6 +125,21 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
                 }
                 Status.SUCCESS -> {
+                    setUpRecyclerView()
+                }
+                Status.ERROR -> {
+                    setUpRecyclerView()
+                }
+
+            }
+        })
+
+        portfolioviewmodel.getDocumentList(1).observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.LOADING -> {
+
+                }
+                Status.SUCCESS -> {
 
                 }
                 Status.ERROR -> {

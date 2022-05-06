@@ -224,9 +224,14 @@ class ExistingUsersPortfolioAdapter(
         fun bind(position: Int) {
             val projectList = list[position].data as List<Project>
 
-            completedInvestmentAdapter =
-                CompletedInvestmentAdapter(context, projectList, onItemClickListener, 0)
-            binding.rvCompletedInvestment.adapter = completedInvestmentAdapter
+            if (projectList.isEmpty()) {
+                binding.cvCompletedInvestment.visibility = View.VISIBLE
+                binding.rvCompletedInvestment.visibility = View.GONE
+            } else {
+                completedInvestmentAdapter =
+                    CompletedInvestmentAdapter(context, projectList, onItemClickListener, 0)
+                binding.rvCompletedInvestment.adapter = completedInvestmentAdapter
+            }
         }
     }
 
@@ -234,9 +239,14 @@ class ExistingUsersPortfolioAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             val projectList = list[position].data as List<Project>
-            completedInvestmentAdapter =
-                CompletedInvestmentAdapter(context, projectList, onItemClickListener, 1)
-            binding.rvOngoingInvestment.adapter = completedInvestmentAdapter
+            if (projectList.isEmpty()) {
+                binding.cvOngoingInvestment.visibility = View.VISIBLE
+                binding.rvOngoingInvestment.visibility = View.GONE
+            } else {
+                completedInvestmentAdapter =
+                    CompletedInvestmentAdapter(context, projectList, onItemClickListener, 1)
+                binding.rvOngoingInvestment.adapter = completedInvestmentAdapter
+            }
         }
     }
 

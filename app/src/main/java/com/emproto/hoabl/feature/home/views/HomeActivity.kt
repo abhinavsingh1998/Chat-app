@@ -3,6 +3,7 @@ package com.emproto.hoabl.feature.home.views
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -59,8 +60,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         )
 
         if (savedInstanceState == null) {
-            activityHomeActivity.includeNavigation.bottomNavigation.selectedItemId =
-                R.id.navigation_hoabl  // change to whichever id should be default
+            navigate(R.id.navigation_hoabl) // change to whichever id should be default
         }
 
         activityHomeActivity.searchLayout.imageBack.setOnClickListener(object :
@@ -71,7 +71,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         })
 
         activityHomeActivity.searchLayout.headset.setOnClickListener(object :
-            View.OnClickListener {  
+            View.OnClickListener {
             override fun onClick(p0: View?) {
                 Toast.makeText(applicationContext, "Chat bot", Toast.LENGTH_SHORT).show()
             }
@@ -82,6 +82,10 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     fun getCurrentFragment(): Fragment? {
         return supportFragmentManager.findFragmentById(contentFrame)
+    }
+
+    fun navigate(id: Int) {
+        activityHomeActivity.includeNavigation.bottomNavigation.selectedItemId = id
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -202,7 +206,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 Toast.makeText(mContext, "Please press again to exit", Toast.LENGTH_LONG).show()
             }
         } else {
-            super.onBackPressed()
+            navigate(R.id.navigation_hoabl)
         }
     }
 

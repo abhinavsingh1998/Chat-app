@@ -18,6 +18,7 @@ import com.emproto.networklayer.response.login.VerifyOtpResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import retrofit2.Response
 import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Home Data Source.
@@ -27,6 +28,9 @@ import javax.inject.Inject
 public class HomeDataSource(val application: Application) {
     @Inject
     lateinit var apiService: ApiService
+    @Named("dummy")
+    @Inject
+    lateinit var apiService2: ApiService
     private var dataComponent: DataComponent =
         DaggerDataComponent.builder().dataAppModule(DataAppModule(application))
             .dataModule(DataModule(application)).build()
@@ -42,7 +46,7 @@ public class HomeDataSource(val application: Application) {
 
     //promises modules apis
     suspend fun getPromisesData(pageType: Int): Response<PromisesResponse> {
-        return apiService.getPromises(pageType)
+        return apiService2.getPromises(pageType)
     }
 
 

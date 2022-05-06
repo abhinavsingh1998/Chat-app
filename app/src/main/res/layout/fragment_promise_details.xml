@@ -172,7 +172,7 @@
             android:paddingBottom="@dimen/margin_size_12"
             android:text="@string/portfolio"
             android:textAlignment="center"
-            app:fontName="@font/jost_medium"
+            app:fontName="@string/jost_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/apply_view" />
