@@ -70,6 +70,7 @@ class AuthActivity : BaseActivity() {
         bottomSheetDialog = BottomSheetDialog(this)
         signingInIssueBiding = FragmentSigninIssueBinding.inflate(layoutInflater)
         bottomSheetDialog.setContentView(signingInIssueBiding.root)
+        signingInIssueBiding.inputMobile.setValue(appPreference.getMobilenum())
     }
 
 
@@ -151,7 +152,6 @@ class AuthActivity : BaseActivity() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
 
-
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -160,6 +160,7 @@ class AuthActivity : BaseActivity() {
 
             override fun afterTextChanged(p0: Editable?) {
                 if (p0.toString().isNullOrEmpty()) {
+                    issueDetail==p0.toString()
                     signingInIssueBiding.submitBtn.isEnabled = false
                     signingInIssueBiding.submitBtn.isClickable = false
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -294,7 +295,6 @@ class AuthActivity : BaseActivity() {
         appPreference.setMobilenum("")
         signingInIssueBiding.sheetCloseBtn.setOnClickListener {
             bottomSheetDialog.dismiss()
-
 
         }
     }

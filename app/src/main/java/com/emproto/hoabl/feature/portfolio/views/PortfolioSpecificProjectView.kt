@@ -13,17 +13,13 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentPortfolioSpecificViewBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.feature.investment.adapters.ProjectDetailAdapter
 import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
-import com.emproto.hoabl.feature.investment.dialogs.ConfirmationDialog
-import com.emproto.hoabl.feature.investment.views.mediagallery.MediaViewFragment
 import com.emproto.hoabl.feature.portfolio.adapters.DocumentsAdapter
 import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.response.enums.Status
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import javax.inject.Inject
 

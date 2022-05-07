@@ -33,7 +33,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import javax.inject.Inject
 import com.emproto.hoabl.smsverificatio.SmsBroadcastReceiver
 import com.emproto.networklayer.preferences.AppPreference
-import com.google.android.gms.auth.api.phone.SmsRetriever
 
 
 class OTPVerificationFragment : BaseFragment() {
@@ -87,7 +86,6 @@ class OTPVerificationFragment : BaseFragment() {
         authActivity= AuthActivity()
         initView()
         initClickListener()
-        resentOtp()
         otpTimerCount()
         edit_number()
 

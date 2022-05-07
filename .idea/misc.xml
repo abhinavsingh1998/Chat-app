@@ -3,49 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/drawable/blue_btn_bg.xml" value="0.1585" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/drawable/custom_thumb.xml" value="0.13" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/drawable/custom_track.xml" value="0.13" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/drawable/text_color_selector.xml" value="0.13" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/activity_auth.xml" value="0.1" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/activity_home.xml" value="0.12273550724637682" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/activity_introslider.xml" value="0.13043478260869565" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/application_submitted_dialog.xml" value="0.4466666666666667" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/custom_toolbar.xml" value="0.3014460511679644" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_account_details.xml" value="0.3333333333333333" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_edit_profile.xml" value="0.22" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_hoabel_promises.xml" value="0.12273550724637682" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_home.xml" value="0.22" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_insights.xml" value="0.22" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_insights_details.xml" value="0.1" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_latest_updates.xml" value="0.22" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_latest_updates_details.xml" value="0.22" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_login.xml" value="0.22" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_name_input.xml" value="0.1" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_security.xml" value="0.13043478260869565" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_signin_issue.xml" value="0.16666666666666666" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_testimonials.xml" value="0.5" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_verify_otp.xml" value="0.1" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/insights_list_item.xml" value="0.3333333333333333" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/item_insights.xml" value="0.5" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/item_latest_updates.xml" value="0.4466666666666667" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/item_promises.xml" value="0.6666666666666666" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/item_smart_deals.xml" value="0.38957816377171217" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/item_testimonials.xml" value="0.4466666666666667" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/project_updates_item.xml" value="0.3333333333333333" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/promises_item_data.xml" value="0.13043478260869565" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/promises_item_header.xml" value="0.12273550724637682" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/promises_layout.xml" value="0.4918518518518519" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/referral_dialog.xml" value="0.12273550724637682" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/success_layout.xml" value="0.4466666666666667" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/testimonals_list_view.xml" value="0.16666666666666666" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/core/src/main/res/drawable/custom_et_bg.xml" value="0.13" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/core/src/main/res/layout/custom_edittext.xml" value="0.2786458333333333" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/core/src/main/res/layout/terms_condition_dialog.xml" value="0.13043478260869565" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_login.xml" value="0.13043478260869565" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_signin_issue.xml" value="0.13179347826086957" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/core/src/main/res/drawable/custom_et_bg.xml" value="0.1685" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/core/src/main/res/drawable/custom_et_error_bg.xml" value="0.1685" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/core/src/main/res/layout/custom_edittext.xml" value="0.13179347826086957" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
-  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>

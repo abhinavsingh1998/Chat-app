@@ -4,7 +4,7 @@
 
     <stroke
         android:color="@color/error_color"
-        android:width="2dp">
+        android:width="0.7dp">
     </stroke>
 
     <corners

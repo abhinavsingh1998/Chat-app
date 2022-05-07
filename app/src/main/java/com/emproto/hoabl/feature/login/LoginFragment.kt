@@ -107,16 +107,20 @@ class LoginFragment : BaseFragment() {
 
         mBinding.inputMobile.onValueChangeListner(object : OnValueChangedListener {
             override fun onValueChanged(value: String?, countryCode: String) {
+                appPreference.setMobilenum(hMobileNo)
                 hCountryCode = countryCode
                 mBinding.otpText.visibility = View.VISIBLE
                 mBinding.textError.visibility = View.GONE
+                mBinding.switchWhatspp.isChecked= true
             }
 
             override fun afterValueChanges(value1: String?) {
+                appPreference.setMobilenum(hMobileNo)
                 hMobileNo = value1!!
                 if (value1.isNullOrEmpty()) {
                     mBinding.getOtpButton.isEnabled = false
                     mBinding.getOtpButton.isClickable = false
+                    mBinding.switchWhatspp.isChecked= false
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         mBinding.getOtpButton.background =
                             resources.getDrawable(R.drawable.unselect_button_bg)
@@ -124,6 +128,7 @@ class LoginFragment : BaseFragment() {
                 } else {
                     mBinding.getOtpButton.isEnabled = true
                     mBinding.getOtpButton.isClickable = true
+                    mBinding.switchWhatspp.isChecked= true
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         mBinding.getOtpButton.background =
                             resources.getDrawable(R.drawable.button_bg)

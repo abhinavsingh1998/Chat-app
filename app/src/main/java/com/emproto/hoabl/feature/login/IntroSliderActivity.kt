@@ -110,6 +110,15 @@ class IntroSliderActivity : BaseActivity(), StoriesProgressView.StoriesListener 
         ++counter
         image.setImageResource(resources[counter])
         textview?.setText(txtResource[counter])
+        btn_txt_chnage()
+    }
+
+    fun btn_txt_chnage(){
+        if (counter==2){
+            activityIntrosliderBinding.buttonSkip.setText("Get Started")
+        } else{
+            activityIntrosliderBinding.buttonSkip.setText("Skip & Get Started")
+        }
     }
 
     override fun onPrev() {
@@ -119,6 +128,7 @@ class IntroSliderActivity : BaseActivity(), StoriesProgressView.StoriesListener 
         --counter
         image.setImageResource(resources[counter])
         textview!!.setText(txtResource[counter])
+        btn_txt_chnage()
 
     }
 
