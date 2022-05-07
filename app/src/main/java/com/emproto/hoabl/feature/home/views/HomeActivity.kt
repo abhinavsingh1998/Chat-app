@@ -20,6 +20,7 @@ import com.emproto.hoabl.feature.investment.views.InvestmentFragment
 import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
 import com.emproto.hoabl.feature.promises.HoabelPromises
 import com.emproto.hoabl.feature.profile.ProfileFragment
+import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -205,6 +206,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 Handler().postDelayed({ closeApp = false }, 2000)
                 Toast.makeText(mContext, "Please press again to exit", Toast.LENGTH_LONG).show()
             }
+        } else if (getCurrentFragment() is PromisesDetailsFragment) {
+            super.onBackPressed()
         } else {
             navigate(R.id.navigation_hoabl)
         }

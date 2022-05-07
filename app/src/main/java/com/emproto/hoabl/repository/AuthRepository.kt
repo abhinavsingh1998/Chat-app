@@ -14,6 +14,7 @@ import com.emproto.networklayer.response.login.AddNameResponse
 import com.emproto.networklayer.response.login.OtpResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.login.VerifyOtpResponse
+import com.emproto.networklayer.response.terms.TermsConditionResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -142,6 +143,31 @@ class AuthRepository @Inject constructor(application: Application) : BaseReposit
             }
         }
         return mCaseResponse
+    }
+
+    fun getTermsCondition(pageType: Int): LiveData<BaseResponse<TermsConditionResponse>> {
+        val mAddUsernameResponse = MutableLiveData<BaseResponse<TermsConditionResponse>>()
+        mAddUsernameResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = RegistrationDataSource(application).getTermsCondition(pageType)
+                if (request.isSuccessful) {
+                    mAddUsernameResponse.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    mAddUsernameResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+
+            } catch (e: Exception) {
+                mAddUsernameResponse.postValue(BaseResponse.Companion.error(e.message!!))
+            }
+        }
+        return mAddUsernameResponse
     }
 
 }

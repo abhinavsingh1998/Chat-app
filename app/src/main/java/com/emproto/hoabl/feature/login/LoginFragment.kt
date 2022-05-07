@@ -28,8 +28,8 @@ import android.text.style.ClickableSpan
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import com.emproto.core.databinding.TermsConditionDialogBinding
-import com.emproto.hoabl.databinding.FragmentSigninIssueBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import android.text.method.ScrollingMovementMethod
 
 
 class LoginFragment : BaseFragment() {
@@ -56,7 +56,24 @@ class LoginFragment : BaseFragment() {
         mBinding = FragmentLoginBinding.inflate(inflater, container, false)
         initView()
         initClickListeners()
+        initObserver()
         return mBinding.root
+    }
+
+    private fun initObserver() {
+        authViewModel.getTermsCondition(5004).observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    it.data?.let {
+                        termsConditionDialogBinding.tvTitle.text =
+                            showHTMLText(it.data.termsAndConditions.description)
+                        termsConditionDialogBinding.tvTitle.setMovementMethod(
+                            ScrollingMovementMethod()
+                        )
+                    }
+                }
+            }
+        })
     }
 
     private fun initView() {
@@ -72,9 +89,11 @@ class LoginFragment : BaseFragment() {
 
         mBinding.textTerms.makeLinks(
             Pair("Terms of services", View.OnClickListener {
+                termsConditionDialogBinding.tvHeading.text = getString(R.string.termscondition)
                 bottomSheetDialog.show()
             }),
             Pair("Privacy policy", View.OnClickListener {
+                termsConditionDialogBinding.tvHeading.text = getString(R.string.privacypolicy)
                 bottomSheetDialog.show()
             })
         )
@@ -91,7 +110,6 @@ class LoginFragment : BaseFragment() {
                 hCountryCode = countryCode
                 mBinding.otpText.visibility = View.VISIBLE
                 mBinding.textError.visibility = View.GONE
-                mBinding.switchWhatspp.isChecked = true
             }
 
             override fun afterValueChanges(value1: String?) {
@@ -99,15 +117,13 @@ class LoginFragment : BaseFragment() {
                 if (value1.isNullOrEmpty()) {
                     mBinding.getOtpButton.isEnabled = false
                     mBinding.getOtpButton.isClickable = false
-                    mBinding.switchWhatspp.isChecked = false
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            mBinding.getOtpButton.background =
-                                resources.getDrawable(R.drawable.unselect_button_bg)
-                        }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        mBinding.getOtpButton.background =
+                            resources.getDrawable(R.drawable.unselect_button_bg)
+                    }
                 } else {
                     mBinding.getOtpButton.isEnabled = true
                     mBinding.getOtpButton.isClickable = true
-                    appPreference.setMobilenum(hMobileNo)
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         mBinding.getOtpButton.background =
                             resources.getDrawable(R.drawable.button_bg)
@@ -132,8 +148,7 @@ class LoginFragment : BaseFragment() {
 
 
         mBinding.getOtpButton.setOnClickListener {
-            //TODO uncomment for no api call
-//
+
             if (hMobileNo.isEmpty() || hMobileNo.length != 10) {
                 mBinding.otpText.visibility = View.INVISIBLE
                 mBinding.textError.visibility = View.VISIBLE
@@ -141,49 +156,31 @@ class LoginFragment : BaseFragment() {
                 return@setOnClickListener
             }
 
-            if (isNetworkAvailable(mBinding.root)) {
-                hideSoftKeyboard()
-                mBinding.layout1.setBackgroundColor(resources.getColor(R.color.app_color))
             val otpRequest = OtpRequest(hMobileNo, "+91", "IN")
             authViewModel.getOtp(otpRequest).observe(viewLifecycleOwner, Observer {
-                    when (it.status) {
-                        Status.SUCCESS -> {
-                            (requireActivity() as AuthActivity).replaceFragment(
-                                OTPVerificationFragment.newInstance(
-                                    hMobileNo, "+91"
-                                ), true
-                            )
-                        }
-                        Status.ERROR -> {
-                            mBinding.getOtpButton.visibility = View.VISIBLE
-                            mBinding.progressBar.visibility = View.INVISIBLE
-                            it.data
-                            (requireActivity() as AuthActivity).showErrorToast(
-                                it.message!!
-                            )
-                        }
-                        Status.LOADING -> {
-                            mBinding.getOtpButton.visibility = View.INVISIBLE
-                            mBinding.progressBar.visibility = View.VISIBLE
-                        }
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        (requireActivity() as AuthActivity).replaceFragment(
+                            OTPVerificationFragment.newInstance(
+                                hMobileNo, "+91"
+                            ), true
+                        )
                     }
+                    Status.ERROR -> {
+                        mBinding.getOtpButton.visibility = View.VISIBLE
+                        mBinding.progressBar.visibility = View.INVISIBLE
+                        it.data
+                        (requireActivity() as AuthActivity).showErrorToast(
+                            it.message!!
+                        )
+                    }
+                    Status.LOADING -> {
+                        mBinding.getOtpButton.visibility = View.INVISIBLE
+                        mBinding.progressBar.visibility = View.VISIBLE
+                    }
+                }
             })
         }
-            else{
-                internetOffState()
-            }
-        }
-
-    }
-
-    private fun internetOffState(){
-        mBinding.layout1.setBackgroundColor(resources.getColor(R.color.background_grey))
-        mBinding.getOtpButton.isEnabled=false
-        mBinding.getOtpButton.isClickable=false
-        mBinding.getOtpButton.background =
-            resources.getDrawable(R.drawable.unselect_button_bg)
-        mBinding.switchWhatspp.isChecked= false
-        showSnackBar(mBinding.root)
     }
 
     private fun TextView.makeLinks(vararg links: Pair<String, View.OnClickListener>) {
@@ -216,5 +213,6 @@ class LoginFragment : BaseFragment() {
             LinkMovementMethod.getInstance() // without LinkMovementMethod, link can not click
         this.setText(spannableString, TextView.BufferType.SPANNABLE)
     }
+
 }
 

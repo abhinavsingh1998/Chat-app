@@ -26,11 +26,10 @@
 
         <ImageView
             android:id="@+id/image_security"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginStart="22dp"
             android:layout_marginTop="@dimen/margin_size_26"
-            android:background="@drawable/securitylock"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/view_full" />
 
@@ -68,7 +67,7 @@
         <View
             android:id="@+id/line_view2"
             android:layout_width="wrap_content"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:layout_marginTop="@dimen/margin_size_10"
             android:background="@color/category_bottom_ash_line_color"
             app:layout_constraintEnd_toEndOf="parent"
@@ -126,6 +125,7 @@
                 android:layout_marginTop="@dimen/margin_size_20"
                 android:layout_marginEnd="@dimen/margin_size_35"
                 android:fontFamily="@font/jostregular"
+                android:justificationMode="inter_word"
                 android:lineSpacingExtra="2sp"
                 android:text="@string/new_generation_land_is_now_safe_and_secure_owning_land_will_never_feel_like_a_gamble_again"
                 app:layout_constraintEnd_toEndOf="parent"
