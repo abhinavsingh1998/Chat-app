@@ -29,6 +29,7 @@ import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import com.emproto.core.databinding.TermsConditionDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import android.text.method.ScrollingMovementMethod
 
 
 class LoginFragment : BaseFragment() {
@@ -55,7 +56,24 @@ class LoginFragment : BaseFragment() {
         mBinding = FragmentLoginBinding.inflate(inflater, container, false)
         initView()
         initClickListeners()
+        initObserver()
         return mBinding.root
+    }
+
+    private fun initObserver() {
+        authViewModel.getTermsCondition(5004).observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    it.data?.let {
+                        termsConditionDialogBinding.tvTitle.text =
+                            showHTMLText(it.data.termsAndConditions.description)
+                        termsConditionDialogBinding.tvTitle.setMovementMethod(
+                            ScrollingMovementMethod()
+                        )
+                    }
+                }
+            }
+        })
     }
 
     private fun initView() {
@@ -71,11 +89,12 @@ class LoginFragment : BaseFragment() {
 
         mBinding.textTerms.makeLinks(
             Pair("Terms of services", View.OnClickListener {
+                termsConditionDialogBinding.tvHeading.text = getString(R.string.termscondition)
                 bottomSheetDialog.show()
             }),
             Pair("Privacy policy", View.OnClickListener {
-                Toast.makeText(requireContext(), "Privacy Policy Clicked", Toast.LENGTH_SHORT)
-                    .show()
+                termsConditionDialogBinding.tvHeading.text = getString(R.string.privacypolicy)
+                bottomSheetDialog.show()
             })
         )
 
@@ -129,13 +148,7 @@ class LoginFragment : BaseFragment() {
 
 
         mBinding.getOtpButton.setOnClickListener {
-            //TODO uncomment for no api call
-//            (requireActivity() as AuthActivity).replaceFragment(
-//                OTPVerificationFragment.newInstance(
-//                    mBinding.etMobile1.text.toString()
-//                ), true
-//            )
-            //validate mobile no
+
             if (hMobileNo.isEmpty() || hMobileNo.length != 10) {
                 mBinding.otpText.visibility = View.INVISIBLE
                 mBinding.textError.visibility = View.VISIBLE

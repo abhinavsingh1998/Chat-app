@@ -16,6 +16,7 @@ import com.emproto.networklayer.response.login.VerifyOtpResponse
 import com.emproto.networklayer.response.portfolio.PortfolioData
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetails
 import com.emproto.networklayer.response.promises.PromisesResponse
+import com.emproto.networklayer.response.terms.TermsConditionResponse
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -59,5 +60,9 @@ public interface ApiService {
 
     @GET(ApiConstants.DOC_FILTER)
     suspend fun documentsList(@Query("projectId") projectId: Int): Response<DocumentsResponse>
+
+    @GET(ApiConstants.TERMS_CONDITION)
+    suspend fun getTermscondition(@Query("pageType") pageType: Int): Response<TermsConditionResponse>
+
 
 }

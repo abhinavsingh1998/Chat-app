@@ -17,6 +17,7 @@ object ApiConstants {
     const val PORTFOLIO_DASHBOARD = "hoabl-customer/investment-summary"
     const val PROJECT_INVESTMENT = "hoabl-customer/project-investments"
     const val DOC_FILTER = "hoabl-customer/doc-filter"
+    const val TERMS_CONDITION = "hoabl-admin/get-page"
 
 
 }
