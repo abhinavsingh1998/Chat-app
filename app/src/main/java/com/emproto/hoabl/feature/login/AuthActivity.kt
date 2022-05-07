@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.login
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -52,6 +53,7 @@ class AuthActivity : BaseActivity() {
         close_sheet()
         initClickListener()
         editIssuechecked()
+
     }
 
     private fun initClickListener() {
@@ -292,6 +294,8 @@ class AuthActivity : BaseActivity() {
         appPreference.setMobilenum("")
         signingInIssueBiding.sheetCloseBtn.setOnClickListener {
             bottomSheetDialog.dismiss()
+
+
         }
     }
 }

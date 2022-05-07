@@ -167,7 +167,6 @@ class LoginFragment : BaseFragment() {
                             mBinding.progressBar.visibility = View.VISIBLE
                         }
                     }
-
             })
         }
             else{
@@ -217,6 +216,5 @@ class LoginFragment : BaseFragment() {
             LinkMovementMethod.getInstance() // without LinkMovementMethod, link can not click
         this.setText(spannableString, TextView.BufferType.SPANNABLE)
     }
-
 }
 

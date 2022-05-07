@@ -141,7 +141,6 @@ class NameInputFragment : BaseFragment() {
                             Status.LOADING -> {
                                 binding.loader.visibility = View.VISIBLE
                                 binding.submitBtn.visibility = View.GONE
-                                8249918462
                             }
                             Status.SUCCESS -> {
                                 appPreference.saveLogin(true)
@@ -162,7 +161,7 @@ class NameInputFragment : BaseFragment() {
                                 binding.loader.visibility = View.GONE
                                 binding.submitBtn.visibility = View.VISIBLE
                                 (requireActivity() as AuthActivity).showErrorToast(
-                                    t.message!!
+                                    it.message!!
                                 )
                             }
                         }

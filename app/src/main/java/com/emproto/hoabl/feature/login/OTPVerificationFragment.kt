@@ -27,6 +27,8 @@ import com.emproto.hoabl.viewmodels.factory.AuthFactory
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.response.enums.Status
+import com.google.android.gms.auth.api.phone.SmsRetriever
+import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import javax.inject.Inject
 import com.emproto.hoabl.smsverificatio.SmsBroadcastReceiver
@@ -55,7 +57,6 @@ class OTPVerificationFragment : BaseFragment() {
     @Inject
     lateinit var appPreference: AppPreference
     lateinit var bottomSheetDialog: BottomSheetDialog
-
 
     var attempts_num= 0
 
@@ -93,11 +94,17 @@ class OTPVerificationFragment : BaseFragment() {
         return mBinding.root
     }
 
+    private fun startUserConsent() {
+        val client = SmsRetriever.getClient(requireContext())
+        client.startSmsUserConsent(null)
+    }
+
     private fun initView() {
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 isReadSMSGranted = permissions[Manifest.permission.READ_SMS] ?: isReadSMSGranted
             }
+
         requestPermission()
         mBinding.tvMobileNumber.text = "$countryCode-$mobileno"
         mBinding.tvMobileNumber.paintFlags = Paint.UNDERLINE_TEXT_FLAG
@@ -195,6 +202,12 @@ class OTPVerificationFragment : BaseFragment() {
                     }
                 }
             })
+    }
+    private fun startSMSRetrieverClient() {
+        val client = SmsRetriever.getClient(requireActivity())
+        val task: Task<Void> = client.startSmsRetriever()
+        task.addOnSuccessListener { aVoid -> }
+        task.addOnFailureListener { e -> }
     }
 
 /*    private fun getTimerCount() {
