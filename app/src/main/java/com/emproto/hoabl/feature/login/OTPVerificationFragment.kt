@@ -92,10 +92,10 @@ class OTPVerificationFragment : BaseFragment() {
         return mBinding.root
     }
 
-    private fun startUserConsent() {
-        val client = SmsRetriever.getClient(requireContext())
-        client.startSmsUserConsent(null)
-    }
+//    private fun startUserConsent() {
+//        val client = SmsRetriever.getClient(requireContext())
+//        client.startSmsUserConsent(null)
+//    }
 
     private fun initView() {
         permissionLauncher =
@@ -314,6 +314,8 @@ class OTPVerificationFragment : BaseFragment() {
         mBinding.resentOtp.setOnClickListener(View.OnClickListener {
             if(attempts_num > 0){
                 resentOtp()
+                requestPermission()
+                startSmsUserConsent()
                 mBinding.loginEdittext.setHint("Enter OTP ($attempts_num attempts left)")
             }
             else{
