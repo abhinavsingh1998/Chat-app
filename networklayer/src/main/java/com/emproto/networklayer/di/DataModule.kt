@@ -84,7 +84,7 @@ class DataModule(private val application: Application) {
                 Interceptor { chain ->
                     val request: Request = chain.request().newBuilder()
                         //.addHeader("jwt", getAppPreference().getToken()).build()
-                    .addHeader("jwt", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoyLCJlbWFpbCI6ImtvdXNoaWtAZW1wcm90by5jb20iLCJsYXRlc3RBZG1pbkxvZ0lkIjoxNiwibW9kdWxlcyI6W251bGxdLCJpc3N1ZWRBdCI6MTY1MTgxOTUxMTI0NiwiZXhwaXJlZEF0IjoxNjUyNDI0MzExMjQ2fSwiaWF0IjoxNjUxODE5NTExLCJleHAiOjE2NTQ0MTE1MTF9.JDJzq64fHk-_OvnssNWBgHNCUoK-6IgnRmuR3s80VPg").build()
+                    .addHeader("jwt", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoxLCJlbWFpbCI6Im9ta2FyQGVtcHJvdG8uY29tIiwibGF0ZXN0QWRtaW5Mb2dJZCI6MzAsIm1vZHVsZXMiOltudWxsXSwiaXNzdWVkQXQiOjE2NTE4OTk5NzY5NzUsImV4cGlyZWRBdCI6MTY1MjUwNDc3Njk3NX0sImlhdCI6MTY1MTg5OTk3NiwiZXhwIjoxNjU0NDkxOTc2fQ.Onv30rpwuOk8gxphwljYQd47JZ2M7giMp4qUGXurf0w").build()
                     chain.proceed(request)
                 }).addInterceptor(loggingInterceptor).build()
 

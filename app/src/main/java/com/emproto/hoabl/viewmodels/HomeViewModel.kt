@@ -12,6 +12,7 @@ import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.login.OtpResponse
 import com.emproto.networklayer.response.promises.HoablPagesOrPromise
 import com.emproto.networklayer.response.promises.PromisesResponse
+import com.emproto.networklayer.response.terms.TermsConditionResponse
 import javax.inject.Inject
 
 class HomeViewModel(
@@ -53,6 +54,10 @@ class HomeViewModel(
 
     fun getSelectedPromise(): LiveData<HoablPagesOrPromise> {
         return promise
+    }
+
+    fun getTermsCondition(pageType: Int): LiveData<BaseResponse<TermsConditionResponse>> {
+        return mhomeRepository.getTermsCondition(pageType)
     }
 
 

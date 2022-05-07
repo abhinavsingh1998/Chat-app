@@ -19,4 +19,6 @@
     <string name="read_more"> READ MORE</string>
     <string name="read_less"> READ LESS</string>
     <string name="helvetica_bold">helvetica_bold</string>
+    <string name="termscondition" translatable="false">Terms &amp; Condition</string>
+    <string name="privacypolicy">Privacy Policy</string>
 </resources>

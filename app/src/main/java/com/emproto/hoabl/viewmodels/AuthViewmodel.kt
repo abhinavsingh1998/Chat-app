@@ -13,8 +13,12 @@ import com.emproto.networklayer.response.login.AddNameResponse
 import com.emproto.networklayer.response.login.OtpResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.login.VerifyOtpResponse
+import com.emproto.networklayer.response.terms.TermsConditionResponse
 
-class AuthViewmodel(private var mapplication: Application, private var mauthRepository: AuthRepository) :
+class AuthViewmodel(
+    private var mapplication: Application,
+    private var mauthRepository: AuthRepository
+) :
     ViewModel() {
 
     private var application: Application = mapplication
@@ -35,6 +39,10 @@ class AuthViewmodel(private var mapplication: Application, private var mauthRepo
 
     fun submitTroubleCase(signingRequest: TroubleSigningRequest): LiveData<BaseResponse<TroubleSigningResponse>> {
         return authRepository.submitTroubleCase(signingRequest)
+    }
+
+    fun getTermsCondition(pageType: Int): LiveData<BaseResponse<TermsConditionResponse>> {
+        return authRepository.getTermsCondition(pageType)
     }
 
 }
