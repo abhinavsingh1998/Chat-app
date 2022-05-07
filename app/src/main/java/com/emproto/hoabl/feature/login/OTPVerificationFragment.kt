@@ -1,12 +1,15 @@
 package com.emproto.hoabl.feature.login
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.graphics.Paint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -24,11 +27,15 @@ import com.emproto.hoabl.viewmodels.factory.AuthFactory
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.response.enums.Status
 import javax.inject.Inject
+import com.emproto.hoabl.smsverificatio.SmsBroadcastReceiver
+import com.google.android.gms.auth.api.phone.SmsRetriever
 
 
 class OTPVerificationFragment : BaseFragment() {
 
     private lateinit var mBinding: FragmentVerifyOtpBinding
+    lateinit var smsBroadcastReceiver: SmsBroadcastReceiver
+
     var countOtp: Int = 3
 
     /// lateinit var dialog: Dialog
@@ -43,8 +50,9 @@ class OTPVerificationFragment : BaseFragment() {
     @Inject
     lateinit var appPreference: AppPreference
 
-
     companion object {
+        const val TAG = "SMS_USER_CONSENT"
+        const val REQ_USER_CONSENT = 100
         var mobileno: String = ""
         var countryCode: String = ""
 
@@ -79,14 +87,8 @@ class OTPVerificationFragment : BaseFragment() {
         requestPermission()
         mBinding.tvMobileNumber.text = "$countryCode-$mobileno"
         mBinding.tvMobileNumber.paintFlags = Paint.UNDERLINE_TEXT_FLAG
-        /*getTimerCount()
-        activityOtpVerifyBinding.textResend.setOnClickListener {
-            countOtp--
-            getTimerCount()
-        }
-        if (countOtp==0){
-            showSnackMessage("OTP usage is over.Please try again later",activityOtpVerifyBinding.root)
-        }*/
+        startSmsUserConsent()
+
     }
 
     private fun initClickListener() {
@@ -193,6 +195,65 @@ class OTPVerificationFragment : BaseFragment() {
             permissionLauncher.launch(permissionRequest.toTypedArray())
         }
     }
+
+    override fun onStart() {
+        super.onStart()
+        registerToSmsBroadcastReceiver()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        requireActivity().unregisterReceiver(smsBroadcastReceiver)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            REQ_USER_CONSENT -> {
+                if ((resultCode == Activity.RESULT_OK) && (data != null)) {
+                    //That gives all message to us. We need to get the code from inside with regex
+                    val message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE)
+                    val code = message?.let { fetchVerificationCode(it) }
+                    mBinding.etOtp.setText(code!!.toString())
+                    //etVerificationCode.setText(code)
+                }
+            }
+        }
+    }
+
+    private fun startSmsUserConsent() {
+        SmsRetriever.getClient(requireActivity()).also {
+            //We can add user phone number or leave it blank
+            it.startSmsUserConsent(null)
+                .addOnSuccessListener {
+                    Log.d("", "LISTENING_SUCCESS")
+                }
+                .addOnFailureListener {
+                    Log.d("", "LISTENING_FAILURE")
+                }
+        }
+    }
+
+    private fun registerToSmsBroadcastReceiver() {
+        smsBroadcastReceiver = SmsBroadcastReceiver().also {
+            it.smsBroadcastReceiverListener =
+                object : SmsBroadcastReceiver.SmsBroadcastReceiverListener {
+                    override fun onSuccess(intent: Intent?) {
+                        intent?.let { context -> startActivityForResult(context, REQ_USER_CONSENT) }
+                    }
+
+                    override fun onFailure() {
+                    }
+                }
+        }
+
+        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
+        requireActivity().registerReceiver(smsBroadcastReceiver, intentFilter)
+    }
+
+    private fun fetchVerificationCode(message: String): String {
+        return Regex("(\\d{6})").find(message)?.value ?: ""
+    }
+
 
 
 }
