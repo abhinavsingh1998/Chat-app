@@ -56,7 +56,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_login">
 
                 <com.emproto.core.textviews.CustomTextView
-                    style="@style/text_style_text_color_16"
+                    style="@style/text_style_text_color_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_18sdp"
@@ -66,17 +66,17 @@
 
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/tv_mobileNumber"
-                    style="@style/text_style_blue_12"
+                    style="@style/text_style_blue_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_2sdp"
                     android:gravity="start|center"
                     android:text="+91-999 999 9999"
-                    app:fontName="@string/jost_medium" />
+                    app:fontName="@string/jost_regular" />
 
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/et_edit"
-                    style="@style/text_style_blue_12"
+                    style="@style/text_style_blue_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_size_12"

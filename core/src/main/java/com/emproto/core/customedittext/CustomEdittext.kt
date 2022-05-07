@@ -203,6 +203,7 @@ class CustomEdittext : ConstraintLayout {
             countryCodeText.setTextColor(appContext.getColor(R.color.error_color))
             hintTextView.setTextColor(appContext.getColor(R.color.error_color))
             backGroundView.background = appContext.getDrawable(R.drawable.custom_et_error_bg)
+            editText.error= "Please enter Valid number"
         }
     }
 

@@ -115,8 +115,9 @@ class LoginFragment : BaseFragment() {
             }
 
             override fun afterValueChanges(value1: String?) {
-                appPreference.setMobilenum(hMobileNo)
+                mBinding.switchWhatspp.isChecked= true
                 hMobileNo = value1!!
+                appPreference.setMobilenum(hMobileNo)
                 if (value1.isNullOrEmpty()) {
                     mBinding.getOtpButton.isEnabled = false
                     mBinding.getOtpButton.isClickable = false

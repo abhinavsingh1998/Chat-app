@@ -150,17 +150,17 @@ class AuthActivity : BaseActivity() {
 
         signingInIssueBiding.editIssues.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
+                issueDetail=p0.toString()
 
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
+                issueDetail=p0.toString()
             }
 
             override fun afterTextChanged(p0: Editable?) {
                 if (p0.toString().isNullOrEmpty()) {
-                    issueDetail==p0.toString()
+                    issueDetail=p0.toString()
                     signingInIssueBiding.submitBtn.isEnabled = false
                     signingInIssueBiding.submitBtn.isClickable = false
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -192,12 +192,16 @@ class AuthActivity : BaseActivity() {
 
 
             if (signingInIssueBiding.issueSeven.isChecked){
-                if (issueDetail.isNullOrEmpty()){
+                if (issueDetail.isEmpty()){
                     signingInIssueBiding.editIssues.error = "Please describe the issue"
                     return@OnClickListener
                 }
             }
 
+            if (!signingInIssueBiding.emailInput.text.isValidEmail()) {
+                signingInIssueBiding.emailLayout.error = "Please Enter Valid Email"
+                return@OnClickListener
+            }
 
             val troubleSigningRequest = TroubleSigningRequest(
                 "1001",
