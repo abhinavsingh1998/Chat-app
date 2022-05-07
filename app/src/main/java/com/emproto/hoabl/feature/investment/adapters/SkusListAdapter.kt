@@ -5,9 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemLandSkusBinding
+import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.networklayer.response.investment.InventoryBucketContent
 
-class SkusListAdapter(private val list: List<InventoryBucketContent>):RecyclerView.Adapter<SkusListAdapter.SkusListViewHolder>() {
+class SkusListAdapter(private val fragment: LandSkusFragment, private val list: List<InventoryBucketContent>):RecyclerView.Adapter<SkusListAdapter.SkusListViewHolder>() {
 
     private lateinit var onItemClickListener : View.OnClickListener
 
@@ -27,6 +28,7 @@ class SkusListAdapter(private val list: List<InventoryBucketContent>):RecyclerVi
             tvItemLandSkusPrice.text = "${element.priceRange.from} - ${element.priceRange.to}"
             tvItemLandSkusDescription.text = element.shortDescription
         }
+        fragment.investmentViewModel.skusLiveData.postValue(element)
     }
 
     override fun getItemCount(): Int = list.size

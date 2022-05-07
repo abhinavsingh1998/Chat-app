@@ -21,6 +21,9 @@ import javax.inject.Inject
 
 class LandSkusFragment:BaseFragment() {
 
+    @Inject
+    lateinit var investmentFactory: InvestmentFactory
+    lateinit var investmentViewModel: InvestmentViewModel
     private lateinit var binding: FragmentLandSkusBinding
     private lateinit var landSkusAdapter: LandSkusAdapter
 
@@ -30,7 +33,7 @@ class LandSkusFragment:BaseFragment() {
         View.OnClickListener { view ->
             when (view.id) {
                 R.id.btn_apply_now -> {
-                    val confirmationDialog = ConfirmationDialog()
+                    val confirmationDialog = ConfirmationDialog(this)
                     confirmationDialog.show(this.parentFragmentManager,"ConfirmationDialog")
                 }
             }
@@ -47,6 +50,9 @@ class LandSkusFragment:BaseFragment() {
     }
 
     private fun setUpUI() {
+        (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
+        investmentViewModel =
+            ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
         val data = arguments?.getSerializable("skusData") as List<InventoryBucketContent>
         (activity as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
         setUpRecyclerview(data)

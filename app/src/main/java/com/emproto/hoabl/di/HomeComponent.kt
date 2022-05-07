@@ -40,4 +40,5 @@ interface HomeComponent {
     fun inject(fragment:PortfolioSpecificProjectView)
     fun inject(fragment:EditProfileFragment)
     fun inject(fragment: FaqDetailFragment)
+    fun inject(fragment: LandSkusFragment)
 }
