@@ -42,4 +42,5 @@ interface HomeComponent {
     fun inject(fragment: EditProfileFragment)
     fun inject(fragment: ProjectTimelineFragment)
     fun inject(fragment: FaqDetailFragment)
+    fun inject(fragment: LandSkusFragment)
 }

@@ -124,6 +124,14 @@ class ProjectDetailAdapter(
                 tvPriceRange.text = data.priceStartingFrom + " Onwards"
                 tvAreaRange.text = data.areaStartingFrom + " Onwards"
                 tvProjectViewInfo.text = "${data.fomoContent.noOfViews} People saw this project in ${data.fomoContent.days} days"
+                var regString = ""
+                for(item in data.reraDetails.reraNumbers){
+                    when (regString) {
+                        "" -> regString += item
+                        else -> regString = regString + "\n" + item
+                    }
+                }
+                tvRegistrationNumber.text = regString
 //                Glide.with(context)
 //                    .load(data.offersAndPromotions.value.url)
 //                    .into(ivWhyInvest)

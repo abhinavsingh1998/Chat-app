@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.LandSkusAppliedLayoutBinding
 import com.emproto.hoabl.databinding.LandSkusTopLayoutBinding
-import com.emproto.hoabl.databinding.NotConvincedLayoutBinding
 import com.emproto.hoabl.databinding.NotConvincedLayoutBlackBinding
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.model.RecyclerViewItem
@@ -53,7 +52,7 @@ class LandSkusAdapter(
     private inner class LandSkusAvailableViewHolder(val binding: LandSkusTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             binding.tvLandSkusTitle.text = "Land SKUs (${skusList.size})"
-            skusListAdapter = SkusListAdapter(skusList)
+            skusListAdapter = SkusListAdapter(fragment,skusList)
             binding.rvLandSkusItems.adapter = skusListAdapter
             skusListAdapter.setSkusListItemClickListener(fragment.onLandSkusItemClickListener)
         }

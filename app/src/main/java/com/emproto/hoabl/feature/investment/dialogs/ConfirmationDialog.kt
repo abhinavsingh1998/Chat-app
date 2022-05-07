@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.investment.dialogs
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +10,13 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ApplyConfirmationDialogBinding
+import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.google.android.material.textview.MaterialTextView
 
-class ConfirmationDialog() :DialogFragment(),View.OnClickListener {
+class ConfirmationDialog(private val landSkusFragment: LandSkusFragment) :DialogFragment(),View.OnClickListener {
 
     lateinit var binding: ApplyConfirmationDialogBinding
 
@@ -26,6 +29,20 @@ class ConfirmationDialog() :DialogFragment(),View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         clickListeners()
+        setUpUI()
+    }
+
+    private fun setUpUI() {
+        landSkusFragment.investmentViewModel.skusLiveData.observe(viewLifecycleOwner, Observer {
+            it.let { data ->
+                binding.apply {
+                    tvItemLandSkusName.text = data.name
+                    tvItemLandSkusArea.text = "${data.areaRange.from} - ${data.areaRange.to} ft"
+                    tvItemLandSkusPrice.text = "${data.priceRange.from} - ${data.priceRange.to}"
+                    tvItemLandSkusDescription.text = data.shortDescription
+                }
+            }
+        })
     }
 
     private fun clickListeners() {
