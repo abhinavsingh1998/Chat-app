@@ -1,4 +1,4 @@
-package com.emproto.networklayer.response.portfolio.ivdetails
+package com.emproto.networklayer.response.portfolio.dashboard
 
 data class Ongoing(
     val amountPaid: Int,

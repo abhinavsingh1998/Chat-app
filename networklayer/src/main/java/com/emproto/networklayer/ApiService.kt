@@ -14,13 +14,15 @@ import com.emproto.networklayer.response.login.AddNameResponse
 import com.emproto.networklayer.response.login.OtpResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.login.VerifyOtpResponse
-import com.emproto.networklayer.response.portfolio.ivdetails.PortfolioData
+import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectDetailsResponse
 import com.emproto.networklayer.response.profile.EditProfileResponse
 import com.emproto.networklayer.response.profile.ProfileCountriesResponse
 import com.emproto.networklayer.response.profile.ProfilePictureResponse
+import com.emproto.networklayer.response.profile.ProfileResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
+import com.emproto.networklayer.response.watchlist.WatchlistData
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -76,6 +78,12 @@ public interface ApiService {
 
     @GET(ApiConstants.TERMS_CONDITION)
     suspend fun getTermscondition(@Query("pageType") pageType: Int): Response<TermsConditionResponse>
+
+    @GET(ApiConstants.WATCHLIST)
+    suspend fun getMyWatchlist(): Response<WatchlistData>
+
+    @GET(ApiConstants.GET_PROFILE)
+    suspend fun getUserProfile(): Response<ProfileResponse>
 
 
 }

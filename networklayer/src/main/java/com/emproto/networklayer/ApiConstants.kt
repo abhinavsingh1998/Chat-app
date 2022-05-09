@@ -21,6 +21,9 @@ object ApiConstants {
     const val INVESTMENT_DETAILS = "hoabl-customer/investment-details/{inventoryId}"
     const val DOC_FILTER = "hoabl-customer/doc-filter"
     const val TERMS_CONDITION = "hoabl-admin/get-page"
+    const val WATCHLIST = "hoabl-customer/watchlist"
+
+    const val GET_PROFILE = "hoabl-customer/profile/get"
 
 
 }

@@ -16,7 +16,7 @@ import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
-import com.emproto.networklayer.response.portfolio.ivdetails.PortfolioData
+import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import javax.inject.Inject
 
 
@@ -29,6 +29,7 @@ class PortfolioExistingUsersFragment : BaseFragment(),
     @Inject
     lateinit var portfolioFactory: PortfolioFactory
     lateinit var portfolioviewmodel: PortfolioViewModel
+    val list = ArrayList<PortfolioModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,7 +64,7 @@ class PortfolioExistingUsersFragment : BaseFragment(),
                             binding.loader.hide()
                             binding.financialRecycler.show()
                             t.data?.let {
-                                val list = ArrayList<PortfolioModel>()
+                                list.clear()
                                 list.add(
                                     PortfolioModel(
                                         ExistingUsersPortfolioAdapter.TYPE_HEADER,
@@ -94,10 +95,7 @@ class PortfolioExistingUsersFragment : BaseFragment(),
                                         it.data.projects.filter { !it.investment.isCompleted }
                                     )
                                 )
-                                list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_NUDGE_CARD))
-                                list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_WATCHLIST))
-                                list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_REFER))
-
+                                //fetch remaining data
                                 adapter =
                                     ExistingUsersPortfolioAdapter(
                                         requireActivity(),
@@ -105,6 +103,7 @@ class PortfolioExistingUsersFragment : BaseFragment(),
                                         this@PortfolioExistingUsersFragment
                                     )
                                 binding.financialRecycler.adapter = adapter
+                                getWathclistData()
                             }
 
 
@@ -119,6 +118,8 @@ class PortfolioExistingUsersFragment : BaseFragment(),
                 }
 
             })
+
+
     }
 
     private fun setUpUI() {
@@ -142,6 +143,37 @@ class PortfolioExistingUsersFragment : BaseFragment(),
             this@PortfolioExistingUsersFragment
         )
         binding.financialRecycler.adapter = adapter
+    }
+
+    private fun getWathclistData() {
+        portfolioviewmodel.getWatchlist().observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    list.add(
+                        PortfolioModel(
+                            ExistingUsersPortfolioAdapter.TYPE_NUDGE_CARD
+                        )
+                    )
+                    it.data?.let {
+                        val watchList = it.data.filter { it.project != null }
+                        list.add(
+                            PortfolioModel(
+                                ExistingUsersPortfolioAdapter.TYPE_WATCHLIST, watchList
+                            )
+                        )
+
+                    }
+
+                    list.add(
+                        PortfolioModel(
+                            ExistingUsersPortfolioAdapter.TYPE_REFER
+                        )
+                    )
+                    adapter.notifyItemRangeChanged(4, 7)
+                }
+            }
+        })
+
     }
 
     override fun manageProject(position: Int) {
