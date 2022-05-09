@@ -20,9 +20,7 @@ import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.response.enums.Status
-import com.emproto.networklayer.response.investment.MediaGallery
-import com.emproto.networklayer.response.investment.OpprotunityDoc
-import com.emproto.networklayer.response.investment.PdData
+import com.emproto.networklayer.response.investment.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.io.Serializable
 import javax.inject.Inject
@@ -37,20 +35,31 @@ class ProjectDetailFragment:BaseFragment() {
 
     private var projectId = 0
     private lateinit var oppDocData:List<OpprotunityDoc>
-    private lateinit var mediaData : List<MediaGallery>
+    private var mediaData : MutableList<String> = mutableListOf()
+    private lateinit var promisesData : List<PmData>
+    private lateinit var landSkusData : List<InventoryBucketContent>
+    private var faqData: List<ProjectContentsAndFaq> = mutableListOf()
 
     val onItemClickListener =
         View.OnClickListener { view ->
             when (view.id) {
-                R.id.iv_why_invest ->{
+                R.id.tv_faq_read_all -> {
+//                    val bundle = Bundle()
+//                    bundle.putSerializable("faqData",faqData as Serializable)
+                    val faqDetailFragment = FaqDetailFragment()
+                    (requireActivity() as HomeActivity).replaceFragment(faqDetailFragment.javaClass, "", true, null, null, 0, false)
+                }
+                R.id.cl_not_convinced ->{
                     val bundle = Bundle()
                     bundle.putSerializable("OppDocData",oppDocData as Serializable)
                     val opportunityDocsFragment = OpportunityDocsFragment()
                     (requireActivity() as HomeActivity).replaceFragment(opportunityDocsFragment.javaClass, "", true, bundle, null, 0, false)
                 }
                 R.id.tv_skus_see_all -> {
+                    val bundle = Bundle()
+                    bundle.putSerializable("skusData",landSkusData as Serializable)
                     val landSkusFragment = LandSkusFragment()
-                    (requireActivity() as HomeActivity).replaceFragment(landSkusFragment.javaClass, "", true, null, null, 0, false)
+                    (requireActivity() as HomeActivity).replaceFragment(landSkusFragment.javaClass, "", true, bundle, null, 0, false)
                 }
                 R.id.tv_video_drone_see_all -> {
                     val bundle = Bundle()
@@ -84,14 +93,15 @@ class ProjectDetailFragment:BaseFragment() {
     }
 
     private fun setUpInitialization() {
-        projectId = arguments?.getInt("ProjectId") as Int
+//        projectId = arguments?.getInt("ProjectId") as Int
+        projectId = 5
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         investmentViewModel =
             ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
     }
 
     private fun callApi() {
-        investmentViewModel.getInvestmentsDetail(projectId).observe(viewLifecycleOwner, Observer {
+        investmentViewModel.getInvestmentsPromises().observe(viewLifecycleOwner, Observer {
             when(it.status){
                 Status.LOADING -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
@@ -99,12 +109,8 @@ class ProjectDetailFragment:BaseFragment() {
                 Status.SUCCESS -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                     it.data?.data?.let {  data ->
-                        setUpRecyclerView(data)
-                        oppDocData = data.opprotunityDocs
-                        mediaData = data.mediaGalleries
-//                        categoryList = data.pageManagementsOrCollectionOneModels
-//                        smartDealsListBundle.putSerializable("SmartDealsData",data.pageManagementsOrCollectionOneModels as Serializable)
-//                        smartDealsListBundle.putSerializable("TrendingProjectsData",data.pageManagementsOrCollectionTwoModels as Serializable)
+                        promisesData = data
+
                     }
                 }
                 Status.ERROR -> {
@@ -115,13 +121,38 @@ class ProjectDetailFragment:BaseFragment() {
                 }
             }
         })
+
+        investmentViewModel.getInvestmentsDetail(projectId).observe(viewLifecycleOwner, Observer {
+            when(it.status){
+                Status.LOADING -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                }
+                Status.SUCCESS -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    it.data?.data?.let {  data ->
+                        oppDocData = data.opprotunityDocs
+                        mediaData.add(data.projectCoverImages.newInvestmentPageMedia.value.url)
+                        landSkusData = data.inventoryBucketContents
+                        faqData = data.projectContentsAndFaqs
+                        setUpRecyclerView(data,promisesData)
+                    }
+                }
+                Status.ERROR -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(
+                        it.message!!
+                    )
+                }
+            }
+        })
+
     }
 
     private fun setUpUI() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
     }
 
-    private fun setUpRecyclerView(data: PdData) {
+    private fun setUpRecyclerView(data: PdData, promisesData: List<PmData>) {
         val list = ArrayList<RecyclerViewItem>()
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_ONE))
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_TWO))
@@ -137,7 +168,7 @@ class ProjectDetailFragment:BaseFragment() {
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_TWELVE))
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_FOURTEEN))
 
-        val adapter = ProjectDetailAdapter(this.requireContext(),list,data)
+        val adapter = ProjectDetailAdapter(this.requireContext(),list,data,promisesData)
         binding.rvProjectDetail.adapter = adapter
         adapter.setItemClickListener(onItemClickListener)
     }

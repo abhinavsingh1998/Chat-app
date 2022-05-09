@@ -23,6 +23,7 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.emproto.networklayer.response.investment.SimilarInvestment
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -49,7 +50,7 @@ class PortfolioSpecificViewAdapter(
     private lateinit var documentsAdapter: DocumentsAdapter
     private lateinit var latestImagesVideosAdapter: VideoDroneAdapter
     private lateinit var promisesAdapter: HoABLPromisesAdapter
-    private lateinit var faqAdapter: FaqAdapter
+//    private lateinit var faqAdapter: FaqAdapter
     private lateinit var similarInvestmentsAdapter: InvestmentAdapter
     private lateinit var onItemClickListener: View.OnClickListener
 
@@ -329,19 +330,17 @@ class PortfolioSpecificViewAdapter(
     private inner class FaqViewHolder(private val binding: FaqLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            val itemList = arrayListOf<String>("1", "2", "3", "4", "5")
-            faqAdapter = FaqAdapter(itemList)
-            binding.rvFaq.adapter = faqAdapter
+//            val itemList = arrayListOf<String>("1", "2", "3", "4", "5")
+//            faqAdapter = FaqAdapter(itemList)
+//            binding.rvFaq.adapter = faqAdapter
 
-            binding.tvReadAll.visibility = View.VISIBLE
-            binding.ivSeeAllArrow.visibility = View.VISIBLE
         }
     }
 
     private inner class SimilarInvestmentsViewHolder(private val binding: TrendingProjectsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            val itemList = arrayListOf<String>("1", "2", "3", "4", "5")
+            val itemList = arrayListOf<SimilarInvestment>()
             similarInvestmentsAdapter = InvestmentAdapter(context, itemList)
             binding.rvTrendingProjects.adapter = similarInvestmentsAdapter
             binding.tvTrendingProjectsTitle.text = "Similar Investments"

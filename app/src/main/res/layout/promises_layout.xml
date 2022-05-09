@@ -71,11 +71,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rv_promises"/>
 
-    <ImageView
-        android:id="@+id/iv_still_not_convinced"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/margin_size_103"
-        android:src="@color/ash_background_color"
+        android:layout_height="wrap_content"
+        android:background="@drawable/not_convinced_bg"
         android:layout_marginHorizontal="@dimen/margin_size_20"
         android:layout_marginTop="@dimen/margin_size_32"
         android:layout_marginBottom="@dimen/margin_size_8"
@@ -83,6 +82,47 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_apply_now"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        >
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_still_not_convinced"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="textStart"
+            android:layout_marginHorizontal="@dimen/margin_size_23"
+            android:layout_marginTop="@dimen/margin_size_20"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Still not convinced?"
+            style="@style/text_style_white_16"
+            android:fontFamily="@font/jost_medium" />
+        
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_still_not_convinced_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/jost_regular"
+            android:text="Schedule a video call with our supervisors and have them show you a live demo"
+            style="@style/text_light_ash_14"
+            android:layout_marginTop="@dimen/_4sdp"
+            app:layout_constraintStart_toStartOf="@id/tv_still_not_convinced"
+            app:layout_constraintTop_toBottomOf="@id/tv_still_not_convinced"
+            app:layout_constraintEnd_toStartOf="@id/iv_not_convinced_arrow"
+            android:layout_marginEnd="@dimen/margin_size_20"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/margin_size_20"
+            />
+
+        <ImageView
+            android:id="@+id/iv_not_convinced_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_right_"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/margin_size_30"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,6 +20,7 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
+import com.emproto.networklayer.response.investment.SimilarInvestment
 import com.google.android.material.tabs.TabLayoutMediator
 import javax.inject.Inject
 
@@ -68,6 +69,8 @@ class HomeFragment : BaseFragment() {
         list.add("22L-2.5 Cr")
         list.add("22L-2.5 Cr")
 
+        val invList = arrayListOf<SimilarInvestment>()
+
         val listPromises: ArrayList<String> = arrayListOf("Security", "Transparency", "wealth")
         val listTostimonials: ArrayList<String> = arrayListOf("Rajeev Kumar",
             "Mukesh Singh",
@@ -77,7 +80,7 @@ class HomeFragment : BaseFragment() {
             "Rohit Roy")
         val pymentList: ArrayList<String> = arrayListOf("1", "2", "3", "4", "5")
 
-        investmentAdapter = InvestmentAdapter(requireActivity(), list)
+        investmentAdapter = InvestmentAdapter(requireActivity(), invList)
         linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
         binding.investmentRecyclerview.layoutManager = linearLayoutManager
         binding.investmentRecyclerview.adapter = investmentAdapter

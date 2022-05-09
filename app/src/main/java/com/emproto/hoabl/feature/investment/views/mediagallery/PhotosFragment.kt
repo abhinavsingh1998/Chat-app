@@ -42,7 +42,7 @@ class PhotosFragment:BaseFragment() {
         setUpRecyclerView(mediaData)
     }
 
-    private fun setUpRecyclerView(mediaData: List<MediaGallery>) {
+    private fun setUpRecyclerView(mediaData: List<String>) {
         val list = ArrayList<MediaGalleryItem>()
         list.add(MediaGalleryItem(1,"Photos"))
         list.add(MediaGalleryItem(2,"Photos"))

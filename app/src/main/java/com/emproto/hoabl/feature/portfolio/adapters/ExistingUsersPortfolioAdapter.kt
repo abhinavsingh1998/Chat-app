@@ -14,6 +14,7 @@ import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
 import com.emproto.networklayer.response.portfolio.ivdetails.Completed
 import com.emproto.networklayer.response.portfolio.ivdetails.Ongoing
 import com.emproto.networklayer.response.portfolio.ivdetails.Project
+import com.emproto.networklayer.response.investment.SimilarInvestment
 
 class ExistingUsersPortfolioAdapter(
     private val context: Context,
@@ -260,7 +261,7 @@ class ExistingUsersPortfolioAdapter(
         fun bind(position: Int) {
             binding.tvSmartDealsSubtitle.visibility = View.GONE
             binding.tvSmartDealsTitle.text = "My WatchList"
-            val list = arrayListOf<String>("1", "2", "3", "4", "5")
+            val list = arrayListOf<SimilarInvestment>()
             investmentAdapter = InvestmentAdapter(context, list)
             binding.rvSmartDealsNv.adapter = investmentAdapter
         }

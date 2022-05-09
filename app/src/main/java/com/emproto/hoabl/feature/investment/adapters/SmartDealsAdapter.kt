@@ -20,13 +20,13 @@ class SmartDealsAdapter(val context: Context, val list: List<PageManagementsOrCo
         val element = list[position]
         holder.binding.apply {
             tvItemLocationName.text = element.launchName
-//            tvItemLocation.text = ""
+            tvItemLocation.text = "${element.address.city}, ${element.address.state}"
             tvItemLocationInfo.text = element.shortDescription
-            tvItemAmount.text = element.priceRange.from + " Onwards"
+            tvItemAmount.text = element.priceStartingFrom + " Onwards"
             tvNoViews.text = element.fomoContent.noOfViews.toString()
-            tvItemArea.text = element.areaRange.from + " Onwards"
+            tvItemArea.text = element.areaStartingFrom + " Onwards"
             Glide.with(context)
-                .load(element.mediaGalleries[0].coverImage[0].mediaContent.value.url)
+                .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
                 .into(holder.binding.ivItemImage)
         }
     }

@@ -94,4 +94,5 @@
     <color name="share_ash_bg_color">#ccc</color>
     <color name="infra_story_bg">#5b000000</color>
     <color name="story_black_color">#17171c</color>
+    <color name="faq_line">#eeeeee</color>
 </resources>

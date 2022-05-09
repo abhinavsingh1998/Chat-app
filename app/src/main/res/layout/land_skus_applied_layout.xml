@@ -25,17 +25,17 @@
             tools:itemCount="2"
             tools:listitem="@layout/item_land_skus_applied" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_size_200"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:src="@color/ash_background_color"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_land_skus_items_applied"
-            android:layout_marginTop="@dimen/margin_size_25"
-            android:layout_marginBottom="@dimen/margin_size_30"
-            android:layout_marginHorizontal="@dimen/margin_size_20"/>
+<!--        <ImageView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="@dimen/margin_size_200"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:src="@color/ash_background_color"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/rv_land_skus_items_applied"-->
+<!--            android:layout_marginTop="@dimen/margin_size_25"-->
+<!--            android:layout_marginBottom="@dimen/margin_size_30"-->
+<!--            android:layout_marginHorizontal="@dimen/margin_size_20"/>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

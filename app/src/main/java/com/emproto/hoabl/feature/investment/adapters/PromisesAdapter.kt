@@ -4,8 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemPromisesBinding
+import com.emproto.networklayer.response.investment.PmData
 
-class PromisesAdapter(private val list:List<String>):RecyclerView.Adapter<PromisesAdapter.MyViewHolder>() {
+class PromisesAdapter(private val list: List<PmData>):RecyclerView.Adapter<PromisesAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: ItemPromisesBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -15,7 +16,11 @@ class PromisesAdapter(private val list:List<String>):RecyclerView.Adapter<Promis
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
+        val element = list[position]
+        holder.binding.apply {
+            tvPromisesName.text = element.name
+            tvPromisesText.text = element.shortDescription
+        }
     }
 
     override fun getItemCount(): Int = list.size

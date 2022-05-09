@@ -8,6 +8,8 @@ import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
+import com.emproto.networklayer.response.investment.FaqDetailResponse
+import com.emproto.networklayer.response.investment.InvestmentPromisesResponse
 import com.emproto.networklayer.response.investment.InvestmentResponse
 import com.emproto.networklayer.response.investment.ProjectDetailResponse
 import com.emproto.networklayer.response.login.AddNameResponse
@@ -78,4 +80,9 @@ public interface ApiService {
     suspend fun getTermscondition(@Query("pageType") pageType: Int): Response<TermsConditionResponse>
 
 
+    @GET(ApiConstants.INVESTMENT_PROMISES)
+    suspend fun getInvestmentsPromises(): Response<InvestmentPromisesResponse>
+
+    @GET(ApiConstants.INVESTMENT_PROJECT_FAQ)
+    suspend fun getInvestmentsProjectFaq(@Path("projectContentId") projectContentId: Int): Response<FaqDetailResponse>
 }

@@ -17,7 +17,7 @@ class MediaGalleryFragment:BaseFragment() {
 
     private val tabList = arrayListOf<String>("Photos","Videos","Drone Shoots","360 photos")
 
-    lateinit var data:List<MediaGallery>
+    lateinit var data:List<String>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentMediaGalleryBinding.inflate(layoutInflater)
@@ -26,7 +26,7 @@ class MediaGalleryFragment:BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        data = arguments?.getSerializable("MediaGalleryData") as List<MediaGallery>
+        data = arguments?.getSerializable("MediaGalleryData") as List<String>
         setUpTabLayoutViewPager()
     }
 

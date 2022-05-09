@@ -33,7 +33,6 @@ class InvestmentFragment : BaseFragment() {
     private lateinit var categoryList: List<PageManagementsOrCollectionOneModel>
 
     private val smartDealsListBundle = Bundle()
-    private val trendingProjectsListBundle = Bundle()
 
     private val onInvestmentItemClickListener =
         View.OnClickListener { view ->
@@ -97,6 +96,7 @@ class InvestmentFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).showErrorToast(
                         it.message!!
                     )
+                    Log.d("Invest",it.message.toString())
                 }
             }
         })

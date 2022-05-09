@@ -22,11 +22,11 @@ class CategoryListAdapter(private val context: Context,val list:List<PageManagem
             }
             binding.apply {
                 tvProjectName.text = element.launchName
-                tvCategoryPrice.text = element.priceRange.from + " Onwards"
-                tvCategoryArea.text = element.areaRange.from + " Onwards"
+                tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
+                tvCategoryArea.text = element.areaStartingFrom + " Onwards"
                 tvCategoryItemInfo.text = element.shortDescription
                 Glide.with(context)
-                    .load(element.mediaGalleries[0].coverImage[0].mediaContent.value.url)
+                    .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
                     .into(ivCategoryImage)
             }
         }
