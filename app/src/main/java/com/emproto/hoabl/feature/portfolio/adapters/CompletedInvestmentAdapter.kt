@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemCompletedInvestmentsBinding
-import com.emproto.networklayer.response.portfolio.ivdetails.Project
+import com.emproto.networklayer.response.portfolio.dashboard.Project
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -48,7 +48,7 @@ class CompletedInvestmentAdapter(
         val project = list[position]
         if (project.project != null) {
             Glide.with(context)
-                .load(project.project.projectCoverImages.portfolioPageMedia.value.url)
+                .load(project.project.projectIcon.value.url)
                 .into(holder.binding.ivCompletedInvestmentImage)
 
             holder.binding.tvCompletedInvestmentName.text = project.project.launchName
@@ -57,7 +57,7 @@ class CompletedInvestmentAdapter(
             holder.binding.tvCompletedInvestmentLocation.text =
                 project.project.address.city + "," + project.project.address.state
             holder.binding.tvCompletedInvestmentPrice.text = project.project.priceStartingFrom
-            holder.binding.tvCompletedInvestmentArea.text = "" + project.investment.areaSqFt
+            holder.binding.tvCompletedInvestmentArea.text = "" + project.project.areaStartingFrom
 
             holder.binding.ivCompletedInvestmentDropArrow.setOnClickListener {
                 holder.binding.cvCompletedInvestmentGraphCard.visibility = View.VISIBLE
@@ -120,6 +120,42 @@ class CompletedInvestmentAdapter(
             //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
             holder.binding.ivCompletedInvestmentGraphImage.data = data
             holder.binding.ivCompletedInvestmentGraphImage.animateXY(2000, 2000)
+
+
+            val linedataset1 = LineDataSet(linevalues, "First")
+            //We add features to our chart
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                linedataset1.color = context.getColor(R.color.app_color)
+            }
+
+            linedataset1.valueTextSize = 12F
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                linedataset1.fillColor = context.getColor(R.color.light_app_color)
+            }
+            linedataset1.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
+
+            //We connect our data to the UI Screen
+            val data1 = LineData(linedataset1)
+
+            //binding.ivPriceTrendsGraph.setDrawBorders(false);
+            //binding.ivPriceTrendsGraph.setDrawGridBackground(false);
+            holder.binding.ivCompletedInvestmentGraph.getDescription().setEnabled(false);
+            holder.binding.ivCompletedInvestmentGraph.getLegend().setEnabled(false);
+            holder.binding.ivCompletedInvestmentGraph.getAxisLeft().setDrawGridLines(false);
+            //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
+            //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
+            holder.binding.ivCompletedInvestmentGraph.getXAxis().setDrawGridLines(false);
+            holder.binding.ivCompletedInvestmentGraph.getXAxis().position =
+                XAxis.XAxisPosition.BOTTOM;
+            //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
+            holder.binding.ivCompletedInvestmentGraph.getAxisRight().setDrawGridLines(false);
+            holder.binding.ivCompletedInvestmentGraph.getAxisRight().setDrawLabels(false);
+            holder.binding.ivCompletedInvestmentGraph.getAxisRight().setDrawAxisLine(false);
+            //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
+            //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
+            holder.binding.ivCompletedInvestmentGraph.data = data1
+            holder.binding.ivCompletedInvestmentGraph.animateXY(2000, 2000)
+
         }
 
     }

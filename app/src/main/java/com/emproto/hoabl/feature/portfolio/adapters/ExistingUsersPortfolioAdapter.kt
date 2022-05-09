@@ -9,11 +9,11 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
-import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
 import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
-import com.emproto.networklayer.response.portfolio.ivdetails.Completed
-import com.emproto.networklayer.response.portfolio.ivdetails.Ongoing
-import com.emproto.networklayer.response.portfolio.ivdetails.Project
+import com.emproto.networklayer.response.portfolio.dashboard.Completed
+import com.emproto.networklayer.response.portfolio.dashboard.Ongoing
+import com.emproto.networklayer.response.portfolio.dashboard.Project
+import com.emproto.networklayer.response.watchlist.Data
 
 class ExistingUsersPortfolioAdapter(
     private val context: Context,
@@ -35,7 +35,7 @@ class ExistingUsersPortfolioAdapter(
     private lateinit var completedInvestmentAdapter: CompletedInvestmentAdapter
 
     //private lateinit var onItemClickListener : View.OnClickListener
-    private lateinit var investmentAdapter: InvestmentAdapter
+    private lateinit var watchlistAdapter: WatchlistAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -258,11 +258,12 @@ class ExistingUsersPortfolioAdapter(
     private inner class MyWatchListViewHolder(private val binding: SmartDealsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
+            val watchList =
+                list[position].data as List<Data>
             binding.tvSmartDealsSubtitle.visibility = View.GONE
             binding.tvSmartDealsTitle.text = "My WatchList"
-            val list = arrayListOf<String>("1", "2", "3", "4", "5")
-            investmentAdapter = InvestmentAdapter(context, list)
-            binding.rvSmartDealsNv.adapter = investmentAdapter
+            watchlistAdapter = WatchlistAdapter(context, watchList)
+            binding.rvSmartDealsNv.adapter = watchlistAdapter
         }
     }
 

@@ -1,6 +1,6 @@
-package com.emproto.networklayer.response.portfolio.ivdetails
+package com.emproto.networklayer.response.watchlist
 
-data class ValueXXX(
+data class Value(
     val height: Int,
     val mediaType: String,
     val size: Double,

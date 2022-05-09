@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
@@ -20,6 +21,7 @@ import com.emproto.hoabl.databinding.FragmentPortfolioBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
+import com.emproto.networklayer.response.enums.Status
 import java.util.concurrent.Executor
 import javax.inject.Inject
 
@@ -137,14 +139,39 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun setUpUI(authenticated: Boolean = false) {
-        val conditionalView = when (authenticated) {
-            true -> View.VISIBLE
-            else -> View.GONE
-        }
-        binding.portfolioTopImg.visibility = conditionalView
-        binding.addYouProject.visibility = conditionalView
-        binding.instriction.visibility = conditionalView
-        binding.btnExploreNewInvestmentProject.visibility = conditionalView
+
+        portfolioviewmodel.getUserProfile().observe(viewLifecycleOwner, Observer { it ->
+            when (it.status) {
+                Status.LOADING -> {
+                    binding.progressBaar.show()
+                }
+                Status.SUCCESS -> {
+                    binding.progressBaar.hide()
+                    //prelead
+                    it.data?.let {
+                        if (it.data.contactType != "prelead") {
+                            binding.noUserView.show()
+                            binding.portfolioTopImg.visibility = View.VISIBLE
+                            binding.addYouProject.visibility = View.VISIBLE
+                            binding.instriction.visibility = View.VISIBLE
+                            binding.btnExploreNewInvestmentProject.visibility = View.VISIBLE
+                        } else {
+                            val financialSummaryFragment = PortfolioExistingUsersFragment()
+                            (requireActivity() as HomeActivity).addFragment(
+                                financialSummaryFragment,
+                                false
+                            )
+                        }
+                    }
+
+                }
+                Status.ERROR -> {
+
+                }
+            }
+        })
+
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -162,8 +189,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.btn_explore_new_investment_project -> {
-                val financialSummaryFragment = PortfolioExistingUsersFragment()
-                (requireActivity() as HomeActivity).addFragment(financialSummaryFragment, false)
+                (requireActivity() as HomeActivity).navigate(R.id.navigation_investment)
             }
         }
     }

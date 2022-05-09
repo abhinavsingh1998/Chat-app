@@ -1,4 +1,4 @@
-package com.emproto.networklayer.response.portfolio.ivdetails
+package com.emproto.networklayer.response.portfolio.dashboard
 
 data class ProjectX(
     val address: Address,
@@ -7,5 +7,5 @@ data class ProjectX(
     val id: Int,
     val launchName: String,
     val priceStartingFrom: String,
-    val projectCoverImages: ProjectCoverImages
+    val projectIcon: ProjectIcon
 )

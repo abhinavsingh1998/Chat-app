@@ -223,9 +223,9 @@
         android:id="@+id/cv_completed_investment_graph_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:layout_marginHorizontal="@dimen/margin_size_12"
         android:layout_marginTop="@dimen/margin_size_9"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cv_completed_investment_card">
@@ -234,7 +234,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/iv_completed_investment_graph"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_size_200"
@@ -411,7 +411,7 @@
         android:layout_marginTop="@dimen/margin_size_8"
         style="@style/text_style_text_black_color_14"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cv_completed_investment_graph_card"/>
+        app:layout_constraintTop_toBottomOf="@id/cv_completed_investment_graph_card" />
 
     <View
         android:layout_width="match_parent"
