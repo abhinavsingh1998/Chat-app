@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -108,10 +109,11 @@ class OpportunityDocsAdapter(
     private inner class ProjectAmenitiesViewHolder(private val binding: ProjectAmenitiesLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             binding.apply {
-                tvPaFirstText.text = data[0].projectAminities[0].name
-                tvPaSecondText.text = data[0].projectAminities[1].name
-                tvPaThirdText.text = data[0].projectAminities[2].name
-                tvPaFourText.text = data[0].projectAminities[1].name
+                tvProjectAmenitiesAll.visibility = View.INVISIBLE
+                ivProjectAmenitiesArrow.visibility = View.INVISIBLE
+                tvViewMore.visibility = View.VISIBLE
+                val adapter = ProjectAmenitiesAdapter(context,data[0].projectAminities)
+                rvProjectAmenitiesItemRecycler.adapter = adapter
             }
         }
     }

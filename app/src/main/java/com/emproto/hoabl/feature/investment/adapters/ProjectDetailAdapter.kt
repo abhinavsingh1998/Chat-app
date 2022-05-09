@@ -190,10 +190,8 @@ class ProjectDetailAdapter(
     private inner class ProjectAmenitiesViewHolder(private val binding: ProjectAmenitiesLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             binding.apply {
-                tvPaFirstText.text = data.opprotunityDocs[0].projectAminities[0].name
-                tvPaSecondText.text = data.opprotunityDocs[0].projectAminities[1].name
-                tvPaThirdText.text = data.opprotunityDocs[0].projectAminities[2].name
-                tvPaFourText.text = data.opprotunityDocs[0].projectAminities[1].name
+                val adapter = ProjectAmenitiesAdapter(context,data.opprotunityDocs[0].projectAminities)
+                rvProjectAmenitiesItemRecycler.adapter = adapter
                 tvProjectAmenitiesAll.setOnClickListener(onItemClickListener)
             }
         }

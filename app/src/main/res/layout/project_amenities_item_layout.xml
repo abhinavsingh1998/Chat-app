@@ -25,10 +25,10 @@
 
             <ImageView
                 android:id="@+id/iv_pa_first_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/margin_size_20"
+                android:layout_height="@dimen/margin_size_20"
                 android:layout_marginHorizontal="@dimen/margin_size_9"
-                android:layout_marginVertical="@dimen/margin_size_5"
+                android:layout_marginVertical="@dimen/margin_size_8"
                 android:src="@drawable/golf"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,12 +43,13 @@
                 android:text="Club House"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_14"
-                android:layout_marginStart="@dimen/margin_size_8"
-                app:layout_constraintBottom_toBottomOf="@id/iv_pa_first_image"
+                android:layout_marginStart="@dimen/margin_size_10"
+                android:layout_marginVertical="@dimen/margin_size_10"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="@dimen/margin_size_60"
                 app:layout_constraintStart_toEndOf="@id/iv_pa_first_image"
-                app:layout_constraintTop_toTopOf="@id/iv_pa_first_image" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

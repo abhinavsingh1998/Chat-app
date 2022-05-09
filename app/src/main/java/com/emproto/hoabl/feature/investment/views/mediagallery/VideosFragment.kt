@@ -28,14 +28,20 @@ class VideosFragment:BaseFragment() {
         list.add(MediaGalleryItem(1,"Videos"))
         list.add(MediaGalleryItem(2,"Videos"))
 
-        mediaPhotosAdapter = MediaPhotosAdapter(this.requireContext(),list, itemClickListener, mediaData)
+        val videoList = arrayListOf<String>(mediaData.newInvestmentPageMedia.value.url)
+
+        mediaPhotosAdapter = MediaPhotosAdapter(this.requireContext(),list, itemClickListener, videoList)
         binding.rvMainPhotos.adapter = mediaPhotosAdapter
 
     }
 
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
-            (requireActivity() as HomeActivity).addFragment(MediaViewFragment(), true)
+            val bundle = Bundle()
+            bundle.putString("MediaType","Video")
+            val mediaViewFragment = MediaViewFragment()
+            (requireActivity() as HomeActivity).replaceFragment(mediaViewFragment.javaClass, "", true, bundle, null, 0, false)
+
         }
     }
 }

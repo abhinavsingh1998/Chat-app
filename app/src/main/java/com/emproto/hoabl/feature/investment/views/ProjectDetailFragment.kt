@@ -35,7 +35,7 @@ class ProjectDetailFragment:BaseFragment() {
 
     private var projectId = 0
     private lateinit var oppDocData:List<OpprotunityDoc>
-    private var mediaData : MutableList<String> = mutableListOf()
+    private lateinit var mediaData : ProjectCoverImages
     private lateinit var promisesData : List<PmData>
     private lateinit var landSkusData : List<InventoryBucketContent>
     private var faqData: List<ProjectContentsAndFaq> = mutableListOf()
@@ -131,7 +131,7 @@ class ProjectDetailFragment:BaseFragment() {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                     it.data?.data?.let {  data ->
                         oppDocData = data.opprotunityDocs
-                        mediaData.add(data.projectCoverImages.newInvestmentPageMedia.value.url)
+                        mediaData= data.projectCoverImages
                         landSkusData = data.inventoryBucketContents
                         faqData = data.projectContentsAndFaqs
                         setUpRecyclerView(data,promisesData)

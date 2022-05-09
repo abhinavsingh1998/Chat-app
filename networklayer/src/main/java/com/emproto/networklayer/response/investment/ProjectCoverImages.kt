@@ -1,5 +1,7 @@
 package com.emproto.networklayer.response.investment
 
+import java.io.Serializable
+
 data class ProjectCoverImages(
     val chatListViewPageMedia: ChatListViewPageMedia,
     val chatPageMedia: ChatPageMedia,
@@ -7,4 +9,4 @@ data class ProjectCoverImages(
     val homePageMedia: HomePageMedia,
     val newInvestmentPageMedia: NewInvestmentPageMedia,
     val portfolioPageMedia: PortfolioPageMedia
-)
+):Serializable
