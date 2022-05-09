@@ -22,7 +22,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-class ProfileRepository @Inject constructor(application: Application) : BaseRepository(application) {
+class ProfileRepository @Inject constructor(application: Application) :
+    BaseRepository(application) {
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + parentJob)
     private val ProfileResponse = MutableLiveData<BaseResponse<ProfileResponse>>()
@@ -48,13 +49,15 @@ class ProfileRepository @Inject constructor(application: Application) : BaseRepo
         }
         return mEditProfileResponse
     }
+
     fun uploadProfilePicture(uploadProfilePictureRequest: UploadProfilePictureRequest): LiveData<BaseResponse<ProfilePictureResponse>> {
         val mUploadProfilePicture = MutableLiveData<BaseResponse<ProfilePictureResponse>>()
         mUploadProfilePicture.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
 
-                val request = ProfileDataSource(application).uploadPictureProfile(uploadProfilePictureRequest)
+                val request =
+                    ProfileDataSource(application).uploadPictureProfile(uploadProfilePictureRequest)
                 if (request.isSuccessful) {
                     mUploadProfilePicture.postValue(BaseResponse.success(request.body()!!))
                 } else {
@@ -69,6 +72,7 @@ class ProfileRepository @Inject constructor(application: Application) : BaseRepo
         }
         return mUploadProfilePicture
     }
+
     fun getCountries(pageType: Int): LiveData<BaseResponse<ProfileCountriesResponse>> {
         val mCountriesResponse = MutableLiveData<BaseResponse<ProfileCountriesResponse>>()
         mCountriesResponse.postValue(BaseResponse.loading())
@@ -93,7 +97,7 @@ class ProfileRepository @Inject constructor(application: Application) : BaseRepo
                 mCountriesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
             }
         }
-        return  mCountriesResponse
+        return mCountriesResponse
     }
 }
 
