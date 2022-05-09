@@ -16,10 +16,8 @@ import com.emproto.hoabl.feature.investment.adapters.FaqAdapter
 import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
 import com.emproto.hoabl.feature.investment.adapters.VideoDroneAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
-import com.emproto.hoabl.model.ViewItem
-import com.github.mikephil.charting.animation.Easing
+import com.emproto.networklayer.response.documents.Data
 import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -36,7 +34,7 @@ class PortfolioSpecificViewAdapter(
         const val PORTFOLIO_SPECIFIC_VIEW_TYPE_ONE = 1
         const val PORTFOLIO_SPECIFIC_VIEW_TYPE_TWO = 2
         const val PORTFOLIO_SPECIFIC_VIEW_TYPE_THREE = 3
-        const val PORTFOLIO_SPECIFIC_VIEW_TYPE_FOUR = 4
+        const val PORTFOLIO_DOCUMENTS = 4
         const val PORTFOLIO_SPECIFIC_VIEW_TYPE_FIVE = 5
         const val PORTFOLIO_SPECIFIC_VIEW_TYPE_SIX = 6
         const val PORTFOLIO_SPECIFIC_VIEW_TYPE_SEVEN = 7
@@ -82,7 +80,7 @@ class PortfolioSpecificViewAdapter(
                     )
                 )
             }
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_FOUR -> {
+            PORTFOLIO_DOCUMENTS -> {
                 DocumentsViewHolder(
                     DocumentsLayoutBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -159,7 +157,7 @@ class PortfolioSpecificViewAdapter(
             PORTFOLIO_SPECIFIC_VIEW_TYPE_THREE -> {
                 (holder as FacilityManagementViewHolder).bind(position)
             }
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_FOUR -> {
+            PORTFOLIO_DOCUMENTS -> {
                 (holder as DocumentsViewHolder).bind(position)
             }
             PORTFOLIO_SPECIFIC_VIEW_TYPE_FIVE -> {
@@ -234,7 +232,7 @@ class PortfolioSpecificViewAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
 
-            val listViews = arrayListOf<String>("1","2","3","4","5")
+            val listViews = arrayListOf<String>("1", "2", "3", "4", "5")
             specificViewPagerAdapter = PortfolioSpecificViewPagerAdapter(listViews)
             binding.vpAttention.adapter = specificViewPagerAdapter
 
@@ -252,16 +250,22 @@ class PortfolioSpecificViewAdapter(
     private inner class DocumentsViewHolder(private val binding: DocumentsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            val list = arrayListOf<String>("1", "2", "3")
-            documentsAdapter = DocumentsAdapter(list)
-            binding.rvDocuments.adapter = documentsAdapter
+            if (list[position].data != null) {
+                val docList = list[position].data as List<Data>
+                documentsAdapter = DocumentsAdapter(docList)
+                binding.rvDocuments.adapter = documentsAdapter
+            }
             binding.tvDocumentsSeeAll.setOnClickListener(onItemClickListener)
         }
     }
 
-    private inner class LatestImagesVideosViewHolder(private val binding: LatestImagesVideosLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
-            val itemList = arrayListOf<String>("https://prodcuts-inventory-btf-be-stage.s3-ap-south-1.amazonaws.com/large/rose ambuguet.png","https://prodcuts-inventory-btf-be-stage.s3-ap-south-1.amazonaws.com/large/rose ambuguet.png")
+    private inner class LatestImagesVideosViewHolder(private val binding: LatestImagesVideosLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
+            val itemList = arrayListOf<String>(
+                "https://prodcuts-inventory-btf-be-stage.s3-ap-south-1.amazonaws.com/large/rose ambuguet.png",
+                "https://prodcuts-inventory-btf-be-stage.s3-ap-south-1.amazonaws.com/large/rose ambuguet.png"
+            )
             latestImagesVideosAdapter = VideoDroneAdapter(itemList)
             binding.rvLatestImagesVideos.adapter = latestImagesVideosAdapter
         }
@@ -283,8 +287,8 @@ class PortfolioSpecificViewAdapter(
             linevalues.add(Entry(10f, 0.0F))
             linevalues.add(Entry(20f, 3.0F))
             linevalues.add(Entry(40f, 2.0F))
-            linevalues.add(Entry(50F,5.0F))
-            linevalues.add(Entry(60F,6.0F))
+            linevalues.add(Entry(50F, 5.0F))
+            linevalues.add(Entry(60F, 6.0F))
             val linedataset = LineDataSet(linevalues, "First")
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
