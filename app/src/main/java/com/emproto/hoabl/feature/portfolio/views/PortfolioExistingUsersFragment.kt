@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.R
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentFinancialSummaryBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -17,7 +16,7 @@ import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
-import com.emproto.networklayer.response.portfolio.PortfolioData
+import com.emproto.networklayer.response.portfolio.ivdetails.PortfolioData
 import javax.inject.Inject
 
 
@@ -86,13 +85,13 @@ class PortfolioExistingUsersFragment : BaseFragment(),
                                 list.add(
                                     PortfolioModel(
                                         ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
-                                        it.data.projects.filter { it.isCompleted }
+                                        it.data.projects.filter { it.investment.isCompleted }
                                     )
                                 )
                                 list.add(
                                     PortfolioModel(
                                         ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
-                                        it.data.projects.filter { !it.isCompleted }
+                                        it.data.projects.filter { !it.investment.isCompleted }
                                     )
                                 )
                                 list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_NUDGE_CARD))

@@ -1,6 +1,6 @@
-package com.emproto.networklayer.response.portfolio
+package com.emproto.networklayer.response.portfolio.ivdetails
 
-data class Value(
+data class ValueXXXXX(
     val height: Int,
     val mediaType: String,
     val size: Double,

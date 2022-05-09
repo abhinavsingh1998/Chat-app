@@ -11,10 +11,9 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
 import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
-import com.emproto.hoabl.feature.portfolio.views.PortfolioExistingUsersFragment
-import com.emproto.networklayer.response.portfolio.Completed
-import com.emproto.networklayer.response.portfolio.Ongoing
-import com.emproto.networklayer.response.portfolio.Project
+import com.emproto.networklayer.response.portfolio.ivdetails.Completed
+import com.emproto.networklayer.response.portfolio.ivdetails.Ongoing
+import com.emproto.networklayer.response.portfolio.ivdetails.Project
 
 class ExistingUsersPortfolioAdapter(
     private val context: Context,

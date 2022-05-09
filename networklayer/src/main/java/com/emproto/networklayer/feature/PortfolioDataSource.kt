@@ -7,12 +7,11 @@ import com.emproto.networklayer.di.DataAppModule
 import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.response.documents.DocumentsResponse
-import com.emproto.networklayer.response.investment.Data
-import com.emproto.networklayer.response.portfolio.PortfolioData
-import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetails
-import com.emproto.networklayer.response.promises.PromisesResponse
+import com.emproto.networklayer.response.portfolio.ivdetails.PortfolioData
+import com.emproto.networklayer.response.portfolio.ivdetails.ProjectDetailsResponse
 import retrofit2.Response
 import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Portfolio Data Source.
@@ -23,6 +22,9 @@ class PortfolioDataSource(val application: Application) {
 
     @Inject
     lateinit var apiService: ApiService
+    @Named("dummy")
+    @Inject
+    lateinit var apiService2: ApiService
     private var dataComponent: DataComponent =
         DaggerDataComponent.builder().dataAppModule(DataAppModule(application))
             .dataModule(DataModule(application)).build()
@@ -37,7 +39,7 @@ class PortfolioDataSource(val application: Application) {
     }
 
     //get investment details
-    suspend fun getInvestmentDetails(crmId: Int): Response<InvestmentDetails> {
+    suspend fun getInvestmentDetails(crmId: Int): Response<ProjectDetailsResponse> {
         return apiService.investmentDetails(crmId)
     }
 

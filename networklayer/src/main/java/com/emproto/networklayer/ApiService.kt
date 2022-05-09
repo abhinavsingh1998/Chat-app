@@ -12,8 +12,8 @@ import com.emproto.networklayer.response.login.AddNameResponse
 import com.emproto.networklayer.response.login.OtpResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.login.VerifyOtpResponse
-import com.emproto.networklayer.response.portfolio.PortfolioData
-import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetails
+import com.emproto.networklayer.response.portfolio.ivdetails.PortfolioData
+import com.emproto.networklayer.response.portfolio.ivdetails.ProjectDetailsResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 import retrofit2.Response
@@ -54,8 +54,8 @@ public interface ApiService {
     @GET(ApiConstants.PORTFOLIO_DASHBOARD)
     suspend fun getPortfolioDashboard(): Response<PortfolioData>
 
-    @GET(ApiConstants.PROJECT_INVESTMENT)
-    suspend fun investmentDetails(@Path("crmProjectId") id: Int): Response<InvestmentDetails>
+    @GET(ApiConstants.INVESTMENT_DETAILS)
+    suspend fun investmentDetails(@Path("inventoryId") id: Int): Response<ProjectDetailsResponse>
 
     @GET(ApiConstants.DOC_FILTER)
     suspend fun documentsList(@Query("projectId") projectId: Int): Response<DocumentsResponse>

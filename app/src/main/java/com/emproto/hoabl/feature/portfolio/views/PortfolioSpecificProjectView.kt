@@ -130,20 +130,20 @@ class PortfolioSpecificProjectView : BaseFragment() {
             }
         })
 
-        portfolioviewmodel.getDocumentList(1).observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Status.LOADING -> {
-
-                }
-                Status.SUCCESS -> {
-
-                }
-                Status.ERROR -> {
-
-                }
-
-            }
-        })
+//        portfolioviewmodel.getDocumentList(1).observe(viewLifecycleOwner, Observer {
+//            when (it.status) {
+//                Status.LOADING -> {
+//
+//                }
+//                Status.SUCCESS -> {
+//
+//                }
+//                Status.ERROR -> {
+//
+//                }
+//
+//            }
+//        })
     }
 
     private fun setUpRecyclerView() {
