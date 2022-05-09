@@ -1,7 +1,7 @@
 package com.emproto.networklayer.response.portfolio.ivdetails
 
-data class InvestmentDetails(
+data class PortfolioData(
     val code: Int,
-    val `data`: Data,
+    val `data`: DataX,
     val message: String
 )

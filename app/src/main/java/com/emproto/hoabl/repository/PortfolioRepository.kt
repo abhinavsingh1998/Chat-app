@@ -4,15 +4,11 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
-import com.emproto.networklayer.feature.HomeDataSource
-import com.emproto.networklayer.feature.InvestmentDataSource
 import com.emproto.networklayer.feature.PortfolioDataSource
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
-import com.emproto.networklayer.response.investment.Data
-import com.emproto.networklayer.response.portfolio.PortfolioData
-import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetails
-import com.emproto.networklayer.response.promises.PromisesResponse
+import com.emproto.networklayer.response.portfolio.ivdetails.PortfolioData
+import com.emproto.networklayer.response.portfolio.ivdetails.ProjectDetailsResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -59,8 +55,8 @@ class PortfolioRepository @Inject constructor(application: Application) :
         return mPromisesResponse
     }
 
-    fun getInvestmentDetails(crmId: Int): LiveData<BaseResponse<InvestmentDetails>> {
-        val mPromisesResponse = MutableLiveData<BaseResponse<InvestmentDetails>>()
+    fun getInvestmentDetails(crmId: Int): LiveData<BaseResponse<ProjectDetailsResponse>> {
+        val mPromisesResponse = MutableLiveData<BaseResponse<ProjectDetailsResponse>>()
         mPromisesResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {

@@ -131,13 +131,14 @@
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/iv_completed_investment_graph_image"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="56dp"
                 android:layout_marginHorizontal="@dimen/margin_size_12"
                 android:src="@color/text_ash_light_color"
                 app:layout_constraintBottom_toBottomOf="@id/tv_completed_investment_location"
                 app:layout_constraintEnd_toEndOf="@id/view_light_bg"
                 app:layout_constraintStart_toStartOf="@id/view_light_bg"
-                app:layout_constraintTop_toTopOf="@id/view_light_bg" />
+                app:layout_constraintTop_toTopOf="@id/view_light_bg"
+                app:layout_constraintVertical_bias="0.0" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_completed_investment_price"

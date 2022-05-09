@@ -1,6 +1,6 @@
-package com.emproto.networklayer.response.portfolio
+package com.emproto.networklayer.response.portfolio.ivdetails
 
-data class ProjectGraph(
+data class GeneralInfoEscalationGraph(
     val dataPoints: DataPoints,
     val estimatedAppreciation: Int,
     val xAxisDisplayName: String,
