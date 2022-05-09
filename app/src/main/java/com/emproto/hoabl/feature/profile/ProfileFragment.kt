@@ -5,14 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.view.isVisible
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentProfileMainBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.networklayer.preferences.AppPreference
 import javax.inject.Inject
@@ -20,22 +17,11 @@ import javax.inject.Inject
 class ProfileFragment : BaseFragment() {
 
     lateinit var binding: FragmentProfileMainBinding
-    lateinit var image_edit_profile: ImageButton
-    lateinit var edit_profile: TextView
-    lateinit var ivrightarrow: ImageView
-    lateinit var imageviewsettings: ImageView
-    lateinit var imageSecurityLock: ImageView
-    lateinit var imageViewMessage: ImageView
-    lateinit var AccountView: View
-    lateinit var settingsView: View
-    lateinit var help_center_tv: View
-    lateinit var facility_management: View
-    lateinit var messageView: View
+
     val bundle = Bundle()
 
     @Inject
     lateinit var appPreference: AppPreference
-
 
     override fun onCreateView(
         inflater: LayoutInflater,

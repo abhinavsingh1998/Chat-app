@@ -17,9 +17,8 @@ import com.emproto.hoabl.feature.profile.data.SettingsData
 class SettingsFragment:Fragment() {
     lateinit var binding: FragmentSettingsBinding
     lateinit var adapter: SettingsAdapter
-    lateinit var ivarrowleft:ImageView
-    lateinit var settings_view:View
     val bundle = Bundle()
+
     companion object{
         fun newInstance(): SettingsFragment {
             val fragment = SettingsFragment()
@@ -34,20 +33,11 @@ class SettingsFragment:Fragment() {
     ): View {
         binding = FragmentSettingsBinding.inflate(layoutInflater)
         binding.recyclerview1.layoutManager = LinearLayoutManager(requireContext())
-
         val detailAdapter = SettingsAdapter(requireContext(),initData())
         binding.recyclerview1.adapter = detailAdapter
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible=true
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible=false
         return binding.root
     }
-
-//    private fun initClickListener() {
-//        binding.ivarrowleft.setOnClickListener(object : View.OnClickListener {
-//            override fun onClick(p0: View?) {
-//                val profileFragment = ProfileFragment()
-//                (requireActivity()as HomeActivity).replaceFragment(profileFragment.javaClass, "", true, bundle, null, 0, false)}
-//        })
-//    }
     private fun initData(): ArrayList<SettingsData> {
         val newsList: ArrayList<SettingsData> = ArrayList<SettingsData>()
         newsList.add(SettingsData("Location", " Control location access here", ))

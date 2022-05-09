@@ -192,8 +192,8 @@
     <string name="State">State</string>
     <string name="Floor_and_House_Number">Floor and House Number</string>
     <string name="payment_history_kyc">Payment History KYC</string>
-    <string name="location_prompt_sms_push_notification">Location Prompt , SMS, Push Notification</string>
-    <string name="report_emergency_control_authentication_etc">Report emergency, control authentication, etc</string>
+    <string name="location_prompt_sms_push_notification">Location Prompt,SMS,Push Notification</string>
+    <string name="report_emergency_control_authentication_etc">Report emergency,control authentication etc</string>
     <string name="not_anuj_singh">Not Anuj Singh?</string>
     <string name="app_version_v0_22">App Version: v0.22</string>
     <string name="last_name">Last Name</string>
@@ -304,4 +304,38 @@
     <string name="refferal_with_your_friend">Refer your friend</string>
     <string name="Enter_Locality">Enter Locality</string>
     <string name="mobile_no_error">Mobile number error</string>
+    <string name="notifications">Notifications</string>
+    <string name="new_text">New</string>
+    <string name="notification_topic_text">Notification Topic</string>
+    <string name="notification_description">This is a dummy text. Notification description goes here</string>
+    <string name="_1h">1h</string>
+    <string name="home_checkbox">Home</string>
+    <string name="invest_checkbox">Invest</string>
+    <string name="other">Other</string>
+    <string name="checkbox_desc">Please share your valuable feedback on the above selected HoABL services.</string>
+    <string name="very_poor_text">Very Poor</string>
+    <string name="excellent">Excellent</string>
+    <string name="share_your_feedback">Share Your Feedback</string>
+    <string name="founder_vision">Founder vision</string>
+    <string name="abhinandan_lodha">Abhinandan Lodha</string>
+    <string name="full_description_about">The House of Abhinandan Lodha was born out of a vision to democratize land in the country. We are changing what it means to own land. We are making it liquid, so that you’re never stuck with it. We are changing everything that is wrong with it – the red tape, the hassles and the risk.</string>
+    <string name="about_hoabl">About HoABL</string>
+    <string name="description_about_us">We are building a platform that will bring anyone who wants to create wealth to join the New Generation LandTM revolution. Now is your time. You can buy, maintain and liquidate land with amazing ease, conﬁdence and trust.</string>
+    <string name="explore_growth">Explore Growth</string>
+    <string name="about_us_discription">For HoABL, it is not just a piece of land, we believe in the Peace of Land.It is our aim to give back to land more than we take from it.</string>
+    <string name="product_text_about">Product Category</string>
+    <string name="lifestyle_text_about_us">Lifestyle</string>
+    <string name="complete_description_about_us">For HoABL, it is not just a piece of land, we believe in the Peace of Land.It is our aim to give back to land more than we take from it.</string>
+    <string name="stats_overview">Stats Overview</string>
+    <string name="stats_desc">Neque porro quisquam estp qui dolorem ipsu porro quisqua m estp qui ipsu.Neque porro quisquam estp qui dolorem ip</string>
+    <string name="invest_with_us_today">Invest with us today</string>
+    <string name="query">Have any questions reach out to us</string>
+    <string name="privacy_information">Investement will generate appreciate in Future.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.</string>
+    <string name="country">Country</string>
+
+    <string-array name="Gender">
+        <item>Female</item>
+        <item>Male</item>
+    </string-array>
+
 </resources>

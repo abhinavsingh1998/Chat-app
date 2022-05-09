@@ -77,6 +77,7 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
     implementation "com.google.code.gson:gson:$gsonVersion"
 
+
     //Biometric
     implementation("androidx.biometric:biometric:1.2.0-alpha04")
     implementation platform('com.google.firebase:firebase-bom:29.3.1')

@@ -4,15 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentHealthCenterBinding
-
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.profile.adapter.HoabelHealthAdapter
 import com.emproto.hoabl.feature.profile.data.DataHealthCenter
@@ -25,8 +22,6 @@ class HelpCenterFragment : BaseFragment() {
     lateinit var binding: FragmentHealthCenterBinding
     private lateinit var adapter: HoabelHealthAdapter
     lateinit var recyclerView: RecyclerView
-    lateinit var tv_promise: TextView
-
     private var dataList = ArrayList<DataHealthCenter>()
     val bundle = Bundle()
 
@@ -43,7 +38,7 @@ class HelpCenterFragment : BaseFragment() {
 
     private fun initView() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
-            true
+            false
 
         val item1 = DataHealthCenter(
             "Frequently Asked Questions",
@@ -96,7 +91,6 @@ class HelpCenterFragment : BaseFragment() {
         listHolder.add(HelpModel(HoabelHealthAdapter.VIEW_ITEM, item5))
         listHolder.add(HelpModel(HoabelHealthAdapter.VIEW_FOOTER, item1))
 
-        //list.add(HelpModel(HoabelHealthAdapter.TYPE_LIST, "", "",R.drawable.ic_faq,R.drawable.rightarrow,dataList))
         binding.healthCenterRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
         binding.healthCenterRecyclerView.adapter = HoabelHealthAdapter(
             requireContext(),
@@ -119,6 +113,12 @@ class HelpCenterFragment : BaseFragment() {
                         1 -> {
                             (requireActivity() as HomeActivity).addFragment(
                                 PrivacyFragment(),
+                                false
+                            )
+                        }
+                        3 -> {
+                            (requireActivity() as HomeActivity).addFragment(
+                                FeedbackFragment(),
                                 false
                             )
                         }

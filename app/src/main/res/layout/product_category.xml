@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="10dp"
+    android:layout_marginLeft="12dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="12dp"
+    android:layout_marginBottom="10dp"
+    android:elevation="2dp"
+    android:background="@drawable/card_bg">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="6dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/location_iv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_16"
+                android:layout_marginTop="@dimen/margin_size_16"
+                android:scaleType="fitXY"
+                android:src="@drawable/location_image"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/lifestyle_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jost_medium"
+                style="@style/text_style_text_black_color_14"
+                android:text="@string/lifestyle_text_about_us"
+                android:layout_marginStart="@dimen/margin_size_10"
+                android:layout_marginTop="@dimen/margin_size_17"
+                android:layout_marginEnd="@dimen/margin_size_200"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/location_iv"
+                app:layout_constraintTop_toTopOf="parent" />
+            <View
+                android:id="@+id/divider_line_about_us"
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/margin_size_16"
+                android:background="#E3E2E2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lifestyle_text" />
+
+            <TextView
+                android:id="@+id/full_desc"
+                style="@style/text_style_text_black_color_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_11"
+                android:layout_marginTop="@dimen/margin_size_11"
+                android:fontFamily="@font/jost_light"
+                android:layout_marginBottom="@dimen/margin_size_12"
+                android:text="@string/complete_description_about_us"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_line_about_us" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

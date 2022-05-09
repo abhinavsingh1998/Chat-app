@@ -15,7 +15,6 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 
 class FacilityManagerPopViewFragment:DialogFragment() {
     lateinit var binding: FragmentFacilityManagerPopBinding
-    lateinit var dialog_view: View
     val bundle = Bundle()
 
 

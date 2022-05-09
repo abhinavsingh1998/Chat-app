@@ -24,6 +24,7 @@ import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.response.enums.Status
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
 class AuthActivity : BaseActivity() {
@@ -36,6 +37,7 @@ class AuthActivity : BaseActivity() {
     lateinit var appPreference: AppPreference
     lateinit var activityAuthBinding: ActivityAuthBinding
     lateinit var bottomSheetDialog: BottomSheetDialog
+
     lateinit var signingInIssueBiding: FragmentSigninIssueBinding
     var issueDetail = ""
     var hMobileNo = ""

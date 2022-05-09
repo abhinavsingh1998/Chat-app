@@ -16,14 +16,10 @@ class HoabelHealthAdapter(
     val itemInterface: HelpItemInterface
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-
     companion object {
         const val VIEW_ITEM = 0
         const val VIEW_FOOTER = 1
     }
-
-
     override fun getItemViewType(position: Int): Int {
         return dataList[position].viewType
     }
@@ -68,9 +64,6 @@ class HoabelHealthAdapter(
             }
             HoabelHealthAdapter.VIEW_FOOTER -> {
                 val listHolder = holder as HoabelHealthAdapter.HoablHealthFooterHolder
-//                listHolder.binding.helpItems.layoutManager = GridLayoutManager(context, 2)
-//                listHolder.binding.helpItems.adapter =
-//                    HelpListAdapter(context, dataList[position].data, itemInterface)
             }
         }
     }

@@ -6,15 +6,27 @@ import android.os.Handler
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewTreeObserver
+import android.widget.Adapter
+import android.widget.AdapterView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityHomeBinding
+import com.emproto.hoabl.databinding.FragmentNotificationBottomSheetBinding
+import com.emproto.hoabl.databinding.FragmentSigninIssueBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.notification.HoabelNotifiaction
+import com.emproto.hoabl.feature.home.notification.adapter.NotificationAdapter
+import com.emproto.hoabl.feature.home.notification.data.NotificationDataModel
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
 import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
@@ -24,6 +36,9 @@ import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
 class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -33,6 +48,10 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     val ScreenPortfolio = 2
     val ScreenPromises = 3
     val ScreenProfile = 4
+    val  ScreenNotification = 1
+    lateinit var hoabelNotifiaction:HoabelNotifiaction
+    lateinit var fragmentNotificationBottomSheetBinding: FragmentNotificationBottomSheetBinding
+    lateinit var bottomSheetDialog: BottomSheetDialog
     var CurrentScreen = -1
     private var contentFrame = 0
     private var mContext: Context? = null
@@ -70,15 +89,48 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 onBackPressed()
             }
         })
+        initClickListener()
+    }
+    private fun initClickListener() {
 
-        activityHomeActivity.searchLayout.headset.setOnClickListener(object :
-            View.OnClickListener {
-            override fun onClick(p0: View?) {
-                Toast.makeText(applicationContext, "Chat bot", Toast.LENGTH_SHORT).show()
+        activityHomeActivity.searchLayout.notification.setOnClickListener (View.OnClickListener {
+        bottomSheetDialog = BottomSheetDialog(this)
+        bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        fragmentNotificationBottomSheetBinding = FragmentNotificationBottomSheetBinding.inflate(layoutInflater)
+        bottomSheetDialog.setContentView(fragmentNotificationBottomSheetBinding.root)
+
+            view?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    val  bottomSheetDialog = (bottomSheetDialog as BottomSheetDialog).findViewById<View>(R.id.locUXView) as LinearLayout
+                    BottomSheetBehavior.from<View>( bottomSheetDialog).apply {
+                        peekHeight = 100
+                    }
+
+                    view?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
+                }
+            })
+
+            var data = ArrayList<NotificationDataModel>()
+            for (i in 1..20) {
+                data.add(NotificationDataModel(R.drawable.img, "Notification Topic 1","It is a long established fact that a reader will be distracted ","1h"))
+                Log.i("msg","data")
             }
-        })
+            val customAdapter = NotificationAdapter(this,data)
+
+            bottomSheetDialog.findViewById<RecyclerView>(R.id.rv)?.apply {
+                layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                adapter = customAdapter
+            }
 
 
+            launch_bottom_sheet()
+
+    })
+
+    }
+
+    private fun launch_bottom_sheet() {
+        bottomSheetDialog.show()
     }
 
     fun getCurrentFragment(): Fragment? {
@@ -146,6 +198,12 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 profileFragment.setArguments(bundle)
                 replaceFragment(profileFragment.javaClass, "", true, bundle, null, 0, false)
             }
+//            ScreenNotification -> {
+//
+//                val hoabelNotifiaction = HoabelNotifiaction()
+//                hoabelNotifiaction.setArguments(bundle)
+//                replaceFragment(hoabelNotifiaction.javaClass, "", true, bundle, null, 0, false)
+//            }
         }
     }
 

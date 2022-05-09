@@ -6,13 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.AccountItemKycBinding
-import com.emproto.hoabl.databinding.ItemFaqBinding
 
-class DocumentKycAdapter(
-    val context: Context,
-    private val list: List<String>
-) :
-    RecyclerView.Adapter<DocumentKycAdapter.DocumentHolder>() {
+class DocumentKycAdapter(val context: Context, private val list: List<String>) : RecyclerView.Adapter<DocumentKycAdapter.DocumentHolder>() {
 
     private lateinit var onItemClickListener: View.OnClickListener
 
@@ -24,9 +19,7 @@ class DocumentKycAdapter(
     }
 
     override fun onBindViewHolder(holder: DocumentHolder, position: Int) {
-
     }
-
     override fun getItemCount(): Int = list.size
 
     fun setItemClickListener(clickListener: View.OnClickListener) {

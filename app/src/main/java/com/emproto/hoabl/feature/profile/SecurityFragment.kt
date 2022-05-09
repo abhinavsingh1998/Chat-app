@@ -5,8 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import androidx.core.view.isVisible
 import com.emproto.hoabl.databinding.FragmentSecurityBinding
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.profile.adapter.SecurityAdapter
 import com.emproto.hoabl.feature.profile.adapter.SettingsAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
@@ -15,12 +16,13 @@ import com.emproto.hoabl.model.RecyclerViewItem
 class SecurityFragment : Fragment() {
     lateinit var binding: FragmentSecurityBinding
     lateinit var adapter: SettingsAdapter
-    lateinit var leftarrowimage: ImageView
+
     val bundle = Bundle()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible=false
         binding = FragmentSecurityBinding.inflate(layoutInflater)
         return binding.root
 

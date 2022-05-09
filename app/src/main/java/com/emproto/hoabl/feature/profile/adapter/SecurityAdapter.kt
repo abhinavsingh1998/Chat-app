@@ -21,24 +21,24 @@ class SecurityAdapter(private val context: Context, private val list: ArrayList<
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             VIEW_SECURITY_AUTHENTICATE -> {
-                SecurityItemViewHolder1(
+                SecurityAuthenticateViewHolder(
                     SecurityView1Binding.inflate(LayoutInflater.from(parent.context),
                         parent,
                         false))
             }
             VIEW_SECURITY_WHATSAPP_COMMUNICATION -> {
-                SecurityItemViewHolder2(
+                SecurityCommunicationViewHolder(
                     SecurityView2Binding.inflate(LayoutInflater.from(parent.context),
                         parent,
                         false))
             }
             VIEW_SECURITY_LOCATION -> {
-                SecurityItemViewHolder3( SecurityView3Binding.inflate(LayoutInflater.from(parent.context),
+                SecurityLocationViewHolder( SecurityView3Binding.inflate(LayoutInflater.from(parent.context),
                         parent,
                         false))
             }
             else -> {
-                SecurityItemViewHolder4(FragmentSettingsBinding.inflate(LayoutInflater.from(parent.context),
+                SecurityItemViewHolder(FragmentSettingsBinding.inflate(LayoutInflater.from(parent.context),
                     parent,
                     false))
             }
@@ -47,21 +47,21 @@ class SecurityAdapter(private val context: Context, private val list: ArrayList<
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (list[position].viewType) {
             VIEW_SECURITY_AUTHENTICATE -> {
-                (holder as SecurityItemViewHolder1).bind(position)
+                (holder as SecurityAuthenticateViewHolder).bind(position)
             }
             VIEW_SECURITY_WHATSAPP_COMMUNICATION -> {
-                (holder as SecurityItemViewHolder2).bind(position)
+                (holder as SecurityCommunicationViewHolder).bind(position)
             }
             VIEW_SECURITY_LOCATION -> {
-                (holder as SecurityItemViewHolder3).bind(position)
+                (holder as SecurityLocationViewHolder).bind(position)
             }
             VIEW_SETTINGS_ALL_OPTIONS -> {
-                (holder as SecurityItemViewHolder4).bind(position)
+                (holder as SecurityItemViewHolder).bind(position)
             }
         }
 
     }
-    private inner class SecurityItemViewHolder4(private val binding: FragmentSettingsBinding) :
+    private inner class SecurityItemViewHolder(private val binding: FragmentSettingsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             binding.recyclerview1.layoutManager = LinearLayoutManager(context)
@@ -80,18 +80,18 @@ class SecurityAdapter(private val context: Context, private val list: ArrayList<
         return newsList
     }
 
-    private inner class SecurityItemViewHolder3(private val binding: SecurityView3Binding) :
+    private inner class SecurityLocationViewHolder(private val binding: SecurityView3Binding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
         }
     }
 
-    private inner class SecurityItemViewHolder2(private val binding: SecurityView2Binding) :
+    private inner class SecurityCommunicationViewHolder(private val binding: SecurityView2Binding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
         }
     }
-    private inner class SecurityItemViewHolder1(private val binding: SecurityView1Binding) :
+    private inner class SecurityAuthenticateViewHolder(private val binding: SecurityView1Binding) :
                 RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
         }

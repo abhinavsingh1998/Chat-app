@@ -216,5 +216,8 @@
         <attr name="hintText" format="string" />
         <attr name="placeholdertext" format="string" />
     </declare-styleable>
-
+<!--    <declare-styleable name="CustomDropDownEdittext">-->
+<!--        <attr name="hintText" format="string" />-->
+<!--        <attr name="placeholdertext" format="string" />-->
+<!--    </declare-styleable>-->
 </resources>
