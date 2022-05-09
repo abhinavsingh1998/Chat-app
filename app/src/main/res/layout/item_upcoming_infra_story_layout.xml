@@ -11,6 +11,7 @@
         android:layout_marginHorizontal="@dimen/margin_size_6"
         android:layout_marginTop="@dimen/margin_size_20"
         android:scaleType="fitXY"
+        android:background="@drawable/all_corner_radius_white_bg"
         android:src="@drawable/bitmap_copy_9_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

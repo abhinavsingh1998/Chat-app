@@ -24,6 +24,7 @@
         android:text="@string/about_the_project"
         android:textAlignment="center"
         style="@style/text_style_blue_20"
+        android:layout_marginHorizontal="@dimen/margin_size_5"
         app:layout_constraintEnd_toStartOf="@id/view_right_line"
         app:layout_constraintStart_toEndOf="@id/view_left_line"
         app:layout_constraintTop_toTopOf="parent" />
@@ -66,7 +67,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cv_abt_project_image"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/margin_size_6"
+        android:layout_marginTop="@dimen/margin_size_10"
         android:layout_marginHorizontal="@dimen/margin_size_18"
         android:text="Neque porro quisquam estp qui dolorem ipsu porro quisquam estp qui ipsu.Neque porro quisquam estp qui dolorem.Neque porro quisquam estp qui dolorem ipsu porro quisquam estp qui ipsu.Neque porro quisquam estp qui dolorem."
         android:lineSpacingMultiplier="1.3"

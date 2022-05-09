@@ -1,14 +1,15 @@
 package com.emproto.hoabl.feature.investment.views.mediagallery
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.MediaController
+import com.bumptech.glide.Glide
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentMediaViewBinding
-import com.emproto.hoabl.feature.investment.adapters.ProjectDetailViewPagerAdapter
-import com.emproto.hoabl.model.ViewItem
+
 
 class MediaViewFragment:BaseFragment() {
 
@@ -21,13 +22,38 @@ class MediaViewFragment:BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        val list = ArrayList<ViewItem>()
-        val list = arrayListOf<Int>(
-            R.drawable.media_video_beach_image, R.drawable.media_video_isle_image,
-            R.drawable.media_video_mountain_image, R.drawable.media_video_beach_image, R.drawable.media_video_mountain_image,
-            R.drawable.media_video_beach_image, R.drawable.media_video_beach_image, R.drawable.media_video_isle_image,
-            R.drawable.media_video_mountain_image, R.drawable.media_video_beach_image, R.drawable.media_video_mountain_image,
-            R.drawable.media_video_isle_image, R.drawable.media_video_mountain_image, R.drawable.media_video_isle_image)
-//        adapter = ProjectDetailViewPagerAdapter()
+        setUpUI()
+    }
+
+    private fun setUpUI() {
+        val mediaList = arguments?.getString("ImageData")
+        when(arguments?.getString("MediaType")){
+            "Photo" -> {
+                binding.ivMediaPhoto.visibility= View.VISIBLE
+                binding.vvMediaVideo.visibility = View.GONE
+                Glide
+                    .with(requireContext())
+                    .load(mediaList.toString())
+                    .into(binding.ivMediaPhoto)
+            }
+            "Video" -> {
+                binding.ivMediaPhoto.visibility= View.GONE
+                binding.vvMediaVideo.visibility = View.VISIBLE
+                setupRawVideo()
+            }
+        }
+    }
+
+    private fun setupRawVideo() {
+//        val path = "android.resource://" + requireActivity().packageName + "/" + "https://www.youtube.com/watch?v=N-8QUdOdXls"
+        val uri = Uri.parse("https://www.youtube.com/watch?v=tCRbVEGHZlQ")
+        val mediaController = MediaController(requireActivity())
+        mediaController.setAnchorView(binding.vvMediaVideo)
+        binding.vvMediaVideo.setMediaController(mediaController)
+        binding.vvMediaVideo.setVideoURI(uri)
+        binding.vvMediaVideo.requestFocus()
+        binding.vvMediaVideo.setOnPreparedListener {
+            binding.vvMediaVideo.start()
+        }
     }
 }

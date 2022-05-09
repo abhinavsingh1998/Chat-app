@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingBottom="@dimen/margin_size_8"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -26,6 +27,7 @@
         android:text="@string/see_all"
         android:textColor="@color/text_blue_color"
         android:textSize="@dimen/text_size_12"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/tv_project_amenities_title"
         app:layout_constraintEnd_toStartOf="@+id/iv_project_amenities_arrow"
         app:layout_constraintTop_toTopOf="@id/tv_project_amenities_title" />
@@ -35,214 +37,42 @@
         android:layout_width="@dimen/margin_size_14"
         android:layout_height="@dimen/margin_size_7"
         android:layout_marginEnd="@dimen/margin_size_15"
+        android:visibility="visible"
         android:src="@drawable/ic_arrow_forward_black"
         app:layout_constraintBottom_toBottomOf="@id/tv_project_amenities_all"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_project_amenities_all" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_pa_first_card"
-        android:layout_width="0dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_project_amenities_item_recycler"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_size_16"
-        android:elevation="@dimen/_3sdp"
-        app:cardCornerRadius="@dimen/margin_size_8"
-        app:layout_constraintEnd_toStartOf="@id/cv_pa_second_card"
-        app:layout_constraintStart_toStartOf="@id/tv_project_amenities_title"
-        app:layout_constraintTop_toBottomOf="@id/tv_project_amenities_title">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/iv_pa_first_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_size_9"
-                android:layout_marginVertical="@dimen/margin_size_5"
-                android:src="@drawable/golf"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_pa_first_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_size_8"
-                android:fontFamily="@font/jost_regular"
-                android:text="Club House"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_14"
-                app:layout_constraintBottom_toBottomOf="@id/iv_pa_first_image"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iv_pa_first_image"
-                app:layout_constraintTop_toTopOf="@id/iv_pa_first_image" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_pa_second_card"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="@dimen/margin_size_13"
-        android:elevation="@dimen/_3sdp"
-        app:cardCornerRadius="@dimen/margin_size_8"
-        app:layout_constraintBottom_toBottomOf="@id/cv_pa_first_card"
+        android:layout_marginHorizontal="@dimen/margin_size_6"
+        android:layout_marginTop="@dimen/margin_size_8"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/margin_size_10"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/cv_pa_first_card"
-        app:layout_constraintTop_toTopOf="@id/cv_pa_first_card">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_project_amenities_title"
+        android:clipToPadding="false"
+        app:layout_constrainedHeight="true"
+        tools:itemCount="10"
+        tools:listitem="@layout/project_amenities_item_layout" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/iv_pa_second_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_size_9"
-                android:layout_marginVertical="@dimen/margin_size_5"
-                android:src="@drawable/park"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_pa_second_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_size_8"
-                android:fontFamily="@font/jost_regular"
-                android:text="Park"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_14"
-                app:layout_constraintBottom_toBottomOf="@id/iv_pa_second_image"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iv_pa_second_image"
-                app:layout_constraintTop_toTopOf="@id/iv_pa_second_image" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_pa_third_card"
-        android:layout_width="0dp"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_view_more"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_size_14"
-        android:layout_marginBottom="@dimen/margin_size_10"
-        android:elevation="@dimen/_3sdp"
-        app:cardCornerRadius="@dimen/margin_size_8"
-        app:layout_constraintEnd_toStartOf="@id/cv_pa_four_card"
-        app:layout_constraintStart_toStartOf="@id/tv_project_amenities_title"
-        app:layout_constraintTop_toBottomOf="@id/cv_pa_first_card"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
-            <ImageView
-                android:id="@+id/iv_pa_third_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_size_9"
-                android:layout_marginVertical="@dimen/margin_size_5"
-                android:src="@drawable/wedding_arch"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_pa_third_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_size_8"
-                android:fontFamily="@font/jost_regular"
-                android:text="Marriage Hall"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_14"
-                app:layout_constraintBottom_toBottomOf="@id/iv_pa_third_image"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iv_pa_third_image"
-                app:layout_constraintTop_toTopOf="@id/iv_pa_third_image" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_pa_four_card"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="@dimen/margin_size_13"
-        android:elevation="@dimen/_3sdp"
-        app:cardCornerRadius="@dimen/margin_size_8"
-        app:layout_constraintBottom_toBottomOf="@id/cv_pa_third_card"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/cv_pa_third_card"
-        app:layout_constraintTop_toTopOf="@id/cv_pa_third_card">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/iv_pa_four_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_size_9"
-                android:layout_marginVertical="@dimen/margin_size_5"
-                android:src="@drawable/sun_umbrella"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_pa_four_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_size_8"
-                android:fontFamily="@font/jost_regular"
-                android:text="Swimming Pool"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_14"
-                app:layout_constraintBottom_toBottomOf="@id/iv_pa_four_image"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iv_pa_four_image"
-                app:layout_constraintTop_toTopOf="@id/iv_pa_four_image" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-<!--    <com.google.android.material.textview.MaterialTextView-->
-<!--        android:id="@+id/tv_project_amenities_see_map"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="@dimen/margin_size_20"-->
-<!--        android:fontFamily="@font/jost_medium"-->
-<!--        android:text="See on map"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="@dimen/text_size_14"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/cv_pa_four_card" />-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/iv_project_amenities_see_map_image"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginEnd="@dimen/margin_size_5"-->
-<!--        android:src="@drawable/location_image_red"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/tv_project_amenities_see_map"-->
-<!--        app:layout_constraintEnd_toStartOf="@id/tv_project_amenities_see_map"-->
-<!--        app:layout_constraintTop_toTopOf="@id/tv_project_amenities_see_map" />-->
+        app:layout_constraintTop_toBottomOf="@id/rv_project_amenities_item_recycler"
+        android:text="@string/view_more"
+        android:textAllCaps="true"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/margin_size_4"
+        android:layout_marginEnd="@dimen/margin_size_12"
+        style="@style/text_style_blue_14"
+        android:drawableEnd="@drawable/ic_drop_down"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
