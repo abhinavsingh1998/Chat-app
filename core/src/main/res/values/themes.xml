@@ -73,6 +73,14 @@
         <item name="fontFamily">@font/jost_medium</item>
     </style>
 
+    <style name="text_medium_14">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="fontFamily">@font/dinpro_medium</item>
+        <item name="android:fontFamily">@font/dinpro_medium</item>
+
+    </style>
+
     <!-- all font size 16-->
     <style name="text_regular_pcolor1_16">
         <item name="android:gravity">left</item>
@@ -80,6 +88,23 @@
         <item name="android:textColor">@color/primarytext_color</item>
         <item name="singleLine">true</item>
         <item name="fontFamily">@font/jost_regular</item>
+    </style>
+
+    <style name="text_medium_16">
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="fontFamily">@font/dinpro_medium</item>
+        <item name="android:fontFamily">@font/dinpro_medium</item>
+
+    </style>
+
+    <!-- all font size 17 -->
+    <style name="text_medium_17">
+        <item name="android:textSize">@dimen/text_size_17</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="fontFamily">@font/dinpro_medium</item>
+        <item name="android:fontFamily">@font/dinpro_medium</item>
+
     </style>
 
 </resources>

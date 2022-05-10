@@ -61,7 +61,6 @@
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="10"
-        tools:listitem="@layout/item_latest_images_videos"
         android:layout_marginTop="@dimen/margin_size_14"
         android:layout_marginBottom="@dimen/margin_size_6"
         android:layout_marginHorizontal="@dimen/margin_size_12"/>

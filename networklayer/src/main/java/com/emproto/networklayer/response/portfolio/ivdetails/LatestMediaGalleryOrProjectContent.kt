@@ -1,9 +1,9 @@
 package com.emproto.networklayer.response.portfolio.ivdetails
 
 data class LatestMediaGalleryOrProjectContent(
-    val coverImage: List<CoverImage>,
+    val coverImage: List<Image>,
     val createdAt: String,
-    val droneShoots: List<DroneShoot>,
+    val droneShoots: List<Image>,
     val id: Int,
     val images: List<Image>,
     val isCoverImageActive: Boolean,
@@ -13,7 +13,7 @@ data class LatestMediaGalleryOrProjectContent(
     val isVideosActive: Boolean,
     val latestMedaiGalleryProjectCon: Int,
     val medaiGalleryProjectContentId: Any,
-    val threeSixtyImages: List<ThreeSixtyImage>,
+    val threeSixtyImages: List<Image>,
     val updatedAt: String,
-    val videos: List<Video>
+    val videos: List<Image>
 )

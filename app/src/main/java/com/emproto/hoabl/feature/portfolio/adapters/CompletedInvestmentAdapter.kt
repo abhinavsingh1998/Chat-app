@@ -96,7 +96,7 @@ class CompletedInvestmentAdapter(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 linedataset.fillColor = context.getColor(R.color.light_app_color)
             }
-            linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
+            linedataset.mode = LineDataSet.Mode.LINEAR;
 
             //We connect our data to the UI Screen
             val data = LineData(linedataset)
@@ -132,7 +132,7 @@ class CompletedInvestmentAdapter(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 linedataset1.fillColor = context.getColor(R.color.light_app_color)
             }
-            linedataset1.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
+            linedataset1.mode = LineDataSet.Mode.LINEAR;
 
             //We connect our data to the UI Screen
             val data1 = LineData(linedataset1)
