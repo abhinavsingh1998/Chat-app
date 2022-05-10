@@ -15,7 +15,7 @@ import com.emproto.networklayer.response.login.OtpResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.login.VerifyOtpResponse
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
-import com.emproto.networklayer.response.portfolio.ivdetails.ProjectDetailsResponse
+import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
 import com.emproto.networklayer.response.profile.EditProfileResponse
 import com.emproto.networklayer.response.profile.ProfileCountriesResponse
 import com.emproto.networklayer.response.profile.ProfilePictureResponse
@@ -71,7 +71,10 @@ public interface ApiService {
     suspend fun getCountryList(@Query("pageType") pageType: Int): Response<ProfileCountriesResponse>
 
     @GET(ApiConstants.INVESTMENT_DETAILS)
-    suspend fun investmentDetails(@Path("inventoryId") id: Int): Response<ProjectDetailsResponse>
+    suspend fun investmentDetails(
+        @Query("investmentId") investmentId: Int,
+        @Query("projectId") projectId: Int
+    ): Response<InvestmentDetailsResponse>
 
     @GET(ApiConstants.DOC_FILTER)
     suspend fun documentsList(@Query("projectId") projectId: Int): Response<DocumentsResponse>

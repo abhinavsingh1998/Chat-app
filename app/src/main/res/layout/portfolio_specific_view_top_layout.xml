@@ -75,6 +75,7 @@
             android:paddingHorizontal="@dimen/margin_size_18"
             android:text="Apply Again"
             android:textAllCaps="false"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_project_name"
             app:layout_constraintTop_toTopOf="@id/tv_project_name" />

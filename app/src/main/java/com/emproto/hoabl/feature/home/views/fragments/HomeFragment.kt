@@ -108,10 +108,10 @@ class HomeFragment : BaseFragment() {
         binding.latesUpdatesRecyclerview.layoutManager = linearLayoutManager
         binding.latesUpdatesRecyclerview.adapter = latestUpdateAdapter
 
-        hoABLPromisesAdapter = HoABLPromisesAdapter(requireActivity(), listPromises)
-        linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        binding.hoablPromisesRecyclerview.layoutManager = linearLayoutManager
-        binding.hoablPromisesRecyclerview.adapter = hoABLPromisesAdapter
+//        hoABLPromisesAdapter = HoABLPromisesAdapter(requireActivity(), listPromises)
+//        linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+//        binding.hoablPromisesRecyclerview.layoutManager = linearLayoutManager
+//        binding.hoablPromisesRecyclerview.adapter = hoABLPromisesAdapter
     }
 
     fun initClickListener() {

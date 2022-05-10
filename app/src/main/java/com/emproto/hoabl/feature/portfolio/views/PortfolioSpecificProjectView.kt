@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.DocumentsBottomSheetBinding
@@ -15,7 +13,6 @@ import com.emproto.hoabl.databinding.FragmentPortfolioSpecificViewBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
-import com.emproto.hoabl.feature.portfolio.adapters.DocumentsAdapter
 import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
@@ -104,7 +101,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
     }
 
     private fun initObserver() {
-        portfolioviewmodel.getInvestmentDetails(1).observe(viewLifecycleOwner, Observer {
+        portfolioviewmodel.getInvestmentDetails(3, 3).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     binding.loader.show()
@@ -113,14 +110,52 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 Status.SUCCESS -> {
                     binding.loader.hide()
                     binding.rvPortfolioSpecificView.show()
-                    setUpRecyclerView()
+                    it.data?.let {
+                        list.add(
+                            RecyclerViewItem(
+                                PortfolioSpecificViewAdapter.PORTFOLIO_TOP_SECTION,
+                                it.data
+                            )
+                        )
+                        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_FACILITY_CARD))
+                        list.add(
+                            RecyclerViewItem(
+                                PortfolioSpecificViewAdapter.PORTFOLIO_TRENDING_IMAGES,
+                                it.data.projectInformation.latestMediaGalleryOrProjectContent[0]
+                            )
+                        )
+                        list.add(
+                            RecyclerViewItem(
+                                PortfolioSpecificViewAdapter.PORTFOLIO_PROMISES,
+                                it.data.projectPromises
+                            )
+                        )
+                        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_GRAPH))
+                        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_REFERNOW))
+                        list.add(
+                            RecyclerViewItem(
+                                PortfolioSpecificViewAdapter.PORTFOLIO_FAQ,
+                                it.data.projectInformation.projectContentsAndFaqs
+                            )
+                        )
+                        list.add(
+                            RecyclerViewItem(
+                                PortfolioSpecificViewAdapter.PORTFOLIO_SIMILER_INVESTMENT,
+                                it.data.projectInformation.similarInvestments
+                            )
+                        )
+                    }
+
+                    portfolioSpecificViewAdapter =
+                        PortfolioSpecificViewAdapter(this.requireContext(), list)
+                    binding.rvPortfolioSpecificView.adapter = portfolioSpecificViewAdapter
+                    portfolioSpecificViewAdapter.setItemClickListener(
+                        onPortfolioSpecificItemClickListener
+                    )
                     fetchDocuments()
                 }
                 Status.ERROR -> {
                     binding.loader.hide()
-                    binding.rvPortfolioSpecificView.show()
-                    setUpRecyclerView()
-                    fetchDocuments()
                     (requireActivity() as HomeActivity).showErrorToast(
                         it.message!!
                     )
@@ -138,16 +173,16 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
                 }
                 Status.SUCCESS -> {
-                    list.removeAt(3)
-                    list.add(
-                        3,
-                        RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_DOCUMENTS, it.data!!.data)
-                    )
-                    portfolioSpecificViewAdapter.notifyItemChanged(3)
-                    it.data?.let {
-                        val adapter = DocumentsAdapter(it.data, true)
-                        documentBinding.rvDocsItemRecycler.adapter = adapter
-                    }
+//                    list.removeAt(3)
+//                    list.add(
+//                        3,
+//                        RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_DOCUMENTS, it.data!!.data)
+//                    )
+//                    portfolioSpecificViewAdapter.notifyItemChanged(3)
+//                    it.data?.let {
+//                        val adapter = DocumentsAdapter(it.data, true)
+//                        documentBinding.rvDocsItemRecycler.adapter = adapter
+//                    }
 
                 }
                 Status.ERROR -> {
@@ -160,16 +195,16 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
     private fun setUpRecyclerView() {
 
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_SPECIFIC_VIEW_TYPE_ONE))
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_SPECIFIC_VIEW_TYPE_TWO))
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_SPECIFIC_VIEW_TYPE_THREE))
+        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_TOP_SECTION))
+        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_PENDINGCARD))
+        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_FACILITY_CARD))
         list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_DOCUMENTS))
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_SPECIFIC_VIEW_TYPE_FIVE))
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_SPECIFIC_VIEW_TYPE_SIX))
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_SPECIFIC_VIEW_TYPE_SEVEN))
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_SPECIFIC_VIEW_TYPE_EIGHT))
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_SPECIFIC_VIEW_TYPE_NINE))
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_SPECIFIC_VIEW_TYPE_TEN))
+        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_TRENDING_IMAGES))
+        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_PROMISES))
+        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_GRAPH))
+        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_REFERNOW))
+        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_FAQ))
+        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_SIMILER_INVESTMENT))
         portfolioSpecificViewAdapter = PortfolioSpecificViewAdapter(this.requireContext(), list)
         binding.rvPortfolioSpecificView.adapter = portfolioSpecificViewAdapter
         portfolioSpecificViewAdapter.setItemClickListener(onPortfolioSpecificItemClickListener)
