@@ -1,6 +1,6 @@
 package com.emproto.networklayer.response.portfolio.ivdetails
 
-data class InvesmentDetails(
+data class InvestmentInformation(
     val agreementValue: Int,
     val allocationDate: String,
     val amountInvested: Int,

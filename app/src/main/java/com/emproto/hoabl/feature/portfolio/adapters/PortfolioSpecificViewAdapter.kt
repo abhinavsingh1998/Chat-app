@@ -206,6 +206,34 @@ class PortfolioSpecificViewAdapter(
                 binding.tvViewMore.visibility = View.VISIBLE
                 binding.ivViewMoreDropDown.visibility = View.VISIBLE
             }
+            //set data to view
+            val data =
+                list[position].data as com.emproto.networklayer.response.portfolio.ivdetails.Data
+            if (data != null) {
+                binding.tvProjectName.text = data.projectInformation.launchName
+                binding.tvProjectLocation.text = "Anjarle" + "maharastra"
+                binding.tvPaidAmount.text = "₹" + data.investmentInformation.paidAmount
+                binding.tvPendingAmount.text = "₹" + data.investmentInformation.amountPending
+                binding.tvAreaUnit.text = "" + data.investmentInformation.areaSqFt + " sqft"
+                binding.tvProjectInfo.text = data.projectInformation.shortDescription
+                var reraNumber = ""
+                for (item in data.projectInformation.reraDetails.reraNumbers) {
+                    reraNumber = reraNumber + item + "\n"
+                }
+                //view more
+                binding.tvLandId.text = data.investmentInformation.inventoryId
+                binding.tvSkuType.text = data.investmentInformation.inventoryBucket
+                binding.tvInvestmentAmount.text = "₹" + data.investmentInformation.amountInvested
+                binding.tvAmountPaid.text = "₹" + data.investmentInformation.amountInvested
+                binding.tvAmountPending.text = "₹" + data.investmentInformation.amountPending
+                binding.tvRegistryAmount.text = "₹" + data.investmentInformation.registryAmount
+                binding.tvOtherExpenses.text = "₹" + data.investmentInformation.otherExpenses
+
+                binding.tvRegistrationNumber.text = reraNumber
+
+
+            }
+
             binding.tvViewTimeline.setOnClickListener(onItemClickListener)
             binding.tvViewBookingJourney.setOnClickListener(onItemClickListener)
         }

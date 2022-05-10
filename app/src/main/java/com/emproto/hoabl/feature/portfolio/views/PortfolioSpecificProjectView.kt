@@ -104,7 +104,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
     }
 
     private fun initObserver() {
-        portfolioviewmodel.getInvestmentDetails(1).observe(viewLifecycleOwner, Observer {
+        portfolioviewmodel.getInvestmentDetails(3,3).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     binding.loader.show()
@@ -113,14 +113,17 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 Status.SUCCESS -> {
                     binding.loader.hide()
                     binding.rvPortfolioSpecificView.show()
-                    setUpRecyclerView()
+                    it.data?.let {
+                        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_SPECIFIC_VIEW_TYPE_ONE,it.data))
+                    }
+
+                    portfolioSpecificViewAdapter = PortfolioSpecificViewAdapter(this.requireContext(), list)
+                    binding.rvPortfolioSpecificView.adapter = portfolioSpecificViewAdapter
+                    portfolioSpecificViewAdapter.setItemClickListener(onPortfolioSpecificItemClickListener)
                     fetchDocuments()
                 }
                 Status.ERROR -> {
                     binding.loader.hide()
-                    binding.rvPortfolioSpecificView.show()
-                    setUpRecyclerView()
-                    fetchDocuments()
                     (requireActivity() as HomeActivity).showErrorToast(
                         it.message!!
                     )
@@ -138,16 +141,16 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
                 }
                 Status.SUCCESS -> {
-                    list.removeAt(3)
-                    list.add(
-                        3,
-                        RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_DOCUMENTS, it.data!!.data)
-                    )
-                    portfolioSpecificViewAdapter.notifyItemChanged(3)
-                    it.data?.let {
-                        val adapter = DocumentsAdapter(it.data, true)
-                        documentBinding.rvDocsItemRecycler.adapter = adapter
-                    }
+//                    list.removeAt(3)
+//                    list.add(
+//                        3,
+//                        RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_DOCUMENTS, it.data!!.data)
+//                    )
+//                    portfolioSpecificViewAdapter.notifyItemChanged(3)
+//                    it.data?.let {
+//                        val adapter = DocumentsAdapter(it.data, true)
+//                        documentBinding.rvDocsItemRecycler.adapter = adapter
+//                    }
 
                 }
                 Status.ERROR -> {

@@ -7,7 +7,7 @@ import com.emproto.hoabl.repository.PortfolioRepository
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
-import com.emproto.networklayer.response.portfolio.ivdetails.ProjectDetailsResponse
+import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
 import com.emproto.networklayer.response.profile.ProfileResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
 
@@ -20,8 +20,11 @@ class PortfolioViewModel(
         return portfolioRepository.getPortfolioDashboard()
     }
 
-    fun getInvestmentDetails(crmId: Int): LiveData<BaseResponse<ProjectDetailsResponse>> {
-        return portfolioRepository.getInvestmentDetails(crmId)
+    fun getInvestmentDetails(
+        ivId: Int,
+        projectId: Int
+    ): LiveData<BaseResponse<InvestmentDetailsResponse>> {
+        return portfolioRepository.getInvestmentDetails(ivId, projectId)
     }
 
     fun getDocumentList(projectId: Int): LiveData<BaseResponse<DocumentsResponse>> {

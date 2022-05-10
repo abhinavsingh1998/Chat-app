@@ -9,7 +9,7 @@ import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
-import com.emproto.networklayer.response.portfolio.ivdetails.ProjectDetailsResponse
+import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
 import com.emproto.networklayer.response.profile.ProfileResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
 import kotlinx.coroutines.CoroutineScope
@@ -58,12 +58,15 @@ class PortfolioRepository @Inject constructor(application: Application) :
         return mPromisesResponse
     }
 
-    fun getInvestmentDetails(crmId: Int): LiveData<BaseResponse<ProjectDetailsResponse>> {
-        val mPromisesResponse = MutableLiveData<BaseResponse<ProjectDetailsResponse>>()
+    fun getInvestmentDetails(
+        ivID: Int,
+        projectId: Int
+    ): LiveData<BaseResponse<InvestmentDetailsResponse>> {
+        val mPromisesResponse = MutableLiveData<BaseResponse<InvestmentDetailsResponse>>()
         mPromisesResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val request = PortfolioDataSource(application).getInvestmentDetails(crmId)
+                val request = PortfolioDataSource(application).getInvestmentDetails(ivID, projectId)
                 if (request.isSuccessful) {
                     if (request.body()!!.data != null)
                         mPromisesResponse.postValue(BaseResponse.success(request.body()!!))
