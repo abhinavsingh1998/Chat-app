@@ -290,7 +290,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         ) {
             super.onBackPressed()
         } else {
-            navigate(R.id.navigation_hoabl)
+            super.onBackPressed()
+//            navigate(R.id.navigation_hoabl)
         }
     }
 
