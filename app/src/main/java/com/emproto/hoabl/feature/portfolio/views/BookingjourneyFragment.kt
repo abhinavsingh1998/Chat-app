@@ -45,6 +45,8 @@ class BookingjourneyFragment : Fragment() {
     private fun initView() {
         val bookingList = ArrayList<BookingModel>()
         bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_HEADER))
+        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST))
+        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST))
         mBinding.bookingjourneyList.layoutManager = LinearLayoutManager(requireContext())
         mBinding.bookingjourneyList.adapter =
             BookingJourneyAdapter(requireContext(), bookingList, null)
