@@ -42,6 +42,7 @@ class InvestmentFragment : BaseFragment() {
                     smartDealsListBundle.putString("Category","Smart Deals")
                     categoryListFragment.arguments = smartDealsListBundle
                     (requireActivity() as HomeActivity).replaceFragment(categoryListFragment.javaClass, "", true, smartDealsListBundle, null, 0, false)
+//                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
                 }
                 R.id.tv_trending_projects_see_all -> {
                     val categoryListFragment = CategoryListFragment()
