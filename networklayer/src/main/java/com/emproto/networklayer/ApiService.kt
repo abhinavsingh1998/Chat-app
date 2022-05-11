@@ -94,7 +94,6 @@ public interface ApiService {
     @GET(ApiConstants.PROJECT_TIMELINE)
     suspend fun getProjectTimeline(@Path("id") id: Int): Response<ProjectTimelineResponse>
 
-
     @GET(ApiConstants.INVESTMENT_PROMISES)
     suspend fun getInvestmentsPromises(): Response<InvestmentPromisesResponse>
 
