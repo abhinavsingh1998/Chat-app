@@ -67,6 +67,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
         android:text="About Promises"
+        android:fontFamily="@font/jost_regular"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
@@ -78,9 +79,10 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="20dp"
-        android:lineSpacingExtra="@dimen/margin_size_8"
         android:justificationMode="inter_word"
+        android:lineSpacingExtra="@dimen/margin_size_8"
         android:text="Neque porro quisquam estp qui dolorem ipsu porro quisquam estp qui ipsu. Neque porro quisquam estp qui dolorem ipsu porro quisquam estp qui ipsu.Neque porro quisquam estp qui dolorem ipsu porro quisquam estp qui ipsu.Neque porro quisquam estp qui dolorem."
+        android:textAlignment="viewStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title" />

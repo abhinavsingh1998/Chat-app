@@ -8,7 +8,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
+import android.view.Window
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.view.isNotEmpty
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,7 +27,7 @@ import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.response.enums.Status
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import java.util.regex.Pattern
 import javax.inject.Inject
 
 class AuthActivity : BaseActivity() {
@@ -37,10 +40,13 @@ class AuthActivity : BaseActivity() {
     lateinit var appPreference: AppPreference
     lateinit var activityAuthBinding: ActivityAuthBinding
     lateinit var bottomSheetDialog: BottomSheetDialog
-
     lateinit var signingInIssueBiding: FragmentSigninIssueBinding
     var issueDetail = ""
     var hMobileNo = ""
+    var issuetype = ""
+    var email= ""
+    val phonepatterns  = Pattern.compile("[1-9][0-9]{9}")
+    val emailPattern= Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +61,10 @@ class AuthActivity : BaseActivity() {
         close_sheet()
         initClickListener()
         editIssuechecked()
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+//            var window:Window = this.getWindow()
+//            window.setStatusBarColor(this.resources.getColor(R.color.black))
+//        }
 
     }
 
@@ -73,6 +83,9 @@ class AuthActivity : BaseActivity() {
         signingInIssueBiding = FragmentSigninIssueBinding.inflate(layoutInflater)
         bottomSheetDialog.setContentView(signingInIssueBiding.root)
         signingInIssueBiding.inputMobile.setValue(appPreference.getMobilenum())
+        hMobileNo= appPreference.getMobilenum()
+        signingInIssueBiding.emailInput.setText("")
+        issuetype= issueChecked()
     }
 
 
@@ -105,7 +118,23 @@ class AuthActivity : BaseActivity() {
 
     fun launch_bottom_sheet() {
         signingInIssueBiding.inputMobile.setValue(appPreference.getMobilenum())
+        if(signingInIssueBiding.inputMobile.isNotEmpty()){
+            signingInIssueBiding.submitBtn.isEnabled = true
+            signingInIssueBiding.submitBtn.isClickable = true
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                signingInIssueBiding.submitBtn.background =
+                    resources.getDrawable(R.drawable.button_bg)
+            }
+        } else {
+            signingInIssueBiding.submitBtn.isEnabled = false
+            signingInIssueBiding.submitBtn.isClickable = false
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                signingInIssueBiding.submitBtn.background =
+                    resources.getDrawable(R.drawable.unselect_button_bg)
+            }
+        }
         bottomSheetDialog.show()
+        issuetype= issueChecked()
         initClickListner()
     }
 
@@ -124,8 +153,11 @@ class AuthActivity : BaseActivity() {
     @SuppressLint("ResourceAsColor")
     private fun initClickListner() {
         hMobileNo= appPreference.getMobilenum()
+        issuetype= issueChecked()
         signingInIssueBiding.inputMobile.onValueChangeListner(object : OnValueChangedListener {
             override fun onValueChanged(value: String?, countryCode: String) {
+                signingInIssueBiding.emailLayout.isErrorEnabled=false
+                signingInIssueBiding.textError.visibility = View.GONE
             }
 
             @SuppressLint("UseCompatLoadingForDrawables")
@@ -158,36 +190,64 @@ class AuthActivity : BaseActivity() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 issueDetail=p0.toString()
+                if( p0.toString().length==150){
+                    signingInIssueBiding.editIssues.error = "You have reached the max characters limit"
+                    Toast.makeText(this@AuthActivity, "You have reached the max characters limit", Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    signingInIssueBiding.editIssuesLayout.isErrorEnabled= false
+                }
             }
 
             override fun afterTextChanged(p0: Editable?) {
                 if (p0.toString().isNullOrEmpty()) {
                     issueDetail=p0.toString()
-                    signingInIssueBiding.submitBtn.isEnabled = false
-                    signingInIssueBiding.submitBtn.isClickable = false
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        signingInIssueBiding.submitBtn.background =
-                            AppCompatResources.getDrawable(
-                                this@AuthActivity,
-                                R.drawable.unselect_button_bg
-                            )
-                    }
-                } else {
-                    signingInIssueBiding.submitBtn.isEnabled = true
-                    signingInIssueBiding.submitBtn.isClickable = true
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        signingInIssueBiding.submitBtn.background =
-                            AppCompatResources.getDrawable(this@AuthActivity, R.drawable.button_bg)
-                    }
+
                 }
 
             }
 
         })
 
+        signingInIssueBiding.emailInput.addTextChangedListener(object: TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    signingInIssueBiding.emailLayout.isErrorEnabled= false
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                email= p0.toString()
+                if (p0.isNullOrEmpty() || p0.isValidEmail()) {
+                    signingInIssueBiding.emailLayout.isErrorEnabled = false
+                    signingInIssueBiding.submitBtn.isEnabled = true
+                    signingInIssueBiding.submitBtn.isClickable = true
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        signingInIssueBiding.submitBtn.background =
+                            resources.getDrawable(R.drawable.button_bg)
+                    }
+                } else{
+                    signingInIssueBiding.emailLayout.error = "Please enter valid email"
+                    signingInIssueBiding.submitBtn.isEnabled = false
+                    signingInIssueBiding.submitBtn.isClickable = false
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        signingInIssueBiding.submitBtn.background =
+                            resources.getDrawable(R.drawable.unselect_button_bg)
+                    }
+                    if (p0.length == 150 ){
+                        signingInIssueBiding.emailLayout.error = "You have reached the max characters limit"
+                       Toast.makeText(this@AuthActivity, "You have reached the max characters limit", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+            override fun afterTextChanged(p0: Editable?) {
+                email= p0.toString()
+            }
+
+        })
+
         signingInIssueBiding.submitBtn.setOnClickListener(View.OnClickListener {
 
-            if (hMobileNo.isEmpty() || hMobileNo.length != 10) {
+            if (hMobileNo.isEmpty() || hMobileNo.length != 10 || !hMobileNo.ValidNO()) {
+                signingInIssueBiding.textError.visibility = View.VISIBLE
                 signingInIssueBiding.inputMobile.showError()
                 return@OnClickListener
             }
@@ -195,21 +255,30 @@ class AuthActivity : BaseActivity() {
 
             if (signingInIssueBiding.issueSeven.isChecked){
                 if (issueDetail.isEmpty()){
-                    signingInIssueBiding.editIssues.error = "Please describe the issue"
+                    signingInIssueBiding.editIssues.error = "Please Describe The Issue"
+                    Toast.makeText(this, "Please Describe The Issue", Toast.LENGTH_SHORT).show()
+                    return@OnClickListener
+                }
+            }
+            if (signingInIssueBiding.issueSeven.isChecked){
+                if (issueDetail.length< 30){
+                    signingInIssueBiding.editIssues.error = "Please Describe in more words"
+                    Toast.makeText(this, "Please Describe in more words", Toast.LENGTH_SHORT).show()
                     return@OnClickListener
                 }
             }
 
-            if (!signingInIssueBiding.emailInput.text.isValidEmail()) {
-                signingInIssueBiding.emailLayout.error = "Please Enter Valid Email"
+
+            if (issueChecked().isNullOrEmpty()){
+                Toast.makeText(this, "Please select an issue", Toast.LENGTH_SHORT).show()
                 return@OnClickListener
             }
 
             val troubleSigningRequest = TroubleSigningRequest(
                 "1001",
                 "91",
-                signingInIssueBiding.editIssues.text.toString(),
-                signingInIssueBiding.emailInput.text.toString(),
+                issueDetail,
+                email,
                 issueChecked(),
                 hMobileNo
             )
@@ -246,8 +315,14 @@ class AuthActivity : BaseActivity() {
 
     }
 
+    fun CharSequence?.ValidNO() =
+        phonepatterns.matcher(this).matches()
+
     fun CharSequence?.isValidEmail() =
-        !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
+        emailPattern.matcher(this).matches()
+
+//        !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
 
     private fun issueChecked(): String {
 
@@ -277,7 +352,7 @@ class AuthActivity : BaseActivity() {
             }
 
             else -> {
-                " "
+                ""
             }
         }
     }
@@ -300,6 +375,7 @@ class AuthActivity : BaseActivity() {
     private fun close_sheet() {
         appPreference.setMobilenum("")
         signingInIssueBiding.sheetCloseBtn.setOnClickListener {
+
             bottomSheetDialog.dismiss()
 
         }

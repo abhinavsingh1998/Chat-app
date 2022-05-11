@@ -16,7 +16,7 @@ import com.emproto.networklayer.response.portfolio.dashboard.Project
 import com.emproto.networklayer.response.watchlist.Data
 import com.emproto.networklayer.response.investment.SimilarInvestment
 
-class ExistingUsersPortfolioAdapter(
+class  ExistingUsersPortfolioAdapter(
     private val context: Context,
     private val list: List<PortfolioModel>,
     val onItemClickListener: ExistingUserInterface

@@ -23,8 +23,8 @@ class IntroSliderActivity : BaseActivity(), StoriesProgressView.StoriesListener 
     var context: Context? = null
 
     private var resources: IntArray = intArrayOf(
-        R.drawable.key_image,
         R.drawable.ic_intro_first,
+        R.drawable.ic_intro_second,
         R.drawable.ic_intro_third,
     )
     private var txtResource: IntArray = intArrayOf(

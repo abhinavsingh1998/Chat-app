@@ -40,16 +40,15 @@
 
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/add_name"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_size_28"
                     android:layout_marginTop="@dimen/margin_size_55"
-                    android:layout_marginRight="@dimen/margin_size_156"
+                    android:paddingRight="@dimen/margin_size_5"
                     android:text="@string/And_your_name"
                     android:textColor="@color/app_color"
                     android:textSize="@dimen/text_size_22"
                     app:fontName="@string/montserrat_medium"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -130,6 +129,7 @@
                     android:layout_marginRight="36dp"
                     android:background="@drawable/unselect_button_bg"
                     android:clickable="false"
+                    android:paddingHorizontal="@dimen/margin_size_60"
                     android:drawableRight="@drawable/ic_baseline_arrow_right"
                     android:paddingRight="@dimen/margin_size_20"
                     android:paddingLeft="@dimen/margin_size_20"

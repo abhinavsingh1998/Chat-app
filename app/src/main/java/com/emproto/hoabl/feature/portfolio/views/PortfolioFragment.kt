@@ -91,6 +91,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener {
             appPreference.activatePin(true)
             appPreference.savePinDialogStatus(true)
             pinDialog.dismiss()
+            setUpAuthentication()
             setUpUI(true)
         }
         pinPermissonDialog.dontAllow.setOnClickListener {
