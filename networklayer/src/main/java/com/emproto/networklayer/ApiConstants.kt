@@ -19,9 +19,13 @@ object ApiConstants {
     const val EDITPROFILE = "hoabl-customer/profile"
     const val UPLOADPROFILEPICTURE="hoabel-customer/profile/picture"
     const val COUNTRY="hoabel-customer/profile/countries"
-    const val INVESTMENT_DETAILS = "hoabl-customer/investment-details/{inventoryId}"
+    const val INVESTMENT_DETAILS = "hoabl-customer/investment-details"
     const val DOC_FILTER = "hoabl-customer/doc-filter"
     const val TERMS_CONDITION = "hoabl-admin/get-page"
     const val INVESTMENT_PROJECT_FAQ = "hoabl-admin/faqs/project-contents/{projectContentId}"
+    const val WATCHLIST = "hoabl-customer/watchlist"
+
+    const val GET_PROFILE = "hoabl-customer/profile/get"
+
 
 }

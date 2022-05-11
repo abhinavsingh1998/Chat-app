@@ -8,20 +8,30 @@ import com.emproto.hoabl.databinding.ItemDocumentsBinding
 import com.emproto.hoabl.databinding.ItemLandSkusBinding
 import com.emproto.hoabl.databinding.ItemPortfolioDocumentsBinding
 import com.emproto.hoabl.feature.investment.adapters.SkusListAdapter
+import com.emproto.networklayer.response.documents.Data
 
-class DocumentsAdapter (private val list:List<String>,private val docImageVisibility:Boolean = false): RecyclerView.Adapter<DocumentsAdapter.DocumentsViewHolder>() {
+class DocumentsAdapter(
+    private val list: List<Data>,
+    private val docImageVisibility: Boolean = false
+) : RecyclerView.Adapter<DocumentsAdapter.DocumentsViewHolder>() {
 
-    private lateinit var onItemClickListener : View.OnClickListener
+    private lateinit var onItemClickListener: View.OnClickListener
 
-    inner class DocumentsViewHolder(var binding: ItemPortfolioDocumentsBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class DocumentsViewHolder(var binding: ItemPortfolioDocumentsBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DocumentsViewHolder {
-        val view = ItemPortfolioDocumentsBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val view = ItemPortfolioDocumentsBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return DocumentsViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: DocumentsViewHolder, position: Int) {
-        when(docImageVisibility){
+        holder.binding.tvDocLabel.text = list[position].documentType
+        when (docImageVisibility) {
             true -> holder.binding.ivDocsImage.visibility = View.VISIBLE
         }
     }

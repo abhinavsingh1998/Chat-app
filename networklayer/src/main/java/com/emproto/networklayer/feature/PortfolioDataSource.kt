@@ -7,8 +7,9 @@ import com.emproto.networklayer.di.DataAppModule
 import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.response.documents.DocumentsResponse
-import com.emproto.networklayer.response.portfolio.ivdetails.PortfolioData
-import com.emproto.networklayer.response.portfolio.ivdetails.ProjectDetailsResponse
+import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
+import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
+import com.emproto.networklayer.response.watchlist.WatchlistData
 import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Named
@@ -22,6 +23,7 @@ class PortfolioDataSource(val application: Application) {
 
     @Inject
     lateinit var apiService: ApiService
+
     @Named("dummy")
     @Inject
     lateinit var apiService2: ApiService
@@ -39,13 +41,18 @@ class PortfolioDataSource(val application: Application) {
     }
 
     //get investment details
-    suspend fun getInvestmentDetails(crmId: Int): Response<ProjectDetailsResponse> {
-        return apiService.investmentDetails(crmId)
+    suspend fun getInvestmentDetails(ivId: Int, projectId: Int): Response<InvestmentDetailsResponse> {
+        return apiService.investmentDetails(ivId, projectId)
     }
 
     //get documents listing
     suspend fun getDocumentsListing(projectId: Int): Response<DocumentsResponse> {
         return apiService.documentsList(projectId)
+    }
+
+    //get watchlist
+    suspend fun getMyWatchlist(): Response<WatchlistData> {
+        return apiService.getMyWatchlist()
     }
 
 

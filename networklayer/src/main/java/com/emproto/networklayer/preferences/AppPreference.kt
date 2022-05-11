@@ -9,4 +9,8 @@ interface AppPreference {
     fun getNotificationToken(): String
     fun getMobilenum(): String
     fun setMobilenum(number: String)
+    fun savePinDialogStatus(status:Boolean)
+    fun isPinDialogShown():Boolean
+    fun activatePin(status: Boolean)
+    fun getPinActivationStatus():Boolean
 }

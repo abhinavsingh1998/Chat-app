@@ -48,6 +48,8 @@ class HoabelPromises : BaseFragment() {
 
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             true
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible =
+            true
 
 
         homeViewModel.getPromises(5003).observe(viewLifecycleOwner, Observer {

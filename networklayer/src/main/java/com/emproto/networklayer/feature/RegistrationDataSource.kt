@@ -14,6 +14,7 @@ import com.emproto.networklayer.response.login.AddNameResponse
 import com.emproto.networklayer.response.login.OtpResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.login.VerifyOtpResponse
+import com.emproto.networklayer.response.profile.ProfileResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 import retrofit2.Response
 import javax.inject.Inject
@@ -29,6 +30,7 @@ public class RegistrationDataSource(val application: Application) {
     var dataComponent: DataComponent =
         DaggerDataComponent.builder().dataAppModule(DataAppModule(application))
             .dataModule(DataModule(application)).build()
+
     @Named("dummy")
     @Inject
     lateinit var apiService2: ApiService
@@ -56,6 +58,10 @@ public class RegistrationDataSource(val application: Application) {
 
     suspend fun getTermsCondition(pageType: Int): Response<TermsConditionResponse> {
         return apiService2.getTermscondition(pageType)
+    }
+
+    suspend fun getUserProfile(): Response<ProfileResponse> {
+        return apiService.getUserProfile()
     }
 
 

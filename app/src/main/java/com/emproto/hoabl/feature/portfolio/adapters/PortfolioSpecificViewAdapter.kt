@@ -8,22 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.BounceInterpolator
 import android.view.animation.TranslateAnimation
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.home.adapters.HoABLPromisesAdapter
-import com.emproto.hoabl.feature.investment.adapters.FaqAdapter
-import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
 import com.emproto.hoabl.feature.investment.adapters.VideoDroneAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
-import com.emproto.hoabl.model.ViewItem
-import com.github.mikephil.charting.animation.Easing
+import com.emproto.networklayer.response.documents.Data
+import com.emproto.networklayer.response.portfolio.ivdetails.*
 import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.emproto.networklayer.response.investment.SimilarInvestment
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -34,29 +31,29 @@ class PortfolioSpecificViewAdapter(
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-        const val PORTFOLIO_SPECIFIC_VIEW_TYPE_ONE = 1
-        const val PORTFOLIO_SPECIFIC_VIEW_TYPE_TWO = 2
-        const val PORTFOLIO_SPECIFIC_VIEW_TYPE_THREE = 3
-        const val PORTFOLIO_SPECIFIC_VIEW_TYPE_FOUR = 4
-        const val PORTFOLIO_SPECIFIC_VIEW_TYPE_FIVE = 5
-        const val PORTFOLIO_SPECIFIC_VIEW_TYPE_SIX = 6
-        const val PORTFOLIO_SPECIFIC_VIEW_TYPE_SEVEN = 7
-        const val PORTFOLIO_SPECIFIC_VIEW_TYPE_EIGHT = 8
-        const val PORTFOLIO_SPECIFIC_VIEW_TYPE_NINE = 9
-        const val PORTFOLIO_SPECIFIC_VIEW_TYPE_TEN = 10
+        const val PORTFOLIO_TOP_SECTION = 1
+        const val PORTFOLIO_PENDINGCARD = 2
+        const val PORTFOLIO_FACILITY_CARD = 3
+        const val PORTFOLIO_DOCUMENTS = 4
+        const val PORTFOLIO_TRENDING_IMAGES = 5
+        const val PORTFOLIO_PROMISES = 6
+        const val PORTFOLIO_GRAPH = 7
+        const val PORTFOLIO_REFERNOW = 8
+        const val PORTFOLIO_FAQ = 9
+        const val PORTFOLIO_SIMILER_INVESTMENT = 10
     }
 
     private lateinit var specificViewPagerAdapter: PortfolioSpecificViewPagerAdapter
     private lateinit var documentsAdapter: DocumentsAdapter
-    private lateinit var latestImagesVideosAdapter: VideoDroneAdapter
+    private lateinit var latestImagesVideosAdapter: VideoAdapter
     private lateinit var promisesAdapter: HoABLPromisesAdapter
-//    private lateinit var faqAdapter: FaqAdapter
-    private lateinit var similarInvestmentsAdapter: InvestmentAdapter
+    private lateinit var faqAdapter: ProjectFaqAdapter
+    private lateinit var similarInvestmentsAdapter: SimilarInvestmentAdapter
     private lateinit var onItemClickListener: View.OnClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_ONE -> {
+            PORTFOLIO_TOP_SECTION -> {
                 ProjectSpecificTopViewHolder(
                     PortfolioSpecificViewTopLayoutBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -65,7 +62,7 @@ class PortfolioSpecificViewAdapter(
                     )
                 )
             }
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_TWO -> {
+            PORTFOLIO_PENDINGCARD -> {
                 PendingViewHolder(
                     PendingItemsLayoutBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -74,7 +71,7 @@ class PortfolioSpecificViewAdapter(
                     )
                 )
             }
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_THREE -> {
+            PORTFOLIO_FACILITY_CARD -> {
                 FacilityManagementViewHolder(
                     FacilityManagementLayoutBinding.inflate(
                         LayoutInflater.from(
@@ -83,7 +80,7 @@ class PortfolioSpecificViewAdapter(
                     )
                 )
             }
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_FOUR -> {
+            PORTFOLIO_DOCUMENTS -> {
                 DocumentsViewHolder(
                     DocumentsLayoutBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -92,7 +89,7 @@ class PortfolioSpecificViewAdapter(
                     )
                 )
             }
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_FIVE -> {
+            PORTFOLIO_TRENDING_IMAGES -> {
                 LatestImagesVideosViewHolder(
                     LatestImagesVideosLayoutBinding.inflate(
                         LayoutInflater.from(
@@ -101,7 +98,7 @@ class PortfolioSpecificViewAdapter(
                     )
                 )
             }
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_SIX -> {
+            PORTFOLIO_PROMISES -> {
                 ApplicablePromisesViewHolder(
                     PortfolioApplicablePromisesBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -110,7 +107,7 @@ class PortfolioSpecificViewAdapter(
                     )
                 )
             }
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_SEVEN -> {
+            PORTFOLIO_GRAPH -> {
                 PriceTrendsViewHolder(
                     PriceTrendsLayoutBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -119,7 +116,7 @@ class PortfolioSpecificViewAdapter(
                     )
                 )
             }
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_EIGHT -> {
+            PORTFOLIO_REFERNOW -> {
                 ReferViewHolder(
                     PortfolioSepcificViewReferLayoutBinding.inflate(
                         LayoutInflater.from(
@@ -128,7 +125,7 @@ class PortfolioSpecificViewAdapter(
                     )
                 )
             }
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_NINE -> {
+            PORTFOLIO_FAQ -> {
                 FaqViewHolder(
                     FaqLayoutBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -151,34 +148,34 @@ class PortfolioSpecificViewAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (list[position].viewType) {
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_ONE -> {
+            PORTFOLIO_TOP_SECTION -> {
                 (holder as ProjectSpecificTopViewHolder).bind(position)
             }
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_TWO -> {
+            PORTFOLIO_PENDINGCARD -> {
                 (holder as PendingViewHolder).bind(position)
             }
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_THREE -> {
+            PORTFOLIO_FACILITY_CARD -> {
                 (holder as FacilityManagementViewHolder).bind(position)
             }
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_FOUR -> {
+            PORTFOLIO_DOCUMENTS -> {
                 (holder as DocumentsViewHolder).bind(position)
             }
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_FIVE -> {
+            PORTFOLIO_TRENDING_IMAGES -> {
                 (holder as LatestImagesVideosViewHolder).bind(position)
             }
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_SIX -> {
+            PORTFOLIO_PROMISES -> {
                 (holder as ApplicablePromisesViewHolder).bind(position)
             }
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_SEVEN -> {
+            PORTFOLIO_GRAPH -> {
                 (holder as PriceTrendsViewHolder).bind(position)
             }
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_EIGHT -> {
+            PORTFOLIO_REFERNOW -> {
                 (holder as ReferViewHolder).bind(position)
             }
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_NINE -> {
+            PORTFOLIO_FAQ -> {
                 (holder as FaqViewHolder).bind(position)
             }
-            PORTFOLIO_SPECIFIC_VIEW_TYPE_TEN -> {
+            PORTFOLIO_SIMILER_INVESTMENT -> {
                 (holder as SimilarInvestmentsViewHolder).bind(position)
             }
         }
@@ -209,6 +206,34 @@ class PortfolioSpecificViewAdapter(
                 binding.tvViewMore.visibility = View.VISIBLE
                 binding.ivViewMoreDropDown.visibility = View.VISIBLE
             }
+            //set data to view
+            val data =
+                list[position].data as com.emproto.networklayer.response.portfolio.ivdetails.Data
+            if (data != null) {
+                binding.tvProjectName.text = data.projectInformation.launchName
+                binding.tvProjectLocation.text = "Anjarle" + "maharastra"
+                binding.tvPaidAmount.text = "₹" + data.investmentInformation.paidAmount
+                binding.tvPendingAmount.text = "₹" + data.investmentInformation.amountPending
+                binding.tvAreaUnit.text = "" + data.investmentInformation.areaSqFt + " sqft"
+                binding.tvProjectInfo.text = data.projectInformation.shortDescription
+                var reraNumber = ""
+                for (item in data.projectInformation.reraDetails.reraNumbers) {
+                    reraNumber = reraNumber + item + "\n"
+                }
+                //view more
+                binding.tvLandId.text = data.investmentInformation.inventoryId
+                binding.tvSkuType.text = data.investmentInformation.inventoryBucket
+                binding.tvInvestmentAmount.text = "₹" + data.investmentInformation.amountInvested
+                binding.tvAmountPaid.text = "₹" + data.investmentInformation.amountInvested
+                binding.tvAmountPending.text = "₹" + data.investmentInformation.amountPending
+                binding.tvRegistryAmount.text = "₹" + data.investmentInformation.registryAmount
+                binding.tvOtherExpenses.text = "₹" + data.investmentInformation.otherExpenses
+
+                binding.tvRegistrationNumber.text = reraNumber
+
+
+            }
+
             binding.tvViewTimeline.setOnClickListener(onItemClickListener)
             binding.tvViewBookingJourney.setOnClickListener(onItemClickListener)
         }
@@ -235,7 +260,7 @@ class PortfolioSpecificViewAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
 
-            val listViews = arrayListOf<String>("1","2","3","4","5")
+            val listViews = arrayListOf<String>("1", "2", "3", "4", "5")
             specificViewPagerAdapter = PortfolioSpecificViewPagerAdapter(listViews)
             binding.vpAttention.adapter = specificViewPagerAdapter
 
@@ -253,17 +278,28 @@ class PortfolioSpecificViewAdapter(
     private inner class DocumentsViewHolder(private val binding: DocumentsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            val list = arrayListOf<String>("1", "2", "3")
-            documentsAdapter = DocumentsAdapter(list)
-            binding.rvDocuments.adapter = documentsAdapter
+            if (list[position].data != null) {
+                val docList = list[position].data as List<Data>
+                documentsAdapter = DocumentsAdapter(docList)
+                binding.rvDocuments.adapter = documentsAdapter
+            }
             binding.tvDocumentsSeeAll.setOnClickListener(onItemClickListener)
         }
     }
 
-    private inner class LatestImagesVideosViewHolder(private val binding: LatestImagesVideosLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
-            val itemList = arrayListOf<String>("https://prodcuts-inventory-btf-be-stage.s3-ap-south-1.amazonaws.com/large/rose ambuguet.png","https://prodcuts-inventory-btf-be-stage.s3-ap-south-1.amazonaws.com/large/rose ambuguet.png")
-            latestImagesVideosAdapter = VideoDroneAdapter(itemList)
+    private inner class LatestImagesVideosViewHolder(private val binding: LatestImagesVideosLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
+            val imagesList = ArrayList<Image>()
+            val imagesData = list[position].data as LatestMediaGalleryOrProjectContent
+            imagesList.addAll(imagesData.droneShoots)
+            imagesList.addAll(imagesData.images)
+            imagesList.addAll(imagesData.videos)
+            imagesList.addAll(imagesData.threeSixtyImages)
+
+            latestImagesVideosAdapter = VideoAdapter(imagesList)
+            val layoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
+            binding.rvLatestImagesVideos.layoutManager = layoutManager
             binding.rvLatestImagesVideos.adapter = latestImagesVideosAdapter
         }
     }
@@ -271,8 +307,8 @@ class PortfolioSpecificViewAdapter(
     private inner class ApplicablePromisesViewHolder(private val binding: PortfolioApplicablePromisesBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            val listPromises: ArrayList<String> = arrayListOf("Security", "Transparency", "Wealth")
-            promisesAdapter = HoABLPromisesAdapter(context, listPromises)
+            val promisesData = list[position].data as ProjectPromises
+            promisesAdapter = HoABLPromisesAdapter(context, promisesData.data)
             binding.rvApplicablePromises.adapter = promisesAdapter
         }
     }
@@ -284,8 +320,8 @@ class PortfolioSpecificViewAdapter(
             linevalues.add(Entry(10f, 0.0F))
             linevalues.add(Entry(20f, 3.0F))
             linevalues.add(Entry(40f, 2.0F))
-            linevalues.add(Entry(50F,5.0F))
-            linevalues.add(Entry(60F,6.0F))
+            linevalues.add(Entry(50F, 5.0F))
+            linevalues.add(Entry(60F, 6.0F))
             val linedataset = LineDataSet(linevalues, "First")
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -330,18 +366,20 @@ class PortfolioSpecificViewAdapter(
     private inner class FaqViewHolder(private val binding: FaqLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-//            val itemList = arrayListOf<String>("1", "2", "3", "4", "5")
-//            faqAdapter = FaqAdapter(itemList)
-//            binding.rvFaq.adapter = faqAdapter
+            val faqList = list[position].data as List<ProjectContentsAndFaq>
+            faqAdapter = ProjectFaqAdapter(faqList)
+            binding.rvFaq.adapter = faqAdapter
 
+            binding.tvReadAll.visibility = View.VISIBLE
+            binding.ivSeeAllArrow.visibility = View.VISIBLE
         }
     }
 
     private inner class SimilarInvestmentsViewHolder(private val binding: TrendingProjectsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            val itemList = arrayListOf<SimilarInvestment>()
-            similarInvestmentsAdapter = InvestmentAdapter(context, itemList)
+            val itemList = list[position].data as List<SimilarInvestment>
+            similarInvestmentsAdapter = SimilarInvestmentAdapter(context, itemList)
             binding.rvTrendingProjects.adapter = similarInvestmentsAdapter
             binding.tvTrendingProjectsTitle.text = "Similar Investments"
             binding.tvTrendingProjectsSubtitle.visibility = View.GONE

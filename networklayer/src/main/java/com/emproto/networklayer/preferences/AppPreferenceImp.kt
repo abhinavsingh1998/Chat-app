@@ -9,6 +9,8 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
         val LOGGEDIN = "login"
         val TOKEN = "token"
         val Number = "number"
+        val PINVARIFICATION = "pin"
+        val PIN_AUTH = "pin_auth"
     }
 
     private var preference = context.getSharedPreferences("hoabl-pref", Context.MODE_PRIVATE)
@@ -59,6 +61,22 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
 
     override fun setMobilenum(number: String) {
         saveString(Number, number)
+    }
+
+    override fun savePinDialogStatus(status: Boolean) {
+        saveBoolean(PINVARIFICATION, status)
+    }
+
+    override fun isPinDialogShown(): Boolean {
+        return getBoolean(PINVARIFICATION, false)
+    }
+
+    override fun activatePin(status: Boolean) {
+        saveBoolean(PIN_AUTH, status)
+    }
+
+    override fun getPinActivationStatus(): Boolean {
+        return getBoolean(PIN_AUTH, false)
     }
 
 

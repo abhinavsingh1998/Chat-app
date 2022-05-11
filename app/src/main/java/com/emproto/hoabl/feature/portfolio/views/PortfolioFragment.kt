@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.portfolio.views
 
 import android.app.Activity.RESULT_OK
+import android.app.Dialog
 import android.app.KeyguardManager
 import android.content.Context
 import android.content.Intent
@@ -12,6 +13,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
@@ -20,6 +23,10 @@ import com.emproto.hoabl.databinding.FragmentPortfolioBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
+import com.emproto.networklayer.preferences.AppPreference
+import com.emproto.networklayer.response.enums.Status
+import com.example.portfolioui.databinding.DailogLockPermissonBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.concurrent.Executor
 import javax.inject.Inject
 
@@ -39,6 +46,13 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener {
     @Inject
     lateinit var portfolioFactory: PortfolioFactory
     lateinit var portfolioviewmodel: PortfolioViewModel
+
+    @Inject
+    lateinit var appPreference: AppPreference
+    lateinit var pinPermissonDialog: DailogLockPermissonBinding
+
+
+    lateinit var pinDialog: Dialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,9 +75,50 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpInitialUI()
-        setUpClickListeners()
-        setUpAuthentication()
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible =
+            true
+
+        initViews()
+
+    }
+
+    private fun initViews() {
+        (activity as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
+            View.VISIBLE
+        pinPermissonDialog = DailogLockPermissonBinding.inflate(layoutInflater)
+        pinPermissonDialog.allow.setOnClickListener {
+            //activate pin
+            appPreference.activatePin(true)
+            appPreference.savePinDialogStatus(true)
+            pinDialog.dismiss()
+            setUpUI(true)
+        }
+        pinPermissonDialog.dontAllow.setOnClickListener {
+            //dont show dialog again
+            setUpUI(true)
+            appPreference.savePinDialogStatus(true)
+            pinDialog.dismiss()
+        }
+
+        pinDialog = Dialog(requireContext())
+        pinDialog.setContentView(pinPermissonDialog.root)
+        pinDialog.setCancelable(false)
+
+        if (appPreference.isPinDialogShown()) {
+            // if dialog is shown already and pin is activated show pin screen.
+            if (appPreference.getPinActivationStatus()) {
+                setUpInitialUI()
+                setUpClickListeners()
+                setUpAuthentication()
+            } else {
+                //normal flow
+                setUpUI(true)
+            }
+
+        } else {
+            //show pin permisson dialog
+            pinDialog.show()
+        }
     }
 
     private fun setUpClickListeners() {
@@ -71,8 +126,6 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun setUpInitialUI() {
-        (activity as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
-            View.VISIBLE
         setUpUI(false)
     }
 
@@ -137,14 +190,47 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun setUpUI(authenticated: Boolean = false) {
-        val conditionalView = when (authenticated) {
-            true -> View.VISIBLE
-            else -> View.GONE
-        }
-        binding.portfolioTopImg.visibility = conditionalView
-        binding.addYouProject.visibility = conditionalView
-        binding.instriction.visibility = conditionalView
-        binding.btnExploreNewInvestmentProject.visibility = conditionalView
+
+//        (requireActivity() as HomeActivity).addFragment(
+//            ProjectTimelineFragment.newInstance(
+//                "",
+//                ""
+//            ), false
+//        )
+
+        portfolioviewmodel.getUserProfile().observe(viewLifecycleOwner, Observer { it ->
+            when (it.status) {
+                Status.LOADING -> {
+                    binding.progressBaar.show()
+                }
+                Status.SUCCESS -> {
+                    binding.progressBaar.hide()
+                    //prelead
+                    it.data?.let {
+                        if (it.data.contactType == "prelead") {
+                            binding.noUserView.show()
+                            binding.portfolioTopImg.visibility = View.VISIBLE
+                            binding.addYouProject.visibility = View.VISIBLE
+                            binding.instriction.visibility = View.VISIBLE
+                            binding.btnExploreNewInvestmentProject.visibility = View.VISIBLE
+                        } else {
+                            val financialSummaryFragment = PortfolioExistingUsersFragment()
+                            (requireActivity() as HomeActivity).addFragment(
+                                financialSummaryFragment,
+                                false
+                            )
+                        }
+                    }
+
+                }
+                Status.ERROR -> {
+                    //show error dialog
+
+                }
+            }
+        })
+
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -162,8 +248,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.btn_explore_new_investment_project -> {
-                val financialSummaryFragment = PortfolioExistingUsersFragment()
-                (requireActivity() as HomeActivity).addFragment(financialSummaryFragment, false)
+                (requireActivity() as HomeActivity).navigate(R.id.navigation_investment)
             }
         }
     }
