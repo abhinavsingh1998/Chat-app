@@ -17,15 +17,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/iv_eg_map_image"
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/iv_price_trends_graph"
         android:layout_width="0dp"
-        android:layout_height="207dp"
-        android:background="@color/ash_background_color"
+        android:layout_height="@dimen/margin_size_200"
+        android:layout_marginEnd="@dimen/margin_size_20"
+        android:layout_marginStart="@dimen/margin_size_10"
         android:layout_marginTop="@dimen/margin_size_12"
-        android:layout_marginEnd="@dimen/margin_size_12"
+        android:layout_marginBottom="@dimen/margin_size_30"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_expected_growth"
+        app:layout_constraintStart_toEndOf="@id/tv_yAxis_label"
         app:layout_constraintTop_toBottomOf="@id/tv_expected_growth" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_xAxis_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/months"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        style="@style/text_style_lightgrey_12"
+        android:fontFamily="@font/jost_semibold"
+        android:layout_marginTop="@dimen/margin_size_13"
+        android:layout_marginHorizontal="@dimen/margin_size_20"
+        app:layout_constraintStart_toStartOf="@id/iv_price_trends_graph"
+        app:layout_constraintEnd_toEndOf="@id/iv_price_trends_graph"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_price_trends_graph"/>
+
+    <com.emproto.core.textviews.VerticalTextView
+        android:id="@+id/tv_yAxis_label"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="Highest Price"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:rotation="-180"
+        style="@style/text_style_lightgrey_12"
+        android:fontFamily="@font/jost_semibold"
+        android:layout_marginHorizontal="@dimen/margin_size_13"
+        android:layout_marginVertical="@dimen/margin_size_13"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/iv_price_trends_graph"
+        app:layout_constraintTop_toTopOf="@id/iv_price_trends_graph"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -62,9 +62,9 @@ class NewInvestmentAdapter(private val activity:HomeActivity, private val contex
             binding.tvArea.text = data.pageManagementsOrNewInvestments.areaStartingFrom + " Onwards"
             binding.tvBackgroundGrey.text = data.pageManagementsOrNewInvestments.shortDescription
             binding.tvViewInfo.text = "${data.pageManagementsOrNewInvestments.fomoContent.noOfViews} People saw this project in ${data.pageManagementsOrNewInvestments.fomoContent.days} days"
-            Glide.with(context)
-                .load(data.promotionAndOffersMedia.value.url)
-                .into(binding.ivDontMissImage)
+//            Glide.with(context)
+//                .load(data.promotionAndOffersMedia.value.url)
+//                .into(binding.ivDontMissImage)
             Glide.with(context)
                 .load(data.pageManagementsOrNewInvestments.projectCoverImages.newInvestmentPageMedia.value.url)
                 .into(binding.ivSmallImage)

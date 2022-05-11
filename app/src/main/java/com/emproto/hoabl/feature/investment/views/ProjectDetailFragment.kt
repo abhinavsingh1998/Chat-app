@@ -15,6 +15,7 @@ import com.emproto.hoabl.databinding.ProjectDetailLayoutBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.investment.adapters.ProjectAmenitiesAdapter
 import com.emproto.hoabl.feature.investment.adapters.ProjectDetailAdapter
+import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
 import com.emproto.hoabl.feature.investment.views.mediagallery.MediaGalleryFragment
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
@@ -43,9 +44,11 @@ class ProjectDetailFragment:BaseFragment() {
     val onItemClickListener =
         View.OnClickListener { view ->
             when (view.id) {
+                R.id.cl_not_convinced_promises -> {
+                    val applicationSubmitDialog = ApplicationSubmitDialog("Video Call request sent successfully.","Our sales person will reach out to you soon!",false)
+                    applicationSubmitDialog.show(parentFragmentManager,"ApplicationSubmitDialog")
+                }
                 R.id.tv_faq_read_all -> {
-//                    val bundle = Bundle()
-//                    bundle.putSerializable("faqData",faqData as Serializable)
                     val faqDetailFragment = FaqDetailFragment()
                     (requireActivity() as HomeActivity).replaceFragment(faqDetailFragment.javaClass, "", true, null, null, 0, false)
                 }

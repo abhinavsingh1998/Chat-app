@@ -9,7 +9,7 @@ import androidx.fragment.app.DialogFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ApplicationSubmittedDialogBinding
 
-class ApplicationSubmitDialog(val title:String,val description:String):DialogFragment(),View.OnClickListener {
+class ApplicationSubmitDialog(val title:String, val description:String, private val showToast:Boolean=true):DialogFragment(),View.OnClickListener {
 
     lateinit var binding:ApplicationSubmittedDialogBinding
 
@@ -37,7 +37,10 @@ class ApplicationSubmitDialog(val title:String,val description:String):DialogFra
     override fun onClick(v: View) {
         when(v.id){
             R.id.tv_submit_okay -> {
-                Toast.makeText(this.requireContext(), "Application submitted successfully", Toast.LENGTH_SHORT).show()
+                when(showToast){
+                    true -> Toast.makeText(this.requireContext(), "Application submitted successfully", Toast.LENGTH_SHORT).show()
+                    else -> {}
+                }
                 dialog?.dismiss()
             }
         }
