@@ -1,15 +1,15 @@
 package com.emproto.networklayer.response.investment
 
-data class PageManagementsOrNewInvestment(
-    val id:Int,
-    val areaRange: AreaRange,
+data class PageManagementsOrNewInvestments(
+    val address: Address,
+    val areaStartingFrom: String,
     val fomoContent: FomoContent,
-    val address:Address,
     val generalInfoEscalationGraph: GeneralInfoEscalationGraph,
+    val id: Int,
     val isEscalationGraphActive: Boolean,
     val launchName: String,
-    val pageManagementAndNewInvestments: PageManagementAndNewInvestments,
-    val priceRange: PriceRange,
-    val shortDescription: String,
-    val mediaGalleries: List<MediaGallery>
+    val pageManagementAndNewInvestments: String,
+    val priceStartingFrom: String,
+    val projectCoverImages: ProjectCoverImages,
+    val shortDescription: String
 )

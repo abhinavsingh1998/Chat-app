@@ -37,6 +37,7 @@ import com.emproto.hoabl.feature.promises.HoabelPromises
 import com.emproto.hoabl.feature.profile.ProfileFragment
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
+import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -72,6 +73,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         activityHomeActivity = ActivityHomeBinding.inflate(layoutInflater)
         (application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+//        investmentViewModel =
+//            ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
 
         setContentView(activityHomeActivity.root)
         mContext = this

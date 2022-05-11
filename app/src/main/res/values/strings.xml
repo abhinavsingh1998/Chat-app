@@ -338,4 +338,6 @@
         <item>Male</item>
     </string-array>
 
+    <string name="popular_categories_text">Popular Categories</string>
+    <string name="search_faqs">Search FAQs</string>
 </resources>

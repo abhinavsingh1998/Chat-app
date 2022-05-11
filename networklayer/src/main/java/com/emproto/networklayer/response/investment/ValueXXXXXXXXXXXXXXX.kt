@@ -1,9 +1,7 @@
 package com.emproto.networklayer.response.investment
 
 data class ValueXXXXXXXXXXXXXXX(
-    val height: Int,
-    val mediaType: String,
-    val size: Double,
-    val url: String,
-    val width: Int
+    val gpsLink: String,
+    val icon: IconXX,
+    val name: String
 )

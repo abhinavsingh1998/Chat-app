@@ -1,9 +1,7 @@
 package com.emproto.networklayer.response.investment
 
 data class ValueX(
-    val height: Int,
-    val mediaType: String,
-    val size: Double,
-    val url: String,
-    val width: Int
+    val icon: Icon,
+    val name: String,
+    val points: List<String>
 )

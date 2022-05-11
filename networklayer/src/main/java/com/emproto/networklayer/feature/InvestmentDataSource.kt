@@ -6,9 +6,7 @@ import com.emproto.networklayer.di.DaggerDataComponent
 import com.emproto.networklayer.di.DataAppModule
 import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
-import com.emproto.networklayer.response.investment.InvestmentResponse
-import com.emproto.networklayer.response.investment.ProjectDetailResponse
-import com.emproto.networklayer.response.investment.ProjectIdResponse
+import com.emproto.networklayer.response.investment.*
 import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Named
@@ -38,5 +36,13 @@ class InvestmentDataSource(val application: Application) {
 
     suspend fun getInvestmentsDetailData(id: Int): Response<ProjectDetailResponse> {
         return apiService.getInvestmentsProjectDetails(id)
+    }
+
+    suspend fun getInvestmentsPromises(): Response<InvestmentPromisesResponse> {
+        return apiService.getInvestmentsPromises()
+    }
+
+    suspend fun getInvestmentsFaq(id: Int): Response<FaqDetailResponse> {
+        return apiService.getInvestmentsProjectFaq(id)
     }
 }

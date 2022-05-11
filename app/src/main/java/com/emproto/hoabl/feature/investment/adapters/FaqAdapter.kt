@@ -5,8 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemFaqBinding
+import com.emproto.networklayer.response.investment.CgData
+import com.emproto.networklayer.response.investment.Faq
 
-class FaqAdapter(private val list:List<String>):RecyclerView.Adapter<FaqAdapter.FaqViewHolder>() {
+class FaqAdapter(private val list: List<Faq>):RecyclerView.Adapter<FaqAdapter.FaqViewHolder>() {
     inner class FaqViewHolder(var binding: ItemFaqBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FaqViewHolder {
@@ -15,6 +17,7 @@ class FaqAdapter(private val list:List<String>):RecyclerView.Adapter<FaqAdapter.
     }
 
     override fun onBindViewHolder(holder: FaqViewHolder, position: Int) {
+        val element = list[position]
         holder.binding.ivFaqCardDropDown.setOnClickListener{
             holder.binding.ivFaqCardDropDown.visibility = View.INVISIBLE
             holder.binding.tvFaqAnswer.visibility = View.VISIBLE
@@ -24,6 +27,10 @@ class FaqAdapter(private val list:List<String>):RecyclerView.Adapter<FaqAdapter.
             holder.binding.ivFaqCardDropDown.visibility = View.VISIBLE
             holder.binding.tvFaqAnswer.visibility = View.GONE
             holder.binding.ivFaqCardUpArrow.visibility = View.GONE
+        }
+        holder.binding.apply {
+            tvFaqQuestion.text = element.faqQuestion.question
+            tvFaqAnswer.text = element.faqAnswer.answer
         }
     }
 

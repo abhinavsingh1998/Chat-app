@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
+import com.emproto.networklayer.response.investment.SimilarInvestment
 
-class InvestmentAdapter(val context: Context,val list: List<String>) : RecyclerView.Adapter<InvestmentAdapter.MyViewHolder>() {
+class InvestmentAdapter(val context: Context, val list: List<SimilarInvestment>) : RecyclerView.Adapter<InvestmentAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = ItemSmartDealsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -19,7 +20,12 @@ class InvestmentAdapter(val context: Context,val list: List<String>) : RecyclerV
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val element = list[position]
         holder.binding.apply {
-
+            tvNoViews.text = element.fomoContent.noOfViews.toString()
+            tvItemLocationName.text = element.launchName
+            tvItemLocation.text = "${element.address.city}, ${element.address.state}"
+            tvItemAmount.text = "${element.priceStartingFrom} Onwards"
+            tvItemArea.text = "${element.areaStartingFrom} Onwards"
+            tvItemLocationInfo.text = element.shortDescription
         }
     }
 

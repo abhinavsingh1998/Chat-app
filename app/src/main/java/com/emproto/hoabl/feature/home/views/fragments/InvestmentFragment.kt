@@ -13,6 +13,7 @@ import com.emproto.hoabl.databinding.FragmentInvestmentBinding
 import com.emproto.hoabl.feature.home.views.ProjectDetailsExpandView
 import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
 import com.emproto.hoabl.model.ViewItem
+import com.emproto.networklayer.response.investment.SimilarInvestment
 
 class InvestMentFragment : BaseFragment() {
     private lateinit var listViews: ArrayList<ViewItem>
@@ -64,12 +65,7 @@ class InvestMentFragment : BaseFragment() {
              }
          })*/
 
-        val list: ArrayList<String> = ArrayList()
-        list.add("22L-2.5 Cr")
-        list.add("22L-2.5 Cr")
-        list.add("22L-2.5 Cr")
-        list.add("22L-2.5 Cr")
-        list.add("22L-2.5 Cr")
+        val list: ArrayList<SimilarInvestment> = ArrayList()
 
         investmentAdapter = InvestmentAdapter(requireActivity(), list)
         linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)

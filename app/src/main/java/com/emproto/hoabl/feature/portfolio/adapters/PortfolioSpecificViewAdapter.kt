@@ -370,8 +370,6 @@ class PortfolioSpecificViewAdapter(
             faqAdapter = ProjectFaqAdapter(faqList)
             binding.rvFaq.adapter = faqAdapter
 
-            binding.tvReadAll.visibility = View.VISIBLE
-            binding.ivSeeAllArrow.visibility = View.VISIBLE
         }
     }
 

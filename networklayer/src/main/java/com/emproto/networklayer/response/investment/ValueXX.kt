@@ -1,7 +1,9 @@
 package com.emproto.networklayer.response.investment
 
 data class ValueXX(
-    val gpsLink: String,
-    val icon: IconX,
-    val name: String
+    val height: Int,
+    val mediaType: String,
+    val size: Double,
+    val url: String,
+    val width: Int
 )

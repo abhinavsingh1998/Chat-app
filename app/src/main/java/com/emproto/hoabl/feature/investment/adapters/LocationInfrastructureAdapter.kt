@@ -5,8 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemLocationInfrastructureBinding
 import com.emproto.networklayer.response.investment.LocInfValues
+import com.emproto.networklayer.response.investment.ValueXXX
 
-class LocationInfrastructureAdapter(private val list: List<LocInfValues>):RecyclerView.Adapter<LocationInfrastructureAdapter.MyViewHolder>() {
+class LocationInfrastructureAdapter(private val list: List<ValueXXX>):RecyclerView.Adapter<LocationInfrastructureAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: ItemLocationInfrastructureBinding) : RecyclerView.ViewHolder(binding.root)
 
