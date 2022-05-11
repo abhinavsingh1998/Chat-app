@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimeline
 import com.example.portfolioui.databinding.ItemTimelineDataBinding
 import com.example.portfolioui.databinding.ItemTimelineHeaderBinding
 import com.example.portfolioui.models.StepsModel
@@ -58,14 +59,23 @@ class TimelineAdapter(
                 val header_holder = holder as HeaderHolder
             }
             TYPE_LIST -> {
-                val stepsList = ArrayList<StepsModel>()
-                stepsList.add(StepsModel(StepsAdapter.TYPE_1, "Internal Roads "))
-                stepsList.add(StepsModel(StepsAdapter.TYPE_1,"Amenities & Clubhouse"))
-                stepsList.add(StepsModel(StepsAdapter.TYPE_1,"Other Infra Development"))
+                val listData = dataList[position].data as ProjectTimeline
 
+                val stepsList = ArrayList<StepsModel>()
+                for (item in listData.timeLines) {
+                    when (item.sections[0].values.percentage) {
+                        0 -> stepsList.add(StepsModel(StepsAdapter.TYPE_INSTART, item))
+                        in 1..99 -> {
+                            stepsList.add(StepsModel(StepsAdapter.TYPE_INPROGRESS, item))
+                        }
+                        else -> stepsList.add(StepsModel(StepsAdapter.TYPE_COMPLETED, item))
+                    }
+                }
                 val listHolder = holder as StepsListHolder
+                listHolder.binding.textHeader.text = listData.timeLineSectionHeading
                 listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
-                listHolder.binding.stepsList.adapter = StepsAdapter(context, stepsList, null)
+                listHolder.binding.stepsList.adapter =
+                    StepsAdapter(context, stepsList, null)
             }
 
         }

@@ -58,14 +58,14 @@ class BookingJourneyAdapter(
                 val header_holder = holder as HeaderHolder
             }
             TYPE_LIST -> {
-                val stepsList = ArrayList<StepsModel>()
-                stepsList.add(StepsModel(StepsAdapter.TYPE_1, "Internal Roads "))
-                stepsList.add(StepsModel(StepsAdapter.TYPE_1,"Amenities & Clubhouse"))
-                stepsList.add(StepsModel(StepsAdapter.TYPE_1,"Other Infra Development"))
-
-                val listHolder = holder as StepsListHolder
-                listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
-                listHolder.binding.stepsList.adapter = StepsAdapter(context, stepsList, null)
+//                val stepsList = ArrayList<StepsModel>()
+//                stepsList.add(StepsModel(StepsAdapter.TYPE_1, ))
+//                stepsList.add(StepsModel(StepsAdapter.TYPE_1,"Amenities & Clubhouse"))
+//                stepsList.add(StepsModel(StepsAdapter.TYPE_1,"Other Infra Development"))
+//
+//                val listHolder = holder as StepsListHolder
+//                listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
+//                listHolder.binding.stepsList.adapter = StepsAdapter(context, stepsList, null)
             }
 
         }

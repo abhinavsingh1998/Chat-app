@@ -198,7 +198,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener {
 //            ), false
 //        )
 
-        portfolioviewmodel.getUserProfile().observe(viewLifecycleOwner, Observer { it ->
+        portfolioviewmodel.getPortfolioDashboard().observe(viewLifecycleOwner, Observer { it ->
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBaar.show()
@@ -207,24 +207,30 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener {
                     binding.progressBaar.hide()
                     //prelead
                     it.data?.let {
-                        if (it.data.contactType == "prelead") {
-                            binding.noUserView.show()
-                            binding.portfolioTopImg.visibility = View.VISIBLE
-                            binding.addYouProject.visibility = View.VISIBLE
-                            binding.instriction.visibility = View.VISIBLE
-                            binding.btnExploreNewInvestmentProject.visibility = View.VISIBLE
-                        } else {
-                            val financialSummaryFragment = PortfolioExistingUsersFragment()
-                            (requireActivity() as HomeActivity).addFragment(
-                                financialSummaryFragment,
-                                false
-                            )
-                        }
+                        portfolioviewmodel.setPortfolioData(it)
+                        val financialSummaryFragment = PortfolioExistingUsersFragment()
+                        (requireActivity() as HomeActivity).addFragment(
+                            financialSummaryFragment,
+                            false
+                        )
                     }
+
 
                 }
                 Status.ERROR -> {
+                    binding.progressBaar.hide()
                     //show error dialog
+                    if (it.message == "The current user is not an investor") {
+                        binding.noUserView.show()
+                        binding.portfolioTopImg.visibility = View.VISIBLE
+                        binding.addYouProject.visibility = View.VISIBLE
+                        binding.instriction.visibility = View.VISIBLE
+                        binding.btnExploreNewInvestmentProject.visibility = View.VISIBLE
+                    } else {
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            it.message!!
+                        )
+                    }
 
                 }
             }

@@ -29,7 +29,10 @@ import com.emproto.hoabl.feature.home.notification.adapter.NotificationAdapter
 import com.emproto.hoabl.feature.home.notification.data.NotificationDataModel
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
+import com.emproto.hoabl.feature.portfolio.views.PortfolioExistingUsersFragment
 import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
+import com.emproto.hoabl.feature.portfolio.views.PortfolioSpecificProjectView
+import com.emproto.hoabl.feature.portfolio.views.ProjectTimelineFragment
 import com.emproto.hoabl.feature.promises.HoabelPromises
 import com.emproto.hoabl.feature.profile.ProfileFragment
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
@@ -48,8 +51,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     val ScreenPortfolio = 2
     val ScreenPromises = 3
     val ScreenProfile = 4
-    val  ScreenNotification = 1
-    lateinit var hoabelNotifiaction:HoabelNotifiaction
+    val ScreenNotification = 1
+    lateinit var hoabelNotifiaction: HoabelNotifiaction
     lateinit var fragmentNotificationBottomSheetBinding: FragmentNotificationBottomSheetBinding
     lateinit var bottomSheetDialog: BottomSheetDialog
     var CurrentScreen = -1
@@ -91,18 +94,22 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         })
         initClickListener()
     }
+
     private fun initClickListener() {
 
-        activityHomeActivity.searchLayout.notification.setOnClickListener (View.OnClickListener {
-        bottomSheetDialog = BottomSheetDialog(this)
-        bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
-        fragmentNotificationBottomSheetBinding = FragmentNotificationBottomSheetBinding.inflate(layoutInflater)
-        bottomSheetDialog.setContentView(fragmentNotificationBottomSheetBinding.root)
+        activityHomeActivity.searchLayout.notification.setOnClickListener(View.OnClickListener {
+            bottomSheetDialog = BottomSheetDialog(this)
+            bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            fragmentNotificationBottomSheetBinding =
+                FragmentNotificationBottomSheetBinding.inflate(layoutInflater)
+            bottomSheetDialog.setContentView(fragmentNotificationBottomSheetBinding.root)
 
-            view?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            view?.viewTreeObserver?.addOnGlobalLayoutListener(object :
+                ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
-                    val  bottomSheetDialog = (bottomSheetDialog as BottomSheetDialog).findViewById<View>(R.id.locUXView) as LinearLayout
-                    BottomSheetBehavior.from<View>( bottomSheetDialog).apply {
+                    val bottomSheetDialog =
+                        (bottomSheetDialog as BottomSheetDialog).findViewById<View>(R.id.locUXView) as LinearLayout
+                    BottomSheetBehavior.from<View>(bottomSheetDialog).apply {
                         peekHeight = 100
                     }
 
@@ -112,10 +119,17 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
             var data = ArrayList<NotificationDataModel>()
             for (i in 1..20) {
-                data.add(NotificationDataModel(R.drawable.img, "Notification Topic 1","It is a long established fact that a reader will be distracted ","1h"))
-                Log.i("msg","data")
+                data.add(
+                    NotificationDataModel(
+                        R.drawable.img,
+                        "Notification Topic 1",
+                        "It is a long established fact that a reader will be distracted ",
+                        "1h"
+                    )
+                )
+                Log.i("msg", "data")
             }
-            val customAdapter = NotificationAdapter(this,data)
+            val customAdapter = NotificationAdapter(this, data)
 
             bottomSheetDialog.findViewById<RecyclerView>(R.id.rv)?.apply {
                 layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -125,7 +139,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
             launch_bottom_sheet()
 
-    })
+        })
 
     }
 
@@ -265,6 +279,12 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 Toast.makeText(mContext, "Please press again to exit", Toast.LENGTH_LONG).show()
             }
         } else if (getCurrentFragment() is PromisesDetailsFragment) {
+            super.onBackPressed()
+        } else if (
+            getCurrentFragment() is PortfolioSpecificProjectView ||
+            getCurrentFragment() is ProjectTimelineFragment
+
+        ) {
             super.onBackPressed()
         } else {
             navigate(R.id.navigation_hoabl)

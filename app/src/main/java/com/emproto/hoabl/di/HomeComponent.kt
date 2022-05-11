@@ -9,6 +9,7 @@ import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.portfolio.views.PortfolioExistingUsersFragment
 import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
 import com.emproto.hoabl.feature.portfolio.views.PortfolioSpecificProjectView
+import com.emproto.hoabl.feature.portfolio.views.ProjectTimelineFragment
 import com.emproto.hoabl.feature.profile.EditProfileFragment
 import com.emproto.hoabl.feature.profile.ProfileFragment
 import com.emproto.hoabl.feature.promises.HoabelPromises
@@ -33,8 +34,9 @@ interface HomeComponent {
     fun inject(fragment: InvestmentFragment)
     fun inject(fragment: ProjectDetailFragment)
     fun inject(fragment: PortfolioFragment)
-    fun inject(fragment:PortfolioExistingUsersFragment)
+    fun inject(fragment: PortfolioExistingUsersFragment)
     fun inject(service: MyFirebasemessagingService)
-    fun inject(fragment:PortfolioSpecificProjectView)
-    fun inject(fragment:EditProfileFragment)
+    fun inject(fragment: PortfolioSpecificProjectView)
+    fun inject(fragment: EditProfileFragment)
+    fun inject(fragment: ProjectTimelineFragment)
 }

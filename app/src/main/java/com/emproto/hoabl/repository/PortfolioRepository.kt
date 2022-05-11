@@ -10,6 +10,7 @@ import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
+import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineResponse
 import com.emproto.networklayer.response.profile.ProfileResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
 import kotlinx.coroutines.CoroutineScope
@@ -148,6 +149,33 @@ class PortfolioRepository @Inject constructor(application: Application) :
         coroutineScope.launch {
             try {
                 val request = RegistrationDataSource(application).getUserProfile()
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mDocumentsResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mDocumentsResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mDocumentsResponse
+    }
+
+    fun getProjectTimeline(id: Int): LiveData<BaseResponse<ProjectTimelineResponse>> {
+        val mDocumentsResponse = MutableLiveData<BaseResponse<ProjectTimelineResponse>>()
+        mDocumentsResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = PortfolioDataSource(application).getProjectTimeline(id)
                 if (request.isSuccessful) {
                     if (request.body()!!.data != null)
                         mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
