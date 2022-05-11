@@ -369,7 +369,8 @@ class PortfolioSpecificViewAdapter(
             val faqList = list[position].data as List<ProjectContentsAndFaq>
             faqAdapter = ProjectFaqAdapter(faqList)
             binding.rvFaq.adapter = faqAdapter
-
+            binding.tvFaqReadAll.visibility = View.VISIBLE
+            binding.ivSeeAllArrow.visibility = View.VISIBLE
         }
     }
 
