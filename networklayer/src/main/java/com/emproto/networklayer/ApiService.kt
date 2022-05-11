@@ -16,6 +16,7 @@ import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.login.VerifyOtpResponse
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
+import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineResponse
 import com.emproto.networklayer.response.profile.EditProfileResponse
 import com.emproto.networklayer.response.profile.ProfileCountriesResponse
 import com.emproto.networklayer.response.profile.ProfilePictureResponse
@@ -87,6 +88,9 @@ public interface ApiService {
 
     @GET(ApiConstants.GET_PROFILE)
     suspend fun getUserProfile(): Response<ProfileResponse>
+
+    @GET(ApiConstants.PROJECT_TIMELINE)
+    suspend fun getProjectTimeline(@Path("id") id: Int): Response<ProjectTimelineResponse>
 
 
 }

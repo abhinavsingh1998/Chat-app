@@ -1,3 +1,5 @@
 package com.example.portfolioui.models
 
-data class StepsModel(val viewType: Int, val name: String)
+import com.emproto.networklayer.response.portfolio.prtimeline.TimeLine
+
+data class StepsModel(val viewType: Int, val timeline:TimeLine)

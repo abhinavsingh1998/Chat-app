@@ -52,73 +52,51 @@ class PortfolioExistingUsersFragment : BaseFragment(),
     }
 
     private fun addObserver() {
-        portfolioviewmodel.getPortfolioDashboard()
-            .observe(viewLifecycleOwner, object : Observer<BaseResponse<PortfolioData>> {
-                override fun onChanged(t: BaseResponse<PortfolioData>) {
-                    when (t.status) {
-                        Status.LOADING -> {
-                            binding.loader.show()
-                            binding.financialRecycler.hide()
-                        }
-                        Status.SUCCESS -> {
-                            binding.loader.hide()
-                            binding.financialRecycler.show()
-                            t.data?.let {
-                                list.clear()
-                                list.add(
-                                    PortfolioModel(
-                                        ExistingUsersPortfolioAdapter.TYPE_HEADER,
-                                        null
-                                    )
-                                )
-                                list.add(
-                                    PortfolioModel(
-                                        ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED,
-                                        it.data.summary.completed
-                                    )
-                                )
-                                list.add(
-                                    PortfolioModel(
-                                        ExistingUsersPortfolioAdapter.TYPE_SUMMARY_ONGOING,
-                                        it.data.summary.ongoing
-                                    )
-                                )
-                                list.add(
-                                    PortfolioModel(
-                                        ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
-                                        it.data.projects.filter { it.investment.isCompleted }
-                                    )
-                                )
-                                list.add(
-                                    PortfolioModel(
-                                        ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
-                                        it.data.projects.filter { !it.investment.isCompleted }
-                                    )
-                                )
-                                //fetch remaining data
-                                adapter =
-                                    ExistingUsersPortfolioAdapter(
-                                        requireActivity(),
-                                        list,
-                                        this@PortfolioExistingUsersFragment
-                                    )
-                                binding.financialRecycler.adapter = adapter
-                                getWathclistData()
-                            }
 
-
-                        }
-                        Status.ERROR -> {
-                            binding.loader.hide()
-                            (requireActivity() as HomeActivity).showErrorToast(
-                                t.message!!
-                            )
-                        }
-                    }
-                }
-
-            })
-
+        portfolioviewmodel.getPortfolioData().observe(viewLifecycleOwner, Observer {
+            it.let {
+                list.clear()
+                list.add(
+                    PortfolioModel(
+                        ExistingUsersPortfolioAdapter.TYPE_HEADER,
+                        null
+                    )
+                )
+                list.add(
+                    PortfolioModel(
+                        ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED,
+                        it.data.summary.completed
+                    )
+                )
+                list.add(
+                    PortfolioModel(
+                        ExistingUsersPortfolioAdapter.TYPE_SUMMARY_ONGOING,
+                        it.data.summary.ongoing
+                    )
+                )
+                list.add(
+                    PortfolioModel(
+                        ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
+                        it.data.projects.filter { it.investment.isCompleted }
+                    )
+                )
+                list.add(
+                    PortfolioModel(
+                        ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
+                        it.data.projects.filter { !it.investment.isCompleted }
+                    )
+                )
+                //fetch remaining data
+                adapter =
+                    ExistingUsersPortfolioAdapter(
+                        requireActivity(),
+                        list,
+                        this@PortfolioExistingUsersFragment
+                    )
+                binding.financialRecycler.adapter = adapter
+                getWathclistData()
+            }
+        })
 
     }
 

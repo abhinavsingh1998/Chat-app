@@ -9,6 +9,7 @@ import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
+import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
 import retrofit2.Response
 import javax.inject.Inject
@@ -41,7 +42,10 @@ class PortfolioDataSource(val application: Application) {
     }
 
     //get investment details
-    suspend fun getInvestmentDetails(ivId: Int, projectId: Int): Response<InvestmentDetailsResponse> {
+    suspend fun getInvestmentDetails(
+        ivId: Int,
+        projectId: Int
+    ): Response<InvestmentDetailsResponse> {
         return apiService.investmentDetails(ivId, projectId)
     }
 
@@ -53,6 +57,11 @@ class PortfolioDataSource(val application: Application) {
     //get watchlist
     suspend fun getMyWatchlist(): Response<WatchlistData> {
         return apiService.getMyWatchlist()
+    }
+
+    //get project timeline
+    suspend fun getProjectTimeline(id: Int): Response<ProjectTimelineResponse> {
+        return apiService.getProjectTimeline(id)
     }
 
 

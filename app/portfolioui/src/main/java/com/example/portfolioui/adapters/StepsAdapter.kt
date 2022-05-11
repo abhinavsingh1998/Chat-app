@@ -3,9 +3,10 @@ package com.example.portfolioui.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.portfolioui.databinding.ItemTimelineStepBinding
+import com.example.portfolioui.databinding.ItemTimelineInprogressBinding
+import com.example.portfolioui.databinding.ItemTimelineStepCompletedBinding
+import com.example.portfolioui.databinding.ItemTimelineStepDisabledBinding
 import com.example.portfolioui.models.StepsModel
 
 class StepsAdapter(
@@ -16,8 +17,9 @@ class StepsAdapter(
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-        const val TYPE_1 = 0
-        const val TYPE_2 = 1
+        const val TYPE_INSTART = 0
+        const val TYPE_INPROGRESS = 1
+        const val TYPE_COMPLETED = 2
 
     }
 
@@ -28,23 +30,32 @@ class StepsAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
 
-            TYPE_1 -> {
-                val view = ItemTimelineStepBinding.inflate(
+            TYPE_INSTART -> {
+                val view = ItemTimelineStepDisabledBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                return SingleStepHolder(view)
+                return InStartHolder(view)
+            }
+
+            TYPE_INPROGRESS -> {
+                val view = ItemTimelineInprogressBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                return InProgressHolder(view)
             }
 
             else -> {
                 val view =
-                    ItemTimelineStepBinding.inflate(
+                    ItemTimelineStepCompletedBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
                     )
-                return SingleStepHolder(view)
+                return InCompletedHolder(view)
             }
 
         }
@@ -54,11 +65,22 @@ class StepsAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (dataList[position].viewType) {
 
-            TYPE_1 -> {
+            TYPE_INSTART -> {
 
-                val type1Holder = holder as SingleStepHolder
-                type1Holder.binding.tvName.text = dataList[position].name
+                val type1Holder = holder as InStartHolder
+                val data = dataList[position].timeline
+                type1Holder.binding.tvName.text = data.heading
 
+            }
+            TYPE_COMPLETED -> {
+                val type1Holder = holder as InCompletedHolder
+                val data = dataList[position].timeline
+                type1Holder.binding.tvName.text = data.heading
+            }
+            TYPE_INPROGRESS -> {
+                val type1Holder = holder as InProgressHolder
+                val data = dataList[position].timeline
+                type1Holder.binding.tvName.text = data.heading
             }
         }
     }
@@ -66,7 +88,13 @@ class StepsAdapter(
 
     override fun getItemCount() = dataList.size
 
-    inner class SingleStepHolder(var binding: ItemTimelineStepBinding) :
+    inner class InStartHolder(var binding: ItemTimelineStepDisabledBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    inner class InProgressHolder(var binding: ItemTimelineInprogressBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    inner class InCompletedHolder(var binding: ItemTimelineStepCompletedBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     interface TimelineInterface {

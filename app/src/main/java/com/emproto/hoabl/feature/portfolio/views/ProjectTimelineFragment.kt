@@ -5,12 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
+import com.emproto.hoabl.databinding.FragmentPortfolioBinding
+import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.viewmodels.PortfolioViewModel
+import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
+import com.emproto.networklayer.response.enums.Status
 import com.example.portfolioui.adapters.TimelineAdapter
 import com.example.portfolioui.databinding.FragmentProjectTimelineBinding
 import com.example.portfolioui.models.TimelineModel
+import javax.inject.Inject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,6 +37,10 @@ class ProjectTimelineFragment : BaseFragment() {
     private var param2: String? = null
     lateinit var mBinding: FragmentProjectTimelineBinding
 
+    @Inject
+    lateinit var portfolioFactory: PortfolioFactory
+    lateinit var portfolioviewmodel: PortfolioViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -42,22 +55,51 @@ class ProjectTimelineFragment : BaseFragment() {
     ): View? {
         // Inflate the layout for this fragment
         mBinding = FragmentProjectTimelineBinding.inflate(inflater, container, false)
+        (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
+        portfolioviewmodel = ViewModelProvider(
+            requireActivity(),
+            portfolioFactory
+        )[PortfolioViewModel::class.java]
         initView()
+        initObserver()
         return mBinding.root
     }
 
-    private fun initView() {
-        val timelineList = ArrayList<TimelineModel>()
-        timelineList.add(TimelineModel(TimelineAdapter.TYPE_HEADER))
-        timelineList.add(TimelineModel(TimelineAdapter.TYPE_LIST))
-        timelineList.add(TimelineModel(TimelineAdapter.TYPE_LIST))
-        timelineList.add(TimelineModel(TimelineAdapter.TYPE_LIST))
-        timelineList.add(TimelineModel(TimelineAdapter.TYPE_LIST))
-        timelineList.add(TimelineModel(TimelineAdapter.TYPE_LIST))
-        timelineList.add(TimelineModel(TimelineAdapter.TYPE_LIST))
+    private fun initObserver() {
+        portfolioviewmodel.getProjectTimeline(3).observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.LOADING -> {
+                    mBinding.loader.show()
+                    mBinding.rootView.hide()
+                }
+                Status.SUCCESS -> {
+                    mBinding.loader.hide()
+                    mBinding.rootView.show()
+                    it.data?.let {
+                        val timelineList = ArrayList<TimelineModel>()
+                        timelineList.add(TimelineModel(TimelineAdapter.TYPE_HEADER))
+                        for (item in it.data.projectTimelines) {
+                            timelineList.add(TimelineModel(TimelineAdapter.TYPE_LIST, item))
+                        }
+                        mBinding.timelineList.layoutManager = LinearLayoutManager(requireContext())
+                        mBinding.timelineList.adapter =
+                            TimelineAdapter(requireContext(), timelineList, null)
+                    }
 
-        mBinding.timelineList.layoutManager = LinearLayoutManager(requireContext())
-        mBinding.timelineList.adapter = TimelineAdapter(requireContext(), timelineList, null)
+                }
+
+                Status.ERROR -> {
+                    mBinding.loader.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(
+                        it.message!!
+                    )
+                }
+            }
+        })
+    }
+
+    private fun initView() {
+
     }
 
     companion object {
