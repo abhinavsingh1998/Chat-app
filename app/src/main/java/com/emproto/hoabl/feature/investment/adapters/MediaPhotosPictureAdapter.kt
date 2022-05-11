@@ -13,7 +13,7 @@ import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.utils.OnRecyclerViewItemClickListener
 import com.emproto.networklayer.response.investment.Image
 
-class MediaPhotosPictureAdapter(private val context: Context,private val itemClickListener: ItemClickListener, private val itemList: List<Image>):RecyclerView.Adapter<MediaPhotosPictureAdapter.ViewHolder>() {
+class MediaPhotosPictureAdapter(private val context: Context,private val itemClickListener: ItemClickListener, private val itemList: List<String>):RecyclerView.Adapter<MediaPhotosPictureAdapter.ViewHolder>() {
 
     inner class ViewHolder(var binding: ItemPhotosMediaLayoutBinding) : RecyclerView.ViewHolder(binding.root){
         val image:ImageView = itemView.findViewById(R.id.iv_media_photo)
@@ -30,11 +30,11 @@ class MediaPhotosPictureAdapter(private val context: Context,private val itemCli
     }
 
     override fun onBindViewHolder(holder: MediaPhotosPictureAdapter.ViewHolder, position: Int) {
-        val list = itemList[position]
+        val element = itemList[position]
         Glide.with(context)
-            .load(list.mediaContent.value.url)
+            .load(element)
             .into(holder.image)
-        holder.bind(holder.itemView,position,list.toString(),itemClickListener)
+        holder.bind(holder.itemView,position,element,itemClickListener)
     }
 
     override fun getItemCount(): Int = itemList.size

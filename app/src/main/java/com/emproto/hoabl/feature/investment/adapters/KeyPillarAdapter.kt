@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemKeyPillarBinding
 import com.emproto.networklayer.response.investment.ProjectValue
+import com.emproto.networklayer.response.investment.ValueX
 
-class KeyPillarAdapter(val context: Context, private val list: List<ProjectValue>):
+class KeyPillarAdapter(val context: Context, private val list: List<ValueX>):
     RecyclerView.Adapter<KeyPillarAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: ItemKeyPillarBinding) : RecyclerView.ViewHolder(binding.root)

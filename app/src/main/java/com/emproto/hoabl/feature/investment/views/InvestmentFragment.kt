@@ -33,7 +33,6 @@ class InvestmentFragment : BaseFragment() {
     private lateinit var categoryList: List<PageManagementsOrCollectionOneModel>
 
     private val smartDealsListBundle = Bundle()
-    private val trendingProjectsListBundle = Bundle()
 
     private val onInvestmentItemClickListener =
         View.OnClickListener { view ->
@@ -43,6 +42,7 @@ class InvestmentFragment : BaseFragment() {
                     smartDealsListBundle.putString("Category","Smart Deals")
                     categoryListFragment.arguments = smartDealsListBundle
                     (requireActivity() as HomeActivity).replaceFragment(categoryListFragment.javaClass, "", true, smartDealsListBundle, null, 0, false)
+//                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
                 }
                 R.id.tv_trending_projects_see_all -> {
                     val categoryListFragment = CategoryListFragment()
@@ -97,6 +97,7 @@ class InvestmentFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).showErrorToast(
                         it.message!!
                     )
+                    Log.d("Invest",it.message.toString())
                 }
             }
         })

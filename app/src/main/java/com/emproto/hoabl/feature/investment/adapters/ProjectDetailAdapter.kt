@@ -1,20 +1,35 @@
 package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.bumptech.glide.Glide
+import com.emproto.core.textviews.setResizableText
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.networklayer.response.investment.PdData
+import com.emproto.networklayer.response.investment.PmData
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlin.contracts.contract
 
-class ProjectDetailAdapter(private val context: Context, private val list:List<RecyclerViewItem>, private val data:PdData):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+class ProjectDetailAdapter(
+    private val context: Context,
+    private val list: List<RecyclerViewItem>,
+    private val data: PdData,
+    private val promisesData: List<PmData>
+):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val VIEW_TYPE_ONE = 1
@@ -39,7 +54,7 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<R
     private lateinit var skuAdapter: SkuAdapter
     private lateinit var locationInfrastructureAdapter: LocationInfrastructureAdapter
     private lateinit var promisesAdapter: PromisesAdapter
-    private lateinit var faqAdapter: FaqAdapter
+    private lateinit var faqAdapter: FaqQuestionAdapter
     private lateinit var similarInvestmentsAdapter: InvestmentAdapter
     private lateinit var onItemClickListener : View.OnClickListener
 
@@ -89,13 +104,8 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<R
 
     private inner class ProjectTopCardViewHolder(val binding: ProjectDetailTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.ivSmallTopImage.setImageResource(R.drawable.new_investment_page_image)
             val listViews = ArrayList<String>()
-            listViews.add(data.mediaGalleries[0].coverImage[0].mediaContent.value.url)
-            listViews.add(data.mediaGalleries[0].coverImage[0].mediaContent.value.url)
-            listViews.add(data.mediaGalleries[0].coverImage[0].mediaContent.value.url)
-            listViews.add(data.mediaGalleries[0].coverImage[0].mediaContent.value.url)
-            listViews.add(data.mediaGalleries[0].coverImage[0].mediaContent.value.url)
+            listViews.add(data.projectCoverImages.newInvestmentPageMedia.value.url)
 
             projectDetailViewPagerAdapter = ProjectDetailViewPagerAdapter(listViews)
             binding.projectDetailViewPager.adapter = projectDetailViewPagerAdapter
@@ -113,7 +123,7 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<R
             TabLayoutMediator(binding.tabDotLayout,binding.projectDetailViewPager){ _, _ ->
             }.attach()
             itemView.tag = this
-            binding.ivWhyInvest.setOnClickListener(onItemClickListener)
+            binding.clNotConvinced.setOnClickListener(onItemClickListener)
 
             binding.apply {
                 tvProjectName.text = data.launchName
@@ -121,12 +131,23 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<R
                 tvViewCount.text = data.fomoContent.noOfViews.toString()
                 tvDuration.text = "${data.fomoContent.targetTime.hours}:${data.fomoContent.targetTime.minutes}:${data.fomoContent.targetTime.seconds} Hrs Left"
                 tvLocationInformationText.text = data.shortDescription
-                tvPriceRange.text = data.priceRange.from + " Onwards"
-                tvAreaRange.text = data.areaRange.from + " Onwards"
+                tvPriceRange.text = data.priceStartingFrom + " Onwards"
+                tvAreaRange.text = data.areaStartingFrom + " Onwards"
                 tvProjectViewInfo.text = "${data.fomoContent.noOfViews} People saw this project in ${data.fomoContent.days} days"
+                var regString = ""
+                for(item in data.reraDetails.reraNumbers){
+                    when (regString) {
+                        "" -> regString += item
+                        else -> regString = regString + "\n" + item
+                    }
+                }
+                tvRegistrationNumber.text = regString
+//                Glide.with(context)
+//                    .load(data.offersAndPromotions.value.url)
+//                    .into(ivWhyInvest)
                 Glide.with(context)
-                    .load(data.offersAndPromotions.value.url)
-                    .into(ivWhyInvest)
+                    .load(data.projectCoverImages.newInvestmentPageMedia.value.url)
+                    .into(ivSmallTopImage)
             }
         }
     }
@@ -138,6 +159,51 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<R
 
     private inner class ProjectPriceTrendsViewHolder(private val binding: PriceTrendsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
+            binding.tvRating.text = data.generalInfoEscalationGraph.estimatedAppreciation.toString()
+            binding.tvXAxisLabel.text = data.generalInfoEscalationGraph.yAxisDisplayName
+            binding.tvYAxisLabel.text = data.generalInfoEscalationGraph.xAxisDisplayName
+            val graphData = data.generalInfoEscalationGraph.dataPoints.points
+            val linevalues = ArrayList<Entry>()
+            for(item in graphData){
+                linevalues.add(Entry(item.year.toFloat(),item.value.toFloat()))
+            }
+//            linevalues.add(Entry(10f, 0.0F))
+//            linevalues.add(Entry(20f, 3.0F))
+//            linevalues.add(Entry(40f, 2.0F))
+//            linevalues.add(Entry(50F, 5.0F))
+//            linevalues.add(Entry(60F, 6.0F))
+            val linedataset = LineDataSet(linevalues, "First")
+            //We add features to our chart
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                linedataset.color = context.getColor(R.color.app_color)
+            }
+
+            linedataset.valueTextSize = 12F
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                linedataset.fillColor = context.getColor(R.color.light_app_color)
+            }
+            linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
+
+            //We connect our data to the UI Screen
+            val data = LineData(linedataset)
+
+            //binding.ivPriceTrendsGraph.setDrawBorders(false);
+            //binding.ivPriceTrendsGraph.setDrawGridBackground(false);
+            binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
+            binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
+            binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false);
+            //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
+            //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
+            binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false);
+            binding.ivPriceTrendsGraph.getXAxis().position = XAxis.XAxisPosition.BOTTOM;
+            //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
+            binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false);
+            binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false);
+            binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false);
+            //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
+            //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
+            binding.ivPriceTrendsGraph.data = data
+            binding.ivPriceTrendsGraph.animateXY(2000, 2000)
         }
     }
 
@@ -151,8 +217,11 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<R
     private inner class ProjectVideosDroneViewHolder(private val binding: VideoDroneLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             val itemList = ArrayList<String>()
-            itemList.add(data.mediaGalleries[0].videos[0].mediaContent.value.url)
-            itemList.add(data.mediaGalleries[0].droneShoots[0].mediaContent.value.url)
+
+            itemList.add(data.projectCoverImages.newInvestmentPageMedia.value.url)
+
+//            itemList.add(data.mediaGalleries[0].videos[0].mediaContent.value.url)
+//            itemList.add(data.mediaGalleries[0].droneShoots[0].mediaContent.value.url)
             videoDroneAdapter = VideoDroneAdapter(itemList)
             binding.rvVideoDrone.adapter = videoDroneAdapter
             binding.tvVideoDroneSeeAll.setOnClickListener(onItemClickListener)
@@ -166,8 +235,7 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<R
 
     private inner class ProjectSkusViewHolder(private val binding: SkusLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            val itemList = arrayListOf<String>("1", "2", "3", "4", "5")
-            skuAdapter = SkuAdapter(itemList)
+            skuAdapter = SkuAdapter(data.inventoryBucketContents)
             binding.rvSkus.adapter = skuAdapter
             itemView.tag = this
             binding.tvSkusSeeAll.setOnClickListener(onItemClickListener)
@@ -177,12 +245,10 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<R
     private inner class ProjectAmenitiesViewHolder(private val binding: ProjectAmenitiesLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             binding.apply {
-                tvPaFirstText.text = data.opprotunityDocs[0].projectAminities[0].name
-                tvPaSecondText.text = data.opprotunityDocs[0].projectAminities[1].name
-                tvPaThirdText.text = data.opprotunityDocs[0].projectAminities[2].name
-                tvPaFourText.text = data.opprotunityDocs[0].projectAminities[1].name
+                val adapter = ProjectAmenitiesAdapter(context,data.opprotunityDocs[0].projectAminities)
+                rvProjectAmenitiesItemRecycler.adapter = adapter
+                tvProjectAmenitiesAll.setOnClickListener(onItemClickListener)
             }
-            binding.tvProjectAmenitiesAll.setOnClickListener(onItemClickListener)
         }
     }
 
@@ -195,17 +261,19 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<R
 
     private inner class ProjectPromisesViewHolder(private val binding: PromisesLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            val itemList = arrayListOf<String>("1", "2", "3", "4", "5")
+            val itemList = promisesData
             promisesAdapter = PromisesAdapter(itemList)
             binding.rvPromises.adapter = promisesAdapter
+            binding.clNotConvincedPromises.setOnClickListener(onItemClickListener)
         }
     }
 
     private inner class ProjectFaqViewHolder(private val binding: FaqLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            val itemList = arrayListOf<String>("1", "2", "3", "4", "5")
-            faqAdapter = FaqAdapter(itemList)
+            val itemList = data.projectContentsAndFaqs
+            faqAdapter = FaqQuestionAdapter(itemList)
             binding.rvFaq.adapter = faqAdapter
+            binding.tvFaqReadAll.setOnClickListener(onItemClickListener)
         }
     }
 
@@ -222,8 +290,7 @@ class ProjectDetailAdapter(private val context: Context, private val list:List<R
 
     private inner class ProjectSimilarInvestmentsViewHolder(private val binding: SimilarInvestmentsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            val list = list[position]
-            val itemList = arrayListOf<String>("1", "2", "3", "4", "5")
+            val itemList = data.similarInvestments
             similarInvestmentsAdapter = InvestmentAdapter(context, itemList)
             binding.rvSimilarInvestment.adapter = similarInvestmentsAdapter
         }

@@ -51,25 +51,23 @@ class NewInvestmentAdapter(private val activity:HomeActivity, private val contex
     private inner class InvestmentTopViewHolder(private val binding: NewInvestmentTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             val listViews = ArrayList<String>()
-            listViews.add(data.pageManagementsOrNewInvestments[0].mediaGalleries[0].coverImage[0].mediaContent.value.url)
-            listViews.add(data.pageManagementsOrNewInvestments[0].mediaGalleries[0].coverImage[0].mediaContent.value.url)
-            listViews.add(data.pageManagementsOrNewInvestments[0].mediaGalleries[0].coverImage[0].mediaContent.value.url)
-            listViews.add(data.pageManagementsOrNewInvestments[0].mediaGalleries[0].coverImage[0].mediaContent.value.url)
-            listViews.add(data.pageManagementsOrNewInvestments[0].mediaGalleries[0].coverImage[0].mediaContent.value.url)
+            listViews.add(data.pageManagementsOrNewInvestments.projectCoverImages.newInvestmentPageMedia.value.url)
+
             adapter = InvestmentViewPagerAdapter(listViews)
             binding.viewPager.adapter = adapter
-            binding.ivSmallImage.setImageResource(R.drawable.new_investment_page_image)
-
             binding.tvNewLaunch.text = data.newInvestments.displayName
             binding.tvComingSoon.text = data.newInvestments.subHeading
-            binding.tvInvestmentProjectName.text = data.pageManagementsOrNewInvestments[0].launchName
-            binding.tvAmount.text = data.pageManagementsOrNewInvestments[0].priceRange.from + " Onwards"
-            binding.tvArea.text = data.pageManagementsOrNewInvestments[0].areaRange.from + " Onwards"
-            binding.tvBackgroundGrey.text = data.pageManagementsOrNewInvestments[0].shortDescription
-            binding.tvViewInfo.text = "${data.pageManagementsOrNewInvestments[0].fomoContent.noOfViews} People saw this project in ${data.pageManagementsOrNewInvestments[0].fomoContent.days} days"
+            binding.tvInvestmentProjectName.text = data.pageManagementsOrNewInvestments.launchName
+            binding.tvAmount.text = data.pageManagementsOrNewInvestments.priceStartingFrom + " Onwards"
+            binding.tvArea.text = data.pageManagementsOrNewInvestments.areaStartingFrom + " Onwards"
+            binding.tvBackgroundGrey.text = data.pageManagementsOrNewInvestments.shortDescription
+            binding.tvViewInfo.text = "${data.pageManagementsOrNewInvestments.fomoContent.noOfViews} People saw this project in ${data.pageManagementsOrNewInvestments.fomoContent.days} days"
+//            Glide.with(context)
+//                .load(data.promotionAndOffersMedia.value.url)
+//                .into(binding.ivDontMissImage)
             Glide.with(context)
-                .load(data.promotionAndOffersMedia.value.url)
-                .into(binding.ivDontMissImage)
+                .load(data.pageManagementsOrNewInvestments.projectCoverImages.newInvestmentPageMedia.value.url)
+                .into(binding.ivSmallImage)
         }
     }
 

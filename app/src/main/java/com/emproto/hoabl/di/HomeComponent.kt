@@ -5,6 +5,8 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
 import com.emproto.hoabl.feature.login.*
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
+import com.emproto.hoabl.feature.investment.views.FaqDetailFragment
+import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.portfolio.views.PortfolioExistingUsersFragment
 import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
@@ -39,4 +41,6 @@ interface HomeComponent {
     fun inject(fragment: PortfolioSpecificProjectView)
     fun inject(fragment: EditProfileFragment)
     fun inject(fragment: ProjectTimelineFragment)
+    fun inject(fragment: FaqDetailFragment)
+    fun inject(fragment: LandSkusFragment)
 }

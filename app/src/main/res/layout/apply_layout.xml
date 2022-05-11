@@ -11,7 +11,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/margin_size_30"
+        android:layout_marginTop="@dimen/margin_size_10"
         android:textAlignment="center"
         android:background="@drawable/all_corner_radius_white_bg"
         android:backgroundTint="@color/background_yellow_color"

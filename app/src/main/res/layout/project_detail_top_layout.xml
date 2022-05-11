@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/text_blue_color">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -218,17 +219,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/project_detail_viewPager"/>
 
-        <com.google.android.material.textview.MaterialTextView
+        <TextView
             android:id="@+id/tv_location_information_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_size_12"
             android:layout_marginVertical="@dimen/margin_size_12"
             android:lineSpacingMultiplier="1.5"
-            android:text="The Isle of Bliss is phase 2 of Codename Bliss Dapoli, a seaside lifestyle plotting development from The House of Abhinandan Lodha…READ MORE"
+            tools:text="The Isle of Bliss is phase 2 of Codename Bliss Dapoli, a seaside lifestyle plotting development from The House of Abhinandan Lodha…READ MORE"
             style="@style/text_style_text_black_color_14"
             android:fontFamily="@font/jost_light"
-            app:layout_constraintBottom_toTopOf="@id/cv_area_range"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tab_dot_layout" />
@@ -288,7 +288,7 @@
             android:layout_marginStart="@dimen/margin_size_10"
             android:layout_marginEnd="11dp"
             app:cardCornerRadius="@dimen/margin_size_8"
-            android:layout_marginVertical="@dimen/margin_size_12"
+            android:layout_marginVertical="@dimen/margin_size_16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/cv_price_range"
             app:layout_constraintTop_toBottomOf="@id/tv_location_information_text">
@@ -372,17 +372,59 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_project_view_info" />
 
-        <ImageView
-            android:id="@+id/iv_why_invest"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_not_convinced"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/investment_dont_miss_image"
+            android:background="@drawable/not_convinced_bg"
+            android:layout_marginHorizontal="@dimen/margin_size_20"
+            android:layout_marginTop="@dimen/margin_size_22"
             app:layout_constraintStart_toStartOf="parent"
-            android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_registration_number"
-            android:layout_marginTop="@dimen/margin_size_20"
-            android:layout_marginHorizontal="@dimen/margin_size_20"/>
+
+            >
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_still_not_convinced"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:layout_marginHorizontal="@dimen/margin_size_23"
+                android:layout_marginTop="@dimen/margin_size_20"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="Still not convinced?"
+                style="@style/text_style_white_16"
+                android:fontFamily="@font/jost_medium" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_still_not_convinced_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jost_regular"
+                android:text="Schedule a video call with our supervisors and have them show you a live demo"
+                style="@style/text_light_ash_14"
+                android:layout_marginTop="@dimen/_4sdp"
+                app:layout_constraintStart_toStartOf="@id/tv_still_not_convinced"
+                app:layout_constraintTop_toBottomOf="@id/tv_still_not_convinced"
+                app:layout_constraintEnd_toStartOf="@id/iv_not_convinced_arrow"
+                android:layout_marginEnd="@dimen/margin_size_20"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="@dimen/margin_size_20"
+                />
+
+            <ImageView
+                android:id="@+id/iv_not_convinced_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_right_"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="@dimen/margin_size_30"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

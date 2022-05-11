@@ -11,6 +11,8 @@ import com.emproto.hoabl.feature.investment.adapters.MediaPhotosAdapter
 import com.emproto.hoabl.model.MediaGalleryItem
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.MediaGallery
+import com.emproto.networklayer.response.investment.ProjectCoverImages
+import java.io.Serializable
 
 class PhotosFragment:BaseFragment() {
 
@@ -20,6 +22,7 @@ class PhotosFragment:BaseFragment() {
 
     lateinit var binding: FragmentPhotosBinding
     lateinit var mediaPhotosAdapter: MediaPhotosAdapter
+    lateinit var mediaData:ProjectCoverImages
 
 //    val onPhotosItemClickListener = View.OnClickListener {  view ->
 //        when(view.id){
@@ -38,18 +41,20 @@ class PhotosFragment:BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mediaData = (requireParentFragment() as MediaGalleryFragment).data
+        mediaData = (requireParentFragment() as MediaGalleryFragment).data
         setUpRecyclerView(mediaData)
     }
 
-    private fun setUpRecyclerView(mediaData: List<MediaGallery>) {
+    private fun setUpRecyclerView(mediaData: ProjectCoverImages) {
         val list = ArrayList<MediaGalleryItem>()
         list.add(MediaGalleryItem(1,"Photos"))
         list.add(MediaGalleryItem(2,"Photos"))
 
-        mediaPhotosAdapter = MediaPhotosAdapter(this.requireContext(),list,itemClickListener,mediaData)
-        binding.rvMainPhotos.adapter = mediaPhotosAdapter
+        val imageList = arrayListOf<String>()
+        imageList.add(mediaData.newInvestmentPageMedia.value.url)
 
+        mediaPhotosAdapter = MediaPhotosAdapter(this.requireContext(),list,itemClickListener,imageList)
+        binding.rvMainPhotos.adapter = mediaPhotosAdapter
     }
 
 //    override fun onItemClicked(view: View, position: Int, item: String) {
@@ -62,7 +67,13 @@ class PhotosFragment:BaseFragment() {
 
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
-            (requireActivity() as HomeActivity).addFragment(MediaViewFragment(), true)
+            val bundle = Bundle()
+            bundle.putString("MediaType","Photo")
+//            val list = arrayListOf<String>()
+//            list.add()
+            bundle.putString("ImageData",mediaData.newInvestmentPageMedia.value.url)
+            val mediaViewFragment = MediaViewFragment()
+            (requireActivity() as HomeActivity).replaceFragment(mediaViewFragment.javaClass, "", true, bundle, null, 0, false)
         }
     }
 

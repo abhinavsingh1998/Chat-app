@@ -14,6 +14,7 @@ import com.emproto.networklayer.response.portfolio.dashboard.Completed
 import com.emproto.networklayer.response.portfolio.dashboard.Ongoing
 import com.emproto.networklayer.response.portfolio.dashboard.Project
 import com.emproto.networklayer.response.watchlist.Data
+import com.emproto.networklayer.response.investment.SimilarInvestment
 
 class ExistingUsersPortfolioAdapter(
     private val context: Context,
@@ -264,6 +265,7 @@ class ExistingUsersPortfolioAdapter(
             binding.tvSmartDealsTitle.text = "My WatchList"
             watchlistAdapter = WatchlistAdapter(context, watchList)
             binding.rvSmartDealsNv.adapter = watchlistAdapter
+
         }
     }
 

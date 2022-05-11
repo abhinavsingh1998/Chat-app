@@ -14,7 +14,7 @@ class MediaPhotosAdapter(
     private val context:Context,
     private val itemList: List<MediaGalleryItem>,
     private val clickListener: ItemClickListener,
-    private val mediaData: List<MediaGallery>
+    private val mediaData: List<String>
 ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object{
@@ -53,13 +53,13 @@ class MediaPhotosAdapter(
         fun bind(position: Int){
             when(itemList[position].type){
                 "Photos" -> {
-                    val imageList = mediaData[0].images
+                    val imageList = mediaData
                     mediaPhotosPictureAdapter = MediaPhotosPictureAdapter(context,clickListener,imageList)
                     binding.rvPhotos.adapter = mediaPhotosPictureAdapter
 //                    mediaPhotosPictureAdapter.setMediaPhotoItemClickListener(fragment.onPhotosItemClickListener)
                 }
                 "Videos" -> {
-                    val videoList = mediaData[0].images
+                    val videoList = mediaData
                     mediaPhotosPictureAdapter = MediaPhotosPictureAdapter(context,clickListener,videoList)
                     binding.rvPhotos.adapter = mediaPhotosPictureAdapter
                 }
