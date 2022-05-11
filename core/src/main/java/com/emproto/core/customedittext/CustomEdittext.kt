@@ -203,9 +203,10 @@ class CustomEdittext : ConstraintLayout {
             countryCodeText.setTextColor(appContext.getColor(R.color.error_color))
             hintTextView.setTextColor(appContext.getColor(R.color.error_color))
             backGroundView.background = appContext.getDrawable(R.drawable.custom_et_error_bg)
-            editText.error= "Please enter Valid number"
+//            editText.error= ""
         }
     }
+
 
     public fun onValueChangeListner(onValueChangedListener: OnValueChangedListener) {
         this.onValueChangeListner = onValueChangedListener
@@ -219,7 +220,6 @@ class CustomEdittext : ConstraintLayout {
         dropDownValue = list[0]
         dropDownValues.clear()
         dropDownValues.addAll(list)
-
     }
 
 

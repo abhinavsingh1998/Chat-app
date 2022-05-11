@@ -315,14 +315,19 @@ class OTPVerificationFragment : BaseFragment() {
             if(attempts_num > 0){
                 resentOtp()
                 requestPermission()
+                Toast.makeText(requireContext(), "resend OTP successfully", Toast.LENGTH_LONG).show()
                 startSmsUserConsent()
                 mBinding.loginEdittext.setHint("Enter OTP ($attempts_num attempts left)")
+            } else if(attempts_num == 0){
+                resentOtp()
+                requestPermission()
+                startSmsUserConsent()
+                Toast.makeText(requireContext(), "resend OTP successfully", Toast.LENGTH_LONG).show()
+                mBinding.loginEdittext.setHint("Enter OTP")
             }
             else{
-
                 mBinding.loginEdittext.setHint("Enter OTP")
                 Toast.makeText(requireContext(), "You have reached maximum attempts", Toast.LENGTH_LONG).show()
-
             }
             --attempts_num
         })

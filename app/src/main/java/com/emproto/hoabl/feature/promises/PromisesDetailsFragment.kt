@@ -60,7 +60,7 @@ class PromisesDetailsFragment : BaseFragment() {
         homeViewModel =
             ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
-            true
+            false
 
         initView()
         initObserver()

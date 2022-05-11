@@ -30,6 +30,8 @@ import androidx.core.content.res.ResourcesCompat
 import com.emproto.core.databinding.TermsConditionDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import android.text.method.ScrollingMovementMethod
+import android.util.Patterns
+import java.util.regex.Pattern
 
 
 class LoginFragment : BaseFragment() {
@@ -42,6 +44,7 @@ class LoginFragment : BaseFragment() {
     var hCountryCode = ""
     lateinit var bottomSheetDialog: BottomSheetDialog
     lateinit var termsConditionDialogBinding: TermsConditionDialogBinding
+    val patterns  = Pattern.compile("[1-9][0-9]{9}")
 
     @Inject
     lateinit var appPreference: AppPreference
@@ -59,6 +62,7 @@ class LoginFragment : BaseFragment() {
         initObserver()
         return mBinding.root
     }
+
 
     private fun initObserver() {
         authViewModel.getTermsCondition(5004).observe(viewLifecycleOwner, Observer {
@@ -83,6 +87,7 @@ class LoginFragment : BaseFragment() {
         list.add("+311")
         mBinding.inputMobile.addDropDownValues(list)
 
+        hMobileNo= appPreference.getMobilenum()
         bottomSheetDialog = BottomSheetDialog(requireContext())
         termsConditionDialogBinding = TermsConditionDialogBinding.inflate(layoutInflater)
         bottomSheetDialog.setContentView(termsConditionDialogBinding.root)
@@ -152,15 +157,15 @@ class LoginFragment : BaseFragment() {
             }
         }
 
-
         mBinding.getOtpButton.setOnClickListener {
 
-            if (hMobileNo.isEmpty() || hMobileNo.length != 10) {
+            if (hMobileNo.isNullOrEmpty() || hMobileNo.length!= 10 || !hMobileNo.isNumber()) {
                 mBinding.otpText.visibility = View.INVISIBLE
                 mBinding.textError.visibility = View.VISIBLE
                 mBinding.inputMobile.showError()
                 return@setOnClickListener
             }
+
 
             val otpRequest = OtpRequest(hMobileNo, "+91", "IN")
             authViewModel.getOtp(otpRequest).observe(viewLifecycleOwner, Observer {
@@ -188,6 +193,9 @@ class LoginFragment : BaseFragment() {
             })
         }
     }
+
+    fun CharSequence?.isNumber() =
+        patterns.matcher(this).matches()
 
     private fun TextView.makeLinks(vararg links: Pair<String, View.OnClickListener>) {
         val spannableString = SpannableString(this.text)
@@ -219,6 +227,5 @@ class LoginFragment : BaseFragment() {
             LinkMovementMethod.getInstance() // without LinkMovementMethod, link can not click
         this.setText(spannableString, TextView.BufferType.SPANNABLE)
     }
-
 }
 

@@ -65,7 +65,4 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomDBVersion"
     kapt "androidx.room:room-compiler:$roomDBVersion"
 
-    implementation 'com.google.android.gms:play-services-auth:20.2.0'
-    implementation 'com.google.android.gms:play-services-auth-api-phone:18.0.1'
-
 }
