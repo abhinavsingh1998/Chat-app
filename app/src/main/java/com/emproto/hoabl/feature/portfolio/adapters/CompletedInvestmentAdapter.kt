@@ -5,6 +5,7 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
@@ -40,6 +41,7 @@ class CompletedInvestmentAdapter(
         return MyViewHolder(view)
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         //set data to view
         holder.binding.tvManageProjects.setOnClickListener {
@@ -81,11 +83,9 @@ class CompletedInvestmentAdapter(
 
             //setting chart data
             val linevalues = ArrayList<Entry>()
-            linevalues.add(Entry(10f, 0.0F))
-            linevalues.add(Entry(20f, 3.0F))
-            linevalues.add(Entry(40f, 2.0F))
-            linevalues.add(Entry(50F, 5.0F))
-            linevalues.add(Entry(60F, 6.0F))
+            for (item in project.project.generalInfoEscalationGraph.dataPoints.points) {
+                linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
+            }
             val linedataset = LineDataSet(linevalues, "First")
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -94,15 +94,17 @@ class CompletedInvestmentAdapter(
 
             linedataset.valueTextSize = 0F
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset.fillColor = context.getColor(R.color.light_app_color)
+                linedataset.fillColor = context.getColor(R.color.app_color)
             }
             linedataset.mode = LineDataSet.Mode.LINEAR;
+            linedataset.setCircleColor(context.getColor(R.color.app_color))
 
             //We connect our data to the UI Screen
             val data = LineData(linedataset)
 
             //binding.ivPriceTrendsGraph.setDrawBorders(false);
             //binding.ivPriceTrendsGraph.setDrawGridBackground(false);
+
             holder.binding.ivCompletedInvestmentGraphImage.getDescription().setEnabled(false);
             holder.binding.ivCompletedInvestmentGraphImage.getLegend().setEnabled(false);
             holder.binding.ivCompletedInvestmentGraphImage.getAxisLeft().setDrawGridLines(false);
@@ -123,6 +125,7 @@ class CompletedInvestmentAdapter(
 
 
             val linedataset1 = LineDataSet(linevalues, "First")
+            linedataset1.setCircleColor(context.getColor(R.color.app_color))
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 linedataset1.color = context.getColor(R.color.app_color)
@@ -130,7 +133,7 @@ class CompletedInvestmentAdapter(
 
             linedataset1.valueTextSize = 12F
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset1.fillColor = context.getColor(R.color.light_app_color)
+                linedataset1.fillColor = context.getColor(R.color.app_color)
             }
             linedataset1.mode = LineDataSet.Mode.LINEAR;
 
