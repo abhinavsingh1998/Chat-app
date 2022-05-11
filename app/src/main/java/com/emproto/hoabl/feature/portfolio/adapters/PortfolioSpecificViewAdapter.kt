@@ -26,7 +26,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class PortfolioSpecificViewAdapter(
     private val context: Context,
-    private val list: List<RecyclerViewItem>
+    private val list: List<RecyclerViewItem>,
+    private val ivInterface: InvestmentScreenInterface
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -188,7 +189,7 @@ class PortfolioSpecificViewAdapter(
     private inner class ProjectSpecificTopViewHolder(private val binding: PortfolioSpecificViewTopLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            binding.btnApplyNow.setOnClickListener(onItemClickListener)
+            //binding.btnApplyNow.setOnClickListener(onItemClickListener)
             binding.tvViewMore.setOnClickListener {
                 binding.tvViewLess.visibility = View.VISIBLE
                 binding.ivViewMoreArrowUpward.visibility = View.VISIBLE
@@ -234,8 +235,13 @@ class PortfolioSpecificViewAdapter(
 
             }
 
-            binding.tvViewTimeline.setOnClickListener(onItemClickListener)
-            binding.tvViewBookingJourney.setOnClickListener(onItemClickListener)
+            binding.tvViewTimeline.setOnClickListener {
+                ivInterface.seeProjectTimeline()
+
+            }
+            binding.tvViewBookingJourney.setOnClickListener {
+                ivInterface.seeBookingJourney()
+            }
         }
     }
 
@@ -272,6 +278,7 @@ class PortfolioSpecificViewAdapter(
     private inner class FacilityManagementViewHolder(private val binding: FacilityManagementLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
+            binding.cvFacilityManagementCard.setOnClickListener { ivInterface.onClickFacilityCard() }
         }
     }
 
@@ -283,7 +290,9 @@ class PortfolioSpecificViewAdapter(
                 documentsAdapter = DocumentsAdapter(docList)
                 binding.rvDocuments.adapter = documentsAdapter
             }
-            binding.tvDocumentsSeeAll.setOnClickListener(onItemClickListener)
+            binding.tvDocumentsSeeAll.setOnClickListener {
+                ivInterface.seeAllCard()
+            }
         }
     }
 
@@ -386,8 +395,11 @@ class PortfolioSpecificViewAdapter(
     }
 
 
-    fun setItemClickListener(clickListener: View.OnClickListener) {
-        onItemClickListener = clickListener
+    interface InvestmentScreenInterface {
+        fun onClickFacilityCard()
+        fun seeAllCard()
+        fun seeProjectTimeline()
+        fun seeBookingJourney()
     }
 
 }

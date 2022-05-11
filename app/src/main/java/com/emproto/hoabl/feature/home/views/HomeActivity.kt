@@ -282,7 +282,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             super.onBackPressed()
         } else if (
             getCurrentFragment() is PortfolioSpecificProjectView ||
-            getCurrentFragment() is ProjectTimelineFragment
+            getCurrentFragment() is ProjectTimelineFragment ||
+            getCurrentFragment() is FmFragment
 
         ) {
             super.onBackPressed()

@@ -18,6 +18,7 @@ import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import javax.inject.Inject
 
@@ -32,40 +33,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
     lateinit var portfolioFactory: PortfolioFactory
     lateinit var portfolioviewmodel: PortfolioViewModel
     val list = ArrayList<RecyclerViewItem>()
-
-    private val onPortfolioSpecificItemClickListener =
-        View.OnClickListener { view ->
-            when (view.id) {
-                R.id.btn_apply_now -> {
-                    val applyDialog = ApplicationSubmitDialog(
-                        "Request Sent",
-                        "A relationship manager will get back to you to discuss more about it."
-                    )
-                    applyDialog.show(this.parentFragmentManager, "ApplicationThankingDialog")
-                }
-                R.id.tv_documents_see_all -> {
-
-                    docsBottomSheet.show()
-                }
-                R.id.tv_view_timeline -> {
-                    (requireActivity() as HomeActivity).addFragment(
-                        ProjectTimelineFragment.newInstance(
-                            "",
-                            ""
-                        ), false
-                    )
-
-                }
-                R.id.tv_view_booking_journey -> {
-                    (requireActivity() as HomeActivity).addFragment(
-                        BookingjourneyFragment.newInstance(
-                            "",
-                            ""
-                        ), false
-                    )
-                }
-            }
-        }
+    lateinit var fmData: FMResponse
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -147,11 +115,44 @@ class PortfolioSpecificProjectView : BaseFragment() {
                     }
 
                     portfolioSpecificViewAdapter =
-                        PortfolioSpecificViewAdapter(this.requireContext(), list)
+                        PortfolioSpecificViewAdapter(
+                            this.requireContext(),
+                            list,
+                            object : PortfolioSpecificViewAdapter.InvestmentScreenInterface {
+                                override fun onClickFacilityCard() {
+                                    (requireActivity() as HomeActivity).addFragment(
+                                        FmFragment.newInstance(
+                                            fmData.data.web_url,
+                                            ""
+                                        ), false
+                                    )
+                                }
+
+                                override fun seeAllCard() {
+                                    docsBottomSheet.show()
+                                }
+
+                                override fun seeProjectTimeline() {
+                                    (requireActivity() as HomeActivity).addFragment(
+                                        ProjectTimelineFragment.newInstance(
+                                            "",
+                                            ""
+                                        ), false
+                                    )
+                                }
+
+                                override fun seeBookingJourney() {
+                                    (requireActivity() as HomeActivity).addFragment(
+                                        BookingjourneyFragment.newInstance(
+                                            "",
+                                            ""
+                                        ), false
+                                    )
+                                }
+
+                            })
                     binding.rvPortfolioSpecificView.adapter = portfolioSpecificViewAdapter
-                    portfolioSpecificViewAdapter.setItemClickListener(
-                        onPortfolioSpecificItemClickListener
-                    )
+
                     fetchDocuments()
                 }
                 Status.ERROR -> {
@@ -167,6 +168,15 @@ class PortfolioSpecificProjectView : BaseFragment() {
     }
 
     private fun fetchDocuments() {
+        portfolioviewmodel.getFacilityManagment().observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    it.data.let {
+                        fmData = it!!
+                    }
+                }
+            }
+        })
         portfolioviewmodel.getDocumentList(1).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
@@ -205,8 +215,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
         list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_REFERNOW))
         list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_FAQ))
         list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_SIMILER_INVESTMENT))
-        portfolioSpecificViewAdapter = PortfolioSpecificViewAdapter(this.requireContext(), list)
+        //portfolioSpecificViewAdapter = PortfolioSpecificViewAdapter(this.requireContext(), list)
         binding.rvPortfolioSpecificView.adapter = portfolioSpecificViewAdapter
-        portfolioSpecificViewAdapter.setItemClickListener(onPortfolioSpecificItemClickListener)
+        //portfolioSpecificViewAdapter.setItemClickListener(onPortfolioSpecificItemClickListener)
     }
 }

@@ -8,6 +8,7 @@ import com.emproto.hoabl.repository.PortfolioRepository
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
+import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
 import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineResponse
 import com.emproto.networklayer.response.profile.ProfileResponse
@@ -53,5 +54,9 @@ class PortfolioViewModel(
 
     fun getProjectTimeline(id: Int): LiveData<BaseResponse<ProjectTimelineResponse>> {
         return portfolioRepository.getProjectTimeline(id)
+    }
+
+    fun getFacilityManagment(): LiveData<BaseResponse<FMResponse>> {
+        return portfolioRepository.getFacilitymanagment()
     }
 }

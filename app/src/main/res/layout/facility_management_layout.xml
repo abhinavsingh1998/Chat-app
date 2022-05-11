@@ -85,7 +85,7 @@
                     android:layout_width="76dp"
                     android:layout_height="76dp"
                     android:layout_marginEnd="@dimen/margin_size_39"
-                    android:src="@drawable/ic_home"
+                    android:src="@drawable/fmcard_image"
                     app:layout_constraintBottom_toBottomOf="@id/tv_manage_now"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/tv_facility_management_description"
