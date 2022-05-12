@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,22 +52,22 @@ class NewInvestmentAdapter(private val activity:HomeActivity, private val contex
     private inner class InvestmentTopViewHolder(private val binding: NewInvestmentTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             val listViews = ArrayList<String>()
-            listViews.add(data.pageManagementsOrNewInvestments.projectCoverImages.newInvestmentPageMedia.value.url)
+            listViews.add(data.page.pageManagementsOrNewInvestments[0].projectCoverImages.newInvestmentPageMedia.value.url)
 
             adapter = InvestmentViewPagerAdapter(listViews)
             binding.viewPager.adapter = adapter
-            binding.tvNewLaunch.text = data.newInvestments.displayName
-            binding.tvComingSoon.text = data.newInvestments.subHeading
-            binding.tvInvestmentProjectName.text = data.pageManagementsOrNewInvestments.launchName
-            binding.tvAmount.text = data.pageManagementsOrNewInvestments.priceStartingFrom + " Onwards"
-            binding.tvArea.text = data.pageManagementsOrNewInvestments.areaStartingFrom + " Onwards"
-            binding.tvBackgroundGrey.text = data.pageManagementsOrNewInvestments.shortDescription
-            binding.tvViewInfo.text = "${data.pageManagementsOrNewInvestments.fomoContent.noOfViews} People saw this project in ${data.pageManagementsOrNewInvestments.fomoContent.days} days"
+            binding.tvNewLaunch.text = data.page.newInvestments.displayName
+            binding.tvComingSoon.text = data.page.newInvestments.subHeading
+            binding.tvInvestmentProjectName.text = data.page.pageManagementsOrNewInvestments[0].launchName
+            binding.tvAmount.text = data.page.pageManagementsOrNewInvestments[0].priceStartingFrom + " Onwards"
+            binding.tvArea.text = data.page.pageManagementsOrNewInvestments[0].areaStartingFrom + " Onwards"
+            binding.tvBackgroundGrey.text = data.page.pageManagementsOrNewInvestments[0].shortDescription
+            binding.tvViewInfo.text = "${data.page.pageManagementsOrNewInvestments[0].fomoContent.noOfViews} People saw this project in ${data.page.pageManagementsOrNewInvestments[0].fomoContent.days} days"
 //            Glide.with(context)
 //                .load(data.promotionAndOffersMedia.value.url)
 //                .into(binding.ivDontMissImage)
             Glide.with(context)
-                .load(data.pageManagementsOrNewInvestments.projectCoverImages.newInvestmentPageMedia.value.url)
+                .load(data.page.pageManagementsOrNewInvestments[0].projectCoverImages.newInvestmentPageMedia.value.url)
                 .into(binding.ivSmallImage)
         }
     }
@@ -79,8 +80,8 @@ class NewInvestmentAdapter(private val activity:HomeActivity, private val contex
 
     private inner class SmartDealsViewHolder(private val binding: SmartDealsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvSmartDealsTitle.text = data.collectionOne.displayName
-            binding.tvSmartDealsSubtitle.text = data.collectionOne.subHeading
+            binding.tvSmartDealsTitle.text = data.page.collectionOne.displayName
+            binding.tvSmartDealsSubtitle.text = data.page.collectionOne.subHeading
             binding.tvSmartDealsSeeAll.setOnClickListener(onItemClickListener)
 
             val list = data.pageManagementsOrCollectionOneModels
@@ -93,8 +94,8 @@ class NewInvestmentAdapter(private val activity:HomeActivity, private val contex
 
     private inner class TrendingProjectsViewHolder(private val binding: TrendingProjectsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvTrendingProjectsTitle.text = data.collectionTwo.displayName
-            binding.tvTrendingProjectsSubtitle.text = data.collectionTwo.subHeading
+            binding.tvTrendingProjectsTitle.text = data.page.collectionTwo.displayName
+            binding.tvTrendingProjectsSubtitle.text = data.page.collectionTwo.subHeading
 
             val list = data.pageManagementsOrCollectionTwoModels
             smartDealsAdapter = SmartDealsAdapter(context, list)

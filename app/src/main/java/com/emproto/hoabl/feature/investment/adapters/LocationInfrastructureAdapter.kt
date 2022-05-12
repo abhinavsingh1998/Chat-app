@@ -1,13 +1,18 @@
 package com.emproto.hoabl.feature.investment.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemLocationInfrastructureBinding
 import com.emproto.networklayer.response.investment.LocInfValues
 import com.emproto.networklayer.response.investment.ValueXXX
 
-class LocationInfrastructureAdapter(private val list: List<ValueXXX>):RecyclerView.Adapter<LocationInfrastructureAdapter.MyViewHolder>() {
+class LocationInfrastructureAdapter(
+    private val context: Context,
+    private val list: List<ValueXXX>
+):RecyclerView.Adapter<LocationInfrastructureAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: ItemLocationInfrastructureBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -20,6 +25,7 @@ class LocationInfrastructureAdapter(private val list: List<ValueXXX>):RecyclerVi
         val element = list[position]
         holder.binding.apply {
             tvLocationName.text  = element.name
+            tvLocationDistance.visibility = View.VISIBLE
         }
     }
 

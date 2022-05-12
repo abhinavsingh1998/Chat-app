@@ -28,11 +28,9 @@ import com.emproto.hoabl.feature.home.notification.HoabelNotifiaction
 import com.emproto.hoabl.feature.home.notification.adapter.NotificationAdapter
 import com.emproto.hoabl.feature.home.notification.data.NotificationDataModel
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
+import com.emproto.hoabl.feature.investment.views.CategoryListFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
-import com.emproto.hoabl.feature.portfolio.views.PortfolioExistingUsersFragment
-import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
-import com.emproto.hoabl.feature.portfolio.views.PortfolioSpecificProjectView
-import com.emproto.hoabl.feature.portfolio.views.ProjectTimelineFragment
+import com.emproto.hoabl.feature.portfolio.views.*
 import com.emproto.hoabl.feature.promises.HoabelPromises
 import com.emproto.hoabl.feature.profile.ProfileFragment
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
@@ -263,7 +261,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                     fragmentTransaction.replace(contentFrame, fragment, finalTag)
                     if (addToBackStack) fragmentTransaction.addToBackStack(finalTag)
                     supportFragmentManager.executePendingTransactions()
-                    fragmentTransaction.commit()
+                    fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit).commit()
                 }
             }
         } catch (e: IllegalStateException) {
@@ -286,12 +284,10 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         } else if (
             getCurrentFragment() is PortfolioSpecificProjectView ||
             getCurrentFragment() is ProjectTimelineFragment
-
         ) {
             super.onBackPressed()
         } else {
-            super.onBackPressed()
-//            navigate(R.id.navigation_hoabl)
+            navigate(R.id.navigation_hoabl)
         }
     }
 

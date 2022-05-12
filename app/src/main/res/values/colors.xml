@@ -95,4 +95,5 @@
     <color name="infra_story_bg">#5b000000</color>
     <color name="story_black_color">#17171c</color>
     <color name="faq_line">#eeeeee</color>
+    <color name="map_vertical_line">#e1e0e0</color>
 </resources>

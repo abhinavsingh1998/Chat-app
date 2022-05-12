@@ -46,14 +46,16 @@ class MediaViewFragment:BaseFragment() {
 
     private fun setupRawVideo() {
 //        val path = "android.resource://" + requireActivity().packageName + "/" + "https://www.youtube.com/watch?v=N-8QUdOdXls"
-        val uri = Uri.parse("https://www.youtube.com/watch?v=tCRbVEGHZlQ")
+        val uri = Uri.parse("https://www.youtube.com/watch?v=868a9F93_lY")
         val mediaController = MediaController(requireActivity())
         mediaController.setAnchorView(binding.vvMediaVideo)
-        binding.vvMediaVideo.setMediaController(mediaController)
+        mediaController.setMediaPlayer(binding.vvMediaVideo)
         binding.vvMediaVideo.setVideoURI(uri)
+        binding.vvMediaVideo.setMediaController(mediaController)
         binding.vvMediaVideo.requestFocus()
-        binding.vvMediaVideo.setOnPreparedListener {
-            binding.vvMediaVideo.start()
-        }
+        binding.vvMediaVideo.start()
+//        binding.vvMediaVideo.setOnPreparedListener {
+//
+//        }
     }
 }
