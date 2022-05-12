@@ -81,6 +81,8 @@ class StepsAdapter(
                 val type1Holder = holder as InProgressHolder
                 val data = dataList[position].timeline
                 type1Holder.binding.tvName.text = data.heading
+                type1Holder.binding.tvPercentage.text =
+                    "" + data.sections[0].values.percentage + "%"
             }
         }
     }

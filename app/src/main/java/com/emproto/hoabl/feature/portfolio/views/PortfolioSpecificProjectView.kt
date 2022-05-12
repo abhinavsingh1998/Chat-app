@@ -12,12 +12,15 @@ import com.emproto.hoabl.databinding.DocumentsBottomSheetBinding
 import com.emproto.hoabl.databinding.FragmentPortfolioSpecificViewBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.fragments.ReferralDialog
 import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
+import com.emproto.hoabl.feature.portfolio.adapters.DocumentsAdapter
 import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import javax.inject.Inject
 
@@ -32,40 +35,9 @@ class PortfolioSpecificProjectView : BaseFragment() {
     lateinit var portfolioFactory: PortfolioFactory
     lateinit var portfolioviewmodel: PortfolioViewModel
     val list = ArrayList<RecyclerViewItem>()
-
-    private val onPortfolioSpecificItemClickListener =
-        View.OnClickListener { view ->
-            when (view.id) {
-                R.id.btn_apply_now -> {
-                    val applyDialog = ApplicationSubmitDialog(
-                        "Request Sent",
-                        "A relationship manager will get back to you to discuss more about it."
-                    )
-                    applyDialog.show(this.parentFragmentManager, "ApplicationThankingDialog")
-                }
-                R.id.tv_documents_see_all -> {
-
-                    docsBottomSheet.show()
-                }
-                R.id.tv_view_timeline -> {
-                    (requireActivity() as HomeActivity).addFragment(
-                        ProjectTimelineFragment.newInstance(
-                            "",
-                            ""
-                        ), false
-                    )
-
-                }
-                R.id.tv_view_booking_journey -> {
-                    (requireActivity() as HomeActivity).addFragment(
-                        BookingjourneyFragment.newInstance(
-                            "",
-                            ""
-                        ), false
-                    )
-                }
-            }
-        }
+    lateinit var fmData: FMResponse
+    var crmId: Int = 0
+    var projectId: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,6 +51,11 @@ class PortfolioSpecificProjectView : BaseFragment() {
             requireActivity(),
             portfolioFactory
         )[PortfolioViewModel::class.java]
+        //getting data from arguments
+        arguments?.let {
+            crmId = it.getInt("IVID")
+            projectId = it.getInt("PID")
+        }
         return binding.root
     }
 
@@ -101,88 +78,138 @@ class PortfolioSpecificProjectView : BaseFragment() {
     }
 
     private fun initObserver() {
-        portfolioviewmodel.getInvestmentDetails(3, 3).observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Status.LOADING -> {
-                    binding.loader.show()
-                    binding.rvPortfolioSpecificView.hide()
-                }
-                Status.SUCCESS -> {
-                    binding.loader.hide()
-                    binding.rvPortfolioSpecificView.show()
-                    it.data?.let {
-                        list.add(
-                            RecyclerViewItem(
-                                PortfolioSpecificViewAdapter.PORTFOLIO_TOP_SECTION,
-                                it.data
+        portfolioviewmodel.getInvestmentDetails(crmId, projectId)
+            .observe(viewLifecycleOwner, Observer {
+                when (it.status) {
+                    Status.LOADING -> {
+                        binding.loader.show()
+                        binding.rvPortfolioSpecificView.hide()
+                    }
+                    Status.SUCCESS -> {
+                        binding.loader.hide()
+                        binding.rvPortfolioSpecificView.show()
+                        it.data?.let {
+                            it.data.projectExtraDetails = portfolioviewmodel.getprojectAddress()
+                            list.add(
+                                RecyclerViewItem(
+                                    PortfolioSpecificViewAdapter.PORTFOLIO_TOP_SECTION,
+                                    it.data
+                                )
                             )
-                        )
-                        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_FACILITY_CARD))
-                        list.add(
-                            RecyclerViewItem(
-                                PortfolioSpecificViewAdapter.PORTFOLIO_TRENDING_IMAGES,
-                                it.data.projectInformation.latestMediaGalleryOrProjectContent[0]
+                            list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_FACILITY_CARD))
+                            list.add(
+                                RecyclerViewItem(
+                                    PortfolioSpecificViewAdapter.PORTFOLIO_TRENDING_IMAGES,
+                                    it.data.projectInformation.latestMediaGalleryOrProjectContent[0]
+                                )
                             )
-                        )
-                        list.add(
-                            RecyclerViewItem(
-                                PortfolioSpecificViewAdapter.PORTFOLIO_PROMISES,
-                                it.data.projectPromises
+                            list.add(
+                                RecyclerViewItem(
+                                    PortfolioSpecificViewAdapter.PORTFOLIO_PROMISES,
+                                    it.data.projectPromises
+                                )
                             )
-                        )
-                        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_GRAPH))
-                        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_REFERNOW))
-                        list.add(
-                            RecyclerViewItem(
-                                PortfolioSpecificViewAdapter.PORTFOLIO_FAQ,
-                                it.data.projectInformation.projectContentsAndFaqs
+                            list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_GRAPH))
+                            list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_REFERNOW))
+                            list.add(
+                                RecyclerViewItem(
+                                    PortfolioSpecificViewAdapter.PORTFOLIO_FAQ,
+                                    it.data.projectInformation.projectContentsAndFaqs
+                                )
                             )
-                        )
-                        list.add(
-                            RecyclerViewItem(
-                                PortfolioSpecificViewAdapter.PORTFOLIO_SIMILER_INVESTMENT,
-                                it.data.projectInformation.similarInvestments
+                            list.add(
+                                RecyclerViewItem(
+                                    PortfolioSpecificViewAdapter.PORTFOLIO_SIMILER_INVESTMENT,
+                                    it.data.projectInformation.similarInvestments
+                                )
                             )
+                        }
+
+                        portfolioSpecificViewAdapter =
+                            PortfolioSpecificViewAdapter(
+                                this.requireContext(),
+                                list,
+                                object : PortfolioSpecificViewAdapter.InvestmentScreenInterface {
+                                    override fun onClickFacilityCard() {
+                                        (requireActivity() as HomeActivity).addFragment(
+                                            FmFragment.newInstance(
+                                                fmData.data.web_url,
+                                                ""
+                                            ), false
+                                        )
+                                    }
+
+                                    override fun seeAllCard() {
+                                        docsBottomSheet.show()
+                                    }
+
+                                    override fun seeProjectTimeline() {
+                                        (requireActivity() as HomeActivity).addFragment(
+                                            ProjectTimelineFragment.newInstance(
+                                                "",
+                                                ""
+                                            ), false
+                                        )
+                                    }
+
+                                    override fun seeBookingJourney() {
+                                        (requireActivity() as HomeActivity).addFragment(
+                                            BookingjourneyFragment.newInstance(
+                                                "",
+                                                ""
+                                            ), false
+                                        )
+                                    }
+
+                                    override fun referNow() {
+                                        val dialog = ReferralDialog()
+                                        dialog.isCancelable = true
+                                        dialog.show(parentFragmentManager, "Refrral card")
+                                    }
+
+                                })
+                        binding.rvPortfolioSpecificView.adapter = portfolioSpecificViewAdapter
+
+                        fetchDocuments()
+                    }
+                    Status.ERROR -> {
+                        binding.loader.hide()
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            it.message!!
                         )
                     }
 
-                    portfolioSpecificViewAdapter =
-                        PortfolioSpecificViewAdapter(this.requireContext(), list)
-                    binding.rvPortfolioSpecificView.adapter = portfolioSpecificViewAdapter
-                    portfolioSpecificViewAdapter.setItemClickListener(
-                        onPortfolioSpecificItemClickListener
-                    )
-                    fetchDocuments()
                 }
-                Status.ERROR -> {
-                    binding.loader.hide()
-                    (requireActivity() as HomeActivity).showErrorToast(
-                        it.message!!
-                    )
-                }
-
-            }
-        })
+            })
 
     }
 
     private fun fetchDocuments() {
+        portfolioviewmodel.getFacilityManagment().observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    it.data.let {
+                        fmData = it!!
+                    }
+                }
+            }
+        })
         portfolioviewmodel.getDocumentList(1).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
 
                 }
                 Status.SUCCESS -> {
-//                    list.removeAt(3)
-//                    list.add(
-//                        3,
-//                        RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_DOCUMENTS, it.data!!.data)
-//                    )
-//                    portfolioSpecificViewAdapter.notifyItemChanged(3)
-//                    it.data?.let {
-//                        val adapter = DocumentsAdapter(it.data, true)
-//                        documentBinding.rvDocsItemRecycler.adapter = adapter
-//                    }
+                    list.removeAt(2)
+                    list.add(
+                        2,
+                        RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_DOCUMENTS, it.data!!.data)
+                    )
+                    portfolioSpecificViewAdapter.notifyItemChanged(3)
+                    it.data?.let {
+                        val adapter = DocumentsAdapter(it.data, true)
+                        documentBinding.rvDocsItemRecycler.adapter = adapter
+                    }
 
                 }
                 Status.ERROR -> {
@@ -205,8 +232,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
         list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_REFERNOW))
         list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_FAQ))
         list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_SIMILER_INVESTMENT))
-        portfolioSpecificViewAdapter = PortfolioSpecificViewAdapter(this.requireContext(), list)
+        //portfolioSpecificViewAdapter = PortfolioSpecificViewAdapter(this.requireContext(), list)
         binding.rvPortfolioSpecificView.adapter = portfolioSpecificViewAdapter
-        portfolioSpecificViewAdapter.setItemClickListener(onPortfolioSpecificItemClickListener)
+        //portfolioSpecificViewAdapter.setItemClickListener(onPortfolioSpecificItemClickListener)
     }
 }

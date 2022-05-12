@@ -25,7 +25,7 @@ import com.emproto.networklayer.response.enums.Status
 import javax.inject.Inject
 
 
-class HoabelPromises : BaseFragment() {
+class HoablPromises : BaseFragment() {
 
     @Inject
     lateinit var homeFactory: HomeFactory

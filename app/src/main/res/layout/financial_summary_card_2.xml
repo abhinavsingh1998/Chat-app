@@ -178,7 +178,7 @@
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:layout_marginStart="@dimen/margin_size_6"
-            android:src="@drawable/ic_info"
+            android:src="@drawable/ic_info_outlined"
             android:tooltipText="Investor Estimated Appreciation"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/card_name_4"
@@ -190,12 +190,13 @@
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:layout_marginStart="@dimen/margin_size_6"
-            android:src="@drawable/ic_info_white_bg"
+            android:src="@drawable/ic_info_outlined"
             android:tooltipText="Investor Estimated Appreciation"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/content_txt_4"
             app:layout_constraintStart_toEndOf="@id/content_txt_4"
-            app:layout_constraintTop_toTopOf="@id/content_txt_4" />
+            app:layout_constraintTop_toTopOf="@id/content_txt_4"
+            app:tint="@color/white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

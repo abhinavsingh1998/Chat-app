@@ -19,9 +19,10 @@ class ProjectFaqAdapter(private val list: List<ProjectContentsAndFaq>) :
     override fun onBindViewHolder(holder: FaqViewHolder, position: Int) {
         val faqItem = list[position]
         holder.binding.ivFaqCardDropDown.setOnClickListener {
-            holder.binding.ivFaqCardDropDown.visibility = View.INVISIBLE
-            holder.binding.tvFaqAnswer.visibility = View.VISIBLE
-            holder.binding.ivFaqCardUpArrow.visibility = View.VISIBLE
+            //move to another screen flow.
+//            holder.binding.ivFaqCardDropDown.visibility = View.INVISIBLE
+//            holder.binding.tvFaqAnswer.visibility = View.VISIBLE
+//            holder.binding.ivFaqCardUpArrow.visibility = View.VISIBLE
         }
         holder.binding.ivFaqCardUpArrow.setOnClickListener {
             holder.binding.ivFaqCardDropDown.visibility = View.VISIBLE

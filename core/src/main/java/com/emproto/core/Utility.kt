@@ -29,6 +29,28 @@ object Utility {
         return str
     }
 
+    fun parseDateFromUtc(time: String?, inputDateFormat: String?): String? {
+        val inputPattern: String
+        inputPattern = inputDateFormat ?: "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        //yyyy-MM-dd HH:mm:ss.SSS
+        val outputPattern = "dd MMM yyyy"
+        val inputFormat = SimpleDateFormat(inputPattern, Locale.US)
+        val outputFormat = SimpleDateFormat(outputPattern)
+        val date: Date?
+        var str: String? = null
+        return try {
+            date = inputFormat.parse(time)
+            if (date != null) {
+                str = outputFormat.format(date)
+            }
+            str ?: time
+        } catch (e: ParseException) {
+            e.printStackTrace()
+            time
+        }
+    }
+
+
     fun getEncryptedString(value: String): String {
         if (value.length > 4) {
             val firstStr = StringBuilder()

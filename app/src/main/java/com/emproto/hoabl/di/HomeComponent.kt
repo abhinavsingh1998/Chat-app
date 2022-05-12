@@ -14,7 +14,7 @@ import com.emproto.hoabl.feature.portfolio.views.PortfolioSpecificProjectView
 import com.emproto.hoabl.feature.portfolio.views.ProjectTimelineFragment
 import com.emproto.hoabl.feature.profile.EditProfileFragment
 import com.emproto.hoabl.feature.profile.ProfileFragment
-import com.emproto.hoabl.feature.promises.HoabelPromises
+import com.emproto.hoabl.feature.promises.HoablPromises
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.notification.MyFirebasemessagingService
 import dagger.Component
@@ -31,7 +31,7 @@ interface HomeComponent {
     fun inject(fragment: NameInputFragment)
     fun inject(activity: HoablSplashActivity)
     fun inject(fragment: ProfileFragment)
-    fun inject(fragment: HoabelPromises)
+    fun inject(fragment: HoablPromises)
     fun inject(fragment: PromisesDetailsFragment)
     fun inject(fragment: InvestmentFragment)
     fun inject(fragment: ProjectDetailFragment)

@@ -10,6 +10,7 @@ import android.view.animation.BounceInterpolator
 import android.view.animation.TranslateAnimation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.home.adapters.HoABLPromisesAdapter
@@ -26,7 +27,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class PortfolioSpecificViewAdapter(
     private val context: Context,
-    private val list: List<RecyclerViewItem>
+    private val list: List<RecyclerViewItem>,
+    private val ivInterface: InvestmentScreenInterface
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -188,7 +190,7 @@ class PortfolioSpecificViewAdapter(
     private inner class ProjectSpecificTopViewHolder(private val binding: PortfolioSpecificViewTopLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            binding.btnApplyNow.setOnClickListener(onItemClickListener)
+            //binding.btnApplyNow.setOnClickListener(onItemClickListener)
             binding.tvViewMore.setOnClickListener {
                 binding.tvViewLess.visibility = View.VISIBLE
                 binding.ivViewMoreArrowUpward.visibility = View.VISIBLE
@@ -211,7 +213,8 @@ class PortfolioSpecificViewAdapter(
                 list[position].data as com.emproto.networklayer.response.portfolio.ivdetails.Data
             if (data != null) {
                 binding.tvProjectName.text = data.projectInformation.launchName
-                binding.tvProjectLocation.text = "Anjarle" + "maharastra"
+                binding.tvProjectLocation.text =
+                    data.projectExtraDetails.address.city + " " + data.projectExtraDetails.address.state
                 binding.tvPaidAmount.text = "₹" + data.investmentInformation.paidAmount
                 binding.tvPendingAmount.text = "₹" + data.investmentInformation.amountPending
                 binding.tvAreaUnit.text = "" + data.investmentInformation.areaSqFt + " sqft"
@@ -220,6 +223,10 @@ class PortfolioSpecificViewAdapter(
                 for (item in data.projectInformation.reraDetails.reraNumbers) {
                     reraNumber = reraNumber + item + "\n"
                 }
+                binding.tvAllocationDate.text =
+                    Utility.parseDateFromUtc(data.investmentInformation.allocationDate, null)
+                binding.tvPossessionDate.text =
+                    Utility.parseDateFromUtc(data.investmentInformation.possesionDate, null)
                 //view more
                 binding.tvLandId.text = data.investmentInformation.inventoryId
                 binding.tvSkuType.text = data.investmentInformation.inventoryBucket
@@ -228,14 +235,22 @@ class PortfolioSpecificViewAdapter(
                 binding.tvAmountPending.text = "₹" + data.investmentInformation.amountPending
                 binding.tvRegistryAmount.text = "₹" + data.investmentInformation.registryAmount
                 binding.tvOtherExpenses.text = "₹" + data.investmentInformation.otherExpenses
+                binding.tvLatitude.text = data.projectExtraDetails.latitude
+                binding.tvLongitude.text = data.projectExtraDetails.longitude
+                binding.ownersName.text = data.investmentInformation.owners
 
                 binding.tvRegistrationNumber.text = reraNumber
 
 
             }
 
-            binding.tvViewTimeline.setOnClickListener(onItemClickListener)
-            binding.tvViewBookingJourney.setOnClickListener(onItemClickListener)
+            binding.tvViewTimeline.setOnClickListener {
+                ivInterface.seeProjectTimeline()
+
+            }
+            binding.tvViewBookingJourney.setOnClickListener {
+                ivInterface.seeBookingJourney()
+            }
         }
     }
 
@@ -272,6 +287,7 @@ class PortfolioSpecificViewAdapter(
     private inner class FacilityManagementViewHolder(private val binding: FacilityManagementLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
+            binding.cvFacilityManagementCard.setOnClickListener { ivInterface.onClickFacilityCard() }
         }
     }
 
@@ -283,7 +299,9 @@ class PortfolioSpecificViewAdapter(
                 documentsAdapter = DocumentsAdapter(docList)
                 binding.rvDocuments.adapter = documentsAdapter
             }
-            binding.tvDocumentsSeeAll.setOnClickListener(onItemClickListener)
+            binding.tvDocumentsSeeAll.setOnClickListener {
+                ivInterface.seeAllCard()
+            }
         }
     }
 
@@ -301,6 +319,7 @@ class PortfolioSpecificViewAdapter(
             val layoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
             binding.rvLatestImagesVideos.layoutManager = layoutManager
             binding.rvLatestImagesVideos.adapter = latestImagesVideosAdapter
+            binding.tvLastUpdatedDate.text = Utility.parseDateFromUtc(imagesData.updatedAt, null)
         }
     }
 
@@ -360,6 +379,9 @@ class PortfolioSpecificViewAdapter(
     private inner class ReferViewHolder(private val binding: PortfolioSepcificViewReferLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
+            binding.btnReferNow.setOnClickListener {
+                ivInterface.referNow()
+            }
         }
     }
 
@@ -386,8 +408,12 @@ class PortfolioSpecificViewAdapter(
     }
 
 
-    fun setItemClickListener(clickListener: View.OnClickListener) {
-        onItemClickListener = clickListener
+    interface InvestmentScreenInterface {
+        fun onClickFacilityCard()
+        fun seeAllCard()
+        fun seeProjectTimeline()
+        fun seeBookingJourney()
+        fun referNow()
     }
 
 }

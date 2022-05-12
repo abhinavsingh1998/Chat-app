@@ -7,8 +7,6 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewTreeObserver
-import android.widget.Adapter
-import android.widget.AdapterView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
@@ -22,7 +20,6 @@ import com.emproto.core.BaseActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityHomeBinding
 import com.emproto.hoabl.databinding.FragmentNotificationBottomSheetBinding
-import com.emproto.hoabl.databinding.FragmentSigninIssueBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.notification.HoabelNotifiaction
 import com.emproto.hoabl.feature.home.notification.adapter.NotificationAdapter
@@ -30,16 +27,14 @@ import com.emproto.hoabl.feature.home.notification.data.NotificationDataModel
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
 import com.emproto.hoabl.feature.portfolio.views.*
-import com.emproto.hoabl.feature.promises.HoabelPromises
+import com.emproto.hoabl.feature.promises.HoablPromises
 import com.emproto.hoabl.feature.profile.ProfileFragment
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
-import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
 class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -203,7 +198,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 replaceFragment(portfolioFragment.javaClass, "", true, bundle, null, 0, false)
             }
             ScreenPromises -> {
-                val cartFragment = HoabelPromises()
+                val cartFragment = HoablPromises()
                 cartFragment.setArguments(bundle)
                 replaceFragment(cartFragment.javaClass, "", true, bundle, null, 0, false)
             }
@@ -278,19 +273,19 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 Handler().postDelayed({ closeApp = false }, 2000)
                 Toast.makeText(mContext, "Please press again to exit", Toast.LENGTH_LONG).show()
             }
-        } else if (getCurrentFragment() is PromisesDetailsFragment) {
-            super.onBackPressed()
-        } else if (
-            getCurrentFragment() is PortfolioSpecificProjectView ||
-            getCurrentFragment() is ProjectTimelineFragment
-
-        ) {
-            super.onBackPressed()
         } else {
             super.onBackPressed()
-//            navigate(R.id.navigation_hoabl)
+            if (getCurrentFragment() is HomeFragment) {
+                activityHomeActivity.includeNavigation.bottomNavigation.menu[0].isChecked = true
+            } else if (getCurrentFragment() is HoablPromises ||
+                getCurrentFragment() is PromisesDetailsFragment
+            ) {
+                activityHomeActivity.includeNavigation.bottomNavigation.menu[3].isChecked = true
+            }
+
         }
     }
+
 
     fun addFragment(fragment: Fragment, showAnimation: Boolean) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()

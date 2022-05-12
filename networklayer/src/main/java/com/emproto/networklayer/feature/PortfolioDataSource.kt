@@ -8,6 +8,7 @@ import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
+import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
 import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
@@ -62,6 +63,11 @@ class PortfolioDataSource(val application: Application) {
     //get project timeline
     suspend fun getProjectTimeline(id: Int): Response<ProjectTimelineResponse> {
         return apiService.getProjectTimeline(id)
+    }
+
+    //get facility managment
+    suspend fun getFacilityManagment():Response<FMResponse>{
+        return apiService.getFacilityManagment()
     }
 
 

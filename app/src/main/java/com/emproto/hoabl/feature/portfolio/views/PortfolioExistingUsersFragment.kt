@@ -10,13 +10,19 @@ import com.emproto.core.BaseFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentFinancialSummaryBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.fragments.ReferralDialog
+import com.emproto.hoabl.feature.investment.views.CategoryListFragment
 import com.emproto.hoabl.feature.portfolio.adapters.ExistingUsersPortfolioAdapter
 import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.portfolio.dashboard.Address
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
+import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
+import com.emproto.networklayer.response.watchlist.Data
+import java.io.Serializable
 import javax.inject.Inject
 
 
@@ -30,6 +36,7 @@ class PortfolioExistingUsersFragment : BaseFragment(),
     lateinit var portfolioFactory: PortfolioFactory
     lateinit var portfolioviewmodel: PortfolioViewModel
     val list = ArrayList<PortfolioModel>()
+    var watchList = ArrayList<Data>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -101,8 +108,7 @@ class PortfolioExistingUsersFragment : BaseFragment(),
     }
 
     private fun setUpUI() {
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
-            View.GONE
+
     }
 
     private fun setUpRecyclerView() {
@@ -133,7 +139,8 @@ class PortfolioExistingUsersFragment : BaseFragment(),
                         )
                     )
                     it.data?.let {
-                        val watchList = it.data.filter { it.project != null }
+                        watchList.clear()
+                        watchList.addAll(it.data.filter { it.project != null })
                         list.add(
                             PortfolioModel(
                                 ExistingUsersPortfolioAdapter.TYPE_WATCHLIST, watchList
@@ -154,9 +161,30 @@ class PortfolioExistingUsersFragment : BaseFragment(),
 
     }
 
-    override fun manageProject(position: Int) {
+    override fun manageProject(crmId: Int, projectId: Int, otherDetails: ProjectExtraDetails) {
         val portfolioSpecificProjectView = PortfolioSpecificProjectView()
+        val arguments = Bundle()
+        arguments.putInt("IVID", crmId)
+        arguments.putInt("PID", projectId)
+        portfolioSpecificProjectView.arguments = arguments
+        portfolioviewmodel.setprojectAddress(otherDetails)
         (requireActivity() as HomeActivity).addFragment(portfolioSpecificProjectView, false)
+    }
+
+    override fun referNow() {
+        val dialog = ReferralDialog()
+        dialog.isCancelable = true
+        dialog.show(parentFragmentManager, "Refrral card")
+    }
+
+    override fun seeAllWatchlist() {
+        val list = CategoryListFragment()
+        val bundle = Bundle()
+        bundle.putString("Category", "Watchlist")
+        bundle.putSerializable("WatchlistData", watchList as Serializable)
+        list.arguments = bundle
+        (requireActivity() as HomeActivity).addFragment(list, false)
+
     }
 
 }
