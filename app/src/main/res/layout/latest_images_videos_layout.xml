@@ -1,32 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_latest_images_videos"
+        style="@style/text_style_text_light_black_color_16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/latest_videos_images"
-        android:fontFamily="@font/jost_medium"
-        style="@style/text_style_text_light_black_color_16"
         android:layout_marginStart="@dimen/margin_size_16"
         android:layout_marginTop="@dimen/margin_size_24"
+        android:fontFamily="@font/jost_medium"
+        android:text="@string/latest_videos_images"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_last_updated"
+        style="@style/text_dark_blue_color_13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Last Updated on 31th DEC 2021"
+        android:layout_marginTop="@dimen/margin_size_6"
         android:fontFamily="@font/jost_light"
-        style="@style/text_dark_blue_color_13"
+        android:text="Last Updated on"
         app:layout_constraintStart_toStartOf="@id/tv_latest_images_videos"
-        app:layout_constraintTop_toBottomOf="@id/tv_latest_images_videos"
-        android:layout_marginTop="@dimen/margin_size_6"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_latest_images_videos" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_last_updated_date"
+        style="@style/text_dark_blue_color_13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_size_4"
+        android:layout_marginTop="@dimen/margin_size_6"
+        android:fontFamily="@font/jost_medium"
+        android:text="Last Updated on fdfs"
+        app:layout_constraintStart_toEndOf="@+id/tv_last_updated"
+        app:layout_constraintTop_toBottomOf="@id/tv_latest_images_videos" />
+
 
     <ImageView
         android:id="@+id/iv_see_all_arrow"
@@ -54,15 +67,15 @@
         android:id="@+id/rv_latest_images_videos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_last_updated"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:itemCount="10"
+        android:layout_marginHorizontal="@dimen/margin_size_12"
         android:layout_marginTop="@dimen/margin_size_14"
         android:layout_marginBottom="@dimen/margin_size_6"
-        android:layout_marginHorizontal="@dimen/margin_size_12"/>
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_last_updated"
+        tools:itemCount="10" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

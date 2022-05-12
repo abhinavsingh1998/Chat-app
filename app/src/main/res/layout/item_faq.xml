@@ -43,12 +43,13 @@
                 android:id="@+id/iv_faq_card_drop_down"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_size_17"
-                android:src="@drawable/ic_arrow_down"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/rightarrow"
                 android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_faq_question"
-                app:layout_constraintTop_toTopOf="@id/tv_faq_question" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/iv_faq_card_up_arrow"

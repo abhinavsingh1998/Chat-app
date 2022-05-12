@@ -15,8 +15,10 @@ import com.emproto.networklayer.response.portfolio.dashboard.Ongoing
 import com.emproto.networklayer.response.portfolio.dashboard.Project
 import com.emproto.networklayer.response.watchlist.Data
 import com.emproto.networklayer.response.investment.SimilarInvestment
+import com.emproto.networklayer.response.portfolio.dashboard.Address
+import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
 
-class  ExistingUsersPortfolioAdapter(
+class ExistingUsersPortfolioAdapter(
     private val context: Context,
     private val list: List<PortfolioModel>,
     val onItemClickListener: ExistingUserInterface
@@ -265,6 +267,9 @@ class  ExistingUsersPortfolioAdapter(
             binding.tvSmartDealsTitle.text = "My WatchList"
             watchlistAdapter = WatchlistAdapter(context, watchList)
             binding.rvSmartDealsNv.adapter = watchlistAdapter
+            binding.tvSmartDealsSeeAll.setOnClickListener {
+                onItemClickListener.seeAllWatchlist()
+            }
 
         }
     }
@@ -272,12 +277,16 @@ class  ExistingUsersPortfolioAdapter(
     private inner class PortfolioReferViewHolder(private val binding: PortfolioReferLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-
+            binding.btnReferNow.setOnClickListener {
+                onItemClickListener.referNow()
+            }
         }
     }
 
     interface ExistingUserInterface {
-        fun manageProject(position: Int)
+        fun manageProject(crmId: Int, projectId: Int, otherDetails: ProjectExtraDetails)
+        fun referNow()
+        fun seeAllWatchlist()
     }
 
 }

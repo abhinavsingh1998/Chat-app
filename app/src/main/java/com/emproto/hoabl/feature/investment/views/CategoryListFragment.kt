@@ -16,15 +16,20 @@ import com.emproto.hoabl.feature.investment.adapters.CategoryListAdapter
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionTwoModel
+import com.emproto.networklayer.response.watchlist.Data
 
-class CategoryListFragment() :BaseFragment() {
+class CategoryListFragment() : BaseFragment() {
 
-    private lateinit var binding:FragmentCategoryListBinding
+    private lateinit var binding: FragmentCategoryListBinding
     private lateinit var categoryListAdapter: CategoryListAdapter
 
-    private var type : String? = "Smart Deals"
+    private var type: String? = "Smart Deals"
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentCategoryListBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -33,8 +38,15 @@ class CategoryListFragment() :BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         type = arguments?.getString("Category")
         val data = when (type) {
-            "Smart Deals" -> { arguments?.getSerializable("SmartDealsData") as List<PageManagementsOrCollectionOneModel> }
-            else -> { arguments?.getSerializable("TrendingProjectsData") as List<PageManagementsOrCollectionOneModel> }
+            "Smart Deals" -> {
+                arguments?.getSerializable("SmartDealsData") as List<PageManagementsOrCollectionOneModel>
+            }
+//            "Watchlist" -> {
+//                arguments?.getSerializable("WatchlistData") as List<Data>
+//            }
+            else -> {
+                arguments?.getSerializable("TrendingProjectsData") as List<PageManagementsOrCollectionOneModel>
+            }
         }
         setUpUI()
         setUpClickListeners()
@@ -42,7 +54,8 @@ class CategoryListFragment() :BaseFragment() {
     }
 
     private fun setUpUI() {
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
+            View.GONE
         binding.tvCategoryHeading.text = type
     }
 
@@ -52,16 +65,24 @@ class CategoryListFragment() :BaseFragment() {
     }
 
     private fun setUpCategoryAdapter(list: List<PageManagementsOrCollectionOneModel>) {
-        categoryListAdapter = CategoryListAdapter(this.requireContext(),list,itemClickListener)
+        categoryListAdapter = CategoryListAdapter(this.requireContext(), list, itemClickListener)
         binding.rvCategoryList.adapter = categoryListAdapter
     }
 
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
             val projectDetailBundle = Bundle()
-            projectDetailBundle.putInt("ProjectId",item.toInt())
+            projectDetailBundle.putInt("ProjectId", item.toInt())
             val projectDetailFragment = ProjectDetailFragment()
-            (requireActivity() as HomeActivity).replaceFragment(projectDetailFragment.javaClass, "", true, projectDetailBundle, null, 0, false)
+            (requireActivity() as HomeActivity).replaceFragment(
+                projectDetailFragment.javaClass,
+                "",
+                true,
+                projectDetailBundle,
+                null,
+                0,
+                false
+            )
         }
     }
 

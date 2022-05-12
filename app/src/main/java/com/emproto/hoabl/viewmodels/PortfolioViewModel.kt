@@ -7,9 +7,11 @@ import androidx.lifecycle.ViewModel
 import com.emproto.hoabl.repository.PortfolioRepository
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
+import com.emproto.networklayer.response.portfolio.dashboard.Address
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
+import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
 import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineResponse
 import com.emproto.networklayer.response.profile.ProfileResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
@@ -20,6 +22,7 @@ class PortfolioViewModel(
 ) : ViewModel() {
 
     private var portfolioData = MutableLiveData<PortfolioData>()
+    private lateinit var projectDetails: ProjectExtraDetails
 
     fun getPortfolioDashboard(): LiveData<BaseResponse<PortfolioData>> {
         return portfolioRepository.getPortfolioDashboard()
@@ -31,6 +34,14 @@ class PortfolioViewModel(
 
     fun getPortfolioData(): LiveData<PortfolioData> {
         return portfolioData
+    }
+
+    fun setprojectAddress(address: ProjectExtraDetails) {
+        this.projectDetails = address
+    }
+
+    fun getprojectAddress(): ProjectExtraDetails {
+        return this.projectDetails
     }
 
     fun getInvestmentDetails(

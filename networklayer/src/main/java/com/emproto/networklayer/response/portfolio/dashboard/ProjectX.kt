@@ -7,5 +7,8 @@ data class ProjectX(
     val id: Int,
     val launchName: String,
     val priceStartingFrom: String,
-    val projectIcon: ProjectIcon
+    val projectIcon: ProjectIcon,
+    val latitude: String,
+    val longitude: String,
+    val altitude: String
 )
