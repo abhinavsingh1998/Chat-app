@@ -50,6 +50,7 @@ class HoablPromises : BaseFragment() {
             true
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible =
             true
+        (requireActivity() as HomeActivity).hideBackArrow()
 
 
         homeViewModel.getPromises(5003).observe(viewLifecycleOwner, Observer {
@@ -68,7 +69,7 @@ class HoablPromises : BaseFragment() {
                             PromisesData(
                                 HoabelPromiseAdapter.TYPE_HEADER,
                                 "",
-                                promisesData.promiseSection,
+                                promisesData.page.promiseSection,
                                 emptyList()
                             )
                         )
@@ -77,14 +78,14 @@ class HoablPromises : BaseFragment() {
                                 HoabelPromiseAdapter.TYPE_LIST,
                                 "",
                                 null,
-                                promisesData.hoablPagesOrPromises
+                                promisesData.homePagesOrPromises
                             )
                         )
                         list.add(
                             PromisesData(
                                 HoabelPromiseAdapter.TYPE_DISCLAIMER,
                                 "",
-                                promisesData.promiseSection,
+                                promisesData.page.promiseSection,
                                 emptyList()
                             )
                         )
@@ -95,7 +96,7 @@ class HoablPromises : BaseFragment() {
                             list,
                             object : HoabelPromiseAdapter.PromisedItemInterface {
                                 override fun onClickItem(position: Int) {
-                                    homeViewModel.setSelectedPromise(promisesData.hoablPagesOrPromises[position])
+                                    homeViewModel.setSelectedPromise(promisesData.homePagesOrPromises[position])
                                     (requireActivity() as HomeActivity).addFragment(
                                         PromisesDetailsFragment(),
                                         false

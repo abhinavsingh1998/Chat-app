@@ -195,7 +195,7 @@
     <string name="location_prompt_sms_push_notification">Location Prompt,SMS,Push Notification</string>
     <string name="report_emergency_control_authentication_etc">Report emergency,control authentication etc</string>
     <string name="not_anuj_singh">Not Anuj Singh?</string>
-    <string name="app_version_v0_22">App Version: v0.22</string>
+    <string name="app_version_v0_22">App Version: v0.0.2</string>
     <string name="last_name">Last Name</string>
     <string name="date_of_birth_dob">Date Of Birth</string>
     <string name="My_account">My Account</string>

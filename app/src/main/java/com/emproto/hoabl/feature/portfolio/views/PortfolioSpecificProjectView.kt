@@ -67,6 +67,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
     }
 
     private fun initView() {
+        (requireActivity() as HomeActivity).showBackArrow()
+
         documentBinding = DocumentsBottomSheetBinding.inflate(layoutInflater)
         docsBottomSheet =
             BottomSheetDialog(this.requireContext(), R.style.BottomSheetDialogTheme)
@@ -203,7 +205,10 @@ class PortfolioSpecificProjectView : BaseFragment() {
                     list.removeAt(2)
                     list.add(
                         2,
-                        RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_DOCUMENTS, it.data!!.data)
+                        RecyclerViewItem(
+                            PortfolioSpecificViewAdapter.PORTFOLIO_DOCUMENTS,
+                            it.data!!.data
+                        )
                     )
                     portfolioSpecificViewAdapter.notifyItemChanged(3)
                     it.data?.let {

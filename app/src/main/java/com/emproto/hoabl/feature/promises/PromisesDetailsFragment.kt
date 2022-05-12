@@ -71,6 +71,7 @@ class PromisesDetailsFragment : BaseFragment() {
     }
 
     private fun initView() {
+        (requireActivity() as HomeActivity).showBackArrow()
         bottomSheetDialog = BottomSheetDialog(requireContext())
         termsConditionDialogBinding = TermsConditionDialogBinding.inflate(layoutInflater)
         bottomSheetDialog.setContentView(termsConditionDialogBinding.root)

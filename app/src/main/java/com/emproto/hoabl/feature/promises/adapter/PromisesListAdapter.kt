@@ -8,13 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.PromisesViewBinding
-import com.emproto.hoabl.feature.promises.data.DataModel
-import com.emproto.networklayer.response.promises.HoablPagesOrPromise
+import com.emproto.networklayer.response.promises.HomePagesOrPromise
 
 
 class PromisesListAdapter(
     val context: Context,
-    private val data: List<HoablPagesOrPromise>,
+    private val data: List<HomePagesOrPromise>,
     val itemInterface: HoabelPromiseAdapter.PromisedItemInterface
 
 ) : RecyclerView.Adapter<PromisesListAdapter.PromisesHolder>() {
