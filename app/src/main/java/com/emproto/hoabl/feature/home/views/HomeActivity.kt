@@ -306,5 +306,12 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         showErrorView(activityHomeActivity.root, message)
     }
 
+    fun hideBackArrow() {
+        activityHomeActivity.searchLayout.imageBack.hide()
+    }
+
+    fun showBackArrow() {
+        activityHomeActivity.searchLayout.imageBack.show()
+    }
 
 }

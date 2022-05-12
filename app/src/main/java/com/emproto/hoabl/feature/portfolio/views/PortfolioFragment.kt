@@ -93,6 +93,8 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     private fun initViews() {
         (activity as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
             View.VISIBLE
+        (requireActivity() as HomeActivity).hideBackArrow()
+
         pinPermissonDialog = DailogLockPermissonBinding.inflate(layoutInflater)
         pinPermissonDialog.allow.setOnClickListener {
             //activate pin

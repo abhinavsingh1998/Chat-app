@@ -1,0 +1,7 @@
+package com.emproto.networklayer.response.promises
+
+data class DisplayMedia(
+    val key: String,
+    val name: String,
+    val value: Value
+)
