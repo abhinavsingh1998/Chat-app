@@ -1,8 +1,7 @@
 package com.emproto.networklayer.feature
 
 import android.app.Application
-import com.emproto.hoabl.feature.chat.model.ChatsListModel.ChatResponse
-import com.emproto.hoabl.feature.chat.model.ChatsListModel.ChatsModel
+import com.emproto.networklayer.response.chats.ChatResponse
 import com.emproto.networklayer.di.DataAppModule
 import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
@@ -33,8 +32,8 @@ public class HomeDataSource(val application: Application) {
         return apiService.getPromises(pageType)
     }
     //chats list api
-    suspend fun getChatsList(chatStatus: Boolean): Response<ChatResponse> {
-        return apiService.getChatsList(chatStatus)
+    suspend fun getChatsList(): Response<ChatResponse> {
+        return apiService.getChatsList()
     }
 
 

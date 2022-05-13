@@ -6,10 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.emproto.core.Database.Dao.HomeSearchDao
 import com.emproto.core.Database.TableModel.SearchModel
+import com.emproto.networklayer.response.chats.ChatResponse
 import com.emproto.hoabl.repository.HomeRepository
-import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.response.BaseResponse
-import com.emproto.networklayer.response.login.OtpResponse
+import com.emproto.networklayer.response.chats.ChatList
 import com.emproto.networklayer.response.promises.HoablPagesOrPromise
 import com.emproto.networklayer.response.promises.PromisesResponse
 import javax.inject.Inject
@@ -23,6 +23,8 @@ class HomeViewModel(
     private var application: Application = mapplication
     private var homeRepository: HomeRepository = mhomeRepository
     private var promise = MutableLiveData<HoablPagesOrPromise>()
+    private var chatsList = MutableLiveData<ChatList>()
+
 
     @Inject
     lateinit var homeSearchDao: HomeSearchDao
@@ -45,6 +47,9 @@ class HomeViewModel(
 
     fun getPromises(pageType: Int): LiveData<BaseResponse<PromisesResponse>> {
         return homeRepository.getPromises(pageType)
+    }
+    fun getChatsList(): LiveData<BaseResponse<ChatResponse>> {
+        return homeRepository.getChatsList()
     }
 
     fun setSelectedPromise(promise: HoablPagesOrPromise) {

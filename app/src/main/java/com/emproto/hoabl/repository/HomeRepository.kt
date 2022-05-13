@@ -5,8 +5,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
-import com.emproto.hoabl.feature.chat.model.ChatsListModel.ChatResponse
-import com.emproto.hoabl.feature.chat.model.ChatsListModel.ChatsModel
+import com.emproto.networklayer.response.chats.ChatResponse
 import com.emproto.networklayer.feature.HomeDataSource
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
@@ -56,14 +55,14 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         return mPromisesResponse
     }
 
-    fun getChatsList(chatStatus: Boolean): LiveData<BaseResponse<ChatResponse>> {
+    fun getChatsList(): LiveData<BaseResponse<ChatResponse>> {
         val mChatResponse = MutableLiveData<BaseResponse<ChatResponse>>()
         mChatResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val request = HomeDataSource(application).getChatsList(chatStatus)
+                val request = HomeDataSource(application).getChatsList()
                 if (request.isSuccessful) {
-                    if (request.body()!!.data != null)
+                    if (request.body()!!.chatList != null)
                         mChatResponse.postValue(BaseResponse.success(request.body()!!))
                     else
                         mChatResponse.postValue(BaseResponse.Companion.error("No data found"))

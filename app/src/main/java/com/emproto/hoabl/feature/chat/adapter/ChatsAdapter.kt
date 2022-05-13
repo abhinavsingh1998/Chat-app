@@ -5,39 +5,48 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemChatBinding
-import com.emproto.hoabl.feature.chat.model.ChatsListModel.ChatsModel
+import com.emproto.networklayer.response.chats.ChatList
 
-class ChatsAdapter(private var mContext: Context?,
-                   private var chatsModel: ArrayList<ChatsModel>,
-                   private var mListener: OnItemClickListener
+class ChatsAdapter(
+    private var mContext: Context?,
+    private var chatList: ChatList,
+    private var mListener: OnItemClickListener
 
 ) : RecyclerView.Adapter<ChatsAdapter.ViewHolder>() {
 
     lateinit var binding: ItemChatBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        binding =ItemChatBinding.inflate( LayoutInflater.from(parent.context), parent, false)
+        binding = ItemChatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding.root)
     }
-    interface OnItemClickListener{
-        fun onChatItemClick(chatsModel: ChatsModel, view: View, position: Int)
+
+    interface OnItemClickListener {
+        fun onChatItemClick(chatsModel: ChatList, view: View, position: Int)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        binding.ivThumb.setImageResource(chatsModel[position].image)
-        binding.tvTitle.text = chatsModel[position].topic
-        binding.tvMsg.text = chatsModel[position].desc
-        binding.tvTime.text = chatsModel[position].time
+        binding.tvTitle.text = chatList.data[position].project[position].launchName
+        binding.tvMsg.text = chatList.data[position].lastMessage.toString()
+//        binding.tvTime.text = chatRequest[position].data[position].project[position].
+
+        mContext?.let {
+            Glide.with(it)
+                .load(chatList.data[position].project[position].projectCoverImages[position].chatListViewPageMedia[position].value[position].url)
+                .placeholder(R.drawable.ic_baseline_image_24).into(binding.ivThumb)
+        }
 
         binding.clChat.setOnClickListener {
-            mListener.onChatItemClick(chatsModel[position], it, position)
+            mListener.onChatItemClick(chatList, it, position)
         }
 
     }
 
     override fun getItemCount(): Int {
-        return chatsModel.size
+        return chatList.data.size
     }
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {

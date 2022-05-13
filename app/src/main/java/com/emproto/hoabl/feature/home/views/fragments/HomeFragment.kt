@@ -117,20 +117,20 @@ class HomeFragment : BaseFragment() {
                 }
             })
 
-//        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.headset.setOnClickListener {
-//            val bundle = Bundle()
-//            val chatsFragment = ChatsFragment()
-//            chatsFragment.setArguments(bundle)
-//            (requireActivity() as HomeActivity).replaceFragment(chatsFragment.javaClass,
-//                "",
-//                true,
-//                bundle,
-//                null,
-//                0,
-//                false
-//            )
-//            Toast.makeText(context, "Chat bot", Toast.LENGTH_SHORT).show()
-//        }
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.headset.setOnClickListener {
+            val bundle = Bundle()
+            val chatsFragment = ChatsFragment()
+            chatsFragment.setArguments(bundle)
+            (requireActivity() as HomeActivity).replaceFragment(chatsFragment.javaClass,
+                "",
+                true,
+                bundle,
+                null,
+                0,
+                false
+            )
+            Toast.makeText(context, "Chat bot", Toast.LENGTH_SHORT).show()
+        }
     }
 
 
