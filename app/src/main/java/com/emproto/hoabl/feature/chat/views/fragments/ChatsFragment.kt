@@ -6,17 +6,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentChatsBinding
+import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.chat.adapter.ChatsAdapter
+import com.emproto.networklayer.response.chats.ChatList
+import com.emproto.networklayer.response.chats.ChatResponse
 import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.feature.chat.model.ChatsListModel.ChatsModel
+import com.emproto.hoabl.viewmodels.HomeViewModel
+import com.emproto.hoabl.viewmodels.factory.HomeFactory
+import com.emproto.networklayer.response.enums.Status
+import javax.inject.Inject
 
 class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
+    @Inject
+    lateinit var homeFactory: HomeFactory
+    lateinit var homeViewModel: HomeViewModel
+
     lateinit var binding: FragmentChatsBinding
-    var chatsModel = ArrayList<ChatsModel>()
+    var chatResponse=ArrayList<ChatResponse>()
 
     private lateinit var chatsAdapter: ChatsAdapter
 
@@ -25,44 +36,67 @@ class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentChatsBinding.inflate(layoutInflater)
+        (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
+        homeViewModel = ViewModelProvider(requireActivity(), homeFactory).get(HomeViewModel::class.java)
         return binding.root
-
-        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_chats, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setChatsData()
-        setRecycler()
+
+
+        homeViewModel.getChatsList().observe(viewLifecycleOwner, Observer {
+            binding.loader.hide()
+            binding.rvChats.visibility = View.VISIBLE
+            if (it.data != null && it.data is ChatResponse) {
+                binding.rvChats.layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL,false)
+                binding.rvChats.adapter = ChatsAdapter(context, it.data!!.chatList, this)
+            }
+//            when (it.status) {
+//                Status.LOADING -> {
+//                    binding.loader.show()
+//                    binding.rvChats.visibility=View.INVISIBLE
+//
+//                }
+//                Status.SUCCESS -> {
+//                    binding.loader.hide()
+//                    binding.rvChats.visibility = View.VISIBLE
+//                    if (it.data != null && it.data is ChatResponse) {
+//                        binding.rvChats.layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL,false)
+//                        binding.rvChats.adapter = ChatsAdapter(context, it.data!!.chatList, this)
+//                    }
+//
+//                }
+//                Status.ERROR -> {
+//                    binding.loader.hide()
+//                    (requireActivity() as HomeActivity).showErrorToast(
+//                        it.message!!+"error"
+//                    )
+//                }
+//            }
+        })
+
 
     }
 
     private fun setChatsData() {
-        for (i in 1..20) {
-            chatsModel.add(
-                ChatsModel(
-                    R.drawable.img,
-                    "HoABL Customer Chat Support",
-                    "Welcome to HoABL. We are excited to.. ",
-                    "1h"
-                )
-            )
-        }
+//        for (i in 1..20) {
+//            chatResponse.add(
+//                Cha(
+//                    R.drawable.img,
+//                    "HoABL Customer Chat Support",
+//                    "Welcome to HoABL. We are excited to.. ",
+//                    "1h"
+//                )
+//            )
+//        }
     }
 
-    private fun setRecycler() {
-        chatsAdapter = ChatsAdapter(context, chatsModel, this)
 
-        binding.rvChats?.apply {
-            adapter = chatsAdapter
-            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        }
-    }
 
-    override fun onChatItemClick(chatsModel: ChatsModel, view: View, position: Int) {
+    override fun onChatItemClick(chatList: ChatList, view: View, position: Int) {
         val bundle = Bundle()
-       bundle.putSerializable("chatModel", chatsModel)
+       bundle.putSerializable("chatModel", chatList)
         val chatsDetailFragment = ChatsDetailFragment()
         chatsDetailFragment.arguments = bundle
             (requireActivity() as HomeActivity).replaceFragment(chatsDetailFragment.javaClass,
@@ -78,5 +112,6 @@ class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
 
 
     }
+
 
 }
