@@ -1,19 +1,13 @@
 package com.emproto.networklayer.feature
 
 import android.app.Application
+import com.emproto.hoabl.feature.chat.model.ChatsListModel.ChatResponse
+import com.emproto.hoabl.feature.chat.model.ChatsListModel.ChatsModel
 import com.emproto.networklayer.di.DataAppModule
 import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.ApiService
 import com.emproto.networklayer.di.DaggerDataComponent
-import com.emproto.networklayer.request.login.AddNameRequest
-import com.emproto.networklayer.request.login.OtpRequest
-import com.emproto.networklayer.request.login.OtpVerifyRequest
-import com.emproto.networklayer.request.login.TroubleSigningRequest
-import com.emproto.networklayer.response.login.AddNameResponse
-import com.emproto.networklayer.response.login.OtpResponse
-import com.emproto.networklayer.response.login.TroubleSigningResponse
-import com.emproto.networklayer.response.login.VerifyOtpResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import retrofit2.Response
 import javax.inject.Inject
@@ -37,6 +31,10 @@ public class HomeDataSource(val application: Application) {
     //promises modules apis
     suspend fun getPromisesData(pageType: Int): Response<PromisesResponse> {
         return apiService.getPromises(pageType)
+    }
+    //chats list api
+    suspend fun getChatsList(chatStatus: Boolean): Response<ChatResponse> {
+        return apiService.getChatsList(chatStatus)
     }
 
 

@@ -1,4 +1,4 @@
-package com.emproto.hoabl.model
+package com.emproto.hoabl.feature.chat.model
 
 
 import java.io.Serializable

@@ -1,5 +1,7 @@
 package com.emproto.networklayer
 
+import com.emproto.hoabl.feature.chat.model.ChatsListModel.ChatResponse
+import com.emproto.hoabl.feature.chat.model.ChatsListModel.ChatsModel
 import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
@@ -35,4 +37,6 @@ public interface ApiService {
     @GET(ApiConstants.PROMISES)
     suspend fun getPromises(@Query("pageType") pageType: Int): Response<PromisesResponse>
 
+    @GET(ApiConstants.CHATS_LIST)
+    suspend fun getChatsList(@Query("chatStatus") chatStatus: Boolean): Response<ChatResponse>
 }
