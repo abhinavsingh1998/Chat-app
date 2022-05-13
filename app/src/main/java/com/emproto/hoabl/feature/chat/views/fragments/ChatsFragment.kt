@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.chat.views.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.FragmentChatsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.chat.adapter.ChatsAdapter
-import com.emproto.networklayer.response.chats.ChatList
 import com.emproto.networklayer.response.chats.ChatResponse
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
+import com.emproto.networklayer.response.chats.Chat
 import com.emproto.networklayer.response.enums.Status
 import javax.inject.Inject
 
@@ -27,9 +28,6 @@ class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
     lateinit var homeViewModel: HomeViewModel
 
     lateinit var binding: FragmentChatsBinding
-    var chatResponse=ArrayList<ChatResponse>()
-
-    private lateinit var chatsAdapter: ChatsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,34 +44,46 @@ class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
 
 
         homeViewModel.getChatsList().observe(viewLifecycleOwner, Observer {
-            binding.loader.hide()
-            binding.rvChats.visibility = View.VISIBLE
-            if (it.data != null && it.data is ChatResponse) {
-                binding.rvChats.layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL,false)
-                binding.rvChats.adapter = ChatsAdapter(context, it.data!!.chatList, this)
-            }
-//            when (it.status) {
-//                Status.LOADING -> {
-//                    binding.loader.show()
-//                    binding.rvChats.visibility=View.INVISIBLE
+
+////            binding.loader.hide()
+////            binding.rvChats.visibility = View.VISIBLE
+//            if (it.data != null && it.data is ChatResponse) {
+//                Log.i("Chat", it.data!!.chatList.toString())
+//                Toast.makeText(context,it.data.toString()+"data",Toast.LENGTH_SHORT).show()
 //
-//                }
-//                Status.SUCCESS -> {
-//                    binding.loader.hide()
-//                    binding.rvChats.visibility = View.VISIBLE
-//                    if (it.data != null && it.data is ChatResponse) {
-//                        binding.rvChats.layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL,false)
-//                        binding.rvChats.adapter = ChatsAdapter(context, it.data!!.chatList, this)
-//                    }
 //
-//                }
-//                Status.ERROR -> {
-//                    binding.loader.hide()
-//                    (requireActivity() as HomeActivity).showErrorToast(
-//                        it.message!!+"error"
-//                    )
-//                }
+//                binding.rvChats.layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL,false)
+//                binding.rvChats.adapter = ChatsAdapter(context, it.data!!.chatList, this)
+//
 //            }
+//            else{
+//
+//            }
+            when (it.status) {
+                Status.LOADING -> {
+//                    binding.loader.show()
+                    binding.rvChats.visibility=View.INVISIBLE
+
+                }
+                Status.SUCCESS -> {
+
+//                    binding.loader.hide()
+                    binding.rvChats.visibility = View.VISIBLE
+                    if (it.data != null && it.data is ChatResponse) {
+                                        Toast.makeText(context,it.data!!.chatList.toString()+"data",Toast.LENGTH_SHORT).show()
+
+                        binding.rvChats.layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL,false)
+                        binding.rvChats.adapter = ChatsAdapter(context, it.data!!.chatList, this)
+                    }
+
+                }
+                Status.ERROR -> {
+//                    binding.loader.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(
+                        it.message!!+"error"
+                    )
+                }
+            }
         })
 
 
@@ -94,9 +104,9 @@ class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
 
 
 
-    override fun onChatItemClick(chatList: ChatList, view: View, position: Int) {
+    override fun onChatItemClick(chat: Chat, view: View, position: Int) {
         val bundle = Bundle()
-       bundle.putSerializable("chatModel", chatList)
+       bundle.putSerializable("chatModel", chat)
         val chatsDetailFragment = ChatsDetailFragment()
         chatsDetailFragment.arguments = bundle
             (requireActivity() as HomeActivity).replaceFragment(chatsDetailFragment.javaClass,

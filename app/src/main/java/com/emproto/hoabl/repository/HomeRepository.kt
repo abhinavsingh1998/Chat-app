@@ -2,6 +2,7 @@ package com.emproto.hoabl.repository
 
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
@@ -62,11 +63,15 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
             try {
                 val request = HomeDataSource(application).getChatsList()
                 if (request.isSuccessful) {
-                    if (request.body()!!.chatList != null)
+                    Log.i("Request", request.body().toString())
+
+                    if (request.body() != null&& request.body() is ChatResponse)
                         mChatResponse.postValue(BaseResponse.success(request.body()!!))
                     else
                         mChatResponse.postValue(BaseResponse.Companion.error("No data found"))
                 } else {
+                    Log.i("Else", request.body().toString())
+
                     mChatResponse.postValue(
                         BaseResponse.Companion.error(
                             getErrorMessage(
@@ -76,6 +81,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                     )
                 }
             } catch (e: Exception) {
+
                 mChatResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
             }
         }
