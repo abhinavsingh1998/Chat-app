@@ -314,4 +314,12 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         activityHomeActivity.searchLayout.imageBack.show()
     }
 
+    fun showBottomNavigation() {
+        activityHomeActivity.includeNavigation.bottomNavigation.show()
+    }
+
+    fun hideBottomNavigation() {
+        activityHomeActivity.includeNavigation.bottomNavigation.hide()
+    }
+
 }

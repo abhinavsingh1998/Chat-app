@@ -25,7 +25,7 @@ class SucessDialogFragment : DialogFragment(), View.OnClickListener {
 
         arguments?.let {
             val firstName = it.getString("FirstName")
-            sucessLayoutBinding.nameTag.text = "Dear $firstName"
+            sucessLayoutBinding.nameTag.text = "Dear $firstName ,"
         }
 
         clickListner()

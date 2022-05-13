@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/trouble_back"
     app:behavior_hideable="false"
+    android:id="@+id/root_view"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior.">
 
     <androidx.cardview.widget.CardView
