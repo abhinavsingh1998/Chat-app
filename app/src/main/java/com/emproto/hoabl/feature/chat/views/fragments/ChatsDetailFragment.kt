@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.emproto.hoabl.databinding.FragmentChatsDetailBinding
+import com.emproto.hoabl.feature.chat.model.*
+import com.emproto.hoabl.feature.chat.model.ChatsListModel.ChatsModel
 import com.emproto.hoabl.feature.investment.adapters.ChatsDetailAdapter
-import com.emproto.hoabl.model.*
 
 class ChatsDetailFragment : Fragment() {
     var chatsModel: ChatsModel? = null

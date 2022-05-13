@@ -1,8 +1,8 @@
-package com.emproto.hoabl.model
+package com.emproto.hoabl.feature.chat.model.ChatsListModel
 
 import java.io.Serializable
 
-data class ChatsModel(
+data class ChatRequest(
     val image: Int,
     val topic: String,
     val desc:String,

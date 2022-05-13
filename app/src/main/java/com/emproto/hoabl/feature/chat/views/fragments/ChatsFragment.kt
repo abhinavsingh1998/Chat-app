@@ -12,7 +12,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentChatsBinding
 import com.emproto.hoabl.feature.chat.adapter.ChatsAdapter
 import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.model.ChatsModel
+import com.emproto.hoabl.feature.chat.model.ChatsListModel.ChatsModel
 
 class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
     lateinit var binding: FragmentChatsBinding

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemChatBinding
-import com.emproto.hoabl.model.ChatsModel
+import com.emproto.hoabl.feature.chat.model.ChatsListModel.ChatsModel
 
 class ChatsAdapter(private var mContext: Context?,
                    private var chatsModel: ArrayList<ChatsModel>,

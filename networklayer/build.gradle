@@ -38,6 +38,7 @@ dependencies {
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constrainVersion"
     implementation "androidx.legacy:legacy-support-v4:$legacy_version"
+    implementation project(path: ':app')
     testImplementation "junit:junit:$jUnit"
     implementation 'org.jetbrains:annotations:15.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

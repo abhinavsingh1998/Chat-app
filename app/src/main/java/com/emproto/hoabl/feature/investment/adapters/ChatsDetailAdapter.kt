@@ -9,12 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemChatReceiverBinding
 import com.emproto.hoabl.databinding.ItemChatSenderMessageBinding
-import com.emproto.hoabl.model.ChatsDetailModel
-import com.emproto.hoabl.model.TypeOfMessage
+import com.emproto.hoabl.feature.chat.model.ChatsDetailModel
+import com.emproto.hoabl.feature.chat.model.TypeOfMessage
 
 class ChatsDetailAdapter(private var mContext: Context?,
-                   private var chatsDetailModel: ArrayList<ChatsDetailModel>,
-                   private var mListener: OnItemClickListener
+                         private var chatsDetailModel: ArrayList<ChatsDetailModel>,
+                         private var mListener: OnItemClickListener
 
 ) : RecyclerView.Adapter<ChatsDetailAdapter.ViewHolder>() {
 
@@ -61,7 +61,7 @@ class ChatsDetailAdapter(private var mContext: Context?,
 
     override fun getItemViewType(position: Int): Int {
         val currentMessage=chatsDetailModel[position]
-        if(currentMessage.typeOfMessage==TypeOfMessage.SENDER){
+        if(currentMessage.typeOfMessage== TypeOfMessage.SENDER){
             return Sent
         }else{
             return Received
