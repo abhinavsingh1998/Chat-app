@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.portfolio.adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemCompletedInvestmentsBinding
 import com.emproto.networklayer.response.portfolio.dashboard.Project
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
+import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -154,9 +156,13 @@ class CompletedInvestmentAdapter(
 
             //We connect our data to the UI Screen
             val data1 = LineData(linedataset1)
+            val limitLine = LimitLine(2026F,"My Investment")
+            limitLine.lineColor = Color.RED
+            limitLine.lineWidth = 1F
 
             //binding.ivPriceTrendsGraph.setDrawBorders(false);
             //binding.ivPriceTrendsGraph.setDrawGridBackground(false);
+            holder.binding.ivCompletedInvestmentGraph.xAxis.addLimitLine(limitLine)
             holder.binding.ivCompletedInvestmentGraph.getDescription().setEnabled(false);
             holder.binding.ivCompletedInvestmentGraph.getLegend().setEnabled(false);
             holder.binding.ivCompletedInvestmentGraph.getAxisLeft().setDrawGridLines(false);

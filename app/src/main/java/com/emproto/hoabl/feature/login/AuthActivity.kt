@@ -81,6 +81,9 @@ class AuthActivity : BaseActivity() {
         //for signinissue
         bottomSheetDialog = BottomSheetDialog(this)
         signingInIssueBiding = FragmentSigninIssueBinding.inflate(layoutInflater)
+        signingInIssueBiding.rootView.setOnClickListener {
+            hideSoftKeyboard()
+        }
         bottomSheetDialog.setContentView(signingInIssueBiding.root)
         signingInIssueBiding.inputMobile.setValue(appPreference.getMobilenum())
         hMobileNo= appPreference.getMobilenum()
@@ -254,18 +257,18 @@ class AuthActivity : BaseActivity() {
 
 
             if (signingInIssueBiding.issueSeven.isChecked){
-                if (issueDetail.isEmpty()){
-                    signingInIssueBiding.editIssues.error = "Please Describe The Issue"
-                    Toast.makeText(this, "Please Describe The Issue", Toast.LENGTH_SHORT).show()
-                    return@OnClickListener
-                }
+//                if (issueDetail.isEmpty()){
+//                    signingInIssueBiding.editIssues.error = "Please Describe The Issue"
+//                    Toast.makeText(this, "Please Describe The Issue", Toast.LENGTH_SHORT).show()
+//                    return@OnClickListener
+//                }
             }
             if (signingInIssueBiding.issueSeven.isChecked){
-                if (issueDetail.length< 30){
-                    signingInIssueBiding.editIssues.error = "Please Describe in more words"
-                    Toast.makeText(this, "Please Describe in more words", Toast.LENGTH_SHORT).show()
-                    return@OnClickListener
-                }
+//                if (issueDetail.length< 30){
+//                    signingInIssueBiding.editIssues.error = "Please Describe in more words"
+//                    Toast.makeText(this, "Please Describe in more words", Toast.LENGTH_SHORT).show()
+//                    return@OnClickListener
+//                }
             }
 
 

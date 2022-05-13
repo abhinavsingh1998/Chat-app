@@ -68,6 +68,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
     private fun initView() {
         (requireActivity() as HomeActivity).showBackArrow()
+        (requireActivity() as HomeActivity).hideBottomNavigation()
 
         documentBinding = DocumentsBottomSheetBinding.inflate(layoutInflater)
         docsBottomSheet =
