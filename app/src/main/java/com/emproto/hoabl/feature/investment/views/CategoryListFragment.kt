@@ -1,22 +1,15 @@
 package com.emproto.hoabl.feature.investment.views
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentCategoryListBinding
 import com.emproto.hoabl.feature.investment.adapters.CategoryListAdapter
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
-import com.emproto.networklayer.response.investment.PageManagementsOrCollectionTwoModel
-import com.emproto.networklayer.response.watchlist.Data
 
 class CategoryListFragment() : BaseFragment() {
 

@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.adapters.InsightsAdapter
+import com.emproto.hoabl.feature.home.adapters.InsightsAdapter
 import com.emproto.hoabl.adapters.LatestUpdateAdapter
 import com.emproto.hoabl.adapters.TestimonialAdapter
 import com.emproto.hoabl.databinding.FragmentHomeBinding
@@ -79,7 +79,7 @@ class HomeFragment : BaseFragment() {
                             //loading investment list
                             investmentAdapter = InvestmentCardAdapter(
                                 requireActivity(),
-                                it.data!!.data.pageManagementsOrNewInvestments
+                                it.data!!.data.page.pageManagementsOrNewInvestments
                             )
                             linearLayoutManager = LinearLayoutManager(
                                 requireContext(),
@@ -155,12 +155,6 @@ class HomeFragment : BaseFragment() {
         (requireActivity() as HomeActivity).showBottomNavigation()
 
 
-        val list: ArrayList<String> = ArrayList()
-        list.add("22L-2.5 Cr")
-        list.add("22L-2.5 Cr")
-        list.add("22L-2.5 Cr")
-        list.add("22L-2.5 Cr")
-        list.add("22L-2.5 Cr")
 
         val pymentList: ArrayList<String> = arrayListOf("1", "2", "3", "4", "5")
 

@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.InsightsListItemBinding
 import com.emproto.hoabl.databinding.ItemLatestUpdatesBinding
 import com.emproto.hoabl.databinding.ProjectUpdatesItemBinding
@@ -27,6 +28,9 @@ class AllLatestUpdatesAdapter(
         val item = list.get(holder.adapterPosition)
         holder.binding.title.text= item.displayTitle
         holder.binding.location.text= item.subTitle.toString()
+
+        Glide.with(context).load(item.detailedInfo[0].media.value.url)
+            .into(holder.binding.locationImage)
 
         //holder.binding.arrowImage.setImageResource(item.arrowImage)
         holder.binding.btnReadMore.setOnClickListener {

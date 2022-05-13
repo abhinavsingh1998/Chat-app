@@ -26,6 +26,7 @@ class AllInsightsAdapter(
         Glide.with(context)
             .load(item.insightsMedia[0].media.value.url)
             .into(holder.binding.locationImage)
+        holder.binding.deatils.text= item.insightsMedia[0].media.mediaDescription
 
         //holder.binding.arrowImage.setImageResource(item.arrowImage)
         holder.binding.btnReadMore.setOnClickListener {

@@ -1,5 +1,6 @@
 package com.emproto.hoabl.feature.home.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,14 +19,16 @@ class InvestmentCardAdapter(val context: Context, val list: List<PageManagements
         return MyViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = list.get(holder.adapterPosition)
         holder.binding.tvItemLocationName.text = item.launchName
-        holder.binding.tvItemAmount.text = item.priceRange.to + " Onwards"
-        holder.binding.tvItemArea.text = item.areaRange.to + " Onwards"
+        holder.binding.tvItemLocation.text = item.address.city +","+item.address.state
+        holder.binding.tvItemAmount.text = item.priceStartingFrom + " Onwards"
+        holder.binding.tvItemArea.text = item.areaStartingFrom + " Onwards"
         holder.binding.tvItemLocationInfo.text = item.shortDescription
         Glide.with(context)
-            .load(item.mediaGalleries[0].coverImage[0].mediaContent.value.url)
+            .load(item.projectCoverImages.homePageMedia.value.url)
             .into(holder.binding.ivItemImage)
     }
 

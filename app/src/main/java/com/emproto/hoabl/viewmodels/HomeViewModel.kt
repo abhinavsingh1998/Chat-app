@@ -12,8 +12,6 @@ import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.home.PageManagementOrInsight
 import com.emproto.networklayer.response.home.PageManagementOrLatestUpdate
-import com.emproto.networklayer.response.login.OtpResponse
-import com.emproto.networklayer.response.promises.HoablPagesOrPromise
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
@@ -28,7 +26,7 @@ class HomeViewModel(
     private var application: Application = mapplication
     private var homeRepository: HomeRepository = mhomeRepository
     private var promise = MutableLiveData<HomePagesOrPromise>()
-    private var promise = MutableLiveData<HoablPagesOrPromise>()
+
     private var latestUpdates = MutableLiveData<PageManagementOrLatestUpdate>()
     private var insights = MutableLiveData<PageManagementOrInsight>()
 
@@ -55,7 +53,7 @@ class HomeViewModel(
         return homeRepository.getPromises(pageType)
     }
 
-    fun setSelectedPromise(promise: HoablPagesOrPromise) {
+    fun setSelectedPromise(promise: HomePagesOrPromise) {
         this.promise.postValue(promise)
     }
 

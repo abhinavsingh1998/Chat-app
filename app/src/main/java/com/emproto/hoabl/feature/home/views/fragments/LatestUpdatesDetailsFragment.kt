@@ -1,21 +1,16 @@
 package com.emproto.hoabl.feature.home.views.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.FragmentLatestUpdatesBinding
 import com.emproto.hoabl.databinding.FragmentLatestUpdatesDetailsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.home.adapters.AllLatestUpdatesAdapter
 import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.feature.promises.adapter.PromiseDetailsAdapter
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import javax.inject.Inject
@@ -27,6 +22,8 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
     @Inject
     lateinit var factory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
+
+    lateinit var bundle: Bundle
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,13 +50,16 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
         homeViewModel.getSelectedLatestUpdates().observe(viewLifecycleOwner, Observer {
             mBinding.title.text= it.displayTitle
             mBinding.firstDetails.text= it.detailedInfo[0].description
-            mBinding.tvLocation.text= it.subTitle.toString()
+            mBinding.tvLocation.text= it.subTitle
+            Glide.with(requireContext()).load(it.detailedInfo[0].media.value.url)
+                .into(mBinding.image1)
         })
     }
 
     private fun initClickListener() {
         mBinding.backBtn.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
+
         }
     }
 

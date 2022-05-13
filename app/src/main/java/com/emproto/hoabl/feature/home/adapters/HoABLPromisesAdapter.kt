@@ -22,6 +22,9 @@ class HoABLPromisesAdapter(val context: Context, val list: List<HomePagesOrPromi
 
         holder.binding.tvPromisesName.text= item.name
         holder.binding.tvPromisesText.text= item.shortDescription
+        Glide.with(context)
+            .load(item.promiseMedia.value.url)
+            .into(holder.binding.ivPromisesItemImage)
 
     }
 

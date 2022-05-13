@@ -10,9 +10,7 @@ import com.emproto.hoabl.databinding.FragmentPhotosBinding
 import com.emproto.hoabl.feature.investment.adapters.MediaPhotosAdapter
 import com.emproto.hoabl.model.MediaGalleryItem
 import com.emproto.hoabl.utils.ItemClickListener
-import com.emproto.networklayer.response.investment.MediaGallery
 import com.emproto.networklayer.response.investment.ProjectCoverImages
-import java.io.Serializable
 
 class PhotosFragment:BaseFragment() {
 

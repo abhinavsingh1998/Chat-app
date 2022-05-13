@@ -21,7 +21,9 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_size_70"
             app:cardCornerRadius="@dimen/margin_size_4"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/margin_size_4"
+            android:layout_marginHorizontal="@dimen/margin_size_2"
+            app:layout_constraintTop_toBottomOf="@id/tv_videotitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
@@ -46,23 +48,28 @@
 
         <com.emproto.core.textviews.CustomTextView
             android:id="@+id/tv_videotitle"
+            style="@style/text_style_text_color_16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_size_6"
+            android:layout_marginTop="@dimen/margin_size_9"
+            android:text="Video Title"
+            android:maxLines="1"
+            android:textAlignment="textStart"
+            app:fontName="@string/jost_regular"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/short_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/card_video"
             app:layout_constraintStart_toStartOf="parent"
             style="@style/text_style_text_color_12"
-            app:fontName="@string/jost_regular"
-            android:layout_marginTop="@dimen/margin_size_9"
-            android:layout_marginLeft="@dimen/margin_size_6"
-            android:text="Video Title"/>
-
-        <com.emproto.core.textviews.CustomTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tv_videotitle"
-            app:layout_constraintStart_toStartOf="parent"
-            style="@style/text_style_text_color_12"
             android:singleLine="false"
+            android:maxLines="2"
             android:gravity="start|center"
             app:fontName="@string/jost_light"
             android:layout_margin="@dimen/margin_size_6"
