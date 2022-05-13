@@ -1,16 +1,15 @@
 package com.emproto.hoabl.feature.investment.adapters
 
+import android.animation.LayoutTransition
 import android.content.Context
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.bumptech.glide.Glide
-import com.emproto.core.textviews.setResizableText
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.model.RecyclerViewItem
@@ -21,7 +20,9 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlin.contracts.contract
+import com.google.android.material.textview.MaterialTextView
+import com.skydoves.balloon.BalloonAnimation
+import com.skydoves.balloon.createBalloon
 
 
 class ProjectDetailAdapter(
@@ -57,6 +58,8 @@ class ProjectDetailAdapter(
     private lateinit var faqAdapter: FaqQuestionAdapter
     private lateinit var similarInvestmentsAdapter: InvestmentAdapter
     private lateinit var onItemClickListener : View.OnClickListener
+
+    private var isCollapsed = true
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
@@ -130,7 +133,6 @@ class ProjectDetailAdapter(
                 tvProjectLocation.text = "${data.address.city}, ${data.address.state}"
                 tvViewCount.text = data.fomoContent.noOfViews.toString()
                 tvDuration.text = "${data.fomoContent.targetTime.hours}:${data.fomoContent.targetTime.minutes}:${data.fomoContent.targetTime.seconds} Hrs Left"
-                tvLocationInformationText.text = data.shortDescription
                 tvPriceRange.text = data.priceStartingFrom + " Onwards"
                 tvAreaRange.text = data.areaStartingFrom + " Onwards"
                 tvProjectViewInfo.text = "${data.fomoContent.noOfViews} People saw this project in ${data.fomoContent.days} days"
@@ -148,12 +150,52 @@ class ProjectDetailAdapter(
                 Glide.with(context)
                     .load(data.projectCoverImages.newInvestmentPageMedia.value.url)
                     .into(ivSmallTopImage)
+                tvLocationInformationText.text = data.shortDescription + " " + data.shortDescription
+                tvLocationInformationText.setOnClickListener {
+                    when(isCollapsed){
+                        true -> {
+                            tvLocationInformationText.text = data.shortDescription + " " + data.shortDescription + "...READ LESS"
+                            tvLocationInformationText.maxLines = Integer.MAX_VALUE
+                        }
+                        else ->{
+                            tvLocationInformationText.text = data.shortDescription + " " + data.shortDescription + "...READ MORE"
+                            tvLocationInformationText.maxLines = 2
+                        }
+                    }
+                    isCollapsed = !isCollapsed
+                }
+
+                val transition = LayoutTransition()
+                transition.setDuration(300)
+                transition.enableTransitionType(LayoutTransition.CHANGING)
+                binding.clInner.layoutTransition = transition
+
+                val balloon = createBalloon(context) {
+                    setLayout(R.layout.tooltip_layout)
+                    setArrowSize(10)
+                    setWidthRatio(1.0f)
+                    setArrowPosition(0.9f)
+                    setCornerRadius(4f)
+                    setAlpha(0.9f)
+                    setTextColorResource(R.color.white)
+//                    setIconDrawable(ContextCompat.getDrawable(context, R.drawable.ic_profile))
+                    setBackgroundColorResource(R.color.black)
+                    setPadding(5)
+//                    setOnBalloonClickListener(onBalloonClickListener)
+                    setBalloonAnimation(BalloonAnimation.FADE)
+                    setLifecycleOwner(lifecycleOwner)
+                }
+                balloon.getContentView().findViewById<MaterialTextView>(R.id.tv_tooltip_info).text = data.reraDetails.companyNameAndAddress
+                ivRegInfo.setOnClickListener {
+                    balloon.showAlignBottom(ivRegInfo)
+                }
             }
         }
     }
 
     private inner class ProjectMapViewHolder(private val binding: ViewMapLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
+            binding.projectDetailMap.setOnClickListener(onItemClickListener)
         }
     }
 
@@ -254,7 +296,10 @@ class ProjectDetailAdapter(
 
     private inner class ProjectLocationInfrastructureViewHolder(private val binding: LocationInfrastructureLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            locationInfrastructureAdapter = LocationInfrastructureAdapter(data.locationInfrastructure.values)
+            locationInfrastructureAdapter = LocationInfrastructureAdapter(
+                context,
+                data.locationInfrastructure.values
+            )
             binding.rvLocationInfrastructure.adapter = locationInfrastructureAdapter
         }
     }
@@ -298,5 +343,9 @@ class ProjectDetailAdapter(
 
     fun setItemClickListener(clickListener: View.OnClickListener) {
         onItemClickListener = clickListener
+    }
+
+    private fun applyLayoutTransition() {
+
     }
 }

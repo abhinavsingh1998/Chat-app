@@ -1,10 +1,10 @@
 package com.emproto.networklayer.response.investment
 
 data class PageManagementsOrCollectionTwoModel(
-    val address: AddressX,
+    val address: Address,
     val areaStartingFrom: String,
     val createdAt: String,
-    val fomoContent: FomoContentX,
+    val fomoContent: FomoContent,
     val generalInfoEscalationGraph: GeneralInfoEscalationGraph,
     val id: Int,
     val isEscalationGraphActive: Boolean,

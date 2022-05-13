@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:layout_marginVertical="@dimen/margin_size_4"
+        android:layout_marginHorizontal="@dimen/margin_size_20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_tooltip_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="aaa"
+            android:textSize="@dimen/text_size_14"
+            android:fontFamily="@font/jost_regular"
+            android:background="@color/black"
+            android:textColor="@color/white"
+            android:lineSpacingMultiplier="1.3"
+            android:paddingVertical="@dimen/margin_size_4"
+            android:paddingHorizontal="@dimen/margin_size_8"
+            android:textAlignment="center"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
