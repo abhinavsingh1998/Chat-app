@@ -252,18 +252,22 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                             null
                         )
                     )
-                    list.add(
-                        PortfolioModel(
-                            ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED,
-                            it.data.summary.completed
+                    if (it.data.summary.completed.count > 0) {
+                        list.add(
+                            PortfolioModel(
+                                ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED,
+                                it.data.summary.completed
+                            )
                         )
-                    )
-                    list.add(
-                        PortfolioModel(
-                            ExistingUsersPortfolioAdapter.TYPE_SUMMARY_ONGOING,
-                            it.data.summary.ongoing
+                    }
+                    if (it.data.summary.ongoing.count > 0) {
+                        list.add(
+                            PortfolioModel(
+                                ExistingUsersPortfolioAdapter.TYPE_SUMMARY_ONGOING,
+                                it.data.summary.ongoing
+                            )
                         )
-                    )
+                    }
                     list.add(
                         PortfolioModel(
                             ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
@@ -374,7 +378,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         bundle.putString("Category", "Watchlist")
         bundle.putSerializable(
             "WatchlistData",
-            emptyList<PageManagementsOrCollectionOneModel>() as Serializable
+            watchList as Serializable
         )
         list.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(list, false)

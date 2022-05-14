@@ -37,20 +37,26 @@ class CategoryListFragment() : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         type = arguments?.getString("Category")
-        val data = when (type) {
-            "Smart Deals" -> {
-                arguments?.getSerializable("SmartDealsData") as List<PageManagementsOrCollectionOneModel>
-            }
-            "Watchlist" -> {
-                arguments?.getSerializable("WatchlistData") as List<PageManagementsOrCollectionOneModel>
-            }
-            else -> {
-                arguments?.getSerializable("TrendingProjectsData") as List<PageManagementsOrCollectionOneModel>
-            }
-        }
         setUpUI()
         setUpClickListeners()
-        setUpCategoryAdapter(data)
+        when (type) {
+            "Smart Deals" -> {
+                val data =
+                    arguments?.getSerializable("SmartDealsData") as List<PageManagementsOrCollectionOneModel>
+                setUpCategoryAdapter(data, -1)
+            }
+            "Watchlist" -> {
+                val data =
+                    arguments?.getSerializable("WatchlistData") as List<Data>
+                setUpCategoryAdapter(data, 0)
+            }
+            else -> {
+                val data =
+                    arguments?.getSerializable("TrendingProjectsData") as List<PageManagementsOrCollectionOneModel>
+                setUpCategoryAdapter(data, -1)
+            }
+        }
+
     }
 
     private fun setUpUI() {
@@ -64,8 +70,8 @@ class CategoryListFragment() : BaseFragment() {
 
     }
 
-    private fun setUpCategoryAdapter(list: List<PageManagementsOrCollectionOneModel>) {
-        categoryListAdapter = CategoryListAdapter(this.requireContext(), list, itemClickListener)
+    private fun setUpCategoryAdapter(list: List<Any>, type: Int) {
+        categoryListAdapter = CategoryListAdapter(this.requireContext(), list, itemClickListener,type)
         binding.rvCategoryList.adapter = categoryListAdapter
     }
 
