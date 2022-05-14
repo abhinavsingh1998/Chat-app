@@ -20,7 +20,7 @@ class LatestUpdateAdapter(val context: Context, val list: List<PageManagementOrL
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = list.get(holder.adapterPosition)
         holder.binding.title.text = item.displayTitle
-        holder.binding.tvLocation.text= item.subTitle
+        holder.binding.tvName.text= item.subTitle
         holder.binding.description.text= item.detailedInfo[0].description
 
         Glide.with(context).load(item.detailedInfo[0].media.value.url)

@@ -45,6 +45,7 @@ class Testimonials : BaseFragment() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
             View.GONE
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
+        (requireActivity() as HomeActivity).showBackArrow()
 
         initObserver()
         initClickListner()

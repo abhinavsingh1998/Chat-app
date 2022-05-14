@@ -37,21 +37,7 @@
             android:layout_height="wrap_content"
             android:text="Parikrama"
             app:fontName="@string/jost_regular"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_location"
             app:layout_constraintStart_toStartOf="@id/title"
-            app:layout_constraintTop_toBottomOf="@id/title" />
-
-        <com.emproto.core.textviews.CustomTextView
-            android:id="@+id/tv_location"
-            style="@style/text_style_grey_13"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_size_4"
-            android:layout_marginRight="@dimen/margin_size_22"
-            android:text="Anjarle, GOA"
-            app:fontName="@string/jost_medium"
-            app:layout_constraintLeft_toRightOf="@id/tv_name"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title" />
 
         <androidx.cardview.widget.CardView

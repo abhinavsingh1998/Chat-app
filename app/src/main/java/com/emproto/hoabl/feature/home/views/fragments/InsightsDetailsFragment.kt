@@ -37,6 +37,8 @@ class InsightsDetailsFragment : BaseFragment() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
 
+        (requireActivity() as HomeActivity).showBackArrow()
+
         initObserver()
 
         return mBinding.root

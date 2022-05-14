@@ -47,6 +47,8 @@ class InsightsFragment : BaseFragment() {
             View.GONE
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
 
+        (requireActivity() as HomeActivity).showBackArrow()
+
         initObserver()
         initClickListner()
         return mBinding.root

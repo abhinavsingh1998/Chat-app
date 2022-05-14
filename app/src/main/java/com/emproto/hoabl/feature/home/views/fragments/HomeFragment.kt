@@ -150,6 +150,8 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun initView() {
+
+        (requireActivity() as HomeActivity).hideBackArrow()
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
             View.VISIBLE
         (requireActivity() as HomeActivity).showBottomNavigation()

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,6 +46,10 @@ class LatestUpdatesFragment : BaseFragment() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
 
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible =
+            true
+
+        (requireActivity() as HomeActivity).showBackArrow()
         initClickListner()
         initObserver()
         return mBinding.root
@@ -70,9 +75,14 @@ class LatestUpdatesFragment : BaseFragment() {
                                 object : AllLatestUpdatesAdapter.UpdatesItemsInterface {
                                     override fun onClickItem(position: Int) {
                                         homeViewModel.setSeLectedLatestUpdates(it.data!!.data.pageManagementOrLatestUpdates[position])
-                                        (requireActivity() as HomeActivity).addFragment(
-                                            LatestUpdatesDetailsFragment(),
-                                            false
+                                        (requireActivity() as HomeActivity).replaceFragment(
+                                            LatestUpdatesDetailsFragment()::class.java,
+                                            "",
+                                            true,
+                                            null,
+                                            null,
+                                            0,
+                                            true
                                         )
                                     }
 
