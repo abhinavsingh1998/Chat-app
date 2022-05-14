@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemChatBinding
-import com.emproto.networklayer.response.chats.Chat
+import com.emproto.networklayer.response.chats.ChatResponse
 
 class ChatsAdapter(
     private var mContext: Context?,
-    private var chatList: List<Chat>,
+    private var chatList: List<ChatResponse.ChatList>,
     private var mListener: OnItemClickListener
 
 ) : RecyclerView.Adapter<ChatsAdapter.ViewHolder>() {
@@ -25,22 +25,27 @@ class ChatsAdapter(
     }
 
     interface OnItemClickListener {
-        fun onChatItemClick(chat: Chat, view: View, position: Int)
+        fun onChatItemClick(chatList: List<ChatResponse.ChatList>, view: View, position: Int)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        binding.tvTitle.text = chatList[position].project[position].launchName
-        binding.tvMsg.text = chatList[position].lastMessage.toString()
+        binding.tvTitle.text = chatList[position].project.launchName
+        if(chatList[position].lastMessage.toString()=="null"){
+            binding.tvMsg.text=""
+        }
+        else {
+            binding.tvMsg.text = chatList[position].lastMessage.toString()
+        }
 //        binding.tvTime.text = chatRequest[position].data[position].project[position].
 
         mContext?.let {
             Glide.with(it)
-                .load(chatList[position].project[position].projectCoverImages[position].chatListViewPageMedia[position].value[position].url)
+                .load(chatList[position].project.projectCoverImages.chatListViewPageMedia.value.url)
                 .placeholder(R.drawable.ic_baseline_image_24).into(binding.ivThumb)
         }
 
         binding.clChat.setOnClickListener {
-            mListener.onChatItemClick(chatList[position], it, position)
+            mListener.onChatItemClick(chatList, it, position)
         }
 
     }
