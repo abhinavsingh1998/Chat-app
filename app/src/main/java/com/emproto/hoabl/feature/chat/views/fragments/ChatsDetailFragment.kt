@@ -5,13 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
+import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentChatsDetailBinding
 import com.emproto.hoabl.feature.chat.model.*
 import com.emproto.hoabl.feature.chat.model.ChatsListModel.ChatsModel
 import com.emproto.hoabl.feature.investment.adapters.ChatsDetailAdapter
+import com.emproto.networklayer.response.chats.ChatResponse
 
 class ChatsDetailFragment : Fragment() {
-    var chatsModel: ChatsModel? = null
+    var chatsList: ChatResponse.ChatList? = null
     var chatsDetailModel = ArrayList<ChatsDetailModel>()
     var msgReceived = ArrayList<MessageReceived>()
     var msgOptions = ArrayList<MessageOptions>()
@@ -33,9 +36,13 @@ class ChatsDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        chatsModel = arguments?.getSerializable("chatModel") as? ChatsModel
-        binding.tvTitle.text = chatsModel!!.topic
-        binding.ivThumb.setImageResource(chatsModel!!.image)
+        chatsList = arguments?.getSerializable("chatModel") as? ChatResponse.ChatList
+        binding.tvTitle.text = chatsList?.project?.launchName
+        context?.let {
+            Glide.with(it)
+                .load(chatsList?.project?.projectCoverImages?.chatListViewPageMedia?.value?.url)
+                .placeholder(R.drawable.ic_baseline_image_24).into(binding.ivThumb)
+        }
         binding.ivBack.setOnClickListener { onBackPressed() }
         setChatsData()
 

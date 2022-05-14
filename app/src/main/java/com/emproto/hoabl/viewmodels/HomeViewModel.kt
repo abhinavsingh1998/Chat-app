@@ -9,7 +9,6 @@ import com.emproto.core.Database.TableModel.SearchModel
 import com.emproto.networklayer.response.chats.ChatResponse
 import com.emproto.hoabl.repository.HomeRepository
 import com.emproto.networklayer.response.BaseResponse
-import com.emproto.networklayer.response.chats.Chat
 import com.emproto.networklayer.response.promises.HoablPagesOrPromise
 import com.emproto.networklayer.response.promises.PromisesResponse
 import javax.inject.Inject
@@ -23,7 +22,7 @@ class HomeViewModel(
     private var application: Application = mapplication
     private var homeRepository: HomeRepository = mhomeRepository
     private var promise = MutableLiveData<HoablPagesOrPromise>()
-    private var chatsList = MutableLiveData<Chat>()
+    private var chatsList = MutableLiveData<ChatResponse>()
 
 
     @Inject

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="10dp"
     android:id="@+id/clChat"
     android:background="@drawable/card_bg">
@@ -41,7 +42,7 @@
         android:textSize="14sp"
         android:textColor="#17171c"
         android:lineSpacingExtra="3sp"
-        android:text="HoABL Customer Chat Support"
+        tools:text="HoABL Customer Chat Support"
         />
 
     <TextView
@@ -51,7 +52,7 @@
         android:textSize="14sp"
         android:gravity="center"
         android:textColor="#9192a0"
-        android:text="1h"
+        tools:text="1h"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginRight="11dp"
         app:layout_constraintBottom_toBottomOf="@id/tvTitle"
@@ -64,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:layout_marginRight="12dp"
-        android:text="Welcome to HoABL. We are excited to.."
+        tools:text="Welcome to HoABL. We are excited to.."
         app:layout_constraintEnd_toStartOf="@id/tvTime"
         app:layout_constraintStart_toStartOf="@id/tvTitle"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
