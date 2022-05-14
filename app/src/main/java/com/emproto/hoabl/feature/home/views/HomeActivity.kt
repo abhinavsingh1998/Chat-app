@@ -314,6 +314,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             super.onBackPressed()
             if (getCurrentFragment() is HomeFragment) {
                 activityHomeActivity.includeNavigation.bottomNavigation.menu[0].isChecked = true
+            } else if (getCurrentFragment() is PortfolioFragment) {
+                activityHomeActivity.includeNavigation.bottomNavigation.menu[2].isChecked = true
             } else if (getCurrentFragment() is HoablPromises ||
                 getCurrentFragment() is PromisesDetailsFragment
             ) {
