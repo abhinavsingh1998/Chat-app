@@ -8,12 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
 import com.emproto.core.Database.TableModel.SearchModel
 
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentSearchResultBinding
 import com.emproto.hoabl.feature.home.adapters.SearchResultAdapter
+import com.emproto.hoabl.feature.investment.adapters.CategoryListAdapter
+import com.emproto.hoabl.feature.portfolio.adapters.DocumentsAdapter
+import com.emproto.hoabl.feature.portfolio.adapters.ProjectFaqAdapter
 
 class SearchResultFragment : BaseFragment() {
 
@@ -25,6 +29,10 @@ class SearchResultFragment : BaseFragment() {
 
     lateinit var searchResultAdapter: SearchResultAdapter
     lateinit var gridLayoutManager: GridLayoutManager
+
+    lateinit var faqAdapter: ProjectFaqAdapter
+    lateinit var projectListAdapter: CategoryListAdapter
+    lateinit var documentAdapter: DocumentsAdapter
 
     companion object {
         fun newInstance(): SearchResultFragment {
@@ -41,56 +49,38 @@ class SearchResultFragment : BaseFragment() {
         savedInstanceState: Bundle?,
     ): View? {
         fragmentSearchResultBinding = FragmentSearchResultBinding.inflate(layoutInflater)
-        // homeViewModel=ViewModelProvider(this,homeFactory).get(HomeViewModel::class.java)
 
         initView()
         initObserver()
-        initClickListener()
         return fragmentSearchResultBinding.root
     }
 
     private fun initObserver() {
-//        homeViewModel.getRecordsObserver().observe(viewLifecycleOwner,object : Observer<List<SearchModel>> {
-//            override fun onChanged(t: List<SearchModel>?) {
-//                if (t?.size!! >0) {
-//                    fragmentSearchResultBinding.tvRecentSearch.isVisible=true
-//                    fragmentSearchResultBinding.recyclerviewRecent.isVisible=true
-//                    setrecentAdapter(t!!)
-//                }
-//            }
-//        })
+
     }
 
     private fun setrecentAdapter(t: List<SearchModel>) {
-        searchResultAdapter = SearchResultAdapter(requireContext(), t)
-        gridLayoutManager = GridLayoutManager(requireContext(), 3)
-        fragmentSearchResultBinding.recyclerviewRecent.layoutManager = gridLayoutManager
-        fragmentSearchResultBinding.recyclerviewRecent.adapter = searchResultAdapter
+
     }
 
     private fun initView() {
+        (requireActivity() as HomeActivity).hideBottomNavigation()
+
+        fragmentSearchResultBinding.projectList.layoutManager =
+            LinearLayoutManager(requireContext())
+        projectListAdapter = CategoryListAdapter(requireContext(), emptyList(), null)
+        fragmentSearchResultBinding.projectList.adapter = projectListAdapter
+
+        fragmentSearchResultBinding.documentsList.layoutManager =
+            LinearLayoutManager(requireContext())
+        documentAdapter = DocumentsAdapter(emptyList())
+        fragmentSearchResultBinding.documentsList.adapter = documentAdapter
+
+        fragmentSearchResultBinding.faqsList.layoutManager = LinearLayoutManager(requireContext())
+        faqAdapter = ProjectFaqAdapter(emptyList())
+        fragmentSearchResultBinding.faqsList.adapter = faqAdapter
 
     }
 
-    private fun initClickListener() {
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.search.addTextChangedListener(
-            object : TextWatcher {
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    if (p0.toString().isNotEmpty()) {
-                        val searchModel = SearchModel(searchName = p0.toString())
-                        //  homeViewModel.insertRecord(searchModel)
-                        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.search.setText(
-                            p0.toString())
-                    }
-                }
-
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                }
-
-                override fun afterTextChanged(p0: Editable?) {
-                }
-            })
-
-    }
 
 }

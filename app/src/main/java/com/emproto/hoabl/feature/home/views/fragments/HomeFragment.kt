@@ -59,8 +59,8 @@ class HomeFragment : BaseFragment() {
     private fun initView() {
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
             View.VISIBLE
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
-            true
+        (requireActivity() as HomeActivity).showBottomNavigation()
+
 
         val list: ArrayList<String> = ArrayList()
         list.add("22L-2.5 Cr")
@@ -72,12 +72,14 @@ class HomeFragment : BaseFragment() {
         val invList = arrayListOf<SimilarInvestment>()
 
         val listPromises: ArrayList<String> = arrayListOf("Security", "Transparency", "wealth")
-        val listTostimonials: ArrayList<String> = arrayListOf("Rajeev Kumar",
+        val listTostimonials: ArrayList<String> = arrayListOf(
+            "Rajeev Kumar",
             "Mukesh Singh",
             "Rohit Roy",
             "Rajeev Kumar",
             "Mukesh Singh",
-            "Rohit Roy")
+            "Rohit Roy"
+        )
         val pymentList: ArrayList<String> = arrayListOf("1", "2", "3", "4", "5")
 
         investmentAdapter = InvestmentAdapter(requireActivity(), invList)
@@ -125,12 +127,6 @@ class HomeFragment : BaseFragment() {
             )
         }
 
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.search.setOnClickListener {
-            (requireActivity() as HomeActivity).addFragment(
-                SearchResultFragment.newInstance(),
-                true
-            )
-        }
 
     }
 
