@@ -206,7 +206,7 @@ class HomeFragment : BaseFragment() {
 
     private fun referNow() {
 
-        binding.referBtn.setOnClickListener {
+        binding.btnReferNow.setOnClickListener {
 
             val dialog = ReferralDialog()
             dialog.isCancelable = true
