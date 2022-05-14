@@ -59,7 +59,7 @@ class CompletedInvestmentAdapter(
                     project.project.altitude
                 )
             onCLickInterface.manageProject(
-                project.investment.crmProjectId,
+                project.investment.id,
                 project.project.id,
                 projectExtraDetails
             )
@@ -78,17 +78,30 @@ class CompletedInvestmentAdapter(
             holder.binding.tvCompletedInvestmentArea.text =
                 "" + project.project.areaStartingFrom.split(" ")[0]
 
-            holder.binding.ivCompletedInvestmentDropArrow.setOnClickListener {
-                holder.binding.cvCompletedInvestmentGraphCard.visibility = View.VISIBLE
-                holder.binding.ivCompletedInvestmentUpwardArrow.visibility = View.VISIBLE
-                holder.binding.ivCompletedInvestmentDropArrow.visibility = View.GONE
+            holder.binding.viewDarkBg.setOnClickListener {
+                if(holder.binding.ivCompletedInvestmentDropArrow.visibility == View.VISIBLE){
+                    holder.binding.cvCompletedInvestmentGraphCard.visibility = View.VISIBLE
+                    holder.binding.ivCompletedInvestmentUpwardArrow.visibility = View.VISIBLE
+                    holder.binding.ivCompletedInvestmentDropArrow.visibility = View.GONE
+                }
+                else {
+                    holder.binding.cvCompletedInvestmentGraphCard.visibility = View.GONE
+                    holder.binding.ivCompletedInvestmentUpwardArrow.visibility = View.GONE
+                    holder.binding.ivCompletedInvestmentDropArrow.visibility = View.VISIBLE
+                }
             }
 
-            holder.binding.ivCompletedInvestmentUpwardArrow.setOnClickListener {
-                holder.binding.cvCompletedInvestmentGraphCard.visibility = View.GONE
-                holder.binding.ivCompletedInvestmentUpwardArrow.visibility = View.GONE
-                holder.binding.ivCompletedInvestmentDropArrow.visibility = View.VISIBLE
-            }
+//            holder.binding.ivCompletedInvestmentDropArrow.setOnClickListener {
+//                holder.binding.cvCompletedInvestmentGraphCard.visibility = View.VISIBLE
+//                holder.binding.ivCompletedInvestmentUpwardArrow.visibility = View.VISIBLE
+//                holder.binding.ivCompletedInvestmentDropArrow.visibility = View.GONE
+//            }
+//
+//            holder.binding.ivCompletedInvestmentUpwardArrow.setOnClickListener {
+//                holder.binding.cvCompletedInvestmentGraphCard.visibility = View.GONE
+//                holder.binding.ivCompletedInvestmentUpwardArrow.visibility = View.GONE
+//                holder.binding.ivCompletedInvestmentDropArrow.visibility = View.VISIBLE
+//            }
 
             holder.binding.tvEstimatedAppreciationRating.text =
                 "" + project.project.generalInfoEscalationGraph.estimatedAppreciation + "%"
