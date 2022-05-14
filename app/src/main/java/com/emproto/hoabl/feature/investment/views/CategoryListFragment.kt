@@ -41,9 +41,9 @@ class CategoryListFragment() : BaseFragment() {
             "Smart Deals" -> {
                 arguments?.getSerializable("SmartDealsData") as List<PageManagementsOrCollectionOneModel>
             }
-//            "Watchlist" -> {
-//                arguments?.getSerializable("WatchlistData") as List<Data>
-//            }
+            "Watchlist" -> {
+                arguments?.getSerializable("WatchlistData") as List<PageManagementsOrCollectionOneModel>
+            }
             else -> {
                 arguments?.getSerializable("TrendingProjectsData") as List<PageManagementsOrCollectionOneModel>
             }

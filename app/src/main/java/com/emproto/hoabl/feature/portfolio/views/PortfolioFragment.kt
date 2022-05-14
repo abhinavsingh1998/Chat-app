@@ -29,6 +29,8 @@ import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
+import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
 import com.emproto.networklayer.response.watchlist.Data
 import com.example.portfolioui.databinding.DailogLockPermissonBinding
@@ -309,12 +311,13 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                     it.data?.let {
                         watchList.clear()
                         watchList.addAll(it.data.filter { it.project != null })
-                        list.add(
-                            PortfolioModel(
-                                ExistingUsersPortfolioAdapter.TYPE_WATCHLIST, watchList
+                        if (watchList.isNotEmpty()) {
+                            list.add(
+                                PortfolioModel(
+                                    ExistingUsersPortfolioAdapter.TYPE_WATCHLIST, watchList
+                                )
                             )
-                        )
-
+                        }
                     }
 
                     list.add(
@@ -369,7 +372,10 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         val list = CategoryListFragment()
         val bundle = Bundle()
         bundle.putString("Category", "Watchlist")
-        bundle.putSerializable("WatchlistData", watchList as Serializable)
+        bundle.putSerializable(
+            "WatchlistData",
+            emptyList<PageManagementsOrCollectionOneModel>() as Serializable
+        )
         list.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(list, false)
     }

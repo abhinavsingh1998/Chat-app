@@ -215,31 +215,34 @@ class PortfolioSpecificViewAdapter(
                 binding.tvProjectName.text = data.projectInformation.launchName
                 binding.tvProjectLocation.text =
                     data.projectExtraDetails.address.city + " " + data.projectExtraDetails.address.state
-                binding.tvPaidAmount.text = "₹" + data.investmentInformation.paidAmount
-                binding.tvPendingAmount.text = "₹" + data.investmentInformation.amountPending
-                binding.tvAreaUnit.text = "" + data.investmentInformation.areaSqFt + " sqft"
-                binding.tvProjectInfo.text = data.projectInformation.shortDescription
-                var reraNumber = ""
-                for (item in data.projectInformation.reraDetails.reraNumbers) {
-                    reraNumber = reraNumber + item + "\n"
-                }
-                binding.tvAllocationDate.text =
-                    Utility.parseDateFromUtc(data.investmentInformation.allocationDate, null)
-                binding.tvPossessionDate.text =
-                    Utility.parseDateFromUtc(data.investmentInformation.possesionDate, null)
-                //view more
-                binding.tvLandId.text = data.investmentInformation.inventoryId
-                binding.tvSkuType.text = data.investmentInformation.inventoryBucket
-                binding.tvInvestmentAmount.text = "₹" + data.investmentInformation.amountInvested
-                binding.tvAmountPaid.text = "₹" + data.investmentInformation.amountInvested
-                binding.tvAmountPending.text = "₹" + data.investmentInformation.amountPending
-                binding.tvRegistryAmount.text = "₹" + data.investmentInformation.registryAmount
-                binding.tvOtherExpenses.text = "₹" + data.investmentInformation.otherExpenses
-                binding.tvLatitude.text = data.projectExtraDetails.latitude
-                binding.tvLongitude.text = data.projectExtraDetails.longitude
-                binding.ownersName.text = data.investmentInformation.owners
+                if (data.investmentInformation != null) {
+                    binding.tvPaidAmount.text = "₹" + data.investmentInformation.paidAmount
+                    binding.tvPendingAmount.text = "₹" + data.investmentInformation.amountPending
+                    binding.tvAreaUnit.text = "" + data.investmentInformation.areaSqFt + " sqft"
+                    binding.tvProjectInfo.text = data.projectInformation.shortDescription
+                    var reraNumber = ""
+                    for (item in data.projectInformation.reraDetails.reraNumbers) {
+                        reraNumber = reraNumber + item + "\n"
+                    }
+                    binding.tvAllocationDate.text =
+                        Utility.parseDateFromUtc(data.investmentInformation.allocationDate, null)
+                    binding.tvPossessionDate.text =
+                        Utility.parseDateFromUtc(data.investmentInformation.possesionDate, null)
+                    //view more
+                    binding.tvLandId.text = data.investmentInformation.inventoryId
+                    binding.tvSkuType.text = data.investmentInformation.inventoryBucket
+                    binding.tvInvestmentAmount.text =
+                        "₹" + data.investmentInformation.amountInvested
+                    binding.tvAmountPaid.text = "₹" + data.investmentInformation.amountInvested
+                    binding.tvAmountPending.text = "₹" + data.investmentInformation.amountPending
+                    binding.tvRegistryAmount.text = "₹" + data.investmentInformation.registryAmount
+                    binding.tvOtherExpenses.text = "₹" + data.investmentInformation.otherExpenses
+                    binding.tvLatitude.text = data.projectExtraDetails.latitude
+                    binding.tvLongitude.text = data.projectExtraDetails.longitude
+                    binding.ownersName.text = data.investmentInformation.owners
 
-                binding.tvRegistrationNumber.text = reraNumber
+                    binding.tvRegistrationNumber.text = reraNumber
+                }
 
 
             }
