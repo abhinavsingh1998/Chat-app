@@ -37,7 +37,6 @@
         android:text="@string/latest_updates"
         android:textAlignment="center"
         android:paddingHorizontal="@dimen/margin_size_4"
-        android:layout_marginHorizontal="@dimen/margin_size_120"
         app:layout_constraintBottom_toBottomOf="@+id/view_2"
         app:layout_constraintLeft_toLeftOf="@id/view_1"
         app:layout_constraintRight_toRightOf="parent"

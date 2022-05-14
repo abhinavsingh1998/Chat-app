@@ -4,15 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentLatestUpdatesDetailsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.adapters.AllLatestUpdatesAdapter
+import com.emproto.hoabl.feature.home.adapters.InsightsListAdapter
+import com.emproto.hoabl.feature.home.adapters.LatestUpdateListAdapter
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
+import com.emproto.networklayer.response.home.DetailedInfo
 import javax.inject.Inject
 
 class LatestUpdatesDetailsFragment : BaseFragment() {
@@ -36,6 +41,8 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
 
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible =
+            false
 
         initObserver()
         initClickListener()
@@ -49,11 +56,14 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
     private fun initObserver() {
         homeViewModel.getSelectedLatestUpdates().observe(viewLifecycleOwner, Observer {
             mBinding.title.text= it.displayTitle
-            mBinding.firstDetails.text= it.detailedInfo[0].description
-            mBinding.tvLocation.text= it.subTitle
-            Glide.with(requireContext()).load(it.detailedInfo[0].media.value.url)
-                .into(mBinding.image1)
-        })
+            mBinding.cityName.text= it.subTitle
+
+            mBinding.listInsights.layoutManager = LinearLayoutManager(requireContext())
+            mBinding.listInsights.adapter = LatestUpdateListAdapter(requireContext(),
+                it.detailedInfo as ArrayList<DetailedInfo>)
+        }
+        )
+
     }
 
     private fun initClickListener() {

@@ -12,7 +12,6 @@ import com.emproto.hoabl.databinding.FragmentInsightsDetailsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.adapters.InsightsListAdapter
 import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.feature.promises.adapter.PromiseDetailsAdapter
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.response.home.InsightsMedia
