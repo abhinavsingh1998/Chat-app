@@ -101,7 +101,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             appPreference.savePinDialogStatus(true)
             pinDialog.dismiss()
             setUpAuthentication()
-            setUpUI(true)
+            //setUpUI(true)
         }
 
         pinPermissonDialog.tvDontallow.setOnClickListener {
@@ -137,7 +137,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     }
 
     private fun setUpInitialUI() {
-        setUpUI(false)
+        //setUpUI(false)
     }
 
     private fun setUpAuthentication() {
@@ -156,9 +156,9 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                     if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
                         setUpKeyGuardManager()
                     } else if (errorCode == BiometricPrompt.ERROR_NO_BIOMETRICS) {
-                        //setUpUI(true)
+                        setUpUI(true)
                     } else {
-                        //setUpUI(true)
+                        setUpUI(true)
 
                     }
                 }
@@ -174,7 +174,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                 override fun onAuthenticationFailed() {
                     super.onAuthenticationFailed()
                     Toast.makeText(context, "Authentication failed", Toast.LENGTH_SHORT).show()
-                    setUpUI(false)
+                    //setUpUI(false)
                 }
             })
 
@@ -243,46 +243,55 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     private fun observePortFolioData() {
         portfolioviewmodel.getPortfolioData().observe(viewLifecycleOwner, Observer {
             it.let {
-                list.clear()
-                list.add(
-                    PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_HEADER,
-                        null
+                if (list.isEmpty()) {
+                    list.add(
+                        PortfolioModel(
+                            ExistingUsersPortfolioAdapter.TYPE_HEADER,
+                            null
+                        )
                     )
-                )
-                list.add(
-                    PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED,
-                        it.data.summary.completed
+                    list.add(
+                        PortfolioModel(
+                            ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED,
+                            it.data.summary.completed
+                        )
                     )
-                )
-                list.add(
-                    PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_SUMMARY_ONGOING,
-                        it.data.summary.ongoing
+                    list.add(
+                        PortfolioModel(
+                            ExistingUsersPortfolioAdapter.TYPE_SUMMARY_ONGOING,
+                            it.data.summary.ongoing
+                        )
                     )
-                )
-                list.add(
-                    PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
-                        it.data.projects.filter { it.investment.isCompleted }
+                    list.add(
+                        PortfolioModel(
+                            ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
+                            it.data.projects.filter { it.investment.isCompleted }
+                        )
                     )
-                )
-                list.add(
-                    PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
-                        it.data.projects.filter { !it.investment.isCompleted }
+                    list.add(
+                        PortfolioModel(
+                            ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
+                            it.data.projects.filter { !it.investment.isCompleted }
+                        )
                     )
-                )
-                //fetch remaining data
-                adapter =
-                    ExistingUsersPortfolioAdapter(
-                        requireActivity(),
-                        list,
-                        this@PortfolioFragment
-                    )
-                binding.financialRecycler.adapter = adapter
-                getWathclistData()
+                    //fetch remaining data
+                    adapter =
+                        ExistingUsersPortfolioAdapter(
+                            requireActivity(),
+                            list,
+                            this@PortfolioFragment
+                        )
+                    binding.financialRecycler.adapter = adapter
+                    getWathclistData()
+                } else {
+                    adapter =
+                        ExistingUsersPortfolioAdapter(
+                            requireActivity(),
+                            list,
+                            this@PortfolioFragment
+                        )
+                    binding.financialRecycler.adapter = adapter
+                }
             }
         })
 
@@ -324,8 +333,9 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         when (requestCode) {
             mRequestCode -> {
                 when (resultCode) {
-                    RESULT_OK -> setUpUI(true)
-                    else -> setUpUI(false)
+                    RESULT_OK -> {
+                        setUpUI(true)
+                    }
                 }
             }
         }

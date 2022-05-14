@@ -113,7 +113,7 @@ class CompletedInvestmentAdapter(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 linedataset.fillColor = context.getColor(R.color.green)
             }
-            linedataset.mode = LineDataSet.Mode.CUBIC_BEZIER;
+            linedataset.mode = LineDataSet.Mode.LINEAR;
             linedataset.setCircleColor(context.getColor(R.color.green))
 
             //We connect our data to the UI Screen
@@ -152,7 +152,7 @@ class CompletedInvestmentAdapter(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 linedataset1.fillColor = context.getColor(R.color.green)
             }
-            linedataset1.mode = LineDataSet.Mode.CUBIC_BEZIER;
+            linedataset1.mode = LineDataSet.Mode.LINEAR;
 
             //We connect our data to the UI Screen
             val data1 = LineData(linedataset1)
