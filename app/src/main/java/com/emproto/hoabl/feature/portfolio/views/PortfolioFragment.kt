@@ -95,7 +95,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         (requireActivity() as HomeActivity).hideBackArrow()
 
         pinPermissonDialog = DailogLockPermissonBinding.inflate(layoutInflater)
-        pinPermissonDialog.allow.setOnClickListener {
+        pinPermissonDialog.tvActivate.setOnClickListener {
             //activate pin
             appPreference.activatePin(true)
             appPreference.savePinDialogStatus(true)
@@ -104,7 +104,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             setUpUI(true)
         }
 
-        pinPermissonDialog.dontAllow.setOnClickListener {
+        pinPermissonDialog.tvDontallow.setOnClickListener {
             //dont show dialog again
             setUpUI(true)
             appPreference.savePinDialogStatus(true)

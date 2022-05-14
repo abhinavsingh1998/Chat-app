@@ -1,71 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/app_color">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/margin_size_10"
         android:background="@drawable/homescreen_curve"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <com.emproto.core.textviews.CustomTextView
-            android:id="@+id/tv_recent_search"
+            android:id="@+id/tv_project"
             style="@style/text_style_text_color_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_size_10"
-            android:visibility="gone"
             android:layout_marginTop="@dimen/margin_size_20"
             android:gravity="start|center"
-            android:text="Recent Searches"
+            android:text="Projects"
             app:fontName="@string/jost_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_recent"
+            android:id="@+id/project_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginLeft="@dimen/margin_size_10"
             android:layout_marginTop="@dimen/margin_size_20"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_recent_search" />
+            app:layout_constraintTop_toBottomOf="@id/tv_project"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_category_list" />
 
         <com.emproto.core.textviews.CustomTextView
-            android:id="@+id/tv_popular_search"
+            android:id="@+id/tv_documents"
             style="@style/text_style_text_color_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_size_10"
             android:layout_marginTop="@dimen/margin_size_30"
             android:gravity="start|center"
-            android:text="Popular Searches"
-            android:visibility="gone"
+            android:text="Documents"
             app:fontName="@string/jost_regular"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recyclerview_recent" />
+            app:layout_constraintTop_toBottomOf="@id/project_list" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_popular"
+            android:id="@+id/documents_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:visibility="gone"
             android:layout_marginLeft="@dimen/margin_size_10"
             android:layout_marginTop="@dimen/margin_size_20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_popular_search" />
+            app:layout_constraintTop_toBottomOf="@id/tv_documents"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_portfolio_documents" />
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/tv_faq"
+            style="@style/text_style_text_color_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_size_10"
+            android:layout_marginTop="@dimen/margin_size_30"
+            android:gravity="start|center"
+            android:text="FAQs"
+            app:fontName="@string/jost_regular"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/documents_list" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/faqs_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/margin_size_10"
+            android:layout_marginTop="@dimen/margin_size_20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_faq"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_faq" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

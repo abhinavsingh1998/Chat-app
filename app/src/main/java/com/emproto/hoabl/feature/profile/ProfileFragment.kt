@@ -1,5 +1,6 @@
 package com.emproto.hoabl.feature.profile
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.networklayer.preferences.AppPreference
+import com.example.portfolioui.databinding.LogoutConfirmationBinding
 import javax.inject.Inject
 
 class ProfileFragment : BaseFragment() {
@@ -84,10 +86,23 @@ class ProfileFragment : BaseFragment() {
             }
         )
 
-        binding.Logoutbtn.setOnClickListener {
+        val logoutDialoglayout = LogoutConfirmationBinding.inflate(layoutInflater)
+        val logoutDialog = Dialog(requireContext())
+        logoutDialog.setCancelable(false)
+        logoutDialog.setContentView(logoutDialoglayout.root)
+
+        logoutDialoglayout.actionYes.setOnClickListener {
             appPreference.saveLogin(false)
             startActivity(Intent(context, AuthActivity::class.java))
             requireActivity().finish()
+        }
+
+        logoutDialoglayout.actionNo.setOnClickListener {
+            logoutDialog.dismiss()
+        }
+
+        binding.Logoutbtn.setOnClickListener {
+            logoutDialog.show()
         }
 
     }
