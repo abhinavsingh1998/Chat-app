@@ -64,36 +64,39 @@
 
                         <View
                             android:id="@+id/view"
-                            android:layout_width="@dimen/margin_size_90"
+                            android:layout_width="0dp"
                             android:layout_height="1dp"
                             android:background="#b6b3d0"
+                            app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintRight_toLeftOf="@id/heading"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <com.emproto.core.textviews.CustomTextView
+                        <TextView
+                            android:id="@+id/heading"
                             style="@style/text_style_text_color_30"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/seaside"
                             android:maxLines="1"
                             android:minLines="1"
+                            android:paddingHorizontal="@dimen/margin_size_5"
                             android:singleLine="true"
                             android:text="@string/new_generation"
                             android:textStyle="normal"
-                            app:fontName="@string/shelldon"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/view_2"
-                            app:layout_constraintStart_toEndOf="@id/view"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <View
                             android:id="@+id/view_2"
-                            android:layout_width="@dimen/margin_size_90"
+                            android:layout_width="0dp"
                             android:layout_height="1dp"
-                            android:layout_marginLeft="@dimen/margin_size_6"
                             android:background="#b6b3d0"
+                            app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/heading"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -162,19 +165,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.emproto.core.textviews.CustomTextView
-                        android:id="@+id/see_all_pending_payment"
-                        style="@style/text_style_white_14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/margin_size_10"
-                        android:drawableRight="@drawable/ic_blue_right_arrow"
-                        android:drawablePadding="@dimen/margin_size_6"
-                        android:singleLine="true"
-                        android:text="@string/see_all"
-                        app:fontName="@string/jost_regular"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.viewpager2.widget.ViewPager2
@@ -338,13 +328,12 @@
                         app:layout_constraintTop_toBottomOf="@id/textview4" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <ImageView
+                <include
                     android:id="@+id/facility_management_card"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/margin_size_20"
                     android:layout_marginTop="@dimen/margin_size_25"
-                    android:src="@drawable/facility_mang_card"
+                    layout="@layout/facility_management_layout"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/hoabl_promises_layout" />
@@ -469,20 +458,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_size_30"
                     android:src="@drawable/business_88"
+                    android:layout_marginLeft="@dimen/margin_size_10"
                     app:layout_constraintEnd_toStartOf="@id/tv_share_with_joy"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_share_with_joy"
-                    style="@style/text_regular_blue_22"
+                    style="@style/text_style_blue_40"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_size_80"
-                    android:layout_marginEnd="@dimen/margin_size_45"
-                    android:fontFamily="@font/jost_regular"
+                    android:fontFamily="@font/seaside"
                     android:text="@string/share_the_joy"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:paddingHorizontal="@dimen/margin_size_4"
+                    android:layout_marginStart="@dimen/margin_size_10"
+                    app:layout_constraintStart_toEndOf="@id/iv_portfolio_share"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -491,7 +482,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:layout_marginEnd="@dimen/margin_size_21"
                     android:background="@drawable/all_corner_radius_black_bg"
                     android:drawableEnd="@drawable/arrow_right_"
                     android:fontFamily="@font/jost_medium"
@@ -501,8 +491,9 @@
                     android:text="@string/refer_now"
                     android:textAlignment="center"
                     android:textAllCaps="false"
+                    android:layout_marginEnd="@dimen/margin_size_40"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/tv_share_with_joy"
+                    app:layout_constraintStart_toEndOf="@+id/iv_portfolio_share"
                     app:layout_constraintTop_toBottomOf="@id/tv_share_with_joy" />
 
                 <androidx.cardview.widget.CardView
