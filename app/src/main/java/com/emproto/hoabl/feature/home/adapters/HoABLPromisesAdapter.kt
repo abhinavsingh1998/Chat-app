@@ -1,39 +1,47 @@
 package com.emproto.hoabl.feature.home.adapters
 
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.hoabl.R
+import com.emproto.hoabl.databinding.ItemHoablPromisesBinding
 import com.emproto.hoabl.databinding.ItemPromisesBinding
-import com.emproto.hoabl.databinding.ItemSmartDealsBinding
-import com.emproto.networklayer.response.home.HomePagesOrPromise
-import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
+import com.emproto.hoabl.databinding.PromisesViewBinding
+import com.emproto.networklayer.response.portfolio.ivdetails.DataX
 
-class HoABLPromisesAdapter(val context: Context, val list: List<HomePagesOrPromise>) : RecyclerView.Adapter<HoABLPromisesAdapter.MyViewHolder>() {
+class HoABLPromisesAdapter(val context: Context, val list: List<DataX>) :
+    RecyclerView.Adapter<HoABLPromisesAdapter.MyViewHolder>() {
+
+    lateinit var binding: ItemHoablPromisesBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = ItemPromisesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MyViewHolder(view)
+        binding = ItemHoablPromisesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MyViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val item = list.get(holder.adapterPosition)
-
-        holder.binding.tvPromisesName.text= item.name
-        holder.binding.tvPromisesText.text= item.shortDescription
+        val item = list[position]
+        holder.binding.title.text = item.name
+        holder.binding.desc.text = item.shortDescription
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            holder.binding.image.setImageResource(R.drawable.securitylock)
+        }
         Glide.with(context)
             .load(item.promiseMedia.value.url)
-            .into(holder.binding.ivPromisesItemImage)
-
+            .into(holder.binding.image)
     }
 
     override fun getItemCount(): Int {
         return list.size
     }
 
-    inner class MyViewHolder(val binding: ItemPromisesBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    inner class MyViewHolder(binding: ItemHoablPromisesBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        var binding: ItemHoablPromisesBinding = binding
 
+    }
 
 }

@@ -16,7 +16,7 @@ import com.emproto.hoabl.adapters.LatestUpdateAdapter
 import com.emproto.hoabl.adapters.TestimonialAdapter
 import com.emproto.hoabl.databinding.FragmentHomeBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.home.adapters.HoABLPromisesAdapter
+import com.emproto.hoabl.feature.home.adapters.HoABLPromisesAdapter1
 import com.emproto.hoabl.feature.home.adapters.InvestmentCardAdapter
 import com.emproto.hoabl.feature.home.adapters.PendingPaymentsAdapter
 import com.emproto.hoabl.feature.home.views.HomeActivity
@@ -37,7 +37,7 @@ class HomeFragment : BaseFragment() {
     private lateinit var testimonialAdapter: TestimonialAdapter
     private lateinit var latestUpdateAdapter: LatestUpdateAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private lateinit var hoABLPromisesAdapter: HoABLPromisesAdapter
+    private lateinit var hoABLPromisesAdapter: HoABLPromisesAdapter1
     private lateinit var pendingPaymentsAdapter: PendingPaymentsAdapter
 
     val appURL= "https://hoabl.in/"
@@ -104,7 +104,7 @@ class HomeFragment : BaseFragment() {
                             binding.latesUpdatesRecyclerview.adapter = latestUpdateAdapter
 
                             //loading Promises list
-                            hoABLPromisesAdapter = HoABLPromisesAdapter(
+                            hoABLPromisesAdapter = HoABLPromisesAdapter1(
                                 requireActivity(),
                                 it.data!!.data.homePagesOrPromises
                             )

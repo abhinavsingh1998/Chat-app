@@ -330,7 +330,7 @@ class PortfolioSpecificViewAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             val promisesData = list[position].data as ProjectPromises
-       //     promisesAdapter = HoABLPromisesAdapter(context, promisesData.data)
+            promisesAdapter = HoABLPromisesAdapter(context, promisesData.data)
             binding.rvApplicablePromises.adapter = promisesAdapter
         }
     }
