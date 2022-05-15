@@ -9,6 +9,7 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentCategoryListBinding
 import com.emproto.hoabl.feature.investment.adapters.CategoryListAdapter
 import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.networklayer.response.investment.Data
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
 
 class CategoryListFragment() : BaseFragment() {
