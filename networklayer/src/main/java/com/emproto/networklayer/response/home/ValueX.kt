@@ -1,9 +1,9 @@
 package com.emproto.networklayer.response.home
 
 data class ValueX(
-    val height: String,
+    val height: Int,
     val mediaType: String,
-    val size: String,
+    val size: Double,
     val url: String,
-    val width: String
+    val width: Int
 )

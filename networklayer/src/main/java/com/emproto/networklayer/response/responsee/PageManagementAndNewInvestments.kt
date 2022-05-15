@@ -1,0 +1,3 @@
+package com.emproto.networklayer.response.responsee
+
+class PageManagementAndNewInvestments

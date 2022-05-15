@@ -67,7 +67,6 @@ class PromisesDetailsFragment : BaseFragment() {
 
         return binding.root
 
-
     }
 
     private fun initView() {

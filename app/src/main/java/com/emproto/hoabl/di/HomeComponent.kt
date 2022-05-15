@@ -1,10 +1,11 @@
 package com.emproto.hoabl.di
 
+import android.window.SplashScreen
 import com.emproto.hoabl.HoablSplashActivity
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.fragments.*
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
 import com.emproto.hoabl.feature.login.*
-import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.investment.views.FaqDetailFragment
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
@@ -17,6 +18,7 @@ import com.emproto.hoabl.feature.profile.ProfileFragment
 import com.emproto.hoabl.feature.promises.HoablPromises
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.notification.MyFirebasemessagingService
+import com.emproto.networklayer.response.home.LatestUpdates
 import dagger.Component
 import javax.inject.Singleton
 
@@ -43,4 +45,10 @@ interface HomeComponent {
     fun inject(fragment: ProjectTimelineFragment)
     fun inject(fragment: FaqDetailFragment)
     fun inject(fragment: LandSkusFragment)
+    fun inject(fragment: Testimonials)
+    fun inject(fragment: InsightsDetailsFragment)
+    fun inject(fragment: LatestUpdatesDetailsFragment)
+    fun inject(fragment: LatestUpdatesFragment)
+    fun inject(fragment: InsightsFragment)
+    fun inject(fragment: SplashScreen)
 }

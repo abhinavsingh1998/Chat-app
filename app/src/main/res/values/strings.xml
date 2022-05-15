@@ -341,4 +341,6 @@
     <string name="popular_categories_text">Popular Categories</string>
     <string name="search_faqs">Search FAQs</string>
     <string name="months">Months</string>
+    <string name="updates_details">Details</string>
+    <string name="get_to_know_about_our_projects_company_updates"><![CDATA[Get to know about our projects & company updates]]></string>
 </resources>

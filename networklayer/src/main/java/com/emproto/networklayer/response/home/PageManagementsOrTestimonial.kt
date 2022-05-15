@@ -1,17 +1,16 @@
 package com.emproto.networklayer.response.home
 
 data class PageManagementsOrTestimonial(
-    val content: String,
+    val companyName: String,
     val createdAt: String,
     val createdBy: Int,
-    val customerName: String,
+    val designation: String,
+    val firstName: String,
     val id: Int,
-    val mediaLink: String,
-    val pageManagementAndTestimonials: PageManagementAndTestimonials,
-    val projectContentId: Int,
+    val lastName: String,
+    val priority: Int,
     val status: String,
-    val subTitle: String,
-    val type: String,
+    val testimonialContent: String,
     val updatedAt: String,
-    val updatedBy: Any
+    val updatedBy: Int
 )

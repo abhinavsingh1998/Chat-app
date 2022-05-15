@@ -42,5 +42,4 @@ class HomeAppModule(var application: Application, var context: Context) {
         return AppPreferenceImp(context)
     }
 
-
 }
