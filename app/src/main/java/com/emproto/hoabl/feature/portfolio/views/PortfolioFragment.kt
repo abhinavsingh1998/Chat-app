@@ -384,5 +384,31 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         (requireActivity() as HomeActivity).addFragment(list, false)
     }
 
+    override fun investNow() {
+        (requireActivity() as HomeActivity).navigate(R.id.navigation_investment)
+    }
+
+    override fun onGoingDetails() {
+    }
+
+    private fun setUpRecyclerView() {
+        val list = ArrayList<PortfolioModel>()
+        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_HEADER))
+        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED))
+        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_SUMMARY_ONGOING))
+//        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT))
+//        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT))
+        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_NUDGE_CARD))
+        //list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_WATCHLIST))
+        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_REFER))
+        adapter = ExistingUsersPortfolioAdapter(
+            requireActivity(),
+            list,
+            this@PortfolioFragment
+        )
+        binding.financialRecycler.adapter = adapter
+    }
+
+
 
 }

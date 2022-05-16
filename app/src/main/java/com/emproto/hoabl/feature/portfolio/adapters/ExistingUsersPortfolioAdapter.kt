@@ -2,10 +2,14 @@ package com.emproto.hoabl.feature.portfolio.adapters
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
@@ -17,6 +21,11 @@ import com.emproto.networklayer.response.watchlist.Data
 import com.emproto.networklayer.response.investment.SimilarInvestment
 import com.emproto.networklayer.response.portfolio.dashboard.Address
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
+import com.example.portfolioui.databinding.EmptyViewBinding
+import com.google.android.material.textview.MaterialTextView
+import com.skydoves.balloon.BalloonAnimation
+import com.skydoves.balloon.BalloonSizeSpec
+import com.skydoves.balloon.createBalloon
 
 class ExistingUsersPortfolioAdapter(
     private val context: Context,
@@ -198,11 +207,33 @@ class ExistingUsersPortfolioAdapter(
             binding.ivAmount.visibility = View.VISIBLE
             binding.ivAmountPending.visibility = View.GONE
             //getting data
-            val completed = list[position].data as Completed
-            binding.contentTxt1.text = "" + completed.count
-            binding.contentTxt2.text = "" + completed.areaSqFt
-            binding.contentTxt3.text = "₹ " + completed.amountInvested
-            binding.contentTxt4.text = "+4% IEA"
+            if (list[position].data != null) {
+                val completed = list[position].data as Completed
+                binding.contentTxt1.text = "" + completed.count
+                binding.contentTxt2.text = "" + completed.areaSqFt
+                binding.contentTxt3.text = "₹ " + completed.amountInvested
+                binding.contentTxt4.text = "+4% IEA"
+            }
+
+            val balloon = createBalloon(context) {
+                setArrowSize(6)
+                setWidth(200)
+                setTextSize(12F)
+                setArrowPosition(0.6f)
+                setCornerRadius(4f)
+                setAlpha(0.9f)
+                setText("Investor Estimated Appreciation")
+                setTextColorResource(R.color.white)
+                setBackgroundColorResource(R.color.black)
+                setPadding(5)
+                setTextTypeface(ResourcesCompat.getFont(context, R.font.jost_medium)!!)
+                setBalloonAnimation(BalloonAnimation.FADE)
+                setLifecycleOwner(lifecycleOwner)
+            }
+
+            binding.ivAmount.setOnClickListener {
+                balloon.showAlignBottom(binding.ivAmount)
+            }
 
         }
     }
@@ -213,11 +244,33 @@ class ExistingUsersPortfolioAdapter(
             binding.ivAmount.visibility = View.GONE
             binding.ivAmountPending.visibility = View.VISIBLE
 
-            val ongoing = list[position].data as Ongoing
-            binding.contentTxt1.text = "" + ongoing.count
-            binding.contentTxt2.text = "" + ongoing.areaSqFt
-            binding.contentTxt3.text = "₹ " + ongoing.amountPaid
-            binding.contentTxt4.text = "₹ " + ongoing.amountPending
+            if (list[position].data != null) {
+                val ongoing = list[position].data as Ongoing
+                binding.contentTxt1.text = "" + ongoing.count
+                binding.contentTxt2.text = "" + ongoing.areaSqFt
+                binding.contentTxt3.text = "₹ " + ongoing.amountPaid
+                binding.contentTxt4.text = "₹ " + ongoing.amountPending
+            }
+
+            val balloon = createBalloon(context) {
+                setArrowSize(6)
+                setWidth(BalloonSizeSpec.WRAP)
+                setTextSize(12F)
+                setArrowPosition(0.8f)
+                setCornerRadius(4f)
+                setAlpha(0.9f)
+                setText("Excluding taxes & other charges")
+                setTextColorResource(R.color.white)
+                setBackgroundColorResource(R.color.black)
+                setPadding(5)
+                setTextTypeface(ResourcesCompat.getFont(context, R.font.jost_medium)!!)
+                setBalloonAnimation(BalloonAnimation.FADE)
+                setLifecycleOwner(lifecycleOwner)
+            }
+
+            binding.ivAmountPending.setOnClickListener {
+                balloon.showAlignTop(binding.ivAmountPending)
+            }
         }
     }
 
@@ -229,6 +282,9 @@ class ExistingUsersPortfolioAdapter(
             if (projectList.isEmpty()) {
                 binding.cvCompletedInvestment.visibility = View.VISIBLE
                 binding.rvCompletedInvestment.visibility = View.GONE
+                binding.cvCompletedInvestment.setOnClickListener {
+
+                }
             } else {
                 completedInvestmentAdapter =
                     CompletedInvestmentAdapter(context, projectList, onItemClickListener, 0)
@@ -244,6 +300,9 @@ class ExistingUsersPortfolioAdapter(
             if (projectList.isEmpty()) {
                 binding.cvOngoingInvestment.visibility = View.VISIBLE
                 binding.rvOngoingInvestment.visibility = View.GONE
+                binding.cvOngoingInvestment.setOnClickListener {
+                    onItemClickListener.investNow()
+                }
             } else {
                 completedInvestmentAdapter =
                     CompletedInvestmentAdapter(context, projectList, onItemClickListener, 1)
@@ -287,6 +346,8 @@ class ExistingUsersPortfolioAdapter(
         fun manageProject(crmId: Int, projectId: Int, otherDetails: ProjectExtraDetails)
         fun referNow()
         fun seeAllWatchlist()
+        fun investNow()
+        fun onGoingDetails()
     }
 
 }
