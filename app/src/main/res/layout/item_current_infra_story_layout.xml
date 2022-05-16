@@ -21,17 +21,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/iv_story_image"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_story_image"
                 android:layout_width="@dimen/margin_size_200"
                 android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/margin_size_8"
                 android:layout_marginHorizontal="@dimen/margin_size_4"
                 android:layout_marginTop="@dimen/margin_size_4"
-                android:scaleType="fitXY"
-                android:src="@drawable/bitmap_copy_9_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_story_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/bitmap_copy_9_1" />
+
+            </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_image_name"
@@ -43,9 +51,9 @@
                 android:fontFamily="@font/jost_regular"
                 android:paddingVertical="@dimen/margin_size_6"
                 android:text="Navi Mumbai Airport"
-                app:layout_constraintBottom_toBottomOf="@id/iv_story_image"
-                app:layout_constraintEnd_toEndOf="@id/iv_story_image"
-                app:layout_constraintStart_toStartOf="@id/iv_story_image" />
+                app:layout_constraintBottom_toBottomOf="@id/cv_story_image"
+                app:layout_constraintEnd_toEndOf="@id/cv_story_image"
+                app:layout_constraintStart_toStartOf="@id/cv_story_image" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_image_info"
@@ -61,7 +69,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_story_image" />
+                app:layout_constraintTop_toBottomOf="@id/cv_story_image" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -2,11 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:id="@+id/cl_outer"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/text_blue_color">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_inner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/top_corner_radius_bg"
@@ -226,6 +228,8 @@
             android:layout_marginHorizontal="@dimen/margin_size_12"
             android:layout_marginVertical="@dimen/margin_size_12"
             android:lineSpacingMultiplier="1.5"
+            android:maxLines="2"
+            android:ellipsize="end"
             tools:text="The Isle of Bliss is phase 2 of Codename Bliss Dapoli, a seaside lifestyle plotting development from The House of Abhinandan Lodha…READ MORE"
             style="@style/text_style_text_black_color_14"
             android:fontFamily="@font/jost_light"
@@ -362,15 +366,24 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_size_16"
             android:layout_marginTop="@dimen/margin_size_14"
-            android:drawableEnd="@drawable/ic_info"
-            android:drawablePadding="@dimen/_8sdp"
             android:fontFamily="@font/jost_light"
             android:lineSpacingMultiplier="1.3"
             android:text="@string/reg_draft_text"
             android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iv_reg_info"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_project_view_info" />
+
+        <ImageView
+            android:id="@+id/iv_reg_info"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:src="@drawable/info_4"
+            android:layout_marginEnd="@dimen/margin_size_33"
+            app:layout_constraintStart_toEndOf="@id/tv_registration_number"
+            app:layout_constraintTop_toTopOf="@id/tv_registration_number"
+            app:layout_constraintBottom_toBottomOf="@id/tv_registration_number"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_not_convinced"

@@ -39,11 +39,18 @@ class ProjectDetailFragment:BaseFragment() {
     private lateinit var mediaData : ProjectCoverImages
     private lateinit var promisesData : List<PmData>
     private lateinit var landSkusData : List<InventoryBucketContent>
+    private lateinit var mapLocationData : LocationInfrastructure
     private var faqData: List<ProjectContentsAndFaq> = mutableListOf()
 
     val onItemClickListener =
         View.OnClickListener { view ->
             when (view.id) {
+                R.id.project_detail_map -> {
+                    val bundle = Bundle()
+                    bundle.putSerializable("MapLocationData",mapLocationData as Serializable)
+                    val mapFragment = MapFragment()
+                    (requireActivity() as HomeActivity).replaceFragment(mapFragment.javaClass, "", true, bundle, null, 0, true)
+                }
                 R.id.cl_not_convinced_promises -> {
                     val applicationSubmitDialog = ApplicationSubmitDialog("Video Call request sent successfully.","Our sales person will reach out to you soon!",false)
                     applicationSubmitDialog.show(parentFragmentManager,"ApplicationSubmitDialog")
@@ -137,6 +144,7 @@ class ProjectDetailFragment:BaseFragment() {
                         mediaData= data.projectCoverImages
                         landSkusData = data.inventoryBucketContents
                         faqData = data.projectContentsAndFaqs
+                        mapLocationData = data.locationInfrastructure
                         setUpRecyclerView(data,promisesData)
                     }
                 }

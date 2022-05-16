@@ -28,6 +28,7 @@ import com.emproto.hoabl.feature.home.notification.adapter.NotificationAdapter
 import com.emproto.hoabl.feature.home.notification.data.NotificationDataModel
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.home.views.fragments.SearchResultFragment
+import com.emproto.hoabl.feature.investment.views.CategoryListFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
 import com.emproto.hoabl.feature.portfolio.views.*
 import com.emproto.hoabl.feature.promises.HoablPromises
@@ -291,7 +292,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                     fragmentTransaction.replace(contentFrame, fragment, finalTag)
                     if (addToBackStack) fragmentTransaction.addToBackStack(finalTag)
                     supportFragmentManager.executePendingTransactions()
-                    fragmentTransaction.commit()
+                    fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit).commit()
                 }
             }
         } catch (e: IllegalStateException) {
@@ -321,7 +322,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             ) {
                 activityHomeActivity.includeNavigation.bottomNavigation.menu[3].isChecked = true
             }
-
         }
     }
 
