@@ -29,6 +29,8 @@ import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
+import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
 import com.emproto.networklayer.response.watchlist.Data
 import com.example.portfolioui.databinding.DailogLockPermissonBinding
@@ -95,16 +97,16 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         (requireActivity() as HomeActivity).hideBackArrow()
 
         pinPermissonDialog = DailogLockPermissonBinding.inflate(layoutInflater)
-        pinPermissonDialog.allow.setOnClickListener {
+        pinPermissonDialog.tvActivate.setOnClickListener {
             //activate pin
             appPreference.activatePin(true)
             appPreference.savePinDialogStatus(true)
             pinDialog.dismiss()
             setUpAuthentication()
-            setUpUI(true)
+            //setUpUI(true)
         }
 
-        pinPermissonDialog.dontAllow.setOnClickListener {
+        pinPermissonDialog.tvDontallow.setOnClickListener {
             //dont show dialog again
             setUpUI(true)
             appPreference.savePinDialogStatus(true)
@@ -137,7 +139,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     }
 
     private fun setUpInitialUI() {
-        setUpUI(false)
+        //setUpUI(false)
     }
 
     private fun setUpAuthentication() {
@@ -156,9 +158,9 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                     if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
                         setUpKeyGuardManager()
                     } else if (errorCode == BiometricPrompt.ERROR_NO_BIOMETRICS) {
-                        //setUpUI(true)
+                        setUpUI(true)
                     } else {
-                        //setUpUI(true)
+                        setUpUI(true)
 
                     }
                 }
@@ -174,7 +176,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                 override fun onAuthenticationFailed() {
                     super.onAuthenticationFailed()
                     Toast.makeText(context, "Authentication failed", Toast.LENGTH_SHORT).show()
-                    setUpUI(false)
+                    //setUpUI(false)
                 }
             })
 
@@ -243,46 +245,59 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     private fun observePortFolioData() {
         portfolioviewmodel.getPortfolioData().observe(viewLifecycleOwner, Observer {
             it.let {
-                list.clear()
-                list.add(
-                    PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_HEADER,
-                        null
+                if (list.isEmpty()) {
+                    list.add(
+                        PortfolioModel(
+                            ExistingUsersPortfolioAdapter.TYPE_HEADER,
+                            null
+                        )
                     )
-                )
-                list.add(
-                    PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED,
-                        it.data.summary.completed
+                    if (it.data.summary.completed.count > 0) {
+                        list.add(
+                            PortfolioModel(
+                                ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED,
+                                it.data.summary.completed
+                            )
+                        )
+                    }
+                    if (it.data.summary.ongoing.count > 0) {
+                        list.add(
+                            PortfolioModel(
+                                ExistingUsersPortfolioAdapter.TYPE_SUMMARY_ONGOING,
+                                it.data.summary.ongoing
+                            )
+                        )
+                    }
+                    list.add(
+                        PortfolioModel(
+                            ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
+                            it.data.projects.filter { it.investment.isCompleted }
+                        )
                     )
-                )
-                list.add(
-                    PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_SUMMARY_ONGOING,
-                        it.data.summary.ongoing
+                    list.add(
+                        PortfolioModel(
+                            ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
+                            it.data.projects.filter { !it.investment.isCompleted }
+                        )
                     )
-                )
-                list.add(
-                    PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
-                        it.data.projects.filter { it.investment.isCompleted }
-                    )
-                )
-                list.add(
-                    PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
-                        it.data.projects.filter { !it.investment.isCompleted }
-                    )
-                )
-                //fetch remaining data
-                adapter =
-                    ExistingUsersPortfolioAdapter(
-                        requireActivity(),
-                        list,
-                        this@PortfolioFragment
-                    )
-                binding.financialRecycler.adapter = adapter
-                getWathclistData()
+                    //fetch remaining data
+                    adapter =
+                        ExistingUsersPortfolioAdapter(
+                            requireActivity(),
+                            list,
+                            this@PortfolioFragment
+                        )
+                    binding.financialRecycler.adapter = adapter
+                    getWathclistData()
+                } else {
+                    adapter =
+                        ExistingUsersPortfolioAdapter(
+                            requireActivity(),
+                            list,
+                            this@PortfolioFragment
+                        )
+                    binding.financialRecycler.adapter = adapter
+                }
             }
         })
 
@@ -300,12 +315,13 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                     it.data?.let {
                         watchList.clear()
                         watchList.addAll(it.data.filter { it.project != null })
-                        list.add(
-                            PortfolioModel(
-                                ExistingUsersPortfolioAdapter.TYPE_WATCHLIST, watchList
+                        if (watchList.isNotEmpty()) {
+                            list.add(
+                                PortfolioModel(
+                                    ExistingUsersPortfolioAdapter.TYPE_WATCHLIST, watchList
+                                )
                             )
-                        )
-
+                        }
                     }
 
                     list.add(
@@ -324,8 +340,9 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         when (requestCode) {
             mRequestCode -> {
                 when (resultCode) {
-                    RESULT_OK -> setUpUI(true)
-                    else -> setUpUI(false)
+                    RESULT_OK -> {
+                        setUpUI(true)
+                    }
                 }
             }
         }
@@ -359,7 +376,10 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         val list = CategoryListFragment()
         val bundle = Bundle()
         bundle.putString("Category", "Watchlist")
-        bundle.putSerializable("WatchlistData", watchList as Serializable)
+        bundle.putSerializable(
+            "WatchlistData",
+            watchList as Serializable
+        )
         list.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(list, false)
     }

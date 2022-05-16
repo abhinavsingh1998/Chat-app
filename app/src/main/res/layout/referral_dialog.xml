@@ -41,6 +41,7 @@
                 android:layout_marginTop="@dimen/margin_size_98"/>
 
             <ImageView
+                android:id="@+id/close_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/close"

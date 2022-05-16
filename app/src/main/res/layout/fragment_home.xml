@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     android:background="@color/app_color">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/root_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:elevation="@dimen/_4sdp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -100,7 +100,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/investment_recyclerview"
+                    android:id="@+id/investment_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_8sdp"
@@ -126,7 +126,7 @@
                     app:fontName="@string/jost_medium"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/investment_recyclerview" />
+                    app:layout_constraintTop_toBottomOf="@id/investment_list" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -264,7 +264,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.emproto.core.textviews.CustomTextView
-                        android:id="@+id/tv_seeall"
+                        android:id="@+id/tv_see_all_update"
                         style="@style/text_style_blue_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -389,6 +389,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_size_3"
+                        android:paddingLeft="@dimen/margin_size_8"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -463,45 +464,46 @@
                 app:layout_constraintTop_toBottomOf="@id/main_layout2">
 
                 <ImageView
-                    android:id="@+id/referral_image"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:layout_marginLeft="@dimen/margin_size_5"
-                    android:src="@drawable/referral_card"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:id="@+id/iv_portfolio_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_30"
+                    android:src="@drawable/business_88"
+                    app:layout_constraintEnd_toStartOf="@id/tv_share_with_joy"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/share_joy_header"
-                    style="@style/text_style_blue_32"
-                    android:layout_width="0dp"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_share_with_joy"
+                    style="@style/text_regular_blue_22"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_size_10"
-                    android:layout_marginTop="@dimen/margin_size_50"
-                    android:layout_marginRight="@dimen/margin_size_45"
-                    android:fontFamily="@font/shelldon"
-                    android:text="@string/share_joy"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/referral_image"
+                    android:layout_marginTop="@dimen/margin_size_80"
+                    android:layout_marginEnd="@dimen/margin_size_45"
+                    android:fontFamily="@font/jost_regular"
+                    android:text="@string/share_the_joy"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.emproto.core.textviews.CustomTextView
-                    android:id="@+id/refer_btn"
-                    style="@style/text_style_white_14"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/btn_refer_now"
+                    style="@style/text_style_white_16"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_size_11"
-                    android:layout_marginRight="@dimen/margin_size_21"
-                    android:background="@drawable/button_bg"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="@dimen/margin_size_21"
+                    android:background="@drawable/all_corner_radius_black_bg"
                     android:drawableEnd="@drawable/arrow_right_"
                     android:fontFamily="@font/jost_medium"
-                    android:gravity="center"
-                    android:paddingHorizontal="20dp"
                     android:paddingVertical="@dimen/margin_size_10"
-                    android:text="Refer Now"
-                    app:layout_constraintLeft_toLeftOf="@id/share_joy_header"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/share_joy_header" />
+                    android:paddingStart="@dimen/margin_size_15"
+                    android:paddingEnd="@dimen/margin_size_25"
+                    android:text="@string/refer_now"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tv_share_with_joy"
+                    app:layout_constraintTop_toBottomOf="@id/tv_share_with_joy" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/share_txt_card"
@@ -514,7 +516,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/referral_image">
+                    app:layout_constraintTop_toBottomOf="@+id/iv_portfolio_share">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -560,5 +562,17 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/loader"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:indeterminateTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

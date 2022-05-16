@@ -3,6 +3,8 @@ package com.emproto.hoabl.feature.home.views
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -25,6 +27,7 @@ import com.emproto.hoabl.feature.home.notification.HoabelNotifiaction
 import com.emproto.hoabl.feature.home.notification.adapter.NotificationAdapter
 import com.emproto.hoabl.feature.home.notification.data.NotificationDataModel
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
+import com.emproto.hoabl.feature.home.views.fragments.SearchResultFragment
 import com.emproto.hoabl.feature.investment.views.CategoryListFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
 import com.emproto.hoabl.feature.portfolio.views.*
@@ -59,6 +62,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     @Inject
     lateinit var factory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
+    var added = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,6 +96,38 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     private fun initClickListener() {
+
+        activityHomeActivity.searchLayout.search.onFocusChangeListener =
+            View.OnFocusChangeListener { p0, p1 ->
+                if (p1) {
+                    Toast.makeText(this, "Focus", Toast.LENGTH_SHORT).show()
+                    //show bottom dropdown
+                } else {
+                }
+            }
+        activityHomeActivity.searchLayout.search.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                //get the fragment
+
+                if (p0.toString().isNotEmpty()) {
+                    if (!added) {
+                        added = true
+                        addFragment(SearchResultFragment.newInstance(), false)
+                    }
+                } else {
+                    added = false
+                    onBackPressed()
+                }
+            }
+
+        })
 
         activityHomeActivity.searchLayout.notification.setOnClickListener(View.OnClickListener {
             bottomSheetDialog = BottomSheetDialog(this)
@@ -266,6 +302,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
 
     override fun onBackPressed() {
+        added = false
         if (getCurrentFragment() is HomeFragment) {
             if (closeApp) {
                 finishAffinity()
@@ -278,6 +315,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             super.onBackPressed()
             if (getCurrentFragment() is HomeFragment) {
                 activityHomeActivity.includeNavigation.bottomNavigation.menu[0].isChecked = true
+            } else if (getCurrentFragment() is PortfolioFragment) {
+                activityHomeActivity.includeNavigation.bottomNavigation.menu[2].isChecked = true
             } else if (getCurrentFragment() is HoablPromises ||
                 getCurrentFragment() is PromisesDetailsFragment
             ) {

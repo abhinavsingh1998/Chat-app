@@ -65,13 +65,13 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
      * @param pageType for promises it #5001
      * @return
      */
-    fun getHome(pageType: Int): LiveData<BaseResponse<HomeResponse>>{
+    fun getDashboardData(pageType: Int): LiveData<BaseResponse<HomeResponse>>{
 
         val mHomeResponse = MutableLiveData<BaseResponse<HomeResponse>>()
         mHomeResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val request = HomeDataSource(application).getHomeData(pageType)
+                val request = HomeDataSource(application).getDashboardData(pageType)
                 if (request.isSuccessful) {
                     if (request.body()!!.data != null)
                         mHomeResponse.postValue(BaseResponse.success(request.body()!!))

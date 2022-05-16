@@ -59,7 +59,7 @@ class CompletedInvestmentAdapter(
                     project.project.altitude
                 )
             onCLickInterface.manageProject(
-                project.investment.crmProjectId,
+                project.investment.id,
                 project.project.id,
                 projectExtraDetails
             )
@@ -78,17 +78,30 @@ class CompletedInvestmentAdapter(
             holder.binding.tvCompletedInvestmentArea.text =
                 "" + project.project.areaStartingFrom.split(" ")[0]
 
-            holder.binding.ivCompletedInvestmentDropArrow.setOnClickListener {
-                holder.binding.cvCompletedInvestmentGraphCard.visibility = View.VISIBLE
-                holder.binding.ivCompletedInvestmentUpwardArrow.visibility = View.VISIBLE
-                holder.binding.ivCompletedInvestmentDropArrow.visibility = View.GONE
+            holder.binding.viewDarkBg.setOnClickListener {
+                if(holder.binding.ivCompletedInvestmentDropArrow.visibility == View.VISIBLE){
+                    holder.binding.cvCompletedInvestmentGraphCard.visibility = View.VISIBLE
+                    holder.binding.ivCompletedInvestmentUpwardArrow.visibility = View.VISIBLE
+                    holder.binding.ivCompletedInvestmentDropArrow.visibility = View.GONE
+                }
+                else {
+                    holder.binding.cvCompletedInvestmentGraphCard.visibility = View.GONE
+                    holder.binding.ivCompletedInvestmentUpwardArrow.visibility = View.GONE
+                    holder.binding.ivCompletedInvestmentDropArrow.visibility = View.VISIBLE
+                }
             }
 
-            holder.binding.ivCompletedInvestmentUpwardArrow.setOnClickListener {
-                holder.binding.cvCompletedInvestmentGraphCard.visibility = View.GONE
-                holder.binding.ivCompletedInvestmentUpwardArrow.visibility = View.GONE
-                holder.binding.ivCompletedInvestmentDropArrow.visibility = View.VISIBLE
-            }
+//            holder.binding.ivCompletedInvestmentDropArrow.setOnClickListener {
+//                holder.binding.cvCompletedInvestmentGraphCard.visibility = View.VISIBLE
+//                holder.binding.ivCompletedInvestmentUpwardArrow.visibility = View.VISIBLE
+//                holder.binding.ivCompletedInvestmentDropArrow.visibility = View.GONE
+//            }
+//
+//            holder.binding.ivCompletedInvestmentUpwardArrow.setOnClickListener {
+//                holder.binding.cvCompletedInvestmentGraphCard.visibility = View.GONE
+//                holder.binding.ivCompletedInvestmentUpwardArrow.visibility = View.GONE
+//                holder.binding.ivCompletedInvestmentDropArrow.visibility = View.VISIBLE
+//            }
 
             holder.binding.tvEstimatedAppreciationRating.text =
                 "" + project.project.generalInfoEscalationGraph.estimatedAppreciation + "%"
@@ -106,15 +119,15 @@ class CompletedInvestmentAdapter(
             val linedataset = LineDataSet(linevalues, "First")
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset.color = context.getColor(R.color.app_color)
+                linedataset.color = context.getColor(R.color.green)
             }
 
             linedataset.valueTextSize = 0F
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset.fillColor = context.getColor(R.color.app_color)
+                linedataset.fillColor = context.getColor(R.color.green)
             }
             linedataset.mode = LineDataSet.Mode.LINEAR;
-            linedataset.setCircleColor(context.getColor(R.color.app_color))
+            linedataset.setCircleColor(context.getColor(R.color.green))
 
             //We connect our data to the UI Screen
             val data = LineData(linedataset)
@@ -142,23 +155,25 @@ class CompletedInvestmentAdapter(
 
 
             val linedataset1 = LineDataSet(linevalues, "First")
-            linedataset1.setCircleColor(context.getColor(R.color.app_color))
+            linedataset1.setCircleColor(context.getColor(R.color.green))
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset1.color = context.getColor(R.color.app_color)
+                linedataset1.color = context.getColor(R.color.green)
             }
 
             linedataset1.valueTextSize = 12F
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset1.fillColor = context.getColor(R.color.app_color)
+                linedataset1.fillColor = context.getColor(R.color.green)
             }
             linedataset1.mode = LineDataSet.Mode.LINEAR;
 
             //We connect our data to the UI Screen
             val data1 = LineData(linedataset1)
-            val limitLine = LimitLine(2026F,"My Investment")
-            limitLine.lineColor = Color.RED
+            val limitLine = LimitLine(2026F, "My Investment")
+            limitLine.lineColor = context.getColor(R.color.app_color)
             limitLine.lineWidth = 1F
+            limitLine.enableDashedLine(10F, 10F, 10F)
+            limitLine.textSize = 14F
 
             //binding.ivPriceTrendsGraph.setDrawBorders(false);
             //binding.ivPriceTrendsGraph.setDrawGridBackground(false);

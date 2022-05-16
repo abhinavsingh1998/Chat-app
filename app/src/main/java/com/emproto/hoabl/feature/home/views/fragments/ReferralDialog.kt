@@ -31,7 +31,15 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
     }
 
     override fun onClick(p0: View?) {
-        TODO("Not yet implemented")
+        if (p0 != null) {
+            when (p0.id){
+                R.id.close_btn ->{
+                    dialog?.dismiss()
+                }
+
+            }
+        }
+
     }
 
     private fun initClickListner() {

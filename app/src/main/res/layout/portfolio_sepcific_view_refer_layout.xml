@@ -34,13 +34,13 @@
         android:layout_marginEnd="@dimen/margin_size_21"
         android:background="@drawable/all_corner_radius_black_bg"
         android:drawableEnd="@drawable/arrow_right_"
+        android:fontFamily="@font/jost_regular"
         android:paddingVertical="@dimen/margin_size_10"
         android:paddingStart="@dimen/margin_size_15"
         android:paddingEnd="@dimen/margin_size_25"
         android:text="@string/refer_now"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:fontFamily="@font/jost_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_share_with_joy"
         app:layout_constraintTop_toBottomOf="@id/tv_share_with_joy" />
@@ -76,22 +76,40 @@
                 app:layout_constraintRight_toLeftOf="@id/app_share_btn"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.emproto.core.textviews.CustomTextView
+            <RelativeLayout
                 android:id="@+id/app_share_btn"
                 style="@style/text_style_white_14"
-                android:layout_width="0dp"
+                android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/margin_size_30"
                 android:background="@drawable/blue_btn_bg"
-                android:drawableStart="@drawable/ic_share"
-                android:drawablePadding="@dimen/margin_size_8"
-                android:fontFamily="@font/jostmedium"
-                android:paddingHorizontal="10dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:paddingHorizontal="20dp"
                 android:text="@string/share_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/share_app_text"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/action_share"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_share" />
+
+                <TextView
+                    style="@style/text_style_white_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/margin_size_10"
+                    android:layout_toRightOf="@+id/action_share"
+                    android:fontFamily="@font/jost_medium"
+                    android:text="Share"
+                    android:textAllCaps="true" />
+            </RelativeLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

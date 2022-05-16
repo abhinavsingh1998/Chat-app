@@ -4,28 +4,193 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/homescreen_curve">
+    android:background="@color/app_color">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_size_10"
+        android:background="@drawable/homescreen_curve"        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-            <com.emproto.core.textviews.CustomTextView
-                android:id="@+id/testimonals_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:text="Testimonials"
-                android:layout_marginTop="@dimen/margin_size_16"
-                android:textColor="@color/app_color"
-                android:fontFamily="@font/shelldon"
-                android:textSize="@dimen/text_size_32"/>
+        <View
+            android:id="@+id/view_1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#b6b3d0"
+            android:layout_marginTop="@dimen/margin_size_30"
+            android:layout_marginRight="@dimen/margin_size_2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/header_text"/>
 
+        <TextView
+            android:id="@+id/header_text"
+            style="@style/text_style_blue_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_size_130"
+            android:fontFamily="@font/jost_medium"
+            android:text="@string/testimonial"
+            android:paddingHorizontal="@dimen/margin_size_4"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/view_2"
+            app:layout_constraintLeft_toLeftOf="@id/view_1"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view_1" />
+        <View
+        android:id="@+id/view_2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#b6b3d0"
+        android:layout_marginTop="@dimen/margin_size_30"
+        android:layout_marginLeft="@dimen/margin_size_2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/header_text"
+        app:layout_constraintRight_toRightOf="parent"/>
 
-            <androidx.recyclerview.widget.RecyclerView
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/customTextView"
+            style="@style/text_light_black_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="@dimen/margin_size_7"
+            android:fontFamily="@font/jost_light"
+            android:text="Break your myths by reading in-depth insights"
+            android:textAlignment="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header_text" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_testimonilas"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_size_20"
+        tools:listitem="@layout/testimonals_list_view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/customTextView" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/referral_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_layout2">
+
+        <ImageView
+            android:id="@+id/referral_image"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="@dimen/margin_size_5"
+            android:src="@drawable/referral_card"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/share_joy_header"
+            style="@style/text_style_blue_24"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_size_10"
+            android:layout_marginTop="@dimen/margin_size_50"
+            android:layout_marginRight="@dimen/margin_size_45"
+            android:fontFamily="@font/jost_regular"
+            android:text="@string/share_joy"
+            android:textAlignment="center"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/referral_image"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/refer_btn"
+            style="@style/text_style_white_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_size_11"
+            android:layout_marginRight="@dimen/margin_size_21"
+            android:background="@drawable/button_bg"
+            android:drawableEnd="@drawable/arrow_right_"
+            android:fontFamily="@font/jost_medium"
+            android:gravity="center"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="@dimen/margin_size_10"
+            android:text="Refer Now"
+            app:layout_constraintLeft_toLeftOf="@id/share_joy_header"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/share_joy_header" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/share_txt_card"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_size_40"
+            android:layout_marginHorizontal="@dimen/margin_size_8"
+            android:layout_marginTop="@dimen/margin_size_10"
+            android:layout_marginBottom="@dimen/margin_size_15"
+            app:cardCornerRadius="@dimen/margin_size_5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/referral_image">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/margin_size_10"
-                app:layout_constraintTop_toBottomOf="@id/testimonals_header"/>
+                android:layout_height="match_parent"
+                android:background="#f7f7f7">
+
+                <com.emproto.core.textviews.CustomTextView
+                    android:id="@+id/share_app_text"
+                    style="@style/text_style_text_black_color_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_size_25"
+                    android:fontFamily="@font/jost_regular"
+                    android:text="@string/share_your_friend_txt"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/app_share_btn"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.emproto.core.textviews.CustomTextView
+                    android:id="@+id/app_share_btn"
+                    style="@style/text_style_white_14"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin_size_30"
+                    android:background="@drawable/blue_btn_bg"
+                    android:drawableStart="@drawable/ic_share"
+                    android:fontFamily="@font/jostmedium"
+                    android:paddingHorizontal="10dp"
+                    android:text="@string/share_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/share_app_text"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/loader"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:indeterminateTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

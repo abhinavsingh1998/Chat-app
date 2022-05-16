@@ -32,16 +32,13 @@ public class HomeDataSource(val application: Application) {
     }
 
     // home modules apis
-    suspend fun getHomeData(pageType: Int): Response<HomeResponse>{
-        return apiService.getHome(pageType)
+    suspend fun getDashboardData(pageType: Int): Response<HomeResponse> {
+        return apiService.getDashboardData(pageType)
     }
 
     //promises modules apis
     suspend fun getPromisesData(pageType: Int): Response<PromisesResponse> {
         return apiService2.getPromises(pageType)
     }
-
-
-
 
 }

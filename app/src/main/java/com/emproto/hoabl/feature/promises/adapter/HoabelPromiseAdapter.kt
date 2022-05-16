@@ -92,7 +92,6 @@ class HoabelPromiseAdapter(
         }
     }
 
-
     override fun getItemCount() = dataList.size
 
     inner class HoablPromiseViewHolder(var binding: PromisesItemDataBinding) :

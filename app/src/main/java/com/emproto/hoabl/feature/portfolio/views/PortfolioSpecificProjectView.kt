@@ -120,12 +120,14 @@ class PortfolioSpecificProjectView : BaseFragment() {
                                     it.data.projectInformation.projectContentsAndFaqs
                                 )
                             )
-                            list.add(
-                                RecyclerViewItem(
-                                    PortfolioSpecificViewAdapter.PORTFOLIO_SIMILER_INVESTMENT,
-                                    it.data.projectInformation.similarInvestments
+                            if (it.data.projectInformation.similarInvestments.isNotEmpty()) {
+                                list.add(
+                                    RecyclerViewItem(
+                                        PortfolioSpecificViewAdapter.PORTFOLIO_SIMILER_INVESTMENT,
+                                        it.data.projectInformation.similarInvestments
+                                    )
                                 )
-                            )
+                            }
                         }
 
                         portfolioSpecificViewAdapter =
@@ -203,20 +205,21 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
                 }
                 Status.SUCCESS -> {
-                    list.removeAt(2)
-                    list.add(
-                        2,
-                        RecyclerViewItem(
-                            PortfolioSpecificViewAdapter.PORTFOLIO_DOCUMENTS,
-                            it.data!!.data
+                    if (it.data!!.data.isNotEmpty()) {
+                        list.removeAt(2)
+                        list.add(
+                            2,
+                            RecyclerViewItem(
+                                PortfolioSpecificViewAdapter.PORTFOLIO_DOCUMENTS,
+                                it.data!!.data
+                            )
                         )
-                    )
-                    portfolioSpecificViewAdapter.notifyItemChanged(3)
-                    it.data?.let {
-                        val adapter = DocumentsAdapter(it.data, true)
-                        documentBinding.rvDocsItemRecycler.adapter = adapter
+                        portfolioSpecificViewAdapter.notifyItemChanged(3)
+                        it.data?.let {
+                            val adapter = DocumentsAdapter(it.data, true)
+                            documentBinding.rvDocsItemRecycler.adapter = adapter
+                        }
                     }
-
                 }
                 Status.ERROR -> {
 
