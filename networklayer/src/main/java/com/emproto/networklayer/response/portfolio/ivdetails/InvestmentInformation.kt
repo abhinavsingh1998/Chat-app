@@ -9,7 +9,7 @@ data class InvestmentInformation(
     val bookingStatus: String,
     val createdAt: String,
     val crmProjectId: Int,
-    val documentLinks: List<String>,
+//    val documentLinks: List<String>,
     val id: Int,
     val inventoryBucket: String,
     val inventoryId: String,

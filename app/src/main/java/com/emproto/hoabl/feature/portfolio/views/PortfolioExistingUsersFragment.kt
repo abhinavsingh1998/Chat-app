@@ -187,4 +187,12 @@ class PortfolioExistingUsersFragment : BaseFragment(),
 
     }
 
+    override fun investNow() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onGoingDetails() {
+        TODO("Not yet implemented")
+    }
+
 }
