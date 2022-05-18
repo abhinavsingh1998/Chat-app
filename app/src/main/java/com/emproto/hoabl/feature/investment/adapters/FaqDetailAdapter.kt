@@ -73,7 +73,7 @@ class FaqDetailAdapter(private val context: Context, private val list: List<Recy
     private inner class CategoryViewHolder(private val binding: FaqCategoryLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int,data:CgData){
             binding.tvCategoryTitle.text = data.name
-            faqAdapter = FaqAdapter(data.faqs)
+            faqAdapter = FaqAdapter(data.faqs,context)
             binding.rvFaq.adapter = faqAdapter
         }
     }

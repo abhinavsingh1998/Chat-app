@@ -33,36 +33,31 @@
                 android:src="@android:color/background_dark" />
         </com.google.android.material.card.MaterialCardView>
 
-        <LinearLayout
-            android:id="@+id/text_address_layout"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_project_name"
+            style="@style/text_style_text_black_color_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|top|center"
+            android:fontFamily="@font/jost_medium"
+            android:singleLine="true"
+            android:text="Isle of Bliss"
+            android:textStyle="bold"
             android:layout_marginHorizontal="@dimen/margin_size_8"
-            android:gravity="start|top|center"
-            android:orientation="vertical"
             app:layout_constraintStart_toEndOf="@id/cv_small_top_image"
-            app:layout_constraintTop_toTopOf="@id/cv_small_top_image">
+            app:layout_constraintTop_toTopOf="@id/cv_small_top_image"/>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_project_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/jost_medium"
-                android:singleLine="true"
-                android:text="Isle of Bliss"
-                style="@style/text_style_text_black_color_14"
-                android:textStyle="bold" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_project_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pune, Maharashtra"
-                android:fontFamily="@font/jost_regular"
-                style="@style/text_style_text_light_black_color_12"
-                android:textStyle="normal" />
-        </LinearLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_project_location"
+            style="@style/text_style_text_light_black_color_12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/jost_regular"
+            android:text="Pune, Maharashtra"
+            android:textStyle="normal"
+            android:layout_marginHorizontal="@dimen/margin_size_8"
+            app:layout_constraintStart_toEndOf="@id/cv_small_top_image"
+            app:layout_constraintTop_toBottomOf="@id/tv_project_name"
+            app:layout_constraintEnd_toStartOf="@id/tv_rise_year" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_rise_year"
@@ -72,8 +67,9 @@
             android:fontFamily="@font/jost_regular"
             android:text="Rise in last 1 Year"
             style="@style/text_style_medium_grey_12"
-            app:layout_constraintStart_toEndOf="@id/text_address_layout"
-            app:layout_constraintTop_toTopOf="@id/text_address_layout" />
+            app:layout_constraintStart_toEndOf="@id/tv_project_location"
+            app:layout_constraintTop_toTopOf="@id/tv_project_location"
+            app:layout_constraintBottom_toBottomOf="@id/tv_project_location"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_rating"
@@ -84,6 +80,8 @@
             android:fontFamily="@font/jost_bold"
             android:text="5%"
             app:layout_constraintBottom_toBottomOf="@id/tv_rise_year"
+            app:layout_constraintEnd_toStartOf="@id/iv_bookmark_icon"
+            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toEndOf="@id/tv_rise_year"
             app:layout_constraintTop_toTopOf="@id/tv_rise_year" />
 
@@ -127,8 +125,8 @@
             android:layout_marginTop="@dimen/margin_size_12"
             android:scaleType="fitXY"
             android:src="@drawable/ic_visibility"
-            app:layout_constraintStart_toStartOf="@id/text_address_layout"
-            app:layout_constraintTop_toBottomOf="@id/cv_small_top_image" />
+            app:layout_constraintStart_toStartOf="@id/tv_project_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_project_location" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_view_count"
@@ -385,59 +383,14 @@
             app:layout_constraintBottom_toBottomOf="@id/tv_registration_number"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_not_convinced"
+        <include
+            android:id="@+id/why_invest_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/not_convinced_bg"
-            android:layout_marginHorizontal="@dimen/margin_size_20"
-            android:layout_marginTop="@dimen/margin_size_22"
+            layout="@layout/why_invest_layout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_registration_number"
-
-            >
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_still_not_convinced"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textAlignment="textStart"
-                android:layout_marginHorizontal="@dimen/margin_size_23"
-                android:layout_marginTop="@dimen/margin_size_20"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:text="Still not convinced?"
-                style="@style/text_style_white_16"
-                android:fontFamily="@font/jost_medium" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_still_not_convinced_info"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/jost_regular"
-                android:text="Schedule a video call with our supervisors and have them show you a live demo"
-                style="@style/text_light_ash_14"
-                android:layout_marginTop="@dimen/_4sdp"
-                app:layout_constraintStart_toStartOf="@id/tv_still_not_convinced"
-                app:layout_constraintTop_toBottomOf="@id/tv_still_not_convinced"
-                app:layout_constraintEnd_toStartOf="@id/iv_not_convinced_arrow"
-                android:layout_marginEnd="@dimen/margin_size_20"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="@dimen/margin_size_20"
-                />
-
-            <ImageView
-                android:id="@+id/iv_not_convinced_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/arrow_right_"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="@dimen/margin_size_30"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@id/tv_registration_number"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

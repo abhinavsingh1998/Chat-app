@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
@@ -27,8 +28,6 @@ class LandSkusFragment:BaseFragment() {
     private lateinit var binding: FragmentLandSkusBinding
     private lateinit var landSkusAdapter: LandSkusAdapter
 
-    private lateinit var skusData: Bundle
-
     val onLandSkusItemClickListener =
         View.OnClickListener { view ->
             when (view.id) {
@@ -47,25 +46,25 @@ class LandSkusFragment:BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpUI()
+        setUpRecyclerview()
     }
 
     private fun setUpUI() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         investmentViewModel =
             ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
-        val data = arguments?.getSerializable("skusData") as List<InventoryBucketContent>
         (activity as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
-        setUpRecyclerview(data)
     }
 
-    private fun setUpRecyclerview(skusList:List<InventoryBucketContent>) {
-        val list = ArrayList<RecyclerViewItem>()
-        list.add(RecyclerViewItem(1))
-//        list.add(RecyclerViewItem(2))
-        list.add(RecyclerViewItem(3))
+    private fun setUpRecyclerview() {
+        investmentViewModel.getSkus().observe(viewLifecycleOwner, Observer {
+            val list = ArrayList<RecyclerViewItem>()
+            list.add(RecyclerViewItem(1))
+            list.add(RecyclerViewItem(3))
 
-        landSkusAdapter = LandSkusAdapter(this,list,skusList)
-        binding.rvLandSkus.adapter = landSkusAdapter
+            landSkusAdapter = LandSkusAdapter(this,list,it)
+            binding.rvLandSkus.adapter = landSkusAdapter
+        })
     }
 
 }

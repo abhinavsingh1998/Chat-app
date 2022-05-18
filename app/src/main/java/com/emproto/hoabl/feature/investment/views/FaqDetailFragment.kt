@@ -43,11 +43,9 @@ class FaqDetailFragment:BaseFragment() {
     }
 
     private fun setUpInitialization() {
-//        val data = arguments?.getSerializable("faqData") as List<ProjectContentsAndFaq>
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         investmentViewModel =
             ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
-//        setUpRecyclerView()
     }
 
     private fun callApi() {

@@ -1,10 +1,12 @@
 package com.emproto.hoabl.feature.investment.views
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -13,10 +15,12 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ProjectDetailLayoutBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.fragments.Testimonials
 import com.emproto.hoabl.feature.investment.adapters.ProjectAmenitiesAdapter
 import com.emproto.hoabl.feature.investment.adapters.ProjectDetailAdapter
 import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
 import com.emproto.hoabl.feature.investment.views.mediagallery.MediaGalleryFragment
+import com.emproto.hoabl.feature.promises.HoablPromises
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
@@ -40,42 +44,35 @@ class ProjectDetailFragment:BaseFragment() {
     private lateinit var promisesData : List<PmData>
     private lateinit var landSkusData : List<InventoryBucketContent>
     private lateinit var mapLocationData : LocationInfrastructure
+
     private var faqData: List<ProjectContentsAndFaq> = mutableListOf()
+    private var APP_URL = "https://www.google.com/"
 
     val onItemClickListener =
         View.OnClickListener { view ->
             when (view.id) {
                 R.id.project_detail_map -> {
-                    val bundle = Bundle()
-                    bundle.putSerializable("MapLocationData",mapLocationData as Serializable)
-                    val mapFragment = MapFragment()
-                    (requireActivity() as HomeActivity).replaceFragment(mapFragment.javaClass, "", true, bundle, null, 0, true)
+                    investmentViewModel.setMapLocationInfrastructure(mapLocationData)
+                    (requireActivity() as HomeActivity).addFragment(MapFragment(),false)
                 }
                 R.id.cl_not_convinced_promises -> {
                     val applicationSubmitDialog = ApplicationSubmitDialog("Video Call request sent successfully.","Our sales person will reach out to you soon!",false)
                     applicationSubmitDialog.show(parentFragmentManager,"ApplicationSubmitDialog")
                 }
                 R.id.tv_faq_read_all -> {
-                    val faqDetailFragment = FaqDetailFragment()
-                    (requireActivity() as HomeActivity).replaceFragment(faqDetailFragment.javaClass, "", true, null, null, 0, false)
+                    (requireActivity() as HomeActivity).addFragment(FaqDetailFragment(),false)
                 }
-                R.id.cl_not_convinced ->{
-                    val bundle = Bundle()
-                    bundle.putSerializable("OppDocData",oppDocData as Serializable)
-                    val opportunityDocsFragment = OpportunityDocsFragment()
-                    (requireActivity() as HomeActivity).replaceFragment(opportunityDocsFragment.javaClass, "", true, bundle, null, 0, false)
+                R.id.cl_outer_why_invest ->{
+                    investmentViewModel.setOpportunityDoc(oppDocData)
+                    (requireActivity() as HomeActivity).addFragment(OpportunityDocsFragment(),false)
                 }
                 R.id.tv_skus_see_all -> {
-                    val bundle = Bundle()
-                    bundle.putSerializable("skusData",landSkusData as Serializable)
-                    val landSkusFragment = LandSkusFragment()
-                    (requireActivity() as HomeActivity).replaceFragment(landSkusFragment.javaClass, "", true, bundle, null, 0, false)
+                    investmentViewModel.setSkus(landSkusData)
+                    (requireActivity() as HomeActivity).addFragment(LandSkusFragment(),false)
                 }
                 R.id.tv_video_drone_see_all -> {
-                    val bundle = Bundle()
-                    bundle.putSerializable("MediaGalleryData",mediaData as Serializable)
-                    val mediaGalleryFragment = MediaGalleryFragment()
-                    (requireActivity() as HomeActivity).replaceFragment(mediaGalleryFragment.javaClass,"",true,bundle,null,0,false)
+                    investmentViewModel.setMedia(mediaData)
+                    (requireActivity() as HomeActivity).addFragment(MediaGalleryFragment(),false)
                 }
                 R.id.tv_project_amenities_all -> {
                     val docsBottomSheet = BottomSheetDialog(this.requireContext(),R.style.BottomSheetDialogTheme)
@@ -86,6 +83,19 @@ class ProjectDetailFragment:BaseFragment() {
                         docsBottomSheet.dismiss()
                     }
                     docsBottomSheet.show()
+                }
+                R.id.iv_share_icon -> {
+                    val shareIntent = Intent(Intent.ACTION_SEND)
+                    shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    shareIntent.type = "text/plain"
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, "The House Of Abhinandan Lodha $APP_URL")
+                    startActivity(shareIntent)
+                }
+                R.id.tv_hear_speak_see_all -> {
+                    (requireActivity() as HomeActivity).addFragment(Testimonials(),false)
+                }
+                R.id.tv_promises_see_all -> {
+                    (requireActivity() as HomeActivity).addFragment(HoablPromises(),false)
                 }
             }
         }
@@ -103,14 +113,44 @@ class ProjectDetailFragment:BaseFragment() {
     }
 
     private fun setUpInitialization() {
-//        projectId = arguments?.getInt("ProjectId") as Int
-        projectId = 5
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         investmentViewModel =
-            ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
+            ViewModelProvider(requireActivity(), investmentFactory)[InvestmentViewModel::class.java]
+    }
+
+    private fun setUpUI() {
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
     }
 
     private fun callApi() {
+        investmentViewModel.getProjectId().observe(viewLifecycleOwner, Observer {
+            projectId = it
+            investmentViewModel.getInvestmentsDetail(projectId).observe(viewLifecycleOwner, Observer {
+                when(it.status){
+                    Status.LOADING -> {
+                        (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                    }
+                    Status.SUCCESS -> {
+                        (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                        it.data?.data?.let {  data ->
+                            oppDocData = data.opprotunityDocs
+                            mediaData= data.projectCoverImages
+                            landSkusData = data.inventoryBucketContents
+                            faqData = data.projectContentsAndFaqs
+                            mapLocationData = data.locationInfrastructure
+                            setUpRecyclerView(data,promisesData)
+                        }
+                    }
+                    Status.ERROR -> {
+                        (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            it.message!!
+                        )
+                    }
+                }
+            })
+        })
+
         investmentViewModel.getInvestmentsPromises().observe(viewLifecycleOwner, Observer {
             when(it.status){
                 Status.LOADING -> {
@@ -132,35 +172,6 @@ class ProjectDetailFragment:BaseFragment() {
             }
         })
 
-        investmentViewModel.getInvestmentsDetail(projectId).observe(viewLifecycleOwner, Observer {
-            when(it.status){
-                Status.LOADING -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
-                }
-                Status.SUCCESS -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
-                    it.data?.data?.let {  data ->
-                        oppDocData = data.opprotunityDocs
-                        mediaData= data.projectCoverImages
-                        landSkusData = data.inventoryBucketContents
-                        faqData = data.projectContentsAndFaqs
-                        mapLocationData = data.locationInfrastructure
-                        setUpRecyclerView(data,promisesData)
-                    }
-                }
-                Status.ERROR -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
-                    (requireActivity() as HomeActivity).showErrorToast(
-                        it.message!!
-                    )
-                }
-            }
-        })
-
-    }
-
-    private fun setUpUI() {
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
     }
 
     private fun setUpRecyclerView(data: PdData, promisesData: List<PmData>) {

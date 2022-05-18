@@ -1,14 +1,18 @@
 package com.emproto.hoabl.feature.investment.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemFaqBinding
 import com.emproto.networklayer.response.investment.CgData
 import com.emproto.networklayer.response.investment.Faq
 
-class FaqAdapter(private val list: List<Faq>):RecyclerView.Adapter<FaqAdapter.FaqViewHolder>() {
+class FaqAdapter(private val list: List<Faq>,private val context:Context, private val type:String= ""):RecyclerView.Adapter<FaqAdapter.FaqViewHolder>() {
     inner class FaqViewHolder(var binding: ItemFaqBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FaqViewHolder {

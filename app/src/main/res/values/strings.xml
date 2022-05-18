@@ -346,4 +346,9 @@
     <string name="around_this_project">Around this Project</string>
     <string name="updates_details">Details</string>
     <string name="get_to_know_about_our_projects_company_updates"><![CDATA[Get to know about our projects & company updates]]></string>
+    <string name="trending_projects">Trending Projects</string>
+    <string name="discover_all_investments_text">Discover all our investments</string>
+    <string name="last_few_plots">Last few plots left.</string>
+    <string name="invest_now_text">Invest Now!</string>
+    <string name="hear_our_customers_speak">Hear our customers speak</string>
 </resources>

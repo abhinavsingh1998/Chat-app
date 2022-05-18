@@ -4,11 +4,12 @@ import android.window.SplashScreen
 import com.emproto.hoabl.HoablSplashActivity
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.home.views.fragments.*
-import com.emproto.hoabl.feature.investment.views.InvestmentFragment
+import com.emproto.hoabl.feature.investment.views.*
+import com.emproto.hoabl.feature.investment.views.mediagallery.MediaGalleryFragment
+import com.emproto.hoabl.feature.investment.views.mediagallery.MediaViewFragment
+import com.emproto.hoabl.feature.investment.views.mediagallery.PhotosFragment
+import com.emproto.hoabl.feature.investment.views.mediagallery.VideosFragment
 import com.emproto.hoabl.feature.login.*
-import com.emproto.hoabl.feature.investment.views.FaqDetailFragment
-import com.emproto.hoabl.feature.investment.views.LandSkusFragment
-import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.portfolio.views.PortfolioExistingUsersFragment
 import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
 import com.emproto.hoabl.feature.portfolio.views.PortfolioSpecificProjectView
@@ -51,4 +52,11 @@ interface HomeComponent {
     fun inject(fragment: LatestUpdatesFragment)
     fun inject(fragment: InsightsFragment)
     fun inject(fragment: SplashScreen)
+    fun inject(fragment: CategoryListFragment)
+    fun inject(fragment: MapFragment)
+    fun inject(fragment: OpportunityDocsFragment)
+    fun inject(fragment: MediaGalleryFragment)
+    fun inject(fragment: PhotosFragment)
+    fun inject(fragment: MediaViewFragment)
+    fun inject(fragment: VideosFragment)
 }

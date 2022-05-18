@@ -86,7 +86,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/new_investment_page_image"
+                        android:src="@drawable/inv_proj_image"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -165,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/jost_regular"
                     android:singleLine="true"
-                    android:text="Isle of Bliss"
+                    android:text="TomorrowLand"
                     android:textStyle="bold" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -174,7 +174,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/jost_regular"
-                    android:text="Pune, Maharashtra"
+                    android:text="Anjarle, Maharashtra"
                     android:textStyle="normal" />
             </LinearLayout>
 
@@ -206,10 +206,10 @@
                 android:id="@+id/rating_linear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@id/text_name_layout"
+                app:layout_constraintStart_toEndOf="@id/text_name_layout"
                 app:layout_constraintEnd_toEndOf="@id/iv_forward_arrow_category"
-                app:layout_constraintBottom_toTopOf="@id/iv_forward_arrow_category">
+                >
 
                 <ImageView
                     android:id="@+id/iv_rating"
@@ -265,7 +265,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/jost_light"
                 android:maxLines="2"
-                android:text="Beach side lifestyle near Mumbai with luxurious amenities and affordable rates"
+                android:text="A Biophilic themed luxury beachside estate with 35 world-class amenities"
                 android:textAlignment="textStart"
                 app:layout_constraintBottom_toBottomOf="@id/category_bottom_view_bg"
                 app:layout_constraintEnd_toEndOf="@id/category_bottom_view_bg"
