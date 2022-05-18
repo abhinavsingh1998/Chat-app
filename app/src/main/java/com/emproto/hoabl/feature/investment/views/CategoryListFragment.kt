@@ -45,7 +45,7 @@ class CategoryListFragment() : BaseFragment() {
                     arguments?.getSerializable("WatchlistData") as List<Data>
                 setUpCategoryAdapter(data, 0)
             }
-            "Similar" ->{
+            "Similar Investment" ->{
                 val data =
                     arguments?.getSerializable("SimilarData") as List<SimilarInvestment>
                 setUpCategoryAdapter(data, 1)
