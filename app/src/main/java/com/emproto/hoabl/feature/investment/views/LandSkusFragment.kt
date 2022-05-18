@@ -14,9 +14,9 @@ import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.investment.adapters.LandSkusAdapter
 import com.emproto.hoabl.feature.investment.dialogs.ConfirmationDialog
 import com.emproto.hoabl.model.RecyclerViewItem
+import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
-import com.emproto.networklayer.response.investment.InventoryBucketContent
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -62,9 +62,15 @@ class LandSkusFragment:BaseFragment() {
             list.add(RecyclerViewItem(1))
             list.add(RecyclerViewItem(3))
 
-            landSkusAdapter = LandSkusAdapter(this,list,it)
+            landSkusAdapter = LandSkusAdapter(this,list,it,itemClickListener)
             binding.rvLandSkus.adapter = landSkusAdapter
         })
     }
 
+    private val itemClickListener = object : ItemClickListener {
+        override fun onItemClicked(view: View, position: Int, item: String) {
+            val confirmationDialog = ConfirmationDialog(this@LandSkusFragment)
+            confirmationDialog.show(this@LandSkusFragment.parentFragmentManager,"ConfirmationDialog")
+        }
+    }
 }

@@ -33,7 +33,7 @@ class ConfirmationDialog(private val landSkusFragment: LandSkusFragment) :Dialog
     }
 
     private fun setUpUI() {
-        landSkusFragment.investmentViewModel.skusLiveData.observe(viewLifecycleOwner, Observer {
+        landSkusFragment.investmentViewModel.getSku().observe(viewLifecycleOwner, Observer {
             it.let { data ->
                 binding.apply {
                     tvItemLandSkusName.text = data.name

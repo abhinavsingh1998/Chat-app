@@ -50,25 +50,32 @@ class CategoryListFragment() : BaseFragment() {
 
     private fun initObserver() {
         investmentViewModel.getSmartDealsList().observe(viewLifecycleOwner, Observer {
-            binding.tvCategoryHeading.text = resources.getString(R.string.smart_deals)
-            setUpAdapter("Smart Deals",it)
+            binding.tvCategoryHeading.text = resources.getString(R.string.last_few_plots)
+            setUpAdapter("LastPlots",it)
         })
         investmentViewModel.getTrendingList().observe(viewLifecycleOwner, Observer {
             binding.tvCategoryHeading.text = resources.getString(R.string.trending_projects)
-            setUpAdapter("Trending Projects",it)
+            setUpAdapter("TrendingProjects",it)
+        })
+        investmentViewModel.getNewInvestments().observe(viewLifecycleOwner, Observer {
+            binding.tvCategoryHeading.text = resources.getString(R.string.new_launches)
+            setUpAdapter("NewLaunches",it)
         })
     }
 
     private fun setUpAdapter(type:String,list: List<Any>){
         when (type) {
-            "Smart Deals" -> {
-                setUpCategoryAdapter(list, -1)
-            }
-            "Watchlist" -> {
+            "NewLaunches" -> {
                 setUpCategoryAdapter(list, 0)
             }
-            else -> {
+            "LastPlots" -> {
                 setUpCategoryAdapter(list, 1)
+            }
+            "TrendingProjects" -> {
+                setUpCategoryAdapter(list, 2)
+            }
+            else -> {
+                setUpCategoryAdapter(list, 3)
             }
         }
     }

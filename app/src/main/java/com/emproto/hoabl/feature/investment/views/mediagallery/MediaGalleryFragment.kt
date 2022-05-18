@@ -48,11 +48,13 @@ class MediaGalleryFragment:BaseFragment() {
         investmentViewModel.getMedia().observe(viewLifecycleOwner, Observer {
             mediaViewPagerAdapter = MediaViewPagerAdapter(childFragmentManager,lifecycle)
             binding.vpMediaGallery.adapter = mediaViewPagerAdapter
+
+            TabLayoutMediator(binding.tlMediaGallery,binding.vpMediaGallery){ tab,position ->
+                tab.text = tabList[position]
+            }.attach()
         })
 
-        TabLayoutMediator(binding.tlMediaGallery,binding.vpMediaGallery){ tab,position ->
-            tab.text = tabList[position]
-        }.attach()
+
     }
 
 }

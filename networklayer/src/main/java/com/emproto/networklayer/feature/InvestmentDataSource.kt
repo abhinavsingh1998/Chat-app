@@ -35,18 +35,18 @@ class InvestmentDataSource(val application: Application) {
 
     //investment modules apis
     suspend fun getInvestmentsData(pageType: Int): Response<InvestmentResponse> {
-        return apiService2.getInvestments(pageType)
+        return apiService.getInvestments(pageType)
     }
 
     suspend fun getInvestmentsDetailData(id: Int): Response<ProjectDetailResponse> {
-        return apiService2.getInvestmentsProjectDetails(id)
+        return apiService.getInvestmentsProjectDetails(id)
     }
 
     suspend fun getInvestmentsPromises(): Response<InvestmentPromisesResponse> {
-        return apiService2.getInvestmentsPromises()
+        return apiService.getInvestmentsPromises()
     }
 
     suspend fun getInvestmentsFaq(id: Int): Response<FaqDetailResponse> {
-        return apiService2.getInvestmentsProjectFaq(id)
+        return apiService.getInvestmentsProjectFaq(id)
     }
 }

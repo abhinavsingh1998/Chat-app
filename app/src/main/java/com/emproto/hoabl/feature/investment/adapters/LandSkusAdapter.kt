@@ -8,13 +8,15 @@ import com.emproto.hoabl.databinding.LandSkusTopLayoutBinding
 import com.emproto.hoabl.databinding.NotConvincedLayoutBlackBinding
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.model.RecyclerViewItem
+import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.InventoryBucketContent
 import java.util.ArrayList
 
 class LandSkusAdapter(
     private val fragment: LandSkusFragment,
     val list: ArrayList<RecyclerViewItem>,
-    val skusList: List<InventoryBucketContent>
+    val skusList: List<InventoryBucketContent>,
+    val itemClickListener: ItemClickListener
 ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -52,7 +54,7 @@ class LandSkusAdapter(
     private inner class LandSkusAvailableViewHolder(val binding: LandSkusTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             binding.tvLandSkusTitle.text = "Land SKUs (${skusList.size})"
-            skusListAdapter = SkusListAdapter(fragment,skusList)
+            skusListAdapter = SkusListAdapter(fragment,skusList,itemClickListener)
             binding.rvLandSkusItems.adapter = skusListAdapter
             skusListAdapter.setSkusListItemClickListener(fragment.onLandSkusItemClickListener)
         }

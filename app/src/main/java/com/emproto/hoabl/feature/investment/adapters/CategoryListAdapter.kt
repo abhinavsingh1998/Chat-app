@@ -10,6 +10,7 @@ import com.emproto.hoabl.databinding.ItemCategoryListBinding
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionTwoModel
+import com.emproto.networklayer.response.investment.PageManagementsOrNewInvestment
 import com.emproto.networklayer.response.watchlist.Data
 
 class CategoryListAdapter(
@@ -19,9 +20,12 @@ class CategoryListAdapter(
     val type: Int = -1
 ) : RecyclerView.Adapter<CategoryListAdapter.CategoryViewHolder>() {
 
-    val TYPE_WATCHLIST = 0
-    val TYPE_SMARTDEALS = -1
-    val TYPE_TRENDINGPROJECTS = 1
+    companion object {
+        const val TYPE_NEW_LAUNCH = 0
+        const val TYPE_FEW_PLOTS = 1
+        const val TYPE_TRENDING_PROJECTS = 2
+        const val TYPE_WATCHLIST = 3
+    }
 
     inner class CategoryViewHolder(var binding: ItemCategoryListBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -32,7 +36,22 @@ class CategoryListAdapter(
             clickListener: ItemClickListener
         ) {
             when (type) {
-                TYPE_SMARTDEALS -> {
+                TYPE_NEW_LAUNCH -> {
+                    val element = list[position] as PageManagementsOrNewInvestment
+                    itemView.setOnClickListener {
+                        clickListener.onItemClicked(view, position, element.id.toString())
+                    }
+                    binding.apply {
+                        tvProjectName.text = element.launchName
+                        tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
+                        tvCategoryArea.text = element.areaStartingFrom + " Onwards"
+                        tvCategoryItemInfo.text = element.shortDescription
+                        Glide.with(context)
+                            .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                            .into(ivCategoryImage)
+                    }
+                }
+                TYPE_FEW_PLOTS -> {
                     val element = list[position] as PageManagementsOrCollectionOneModel
                     itemView.setOnClickListener {
                         clickListener.onItemClicked(view, position, element.id.toString())
@@ -47,7 +66,7 @@ class CategoryListAdapter(
                             .into(ivCategoryImage)
                     }
                 }
-                TYPE_TRENDINGPROJECTS -> {
+                TYPE_TRENDING_PROJECTS -> {
                     val element = list[position] as PageManagementsOrCollectionTwoModel
                     itemView.setOnClickListener {
                         clickListener.onItemClicked(view, position, element.id.toString())

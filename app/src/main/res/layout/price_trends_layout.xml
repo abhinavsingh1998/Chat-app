@@ -59,15 +59,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_size_16"
+        app:cardElevation="@dimen/margin_size_8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_price_trends_title">
-
-
+        
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_size_4">
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/iv_price_trends_graph"
@@ -84,7 +85,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_size_20"
-                android:layout_marginTop="@dimen/margin_size_13"
+                android:layout_marginVertical="@dimen/margin_size_13"
                 android:fontFamily="@font/jost_semibold"
                 android:text="@string/months"
                 android:textAlignment="center"

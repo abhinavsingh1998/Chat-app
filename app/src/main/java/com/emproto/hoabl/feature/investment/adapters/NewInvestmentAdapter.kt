@@ -19,16 +19,19 @@ class NewInvestmentAdapter(private val activity:HomeActivity, private val contex
     companion object {
         const val TYPE_NEW_LAUNCH = 1
         const val TYPE_LAST_PLOTS = 2
+        const val TYPE_TRENDING_PROJECTS = 3
     }
 
     private lateinit var adapter: InvestmentViewPagerAdapter
     private lateinit var lastFewPlotsAdapter: LastFewPlotsAdapter
+    private lateinit var trendingProjectsAdapter: TrendingProjectsAdapter
     private lateinit var onItemClickListener : View.OnClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
             TYPE_NEW_LAUNCH -> { NewLaunchViewHolder(NewInvestmentTopLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false)) }
-            else -> { LastFewPlotsViewHolder(LastFewPlotsLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
+            TYPE_LAST_PLOTS -> { LastFewPlotsViewHolder(LastFewPlotsLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
+            else -> { TrendingProjectsViewHolder(TrendingProjectsLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false)) }
         }
     }
 
@@ -36,6 +39,7 @@ class NewInvestmentAdapter(private val activity:HomeActivity, private val contex
         when(list[position].viewType){
             TYPE_NEW_LAUNCH -> { (holder as NewLaunchViewHolder).bind(position)}
             TYPE_LAST_PLOTS -> { (holder as LastFewPlotsViewHolder).bind(position)}
+            TYPE_TRENDING_PROJECTS -> { (holder as TrendingProjectsViewHolder).bind(position)}
         }
     }
 
@@ -50,8 +54,8 @@ class NewInvestmentAdapter(private val activity:HomeActivity, private val contex
             binding.tvArea.text = data.page.pageManagementsOrNewInvestments[0].areaStartingFrom + " Onwards"
             binding.tvBackgroundGrey.text = data.page.pageManagementsOrNewInvestments[0].shortDescription
             binding.tvViewInfo.text = SpannableStringBuilder()
-                .bold { append("${data.page.pageManagementsOrNewInvestments[0].fomoContent.noOfViews}") }
-                .append( " People saw this project in ${data.page.pageManagementsOrNewInvestments[0].fomoContent.days} days" )
+                .bold { append("${data.page.pageManagementsOrNewInvestments[0].fomoContent.noOfViews} People") }
+                .append( " saw this project in ${data.page.pageManagementsOrNewInvestments[0].fomoContent.days} days" )
 
             val listViews = ArrayList<String>()
             listViews.add(data.page.pageManagementsOrNewInvestments[0].projectCoverImages.newInvestmentPageMedia.value.url)
@@ -80,6 +84,32 @@ class NewInvestmentAdapter(private val activity:HomeActivity, private val contex
             binding.rvSmartDealsNv.adapter = lastFewPlotsAdapter
 
             binding.tvSmartDealsSeeAll.setOnClickListener(onItemClickListener)
+        }
+    }
+
+//    private inner class SmartDealsViewHolder(private val binding: SmartDealsLayoutBinding):RecyclerView.ViewHolder(binding.root){
+//        fun bind(position: Int){
+//            binding.tvSmartDealsTitle.text = data.page.collectionOne.displayName
+//            binding.tvSmartDealsSubtitle.text = data.page.collectionOne.subHeading
+//            binding.tvSmartDealsSeeAll.setOnClickListener(onItemClickListener)
+//
+//            val list = data.pageManagementsOrCollectionOneModels
+//            smartDealsAdapter = LastFewPlotsAdapter(context, list)
+//            smartDealsLinearLayoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+//            binding.rvSmartDealsNv.layoutManager = smartDealsLinearLayoutManager
+//            binding.rvSmartDealsNv.adapter = smartDealsAdapter
+//        }
+//    }
+
+    private inner class TrendingProjectsViewHolder(private val binding: TrendingProjectsLayoutBinding):RecyclerView.ViewHolder(binding.root){
+        fun bind(position: Int){
+            binding.tvTrendingProjectsTitle.text = data.page.collectionTwo.displayName
+            binding.tvTrendingProjectsSubtitle.text = data.page.collectionTwo.subHeading
+
+            val list = data.pageManagementsOrCollectionTwoModels
+            trendingProjectsAdapter = TrendingProjectsAdapter(context, list)
+            binding.rvTrendingProjects.adapter= trendingProjectsAdapter
+            binding.tvTrendingProjectsSeeAll.setOnClickListener(onItemClickListener)
         }
     }
 

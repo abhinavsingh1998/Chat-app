@@ -38,12 +38,12 @@ class VideosFragment:BaseFragment() {
     }
 
     private fun initObserver() {
-        investmentViewModel.getMediaItem().observe(viewLifecycleOwner, Observer {
+        investmentViewModel.getMedia().observe(viewLifecycleOwner, Observer {
             val list = ArrayList<MediaGalleryItem>()
             list.add(MediaGalleryItem(1,"Videos"))
             list.add(MediaGalleryItem(2,"Videos"))
 
-            val videoList = arrayListOf<String>(it.media)
+            val videoList = arrayListOf<String>(it.newInvestmentPageMedia.value.url)
             mediaPhotosAdapter = MediaPhotosAdapter(this.requireContext(),list, itemClickListener, videoList)
             binding.rvMainPhotos.adapter = mediaPhotosAdapter
         })

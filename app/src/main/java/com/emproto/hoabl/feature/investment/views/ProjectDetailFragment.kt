@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -27,7 +26,6 @@ import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.investment.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import java.io.Serializable
 import javax.inject.Inject
 
 
@@ -60,9 +58,10 @@ class ProjectDetailFragment:BaseFragment() {
                     applicationSubmitDialog.show(parentFragmentManager,"ApplicationSubmitDialog")
                 }
                 R.id.tv_faq_read_all -> {
+
                     (requireActivity() as HomeActivity).addFragment(FaqDetailFragment(),false)
                 }
-                R.id.cl_outer_why_invest ->{
+                R.id.cl_why_invest ->{
                     investmentViewModel.setOpportunityDoc(oppDocData)
                     (requireActivity() as HomeActivity).addFragment(OpportunityDocsFragment(),false)
                 }
@@ -123,6 +122,30 @@ class ProjectDetailFragment:BaseFragment() {
     }
 
     private fun callApi() {
+        investmentViewModel.getInvestmentsPromises().observe(viewLifecycleOwner, Observer {
+            when(it.status){
+                Status.LOADING -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                }
+                Status.SUCCESS -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    it.data?.data?.let {  data ->
+                        promisesData = data
+                        callProjectIdApi(promisesData)
+                    }
+                }
+                Status.ERROR -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(
+                        it.message!!
+                    )
+                }
+            }
+        })
+
+    }
+
+    private fun callProjectIdApi(promiseData: List<PmData>) {
         investmentViewModel.getProjectId().observe(viewLifecycleOwner, Observer {
             projectId = it
             investmentViewModel.getInvestmentsDetail(projectId).observe(viewLifecycleOwner, Observer {
@@ -138,7 +161,7 @@ class ProjectDetailFragment:BaseFragment() {
                             landSkusData = data.inventoryBucketContents
                             faqData = data.projectContentsAndFaqs
                             mapLocationData = data.locationInfrastructure
-                            setUpRecyclerView(data,promisesData)
+                            setUpRecyclerView(data, promiseData)
                         }
                     }
                     Status.ERROR -> {
@@ -150,28 +173,6 @@ class ProjectDetailFragment:BaseFragment() {
                 }
             })
         })
-
-        investmentViewModel.getInvestmentsPromises().observe(viewLifecycleOwner, Observer {
-            when(it.status){
-                Status.LOADING -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
-                }
-                Status.SUCCESS -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
-                    it.data?.data?.let {  data ->
-                        promisesData = data
-
-                    }
-                }
-                Status.ERROR -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
-                    (requireActivity() as HomeActivity).showErrorToast(
-                        it.message!!
-                    )
-                }
-            }
-        })
-
     }
 
     private fun setUpRecyclerView(data: PdData, promisesData: List<PmData>) {
@@ -188,8 +189,11 @@ class ProjectDetailFragment:BaseFragment() {
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_TEN))
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_ELEVEN))
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_TWELVE))
-        list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_FOURTEEN))
-
+        when{
+            data.similarInvestments.isNotEmpty() -> {
+                list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_FOURTEEN))
+            }
+        }
         val adapter = ProjectDetailAdapter(this.requireContext(),list,data,promisesData)
         binding.rvProjectDetail.adapter = adapter
         adapter.setItemClickListener(onItemClickListener)

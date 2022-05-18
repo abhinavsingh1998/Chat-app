@@ -33,7 +33,7 @@
             android:text="@string/see_all"
             android:textColor="@color/text_blue_color"
             android:textSize="@dimen/text_size_12"
-            android:layout_marginEnd="@dimen/margin_size_5"
+            android:layout_marginEnd="@dimen/margin_size_8"
             app:layout_constraintBottom_toBottomOf="@id/tv_video_title"
             app:layout_constraintEnd_toStartOf="@+id/iv_video_drone_arrow"
             app:layout_constraintTop_toTopOf="@id/tv_video_title" />
@@ -43,10 +43,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_size_15"
-            android:src="@drawable/rightarrow"
-            app:layout_constraintBottom_toBottomOf="@id/tv_video_drone_see_all"
+            android:src="@drawable/ic_black_long_rightarrow"
+            app:layout_constraintBottom_toBottomOf="@id/tv_hear_speak_see_all"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_video_drone_see_all" />
+            app:layout_constraintTop_toTopOf="@id/tv_hear_speak_see_all" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_profile_name"

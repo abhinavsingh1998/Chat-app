@@ -12,7 +12,7 @@ import com.emproto.networklayer.response.promises.HomePagesOrPromise
 
 class InvestmentViewModel(private var mapplication: Application, private var investmentRepository: InvestmentRepository) :ViewModel(){
 
-    var skusLiveData = MutableLiveData<InventoryBucketContent>()
+    private var skusLiveData = MutableLiveData<InventoryBucketContent>()
     private var smartDeals = MutableLiveData<List<PageManagementsOrCollectionOneModel>>()
     private var trendingProjects = MutableLiveData<List<PageManagementsOrCollectionTwoModel>>()
     private var projectid = MutableLiveData<Int>()
@@ -21,6 +21,7 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
     private var landSkusData = MutableLiveData<List<InventoryBucketContent>>()
     private var mediaData  = MutableLiveData<ProjectCoverImages>()
     private var mediaViewItem = MutableLiveData<MediaViewItem>()
+    private var newInvestments = MutableLiveData<List<PageManagementsOrNewInvestment>>()
 
     fun getInvestments(pageType: Int): LiveData<BaseResponse<InvestmentResponse>> {
         return investmentRepository.getInvestments(pageType)
@@ -44,6 +45,14 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
 
     fun getSmartDealsList(): LiveData<List<PageManagementsOrCollectionOneModel>> {
         return smartDeals
+    }
+
+    fun setNewInvestments(newInvestments: List<PageManagementsOrNewInvestment>) {
+        this.newInvestments.postValue(newInvestments)
+    }
+
+    fun getNewInvestments(): LiveData<List<PageManagementsOrNewInvestment>> {
+        return newInvestments
     }
 
     fun setTrendingList(trending: List<PageManagementsOrCollectionTwoModel>) {
@@ -100,5 +109,13 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
 
     fun getMediaItem(): LiveData<MediaViewItem> {
         return mediaViewItem
+    }
+
+    fun setSku(skusData: InventoryBucketContent) {
+        this.skusLiveData.postValue(skusData)
+    }
+
+    fun getSku(): LiveData<InventoryBucketContent> {
+        return skusLiveData
     }
 }
