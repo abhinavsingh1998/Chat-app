@@ -8,17 +8,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemHoablPromisesBinding
-import com.emproto.hoabl.databinding.ItemPromisesBinding
-import com.emproto.hoabl.databinding.PromisesViewBinding
+import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
 import com.emproto.networklayer.response.portfolio.ivdetails.DataX
+import com.emproto.networklayer.response.promises.HomePagesOrPromise
 
-class HoABLPromisesAdapter(val context: Context, val list: List<DataX>) :
+class HoABLPromisesAdapter(
+    val context: Context,
+    val list: List<HomePagesOrPromise>,
+    val ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface
+) :
     RecyclerView.Adapter<HoABLPromisesAdapter.MyViewHolder>() {
 
     lateinit var binding: ItemHoablPromisesBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        binding = ItemHoablPromisesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding =
+            ItemHoablPromisesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
     }
 
@@ -30,8 +35,12 @@ class HoABLPromisesAdapter(val context: Context, val list: List<DataX>) :
             holder.binding.image.setImageResource(R.drawable.securitylock)
         }
         Glide.with(context)
-            .load(item.promiseMedia.value.url)
+            .load(item.displayMedia.value.url)
             .into(holder.binding.image)
+
+        holder.binding.itemCard.setOnClickListener {
+            ivInterface.seePromisesDetails(position)
+        }
     }
 
     override fun getItemCount(): Int {

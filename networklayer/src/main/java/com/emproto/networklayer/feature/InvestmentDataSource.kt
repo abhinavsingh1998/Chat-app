@@ -47,6 +47,6 @@ class InvestmentDataSource(val application: Application) {
     }
 
     suspend fun getInvestmentsFaq(id: Int): Response<FaqDetailResponse> {
-        return apiService2.getInvestmentsProjectFaq(id)
+        return apiService.getInvestmentsProjectFaq(id)
     }
 }

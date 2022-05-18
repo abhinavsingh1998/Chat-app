@@ -8,7 +8,7 @@ data class InvestmentInformation(
     val areaSqFt: Int,
     val bookingStatus: String,
     val createdAt: String,
-    val crmProjectId: Int,
+    val crmProjectId: String,
 //    val documentLinks: List<String>,
     val id: Int,
     val inventoryBucket: String,
