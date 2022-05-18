@@ -44,7 +44,7 @@ class LoginFragment : BaseFragment() {
     var hCountryCode = ""
     lateinit var bottomSheetDialog: BottomSheetDialog
     lateinit var termsConditionDialogBinding: TermsConditionDialogBinding
-    val patterns  = Pattern.compile("[1-9][0-9]{9}")
+    val patterns  = Pattern.compile("(0/91)?[7-9][0-9]{9}")
 
     @Inject
     lateinit var appPreference: AppPreference

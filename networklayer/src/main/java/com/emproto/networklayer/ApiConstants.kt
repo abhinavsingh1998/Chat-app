@@ -28,5 +28,4 @@ object ApiConstants {
     const val PROJECT_TIMELINE = "hoabl-admin/project-contents/{id}"
     const val FACILITY_MANAGMENT = "hoabl-customer/facility/authenticate"
 
-
 }

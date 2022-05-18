@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,9 +37,12 @@ import com.emproto.hoabl.feature.profile.ProfileFragment
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
+import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.home.HomeResponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.security.acl.Owner
 import javax.inject.Inject
 
 class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -73,6 +77,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 //        investmentViewModel =
 //            ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
 
+        activityHomeActivity.searchLayout.rotateText.isSelected= true
         setContentView(activityHomeActivity.root)
         mContext = this
 //        SharedPref.init(mContext)
@@ -359,6 +364,18 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     fun hideBottomNavigation() {
         activityHomeActivity.includeNavigation.bottomNavigation.hide()
+    }
+
+    fun initData(){
+        homeViewModel.getDashboardData(5001).observe(this,object:Observer<BaseResponse<HomeResponse>>{
+            override fun onChanged(it: BaseResponse<HomeResponse>?) {
+
+                if (it != null) {
+                 //   activityHomeActivity.searchLayout.rotateText.text= it.data!!.data.page.mastheadSection.toString().
+                }
+            }
+
+        } )
     }
 
 }
