@@ -11,6 +11,7 @@ import com.emproto.hoabl.feature.investment.adapters.CategoryListAdapter
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.Data
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
+import com.emproto.networklayer.response.portfolio.ivdetails.SimilarInvestment
 
 class CategoryListFragment() : BaseFragment() {
 
@@ -43,6 +44,11 @@ class CategoryListFragment() : BaseFragment() {
                 val data =
                     arguments?.getSerializable("WatchlistData") as List<Data>
                 setUpCategoryAdapter(data, 0)
+            }
+            "Similar" ->{
+                val data =
+                    arguments?.getSerializable("SimilarData") as List<SimilarInvestment>
+                setUpCategoryAdapter(data, 1)
             }
             else -> {
                 val data =

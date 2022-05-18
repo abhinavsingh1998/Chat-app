@@ -10,6 +10,7 @@ import com.emproto.hoabl.databinding.ItemCategoryListBinding
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionTwoModel
+import com.emproto.networklayer.response.portfolio.ivdetails.SimilarInvestment
 import com.emproto.networklayer.response.watchlist.Data
 import java.util.ArrayList
 
@@ -21,6 +22,7 @@ class CategoryListAdapter(
 ) : RecyclerView.Adapter<CategoryListAdapter.CategoryViewHolder>() {
 
     val TYPE_WATCHLIST = 0
+    val TYPE_SIMILAR = 1
     val TYPE_OTHER = -1
 
     inner class CategoryViewHolder(var binding: ItemCategoryListBinding) :
@@ -43,6 +45,20 @@ class CategoryListAdapter(
                     tvCategoryItemInfo.text = element.shortDescription
                     Glide.with(context)
                         .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                        .into(ivCategoryImage)
+                }
+            } else if (type == TYPE_SIMILAR) {
+                val element = list[position] as SimilarInvestment
+                itemView.setOnClickListener {
+                    clickListener.onItemClicked(view, position, element.id.toString())
+                }
+                binding.apply {
+                    tvProjectName.text = element.launchName
+                    tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
+                    tvCategoryArea.text = element.areaStartingFrom + " Onwards"
+                    tvCategoryItemInfo.text = element.shortDescription
+                    Glide.with(context)
+                        .load(element.projectIcon.value.url)
                         .into(ivCategoryImage)
                 }
             } else {

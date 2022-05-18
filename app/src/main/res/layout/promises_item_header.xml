@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:text="@string/just_invest_we_have_your_back"
+            android:text="Owning Land was never \nthis easy!"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,7 +38,8 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="20dp"
             android:gravity="left"
-            android:text="@string/buy_maintain_and_liquidate_land_with_amazing_ease_con_dence_and_trust"
+            android:text="The House of Abhinandan Lodha promises to ensure that each step
+of your land ownership journey is easy."
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/iv_handshake"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,8 +67,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
-        android:text="About Promises"
         android:fontFamily="@font/jost_regular"
+        android:text="About Promises"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 

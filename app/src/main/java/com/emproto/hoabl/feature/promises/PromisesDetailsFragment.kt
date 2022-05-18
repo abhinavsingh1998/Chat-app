@@ -94,13 +94,13 @@ class PromisesDetailsFragment : BaseFragment() {
             binding.tvPromiseTitle.text = it.name
             binding.tvPromiseInfo.text = it.shortDescription
             binding.tvDescList.layoutManager = LinearLayoutManager(requireContext())
-            binding.tvDescList.adapter = PromiseDetailsAdapter(requireContext(), it.description)
+            //binding.tvDescList.adapter = PromiseDetailsAdapter(requireContext(), it.description)
             it.howToApply?.let {
                 binding.textviewApply1.text = it.description
 
             }
             Glide.with(requireContext())
-                .load(it.promiseMedia.value.url)
+                .load(it.displayMedia.value.url)
                 .into(binding.imageSecurity)
         })
 

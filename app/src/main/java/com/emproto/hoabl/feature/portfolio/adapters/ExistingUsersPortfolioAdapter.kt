@@ -21,7 +21,6 @@ import com.emproto.networklayer.response.watchlist.Data
 import com.emproto.networklayer.response.investment.SimilarInvestment
 import com.emproto.networklayer.response.portfolio.dashboard.Address
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
-import com.example.portfolioui.databinding.EmptyViewBinding
 import com.google.android.material.textview.MaterialTextView
 import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.BalloonSizeSpec
