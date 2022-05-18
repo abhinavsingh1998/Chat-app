@@ -310,23 +310,27 @@
                 style="@style/text_style_text_black_color_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/margin_size_14"
+                android:layout_marginVertical="@dimen/margin_size_4"
+                android:background="?android:selectableItemBackground"
+                android:drawableEnd="@drawable/rightarrow"
+                android:drawablePadding="@dimen/margin_size_4"
                 android:fontFamily="@font/jost_medium"
+                android:padding="@dimen/margin_size_10"
                 android:text="Apply Now"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_item_location_info" />
 
-            <ImageView
-                android:id="@+id/iv_bottom_outer_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_size_4"
-                android:src="@drawable/rightarrow"
-                app:layout_constraintBottom_toBottomOf="@id/tv_apply_now"
-                app:layout_constraintStart_toEndOf="@id/tv_apply_now"
-                app:layout_constraintTop_toTopOf="@id/tv_apply_now" />
+            <!--            <ImageView-->
+            <!--                android:id="@+id/iv_bottom_outer_arrow"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginStart="@dimen/margin_size_4"-->
+            <!--                android:src="@drawable/rightarrow"-->
+            <!--                app:layout_constraintBottom_toBottomOf="@id/tv_apply_now"-->
+            <!--                app:layout_constraintStart_toEndOf="@id/tv_apply_now"-->
+            <!--                app:layout_constraintTop_toTopOf="@id/tv_apply_now" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

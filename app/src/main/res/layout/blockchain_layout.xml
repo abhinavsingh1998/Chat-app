@@ -7,8 +7,8 @@
     <ImageView
         android:id="@+id/iv_dont_miss_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/tv_dontmiss"
+        android:layout_height="170dp"
+        android:src="@drawable/iv_dontmissout"
         android:scaleType="fitXY"
         android:layout_marginTop="@dimen/margin_size_30"
         android:layout_marginHorizontal="@dimen/margin_size_20"

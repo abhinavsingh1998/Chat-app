@@ -45,8 +45,9 @@ class DataModule(private val application: Application) {
             OkHttpClient.Builder().addInterceptor(
                 Interceptor { chain ->
                     val request: Request = chain.request().newBuilder()
-                   //     .addHeader("jwt", getAppPreference().getToken()).build()
-                    .addHeader("jwt", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoyLCJlbWFpbCI6ImtvdXNoaWtAZW1wcm90by5jb20iLCJsYXRlc3RBZG1pbkxvZ0lkIjo5LCJtb2R1bGVzIjpbbnVsbF0sImlzc3VlZEF0IjoxNjUwNDUyMTcyMzkwLCJleHBpcmVkQXQiOjE2NTEwNTY5NzIzOTB9LCJpYXQiOjE2NTA0NTIxNzIsImV4cCI6MTY1MzA0NDE3Mn0.kV40MsoLC3bkdJf9wHtYYqHhhQtGW7h-6pGYwpn5Ca4").build()
+                        .addHeader("jwt", getAppPreference().getToken()).addHeader("apptype", "app")
+                        .build()
+                    // .addHeader("jwt", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoyLCJlbWFpbCI6ImtvdXNoaWtAZW1wcm90by5jb20iLCJsYXRlc3RBZG1pbkxvZ0lkIjo5LCJtb2R1bGVzIjpbbnVsbF0sImlzc3VlZEF0IjoxNjUwNDUyMTcyMzkwLCJleHBpcmVkQXQiOjE2NTEwNTY5NzIzOTB9LCJpYXQiOjE2NTA0NTIxNzIsImV4cCI6MTY1MzA0NDE3Mn0.kV40MsoLC3bkdJf9wHtYYqHhhQtGW7h-6pGYwpn5Ca4").build()
                     chain.proceed(request)
                 }).addInterceptor(loggingInterceptor).build()
 
@@ -84,7 +85,10 @@ class DataModule(private val application: Application) {
                 Interceptor { chain ->
                     val request: Request = chain.request().newBuilder()
                         //.addHeader("jwt", getAppPreference().getToken()).build()
-                    .addHeader("jwt", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoxLCJlbWFpbCI6Im9ta2FyQGVtcHJvdG8uY29tIiwibGF0ZXN0QWRtaW5Mb2dJZCI6MzAsIm1vZHVsZXMiOltudWxsXSwiaXNzdWVkQXQiOjE2NTE4OTk5NzY5NzUsImV4cGlyZWRBdCI6MTY1MjUwNDc3Njk3NX0sImlhdCI6MTY1MTg5OTk3NiwiZXhwIjoxNjU0NDkxOTc2fQ.Onv30rpwuOk8gxphwljYQd47JZ2M7giMp4qUGXurf0w").build()
+                        .addHeader(
+                            "jwt",
+                            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoxLCJlbWFpbCI6Im9ta2FyQGVtcHJvdG8uY29tIiwibGF0ZXN0QWRtaW5Mb2dJZCI6MzAsIm1vZHVsZXMiOltudWxsXSwiaXNzdWVkQXQiOjE2NTE4OTk5NzY5NzUsImV4cGlyZWRBdCI6MTY1MjUwNDc3Njk3NX0sImlhdCI6MTY1MTg5OTk3NiwiZXhwIjoxNjU0NDkxOTc2fQ.Onv30rpwuOk8gxphwljYQd47JZ2M7giMp4qUGXurf0w"
+                        ).build()
                     chain.proceed(request)
                 }).addInterceptor(loggingInterceptor).build()
 
@@ -98,7 +102,7 @@ class DataModule(private val application: Application) {
     @Provides
     @Singleton
     @Named("dummy")
-    fun dummyApiService(@Named("dummytoken")retrofit: Retrofit): ApiService {
+    fun dummyApiService(@Named("dummytoken") retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
 

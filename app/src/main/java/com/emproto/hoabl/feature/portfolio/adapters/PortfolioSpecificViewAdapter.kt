@@ -402,11 +402,16 @@ class PortfolioSpecificViewAdapter(
     private inner class SimilarInvestmentsViewHolder(private val binding: TrendingProjectsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            val itemList = list[position].data as List<SimilarInvestment>
-            similarInvestmentsAdapter = SimilarInvestmentAdapter(context, itemList)
-            binding.rvTrendingProjects.adapter = similarInvestmentsAdapter
-            binding.tvTrendingProjectsTitle.text = "Similar Investments"
-            binding.tvTrendingProjectsSubtitle.visibility = View.GONE
+            if (list[position].data != null) {
+                val itemList = list[position].data as List<SimilarInvestment>
+                similarInvestmentsAdapter = SimilarInvestmentAdapter(context, itemList)
+                binding.rvTrendingProjects.adapter = similarInvestmentsAdapter
+                binding.tvTrendingProjectsTitle.text = "Similar Investments"
+                binding.tvTrendingProjectsSubtitle.visibility = View.GONE
+            }
+            binding.tvTrendingProjectsSeeAll.setOnClickListener {
+                ivInterface.seeAllSimilarInvestment()
+            }
         }
     }
 
@@ -417,6 +422,7 @@ class PortfolioSpecificViewAdapter(
         fun seeProjectTimeline()
         fun seeBookingJourney()
         fun referNow()
+        fun seeAllSimilarInvestment()
     }
 
 }

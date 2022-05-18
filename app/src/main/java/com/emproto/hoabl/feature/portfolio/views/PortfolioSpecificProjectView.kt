@@ -14,6 +14,7 @@ import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.home.views.fragments.ReferralDialog
 import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
+import com.emproto.hoabl.feature.investment.views.CategoryListFragment
 import com.emproto.hoabl.feature.portfolio.adapters.DocumentsAdapter
 import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
@@ -22,6 +23,7 @@ import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.io.Serializable
 import javax.inject.Inject
 
 class PortfolioSpecificProjectView : BaseFragment() {
@@ -170,6 +172,18 @@ class PortfolioSpecificProjectView : BaseFragment() {
                                         val dialog = ReferralDialog()
                                         dialog.isCancelable = true
                                         dialog.show(parentFragmentManager, "Refrral card")
+                                    }
+
+                                    override fun seeAllSimilarInvestment() {
+                                        val list = CategoryListFragment()
+                                        val bundle = Bundle()
+                                        bundle.putString("Category", "Similar")
+                                        bundle.putSerializable(
+                                            "SimilarData",
+                                            it.data!!.data.projectInformation.similarInvestments as Serializable
+                                        )
+                                        list.arguments = bundle
+                                        (requireActivity() as HomeActivity).addFragment(list, false)
                                     }
 
                                 })

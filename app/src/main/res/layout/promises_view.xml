@@ -71,6 +71,7 @@
                 android:layout_marginBottom="@dimen/margin_size_25"
                 android:fontFamily="@font/jostregular"
                 android:maxLines="3"
+                android:minLines="3"
                 android:textAlignment="textStart"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
