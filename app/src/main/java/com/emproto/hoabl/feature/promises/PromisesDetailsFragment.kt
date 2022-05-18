@@ -94,7 +94,9 @@ class PromisesDetailsFragment : BaseFragment() {
             binding.tvPromiseTitle.text = it.name
             binding.tvPromiseInfo.text = it.shortDescription
             binding.tvDescList.layoutManager = LinearLayoutManager(requireContext())
-            //binding.tvDescList.adapter = PromiseDetailsAdapter(requireContext(), it.description)
+            val list = ArrayList<String>()
+            list.add(it.description)
+            binding.tvDescList.adapter = PromiseDetailsAdapter(requireContext(), list)
             it.howToApply?.let {
                 binding.textviewApply1.text = it.description
 
