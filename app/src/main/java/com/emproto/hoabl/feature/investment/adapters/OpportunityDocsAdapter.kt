@@ -188,4 +188,8 @@ class OpportunityDocsAdapter(
         return itemList[position].viewType
     }
 
+    fun setItemClickListener(clickListener: View.OnClickListener) {
+        onItemClickListener = clickListener
+    }
+
 }

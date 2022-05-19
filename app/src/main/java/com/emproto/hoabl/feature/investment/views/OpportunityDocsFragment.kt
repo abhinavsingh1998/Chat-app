@@ -30,7 +30,7 @@ class OpportunityDocsFragment:BaseFragment() {
         View.OnClickListener { view ->
             when(view.id){
                 R.id.tv_apply_now -> {
-
+                    (requireActivity() as HomeActivity).addFragment(LandSkusFragment(),false)
                 }
             }
 
@@ -72,6 +72,7 @@ class OpportunityDocsFragment:BaseFragment() {
 
             opportunityDocsAdapter = OpportunityDocsAdapter(this.requireContext(),list,it)
             binding.rvOppDocs.adapter = opportunityDocsAdapter
+            opportunityDocsAdapter.setItemClickListener(onItemClickListener)
         })
 
     }

@@ -81,39 +81,17 @@
                     android:textColorHint="@color/text_grey_color" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/number_input_layout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <com.emproto.core.customedittext.CustomEdittext
+                android:id="@+id/input_mobile"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_size_21"
                 android:layout_marginHorizontal="@dimen/margin_size_18"
-                android:hint="Phone Number"
-                app:boxStrokeColor="@color/app_color"
-                app:boxStrokeWidthFocused="0.7dp"
-                app:hintEnabled="true"
-                app:prefixText="+91"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="@dimen/margin_size_40"
                 app:layout_constraintTop_toBottomOf="@id/name_input_layout"
-                app:placeholderText="@string/type_here">
-
-                <EditText
-                    android:id="@+id/referral_number"
-                    style="@style/text_style_text_color_16"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/jost_medium"
-                    android:gravity="center|left"
-                    android:inputType="phone|textCapSentences"
-                    android:letterSpacing="0.2"
-                    android:maxLength="10"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:textAllCaps="false"
-                    android:textColor="@color/text_color"
-                    android:textColorHint="@color/text_grey_color" />
-            </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:hintText="@string/enter_your_phonenumber"
+                app:placeholdertext="@string/type_here" />
 
             <com.emproto.core.textviews.CustomTextView
                 android:id="@+id/refer_btn"
@@ -135,7 +113,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/number_input_layout"/>
+                app:layout_constraintTop_toBottomOf="@id/input_mobile"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

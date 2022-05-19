@@ -17,23 +17,26 @@
             android:id="@+id/iv_portfolio_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_size_30"
+            android:layout_marginTop="@dimen/margin_size_20"
             android:src="@drawable/business_88"
-            app:layout_constraintEnd_toStartOf="@id/tv_share_with_joy"
+            android:layout_marginStart="@dimen/margin_size_10"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_share_with_joy"
-            style="@style/text_regular_blue_22"
-            android:layout_width="wrap_content"
+            style="@style/text_style_blue_32"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_size_80"
-            android:layout_marginEnd="@dimen/margin_size_45"
-            android:fontFamily="@font/jost_regular"
+            android:layout_marginTop="@dimen/margin_size_25"
+            android:layout_marginStart="@dimen/margin_size_10"
+            android:layout_marginEnd="@dimen/margin_size_25"
+            android:fontFamily="@font/seaside"
             android:text="@string/share_the_joy"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/iv_portfolio_share"
+            app:layout_constraintTop_toTopOf="@+id/iv_portfolio_share" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/btn_refer_now"

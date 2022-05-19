@@ -94,7 +94,7 @@ class Testimonials : BaseFragment() {
 
     private fun initClickListner() {
 
-        mBinding.appShareBtn.setOnClickListener(View.OnClickListener {
+        mBinding.referralLayout.appShareBtn.setOnClickListener(View.OnClickListener {
             share_app()
         })
     }
