@@ -56,7 +56,8 @@ class CompletedInvestmentAdapter(
                     project.project.projectIcon,
                     project.project.latitude,
                     project.project.longitude,
-                    project.project.altitude
+                    project.project.altitude,
+                    project.project.generalInfoEscalationGraph
                 )
             onCLickInterface.manageProject(
                 project.investment.id,
@@ -79,12 +80,11 @@ class CompletedInvestmentAdapter(
                 "" + project.project.areaStartingFrom.split(" ")[0]
 
             holder.binding.viewDarkBg.setOnClickListener {
-                if(holder.binding.ivCompletedInvestmentDropArrow.visibility == View.VISIBLE){
+                if (holder.binding.ivCompletedInvestmentDropArrow.visibility == View.VISIBLE) {
                     holder.binding.cvCompletedInvestmentGraphCard.visibility = View.VISIBLE
                     holder.binding.ivCompletedInvestmentUpwardArrow.visibility = View.VISIBLE
                     holder.binding.ivCompletedInvestmentDropArrow.visibility = View.GONE
-                }
-                else {
+                } else {
                     holder.binding.cvCompletedInvestmentGraphCard.visibility = View.GONE
                     holder.binding.ivCompletedInvestmentUpwardArrow.visibility = View.GONE
                     holder.binding.ivCompletedInvestmentDropArrow.visibility = View.VISIBLE

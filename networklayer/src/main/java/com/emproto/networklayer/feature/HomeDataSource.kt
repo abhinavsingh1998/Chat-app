@@ -38,7 +38,7 @@ public class HomeDataSource(val application: Application) {
 
     //promises modules apis
     suspend fun getPromisesData(pageType: Int): Response<PromisesResponse> {
-        return apiService2.getPromises(pageType)
+        return apiService.getPromises(pageType)
     }
 
 }

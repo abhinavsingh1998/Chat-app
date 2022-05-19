@@ -14,9 +14,9 @@ import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.home.adapters.HoABLPromisesAdapter
-import com.emproto.hoabl.feature.investment.adapters.VideoDroneAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.networklayer.response.documents.Data
+import com.emproto.networklayer.response.portfolio.dashboard.GeneralInfoEscalationGraph
 import com.emproto.networklayer.response.portfolio.ivdetails.*
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -241,7 +241,7 @@ class PortfolioSpecificViewAdapter(
                     binding.tvLongitude.text = data.projectExtraDetails.longitude
                     binding.ownersName.text = data.investmentInformation.owners
 
-                    binding.tvRegistrationNumber.text = reraNumber
+                    //binding.tvRegistrationNumber.text = reraNumber
                 }
 
 
@@ -330,7 +330,7 @@ class PortfolioSpecificViewAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             val promisesData = list[position].data as ProjectPromises
-            promisesAdapter = HoABLPromisesAdapter(context, promisesData.data)
+            promisesAdapter = HoABLPromisesAdapter(context, promisesData.data, ivInterface)
             binding.rvApplicablePromises.adapter = promisesAdapter
         }
     }
@@ -338,13 +338,13 @@ class PortfolioSpecificViewAdapter(
     private inner class PriceTrendsViewHolder(private val binding: PriceTrendsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
+            val graphData = list[position].data as GeneralInfoEscalationGraph
             val linevalues = ArrayList<Entry>()
-            linevalues.add(Entry(10f, 0.0F))
-            linevalues.add(Entry(20f, 3.0F))
-            linevalues.add(Entry(40f, 2.0F))
-            linevalues.add(Entry(50F, 5.0F))
-            linevalues.add(Entry(60F, 6.0F))
-            val linedataset = LineDataSet(linevalues, "First")
+
+            for (item in graphData.dataPoints.points) {
+                linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
+            }
+            val linedataset = LineDataSet(linevalues, "")
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 linedataset.color = context.getColor(R.color.app_color)
@@ -396,17 +396,25 @@ class PortfolioSpecificViewAdapter(
             binding.rvFaq.adapter = faqAdapter
             binding.tvFaqReadAll.visibility = View.VISIBLE
             binding.ivSeeAllArrow.visibility = View.VISIBLE
+            binding.tvFaqReadAll.setOnClickListener {
+                ivInterface.readAllFaq()
+            }
         }
     }
 
     private inner class SimilarInvestmentsViewHolder(private val binding: TrendingProjectsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            val itemList = list[position].data as List<SimilarInvestment>
-            similarInvestmentsAdapter = SimilarInvestmentAdapter(context, itemList)
-            binding.rvTrendingProjects.adapter = similarInvestmentsAdapter
-            binding.tvTrendingProjectsTitle.text = "Similar Investments"
-            binding.tvTrendingProjectsSubtitle.visibility = View.GONE
+            if (list[position].data != null) {
+                val itemList = list[position].data as List<SimilarInvestment>
+                similarInvestmentsAdapter = SimilarInvestmentAdapter(context, itemList)
+                binding.rvTrendingProjects.adapter = similarInvestmentsAdapter
+                binding.tvTrendingProjectsTitle.text = "Similar Investments"
+                binding.tvTrendingProjectsSubtitle.visibility = View.GONE
+            }
+            binding.tvTrendingProjectsSeeAll.setOnClickListener {
+                ivInterface.seeAllSimilarInvestment()
+            }
         }
     }
 
@@ -417,6 +425,9 @@ class PortfolioSpecificViewAdapter(
         fun seeProjectTimeline()
         fun seeBookingJourney()
         fun referNow()
+        fun seeAllSimilarInvestment()
+        fun readAllFaq()
+        fun seePromisesDetails(position: Int)
     }
 
 }

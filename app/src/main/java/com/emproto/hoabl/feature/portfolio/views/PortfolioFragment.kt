@@ -34,6 +34,7 @@ import com.emproto.networklayer.response.investment.PageManagementsOrCollectionO
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
 import com.emproto.networklayer.response.watchlist.Data
 import com.example.portfolioui.databinding.DailogLockPermissonBinding
+import com.example.portfolioui.databinding.DialogAllowPinBinding
 import java.io.Serializable
 import java.util.concurrent.Executor
 import javax.inject.Inject
@@ -59,9 +60,11 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     @Inject
     lateinit var appPreference: AppPreference
     lateinit var pinPermissonDialog: DailogLockPermissonBinding
+    lateinit var pinAllowDailog: DialogAllowPinBinding
 
 
     lateinit var pinDialog: Dialog
+    lateinit var pinAllowD: Dialog
     val list = ArrayList<PortfolioModel>()
     var watchList = ArrayList<Data>()
 
@@ -97,6 +100,8 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         (requireActivity() as HomeActivity).hideBackArrow()
 
         pinPermissonDialog = DailogLockPermissonBinding.inflate(layoutInflater)
+        pinAllowDailog = DialogAllowPinBinding.inflate(layoutInflater)
+
         pinPermissonDialog.tvActivate.setOnClickListener {
             //activate pin
             appPreference.activatePin(true)
@@ -108,14 +113,25 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
         pinPermissonDialog.tvDontallow.setOnClickListener {
             //dont show dialog again
+            //setUpUI(true)
+            //appPreference.savePinDialogStatus(true)
+            pinDialog.dismiss()
+            pinAllowD.show()
+
+        }
+        pinAllowDailog.tvActivate.setOnClickListener {
             setUpUI(true)
             appPreference.savePinDialogStatus(true)
-            pinDialog.dismiss()
+            pinAllowD.dismiss()
         }
 
         pinDialog = Dialog(requireContext())
+        pinAllowD = Dialog(requireContext())
         pinDialog.setContentView(pinPermissonDialog.root)
         pinDialog.setCancelable(false)
+
+        pinAllowD.setContentView(pinAllowDailog.root)
+        pinAllowD.setCancelable(false)
 
         if (appPreference.isPinDialogShown()) {
             // if dialog is shown already and pin is activated show pin screen.

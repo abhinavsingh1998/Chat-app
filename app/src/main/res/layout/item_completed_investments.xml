@@ -410,7 +410,7 @@
         android:drawableEnd="@drawable/rightarrow"
         android:drawablePadding="@dimen/_4sdp"
         android:fontFamily="@font/jost_medium"
-        android:text="@string/manage_projects"
+        android:text="Manage Investment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cv_completed_investment_graph_card" />
 

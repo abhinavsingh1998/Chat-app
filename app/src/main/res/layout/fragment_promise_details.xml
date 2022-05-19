@@ -36,15 +36,19 @@
         <TextView
             android:id="@+id/tv_promise_title"
             style="@style/text_style_text_color_25"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="12dp"
             android:fontFamily="@font/jostmedium"
+            android:gravity="left"
             android:lineSpacingExtra="0sp"
+            android:lines="1"
             android:text="@string/security"
             android:textAllCaps="true"
             app:layout_constraintBottom_toBottomOf="@+id/image_security"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image_security"
             app:layout_constraintTop_toTopOf="@+id/view_full" />
 

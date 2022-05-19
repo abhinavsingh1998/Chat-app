@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/margin_size_16"
+    android:layout_marginStart="@dimen/margin_size_8"
     android:layout_marginTop="@dimen/margin_size_10">
 
     <androidx.cardview.widget.CardView
@@ -73,6 +73,7 @@
                 android:layout_marginBottom="@dimen/margin_size_25"
                 android:fontFamily="@font/jostregular"
                 android:maxLines="3"
+                android:minLines="3"
                 android:textAlignment="textStart"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

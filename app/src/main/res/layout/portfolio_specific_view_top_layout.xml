@@ -661,6 +661,29 @@
                         app:layout_constraintStart_toStartOf="@id/tv_current_owners"
                         app:layout_constraintTop_toBottomOf="@id/tv_current_owners" />
 
+                    <View
+                        android:id="@+id/bottom_dashed_line1"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginStart="@dimen/margin_size_26"
+                        android:layout_marginTop="@dimen/margin_size_12"
+                        android:layout_marginEnd="@dimen/margin_size_16"
+                        android:background="@drawable/dashed_line_brown"
+                        android:layerType="software"
+                        app:layout_constraintTop_toBottomOf="@id/owners_name" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/registration_no"
+                        style="@style/text_style_dark_black_color_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_6"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="MAHARERA Registration No. Phase I - P52800031035"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/tv_current_owners"
+                        app:layout_constraintTop_toBottomOf="@id/bottom_dashed_line1" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -713,22 +736,6 @@
             app:layout_constraintStart_toEndOf="@id/tv_see_project_details"
             app:layout_constraintTop_toTopOf="@id/tv_see_project_details" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_registration_number"
-            style="@style/text_style_reg_black_color_14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_size_16"
-            android:layout_marginTop="@dimen/margin_size_14"
-            android:drawableEnd="@drawable/ic_info"
-            android:drawablePadding="@dimen/_8sdp"
-            android:fontFamily="@font/jost_light"
-            android:lineSpacingMultiplier="1.3"
-            android:text="@string/reg_draft_text"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_see_project_details" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
