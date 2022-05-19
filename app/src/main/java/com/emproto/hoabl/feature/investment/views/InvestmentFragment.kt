@@ -53,12 +53,12 @@ class InvestmentFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).addFragment(ProjectDetailFragment(),false)
                 }
                 R.id.tv_apply_now -> {
-                    Toast.makeText(this.requireContext(), "Data not added", Toast.LENGTH_SHORT).show()
-                    (requireActivity() as HomeActivity).addFragment(LandSkusFragment(),false)
+//                    Toast.makeText(this.requireContext(), "Data not added", Toast.LENGTH_SHORT).show()
+//                    (requireActivity() as HomeActivity).addFragment(LandSkusFragment(),false)
                 }
                 R.id.btn_discover -> {
-                    Toast.makeText(this.requireContext(), "Data not added", Toast.LENGTH_SHORT).show()
-                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
+//                    Toast.makeText(this.requireContext(), "Data not added", Toast.LENGTH_SHORT).show()
+//                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
                 }
             }
         }
