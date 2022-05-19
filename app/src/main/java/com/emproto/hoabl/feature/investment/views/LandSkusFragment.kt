@@ -12,6 +12,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentLandSkusBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.investment.adapters.LandSkusAdapter
+import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
 import com.emproto.hoabl.feature.investment.dialogs.ConfirmationDialog
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
@@ -34,6 +35,10 @@ class LandSkusFragment:BaseFragment() {
                 R.id.btn_apply_now -> {
                     val confirmationDialog = ConfirmationDialog(this)
                     confirmationDialog.show(this.parentFragmentManager,"ConfirmationDialog")
+                }
+                R.id.cl_not_convinced -> {
+                    val applicationSubmitDialog = ApplicationSubmitDialog("Video Call request sent successfully.","Our sales person will reach out to you soon!",false)
+                    applicationSubmitDialog.show(parentFragmentManager,"ApplicationSubmitDialog")
                 }
             }
         }
@@ -64,6 +69,7 @@ class LandSkusFragment:BaseFragment() {
 
             landSkusAdapter = LandSkusAdapter(this,list,it,itemClickListener)
             binding.rvLandSkus.adapter = landSkusAdapter
+            landSkusAdapter.setItemClickListener(onLandSkusItemClickListener)
         })
     }
 

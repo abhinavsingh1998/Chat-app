@@ -57,11 +57,15 @@ class InvestmentFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).addFragment(LandSkusFragment(),false)
                 }
                 R.id.btn_discover -> {
-                    Toast.makeText(this.requireContext(), "Data not added", Toast.LENGTH_SHORT).show()
+                    callProjectContentAPi()
                     (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
                 }
             }
         }
+
+    private fun callProjectContentAPi() {
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

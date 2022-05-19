@@ -62,6 +62,7 @@ class ProjectDetailFragment:BaseFragment() {
                 }
                 R.id.cl_why_invest ->{
                     investmentViewModel.setOpportunityDoc(oppDocData)
+                    investmentViewModel.setSkus(landSkusData)
                     (requireActivity() as HomeActivity).addFragment(OpportunityDocsFragment(),false)
                 }
                 R.id.tv_skus_see_all -> {
