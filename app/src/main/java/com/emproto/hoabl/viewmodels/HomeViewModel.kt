@@ -9,6 +9,7 @@ import com.emproto.core.Database.TableModel.SearchModel
 import com.emproto.hoabl.repository.HomeRepository
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.chats.ChatResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.home.PageManagementOrInsight
 import com.emproto.networklayer.response.home.PageManagementOrLatestUpdate
@@ -83,5 +84,8 @@ class HomeViewModel(
 
     fun getSelectedInsights(): LiveData<PageManagementOrInsight> {
         return insights
+    }
+    fun getChatsList(): LiveData<BaseResponse<ChatResponse>> {
+        return homeRepository.getChatsList()
     }
 }

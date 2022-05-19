@@ -2,6 +2,7 @@ package com.emproto.hoabl.di
 
 import android.window.SplashScreen
 import com.emproto.hoabl.HoablSplashActivity
+import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.home.views.fragments.*
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
@@ -51,4 +52,6 @@ interface HomeComponent {
     fun inject(fragment: LatestUpdatesFragment)
     fun inject(fragment: InsightsFragment)
     fun inject(fragment: SplashScreen)
+    fun inject(fragment: ChatsFragment)
+
 }

@@ -29,6 +29,8 @@ import com.emproto.networklayer.response.terms.TermsConditionResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
 import retrofit2.Response
 import retrofit2.http.*
+import com.emproto.networklayer.response.chats.ChatResponse
+
 
 /**
  * @author Hoabl.
@@ -103,4 +105,7 @@ public interface ApiService {
 
     @GET(ApiConstants.INVESTMENT_PROJECT_FAQ)
     suspend fun getInvestmentsProjectFaq(@Path("projectContentId") projectContentId: Int): Response<FaqDetailResponse>
+
+    @GET(ApiConstants.CHATS_LIST)
+    suspend fun getChatsList(): Response<ChatResponse>
 }
