@@ -1,5 +1,6 @@
 package com.emproto.hoabl.feature.home.views
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
@@ -38,6 +39,7 @@ import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.home.HomeResponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -97,6 +99,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 onBackPressed()
             }
         })
+        initData()
         initClickListener()
     }
 
@@ -366,16 +369,32 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         activityHomeActivity.includeNavigation.bottomNavigation.hide()
     }
 
+    @SuppressLint("SetTextI18n")
     fun initData(){
-        homeViewModel.getDashboardData(5001).observe(this,object:Observer<BaseResponse<HomeResponse>>{
+        homeViewModel.getDashboardData(5001).observe(this, object :Observer<BaseResponse<HomeResponse>>{
             override fun onChanged(it: BaseResponse<HomeResponse>?) {
+                when (it!!.status){
+                    Status.LOADING ->{
+                        activityHomeActivity.searchLayout.rotateText.text= " "
+                    }
+                    Status.SUCCESS ->{
+                            val totalLandsold: String? =
+                                it.data?.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName + " " + it.data?.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value
+                            val totalAmtLandSold: String? =
+                                it.data?.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName + " " + it.data?.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
+                            val grossWeight: String? =
+                                it.data?.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName + " " + it.data?.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
+                            val num_User: String? =
+                                it.data?.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName + " " + it.data?.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
+                            activityHomeActivity.searchLayout.rotateText.text =
+                                "$totalAmtLandSold    $totalLandsold Sqft    $grossWeight    $num_User"
 
-                if (it != null) {
-                 //   activityHomeActivity.searchLayout.rotateText.text= it.data!!.data.page.mastheadSection.toString().
+                    }
                 }
             }
 
-        } )
+        }
+        )
     }
 
 }

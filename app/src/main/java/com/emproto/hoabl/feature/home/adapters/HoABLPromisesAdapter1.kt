@@ -34,6 +34,4 @@ class HoABLPromisesAdapter1(val context: Context, val list: List<HomePagesOrProm
 
     inner class MyViewHolder(val binding: ItemPromisesBinding) :
         RecyclerView.ViewHolder(binding.root)
-
-
 }

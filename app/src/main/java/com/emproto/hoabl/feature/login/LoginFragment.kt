@@ -45,6 +45,14 @@ class LoginFragment : BaseFragment() {
     lateinit var bottomSheetDialog: BottomSheetDialog
     lateinit var termsConditionDialogBinding: TermsConditionDialogBinding
     val patterns  = Pattern.compile("(0/91)?[7-9][0-9]{9}")
+    val first_attempt= "Please enter the OTP sent to your mobile number. You have 4 attempts remaining to verify your OTP."
+    val second_attempts= "Please enter the OTP sent to your mobile number. You have 3 attempts remaining to verify your OTP."
+    val third_attempts= "Please enter the OTP sent to your mobile number. You have 2 attempts remaining to verify your OTP."
+    val four_attempts= "Please enter the OTP sent to your mobile number. You have 1 attempt remaining to verify your OTP."
+    val five_attempts= R.string.five_attempts_remaining
+    val try_one_hour= R.string.try_after_one_hour
+     var hint_text= ""
+
 
     @Inject
     lateinit var appPreference: AppPreference
@@ -171,10 +179,25 @@ class LoginFragment : BaseFragment() {
             authViewModel.getOtp(otpRequest).observe(viewLifecycleOwner, Observer {
                 when (it.status) {
                     Status.SUCCESS -> {
+
+                        if (it.data?.message.toString().equals("Please enter the OTP sent to your mobile number")){
+                            hint_text="Enter OTP"
+                        } else if (it.data?.message.toString().equals(four_attempts)){
+                            hint_text="Enter OTP (1 attempts left)"
+                        } else if (it.data?.message.toString().equals(third_attempts)){
+                            hint_text= "Enter OTP (2 attempts left)"
+                        }else if (it.data?.message.toString().equals(second_attempts)){
+                            hint_text= "Enter OTP (3 attempts left)"
+                        }else if (it.data?.message.toString().equals(first_attempt)){
+                            hint_text= "Enter OTP (4 attempts left)"
+                        } else{
+                            hint_text= "Enter OTP"
+                        }
+
                         (requireActivity() as AuthActivity).replaceFragment(
                             OTPVerificationFragment.newInstance(
-                                hMobileNo, "+91"
-                            ), true
+                                hMobileNo, "+91",
+                            hint_text), true
                         )
                     }
                     Status.ERROR -> {
