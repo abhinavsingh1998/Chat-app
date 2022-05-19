@@ -22,7 +22,7 @@
             android:layout_marginHorizontal="@dimen/margin_size_12"
             android:layout_marginTop="@dimen/margin_size_30"
             android:fontFamily="@font/jost_medium"
-            android:text="@string/smart_deals"
+            android:text="@string/last_few_plots"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

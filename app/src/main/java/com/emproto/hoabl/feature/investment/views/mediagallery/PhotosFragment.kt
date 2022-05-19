@@ -4,13 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentPhotosBinding
+import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.investment.adapters.MediaPhotosAdapter
 import com.emproto.hoabl.model.MediaGalleryItem
+import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.hoabl.viewmodels.InvestmentViewModel
+import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.response.investment.ProjectCoverImages
+import javax.inject.Inject
 
 class PhotosFragment:BaseFragment() {
 
@@ -18,19 +25,11 @@ class PhotosFragment:BaseFragment() {
         const val TAG = "PhotosFragment"
     }
 
+    @Inject
+    lateinit var investmentFactory: InvestmentFactory
+    lateinit var investmentViewModel: InvestmentViewModel
     lateinit var binding: FragmentPhotosBinding
     lateinit var mediaPhotosAdapter: MediaPhotosAdapter
-    lateinit var mediaData:ProjectCoverImages
-
-//    val onPhotosItemClickListener = View.OnClickListener {  view ->
-//        when(view.id){
-//           R.id.iv_media_photo -> {
-//               Log.d(TAG,"photos clicked")
-//               val mediaViewFragment = MediaViewFragment()
-//               (requireActivity() as HomeActivity).replaceFragment(mediaViewFragment.javaClass, "", true, null, null, 0, false)
-//           }
-//        }
-//    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentPhotosBinding.inflate(layoutInflater)
@@ -39,8 +38,20 @@ class PhotosFragment:BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mediaData = (requireParentFragment() as MediaGalleryFragment).data
-        setUpRecyclerView(mediaData)
+        initViewModel()
+        initObserver()
+    }
+
+    private fun initViewModel() {
+        (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
+        investmentViewModel =
+            ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
+    }
+
+    private fun initObserver() {
+        investmentViewModel.getMedia().observe(viewLifecycleOwner, Observer {
+            setUpRecyclerView(it)
+        })
     }
 
     private fun setUpRecyclerView(mediaData: ProjectCoverImages) {
@@ -55,23 +66,12 @@ class PhotosFragment:BaseFragment() {
         binding.rvMainPhotos.adapter = mediaPhotosAdapter
     }
 
-//    override fun onItemClicked(view: View, position: Int, item: String) {
-//        when(view.id){
-//            R.id.iv_media_photo -> {
-//                Toast.makeText(this.requireContext(), "Photo clicked", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//    }
-
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
-            val bundle = Bundle()
-            bundle.putString("MediaType","Photo")
-//            val list = arrayListOf<String>()
-//            list.add()
-            bundle.putString("ImageData",mediaData.newInvestmentPageMedia.value.url)
+            val mediaViewItem = MediaViewItem(mediaType = "Photo", media = item)
+            investmentViewModel.setMediaItem(mediaViewItem)
             val mediaViewFragment = MediaViewFragment()
-            (requireActivity() as HomeActivity).replaceFragment(mediaViewFragment.javaClass, "", true, bundle, null, 0, false)
+            (requireActivity() as HomeActivity).replaceFragment(mediaViewFragment.javaClass, "", true, null, null, 0, false)
         }
     }
 

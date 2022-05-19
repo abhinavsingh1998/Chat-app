@@ -10,19 +10,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentMapBinding
+import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.LocationInfrastructureAdapter
+import com.emproto.hoabl.viewmodels.InvestmentViewModel
+import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.response.investment.LocationInfrastructure
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import javax.inject.Inject
 
 class MapFragment : BaseFragment() {
 
+    @Inject
+    lateinit var investmentFactory: InvestmentFactory
+    lateinit var investmentViewModel: InvestmentViewModel
     lateinit var binding: FragmentMapBinding
 
     override fun onCreateView(
@@ -40,14 +49,28 @@ class MapFragment : BaseFragment() {
         setUpUI()
     }
 
-    private fun setUpUI() {
-        val mapLocationData = arguments?.getSerializable("MapLocationData") as LocationInfrastructure
+    private fun initMap() {
+        (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
+        investmentViewModel =
+            ViewModelProvider(requireActivity(), investmentFactory)[InvestmentViewModel::class.java]
+        val mapFragment = childFragmentManager.findFragmentById(
+            R.id.map_fragment
+        ) as? SupportMapFragment
+        mapFragment?.getMapAsync { googleMap ->
+            googleMap.setOnMapLoadedCallback {
+                addMarkers(googleMap)
+            }
+        }
+    }
 
+    private fun setUpUI() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility = View.GONE
 
-        val adapter = LocationInfrastructureAdapter(this.requireContext(),mapLocationData.values)
-        binding.mapLocationBottomSheet.rvMapLocationItemRecycler.adapter = adapter
+        investmentViewModel.getMapLocationInfrastructure().observe(viewLifecycleOwner, Observer {
+            val adapter = LocationInfrastructureAdapter(this.requireContext(),it.values)
+            binding.mapLocationBottomSheet.rvMapLocationItemRecycler.adapter = adapter
+        })
 
         Handler().postDelayed({
             binding.cvSearch.visibility = View.VISIBLE
@@ -60,17 +83,6 @@ class MapFragment : BaseFragment() {
 
         binding.ivBackImage.setOnClickListener {
             (requireActivity() as HomeActivity).onBackPressed()
-        }
-    }
-
-    private fun initMap() {
-        val mapFragment = childFragmentManager.findFragmentById(
-            R.id.map_fragment
-        ) as? SupportMapFragment
-        mapFragment?.getMapAsync { googleMap ->
-            googleMap.setOnMapLoadedCallback {
-                addMarkers(googleMap)
-            }
         }
     }
 

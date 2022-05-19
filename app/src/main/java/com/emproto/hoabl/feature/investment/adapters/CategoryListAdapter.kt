@@ -10,9 +10,8 @@ import com.emproto.hoabl.databinding.ItemCategoryListBinding
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionTwoModel
-import com.emproto.networklayer.response.portfolio.ivdetails.SimilarInvestment
+import com.emproto.networklayer.response.investment.PageManagementsOrNewInvestment
 import com.emproto.networklayer.response.watchlist.Data
-import java.util.ArrayList
 
 class CategoryListAdapter(
     private val context: Context,
@@ -21,9 +20,12 @@ class CategoryListAdapter(
     val type: Int = -1
 ) : RecyclerView.Adapter<CategoryListAdapter.CategoryViewHolder>() {
 
-    val TYPE_WATCHLIST = 0
-    val TYPE_SIMILAR = 1
-    val TYPE_OTHER = -1
+    companion object {
+        const val TYPE_NEW_LAUNCH = 0
+        const val TYPE_FEW_PLOTS = 1
+        const val TYPE_TRENDING_PROJECTS = 2
+        const val TYPE_WATCHLIST = 3
+    }
 
     inner class CategoryViewHolder(var binding: ItemCategoryListBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -33,47 +35,66 @@ class CategoryListAdapter(
             item: Any,
             clickListener: ItemClickListener
         ) {
-            if (type == TYPE_OTHER) {
-                val element = list[position] as PageManagementsOrCollectionOneModel
-                itemView.setOnClickListener {
-                    clickListener.onItemClicked(view, position, element.id.toString())
+            when (type) {
+                TYPE_NEW_LAUNCH -> {
+                    val element = list[position] as PageManagementsOrNewInvestment
+                    itemView.setOnClickListener {
+                        clickListener.onItemClicked(view, position, element.id.toString())
+                    }
+                    binding.apply {
+                        tvProjectName.text = element.launchName
+                        tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
+                        tvCategoryArea.text = element.areaStartingFrom + " Onwards"
+                        tvCategoryItemInfo.text = element.shortDescription
+                        Glide.with(context)
+                            .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                            .into(ivCategoryImage)
+                    }
                 }
-                binding.apply {
-                    tvProjectName.text = element.launchName
-                    tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
-                    tvCategoryArea.text = element.areaStartingFrom + " Onwards"
-                    tvCategoryItemInfo.text = element.shortDescription
-                    Glide.with(context)
-                        .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
-                        .into(ivCategoryImage)
+                TYPE_FEW_PLOTS -> {
+                    val element = list[position] as PageManagementsOrCollectionOneModel
+                    itemView.setOnClickListener {
+                        clickListener.onItemClicked(view, position, element.id.toString())
+                    }
+                    binding.apply {
+                        tvProjectName.text = element.launchName
+                        tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
+                        tvCategoryArea.text = element.areaStartingFrom + " Onwards"
+                        tvCategoryItemInfo.text = element.shortDescription
+                        Glide.with(context)
+                            .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                            .into(ivCategoryImage)
+                    }
                 }
-            } else if (type == TYPE_SIMILAR) {
-                val element = list[position] as SimilarInvestment
-                itemView.setOnClickListener {
-                    clickListener.onItemClicked(view, position, element.id.toString())
+                TYPE_TRENDING_PROJECTS -> {
+                    val element = list[position] as PageManagementsOrCollectionTwoModel
+                    itemView.setOnClickListener {
+                        clickListener.onItemClicked(view, position, element.id.toString())
+                    }
+                    binding.apply {
+                        tvProjectName.text = element.launchName
+                        tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
+                        tvCategoryArea.text = element.areaStartingFrom + " Onwards"
+                        tvCategoryItemInfo.text = element.shortDescription
+                        Glide.with(context)
+                            .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                            .into(ivCategoryImage)
+                    }
                 }
-                binding.apply {
-                    tvProjectName.text = element.launchName
-                    tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
-                    tvCategoryArea.text = element.areaStartingFrom + " Onwards"
-                    tvCategoryItemInfo.text = element.shortDescription
-                    Glide.with(context)
-                        .load(element.projectIcon.value.url)
-                        .into(ivCategoryImage)
-                }
-            } else {
-                val element = list[position] as Data
-                itemView.setOnClickListener {
-                    clickListener.onItemClicked(view, position, element.project.id.toString())
-                }
-                binding.apply {
-                    tvProjectName.text = element.project.launchName
-                    tvCategoryPrice.text = element.project.priceStartingFrom + " Onwards"
-                    tvCategoryArea.text = element.project.areaStartingFrom + " Onwards"
-                    tvCategoryItemInfo.text = element.project.shortDescription
-                    Glide.with(context)
-                        .load(element.project.projectIcon.value.url)
-                        .into(ivCategoryImage)
+                else -> {
+                    val element = list[position] as Data
+                    itemView.setOnClickListener {
+                        clickListener.onItemClicked(view, position, element.project.id.toString())
+                    }
+                    binding.apply {
+                        tvProjectName.text = element.project.launchName
+                        tvCategoryPrice.text = element.project.priceStartingFrom + " Onwards"
+                        tvCategoryArea.text = element.project.areaStartingFrom + " Onwards"
+                        tvCategoryItemInfo.text = element.project.shortDescription
+                        Glide.with(context)
+                            .load(element.project.projectIcon.value.url)
+                            .into(ivCategoryImage)
+                    }
                 }
             }
         }

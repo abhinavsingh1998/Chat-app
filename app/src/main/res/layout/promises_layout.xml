@@ -26,6 +26,7 @@
         android:text="@string/see_all"
         android:textColor="@color/text_blue_color"
         android:textSize="@dimen/text_size_12"
+        android:layout_marginEnd="@dimen/margin_size_8"
         app:layout_constraintBottom_toBottomOf="@id/tv_promises_title"
         app:layout_constraintEnd_toStartOf="@+id/iv_promises_arrow"
         app:layout_constraintTop_toTopOf="@id/tv_promises_title" />
@@ -35,7 +36,7 @@
         android:layout_width="@dimen/margin_size_14"
         android:layout_height="@dimen/margin_size_7"
         android:layout_marginEnd="@dimen/margin_size_15"
-        android:src="@drawable/ic_arrow_forward_black"
+        android:src="@drawable/ic_black_long_rightarrow"
         app:layout_constraintBottom_toBottomOf="@id/tv_promises_see_all"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_promises_see_all" />
@@ -52,24 +53,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_promises_title"
         tools:itemCount="5"
+        android:clipToPadding="false"
         tools:listitem="@layout/item_promises" />
-    
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_apply_now"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/apply_now"
-        android:layout_marginHorizontal="@dimen/margin_size_7"
-        android:background="@drawable/all_corner_radius_white_bg"
-        android:backgroundTint="@color/black"
-        android:textColor="@color/white"
-        android:textAllCaps="false"
-        android:visibility="gone"
-        android:textSize="@dimen/text_size_14"
-        android:layout_marginTop="@dimen/margin_size_19"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_promises"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_not_convinced_promises"
@@ -81,7 +66,7 @@
         android:layout_marginBottom="@dimen/margin_size_8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_apply_now"
+        app:layout_constraintTop_toBottomOf="@id/rv_promises"
         app:layout_constraintBottom_toBottomOf="parent"
         >
 

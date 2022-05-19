@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_size_17"
-        android:src="@drawable/rightarrow"
+        android:src="@drawable/ic_black_long_rightarrow"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/tv_faq_title"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,18 +59,18 @@
         tools:itemCount="5"
         tools:listitem="@layout/item_faq_question" />
 
-    <com.google.android.material.button.MaterialButton
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/bn_ask_here"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_size_52"
         android:layout_marginTop="@dimen/margin_size_20"
-        android:backgroundTint="@color/black"
+        android:background="@drawable/black_border_bg"
         android:fontFamily="@font/jost_medium"
         android:text="Have any questions? Ask Here"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="@dimen/text_size_12"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

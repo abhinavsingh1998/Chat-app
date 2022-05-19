@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.investment.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemPromisesBinding
@@ -18,8 +19,14 @@ class PromisesAdapter(private val list: List<PmData>):RecyclerView.Adapter<Promi
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val element = list[position]
         holder.binding.apply {
+            when(element.shortDescription.isNullOrEmpty()){
+                true -> { tvPromisesText.text = "No Description available"}
+                false -> {
+                    tvPromisesText.visibility = View.VISIBLE
+                    tvPromisesText.text = element.shortDescription
+                }
+            }
             tvPromisesName.text = element.name
-            tvPromisesText.text = element.shortDescription
         }
     }
 
