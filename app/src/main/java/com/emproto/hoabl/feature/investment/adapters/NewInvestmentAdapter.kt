@@ -12,9 +12,10 @@ import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.model.RecyclerViewItem
+import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.Data
 
-class NewInvestmentAdapter(private val activity:HomeActivity, private val context: Context, val list:List<RecyclerViewItem>, private val data:Data):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class NewInvestmentAdapter(private val activity:HomeActivity, private val context: Context, val list:List<RecyclerViewItem>, private val data:Data,private val itemClickListener: ItemClickListener):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val TYPE_NEW_LAUNCH = 1
@@ -80,7 +81,7 @@ class NewInvestmentAdapter(private val activity:HomeActivity, private val contex
             binding.tvSmartDealsSubtitle.text = data.page.collectionOne.subHeading
 
             val list = data.pageManagementsOrCollectionOneModels
-            lastFewPlotsAdapter = LastFewPlotsAdapter(context, list)
+            lastFewPlotsAdapter = LastFewPlotsAdapter(context, list,itemClickListener)
             binding.rvSmartDealsNv.adapter = lastFewPlotsAdapter
 
             binding.tvSmartDealsSeeAll.setOnClickListener(onItemClickListener)
@@ -107,7 +108,7 @@ class NewInvestmentAdapter(private val activity:HomeActivity, private val contex
             binding.tvTrendingProjectsSubtitle.text = data.page.collectionTwo.subHeading
 
             val list = data.pageManagementsOrCollectionTwoModels
-            trendingProjectsAdapter = TrendingProjectsAdapter(context, list)
+            trendingProjectsAdapter = TrendingProjectsAdapter(context, list,itemClickListener)
             binding.rvTrendingProjects.adapter= trendingProjectsAdapter
             binding.tvTrendingProjectsSeeAll.setOnClickListener(onItemClickListener)
         }

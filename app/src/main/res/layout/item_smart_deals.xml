@@ -6,51 +6,6 @@
     android:layout_margin="@dimen/margin_size_4">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cv_banner_card"
-        android:layout_width="@dimen/margin_size_230"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/cv_main_outer_card"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/banner_background">
-
-            <ImageView
-                android:id="@+id/iv_banner_icon"
-                android:layout_width="@dimen/margin_size_14"
-                android:layout_height="@dimen/margin_size_14"
-                android:layout_marginHorizontal="@dimen/margin_size_6"
-                android:layout_marginTop="@dimen/margin_size_10"
-                android:src="@drawable/ic_clock"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_banner_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_size_4"
-                android:layout_marginTop="@dimen/margin_size_6"
-                android:layout_marginEnd="@dimen/margin_size_15"
-                android:layout_marginBottom="@dimen/margin_size_8"
-                android:fontFamily="@font/jost_regular"
-                android:text="Buy SKUs flat at a discount of 15%/sqft (Rs.300/sqft off)"
-                android:textColor="@color/text_brown_color"
-                android:textSize="@dimen/text_size_12"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iv_banner_icon"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_main_outer_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -64,7 +19,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cv_banner_card">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

@@ -58,7 +58,6 @@ class ProjectDetailFragment:BaseFragment() {
                     applicationSubmitDialog.show(parentFragmentManager,"ApplicationSubmitDialog")
                 }
                 R.id.tv_faq_read_all -> {
-
                     (requireActivity() as HomeActivity).addFragment(FaqDetailFragment(),false)
                 }
                 R.id.cl_why_invest ->{
@@ -95,6 +94,10 @@ class ProjectDetailFragment:BaseFragment() {
                 }
                 R.id.tv_promises_see_all -> {
 //                    (requireActivity() as HomeActivity).addFragment(HoablPromises(),false)
+                }
+                R.id.tv_apply_now -> {
+                    investmentViewModel.setSkus(landSkusData)
+                    (requireActivity() as HomeActivity).addFragment(LandSkusFragment(),false)
                 }
             }
         }

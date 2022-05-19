@@ -14,6 +14,7 @@ import com.emproto.hoabl.databinding.FragmentInvestmentLayoutBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.investment.adapters.NewInvestmentAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
+import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.response.enums.Status
@@ -132,10 +133,18 @@ class InvestmentFragment : BaseFragment() {
             (requireActivity() as HomeActivity),
             this.requireContext(),
             list,
-            data
+            data,
+            itemClickListener
         )
         binding.rvInvestmentPage.adapter = newInvestmentAdapter
         newInvestmentAdapter.setItemClickListener(onInvestmentItemClickListener)
+    }
+
+    private val itemClickListener = object : ItemClickListener {
+        override fun onItemClicked(view: View, position: Int, item: String) {
+            investmentViewModel.setProjectId(item.toInt())
+            (requireActivity() as HomeActivity).addFragment(ProjectDetailFragment(),false)
+        }
     }
 
 }

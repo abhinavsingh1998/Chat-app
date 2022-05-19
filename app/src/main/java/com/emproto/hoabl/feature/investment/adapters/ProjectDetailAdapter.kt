@@ -192,6 +192,7 @@ class ProjectDetailAdapter(
                     ivBookmarkIcon.setImageResource(R.drawable.ic_favourite_dark)
                 }
                 binding.whyInvestCard.clWhyInvest.setOnClickListener(onItemClickListener)
+                binding.tvApplyNow.setOnClickListener(onItemClickListener)
             }
         }
     }
