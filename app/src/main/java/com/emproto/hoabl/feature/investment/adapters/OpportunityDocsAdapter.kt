@@ -37,6 +37,8 @@ class OpportunityDocsAdapter(
     private lateinit var destinationAdapter: DestinationAdapter
     private lateinit var currentInfraStoryAdapter: CurrentInfraStoryAdapter
     private lateinit var upcomingInfraStoryAdapter: UpcomingInfraStoryAdapter
+    private lateinit var onItemClickListener : View.OnClickListener
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
@@ -170,6 +172,7 @@ class OpportunityDocsAdapter(
     private inner class ApplyViewHolder(private val binding: ApplyLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             binding.tvBookingStarts.text = data[0].pageFooter
+            binding.tvApplyNow.setOnClickListener(onItemClickListener)
         }
     }
 

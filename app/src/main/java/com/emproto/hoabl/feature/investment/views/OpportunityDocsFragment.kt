@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
+import com.emproto.hoabl.R
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentOpportunityDocsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -24,6 +25,16 @@ class OpportunityDocsFragment:BaseFragment() {
     lateinit var investmentViewModel: InvestmentViewModel
     lateinit var binding:FragmentOpportunityDocsBinding
     lateinit var opportunityDocsAdapter: OpportunityDocsAdapter
+
+    val onItemClickListener =
+        View.OnClickListener { view ->
+            when(view.id){
+                R.id.tv_apply_now -> {
+
+                }
+            }
+
+        }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentOpportunityDocsBinding.inflate(layoutInflater)

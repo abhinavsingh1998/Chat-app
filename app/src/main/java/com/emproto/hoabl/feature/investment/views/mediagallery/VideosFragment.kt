@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentPhotosBinding
+import com.emproto.hoabl.databinding.FragmentVideosBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.investment.adapters.MediaPhotosAdapter
 import com.emproto.hoabl.model.MediaGalleryItem
@@ -23,11 +24,11 @@ class VideosFragment:BaseFragment() {
     @Inject
     lateinit var investmentFactory: InvestmentFactory
     lateinit var investmentViewModel: InvestmentViewModel
-    lateinit var binding:FragmentPhotosBinding
+    lateinit var binding:FragmentVideosBinding
     lateinit var mediaPhotosAdapter: MediaPhotosAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentPhotosBinding.inflate(layoutInflater)
+        binding = FragmentVideosBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -45,7 +46,7 @@ class VideosFragment:BaseFragment() {
 
             val videoList = arrayListOf<String>(it.newInvestmentPageMedia.value.url)
             mediaPhotosAdapter = MediaPhotosAdapter(this.requireContext(),list, itemClickListener, videoList)
-            binding.rvMainPhotos.adapter = mediaPhotosAdapter
+            binding.rvMainVideos.adapter = mediaPhotosAdapter
         })
     }
 

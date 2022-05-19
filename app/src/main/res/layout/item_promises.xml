@@ -38,6 +38,8 @@
                 android:text="Security"
                 android:textSize="@dimen/text_size_14"
                 android:fontFamily="@font/jost_bold"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:textColor="@color/text_violet_dark_color"
                 android:layout_marginTop="@dimen/margin_size_20"
                 android:layout_marginEnd="@dimen/margin_size_9"

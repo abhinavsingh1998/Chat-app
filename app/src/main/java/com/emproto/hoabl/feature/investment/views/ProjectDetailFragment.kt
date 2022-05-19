@@ -91,10 +91,10 @@ class ProjectDetailFragment:BaseFragment() {
                     startActivity(shareIntent)
                 }
                 R.id.tv_hear_speak_see_all -> {
-                    (requireActivity() as HomeActivity).addFragment(Testimonials(),false)
+//                    (requireActivity() as HomeActivity).addFragment(Testimonials(),false)
                 }
                 R.id.tv_promises_see_all -> {
-                    (requireActivity() as HomeActivity).addFragment(HoablPromises(),false)
+//                    (requireActivity() as HomeActivity).addFragment(HoablPromises(),false)
                 }
             }
         }
