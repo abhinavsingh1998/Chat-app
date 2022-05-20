@@ -25,7 +25,7 @@ import javax.inject.Inject
 class AuthRepository @Inject constructor(application: Application) : BaseRepository(application) {
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + parentJob)
-    private val loginResponse = MutableLiveData<BaseResponse<OtpResponse>>()
+
 
     /**
      * Method to send otp to mobile number
@@ -34,6 +34,7 @@ class AuthRepository @Inject constructor(application: Application) : BaseReposit
      * @return OtpResponse
      */
     fun getOtpOnMobile(otpRequest: OtpRequest): LiveData<BaseResponse<OtpResponse>> {
+         val loginResponse = MutableLiveData<BaseResponse<OtpResponse>>()
         loginResponse.postValue(BaseResponse.loading());
         coroutineScope.launch {
             try {

@@ -28,6 +28,6 @@ object ApiConstants {
     const val GET_PROFILE = "hoabl-customer/profile/get"
     const val PROJECT_TIMELINE = "hoabl-admin/project-contents/{id}"
     const val FACILITY_MANAGMENT = "hoabl-customer/facility/authenticate"
-
+    const val REFER_NOW = "hoabl-customer/addReferral"
 
 }

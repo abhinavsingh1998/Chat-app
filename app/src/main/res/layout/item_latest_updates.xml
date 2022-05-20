@@ -70,6 +70,7 @@
             android:layout_marginTop="@dimen/margin_size_6"
             android:layout_marginRight="@dimen/margin_size_6"
             android:layout_marginBottom="@dimen/margin_size_6"
+            android:minLines="2"
             android:maxLines="2"
             android:gravity="start|center"
             android:text="Coming Soon… Stay tuned for more updates"

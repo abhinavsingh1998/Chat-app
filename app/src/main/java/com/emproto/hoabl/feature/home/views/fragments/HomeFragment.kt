@@ -137,10 +137,11 @@ class HomeFragment : BaseFragment() {
 
                         }
                         Status.ERROR -> {
-                            //binding.loader.hide()
+                            binding.loader.hide()
                             (requireActivity() as HomeActivity).showErrorToast(
                                 it.message!!
                             )
+                            binding.rootView.show()
                         }
                     }
                 }
@@ -198,17 +199,14 @@ class HomeFragment : BaseFragment() {
                 false)
         }
 
-        binding.appShareBtn.setOnClickListener {
+        binding.referralLayout.appShareBtn.setOnClickListener {
             share_app()
         }
-
-
     }
 
     private fun referNow() {
 
-        binding.btnReferNow.setOnClickListener {
-
+        binding.referralLayout.btnReferNow.setOnClickListener {
             val dialog = ReferralDialog()
             dialog.isCancelable = true
             dialog.show(parentFragmentManager, "Refrral card")

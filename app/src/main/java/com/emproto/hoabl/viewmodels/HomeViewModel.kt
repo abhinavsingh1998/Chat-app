@@ -6,14 +6,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.emproto.core.Database.Dao.HomeSearchDao
 import com.emproto.core.Database.TableModel.SearchModel
+import com.emproto.hoabl.feature.home.data.LatesUpdatesPosition
 import com.emproto.hoabl.repository.HomeRepository
 import com.emproto.networklayer.request.login.OtpRequest
+import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.home.PageManagementOrInsight
 import com.emproto.networklayer.response.home.PageManagementOrLatestUpdate
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
 import com.emproto.networklayer.response.promises.PromisesResponse
+import com.emproto.networklayer.response.refer.ReferalResponse
+import com.emproto.networklayer.response.responsee.PageManagementAndLatestUpdates
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 import javax.inject.Inject
 
@@ -29,6 +33,8 @@ class HomeViewModel(
 
     private var latestUpdates = MutableLiveData<PageManagementOrLatestUpdate>()
     private var insights = MutableLiveData<PageManagementOrInsight>()
+
+    private var position = MutableLiveData<LatesUpdatesPosition>()
 
     @Inject
     lateinit var homeSearchDao: HomeSearchDao
@@ -69,7 +75,7 @@ class HomeViewModel(
         return mhomeRepository.getTermsCondition(pageType)
     }
 
-    fun setSeLectedLatestUpdates(latestUpdates: PageManagementOrLatestUpdate){
+    fun setSeLectedLatestUpdates(latestUpdates: PageManagementOrLatestUpdate) {
         this.latestUpdates.postValue(latestUpdates)
     }
 
@@ -77,11 +83,23 @@ class HomeViewModel(
         return latestUpdates
     }
 
-    fun setSeLectedInsights(insights: PageManagementOrInsight){
+    fun setSelectedPosition(position: LatesUpdatesPosition) {
+        this.position.postValue(position)
+    }
+
+    fun getSelectedPosition(): LiveData<LatesUpdatesPosition> {
+        return position
+    }
+
+    fun setSeLectedInsights(insights: PageManagementOrInsight) {
         this.insights.postValue(insights)
     }
 
     fun getSelectedInsights(): LiveData<PageManagementOrInsight> {
         return insights
+    }
+
+    fun getReferNow(referalRequest: ReferalRequest): LiveData<BaseResponse<ReferalResponse>> {
+        return homeRepository.addReferral(referalRequest)
     }
 }

@@ -96,9 +96,9 @@
     <string name="smart_deals">Smart Deals</string>
     <string name="total_projects">Total Projects</string>
     <string name="completed">Completed</string>
-    <string name="intro1">New Generation Land is for everyone.Explore all new investments</string>
-    <string name="intro2">Promises, are meant to be kept, and we keep it that way too!</string>
-    <string name="intro3">Strong Security System to keep your valuables safe and secure</string>
+    <string name="intro1">New Generation Land  is for everyone. Explore our latest offerings.</string>
+    <string name="intro2">When you buy land from us - Rest assured in our promises.</string>
+    <string name="intro3">Just like a bank - Your land portfolio is safe and secure with us.</string>
     <string name="enter_your_phonenumber">Enter Your Phone Number*</string>
     <string name="enter_your_email">Enter Your Email Address</string>
     <string name="sent_otp">will be sent to this number</string>
@@ -114,13 +114,13 @@
     <string name="presenting">presenting</string>
     <string name="new_generation">New Generation Land</string>
     <string name="apply_now">Apply Now</string>
-    <string name="view_all_properties">View all properties</string>
+    <string name="discover_our_investment">Discover our investments</string>
     <string name="following_attention">The following items need your attention</string>
     <string name="complete_kyc">Complete KYC</string>
     <string name="please_complete_payment">Your payment towards Tomorrowland is due on 29th April. Please pay on time to maintain healthy relation.</string>
     <string name="promise_wekeep">Promises we keep</string>
     <string name="testimonial">Testimonials</string>
-    <string name="share_joy">Share the joy</string>
+    <string name="share_joy">The Joy of Sharing begins here</string>
     <string name="refer">Refer someone and earn exciting rewards</string>
     <string name="enter_name">Name</string>
     <string name="phone_number">Phone Number</string>
@@ -133,7 +133,7 @@
     <string name="view_more">View More</string>
     <string name="DemoText">The Isle of Bliss is phase 2 of Codename Bliss Dapoli, a seaside lifestyle plotting development from The House of Abhinandan Lodha</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="And_your_name">And your name?</string>
+    <string name="And_your_name">Please enter your name.</string>
     <string name="First_name_hint">First Name *</string>
     <string name="Second_name_hint">Second Name </string>
     <string name="full_name_hint">Full Name </string>
@@ -291,7 +291,7 @@
     <string name="manage_projects">Manage Projects</string>
     <string name="invest_now">Invest Now</string>
     <string name="attention_text">The following items need your attention</string>
-    <string name="share_the_joy">Share the joy</string>
+    <string name="share_the_joy">The Joy of Sharing begins here</string>
     <string name="refer_now">Refer Now</string>
     <string name="share_hoabl_friends">Share HOBAL APP with your friends</string>
     <string name="view_booking_journey">View Booking Journey</string>
@@ -333,6 +333,20 @@
     <string name="privacy_information">Investement will generate appreciate in Future.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.</string>
     <string name="country">Country</string>
 
+    <string name="try_after_one_hour">You have incorrectly typed the OTP 5 times. Please retry again after an hour.</string>
+    <string name="five_attempts_remaining">Please enter the OTP sent to your mobile number.</string>
+    <string name="four_attempts_remaining">Please enter the OTP sent to your mobile number. You have 4 attempts remaining to verify your OTP.</string>
+    <string name="three_attempts_remaining">Please enter the OTP sent to your mobile number. You have 3 attempts remaining to verify your OTP.</string>
+    <string name="two_attempts_remaining">Please enter the OTP sent to your mobile number. You have 2 attempts remaining to verify your OTP.</string>
+    <string name="one_attempts_remaining">Please enter the OTP sent to your mobile number. You have 1 attempt remaining to verify your OTP.</string>
+
+    <string name="first_incorrect_otp">You have incorrectly typed the OTP 1 time. Click on Resend OTP to receive OTP again</string>
+    <string name="second_incorrect_otp">You have incorrectly typed the OTP 2 time. Click on Resend OTP to receive OTP again</string>
+    <string name="third_incorrect_otp">You have incorrectly typed the OTP 3 time. Click on Resend OTP to receive OTP again</string>
+    <string name="fourth_incorrect_otp">You have incorrectly typed the OTP 4 time. Click on Resend OTP to receive OTP again</string>
+
+
+
     <string-array name="Gender">
         <item>Female</item>
         <item>Male</item>
@@ -352,5 +366,6 @@
     <string name="invest_now_text">Invest Now!</string>
     <string name="hear_our_customers_speak">Hear our customers speak</string>
     <string name="new_launches">New Launches</string>
+    <string name="please_after_one_hour">You have reached the maximum limit for resending the OTP. Please retry again after an hour.</string>
     <string name="all_investments">All investments</string>
 </resources>

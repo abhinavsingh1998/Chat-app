@@ -16,6 +16,7 @@ interface DataComponent {
     fun inject(registrationDataSource: RegistrationDataSource)
     fun inject(homeDataSource: HomeDataSource)
     fun inject(investmentDataSource: InvestmentDataSource)
-    fun  inject(portfolioDataSource: PortfolioDataSource)
+    fun inject(portfolioDataSource: PortfolioDataSource)
     fun inject(profileDataSource: ProfileDataSource)
+    fun inject(baseDataSource: BaseDataSource)
 }

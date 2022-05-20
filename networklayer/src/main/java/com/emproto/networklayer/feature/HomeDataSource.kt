@@ -17,7 +17,7 @@ import javax.inject.Named
  * All the api in home modules
  * @property application
  */
-public class HomeDataSource(val application: Application) {
+public class HomeDataSource(val application: Application) : BaseDataSource(application) {
     @Inject
     lateinit var apiService: ApiService
     @Named("dummy")
