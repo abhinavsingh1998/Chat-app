@@ -21,6 +21,7 @@ import com.emproto.hoabl.feature.promises.data.DataModel
 import com.emproto.hoabl.feature.promises.data.PromisesData
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
+import com.emproto.networklayer.enum.ModuleEnum
 import com.emproto.networklayer.response.enums.Status
 import javax.inject.Inject
 
@@ -46,14 +47,12 @@ class HoablPromises : BaseFragment() {
         homeViewModel =
             ViewModelProvider(requireActivity(), homeFactory).get(HomeViewModel::class.java)
 
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
-            true
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible =
-            true
+        (requireActivity() as HomeActivity).showHeader()
         (requireActivity() as HomeActivity).hideBackArrow()
+        (requireActivity() as HomeActivity).showBottomNavigation()
 
 
-        homeViewModel.getPromises(5003).observe(viewLifecycleOwner, Observer {
+        homeViewModel.getPromises(ModuleEnum.PROMISES.value).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     binding.loader.show()
