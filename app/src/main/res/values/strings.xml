@@ -18,8 +18,8 @@
     <string name="login">Login</string>
     <string name="mobile_number">Mobile Number</string>
     <string name="enter_mobile">Enter Mobile Number</string>
-    <string name="whatsapp">Whatsapp Communications</string>
-    <string name="login_terms_text">By login in, you are agreeing to our Terms of services and Privacy policy</string>
+    <string name="whatsapp">Allow Whatsapp Communications</string>
+    <string name="login_terms_text">By logging in, you agree to our \n Terms Of Services and Privacy Policy</string>
     <string name="trouble_login"><u>Trouble Signing In?</u></string>
     <string name="get_otp">Get OTP</string>
     <string name="submit_and_continue">Submit and Continue</string>
@@ -96,7 +96,7 @@
     <string name="smart_deals">Smart Deals</string>
     <string name="total_projects">Total Projects</string>
     <string name="completed">Completed</string>
-    <string name="intro1">New Generation Land  is for everyone. Explore our latest offerings.</string>
+    <string name="intro1">New Generation Land \n is for everyone. Explore our latest offerings.</string>
     <string name="intro2">When you buy land from us - Rest assured in our promises.</string>
     <string name="intro3">Just like a bank - Your land portfolio is safe and secure with us.</string>
     <string name="enter_your_phonenumber">Enter Your Phone Number*</string>
@@ -104,7 +104,7 @@
     <string name="sent_otp">will be sent to this number</string>
     <string name="otp">OTP </string>
     <string name="type_here">Type here</string>
-    <string name="hoabl_permission_title">“HoABL” would like to send \nand view SMS messages</string>
+    <string name="hoabl_permission_title">“HoABL” would like to send and view SMS messages</string>
     <string name="faster_checkout">To view &amp; auto-read OTP for faster \ncheckout experience</string>
     <string name="allow">Allow</string>
     <string name="dont_allow">Don’t Allow</string>
