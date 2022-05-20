@@ -62,7 +62,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun initObserver() {
-        homeViewModel.getDashboardData(5001)
+        homeViewModel.getDashBoardData(5001)
             .observe(viewLifecycleOwner, object : Observer<BaseResponse<HomeResponse>> {
                 override fun onChanged(it: BaseResponse<HomeResponse>?) {
                     when (it!!.status) {
@@ -74,6 +74,12 @@ class HomeFragment : BaseFragment() {
                         Status.SUCCESS -> {
                             binding.rootView.show()
                             binding.loader.hide()
+
+                            it.data.let {
+                                if (it != null) {
+                                    homeViewModel.setDashBoardData(it)
+                                }
+                            }
 
                             //loading investment list
                             investmentAdapter = InvestmentCardAdapter(
