@@ -123,14 +123,14 @@ class MediaViewFragment:BaseFragment() {
         }
     }
 
-    @SuppressLint("InlinedApi")
-    private fun hideSystemUi() {
-        WindowCompat.setDecorFitsSystemWindows(this.requireActivity().window, false)
-        WindowInsetsControllerCompat(this.requireActivity().window, binding.videoView).let { controller ->
-            controller.hide(WindowInsetsCompat.Type.systemBars())
-            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        }
-    }
+//    @SuppressLint("InlinedApi")
+//    private fun hideSystemUi() {
+//        WindowCompat.setDecorFitsSystemWindows(this.requireActivity().window, false)
+//        WindowInsetsControllerCompat(this.requireActivity().window, binding.videoView).let { controller ->
+//            controller.hide(WindowInsetsCompat.Type.systemBars())
+//            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+//        }
+//    }
 
     @SuppressLint("UnsafeOptInUsageError")
     override fun onPause() {
@@ -143,7 +143,6 @@ class MediaViewFragment:BaseFragment() {
     @SuppressLint("UnsafeOptInUsageError")
     override fun onResume() {
         super.onResume()
-        hideSystemUi()
         if ((Util.SDK_INT <= 23 || player == null)) {
             initializePlayer()
         }

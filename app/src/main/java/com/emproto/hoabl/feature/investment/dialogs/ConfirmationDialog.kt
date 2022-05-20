@@ -61,7 +61,7 @@ class ConfirmationDialog(private val landSkusFragment: LandSkusFragment) :Dialog
         when(v.id){
             R.id.tv_yes_text -> {
                 dialog?.dismiss()
-                val applicationSubmitDialog = ApplicationSubmitDialog("Application Submitted!","Thank you for your application. Our team is going to reach out to you soon!")
+                val applicationSubmitDialog = ApplicationSubmitDialog("Thank you for your interest!","Our Project Manager will reach out to you in 24 hours!")
                 applicationSubmitDialog.show(parentFragmentManager,"ApplicationSubmitDialog")
             }
             R.id.tv_no_text -> {

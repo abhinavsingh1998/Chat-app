@@ -2,7 +2,6 @@ package com.emproto.hoabl.feature.investment.adapters
 
 import android.animation.LayoutTransition
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.model.RecyclerViewItem
+import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.PdData
 import com.emproto.networklayer.response.investment.PmData
 import com.github.mikephil.charting.components.XAxis
@@ -30,7 +30,8 @@ class ProjectDetailAdapter(
     private val context: Context,
     private val list: List<RecyclerViewItem>,
     private val data: PdData,
-    private val promisesData: List<PmData>
+    private val promisesData: List<PmData>,
+    private val itemClickListener:ItemClickListener
 ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -61,6 +62,7 @@ class ProjectDetailAdapter(
     private lateinit var onItemClickListener : View.OnClickListener
 
     private var isCollapsed = true
+    private var isClicked = true
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
@@ -189,7 +191,16 @@ class ProjectDetailAdapter(
                 }
                 binding.ivShareIcon.setOnClickListener(onItemClickListener)
                 binding.ivBookmarkIcon.setOnClickListener{
-                    ivBookmarkIcon.setImageResource(R.drawable.ic_favourite_dark)
+                    when(isClicked){
+                        true -> {
+                            ivBookmarkIcon.setImageResource(R.drawable.ic_favourite_dark)
+                            isClicked = false
+                        }
+                        false -> {
+                            ivBookmarkIcon.setImageResource(R.drawable.ic_favourite)
+                            isClicked = true
+                        }
+                    }
                 }
                 binding.whyInvestCard.clWhyInvest.setOnClickListener(onItemClickListener)
                 binding.tvApplyNow.setOnClickListener(onItemClickListener)
@@ -293,9 +304,11 @@ class ProjectDetailAdapter(
         fun bind(position: Int){
             locationInfrastructureAdapter = LocationInfrastructureAdapter(
                 context,
-                data.locationInfrastructure.values
+                data.locationInfrastructure.values,
+                itemClickListener
             )
             binding.rvLocationInfrastructure.adapter = locationInfrastructureAdapter
+            binding.tvLocationInfrastructureAll.setOnClickListener(onItemClickListener)
         }
     }
 

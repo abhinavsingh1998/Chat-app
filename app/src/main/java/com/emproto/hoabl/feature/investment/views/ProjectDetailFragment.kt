@@ -21,6 +21,7 @@ import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
 import com.emproto.hoabl.feature.investment.views.mediagallery.MediaGalleryFragment
 import com.emproto.hoabl.feature.promises.HoablPromises
 import com.emproto.hoabl.model.RecyclerViewItem
+import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.response.enums.Status
@@ -91,14 +92,18 @@ class ProjectDetailFragment:BaseFragment() {
                     startActivity(shareIntent)
                 }
                 R.id.tv_hear_speak_see_all -> {
-//                    (requireActivity() as HomeActivity).addFragment(Testimonials(),false)
+                    (requireActivity() as HomeActivity).addFragment(Testimonials(),false)
                 }
                 R.id.tv_promises_see_all -> {
-//                    (requireActivity() as HomeActivity).addFragment(HoablPromises(),false)
+                    (requireActivity() as HomeActivity).addFragment(HoablPromises(),false)
                 }
                 R.id.tv_apply_now -> {
                     investmentViewModel.setSkus(landSkusData)
                     (requireActivity() as HomeActivity).addFragment(LandSkusFragment(),false)
+                }
+                R.id.tv_location_infrastructure_all -> {
+                    investmentViewModel.setMapLocationInfrastructure(mapLocationData)
+                    (requireActivity() as HomeActivity).addFragment(MapFragment(),false)
                 }
             }
         }
@@ -198,9 +203,16 @@ class ProjectDetailFragment:BaseFragment() {
                 list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_FOURTEEN))
             }
         }
-        val adapter = ProjectDetailAdapter(this.requireContext(),list,data,promisesData)
+        val adapter = ProjectDetailAdapter(this.requireContext(),list,data,promisesData, itemClickListener)
         binding.rvProjectDetail.adapter = adapter
         adapter.setItemClickListener(onItemClickListener)
     }
 
+    private val itemClickListener = object : ItemClickListener {
+        override fun onItemClicked(view: View, position: Int, item: String) {
+            when(position){
+
+            }
+        }
+    }
 }
