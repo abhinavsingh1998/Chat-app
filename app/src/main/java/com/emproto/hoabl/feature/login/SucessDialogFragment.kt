@@ -46,7 +46,7 @@ class SucessDialogFragment : DialogFragment(), View.OnClickListener {
 
      fun showDialog (){
          Handler().postDelayed({
-             startActivity(Intent(requireContext(), HomeActivity::class.java))
+             startActivity(Intent(this.requireContext(), HomeActivity::class.java))
              requireActivity().finish()
          }, 5000)
      }
