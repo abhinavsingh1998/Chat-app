@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ItemCategoryListBinding
 import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.networklayer.response.investment.ApData
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionTwoModel
 import com.emproto.networklayer.response.investment.PageManagementsOrNewInvestment
@@ -24,7 +25,8 @@ class CategoryListAdapter(
         const val TYPE_NEW_LAUNCH = 0
         const val TYPE_FEW_PLOTS = 1
         const val TYPE_TRENDING_PROJECTS = 2
-        const val TYPE_WATCHLIST = 3
+        const val TYPE_ALL_INVESTMENTS = 3
+        const val TYPE_WATCHLIST = 4
     }
 
     inner class CategoryViewHolder(var binding: ItemCategoryListBinding) :
@@ -68,6 +70,21 @@ class CategoryListAdapter(
                 }
                 TYPE_TRENDING_PROJECTS -> {
                     val element = list[position] as PageManagementsOrCollectionTwoModel
+                    itemView.setOnClickListener {
+                        clickListener.onItemClicked(view, position, element.id.toString())
+                    }
+                    binding.apply {
+                        tvProjectName.text = element.launchName
+                        tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
+                        tvCategoryArea.text = element.areaStartingFrom + " Onwards"
+                        tvCategoryItemInfo.text = element.shortDescription
+                        Glide.with(context)
+                            .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                            .into(ivCategoryImage)
+                    }
+                }
+                TYPE_ALL_INVESTMENTS -> {
+                    val element = list[position] as ApData
                     itemView.setOnClickListener {
                         clickListener.onItemClicked(view, position, element.id.toString())
                     }

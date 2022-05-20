@@ -33,7 +33,6 @@ class OpportunityDocsFragment:BaseFragment() {
                     (requireActivity() as HomeActivity).addFragment(LandSkusFragment(),false)
                 }
             }
-
         }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

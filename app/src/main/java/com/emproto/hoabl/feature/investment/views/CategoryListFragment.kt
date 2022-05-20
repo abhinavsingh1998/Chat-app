@@ -12,9 +12,17 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentCategoryListBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.investment.adapters.CategoryListAdapter
+import com.emproto.hoabl.model.AllProjectsModel
+import com.emproto.hoabl.model.NewLaunchModel
+import com.emproto.hoabl.model.SmartDealsModel
+import com.emproto.hoabl.model.TrendingModel
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
+import com.emproto.networklayer.response.investment.ApData
+import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
+import com.emproto.networklayer.response.investment.PageManagementsOrCollectionTwoModel
+import com.emproto.networklayer.response.investment.PageManagementsOrNewInvestment
 import javax.inject.Inject
 
 class CategoryListFragment() : BaseFragment() {
@@ -24,6 +32,11 @@ class CategoryListFragment() : BaseFragment() {
     lateinit var investmentViewModel: InvestmentViewModel
     private lateinit var binding: FragmentCategoryListBinding
     private lateinit var categoryListAdapter: CategoryListAdapter
+    private lateinit var sDList: List<PageManagementsOrCollectionOneModel>
+    private lateinit var tPList: List<PageManagementsOrCollectionTwoModel>
+    private lateinit var nLList: List<PageManagementsOrNewInvestment>
+    private lateinit var aPList: List<ApData>
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,16 +63,36 @@ class CategoryListFragment() : BaseFragment() {
 
     private fun initObserver() {
         investmentViewModel.getSmartDealsList().observe(viewLifecycleOwner, Observer {
-            binding.tvCategoryHeading.text = resources.getString(R.string.last_few_plots)
-            setUpAdapter("LastPlots",it)
+            when(investmentViewModel.getSd().value){
+                true -> {
+                    binding.tvCategoryHeading.text = resources.getString(R.string.last_few_plots)
+                    setUpAdapter("LastPlots", it)
+                }
+            }
         })
         investmentViewModel.getTrendingList().observe(viewLifecycleOwner, Observer {
-            binding.tvCategoryHeading.text = resources.getString(R.string.trending_projects)
-            setUpAdapter("TrendingProjects",it)
+            when(investmentViewModel.getTp().value){
+                true -> {
+                    binding.tvCategoryHeading.text = resources.getString(R.string.trending_projects)
+                    setUpAdapter("TrendingProjects", it)
+                }
+            }
         })
         investmentViewModel.getNewInvestments().observe(viewLifecycleOwner, Observer {
-            binding.tvCategoryHeading.text = resources.getString(R.string.new_launches)
-            setUpAdapter("NewLaunches",it)
+            when(investmentViewModel.getNl().value){
+                true -> {
+                    binding.tvCategoryHeading.text = resources.getString(R.string.new_launches)
+                    setUpAdapter("NewLaunches", it)
+                }
+            }
+        })
+        investmentViewModel.getAllInvestments().observe(viewLifecycleOwner, Observer {
+            when(investmentViewModel.getAp().value){
+                true -> {
+                    binding.tvCategoryHeading.text = resources.getString(R.string.all_investments)
+                    setUpAdapter("AllInvestments", it)
+                }
+            }
         })
     }
 
@@ -74,8 +107,11 @@ class CategoryListFragment() : BaseFragment() {
             "TrendingProjects" -> {
                 setUpCategoryAdapter(list, 2)
             }
-            else -> {
+            "AllInvestments" -> {
                 setUpCategoryAdapter(list, 3)
+            }
+            else -> {
+                setUpCategoryAdapter(list, 4)
             }
         }
     }
@@ -91,5 +127,14 @@ class CategoryListFragment() : BaseFragment() {
             (requireActivity() as HomeActivity).addFragment(ProjectDetailFragment(),false)
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        investmentViewModel.setSd(false)
+        investmentViewModel.setTp(false)
+        investmentViewModel.setNl(false)
+        investmentViewModel.setAp(false)
+    }
+
 
 }

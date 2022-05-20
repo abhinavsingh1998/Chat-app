@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.feature.home.adapters.InsightsAdapter
-import com.emproto.hoabl.adapters.LatestUpdateAdapter
+import com.emproto.hoabl.feature.home.adapters.LatestUpdateAdapter
 import com.emproto.hoabl.adapters.TestimonialAdapter
 import com.emproto.hoabl.databinding.FragmentHomeBinding
 import com.emproto.hoabl.di.HomeComponentProvider

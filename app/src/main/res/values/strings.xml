@@ -355,7 +355,7 @@
     <string name="popular_categories_text">Popular Categories</string>
     <string name="search_faqs">Search FAQs</string>
     <string name="months">Months</string>
-    <string name="map_api_key">AIzaSyDxc8Of8-Xl0YkvaeezmPxcVxXAXfxSNCI</string>
+    <string name="map_api_key">AIzaSyCsM4XliQLu-5hW3qTduVn4QbNhb_YbVBM</string>
     <string name="see_distance">See distance from</string>
     <string name="around_this_project">Around this Project</string>
     <string name="updates_details">Details</string>
@@ -367,4 +367,5 @@
     <string name="hear_our_customers_speak">Hear our customers speak</string>
     <string name="new_launches">New Launches</string>
     <string name="please_after_one_hour">You have reached the maximum limit for resending the OTP. Please retry again after an hour.</string>
+    <string name="all_investments">All investments</string>
 </resources>

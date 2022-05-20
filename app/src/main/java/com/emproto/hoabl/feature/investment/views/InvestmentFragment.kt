@@ -13,7 +13,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentInvestmentLayoutBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.investment.adapters.NewInvestmentAdapter
-import com.emproto.hoabl.model.RecyclerViewItem
+import com.emproto.hoabl.model.*
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
@@ -31,20 +31,24 @@ class InvestmentFragment : BaseFragment() {
     private lateinit var smartDealsList: List<PageManagementsOrCollectionOneModel>
     private lateinit var trendingProjectsList: List<PageManagementsOrCollectionTwoModel>
     private lateinit var newInvestmentsList: List<PageManagementsOrNewInvestment>
-    private lateinit var skuData: InventoryBucketContent
 
     private val onInvestmentItemClickListener =
         View.OnClickListener { view ->
             when (view.id) {
                 R.id.tv_smart_deals_see_all -> {
+//                    val smartDealsData = SmartDealsModel(smartDealsList,true)
+                    investmentViewModel.setSd(true)
                     investmentViewModel.setSmartDealsList(smartDealsList)
                     (requireActivity() as HomeActivity).addFragment(CategoryListFragment(), true)
                 }
                 R.id.tv_trending_projects_see_all -> {
+                    investmentViewModel.setTp(true)
                     investmentViewModel.setTrendingList(trendingProjectsList)
                     (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
                 }
                 R.id.tv_new_launch_see_all -> {
+//                    val newLaunchData = NewLaunchModel(newInvestmentsList,true)
+                    investmentViewModel.setNl(true)
                     investmentViewModel.setNewInvestments(newInvestmentsList)
                     (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
                 }
@@ -53,15 +57,64 @@ class InvestmentFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).addFragment(ProjectDetailFragment(),false)
                 }
                 R.id.tv_apply_now -> {
-//                    Toast.makeText(this.requireContext(), "Data not added", Toast.LENGTH_SHORT).show()
-//                    (requireActivity() as HomeActivity).addFragment(LandSkusFragment(),false)
+                    investmentViewModel.setProjectId(newInvestmentsList[0].id)
+                    callProjectDataApi()
                 }
                 R.id.btn_discover -> {
-//                    Toast.makeText(this.requireContext(), "Data not added", Toast.LENGTH_SHORT).show()
-//                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
+                    callProjectContentAPi()
                 }
             }
         }
+
+    private fun callProjectDataApi() {
+        investmentViewModel.getProjectId().observe(viewLifecycleOwner, Observer {
+            investmentViewModel.getInvestmentsDetail(it).observe(viewLifecycleOwner, Observer {
+                when(it.status){
+                    Status.LOADING -> {
+                        (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                    }
+                    Status.SUCCESS -> {
+                        (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                        it.data?.data?.let {  data ->
+                            investmentViewModel.setSkus(data.inventoryBucketContents)
+                            (requireActivity() as HomeActivity).addFragment(LandSkusFragment(),false)
+                        }
+                    }
+                    Status.ERROR -> {
+                        (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            it.message!!
+                        )
+                    }
+                }
+            })
+        })
+    }
+
+    private fun callProjectContentAPi() {
+        investmentViewModel.getAllInvestmentsProjects().observe(viewLifecycleOwner, Observer {
+            when(it.status){
+                Status.LOADING -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                }
+                Status.SUCCESS -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    it.data?.data?.let {  data ->
+//                        val allProjectsData = AllProjectsModel(data,true)
+                        investmentViewModel.setAp(true)
+                        investmentViewModel.setAllInvestments(data)
+                        (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
+                    }
+                }
+                Status.ERROR -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(
+                        it.message!!
+                    )
+                }
+            }
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

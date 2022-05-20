@@ -52,10 +52,10 @@ class FaqDetailFragment:BaseFragment() {
         investmentViewModel.getProjectId().observe(viewLifecycleOwner, Observer {
             callFaqApi(it)
         })
-
     }
 
     private fun callFaqApi(projectId: Int) {
+        Log.d("Faq",projectId.toString())
         investmentViewModel.getInvestmentsFaq(projectId).observe(viewLifecycleOwner, Observer {
             Log.d("Faq",it.data.toString())
             when(it.status){

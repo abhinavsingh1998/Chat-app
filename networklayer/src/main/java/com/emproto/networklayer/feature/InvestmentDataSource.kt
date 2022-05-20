@@ -42,6 +42,10 @@ class InvestmentDataSource(val application: Application) {
         return apiService.getInvestmentsProjectDetails(id)
     }
 
+    suspend fun getAllInvestments(): Response<AllProjectsResponse> {
+        return apiService.getAllInvestmentProjects()
+    }
+
     suspend fun getInvestmentsPromises(): Response<InvestmentPromisesResponse> {
         return apiService.getInvestmentsPromises()
     }
