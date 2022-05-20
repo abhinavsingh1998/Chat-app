@@ -358,7 +358,9 @@ class OTPVerificationFragment : BaseFragment() {
                    0L ->{
                        mBinding.resentOtp.isEnabled= true
                        mBinding.resentOtp.isClickable= true
-                       mBinding.resentOtp.setTextColor(resources.getColor(R.color.app_color))
+                       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                           mBinding.resentOtp.setTextColor(requireActivity().getColor(R.color.app_color))
+                       }
                        mBinding.resentOtp.text= "Resend OTP"
                    }
                    else -> {

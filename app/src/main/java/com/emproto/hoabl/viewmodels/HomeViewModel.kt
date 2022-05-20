@@ -9,12 +9,14 @@ import com.emproto.core.Database.TableModel.SearchModel
 import com.emproto.hoabl.feature.home.data.LatesUpdatesPosition
 import com.emproto.hoabl.repository.HomeRepository
 import com.emproto.networklayer.request.login.OtpRequest
+import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.home.PageManagementOrInsight
 import com.emproto.networklayer.response.home.PageManagementOrLatestUpdate
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
 import com.emproto.networklayer.response.promises.PromisesResponse
+import com.emproto.networklayer.response.refer.ReferalResponse
 import com.emproto.networklayer.response.responsee.PageManagementAndLatestUpdates
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 import javax.inject.Inject
@@ -73,14 +75,15 @@ class HomeViewModel(
         return mhomeRepository.getTermsCondition(pageType)
     }
 
-    fun setSeLectedLatestUpdates(latestUpdates: PageManagementOrLatestUpdate){
+    fun setSeLectedLatestUpdates(latestUpdates: PageManagementOrLatestUpdate) {
         this.latestUpdates.postValue(latestUpdates)
     }
 
     fun getSelectedLatestUpdates(): LiveData<PageManagementOrLatestUpdate> {
         return latestUpdates
     }
-    fun setSelectedPosition(position: LatesUpdatesPosition){
+
+    fun setSelectedPosition(position: LatesUpdatesPosition) {
         this.position.postValue(position)
     }
 
@@ -88,11 +91,15 @@ class HomeViewModel(
         return position
     }
 
-    fun setSeLectedInsights(insights: PageManagementOrInsight){
+    fun setSeLectedInsights(insights: PageManagementOrInsight) {
         this.insights.postValue(insights)
     }
 
     fun getSelectedInsights(): LiveData<PageManagementOrInsight> {
         return insights
+    }
+
+    fun getReferNow(referalRequest: ReferalRequest): LiveData<BaseResponse<ReferalResponse>> {
+        return homeRepository.addReferral(referalRequest)
     }
 }

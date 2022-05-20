@@ -59,4 +59,5 @@ interface HomeComponent {
     fun inject(fragment: PhotosFragment)
     fun inject(fragment: MediaViewFragment)
     fun inject(fragment: VideosFragment)
+    fun inject(fragment: ReferralDialog)
 }

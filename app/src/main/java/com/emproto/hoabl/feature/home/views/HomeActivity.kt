@@ -79,7 +79,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 //        investmentViewModel =
 //            ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
 
-        activityHomeActivity.searchLayout.rotateText.isSelected= true
+        activityHomeActivity.searchLayout.rotateText.isSelected = true
         setContentView(activityHomeActivity.root)
         mContext = this
 //        SharedPref.init(mContext)
@@ -351,6 +351,14 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     fun showErrorToast(message: String) {
         showErrorView(activityHomeActivity.root, message)
+    }
+
+    fun showHeader() {
+        activityHomeActivity.searchLayout.toolbarLayout.show()
+    }
+
+    fun hideHeader() {
+        activityHomeActivity.searchLayout.toolbarLayout.hide()
     }
 
     fun hideBackArrow() {
