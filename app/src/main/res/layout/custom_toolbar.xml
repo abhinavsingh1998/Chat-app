@@ -31,56 +31,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.emproto.core.textviews.CustomTextView
-            android:id="@+id/rupeetext"
-            style="@style/text_style_light_blue_11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_size_24"
-            android:layout_marginTop="@dimen/margin_size_8"
-            android:layout_marginBottom="@dimen/margin_size_8"
-            android:text="@string/transactions"
-            app:fontName="@string/jost_light"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/img_hoabl"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.emproto.core.textviews.CustomTextView
-            android:id="@+id/text"
-            style="@style/text_style_light_blue_12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_size_10"
-            android:text="₹4,86,000 Cr"
-            app:fontName="@string/jost_bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/rupeetext"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.emproto.core.textviews.CustomTextView
-            android:id="@+id/acrestext"
-            style="@style/text_style_light_blue_11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/text_size_26"
-            android:text="@string/land_transactions"
-            app:fontName="@string/jost_light"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/text"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
-            android:id="@+id/text3"
-            android:layout_width="wrap_content"
+            android:id="@+id/rotate_text"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_size_9"
-            android:drawableEnd="@drawable/ic_arrow_right"
-            android:gravity="start|center"
-            android:text="10"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:fontFamily="@font/jost_medium"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="Single-line text view that scrolls automatically if the text is too long to fit in the widget"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_12"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img_hoabl"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

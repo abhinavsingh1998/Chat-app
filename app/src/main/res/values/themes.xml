@@ -764,7 +764,7 @@
 
     <style name="text_style_blue_32">
         <item name="android:gravity">center</item>
-        <item name="android:textSize">@dimen/text_size_40</item>
+        <item name="android:textSize">@dimen/text_size_32</item>
         <item name="android:textColor">@color/app_color</item>
         <item name="singleLine">true</item>
     </style>

@@ -1,10 +1,10 @@
 package com.emproto.hoabl.feature.investment.views
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
@@ -14,12 +14,11 @@ import com.emproto.hoabl.databinding.FragmentInvestmentLayoutBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.investment.adapters.NewInvestmentAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
+import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.response.enums.Status
-import com.emproto.networklayer.response.investment.Data
-import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
-import java.io.Serializable
+import com.emproto.networklayer.response.investment.*
 import javax.inject.Inject
 
 class InvestmentFragment : BaseFragment() {
@@ -29,67 +28,86 @@ class InvestmentFragment : BaseFragment() {
     lateinit var investmentViewModel: InvestmentViewModel
     private lateinit var binding: FragmentInvestmentLayoutBinding
     private lateinit var newInvestmentAdapter: NewInvestmentAdapter
-
-    private lateinit var categoryList: List<PageManagementsOrCollectionOneModel>
-
-    private val smartDealsListBundle = Bundle()
+    private lateinit var smartDealsList: List<PageManagementsOrCollectionOneModel>
+    private lateinit var trendingProjectsList: List<PageManagementsOrCollectionTwoModel>
+    private lateinit var newInvestmentsList: List<PageManagementsOrNewInvestment>
+    private lateinit var skuData: InventoryBucketContent
 
     private val onInvestmentItemClickListener =
         View.OnClickListener { view ->
             when (view.id) {
                 R.id.tv_smart_deals_see_all -> {
-                    val categoryListFragment = CategoryListFragment()
-                    smartDealsListBundle.putString("Category","Smart Deals")
-                    categoryListFragment.arguments = smartDealsListBundle
-                    (requireActivity() as HomeActivity).replaceFragment(categoryListFragment.javaClass, "", true, smartDealsListBundle, null, 0, false)
-//                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
+                    investmentViewModel.setSmartDealsList(smartDealsList)
+                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(), true)
                 }
                 R.id.tv_trending_projects_see_all -> {
-                    val categoryListFragment = CategoryListFragment()
-                    smartDealsListBundle.putString("Category","Trending Projects")
-                    categoryListFragment.arguments = smartDealsListBundle
-                    (requireActivity() as HomeActivity).replaceFragment(categoryListFragment.javaClass, "", true, smartDealsListBundle, null, 0, false)
+                    investmentViewModel.setTrendingList(trendingProjectsList)
+                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
+                }
+                R.id.tv_new_launch_see_all -> {
+                    investmentViewModel.setNewInvestments(newInvestmentsList)
+                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
+                }
+                R.id.cl_place_info -> {
+                    investmentViewModel.setProjectId(newInvestmentsList[0].id)
+                    (requireActivity() as HomeActivity).addFragment(ProjectDetailFragment(),false)
+                }
+                R.id.tv_apply_now -> {
+//                    Toast.makeText(this.requireContext(), "Data not added", Toast.LENGTH_SHORT).show()
+//                    (requireActivity() as HomeActivity).addFragment(LandSkusFragment(),false)
+                }
+                R.id.btn_discover -> {
+//                    Toast.makeText(this.requireContext(), "Data not added", Toast.LENGTH_SHORT).show()
+//                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
                 }
             }
         }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentInvestmentLayoutBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpDatas()
+        setUpViewModel()
         setUpUI()
         callApi()
     }
 
-    private fun setUpDatas() {
+    private fun setUpViewModel() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         investmentViewModel =
-            ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility=View.VISIBLE
+            ViewModelProvider(
+                requireActivity(),
+                investmentFactory
+            ).get(InvestmentViewModel::class.java)
     }
 
     private fun setUpUI() {
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.VISIBLE
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
+            View.VISIBLE
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
+            View.VISIBLE
     }
 
     private fun callApi() {
         investmentViewModel.getInvestments(5002).observe(viewLifecycleOwner, Observer {
-            Log.d("Investment","${it.data?.toString()}")
-            when(it.status){
+            when (it.status) {
                 Status.LOADING -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
                 }
                 Status.SUCCESS -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
-                    it.data?.data?.let {  data ->
+                    it.data?.data?.let { data ->
                         setUpRecyclerView(data)
-                        categoryList = data.pageManagementsOrCollectionOneModels
-                        smartDealsListBundle.putSerializable("SmartDealsData",data.pageManagementsOrCollectionOneModels as Serializable)
-                        smartDealsListBundle.putSerializable("TrendingProjectsData",data.pageManagementsOrCollectionTwoModels as Serializable)
+                        newInvestmentsList = data.page.pageManagementsOrNewInvestments
+                        smartDealsList = data.pageManagementsOrCollectionOneModels
+                        trendingProjectsList = data.pageManagementsOrCollectionTwoModels
                     }
                 }
                 Status.ERROR -> {
@@ -97,7 +115,6 @@ class InvestmentFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).showErrorToast(
                         it.message!!
                     )
-                    Log.d("Invest",it.message.toString())
                 }
             }
         })
@@ -105,13 +122,29 @@ class InvestmentFragment : BaseFragment() {
 
     private fun setUpRecyclerView(data: Data) {
         val list = ArrayList<RecyclerViewItem>()
-        list.add(RecyclerViewItem(NewInvestmentAdapter.INVESTMENT_VIEW_TYPE_ONE))
-        list.add(RecyclerViewItem(NewInvestmentAdapter.INVESTMENT_VIEW_TYPE_THREE))
-        list.add(RecyclerViewItem(NewInvestmentAdapter.INVESTMENT_VIEW_TYPE_FOUR))
-
-        newInvestmentAdapter = NewInvestmentAdapter((requireActivity() as HomeActivity),this.requireContext(), list, data)
-        binding.rvInvestmentPage.adapter= newInvestmentAdapter
+        list.add(RecyclerViewItem(NewInvestmentAdapter.TYPE_NEW_LAUNCH))
+        when(data.page.isCollectionOneActive){
+            true -> list.add(RecyclerViewItem(NewInvestmentAdapter.TYPE_LAST_PLOTS))
+        }
+        when(data.page.isCollectionTwoActive){
+            true -> list.add(RecyclerViewItem(NewInvestmentAdapter.TYPE_TRENDING_PROJECTS))
+        }
+        newInvestmentAdapter = NewInvestmentAdapter(
+            (requireActivity() as HomeActivity),
+            this.requireContext(),
+            list,
+            data,
+            itemClickListener
+        )
+        binding.rvInvestmentPage.adapter = newInvestmentAdapter
         newInvestmentAdapter.setItemClickListener(onInvestmentItemClickListener)
+    }
+
+    private val itemClickListener = object : ItemClickListener {
+        override fun onItemClicked(view: View, position: Int, item: String) {
+            investmentViewModel.setProjectId(item.toInt())
+            (requireActivity() as HomeActivity).addFragment(ProjectDetailFragment(),false)
+        }
     }
 
 }

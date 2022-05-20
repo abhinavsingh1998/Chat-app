@@ -6,9 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemLandSkusBinding
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
+import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.InventoryBucketContent
 
-class SkusListAdapter(private val fragment: LandSkusFragment, private val list: List<InventoryBucketContent>):RecyclerView.Adapter<SkusListAdapter.SkusListViewHolder>() {
+class SkusListAdapter(
+    private val fragment: LandSkusFragment,
+    private val list: List<InventoryBucketContent>,
+    val itemClickListener: ItemClickListener
+):RecyclerView.Adapter<SkusListAdapter.SkusListViewHolder>() {
 
     private lateinit var onItemClickListener : View.OnClickListener
 
@@ -22,13 +27,15 @@ class SkusListAdapter(private val fragment: LandSkusFragment, private val list: 
     override fun onBindViewHolder(holder: SkusListViewHolder, position: Int) {
         val element = list[position]
         holder.binding.apply {
-            btnApplyNow.setOnClickListener(onItemClickListener)
+            btnApplyNow.setOnClickListener {
+                fragment.investmentViewModel.setSku(element)
+                itemClickListener.onItemClicked(it,position,element.id.toString())
+            }
             tvItemLandSkusName.text = element.name
             tvItemLandSkusArea.text = "${element.areaRange.from}ft - ${element.areaRange.to}ft"
             tvItemLandSkusPrice.text = "${element.priceRange.from} - ${element.priceRange.to}"
             tvItemLandSkusDescription.text = element.shortDescription
         }
-        fragment.investmentViewModel.skusLiveData.postValue(element)
     }
 
     override fun getItemCount(): Int = list.size

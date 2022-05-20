@@ -13,16 +13,32 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_new_launch"
             style="@style/text_style_text_color_16"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/margin_size_12"
             android:layout_marginTop="@dimen/margin_size_17"
             android:fontFamily="@font/jost_regular"
             android:text="@string/new_launch_soon"
             android:textAlignment="textStart"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_new_launch_see_all"
+            style="@style/text_style_blue_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_size_16"
+            android:drawableEnd="@drawable/ic_black_long_rightarrow"
+            android:drawablePadding="@dimen/margin_size_8"
+            android:maxLines="1"
+            android:minLines="1"
+            android:singleLine="true"
+            android:text="@string/see_all"
+            app:fontName="@string/jost_regular"
+            app:layout_constraintBottom_toBottomOf="@id/tv_new_launch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_new_launch" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_coming_soon"
@@ -112,7 +128,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/jost_regular"
                                 android:singleLine="true"
-                                android:text="Isle of Bliss"
+                                android:text="TomorrowLand"
                                 android:textStyle="bold" />
 
                             <com.google.android.material.textview.MaterialTextView
@@ -121,7 +137,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/jost_regular"
-                                android:text="Pune, Maharashtra"
+                                android:text="Anjarle, Maharashtra"
                                 android:textSize="@dimen/text_size_14"
                                 android:textStyle="normal" />
                         </LinearLayout>
@@ -130,12 +146,11 @@
                             android:id="@+id/rating_linear"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_size_14"
+                            android:layout_marginStart="@dimen/margin_size_4"
                             android:layout_marginEnd="@dimen/margin_size_24"
                             android:orientation="horizontal"
-                            app:layout_constraintBottom_toBottomOf="@id/cv_small_image"
                             app:layout_constraintStart_toEndOf="@id/text_layout"
-                            app:layout_constraintTop_toTopOf="@id/cv_small_image">
+                            app:layout_constraintTop_toTopOf="@id/text_layout">
 
                             <ImageView
                                 android:id="@+id/iv_rating"
@@ -159,10 +174,10 @@
                             style="@style/text_style_text_color_14"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:textAlignment="textEnd"
+                            android:layout_marginEnd="@dimen/margin_size_11"
                             android:fontFamily="@font/jost_medium"
                             android:text="#20 L Onwards"
-                            android:layout_marginEnd="@dimen/margin_size_11"
+                            android:textAlignment="textEnd"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="1.0"
                             app:layout_constraintStart_toEndOf="@id/rating_linear"
@@ -173,10 +188,10 @@
                             style="@style/text_style_text_color_14"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:textAlignment="textEnd"
+                            android:layout_marginEnd="@dimen/margin_size_11"
                             android:fontFamily="@font/jost_medium"
                             android:text="#2000 sqft Onwards"
-                            android:layout_marginEnd="@dimen/margin_size_11"
+                            android:textAlignment="textEnd"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="1.0"
                             app:layout_constraintStart_toEndOf="@id/rating_linear"
@@ -203,7 +218,7 @@
                                 android:layout_marginEnd="58dp"
                                 android:fontFamily="@font/jost_light"
                                 android:lineSpacingMultiplier="1"
-                                android:text="Beach side lifestyle near Mumbai with luxurious amenities and affordable rates"
+                                android:text="A Biophilic themed luxury beachside estate with 35 world-class amenities"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toStartOf="@id/iv_place_info_arrow"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -213,20 +228,20 @@
                                 android:id="@+id/iv_place_info_arrow"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_arrow_forward_black"
+                                android:src="@drawable/rightarrow"
                                 app:layout_constraintBottom_toBottomOf="@id/tv_background_grey"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toEndOf="@id/tv_background_grey"
                                 app:layout_constraintTop_toTopOf="@id/tv_background_grey" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <com.emproto.core.textviews.CustomTextView
+                        <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_view_info"
                             style="@style/text_style_dark_gold_color_14"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:background="@color/background_yellow_color"
-                            android:fontFamily="@font/jost_bold"
+                            android:fontFamily="@font/jost_regular"
                             android:paddingHorizontal="@dimen/margin_size_18"
                             android:paddingVertical="@dimen/margin_size_10"
                             android:text="20 People saw this project in 7 days"
@@ -234,17 +249,17 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/cl_place_info" />
 
-                        <com.emproto.core.textviews.CustomTextView
+                        <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_apply_now"
                             style="@style/text_style_white_14"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
-                            android:gravity="center"
-                            android:textAlignment="center"
                             android:background="@color/black"
+                            android:gravity="center"
                             android:paddingHorizontal="@dimen/margin_size_18"
                             android:paddingVertical="@dimen/margin_size_10"
                             android:text="Apply now"
+                            android:textAlignment="center"
                             app:layout_constraintBottom_toBottomOf="@id/tv_view_info"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/tv_view_info"
@@ -259,14 +274,32 @@
             android:id="@+id/iv_dont_miss_image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_size_170"
-            android:layout_marginHorizontal="@dimen/margin_size_20"
+            android:layout_marginHorizontal="@dimen/margin_size_17"
             android:layout_marginTop="@dimen/margin_size_32"
-            android:visibility="visible"
+            android:layout_marginBottom="@dimen/margin_size_6"
             android:scaleType="fitXY"
-            android:src="@drawable/iv_dontmissout"
-            app:layout_constraintTop_toBottomOf="@id/cv_top"
+            android:src="@drawable/dont_miss_new"
+            app:layout_constraintTop_toBottomOf="@id/cv_top" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_discover"
+            style="@style/text_style_white_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/all_corner_radius_black_bg"
+            android:drawableEnd="@drawable/arrow_right_"
+            android:drawablePadding="@dimen/margin_size_9"
+            android:fontFamily="@font/jost_medium"
+            android:paddingVertical="@dimen/margin_size_10"
+            android:paddingHorizontal="@dimen/margin_size_25"
+            android:text="@string/discover_all_investments_text"
+            android:textAlignment="center"
+            android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="@dimen/margin_size_6"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_dont_miss_image" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

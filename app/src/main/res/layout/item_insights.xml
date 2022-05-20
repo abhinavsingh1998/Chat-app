@@ -69,6 +69,7 @@
             app:layout_constraintStart_toStartOf="parent"
             style="@style/text_style_text_color_12"
             android:singleLine="false"
+            android:minLines="2"
             android:maxLines="2"
             android:gravity="start|center"
             app:fontName="@string/jost_light"

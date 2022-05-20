@@ -6,6 +6,7 @@ import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
+import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.investment.FaqDetailResponse
@@ -25,6 +26,7 @@ import com.emproto.networklayer.response.profile.ProfileCountriesResponse
 import com.emproto.networklayer.response.profile.ProfilePictureResponse
 import com.emproto.networklayer.response.profile.ProfileResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
+import com.emproto.networklayer.response.refer.ReferalResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
 import retrofit2.Response
@@ -105,6 +107,9 @@ public interface ApiService {
 
     @GET(ApiConstants.INVESTMENT_PROJECT_FAQ)
     suspend fun getInvestmentsProjectFaq(@Path("projectContentId") projectContentId: Int): Response<FaqDetailResponse>
+
+    @POST(ApiConstants.REFER_NOW)
+    suspend fun referNow(@Body referBody:ReferalRequest):Response<ReferalResponse>
 
     @GET(ApiConstants.CHATS_LIST)
     suspend fun getChatsList(): Response<ChatResponse>

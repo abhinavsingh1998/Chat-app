@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
+import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionTwoModel
 
-class TrendingProjectsAdapter(val context: Context, val list: List<PageManagementsOrCollectionTwoModel>) : RecyclerView.Adapter<TrendingProjectsAdapter.MyViewHolder>() {
+class TrendingProjectsAdapter(val context: Context, val list: List<PageManagementsOrCollectionTwoModel>,private val itemClickListener: ItemClickListener) : RecyclerView.Adapter<TrendingProjectsAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = ItemSmartDealsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -29,6 +30,12 @@ class TrendingProjectsAdapter(val context: Context, val list: List<PageManagemen
 //            Glide.with(context)
 //                .load(element.mediaGalleries[0].coverImage[0].mediaContent.value.url)
 //                .into(holder.binding.ivItemImage)
+            Glide.with(context)
+                .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                .into(holder.binding.ivItemImage)
+        }
+        holder.itemView.setOnClickListener {
+            itemClickListener.onItemClicked(it, position, element.id.toString())
         }
     }
 

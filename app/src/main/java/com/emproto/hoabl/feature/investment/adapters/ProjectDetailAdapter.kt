@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.investment.adapters
 
 import android.animation.LayoutTransition
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -126,7 +127,7 @@ class ProjectDetailAdapter(
             TabLayoutMediator(binding.tabDotLayout,binding.projectDetailViewPager){ _, _ ->
             }.attach()
             itemView.tag = this
-            binding.clNotConvinced.setOnClickListener(onItemClickListener)
+            binding.whyInvestCard.clOuterWhyInvest.setOnClickListener(onItemClickListener)
 
             binding.apply {
                 tvProjectName.text = data.launchName
@@ -144,9 +145,6 @@ class ProjectDetailAdapter(
                     }
                 }
                 tvRegistrationNumber.text = regString
-//                Glide.with(context)
-//                    .load(data.offersAndPromotions.value.url)
-//                    .into(ivWhyInvest)
                 Glide.with(context)
                     .load(data.projectCoverImages.newInvestmentPageMedia.value.url)
                     .into(ivSmallTopImage)
@@ -189,6 +187,12 @@ class ProjectDetailAdapter(
                 ivRegInfo.setOnClickListener {
                     balloon.showAlignBottom(ivRegInfo)
                 }
+                binding.ivShareIcon.setOnClickListener(onItemClickListener)
+                binding.ivBookmarkIcon.setOnClickListener{
+                    ivBookmarkIcon.setImageResource(R.drawable.ic_favourite_dark)
+                }
+                binding.whyInvestCard.clWhyInvest.setOnClickListener(onItemClickListener)
+                binding.tvApplyNow.setOnClickListener(onItemClickListener)
             }
         }
     }
@@ -209,11 +213,6 @@ class ProjectDetailAdapter(
             for(item in graphData){
                 linevalues.add(Entry(item.year.toFloat(),item.value.toFloat()))
             }
-//            linevalues.add(Entry(10f, 0.0F))
-//            linevalues.add(Entry(20f, 3.0F))
-//            linevalues.add(Entry(40f, 2.0F))
-//            linevalues.add(Entry(50F, 5.0F))
-//            linevalues.add(Entry(60F, 6.0F))
             val linedataset = LineDataSet(linevalues, "First")
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -259,11 +258,7 @@ class ProjectDetailAdapter(
     private inner class ProjectVideosDroneViewHolder(private val binding: VideoDroneLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             val itemList = ArrayList<String>()
-
             itemList.add(data.projectCoverImages.newInvestmentPageMedia.value.url)
-
-//            itemList.add(data.mediaGalleries[0].videos[0].mediaContent.value.url)
-//            itemList.add(data.mediaGalleries[0].droneShoots[0].mediaContent.value.url)
             videoDroneAdapter = VideoDroneAdapter(itemList)
             binding.rvVideoDrone.adapter = videoDroneAdapter
             binding.tvVideoDroneSeeAll.setOnClickListener(onItemClickListener)
@@ -310,6 +305,7 @@ class ProjectDetailAdapter(
             promisesAdapter = PromisesAdapter(itemList)
             binding.rvPromises.adapter = promisesAdapter
             binding.clNotConvincedPromises.setOnClickListener(onItemClickListener)
+            binding.tvPromisesSeeAll.setOnClickListener(onItemClickListener)
         }
     }
 
@@ -324,6 +320,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectTestimonialsViewHolder(private val binding: NewInvestmentTestimonialsCardBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
+            binding.tvHearSpeakSeeAll.setOnClickListener(onItemClickListener)
         }
     }
 
@@ -345,7 +342,4 @@ class ProjectDetailAdapter(
         onItemClickListener = clickListener
     }
 
-    private fun applyLayoutTransition() {
-
-    }
 }

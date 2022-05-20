@@ -43,15 +43,20 @@ class FaqDetailFragment:BaseFragment() {
     }
 
     private fun setUpInitialization() {
-//        val data = arguments?.getSerializable("faqData") as List<ProjectContentsAndFaq>
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         investmentViewModel =
             ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
-//        setUpRecyclerView()
     }
 
     private fun callApi() {
-        investmentViewModel.getInvestmentsFaq(6).observe(viewLifecycleOwner, Observer {
+        investmentViewModel.getProjectId().observe(viewLifecycleOwner, Observer {
+            callFaqApi(it)
+        })
+
+    }
+
+    private fun callFaqApi(projectId: Int) {
+        investmentViewModel.getInvestmentsFaq(projectId).observe(viewLifecycleOwner, Observer {
             Log.d("Faq",it.data.toString())
             when(it.status){
                 Status.LOADING -> {
