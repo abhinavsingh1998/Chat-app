@@ -46,22 +46,19 @@ class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
 
 
         homeViewModel.getChatsList().observe(viewLifecycleOwner, Observer {
-
             when (it.status) {
                 Status.LOADING -> {
                     binding.loader.show()
                     binding.rvChats.visibility = View.INVISIBLE
-
                 }
                 Status.SUCCESS -> {
-
                     binding.loader.hide()
                     binding.rvChats.visibility = View.VISIBLE
                     if (it.data?.chatList != null && it.data!!.chatList is List<ChatList>) {
+                        Log.i("LastMsg",it.data!!.chatList.toString())
                         binding.rvChats.layoutManager =
                             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
                         binding.rvChats.adapter = ChatsAdapter(context, it.data!!.chatList, this)
-                        Log.i("LastMsg",it.data!!.chatList.toString())
 
                     }
 

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="12dp"
     android:layout_marginEnd="120dp">
 
     <TextView
@@ -17,27 +16,27 @@
         android:text="9:11 PM"
         android:textColor="#17171c"
         android:textSize="12sp"
+        android:visibility="gone"
         android:textStyle="normal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvChatDetailBlueCard"
+        android:id="@+id/rvMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvChatTime"
-        tools:itemCount="2"
-        android:layout_marginLeft="2dp"
-        tools:listitem="@layout/item_chat_receiver_message" />
+        tools:itemCount="1"
+        tools:listitem="@layout/item_message" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvChatDetailWhiteCard"
+        android:id="@+id/rvOptions"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/rvChatDetailBlueCard"
+        app:layout_constraintEnd_toEndOf="@id/rvMessage"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rvChatDetailBlueCard"
+        app:layout_constraintTop_toBottomOf="@id/rvMessage"
         tools:itemCount="4"
-        tools:listitem="@layout/item_chat_receiver_options" />
+        tools:listitem="@layout/item_option" />
 </androidx.constraintlayout.widget.ConstraintLayout>

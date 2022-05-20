@@ -36,6 +36,14 @@ class ChatsDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.clButtonStart.setOnClickListener {
+            binding.clButtonStart.visibility = View.GONE
+            binding.tvWelcomeMsg.visibility = View.VISIBLE
+            binding.tvDay.visibility = View.VISIBLE
+            binding.tvChatTime.visibility=View.VISIBLE
+            binding.rvChat.visibility = View.VISIBLE
+        }
+
         chatsList = arguments?.getSerializable("chatModel") as? ChatResponse.ChatList
         binding.tvTitle.text = chatsList?.project?.launchName
         context?.let {
@@ -53,14 +61,7 @@ class ChatsDetailFragment : Fragment() {
         msgReceived.add(
             MessageReceived(
                 "0",
-                "Hi Anuj Singh! Thanks for connecting. I am Chat Bot. I will be helping you with your queries today."
-            )
-        )
-        msgReceived.add(
-            MessageReceived(
-                "1",
-                "Please choose the relevant option which describes your issue:"
-            )
+                "Please choose the relevant option which describes your issue:"            )
         )
 
         msgOptions.add(MessageOptions("0", "About Hoabl"))
@@ -69,9 +70,25 @@ class ChatsDetailFragment : Fragment() {
         msgOptions.add(MessageOptions("3", "Others"))
 
 
-        chatsDetailModel.add(ChatsDetailModel(msgReceived, msgOptions, null, TypeOfMessage.RECEIVER, 1651773904410))
+        chatsDetailModel.add(
+            ChatsDetailModel(
+                msgReceived,
+                msgOptions,
+                null,
+                TypeOfMessage.RECEIVER,
+                1651773904410
+            )
+        )
 
-        chatsDetailModel.add(ChatsDetailModel(null, null, "About Hoabl", TypeOfMessage.SENDER, 1651773905410))
+        chatsDetailModel.add(
+            ChatsDetailModel(
+                null,
+                null,
+                "About Hoabl",
+                TypeOfMessage.SENDER,
+                1651773905410
+            )
+        )
     }
 
     private fun onBackPressed() {
