@@ -26,9 +26,10 @@ import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.notification.HoabelNotifiaction
 import com.emproto.hoabl.feature.home.notification.adapter.NotificationAdapter
 import com.emproto.hoabl.feature.home.notification.data.NotificationDataModel
+import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
-import com.emproto.hoabl.feature.home.views.fragments.SearchResultFragment
 import com.emproto.hoabl.feature.investment.views.CategoryListFragment
+import com.emproto.hoabl.feature.home.views.fragments.SearchResultFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
 import com.emproto.hoabl.feature.portfolio.views.*
 import com.emproto.hoabl.feature.promises.HoablPromises
@@ -92,6 +93,23 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 onBackPressed()
             }
         })
+
+        activityHomeActivity.searchLayout.headset.setOnClickListener {
+            val bundle = Bundle()
+            val chatsFragment = ChatsFragment()
+            chatsFragment.arguments = bundle
+            replaceFragment(
+                chatsFragment.javaClass,
+                "",
+                true,
+                bundle,
+                null,
+                0,
+                false
+            )
+            Toast.makeText(applicationContext, "Chat bot", Toast.LENGTH_SHORT).show()
+        }
+
         initClickListener()
     }
 

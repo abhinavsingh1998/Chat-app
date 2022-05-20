@@ -106,60 +106,20 @@
         android:text="Today"
         android:textColor="#17171c"
         android:textSize="14sp"
-        android:visibility="gone"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view1" />
-    <TextView
-        android:id="@+id/tvChatTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:gravity="end"
-        android:letterSpacing="-0.02"
-        android:text="9:11 PM"
-        android:textColor="#17171c"
-        android:textSize="12sp"
-        android:textStyle="normal"
-        android:visibility="gone"
-        android:layout_marginStart="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvDay"
-        app:layout_constraintStart_toStartOf="parent"/>
-    <TextView
-        android:id="@+id/tvWelcomeMsg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/chat_blue_card"
-        android:layout_marginTop="12dp"
-        android:textStyle="normal"
-        android:textSize="12sp"
-        android:paddingLeft="8dp"
-        android:letterSpacing="-0.02"
-        android:paddingRight="8dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:textColor="#494a67"
-        android:visibility="gone"
-        android:layout_marginStart="10dp"
-        android:gravity="center_vertical"
-        android:text="Hi Anuj Singh! Thanks for connecting. \nI am Chat Bot. I will be helping you \nwith your queries today."
-        app:layout_constraintTop_toBottomOf="@+id/tvChatTime"
-        app:layout_constraintStart_toStartOf="parent"
-        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvChat"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="gone"
-        android:layout_marginStart="10dp"
-
         app:layout_constraintBottom_toTopOf="@+id/clType"
-        app:layout_constraintStart_toStartOf="@id/tvWelcomeMsg"
+        app:layout_constraintStart_toStartOf="@id/clSearch"
+        app:layout_constraintTop_toBottomOf="@+id/tvDay"
         app:layout_constraintEnd_toEndOf="@+id/clSearch"
-        app:layout_constraintTop_toBottomOf="@id/tvWelcomeMsg"
-        tools:listitem="@layout/item_chat_detail" />
+        tools:listitem="@layout/item_chat_receiver" />
 
 
 
@@ -170,7 +130,6 @@
         android:layout_marginRight="12dp"
         android:layout_marginBottom="18dp"
         android:background="@drawable/type_box"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/ivBack">

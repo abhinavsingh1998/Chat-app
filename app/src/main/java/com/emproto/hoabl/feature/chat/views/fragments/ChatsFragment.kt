@@ -59,6 +59,7 @@ class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
                         binding.rvChats.layoutManager =
                             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
                         binding.rvChats.adapter = ChatsAdapter(context, it.data!!.chatList, this)
+                        Log.i("LastMsg",it.data!!.chatList.toString())
 
                     }
 
