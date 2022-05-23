@@ -1,6 +1,8 @@
 package com.emproto.hoabl.feature.investment.views
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,15 +64,21 @@ class LandSkusFragment:BaseFragment() {
     }
 
     private fun setUpRecyclerview() {
+        binding.clOuterLayout.visibility = View.GONE
+        (requireActivity() as HomeActivity).activityHomeActivity.loader.visibility = View.VISIBLE
         investmentViewModel.getSkus().observe(viewLifecycleOwner, Observer {
-            val list = ArrayList<RecyclerViewItem>()
-            list.add(RecyclerViewItem(1))
-            list.add(RecyclerViewItem(3))
+                val list = ArrayList<RecyclerViewItem>()
+                list.add(RecyclerViewItem(1))
+                list.add(RecyclerViewItem(3))
 
-            landSkusAdapter = LandSkusAdapter(this,list,it,itemClickListener)
-            binding.rvLandSkus.adapter = landSkusAdapter
-            landSkusAdapter.setItemClickListener(onLandSkusItemClickListener)
+                landSkusAdapter = LandSkusAdapter(this,list,it,itemClickListener)
+                binding.rvLandSkus.adapter = landSkusAdapter
+                landSkusAdapter.setItemClickListener(onLandSkusItemClickListener)
         })
+        Handler(Looper.getMainLooper()).postDelayed({
+            binding.clOuterLayout.visibility = View.VISIBLE
+            (requireActivity() as HomeActivity).activityHomeActivity.loader.visibility = View.GONE
+        }, 1000)
     }
 
     private val itemClickListener = object : ItemClickListener {

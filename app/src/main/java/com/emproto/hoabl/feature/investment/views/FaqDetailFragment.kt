@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
@@ -65,7 +66,10 @@ class FaqDetailFragment:BaseFragment() {
                 Status.SUCCESS -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                     it.data?.data?.let {  data ->
-                        setUpRecyclerView(data)
+                        when{
+                            data.isNullOrEmpty() -> Toast.makeText(this.requireContext(), "No data available", Toast.LENGTH_SHORT).show()
+                            else -> setUpRecyclerView(data)
+                        }
                     }
                 }
                 Status.ERROR -> {
