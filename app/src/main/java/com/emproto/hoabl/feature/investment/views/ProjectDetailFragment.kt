@@ -63,7 +63,11 @@ class ProjectDetailFragment : BaseFragment() {
                     applicationSubmitDialog.show(parentFragmentManager, "ApplicationSubmitDialog")
                 }
                 R.id.tv_faq_read_all -> {
-                    (requireActivity() as HomeActivity).addFragment(FaqDetailFragment(), false)
+                    val fragment = FaqDetailFragment()
+                    val bundle = Bundle()
+                    bundle.putInt("ProjectId", projectId)
+                    fragment.arguments = arguments
+                    (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
                 R.id.cl_why_invest -> {
                     investmentViewModel.setOpportunityDoc(oppDocData)

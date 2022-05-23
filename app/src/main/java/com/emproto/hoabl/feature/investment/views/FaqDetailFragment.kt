@@ -20,12 +20,13 @@ import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.investment.CgData
 import javax.inject.Inject
 
-class FaqDetailFragment:BaseFragment() {
+class FaqDetailFragment : BaseFragment() {
 
     @Inject
     lateinit var investmentFactory: InvestmentFactory
     lateinit var investmentViewModel: InvestmentViewModel
-    lateinit var binding:FaqDetailFragmentBinding
+    lateinit var binding: FaqDetailFragmentBinding
+    var projectId = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +34,9 @@ class FaqDetailFragment:BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FaqDetailFragmentBinding.inflate(layoutInflater)
+        arguments?.let {
+            projectId = it.getInt("ProjectId")
+        }
         return binding.root
     }
 
@@ -45,26 +49,28 @@ class FaqDetailFragment:BaseFragment() {
     private fun setUpInitialization() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         investmentViewModel =
-            ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
+            ViewModelProvider(
+                requireActivity(),
+                investmentFactory
+            ).get(InvestmentViewModel::class.java)
     }
 
     private fun callApi() {
-        investmentViewModel.getProjectId().observe(viewLifecycleOwner, Observer {
-            callFaqApi(it)
-        })
+        callFaqApi()
+
     }
 
-    private fun callFaqApi(projectId: Int) {
-        Log.d("Faq",projectId.toString())
+    private fun callFaqApi() {
+        Log.d("Faq", projectId.toString())
         investmentViewModel.getInvestmentsFaq(projectId).observe(viewLifecycleOwner, Observer {
-            Log.d("Faq",it.data.toString())
-            when(it.status){
+            Log.d("Faq", it.data.toString())
+            when (it.status) {
                 Status.LOADING -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
                 }
                 Status.SUCCESS -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
-                    it.data?.data?.let {  data ->
+                    it.data?.data?.let { data ->
                         setUpRecyclerView(data)
                     }
                 }
@@ -80,11 +86,11 @@ class FaqDetailFragment:BaseFragment() {
 
     private fun setUpRecyclerView(data: List<CgData>) {
         val list = ArrayList<RecyclerViewFaqItem>()
-        list.add(RecyclerViewFaqItem(1,data[0]))
-        for(item in data){
-            list.add(RecyclerViewFaqItem(2,item))
+        list.add(RecyclerViewFaqItem(1, data[0]))
+        for (item in data) {
+            list.add(RecyclerViewFaqItem(2, item))
         }
-        val adapter = FaqDetailAdapter(this.requireContext(),list,data)
+        val adapter = FaqDetailAdapter(this.requireContext(), list, data)
         binding.rvFaq.adapter = adapter
     }
 }

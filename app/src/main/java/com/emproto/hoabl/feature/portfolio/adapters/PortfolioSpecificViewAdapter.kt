@@ -407,7 +407,7 @@ class PortfolioSpecificViewAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             val faqList = list[position].data as List<ProjectContentsAndFaq>
-            faqAdapter = ProjectFaqAdapter(faqList)
+            faqAdapter = ProjectFaqAdapter(context, faqList)
             binding.rvFaq.adapter = faqAdapter
             binding.tvFaqReadAll.visibility = View.VISIBLE
             binding.ivSeeAllArrow.visibility = View.VISIBLE

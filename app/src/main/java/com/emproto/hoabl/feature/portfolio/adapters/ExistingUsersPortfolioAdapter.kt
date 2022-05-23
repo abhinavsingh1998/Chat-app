@@ -325,6 +325,7 @@ class ExistingUsersPortfolioAdapter(
             binding.tvSmartDealsTitle.text = "My WatchList"
             watchlistAdapter = WatchlistAdapter(context, watchList)
             binding.rvSmartDealsNv.adapter = watchlistAdapter
+            binding.rvSmartDealsNv.setHasFixedSize(true)
             binding.tvSmartDealsSeeAll.setOnClickListener {
                 onItemClickListener.seeAllWatchlist()
             }
