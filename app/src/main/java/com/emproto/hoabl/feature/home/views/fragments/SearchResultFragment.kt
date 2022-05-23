@@ -77,7 +77,7 @@ class SearchResultFragment : BaseFragment() {
         fragmentSearchResultBinding.documentsList.adapter = documentAdapter
 
         fragmentSearchResultBinding.faqsList.layoutManager = LinearLayoutManager(requireContext())
-        faqAdapter = ProjectFaqAdapter(emptyList())
+        faqAdapter = ProjectFaqAdapter(requireContext(), emptyList())
         fragmentSearchResultBinding.faqsList.adapter = faqAdapter
 
     }

@@ -19,10 +19,7 @@ import com.emproto.hoabl.model.TrendingModel
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
-import com.emproto.networklayer.response.investment.ApData
-import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
-import com.emproto.networklayer.response.investment.PageManagementsOrCollectionTwoModel
-import com.emproto.networklayer.response.investment.PageManagementsOrNewInvestment
+import com.emproto.networklayer.response.investment.*
 import javax.inject.Inject
 
 class CategoryListFragment() : BaseFragment() {
@@ -36,6 +33,7 @@ class CategoryListFragment() : BaseFragment() {
     private lateinit var tPList: List<PageManagementsOrCollectionTwoModel>
     private lateinit var nLList: List<PageManagementsOrNewInvestment>
     private lateinit var aPList: List<ApData>
+    private var type: String? = ""
 
 
     override fun onCreateView(
@@ -49,6 +47,7 @@ class CategoryListFragment() : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        type = arguments?.getString("Category")
         setUpViewModel()
         initObserver()
     }
@@ -56,14 +55,17 @@ class CategoryListFragment() : BaseFragment() {
     private fun setUpViewModel() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         investmentViewModel =
-            ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
+            ViewModelProvider(
+                requireActivity(),
+                investmentFactory
+            ).get(InvestmentViewModel::class.java)
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
             View.GONE
     }
 
     private fun initObserver() {
         investmentViewModel.getSmartDealsList().observe(viewLifecycleOwner, Observer {
-            when(investmentViewModel.getSd().value){
+            when (investmentViewModel.getSd().value) {
                 true -> {
                     binding.tvCategoryHeading.text = resources.getString(R.string.last_few_plots)
                     setUpAdapter("LastPlots", it)
@@ -71,7 +73,7 @@ class CategoryListFragment() : BaseFragment() {
             }
         })
         investmentViewModel.getTrendingList().observe(viewLifecycleOwner, Observer {
-            when(investmentViewModel.getTp().value){
+            when (investmentViewModel.getTp().value) {
                 true -> {
                     binding.tvCategoryHeading.text = resources.getString(R.string.trending_projects)
                     setUpAdapter("TrendingProjects", it)
@@ -79,7 +81,7 @@ class CategoryListFragment() : BaseFragment() {
             }
         })
         investmentViewModel.getNewInvestments().observe(viewLifecycleOwner, Observer {
-            when(investmentViewModel.getNl().value){
+            when (investmentViewModel.getNl().value) {
                 true -> {
                     binding.tvCategoryHeading.text = resources.getString(R.string.new_launches)
                     setUpAdapter("NewLaunches", it)
@@ -87,16 +89,25 @@ class CategoryListFragment() : BaseFragment() {
             }
         })
         investmentViewModel.getAllInvestments().observe(viewLifecycleOwner, Observer {
-            when(investmentViewModel.getAp().value){
+            when (investmentViewModel.getAp().value) {
                 true -> {
                     binding.tvCategoryHeading.text = resources.getString(R.string.all_investments)
                     setUpAdapter("AllInvestments", it)
                 }
             }
         })
+        // for watchlist and similar investment from portfolio
+        when (type) {
+            "Watchlist" -> {
+                binding.tvCategoryHeading.text = "Watchlist"
+                val data =
+                    arguments?.getSerializable("WatchlistData") as List<Data>
+                setUpCategoryAdapter(data, 4)
+            }
+        }
     }
 
-    private fun setUpAdapter(type:String,list: List<Any>){
+    private fun setUpAdapter(type: String, list: List<Any>) {
         when (type) {
             "NewLaunches" -> {
                 setUpCategoryAdapter(list, 0)
@@ -117,7 +128,8 @@ class CategoryListFragment() : BaseFragment() {
     }
 
     private fun setUpCategoryAdapter(list: List<Any>, type: Int) {
-        categoryListAdapter = CategoryListAdapter(this.requireContext(), list, itemClickListener,type)
+        categoryListAdapter =
+            CategoryListAdapter(this.requireContext(), list, itemClickListener, type)
         binding.rvCategoryList.adapter = categoryListAdapter
     }
 

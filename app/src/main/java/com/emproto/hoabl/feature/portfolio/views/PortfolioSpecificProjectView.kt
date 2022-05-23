@@ -208,9 +208,12 @@ class PortfolioSpecificProjectView : BaseFragment() {
                                         }
 
                                         override fun readAllFaq() {
-                                            val faqDetailFragment = FaqDetailFragment()
+                                            val fragment = FaqDetailFragment()
+                                            val bundle = Bundle()
+                                            bundle.putInt("ProjectId", projectId)
+                                            fragment.arguments = bundle
                                             (requireActivity() as HomeActivity).addFragment(
-                                                faqDetailFragment,
+                                                fragment,
                                                 false
                                             )
 
