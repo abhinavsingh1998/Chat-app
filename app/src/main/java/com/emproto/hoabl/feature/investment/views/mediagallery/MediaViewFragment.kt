@@ -1,25 +1,17 @@
 package com.emproto.hoabl.feature.investment.views.mediagallery
 
 import android.annotation.SuppressLint
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.media3.common.MediaItem
-import androidx.media3.common.MimeTypes
 import androidx.media3.common.util.Util
 import androidx.media3.datasource.DataSource
 import androidx.media3.datasource.DefaultDataSourceFactory
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.exoplayer.dash.DashMediaSource
-import androidx.media3.exoplayer.source.MediaSource
-import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentMediaViewBinding
@@ -28,7 +20,7 @@ import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import javax.inject.Inject
 
-
+@SuppressLint("UnsafeOptInUsageError")
 class MediaViewFragment:BaseFragment() {
 
     @Inject
@@ -54,7 +46,6 @@ class MediaViewFragment:BaseFragment() {
         setUpUI()
     }
 
-    @SuppressLint("UnsafeOptInUsageError")
     override fun onStart() {
         super.onStart()
         if (Util.SDK_INT > 23) {
@@ -62,7 +53,6 @@ class MediaViewFragment:BaseFragment() {
         }
     }
 
-    @SuppressLint("UnsafeOptInUsageError")
     private fun initViewModel() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         investmentViewModel =
@@ -70,7 +60,6 @@ class MediaViewFragment:BaseFragment() {
         dataSourceFactory = DefaultDataSourceFactory(this.requireContext(), "exoplayer-sample")
     }
 
-    @SuppressLint("UnsafeOptInUsageError")
     private fun setUpUI() {
         investmentViewModel.getMediaItem().observe(viewLifecycleOwner, Observer {
             when(it.mediaType){
@@ -91,7 +80,6 @@ class MediaViewFragment:BaseFragment() {
 
     }
 
-    @SuppressLint("UnsafeOptInUsageError")
     private fun initializePlayer() {
         player = ExoPlayer.Builder(this.requireContext())
             .build()
@@ -103,19 +91,9 @@ class MediaViewFragment:BaseFragment() {
                 exoPlayer.seekTo(currentItem, playbackPosition)
                 exoPlayer.prepare()
             }
+
     }
 
-    @SuppressLint("UnsafeOptInUsageError")
-    private fun buildMediaSource(mediaItem: MediaItem, type: String): MediaSource {
-        return if (type == "dash") {
-            DashMediaSource.Factory(dataSourceFactory).createMediaSource(mediaItem)
-        } else {
-            ProgressiveMediaSource.Factory(dataSourceFactory)
-                .createMediaSource(mediaItem)
-        }
-    }
-
-    @SuppressLint("UnsafeOptInUsageError")
     override fun onStop() {
         super.onStop()
         if (Util.SDK_INT > 23) {
@@ -123,16 +101,6 @@ class MediaViewFragment:BaseFragment() {
         }
     }
 
-//    @SuppressLint("InlinedApi")
-//    private fun hideSystemUi() {
-//        WindowCompat.setDecorFitsSystemWindows(this.requireActivity().window, false)
-//        WindowInsetsControllerCompat(this.requireActivity().window, binding.videoView).let { controller ->
-//            controller.hide(WindowInsetsCompat.Type.systemBars())
-//            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-//        }
-//    }
-
-    @SuppressLint("UnsafeOptInUsageError")
     override fun onPause() {
         super.onPause()
         if (Util.SDK_INT <= 23) {
@@ -140,7 +108,6 @@ class MediaViewFragment:BaseFragment() {
         }
     }
 
-    @SuppressLint("UnsafeOptInUsageError")
     override fun onResume() {
         super.onResume()
         if ((Util.SDK_INT <= 23 || player == null)) {
@@ -149,12 +116,12 @@ class MediaViewFragment:BaseFragment() {
     }
 
     private fun releasePlayer() {
-        player?.let { exoPlayer ->
-            playbackPosition = exoPlayer.currentPosition
-            currentItem = exoPlayer.currentMediaItemIndex
-            playWhenReady = exoPlayer.playWhenReady
-            exoPlayer.release()
+        if (player != null) {
+            playbackPosition = player!!.currentPosition
+            currentItem = player!!.currentWindowIndex
+            playWhenReady = player!!.playWhenReady
+            player!!.release()
+            player = null
         }
-        player = null
     }
 }
