@@ -8,7 +8,10 @@ import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ItemLatestUpdatesBinding
 import com.emproto.networklayer.response.home.PageManagementOrLatestUpdate
 
-class LatestUpdateAdapter(val context: Context, val list: List<PageManagementOrLatestUpdate>) : RecyclerView.Adapter<LatestUpdateAdapter.MyViewHolder>() {
+class LatestUpdateAdapter(
+    val context: Context,
+    val list: List<PageManagementOrLatestUpdate>,
+    val itemInterface: ItemInterface) : RecyclerView.Adapter<LatestUpdateAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = ItemLatestUpdatesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -26,6 +29,11 @@ class LatestUpdateAdapter(val context: Context, val list: List<PageManagementOrL
 //                .into(holder.binding.image)
 //        }
 
+
+        holder.binding.rootView.setOnClickListener {
+            itemInterface.onClickItem(holder.adapterPosition)
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -34,4 +42,8 @@ class LatestUpdateAdapter(val context: Context, val list: List<PageManagementOrL
 
     inner class MyViewHolder(val binding: ItemLatestUpdatesBinding) :
         RecyclerView.ViewHolder(binding.root)
+
+    interface ItemInterface {
+        fun onClickItem(position: Int)
+    }
 }

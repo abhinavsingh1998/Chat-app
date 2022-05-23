@@ -183,6 +183,33 @@ class ProjectDetailFragment : BaseFragment() {
     }
 
     private fun callProjectIdApi(promiseData: List<PmData>) {
+        val pjId = arguments?.getInt("projectId") as Int
+            projectId = pjId
+            investmentViewModel.getInvestmentsDetail(projectId).observe(viewLifecycleOwner, Observer {
+                when(it.status){
+                    Status.LOADING -> {
+                        (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                    }
+                    Status.SUCCESS -> {
+                        (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                        it.data?.data?.let {  data ->
+                            oppDocData = data.opprotunityDocs
+                            mediaData= data.projectCoverImages
+                            landSkusData = data.inventoryBucketContents
+                            faqData = data.projectContentsAndFaqs
+                            mapLocationData = data.locationInfrastructure
+                            setUpRecyclerView(data, promiseData)
+                        }
+                    }
+                    Status.ERROR -> {
+                        (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            it.message!!
+                        )
+                    }
+                }
+            })
+
         investmentViewModel.getInvestmentsDetail(projectId).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {

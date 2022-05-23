@@ -13,8 +13,7 @@ import com.emproto.networklayer.response.home.InsightsMedia
 
 class InsightsListAdapter(
     val context: Context,
-    private val list: List<InsightsMedia>,
-
+    private val list: List<InsightsMedia>
     ) : RecyclerView.Adapter<InsightsListAdapter.InsightsHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):InsightsHolder {
@@ -30,7 +29,11 @@ class InsightsListAdapter(
         Glide.with(context)
             .load(item.media.value.url)
             .into(holder.binding.image1)
+
+
     }
+
+
 
     override fun getItemCount(): Int {
         return list.size
