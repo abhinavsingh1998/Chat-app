@@ -89,7 +89,7 @@
                     android:layout_marginHorizontal="@dimen/margin_size_10"
                     android:layout_marginTop="@dimen/margin_size_10"
                     android:fontFamily="@font/jost_italic"
-                    android:text="Welcome to the family"
+                    android:text="Welcome to our family"
                     android:textAlignment="center"
                     android:textColor="@color/greeting_txt_color"
                     app:layout_constraintEnd_toEndOf="parent"

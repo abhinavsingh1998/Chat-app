@@ -14,6 +14,7 @@ import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.home.PageManagementOrInsight
 import com.emproto.networklayer.response.home.PageManagementOrLatestUpdate
+import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
@@ -26,6 +27,8 @@ class HomeViewModel(
     private var mhomeRepository: HomeRepository
 ) :
     ViewModel() {
+
+    private var homeData = MutableLiveData<HomeResponse>()
 
     private var application: Application = mapplication
     private var homeRepository: HomeRepository = mhomeRepository
@@ -67,8 +70,16 @@ class HomeViewModel(
         return promise
     }
 
-    fun getDashboardData(pageType: Int): LiveData<BaseResponse<HomeResponse>> {
+    fun getDashBoardData(pageType: Int): LiveData<BaseResponse<HomeResponse>> {
         return homeRepository.getDashboardData(pageType)
+    }
+
+    fun setDashBoardData(data: HomeResponse) {
+        homeData.postValue(data)
+    }
+
+    fun gethomeData(): LiveData<HomeResponse> {
+        return homeData
     }
 
     fun getTermsCondition(pageType: Int): LiveData<BaseResponse<TermsConditionResponse>> {

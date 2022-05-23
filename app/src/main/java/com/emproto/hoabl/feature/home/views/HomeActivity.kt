@@ -76,6 +76,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         activityHomeActivity = ActivityHomeBinding.inflate(layoutInflater)
         (application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+        activityHomeActivity.searchLayout.rotateText.text= " "
 //        investmentViewModel =
 //            ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
 
@@ -379,30 +380,23 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     @SuppressLint("SetTextI18n")
     fun initData(){
-        homeViewModel.getDashboardData(5001).observe(this, object :Observer<BaseResponse<HomeResponse>>{
-            override fun onChanged(it: BaseResponse<HomeResponse>?) {
-                when (it!!.status){
-                    Status.LOADING ->{
-                        activityHomeActivity.searchLayout.rotateText.text= " "
-                    }
-                    Status.SUCCESS ->{
-                            val totalLandsold: String? =
-                                it.data?.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName + " " + it.data?.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value
-                            val totalAmtLandSold: String? =
-                                it.data?.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName + " " + it.data?.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
-                            val grossWeight: String? =
-                                it.data?.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName + " " + it.data?.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
-                            val num_User: String? =
-                                it.data?.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName + " " + it.data?.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
-                            activityHomeActivity.searchLayout.rotateText.text =
-                                "$totalAmtLandSold    $totalLandsold Sqft    $grossWeight    $num_User"
+        homeViewModel.gethomeData().observe(this, Observer {
 
-                    }
-                }
+            it.let {
+                val totalLandsold: String? =
+                    it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value
+                val totalAmtLandSold: String? =
+                    it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
+                val grossWeight: String? =
+                    it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName + " " + it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
+                val num_User: String? =
+                    it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName + " " + it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
+                activityHomeActivity.searchLayout.rotateText.text =
+                    "$totalAmtLandSold    $totalLandsold Sqft    $grossWeight    $num_User"
+
             }
 
-        }
-        )
+        })
     }
 
 }

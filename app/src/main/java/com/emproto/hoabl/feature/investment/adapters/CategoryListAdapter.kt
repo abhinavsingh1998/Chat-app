@@ -98,6 +98,21 @@ class CategoryListAdapter(
                             .into(ivCategoryImage)
                     }
                 }
+                TYPE_ALL_INVESTMENTS -> {
+                    val element = list[position] as ApData
+                    itemView.setOnClickListener {
+                        clickListener.onItemClicked(view, position, element.id.toString())
+                    }
+                    binding.apply {
+                        tvProjectName.text = element.launchName
+                        tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
+                        tvCategoryArea.text = element.areaStartingFrom + " Onwards"
+                        tvCategoryItemInfo.text = element.shortDescription
+                        Glide.with(context)
+                            .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                            .into(ivCategoryImage)
+                    }
+                }
                 else -> {
                     val element = list[position] as Data
                     itemView.setOnClickListener {

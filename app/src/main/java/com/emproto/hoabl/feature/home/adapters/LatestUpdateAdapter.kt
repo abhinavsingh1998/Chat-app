@@ -21,7 +21,7 @@ class LatestUpdateAdapter(val context: Context, val list: List<PageManagementOrL
         holder.binding.tvName.text= item.subTitle
         holder.binding.description.text= item.detailedInfo[0].description
 
-//        if (item.detailedInfo[0].media.value!= null){
+//        if (item.detailedInfo!= null){
 //            Glide.with(context).load(item.detailedInfo[0]?.media?.value.url)
 //                .into(holder.binding.image)
 //        }

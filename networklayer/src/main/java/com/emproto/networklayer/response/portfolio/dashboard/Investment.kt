@@ -6,5 +6,5 @@ data class Investment(
     val inventoryBucket: String,
     val isCompleted: Boolean,
     val ownershipDate: String,
-    val userId: Int
+    val userId: String
 )
