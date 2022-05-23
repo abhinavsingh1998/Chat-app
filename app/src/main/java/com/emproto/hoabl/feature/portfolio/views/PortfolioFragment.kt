@@ -137,7 +137,6 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             // if dialog is shown already and pin is activated show pin screen.
             if (appPreference.getPinActivationStatus()) {
                 setUpInitialUI()
-                setUpClickListeners()
                 setUpAuthentication()
             } else {
                 //normal flow
@@ -148,6 +147,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             //show pin permisson dialog
             pinDialog.show()
         }
+        setUpClickListeners()
     }
 
     private fun setUpClickListeners() {
