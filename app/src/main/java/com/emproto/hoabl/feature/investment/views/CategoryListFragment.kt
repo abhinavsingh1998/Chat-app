@@ -123,8 +123,15 @@ class CategoryListFragment() : BaseFragment() {
 
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
-            investmentViewModel.setProjectId(item.toInt())
-            (requireActivity() as HomeActivity).addFragment(ProjectDetailFragment(),false)
+            //investmentViewModel.setProjectId(item.toInt())
+            //(requireActivity() as HomeActivity).addFragment(ProjectDetailFragment(),false)
+            val bundle = Bundle()
+            bundle.putInt("ProjectId", item.toInt())
+            val fragment = ProjectDetailFragment()
+            fragment.arguments = bundle
+            (requireActivity() as HomeActivity).addFragment(
+                fragment, false
+            )
         }
     }
 

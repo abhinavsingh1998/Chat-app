@@ -16,6 +16,7 @@ import com.emproto.hoabl.feature.home.views.fragments.ReferralDialog
 import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
 import com.emproto.hoabl.feature.investment.views.CategoryListFragment
 import com.emproto.hoabl.feature.investment.views.FaqDetailFragment
+import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.portfolio.adapters.DocumentsAdapter
 import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
@@ -132,12 +133,14 @@ class PortfolioSpecificProjectView : BaseFragment() {
                                 )
                             )
                             list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_REFERNOW))
-                            list.add(
-                                RecyclerViewItem(
-                                    PortfolioSpecificViewAdapter.PORTFOLIO_FAQ,
-                                    it.data.projectInformation.projectContentsAndFaqs
+                            if (it.data.projectInformation.projectContentsAndFaqs.isNotEmpty()) {
+                                list.add(
+                                    RecyclerViewItem(
+                                        PortfolioSpecificViewAdapter.PORTFOLIO_FAQ,
+                                        it.data.projectInformation.projectContentsAndFaqs
+                                    )
                                 )
-                            )
+                            }
                             if (it.data.projectInformation.similarInvestments.isNotEmpty()) {
                                 list.add(
                                     RecyclerViewItem(
@@ -226,6 +229,28 @@ class PortfolioSpecificProjectView : BaseFragment() {
                                                 false
                                             )
 
+                                        }
+
+                                        override fun moreAboutPromises() {
+                                            val applicationSubmitDialog = ApplicationSubmitDialog(
+                                                "Request Sent.",
+                                                "A relationship manager will get back to you to discuss more about it.",
+                                                false
+                                            )
+                                            applicationSubmitDialog.show(
+                                                parentFragmentManager,
+                                                "ApplicationSubmitDialog"
+                                            )
+                                        }
+
+                                        override fun seeProjectDetails() {
+                                            val bundle = Bundle()
+                                            bundle.putInt("ProjectId", 1)
+                                            val fragment = ProjectDetailFragment()
+                                            fragment.arguments = bundle
+                                            (requireActivity() as HomeActivity).addFragment(
+                                                fragment, false
+                                            )
                                         }
 
                                     })

@@ -53,8 +53,15 @@ class InvestmentFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
                 }
                 R.id.cl_place_info -> {
-                    investmentViewModel.setProjectId(newInvestmentsList[0].id)
-                    (requireActivity() as HomeActivity).addFragment(ProjectDetailFragment(),false)
+                    //investmentViewModel.setProjectId(newInvestmentsList[0].id)
+                    //(requireActivity() as HomeActivity).addFragment(ProjectDetailFragment(),false)
+                    val bundle = Bundle()
+                    bundle.putInt("ProjectId", newInvestmentsList[0].id)
+                    val fragment = ProjectDetailFragment()
+                    fragment.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(
+                        fragment, false
+                    )
                 }
                 R.id.tv_apply_now -> {
                     investmentViewModel.setProjectId(newInvestmentsList[0].id)
@@ -195,8 +202,15 @@ class InvestmentFragment : BaseFragment() {
 
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
-            investmentViewModel.setProjectId(item.toInt())
-            (requireActivity() as HomeActivity).addFragment(ProjectDetailFragment(),false)
+            //investmentViewModel.setProjectId(item.toInt())
+            //(requireActivity() as HomeActivity).addFragment(ProjectDetailFragment(),false)
+            val bundle = Bundle()
+            bundle.putInt("ProjectId", item.toInt())
+            val fragment = ProjectDetailFragment()
+            fragment.arguments = bundle
+            (requireActivity() as HomeActivity).addFragment(
+                fragment, false
+            )
         }
     }
 

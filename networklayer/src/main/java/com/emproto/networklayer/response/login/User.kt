@@ -5,7 +5,7 @@ data class User(
     val contactType: String,
     val countryCode: String,
     val createdAt: String,
-    val crmId: Int,
+    val crmId: String,
     val dateOfBirth: String,
     val email: String,
     val firstName: String,

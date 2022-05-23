@@ -216,8 +216,10 @@ class PortfolioSpecificViewAdapter(
                 binding.tvProjectLocation.text =
                     data.projectExtraDetails.address.city + " " + data.projectExtraDetails.address.state
                 if (data.investmentInformation != null) {
-                    binding.tvPaidAmount.text = "₹" + data.investmentInformation.paidAmount
-                    binding.tvPendingAmount.text = "₹" + data.investmentInformation.amountPending
+                    binding.tvPaidAmount.text =
+                        "₹" + data.investmentInformation.bookingJourney.paidAmount
+                    binding.tvPendingAmount.text =
+                        "₹" + data.investmentInformation.bookingJourney.amountPending
                     binding.tvAreaUnit.text = "" + data.investmentInformation.areaSqFt + " sqft"
                     binding.tvProjectInfo.text = data.projectInformation.shortDescription
                     var reraNumber = ""
@@ -225,20 +227,27 @@ class PortfolioSpecificViewAdapter(
                         reraNumber = reraNumber + item + "\n"
                     }
                     binding.tvAllocationDate.text =
-                        Utility.parseDateFromUtc(data.investmentInformation.allocationDate, null)
+                        Utility.parseDateFromUtc(
+                            data.investmentInformation.bookingJourney.allocationDate,
+                            null
+                        )
                     binding.tvPossessionDate.text =
-                        Utility.parseDateFromUtc(data.investmentInformation.possesionDate, null)
+                        Utility.parseDateFromUtc(
+                            data.investmentInformation.bookingJourney.possesionDate,
+                            null
+                        )
                     //view more
                     binding.tvLandId.text = data.investmentInformation.inventoryId
                     binding.tvSkuType.text = data.investmentInformation.inventoryBucket
                     binding.tvInvestmentAmount.text =
                         "₹" + data.investmentInformation.amountInvested
                     binding.tvAmountPaid.text = "₹" + data.investmentInformation.amountInvested
-                    binding.tvAmountPending.text = "₹" + data.investmentInformation.amountPending
+                    binding.tvAmountPending.text =
+                        "₹" + data.investmentInformation.bookingJourney.amountPending
                     binding.tvRegistryAmount.text = "₹" + data.investmentInformation.registryAmount
                     binding.tvOtherExpenses.text = "₹" + data.investmentInformation.otherExpenses
-                    binding.tvLatitude.text = data.projectExtraDetails.latitude
-                    binding.tvLongitude.text = data.projectExtraDetails.longitude
+                    //binding.tvLatitude.text = data.projectExtraDetails.latitude
+                    //binding.tvLongitude.text = data.projectExtraDetails.longitude
                     binding.ownersName.text = data.investmentInformation.owners
 
                     //binding.tvRegistrationNumber.text = reraNumber
@@ -253,6 +262,9 @@ class PortfolioSpecificViewAdapter(
             }
             binding.tvViewBookingJourney.setOnClickListener {
                 ivInterface.seeBookingJourney()
+            }
+            binding.tvSeeProjectDetails.setOnClickListener {
+                ivInterface.seeProjectDetails()
             }
         }
     }
@@ -332,6 +344,9 @@ class PortfolioSpecificViewAdapter(
             val promisesData = list[position].data as ProjectPromises
             promisesAdapter = HoABLPromisesAdapter(context, promisesData.data, ivInterface)
             binding.rvApplicablePromises.adapter = promisesAdapter
+            binding.btnMoreAboutPromises.setOnClickListener {
+                ivInterface.moreAboutPromises()
+            }
         }
     }
 
@@ -354,7 +369,7 @@ class PortfolioSpecificViewAdapter(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 linedataset.fillColor = context.getColor(R.color.light_app_color)
             }
-            linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
+            linedataset.mode = LineDataSet.Mode.LINEAR;
 
             //We connect our data to the UI Screen
             val data = LineData(linedataset)
@@ -428,6 +443,8 @@ class PortfolioSpecificViewAdapter(
         fun seeAllSimilarInvestment()
         fun readAllFaq()
         fun seePromisesDetails(position: Int)
+        fun moreAboutPromises()
+        fun seeProjectDetails()
     }
 
 }

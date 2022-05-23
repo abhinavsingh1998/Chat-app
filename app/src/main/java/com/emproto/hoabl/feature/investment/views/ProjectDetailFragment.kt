@@ -30,19 +30,19 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import javax.inject.Inject
 
 
-class ProjectDetailFragment:BaseFragment() {
+class ProjectDetailFragment : BaseFragment() {
 
     @Inject
     lateinit var investmentFactory: InvestmentFactory
     lateinit var investmentViewModel: InvestmentViewModel
-    private lateinit var binding:ProjectDetailLayoutBinding
+    private lateinit var binding: ProjectDetailLayoutBinding
 
     private var projectId = 0
-    private lateinit var oppDocData:List<OpprotunityDoc>
-    private lateinit var mediaData : ProjectCoverImages
-    private lateinit var promisesData : List<PmData>
-    private lateinit var landSkusData : List<InventoryBucketContent>
-    private lateinit var mapLocationData : LocationInfrastructure
+    private lateinit var oppDocData: List<OpprotunityDoc>
+    private lateinit var mediaData: ProjectCoverImages
+    private lateinit var promisesData: List<PmData>
+    private lateinit var landSkusData: List<InventoryBucketContent>
+    private lateinit var mapLocationData: LocationInfrastructure
 
     private var faqData: List<ProjectContentsAndFaq> = mutableListOf()
     private var APP_URL = "https://www.google.com/"
@@ -52,64 +52,87 @@ class ProjectDetailFragment:BaseFragment() {
             when (view.id) {
                 R.id.project_detail_map -> {
                     investmentViewModel.setMapLocationInfrastructure(mapLocationData)
-                    (requireActivity() as HomeActivity).addFragment(MapFragment(),false)
+                    (requireActivity() as HomeActivity).addFragment(MapFragment(), false)
                 }
                 R.id.cl_not_convinced_promises -> {
-                    val applicationSubmitDialog = ApplicationSubmitDialog("Video Call request sent successfully.","Our sales person will reach out to you soon!",false)
-                    applicationSubmitDialog.show(parentFragmentManager,"ApplicationSubmitDialog")
+                    val applicationSubmitDialog = ApplicationSubmitDialog(
+                        "Video Call request sent successfully.",
+                        "Our sales person will reach out to you soon!",
+                        false
+                    )
+                    applicationSubmitDialog.show(parentFragmentManager, "ApplicationSubmitDialog")
                 }
                 R.id.tv_faq_read_all -> {
-                    (requireActivity() as HomeActivity).addFragment(FaqDetailFragment(),false)
+                    (requireActivity() as HomeActivity).addFragment(FaqDetailFragment(), false)
                 }
-                R.id.cl_why_invest ->{
+                R.id.cl_why_invest -> {
                     investmentViewModel.setOpportunityDoc(oppDocData)
                     investmentViewModel.setSkus(landSkusData)
-                    (requireActivity() as HomeActivity).addFragment(OpportunityDocsFragment(),false)
+                    (requireActivity() as HomeActivity).addFragment(
+                        OpportunityDocsFragment(),
+                        false
+                    )
                 }
                 R.id.tv_skus_see_all -> {
                     investmentViewModel.setSkus(landSkusData)
-                    (requireActivity() as HomeActivity).addFragment(LandSkusFragment(),false)
+                    (requireActivity() as HomeActivity).addFragment(LandSkusFragment(), false)
                 }
                 R.id.tv_video_drone_see_all -> {
                     investmentViewModel.setMedia(mediaData)
-                    (requireActivity() as HomeActivity).addFragment(MediaGalleryFragment(),false)
+                    (requireActivity() as HomeActivity).addFragment(MediaGalleryFragment(), false)
                 }
                 R.id.tv_project_amenities_all -> {
-                    val docsBottomSheet = BottomSheetDialog(this.requireContext(),R.style.BottomSheetDialogTheme)
+                    val docsBottomSheet =
+                        BottomSheetDialog(this.requireContext(), R.style.BottomSheetDialogTheme)
                     docsBottomSheet.setContentView(R.layout.project_amenities_dialog_layout)
-                    val adapter = ProjectAmenitiesAdapter(this.requireContext(),oppDocData[0].projectAminities)
-                    docsBottomSheet.findViewById<RecyclerView>(R.id.rv_project_amenities_item_recycler)?.adapter = adapter
-                    docsBottomSheet.findViewById<ImageView>(R.id.iv_project_amenities_close)?.setOnClickListener {
-                        docsBottomSheet.dismiss()
-                    }
+                    val adapter = ProjectAmenitiesAdapter(
+                        this.requireContext(),
+                        oppDocData[0].projectAminities
+                    )
+                    docsBottomSheet.findViewById<RecyclerView>(R.id.rv_project_amenities_item_recycler)?.adapter =
+                        adapter
+                    docsBottomSheet.findViewById<ImageView>(R.id.iv_project_amenities_close)
+                        ?.setOnClickListener {
+                            docsBottomSheet.dismiss()
+                        }
                     docsBottomSheet.show()
                 }
                 R.id.iv_share_icon -> {
                     val shareIntent = Intent(Intent.ACTION_SEND)
                     shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     shareIntent.type = "text/plain"
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, "The House Of Abhinandan Lodha $APP_URL")
+                    shareIntent.putExtra(
+                        Intent.EXTRA_TEXT,
+                        "The House Of Abhinandan Lodha $APP_URL"
+                    )
                     startActivity(shareIntent)
                 }
                 R.id.tv_hear_speak_see_all -> {
-                    (requireActivity() as HomeActivity).addFragment(Testimonials(),false)
+                    (requireActivity() as HomeActivity).addFragment(Testimonials(), false)
                 }
                 R.id.tv_promises_see_all -> {
-                    (requireActivity() as HomeActivity).addFragment(HoablPromises(),false)
+                    (requireActivity() as HomeActivity).addFragment(HoablPromises(), false)
                 }
                 R.id.tv_apply_now -> {
                     investmentViewModel.setSkus(landSkusData)
-                    (requireActivity() as HomeActivity).addFragment(LandSkusFragment(),false)
+                    (requireActivity() as HomeActivity).addFragment(LandSkusFragment(), false)
                 }
                 R.id.tv_location_infrastructure_all -> {
                     investmentViewModel.setMapLocationInfrastructure(mapLocationData)
-                    (requireActivity() as HomeActivity).addFragment(MapFragment(),false)
+                    (requireActivity() as HomeActivity).addFragment(MapFragment(), false)
                 }
             }
         }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = ProjectDetailLayoutBinding.inflate(layoutInflater)
+        arguments?.let {
+            projectId = it.getInt("ProjectId", 0)
+        }
         return binding.root
     }
 
@@ -127,18 +150,19 @@ class ProjectDetailFragment:BaseFragment() {
     }
 
     private fun setUpUI() {
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
+            View.GONE
     }
 
     private fun callApi() {
         investmentViewModel.getInvestmentsPromises().observe(viewLifecycleOwner, Observer {
-            when(it.status){
+            when (it.status) {
                 Status.LOADING -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
                 }
                 Status.SUCCESS -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
-                    it.data?.data?.let {  data ->
+                    it.data?.data?.let { data ->
                         promisesData = data
                         callProjectIdApi(promisesData)
                     }
@@ -155,33 +179,31 @@ class ProjectDetailFragment:BaseFragment() {
     }
 
     private fun callProjectIdApi(promiseData: List<PmData>) {
-        investmentViewModel.getProjectId().observe(viewLifecycleOwner, Observer {
-            projectId = it
-            investmentViewModel.getInvestmentsDetail(projectId).observe(viewLifecycleOwner, Observer {
-                when(it.status){
-                    Status.LOADING -> {
-                        (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
-                    }
-                    Status.SUCCESS -> {
-                        (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
-                        it.data?.data?.let {  data ->
-                            oppDocData = data.opprotunityDocs
-                            mediaData= data.projectCoverImages
-                            landSkusData = data.inventoryBucketContents
-                            faqData = data.projectContentsAndFaqs
-                            mapLocationData = data.locationInfrastructure
-                            setUpRecyclerView(data, promiseData)
-                        }
-                    }
-                    Status.ERROR -> {
-                        (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            it.message!!
-                        )
+        investmentViewModel.getInvestmentsDetail(projectId).observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.LOADING -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                }
+                Status.SUCCESS -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    it.data?.data?.let { data ->
+                        oppDocData = data.opprotunityDocs
+                        mediaData = data.projectCoverImages
+                        landSkusData = data.inventoryBucketContents
+                        faqData = data.projectContentsAndFaqs
+                        mapLocationData = data.locationInfrastructure
+                        setUpRecyclerView(data, promiseData)
                     }
                 }
-            })
+                Status.ERROR -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(
+                        it.message!!
+                    )
+                }
+            }
         })
+
     }
 
     private fun setUpRecyclerView(data: PdData, promisesData: List<PmData>) {
@@ -198,19 +220,20 @@ class ProjectDetailFragment:BaseFragment() {
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_TEN))
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_ELEVEN))
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_TWELVE))
-        when{
+        when {
             data.similarInvestments.isNotEmpty() -> {
                 list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_FOURTEEN))
             }
         }
-        val adapter = ProjectDetailAdapter(this.requireContext(),list,data,promisesData, itemClickListener)
+        val adapter =
+            ProjectDetailAdapter(this.requireContext(), list, data, promisesData, itemClickListener)
         binding.rvProjectDetail.adapter = adapter
         adapter.setItemClickListener(onItemClickListener)
     }
 
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
-            when(position){
+            when (position) {
 
             }
         }
