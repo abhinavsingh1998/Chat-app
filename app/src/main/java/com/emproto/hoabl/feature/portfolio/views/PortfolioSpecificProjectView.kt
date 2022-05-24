@@ -207,6 +207,19 @@ class PortfolioSpecificProjectView : BaseFragment() {
                                             )
                                         }
 
+                                        override fun onClickSimilarInvestment(project: Int) {
+                                            val bundle = Bundle()
+                                            bundle.putInt("ProjectId", projectId)
+                                            val fragment = ProjectDetailFragment()
+                                            fragment.arguments = bundle
+                                            (requireActivity() as HomeActivity).addFragment(
+                                                fragment, false
+                                            )
+                                        }
+
+                                        override fun onApplySinvestment(projectId: Int) {
+                                        }
+
                                         override fun readAllFaq() {
                                             val fragment = FaqDetailFragment()
                                             val bundle = Bundle()

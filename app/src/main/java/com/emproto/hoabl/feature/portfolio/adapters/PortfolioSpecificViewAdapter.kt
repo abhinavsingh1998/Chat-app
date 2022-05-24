@@ -425,7 +425,7 @@ class PortfolioSpecificViewAdapter(
         fun bind(position: Int) {
             if (list[position].data != null) {
                 val itemList = list[position].data as List<SimilarInvestment>
-                similarInvestmentsAdapter = SimilarInvestmentAdapter(context, itemList)
+                similarInvestmentsAdapter = SimilarInvestmentAdapter(context, itemList, ivInterface)
                 binding.rvTrendingProjects.adapter = similarInvestmentsAdapter
                 binding.tvTrendingProjectsTitle.text = "Similar Investments"
                 binding.tvTrendingProjectsSubtitle.visibility = View.GONE
@@ -444,6 +444,8 @@ class PortfolioSpecificViewAdapter(
         fun seeBookingJourney()
         fun referNow()
         fun seeAllSimilarInvestment()
+        fun onClickSimilarInvestment(project: Int)
+        fun onApplySinvestment(projectId: Int)
         fun readAllFaq()
         fun seePromisesDetails(position: Int)
         fun moreAboutPromises()
