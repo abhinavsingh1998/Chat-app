@@ -107,6 +107,12 @@ class CategoryListFragment() : BaseFragment() {
                     arguments?.getSerializable("SimilarData") as List<SimilarInvestment>
                 setUpCategoryAdapter(data, -1)
             }
+            "Home" ->{
+                binding.tvCategoryHeading.text = "Last few plot left."
+                val data =
+                    arguments?.getSerializable("DiscoverAll") as List<com.emproto.networklayer.response.home.PageManagementsOrNewInvestment>
+                setUpCategoryAdapter(data, 5)
+            }
         }
     }
 

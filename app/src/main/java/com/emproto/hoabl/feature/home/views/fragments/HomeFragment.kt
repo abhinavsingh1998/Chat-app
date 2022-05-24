@@ -32,7 +32,9 @@ import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.home.HomeResponse
+import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
 import com.google.android.material.tabs.TabLayoutMediator
+import java.io.Serializable
 import javax.inject.Inject
 
 
@@ -48,12 +50,13 @@ class HomeFragment : BaseFragment() {
     private lateinit var pendingPaymentsAdapter: PendingPaymentsAdapter
     lateinit var ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface
 
-    val appURL= "https://hoabl.in/"
+    val appURL = "https://hoabl.in/"
 
     @Inject
     lateinit var factory: HomeFactory
     lateinit var investmentFactory: InvestmentFactory
     lateinit var homeViewModel: HomeViewModel
+    val list = ArrayList<PageManagementsOrNewInvestment>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -95,13 +98,14 @@ class HomeFragment : BaseFragment() {
                             }
 
                             //loading investment list
+                            list.addAll(it.data!!.data.page.pageManagementsOrNewInvestments)
                             investmentAdapter = InvestmentCardAdapter(
                                 requireActivity(),
                                 it.data!!.data.page.pageManagementsOrNewInvestments,
-                                object : InvestmentCardAdapter.InvestItemInterface{
+                                object : InvestmentCardAdapter.InvestItemInterface {
                                     override fun onClickItem(id: Int) {
-                                        val bundle= Bundle()
-                                        bundle.putInt("projectId",id)
+                                        val bundle = Bundle()
+                                        bundle.putInt("projectId", id)
                                         (requireActivity() as HomeActivity).replaceFragment(
                                             ProjectDetailFragment()::class.java,
                                             "",
@@ -127,12 +131,19 @@ class HomeFragment : BaseFragment() {
                             latestUpdateAdapter = LatestUpdateAdapter(
                                 requireActivity(),
                                 it.data!!.data.pageManagementOrLatestUpdates,
-                                object: LatestUpdateAdapter.ItemInterface{
+                                object : LatestUpdateAdapter.ItemInterface {
                                     override fun onClickItem(position: Int) {
                                         homeViewModel.setSeLectedLatestUpdates(it.data!!.data.pageManagementOrLatestUpdates[position])
-                                        homeViewModel.setSelectedPosition(LatesUpdatesPosition(position,
-                                            it.data!!.data.pageManagementOrLatestUpdates.size))
-                                        (requireActivity() as HomeActivity).addFragment(LatestUpdatesFragment(), false)
+                                        homeViewModel.setSelectedPosition(
+                                            LatesUpdatesPosition(
+                                                position,
+                                                it.data!!.data.pageManagementOrLatestUpdates.size
+                                            )
+                                        )
+                                        (requireActivity() as HomeActivity).addFragment(
+                                            LatestUpdatesFragment(),
+                                            false
+                                        )
                                     }
 
                                 }
@@ -149,11 +160,15 @@ class HomeFragment : BaseFragment() {
                             hoABLPromisesAdapter = HoABLPromisesAdapter1(
                                 requireActivity(),
                                 it.data!!.data.homePagesOrPromises,
-                                object: HoABLPromisesAdapter1.PromisesItemInterface{
+                                object : HoABLPromisesAdapter1.PromisesItemInterface {
                                     override fun onClickItem(position: Int) {
-                                        val data = it.data!!.data.homePagesOrPromises[position].toHomePagesOrPromise()
-                                       homeViewModel.setSelectedPromise(data)
-                                        (requireActivity() as HomeActivity).addFragment(PromisesDetailsFragment(),false)
+                                        val data =
+                                            it.data!!.data.homePagesOrPromises[position].toHomePagesOrPromise()
+                                        homeViewModel.setSelectedPromise(data)
+                                        (requireActivity() as HomeActivity).addFragment(
+                                            PromisesDetailsFragment(),
+                                            false
+                                        )
                                     }
 
                                 }
@@ -170,10 +185,13 @@ class HomeFragment : BaseFragment() {
                             insightsAdapter = InsightsAdapter(
                                 requireActivity(),
                                 it.data!!.data.pageManagementOrInsights,
-                                object: InsightsAdapter.InsightsItemInterface{
+                                object : InsightsAdapter.InsightsItemInterface {
                                     override fun onClickItem(position: Int) {
                                         homeViewModel.setSeLectedInsights(it.data!!.data.pageManagementOrInsights[position])
-                                        (requireActivity() as HomeActivity).addFragment(InsightsFragment(),false)
+                                        (requireActivity() as HomeActivity).addFragment(
+                                            InsightsFragment(),
+                                            false
+                                        )
                                     }
 
                                 }
@@ -189,9 +207,15 @@ class HomeFragment : BaseFragment() {
 
 
                             //loading Testimonial Cards list
-                            testimonialAdapter = TestimonialAdapter(requireActivity(), it.data!!.data.pageManagementsOrTestimonials)
+                            testimonialAdapter = TestimonialAdapter(
+                                requireActivity(),
+                                it.data!!.data.pageManagementsOrTestimonials
+                            )
                             binding.testimonialsRecyclerview.adapter = testimonialAdapter
-                            TabLayoutMediator(binding.tabDotLayout, binding.testimonialsRecyclerview) { _, _ ->
+                            TabLayoutMediator(
+                                binding.tabDotLayout,
+                                binding.testimonialsRecyclerview
+                            ) { _, _ ->
                             }.attach()
 
                         }
@@ -216,7 +240,6 @@ class HomeFragment : BaseFragment() {
         (requireActivity() as HomeActivity).showBottomNavigation()
 
 
-
         val pymentList: ArrayList<String> = arrayListOf("1", "2", "3", "4", "5")
 
 
@@ -229,15 +252,15 @@ class HomeFragment : BaseFragment() {
 
     fun initClickListener() {
         binding.tvSeeallInsights.setOnClickListener {
-            (requireActivity() as HomeActivity).addFragment(InsightsFragment(),false)
+            (requireActivity() as HomeActivity).addFragment(InsightsFragment(), false)
         }
 
         binding.tvSeeAllUpdate.setOnClickListener {
-            (requireActivity() as HomeActivity).addFragment(LatestUpdatesDetailsFragment(),false)
+            (requireActivity() as HomeActivity).addFragment(LatestUpdatesDetailsFragment(), false)
         }
 
         binding.tvSeeallTestimonial.setOnClickListener {
-            (requireActivity() as HomeActivity).addFragment(Testimonials(),false)
+            (requireActivity() as HomeActivity).addFragment(Testimonials(), false)
         }
 
         binding.tvSeeallPromise.setOnClickListener(View.OnClickListener {
@@ -245,7 +268,15 @@ class HomeFragment : BaseFragment() {
         })
 
         binding.tvViewallInvestments.setOnClickListener(View.OnClickListener {
-            (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),false)
+            val fragment = CategoryListFragment()
+            val bundle = Bundle()
+            bundle.putString("Category", "Home")
+            bundle.putSerializable(
+                "DiscoverAll",
+                list as Serializable
+            )
+            fragment.arguments = bundle
+            (requireActivity() as HomeActivity).addFragment(fragment, false)
         })
 
         binding.referralLayout.appShareBtn.setOnClickListener {

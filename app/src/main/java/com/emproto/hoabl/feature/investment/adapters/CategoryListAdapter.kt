@@ -25,6 +25,7 @@ class CategoryListAdapter(
         const val TYPE_TRENDING_PROJECTS = 2
         const val TYPE_ALL_INVESTMENTS = 3
         const val TYPE_WATCHLIST = 4
+        const val TYPE_DISCOVERALL = 5
     }
 
     inner class CategoryViewHolder(var binding: ItemCategoryListBinding) :
@@ -123,6 +124,22 @@ class CategoryListAdapter(
                         tvCategoryItemInfo.text = element.project.shortDescription
                         Glide.with(context)
                             .load(element.project.projectIcon.value.url)
+                            .into(ivCategoryImage)
+                    }
+                }
+
+                TYPE_DISCOVERALL -> {
+                    val element = list[position] as com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
+                    itemView.setOnClickListener {
+                        clickListener.onItemClicked(view, position, element.id.toString())
+                    }
+                    binding.apply {
+                        tvProjectName.text = element.launchName
+                        tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
+                        tvCategoryArea.text = element.areaStartingFrom + " Onwards"
+                        tvCategoryItemInfo.text = element.shortDescription
+                        Glide.with(context)
+                            .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
                             .into(ivCategoryImage)
                     }
                 }
