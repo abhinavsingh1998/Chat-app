@@ -29,10 +29,12 @@ class AllLatestUpdatesAdapter(
         holder.binding.title.text= item.displayTitle
         holder.binding.location.text= item.subTitle.toString()
 
-        Glide.with(context).load(item.detailedInfo[0].media.value.url)
-            .into(holder.binding.locationImage)
+        if (item.detailedInfo[position].media!=null){
+            Glide.with(context).load(item.detailedInfo[0].media.value.url)
+                .into(holder.binding.locationImage)
 
-        //holder.binding.arrowImage.setImageResource(item.arrowImage)
+        }
+
         holder.binding.btnReadMore.setOnClickListener {
             itemInterface.onClickItem(holder.adapterPosition)
         }

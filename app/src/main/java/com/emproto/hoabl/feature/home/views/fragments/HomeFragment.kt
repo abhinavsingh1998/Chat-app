@@ -239,6 +239,7 @@ class HomeFragment : BaseFragment() {
         (requireActivity() as HomeActivity).showBottomNavigation()
 
 
+
         val pymentList: ArrayList<String> = arrayListOf("1", "2", "3", "4", "5")
 
 
@@ -255,6 +256,7 @@ class HomeFragment : BaseFragment() {
         }
 
         binding.tvSeeAllUpdate.setOnClickListener {
+            (requireActivity() as HomeActivity).addFragment(LatestUpdatesFragment(),false)
             (requireActivity() as HomeActivity).addFragment(LatestUpdatesDetailsFragment(), false)
         }
 

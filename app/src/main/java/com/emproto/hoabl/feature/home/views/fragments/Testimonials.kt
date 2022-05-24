@@ -82,7 +82,13 @@ class Testimonials : BaseFragment() {
         mBinding.referralLayout.appShareBtn.setOnClickListener(View.OnClickListener {
             share_app()
         })
+
+        mBinding.referralLayout.btnReferNow.setOnClickListener(View.OnClickListener {
+            referNow()
+        })
     }
+
+
 
     private fun share_app() {
         val shareIntent = Intent(Intent.ACTION_SEND)
@@ -91,4 +97,12 @@ class Testimonials : BaseFragment() {
         shareIntent.putExtra(Intent.EXTRA_TEXT, "The House Of Abhinandan Lodha $appURL")
         startActivity(shareIntent)
     }
+
+    private fun referNow() {
+
+            val dialog = ReferralDialog()
+            dialog.isCancelable = true
+            dialog.show(parentFragmentManager, "Refrral card")
+
+        }
 }
