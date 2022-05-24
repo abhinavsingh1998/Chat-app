@@ -379,6 +379,9 @@ class PortfolioSpecificViewAdapter(
             binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
             binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
             binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false);
+            binding.ivPriceTrendsGraph.setTouchEnabled(false)
+            binding.ivPriceTrendsGraph.setPinchZoom(false)
+            binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
             binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false);
