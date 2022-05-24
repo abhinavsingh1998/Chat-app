@@ -56,9 +56,12 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/trending_projects_layout.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/video_drone_layout.xml" value="0.25462962962962965" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/why_invest_layout.xml" value="0.259375" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/portfolioui/src/main/res/layout/logout_confirmation.xml" value="0.1" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/activity_introslider.xml" value="0.13043478260869565" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/detail_view_item.xml" value="0.1" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_category_list.xml" value="0.1" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_home.xml" value="0.22" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_issue_submitted_confirmation.xml" value="0.1" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_latest_updates_details.xml" value="0.1" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_login.xml" value="0.13043478260869565" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_name_input.xml" value="0.3333333333333333" />
@@ -67,12 +70,23 @@
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_signin_issue.xml" value="0.26156178923426837" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_verify_otp.xml" value="0.13043478260869565" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/insights_list_item.xml" value="0.1" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/item_hoabl_promises.xml" value="0.1" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/item_insights.xml" value="0.12" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/item_latest_updates.xml" value="0.1" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/item_latest_updates.xml" value="0.22" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/item_promises.xml" value="0.3333333333333333" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/item_smart_deals.xml" value="0.1" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/portfolio_applicable_promises.xml" value="0.1" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/referral_dialog.xml" value="0.1" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/referral_success_dialog.xml" value="0.1" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/menu/bottom_navigation.xml" value="0.134765625" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/core/src/main/res/drawable/custom_et_bg.xml" value="0.1685" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/core/src/main/res/drawable/custom_et_error_bg.xml" value="0.1685" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/core/src/main/res/drawable/drawable_button_negative.xml" value="0.142" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/core/src/main/res/drawable/drawable_button_positive.xml" value="0.142" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/core/src/main/res/drawable/homescreen_curve.xml" value="0.142" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/core/src/main/res/drawable/ic_arrow_down.xml" value="0.142" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/core/src/main/res/drawable/ic_info.xml" value="0.142" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/core/src/main/res/drawable/ic_info_outlined.xml" value="0.142" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/core/src/main/res/layout/custom_edittext.xml" value="0.13179347826086957" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/core/src/main/res/layout/pausable_progress.xml" value="0.1" />
         <entry key="app/portfolioui/src/main/res/drawable/bg_progress.xml" value="0.2552083333333333" />

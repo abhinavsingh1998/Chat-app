@@ -71,15 +71,8 @@ class LatestUpdatesFragment : BaseFragment() {
                             homeViewModel.setSeLectedLatestUpdates(it.data!!.pageManagementOrLatestUpdates[position])
                             homeViewModel.setSelectedPosition(LatesUpdatesPosition(position,
                                 it.data!!.pageManagementOrLatestUpdates.size))
-                            (requireActivity() as HomeActivity).replaceFragment(
-                                LatestUpdatesDetailsFragment()::class.java,
-                                "",
-                                true,
-                                null,
-                                null,
-                                0,
-                                true
-                            )
+                            (requireActivity() as HomeActivity).addFragment(LatestUpdatesDetailsFragment(),
+                            false)
                         }
 
                     }

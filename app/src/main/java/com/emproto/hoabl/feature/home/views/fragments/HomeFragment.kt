@@ -21,15 +21,17 @@ import com.emproto.hoabl.feature.home.adapters.InvestmentCardAdapter
 import com.emproto.hoabl.feature.home.adapters.PendingPaymentsAdapter
 import com.emproto.hoabl.feature.home.data.LatesUpdatesPosition
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.investment.views.CategoryListFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
+import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
+import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
+import com.emproto.hoabl.utils.Extensions.toHomePagesOrPromise
 import com.emproto.hoabl.viewmodels.HomeViewModel
-import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.home.HomeResponse
-import com.emproto.networklayer.response.portfolio.dashboard.Investment
 import com.google.android.material.tabs.TabLayoutMediator
 import javax.inject.Inject
 
@@ -44,6 +46,7 @@ class HomeFragment : BaseFragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var hoABLPromisesAdapter: HoABLPromisesAdapter1
     private lateinit var pendingPaymentsAdapter: PendingPaymentsAdapter
+    lateinit var ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface
 
     val appURL= "https://hoabl.in/"
 
@@ -61,14 +64,17 @@ class HomeFragment : BaseFragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
+        initObserver()
         initView()
         initClickListener()
         referNow()
-        initObserver()
+
         return binding.root
     }
 
     private fun initObserver() {
+
+
         homeViewModel.getDashBoardData(5001)
             .observe(viewLifecycleOwner, object : Observer<BaseResponse<HomeResponse>> {
                 override fun onChanged(it: BaseResponse<HomeResponse>?) {
@@ -126,15 +132,7 @@ class HomeFragment : BaseFragment() {
                                         homeViewModel.setSeLectedLatestUpdates(it.data!!.data.pageManagementOrLatestUpdates[position])
                                         homeViewModel.setSelectedPosition(LatesUpdatesPosition(position,
                                             it.data!!.data.pageManagementOrLatestUpdates.size))
-                                        (requireActivity() as HomeActivity).replaceFragment(
-                                            LatestUpdatesDetailsFragment()::class.java,
-                                            "",
-                                            true,
-                                            null,
-                                            null,
-                                            0,
-                                            true
-                                        )
+                                        (requireActivity() as HomeActivity).addFragment(LatestUpdatesFragment(), false)
                                     }
 
                                 }
@@ -150,7 +148,15 @@ class HomeFragment : BaseFragment() {
                             //loading Promises list
                             hoABLPromisesAdapter = HoABLPromisesAdapter1(
                                 requireActivity(),
-                                it.data!!.data.homePagesOrPromises
+                                it.data!!.data.homePagesOrPromises,
+                                object: HoABLPromisesAdapter1.PromisesItemInterface{
+                                    override fun onClickItem(position: Int) {
+                                        val data = it.data!!.data.homePagesOrPromises[position].toHomePagesOrPromise()
+                                       homeViewModel.setSelectedPromise(data)
+                                        (requireActivity() as HomeActivity).addFragment(PromisesDetailsFragment(),false)
+                                    }
+
+                                }
                             )
                             linearLayoutManager = LinearLayoutManager(
                                 requireContext(),
@@ -167,16 +173,7 @@ class HomeFragment : BaseFragment() {
                                 object: InsightsAdapter.InsightsItemInterface{
                                     override fun onClickItem(position: Int) {
                                         homeViewModel.setSeLectedInsights(it.data!!.data.pageManagementOrInsights[position])
-                                        (requireActivity() as HomeActivity).replaceFragment(
-                                            InsightsDetailsFragment()::class.java,
-                                            "",
-                                            true,
-                                            null,
-                                            null,
-                                            0,
-                                            true
-                                        )
-
+                                        (requireActivity() as HomeActivity).addFragment(InsightsFragment(),false)
                                     }
 
                                 }
@@ -232,37 +229,23 @@ class HomeFragment : BaseFragment() {
 
     fun initClickListener() {
         binding.tvSeeallInsights.setOnClickListener {
-            (requireActivity() as HomeActivity).replaceFragment(InsightsFragment::class.java,
-                "",
-                true,
-                null,
-                null,
-                0,
-                false)
+            (requireActivity() as HomeActivity).addFragment(InsightsFragment(),false)
         }
 
         binding.tvSeeAllUpdate.setOnClickListener {
-            (requireActivity() as HomeActivity).replaceFragment(LatestUpdatesFragment::class.java,
-                "",
-                true,
-                null,
-                null,
-                0,
-                false)
+            (requireActivity() as HomeActivity).addFragment(LatestUpdatesDetailsFragment(),false)
         }
 
         binding.tvSeeallTestimonial.setOnClickListener {
-            (requireActivity() as HomeActivity).replaceFragment(Testimonials::class.java,
-                "",
-                true,
-                null,
-                null,
-                0,
-                false)
+            (requireActivity() as HomeActivity).addFragment(Testimonials(),false)
         }
 
         binding.tvSeeallPromise.setOnClickListener(View.OnClickListener {
             (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
+        })
+
+        binding.tvViewallInvestments.setOnClickListener(View.OnClickListener {
+            (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),false)
         })
 
         binding.referralLayout.appShareBtn.setOnClickListener {

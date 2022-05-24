@@ -1,5 +1,6 @@
 package com.emproto.hoabl.feature.home.views.fragments
 
+import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -14,11 +15,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.customedittext.OnValueChangedListener
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ReferralDialogBinding
+import com.emproto.hoabl.databinding.ReferralSuccessDialogBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.enums.Status
+import com.example.portfolioui.databinding.LogoutConfirmationBinding
 import javax.inject.Inject
 
 
@@ -44,6 +47,8 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
 
         initClickListner()
+
+
         return mBinding.root
     }
 
@@ -105,7 +110,20 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
             homeViewModel.getReferNow(referRequest).observe(viewLifecycleOwner, Observer {
                 when (it.status) {
                     Status.SUCCESS -> {
+
+                        val referralDialoglayout = ReferralSuccessDialogBinding.inflate(layoutInflater)
+                        val referralDialog = Dialog(requireContext())
+                        referralDialog.setCancelable(false)
+                        referralDialog.setContentView(referralDialoglayout.root)
+
+                        referralDialog.show()
+                        referralDialoglayout.okayBtn.setOnClickListener(View.OnClickListener {
+                            referralDialog.dismiss()
+
+                        })
                         dismiss()
+
+
                     }
                 }
             })

@@ -257,11 +257,11 @@ class AuthActivity : BaseActivity() {
 
 
             if (signingInIssueBiding.issueSeven.isChecked){
-//                if (issueDetail.isEmpty()){
-//                    signingInIssueBiding.editIssues.error = "Please Describe The Issue"
-//                    Toast.makeText(this, "Please Describe The Issue", Toast.LENGTH_SHORT).show()
-//                    return@OnClickListener
-//                }
+                if (issueDetail.isEmpty()){
+                    signingInIssueBiding.editIssues.error = "Please Describe The Issue"
+                    Toast.makeText(this, "Please Describe The Issue", Toast.LENGTH_SHORT).show()
+                    return@OnClickListener
+                }
             }
             if (signingInIssueBiding.issueSeven.isChecked){
 //                if (issueDetail.length< 30){
@@ -297,6 +297,8 @@ class AuthActivity : BaseActivity() {
                         val dialog = IssueSubmittedConfirmationFragment()
                         dialog.isCancelable = true
                         dialog.show(supportFragmentManager, "Submit Card")
+                        signingInIssueBiding.editIssues.text=null
+
                     }
                     Status.ERROR -> {
                         bottomSheetDialog.dismiss()

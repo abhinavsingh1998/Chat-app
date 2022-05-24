@@ -12,10 +12,6 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentCategoryListBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.investment.adapters.CategoryListAdapter
-import com.emproto.hoabl.model.AllProjectsModel
-import com.emproto.hoabl.model.NewLaunchModel
-import com.emproto.hoabl.model.SmartDealsModel
-import com.emproto.hoabl.model.TrendingModel
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory

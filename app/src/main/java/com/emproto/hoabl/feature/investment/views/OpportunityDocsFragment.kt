@@ -15,7 +15,6 @@ import com.emproto.hoabl.feature.investment.adapters.OpportunityDocsAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
-import com.emproto.networklayer.response.investment.OpprotunityDoc
 import javax.inject.Inject
 
 class OpportunityDocsFragment:BaseFragment() {
