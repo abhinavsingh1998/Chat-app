@@ -110,9 +110,9 @@ class PromisesDetailsFragment : BaseFragment() {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let {
-                        if (it.data.termsAndConditions != null) {
+                        if (it.data.page.termsAndConditions != null) {
                             termsConditionDialogBinding.tvTitle.text =
-                                showHTMLText(it.data.termsAndConditions.description)
+                                showHTMLText(it.data.page.termsAndConditions.description)
                             termsConditionDialogBinding.tvTitle.setMovementMethod(
                                 ScrollingMovementMethod()
                             )

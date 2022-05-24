@@ -76,7 +76,7 @@ class LoginFragment : BaseFragment() {
                 Status.SUCCESS -> {
                     it.data?.let {
                         termsConditionDialogBinding.tvTitle.text =
-                            showHTMLText(it.data.termsAndConditions.description)
+                            showHTMLText(it.data.page.termsAndConditions.description)
                         termsConditionDialogBinding.tvTitle.setMovementMethod(
                             ScrollingMovementMethod()
                         )
