@@ -21,8 +21,7 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
     @Inject
     lateinit var apiService: ApiService
     @Named("dummy")
-    @Inject
-    lateinit var apiService2: ApiService
+
     private var dataComponent: DataComponent =
         DaggerDataComponent.builder().dataAppModule(DataAppModule(application))
             .dataModule(DataModule(application)).build()

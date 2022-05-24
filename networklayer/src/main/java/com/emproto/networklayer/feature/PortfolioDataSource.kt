@@ -26,9 +26,6 @@ class PortfolioDataSource(val application: Application) {
     @Inject
     lateinit var apiService: ApiService
 
-    @Named("dummy")
-    @Inject
-    lateinit var apiService2: ApiService
     private var dataComponent: DataComponent =
         DaggerDataComponent.builder().dataAppModule(DataAppModule(application))
             .dataModule(DataModule(application)).build()

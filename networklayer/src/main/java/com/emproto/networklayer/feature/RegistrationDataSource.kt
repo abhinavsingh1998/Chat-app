@@ -31,9 +31,6 @@ public class RegistrationDataSource(val application: Application) {
         DaggerDataComponent.builder().dataAppModule(DataAppModule(application))
             .dataModule(DataModule(application)).build()
 
-    @Named("dummy")
-    @Inject
-    lateinit var apiService2: ApiService
 
     init {
         dataComponent.inject(this)
@@ -57,7 +54,7 @@ public class RegistrationDataSource(val application: Application) {
     }
 
     suspend fun getTermsCondition(pageType: Int): Response<TermsConditionResponse> {
-        return apiService2.getTermscondition(pageType)
+        return apiService.getTermscondition(pageType)
     }
 
     suspend fun getUserProfile(): Response<ProfileResponse> {

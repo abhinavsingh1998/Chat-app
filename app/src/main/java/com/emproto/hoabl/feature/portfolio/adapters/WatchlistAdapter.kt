@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
-import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
 import com.emproto.networklayer.response.watchlist.Data
-import com.emproto.networklayer.response.watchlist.Project
 
-class WatchlistAdapter(val context: Context, val list: List<Data>) :
+class WatchlistAdapter(
+    val context: Context,
+    val list: List<Data>,
+    val onItemClickListener: ExistingUsersPortfolioAdapter.ExistingUserInterface
+) :
     RecyclerView.Adapter<WatchlistAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -32,9 +34,13 @@ class WatchlistAdapter(val context: Context, val list: List<Data>) :
             holder.binding.tvItemArea.text = element.project.areaStartingFrom + " Onwards"
             holder.binding.tvNoViews.text =
                 Utility.coolFormat(element.project.fomoContent.noOfViews.toDouble(), 0)
-            holder.binding.tvItemLocationInfo.text =element.project.shortDescription
-
-
+            holder.binding.tvItemLocationInfo.text = element.project.shortDescription
+        }
+        holder.binding.cvMainOuterCard.setOnClickListener {
+            onItemClickListener.onClickofWatchlist(element.project.id)
+        }
+        holder.binding.tvApplyNow.setOnClickListener {
+            onItemClickListener.onClickApplyNow(element.project.id)
         }
     }
 

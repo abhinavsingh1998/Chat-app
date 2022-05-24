@@ -195,4 +195,12 @@ class PortfolioExistingUsersFragment : BaseFragment(),
         TODO("Not yet implemented")
     }
 
+    override fun onClickofWatchlist(projectId: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickApplyNow(projectId: Int) {
+        TODO("Not yet implemented")
+    }
+
 }

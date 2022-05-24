@@ -24,6 +24,7 @@ import com.emproto.hoabl.databinding.FragmentPortfolioBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.fragments.ReferralDialog
 import com.emproto.hoabl.feature.investment.views.CategoryListFragment
+import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.portfolio.adapters.ExistingUsersPortfolioAdapter
 import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
@@ -414,6 +415,25 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     }
 
     override fun onGoingDetails() {
+        (requireActivity() as HomeActivity).addFragment(
+            BookingjourneyFragment.newInstance(
+                "",
+                ""
+            ), false
+        )
+    }
+
+    override fun onClickofWatchlist(projectId: Int) {
+        val bundle = Bundle()
+        bundle.putInt("ProjectId", projectId)
+        val fragment = ProjectDetailFragment()
+        fragment.arguments = bundle
+        (requireActivity() as HomeActivity).addFragment(
+            fragment, false
+        )
+    }
+
+    override fun onClickApplyNow(projectId: Int) {
     }
 
     private fun setUpRecyclerView() {
