@@ -1,5 +1,7 @@
 package com.emproto.networklayer.response.promises
 
+import com.emproto.networklayer.response.home.DisplayMedia
+
 data class HomePagesOrPromise(
     val createdAt: String,
     val createdBy: Any,
@@ -13,7 +15,7 @@ data class HomePagesOrPromise(
     val name: String,
     val priority: Any,
     val promiseIconType: String,
-    val promiseMedia: PromiseMedia,
+    val promiseMedia: PromiseMedia?,
     val promiseType: String,
     val shortDescription: String,
     val status: String,

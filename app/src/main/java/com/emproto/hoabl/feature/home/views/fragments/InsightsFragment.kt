@@ -13,13 +13,9 @@ import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentInsightsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.adapters.AllInsightsAdapter
-import com.emproto.hoabl.feature.home.adapters.AllLatestUpdatesAdapter
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
-import com.emproto.networklayer.response.BaseResponse
-import com.emproto.networklayer.response.enums.Status
-import com.emproto.networklayer.response.home.HomeResponse
 import javax.inject.Inject
 
 class InsightsFragment : BaseFragment() {

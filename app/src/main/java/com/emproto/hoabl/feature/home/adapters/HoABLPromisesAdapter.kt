@@ -47,6 +47,7 @@ class HoABLPromisesAdapter(
         return list.size
     }
 
+
     inner class MyViewHolder(binding: ItemHoablPromisesBinding) :
         RecyclerView.ViewHolder(binding.root) {
         var binding: ItemHoablPromisesBinding = binding
