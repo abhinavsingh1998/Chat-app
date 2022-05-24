@@ -20,6 +20,7 @@ import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.response.investment.*
+import com.emproto.networklayer.response.portfolio.ivdetails.SimilarInvestment
 import javax.inject.Inject
 
 class CategoryListFragment() : BaseFragment() {
@@ -103,6 +104,12 @@ class CategoryListFragment() : BaseFragment() {
                 val data =
                     arguments?.getSerializable("WatchlistData") as List<Data>
                 setUpCategoryAdapter(data, 4)
+            }
+            "Similar Investment" -> {
+                binding.tvCategoryHeading.text = "Similar Investment"
+                val data =
+                    arguments?.getSerializable("SimilarData") as List<SimilarInvestment>
+                setUpCategoryAdapter(data, -1)
             }
         }
     }

@@ -2,16 +2,18 @@ package com.emproto.hoabl.feature.portfolio.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
-import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
 import com.emproto.networklayer.response.portfolio.ivdetails.SimilarInvestment
 
-class SimilarInvestmentAdapter(val context: Context, val list: List<SimilarInvestment>) :
+class SimilarInvestmentAdapter(
+    val context: Context,
+    val list: List<SimilarInvestment>,
+    val ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface
+) :
     RecyclerView.Adapter<SimilarInvestmentAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -33,6 +35,13 @@ class SimilarInvestmentAdapter(val context: Context, val list: List<SimilarInves
             holder.binding.tvNoViews.text =
                 Utility.coolFormat(element.fomoContent.noOfViews.toDouble(), 0)
             holder.binding.tvItemLocationInfo.text = element.shortDescription
+
+            holder.binding.cvMainOuterCard.setOnClickListener {
+                ivInterface.onClickSimilarInvestment(element.id)
+            }
+            holder.binding.tvApplyNow.setOnClickListener {
+                ivInterface.onApplySinvestment(element.id)
+            }
         }
     }
 
