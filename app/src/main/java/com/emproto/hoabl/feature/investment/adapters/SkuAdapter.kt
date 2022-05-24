@@ -5,9 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemSkusBinding
+import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.InventoryBucketContent
 
-class SkuAdapter(private val list: List<InventoryBucketContent>):RecyclerView.Adapter<SkuAdapter.MyViewHolder>() {
+class SkuAdapter(
+    private val list: List<InventoryBucketContent>,
+    private val itemClickListener: ItemClickListener
+):RecyclerView.Adapter<SkuAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: ItemSkusBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -22,6 +26,9 @@ class SkuAdapter(private val list: List<InventoryBucketContent>):RecyclerView.Ad
             tvProjectName.text = element.name
             tvStartingAt.text = "Starting at ${element.priceRange.from}"
             tvAreaSkus.text = "${element.areaRange.from}ft - ${element.areaRange.to}ft"
+        }
+        holder.binding.clOuterItemSkus.setOnClickListener {
+            itemClickListener.onItemClicked(it,position,element.id.toString())
         }
     }
 

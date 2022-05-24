@@ -94,12 +94,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             navigate(R.id.navigation_hoabl) // change to whichever id should be default
         }
 
-        activityHomeActivity.searchLayout.imageBack.setOnClickListener(object :
-            View.OnClickListener {
-            override fun onClick(p0: View?) {
-                onBackPressed()
-            }
-        })
+        activityHomeActivity.searchLayout.imageBack.setOnClickListener { onBackPressed() }
         initData()
         initClickListener()
     }

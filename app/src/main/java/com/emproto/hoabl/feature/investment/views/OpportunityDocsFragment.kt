@@ -55,6 +55,7 @@ class OpportunityDocsFragment:BaseFragment() {
 
     private fun setUpUI() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.VISIBLE
     }
 
     private fun setUpRecyclerView() {

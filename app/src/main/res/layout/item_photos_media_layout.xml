@@ -27,7 +27,7 @@
                 android:id="@+id/iv_media_photo"
                 android:layout_width="@dimen/margin_size_190"
                 android:layout_height="@dimen/margin_size_100"
-                android:src="@drawable/media_photo_isle_bliss"
+                android:src="@drawable/item_promises_bg"
                 android:scaleType="fitXY"
                 />
 

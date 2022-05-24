@@ -14,6 +14,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.networklayer.response.investment.PdData
 import com.emproto.networklayer.response.investment.PmData
 import com.github.mikephil.charting.components.XAxis
@@ -31,7 +32,7 @@ class ProjectDetailAdapter(
     private val list: List<RecyclerViewItem>,
     private val data: PdData,
     private val promisesData: List<PmData>,
-    private val itemClickListener:ItemClickListener
+    private val itemClickListener: ItemClickListener
 ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -136,8 +137,8 @@ class ProjectDetailAdapter(
                 tvProjectLocation.text = "${data.address.city}, ${data.address.state}"
                 tvViewCount.text = data.fomoContent.noOfViews.toString()
                 tvDuration.text = "${data.fomoContent.targetTime.hours}:${data.fomoContent.targetTime.minutes}:${data.fomoContent.targetTime.seconds} Hrs Left"
-                tvPriceRange.text = data.priceStartingFrom + " Onwards"
-                tvAreaRange.text = data.areaStartingFrom + " Onwards"
+                tvPriceRange.text = data.priceStartingFrom
+                tvAreaRange.text = data.areaStartingFrom
                 tvProjectViewInfo.text = "${data.fomoContent.noOfViews} People saw this project in ${data.fomoContent.days} days"
                 var regString = ""
                 for(item in data.reraDetails.reraNumbers){
@@ -283,7 +284,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectSkusViewHolder(private val binding: SkusLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            skuAdapter = SkuAdapter(data.inventoryBucketContents)
+            skuAdapter = SkuAdapter(data.inventoryBucketContents,itemClickListener)
             binding.rvSkus.adapter = skuAdapter
             itemView.tag = this
             binding.tvSkusSeeAll.setOnClickListener(onItemClickListener)
@@ -315,7 +316,7 @@ class ProjectDetailAdapter(
     private inner class ProjectPromisesViewHolder(private val binding: PromisesLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             val itemList = promisesData
-            promisesAdapter = PromisesAdapter(itemList)
+            promisesAdapter = PromisesAdapter(itemList,itemClickListener)
             binding.rvPromises.adapter = promisesAdapter
             binding.clNotConvincedPromises.setOnClickListener(onItemClickListener)
             binding.tvPromisesSeeAll.setOnClickListener(onItemClickListener)

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_outer_item_skus"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="@dimen/margin_size_8">
 
     <com.google.android.material.card.MaterialCardView
@@ -10,8 +11,8 @@
         android:layout_width="@dimen/margin_size_125"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_size_4"
-        app:cardElevation="@dimen/_3sdp"
         app:cardCornerRadius="@dimen/margin_size_8"
+        app:cardElevation="@dimen/_3sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,55 +24,54 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_project_name"
+                style="@style/text_style_text_black_color_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_size_16"
                 android:layout_marginHorizontal="@dimen/margin_size_10"
+                android:layout_marginTop="@dimen/margin_size_16"
+                android:fontFamily="@font/jost_medium"
                 android:text="Marina"
                 android:textAlignment="center"
-                android:fontFamily="@font/jost_medium"
-                style="@style/text_style_text_black_color_14"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_starting_at"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_size_6"
                 android:layout_marginHorizontal="@dimen/margin_size_10"
-                android:text="Starting at 20L"
-                android:textColor="@color/text_light_ash_color"
+                android:layout_marginTop="@dimen/margin_size_6"
                 android:fontFamily="@font/jost_regular"
-                android:textSize="@dimen/text_size_14"
+                android:text="Starting at 20L"
                 android:textAlignment="center"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/text_light_ash_color"
+                android:textSize="@dimen/text_size_14"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_project_name"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_project_name" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_area_skus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="1000-2000 sqft"
+                android:layout_marginHorizontal="@dimen/margin_size_20"
+                android:layout_marginVertical="@dimen/margin_size_12"
                 android:fontFamily="@font/jost_regular"
-                android:textSize="@dimen/text_size_12"
+                android:text="1000-2000 sqft"
                 android:textAlignment="center"
                 android:textColor="@color/text_lightgrey_color"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="@dimen/text_size_12"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_starting_at"
-                android:layout_marginVertical="@dimen/margin_size_12"
-                android:layout_marginHorizontal="@dimen/margin_size_20"
-                />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_starting_at" />
 
             <View
                 android:id="@+id/bottom_line"
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:background="@color/line_view_color"
                 android:layout_marginTop="@dimen/margin_size_8"
+                android:background="@color/line_view_color"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_area_skus" />
 

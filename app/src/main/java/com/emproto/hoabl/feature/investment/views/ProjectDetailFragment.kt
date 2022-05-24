@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.investment.views
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,19 +19,29 @@ import com.emproto.hoabl.feature.home.views.fragments.Testimonials
 import com.emproto.hoabl.feature.investment.adapters.ProjectAmenitiesAdapter
 import com.emproto.hoabl.feature.investment.adapters.ProjectDetailAdapter
 import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
+import com.emproto.hoabl.feature.investment.dialogs.ConfirmationDialog
 import com.emproto.hoabl.feature.investment.views.mediagallery.MediaGalleryFragment
 import com.emproto.hoabl.feature.promises.HoablPromises
+import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.model.RecyclerViewItem
+import com.emproto.hoabl.utils.Extensions.toHomePagesOrPromise
 import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
+import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.investment.*
+import com.emproto.networklayer.response.promises.HomePagesOrPromise
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import javax.inject.Inject
 
 
 class ProjectDetailFragment : BaseFragment() {
+
+    @Inject
+    lateinit var homeFactory: HomeFactory
+    lateinit var homeViewModel: HomeViewModel
 
     @Inject
     lateinit var investmentFactory: InvestmentFactory
@@ -57,7 +68,7 @@ class ProjectDetailFragment : BaseFragment() {
                 R.id.cl_not_convinced_promises -> {
                     val applicationSubmitDialog = ApplicationSubmitDialog(
                         "Video Call request sent successfully.",
-                        "Our sales person will reach out to you soon!",
+                        "Our Project Manager will reach out to you soon!",
                         false
                     )
                     applicationSubmitDialog.show(parentFragmentManager, "ApplicationSubmitDialog")
@@ -147,11 +158,14 @@ class ProjectDetailFragment : BaseFragment() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         investmentViewModel =
             ViewModelProvider(requireActivity(), investmentFactory)[InvestmentViewModel::class.java]
+        homeViewModel =
+            ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
     }
 
     private fun setUpUI() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
             View.GONE
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.VISIBLE
     }
 
     private fun callApi() {
@@ -233,8 +247,22 @@ class ProjectDetailFragment : BaseFragment() {
 
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
-            when (position) {
-
+            when(view.id) {
+                R.id.cl_outer_item_skus -> {
+                    investmentViewModel.setSku(landSkusData[position])
+                    val confirmationDialog = ConfirmationDialog(investmentViewModel)
+                    confirmationDialog.show(parentFragmentManager,"ConfirmationDialog")
+                }
+                R.id.cv_promises_card -> {
+                    if(promisesData[position] != null){
+                        val promiseData = promisesData[position].toHomePagesOrPromise()
+                        homeViewModel.setSelectedPromise(promiseData)
+                        (requireActivity() as HomeActivity).addFragment(
+                            PromisesDetailsFragment(),
+                            false
+                        )
+                    }
+                }
             }
         }
     }

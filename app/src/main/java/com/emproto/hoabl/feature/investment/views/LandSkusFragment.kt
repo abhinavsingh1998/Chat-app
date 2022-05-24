@@ -35,7 +35,7 @@ class LandSkusFragment:BaseFragment() {
         View.OnClickListener { view ->
             when (view.id) {
                 R.id.btn_apply_now -> {
-                    val confirmationDialog = ConfirmationDialog(this)
+                    val confirmationDialog = ConfirmationDialog(investmentViewModel)
                     confirmationDialog.show(this.parentFragmentManager,"ConfirmationDialog")
                 }
                 R.id.cl_not_convinced -> {
@@ -61,6 +61,7 @@ class LandSkusFragment:BaseFragment() {
         investmentViewModel =
             ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
         (activity as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.VISIBLE
     }
 
     private fun setUpRecyclerview() {
@@ -83,7 +84,7 @@ class LandSkusFragment:BaseFragment() {
 
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
-            val confirmationDialog = ConfirmationDialog(this@LandSkusFragment)
+            val confirmationDialog = ConfirmationDialog(investmentViewModel)
             confirmationDialog.show(this@LandSkusFragment.parentFragmentManager,"ConfirmationDialog")
         }
     }

@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentMediaViewBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import javax.inject.Inject
@@ -61,6 +62,7 @@ class MediaViewFragment:BaseFragment() {
     }
 
     private fun setUpUI() {
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.VISIBLE
         investmentViewModel.getMediaItem().observe(viewLifecycleOwner, Observer {
             when(it.mediaType){
                 "Photo" -> {
