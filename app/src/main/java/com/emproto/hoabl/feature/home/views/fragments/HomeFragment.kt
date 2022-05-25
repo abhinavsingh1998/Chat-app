@@ -29,6 +29,7 @@ import com.emproto.hoabl.utils.Extensions.toHomePagesOrPromise
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
+import com.emproto.networklayer.enum.ModuleEnum
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.home.HomeResponse
@@ -78,7 +79,7 @@ class HomeFragment : BaseFragment() {
     private fun initObserver() {
 
 
-        homeViewModel.getDashBoardData(5001)
+        homeViewModel.getDashBoardData(ModuleEnum.HOME.value)
             .observe(viewLifecycleOwner, object : Observer<BaseResponse<HomeResponse>> {
                 override fun onChanged(it: BaseResponse<HomeResponse>?) {
                     when (it!!.status) {
@@ -98,22 +99,20 @@ class HomeFragment : BaseFragment() {
                             }
 
                             //loading investment list
+                            list.clear()
                             list.addAll(it.data!!.data.page.pageManagementsOrNewInvestments)
                             investmentAdapter = InvestmentCardAdapter(
                                 requireActivity(),
                                 it.data!!.data.page.pageManagementsOrNewInvestments,
                                 object : InvestmentCardAdapter.InvestItemInterface {
                                     override fun onClickItem(id: Int) {
+                                        val fragment = ProjectDetailFragment()
                                         val bundle = Bundle()
-                                        bundle.putInt("projectId", id)
-                                        (requireActivity() as HomeActivity).replaceFragment(
-                                            ProjectDetailFragment()::class.java,
-                                            "",
-                                            true,
-                                            bundle,
-                                            null,
-                                            0,
-                                            true
+                                        bundle.putInt("ProjectId", id)
+                                        fragment.arguments = bundle
+                                        (requireActivity() as HomeActivity).addFragment(
+                                            fragment,
+                                            false
                                         )
                                     }
 
