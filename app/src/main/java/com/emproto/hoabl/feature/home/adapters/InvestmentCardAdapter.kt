@@ -10,7 +10,10 @@ import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
 import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
 
-class InvestmentCardAdapter(val context: Context, val list: List<PageManagementsOrNewInvestment>) :
+class InvestmentCardAdapter(
+    val context: Context,
+    val list: List<PageManagementsOrNewInvestment>,
+    val itemIntrface:InvestItemInterface) :
     RecyclerView.Adapter<InvestmentCardAdapter.MyViewHolder>() {
 
 
@@ -30,6 +33,10 @@ class InvestmentCardAdapter(val context: Context, val list: List<PageManagements
         Glide.with(context)
             .load(item.projectCoverImages.homePageMedia.value.url)
             .into(holder.binding.ivItemImage)
+
+        holder.binding.cvMainOuterCard.setOnClickListener {
+            itemIntrface.onClickItem(item.id)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -39,5 +46,9 @@ class InvestmentCardAdapter(val context: Context, val list: List<PageManagements
     inner class MyViewHolder(val binding: ItemSmartDealsBinding) :
         RecyclerView.ViewHolder(binding.root)
 
+
+    interface InvestItemInterface{
+        fun onClickItem(id: Int)
+    }
 
 }

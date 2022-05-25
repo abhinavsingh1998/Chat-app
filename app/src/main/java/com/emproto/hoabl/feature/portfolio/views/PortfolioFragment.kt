@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
@@ -23,14 +24,14 @@ import com.emproto.hoabl.databinding.FragmentPortfolioBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.fragments.ReferralDialog
 import com.emproto.hoabl.feature.investment.views.CategoryListFragment
+import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.portfolio.adapters.ExistingUsersPortfolioAdapter
 import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
-import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
-import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
+import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
 import com.emproto.networklayer.response.watchlist.Data
 import com.example.portfolioui.databinding.DailogLockPermissonBinding
@@ -65,7 +66,6 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
     lateinit var pinDialog: Dialog
     lateinit var pinAllowD: Dialog
-    val list = ArrayList<PortfolioModel>()
     var watchList = ArrayList<Data>()
 
     private lateinit var adapter: ExistingUsersPortfolioAdapter
@@ -230,8 +230,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                     it.data?.let {
                         //load data in listview
                         binding.financialRecycler.show()
-                        portfolioviewmodel.setPortfolioData(it)
-                        observePortFolioData()
+                        observePortFolioData(it)
                     }
 
 
@@ -258,98 +257,109 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
     }
 
-    private fun observePortFolioData() {
-        portfolioviewmodel.getPortfolioData().observe(viewLifecycleOwner, Observer {
-            it.let {
-                if (list.isEmpty()) {
-                    list.add(
-                        PortfolioModel(
-                            ExistingUsersPortfolioAdapter.TYPE_HEADER,
-                            null
-                        )
+    private fun observePortFolioData(portfolioData: PortfolioData) {
+
+        portfolioData.let {
+            val list = ArrayList<PortfolioModel>()
+            list.add(
+                PortfolioModel(
+                    ExistingUsersPortfolioAdapter.TYPE_HEADER,
+                    null
+                )
+            )
+            if (it.data.summary.completed.count > 0) {
+                list.add(
+                    PortfolioModel(
+                        ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED,
+                        it.data.summary.completed
                     )
-                    if (it.data.summary.completed.count > 0) {
-                        list.add(
-                            PortfolioModel(
-                                ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED,
-                                it.data.summary.completed
-                            )
-                        )
-                    }
-                    if (it.data.summary.ongoing.count > 0) {
-                        list.add(
-                            PortfolioModel(
-                                ExistingUsersPortfolioAdapter.TYPE_SUMMARY_ONGOING,
-                                it.data.summary.ongoing
-                            )
-                        )
-                    }
-                    list.add(
-                        PortfolioModel(
-                            ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
-                            it.data.projects.filter { it.investment.isCompleted }
-                        )
-                    )
-                    list.add(
-                        PortfolioModel(
-                            ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
-                            it.data.projects.filter { !it.investment.isCompleted }
-                        )
-                    )
-                    //fetch remaining data
-                    adapter =
-                        ExistingUsersPortfolioAdapter(
-                            requireActivity(),
-                            list,
-                            this@PortfolioFragment
-                        )
-                    binding.financialRecycler.adapter = adapter
-                    getWathclistData()
-                } else {
-                    adapter =
-                        ExistingUsersPortfolioAdapter(
-                            requireActivity(),
-                            list,
-                            this@PortfolioFragment
-                        )
-                    binding.financialRecycler.adapter = adapter
-                }
+                )
             }
-        })
+            if (it.data.summary.ongoing.count > 0) {
+                list.add(
+                    PortfolioModel(
+                        ExistingUsersPortfolioAdapter.TYPE_SUMMARY_ONGOING,
+                        it.data.summary.ongoing
+                    )
+                )
+            }
+            list.add(
+                PortfolioModel(
+                    ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
+                    it.data.projects.filter { it.investment.isCompleted }
+                )
+            )
+            list.add(
+                PortfolioModel(
+                    ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
+                    it.data.projects.filter { !it.investment.isCompleted }
+                )
+            )
+            list.add(
+                PortfolioModel(
+                    ExistingUsersPortfolioAdapter.TYPE_NUDGE_CARD
+                )
+            )
+
+            if (it.data.watchlist.isNotEmpty()) {
+                watchList.clear()
+                watchList.addAll(it.data.watchlist)
+                list.add(
+                    PortfolioModel(
+                        ExistingUsersPortfolioAdapter.TYPE_WATCHLIST, it.data.watchlist
+                    )
+                )
+            }
+            list.add(
+                PortfolioModel(
+                    ExistingUsersPortfolioAdapter.TYPE_REFER
+                )
+            )
+
+            binding.financialRecycler.layoutManager = LinearLayoutManager(requireActivity())
+            adapter =
+                ExistingUsersPortfolioAdapter(
+                    requireActivity(),
+                    list,
+                    this@PortfolioFragment
+                )
+            binding.financialRecycler.adapter = adapter
+        }
+
 
     }
 
-    private fun getWathclistData() {
-        portfolioviewmodel.getWatchlist().observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    list.add(
-                        PortfolioModel(
-                            ExistingUsersPortfolioAdapter.TYPE_NUDGE_CARD
-                        )
-                    )
-                    it.data?.let {
-                        watchList.clear()
-                        watchList.addAll(it.data.filter { it.project != null })
-                        if (watchList.isNotEmpty()) {
-                            list.add(
-                                PortfolioModel(
-                                    ExistingUsersPortfolioAdapter.TYPE_WATCHLIST, watchList
-                                )
-                            )
-                        }
-                    }
-
-                    list.add(
-                        PortfolioModel(
-                            ExistingUsersPortfolioAdapter.TYPE_REFER
-                        )
-                    )
-                    adapter.notifyItemRangeChanged(4, 7)
-                }
-            }
-        })
-    }
+//    private fun getWathclistData() {
+//        portfolioviewmodel.getWatchlist().observe(viewLifecycleOwner, Observer {
+//            when (it.status) {
+//                Status.SUCCESS -> {
+//                    list.add(
+//                        PortfolioModel(
+//                            ExistingUsersPortfolioAdapter.TYPE_NUDGE_CARD
+//                        )
+//                    )
+//                    it.data?.let {
+//                        watchList.clear()
+//                        watchList.addAll(it.data.filter { it.project != null })
+//                        if (watchList.isNotEmpty()) {
+//                            list.add(
+//                                PortfolioModel(
+//                                    ExistingUsersPortfolioAdapter.TYPE_WATCHLIST, watchList
+//                                )
+//                            )
+//                        }
+//                    }
+//
+//                    list.add(
+//                        PortfolioModel(
+//                            ExistingUsersPortfolioAdapter.TYPE_REFER
+//                        )
+//                    )
+//                    adapter.notifyItemRangeChanged(4, 7)
+//                }
+//            }
+//        })
+//    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -405,6 +415,25 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     }
 
     override fun onGoingDetails() {
+        (requireActivity() as HomeActivity).addFragment(
+            BookingjourneyFragment.newInstance(
+                "",
+                ""
+            ), false
+        )
+    }
+
+    override fun onClickofWatchlist(projectId: Int) {
+        val bundle = Bundle()
+        bundle.putInt("ProjectId", projectId)
+        val fragment = ProjectDetailFragment()
+        fragment.arguments = bundle
+        (requireActivity() as HomeActivity).addFragment(
+            fragment, false
+        )
+    }
+
+    override fun onClickApplyNow(projectId: Int) {
     }
 
     private fun setUpRecyclerView() {
@@ -424,7 +453,6 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         )
         binding.financialRecycler.adapter = adapter
     }
-
 
 
 }

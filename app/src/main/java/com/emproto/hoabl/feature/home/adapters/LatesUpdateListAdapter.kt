@@ -24,10 +24,16 @@ class LatestUpdateListAdapter(
     override fun onBindViewHolder(holder: LatestUpdateHolder, position: Int) {
         val item = list[position]
         holder.binding.firstDetails.text= item.description
-        holder.binding.imageDesc.text= item.media.mediaDescription
-        Glide.with(context)
-            .load(item.media.value.url)
-            .into(holder.binding.image1)
+
+        if(item.media!=null){
+            holder.binding.imageDesc.text= item.media.mediaDescription
+            Glide.with(context)
+                .load(item.media.value.url)
+                .into(holder.binding.image1)
+        }
+
+
+
     }
 
     override fun getItemCount(): Int {

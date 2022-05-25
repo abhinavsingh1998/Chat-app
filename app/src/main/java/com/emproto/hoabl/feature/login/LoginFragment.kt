@@ -42,7 +42,7 @@ class LoginFragment : BaseFragment() {
     var hCountryCode = ""
     lateinit var bottomSheetDialog: BottomSheetDialog
     lateinit var termsConditionDialogBinding: TermsConditionDialogBinding
-    val patterns  = Pattern.compile("(0/91)?[7-9][0-9]{9}")
+    val patterns  = Pattern.compile("^(0|[1-9][0-9]*)\$")
     val first_attempt= "Please enter the OTP sent to your mobile number. You have 4 attempts remaining to verify your OTP."
     val second_attempts= "Please enter the OTP sent to your mobile number. You have 3 attempts remaining to verify your OTP."
     val third_attempts= "Please enter the OTP sent to your mobile number. You have 2 attempts remaining to verify your OTP."
@@ -76,7 +76,7 @@ class LoginFragment : BaseFragment() {
                 Status.SUCCESS -> {
                     it.data?.let {
                         termsConditionDialogBinding.tvTitle.text =
-                            showHTMLText(it.data.termsAndConditions.description)
+                            showHTMLText(it.data.page.termsAndConditions.description)
                         termsConditionDialogBinding.tvTitle.setMovementMethod(
                             ScrollingMovementMethod()
                         )

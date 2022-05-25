@@ -246,8 +246,9 @@ class PortfolioSpecificViewAdapter(
                         "₹" + data.investmentInformation.bookingJourney.amountPending
                     binding.tvRegistryAmount.text = "₹" + data.investmentInformation.registryAmount
                     binding.tvOtherExpenses.text = "₹" + data.investmentInformation.otherExpenses
-                    //binding.tvLatitude.text = data.projectExtraDetails.latitude
-                    //binding.tvLongitude.text = data.projectExtraDetails.longitude
+                    binding.tvLatitude.text = data.projectInformation.crmProject.lattitude
+                    binding.tvLongitude.text = data.projectInformation.crmProject.longitude
+                    binding.tvAltitude.text = data.projectInformation.crmProject.altitude
                     binding.ownersName.text = data.investmentInformation.owners
 
                     //binding.tvRegistrationNumber.text = reraNumber
@@ -264,7 +265,10 @@ class PortfolioSpecificViewAdapter(
                 ivInterface.seeBookingJourney()
             }
             binding.tvSeeProjectDetails.setOnClickListener {
-                ivInterface.seeProjectDetails()
+                ivInterface.seeProjectDetails(data.projectInformation.id)
+            }
+            binding.tvSeeOnMap.setOnClickListener {
+                ivInterface.seeOnMap("23.640699", "85.282204")
             }
         }
     }
@@ -330,7 +334,7 @@ class PortfolioSpecificViewAdapter(
             imagesList.addAll(imagesData.videos)
             imagesList.addAll(imagesData.threeSixtyImages)
 
-            latestImagesVideosAdapter = VideoAdapter(imagesList)
+            latestImagesVideosAdapter = VideoAdapter(imagesList, ivInterface)
             val layoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
             binding.rvLatestImagesVideos.layoutManager = layoutManager
             binding.rvLatestImagesVideos.adapter = latestImagesVideosAdapter
@@ -379,6 +383,9 @@ class PortfolioSpecificViewAdapter(
             binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
             binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
             binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false);
+            binding.ivPriceTrendsGraph.setTouchEnabled(false)
+            binding.ivPriceTrendsGraph.setPinchZoom(false)
+            binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
             binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false);
@@ -407,7 +414,7 @@ class PortfolioSpecificViewAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             val faqList = list[position].data as List<ProjectContentsAndFaq>
-            faqAdapter = ProjectFaqAdapter(faqList)
+            faqAdapter = ProjectFaqAdapter(context, faqList)
             binding.rvFaq.adapter = faqAdapter
             binding.tvFaqReadAll.visibility = View.VISIBLE
             binding.ivSeeAllArrow.visibility = View.VISIBLE
@@ -422,7 +429,7 @@ class PortfolioSpecificViewAdapter(
         fun bind(position: Int) {
             if (list[position].data != null) {
                 val itemList = list[position].data as List<SimilarInvestment>
-                similarInvestmentsAdapter = SimilarInvestmentAdapter(context, itemList)
+                similarInvestmentsAdapter = SimilarInvestmentAdapter(context, itemList, ivInterface)
                 binding.rvTrendingProjects.adapter = similarInvestmentsAdapter
                 binding.tvTrendingProjectsTitle.text = "Similar Investments"
                 binding.tvTrendingProjectsSubtitle.visibility = View.GONE
@@ -441,10 +448,14 @@ class PortfolioSpecificViewAdapter(
         fun seeBookingJourney()
         fun referNow()
         fun seeAllSimilarInvestment()
+        fun onClickSimilarInvestment(project: Int)
+        fun onApplySinvestment(projectId: Int)
         fun readAllFaq()
         fun seePromisesDetails(position: Int)
         fun moreAboutPromises()
-        fun seeProjectDetails()
+        fun seeProjectDetails(projectId: Int)
+        fun seeOnMap(latitude: String, longitude: String)
+        fun onClickImage(url: String)
     }
 
 }

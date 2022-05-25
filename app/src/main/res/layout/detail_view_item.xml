@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_size_7"
         android:fontFamily="@font/jost_light"
-        android:text="Image description goes here goes here"
+        android:text=""
         android:textAlignment="viewStart"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="@+id/land_image_1"

@@ -8,10 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ItemCategoryListBinding
 import com.emproto.hoabl.utils.ItemClickListener
-import com.emproto.networklayer.response.investment.ApData
-import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
-import com.emproto.networklayer.response.investment.PageManagementsOrCollectionTwoModel
-import com.emproto.networklayer.response.investment.PageManagementsOrNewInvestment
+import com.emproto.networklayer.response.investment.*
+import com.emproto.networklayer.response.portfolio.ivdetails.SimilarInvestment
 import com.emproto.networklayer.response.watchlist.Data
 
 class CategoryListAdapter(
@@ -27,6 +25,7 @@ class CategoryListAdapter(
         const val TYPE_TRENDING_PROJECTS = 2
         const val TYPE_ALL_INVESTMENTS = 3
         const val TYPE_WATCHLIST = 4
+        const val TYPE_DISCOVERALL = 5
     }
 
     inner class CategoryViewHolder(var binding: ItemCategoryListBinding) :
@@ -113,7 +112,7 @@ class CategoryListAdapter(
                             .into(ivCategoryImage)
                     }
                 }
-                else -> {
+                TYPE_WATCHLIST -> {
                     val element = list[position] as Data
                     itemView.setOnClickListener {
                         clickListener.onItemClicked(view, position, element.project.id.toString())
@@ -125,6 +124,38 @@ class CategoryListAdapter(
                         tvCategoryItemInfo.text = element.project.shortDescription
                         Glide.with(context)
                             .load(element.project.projectIcon.value.url)
+                            .into(ivCategoryImage)
+                    }
+                }
+
+                TYPE_DISCOVERALL -> {
+                    val element = list[position] as com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
+                    itemView.setOnClickListener {
+                        clickListener.onItemClicked(view, position, element.id.toString())
+                    }
+                    binding.apply {
+                        tvProjectName.text = element.launchName
+                        tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
+                        tvCategoryArea.text = element.areaStartingFrom + " Onwards"
+                        tvCategoryItemInfo.text = element.shortDescription
+                        Glide.with(context)
+                            .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                            .into(ivCategoryImage)
+                    }
+                }
+
+                else -> {
+                    val element = list[position] as SimilarInvestment
+                    itemView.setOnClickListener {
+                        clickListener.onItemClicked(view, position, element.id.toString())
+                    }
+                    binding.apply {
+                        tvProjectName.text = element.launchName
+                        tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
+                        tvCategoryArea.text = element.areaStartingFrom + " Onwards"
+                        tvCategoryItemInfo.text = element.shortDescription
+                        Glide.with(context)
+                            .load(element.projectIcon.value.url)
                             .into(ivCategoryImage)
                     }
                 }

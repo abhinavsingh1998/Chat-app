@@ -67,19 +67,12 @@ class LatestUpdatesFragment : BaseFragment() {
                 latestUpatesAdapter = AllLatestUpdatesAdapter(requireActivity(),
                     it.data!!.pageManagementOrLatestUpdates,
                     object : AllLatestUpdatesAdapter.UpdatesItemsInterface {
-                        override fun onClickItem(position: Int) {
+                        override fun onClickItem( position: Int) {
                             homeViewModel.setSeLectedLatestUpdates(it.data!!.pageManagementOrLatestUpdates[position])
                             homeViewModel.setSelectedPosition(LatesUpdatesPosition(position,
                                 it.data!!.pageManagementOrLatestUpdates.size))
-                            (requireActivity() as HomeActivity).replaceFragment(
-                                LatestUpdatesDetailsFragment()::class.java,
-                                "",
-                                true,
-                                null,
-                                null,
-                                0,
-                                true
-                            )
+                            (requireActivity() as HomeActivity).addFragment(LatestUpdatesDetailsFragment(),
+                            false)
                         }
 
                     }

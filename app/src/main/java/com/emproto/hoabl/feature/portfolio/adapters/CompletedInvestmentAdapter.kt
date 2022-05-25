@@ -138,6 +138,9 @@ class CompletedInvestmentAdapter(
             holder.binding.ivCompletedInvestmentGraphImage.getDescription().setEnabled(false);
             holder.binding.ivCompletedInvestmentGraphImage.getLegend().setEnabled(false);
             holder.binding.ivCompletedInvestmentGraphImage.getAxisLeft().setDrawGridLines(false);
+            holder.binding.ivCompletedInvestmentGraphImage.setTouchEnabled(false)
+            holder.binding.ivCompletedInvestmentGraphImage.setPinchZoom(false)
+            holder.binding.ivCompletedInvestmentGraphImage.isDoubleTapToZoomEnabled = false
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
             holder.binding.ivCompletedInvestmentGraphImage.getXAxis().setDrawGridLines(false);
@@ -183,6 +186,9 @@ class CompletedInvestmentAdapter(
             holder.binding.ivCompletedInvestmentGraph.getAxisLeft().setDrawGridLines(false);
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
+            holder.binding.ivCompletedInvestmentGraph.setTouchEnabled(false)
+            holder.binding.ivCompletedInvestmentGraph.setPinchZoom(false)
+            holder.binding.ivCompletedInvestmentGraph.isDoubleTapToZoomEnabled = false
             holder.binding.ivCompletedInvestmentGraph.getXAxis().setDrawGridLines(false);
             holder.binding.ivCompletedInvestmentGraph.getXAxis().position =
                 XAxis.XAxisPosition.BOTTOM;

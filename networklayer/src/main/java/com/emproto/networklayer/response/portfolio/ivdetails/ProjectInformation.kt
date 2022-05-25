@@ -8,5 +8,14 @@ data class ProjectInformation(
     val projectContentsAndFaqs: List<ProjectContentsAndFaq>,
     val reraDetails: ReraDetails,
     val shortDescription: String,
-    val similarInvestments: List<SimilarInvestment>
+    val similarInvestments: List<SimilarInvestment>,
+    val crmProject: CrmDetails
+)
+
+data class CrmDetails(
+    val name: String,
+    val location: String,
+    val lattitude: String,
+    val longitude: String,
+    val altitude: String
 )

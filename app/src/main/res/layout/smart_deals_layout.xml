@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_new_investment_smart_deals"
@@ -16,25 +15,25 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_smart_deals_title"
+            style="@style/text_style_text_light_black_color_18"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_size_13"
             android:layout_marginTop="@dimen/margin_size_35"
             android:fontFamily="@font/jost_medium"
             android:text="Smart Deals"
-            style="@style/text_style_text_light_black_color_18"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_smart_deals_subtitle"
+            style="@style/text_style_lightgrey_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_size_13"
             android:layout_marginTop="@dimen/margin_size_4"
+            android:layout_marginEnd="@dimen/margin_size_13"
             android:fontFamily="@font/jost_regular"
             android:text="Hurry! Only a few left"
-            style="@style/text_style_lightgrey_14"
             app:layout_constraintStart_toStartOf="@id/tv_smart_deals_title"
             app:layout_constraintTop_toBottomOf="@id/tv_smart_deals_title" />
 
@@ -43,17 +42,19 @@
             style="@style/text_style_blue_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/see_all"
-            android:maxLines="1"
-            android:minLines="1"
+            android:layout_marginEnd="@dimen/margin_size_16"
+            android:background="?android:selectableItemBackground"
             android:drawableEnd="@drawable/ic_black_long_rightarrow"
             android:drawablePadding="@dimen/margin_size_4"
+            android:maxLines="1"
+            android:minLines="1"
+            android:padding="@dimen/margin_size_5"
             android:singleLine="true"
+            android:text="@string/see_all"
             app:fontName="@string/jost_regular"
-            android:layout_marginEnd="@dimen/margin_size_16"
+            app:layout_constraintBottom_toBottomOf="@id/tv_smart_deals_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_smart_deals_title"
-            app:layout_constraintBottom_toBottomOf="@id/tv_smart_deals_title"/>
+            app:layout_constraintTop_toTopOf="@id/tv_smart_deals_title" />
 
 
         <androidx.recyclerview.widget.RecyclerView

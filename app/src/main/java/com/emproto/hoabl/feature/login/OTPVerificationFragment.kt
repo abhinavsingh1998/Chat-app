@@ -151,7 +151,7 @@ class OTPVerificationFragment : BaseFragment() {
                                         mBinding.loader.visibility = View.VISIBLE
                                     }
                                     Status.ERROR -> {
-
+                                        mBinding.loader.visibility = View.GONE
                                         if (it.message.toString().equals(fisrt_attempt)) {
                                             mBinding.loginEdittext.setHint("Enter OTP (4 attempts left)")
                                             Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
@@ -235,6 +235,7 @@ class OTPVerificationFragment : BaseFragment() {
             })
 
             otpTimerCount()
+            startSmsUserConsent()
         })
 
     }
@@ -330,7 +331,6 @@ class OTPVerificationFragment : BaseFragment() {
                     override fun onSuccess(intent: Intent?) {
                         intent?.let { context -> startActivityForResult(context, REQ_USER_CONSENT) }
                     }
-
                     override fun onFailure() {
                     }
                 }

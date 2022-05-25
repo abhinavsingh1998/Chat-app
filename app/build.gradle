@@ -13,8 +13,8 @@ android {
         applicationId "com.emproto.hoabl"
         minSdk 19
         targetSdk 32
-        versionCode 1
-        versionName "0.0.2"
+        versionCode 4
+        versionName "0.0.4"
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -98,4 +98,5 @@ dependencies {
     implementation "androidx.media3:media3-exoplayer:1.0.0-alpha03"
     implementation "androidx.media3:media3-ui:1.0.0-alpha03"
     implementation "androidx.media3:media3-exoplayer-dash:1.0.0-alpha03"
-    }
+
+}

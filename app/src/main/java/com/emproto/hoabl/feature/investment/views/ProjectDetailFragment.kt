@@ -76,7 +76,11 @@ class ProjectDetailFragment : BaseFragment() {
                     applicationSubmitDialog.show(parentFragmentManager, "ApplicationSubmitDialog")
                 }
                 R.id.tv_faq_read_all -> {
-                    (requireActivity() as HomeActivity).addFragment(FaqDetailFragment(), false)
+                    val fragment = FaqDetailFragment()
+                    val bundle = Bundle()
+                    bundle.putInt("ProjectId", projectId)
+                    fragment.arguments = arguments
+                    (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
                 R.id.cl_why_invest -> {
                     investmentViewModel.setOpportunityDoc(oppDocData)
@@ -195,6 +199,33 @@ class ProjectDetailFragment : BaseFragment() {
     }
 
     private fun callProjectIdApi(promiseData: List<PmData>) {
+        val pjId = arguments?.getInt("ProjectId") as Int
+            projectId = pjId
+            investmentViewModel.getInvestmentsDetail(projectId).observe(viewLifecycleOwner, Observer {
+                when(it.status){
+                    Status.LOADING -> {
+                        (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                    }
+                    Status.SUCCESS -> {
+                        (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                        it.data?.data?.let {  data ->
+                            oppDocData = data.opprotunityDocs
+                            mediaData= data.projectCoverImages
+                            landSkusData = data.inventoryBucketContents
+                            faqData = data.projectContentsAndFaqs
+                            mapLocationData = data.locationInfrastructure
+                            setUpRecyclerView(data, promiseData)
+                        }
+                    }
+                    Status.ERROR -> {
+                        (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            it.message!!
+                        )
+                    }
+                }
+            })
+
         investmentViewModel.getInvestmentsDetail(projectId).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
