@@ -183,7 +183,7 @@ class ProjectDetailFragment : BaseFragment() {
     }
 
     private fun callProjectIdApi(promiseData: List<PmData>) {
-        val pjId = arguments?.getInt("projectId") as Int
+        val pjId = arguments?.getInt("ProjectId") as Int
             projectId = pjId
             investmentViewModel.getInvestmentsDetail(projectId).observe(viewLifecycleOwner, Observer {
                 when(it.status){

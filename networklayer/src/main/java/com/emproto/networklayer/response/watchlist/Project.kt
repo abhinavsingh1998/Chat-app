@@ -1,5 +1,7 @@
 package com.emproto.networklayer.response.watchlist
 
+import java.io.Serializable
+
 data class Project(
     val address: Address,
     val areaStartingFrom: String,
@@ -9,4 +11,4 @@ data class Project(
     val priceStartingFrom: String,
     val projectIcon: ProjectIcon,
     val shortDescription: String
-)
+):Serializable
