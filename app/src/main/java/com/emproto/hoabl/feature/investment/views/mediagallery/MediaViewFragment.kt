@@ -66,7 +66,7 @@ class MediaViewFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         if (Util.SDK_INT > 23) {
-            //initializePlayer()
+            initializePlayer()
         }
     }
 
@@ -167,7 +167,7 @@ class MediaViewFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         if ((Util.SDK_INT <= 23 || player == null)) {
-            //initializePlayer()
+            initializePlayer()
         }
     }
 
