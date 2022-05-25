@@ -57,7 +57,7 @@ class FaqDetailFragment:BaseFragment() {
     }
 
     private fun callFaqApi(projectId: Int) {
-        Log.d("Faq",projectId.toString())
+        Log.d("Faqeeeee",projectId.toString())
         investmentViewModel.getInvestmentsFaq(projectId).observe(viewLifecycleOwner, Observer {
             Log.d("Faq",it.data.toString())
             when(it.status){
@@ -67,10 +67,8 @@ class FaqDetailFragment:BaseFragment() {
                 Status.SUCCESS -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                     it.data?.data?.let {  data ->
-                        when{
-                            data.isNullOrEmpty() -> Toast.makeText(this.requireContext(), "No data available", Toast.LENGTH_SHORT).show()
-                            else -> setUpRecyclerView(data)
-                        }
+                         setUpRecyclerView(data)
+
                     }
                 }
                 Status.ERROR -> {
