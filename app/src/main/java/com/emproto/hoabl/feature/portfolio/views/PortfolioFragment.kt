@@ -301,7 +301,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                 )
             )
 
-            if (it.data.watchlist.isNotEmpty()) {
+            if (it.data.watchlist != null && it.data.watchlist.isNotEmpty()) {
                 watchList.clear()
                 watchList.addAll(it.data.watchlist)
                 list.add(
