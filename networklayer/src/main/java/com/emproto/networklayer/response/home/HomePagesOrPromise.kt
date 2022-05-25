@@ -1,5 +1,6 @@
 package com.emproto.networklayer.response.home
 
+import com.emproto.networklayer.response.promises.DisplayMedia
 import com.emproto.networklayer.response.promises.HowToApply
 import com.emproto.networklayer.response.promises.PromiseMedia
 import com.emproto.networklayer.response.promises.TermsAndConditions

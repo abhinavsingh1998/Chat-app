@@ -15,31 +15,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/iv_story_image"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            android:background="@drawable/all_corner_radius_white_bg"
-            android:src="@drawable/bitmap_copy_9_1" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_story_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/portfolio_image"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_image_name"
+                style="@style/text_style_white_14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/infra_story_bg"
+                android:background="@drawable/bottom_corner_radius_bg"
+                android:fontFamily="@font/jost_regular"
+                android:paddingVertical="@dimen/margin_size_6"
+                android:text="Navi Mumbai Airport"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/iv_story_image"
+                app:layout_constraintStart_toStartOf="@id/iv_story_image" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_image_name"
-        style="@style/text_style_white_14"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bottom_corner_radius_bg"
-        android:backgroundTint="@color/infra_story_bg"
-        android:fontFamily="@font/jost_regular"
-        android:paddingVertical="@dimen/margin_size_8"
-        android:paddingStart="@dimen/margin_size_12"
-        android:text="Navi Mumbai Airport"
-        android:textAlignment="textStart"
-        app:layout_constraintBottom_toBottomOf="@id/cv_story_image"
-        app:layout_constraintEnd_toEndOf="@id/cv_story_image"
-        app:layout_constraintStart_toStartOf="@id/cv_story_image" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_image_info"

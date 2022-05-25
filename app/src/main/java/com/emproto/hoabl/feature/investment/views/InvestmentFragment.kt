@@ -152,6 +152,7 @@ class InvestmentFragment : BaseFragment() {
             View.VISIBLE
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
             View.VISIBLE
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.GONE
     }
 
     private fun callApi() {

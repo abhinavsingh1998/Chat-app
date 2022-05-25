@@ -227,13 +227,24 @@
             android:layout_marginVertical="@dimen/margin_size_12"
             android:lineSpacingMultiplier="1.5"
             android:maxLines="2"
-            android:ellipsize="end"
             tools:text="The Isle of Bliss is phase 2 of Codename Bliss Dapoli, a seaside lifestyle plotting development from The House of Abhinandan Lodha…READ MORE"
             style="@style/text_style_text_black_color_14"
             android:fontFamily="@font/jost_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tab_dot_layout" />
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/btn_read_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/text_style_blue_14"
+            android:fontFamily="@font/jost_medium"
+            android:background="@color/white"
+            android:text="@string/read_more_expand"
+            android:paddingHorizontal="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_location_information_text"
+            app:layout_constraintEnd_toEndOf="@+id/tv_location_information_text" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_price_range"

@@ -54,10 +54,13 @@ class OpportunityDocsFragment:BaseFragment() {
 
     private fun setUpUI() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.VISIBLE
     }
 
     private fun setUpRecyclerView() {
+        (requireActivity() as HomeActivity).activityHomeActivity.loader.visibility = View.VISIBLE
         investmentViewModel.getOpportunityDoc().observe(viewLifecycleOwner, Observer {
+            (requireActivity() as HomeActivity).activityHomeActivity.loader.visibility = View.GONE
             val list = ArrayList<RecyclerViewItem>()
             list.add(RecyclerViewItem(1))
             list.add(RecyclerViewItem(2))

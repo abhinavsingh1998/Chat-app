@@ -1,11 +1,17 @@
 package com.emproto.hoabl.feature.investment.adapters
 
-import android.animation.LayoutTransition
 import android.content.Context
 import android.os.Build
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.text.bold
+import androidx.core.text.color
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -31,7 +37,7 @@ class ProjectDetailAdapter(
     private val list: List<RecyclerViewItem>,
     private val data: PdData,
     private val promisesData: List<PmData>,
-    private val itemClickListener:ItemClickListener
+    private val itemClickListener: ItemClickListener
 ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -49,6 +55,7 @@ class ProjectDetailAdapter(
         const val VIEW_TYPE_TWELVE = 12
         const val VIEW_TYPE_THIRTEEN = 13
         const val VIEW_TYPE_FOURTEEN = 14
+        const val TWO_SPACES = " "
     }
 
     private lateinit var projectDetailViewPagerAdapter: ProjectDetailViewPagerAdapter
@@ -63,6 +70,7 @@ class ProjectDetailAdapter(
 
     private var isCollapsed = true
     private var isClicked = true
+    private var isReadMoreClicked = true
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
@@ -136,8 +144,8 @@ class ProjectDetailAdapter(
                 tvProjectLocation.text = "${data.address.city}, ${data.address.state}"
                 tvViewCount.text = data.fomoContent.noOfViews.toString()
                 tvDuration.text = "${data.fomoContent.targetTime.hours}:${data.fomoContent.targetTime.minutes}:${data.fomoContent.targetTime.seconds} Hrs Left"
-                tvPriceRange.text = data.priceStartingFrom + " Onwards"
-                tvAreaRange.text = data.areaStartingFrom + " Onwards"
+                tvPriceRange.text = data.priceStartingFrom
+                tvAreaRange.text = data.areaStartingFrom
                 tvProjectViewInfo.text = "${data.fomoContent.noOfViews} People saw this project in ${data.fomoContent.days} days"
                 var regString = ""
                 for(item in data.reraDetails.reraNumbers){
@@ -150,25 +158,34 @@ class ProjectDetailAdapter(
                 Glide.with(context)
                     .load(data.projectCoverImages.newInvestmentPageMedia.value.url)
                     .into(ivSmallTopImage)
-                tvLocationInformationText.text = data.shortDescription + " " + data.shortDescription
-                tvLocationInformationText.setOnClickListener {
-                    when(isCollapsed){
+                tvLocationInformationText.text = data.shortDescription + data.shortDescription
+                btnReadMore.setOnClickListener {
+                    when(isReadMoreClicked){
                         true -> {
-                            tvLocationInformationText.text = data.shortDescription + " " + data.shortDescription + "...READ LESS"
+                            btnReadMore.visibility = View.GONE
+                            tvLocationInformationText.text = SpannableStringBuilder()
+                                .append(data.shortDescription + data.shortDescription + " ")
+                                .bold { color(context.resources.getColor(R.color.app_color)) {
+                                    append(
+                                        context.resources.getString(R.string.read_less_expand)
+                                    )
+                                }
+                                }
                             tvLocationInformationText.maxLines = Integer.MAX_VALUE
-                        }
-                        else ->{
-                            tvLocationInformationText.text = data.shortDescription + " " + data.shortDescription + "...READ MORE"
-                            tvLocationInformationText.maxLines = 2
+                            isReadMoreClicked = false
                         }
                     }
-                    isCollapsed = !isCollapsed
                 }
-
-                val transition = LayoutTransition()
-                transition.setDuration(300)
-                transition.enableTransitionType(LayoutTransition.CHANGING)
-                binding.clInner.layoutTransition = transition
+                tvLocationInformationText.setOnClickListener {
+                    when(isReadMoreClicked){
+                        false -> {
+                            btnReadMore.visibility = View.VISIBLE
+                            tvLocationInformationText.text = data.shortDescription + data.shortDescription
+                            tvLocationInformationText.maxLines = 2
+                            isReadMoreClicked = true
+                        }
+                    }
+                }
 
                 val balloon = createBalloon(context) {
                     setLayout(R.layout.tooltip_layout)
@@ -283,7 +300,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectSkusViewHolder(private val binding: SkusLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            skuAdapter = SkuAdapter(data.inventoryBucketContents)
+            skuAdapter = SkuAdapter(data.inventoryBucketContents,itemClickListener)
             binding.rvSkus.adapter = skuAdapter
             itemView.tag = this
             binding.tvSkusSeeAll.setOnClickListener(onItemClickListener)
@@ -315,7 +332,7 @@ class ProjectDetailAdapter(
     private inner class ProjectPromisesViewHolder(private val binding: PromisesLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             val itemList = promisesData
-            promisesAdapter = PromisesAdapter(itemList)
+            promisesAdapter = PromisesAdapter(itemList,itemClickListener)
             binding.rvPromises.adapter = promisesAdapter
             binding.clNotConvincedPromises.setOnClickListener(onItemClickListener)
             binding.tvPromisesSeeAll.setOnClickListener(onItemClickListener)

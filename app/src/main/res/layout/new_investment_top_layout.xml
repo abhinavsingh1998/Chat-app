@@ -228,7 +228,7 @@
                                 android:id="@+id/iv_place_info_arrow"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/rightarrow"
+                                android:src="@drawable/ic_black_long_rightarrow"
                                 app:layout_constraintBottom_toBottomOf="@id/tv_background_grey"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toEndOf="@id/tv_background_grey"
