@@ -23,6 +23,7 @@ import com.emproto.hoabl.feature.investment.dialogs.ConfirmationDialog
 import com.emproto.hoabl.feature.investment.views.mediagallery.MediaGalleryFragment
 import com.emproto.hoabl.feature.promises.HoablPromises
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
+import com.emproto.hoabl.model.MapLocationModel
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.Extensions.toHomePagesOrPromise
 import com.emproto.hoabl.utils.ItemClickListener
@@ -34,6 +35,7 @@ import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.investment.*
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.io.Serializable
 import javax.inject.Inject
 
 
@@ -262,6 +264,18 @@ class ProjectDetailFragment : BaseFragment() {
                             false
                         )
                     }
+                }
+                R.id.cv_location_infrastructure_card -> {
+                    investmentViewModel.setMapLocationInfrastructure(mapLocationData)
+                    val bundle = Bundle()
+                    bundle.putSerializable("Location",MapLocationModel(12.9274,77.586387,12.9287469,77.5867364) as Serializable)
+//                    investmentViewModel.setMapLocation(MapLocationModel(12.9274,77.586387,12.9287469,77.5867364 ))
+                    val fragment = MapFragment()
+                    fragment.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(
+                        fragment,
+                        false
+                    )
                 }
             }
         }

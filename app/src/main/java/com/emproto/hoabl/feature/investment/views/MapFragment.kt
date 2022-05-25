@@ -20,6 +20,7 @@ import com.emproto.hoabl.databinding.FragmentMapBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.LocationInfrastructureAdapter
+import com.emproto.hoabl.model.MapLocationModel
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
@@ -44,6 +45,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     lateinit var binding: FragmentMapBinding
 
     private lateinit var mMap: GoogleMap
+    private var data:MapLocationModel? = null
 
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
@@ -65,8 +67,35 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        arguments?.let {
+            data = it.getSerializable("Location") as MapLocationModel
+        }
         initMap()
         setUpUI()
+        setDataFromPrevious()
+    }
+
+    private fun setDataFromPrevious() {
+        if(data!= null){
+            initMapData()
+        }
+    }
+
+    private fun initMapData() {
+        val mapFragment = childFragmentManager.findFragmentById(
+            R.id.map_fragment
+        ) as? SupportMapFragment
+        mapFragment?.getMapAsync { googleMap ->
+            googleMap.setOnMapLoadedCallback {
+//                addMarkers(googleMap)
+                mMap = googleMap
+                val originLocation = LatLng(12.9274,77.586387)
+                mMap.clear()
+                mMap.addMarker(MarkerOptions().position(originLocation))
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
+                initMarkerLocation(data?.originLatitude!!,data?.originLongitude!!,data?.destinationLatitude!!,data?.destinationLongitude!!)
+            }
+        }
     }
 
     private fun initMap() {

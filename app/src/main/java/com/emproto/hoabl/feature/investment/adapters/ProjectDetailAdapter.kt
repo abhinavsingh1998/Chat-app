@@ -1,11 +1,17 @@
 package com.emproto.hoabl.feature.investment.adapters
 
-import android.animation.LayoutTransition
 import android.content.Context
 import android.os.Build
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.text.bold
+import androidx.core.text.color
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -14,7 +20,6 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
-import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.networklayer.response.investment.PdData
 import com.emproto.networklayer.response.investment.PmData
 import com.github.mikephil.charting.components.XAxis
@@ -50,6 +55,7 @@ class ProjectDetailAdapter(
         const val VIEW_TYPE_TWELVE = 12
         const val VIEW_TYPE_THIRTEEN = 13
         const val VIEW_TYPE_FOURTEEN = 14
+        const val TWO_SPACES = " "
     }
 
     private lateinit var projectDetailViewPagerAdapter: ProjectDetailViewPagerAdapter
@@ -64,6 +70,7 @@ class ProjectDetailAdapter(
 
     private var isCollapsed = true
     private var isClicked = true
+    private var isReadMoreClicked = true
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
@@ -151,25 +158,34 @@ class ProjectDetailAdapter(
                 Glide.with(context)
                     .load(data.projectCoverImages.newInvestmentPageMedia.value.url)
                     .into(ivSmallTopImage)
-                tvLocationInformationText.text = data.shortDescription + " " + data.shortDescription
-                tvLocationInformationText.setOnClickListener {
-                    when(isCollapsed){
+                tvLocationInformationText.text = data.shortDescription + data.shortDescription
+                btnReadMore.setOnClickListener {
+                    when(isReadMoreClicked){
                         true -> {
-                            tvLocationInformationText.text = data.shortDescription + " " + data.shortDescription + "...READ LESS"
+                            btnReadMore.visibility = View.GONE
+                            tvLocationInformationText.text = SpannableStringBuilder()
+                                .append(data.shortDescription + data.shortDescription + " ")
+                                .bold { color(context.resources.getColor(R.color.app_color)) {
+                                    append(
+                                        context.resources.getString(R.string.read_less_expand)
+                                    )
+                                }
+                                }
                             tvLocationInformationText.maxLines = Integer.MAX_VALUE
-                        }
-                        else ->{
-                            tvLocationInformationText.text = data.shortDescription + " " + data.shortDescription + "...READ MORE"
-                            tvLocationInformationText.maxLines = 2
+                            isReadMoreClicked = false
                         }
                     }
-                    isCollapsed = !isCollapsed
                 }
-
-                val transition = LayoutTransition()
-                transition.setDuration(300)
-                transition.enableTransitionType(LayoutTransition.CHANGING)
-                binding.clInner.layoutTransition = transition
+                tvLocationInformationText.setOnClickListener {
+                    when(isReadMoreClicked){
+                        false -> {
+                            btnReadMore.visibility = View.VISIBLE
+                            tvLocationInformationText.text = data.shortDescription + data.shortDescription
+                            tvLocationInformationText.maxLines = 2
+                            isReadMoreClicked = true
+                        }
+                    }
+                }
 
                 val balloon = createBalloon(context) {
                     setLayout(R.layout.tooltip_layout)

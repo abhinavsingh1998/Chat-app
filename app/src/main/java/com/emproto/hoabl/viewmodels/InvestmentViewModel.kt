@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.emproto.hoabl.model.MapLocationModel
 import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.repository.InvestmentRepository
 import com.emproto.networklayer.response.BaseResponse
@@ -27,6 +28,7 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
     private var tPLiveData = MutableLiveData<Boolean>()
     private var nLLiveData = MutableLiveData<Boolean>()
     private var aPLiveData = MutableLiveData<Boolean>()
+    private var locationData = MutableLiveData<MapLocationModel>()
 
     fun getInvestments(pageType: Int): LiveData<BaseResponse<InvestmentResponse>> {
         return investmentRepository.getInvestments(pageType)
@@ -166,6 +168,14 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
 
     fun getAp(): LiveData<Boolean> {
         return aPLiveData
+    }
+
+    fun setMapLocation(data:MapLocationModel){
+        this.locationData.postValue(data)
+    }
+
+    fun getMapLocation(): LiveData<MapLocationModel> {
+        return locationData
     }
 
 }
