@@ -45,4 +45,9 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
     suspend fun getChatsList(): Response<ChatResponse> {
         return apiService.getChatsList()
     }
+
+    //chats initiate api
+    suspend fun chatInitiate(): Response<ChatDetailResponse> {
+        return apiService.chatInitiate()
+    }
 }

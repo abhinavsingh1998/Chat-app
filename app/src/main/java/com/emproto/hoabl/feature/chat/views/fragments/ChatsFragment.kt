@@ -27,7 +27,6 @@ class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
     @Inject
     lateinit var homeFactory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
-
     lateinit var binding: FragmentChatsBinding
 
     override fun onCreateView(
@@ -44,7 +43,6 @@ class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         homeViewModel.getChatsList().observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
@@ -60,43 +58,21 @@ class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
                             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
                         binding.rvChats.adapter = ChatsAdapter(context, it.data!!.chatList, this)
                         Log.i("LastMsg",it.data!!.chatList.toString())
-
                     }
-
                 }
                 Status.ERROR -> {
                     binding.loader.hide()
-                    (requireActivity() as HomeActivity).showErrorToast(
-                        it.message!!
-                    )
+                    (requireActivity() as HomeActivity).showErrorToast(it.message!!)
                 }
             }
         })
-
-
     }
-
-    private fun setChatsData() {
-//        for (i in 1..20) {
-//            chatResponse.add(
-//                Cha(
-//                    R.drawable.img,
-//                    "HoABL Customer Chat Support",
-//                    "Welcome to HoABL. We are excited to.. ",
-//                    "1h"
-//                )
-//            )
-//        }
-    }
-
-
     override fun onChatItemClick(chat: List<ChatList>, view: View, position: Int) {
         val bundle = Bundle()
         bundle.putSerializable("chatModel", chat as Serializable)
         val chatsDetailFragment = ChatsDetailFragment()
         chatsDetailFragment.arguments = bundle
-        (requireActivity() as HomeActivity).replaceFragment(
-            chatsDetailFragment.javaClass,
+        (requireActivity() as HomeActivity).replaceFragment(chatsDetailFragment.javaClass,
             "",
             true,
             bundle,
@@ -104,10 +80,5 @@ class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
             0,
             false
         )
-        Toast.makeText(context, "Chat Detail", Toast.LENGTH_SHORT).show()
-
-
     }
-
-
 }

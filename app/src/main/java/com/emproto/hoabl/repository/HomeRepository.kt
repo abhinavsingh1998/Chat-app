@@ -2,7 +2,6 @@ package com.emproto.hoabl.repository
 
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
@@ -11,7 +10,7 @@ import com.emproto.networklayer.feature.HomeDataSource
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
-import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
@@ -177,5 +176,38 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         }
         return mChatResponse
     }
+
+
+    fun chatInitiate(): LiveData<BaseResponse<ChatDetailResponse>> {
+        val mChatDetailResponse = MutableLiveData<BaseResponse<ChatDetailResponse>>()
+        mChatDetailResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = HomeDataSource(application).chatInitiate()
+                if (request.isSuccessful) {
+                    if (request.body() != null&& request.body() is ChatDetailResponse) {
+                        mChatDetailResponse.postValue(BaseResponse.success(request.body()!!))
+
+                    }
+                    else {
+                        mChatDetailResponse.postValue(BaseResponse.Companion.error("No data found"))
+                    }
+                } else {
+                    mChatDetailResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+
+                mChatDetailResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mChatDetailResponse
+    }
+
 
 }

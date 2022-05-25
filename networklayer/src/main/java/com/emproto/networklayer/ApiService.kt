@@ -113,4 +113,7 @@ public interface ApiService {
 
     @GET(ApiConstants.CHATS_LIST)
     suspend fun getChatsList(): Response<ChatResponse>
+
+    @PUT(ApiConstants.CHATS_INITIATE)
+    suspend fun chatInitiate(): Response<ChatDetailResponse>
 }

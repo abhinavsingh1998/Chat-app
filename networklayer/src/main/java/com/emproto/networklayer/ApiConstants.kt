@@ -29,6 +29,8 @@ object ApiConstants {
     const val FACILITY_MANAGMENT = "hoabl-customer/facility/authenticate"
     const val REFER_NOW = "hoabl-customer/addReferral"
     const val CHATS_LIST = "hoabl-customer/chats"
+    const val CHATS_INITIATE = "hoabl-customer/chat/initiate"
+
 
 
 

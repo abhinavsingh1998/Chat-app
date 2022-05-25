@@ -21,22 +21,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMessage"
+    <TextView
+        android:id="@+id/tvMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/chat_blue_card"
+        android:layout_marginTop="8dp"
+        android:textStyle="normal"
+        android:textSize="12sp"
+        android:paddingLeft="8dp"
+        android:letterSpacing="-0.02"
+        android:paddingRight="8dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="#494a67"
+        android:gravity="center_vertical"
+        android:text="Hi Anuj Singh! Thanks for connecting. \nI am Chat Bot. I will be helping you \nwith your queries today."
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvChatTime"
-        tools:itemCount="1"
-        tools:listitem="@layout/item_message" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvOptions"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/rvMessage"
+        app:layout_constraintEnd_toEndOf="@id/tvMessage"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rvMessage"
+        app:layout_constraintTop_toBottomOf="@id/tvMessage"
         tools:itemCount="4"
         tools:listitem="@layout/item_option" />
 </androidx.constraintlayout.widget.ConstraintLayout>

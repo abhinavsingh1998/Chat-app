@@ -161,11 +161,7 @@
         app:layout_constraintEnd_toEndOf="@+id/clSearch"
         app:layout_constraintTop_toBottomOf="@id/tvWelcomeMsg"
         tools:listitem="@layout/item_chat_detail" />
-        app:layout_constraintBottom_toTopOf="@+id/clType"
-        app:layout_constraintStart_toStartOf="@id/clSearch"
-        app:layout_constraintTop_toBottomOf="@+id/tvDay"
-        app:layout_constraintEnd_toEndOf="@+id/clSearch"
-        tools:listitem="@layout/item_chat_receiver" />
+
 
 
 
@@ -256,6 +252,15 @@
             app:layout_constraintBottom_toBottomOf="@id/tvStartChat"
             android:src="@drawable/start_chat_arrow"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/loader"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@ import com.emproto.hoabl.repository.HomeRepository
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.home.PageManagementOrInsight
 import com.emproto.networklayer.response.home.PageManagementOrLatestUpdate
@@ -34,7 +35,6 @@ class HomeViewModel(
 
     private var latestUpdates = MutableLiveData<PageManagementOrLatestUpdate>()
     private var insights = MutableLiveData<PageManagementOrInsight>()
-    private var chatsList = MutableLiveData<ChatResponse>()
 
     private var position = MutableLiveData<LatesUpdatesPosition>()
 
@@ -103,8 +103,11 @@ class HomeViewModel(
     fun getChatsList(): LiveData<BaseResponse<ChatResponse>> {
         return homeRepository.getChatsList()
     }
-
+    fun chatInitiate(): LiveData<BaseResponse<ChatDetailResponse>> {
+        return homeRepository.chatInitiate()
+    }
     fun getReferNow(referalRequest: ReferalRequest): LiveData<BaseResponse<ReferalResponse>> {
         return homeRepository.addReferral(referalRequest)
     }
+
 }
