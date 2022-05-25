@@ -265,7 +265,11 @@ class ProjectDetailFragment : BaseFragment() {
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_EIGHT))
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_NINE))
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_TEN))
-        list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_ELEVEN))
+        when{
+            data.projectContentsAndFaqs.isNotEmpty() -> {
+                list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_ELEVEN))
+            }
+        }
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_TWELVE))
         when {
             data.similarInvestments.isNotEmpty() -> {
@@ -300,7 +304,6 @@ class ProjectDetailFragment : BaseFragment() {
                     investmentViewModel.setMapLocationInfrastructure(mapLocationData)
                     val bundle = Bundle()
                     bundle.putSerializable("Location",MapLocationModel(12.9274,77.586387,12.9287469,77.5867364) as Serializable)
-//                    investmentViewModel.setMapLocation(MapLocationModel(12.9274,77.586387,12.9287469,77.5867364 ))
                     val fragment = MapFragment()
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(

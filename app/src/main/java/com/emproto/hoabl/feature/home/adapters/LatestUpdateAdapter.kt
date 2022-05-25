@@ -26,7 +26,7 @@ class LatestUpdateAdapter(
         holder.binding.tvName.text= item.subTitle
         holder.binding.description.text= item.detailedInfo[0].description
 
-        if (item.detailedInfo[position].media!= null){
+        if (item.detailedInfo[0].media!= null){
             Glide.with(context).load(item.detailedInfo[0]?.media?.value.url)
                 .into(holder.binding.image)
 

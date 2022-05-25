@@ -44,6 +44,8 @@ class MediaGalleryFragment:BaseFragment() {
         investmentViewModel =
             ViewModelProvider(requireActivity(), investmentFactory)[InvestmentViewModel::class.java]
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.VISIBLE
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility = View.VISIBLE
+
     }
 
     private fun setUpTabLayoutViewPager() {
