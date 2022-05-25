@@ -26,6 +26,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + parentJob)
     val mPromisesResponse = MutableLiveData<BaseResponse<PromisesResponse>>()
+    val mHomeResponse = MutableLiveData<BaseResponse<HomeResponse>>()
 
 
     /**
@@ -71,32 +72,32 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
      * @return
      */
     fun getDashboardData(pageType: Int): LiveData<BaseResponse<HomeResponse>> {
-
-        val mHomeResponse = MutableLiveData<BaseResponse<HomeResponse>>()
-        mHomeResponse.postValue(BaseResponse.loading())
-        coroutineScope.launch {
-            try {
-                val request = HomeDataSource(application).getDashboardData(pageType)
-                if (request.isSuccessful) {
-                    if (request.body()!!.data != null)
-                        mHomeResponse.postValue(BaseResponse.success(request.body()!!))
-                    else
-                        mHomeResponse.postValue(BaseResponse.Companion.error("No data found"))
-                } else {
-                    mHomeResponse.postValue(
-                        BaseResponse.Companion.error(
-                            getErrorMessage(
-                                request.errorBody()!!.string()
+        if (mHomeResponse.value == null) {
+            mHomeResponse.postValue(BaseResponse.loading())
+            coroutineScope.launch {
+                try {
+                    val request = HomeDataSource(application).getDashboardData(pageType)
+                    if (request.isSuccessful) {
+                        if (request.body()!!.data != null)
+                            mHomeResponse.postValue(BaseResponse.success(request.body()!!))
+                        else
+                            mHomeResponse.postValue(BaseResponse.Companion.error("No data found"))
+                    } else {
+                        mHomeResponse.postValue(
+                            BaseResponse.Companion.error(
+                                getErrorMessage(
+                                    request.errorBody()!!.string()
+                                )
                             )
                         )
-                    )
+                    }
+                } catch (e: Exception) {
+                    mHomeResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
                 }
-            } catch (e: Exception) {
-                mHomeResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
             }
+
         }
         return mHomeResponse
-
     }
 
     fun getTermsCondition(pageType: Int): LiveData<BaseResponse<TermsConditionResponse>> {
