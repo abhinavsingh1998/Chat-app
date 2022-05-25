@@ -246,8 +246,9 @@ class PortfolioSpecificViewAdapter(
                         "₹" + data.investmentInformation.bookingJourney.amountPending
                     binding.tvRegistryAmount.text = "₹" + data.investmentInformation.registryAmount
                     binding.tvOtherExpenses.text = "₹" + data.investmentInformation.otherExpenses
-                    //binding.tvLatitude.text = data.projectExtraDetails.latitude
-                    //binding.tvLongitude.text = data.projectExtraDetails.longitude
+                    binding.tvLatitude.text = data.projectInformation.crmProject.lattitude
+                    binding.tvLongitude.text = data.projectInformation.crmProject.longitude
+                    binding.tvAltitude.text = data.projectInformation.crmProject.altitude
                     binding.ownersName.text = data.investmentInformation.owners
 
                     //binding.tvRegistrationNumber.text = reraNumber
@@ -264,7 +265,10 @@ class PortfolioSpecificViewAdapter(
                 ivInterface.seeBookingJourney()
             }
             binding.tvSeeProjectDetails.setOnClickListener {
-                ivInterface.seeProjectDetails()
+                ivInterface.seeProjectDetails(data.projectInformation.id)
+            }
+            binding.tvSeeOnMap.setOnClickListener {
+                ivInterface.seeOnMap("23.640699", "85.282204")
             }
         }
     }
@@ -330,7 +334,7 @@ class PortfolioSpecificViewAdapter(
             imagesList.addAll(imagesData.videos)
             imagesList.addAll(imagesData.threeSixtyImages)
 
-            latestImagesVideosAdapter = VideoAdapter(imagesList)
+            latestImagesVideosAdapter = VideoAdapter(imagesList, ivInterface)
             val layoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
             binding.rvLatestImagesVideos.layoutManager = layoutManager
             binding.rvLatestImagesVideos.adapter = latestImagesVideosAdapter
@@ -449,7 +453,9 @@ class PortfolioSpecificViewAdapter(
         fun readAllFaq()
         fun seePromisesDetails(position: Int)
         fun moreAboutPromises()
-        fun seeProjectDetails()
+        fun seeProjectDetails(projectId: Int)
+        fun seeOnMap(latitude: String, longitude: String)
+        fun onClickImage(url: String)
     }
 
 }

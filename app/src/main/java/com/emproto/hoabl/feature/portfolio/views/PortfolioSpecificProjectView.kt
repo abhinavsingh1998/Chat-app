@@ -30,6 +30,11 @@ import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.io.Serializable
 import javax.inject.Inject
+import android.content.Intent
+import android.net.Uri
+import com.emproto.hoabl.feature.investment.views.mediagallery.MediaViewFragment
+import com.emproto.hoabl.model.MediaViewItem
+
 
 class PortfolioSpecificProjectView : BaseFragment() {
 
@@ -80,6 +85,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
     }
 
     private fun initView() {
+        (requireActivity() as HomeActivity).showHeader()
+
         (requireActivity() as HomeActivity).showBackArrow()
         (requireActivity() as HomeActivity).hideBottomNavigation()
 
@@ -259,10 +266,30 @@ class PortfolioSpecificProjectView : BaseFragment() {
                                             )
                                         }
 
-                                        override fun seeProjectDetails() {
+                                        override fun seeProjectDetails(projectId: Int) {
                                             val bundle = Bundle()
-                                            bundle.putInt("ProjectId", 1)
+                                            bundle.putInt("ProjectId", projectId)
                                             val fragment = ProjectDetailFragment()
+                                            fragment.arguments = bundle
+                                            (requireActivity() as HomeActivity).addFragment(
+                                                fragment, false
+                                            )
+                                        }
+
+                                        override fun seeOnMap(latitude: String, longitude: String) {
+                                            val mapUri: Uri =
+                                                Uri.parse("geo:0,0?q=$latitude,$longitude(Hoabl)")
+                                            val mapIntent = Intent(Intent.ACTION_VIEW, mapUri)
+                                            mapIntent.setPackage("com.google.android.apps.maps")
+                                            startActivity(mapIntent)
+                                        }
+
+                                        override fun onClickImage(url: String) {
+                                            val mediaViewItem =
+                                                MediaViewItem("Photo", url)
+                                            val bundle = Bundle()
+                                            bundle.putSerializable("Data", mediaViewItem)
+                                            val fragment = MediaViewFragment()
                                             fragment.arguments = bundle
                                             (requireActivity() as HomeActivity).addFragment(
                                                 fragment, false
