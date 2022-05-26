@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_color">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -68,12 +69,15 @@
 
 
                 <com.mikhaellopez.circularimageview.CircularImageView
-                    android:id="@+id/aciton_close"
+                    android:id="@+id/profile_image"
                     android:layout_width="wrap_content"
-                    android:layout_height="87dp"
+                    android:layout_height="@dimen/margin_size_88"
                     android:layout_marginStart="@dimen/margin_size_33"
                     android:layout_marginTop="@dimen/margin_size_19"
                     android:src="@drawable/img"
+                    app:civ_shadow="true"
+                    app:civ_shadow_color="@color/text_blue_color"
+                    app:civ_shadow_radius="@dimen/_1sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/profile_picture"
                     tools:ignore="MissingClass">
@@ -88,7 +92,7 @@
                     android:layout_marginStart="@dimen/margin_size_20"
                     android:background="@drawable/ic_upload_6"
                     app:layout_constraintBottom_toBottomOf="@+id/upload_new_picture"
-                    app:layout_constraintStart_toEndOf="@+id/aciton_close"
+                    app:layout_constraintStart_toEndOf="@+id/profile_image"
                     app:layout_constraintTop_toTopOf="@+id/upload_new_picture" />
 
                 <TextView
@@ -100,7 +104,7 @@
                     android:layout_marginTop="20dp"
                     android:text="@string/upload_new_picture"
                     app:layout_constraintStart_toEndOf="@+id/upload_image"
-                    app:layout_constraintTop_toTopOf="@+id/aciton_close" />
+                    app:layout_constraintTop_toTopOf="@+id/profile_image" />
 
 
                 <ImageView
@@ -111,7 +115,7 @@
                     android:background="@drawable/ic_remove_4"
                     android:fontFamily="@font/jostmedium"
                     app:layout_constraintBottom_toBottomOf="@+id/tvremove"
-                    app:layout_constraintStart_toEndOf="@+id/aciton_close"
+                    app:layout_constraintStart_toEndOf="@+id/profile_image"
                     app:layout_constraintTop_toTopOf="@+id/tvremove" />
 
 
@@ -139,7 +143,7 @@
                     android:lineSpacingExtra="0sp"
                     android:text="@string/personal_details"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/aciton_close" />
+                    app:layout_constraintTop_toBottomOf="@+id/profile_image" />
 
                 <TextView
                     android:id="@+id/tv_enter_name"
@@ -192,104 +196,6 @@
                     app:layout_constraintStart_toStartOf="@+id/enter_number_textview"
                     app:layout_constraintTop_toBottomOf="@+id/enter_number_textview" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tv_FirstName"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="@dimen/margin_size_16"
-                    android:layout_marginTop="@dimen/margin_size_25"
-                    android:layout_marginEnd="@dimen/margin_size_16"
-                    android:hint="@string/first_name"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textview_enter_name">
-
-                    <EditText
-                       android:id="@+id/firstname_tv"
-                        style="@style/text_style_text_color_16"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/jost_medium"
-                        android:gravity="center|left"
-                        android:inputType="textPersonName|textCapSentences"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:textAllCaps="false"
-                        android:textColor="@color/text_color"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="344dp"
-                        android:textColorHint="@color/text_grey_color" />
-
-
-
-
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tv_LastName"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_size_16"
-                    android:layout_marginTop="@dimen/margin_size_20"
-                    android:layout_marginEnd="@dimen/margin_size_16"
-                    android:hint="@string/last_name"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_FirstName">
-
-                    <EditText
-                        android:id="@+id/lastname_tv"
-                        style="@style/text_style_text_color_16"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/jost_medium"
-                        android:gravity="center|left"
-                        android:inputType="textPersonName|textCapSentences"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:textAllCaps="false"
-                        android:textColor="@color/text_color"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="344dp"
-                        android:textColorHint="@color/text_grey_color" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tv_PhoneNumber"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_size_16"
-                    android:layout_marginTop="@dimen/margin_size_20"
-                    android:layout_marginEnd="@dimen/margin_size_16"
-                    android:hint="@string/phone_number"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_LastName">
-
-                    <EditText
-                        android:id="@+id/phn_num"
-                        style="@style/text_style_text_color_16"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/jost_medium"
-                        android:gravity="center|left"
-                        android:inputType="textPersonName|textCapSentences"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:textAllCaps="false"
-                        android:textColor="@color/text_color"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="344dp"
-                        android:textColorHint="@color/text_grey_color"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tv_Email"
@@ -299,10 +205,12 @@
                     android:layout_marginStart="@dimen/margin_size_16"
                     android:layout_marginTop="@dimen/margin_size_20"
                     android:layout_marginEnd="@dimen/margin_size_16"
-                    android:hint="@string/email"
+                    android:hint="@string/email_address"
+                    app:placeholderText="@string/type_here"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_PhoneNumber">
+                    app:layout_constraintTop_toBottomOf="@+id/textview_enter_name">
+
                     <EditText
                         android:id="@+id/email_tv"
                         style="@style/text_style_text_color_16"
@@ -315,9 +223,9 @@
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
                         android:textColor="@color/text_color"
+                        android:textColorHint="@color/text_grey_color"
                         app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="344dp"
-                        android:textColorHint="@color/text_grey_color" />
+                        tools:layout_editor_absoluteY="344dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -328,47 +236,78 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_size_16"
-                    android:layout_marginTop="@dimen/margin_size_20"
+                    android:layout_marginTop="@dimen/margin_size_18"
                     android:hint="@string/date_of_birth_dob"
-                    app:layout_constraintEnd_toStartOf="@+id/gender"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/view"
+                    app:layout_constraintEnd_toStartOf="@id/spinner_gender"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_Email">
+                    app:layout_constraintTop_toBottomOf="@id/tv_Email">
 
                     <EditText
                         android:id="@+id/tvDatePicker"
-                        style="@style/text_style_text_color_16"
+                        style="@style/text_style_text_color_14"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:drawableEnd="@drawable/ic_baseline_calendar_month_24"
+                        android:editable="false"
+                        android:singleLine="true"
                         android:fontFamily="@font/jost_medium"
                         android:gravity="center|left"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
                         android:textColor="@color/text_color"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="344dp"
                         android:textColorHint="@color/text_grey_color"
-                        android:drawableEnd="@drawable/ic_baseline_calendar_month_24"
-                        android:editable="false" />
-
-
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:layout_editor_absoluteY="344dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/spinner_gender"
+                    style="@style/CustomTextInputLayoutWithSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_size_16"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/margin_size_16"
+                    android:hint="@string/gender"
+                    android:orientation="vertical"
+                    app:endIconDrawable="@drawable/ic_arrow_down"
+                    app:boxStrokeWidthFocused="0.7dp"
+                    app:hintTextColor="@color/app_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/dob"
+                    app:layout_constraintTop_toBottomOf="@id/tv_Email"
+                    app:placeholderText="@string/selecte_gender"
+                    app:prefixTextColor="@color/text_color">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/auto_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/jost_medium"
+                        android:gravity="center|left"
+                        android:inputType="text"
+                        android:textSize="@dimen/margin_size_14"
+                        android:singleLine="true"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="@dimen/margin_size_18"
+                        android:paddingBottom="@dimen/margin_size_18"
+                        android:textColor="@color/text_color"
+                        android:textColorHint="@color/text_grey_color" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-
                     android:id="@+id/gender"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_16"
                     android:layout_marginEnd="@dimen/margin_size_16"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/dob"
-                    app:layout_constraintStart_toEndOf="@+id/dob"
-                    app:layout_constraintBottom_toBottomOf="@+id/dob">
+                    app:layout_constraintStart_toEndOf="@id/dob"
+                    app:layout_constraintTop_toBottomOf="@id/tv_Email">
 
                     <com.emproto.core.customdropdown.CustomDropDownEdittext
                         android:id="@+id/gender_editText"
@@ -383,7 +322,6 @@
 
 
                 <TextView
-
                     android:id="@+id/add_details"
                     style="@style/text_style_color_18"
                     android:layout_width="wrap_content"
@@ -406,6 +344,7 @@
                     android:layout_marginTop="@dimen/margin_size_25"
                     android:layout_marginEnd="@dimen/margin_size_16"
                     android:hint="@string/Floor_and_House_Number"
+                    app:placeholderText="@string/type_here"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/add_details">
@@ -423,9 +362,9 @@
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
                         android:textColor="@color/text_color"
+                        android:textColorHint="@color/text_grey_color"
                         app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="344dp"
-                        android:textColorHint="@color/text_grey_color" />
+                        tools:layout_editor_absoluteY="344dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -440,6 +379,7 @@
                     android:layout_marginTop="@dimen/margin_size_20"
                     android:layout_marginEnd="@dimen/margin_size_16"
                     android:hint="@string/Enter_complete_Address"
+                    app:placeholderText="@string/type_here"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/floor_house_num">
@@ -457,9 +397,9 @@
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
                         android:textColor="@color/text_color"
+                        android:textColorHint="@color/text_grey_color"
                         app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="344dp"
-                        android:textColorHint="@color/text_grey_color" />
+                        tools:layout_editor_absoluteY="344dp" />
 
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -475,6 +415,7 @@
                     android:layout_marginTop="@dimen/margin_size_20"
                     android:layout_marginEnd="@dimen/margin_size_16"
                     android:hint="@string/Enter_Locality"
+                    app:placeholderText="@string/type_here"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.631"
                     app:layout_constraintStart_toStartOf="parent"
@@ -492,29 +433,93 @@
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
                         android:textColor="@color/text_color"
+                        android:textColorHint="@color/text_grey_color"
                         app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="344dp"
-                        android:textColorHint="@color/text_grey_color" />
+                        tools:layout_editor_absoluteY="344dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-
-                    android:id="@+id/tv_city"
+                    android:id="@+id/pincode"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_size_16"
+                    android:layout_marginTop="@dimen/margin_size_20"
+                    android:layout_marginEnd="@dimen/margin_size_16"
+                    android:hint="@string/Pincode"
+                    app:placeholderText="@string/type_here"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_locality">
+
+                    <EditText
+                        android:id="@+id/pincode_editText"
+                        style="@style/text_style_text_color_16"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/jost_medium"
+                        android:gravity="center|left"
+                        android:inputType="number"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/text_color"
+                        android:textColorHint="@color/text_grey_color"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:layout_editor_absoluteY="344dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/spinner_city"
+                    style="@style/CustomTextInputLayoutWithSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_size_16"
+                    android:layout_marginTop="@dimen/margin_size_18"
+                    android:hint="@string/City"
+                    android:orientation="vertical"
+                    app:endIconDrawable="@drawable/ic_arrow_down"
+                    app:boxStrokeWidthFocused="0.7dp"
+                    app:hintTextColor="@color/app_color"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/spinner_state"
+                    app:layout_constraintTop_toBottomOf="@id/pincode"
+                    app:placeholderText="@string/selecte_gender"
+                    app:prefixTextColor="@color/text_color">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/auto_city"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/jost_regular"
+                        android:gravity="center|left"
+                        android:textSize="@dimen/text_size_14"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="@dimen/margin_size_18"
+                        android:paddingBottom="@dimen/margin_size_18"
+                        android:textColor="@color/text_color"
+                        android:textColorHint="@color/text_grey_color" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+<!--
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tv_city"
+                    style="@style/CustomTextInputLayoutWithSpinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_16"
                     android:layout_marginTop="@dimen/margin_size_20"
                     android:hint="@string/City"
-                    app:layout_constraintEnd_toStartOf="@+id/state"
-                    app:layout_constraintStart_toEndOf="@+id/view"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toStartOf="@+id/spinner_state"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_locality">
+                    app:layout_constraintTop_toBottomOf="@+id/pincode">
 
                     <com.emproto.core.customdropdown.CustomDropDownEdittext
-                        app:hintText="@string/City"
-                        app:placeholdertext="@string/type_here"
                         android:id="@+id/city"
                         style="@style/text_style_text_color_16"
                         android:layout_width="match_parent"
@@ -524,14 +529,51 @@
                         android:inputType="textPersonName|textCapSentences"
                         android:textAllCaps="false"
                         android:textColor="@color/text_color"
+                        app:hintText="@string/City"
                         app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="344dp"/>
+                        app:placeholdertext="@string/type_here"
+                        tools:layout_editor_absoluteY="344dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-
-
+-->
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/spinner_state"
+                    style="@style/CustomTextInputLayoutWithSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_size_16"
+                    android:orientation="vertical"
+                    app:endIconDrawable="@drawable/ic_arrow_down"
+                    app:boxStrokeWidthFocused="0.7dp"
+                    app:hintTextColor="@color/app_color"
+                    android:layout_marginStart="@dimen/margin_size_16"
+                    android:layout_marginTop="@dimen/margin_size_18"
+                    android:hint="@string/State"
+                    app:layout_constraintStart_toEndOf="@+id/spinner_city"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pincode"
+                    app:placeholderText="@string/State"
+                    app:prefixTextColor="@color/text_color">
 
+                    <AutoCompleteTextView
+                        android:id="@+id/auto_state"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/jostregular"
+                        android:gravity="center|left"
+                        android:textSize="@dimen/text_size_14"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="@dimen/margin_size_18"
+                        android:paddingBottom="@dimen/margin_size_18"
+                        android:textColor="@color/text_color"
+                        android:textColorHint="@color/text_grey_color" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+<!--
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/state"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
@@ -540,92 +582,33 @@
                     android:layout_marginTop="@dimen/margin_size_20"
                     android:layout_marginEnd="@dimen/margin_size_16"
                     android:hint="@string/State"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/tv_city"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_locality">
+                    app:layout_constraintStart_toEndOf="@+id/spinner_city"
+                    app:layout_constraintTop_toBottomOf="@+id/pincode">
 
                     <com.emproto.core.customdropdown.CustomDropDownEdittext
-                        style="@style/text_style_text_color_16"
-                        app:hintText="@string/State"
-                        app:placeholdertext="@string/type_here"
                         android:id="@+id/state_editText"
+                        style="@style/text_style_text_color_16"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:drawableEnd="@drawable/ic_path_10_copy"
                         android:fontFamily="@font/jost_medium"
                         android:gravity="center|left"
-                        android:drawableEnd="@drawable/ic_path_10_copy"
                         android:inputType="textPersonName|textCapSentences"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:textAllCaps="false"
-                        android:textColor="@color/text_color"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="344dp"
-                        android:textColorHint="@color/text_grey_color" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-
-                    android:id="@+id/tv_country"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_size_16"
-                    android:layout_marginTop="@dimen/margin_size_20"
-                    android:hint="@string/country"
-                    app:layout_constraintEnd_toStartOf="@+id/pincode"
-                    app:layout_constraintStart_toEndOf="@+id/view"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_city">
-
-                    <com.emproto.core.customdropdown.CustomDropDownEdittext
-                        android:id="@+id/country_editText"
-                        style="@style/text_style_text_color_16"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/jost_medium"
-                        android:gravity="center|left"
-                        android:inputType="textPersonName|textCapSentences"
                         android:textAllCaps="false"
                         android:textColor="@color/text_color"
                         android:textColorHint="@color/text_grey_color"
-                        app:hintText="@string/country"
+                        app:hintText="@string/State"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:placeholdertext="@string/type_here" />
-
-
+                        app:placeholdertext="@string/selecte_gender"
+                        tools:layout_editor_absoluteY="344dp" />
                 </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
+-->
 
-                    android:id="@+id/pincode"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_size_10"
-                    android:layout_marginTop="@dimen/margin_size_20"
-                    android:layout_marginEnd="@dimen/margin_size_16"
-                    android:hint="@string/Pincode"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tv_country"
-                    app:layout_constraintTop_toBottomOf="@+id/state">
-
-                    <EditText
-                        android:id="@+id/pincode_editText"
-                        style="@style/text_style_text_color_16"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/jost_medium"
-                        android:gravity="center|left"
-                        android:inputType="textPersonName|textCapSentences"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:textAllCaps="false"
-                        android:textColor="@color/text_color"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="344dp"
-                        android:textColorHint="@color/text_grey_color" />
-                </com.google.android.material.textfield.TextInputLayout>
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/save_and_update"
                     style="@style/text_style_white_20"
@@ -647,14 +630,26 @@
                     app:fontName="@string/jost_medium"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/pincode" />
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_state" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/progress_baar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

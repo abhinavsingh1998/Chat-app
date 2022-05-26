@@ -1,12 +1,13 @@
 package com.emproto.networklayer
 
-import com.emproto.networklayer.request.login.profile.EditUserNameRequest
-import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
 import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
+import com.emproto.networklayer.request.login.profile.EditUserNameRequest
+import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
 import com.emproto.networklayer.request.refernow.ReferalRequest
+import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.investment.*
@@ -18,10 +19,7 @@ import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
 import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineResponse
-import com.emproto.networklayer.response.profile.EditProfileResponse
-import com.emproto.networklayer.response.profile.ProfileCountriesResponse
-import com.emproto.networklayer.response.profile.ProfilePictureResponse
-import com.emproto.networklayer.response.profile.ProfileResponse
+import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
@@ -94,11 +92,14 @@ public interface ApiService {
     @GET(ApiConstants.GET_PROFILE)
     suspend fun getUserProfile(): Response<ProfileResponse>
 
+    @DELETE(ApiConstants.UPLOADPROFILEPICTURE)
+    suspend fun deleteProfilePic(): Response<EditProfileResponse>
+
     @GET(ApiConstants.PROJECT_TIMELINE)
     suspend fun getProjectTimeline(@Path("id") id: Int): Response<ProjectTimelineResponse>
 
     @GET(ApiConstants.FACILITY_MANAGMENT)
-    suspend fun getFacilityManagment():Response<FMResponse>
+    suspend fun getFacilityManagment(): Response<FMResponse>
 
     @GET(ApiConstants.INVESTMENT_PROMISES)
     suspend fun getInvestmentsPromises(): Response<InvestmentPromisesResponse>
@@ -107,5 +108,14 @@ public interface ApiService {
     suspend fun getInvestmentsProjectFaq(@Path("projectContentId") projectContentId: Int): Response<FaqDetailResponse>
 
     @POST(ApiConstants.REFER_NOW)
-    suspend fun referNow(@Body referBody:ReferalRequest):Response<ReferalResponse>
+    suspend fun referNow(@Body referBody: ReferalRequest): Response<ReferalResponse>
+
+    @GET(ApiConstants.STATES)
+    suspend fun getStates(@Path("countryIsoCode") countryIsoCode: String): Response<StatesResponse>
+
+    @GET(ApiConstants.CITIES)
+    suspend fun getCities(
+        @Query("stateIsoCode") stateIsoCode: String,
+        @Query("countryIsoCode") countryIsoCode: String
+    ): Response<CitiesResponse>
 }

@@ -87,7 +87,7 @@
 
                 <TextView
                     android:id="@+id/name_tv"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_size_14"
                     android:layout_marginStart="@dimen/margin_size_118"
@@ -95,6 +95,7 @@
                     android:fontFamily="@font/jostmedium"
                     android:lineSpacingExtra="0sp"
                     android:text="@string/abhinandan_lodha"
+                    android:singleLine="true"
                     style="@style/text_style_color_18"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -117,13 +118,14 @@
                 <TextView
                     android:id="@+id/tv_aboutHoabel"
                     style="@style/text_style_color_18"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_15"
                     android:layout_marginTop="@dimen/margin_size_30"
                     android:layout_marginEnd="@dimen/margin_size_250"
                     android:fontFamily="@font/jostregular"
                     android:lineSpacingExtra="0sp"
+                    android:singleLine="true"
                     android:text="@string/about_hoabl"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

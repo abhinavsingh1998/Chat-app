@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.emproto.core.textviews.CustomTextView
+    android:id="@+id/spinner_text"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/text_size_10"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:fontName="@string/jost_medium"
+    android:textSize="@dimen/margin_size_12"
+    android:textColor="@color/black">
+
+</com.emproto.core.textviews.CustomTextView>
