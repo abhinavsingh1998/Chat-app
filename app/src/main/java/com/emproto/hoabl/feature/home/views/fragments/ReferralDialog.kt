@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -114,8 +115,9 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
 
             val referRequest = ReferalRequest(name, mobileNo)
 
-            if (!mobileNo.ValidNO()) {
+            if (mobileNo.length!=10 || !mobileNo.ValidNO()) {
                 mBinding.inputMobile.showError()
+                mBinding.errorTxt.isVisible= true
                 return@setOnClickListener
             }
 
