@@ -58,58 +58,34 @@ class LatestUpdatesFragment : BaseFragment() {
 
     private fun initObserver() {
 
-        homeViewModel.getDashboardData(5001)
-            .observe(viewLifecycleOwner
-            ) { it ->
-                when (it!!.status) {
-                    Status.LOADING -> {
-                        mBinding.rootView.hide()
-                        mBinding.loader.show()
-                    }
-                    Status.SUCCESS -> {
-                        mBinding.rootView.show()
-                        mBinding.loader.hide()
-
-                        //loading List
-                        it.data!!.data.pageManagementOrLatestUpdates.size
-                        latestUpatesAdapter = AllLatestUpdatesAdapter(requireActivity(),
-                            it.data!!.data.pageManagementOrLatestUpdates,
-                            object : AllLatestUpdatesAdapter.UpdatesItemsInterface {
-                                override fun onClickItem(position: Int) {
-                                    homeViewModel.setSeLectedLatestUpdates(it.data!!.data.pageManagementOrLatestUpdates[position])
-                                    homeViewModel.setSelectedPosition(LatesUpdatesPosition(position,
-                                        it.data!!.data.pageManagementOrLatestUpdates.size))
-                                    (requireActivity() as HomeActivity).replaceFragment(
-                                        LatestUpdatesDetailsFragment()::class.java,
-                                        "",
-                                        true,
-                                        null,
-                                        null,
-                                        0,
-                                        true
-                                    )
-                                }
-
-                            }
-                        )
-                        linearLayoutManager = LinearLayoutManager(
-                            requireContext(),
-                            RecyclerView.VERTICAL,
-                            false
-                        )
-                        mBinding.recyclerLatestUpdates.layoutManager = linearLayoutManager
-                        mBinding.recyclerLatestUpdates.adapter = latestUpatesAdapter
+        homeViewModel.gethomeData().observe(viewLifecycleOwner, Observer {
+            mBinding.rootView.show()
+            mBinding.loader.hide()
+            it.let {
+                //loading List
+                it.data!!.pageManagementOrLatestUpdates.size
+                latestUpatesAdapter = AllLatestUpdatesAdapter(requireActivity(),
+                    it.data!!.pageManagementOrLatestUpdates,
+                    object : AllLatestUpdatesAdapter.UpdatesItemsInterface {
+                        override fun onClickItem( position: Int) {
+                            homeViewModel.setSeLectedLatestUpdates(it.data!!.pageManagementOrLatestUpdates[position])
+                            homeViewModel.setSelectedPosition(LatesUpdatesPosition(position,
+                                it.data!!.pageManagementOrLatestUpdates.size))
+                            (requireActivity() as HomeActivity).addFragment(LatestUpdatesDetailsFragment(),
+                            false)
+                        }
 
                     }
-                    Status.ERROR -> {
-                        //binding.loader.hide()
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            it.message!!
-                        )
-                    }
-
-                }
+                )
+                linearLayoutManager = LinearLayoutManager(
+                    requireContext(),
+                    RecyclerView.VERTICAL,
+                    false
+                )
+                mBinding.recyclerLatestUpdates.layoutManager = linearLayoutManager
+                mBinding.recyclerLatestUpdates.adapter = latestUpatesAdapter
             }
+        })
     }
 
     private fun initClickListner() {

@@ -1,6 +1,8 @@
 package com.emproto.hoabl.model
 
-data class MediaViewItem (
-    val mediaType:String,
-    val media:String
-        )
+import java.io.Serializable
+
+data class MediaViewItem(
+    val mediaType: String,
+    val media: String
+) : Serializable

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.View.OnTouchListener
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseActivity
 import com.emproto.core.button.OnButtonClickListener
@@ -116,8 +117,12 @@ class IntroSliderActivity : BaseActivity(), StoriesProgressView.StoriesListener 
     fun btn_txt_chnage(){
         if (counter==2){
             activityIntrosliderBinding.buttonSkip.setText("Get Started")
-        } else{
+            activityIntrosliderBinding.tmTxt.text=""
+        } else if(counter==1){
+            activityIntrosliderBinding.tmTxt.text=""
             activityIntrosliderBinding.buttonSkip.setText("Skip & Get Started")
+        } else {
+            activityIntrosliderBinding.tmTxt.text="TM"
         }
     }
 

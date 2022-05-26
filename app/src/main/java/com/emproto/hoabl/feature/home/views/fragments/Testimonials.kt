@@ -20,6 +20,7 @@ import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.home.HomeResponse
+import java.util.*
 import javax.inject.Inject
 
 
@@ -54,42 +55,26 @@ class Testimonials : BaseFragment() {
 
     private fun initObserver() {
 
-        homeViewModel.getDashboardData(5001)
-            .observe(viewLifecycleOwner, object : Observer<BaseResponse<HomeResponse>> {
-                override fun onChanged(it: BaseResponse<HomeResponse>?) {
-                    when (it!!.status) {
-                        Status.LOADING -> {
-                            mBinding.rootView.hide()
-                            mBinding.loader.show()
-                        }
-                        Status.SUCCESS -> {
-                            mBinding.rootView.show()
-                            mBinding.loader.hide()
+        homeViewModel.gethomeData().observe(viewLifecycleOwner, Observer {
+            mBinding.rootView.show()
+            mBinding.loader.hide()
 
-                            //loading List
-                            testimonialsAdapter = TestimonialsAdapter(requireActivity(),
-                                it.data!!.data.pageManagementsOrTestimonials
-                            )
-                            linearLayoutManager = LinearLayoutManager(
-                                requireContext(),
-                                RecyclerView.VERTICAL,
-                                false
-                            )
-                            mBinding.recyclerTestimonilas.layoutManager = linearLayoutManager
-                            mBinding.recyclerTestimonilas.adapter = testimonialsAdapter
+            it.let {
+                //loading List
+                testimonialsAdapter = TestimonialsAdapter(requireActivity(),
+                    it.data!!.pageManagementsOrTestimonials
+                )
+                linearLayoutManager = LinearLayoutManager(
+                    requireContext(),
+                    RecyclerView.VERTICAL,
+                    false
+                )
+                mBinding.recyclerTestimonilas.layoutManager = linearLayoutManager
+            }
 
-                        }
-                        Status.ERROR -> {
-                            //binding.loader.hide()
-                            (requireActivity() as HomeActivity).showErrorToast(
-                                it.message!!
-                            )
-                        }
 
-                    }
-                }
-
-            })
+            mBinding.recyclerTestimonilas.adapter = testimonialsAdapter
+        })
     }
 
     private fun initClickListner() {
@@ -97,7 +82,13 @@ class Testimonials : BaseFragment() {
         mBinding.referralLayout.appShareBtn.setOnClickListener(View.OnClickListener {
             share_app()
         })
+
+        mBinding.referralLayout.btnReferNow.setOnClickListener(View.OnClickListener {
+            referNow()
+        })
     }
+
+
 
     private fun share_app() {
         val shareIntent = Intent(Intent.ACTION_SEND)
@@ -106,4 +97,12 @@ class Testimonials : BaseFragment() {
         shareIntent.putExtra(Intent.EXTRA_TEXT, "The House Of Abhinandan Lodha $appURL")
         startActivity(shareIntent)
     }
+
+    private fun referNow() {
+
+            val dialog = ReferralDialog()
+            dialog.isCancelable = true
+            dialog.show(parentFragmentManager, "Refrral card")
+
+        }
 }

@@ -216,8 +216,10 @@ class PortfolioSpecificViewAdapter(
                 binding.tvProjectLocation.text =
                     data.projectExtraDetails.address.city + " " + data.projectExtraDetails.address.state
                 if (data.investmentInformation != null) {
-                    binding.tvPaidAmount.text = "₹" + data.investmentInformation.paidAmount
-                    binding.tvPendingAmount.text = "₹" + data.investmentInformation.amountPending
+                    binding.tvPaidAmount.text =
+                        "₹" + data.investmentInformation.bookingJourney.paidAmount
+                    binding.tvPendingAmount.text =
+                        "₹" + data.investmentInformation.bookingJourney.amountPending
                     binding.tvAreaUnit.text = "" + data.investmentInformation.areaSqFt + " sqft"
                     binding.tvProjectInfo.text = data.projectInformation.shortDescription
                     var reraNumber = ""
@@ -225,20 +227,28 @@ class PortfolioSpecificViewAdapter(
                         reraNumber = reraNumber + item + "\n"
                     }
                     binding.tvAllocationDate.text =
-                        Utility.parseDateFromUtc(data.investmentInformation.allocationDate, null)
+                        Utility.parseDateFromUtc(
+                            data.investmentInformation.bookingJourney.allocationDate,
+                            null
+                        )
                     binding.tvPossessionDate.text =
-                        Utility.parseDateFromUtc(data.investmentInformation.possesionDate, null)
+                        Utility.parseDateFromUtc(
+                            data.investmentInformation.bookingJourney.possesionDate,
+                            null
+                        )
                     //view more
                     binding.tvLandId.text = data.investmentInformation.inventoryId
                     binding.tvSkuType.text = data.investmentInformation.inventoryBucket
                     binding.tvInvestmentAmount.text =
                         "₹" + data.investmentInformation.amountInvested
                     binding.tvAmountPaid.text = "₹" + data.investmentInformation.amountInvested
-                    binding.tvAmountPending.text = "₹" + data.investmentInformation.amountPending
+                    binding.tvAmountPending.text =
+                        "₹" + data.investmentInformation.bookingJourney.amountPending
                     binding.tvRegistryAmount.text = "₹" + data.investmentInformation.registryAmount
                     binding.tvOtherExpenses.text = "₹" + data.investmentInformation.otherExpenses
-                    binding.tvLatitude.text = data.projectExtraDetails.latitude
-                    binding.tvLongitude.text = data.projectExtraDetails.longitude
+                    binding.tvLatitude.text = data.projectInformation.crmProject.lattitude
+                    binding.tvLongitude.text = data.projectInformation.crmProject.longitude
+                    binding.tvAltitude.text = data.projectInformation.crmProject.altitude
                     binding.ownersName.text = data.investmentInformation.owners
 
                     //binding.tvRegistrationNumber.text = reraNumber
@@ -253,6 +263,12 @@ class PortfolioSpecificViewAdapter(
             }
             binding.tvViewBookingJourney.setOnClickListener {
                 ivInterface.seeBookingJourney()
+            }
+            binding.tvSeeProjectDetails.setOnClickListener {
+                ivInterface.seeProjectDetails(data.projectInformation.id)
+            }
+            binding.tvSeeOnMap.setOnClickListener {
+                ivInterface.seeOnMap("23.640699", "85.282204")
             }
         }
     }
@@ -318,7 +334,7 @@ class PortfolioSpecificViewAdapter(
             imagesList.addAll(imagesData.videos)
             imagesList.addAll(imagesData.threeSixtyImages)
 
-            latestImagesVideosAdapter = VideoAdapter(imagesList)
+            latestImagesVideosAdapter = VideoAdapter(imagesList, ivInterface)
             val layoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
             binding.rvLatestImagesVideos.layoutManager = layoutManager
             binding.rvLatestImagesVideos.adapter = latestImagesVideosAdapter
@@ -332,6 +348,9 @@ class PortfolioSpecificViewAdapter(
             val promisesData = list[position].data as ProjectPromises
             promisesAdapter = HoABLPromisesAdapter(context, promisesData.data, ivInterface)
             binding.rvApplicablePromises.adapter = promisesAdapter
+            binding.btnMoreAboutPromises.setOnClickListener {
+                ivInterface.moreAboutPromises()
+            }
         }
     }
 
@@ -354,7 +373,7 @@ class PortfolioSpecificViewAdapter(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 linedataset.fillColor = context.getColor(R.color.light_app_color)
             }
-            linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
+            linedataset.mode = LineDataSet.Mode.LINEAR;
 
             //We connect our data to the UI Screen
             val data = LineData(linedataset)
@@ -364,6 +383,9 @@ class PortfolioSpecificViewAdapter(
             binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
             binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
             binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false);
+            binding.ivPriceTrendsGraph.setTouchEnabled(false)
+            binding.ivPriceTrendsGraph.setPinchZoom(false)
+            binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
             binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false);
@@ -392,7 +414,7 @@ class PortfolioSpecificViewAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             val faqList = list[position].data as List<ProjectContentsAndFaq>
-            faqAdapter = ProjectFaqAdapter(faqList)
+            faqAdapter = ProjectFaqAdapter(context, faqList)
             binding.rvFaq.adapter = faqAdapter
             binding.tvFaqReadAll.visibility = View.VISIBLE
             binding.ivSeeAllArrow.visibility = View.VISIBLE
@@ -407,7 +429,7 @@ class PortfolioSpecificViewAdapter(
         fun bind(position: Int) {
             if (list[position].data != null) {
                 val itemList = list[position].data as List<SimilarInvestment>
-                similarInvestmentsAdapter = SimilarInvestmentAdapter(context, itemList)
+                similarInvestmentsAdapter = SimilarInvestmentAdapter(context, itemList, ivInterface)
                 binding.rvTrendingProjects.adapter = similarInvestmentsAdapter
                 binding.tvTrendingProjectsTitle.text = "Similar Investments"
                 binding.tvTrendingProjectsSubtitle.visibility = View.GONE
@@ -426,8 +448,14 @@ class PortfolioSpecificViewAdapter(
         fun seeBookingJourney()
         fun referNow()
         fun seeAllSimilarInvestment()
+        fun onClickSimilarInvestment(project: Int)
+        fun onApplySinvestment(projectId: Int)
         fun readAllFaq()
         fun seePromisesDetails(position: Int)
+        fun moreAboutPromises()
+        fun seeProjectDetails(projectId: Int)
+        fun seeOnMap(latitude: String, longitude: String)
+        fun onClickImage(url: String)
     }
 
 }

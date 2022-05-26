@@ -16,10 +16,7 @@ import com.emproto.hoabl.feature.portfolio.adapters.ExistingUsersPortfolioAdapte
 import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
-import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
-import com.emproto.networklayer.response.portfolio.dashboard.Address
-import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
 import com.emproto.networklayer.response.watchlist.Data
 import java.io.Serializable
@@ -192,6 +189,14 @@ class PortfolioExistingUsersFragment : BaseFragment(),
     }
 
     override fun onGoingDetails() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickofWatchlist(projectId: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickApplyNow(projectId: Int) {
         TODO("Not yet implemented")
     }
 

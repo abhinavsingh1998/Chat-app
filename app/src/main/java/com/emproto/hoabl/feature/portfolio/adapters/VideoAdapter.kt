@@ -4,11 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.emproto.hoabl.model.ViewItem
 import com.emproto.networklayer.response.portfolio.ivdetails.Image
 import com.example.portfolioui.databinding.ProjectMediaBinding
 
-class VideoAdapter(private val list: List<Image>) :
+class VideoAdapter(
+    private val list: List<Image>,
+    val ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface
+) :
     RecyclerView.Adapter<VideoAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: ProjectMediaBinding) :
@@ -28,6 +30,9 @@ class VideoAdapter(private val list: List<Image>) :
         Glide.with(holder.itemView.context)
             .load(element.mediaContent.value.url)
             .into(holder.binding.ivLatestImage)
+        holder.binding.ivLatestImage.setOnClickListener {
+            ivInterface.onClickImage(element.mediaContent.value.url)
+        }
     }
 
     override fun getItemCount(): Int = list.size

@@ -11,6 +11,8 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.networklayer.response.investment.OpprotunityDoc
+import com.emproto.networklayer.response.investment.ProjectAminity
+import com.emproto.networklayer.response.investment.Story
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -38,6 +40,7 @@ class OpportunityDocsAdapter(
     private lateinit var currentInfraStoryAdapter: CurrentInfraStoryAdapter
     private lateinit var upcomingInfraStoryAdapter: UpcomingInfraStoryAdapter
     private lateinit var onItemClickListener : View.OnClickListener
+    private lateinit var projectAmenitiesAdapter: ProjectAmenitiesAdapter
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -140,8 +143,41 @@ class OpportunityDocsAdapter(
 
     private inner class OppDocsTourismViewHolder(private val binding: OppDocsDestinationLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            destinationAdapter = DestinationAdapter(context,data[0].tourismAround.stories)
+            var isClicked = true
+            val list = arrayListOf<Story>()
+            for(i in 0..1){
+                list.add(data[0].tourismAround.stories[i])
+            }
+            destinationAdapter = DestinationAdapter(context,list)
             binding.rvDestination.adapter = destinationAdapter
+            binding.tvViewMore.setOnClickListener {
+                when(isClicked){
+                    true -> {
+                        Glide
+                            .with(context)
+                            .load(R.drawable.ic_arrow_upward)
+                            .into(binding.ivViewMoreArrow)
+                        binding.tvViewMore.text = context.getString(R.string.read_less)
+                        destinationAdapter = DestinationAdapter(context,data[0].tourismAround.stories)
+                        binding.rvDestination.adapter = destinationAdapter
+                        destinationAdapter.notifyDataSetChanged()
+                        isClicked = false
+                    }
+                    false -> {
+                        binding.ivViewMoreArrow.setImageResource(R.drawable.ic_drop_down)
+                        binding.tvViewMore.text = context.getString(R.string.read_more)
+                        list.clear()
+                        for(i in 0..1){
+                            list.add(data[0].tourismAround.stories[i])
+                        }
+                        destinationAdapter = DestinationAdapter(context,list)
+                        binding.rvDestination.adapter = destinationAdapter
+                        destinationAdapter.notifyDataSetChanged()
+                        isClicked = true
+                    }
+                }
+
+            }
         }
     }
 
@@ -163,8 +199,41 @@ class OpportunityDocsAdapter(
                 tvProjectAmenitiesAll.visibility = View.INVISIBLE
                 ivProjectAmenitiesArrow.visibility = View.INVISIBLE
                 tvViewMore.visibility = View.VISIBLE
-                val adapter = ProjectAmenitiesAdapter(context,data[0].projectAminities)
-                rvProjectAmenitiesItemRecycler.adapter = adapter
+                ivViewMoreArrow.visibility = View.VISIBLE
+                var isClicked = true
+                val list = arrayListOf<ProjectAminity>()
+                for(i in 0..1){
+                    list.add(data[0].projectAminities[i])
+                }
+                projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,list)
+                rvProjectAmenitiesItemRecycler.adapter = projectAmenitiesAdapter
+                binding.tvViewMore.setOnClickListener {
+                    when(isClicked){
+                        true -> {
+                            Glide
+                                .with(context)
+                                .load(R.drawable.ic_arrow_upward)
+                                .into(binding.ivViewMoreArrow)
+                            binding.tvViewMore.text = context.getString(R.string.read_less)
+                            projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,data[0].projectAminities)
+                            rvProjectAmenitiesItemRecycler.adapter = projectAmenitiesAdapter
+                            projectAmenitiesAdapter.notifyDataSetChanged()
+                            isClicked = false
+                        }
+                        false -> {
+                            binding.ivViewMoreArrow.setImageResource(R.drawable.ic_drop_down)
+                            binding.tvViewMore.text = context.getString(R.string.read_more)
+                            list.clear()
+                            for(i in 0..1){
+                                list.add(data[0].projectAminities[i])
+                            }
+                            projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,list)
+                            rvProjectAmenitiesItemRecycler.adapter = projectAmenitiesAdapter
+                            projectAmenitiesAdapter.notifyDataSetChanged()
+                            isClicked = true
+                        }
+                    }
+                }
             }
         }
     }

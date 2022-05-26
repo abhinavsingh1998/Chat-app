@@ -1,5 +1,6 @@
 package com.emproto.hoabl.feature.home.views.fragments
 
+import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -7,18 +8,23 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.customedittext.OnValueChangedListener
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ReferralDialogBinding
+import com.emproto.hoabl.databinding.ReferralSuccessDialogBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.enums.Status
+import com.example.portfolioui.databinding.LogoutConfirmationBinding
+import java.util.regex.Pattern
 import javax.inject.Inject
 
 
@@ -29,6 +35,9 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
     var mobileNo = ""
     var name = ""
     var hCountryCode = ""
+
+    val num_patterns  = Pattern.compile("^(0|[1-9][0-9]*)\$")
+
 
     @Inject
     lateinit var factory: HomeFactory
@@ -44,6 +53,8 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
 
         initClickListner()
+
+
         return mBinding.root
     }
 
@@ -101,18 +112,38 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
         }
 
         mBinding.referBtn.setOnClickListener {
+
             val referRequest = ReferalRequest(name, mobileNo)
+
+            if (mobileNo.length!=10 || !mobileNo.ValidNO()) {
+                mBinding.inputMobile.showError()
+                mBinding.errorTxt.isVisible= true
+                return@setOnClickListener
+            }
+
             homeViewModel.getReferNow(referRequest).observe(viewLifecycleOwner, Observer {
                 when (it.status) {
                     Status.SUCCESS -> {
+
+                        val referralDialoglayout = ReferralSuccessDialogBinding.inflate(layoutInflater)
+                        val referralDialog = Dialog(requireContext())
+                        referralDialog.setCancelable(false)
+                        referralDialog.setContentView(referralDialoglayout.root)
+
+                        referralDialog.show()
+                        referralDialoglayout.okayBtn.setOnClickListener(View.OnClickListener {
+                            referralDialog.dismiss()
+
+                        })
                         dismiss()
                     }
                 }
             })
         }
+        }
 
-
-    }
+    fun CharSequence?.ValidNO() =
+        num_patterns.matcher(this).matches()
 
     fun unselected_state() {
         mBinding.referBtn.isClickable = false

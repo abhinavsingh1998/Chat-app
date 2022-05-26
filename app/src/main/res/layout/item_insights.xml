@@ -12,6 +12,7 @@
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root_view"
         android:layout_width="@dimen/margin_size_180"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/margin_size_6">

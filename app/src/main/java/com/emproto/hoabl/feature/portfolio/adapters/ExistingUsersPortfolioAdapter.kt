@@ -2,12 +2,9 @@ package com.emproto.hoabl.feature.portfolio.adapters
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.Typeface
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -18,10 +15,7 @@ import com.emproto.networklayer.response.portfolio.dashboard.Completed
 import com.emproto.networklayer.response.portfolio.dashboard.Ongoing
 import com.emproto.networklayer.response.portfolio.dashboard.Project
 import com.emproto.networklayer.response.watchlist.Data
-import com.emproto.networklayer.response.investment.SimilarInvestment
-import com.emproto.networklayer.response.portfolio.dashboard.Address
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
-import com.google.android.material.textview.MaterialTextView
 import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.BalloonSizeSpec
 import com.skydoves.balloon.createBalloon
@@ -323,8 +317,9 @@ class ExistingUsersPortfolioAdapter(
                 list[position].data as List<Data>
             binding.tvSmartDealsSubtitle.visibility = View.GONE
             binding.tvSmartDealsTitle.text = "My WatchList"
-            watchlistAdapter = WatchlistAdapter(context, watchList)
+            watchlistAdapter = WatchlistAdapter(context, watchList, onItemClickListener)
             binding.rvSmartDealsNv.adapter = watchlistAdapter
+            binding.rvSmartDealsNv.setHasFixedSize(true)
             binding.tvSmartDealsSeeAll.setOnClickListener {
                 onItemClickListener.seeAllWatchlist()
             }
@@ -347,6 +342,8 @@ class ExistingUsersPortfolioAdapter(
         fun seeAllWatchlist()
         fun investNow()
         fun onGoingDetails()
+        fun onClickofWatchlist(projectId: Int)
+        fun onClickApplyNow(projectId: Int)
     }
 
 }

@@ -28,10 +28,8 @@ import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.notification.HoabelNotifiaction
 import com.emproto.hoabl.feature.home.notification.adapter.NotificationAdapter
 import com.emproto.hoabl.feature.home.notification.data.NotificationDataModel
-import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.home.views.fragments.SearchResultFragment
-import com.emproto.hoabl.feature.investment.views.CategoryListFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
 import com.emproto.hoabl.feature.portfolio.views.*
 import com.emproto.hoabl.feature.promises.HoablPromises
@@ -39,9 +37,6 @@ import com.emproto.hoabl.feature.profile.ProfileFragment
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
-import com.emproto.networklayer.response.BaseResponse
-import com.emproto.networklayer.response.enums.Status
-import com.emproto.networklayer.response.home.HomeResponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -76,6 +71,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         activityHomeActivity = ActivityHomeBinding.inflate(layoutInflater)
         (application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+        activityHomeActivity.searchLayout.rotateText.text= " "
 //        investmentViewModel =
 //            ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
 
@@ -93,30 +89,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             navigate(R.id.navigation_hoabl) // change to whichever id should be default
         }
 
-        activityHomeActivity.searchLayout.imageBack.setOnClickListener(object :
-            View.OnClickListener {
-            override fun onClick(p0: View?) {
-                onBackPressed()
-            }
-        })
-
-        activityHomeActivity.searchLayout.headset.setOnClickListener {
-            val bundle = Bundle()
-            val chatsFragment = ChatsFragment()
-            chatsFragment.arguments = bundle
-            replaceFragment(
-                chatsFragment.javaClass,
-                "",
-                true,
-                bundle,
-                null,
-                0,
-                false
-            )
-            Toast.makeText(applicationContext, "Chat bot", Toast.LENGTH_SHORT).show()
-        }
+        activityHomeActivity.searchLayout.imageBack.setOnClickListener { onBackPressed() }
         initData()
-
         initClickListener()
     }
 
@@ -396,30 +370,23 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     @SuppressLint("SetTextI18n")
     fun initData(){
-        homeViewModel.getDashboardData(5001).observe(this, object :Observer<BaseResponse<HomeResponse>>{
-            override fun onChanged(it: BaseResponse<HomeResponse>?) {
-                when (it!!.status){
-                    Status.LOADING ->{
-                        activityHomeActivity.searchLayout.rotateText.text= " "
-                    }
-                    Status.SUCCESS ->{
-                            val totalLandsold: String? =
-                                it.data?.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName + " " + it.data?.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value
-                            val totalAmtLandSold: String? =
-                                it.data?.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName + " " + it.data?.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
-                            val grossWeight: String? =
-                                it.data?.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName + " " + it.data?.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
-                            val num_User: String? =
-                                it.data?.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName + " " + it.data?.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
-                            activityHomeActivity.searchLayout.rotateText.text =
-                                "$totalAmtLandSold    $totalLandsold Sqft    $grossWeight    $num_User"
+        homeViewModel.gethomeData().observe(this, Observer {
 
-                    }
-                }
+            it.let {
+                val totalLandsold: String? =
+                    it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value
+                val totalAmtLandSold: String? =
+                    it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
+                val grossWeight: String? =
+                    it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName + " " + it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
+                val num_User: String? =
+                    it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName + " " + it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
+                activityHomeActivity.searchLayout.rotateText.text =
+                    "$totalAmtLandSold    $totalLandsold Sqft    $grossWeight    $num_User"
+
             }
 
-        }
-        )
+        })
     }
 
 }

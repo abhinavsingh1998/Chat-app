@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.emproto.hoabl.model.MapLocationModel
 import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.repository.InvestmentRepository
 import com.emproto.networklayer.response.BaseResponse
@@ -22,6 +23,12 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
     private var mediaData  = MutableLiveData<ProjectCoverImages>()
     private var mediaViewItem = MutableLiveData<MediaViewItem>()
     private var newInvestments = MutableLiveData<List<PageManagementsOrNewInvestment>>()
+    private var allInvestments = MutableLiveData<List<ApData>>()
+    private var sDLiveData = MutableLiveData<Boolean>()
+    private var tPLiveData = MutableLiveData<Boolean>()
+    private var nLLiveData = MutableLiveData<Boolean>()
+    private var aPLiveData = MutableLiveData<Boolean>()
+    private var locationData = MutableLiveData<MapLocationModel>()
 
     fun getInvestments(pageType: Int): LiveData<BaseResponse<InvestmentResponse>> {
         return investmentRepository.getInvestments(pageType)
@@ -33,6 +40,10 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
 
     fun getInvestmentsPromises(): LiveData<BaseResponse<InvestmentPromisesResponse>> {
         return investmentRepository.getInvestmentsPromises()
+    }
+
+    fun getAllInvestmentsProjects(): LiveData<BaseResponse<AllProjectsResponse>> {
+        return investmentRepository.getAllInvestmentsProjects()
     }
 
     fun getInvestmentsFaq(id: Int): LiveData<BaseResponse<FaqDetailResponse>> {
@@ -53,6 +64,14 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
 
     fun getNewInvestments(): LiveData<List<PageManagementsOrNewInvestment>> {
         return newInvestments
+    }
+
+    fun setAllInvestments(allInvestments: List<ApData>) {
+        this.allInvestments.postValue(allInvestments)
+    }
+
+    fun getAllInvestments(): LiveData<List<ApData>> {
+        return allInvestments
     }
 
     fun setTrendingList(trending: List<PageManagementsOrCollectionTwoModel>) {
@@ -118,4 +137,45 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
     fun getSku(): LiveData<InventoryBucketContent> {
         return skusLiveData
     }
+
+    fun setSd(data:Boolean){
+        this.sDLiveData.postValue(data)
+    }
+
+    fun getSd(): LiveData<Boolean> {
+        return sDLiveData
+    }
+
+    fun setTp(data:Boolean){
+        this.tPLiveData.postValue(data)
+    }
+
+    fun getTp(): LiveData<Boolean> {
+        return tPLiveData
+    }
+
+    fun setNl(data:Boolean){
+        this.nLLiveData.postValue(data)
+    }
+
+    fun getNl(): LiveData<Boolean> {
+        return nLLiveData
+    }
+
+    fun setAp(data:Boolean){
+        this.aPLiveData.postValue(data)
+    }
+
+    fun getAp(): LiveData<Boolean> {
+        return aPLiveData
+    }
+
+    fun setMapLocation(data:MapLocationModel){
+        this.locationData.postValue(data)
+    }
+
+    fun getMapLocation(): LiveData<MapLocationModel> {
+        return locationData
+    }
+
 }

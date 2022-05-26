@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <androidx.cardview.widget.CardView
+        android:layout_width="@dimen/margin_size_285"
+        android:layout_height="@dimen/margin_size_200"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:cardCornerRadius="5dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ticker_img"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/confirmation_sign"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="@dimen/margin_size_28"
+                android:layout_marginBottom="@dimen/margin_size_125"/>
+
+            <com.emproto.core.textviews.CustomTextView
+                android:id="@+id/succecss_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                style="@style/text_light_black_14"
+                android:layout_marginTop="@dimen/margin_size_25"
+                android:text="Referral sent successfully!"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ticker_img" />
+
+            <View
+                android:id="@+id/border_line"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/text_grey_color"
+                app:layout_constraintTop_toBottomOf="@id/succecss_txt"
+                android:layout_marginTop="@dimen/margin_size_25"/>
+
+            <com.emproto.core.textviews.CustomTextView
+                android:id="@+id/okay_btn"
+                style="@style/text_style_blue_16"
+                android:fontFamily="@font/jost_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OKAY"
+                android:layout_marginTop="@dimen/margin_size_15"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/border_line"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

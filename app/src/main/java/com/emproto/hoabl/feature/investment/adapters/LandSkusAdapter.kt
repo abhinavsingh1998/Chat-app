@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.investment.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.LandSkusAppliedLayoutBinding
@@ -27,7 +28,7 @@ class LandSkusAdapter(
 
     private lateinit var skusListAdapter: SkusListAdapter
     private lateinit var skusListAppliedAdapter: SkusListAppliedAdapter
-//    private lateinit var onItemClickListener : View.OnClickListener
+    private lateinit var onItemClickListener : View.OnClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
@@ -70,12 +71,12 @@ class LandSkusAdapter(
 
     private inner class LandSkusNotConvincedViewHolder(val binding: NotConvincedLayoutBlackBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-
+            binding.clNotConvinced.setOnClickListener(onItemClickListener)
         }
     }
 
-//    fun setItemClickListener(clickListener: View.OnClickListener) {
-//        onItemClickListener = clickListener
-//    }
+    fun setItemClickListener(clickListener: View.OnClickListener) {
+        onItemClickListener = clickListener
+    }
 
 }

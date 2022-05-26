@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.OptIn
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -13,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MimeTypes
+import androidx.media3.common.util.UnstableApi
 import androidx.media3.common.util.Util
 import androidx.media3.datasource.DataSource
 import androidx.media3.datasource.DefaultDataSourceFactory
@@ -24,17 +26,19 @@ import com.bumptech.glide.Glide
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentMediaViewBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import javax.inject.Inject
 
 
-class MediaViewFragment:BaseFragment() {
+class MediaViewFragment : BaseFragment() {
 
     @Inject
     lateinit var investmentFactory: InvestmentFactory
     lateinit var investmentViewModel: InvestmentViewModel
-    lateinit var binding:FragmentMediaViewBinding
+    lateinit var binding: FragmentMediaViewBinding
 
     private var player: ExoPlayer? = null
     private var playWhenReady = true
@@ -43,7 +47,11 @@ class MediaViewFragment:BaseFragment() {
 
     private lateinit var dataSourceFactory: DataSource.Factory
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentMediaViewBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -68,27 +76,41 @@ class MediaViewFragment:BaseFragment() {
         investmentViewModel =
             ViewModelProvider(requireActivity(), investmentFactory)[InvestmentViewModel::class.java]
         dataSourceFactory = DefaultDataSourceFactory(this.requireContext(), "exoplayer-sample")
+        (requireActivity() as HomeActivity).hideHeader()
     }
 
     @SuppressLint("UnsafeOptInUsageError")
     private fun setUpUI() {
         investmentViewModel.getMediaItem().observe(viewLifecycleOwner, Observer {
-            when(it.mediaType){
-                "Photo" -> {
-                    binding.ivMediaPhoto.visibility= View.VISIBLE
-                    binding.videoView.visibility = View.GONE
-                    Glide
-                        .with(requireContext())
-                        .load(it.media)
-                        .into(binding.ivMediaPhoto)
-                }
-                "Video" -> {
-                    binding.ivMediaPhoto.visibility= View.GONE
-                    binding.videoView.visibility = View.VISIBLE
-                }
-            }
+            showMedia(it)
         })
 
+        //if not from investment module
+        arguments?.let {
+            it.getSerializable("Data")?.let {
+                val data = it as MediaViewItem
+                showMedia(data)
+            }
+        }
+
+    }
+
+    @OptIn(UnstableApi::class)
+    fun showMedia(mediaType: MediaViewItem) {
+        when (mediaType.mediaType) {
+            "Photo" -> {
+                binding.ivMediaPhoto.visibility = View.VISIBLE
+                binding.videoView.visibility = View.GONE
+                Glide
+                    .with(requireContext())
+                    .load(mediaType.media)
+                    .into(binding.ivMediaPhoto)
+            }
+            "Video" -> {
+                binding.ivMediaPhoto.visibility = View.GONE
+                binding.videoView.visibility = View.VISIBLE
+            }
+        }
     }
 
     @SuppressLint("UnsafeOptInUsageError")
@@ -97,7 +119,8 @@ class MediaViewFragment:BaseFragment() {
             .build()
             .also { exoPlayer ->
                 binding.videoView.player = exoPlayer
-                val mediaItem = MediaItem.fromUri("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
+                val mediaItem =
+                    MediaItem.fromUri("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
                 exoPlayer.setMediaItem(mediaItem)
                 exoPlayer.playWhenReady = playWhenReady
                 exoPlayer.seekTo(currentItem, playbackPosition)
@@ -123,14 +146,14 @@ class MediaViewFragment:BaseFragment() {
         }
     }
 
-    @SuppressLint("InlinedApi")
-    private fun hideSystemUi() {
-        WindowCompat.setDecorFitsSystemWindows(this.requireActivity().window, false)
-        WindowInsetsControllerCompat(this.requireActivity().window, binding.videoView).let { controller ->
-            controller.hide(WindowInsetsCompat.Type.systemBars())
-            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        }
-    }
+//    @SuppressLint("InlinedApi")
+//    private fun hideSystemUi() {
+//        WindowCompat.setDecorFitsSystemWindows(this.requireActivity().window, false)
+//        WindowInsetsControllerCompat(this.requireActivity().window, binding.videoView).let { controller ->
+//            controller.hide(WindowInsetsCompat.Type.systemBars())
+//            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+//        }
+//    }
 
     @SuppressLint("UnsafeOptInUsageError")
     override fun onPause() {
@@ -143,7 +166,6 @@ class MediaViewFragment:BaseFragment() {
     @SuppressLint("UnsafeOptInUsageError")
     override fun onResume() {
         super.onResume()
-        hideSystemUi()
         if ((Util.SDK_INT <= 23 || player == null)) {
             initializePlayer()
         }

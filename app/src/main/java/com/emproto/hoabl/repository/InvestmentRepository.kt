@@ -6,10 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.InvestmentDataSource
 import com.emproto.networklayer.response.BaseResponse
-import com.emproto.networklayer.response.investment.FaqDetailResponse
-import com.emproto.networklayer.response.investment.InvestmentPromisesResponse
-import com.emproto.networklayer.response.investment.InvestmentResponse
-import com.emproto.networklayer.response.investment.ProjectDetailResponse
+import com.emproto.networklayer.response.investment.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -80,6 +77,33 @@ class InvestmentRepository @Inject constructor(application: Application) : BaseR
             }
         }
         return mInvestmentDetailResponse
+    }
+
+    fun getAllInvestmentsProjects(): LiveData<BaseResponse<AllProjectsResponse>> {
+        val mAllInvestmentsResponse = MutableLiveData<BaseResponse<AllProjectsResponse>>()
+        mAllInvestmentsResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = InvestmentDataSource(application).getAllInvestments()
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mAllInvestmentsResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mAllInvestmentsResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mAllInvestmentsResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mAllInvestmentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mAllInvestmentsResponse
     }
 
     fun getInvestmentsPromises(): LiveData<BaseResponse<InvestmentPromisesResponse>> {

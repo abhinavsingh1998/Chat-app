@@ -14,9 +14,10 @@ import androidx.lifecycle.Observer
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ApplyConfirmationDialogBinding
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
+import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.google.android.material.textview.MaterialTextView
 
-class ConfirmationDialog(private val landSkusFragment: LandSkusFragment) :DialogFragment(),View.OnClickListener {
+class ConfirmationDialog(private val investmentViewModel: InvestmentViewModel) :DialogFragment(),View.OnClickListener {
 
     lateinit var binding: ApplyConfirmationDialogBinding
 
@@ -33,7 +34,7 @@ class ConfirmationDialog(private val landSkusFragment: LandSkusFragment) :Dialog
     }
 
     private fun setUpUI() {
-        landSkusFragment.investmentViewModel.getSku().observe(viewLifecycleOwner, Observer {
+        investmentViewModel.getSku().observe(viewLifecycleOwner, Observer {
             it.let { data ->
                 binding.apply {
                     tvItemLandSkusName.text = data.name
@@ -61,7 +62,7 @@ class ConfirmationDialog(private val landSkusFragment: LandSkusFragment) :Dialog
         when(v.id){
             R.id.tv_yes_text -> {
                 dialog?.dismiss()
-                val applicationSubmitDialog = ApplicationSubmitDialog("Application Submitted!","Thank you for your application. Our team is going to reach out to you soon!")
+                val applicationSubmitDialog = ApplicationSubmitDialog("Thank you for your interest!","Our Project Manager will reach out to you in 24 hours!")
                 applicationSubmitDialog.show(parentFragmentManager,"ApplicationSubmitDialog")
             }
             R.id.tv_no_text -> {

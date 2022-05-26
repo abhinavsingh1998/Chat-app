@@ -21,9 +21,6 @@ class InvestmentDataSource(val application: Application) {
     @Inject
     lateinit var apiService: ApiService
 
-    @Named("dummy")
-    @Inject
-    lateinit var apiService2: ApiService
 
     private var dataComponent: DataComponent =
         DaggerDataComponent.builder().dataAppModule(DataAppModule(application))
@@ -40,6 +37,10 @@ class InvestmentDataSource(val application: Application) {
 
     suspend fun getInvestmentsDetailData(id: Int): Response<ProjectDetailResponse> {
         return apiService.getInvestmentsProjectDetails(id)
+    }
+
+    suspend fun getAllInvestments(): Response<AllProjectsResponse> {
+        return apiService.getAllInvestmentProjects()
     }
 
     suspend fun getInvestmentsPromises(): Response<InvestmentPromisesResponse> {

@@ -10,10 +10,7 @@ import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
-import com.emproto.networklayer.response.investment.FaqDetailResponse
-import com.emproto.networklayer.response.investment.InvestmentPromisesResponse
-import com.emproto.networklayer.response.investment.InvestmentResponse
-import com.emproto.networklayer.response.investment.ProjectDetailResponse
+import com.emproto.networklayer.response.investment.*
 import com.emproto.networklayer.response.login.AddNameResponse
 import com.emproto.networklayer.response.login.OtpResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
@@ -66,6 +63,9 @@ public interface ApiService {
 
     @GET(ApiConstants.INVESTMENT_PROJECT_DETAIL)
     suspend fun getInvestmentsProjectDetails(@Path("id") id: Int): Response<ProjectDetailResponse>
+
+    @GET(ApiConstants.INVESTMENT_ALL_PROJECT)
+    suspend fun getAllInvestmentProjects(): Response<AllProjectsResponse>
 
     @GET(ApiConstants.PORTFOLIO_DASHBOARD)
     suspend fun getPortfolioDashboard(): Response<PortfolioData>

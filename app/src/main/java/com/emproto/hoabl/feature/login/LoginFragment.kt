@@ -1,37 +1,35 @@
 package com.emproto.hoabl.feature.login
 
+import android.app.Activity
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.text.*
+import android.text.method.LinkMovementMethod
+import android.text.method.ScrollingMovementMethod
+import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.core.customedittext.OnValueChangedListener
-import com.emproto.networklayer.preferences.AppPreference
+import com.emproto.core.databinding.TermsConditionDialogBinding
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentLoginBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.viewmodels.AuthViewmodel
 import com.emproto.hoabl.viewmodels.factory.AuthFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.response.enums.Status
-import javax.inject.Inject
-import android.graphics.Typeface
-import android.text.*
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
-import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat
-import com.emproto.core.databinding.TermsConditionDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import android.text.method.ScrollingMovementMethod
-import android.util.Patterns
 import java.util.regex.Pattern
+import javax.inject.Inject
 
 
 class LoginFragment : BaseFragment() {
@@ -44,7 +42,7 @@ class LoginFragment : BaseFragment() {
     var hCountryCode = ""
     lateinit var bottomSheetDialog: BottomSheetDialog
     lateinit var termsConditionDialogBinding: TermsConditionDialogBinding
-    val patterns  = Pattern.compile("(0/91)?[7-9][0-9]{9}")
+    val patterns  = Pattern.compile("^(0|[1-9][0-9]*)\$")
     val first_attempt= "Please enter the OTP sent to your mobile number. You have 4 attempts remaining to verify your OTP."
     val second_attempts= "Please enter the OTP sent to your mobile number. You have 3 attempts remaining to verify your OTP."
     val third_attempts= "Please enter the OTP sent to your mobile number. You have 2 attempts remaining to verify your OTP."
@@ -78,7 +76,7 @@ class LoginFragment : BaseFragment() {
                 Status.SUCCESS -> {
                     it.data?.let {
                         termsConditionDialogBinding.tvTitle.text =
-                            showHTMLText(it.data.termsAndConditions.description)
+                            showHTMLText(it.data.page.termsAndConditions.description)
                         termsConditionDialogBinding.tvTitle.setMovementMethod(
                             ScrollingMovementMethod()
                         )
@@ -91,8 +89,6 @@ class LoginFragment : BaseFragment() {
     private fun initView() {
         val list = ArrayList<String>()
         list.add("+91")
-        list.add("+1")
-        list.add("+311")
         mBinding.inputMobile.addDropDownValues(list)
 
         hMobileNo= appPreference.getMobilenum()
@@ -101,11 +97,11 @@ class LoginFragment : BaseFragment() {
         bottomSheetDialog.setContentView(termsConditionDialogBinding.root)
 
         mBinding.textTerms.makeLinks(
-            Pair("Terms of services", View.OnClickListener {
+            Pair("Terms Of Services", View.OnClickListener {
                 termsConditionDialogBinding.tvHeading.text = getString(R.string.termscondition)
                 bottomSheetDialog.show()
             }),
-            Pair("Privacy policy", View.OnClickListener {
+            Pair("Privacy Policy", View.OnClickListener {
                 termsConditionDialogBinding.tvHeading.text = getString(R.string.privacypolicy)
                 bottomSheetDialog.show()
             })
@@ -115,6 +111,8 @@ class LoginFragment : BaseFragment() {
             bottomSheetDialog.dismiss()
         }
     }
+
+
 
     private fun initClickListeners() {
 

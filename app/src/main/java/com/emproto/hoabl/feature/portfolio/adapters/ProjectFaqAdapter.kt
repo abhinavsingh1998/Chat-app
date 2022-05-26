@@ -1,13 +1,18 @@
 package com.emproto.hoabl.feature.portfolio.adapters
 
+import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemFaqBinding
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectContentsAndFaq
 
-class ProjectFaqAdapter(private val list: List<ProjectContentsAndFaq>) :
+class ProjectFaqAdapter(
+    val context: Context, private val list: List<ProjectContentsAndFaq>
+) :
     RecyclerView.Adapter<ProjectFaqAdapter.FaqViewHolder>() {
     inner class FaqViewHolder(var binding: ItemFaqBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -31,6 +36,9 @@ class ProjectFaqAdapter(private val list: List<ProjectContentsAndFaq>) :
         }
         holder.binding.tvFaqQuestion.text = faqItem.frequentlyAskedQuestion.faqQuestion.question
         holder.binding.tvFaqAnswer.text = faqItem.frequentlyAskedQuestion.faqAnswer.answer
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            holder.binding.ivFaqCardDropDown.setImageDrawable(context.getDrawable(R.drawable.rightarrow))
+        }
 
     }
 

@@ -14,10 +14,7 @@ import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsRe
 import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineResponse
 import com.emproto.networklayer.response.profile.ProfileResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class PortfolioRepository @Inject constructor(application: Application) :
@@ -25,6 +22,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
 
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + parentJob)
+    val mPromisesResponse = MutableLiveData<BaseResponse<PortfolioData>>()
 
     /**
      * Get all investments
@@ -34,27 +32,37 @@ class PortfolioRepository @Inject constructor(application: Application) :
      */
 
     fun getPortfolioDashboard(): LiveData<BaseResponse<PortfolioData>> {
-        val mPromisesResponse = MutableLiveData<BaseResponse<PortfolioData>>()
-        mPromisesResponse.postValue(BaseResponse.loading())
-        coroutineScope.launch {
-            try {
-                val request = PortfolioDataSource(application).getPortfolioDashboard()
-                if (request.isSuccessful) {
-                    if (request.body()!!.data != null)
-                        mPromisesResponse.postValue(BaseResponse.success(request.body()!!))
-                    else
-                        mPromisesResponse.postValue(BaseResponse.Companion.error("No data found"))
-                } else {
-                    mPromisesResponse.postValue(
-                        BaseResponse.Companion.error(
-                            getErrorMessage(
-                                request.errorBody()!!.string()
+        if (mPromisesResponse.value == null) {
+            mPromisesResponse.postValue(BaseResponse.loading())
+            coroutineScope.launch {
+                try {
+                    val watchlist = async { PortfolioDataSource(application).getMyWatchlist() }
+                    val dashboard =
+                        async { PortfolioDataSource(application).getPortfolioDashboard() }
+                    //val request = PortfolioDataSource(application).getPortfolioDashboard()
+                    val watchlistResponse = watchlist.await()
+                    val dashboardResponse = dashboard.await()
+                    if (dashboardResponse.isSuccessful) {
+                        if (dashboardResponse.body()!!.data != null) {
+                            if (watchlistResponse.isSuccessful) {
+                                dashboardResponse.body()!!.data.watchlist =
+                                    watchlistResponse.body()!!.data
+                            }
+                            mPromisesResponse.postValue(BaseResponse.success(dashboardResponse.body()!!))
+                        } else
+                            mPromisesResponse.postValue(BaseResponse.Companion.error("No data found"))
+                    } else {
+                        mPromisesResponse.postValue(
+                            BaseResponse.Companion.error(
+                                getErrorMessage(
+                                    dashboardResponse.errorBody()!!.string()
+                                )
                             )
                         )
-                    )
+                    }
+                } catch (e: Exception) {
+                    mPromisesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
                 }
-            } catch (e: Exception) {
-                mPromisesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
             }
         }
         return mPromisesResponse
@@ -224,7 +232,6 @@ class PortfolioRepository @Inject constructor(application: Application) :
         }
         return mDocumentsResponse
     }
-
 
 
 }

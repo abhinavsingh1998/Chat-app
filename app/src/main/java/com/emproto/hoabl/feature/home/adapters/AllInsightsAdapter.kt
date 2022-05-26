@@ -3,6 +3,7 @@ package com.emproto.hoabl.feature.home.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.InsightsListItemBinding
@@ -11,7 +12,7 @@ import com.emproto.networklayer.response.home.PageManagementOrInsight
 class AllInsightsAdapter(
     val context: Context,
     val list: List<PageManagementOrInsight>,
-    val itemInterface: AllInsightsAdapter.InsightsItemsInterface
+    val itemInterface: InsightsItemsInterface
     ) : RecyclerView.Adapter<AllInsightsAdapter.MyViewHolder>() {
 
 
@@ -26,10 +27,17 @@ class AllInsightsAdapter(
         Glide.with(context)
             .load(item.insightsMedia[0].media.value.url)
             .into(holder.binding.locationImage)
-        holder.binding.deatils.text= item.insightsMedia[0].media.mediaDescription
+        if (item.insightsMedia[0].description.isNullOrEmpty()){
+            holder.binding.btnReadMore.isVisible= false
+            holder.binding.deatils.text= item.insightsMedia[0].description
+        }else{
+            holder.binding.deatils.text= item.insightsMedia[0].description
+            holder.binding.btnReadMore.isVisible= true
+        }
+
 
         //holder.binding.arrowImage.setImageResource(item.arrowImage)
-        holder.binding.btnReadMore.setOnClickListener {
+        holder.binding.rootView.setOnClickListener {
             itemInterface.onClickItem(holder.adapterPosition)
         }
 

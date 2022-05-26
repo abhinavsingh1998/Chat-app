@@ -18,8 +18,8 @@
     <string name="login">Login</string>
     <string name="mobile_number">Mobile Number</string>
     <string name="enter_mobile">Enter Mobile Number</string>
-    <string name="whatsapp">Whatsapp Communications</string>
-    <string name="login_terms_text">By login in, you are agreeing to our Terms of services and Privacy policy</string>
+    <string name="whatsapp">Allow Whatsapp Communications</string>
+    <string name="login_terms_text">By logging in, you agree to our \n Terms Of Services and Privacy Policy</string>
     <string name="trouble_login"><u>Trouble Signing In?</u></string>
     <string name="get_otp">Get OTP</string>
     <string name="submit_and_continue">Submit and Continue</string>
@@ -96,7 +96,7 @@
     <string name="smart_deals">Smart Deals</string>
     <string name="total_projects">Total Projects</string>
     <string name="completed">Completed</string>
-    <string name="intro1">New Generation Land  is for everyone. Explore our latest offerings.</string>
+    <string name="intro1">New Generation Land \n is for everyone. Explore our latest offerings.</string>
     <string name="intro2">When you buy land from us - Rest assured in our promises.</string>
     <string name="intro3">Just like a bank - Your land portfolio is safe and secure with us.</string>
     <string name="enter_your_phonenumber">Enter Your Phone Number*</string>
@@ -104,7 +104,7 @@
     <string name="sent_otp">will be sent to this number</string>
     <string name="otp">OTP </string>
     <string name="type_here">Type here</string>
-    <string name="hoabl_permission_title">“HoABL” would like to send \nand view SMS messages</string>
+    <string name="hoabl_permission_title">“HoABL” would like to send and view SMS messages</string>
     <string name="faster_checkout">To view &amp; auto-read OTP for faster \ncheckout experience</string>
     <string name="allow">Allow</string>
     <string name="dont_allow">Don’t Allow</string>
@@ -156,7 +156,7 @@
     <string name="details">Details</string>
     <string name="see_project_details">See Project Details</string>
     <string name="view_timeline">View Timeline</string>
-    <string name="facility_management">Facility Management</string>
+    <string name="facility_management">Management My Project</string>
     <string name="now_manage_bookings">Now manage your bookings, complaints, visitors, vehicles, etc with ease</string>
     <string name="manage_now">Manage Now</string>
     <string name="view_upload_documents">VIEW&amp;UPLOAD DOCUMENTS></string>
@@ -355,7 +355,7 @@
     <string name="popular_categories_text">Popular Categories</string>
     <string name="search_faqs">Search FAQs</string>
     <string name="months">Months</string>
-    <string name="map_api_key">AIzaSyDxc8Of8-Xl0YkvaeezmPxcVxXAXfxSNCI</string>
+    <string name="map_api_key">AIzaSyBGiTnto1DA165mmOU68Ne6ZiRBxhfFHtk</string>
     <string name="see_distance">See distance from</string>
     <string name="around_this_project">Around this Project</string>
     <string name="updates_details">Details</string>
@@ -367,4 +367,6 @@
     <string name="hear_our_customers_speak">Hear our customers speak</string>
     <string name="new_launches">New Launches</string>
     <string name="please_after_one_hour">You have reached the maximum limit for resending the OTP. Please retry again after an hour.</string>
+    <string name="all_investments">All investments</string>
+    <string name="youtube_api_key">AIzaSyCdq-SBpqNl8q1w98hmfBYT-xUZQZ5KyuM</string>
 </resources>

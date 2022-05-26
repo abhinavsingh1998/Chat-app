@@ -15,7 +15,6 @@ import com.emproto.hoabl.feature.investment.adapters.OpportunityDocsAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
-import com.emproto.networklayer.response.investment.OpprotunityDoc
 import javax.inject.Inject
 
 class OpportunityDocsFragment:BaseFragment() {
@@ -33,7 +32,6 @@ class OpportunityDocsFragment:BaseFragment() {
                     (requireActivity() as HomeActivity).addFragment(LandSkusFragment(),false)
                 }
             }
-
         }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -56,10 +54,13 @@ class OpportunityDocsFragment:BaseFragment() {
 
     private fun setUpUI() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.VISIBLE
     }
 
     private fun setUpRecyclerView() {
+        (requireActivity() as HomeActivity).activityHomeActivity.loader.visibility = View.VISIBLE
         investmentViewModel.getOpportunityDoc().observe(viewLifecycleOwner, Observer {
+            (requireActivity() as HomeActivity).activityHomeActivity.loader.visibility = View.GONE
             val list = ArrayList<RecyclerViewItem>()
             list.add(RecyclerViewItem(1))
             list.add(RecyclerViewItem(2))
