@@ -31,6 +31,7 @@ class CategoryListFragment() : BaseFragment() {
     private lateinit var nLList: List<PageManagementsOrNewInvestment>
     private lateinit var aPList: List<ApData>
     private var type: String? = ""
+    private lateinit var allList:ArrayList<com.emproto.networklayer.response.home.PageManagementsOrNewInvestment>
 
 
     override fun onCreateView(

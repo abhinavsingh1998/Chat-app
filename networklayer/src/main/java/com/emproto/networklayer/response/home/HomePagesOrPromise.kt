@@ -4,6 +4,7 @@ import com.emproto.networklayer.response.promises.DisplayMedia
 import com.emproto.networklayer.response.promises.HowToApply
 import com.emproto.networklayer.response.promises.PromiseMedia
 import com.emproto.networklayer.response.promises.TermsAndConditions
+import java.io.Serializable
 
 data class HomePagesOrPromise(
     val createdAt: String,
@@ -25,4 +26,4 @@ data class HomePagesOrPromise(
     val termsAndConditions: TermsAndConditions,
     val updatedAt: String,
     val updatedBy: String?
-)
+):Serializable

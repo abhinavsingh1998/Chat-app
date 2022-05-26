@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,7 +50,6 @@ class HomeFragment : BaseFragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var hoABLPromisesAdapter: HoABLPromisesAdapter1
     private lateinit var pendingPaymentsAdapter: PendingPaymentsAdapter
-    lateinit var ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface
 
     val appURL = "https://hoabl.in/"
 
@@ -140,7 +140,7 @@ class HomeFragment : BaseFragment() {
                                             )
                                         )
                                         (requireActivity() as HomeActivity).addFragment(
-                                            LatestUpdatesFragment(),
+                                            LatestUpdatesDetailsFragment(),
                                             false
                                         )
                                     }
@@ -188,7 +188,7 @@ class HomeFragment : BaseFragment() {
                                     override fun onClickItem(position: Int) {
                                         homeViewModel.setSeLectedInsights(it.data!!.data.pageManagementOrInsights[position])
                                         (requireActivity() as HomeActivity).addFragment(
-                                            InsightsFragment(),
+                                            InsightsDetailsFragment(),
                                             false
                                         )
                                     }
@@ -233,10 +233,14 @@ class HomeFragment : BaseFragment() {
 
     private fun initView() {
 
+        binding.facilityManagementCardLayout.isVisible= false
+        binding.kycLayout.isVisible= false
+
         (requireActivity() as HomeActivity).hideBackArrow()
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
             View.VISIBLE
         (requireActivity() as HomeActivity).showBottomNavigation()
+
 
 
         val pymentList: ArrayList<String> = arrayListOf("1", "2", "3", "4", "5")
@@ -255,7 +259,7 @@ class HomeFragment : BaseFragment() {
         }
 
         binding.tvSeeAllUpdate.setOnClickListener {
-            (requireActivity() as HomeActivity).addFragment(LatestUpdatesDetailsFragment(), false)
+            (requireActivity() as HomeActivity).addFragment(LatestUpdatesFragment(),false)
         }
 
         binding.tvSeeallTestimonial.setOnClickListener {
@@ -284,7 +288,6 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun referNow() {
-
         binding.referralLayout.btnReferNow.setOnClickListener {
             val dialog = ReferralDialog()
             dialog.isCancelable = true

@@ -1,5 +1,7 @@
 package com.emproto.networklayer.response.home
 
+import java.io.Serializable
+
 data class Page(
     val aboutUs: Any,
     val bookingJourney: Any,
@@ -61,4 +63,4 @@ data class Page(
     val totalUpdatesOnHomeScreen: Int,
     val totalUpdatesOnListView: Int,
     val updatedAt: String
-)
+):Serializable
