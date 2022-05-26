@@ -133,13 +133,27 @@
                 app:layout_constraintVertical_bias="0.54" />
 
             <com.emproto.core.textviews.CustomTextView
-                android:id="@+id/try_again_txt"
+                android:id="@+id/timer_txt"
                 style="@style/text_style_text_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_size_24"
                 android:layout_marginTop="@dimen/margin_size_38"
                 android:text="@string/please_after_one_hour"
+                android:visibility="gone"
+                android:textAlignment="center"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/login_edittext" />
+
+            <com.emproto.core.textviews.CustomTextView
+                android:id="@+id/try_again_txt"
+                style="@style/text_style_text_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_size_24"
+                android:layout_marginTop="@dimen/margin_size_38"
+                android:text=""
                 android:visibility="gone"
                 android:textAlignment="center"
                 app:layout_constraintLeft_toLeftOf="parent"

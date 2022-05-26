@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,6 +30,7 @@ import com.emproto.hoabl.utils.Extensions.toHomePagesOrPromise
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
+import com.emproto.networklayer.enum.ModuleEnum
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.home.HomeResponse
@@ -48,7 +50,6 @@ class HomeFragment : BaseFragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var hoABLPromisesAdapter: HoABLPromisesAdapter1
     private lateinit var pendingPaymentsAdapter: PendingPaymentsAdapter
-    lateinit var ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface
 
     val appURL = "https://hoabl.in/"
 
@@ -78,7 +79,7 @@ class HomeFragment : BaseFragment() {
     private fun initObserver() {
 
 
-        homeViewModel.getDashBoardData(5001)
+        homeViewModel.getDashBoardData(ModuleEnum.HOME.value)
             .observe(viewLifecycleOwner, object : Observer<BaseResponse<HomeResponse>> {
                 override fun onChanged(it: BaseResponse<HomeResponse>?) {
                     when (it!!.status) {
@@ -98,22 +99,20 @@ class HomeFragment : BaseFragment() {
                             }
 
                             //loading investment list
+                            list.clear()
                             list.addAll(it.data!!.data.page.pageManagementsOrNewInvestments)
                             investmentAdapter = InvestmentCardAdapter(
                                 requireActivity(),
                                 it.data!!.data.page.pageManagementsOrNewInvestments,
                                 object : InvestmentCardAdapter.InvestItemInterface {
                                     override fun onClickItem(id: Int) {
+                                        val fragment = ProjectDetailFragment()
                                         val bundle = Bundle()
-                                        bundle.putInt("projectId", id)
-                                        (requireActivity() as HomeActivity).replaceFragment(
-                                            ProjectDetailFragment()::class.java,
-                                            "",
-                                            true,
-                                            bundle,
-                                            null,
-                                            0,
-                                            true
+                                        bundle.putInt("ProjectId", id)
+                                        fragment.arguments = bundle
+                                        (requireActivity() as HomeActivity).addFragment(
+                                            fragment,
+                                            false
                                         )
                                     }
 
@@ -141,7 +140,7 @@ class HomeFragment : BaseFragment() {
                                             )
                                         )
                                         (requireActivity() as HomeActivity).addFragment(
-                                            LatestUpdatesFragment(),
+                                            LatestUpdatesDetailsFragment(),
                                             false
                                         )
                                     }
@@ -189,7 +188,7 @@ class HomeFragment : BaseFragment() {
                                     override fun onClickItem(position: Int) {
                                         homeViewModel.setSeLectedInsights(it.data!!.data.pageManagementOrInsights[position])
                                         (requireActivity() as HomeActivity).addFragment(
-                                            InsightsFragment(),
+                                            InsightsDetailsFragment(),
                                             false
                                         )
                                     }
@@ -234,10 +233,14 @@ class HomeFragment : BaseFragment() {
 
     private fun initView() {
 
+        binding.facilityManagementCardLayout.isVisible= false
+        binding.kycLayout.isVisible= false
+
         (requireActivity() as HomeActivity).hideBackArrow()
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
             View.VISIBLE
         (requireActivity() as HomeActivity).showBottomNavigation()
+
 
 
         val pymentList: ArrayList<String> = arrayListOf("1", "2", "3", "4", "5")
@@ -256,7 +259,7 @@ class HomeFragment : BaseFragment() {
         }
 
         binding.tvSeeAllUpdate.setOnClickListener {
-            (requireActivity() as HomeActivity).addFragment(LatestUpdatesDetailsFragment(), false)
+            (requireActivity() as HomeActivity).addFragment(LatestUpdatesFragment(),false)
         }
 
         binding.tvSeeallTestimonial.setOnClickListener {
@@ -285,7 +288,6 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun referNow() {
-
         binding.referralLayout.btnReferNow.setOnClickListener {
             val dialog = ReferralDialog()
             dialog.isCancelable = true
