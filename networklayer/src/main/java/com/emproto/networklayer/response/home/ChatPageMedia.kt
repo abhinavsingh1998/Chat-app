@@ -1,7 +1,9 @@
 package com.emproto.networklayer.response.home
 
+import java.io.Serializable
+
 data class ChatPageMedia(
     val key: String,
     val name: String,
     val value: ValueXXXXX
-)
+):Serializable

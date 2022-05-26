@@ -1,5 +1,7 @@
 package com.emproto.networklayer.response.home
 
+import java.io.Serializable
+
 data class PageManagementOrLatestUpdate(
     val createdAt: String,
     val createdBy: Int,
@@ -13,4 +15,4 @@ data class PageManagementOrLatestUpdate(
     val updateType: String,
     val updatedAt: String,
     val updatedBy: Int
-)
+):Serializable

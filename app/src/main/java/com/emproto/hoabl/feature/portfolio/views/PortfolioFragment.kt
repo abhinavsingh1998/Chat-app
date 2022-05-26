@@ -175,9 +175,10 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                         setUpKeyGuardManager()
                     } else if (errorCode == BiometricPrompt.ERROR_NO_BIOMETRICS) {
                         setUpUI(true)
+                    } else if (errorCode == BiometricPrompt.ERROR_USER_CANCELED) {
+                        (requireActivity() as HomeActivity).onBackPressed()
                     } else {
                         setUpUI(true)
-
                     }
                 }
 

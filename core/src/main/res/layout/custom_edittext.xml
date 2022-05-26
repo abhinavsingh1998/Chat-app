@@ -74,6 +74,7 @@
         android:fontFamily="@font/jost_regular"
         android:inputType="phone"
         android:textColor="@color/black"
+        android:digits="0123456789"
         android:textSize="@dimen/text_size_14"
         app:layout_constraintBottom_toBottomOf="@+id/background_view"
         app:layout_constraintEnd_toEndOf="@+id/background_view"
