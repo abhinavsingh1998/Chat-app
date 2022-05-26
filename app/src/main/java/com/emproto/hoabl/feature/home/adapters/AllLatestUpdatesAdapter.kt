@@ -29,7 +29,7 @@ class AllLatestUpdatesAdapter(
         holder.binding.title.text= item.displayTitle
         holder.binding.location.text= item.subTitle.toString()
 
-        if (item.detailedInfo[position].media!=null){
+        if (item.detailedInfo[0].media!=null){
             Glide.with(context).load(item.detailedInfo[0].media.value.url)
                 .into(holder.binding.locationImage)
 

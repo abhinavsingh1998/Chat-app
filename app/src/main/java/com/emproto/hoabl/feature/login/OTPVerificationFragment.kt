@@ -353,16 +353,18 @@ class OTPVerificationFragment : BaseFragment() {
                when(millisUntilFinished/1000){
                    0L ->{
                        mBinding.resentOtp.isVisible= true
+                       mBinding.timerTxt.isVisible= false
                        mBinding.tryAgainTxt.isVisible= false
                    }
                    else -> {
+
                        mBinding.resentOtp.isVisible= false
-                       mBinding.tryAgainTxt.isVisible= true
+                       mBinding.timerTxt.isVisible= true
                        if((millisUntilFinished/1000)%60 <10){
-                           mBinding.tryAgainTxt.text= "Resend OTP in " + "0" +  (millisUntilFinished/1000)/60+ ":" + "0"+(millisUntilFinished/1000)%60 + " sec"
+                           mBinding.timerTxt.text= "Resend OTP in " + "0" +  (millisUntilFinished/1000)/60+ ":" + "0"+(millisUntilFinished/1000)%60 + " sec"
 
                        } else{
-                           mBinding.tryAgainTxt.text= "Resend OTP in " + "0" +  (millisUntilFinished/1000)/60+ ":" +(millisUntilFinished/1000)%60 + " sec"
+                           mBinding.timerTxt.text= "Resend OTP in " + "0" +  (millisUntilFinished/1000)/60+ ":" +(millisUntilFinished/1000)%60 + " sec"
                        }
                    }
                }
@@ -370,7 +372,8 @@ class OTPVerificationFragment : BaseFragment() {
 
            override fun onFinish() {
              mBinding.resentOtp.isVisible= true
-               mBinding.tryAgainTxt.isVisible= false
+               mBinding.timerTxt.isVisible= false
+               mBinding.tryAgainTxt.isVisible=true
            }
 
        }.start()
@@ -389,6 +392,7 @@ class OTPVerificationFragment : BaseFragment() {
         mBinding.etOtp.setTextColor(resources.getColor(R.color.completed_investment_ash_text_color))
         mBinding.etOtp.isEnabled= false
         Toast.makeText(requireContext(), "Invalid otp", Toast.LENGTH_LONG).show()
+        mBinding.timerTxt.isVisible=false
         mBinding.tryAgainTxt.isVisible= true
         mBinding.tryAgainTxt.text= R.string.please_after_one_hour.toString()
 
