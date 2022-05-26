@@ -16,6 +16,58 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+<!--
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profilePicLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="86dp"
+        android:layout_marginStart="@dimen/margin_size_17"
+        android:layout_marginTop="@dimen/margin_size_22"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/profile_image"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin_size_88"
+            android:src="@drawable/img"
+            app:civ_shadow="true"
+            android:visibility="visible"
+            app:civ_border_color="@color/app_color"
+            app:civ_shadow_color="@color/text_blue_color"
+            app:civ_shadow_radius="@dimen/margin_size_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingClass">
+
+        </com.mikhaellopez.circularimageview.CircularImageView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/profile_user_letters"
+            android:layout_width="@dimen/margin_size_88"
+            android:layout_height="@dimen/margin_size_88"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:cardMaxElevation="@dimen/margin_size_4"
+            app:cardPreventCornerOverlap="true"
+            app:cardBackgroundColor="@color/app_color"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profile_picture">
+
+            <TextView
+                android:id="@+id/tv_userName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/margin_size_40" />
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+-->
+
     <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/circular_imageView"
         android:layout_width="wrap_content"

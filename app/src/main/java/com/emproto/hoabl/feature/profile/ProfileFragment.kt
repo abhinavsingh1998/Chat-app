@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.BuildConfig
 import com.emproto.hoabl.R
@@ -93,6 +94,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                                      pincode,locality,houseNUmber,address)*/
                             profileData = it.data
                         }
+                        setUiData(profileData)
                     }
                 }
                 Status.ERROR -> {
@@ -102,6 +104,31 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
             }
         })
     }
+
+    private fun setUiData(profileData: Data) {
+        binding.tvName.text=profileData.firstName+""+profileData.lastName
+
+        /*for user pic not available show username as pic label*/
+        /*if (profileData.profilePictureUrl.isNullOrEmpty()){
+            binding.profileImage.visibility=View.GONE
+            binding.profileUserLetters.visibility=View.VISIBLE
+            setuserNamePIC(profileData)
+        }else{
+            binding.profileImage.visibility=View.VISIBLE
+            binding.profileUserLetters.visibility=View.GONE
+            Glide.with(requireContext())
+                .load(EditProfileFragment.data.profilePictureUrl)
+                .into(binding.profileImage)
+        }*/
+    }
+
+    private fun setuserNamePIC(profileData: Data) {
+        val firstLetter: String = profileData.firstName.substring(0, 1)
+        val lastLetter:String = profileData.lastName.substring(0,1)
+       // binding.tvUserName.text=firstLetter+""+lastLetter
+    }
+
+
 
     private fun initView() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =

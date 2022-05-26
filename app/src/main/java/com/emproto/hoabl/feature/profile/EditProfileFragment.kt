@@ -312,8 +312,24 @@ class EditProfileFragment : Fragment() {
         } else {
             binding.pincodeEditText.setText("")
         }
+        if (data.profilePictureUrl.isNullOrEmpty()){
+            binding.profileImage.visibility=View.GONE
+            binding.profileUserLetters.visibility=View.VISIBLE
+            setuserNamePIC()
+        }else{
+            binding.profileImage.visibility=View.VISIBLE
+            binding.profileUserLetters.visibility=View.GONE
+            Glide.with(requireContext())
+                .load(data.profilePictureUrl)
+                .into(binding.profileImage)
+        }
     }
 
+    private fun setuserNamePIC(){
+        val firstLetter: String = data.firstName.substring(0, 1)
+        val lastLetter:String = data.lastName.substring(0,1)
+        binding.tvUserName.text=firstLetter+""+lastLetter
+    }
 
     private fun updateLable(myCalendar: Calendar) {
         val myFormat = "dd/MM/yyyy"
@@ -425,6 +441,9 @@ class EditProfileFragment : Fragment() {
                         Status.SUCCESS -> {
                             binding.progressBaar.hide()
                             if (it.data != null) {
+                                Glide.with(requireContext())
+                                    .load(R.drawable.img)
+                                    .into(binding.profileImage)
                                 Toast.makeText(
                                     requireContext(),
                                     it.message.toString(),
