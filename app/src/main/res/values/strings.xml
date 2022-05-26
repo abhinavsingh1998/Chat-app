@@ -346,7 +346,6 @@
     <string name="fourth_incorrect_otp">You have incorrectly typed the OTP 4 time. Click on Resend OTP to receive OTP again</string>
 
 
-
     <string-array name="Gender">
         <item>Female</item>
         <item>Male</item>

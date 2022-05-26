@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.investment.views.mediagallery
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +31,8 @@ class VideosFragment:BaseFragment() {
     lateinit var investmentViewModel: InvestmentViewModel
     lateinit var binding:FragmentVideosBinding
     lateinit var mediaPhotosAdapter: MediaPhotosAdapter
+
+    private var isYoutubeVideo = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentVideosBinding.inflate(layoutInflater)
@@ -65,10 +68,19 @@ class VideosFragment:BaseFragment() {
 
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
-            val mediaViewItem = MediaViewItem("Video",item)
-            investmentViewModel.setMediaItem(mediaViewItem)
-            val mediaViewFragment = MediaViewFragment()
-            (requireActivity() as HomeActivity).replaceFragment(mediaViewFragment.javaClass, "", true, null, null, 0, false)
+            when(isYoutubeVideo){
+                true -> {
+                    val intent = Intent(this@VideosFragment.requireActivity(),YoutubeActivity::class.java)
+                    intent.putExtra("YoutubeVideoId","Bl1FOKpFY2Q")
+                    startActivity(intent)
+                }
+                false -> {
+                    val mediaViewItem = MediaViewItem("Video",item)
+                    investmentViewModel.setMediaItem(mediaViewItem)
+                    val mediaViewFragment = MediaViewFragment()
+                    (requireActivity() as HomeActivity).replaceFragment(mediaViewFragment.javaClass, "", true, null, null, 0, false)
+                }
+            }
         }
     }
 }
