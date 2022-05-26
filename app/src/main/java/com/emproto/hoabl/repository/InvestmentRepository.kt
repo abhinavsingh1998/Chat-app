@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.InvestmentDataSource
+import com.emproto.networklayer.request.investment.WatchListBody
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.investment.*
 import kotlinx.coroutines.CoroutineScope
@@ -158,5 +159,29 @@ class InvestmentRepository @Inject constructor(application: Application) : BaseR
             }
         }
         return mInvestmentFaqResponse
+    }
+
+    fun addWatchList(watchListBody: WatchListBody): LiveData<BaseResponse<WatchListResponse>> {
+        val mWatchListResponse = MutableLiveData<BaseResponse<WatchListResponse>>()
+        mWatchListResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = InvestmentDataSource(application).addWatchList(watchListBody)
+                if (request.isSuccessful) {
+                    mWatchListResponse.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    mWatchListResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mWatchListResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mWatchListResponse
     }
 }

@@ -1,5 +1,6 @@
 package com.emproto.networklayer
 
+import com.emproto.networklayer.request.investment.WatchListBody
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
 import com.emproto.networklayer.request.login.AddNameRequest
@@ -108,4 +109,8 @@ public interface ApiService {
 
     @POST(ApiConstants.REFER_NOW)
     suspend fun referNow(@Body referBody:ReferalRequest):Response<ReferalResponse>
+
+    @POST(ApiConstants.WATCHLIST)
+    suspend fun addWatchList(@Body watchListBody: WatchListBody ):Response<WatchListResponse>
+
 }

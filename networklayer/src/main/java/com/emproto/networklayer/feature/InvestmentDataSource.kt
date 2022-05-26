@@ -6,6 +6,7 @@ import com.emproto.networklayer.di.DaggerDataComponent
 import com.emproto.networklayer.di.DataAppModule
 import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
+import com.emproto.networklayer.request.investment.WatchListBody
 import com.emproto.networklayer.response.investment.*
 import retrofit2.Response
 import javax.inject.Inject
@@ -49,5 +50,9 @@ class InvestmentDataSource(val application: Application) {
 
     suspend fun getInvestmentsFaq(id: Int): Response<FaqDetailResponse> {
         return apiService.getInvestmentsProjectFaq(id)
+    }
+
+    suspend fun addWatchList(watchListBody: WatchListBody): Response<WatchListResponse> {
+        return apiService.addWatchList(watchListBody)
     }
 }

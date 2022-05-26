@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.emproto.hoabl.model.MapLocationModel
 import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.repository.InvestmentRepository
+import com.emproto.networklayer.request.investment.WatchListBody
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.investment.*
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
@@ -48,6 +49,10 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
 
     fun getInvestmentsFaq(id: Int): LiveData<BaseResponse<FaqDetailResponse>> {
         return investmentRepository.getInvestmentsFaq(id)
+    }
+
+    fun addWatchList(watchListBody: WatchListBody): LiveData<BaseResponse<WatchListResponse>> {
+        return investmentRepository.addWatchList(watchListBody)
     }
 
     fun setSmartDealsList(smartDeals: List<PageManagementsOrCollectionOneModel>) {

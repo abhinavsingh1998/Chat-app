@@ -31,6 +31,7 @@ import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
+import com.emproto.networklayer.request.investment.WatchListBody
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.investment.*
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
@@ -251,6 +252,28 @@ class ProjectDetailFragment : BaseFragment() {
             }
         })
 
+    }
+
+    private fun addWatchList(){
+        investmentViewModel.addWatchList(WatchListBody(projectId)).observe(viewLifecycleOwner,Observer{
+            when(it.status){
+                Status.LOADING -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                }
+                Status.SUCCESS -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    it.data?.let { data ->
+
+                    }
+                }
+                Status.ERROR -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(
+                        it.message!!
+                    )
+                }
+            }
+        })
     }
 
     private fun setUpRecyclerView(data: PdData, promisesData: List<PmData>) {
