@@ -4,22 +4,19 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.ItemChatBinding
 import com.emproto.hoabl.databinding.ItemChatDetailBinding
-import com.emproto.hoabl.databinding.ItemChatReceiverBinding
-import com.emproto.hoabl.databinding.ItemChatSenderMessageBinding
-import com.emproto.hoabl.feature.chat.adapter.ChatsAdapter
-import com.emproto.hoabl.feature.chat.model.ChatsDetailModel
-import com.emproto.hoabl.feature.chat.model.TypeOfMessage
-import com.emproto.networklayer.response.chats.ChatDetailResponse
-import com.emproto.networklayer.response.chats.ChatResponse
 
-class ChatsDetailAdapter(private var mContext: Context?,
-                         private var chatDetailList: List<ChatDetailResponse.ChatDetailList>,
-                         private var mListener: ChatsDetailAdapter.OnItemClickListener
+import com.emproto.hoabl.feature.chat.model.ChatDetailModel
+import com.emproto.hoabl.feature.chat.views.fragments.ChatsDetailFragment
+import com.emproto.networklayer.response.chats.ChatDetailResponse
+import com.emproto.networklayer.response.chats.Option
+
+class ChatsDetailAdapter(
+    private var mContext: Context?,
+    private var chatDetailList: ArrayList<ChatDetailModel>,
+    private var mListener: OnOptionClickListener
 
 ) : RecyclerView.Adapter<ChatsDetailAdapter.ViewHolder>() {
     lateinit var binding: ItemChatDetailBinding
@@ -29,15 +26,25 @@ class ChatsDetailAdapter(private var mContext: Context?,
         return ChatsDetailAdapter.ViewHolder(binding.root)
     }
 
-    interface OnItemClickListener{
-        fun onChatItemClick(chatDetailList: List<ChatDetailResponse.ChatDetailList>, view: View, position: Int)
-    }
+//    override fun getItemViewType(position: Int): Int {
+//        if (chatDetailList[position].autoChat.chatJSON.chatBody.options.isNotEmpty()) {
+//            return R.layout.item_chat_detail
+//        } else {
+//            return R.layout.item_message
+//        }
+//    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(position==0)
-        binding.tvMessage.text = chatDetailList[position].autoChat.chatJSON.chatBody.message
-
-
+        binding.tvMessage.text= chatDetailList[position].message
+        if(chatDetailList[position].option.isNullOrEmpty()){
+            binding.rvOptions.visibility=View.GONE
+        }
+        else{
+            binding.rvOptions.layoutManager =
+                LinearLayoutManager(mContext, RecyclerView.VERTICAL, false)
+            binding.rvOptions.adapter =
+                ChatOptionAdapter(mContext,chatDetailList[position].option!!, mListener)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -50,4 +57,13 @@ class ChatsDetailAdapter(private var mContext: Context?,
     }
 
 
+}
+
+
+interface OnOptionClickListener  {
+    fun onOptionClick(
+        option: Option,
+        view: View,
+        position: Int
+    )
 }
