@@ -24,6 +24,10 @@ class PortfolioRepository @Inject constructor(application: Application) :
     private val coroutineScope = CoroutineScope(Dispatchers.IO + parentJob)
     val mPromisesResponse = MutableLiveData<BaseResponse<PortfolioData>>()
 
+
+    private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
+        mPromisesResponse.postValue(BaseResponse.Companion.error(exception.localizedMessage))
+    }
     /**
      * Get all investments
      *
@@ -34,7 +38,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
     fun getPortfolioDashboard(): LiveData<BaseResponse<PortfolioData>> {
         if (mPromisesResponse.value == null) {
             mPromisesResponse.postValue(BaseResponse.loading())
-            coroutineScope.launch {
+            coroutineScope.launch(exceptionHandler) {
                 try {
                     val watchlist = async { PortfolioDataSource(application).getMyWatchlist() }
                     val dashboard =

@@ -21,7 +21,7 @@ import javax.inject.Named
  * All the api in portfolio modules
  * @property application
  */
-class PortfolioDataSource(val application: Application) {
+class PortfolioDataSource(val application: Application):BaseDataSource(application) {
 
     @Inject
     lateinit var apiService: ApiService

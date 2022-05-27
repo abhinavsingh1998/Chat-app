@@ -91,17 +91,6 @@ class CompletedInvestmentAdapter(
                 }
             }
 
-//            holder.binding.ivCompletedInvestmentDropArrow.setOnClickListener {
-//                holder.binding.cvCompletedInvestmentGraphCard.visibility = View.VISIBLE
-//                holder.binding.ivCompletedInvestmentUpwardArrow.visibility = View.VISIBLE
-//                holder.binding.ivCompletedInvestmentDropArrow.visibility = View.GONE
-//            }
-//
-//            holder.binding.ivCompletedInvestmentUpwardArrow.setOnClickListener {
-//                holder.binding.cvCompletedInvestmentGraphCard.visibility = View.GONE
-//                holder.binding.ivCompletedInvestmentUpwardArrow.visibility = View.GONE
-//                holder.binding.ivCompletedInvestmentDropArrow.visibility = View.VISIBLE
-//            }
 
             holder.binding.tvEstimatedAppreciationRating.text =
                 "" + project.project.generalInfoEscalationGraph.estimatedAppreciation + "%"
@@ -127,7 +116,7 @@ class CompletedInvestmentAdapter(
                 linedataset.fillColor = context.getColor(R.color.green)
             }
             linedataset.mode = LineDataSet.Mode.LINEAR;
-            linedataset.setCircleColor(context.getColor(R.color.green))
+            linedataset.setDrawCircles(false)
 
             //We connect our data to the UI Screen
             val data = LineData(linedataset)
@@ -158,7 +147,6 @@ class CompletedInvestmentAdapter(
 
 
             val linedataset1 = LineDataSet(linevalues, "First")
-            linedataset1.setCircleColor(context.getColor(R.color.green))
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 linedataset1.color = context.getColor(R.color.green)
@@ -169,6 +157,8 @@ class CompletedInvestmentAdapter(
                 linedataset1.fillColor = context.getColor(R.color.green)
             }
             linedataset1.mode = LineDataSet.Mode.LINEAR;
+            linedataset1.setDrawCircles(false)
+            linedataset1.setDrawValues(false)
 
             //We connect our data to the UI Screen
             val data1 = LineData(linedataset1)
@@ -192,7 +182,7 @@ class CompletedInvestmentAdapter(
             holder.binding.ivCompletedInvestmentGraph.getXAxis().setDrawGridLines(false);
             holder.binding.ivCompletedInvestmentGraph.getXAxis().position =
                 XAxis.XAxisPosition.BOTTOM;
-            //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
+            //holder.binding.ivCompletedInvestmentGraph.getXAxis().setDrawAxisLine(false);
             holder.binding.ivCompletedInvestmentGraph.getAxisRight().setDrawGridLines(false);
             holder.binding.ivCompletedInvestmentGraph.getAxisRight().setDrawLabels(false);
             holder.binding.ivCompletedInvestmentGraph.getAxisRight().setDrawAxisLine(false);
