@@ -28,15 +28,15 @@ class HoablSplashActivity : BaseActivity() {
         setContentView(mBinding.root)
 
         Handler().postDelayed(Runnable { // Show white background behind floating label
-            startActivity(Intent(this, HomeActivity::class.java))
-            finish()
-            /*if (appPreference.isUserLoggedIn()) {
+//            startActivity(Intent(this, HomeActivity::class.java))
+//            finish()
+            if (appPreference.isUserLoggedIn()) {
                 startActivity(Intent(this, HomeActivity::class.java))
                 finish()
             } else {
                 startActivity(Intent(this, IntroSliderActivity::class.java))
                 finish()
-            }*/
+            }
         }, 1000)
 
     }
