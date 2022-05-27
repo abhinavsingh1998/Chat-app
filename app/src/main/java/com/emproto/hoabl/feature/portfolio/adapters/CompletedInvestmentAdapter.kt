@@ -1,7 +1,6 @@
 package com.emproto.hoabl.feature.portfolio.adapters
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -91,17 +90,6 @@ class CompletedInvestmentAdapter(
                 }
             }
 
-//            holder.binding.ivCompletedInvestmentDropArrow.setOnClickListener {
-//                holder.binding.cvCompletedInvestmentGraphCard.visibility = View.VISIBLE
-//                holder.binding.ivCompletedInvestmentUpwardArrow.visibility = View.VISIBLE
-//                holder.binding.ivCompletedInvestmentDropArrow.visibility = View.GONE
-//            }
-//
-//            holder.binding.ivCompletedInvestmentUpwardArrow.setOnClickListener {
-//                holder.binding.cvCompletedInvestmentGraphCard.visibility = View.GONE
-//                holder.binding.ivCompletedInvestmentUpwardArrow.visibility = View.GONE
-//                holder.binding.ivCompletedInvestmentDropArrow.visibility = View.VISIBLE
-//            }
 
             holder.binding.tvEstimatedAppreciationRating.text =
                 "" + project.project.generalInfoEscalationGraph.estimatedAppreciation + "%"
@@ -126,8 +114,8 @@ class CompletedInvestmentAdapter(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 linedataset.fillColor = context.getColor(R.color.green)
             }
-            linedataset.mode = LineDataSet.Mode.LINEAR;
-            linedataset.setCircleColor(context.getColor(R.color.green))
+            linedataset.mode = LineDataSet.Mode.LINEAR
+            linedataset.setDrawCircles(false)
 
             //We connect our data to the UI Screen
             val data = LineData(linedataset)
@@ -135,21 +123,21 @@ class CompletedInvestmentAdapter(
             //binding.ivPriceTrendsGraph.setDrawBorders(false);
             //binding.ivPriceTrendsGraph.setDrawGridBackground(false);
 
-            holder.binding.ivCompletedInvestmentGraphImage.getDescription().setEnabled(false);
-            holder.binding.ivCompletedInvestmentGraphImage.getLegend().setEnabled(false);
-            holder.binding.ivCompletedInvestmentGraphImage.getAxisLeft().setDrawGridLines(false);
+            holder.binding.ivCompletedInvestmentGraphImage.getDescription().setEnabled(false)
+            holder.binding.ivCompletedInvestmentGraphImage.getLegend().setEnabled(false)
+            holder.binding.ivCompletedInvestmentGraphImage.getAxisLeft().setDrawGridLines(false)
             holder.binding.ivCompletedInvestmentGraphImage.setTouchEnabled(false)
             holder.binding.ivCompletedInvestmentGraphImage.setPinchZoom(false)
             holder.binding.ivCompletedInvestmentGraphImage.isDoubleTapToZoomEnabled = false
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
-            holder.binding.ivCompletedInvestmentGraphImage.getXAxis().setDrawGridLines(false);
+            holder.binding.ivCompletedInvestmentGraphImage.getXAxis().setDrawGridLines(false)
             holder.binding.ivCompletedInvestmentGraphImage.getXAxis().position =
-                XAxis.XAxisPosition.BOTTOM;
+                XAxis.XAxisPosition.BOTTOM
             holder.binding.ivCompletedInvestmentGraphImage.getXAxis().setDrawLabels(false)
-            holder.binding.ivCompletedInvestmentGraphImage.getAxisRight().setDrawGridLines(false);
-            holder.binding.ivCompletedInvestmentGraphImage.getAxisRight().setDrawLabels(false);
-            holder.binding.ivCompletedInvestmentGraphImage.getAxisRight().setDrawAxisLine(false);
+            holder.binding.ivCompletedInvestmentGraphImage.getAxisRight().setDrawGridLines(false)
+            holder.binding.ivCompletedInvestmentGraphImage.getAxisRight().setDrawLabels(false)
+            holder.binding.ivCompletedInvestmentGraphImage.getAxisRight().setDrawAxisLine(false)
             //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
             holder.binding.ivCompletedInvestmentGraphImage.axisLeft.setDrawLabels(false)
             //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
@@ -158,7 +146,6 @@ class CompletedInvestmentAdapter(
 
 
             val linedataset1 = LineDataSet(linevalues, "First")
-            linedataset1.setCircleColor(context.getColor(R.color.green))
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 linedataset1.color = context.getColor(R.color.green)
@@ -168,7 +155,9 @@ class CompletedInvestmentAdapter(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 linedataset1.fillColor = context.getColor(R.color.green)
             }
-            linedataset1.mode = LineDataSet.Mode.LINEAR;
+            linedataset1.mode = LineDataSet.Mode.LINEAR
+            linedataset1.setDrawCircles(false)
+            linedataset1.setDrawValues(false)
 
             //We connect our data to the UI Screen
             val data1 = LineData(linedataset1)
@@ -181,21 +170,21 @@ class CompletedInvestmentAdapter(
             //binding.ivPriceTrendsGraph.setDrawBorders(false);
             //binding.ivPriceTrendsGraph.setDrawGridBackground(false);
             holder.binding.ivCompletedInvestmentGraph.xAxis.addLimitLine(limitLine)
-            holder.binding.ivCompletedInvestmentGraph.getDescription().setEnabled(false);
-            holder.binding.ivCompletedInvestmentGraph.getLegend().setEnabled(false);
-            holder.binding.ivCompletedInvestmentGraph.getAxisLeft().setDrawGridLines(false);
+            holder.binding.ivCompletedInvestmentGraph.getDescription().setEnabled(false)
+            holder.binding.ivCompletedInvestmentGraph.getLegend().setEnabled(false)
+            holder.binding.ivCompletedInvestmentGraph.getAxisLeft().setDrawGridLines(false)
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
             holder.binding.ivCompletedInvestmentGraph.setTouchEnabled(false)
             holder.binding.ivCompletedInvestmentGraph.setPinchZoom(false)
             holder.binding.ivCompletedInvestmentGraph.isDoubleTapToZoomEnabled = false
-            holder.binding.ivCompletedInvestmentGraph.getXAxis().setDrawGridLines(false);
+            holder.binding.ivCompletedInvestmentGraph.getXAxis().setDrawGridLines(false)
             holder.binding.ivCompletedInvestmentGraph.getXAxis().position =
                 XAxis.XAxisPosition.BOTTOM;
-            //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
-            holder.binding.ivCompletedInvestmentGraph.getAxisRight().setDrawGridLines(false);
-            holder.binding.ivCompletedInvestmentGraph.getAxisRight().setDrawLabels(false);
-            holder.binding.ivCompletedInvestmentGraph.getAxisRight().setDrawAxisLine(false);
+            //holder.binding.ivCompletedInvestmentGraph.getXAxis().setDrawAxisLine(false);
+            holder.binding.ivCompletedInvestmentGraph.getAxisRight().setDrawGridLines(false)
+            holder.binding.ivCompletedInvestmentGraph.getAxisRight().setDrawLabels(false)
+            holder.binding.ivCompletedInvestmentGraph.getAxisRight().setDrawAxisLine(false)
             //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
             //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
             holder.binding.ivCompletedInvestmentGraph.data = data1
