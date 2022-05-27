@@ -437,6 +437,10 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     override fun onClickApplyNow(projectId: Int) {
     }
 
+    override fun onClickShare() {
+        (requireActivity() as HomeActivity).share_app()
+    }
+
     private fun setUpRecyclerView() {
         val list = ArrayList<PortfolioModel>()
         list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_HEADER))

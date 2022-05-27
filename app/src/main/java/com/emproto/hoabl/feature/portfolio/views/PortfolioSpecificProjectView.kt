@@ -32,6 +32,7 @@ import java.io.Serializable
 import javax.inject.Inject
 import android.content.Intent
 import android.net.Uri
+import com.emproto.hoabl.feature.investment.views.mediagallery.MediaGalleryFragment
 import com.emproto.hoabl.feature.investment.views.mediagallery.MediaViewFragment
 import com.emproto.hoabl.model.MediaViewItem
 
@@ -86,7 +87,6 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
     private fun initView() {
         (requireActivity() as HomeActivity).showHeader()
-
         (requireActivity() as HomeActivity).showBackArrow()
         (requireActivity() as HomeActivity).hideBottomNavigation()
 
@@ -227,10 +227,13 @@ class PortfolioSpecificProjectView : BaseFragment() {
                                         override fun onApplySinvestment(projectId: Int) {
                                         }
 
-                                        override fun readAllFaq() {
+                                        override fun readAllFaq(position: Int) {
                                             val fragment = FaqDetailFragment()
                                             val bundle = Bundle()
                                             bundle.putInt("ProjectId", projectId)
+                                            if (position != -1) {
+                                                bundle.putInt("SelectedPosition", position)
+                                            }
                                             fragment.arguments = bundle
                                             (requireActivity() as HomeActivity).addFragment(
                                                 fragment,
@@ -294,6 +297,24 @@ class PortfolioSpecificProjectView : BaseFragment() {
                                             (requireActivity() as HomeActivity).addFragment(
                                                 fragment, false
                                             )
+                                        }
+
+                                        override fun seeAllImages(imagesList: ArrayList<MediaViewItem>) {
+                                            val fragment = MediaGalleryFragment()
+                                            val bundle = Bundle()
+                                            bundle.putSerializable("Data", imagesList)
+                                            fragment.arguments = bundle
+                                            (requireActivity() as HomeActivity).addFragment(
+                                                fragment, false
+                                            )
+                                        }
+
+                                        override fun shareApp() {
+                                            (requireActivity() as HomeActivity).share_app()
+                                        }
+
+                                        override fun onClickAsk() {
+                                            showError("Chat is in Development", binding.root)
                                         }
 
                                     })

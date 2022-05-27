@@ -1,5 +1,6 @@
 package com.emproto.hoabl.feature.portfolio.views
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,9 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.ProgressBar
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentFmBinding
+import com.emproto.hoabl.feature.home.views.HomeActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,9 +45,14 @@ class FmFragment : BaseFragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentFmBinding.inflate(layoutInflater)
-        binding.webView.webViewClient = MyWebViewclient()
+        (requireActivity() as HomeActivity).hideHeader()
+        binding.webView.webViewClient = MyWebViewclient(binding.progressBaar)
+        binding.webView.getSettings().setJavaScriptEnabled(true);
+        binding.webView.getSettings().setBuiltInZoomControls(true);
+        binding.webView.getSettings().setDisplayZoomControls(false);
+        binding.webView.getSettings().setDomStorageEnabled(true);
+        binding.webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         binding.webView.loadUrl(param1!!)
-        binding.webView.settings.javaScriptEnabled = true
 
 
         return binding.root
@@ -71,10 +78,20 @@ class FmFragment : BaseFragment() {
             }
     }
 
-    public open class MyWebViewclient : WebViewClient() {
+    public open class MyWebViewclient(val progressBaar: ProgressBar) : WebViewClient() {
         override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
             view!!.loadUrl(url!!)
             return true
+        }
+
+        override fun onPageFinished(view: WebView?, url: String?) {
+            super.onPageFinished(view, url)
+            progressBaar.visibility = View.GONE
+        }
+
+        override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+            super.onPageStarted(view, url, favicon)
+            progressBaar.visibility = View.VISIBLE
         }
     }
 }
