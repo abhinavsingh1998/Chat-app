@@ -9,4 +9,4 @@ data class ProjectCoverImages(
     val homePageMedia: HomePageMedia,
     val newInvestmentPageMedia: NewInvestmentPageMedia,
     val portfolioPageMedia: PortfolioPageMedia
-):Serializable
+) : Serializable

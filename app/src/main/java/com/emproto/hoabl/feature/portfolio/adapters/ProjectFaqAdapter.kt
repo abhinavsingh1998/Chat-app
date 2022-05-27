@@ -11,7 +11,9 @@ import com.emproto.hoabl.databinding.ItemFaqBinding
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectContentsAndFaq
 
 class ProjectFaqAdapter(
-    val context: Context, private val list: List<ProjectContentsAndFaq>
+    val context: Context,
+    private val list: List<ProjectContentsAndFaq>,
+    val ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface
 ) :
     RecyclerView.Adapter<ProjectFaqAdapter.FaqViewHolder>() {
     inner class FaqViewHolder(var binding: ItemFaqBinding) : RecyclerView.ViewHolder(binding.root)
@@ -38,6 +40,9 @@ class ProjectFaqAdapter(
         holder.binding.tvFaqAnswer.text = faqItem.frequentlyAskedQuestion.faqAnswer.answer
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.binding.ivFaqCardDropDown.setImageDrawable(context.getDrawable(R.drawable.rightarrow))
+        }
+        holder.binding.cvFaqCard.setOnClickListener {
+            ivInterface.readAllFaq(position)
         }
 
     }

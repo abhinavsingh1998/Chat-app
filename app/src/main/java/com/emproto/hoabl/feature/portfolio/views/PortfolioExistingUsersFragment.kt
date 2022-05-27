@@ -200,4 +200,8 @@ class PortfolioExistingUsersFragment : BaseFragment(),
         TODO("Not yet implemented")
     }
 
+    override fun onClickShare() {
+        TODO("Not yet implemented")
+    }
+
 }
