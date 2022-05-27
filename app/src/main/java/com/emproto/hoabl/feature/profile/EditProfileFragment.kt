@@ -769,7 +769,7 @@ class EditProfileFragment : Fragment() {
             e.printStackTrace()
         }
         binding.profileImage.setImageBitmap(thumbnail)
-        if ((requireActivity() as BaseActivity).isNetworkAvailable(binding.root)) {
+        if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
             callingUploadPicApi()
         } else {
             (requireActivity() as BaseActivity).showError(
@@ -837,7 +837,7 @@ class EditProfileFragment : Fragment() {
             //imgPath = getRealPathFromURI(selectedImage);
             // destination = new File(imgPath);
             //profile_image.setImageBitmap(bitmap);
-            if ((requireActivity() as BaseActivity).isNetworkAvailable(binding.root)) {
+            if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
                 callingUploadPicApi()
             } else {
                 (requireActivity() as BaseActivity).showError(
