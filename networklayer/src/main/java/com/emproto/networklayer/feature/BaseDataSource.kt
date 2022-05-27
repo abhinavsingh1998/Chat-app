@@ -1,6 +1,11 @@
 package com.emproto.networklayer.feature
 
 import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
+import android.util.Log
 import com.emproto.networklayer.di.DataAppModule
 import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
@@ -29,10 +34,42 @@ public abstract class BaseDataSource(val baseApplication: Application) {
 
     init {
         dataComponent.inject(this)
+        if (!isNetworkAvailable()) {
+            throw Exception("No Network Available")
+        }
     }
 
     suspend fun getRefer(referalRequest: ReferalRequest): Response<ReferalResponse> {
         return baseService.referNow(referalRequest)
     }
+
+    fun isNetworkAvailable(): Boolean {
+        val connectivityManager =
+            baseApplication.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val network =
+                connectivityManager.activeNetwork // network is currently in a high power state for performing data transmission.
+            Log.d("Network", "active network $network")
+            network ?: return false // return false if network is null
+            val actNetwork = connectivityManager.getNetworkCapabilities(network)
+                ?: return false // return false if Network Capabilities is null
+            return when {
+                actNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> { // check if wifi is connected
+                    Log.d("Network", "wifi connected")
+                    true
+                }
+                actNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> { // check if mobile dats is connected
+                    Log.d("Network", "cellular network connected")
+                    true
+                }
+                else -> {
+                    Log.d("Network", "internet not connected")
+                    false
+                }
+            }
+        }
+        return false
+    }
+
 
 }

@@ -3,11 +3,16 @@ package com.example.portfolioui.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.portfolioui.R
 import com.example.portfolioui.databinding.ItemTimelineInprogressBinding
 import com.example.portfolioui.databinding.ItemTimelineStepCompletedBinding
 import com.example.portfolioui.databinding.ItemTimelineStepDisabledBinding
 import com.example.portfolioui.models.StepsModel
+import com.skydoves.balloon.BalloonAnimation
+import com.skydoves.balloon.BalloonSizeSpec
+import com.skydoves.balloon.createBalloon
 
 class StepsAdapter(
     var context: Context,
@@ -71,11 +76,50 @@ class StepsAdapter(
                 val data = dataList[position].timeline
                 type1Holder.binding.tvName.text = data.heading
 
+                val balloon = createBalloon(context) {
+                    setArrowSize(6)
+                    setWidth(BalloonSizeSpec.WRAP)
+                    setTextSize(12F)
+                    setArrowPosition(0.8f)
+                    setCornerRadius(4f)
+                    setAlpha(0.9f)
+                    setText(data.heading)
+                    setTextColorResource(R.color.white)
+                    setBackgroundColorResource(R.color.black)
+                    setPadding(5)
+                    setTextTypeface(ResourcesCompat.getFont(context, R.font.jost_medium)!!)
+                    setBalloonAnimation(BalloonAnimation.FADE)
+                    setLifecycleOwner(lifecycleOwner)
+                }
+
+                type1Holder.binding.imageView.setOnClickListener {
+                    balloon.showAlignBottom(type1Holder.binding.imageView)
+                }
+
             }
             TYPE_COMPLETED -> {
                 val type1Holder = holder as InCompletedHolder
                 val data = dataList[position].timeline
                 type1Holder.binding.tvName.text = data.heading
+                val balloon = createBalloon(context) {
+                    setArrowSize(6)
+                    setWidth(BalloonSizeSpec.WRAP)
+                    setTextSize(12F)
+                    setArrowPosition(0.8f)
+                    setCornerRadius(4f)
+                    setAlpha(0.9f)
+                    setText(data.heading)
+                    setTextColorResource(R.color.white)
+                    setBackgroundColorResource(R.color.black)
+                    setPadding(5)
+                    setTextTypeface(ResourcesCompat.getFont(context, R.font.jost_medium)!!)
+                    setBalloonAnimation(BalloonAnimation.FADE)
+                    setLifecycleOwner(lifecycleOwner)
+                }
+
+                type1Holder.binding.imageView.setOnClickListener {
+                    balloon.showAlignBottom(type1Holder.binding.imageView)
+                }
             }
             TYPE_INPROGRESS -> {
                 val type1Holder = holder as InProgressHolder
@@ -83,6 +127,25 @@ class StepsAdapter(
                 type1Holder.binding.tvName.text = data.heading
                 type1Holder.binding.tvPercentage.text =
                     "" + data.sections[0].values.percentage + "%"
+                val balloon = createBalloon(context) {
+                    setArrowSize(6)
+                    setWidth(BalloonSizeSpec.WRAP)
+                    setTextSize(12F)
+                    setArrowPosition(0.8f)
+                    setCornerRadius(4f)
+                    setAlpha(0.9f)
+                    setText(data.heading)
+                    setTextColorResource(R.color.white)
+                    setBackgroundColorResource(R.color.black)
+                    setPadding(5)
+                    setTextTypeface(ResourcesCompat.getFont(context, R.font.jost_medium)!!)
+                    setBalloonAnimation(BalloonAnimation.FADE)
+                    setLifecycleOwner(lifecycleOwner)
+                }
+
+                type1Holder.binding.imageView.setOnClickListener {
+                    balloon.showAlignBottom(type1Holder.binding.imageView)
+                }
             }
         }
     }
