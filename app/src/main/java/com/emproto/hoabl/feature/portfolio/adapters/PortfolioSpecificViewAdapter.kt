@@ -379,16 +379,16 @@ class PortfolioSpecificViewAdapter(
             val linedataset = LineDataSet(linevalues, "")
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset.color = context.getColor(R.color.app_color)
+                linedataset.color = context.getColor(R.color.green)
             }
 
             linedataset.valueTextSize = 12F
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset.fillColor = context.getColor(R.color.light_app_color)
+                linedataset.fillColor = context.getColor(R.color.green)
             }
             linedataset.mode = LineDataSet.Mode.LINEAR;
-
-            //We connect our data to the UI Screen
+            linedataset.setDrawCircles(false)
+            linedataset.setDrawValues(false)
             val data = LineData(linedataset)
 
             //binding.ivPriceTrendsGraph.setDrawBorders(false);
