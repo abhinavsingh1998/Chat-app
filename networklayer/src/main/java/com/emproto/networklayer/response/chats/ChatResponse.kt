@@ -2,15 +2,16 @@ package com.emproto.networklayer.response.chats
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class ChatResponse(
     @SerializedName("code")
     val code: Int,
     @SerializedName("data")
-    val chatList: List<ChatList>,
+    val chatList: ArrayList<ChatList>,
     @SerializedName("message")
     val message: String
-) {
+):Serializable {
     data class ChatList(
         @SerializedName("isInvested")
         val isInvested: Boolean,
@@ -20,7 +21,7 @@ data class ChatResponse(
         val project: Project,
         @SerializedName("unreadCount")
         val unreadCount: Any?
-    ) {
+    ) : Serializable {
         data class Project(
             @SerializedName("id")
             val id: Int,
@@ -32,11 +33,11 @@ data class ChatResponse(
             val projectCoverImages: ProjectCoverImages,
             @SerializedName("projectId")
             val projectId: Int
-        ) {
+        ):Serializable {
             data class Project(
                 @SerializedName("crmProjectId")
                 val crmProjectId: String
-            )
+            ):Serializable
 
             data class ProjectCoverImages(
                 @SerializedName("chatListViewPageMedia")
@@ -51,7 +52,7 @@ data class ChatResponse(
                 val newInvestmentPageMedia: NewInvestmentPageMedia,
                 @SerializedName("portfolioPageMedia")
                 val portfolioPageMedia: PortfolioPageMedia
-            ) {
+            ) :Serializable{
                 data class ChatListViewPageMedia(
                     @SerializedName("key")
                     val key: String,
@@ -59,7 +60,7 @@ data class ChatResponse(
                     val name: String,
                     @SerializedName("value")
                     val value: Value
-                ) {
+                ) :Serializable{
                     data class Value(
                         @SerializedName("height")
                         val height: Int,
@@ -71,7 +72,7 @@ data class ChatResponse(
                         val url: String,
                         @SerializedName("width")
                         val width: Int
-                    )
+                    ):Serializable
                 }
 
                 data class ChatPageMedia(
@@ -81,7 +82,7 @@ data class ChatResponse(
                     val name: String,
                     @SerializedName("value")
                     val value: Value
-                ) {
+                ) :Serializable{
                     data class Value(
                         @SerializedName("height")
                         val height: Int,
@@ -93,7 +94,7 @@ data class ChatResponse(
                         val url: String,
                         @SerializedName("width")
                         val width: Int
-                    )
+                    ):Serializable
                 }
 
                 data class CollectionListViewPageMedia(
@@ -103,7 +104,7 @@ data class ChatResponse(
                     val name: String,
                     @SerializedName("value")
                     val value: Value
-                ) {
+                ) :Serializable{
                     data class Value(
                         @SerializedName("height")
                         val height: Int,
@@ -115,7 +116,7 @@ data class ChatResponse(
                         val url: String,
                         @SerializedName("width")
                         val width: Int
-                    )
+                    ):Serializable
                 }
 
                 data class HomePageMedia(
@@ -125,7 +126,7 @@ data class ChatResponse(
                     val name: String,
                     @SerializedName("value")
                     val value: Value
-                ) {
+                ) :Serializable{
                     data class Value(
                         @SerializedName("height")
                         val height: Int,
@@ -137,7 +138,7 @@ data class ChatResponse(
                         val url: String,
                         @SerializedName("width")
                         val width: Int
-                    )
+                    ):Serializable
                 }
 
                 data class NewInvestmentPageMedia(
@@ -147,7 +148,7 @@ data class ChatResponse(
                     val name: String,
                     @SerializedName("value")
                     val value: Value
-                ) {
+                ):Serializable {
                     data class Value(
                         @SerializedName("height")
                         val height: Int,
@@ -159,7 +160,7 @@ data class ChatResponse(
                         val url: String,
                         @SerializedName("width")
                         val width: Int
-                    )
+                    ):Serializable
                 }
 
                 data class PortfolioPageMedia(
@@ -169,7 +170,7 @@ data class ChatResponse(
                     val name: String,
                     @SerializedName("value")
                     val value: Value
-                ) {
+                ) :Serializable{
                     data class Value(
                         @SerializedName("height")
                         val height: Int,
@@ -181,7 +182,7 @@ data class ChatResponse(
                         val url: String,
                         @SerializedName("width")
                         val width: Int
-                    )
+                    ):Serializable
                 }
             }
         }

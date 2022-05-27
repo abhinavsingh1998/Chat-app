@@ -8,9 +8,11 @@ import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.di.DaggerDataComponent
 import com.emproto.networklayer.ApiService
 import com.emproto.networklayer.response.chats.ChatDetailResponse
+import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import retrofit2.Response
+import retrofit2.http.Body
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -47,7 +49,7 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
     }
 
     //chats initiate api
-    suspend fun chatInitiate(): Response<ChatDetailResponse> {
-        return apiService.chatInitiate()
+    suspend fun chatInitiate(@Body chatInitiateRequest: ChatInitiateRequest): Response<ChatDetailResponse> {
+        return apiService.chatInitiate(chatInitiateRequest)
     }
 }

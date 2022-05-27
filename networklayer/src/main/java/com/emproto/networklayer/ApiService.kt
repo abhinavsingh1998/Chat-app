@@ -8,6 +8,7 @@ import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.chats.ChatDetailResponse
+import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.investment.*
@@ -116,5 +117,5 @@ public interface ApiService {
     suspend fun getChatsList(): Response<ChatResponse>
 
     @PUT(ApiConstants.CHATS_INITIATE)
-    suspend fun chatInitiate(): Response<ChatDetailResponse>
+    suspend fun chatInitiate(@Body chatInitiateRequest: ChatInitiateRequest): Response<ChatDetailResponse>
 }

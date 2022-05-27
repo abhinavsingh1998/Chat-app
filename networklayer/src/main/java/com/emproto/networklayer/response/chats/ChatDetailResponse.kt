@@ -41,32 +41,37 @@ data class ChatDetailResponse(
     data class ChatDetailList(
         @SerializedName("autoChat")
         val autoChat: AutoChat,
-        @SerializedName("createdAt")
-        val createdAt: String,
-        @SerializedName("updatedAt")
-        val updatedAt: String
-    ) {
+
+        ) {
         data class AutoChat(
-            @SerializedName("allowTypingMessage")
-            val allowTypingMessage: String,
+
             @SerializedName("chatJSON")
             val chatJSON: ChatJSON,
-            @SerializedName("finalMessage")
-            val finalMessage: String,
+
             @SerializedName("id")
             val id: Int,
             @SerializedName("smartKey")
             val smartKey: String,
-            @SerializedName("welcomeMessage")
-            val welcomeMessage: String
+
+            @SerializedName("createdAt")
+            val createdAt: String,
+            @SerializedName("updatedAt")
+            val updatedAt: String
         ) {
             data class ChatJSON(
+                @SerializedName("allowTypingMessage")
+                val allowTypingMessage: String,
+                @SerializedName("finalMessage")
+                val finalMessage: String,
+                @SerializedName("welcomeMessage")
+                val welcomeMessage: String,
                 @SerializedName("chatBody")
                 val chatBody: List<ChatBody>
             )
         }
     }
 }
+
 data class ChatBody(
     @SerializedName("linkedOption")
     val linkedOption: Int?,
@@ -75,6 +80,7 @@ data class ChatBody(
     @SerializedName("options")
     val options: ArrayList<Option>?
 )
+
 data class Option(
     @SerializedName("action")
     val action: String?,

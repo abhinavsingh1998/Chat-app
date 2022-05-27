@@ -13,7 +13,7 @@ import com.emproto.networklayer.response.chats.ChatResponse
 
 class ChatsAdapter(
     private var mContext: Context?,
-    private var chatList: ChatDetailResponse.ChatDetailList,
+    private var chatList: ArrayList<ChatResponse.ChatList>,
     private var mListener: OnItemClickListener
 
 ) : RecyclerView.Adapter<ChatsAdapter.ViewHolder>() {

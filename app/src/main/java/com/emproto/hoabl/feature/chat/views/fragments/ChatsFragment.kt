@@ -68,7 +68,7 @@ class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
     }
     override fun onChatItemClick(chat: List<ChatList>, view: View, position: Int) {
         val bundle = Bundle()
-        bundle.putSerializable("chatModel", chat as Serializable)
+        bundle.putSerializable("chatModel", chat[position])
         val chatsDetailFragment = ChatsDetailFragment()
         chatsDetailFragment.arguments = bundle
         (requireActivity() as HomeActivity).replaceFragment(chatsDetailFragment.javaClass,
