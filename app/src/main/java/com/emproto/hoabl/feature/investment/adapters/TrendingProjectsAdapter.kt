@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
@@ -25,7 +26,7 @@ class TrendingProjectsAdapter(val context: Context, val list: List<PageManagemen
 //            tvItemLocation.text = ""
             tvItemLocationInfo.text = element.shortDescription
             tvItemAmount.text = element.priceStartingFrom + " Onwards"
-            tvNoViews.text = element.fomoContent.noOfViews.toString()
+            tvNoViews.text = Utility.coolFormat(element.fomoContent.noOfViews.toDouble(),0)
             tvItemArea.text = element.areaStartingFrom + " Onwards"
 //            Glide.with(context)
 //                .load(element.mediaGalleries[0].coverImage[0].mediaContent.value.url)

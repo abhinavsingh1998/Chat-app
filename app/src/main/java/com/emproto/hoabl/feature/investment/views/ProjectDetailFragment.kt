@@ -2,11 +2,11 @@ package com.emproto.hoabl.feature.investment.views
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -31,10 +31,11 @@ import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
+import com.emproto.networklayer.request.investment.AddInventoryBody
 import com.emproto.networklayer.request.investment.WatchListBody
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.investment.*
-import com.emproto.networklayer.response.promises.HomePagesOrPromise
+import com.emproto.networklayer.response.watchlist.Data
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.io.Serializable
 import javax.inject.Inject
@@ -57,9 +58,13 @@ class ProjectDetailFragment : BaseFragment() {
     private lateinit var promisesData: List<PmData>
     private lateinit var landSkusData: List<InventoryBucketContent>
     private lateinit var mapLocationData: LocationInfrastructure
+    private lateinit var watchList: List<Data>
+    private lateinit var inventoryList : List<Inventory>
 
     private var faqData: List<ProjectContentsAndFaq> = mutableListOf()
     private var APP_URL = "https://www.google.com/"
+    private var isBookmarked = false
+    private var watchListId = 0
 
     val onItemClickListener =
         View.OnClickListener { view ->
@@ -92,8 +97,12 @@ class ProjectDetailFragment : BaseFragment() {
                     )
                 }
                 R.id.tv_skus_see_all -> {
+                    val fragment = LandSkusFragment()
+                    val bundle = Bundle()
+                    bundle.putInt("ProjectId", projectId)
+                    fragment.arguments = arguments
                     investmentViewModel.setSkus(landSkusData)
-                    (requireActivity() as HomeActivity).addFragment(LandSkusFragment(), false)
+                    (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
                 R.id.tv_video_drone_see_all -> {
                     investmentViewModel.setMedia(mediaData)
@@ -182,7 +191,7 @@ class ProjectDetailFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
                 }
                 Status.SUCCESS -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+//                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                     it.data?.data?.let { data ->
                         promisesData = data
                         callProjectIdApi(promisesData)
@@ -215,7 +224,9 @@ class ProjectDetailFragment : BaseFragment() {
                             landSkusData = data.inventoryBucketContents
                             faqData = data.projectContentsAndFaqs
                             mapLocationData = data.locationInfrastructure
-                            setUpRecyclerView(data, promiseData)
+                            watchList = data.watchlist
+                            inventoryList = data.inventoriesList.data
+                            setUpRecyclerView(data, promiseData, inventoryList)
                         }
                     }
                     Status.ERROR -> {
@@ -226,31 +237,31 @@ class ProjectDetailFragment : BaseFragment() {
                     }
                 }
             })
-
-        investmentViewModel.getInvestmentsDetail(projectId).observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Status.LOADING -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
-                }
-                Status.SUCCESS -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
-                    it.data?.data?.let { data ->
-                        oppDocData = data.opprotunityDocs
-                        mediaData = data.projectCoverImages
-                        landSkusData = data.inventoryBucketContents
-                        faqData = data.projectContentsAndFaqs
-                        mapLocationData = data.locationInfrastructure
-                        setUpRecyclerView(data, promiseData)
-                    }
-                }
-                Status.ERROR -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
-                    (requireActivity() as HomeActivity).showErrorToast(
-                        it.message!!
-                    )
-                }
-            }
-        })
+//
+//        investmentViewModel.getInvestmentsDetail(projectId).observe(viewLifecycleOwner, Observer {
+//            when (it.status) {
+//                Status.LOADING -> {
+//                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+//                }
+//                Status.SUCCESS -> {
+//                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+//                    it.data?.data?.let { data ->
+//                        oppDocData = data.opprotunityDocs
+//                        mediaData = data.projectCoverImages
+//                        landSkusData = data.inventoryBucketContents
+//                        faqData = data.projectContentsAndFaqs
+//                        mapLocationData = data.locationInfrastructure
+//                        setUpRecyclerView(data, promiseData)
+//                    }
+//                }
+//                Status.ERROR -> {
+//                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+//                    (requireActivity() as HomeActivity).showErrorToast(
+//                        it.message!!
+//                    )
+//                }
+//            }
+//        })
 
     }
 
@@ -263,7 +274,7 @@ class ProjectDetailFragment : BaseFragment() {
                 Status.SUCCESS -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                     it.data?.let { data ->
-
+                        Toast.makeText(this.requireContext(), "Project added to watchlist successfully", Toast.LENGTH_SHORT).show()
                     }
                 }
                 Status.ERROR -> {
@@ -276,7 +287,11 @@ class ProjectDetailFragment : BaseFragment() {
         })
     }
 
-    private fun setUpRecyclerView(data: PdData, promisesData: List<PmData>) {
+    private fun setUpRecyclerView(
+        data: PdData,
+        promisesData: List<PmData>,
+        inventoryList: List<Inventory>
+    ) {
         val list = ArrayList<RecyclerViewItem>()
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_ONE))
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_TWO))
@@ -299,8 +314,14 @@ class ProjectDetailFragment : BaseFragment() {
                 list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_FOURTEEN))
             }
         }
+        for(item in watchList){
+            if(item.project.id == projectId){
+                isBookmarked = true
+                watchListId = item.watchlist.id
+            }
+        }
         val adapter =
-            ProjectDetailAdapter(this.requireContext(), list, data, promisesData, itemClickListener)
+            ProjectDetailAdapter(this.requireContext(), list, data, promisesData, itemClickListener,isBookmarked,investmentViewModel)
         binding.rvProjectDetail.adapter = adapter
         adapter.setItemClickListener(onItemClickListener)
     }
@@ -309,9 +330,7 @@ class ProjectDetailFragment : BaseFragment() {
         override fun onItemClicked(view: View, position: Int, item: String) {
             when(view.id) {
                 R.id.cl_outer_item_skus -> {
-                    investmentViewModel.setSku(landSkusData[position])
-                    val confirmationDialog = ConfirmationDialog(investmentViewModel)
-                    confirmationDialog.show(parentFragmentManager,"ConfirmationDialog")
+                    openDialog()
                 }
                 R.id.cv_promises_card -> {
                     if(promisesData[position] != null){
@@ -334,7 +353,71 @@ class ProjectDetailFragment : BaseFragment() {
                         false
                     )
                 }
+                R.id.iv_bookmark_icon -> {
+                    when(item){
+                        "true" -> addWatchList()
+                        "false" -> deleteWatchList()
+                    }
+                }
+            }
+            when(item){
+                "Yes" -> {
+                    investmentViewModel.addInventory(
+                        AddInventoryBody(
+                            inventoryBucketId = position,
+                            launchPhaseId = projectId
+                        )
+                    ).observe(viewLifecycleOwner,Observer{
+                        when(it.status){
+                            Status.LOADING -> {
+                                (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                            }
+                            Status.SUCCESS -> {
+                                (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                                it.data?.let { data ->
+                                    val applicationSubmitDialog = ApplicationSubmitDialog("Thank you for your interest!","Our Project Manager will reach out to you in 24 hours!")
+                                    applicationSubmitDialog.show(parentFragmentManager,"ApplicationSubmitDialog")
+                                    callApi()
+                                }
+                            }
+                            Status.ERROR -> {
+                                (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                                (requireActivity() as HomeActivity).showErrorToast(
+                                    it.message!!
+                                )
+                            }
+                        }
+                    })
+                }
             }
         }
     }
+
+    private fun openDialog() {
+        val confirmationDialog = ConfirmationDialog(investmentViewModel,itemClickListener)
+        confirmationDialog.show(parentFragmentManager,"ConfirmationDialog")
+    }
+
+    private fun deleteWatchList() {
+        investmentViewModel.deleteWatchList(watchListId).observe(viewLifecycleOwner,Observer{
+            when(it.status){
+                Status.LOADING -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                }
+                Status.SUCCESS -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    it.data?.let { data ->
+                        Toast.makeText(this.requireContext(), "Project removed from watchlist successfully", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                Status.ERROR -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(
+                        it.message!!
+                    )
+                }
+            }
+        })
+    }
+
 }

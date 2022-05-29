@@ -30,6 +30,7 @@ class InvestmentFragment : BaseFragment() {
     private lateinit var smartDealsList: List<PageManagementsOrCollectionOneModel>
     private lateinit var trendingProjectsList: List<PageManagementsOrCollectionTwoModel>
     private lateinit var newInvestmentsList: List<PageManagementsOrNewInvestment>
+    private var projectId = 0
 
     private val onInvestmentItemClickListener =
         View.OnClickListener { view ->
@@ -64,10 +65,24 @@ class InvestmentFragment : BaseFragment() {
                 }
                 R.id.tv_apply_now -> {
                     investmentViewModel.setProjectId(newInvestmentsList[0].id)
-                    callProjectDataApi()
+                    val fragment = LandSkusFragment()
+                    val bundle = Bundle()
+                    bundle.putInt("ProjectId", newInvestmentsList[0].id)
+                    fragment.arguments = arguments
+                    (requireActivity() as HomeActivity).addFragment(fragment,false)
+//                    callProjectDataApi()
                 }
                 R.id.btn_discover -> {
                     callProjectContentAPi()
+                }
+                R.id.iv_dont_miss_image -> {
+                    val bundle = Bundle()
+                    bundle.putInt("ProjectId", projectId)
+                    val fragment = ProjectDetailFragment()
+                    fragment.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(
+                        fragment, false
+                    )
                 }
             }
         }
@@ -168,6 +183,7 @@ class InvestmentFragment : BaseFragment() {
                         newInvestmentsList = data.page.pageManagementsOrNewInvestments
                         smartDealsList = data.pageManagementsOrCollectionOneModels
                         trendingProjectsList = data.pageManagementsOrCollectionTwoModels
+                        projectId = data.page.promotionAndOffersProjectContentId
                     }
                 }
                 Status.ERROR -> {

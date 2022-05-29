@@ -2,24 +2,23 @@ package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
 import android.os.Build
-import android.text.Spannable
-import android.text.SpannableString
 import android.text.SpannableStringBuilder
-import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.text.bold
 import androidx.core.text.color
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.bumptech.glide.Glide
+import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.hoabl.viewmodels.InvestmentViewModel
+import com.emproto.networklayer.response.investment.Inventory
 import com.emproto.networklayer.response.investment.PdData
 import com.emproto.networklayer.response.investment.PmData
 import com.github.mikephil.charting.components.XAxis
@@ -37,8 +36,10 @@ class ProjectDetailAdapter(
     private val list: List<RecyclerViewItem>,
     private val data: PdData,
     private val promisesData: List<PmData>,
-    private val itemClickListener: ItemClickListener
-):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val itemClickListener: ItemClickListener,
+    private val isBookmarked: Boolean,
+    private val investmentViewModel: InvestmentViewModel
+    ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val VIEW_TYPE_ONE = 1
@@ -142,11 +143,13 @@ class ProjectDetailAdapter(
             binding.apply {
                 tvProjectName.text = data.launchName
                 tvProjectLocation.text = "${data.address.city}, ${data.address.state}"
-                tvViewCount.text = data.fomoContent.noOfViews.toString()
+                tvViewCount.text = Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)
                 tvDuration.text = "${data.fomoContent.targetTime.hours}:${data.fomoContent.targetTime.minutes}:${data.fomoContent.targetTime.seconds} Hrs Left"
                 tvPriceRange.text = data.priceStartingFrom
                 tvAreaRange.text = data.areaStartingFrom
-                tvProjectViewInfo.text = "${data.fomoContent.noOfViews} People saw this project in ${data.fomoContent.days} days"
+                tvProjectViewInfo.text = SpannableStringBuilder()
+                    .bold { append("${Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)} People") }
+                    .append( " saw this project in ${data.fomoContent.days} days" )
                 var regString = ""
                 for(item in data.reraDetails.reraNumbers){
                     when (regString) {
@@ -207,14 +210,26 @@ class ProjectDetailAdapter(
                     balloon.showAlignBottom(ivRegInfo)
                 }
                 binding.ivShareIcon.setOnClickListener(onItemClickListener)
+                when(isBookmarked){
+                    true -> {
+                        ivBookmarkIcon.setImageResource(R.drawable.ic_favourite_dark)
+                        isClicked = false
+                    }
+                    false -> {
+                        ivBookmarkIcon.setImageResource(R.drawable.ic_favourite)
+                        isClicked = true
+                    }
+                }
                 binding.ivBookmarkIcon.setOnClickListener{
                     when(isClicked){
                         true -> {
                             ivBookmarkIcon.setImageResource(R.drawable.ic_favourite_dark)
+                            itemClickListener.onItemClicked(it,position,isClicked.toString())
                             isClicked = false
                         }
                         false -> {
                             ivBookmarkIcon.setImageResource(R.drawable.ic_favourite)
+                            itemClickListener.onItemClicked(it,position,isClicked.toString())
                             isClicked = true
                         }
                     }
@@ -300,7 +315,13 @@ class ProjectDetailAdapter(
 
     private inner class ProjectSkusViewHolder(private val binding: SkusLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            skuAdapter = SkuAdapter(data.inventoryBucketContents,itemClickListener)
+            val notAppliedList = ArrayList<Inventory>()
+            for(item in data.inventoriesList.data){
+                when(item.isApplied){
+                    false -> notAppliedList.add(item)
+                }
+            }
+            skuAdapter = SkuAdapter(notAppliedList,itemClickListener, investmentViewModel)
             binding.rvSkus.adapter = skuAdapter
             itemView.tag = this
             binding.tvSkusSeeAll.setOnClickListener(onItemClickListener)

@@ -11,7 +11,7 @@
         android:id="@+id/cl_why_invest"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="@dimen/margin_size_20"
+        android:layout_marginHorizontal="@dimen/margin_size_13"
         android:layout_marginVertical="@dimen/margin_size_19"
         android:background="@drawable/why_invest_blue_bg"
         app:layout_constraintEnd_toEndOf="parent"

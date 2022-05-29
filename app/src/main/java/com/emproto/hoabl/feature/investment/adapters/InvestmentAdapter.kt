@@ -26,6 +26,10 @@ class InvestmentAdapter(val context: Context, val list: List<SimilarInvestment>)
             tvItemAmount.text = "${element.priceStartingFrom} Onwards"
             tvItemArea.text = "${element.areaStartingFrom} Onwards"
             tvItemLocationInfo.text = element.shortDescription
+            Glide
+                .with(context)
+                .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                .into(ivItemImage)
         }
     }
 

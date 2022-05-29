@@ -1,5 +1,9 @@
 package com.emproto.networklayer.response.investment
 
+import com.emproto.networklayer.response.watchlist.Data
+import com.emproto.networklayer.response.watchlist.Watchlist
+import com.emproto.networklayer.response.watchlist.WatchlistData
+
 data class PdData(
     val address: Address,
     val areaStartingFrom: String,
@@ -32,5 +36,7 @@ data class PdData(
     val shortDescription: String,
     val similarInvestments: List<SimilarInvestment>,
     val status: String,
-    val updatedAt: String
+    val updatedAt: String,
+    var watchlist:List<Data>,
+    var inventoriesList:IvData
 )

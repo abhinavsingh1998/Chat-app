@@ -1,5 +1,6 @@
 package com.emproto.networklayer
 
+import com.emproto.networklayer.request.investment.AddInventoryBody
 import com.emproto.networklayer.request.investment.WatchListBody
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
@@ -92,6 +93,9 @@ public interface ApiService {
     @GET(ApiConstants.WATCHLIST)
     suspend fun getMyWatchlist(): Response<WatchlistData>
 
+    @DELETE(ApiConstants.DELETE_WATCHLIST)
+    suspend fun deleteWatchlist(@Path("id") id: Int): Response<WatchListResponse>
+
     @GET(ApiConstants.GET_PROFILE)
     suspend fun getUserProfile(): Response<ProfileResponse>
 
@@ -112,5 +116,11 @@ public interface ApiService {
 
     @POST(ApiConstants.WATCHLIST)
     suspend fun addWatchList(@Body watchListBody: WatchListBody ):Response<WatchListResponse>
+
+    @GET(ApiConstants.PROJECT_INVENTORIES)
+    suspend fun getInventories(@Path("id") id: Int): Response<GetInventoriesResponse>
+
+    @POST(ApiConstants.ADD_INVENTORY)
+    suspend fun addInventory(@Body addInventoryBody: AddInventoryBody): Response<WatchListResponse>
 
 }

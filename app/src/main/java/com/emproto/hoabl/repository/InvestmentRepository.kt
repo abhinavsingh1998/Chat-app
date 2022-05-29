@@ -5,13 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.InvestmentDataSource
+import com.emproto.networklayer.request.investment.AddInventoryBody
 import com.emproto.networklayer.request.investment.WatchListBody
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.investment.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class InvestmentRepository @Inject constructor(application: Application) : BaseRepository(application) {
@@ -58,17 +56,31 @@ class InvestmentRepository @Inject constructor(application: Application) : BaseR
         mInvestmentDetailResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val request = InvestmentDataSource(application).getInvestmentsDetailData(id)
-                if (request.isSuccessful) {
-                    if (request.body()!!.data != null)
-                        mInvestmentDetailResponse.postValue(BaseResponse.success(request.body()!!))
+                val watchList = async { InvestmentDataSource(application).getMyWatchlist()  }
+                val inventories = async { InvestmentDataSource(application).getInventories(id) }
+                val investmentDetail = async { InvestmentDataSource(application).getInvestmentsDetailData(id) }
+                val watchlistResponse = watchList.await()
+                val inventoriesResponse = inventories.await()
+                val investmentDetailResponse = investmentDetail.await()
+                if (investmentDetailResponse.isSuccessful) {
+                    if (investmentDetailResponse.body()!!.data != null){
+                        if(watchlistResponse.isSuccessful){
+                            investmentDetailResponse.body()!!.data.watchlist =
+                                watchlistResponse.body()!!.data
+                        }
+                        if(inventoriesResponse.isSuccessful){
+                            investmentDetailResponse.body()!!.data.inventoriesList =
+                                inventoriesResponse.body()!!.data
+                        }
+                        mInvestmentDetailResponse.postValue(BaseResponse.success(investmentDetailResponse.body()!!))
+                    }
                     else
                         mInvestmentDetailResponse.postValue(BaseResponse.Companion.error("No data found"))
                 } else {
                     mInvestmentDetailResponse.postValue(
                         BaseResponse.Companion.error(
                             getErrorMessage(
-                                request.errorBody()!!.string()
+                                investmentDetailResponse.errorBody()!!.string()
                             )
                         )
                     )
@@ -183,5 +195,83 @@ class InvestmentRepository @Inject constructor(application: Application) : BaseR
             }
         }
         return mWatchListResponse
+    }
+
+    fun deleteWatchList(id: Int): LiveData<BaseResponse<WatchListResponse>> {
+        val mDeleteWatchListResponse = MutableLiveData<BaseResponse<WatchListResponse>>()
+        mDeleteWatchListResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = InvestmentDataSource(application).deleteWatchlist(id)
+                if (request.isSuccessful) {
+                    if (request.body() != null)
+                        mDeleteWatchListResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mDeleteWatchListResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mDeleteWatchListResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mDeleteWatchListResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mDeleteWatchListResponse
+    }
+
+    fun getAllInventories(id: Int): LiveData<BaseResponse<GetInventoriesResponse>> {
+        val mgetAllInventoriesResponse = MutableLiveData<BaseResponse<GetInventoriesResponse>>()
+        mgetAllInventoriesResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = InvestmentDataSource(application).getInventories(id)
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mgetAllInventoriesResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mgetAllInventoriesResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mgetAllInventoriesResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mgetAllInventoriesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mgetAllInventoriesResponse
+    }
+
+    fun addInventory(addInventoryBody: AddInventoryBody): LiveData<BaseResponse<WatchListResponse>> {
+        val mAddInventoryResponse = MutableLiveData<BaseResponse<WatchListResponse>>()
+        mAddInventoryResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = InvestmentDataSource(application).addInventory(addInventoryBody)
+                if (request.isSuccessful) {
+                    mAddInventoryResponse.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    mAddInventoryResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mAddInventoryResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mAddInventoryResponse
     }
 }
