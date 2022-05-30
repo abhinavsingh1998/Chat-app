@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,9 +17,10 @@ import com.emproto.hoabl.databinding.FragmentChatsDetailBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.chat.model.*
 import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.investment.adapters.ChatsDetailAdapter
 import com.emproto.hoabl.feature.investment.adapters.OnOptionClickListener
+import com.emproto.hoabl.feature.profile.AboutUsFragment
+import com.emproto.hoabl.fragments.PromisesFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.response.chats.ChatDetailResponse
@@ -39,8 +39,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     var chatsList: ChatResponse.ChatList? = null
     var chatDetailList: ChatDetailResponse.ChatDetailList? = null
     lateinit var chatsDetailAdapter: ChatsDetailAdapter
-    var newChatMessage1List = ArrayList<ChatDetailModel>()
-    var newChatMessage2List = ArrayList<ChatDetailModel>()
+    var newChatMessageList = ArrayList<ChatDetailModel>()
 
 
     lateinit var binding: FragmentChatsDetailBinding
@@ -49,8 +48,11 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        Log.i("onCreate", "onCreate")
+
         // Inflate the layout for this fragment
-        binding = FragmentChatsDetailBinding.inflate(layoutInflater)
+        binding = FragmentChatsDetailBinding.inflate(layoutInflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel =
             ViewModelProvider(requireActivity(), homeFactory).get(HomeViewModel::class.java)
@@ -59,6 +61,10 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.i("onViewCreated", "onViewCreated")
+        if (newChatMessageList.isNotEmpty()) {
+            binding.clButtonStart.visibility = View.GONE
+        }
         binding.clButtonStart.setOnClickListener {
             binding.clButtonStart.visibility = View.GONE
             binding.tvDay.visibility = View.VISIBLE
@@ -67,7 +73,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         }
         binding.rvChat.layoutManager =
             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-        chatsDetailAdapter = ChatsDetailAdapter(context, newChatMessage1List, this)
+        chatsDetailAdapter = ChatsDetailAdapter(context, newChatMessageList, this)
         binding.rvChat.adapter = chatsDetailAdapter
 
 
@@ -82,6 +88,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         binding.ivBack.setOnClickListener { onBackPressed() }
     }
 
+
     private fun getData() {
         homeViewModel.chatInitiate(ChatInitiateRequest(true)).observe(viewLifecycleOwner, Observer {
             when (it.status) {
@@ -95,7 +102,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                     if (it.data?.chatDetailList != null) {
                         chatDetailList = it.data!!.chatDetailList
                         addMessages(it.data!!.chatDetailList)
-                        Log.i("newChat", newChatMessage1List.toString())
+                        Log.i("newChat", newChatMessageList.toString())
                         chatsDetailAdapter.notifyDataSetChanged()
 
                     }
@@ -111,16 +118,17 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
 
     private fun addMessages(chatDetailList: ChatDetailResponse.ChatDetailList) {
-        newChatMessage1List.add(
+        newChatMessageList.add(
             ChatDetailModel(
                 chatDetailList.autoChat.chatJSON.welcomeMessage,
-                null
+                null, MessageType.RECEIVER
             )
         )
-        newChatMessage1List.add(
+        newChatMessageList.add(
             ChatDetailModel(
                 chatDetailList.autoChat.chatJSON.chatBody[0].message,
                 chatDetailList.autoChat.chatJSON.chatBody[0].options,
+                MessageType.RECEIVER
             )
         )
 
@@ -136,38 +144,54 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         if (option.actionType == ActionType.MORE_OPTIONS.name) {
             for (i in chatDetailList!!.autoChat.chatJSON.chatBody.indices) {
                 if (option.optionNumber == chatDetailList!!.autoChat.chatJSON.chatBody[i].linkedOption) {
-                    newChatMessage1List.add(
+                    newChatMessageList.add(
                         ChatDetailModel(
                             chatDetailList!!.autoChat.chatJSON.chatBody[i].message,
-                            chatDetailList!!.autoChat.chatJSON.chatBody[i].options
+                            chatDetailList!!.autoChat.chatJSON.chatBody[i].options,
+                            MessageType.RECEIVER
                         )
                     )
                     chatsDetailAdapter.notifyDataSetChanged()
+                    break
                 }
             }
 
         } else if (option.actionType == ActionType.NAVIGATE.name) {
-            for (i in chatDetailList!!.autoChat.chatJSON.chatBody.indices) {
-                if (option.optionNumber == 11) {
-                    Toast.makeText(context, "11", Toast.LENGTH_SHORT).show()
-                    //open hoabl fragment
+            when (option.action) {
 
-                    val homeFragment = HomeFragment()
-                    activity?.supportFragmentManager?.beginTransaction()
-                        ?.replace(R.id.fragment_container_view_tag, homeFragment, "fragmnetId")?.commit()
-
-                } else if (option.optionNumber == 21) {
-                    //open promises fragment
+                Action.NAVIGATE_ABOUT_HOABL.name -> {
+                    (requireActivity() as HomeActivity).addFragment(
+                        AboutUsFragment(),
+                        false
+                    )
                 }
-
+                Action.NAVIGATE_PROMISES.name -> {
+                    (requireActivity() as HomeActivity).addFragment(
+                        PromisesFragment(),
+                        false
+                    )
+                }
             }
-
         } else if (option.actionType == ActionType.ALLOW_TYPING.name) {
             binding.clType.visibility = View.VISIBLE
             binding.ivSend.setOnClickListener {
-                if (binding.etType.text.isNullOrEmpty()) {
-                    binding.clSender.visibility = View.VISIBLE
-                    binding.tvSentMessage.text = binding.etType.text
+                if (binding.etType.text.isNotEmpty()) {
+                    newChatMessageList.add(
+                        ChatDetailModel(
+                            binding.etType.text.toString(),
+                            null,
+                            MessageType.SENDER
+                        )
+                    )
+                    newChatMessageList.add(
+                        ChatDetailModel(
+                            chatDetailList!!.autoChat.chatJSON.finalMessage,
+                            null, MessageType.RECEIVER
+                        )
+                    )
+                    chatsDetailAdapter.notifyDataSetChanged()
+
+
                 } else {
                     Toast.makeText(context, "Message cannot be empty", Toast.LENGTH_SHORT).show()
                 }
@@ -176,17 +200,14 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
         } else if (option.actionType == ActionType.NOT_ALLOWED_TYPING.name) {
             binding.clType.visibility = View.GONE
-            for (i in chatDetailList!!.autoChat.chatJSON.chatBody.indices) {
-                if (option.optionNumber == chatDetailList!!.autoChat.chatJSON.chatBody[i].linkedOption) {
-                    newChatMessage1List.add(
-                        ChatDetailModel(
-                            chatDetailList!!.autoChat.chatJSON.chatBody[i].message,
-                            null
-                        )
-                    )
-                    chatsDetailAdapter.notifyDataSetChanged()
-                }
-            }
+
+            newChatMessageList.add(
+                ChatDetailModel(
+                    chatDetailList!!.autoChat.chatJSON.finalMessage,
+                    null, MessageType.RECEIVER
+                )
+            )
+            chatsDetailAdapter.notifyDataSetChanged()
 
         }
     }

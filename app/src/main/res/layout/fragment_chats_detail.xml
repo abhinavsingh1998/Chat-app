@@ -155,64 +155,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
-        android:visibility="gone"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/clType"
         app:layout_constraintEnd_toEndOf="@+id/clSearch"
         app:layout_constraintStart_toStartOf="@id/tvWelcomeMsg"
         app:layout_constraintTop_toBottomOf="@id/tvWelcomeMsg"
         tools:listitem="@layout/item_chat_detail" />
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clSender"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginEnd="12dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rvChat">
-
-        <TextView
-            android:id="@+id/tvSentMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/reply_bg"
-            android:gravity="center_horizontal"
-            android:lineSpacingExtra="4sp"
-            android:paddingStart="18dp"
-            android:paddingTop="12dp"
-            android:paddingEnd="18dp"
-            android:paddingBottom="12dp"
-            android:text="#HB4892083923 -  POA Application"
-            android:textColor="#ffffff"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:layout_width="12dp"
-            android:layout_height="10dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
-            android:src="@drawable/tick"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <TextView
-            android:id="@+id/tvChatSendTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:gravity="end"
-            android:letterSpacing="-0.02"
-            android:text="9:11 PM"
-            android:textColor="#17171c"
-            android:textSize="12sp"
-            android:textStyle="normal"
-            app:layout_constraintEnd_toEndOf="@id/tvSentMessage"
-            app:layout_constraintTop_toBottomOf="@id/tvSentMessage" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clType"
@@ -224,7 +173,8 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/ivBack">
+        app:layout_constraintStart_toStartOf="@id/ivBack"
+        tools:visibility="visible">
 
         <EditText
             android:id="@+id/etType"
@@ -280,7 +230,8 @@
         android:background="@drawable/btn_start_chat"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/ivBack">
+        app:layout_constraintStart_toStartOf="@id/ivBack"
+        tools:visibility="gone">
 
         <TextView
             android:id="@+id/tvStartChat"
