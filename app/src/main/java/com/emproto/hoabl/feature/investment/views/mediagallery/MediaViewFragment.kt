@@ -97,6 +97,10 @@ class MediaViewFragment : BaseFragment() {
             (requireActivity() as HomeActivity).onBackPressed()
         }
 
+        binding.ivCloseButton.setOnClickListener {
+            (requireActivity() as HomeActivity).onBackPressed()
+        }
+
     }
 
     @OptIn(UnstableApi::class)

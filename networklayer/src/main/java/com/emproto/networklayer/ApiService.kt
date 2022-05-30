@@ -17,6 +17,7 @@ import com.emproto.networklayer.response.login.AddNameResponse
 import com.emproto.networklayer.response.login.OtpResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.login.VerifyOtpResponse
+import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
@@ -28,6 +29,7 @@ import com.emproto.networklayer.response.profile.ProfileResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
+import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
 import retrofit2.Response
 import retrofit2.http.*
@@ -61,6 +63,12 @@ public interface ApiService {
     @GET(ApiConstants.HOME)
     suspend fun getDashboardData(@Query("pageType") pageType: Int): Response<HomeResponse>
 
+    @GET(ApiConstants.LatestUpdates)
+    suspend fun getLatestUpdates(@Query("byPrority") priority: Boolean = true): Response<LatestUpdatesResponse>
+
+    @GET(ApiConstants.TESTIMONIALS)
+    suspend fun getTestimonials(): Response<TestimonialsResponse>
+
     @GET(ApiConstants.INVESTMENT_PROJECT_DETAIL)
     suspend fun getInvestmentsProjectDetails(@Path("id") id: Int): Response<ProjectDetailResponse>
 
@@ -86,7 +94,10 @@ public interface ApiService {
     ): Response<InvestmentDetailsResponse>
 
     @GET(ApiConstants.DOC_FILTER)
-    suspend fun documentsList(@Query("projectId") projectId: Int): Response<DocumentsResponse>
+    suspend fun documentsList(
+        @Query("projectId") projectId: String,
+        @Query("documentCategory") category: String = "PROJECT"
+    ): Response<DocumentsResponse>
 
     @GET(ApiConstants.TERMS_CONDITION)
     suspend fun getTermscondition(@Query("pageType") pageType: Int): Response<TermsConditionResponse>
@@ -104,7 +115,7 @@ public interface ApiService {
     suspend fun getProjectTimeline(@Path("id") id: Int): Response<ProjectTimelineResponse>
 
     @GET(ApiConstants.FACILITY_MANAGMENT)
-    suspend fun getFacilityManagment():Response<FMResponse>
+    suspend fun getFacilityManagment(): Response<FMResponse>
 
     @GET(ApiConstants.INVESTMENT_PROMISES)
     suspend fun getInvestmentsPromises(): Response<InvestmentPromisesResponse>
@@ -126,5 +137,7 @@ public interface ApiService {
 
     @POST(ApiConstants.VIDEO_CALL)
     suspend fun scheduleVideoCall(@Body videoCallBody: VideoCallBody): Response<VideoCallResponse>
+
+    suspend fun referNow(@Body referBody: ReferalRequest): Response<ReferalResponse>
 
 }

@@ -1,6 +1,9 @@
 package com.emproto.hoabl.feature.home.adapters
 
 import android.content.Context
+import android.os.Build
+import android.text.Html
+import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,12 +27,12 @@ class LatestUpdateAdapter(
         val item = list.get(holder.adapterPosition)
         holder.binding.title.text = item.displayTitle
         holder.binding.tvName.text= item.subTitle
-        holder.binding.description.text= item.detailedInfo[0].description
 
         if (item.detailedInfo[0].media!= null){
             Glide.with(context).load(item.detailedInfo[0]?.media?.value.url)
                 .into(holder.binding.image)
 
+            holder.binding.description.text=showHTMLText( item.detailedInfo[0].description)
         }
 
         holder.binding.rootView.setOnClickListener {
@@ -47,5 +50,13 @@ class LatestUpdateAdapter(
 
     interface ItemInterface {
         fun onClickItem(position: Int)
+    }
+
+    public fun showHTMLText(message: String?): Spanned {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            Html.fromHtml(message)
+        }
     }
 }

@@ -24,7 +24,8 @@ import javax.inject.Named
  * RegistrationDataSource
  * All End point needed for login module to be specified here too.
  */
-public class RegistrationDataSource(val application: Application) {
+public class RegistrationDataSource(val application: Application) : BaseDataSource(application) {
+
     @Inject
     lateinit var apiService: ApiService
     var dataComponent: DataComponent =

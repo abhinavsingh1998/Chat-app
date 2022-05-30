@@ -333,6 +333,9 @@ class ExistingUsersPortfolioAdapter(
             binding.btnReferNow.setOnClickListener {
                 onItemClickListener.referNow()
             }
+            binding.appShareBtn.setOnClickListener {
+                onItemClickListener.onClickShare()
+            }
         }
     }
 
@@ -344,6 +347,7 @@ class ExistingUsersPortfolioAdapter(
         fun onGoingDetails()
         fun onClickofWatchlist(projectId: Int)
         fun onClickApplyNow(projectId: Int)
+        fun onClickShare()
     }
 
 }

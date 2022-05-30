@@ -1,6 +1,6 @@
 package com.emproto.networklayer.response.responsee
 
-data class DAta(
+data class Home(
     val code: Int,
-    val `data`: DataX
+    val `data`: Data
 )

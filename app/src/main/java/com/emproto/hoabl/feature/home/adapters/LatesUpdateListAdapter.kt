@@ -1,6 +1,9 @@
 package com.emproto.hoabl.feature.home.adapters
 
 import android.content.Context
+import android.os.Build
+import android.text.Html
+import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -26,13 +29,11 @@ class LatestUpdateListAdapter(
         holder.binding.firstDetails.text= item.description
 
         if(item.media!=null){
-            holder.binding.imageDesc.text= item.media.mediaDescription
+//            holder.binding.imageDesc.text= showHTMLText(item.media.mediaDescription)
             Glide.with(context)
                 .load(item.media.value.url)
                 .into(holder.binding.image1)
         }
-
-
 
     }
 
@@ -42,4 +43,12 @@ class LatestUpdateListAdapter(
 
     inner class LatestUpdateHolder(var binding: LatestUpdateDetailItemBinding) :
         RecyclerView.ViewHolder(binding.root)
+
+    public fun showHTMLText(message: String?): Spanned {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            Html.fromHtml(message)
+        }
+    }
 }

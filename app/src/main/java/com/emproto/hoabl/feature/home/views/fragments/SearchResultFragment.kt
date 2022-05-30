@@ -2,8 +2,6 @@ package com.emproto.hoabl.feature.home.views.fragments
 
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,9 +74,9 @@ class SearchResultFragment : BaseFragment() {
         documentAdapter = DocumentsAdapter(emptyList())
         fragmentSearchResultBinding.documentsList.adapter = documentAdapter
 
-        fragmentSearchResultBinding.faqsList.layoutManager = LinearLayoutManager(requireContext())
-        faqAdapter = ProjectFaqAdapter(requireContext(), emptyList())
-        fragmentSearchResultBinding.faqsList.adapter = faqAdapter
+//        fragmentSearchResultBinding.faqsList.layoutManager = LinearLayoutManager(requireContext())
+//        faqAdapter = ProjectFaqAdapter(requireContext(), emptyList(), ivInterface)
+//        fragmentSearchResultBinding.faqsList.adapter = faqAdapter
 
     }
 

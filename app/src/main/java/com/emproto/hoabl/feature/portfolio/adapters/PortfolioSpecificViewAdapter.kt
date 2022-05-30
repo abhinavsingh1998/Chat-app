@@ -14,6 +14,7 @@ import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.home.adapters.HoABLPromisesAdapter
+import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.networklayer.response.documents.Data
 import com.emproto.networklayer.response.portfolio.dashboard.GeneralInfoEscalationGraph
@@ -327,18 +328,38 @@ class PortfolioSpecificViewAdapter(
     private inner class LatestImagesVideosViewHolder(private val binding: LatestImagesVideosLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            val imagesList = ArrayList<Image>()
+            val imagesList = ArrayList<MediaViewItem>()
             val imagesData = list[position].data as LatestMediaGalleryOrProjectContent
-            imagesList.addAll(imagesData.droneShoots)
-            imagesList.addAll(imagesData.images)
-            imagesList.addAll(imagesData.videos)
-            imagesList.addAll(imagesData.threeSixtyImages)
+            for (item in imagesData.droneShoots) {
+                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+            }
+            for (item in imagesData.images) {
+                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+
+            }
+            for (item in imagesData.videos) {
+                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+            }
+            for (item in imagesData.threeSixtyImages) {
+                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+            }
 
             latestImagesVideosAdapter = VideoAdapter(imagesList, ivInterface)
             val layoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
+
+//            layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+//                override fun getSpanSize(position: Int): Int {
+//                    return if (position == 0) 2 else 1
+//                }
+//            }
             binding.rvLatestImagesVideos.layoutManager = layoutManager
             binding.rvLatestImagesVideos.adapter = latestImagesVideosAdapter
             binding.tvLastUpdatedDate.text = Utility.parseDateFromUtc(imagesData.updatedAt, null)
+
+            binding.tvSeeAll.setOnClickListener {
+                ivInterface.seeAllImages(imagesList)
+            }
         }
     }
 
@@ -366,16 +387,16 @@ class PortfolioSpecificViewAdapter(
             val linedataset = LineDataSet(linevalues, "")
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset.color = context.getColor(R.color.app_color)
+                linedataset.color = context.getColor(R.color.green)
             }
 
             linedataset.valueTextSize = 12F
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset.fillColor = context.getColor(R.color.light_app_color)
+                linedataset.fillColor = context.getColor(R.color.green)
             }
             linedataset.mode = LineDataSet.Mode.LINEAR;
-
-            //We connect our data to the UI Screen
+            linedataset.setDrawCircles(false)
+            linedataset.setDrawValues(false)
             val data = LineData(linedataset)
 
             //binding.ivPriceTrendsGraph.setDrawBorders(false);
@@ -407,6 +428,9 @@ class PortfolioSpecificViewAdapter(
             binding.btnReferNow.setOnClickListener {
                 ivInterface.referNow()
             }
+            binding.appShareBtn.setOnClickListener {
+                ivInterface.shareApp()
+            }
         }
     }
 
@@ -414,12 +438,15 @@ class PortfolioSpecificViewAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             val faqList = list[position].data as List<ProjectContentsAndFaq>
-            faqAdapter = ProjectFaqAdapter(context, faqList)
+            faqAdapter = ProjectFaqAdapter(context, faqList, ivInterface)
             binding.rvFaq.adapter = faqAdapter
             binding.tvFaqReadAll.visibility = View.VISIBLE
             binding.ivSeeAllArrow.visibility = View.VISIBLE
             binding.tvFaqReadAll.setOnClickListener {
-                ivInterface.readAllFaq()
+                ivInterface.readAllFaq(-1)
+            }
+            binding.bnAskHere.setOnClickListener {
+                ivInterface.onClickAsk()
             }
         }
     }
@@ -450,12 +477,15 @@ class PortfolioSpecificViewAdapter(
         fun seeAllSimilarInvestment()
         fun onClickSimilarInvestment(project: Int)
         fun onApplySinvestment(projectId: Int)
-        fun readAllFaq()
+        fun readAllFaq(position: Int)
         fun seePromisesDetails(position: Int)
         fun moreAboutPromises()
         fun seeProjectDetails(projectId: Int)
         fun seeOnMap(latitude: String, longitude: String)
         fun onClickImage(url: String)
+        fun seeAllImages(imagesList: ArrayList<MediaViewItem>)
+        fun shareApp()
+        fun onClickAsk()
     }
 
 }

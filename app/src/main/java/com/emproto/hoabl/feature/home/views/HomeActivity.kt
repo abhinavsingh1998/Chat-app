@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.home.views
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -64,6 +65,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     lateinit var factory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
     var added = false
+    val appURL = "https://hoabl.in/"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +73,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         activityHomeActivity = ActivityHomeBinding.inflate(layoutInflater)
         (application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
-        activityHomeActivity.searchLayout.rotateText.text= " "
+        activityHomeActivity.searchLayout.rotateText.text = " "
 //        investmentViewModel =
 //            ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
 
@@ -369,7 +371,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     @SuppressLint("SetTextI18n")
-    fun initData(){
+    fun initData() {
         homeViewModel.gethomeData().observe(this, Observer {
 
             it.let {
@@ -387,6 +389,14 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             }
 
         })
+    }
+
+    fun share_app() {
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        shareIntent.type = "text/plain"
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "The House Of Abhinandan Lodha $appURL")
+        startActivity(shareIntent)
     }
 
 }

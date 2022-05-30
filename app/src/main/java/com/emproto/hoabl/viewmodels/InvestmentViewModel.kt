@@ -14,7 +14,10 @@ import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.investment.*
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
 
-class InvestmentViewModel(private var mapplication: Application, private var investmentRepository: InvestmentRepository) :ViewModel(){
+class InvestmentViewModel(
+    private var mapplication: Application,
+    private var investmentRepository: InvestmentRepository
+) : ViewModel() {
 
     private var skusLiveData = MutableLiveData<Inventory>()
     private var smartDeals = MutableLiveData<List<PageManagementsOrCollectionOneModel>>()
@@ -23,7 +26,7 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
     private var mapLocationData = MutableLiveData<LocationInfrastructure>()
     private var oppDocData = MutableLiveData<List<OpprotunityDoc>>()
     private var landSkusData = MutableLiveData<List<InventoryBucketContent>>()
-    private var mediaData  = MutableLiveData<ProjectCoverImages>()
+    private var mediaData = MutableLiveData<ProjectCoverImages>()
     private var mediaViewItem = MutableLiveData<MediaViewItem>()
     private var newInvestments = MutableLiveData<List<PageManagementsOrNewInvestment>>()
     private var allInvestments = MutableLiveData<List<ApData>>()
@@ -32,6 +35,7 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
     private var nLLiveData = MutableLiveData<Boolean>()
     private var aPLiveData = MutableLiveData<Boolean>()
     private var locationData = MutableLiveData<MapLocationModel>()
+    private var mediaContent = ArrayList<MediaViewItem>()
 
     fun getInvestments(pageType: Int): LiveData<BaseResponse<InvestmentResponse>> {
         return investmentRepository.getInvestments(pageType)
@@ -141,6 +145,14 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
         this.mediaData.postValue(media)
     }
 
+    fun setMediaContent(content: ArrayList<MediaViewItem>) {
+        this.mediaContent = content
+    }
+
+    fun getMediaContent(): ArrayList<MediaViewItem> {
+        return this.mediaContent
+    }
+
     fun getMedia(): LiveData<ProjectCoverImages> {
         return mediaData
     }
@@ -161,7 +173,7 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
         return skusLiveData
     }
 
-    fun setSd(data:Boolean){
+    fun setSd(data: Boolean) {
         this.sDLiveData.postValue(data)
     }
 
@@ -169,7 +181,7 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
         return sDLiveData
     }
 
-    fun setTp(data:Boolean){
+    fun setTp(data: Boolean) {
         this.tPLiveData.postValue(data)
     }
 
@@ -177,7 +189,7 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
         return tPLiveData
     }
 
-    fun setNl(data:Boolean){
+    fun setNl(data: Boolean) {
         this.nLLiveData.postValue(data)
     }
 
@@ -185,7 +197,7 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
         return nLLiveData
     }
 
-    fun setAp(data:Boolean){
+    fun setAp(data: Boolean) {
         this.aPLiveData.postValue(data)
     }
 
@@ -193,7 +205,7 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
         return aPLiveData
     }
 
-    fun setMapLocation(data:MapLocationModel){
+    fun setMapLocation(data: MapLocationModel) {
         this.locationData.postValue(data)
     }
 

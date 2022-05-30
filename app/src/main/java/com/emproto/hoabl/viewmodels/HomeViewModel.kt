@@ -8,18 +8,17 @@ import com.emproto.core.Database.Dao.HomeSearchDao
 import com.emproto.core.Database.TableModel.SearchModel
 import com.emproto.hoabl.feature.home.data.LatesUpdatesPosition
 import com.emproto.hoabl.repository.HomeRepository
-import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.home.PageManagementOrInsight
-import com.emproto.networklayer.response.home.PageManagementOrLatestUpdate
-import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
+import com.emproto.networklayer.response.marketingUpdates.Data
+import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
-import com.emproto.networklayer.response.responsee.PageManagementAndLatestUpdates
 import com.emproto.networklayer.response.terms.TermsConditionResponse
+import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import javax.inject.Inject
 
 class HomeViewModel(
@@ -34,7 +33,9 @@ class HomeViewModel(
     private var homeRepository: HomeRepository = mhomeRepository
     private var promise = MutableLiveData<HomePagesOrPromise>()
 
-    private var latestUpdates = MutableLiveData<PageManagementOrLatestUpdate>()
+    private var testimonial = MutableLiveData<TestimonialsResponse>()
+    private var selectedlatestUpdates = MutableLiveData<Data>()
+    private var latestUpdates = MutableLiveData<LatestUpdatesResponse>()
     private var insights = MutableLiveData<PageManagementOrInsight>()
 
     private var position = MutableLiveData<LatesUpdatesPosition>()
@@ -70,8 +71,8 @@ class HomeViewModel(
         return promise
     }
 
-    fun getDashBoardData(pageType: Int): LiveData<BaseResponse<HomeResponse>> {
-        return homeRepository.getDashboardData(pageType)
+    fun getDashBoardData(pageType: Int, refresh:Boolean): LiveData<BaseResponse<HomeResponse>> {
+        return homeRepository.getDashboardData(pageType,refresh)
     }
 
     fun setDashBoardData(data: HomeResponse) {
@@ -86,12 +87,24 @@ class HomeViewModel(
         return mhomeRepository.getTermsCondition(pageType)
     }
 
-    fun setSeLectedLatestUpdates(latestUpdates: PageManagementOrLatestUpdate) {
-        this.latestUpdates.postValue(latestUpdates)
+    fun getLatestUpdatesData(refresh: Boolean): LiveData<BaseResponse<LatestUpdatesResponse>>{
+        return homeRepository.getlatestUpdatesData(refresh)
     }
 
-    fun getSelectedLatestUpdates(): LiveData<PageManagementOrLatestUpdate> {
+    fun setLatestUpdatesData(data: LatestUpdatesResponse) {
+        latestUpdates.postValue(data)
+    }
+
+    fun getLatestUpdates(): LiveData<LatestUpdatesResponse>{
         return latestUpdates
+    }
+
+    fun setSeLectedLatestUpdates(selectedlatestUpdates: Data) {
+        this.selectedlatestUpdates.postValue(selectedlatestUpdates)
+    }
+
+    fun getSelectedLatestUpdates(): LiveData<Data> {
+        return selectedlatestUpdates
     }
 
     fun setSelectedPosition(position: LatesUpdatesPosition) {
@@ -100,6 +113,14 @@ class HomeViewModel(
 
     fun getSelectedPosition(): LiveData<LatesUpdatesPosition> {
         return position
+    }
+
+    fun getTestimonialsData(refresh: Boolean): LiveData<BaseResponse<TestimonialsResponse>>{
+        return homeRepository.getTestimonialsData(refresh)
+    }
+
+    fun setTestimonials(data: TestimonialsResponse){
+        testimonial.postValue(data)
     }
 
     fun setSeLectedInsights(insights: PageManagementOrInsight) {
