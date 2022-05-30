@@ -12,7 +12,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="@dimen/margin_size_14"
         android:background="@drawable/recycle"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/tvHeading"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvHeading" />
 
@@ -23,13 +23,14 @@
         android:layout_marginStart="@dimen/margin_size_10"
         android:layout_marginTop="@dimen/margin_size_10"
         android:layout_marginEnd="@dimen/margin_size_10"
+        android:layout_marginBottom="10dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_circle"
+        app:layout_constraintBottom_toBottomOf="@+id/view13"
         app:layout_constraintEnd_toEndOf="@+id/view13"
         app:layout_constraintStart_toStartOf="@+id/view13"
-        app:layout_constraintTop_toTopOf="@+id/view13"
-        app:shapeAppearanceOverlay="@style/RoundCorner" />
+        app:layout_constraintTop_toTopOf="@+id/view13" />
 
     <TextView
         android:id="@+id/tvHeading"
@@ -38,9 +39,11 @@
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="14dp"
+        android:ellipsize="end"
         android:fontFamily="@font/jost_light"
-        android:lineSpacingExtra="5sp"
+        android:maxLines="2"
         android:text="@string/intro1"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/view13"
         app:layout_constraintTop_toTopOf="parent" />
