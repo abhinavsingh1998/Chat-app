@@ -30,7 +30,13 @@ class LastFewPlotsAdapter(val context: Context, val list: List<PageManagementsOr
                 .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
                 .into(holder.binding.ivItemImage)
         }
-        holder.itemView.setOnClickListener {
+        holder.binding.ivBottomArrow.setOnClickListener {
+            itemClickListener.onItemClicked(it, position, element.id.toString())
+        }
+        holder.binding.tvItemLocationInfo.setOnClickListener {
+            itemClickListener.onItemClicked(it, position, element.id.toString())
+        }
+        holder.binding.tvApplyNow.setOnClickListener {
             itemClickListener.onItemClicked(it, position, element.id.toString())
         }
     }

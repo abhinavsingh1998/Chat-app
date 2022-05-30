@@ -68,7 +68,7 @@ class InvestmentFragment : BaseFragment() {
                     val fragment = LandSkusFragment()
                     val bundle = Bundle()
                     bundle.putInt("ProjectId", newInvestmentsList[0].id)
-                    fragment.arguments = arguments
+                    fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment,false)
 //                    callProjectDataApi()
                 }
@@ -218,16 +218,33 @@ class InvestmentFragment : BaseFragment() {
 
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
-            //investmentViewModel.setProjectId(item.toInt())
-            //(requireActivity() as HomeActivity).addFragment(ProjectDetailFragment(),false)
-            val bundle = Bundle()
-            bundle.putInt("ProjectId", item.toInt())
-            val fragment = ProjectDetailFragment()
-            fragment.arguments = bundle
-            (requireActivity() as HomeActivity).addFragment(
-                fragment, false
-            )
+            when(view.id){
+                R.id.tv_item_location_info-> {
+                    navigateToDetailScreen(item)
+                }
+                R.id.iv_bottom_arrow -> {
+                    navigateToDetailScreen(item)
+                }
+                R.id.tv_apply_now -> {
+                    val fragment = LandSkusFragment()
+                    val bundle = Bundle()
+                    bundle.putInt("ProjectId", item.toInt())
+                    fragment.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(fragment,false)
+                }
+            }
+
         }
+    }
+
+    private fun navigateToDetailScreen(item: String) {
+        val bundle = Bundle()
+        bundle.putInt("ProjectId", item.toInt())
+        val fragment = ProjectDetailFragment()
+        fragment.arguments = bundle
+        (requireActivity() as HomeActivity).addFragment(
+            fragment, false
+        )
     }
 
 }
