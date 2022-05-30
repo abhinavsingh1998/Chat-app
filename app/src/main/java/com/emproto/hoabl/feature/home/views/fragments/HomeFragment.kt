@@ -201,7 +201,7 @@ class HomeFragment : BaseFragment() {
                             (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.headset.setOnClickListener {
                                 val bundle = Bundle()
                                 val chatsFragment = ChatsFragment()
-                                chatsFragment.setArguments(bundle)
+                                chatsFragment.arguments = bundle
                                 (requireActivity() as HomeActivity).replaceFragment(chatsFragment.javaClass,
                                     "",
                                     true,

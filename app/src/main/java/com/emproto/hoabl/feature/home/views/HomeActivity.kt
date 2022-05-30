@@ -25,6 +25,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityHomeBinding
 import com.emproto.hoabl.databinding.FragmentNotificationBottomSheetBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.notification.HoabelNotifiaction
 import com.emproto.hoabl.feature.home.notification.adapter.NotificationAdapter
 import com.emproto.hoabl.feature.home.notification.data.NotificationDataModel
@@ -71,7 +72,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         activityHomeActivity = ActivityHomeBinding.inflate(layoutInflater)
         (application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
-        activityHomeActivity.searchLayout.rotateText.text= " "
+        activityHomeActivity.searchLayout.rotateText.text = " "
 //        investmentViewModel =
 //            ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
 
@@ -95,6 +96,15 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     private fun initClickListener() {
+
+        activityHomeActivity.searchLayout.headset.setOnClickListener {
+            val bundle = Bundle()
+            val chatsFragment = ChatsFragment()
+            chatsFragment.arguments = bundle
+            replaceFragment(chatsFragment.javaClass, "", true, bundle, null, 0, false
+            )
+            Toast.makeText(this, "Chat bot", Toast.LENGTH_SHORT).show()
+        }
 
         activityHomeActivity.searchLayout.search.onFocusChangeListener =
             View.OnFocusChangeListener { p0, p1 ->
@@ -219,28 +229,28 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         when (screen) {
             ScreenHome -> {
                 val homeFragment = HomeFragment()
-                homeFragment.setArguments(bundle)
+                homeFragment.arguments = bundle
                 replaceFragment(homeFragment.javaClass, "", true, bundle, null, 0, false)
             }
             ScreenInvestment -> {
                 val favouriteFragment = InvestmentFragment()
 //                val favouriteFragment = Testimonials()
-                favouriteFragment.setArguments(bundle)
+                favouriteFragment.arguments = bundle
                 replaceFragment(favouriteFragment.javaClass, "", true, bundle, null, 0, false)
             }
             ScreenPortfolio -> {
                 val portfolioFragment = PortfolioFragment()
-                portfolioFragment.setArguments(bundle)
+                portfolioFragment.arguments = bundle
                 replaceFragment(portfolioFragment.javaClass, "", true, bundle, null, 0, false)
             }
             ScreenPromises -> {
                 val cartFragment = HoablPromises()
-                cartFragment.setArguments(bundle)
+                cartFragment.arguments = bundle
                 replaceFragment(cartFragment.javaClass, "", true, bundle, null, 0, false)
             }
             ScreenProfile -> {
                 val profileFragment = ProfileFragment()
-                profileFragment.setArguments(bundle)
+                profileFragment.arguments = bundle
                 replaceFragment(profileFragment.javaClass, "", true, bundle, null, 0, false)
             }
 //            ScreenNotification -> {
@@ -369,7 +379,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     @SuppressLint("SetTextI18n")
-    fun initData(){
+    fun initData() {
         homeViewModel.gethomeData().observe(this, Observer {
 
             it.let {
