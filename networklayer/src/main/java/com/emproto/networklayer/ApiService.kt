@@ -83,7 +83,10 @@ public interface ApiService {
     ): Response<InvestmentDetailsResponse>
 
     @GET(ApiConstants.DOC_FILTER)
-    suspend fun documentsList(@Query("projectId") projectId: Int): Response<DocumentsResponse>
+    suspend fun documentsList(
+        @Query("projectId") projectId: String,
+        @Query("documentCategory") category: String = "PROJECT"
+    ): Response<DocumentsResponse>
 
     @GET(ApiConstants.TERMS_CONDITION)
     suspend fun getTermscondition(@Query("pageType") pageType: Int): Response<TermsConditionResponse>
@@ -98,7 +101,7 @@ public interface ApiService {
     suspend fun getProjectTimeline(@Path("id") id: Int): Response<ProjectTimelineResponse>
 
     @GET(ApiConstants.FACILITY_MANAGMENT)
-    suspend fun getFacilityManagment():Response<FMResponse>
+    suspend fun getFacilityManagment(): Response<FMResponse>
 
     @GET(ApiConstants.INVESTMENT_PROMISES)
     suspend fun getInvestmentsPromises(): Response<InvestmentPromisesResponse>
@@ -107,5 +110,5 @@ public interface ApiService {
     suspend fun getInvestmentsProjectFaq(@Path("projectContentId") projectContentId: Int): Response<FaqDetailResponse>
 
     @POST(ApiConstants.REFER_NOW)
-    suspend fun referNow(@Body referBody:ReferalRequest):Response<ReferalResponse>
+    suspend fun referNow(@Body referBody: ReferalRequest): Response<ReferalResponse>
 }
