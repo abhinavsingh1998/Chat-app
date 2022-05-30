@@ -13,7 +13,7 @@ object ApiConstants {
     const val TROUBLE_SIGNING = "hoabl-customer/case/sign-in"
 
     const val HOME = "hoabl-admin/get-page"
-    const val LatestUpdates="hobal-admin/marketing-updates"
+    const val LatestUpdates="hoabl-admin/marketing-updates"
     const val TESTIMONIALS= "hoabl-admin/testimonials"
     const val PROMISES = "hoabl-admin/get-page"
     const val INVESTMENT = "hoabl-admin/get-page"

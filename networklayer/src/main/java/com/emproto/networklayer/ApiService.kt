@@ -61,10 +61,10 @@ public interface ApiService {
     suspend fun getDashboardData(@Query("pageType") pageType: Int): Response<HomeResponse>
 
     @GET(ApiConstants.LatestUpdates)
-    suspend fun getLatestUpdates():Response<LatestUpdatesResponse>
+    suspend fun getLatestUpdates(@Query("byPrority") priority: Boolean = true): Response<LatestUpdatesResponse>
 
     @GET(ApiConstants.TESTIMONIALS)
-    suspend fun getTestimonials():Response<TestimonialsResponse>
+    suspend fun getTestimonials(): Response<TestimonialsResponse>
 
     @GET(ApiConstants.INVESTMENT_PROJECT_DETAIL)
     suspend fun getInvestmentsProjectDetails(@Path("id") id: Int): Response<ProjectDetailResponse>
@@ -119,4 +119,5 @@ public interface ApiService {
 
     @POST(ApiConstants.REFER_NOW)
     suspend fun referNow(@Body referBody: ReferalRequest): Response<ReferalResponse>
+
 }
