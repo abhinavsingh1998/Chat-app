@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentTestimonialsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -20,6 +21,7 @@ import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.home.HomeResponse
+import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import java.util.*
 import javax.inject.Inject
 
@@ -48,34 +50,56 @@ class Testimonials : BaseFragment() {
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
         (requireActivity() as HomeActivity).showBackArrow()
 
-        initObserver()
+        initObserver(false)
         initClickListner()
         return mBinding.root
     }
 
-    private fun initObserver() {
+    private fun initObserver(refresh:Boolean) {
 
-        homeViewModel.gethomeData().observe(viewLifecycleOwner, Observer {
-            mBinding.rootView.show()
-            mBinding.loader.hide()
+        homeViewModel.getTestimonialsData(refresh).observe(viewLifecycleOwner, object:Observer<BaseResponse<TestimonialsResponse>> {
+            override fun onChanged(it: BaseResponse<TestimonialsResponse>?) {
+                when (it?.status){
+                   Status.LOADING ->{
+                       mBinding.rootView.hide()
+                       mBinding.loader.show()
+                   }
+                    Status.SUCCESS ->{
+                        mBinding.rootView.show()
+                        mBinding.loader.hide()
 
-            it.let {
-                //loading List
-                testimonialsAdapter = TestimonialsAdapter(requireActivity(),
-                    it.data!!.pageManagementsOrTestimonials
-                )
-                linearLayoutManager = LinearLayoutManager(
-                    requireContext(),
-                    RecyclerView.VERTICAL,
-                    false
-                )
-                mBinding.recyclerTestimonilas.layoutManager = linearLayoutManager
+                        it.data.let {
+
+                            if (it!= null){
+                                homeViewModel.setTestimonials(it)
+
+
+                                //loading List
+                                testimonialsAdapter = TestimonialsAdapter(requireActivity(),
+                                    it.data
+                                )
+                                linearLayoutManager = LinearLayoutManager(
+                                    requireContext(),
+                                    RecyclerView.VERTICAL,
+                                    false
+                                )
+                                mBinding.recyclerTestimonilas.layoutManager = linearLayoutManager
+                                mBinding.recyclerTestimonilas.adapter = testimonialsAdapter
+                            }
+                        }
+                    }
+                    Status.ERROR ->{
+                        mBinding.loader.hide()
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            it.message!!
+                        )
+                        mBinding.rootView.show()
+                    }
+
+                }
             }
-
-
-            mBinding.recyclerTestimonilas.adapter = testimonialsAdapter
         })
-    }
+        }
 
     private fun initClickListner() {
 
@@ -85,6 +109,14 @@ class Testimonials : BaseFragment() {
 
         mBinding.referralLayout.btnReferNow.setOnClickListener(View.OnClickListener {
             referNow()
+        })
+
+        mBinding.refressLayout.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+            mBinding.loader.show()
+            initObserver(refresh = true)
+
+            mBinding.refressLayout.isRefreshing= false
+
         })
     }
 

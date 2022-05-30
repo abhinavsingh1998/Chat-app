@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.motion.widget.OnSwipe
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.feature.home.adapters.InsightsAdapter
@@ -26,6 +28,7 @@ import com.emproto.hoabl.feature.investment.views.CategoryListFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
+import com.emproto.hoabl.repository.HomeRepository
 import com.emproto.hoabl.utils.Extensions.toHomePagesOrPromise
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
@@ -36,8 +39,10 @@ import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
 import com.google.android.material.tabs.TabLayoutMediator
+import com.skydoves.balloon.balloon
 import java.io.Serializable
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 
 class HomeFragment : BaseFragment() {
@@ -58,6 +63,7 @@ class HomeFragment : BaseFragment() {
     lateinit var investmentFactory: InvestmentFactory
     lateinit var homeViewModel: HomeViewModel
     val list = ArrayList<PageManagementsOrNewInvestment>()
+    var isInvester by Delegates.notNull<Boolean>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,7 +74,7 @@ class HomeFragment : BaseFragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
-        initObserver()
+        initObserver(refresh = false)
         initView()
         initClickListener()
         referNow()
@@ -76,10 +82,10 @@ class HomeFragment : BaseFragment() {
         return binding.root
     }
 
-    private fun initObserver() {
 
+    private fun initObserver(refresh:Boolean) {
 
-        homeViewModel.getDashBoardData(ModuleEnum.HOME.value)
+        homeViewModel.getDashBoardData(ModuleEnum.HOME.value, refresh)
             .observe(viewLifecycleOwner, object : Observer<BaseResponse<HomeResponse>> {
                 override fun onChanged(it: BaseResponse<HomeResponse>?) {
                     when (it!!.status) {
@@ -132,17 +138,17 @@ class HomeFragment : BaseFragment() {
                                 it.data!!.data.pageManagementOrLatestUpdates,
                                 object : LatestUpdateAdapter.ItemInterface {
                                     override fun onClickItem(position: Int) {
-                                        homeViewModel.setSeLectedLatestUpdates(it.data!!.data.pageManagementOrLatestUpdates[position])
-                                        homeViewModel.setSelectedPosition(
-                                            LatesUpdatesPosition(
-                                                position,
-                                                it.data!!.data.pageManagementOrLatestUpdates.size
-                                            )
-                                        )
-                                        (requireActivity() as HomeActivity).addFragment(
-                                            LatestUpdatesDetailsFragment(),
-                                            false
-                                        )
+//                                        homeViewModel.setSeLectedLatestUpdates(it.data!!.data.pageManagementOrLatestUpdates[position])
+//                                        homeViewModel.setSelectedPosition(
+//                                            LatesUpdatesPosition(
+//                                                position,
+//                                                it.data!!.data.pageManagementOrLatestUpdates.size
+//                                            )
+//                                        )
+//                                        (requireActivity() as HomeActivity).addFragment(
+//                                            LatestUpdatesDetailsFragment(),
+//                                            false
+//                                        )
                                     }
 
                                 }
@@ -162,7 +168,7 @@ class HomeFragment : BaseFragment() {
                                 object : HoABLPromisesAdapter1.PromisesItemInterface {
                                     override fun onClickItem(position: Int) {
                                         val data =
-                                            it.data!!.data.homePagesOrPromises[position].toHomePagesOrPromise()
+                                            it.data!!.data.homePagesOrPromises[0].toHomePagesOrPromise()
                                         homeViewModel.setSelectedPromise(data)
                                         (requireActivity() as HomeActivity).addFragment(
                                             PromisesDetailsFragment(),
@@ -241,16 +247,21 @@ class HomeFragment : BaseFragment() {
             View.VISIBLE
         (requireActivity() as HomeActivity).showBottomNavigation()
 
-
-
         val pymentList: ArrayList<String> = arrayListOf("1", "2", "3", "4", "5")
-
 
         //Pending Payment Card
         pendingPaymentsAdapter = PendingPaymentsAdapter(requireActivity(), pymentList)
         binding.kycLayoutCard.adapter = pendingPaymentsAdapter
         TabLayoutMediator(binding.tabDot, binding.kycLayoutCard) { _, _ ->
         }.attach()
+
+        binding.refressLayout.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+            binding.loader.show()
+            initObserver(refresh = true)
+
+            binding.refressLayout.isRefreshing= false
+
+        })
     }
 
     fun initClickListener() {
