@@ -32,4 +32,5 @@ object ApiConstants {
     const val DELETE_WATCHLIST = "hoabl-customer/watchlist/{id}"
     const val PROJECT_INVENTORIES = "hoabl-customer/inventories/{id}"
     const val ADD_INVENTORY = "hoabl-customer/inventories"
+    const val VIDEO_CALL = "hoabl-customer/case"
 }

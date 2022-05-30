@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.InvestmentDataSource
 import com.emproto.networklayer.request.investment.AddInventoryBody
+import com.emproto.networklayer.request.investment.VideoCallBody
 import com.emproto.networklayer.request.investment.WatchListBody
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.investment.*
@@ -273,5 +274,29 @@ class InvestmentRepository @Inject constructor(application: Application) : BaseR
             }
         }
         return mAddInventoryResponse
+    }
+
+    fun scheduleVideoCall(videoCallBody: VideoCallBody): LiveData<BaseResponse<VideoCallResponse>> {
+        val mVideoCallResponse = MutableLiveData<BaseResponse<VideoCallResponse>>()
+        mVideoCallResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = InvestmentDataSource(application).scheduleVideoCall(videoCallBody)
+                if (request.isSuccessful) {
+                    mVideoCallResponse.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    mVideoCallResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mVideoCallResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mVideoCallResponse
     }
 }

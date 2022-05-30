@@ -7,6 +7,7 @@ import com.emproto.networklayer.di.DataAppModule
 import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.request.investment.AddInventoryBody
+import com.emproto.networklayer.request.investment.VideoCallBody
 import com.emproto.networklayer.request.investment.WatchListBody
 import com.emproto.networklayer.response.investment.*
 import com.emproto.networklayer.response.watchlist.WatchlistData
@@ -81,5 +82,10 @@ class InvestmentDataSource(val application: Application) {
     //add Inventory
     suspend fun addInventory(addInventoryBody: AddInventoryBody): Response<WatchListResponse> {
         return apiService.addInventory(addInventoryBody)
+    }
+
+    //schedule video call
+    suspend fun scheduleVideoCall(videoCallBody: VideoCallBody): Response<VideoCallResponse> {
+        return apiService.scheduleVideoCall(videoCallBody)
     }
 }

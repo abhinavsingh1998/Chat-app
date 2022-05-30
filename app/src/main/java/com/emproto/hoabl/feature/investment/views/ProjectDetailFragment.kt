@@ -32,6 +32,7 @@ import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.request.investment.AddInventoryBody
+import com.emproto.networklayer.request.investment.VideoCallBody
 import com.emproto.networklayer.request.investment.WatchListBody
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.investment.*
@@ -74,12 +75,7 @@ class ProjectDetailFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).addFragment(MapFragment(), false)
                 }
                 R.id.cl_not_convinced_promises -> {
-                    val applicationSubmitDialog = ApplicationSubmitDialog(
-                        "Video Call request sent successfully.",
-                        "Our Project Manager will reach out to you soon!",
-                        false
-                    )
-                    applicationSubmitDialog.show(parentFragmentManager, "ApplicationSubmitDialog")
+                    callVideoCallApi()
                 }
                 R.id.tv_faq_read_all -> {
                     val fragment = FaqDetailFragment()
@@ -150,6 +146,36 @@ class ProjectDetailFragment : BaseFragment() {
                 }
             }
         }
+
+    private fun callVideoCallApi() {
+        investmentViewModel.scheduleVideoCall(VideoCallBody(caseType = "1003",
+        description = "",
+        issueType = "Schedule a video call",
+        projectId= projectId)).observe(viewLifecycleOwner,Observer{
+            when (it.status) {
+                Status.LOADING -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                }
+                Status.SUCCESS -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    it.data?.data?.let { data ->
+                        val applicationSubmitDialog = ApplicationSubmitDialog(
+                            "Video Call request sent successfully.",
+                            "Our Project Manager will reach out to you soon!",
+                            false
+                        )
+                        applicationSubmitDialog.show(parentFragmentManager, "ApplicationSubmitDialog")
+                    }
+                }
+                Status.ERROR -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(
+                        it.message!!
+                    )
+                }
+            }
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

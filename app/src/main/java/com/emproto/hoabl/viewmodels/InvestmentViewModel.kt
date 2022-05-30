@@ -8,6 +8,7 @@ import com.emproto.hoabl.model.MapLocationModel
 import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.repository.InvestmentRepository
 import com.emproto.networklayer.request.investment.AddInventoryBody
+import com.emproto.networklayer.request.investment.VideoCallBody
 import com.emproto.networklayer.request.investment.WatchListBody
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.investment.*
@@ -66,6 +67,10 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
 
     fun addInventory(addInventoryBody: AddInventoryBody): LiveData<BaseResponse<WatchListResponse>> {
         return investmentRepository.addInventory(addInventoryBody)
+    }
+
+    fun scheduleVideoCall(videoCallBody: VideoCallBody): LiveData<BaseResponse<VideoCallResponse>> {
+        return investmentRepository.scheduleVideoCall(videoCallBody)
     }
 
     fun setSmartDealsList(smartDeals: List<PageManagementsOrCollectionOneModel>) {

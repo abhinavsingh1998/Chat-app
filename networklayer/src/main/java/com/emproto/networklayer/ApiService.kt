@@ -1,6 +1,7 @@
 package com.emproto.networklayer
 
 import com.emproto.networklayer.request.investment.AddInventoryBody
+import com.emproto.networklayer.request.investment.VideoCallBody
 import com.emproto.networklayer.request.investment.WatchListBody
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
@@ -122,5 +123,8 @@ public interface ApiService {
 
     @POST(ApiConstants.ADD_INVENTORY)
     suspend fun addInventory(@Body addInventoryBody: AddInventoryBody): Response<WatchListResponse>
+
+    @POST(ApiConstants.VIDEO_CALL)
+    suspend fun scheduleVideoCall(@Body videoCallBody: VideoCallBody): Response<VideoCallResponse>
 
 }
