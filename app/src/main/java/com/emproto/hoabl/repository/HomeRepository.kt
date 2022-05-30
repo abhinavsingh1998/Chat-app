@@ -9,11 +9,12 @@ import com.emproto.networklayer.feature.HomeDataSource
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
-import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.home.HomeResponse
+import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
+import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -27,6 +28,9 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
     private val coroutineScope = CoroutineScope(Dispatchers.IO + parentJob)
     val mPromisesResponse = MutableLiveData<BaseResponse<PromisesResponse>>()
     val mHomeResponse = MutableLiveData<BaseResponse<HomeResponse>>()
+    val mLatestUpdates= MutableLiveData<BaseResponse<LatestUpdatesResponse>>()
+    val mTestimonials= MutableLiveData<BaseResponse<TestimonialsResponse>>()
+
 
 
     /**
@@ -36,7 +40,6 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
      * @return
      */
     fun getPromises(pageType: Int): LiveData<BaseResponse<PromisesResponse>> {
-
         if (mPromisesResponse.value == null) {
             mPromisesResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
@@ -71,8 +74,9 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
      * @param pageType for promises it #5001
      * @return
      */
-    fun getDashboardData(pageType: Int): LiveData<BaseResponse<HomeResponse>> {
-        if (mHomeResponse.value == null) {
+    fun getDashboardData(pageType: Int, refresh:Boolean=false): LiveData<BaseResponse<HomeResponse>> {
+
+        if (mHomeResponse.value == null || refresh) {
             mHomeResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
@@ -99,6 +103,68 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         }
         return mHomeResponse
     }
+
+    fun getlatestUpdatesData(refresh:Boolean=false): LiveData<BaseResponse<LatestUpdatesResponse>> {
+
+        if (mLatestUpdates.value == null || refresh) {
+            mLatestUpdates.postValue(BaseResponse.loading())
+            coroutineScope.launch {
+                try {
+                    val request = HomeDataSource(application).getLatestUpdatesData()
+                    if (request.isSuccessful) {
+                        if (request.body()!!.data != null)
+                            mLatestUpdates.postValue(BaseResponse.success(request.body()!!))
+                        else
+                            mLatestUpdates.postValue(BaseResponse.Companion.error("No data found"))
+                    } else {
+                        mLatestUpdates.postValue(
+                            BaseResponse.Companion.error(
+                                getErrorMessage(
+                                    request.errorBody()!!.string()
+                                )
+                            )
+                        )
+                    }
+                } catch (e: Exception) {
+                    mLatestUpdates.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                }
+            }
+
+        }
+        return mLatestUpdates
+    }
+
+    fun getTestimonialsData(refresh:Boolean=false): LiveData<BaseResponse<TestimonialsResponse>> {
+
+        if (mTestimonials.value == null || refresh) {
+            mLatestUpdates.postValue(BaseResponse.loading())
+            coroutineScope.launch {
+                try {
+                    val request = HomeDataSource(application).getTestimonialsData()
+                    if (request.isSuccessful) {
+                        if (request.body()!!.data != null)
+                            mTestimonials.postValue(BaseResponse.success(request.body()!!))
+                        else
+                            mTestimonials.postValue(BaseResponse.Companion.error("No data found"))
+                    } else {
+                        mTestimonials.postValue(
+                            BaseResponse.Companion.error(
+                                getErrorMessage(
+                                    request.errorBody()!!.string()
+                                )
+                            )
+                        )
+                    }
+                } catch (e: Exception) {
+                    mTestimonials.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                }
+            }
+
+        }
+        return mTestimonials
+    }
+
+
 
     fun getTermsCondition(pageType: Int): LiveData<BaseResponse<TermsConditionResponse>> {
         val mAddUsernameResponse = MutableLiveData<BaseResponse<TermsConditionResponse>>()

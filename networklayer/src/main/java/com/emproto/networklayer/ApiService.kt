@@ -14,6 +14,7 @@ import com.emproto.networklayer.response.login.AddNameResponse
 import com.emproto.networklayer.response.login.OtpResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.login.VerifyOtpResponse
+import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
@@ -25,6 +26,7 @@ import com.emproto.networklayer.response.profile.ProfileResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
+import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
 import retrofit2.Response
 import retrofit2.http.*
@@ -57,6 +59,12 @@ public interface ApiService {
 
     @GET(ApiConstants.HOME)
     suspend fun getDashboardData(@Query("pageType") pageType: Int): Response<HomeResponse>
+
+    @GET(ApiConstants.LatestUpdates)
+    suspend fun getLatestUpdates():Response<LatestUpdatesResponse>
+
+    @GET(ApiConstants.TESTIMONIALS)
+    suspend fun getTestimonials():Response<TestimonialsResponse>
 
     @GET(ApiConstants.INVESTMENT_PROJECT_DETAIL)
     suspend fun getInvestmentsProjectDetails(@Path("id") id: Int): Response<ProjectDetailResponse>
