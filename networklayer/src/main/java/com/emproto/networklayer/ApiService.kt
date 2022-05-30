@@ -138,6 +138,4 @@ public interface ApiService {
     @POST(ApiConstants.VIDEO_CALL)
     suspend fun scheduleVideoCall(@Body videoCallBody: VideoCallBody): Response<VideoCallResponse>
 
-    suspend fun referNow(@Body referBody: ReferalRequest): Response<ReferalResponse>
-
 }

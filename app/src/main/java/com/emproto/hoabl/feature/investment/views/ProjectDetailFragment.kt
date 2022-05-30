@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.investment.views
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ import com.emproto.hoabl.feature.investment.views.mediagallery.MediaGalleryFragm
 import com.emproto.hoabl.feature.promises.HoablPromises
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.model.MapLocationModel
+import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.Extensions.toHomePagesOrPromise
 import com.emproto.hoabl.utils.ItemClickListener
@@ -36,6 +38,7 @@ import com.emproto.networklayer.request.investment.VideoCallBody
 import com.emproto.networklayer.request.investment.WatchListBody
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.investment.*
+import com.emproto.networklayer.response.portfolio.ivdetails.LatestMediaGalleryOrProjectContent
 import com.emproto.networklayer.response.watchlist.Data
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.io.Serializable
@@ -55,7 +58,7 @@ class ProjectDetailFragment : BaseFragment() {
 
     private var projectId = 0
     private lateinit var oppDocData: List<OpprotunityDoc>
-    private lateinit var mediaData: ProjectCoverImages
+    private lateinit var mediaData: List<LatestMediaGalleryOrProjectContent>
     private lateinit var promisesData: List<PmData>
     private lateinit var landSkusData: List<InventoryBucketContent>
     private lateinit var mapLocationData: LocationInfrastructure
@@ -101,8 +104,29 @@ class ProjectDetailFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
                 R.id.tv_video_drone_see_all -> {
-                    investmentViewModel.setMedia(mediaData)
-                    (requireActivity() as HomeActivity).addFragment(MediaGalleryFragment(), false)
+                    val imagesList = ArrayList<MediaViewItem>()
+                    for(i in 0..mediaData.size-1){
+                        for (item in mediaData[i].droneShoots) {
+                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+                        }
+                        for (item in mediaData[i].images) {
+                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+
+                        }
+                        for (item in mediaData[i].videos) {
+                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+                        }
+                        for (item in mediaData[i].threeSixtyImages) {
+                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+                        }
+                    }
+                    Log.d("cscscs",imagesList.toString())
+                    val fragment = MediaGalleryFragment()
+                    val bundle = Bundle()
+                    bundle.putSerializable("Data", imagesList)
+                    fragment.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
                 R.id.tv_project_amenities_all -> {
                     val docsBottomSheet =
@@ -137,8 +161,11 @@ class ProjectDetailFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).addFragment(HoablPromises(), false)
                 }
                 R.id.tv_apply_now -> {
-                    investmentViewModel.setSkus(landSkusData)
-                    (requireActivity() as HomeActivity).addFragment(LandSkusFragment(), false)
+                    val fragment = LandSkusFragment()
+                    val bundle = Bundle()
+                    bundle.putInt("ProjectId", projectId)
+                    fragment.arguments = arguments
+                    (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
                 R.id.tv_location_infrastructure_all -> {
                     investmentViewModel.setMapLocationInfrastructure(mapLocationData)
@@ -246,7 +273,7 @@ class ProjectDetailFragment : BaseFragment() {
                         (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                         it.data?.data?.let {  data ->
                             oppDocData = data.opprotunityDocs
-                            mediaData= data.projectCoverImages
+                            mediaData= data.latestMediaGalleryOrProjectContent
                             landSkusData = data.inventoryBucketContents
                             faqData = data.projectContentsAndFaqs
                             mapLocationData = data.locationInfrastructure

@@ -46,15 +46,18 @@ class VideosFragment:BaseFragment() {
     }
 
     private fun initObserver() {
-        investmentViewModel.getMedia().observe(viewLifecycleOwner, Observer {
-            val list = ArrayList<MediaGalleryItem>()
-            list.add(MediaGalleryItem(1,"Videos"))
-            list.add(MediaGalleryItem(2,"Videos"))
+        val medialist = investmentViewModel.getMediaContent().filter { it.mediaType == "video" }
+        val list = ArrayList<MediaGalleryItem>()
+        list.add(MediaGalleryItem(1, "Videos"))
+        list.add(MediaGalleryItem(2, "Videos"))
 
-            val videoList = arrayListOf<String>(it.newInvestmentPageMedia.value.url)
-            mediaPhotosAdapter = MediaPhotosAdapter(this.requireContext(),list, itemClickListener, videoList)
-            binding.rvMainVideos.adapter = mediaPhotosAdapter
-        })
+        val videoList = arrayListOf<String>()
+        for(item in medialist){
+            videoList.add(item.media)
+        }
+        mediaPhotosAdapter =
+            MediaPhotosAdapter(this.requireContext(), list, itemClickListener, videoList)
+        binding.rvMainVideos.adapter = mediaPhotosAdapter
     }
 
     private fun initViewModel() {

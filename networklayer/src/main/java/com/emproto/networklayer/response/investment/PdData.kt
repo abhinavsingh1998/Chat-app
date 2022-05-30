@@ -1,5 +1,6 @@
 package com.emproto.networklayer.response.investment
 
+import com.emproto.networklayer.response.portfolio.ivdetails.LatestMediaGalleryOrProjectContent
 import com.emproto.networklayer.response.watchlist.Data
 import com.emproto.networklayer.response.watchlist.Watchlist
 import com.emproto.networklayer.response.watchlist.WatchlistData
@@ -38,5 +39,5 @@ data class PdData(
     val status: String,
     val updatedAt: String,
     var watchlist:List<Data>,
-    var inventoriesList:IvData
+    var inventoriesList:IvData,
 )
