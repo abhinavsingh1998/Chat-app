@@ -335,6 +335,8 @@ class PortfolioSpecificViewAdapter(
             }
             for (item in imagesData.images) {
                 imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+
             }
             for (item in imagesData.videos) {
                 imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
@@ -345,6 +347,12 @@ class PortfolioSpecificViewAdapter(
 
             latestImagesVideosAdapter = VideoAdapter(imagesList, ivInterface)
             val layoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
+
+//            layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+//                override fun getSpanSize(position: Int): Int {
+//                    return if (position == 0) 2 else 1
+//                }
+//            }
             binding.rvLatestImagesVideos.layoutManager = layoutManager
             binding.rvLatestImagesVideos.adapter = latestImagesVideosAdapter
             binding.tvLastUpdatedDate.text = Utility.parseDateFromUtc(imagesData.updatedAt, null)
