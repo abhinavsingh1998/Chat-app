@@ -4,5 +4,5 @@ data class MediaX(
     val isActive: Boolean,
     val key: String,
     val name: String,
-    val value: ValueXXXXXXXXXXX
+    val value: ValueXXX
 )

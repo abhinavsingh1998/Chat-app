@@ -313,11 +313,11 @@
     <string name="home_checkbox">Home</string>
     <string name="invest_checkbox">Invest</string>
     <string name="other">Other</string>
-    <string name="checkbox_desc">Please share your valuable feedback on the above selected HoABL services.</string>
+    <string name="checkbox_desc">Please share your valuable feedback.</string>
     <string name="very_poor_text">Very Poor</string>
     <string name="excellent">Excellent</string>
     <string name="share_your_feedback">Share your feedback</string>
-    <string name="founder_vision">Founder vision</string>
+    <string name="founder_vision">Founder\'s vision</string>
     <string name="abhinandan_lodha">Abhinandan Lodha</string>
     <string name="full_description_about">The House of Abhinandan Lodha was born out of a vision to democratize land in the country. We are changing what it means to own land. We are making it liquid, so that you’re never stuck with it. We are changing everything that is wrong with it – the red tape, the hassles and the risk.</string>
     <string name="about_hoabl">About HoABL</string>
@@ -372,4 +372,10 @@
     <string name="header"><![CDATA[%1$s <font size="16"><b>%2$s</b></font> ]]></string>
     <string name="manage_your_land_book">Manage your land, book, etc</string>
     <string name="email_address">Email Address</string>
+    <string name="security_tips">Security Tips</string>
+    <string name="title_here">Title goes here goes here title goes here goes here goes here</string>
+    <string name="investment_will_generate">Investement will generate appreciate in Future. Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple invest</string>
+    <string name="investment_will_generate_text">Investement will generate appreciate in Future. Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.</string>
+    <string name="select_category">Select category for which you want to share feedback</string>
+    <string name="project_appreciation">PROJECT APPRECIATION (%)</string>
 </resources>

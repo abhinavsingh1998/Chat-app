@@ -93,30 +93,24 @@
                     app:layout_constraintTop_toBottomOf="@+id/list_kyc" />
 
 
-                <TextView
-                    android:id="@+id/see_tv"
-                    style="@style/text_style_blue_12"
+                <com.emproto.core.textviews.CustomTextView
+                    android:id="@+id/tv_see_all_documents"
+                    style="@style/text_style_blue_14"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_size_190"
-                    android:layout_marginTop="@dimen/margin_size_30"
-                    android:layout_marginEnd="@dimen/margin_size_11"
-                    android:fontFamily="@font/jostregular"
+                    android:layout_marginEnd="@dimen/margin_size_16"
+                    android:layout_marginStart="@dimen/margin_size_16"
+                    android:layout_marginTop="40dp"
+                    android:drawableEnd="@drawable/ic_black_long_rightarrow"
+                    android:drawablePadding="@dimen/margin_size_4"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:singleLine="true"
                     android:text="@string/see_all"
-                    app:layout_constraintStart_toEndOf="@+id/tv_Doc"
-                    app:layout_constraintTop_toBottomOf="@+id/list_kyc" />
-
-                <ImageView
-                    android:id="@+id/arrow_right_iv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_size_8"
-                    android:layout_marginTop="@dimen/margin_size_30"
-                    android:layout_marginEnd="@dimen/margin_size_17"
-                    android:src="@drawable/ic_baseline_arrow_right_alt"
+                    app:fontName="@string/jost_regular"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/see_tv"
-                    app:layout_constraintTop_toBottomOf="@+id/list_kyc" />
+                    app:layout_constraintTop_toBottomOf="@id/list_kyc" />
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/list_documents"
@@ -138,17 +132,34 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_16"
                     android:layout_marginTop="40dp"
-                    android:layout_marginEnd="@dimen/margin_size_230"
                     android:fontFamily="@font/jostregular"
                     android:lineSpacingExtra="0sp"
                     android:text="Payment History"
                     android:textColor="#16161c"
                     android:textSize="16sp"
+                    android:singleLine="true"
                     android:textStyle="normal"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/list_documents" />
+
+                <com.emproto.core.textviews.CustomTextView
+                    android:id="@+id/tv_see_all_payment_history"
+                    style="@style/text_style_blue_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_size_16"
+                    android:layout_marginStart="@dimen/margin_size_16"
+                    android:layout_marginTop="40dp"
+                    android:drawableEnd="@drawable/ic_black_long_rightarrow"
+                    android:drawablePadding="@dimen/margin_size_4"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:singleLine="true"
+                    android:text="@string/see_all"
+                    app:fontName="@string/jost_regular"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/list_documents" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/list_paymenthistory"

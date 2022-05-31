@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_color">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/margin_size_55"
+        android:layout_marginTop="55dp"
         android:background="@drawable/shape2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/back_action"
@@ -42,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/jostmedium"
-                android:text="@string/help_centre_about_us"
+                android:text="@string/security_tips"
                 app:layout_constraintStart_toEndOf="@+id/imgArrow"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -62,21 +61,21 @@
 
                 <TextView
                     android:id="@+id/tv_heading"
+                    style="@style/text_style_color_18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_15"
                     android:layout_marginTop="@dimen/margin_size_27"
-                    android:fontFamily="@font/jost_regular"
+                    android:fontFamily="@font/jost_medium"
                     android:lineSpacingExtra="0sp"
-                    android:text="@string/founder_vision"
-                    style="@style/text_style_color_18"
+                    android:text="@string/title_here"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <View
                     android:id="@+id/aboutus_view"
-                    android:layout_width="@dimen/margin_size_130"
-                    android:layout_height="@dimen/margin_size_130"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_size_150"
                     android:layout_marginStart="@dimen/margin_size_19"
                     android:layout_marginTop="@dimen/margin_size_30"
                     android:layout_marginEnd="@dimen/margin_size_21"
@@ -86,59 +85,42 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_heading" />
 
                 <TextView
-                    android:id="@+id/name_tv"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/full_description"
+                    style="@style/text_style_light_grey_14"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_size_14"
-                    android:layout_marginStart="@dimen/margin_size_118"
-                    android:layout_marginEnd="@dimen/margin_size_125"
-                    android:fontFamily="@font/jostmedium"
-                    android:lineSpacingExtra="0sp"
-                    android:text="@string/abhinandan_lodha"
-                    android:singleLine="true"
-                    style="@style/text_style_color_18"
+                    android:layout_marginStart="@dimen/margin_size_14"
+                    android:layout_marginTop="@dimen/margin_size_15"
+                    android:layout_marginEnd="@dimen/margin_size_19"
+                    android:fontFamily="@font/jost_light"
+                    android:text="@string/investment_will_generate"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/aboutus_view" />
-
                 <TextView
                     android:id="@+id/full_description_tv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/jost_light"
                     style="@style/text_style_light_grey_14"
-                    android:text="@string/full_description_about"
-                    android:layout_marginTop="@dimen/margin_size_15"
-                    android:layout_marginStart="@dimen/margin_size_14"
-                    android:layout_marginEnd="@dimen/margin_size_19"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/name_tv" />
-
-                <TextView
-                    android:id="@+id/tv_aboutHoabel"
-                    style="@style/text_style_color_18"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_size_15"
-                    android:layout_marginTop="@dimen/margin_size_30"
-                    android:fontFamily="@font/jostregular"
-                    android:lineSpacingExtra="0sp"
-                    android:singleLine="true"
-                    android:text="@string/about_hoabl"
+                    android:layout_marginStart="@dimen/margin_size_14"
+                    android:layout_marginTop="@dimen/margin_size_16"
+                    android:layout_marginEnd="@dimen/margin_size_19"
+                    android:fontFamily="@font/jost_light"
+                    android:text="@string/investment_will_generate_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/full_description_tv" />
+                    app:layout_constraintTop_toBottomOf="@+id/full_description" />
 
-                <ImageView
+                <View
                     android:id="@+id/img_hoabl"
-                    android:layout_width="@dimen/margin_size_130"
-                    android:layout_height="@dimen/margin_size_130"
-                    android:src="@drawable/ic_logo_plain"
-                    app:layout_constraintTop_toBottomOf="@id/tv_aboutHoabel"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_size_150"
+                    android:layout_marginStart="@dimen/margin_size_19"
+                    android:layout_marginTop="@dimen/margin_size_30"
+                    android:layout_marginEnd="@dimen/margin_size_21"
+                    android:background="@drawable/aboutus_curve"                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    />
+                    app:layout_constraintTop_toBottomOf="@id/full_description_tv" />
 
                 <TextView
                     android:id="@+id/ttv_aboutHoabel"
@@ -187,115 +169,50 @@
                     style="@style/text_style_color_18"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_size_12"
+                    android:layout_marginTop="@dimen/margin_size_30"
                     android:fontFamily="@font/jostregular"
                     android:lineSpacingExtra="0sp"
                     android:singleLine="true"
-                    android:layout_marginTop="@dimen/margin_size_30"
-                    android:layout_marginStart="@dimen/margin_size_12"
                     android:text="@string/explore_growth"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/aboutUs_rv" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/graph_layout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/margin_size_4"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/explore_text">
-
-                    <com.github.mikephil.charting.charts.LineChart
-                        android:id="@+id/iv_price_trends_graph"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/margin_size_200"
-                        android:layout_marginTop="@dimen/margin_size_12"
-                        android:layout_marginEnd="@dimen/margin_size_12"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/tv_yAxis_label"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_xAxis_label"
-                        style="@style/text_style_lightgrey_12"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/margin_size_20"
-                        android:layout_marginVertical="@dimen/margin_size_13"
-                        android:fontFamily="@font/jost_semibold"
-                        android:text="@string/months"
-                        android:textAlignment="center"
-                        android:textAllCaps="true"
-                        app:layout_constraintEnd_toEndOf="@id/iv_price_trends_graph"
-                        app:layout_constraintStart_toStartOf="@id/iv_price_trends_graph"
-                        app:layout_constraintTop_toBottomOf="@id/iv_price_trends_graph" />
-
-                    <com.emproto.core.textviews.VerticalTextView
-                        android:id="@+id/tv_yAxis_label"
-                        style="@style/text_style_lightgrey_12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_marginHorizontal="@dimen/margin_size_13"
-                        android:layout_marginVertical="@dimen/margin_size_13"
-                        android:fontFamily="@font/jost_semibold"
-                        android:rotation="-180"
-                        android:text="@string/project_appreciation"
-                        android:textAlignment="center"
-                        android:textAllCaps="true"
-                        app:layout_constraintBottom_toBottomOf="@id/iv_price_trends_graph"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/iv_price_trends_graph" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerViewGraphOptions"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="16dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_xAxis_label" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
 
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/invest"
                     style="@style/text_style_white_20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_size_25"
+                    android:layout_marginTop="@dimen/margin_size_30"
+                    android:layout_marginEnd="@dimen/margin_size_25"
                     android:background="@drawable/portfolio_btn_shape"
+                    android:drawableLeft="@drawable/profit"
                     android:drawableRight="@drawable/ic_combined_shape_copy_5"
                     android:drawablePadding="@dimen/margin_size_8"
                     android:paddingStart="@dimen/margin_size_30"
                     android:paddingTop="@dimen/margin_size_12"
-                    android:singleLine="true"
                     android:paddingEnd="@dimen/margin_size_30"
                     android:paddingBottom="@dimen/margin_size_12"
-                    android:layout_marginStart="@dimen/margin_size_25"
-                    android:layout_marginEnd="@dimen/margin_size_25"
-                    android:layout_marginTop="@dimen/margin_size_30"
-                    android:drawableLeft="@drawable/profit"
+                    android:singleLine="true"
                     android:text="@string/invest_with_us_today"
                     android:textAlignment="center"
                     android:textAllCaps="false"
                     app:fontName="@string/jost_medium"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/graph_layout" />
+                    app:layout_constraintTop_toBottomOf="@+id/explore_text" />
 
                 <View
                     android:id="@+id/query_view"
                     android:layout_width="0dp"
                     android:layout_height="38dp"
-                    android:background="@drawable/feedback_curve"
-                    android:layout_marginBottom="@dimen/margin_size_30"
                     android:layout_marginStart="@dimen/margin_size_25"
                     android:layout_marginTop="@dimen/margin_size_20"
                     android:layout_marginEnd="@dimen/margin_size_25"
+                    android:layout_marginBottom="@dimen/margin_size_30"
+                    android:background="@drawable/feedback_curve"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -303,15 +220,15 @@
 
                 <TextView
                     android:id="@+id/tv_query"
+                    style="@style/text_light_black_14"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    style="@style/text_light_black_14"
                     android:layout_marginStart="@dimen/margin_size_50"
                     android:layout_marginTop="@dimen/margin_size_10"
                     android:layout_marginEnd="@dimen/margin_size_50"
                     android:layout_marginBottom="@dimen/margin_size_10"
-                    android:singleLine="true"
                     android:fontFamily="@font/jost_medium"
+                    android:singleLine="true"
                     android:text="@string/query"
                     app:layout_constraintBottom_toBottomOf="@+id/query_view"
                     app:layout_constraintEnd_toEndOf="@+id/query_view"
@@ -324,8 +241,4 @@
         </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-

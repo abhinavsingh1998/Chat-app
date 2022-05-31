@@ -109,7 +109,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
         binding.tvName.text=profileData.firstName+""+profileData.lastName
 
         /*for user pic not available show username as pic label*/
-        /*if (profileData.profilePictureUrl.isNullOrEmpty()){
+        if (profileData.profilePictureUrl.isNullOrEmpty()){
             binding.profileImage.visibility=View.GONE
             binding.profileUserLetters.visibility=View.VISIBLE
             setuserNamePIC(profileData)
@@ -119,13 +119,13 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
             Glide.with(requireContext())
                 .load(EditProfileFragment.data.profilePictureUrl)
                 .into(binding.profileImage)
-        }*/
+        }
     }
 
     private fun setuserNamePIC(profileData: Data) {
         val firstLetter: String = profileData.firstName.substring(0, 1)
         val lastLetter:String = profileData.lastName.substring(0,1)
-       // binding.tvUserName.text=firstLetter+""+lastLetter
+        binding.tvUserName.text=firstLetter+""+lastLetter
     }
 
 

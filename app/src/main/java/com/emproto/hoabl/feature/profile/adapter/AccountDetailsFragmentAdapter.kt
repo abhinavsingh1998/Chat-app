@@ -24,6 +24,7 @@ class AccountDetailsFragmentAdapter(
     override fun getItemCount(): Int {
         return accountdetailsList.size
     }
+
     class MyViewHolder(var binding: AccountDetailsViewBinding) :
         RecyclerView.ViewHolder(binding.root)
 

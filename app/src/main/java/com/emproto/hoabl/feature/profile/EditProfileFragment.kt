@@ -891,10 +891,10 @@ class EditProfileFragment : Fragment() {
             } else if (requestCode == PICK_Camera_IMAGE) {
                 onCaptureImageResult(data!!)
             } else {
-                val toast = Toast(requireContext())
-                toast.setText("Nothing Selected")
-                toast.duration = Toast.LENGTH_LONG
-                toast.show()
+                (requireActivity() as BaseActivity).showError(
+                    "Nothing Selected",
+                    binding.root
+                )
             }
         }
     }

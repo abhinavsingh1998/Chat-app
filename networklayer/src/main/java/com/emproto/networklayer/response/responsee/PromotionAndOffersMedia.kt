@@ -1,7 +1,7 @@
 package com.emproto.networklayer.response.responsee
 
-data class PromotionAndOffersMedia(
+data class PortfolioPageMedia(
     val key: String,
     val name: String,
-    val value: ValueXXXXXXXXX
+    val value: ValueXXXXXXXX
 )

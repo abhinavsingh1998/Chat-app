@@ -41,12 +41,14 @@
             <TextView
                 android:id="@+id/tv_Piece_of_land"
                 style="@style/text_style_text_color_13"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/jost_medium"
                 android:lineSpacingExtra="3.4sp"
-                android:layout_marginEnd="@dimen/margin_size_152"
+                android:layout_marginStart="@dimen/margin_size_12"
+                android:layout_marginEnd="@dimen/margin_size_19"
+                android:singleLine="true"
                 android:text="Peace of Land"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.035"
@@ -64,7 +66,6 @@
                 android:fontFamily="@font/jost_light"
                 android:text="@string/about_us_discription"
                 app:layout_constraintEnd_toEndOf="parent"
-
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_Piece_of_land" />

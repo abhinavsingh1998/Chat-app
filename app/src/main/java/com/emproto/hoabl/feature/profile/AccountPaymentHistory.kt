@@ -1,29 +1,30 @@
 package com.emproto.hoabl.feature.profile
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import com.emproto.hoabl.feature.home.views.HomeActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentAccountDetailsBinding
+import com.emproto.hoabl.databinding.FragmentPaymentHistoryBinding
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.profile.adapter.AccountDetailsFragmentAdapter
-import com.emproto.hoabl.feature.profile.adapter.DocumentKycAdapter
 import com.emproto.hoabl.feature.profile.data.AccountDetailsData
 
-class AccountDetailsFragment : Fragment() {
-    lateinit var binding: FragmentAccountDetailsBinding
+class AccountPaymentHistory : Fragment() {
+    lateinit var binding: FragmentPaymentHistoryBinding
     lateinit var adapter: AccountDetailsFragmentAdapter
     val bundle = Bundle()
 
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAccountDetailsBinding.inflate(inflater, container, false)
+        binding = FragmentPaymentHistoryBinding.inflate(inflater, container, false)
 
         initView()
 
@@ -36,29 +37,14 @@ class AccountDetailsFragment : Fragment() {
     }
 
     private fun initView() {
-        val list = ArrayList<String>()
-        list.add("Address proof")
-        list.add("Pan Card")
-        list.add("Cancelled Check")
-        list.add("Bank Account Details")
-        binding.listKyc.layoutManager = LinearLayoutManager(requireContext())
-        binding.listKyc.adapter = DocumentKycAdapter(requireContext(), list)
 
-        binding.listDocuments.layoutManager = LinearLayoutManager(requireContext())
-        binding.listDocuments.adapter = DocumentKycAdapter(requireContext(), list)
-
-        binding.listPaymenthistory.layoutManager = LinearLayoutManager(requireContext())
+        binding.listPaymentHistory.layoutManager = LinearLayoutManager(requireContext())
         val detailAdapter = AccountDetailsFragmentAdapter(initData())
-        binding.listPaymenthistory.adapter = detailAdapter
+        binding.listPaymentHistory.adapter = detailAdapter
     }
 
     private fun initClickListener() {
         binding.backAction.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
-
-        binding.tvSeeAllPaymentHistory.setOnClickListener {
-            val myAcccount = AccountPaymentHistory()
-            (requireActivity() as HomeActivity).addFragment(myAcccount, false)
-        }
     }
 
     private fun initData(): ArrayList<AccountDetailsData> {
@@ -102,7 +88,6 @@ class AccountDetailsFragment : Fragment() {
 
         return accountdetailsList
     }
-
 
 
 }

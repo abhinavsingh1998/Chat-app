@@ -13,7 +13,7 @@ import com.emproto.hoabl.feature.profile.adapter.SettingsAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 
 
-class SecurityFragment : Fragment() {
+class SecurityFragment : Fragment() ,SecurityAdapter.HelpItemInterface{
     lateinit var binding: FragmentSecurityBinding
     lateinit var adapter: SettingsAdapter
 
@@ -39,11 +39,30 @@ class SecurityFragment : Fragment() {
             return dataList
         }
 
-        val adapter = SecurityAdapter(this.requireContext(), initData())
+        val adapter = SecurityAdapter(this.requireContext(), initData(),this)
         binding.healthCenterRecyclerView.adapter = adapter
 
         binding.backAction.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
+        }
+    }
+
+    override fun onClickItem(layoutPosition: Int) {
+        when(layoutPosition){
+            0->{
+
+            }
+            1->{
+
+            }
+            2->{
+                val securityTipsFragment = SecurityTipsFragment()
+                (requireActivity() as HomeActivity).addFragment(securityTipsFragment, false)
+            }
+            3->{
+                val securityTipsFragment=SecurityTipsFragment()
+                (requireActivity() as HomeActivity).addFragment(securityTipsFragment, false)
+            }
         }
     }
 }
