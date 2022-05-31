@@ -6,10 +6,11 @@ import android.text.Html
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.LatestUpdateDetailItemBinding
-import com.emproto.networklayer.response.home.DetailedInfo
+import com.emproto.networklayer.response.marketingUpdates.DetailedInfo
 
 
 class LatestUpdateListAdapter(
@@ -26,10 +27,18 @@ class LatestUpdateListAdapter(
 
     override fun onBindViewHolder(holder: LatestUpdateHolder, position: Int) {
         val item = list[position]
-        holder.binding.firstDetails.text= item.description
+
+        if(item.description!=null){
+            holder.binding.firstDetails.text= showHTMLText(item.description)
+        } else{
+            holder.binding.firstDetails.isVisible= false
+        }
+
+        holder.binding.imageDesc.isVisible= false
+
 
         if(item.media!=null){
-//            holder.binding.imageDesc.text= showHTMLText(item.media.mediaDescription)
+            //holder.binding.imageDesc.text= showHTMLText(item.media.d)
             Glide.with(context)
                 .load(item.media.value.url)
                 .into(holder.binding.image1)

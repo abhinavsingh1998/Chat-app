@@ -7,6 +7,7 @@ import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.ApiService
 import com.emproto.networklayer.di.DaggerDataComponent
 import com.emproto.networklayer.response.home.HomeResponse
+import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.testimonials.TestimonialsResponse
@@ -38,8 +39,12 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
     }
 
     // all Latest udates modules apis
-    suspend fun getLatestUpdatesData(): Response<LatestUpdatesResponse> {
-        return apiService.getLatestUpdates()
+    suspend fun getLatestUpdatesData(byPrority:Boolean): Response<LatestUpdatesResponse> {
+        return apiService.getLatestUpdates(byPrority)
+    }
+
+    suspend fun getInsightsData(byPrority:Boolean): Response<InsightsResponse> {
+        return apiService.getInsightsData(byPrority)
     }
 
     suspend fun getTestimonialsData(): Response<TestimonialsResponse> {

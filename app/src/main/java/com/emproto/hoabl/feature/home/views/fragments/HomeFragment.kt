@@ -29,6 +29,7 @@ import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.repository.HomeRepository
+import com.emproto.hoabl.utils.Extensions.toData
 import com.emproto.hoabl.utils.Extensions.toHomePagesOrPromise
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
@@ -38,6 +39,7 @@ import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
+import com.emproto.networklayer.response.marketingUpdates.Data
 import com.google.android.material.tabs.TabLayoutMediator
 import com.skydoves.balloon.balloon
 import java.io.Serializable
@@ -138,17 +140,18 @@ class HomeFragment : BaseFragment() {
                                 it.data!!.data.pageManagementOrLatestUpdates,
                                 object : LatestUpdateAdapter.ItemInterface {
                                     override fun onClickItem(position: Int) {
-//                                        homeViewModel.setSeLectedLatestUpdates(it.data!!.data.pageManagementOrLatestUpdates[position])
-//                                        homeViewModel.setSelectedPosition(
-//                                            LatesUpdatesPosition(
-//                                                position,
-//                                                it.data!!.data.pageManagementOrLatestUpdates.size
-//                                            )
-//                                        )
-//                                        (requireActivity() as HomeActivity).addFragment(
-//                                            LatestUpdatesDetailsFragment(),
-//                                            false
-//                                        )
+                                        val convertedData = it.data!!.data.pageManagementOrLatestUpdates[position].toData()
+                                        homeViewModel.setSeLectedLatestUpdates(convertedData)
+                                        homeViewModel.setSelectedPosition(
+                                            LatesUpdatesPosition(
+                                                position,
+                                                it.data!!.data.pageManagementOrLatestUpdates.size
+                                            )
+                                        )
+                                        (requireActivity() as HomeActivity).addFragment(
+                                            LatestUpdatesDetailsFragment(),
+                                            false
+                                        )
                                     }
 
                                 }
@@ -192,11 +195,11 @@ class HomeFragment : BaseFragment() {
                                 it.data!!.data.pageManagementOrInsights,
                                 object : InsightsAdapter.InsightsItemInterface {
                                     override fun onClickItem(position: Int) {
-                                        homeViewModel.setSeLectedInsights(it.data!!.data.pageManagementOrInsights[position])
-                                        (requireActivity() as HomeActivity).addFragment(
-                                            InsightsDetailsFragment(),
-                                            false
-                                        )
+//                                        homeViewModel.setSeLectedInsights(it.data!!.data.pageManagementOrInsights[position])
+//                                        (requireActivity() as HomeActivity).addFragment(
+//                                            InsightsDetailsFragment(),
+//                                            false
+//                                        )
                                     }
 
                                 }
