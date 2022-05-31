@@ -346,7 +346,6 @@
     <string name="fourth_incorrect_otp">You have incorrectly typed the OTP 4 time. Click on Resend OTP to receive OTP again</string>
 
 
-
     <string-array name="Gender">
         <item>Female</item>
         <item>Male</item>
@@ -355,7 +354,7 @@
     <string name="popular_categories_text">Popular Categories</string>
     <string name="search_faqs">Search FAQs</string>
     <string name="months">Months</string>
-    <string name="map_api_key">AIzaSyBGiTnto1DA165mmOU68Ne6ZiRBxhfFHtk</string>
+    <string name="map_api_key">AIzaSyCeZfpL-541LGEkcu6ZWrMmbdFa49XosiQ</string>
     <string name="see_distance">See distance from</string>
     <string name="around_this_project">Around this Project</string>
     <string name="updates_details">Details</string>
@@ -369,4 +368,5 @@
     <string name="please_after_one_hour">You have reached the maximum limit for resending the OTP. Please retry again after an hour.</string>
     <string name="all_investments">All investments</string>
     <string name="youtube_api_key">AIzaSyCdq-SBpqNl8q1w98hmfBYT-xUZQZ5KyuM</string>
+    <string name="header"><![CDATA[%1$s <font size="16"><b>%2$s</b></font> ]]></string>
 </resources>

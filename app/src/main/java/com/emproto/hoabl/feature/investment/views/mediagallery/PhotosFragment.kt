@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.investment.views.mediagallery
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -73,7 +74,10 @@ class PhotosFragment : BaseFragment() {
         list.add(MediaGalleryItem(2, "Photos"))
 
         val imageList = arrayListOf<String>()
-        imageList.add(list1[0].media)
+        Log.d("jshdjshds",list1.toString())
+        if(list1[0].media!=null){
+            imageList.add(list1[0].media)
+        }
 
         mediaPhotosAdapter =
             MediaPhotosAdapter(this.requireContext(), list, itemClickListener, imageList)

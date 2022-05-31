@@ -7,6 +7,9 @@ import androidx.lifecycle.ViewModel
 import com.emproto.hoabl.model.MapLocationModel
 import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.repository.InvestmentRepository
+import com.emproto.networklayer.request.investment.AddInventoryBody
+import com.emproto.networklayer.request.investment.VideoCallBody
+import com.emproto.networklayer.request.investment.WatchListBody
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.investment.*
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
@@ -16,7 +19,7 @@ class InvestmentViewModel(
     private var investmentRepository: InvestmentRepository
 ) : ViewModel() {
 
-    private var skusLiveData = MutableLiveData<InventoryBucketContent>()
+    private var skusLiveData = MutableLiveData<Inventory>()
     private var smartDeals = MutableLiveData<List<PageManagementsOrCollectionOneModel>>()
     private var trendingProjects = MutableLiveData<List<PageManagementsOrCollectionTwoModel>>()
     private var projectid = MutableLiveData<Int>()
@@ -52,6 +55,26 @@ class InvestmentViewModel(
 
     fun getInvestmentsFaq(id: Int): LiveData<BaseResponse<FaqDetailResponse>> {
         return investmentRepository.getInvestmentsFaq(id)
+    }
+
+    fun addWatchList(watchListBody: WatchListBody): LiveData<BaseResponse<WatchListResponse>> {
+        return investmentRepository.addWatchList(watchListBody)
+    }
+
+    fun deleteWatchList(id: Int): LiveData<BaseResponse<WatchListResponse>> {
+        return investmentRepository.deleteWatchList(id)
+    }
+
+    fun getAllInventories(id: Int): LiveData<BaseResponse<GetInventoriesResponse>> {
+        return investmentRepository.getAllInventories(id)
+    }
+
+    fun addInventory(addInventoryBody: AddInventoryBody): LiveData<BaseResponse<WatchListResponse>> {
+        return investmentRepository.addInventory(addInventoryBody)
+    }
+
+    fun scheduleVideoCall(videoCallBody: VideoCallBody): LiveData<BaseResponse<VideoCallResponse>> {
+        return investmentRepository.scheduleVideoCall(videoCallBody)
     }
 
     fun setSmartDealsList(smartDeals: List<PageManagementsOrCollectionOneModel>) {
@@ -142,11 +165,11 @@ class InvestmentViewModel(
         return mediaViewItem
     }
 
-    fun setSku(skusData: InventoryBucketContent) {
+    fun setSku(skusData: Inventory) {
         this.skusLiveData.postValue(skusData)
     }
 
-    fun getSku(): LiveData<InventoryBucketContent> {
+    fun getSku(): LiveData<Inventory> {
         return skusLiveData
     }
 

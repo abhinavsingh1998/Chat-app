@@ -9,7 +9,7 @@ data class PmData(
     val createdAt: String,
     val createdBy: String?,
     val crmPromiseId: String?,
-    val description: List<String>,
+    val description: List<String>?,
     val displayMedia: DisplayMedia,
     val howToApply: HowToApply,
     val id: Int,
@@ -21,8 +21,8 @@ data class PmData(
     val promiseMedia: PromiseMedia?,
     val promiseType: String?,
     val shortDescription: String?,
-    val status: String,
+    val status: String?,
     val termsAndConditions: TermsAndConditions,
-    val updatedAt: String,
+    val updatedAt: String?,
     val updatedBy: String?
 )

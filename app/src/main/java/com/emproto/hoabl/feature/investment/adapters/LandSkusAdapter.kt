@@ -10,13 +10,14 @@ import com.emproto.hoabl.databinding.NotConvincedLayoutBlackBinding
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
-import com.emproto.networklayer.response.investment.InventoryBucketContent
-import java.util.ArrayList
+import com.emproto.networklayer.response.investment.Inventory
+import kotlin.collections.ArrayList
 
 class LandSkusAdapter(
     private val fragment: LandSkusFragment,
     val list: ArrayList<RecyclerViewItem>,
-    val skusList: List<InventoryBucketContent>,
+    val appliedList : List<Inventory>,
+    val notAppliedList: List<Inventory>,
     val itemClickListener: ItemClickListener
 ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -54,8 +55,8 @@ class LandSkusAdapter(
 
     private inner class LandSkusAvailableViewHolder(val binding: LandSkusTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvLandSkusTitle.text = "Land SKUs (${skusList.size})"
-            skusListAdapter = SkusListAdapter(fragment,skusList,itemClickListener)
+            binding.tvLandSkusTitle.text = "Land SKUs (${notAppliedList.size})"
+            skusListAdapter = SkusListAdapter(fragment,notAppliedList,itemClickListener)
             binding.rvLandSkusItems.adapter = skusListAdapter
             skusListAdapter.setSkusListItemClickListener(fragment.onLandSkusItemClickListener)
         }
@@ -64,7 +65,7 @@ class LandSkusAdapter(
     private inner class LandSkusAppliedViewHolder(val binding: LandSkusAppliedLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             val list = arrayListOf<String>("1","2")
-            skusListAppliedAdapter = SkusListAppliedAdapter(list)
+            skusListAppliedAdapter = SkusListAppliedAdapter(fragment,appliedList,itemClickListener)
             binding.rvLandSkusItemsApplied.adapter = skusListAppliedAdapter
         }
     }

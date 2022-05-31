@@ -375,16 +375,34 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         homeViewModel.gethomeData().observe(this, Observer {
 
             it.let {
-                val totalLandsold: String? =
-                    it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value
-                val totalAmtLandSold: String? =
-                    it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
-                val grossWeight: String? =
-                    it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName + " " + it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
-                val num_User: String? =
-                    it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName + " " + it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
-                activityHomeActivity.searchLayout.rotateText.text =
-                    "$totalAmtLandSold    $totalLandsold Sqft    $grossWeight    $num_User"
+                val totalLandsold: String? = String.format(
+                    getString(R.string.header),
+                    it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName,
+                    it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value + " Sqft"
+                )
+                //it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value
+
+                val totalAmtLandSold: String? = String.format(
+                    getString(R.string.header),
+                    it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName,
+                    it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
+                )
+                //it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
+                val grossWeight: String? = String.format(
+                    getString(R.string.header),
+                    it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName,
+                    it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
+                )
+                //it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName + " " + it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
+                val num_User: String? = String.format(
+                    getString(R.string.header),
+                    it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName,
+                    it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
+                )
+                //it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName + " " + it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
+                activityHomeActivity.searchLayout.rotateText.text = showHTMLText(
+                    "$totalAmtLandSold    $totalLandsold    $grossWeight    $num_User"
+                )
 
             }
 
