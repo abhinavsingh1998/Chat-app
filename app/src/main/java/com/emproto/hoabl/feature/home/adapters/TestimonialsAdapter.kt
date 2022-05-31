@@ -9,8 +9,9 @@ import com.emproto.hoabl.databinding.InsightsListItemBinding
 import com.emproto.hoabl.databinding.TestimonalsListViewBinding
 import com.emproto.networklayer.response.home.PageManagementOrInsight
 import com.emproto.networklayer.response.home.PageManagementsOrTestimonial
+import com.emproto.networklayer.response.testimonials.Data
 
-class TestimonialsAdapter(val context: Context, val list: List<PageManagementsOrTestimonial>) : RecyclerView.Adapter<TestimonialsAdapter.MyViewHolder>() {
+class TestimonialsAdapter(val context: Context, val list: List<Data>) : RecyclerView.Adapter<TestimonialsAdapter.MyViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

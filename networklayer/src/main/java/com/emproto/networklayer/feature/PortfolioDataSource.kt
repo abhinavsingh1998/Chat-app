@@ -48,7 +48,7 @@ class PortfolioDataSource(val application: Application):BaseDataSource(applicati
     }
 
     //get documents listing
-    suspend fun getDocumentsListing(projectId: Int): Response<DocumentsResponse> {
+    suspend fun getDocumentsListing(projectId: String): Response<DocumentsResponse> {
         return apiService.documentsList(projectId)
     }
 

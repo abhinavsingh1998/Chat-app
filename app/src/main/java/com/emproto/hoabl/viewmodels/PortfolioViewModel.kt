@@ -51,7 +51,7 @@ class PortfolioViewModel(
         return portfolioRepository.getInvestmentDetails(ivId, projectId)
     }
 
-    fun getDocumentList(projectId: Int): LiveData<BaseResponse<DocumentsResponse>> {
+    fun getDocumentList(projectId: String): LiveData<BaseResponse<DocumentsResponse>> {
         return portfolioRepository.getDocumentsListing(projectId)
     }
 

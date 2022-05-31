@@ -79,6 +79,8 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
                     selected_state()
                 }
 
+
+
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -97,7 +99,7 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
                 } else {
                     selected_state()
                 }
-
+                mBinding.errorTxt.isVisible= false
 
             }
 

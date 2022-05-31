@@ -102,7 +102,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
         return mPromisesResponse
     }
 
-    fun getDocumentsListing(projectId: Int): LiveData<BaseResponse<DocumentsResponse>> {
+    fun getDocumentsListing(projectId: String): LiveData<BaseResponse<DocumentsResponse>> {
         val mDocumentsResponse = MutableLiveData<BaseResponse<DocumentsResponse>>()
         mDocumentsResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {

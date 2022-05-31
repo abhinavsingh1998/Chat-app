@@ -6,9 +6,8 @@ data class PageManagementOrInsight(
     val displayTitle: String,
     val id: Int,
     val insightsMedia: List<InsightsMedia>,
-    val modifiedBy: Any,
-    val pageManagementAndInsights: PageManagementAndInsights,
-    val priority: Any,
+    val modifiedBy: Int,
+    val priority: Int,
     val status: String,
     val updatedAt: String
 )
