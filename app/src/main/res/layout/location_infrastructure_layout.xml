@@ -46,7 +46,7 @@
         android:id="@+id/rv_location_infrastructure"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_size_10"
+        android:layout_marginHorizontal="@dimen/margin_size_7"
         android:layout_marginTop="@dimen/margin_size_14"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

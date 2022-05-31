@@ -1,5 +1,10 @@
 package com.emproto.networklayer
 
+import com.emproto.networklayer.request.investment.AddInventoryBody
+import com.emproto.networklayer.request.investment.VideoCallBody
+import com.emproto.networklayer.request.investment.WatchListBody
+import com.emproto.networklayer.request.login.profile.EditUserNameRequest
+import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
 import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
@@ -103,6 +108,9 @@ public interface ApiService {
     @GET(ApiConstants.WATCHLIST)
     suspend fun getMyWatchlist(): Response<WatchlistData>
 
+    @DELETE(ApiConstants.DELETE_WATCHLIST)
+    suspend fun deleteWatchlist(@Path("id") id: Int): Response<WatchListResponse>
+
     @GET(ApiConstants.GET_PROFILE)
     suspend fun getUserProfile(): Response<ProfileResponse>
 
@@ -122,7 +130,7 @@ public interface ApiService {
     suspend fun getInvestmentsProjectFaq(@Path("projectContentId") projectContentId: Int): Response<FaqDetailResponse>
 
     @POST(ApiConstants.REFER_NOW)
-    suspend fun referNow(@Body referBody: ReferalRequest): Response<ReferalResponse>
+    suspend fun referNow(@Body referBody:ReferalRequest):Response<ReferalResponse>
 
     @GET(ApiConstants.STATES)
     suspend fun getStates(@Path("countryIsoCode") countryIsoCode: String): Response<StatesResponse>
@@ -132,4 +140,17 @@ public interface ApiService {
         @Query("stateIsoCode") stateIsoCode: String,
         @Query("countryIsoCode") countryIsoCode: String
     ): Response<CitiesResponse>
+
+    @POST(ApiConstants.WATCHLIST)
+    suspend fun addWatchList(@Body watchListBody: WatchListBody ):Response<WatchListResponse>
+
+    @GET(ApiConstants.PROJECT_INVENTORIES)
+    suspend fun getInventories(@Path("id") id: Int): Response<GetInventoriesResponse>
+
+    @POST(ApiConstants.ADD_INVENTORY)
+    suspend fun addInventory(@Body addInventoryBody: AddInventoryBody): Response<WatchListResponse>
+
+    @POST(ApiConstants.VIDEO_CALL)
+    suspend fun scheduleVideoCall(@Body videoCallBody: VideoCallBody): Response<VideoCallResponse>
+
 }

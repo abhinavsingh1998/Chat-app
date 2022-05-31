@@ -36,4 +36,8 @@ object ApiConstants {
     const val REFER_NOW = "hoabl-customer/addReferral"
     const val STATES="hoabl-customer/profile/states/{countryIsoCode}"
     const val CITIES="hoabl-customer/profile/cities"
+    const val DELETE_WATCHLIST = "hoabl-customer/watchlist/{id}"
+    const val PROJECT_INVENTORIES = "hoabl-customer/inventories/{id}"
+    const val ADD_INVENTORY = "hoabl-customer/inventories"
+    const val VIDEO_CALL = "hoabl-customer/case"
 }

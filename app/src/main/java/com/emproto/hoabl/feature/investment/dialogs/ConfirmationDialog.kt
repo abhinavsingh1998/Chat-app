@@ -14,10 +14,11 @@ import androidx.lifecycle.Observer
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ApplyConfirmationDialogBinding
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
+import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.google.android.material.textview.MaterialTextView
 
-class ConfirmationDialog(private val investmentViewModel: InvestmentViewModel) :DialogFragment(),View.OnClickListener {
+class ConfirmationDialog(private val investmentViewModel: InvestmentViewModel, private val itemClickListener: ItemClickListener,) :DialogFragment(),View.OnClickListener {
 
     lateinit var binding: ApplyConfirmationDialogBinding
 
@@ -29,7 +30,6 @@ class ConfirmationDialog(private val investmentViewModel: InvestmentViewModel) :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        clickListeners()
         setUpUI()
     }
 
@@ -37,18 +37,18 @@ class ConfirmationDialog(private val investmentViewModel: InvestmentViewModel) :
         investmentViewModel.getSku().observe(viewLifecycleOwner, Observer {
             it.let { data ->
                 binding.apply {
-                    tvItemLandSkusName.text = data.name
+                    tvItemLandSkusName.text = data.inventoryBucketName
                     tvItemLandSkusArea.text = "${data.areaRange.from} - ${data.areaRange.to} ft"
                     tvItemLandSkusPrice.text = "${data.priceRange.from} - ${data.priceRange.to}"
-                    tvItemLandSkusDescription.text = data.shortDescription
+                    tvItemLandSkusDescription.text = data.inventoryBucketDescription
                 }
+                binding.tvYesText.setOnClickListener{ view ->
+                    dialog?.dismiss()
+                    itemClickListener.onItemClicked(view,data.id,"Yes")
+                }
+                binding.tvNoText.setOnClickListener(this)
             }
         })
-    }
-
-    private fun clickListeners() {
-        binding.tvYesText.setOnClickListener(this)
-        binding.tvNoText.setOnClickListener(this)
     }
 
     override fun onStart() {
@@ -60,11 +60,11 @@ class ConfirmationDialog(private val investmentViewModel: InvestmentViewModel) :
 
     override fun onClick(v:View) {
         when(v.id){
-            R.id.tv_yes_text -> {
-                dialog?.dismiss()
-                val applicationSubmitDialog = ApplicationSubmitDialog("Thank you for your interest!","Our Project Manager will reach out to you in 24 hours!")
-                applicationSubmitDialog.show(parentFragmentManager,"ApplicationSubmitDialog")
-            }
+//            R.id.tv_yes_text -> {
+//                dialog?.dismiss()
+//                val applicationSubmitDialog = ApplicationSubmitDialog("Thank you for your interest!","Our Project Manager will reach out to you in 24 hours!")
+//                applicationSubmitDialog.show(parentFragmentManager,"ApplicationSubmitDialog")
+//            }
             R.id.tv_no_text -> {
                 dialog?.dismiss()
             }
