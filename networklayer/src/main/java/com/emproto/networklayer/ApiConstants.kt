@@ -14,6 +14,7 @@ object ApiConstants {
 
     const val HOME = "hoabl-admin/get-page"
     const val LatestUpdates="hoabl-admin/marketing-updates"
+    const val INSIGHTS="hoabl-admin/insights"
     const val TESTIMONIALS= "hoabl-admin/testimonials"
     const val PROMISES = "hoabl-admin/get-page"
     const val INVESTMENT = "hoabl-admin/get-page"

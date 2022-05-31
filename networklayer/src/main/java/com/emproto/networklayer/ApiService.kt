@@ -9,6 +9,7 @@ import com.emproto.networklayer.request.login.profile.UploadProfilePictureReques
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
+import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.*
 import com.emproto.networklayer.response.login.AddNameResponse
 import com.emproto.networklayer.response.login.OtpResponse
@@ -59,6 +60,9 @@ public interface ApiService {
 
     @GET(ApiConstants.LatestUpdates)
     suspend fun getLatestUpdates(@Query("byPrority") priority: Boolean = true): Response<LatestUpdatesResponse>
+
+    @GET(ApiConstants.INSIGHTS)
+    suspend fun getInsightsData(@Query ("byPrority") byPrority: Boolean):Response<InsightsResponse>
 
     @GET(ApiConstants.TESTIMONIALS)
     suspend fun getTestimonials(): Response<TestimonialsResponse>
