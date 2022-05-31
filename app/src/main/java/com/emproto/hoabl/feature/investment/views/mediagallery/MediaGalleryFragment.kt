@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.investment.views.mediagallery
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,6 +61,7 @@ class MediaGalleryFragment : BaseFragment() {
     }
 
     private fun setUpTabLayoutViewPager() {
+        Log.d("jhdjhdsj",list.toString())
         investmentViewModel.setMediaContent(list)
         //investmentViewModel.getMedia().observe(viewLifecycleOwner, Observer {
         mediaViewPagerAdapter = MediaViewPagerAdapter(childFragmentManager, lifecycle)

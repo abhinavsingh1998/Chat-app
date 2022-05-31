@@ -9,6 +9,7 @@ import androidx.core.text.bold
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.model.RecyclerViewItem
@@ -55,7 +56,7 @@ class NewInvestmentAdapter(private val activity:HomeActivity, private val contex
             binding.tvArea.text = data.page.pageManagementsOrNewInvestments[0].areaStartingFrom + " Onwards"
             binding.tvBackgroundGrey.text = data.page.pageManagementsOrNewInvestments[0].shortDescription
             binding.tvViewInfo.text = SpannableStringBuilder()
-                .bold { append("${data.page.pageManagementsOrNewInvestments[0].fomoContent.noOfViews} People") }
+                .bold { append("${Utility.coolFormat(data.page.pageManagementsOrNewInvestments[0].fomoContent.noOfViews.toDouble(),0)} People") }
                 .append( " saw this project in ${data.page.pageManagementsOrNewInvestments[0].fomoContent.days} days" )
 
             val listViews = ArrayList<String>()

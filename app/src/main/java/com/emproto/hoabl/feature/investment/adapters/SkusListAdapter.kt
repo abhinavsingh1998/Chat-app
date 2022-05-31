@@ -7,11 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemLandSkusBinding
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.networklayer.response.investment.Inventory
 import com.emproto.networklayer.response.investment.InventoryBucketContent
 
 class SkusListAdapter(
     private val fragment: LandSkusFragment,
-    private val list: List<InventoryBucketContent>,
+    private val list: List<Inventory>,
     val itemClickListener: ItemClickListener
 ):RecyclerView.Adapter<SkusListAdapter.SkusListViewHolder>() {
 
@@ -31,10 +32,10 @@ class SkusListAdapter(
                 fragment.investmentViewModel.setSku(element)
                 itemClickListener.onItemClicked(it,position,element.id.toString())
             }
-            tvItemLandSkusName.text = element.name
+            tvItemLandSkusName.text = element.inventoryBucketName
             tvItemLandSkusArea.text = "${element.areaRange.from}ft - ${element.areaRange.to}ft"
             tvItemLandSkusPrice.text = "${element.priceRange.from} - ${element.priceRange.to}"
-            tvItemLandSkusDescription.text = element.shortDescription
+            tvItemLandSkusDescription.text = element.inventoryBucketDescription
         }
     }
 

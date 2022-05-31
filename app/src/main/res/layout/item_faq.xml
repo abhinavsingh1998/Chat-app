@@ -71,7 +71,7 @@
                 android:layout_marginEnd="@dimen/margin_size_20"
                 android:fontFamily="@font/jost_light"
                 android:text="This place doesnt include expenses which are coming under maintenance, electricity"
-                android:textColor="@color/text_blue_dark_color"
+                android:textColor="@color/doc_label_black_color"
                 android:textSize="@dimen/text_size_14"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"

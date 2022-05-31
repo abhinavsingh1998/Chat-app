@@ -32,6 +32,7 @@
         android:layout_marginVertical="@dimen/margin_size_30"
         android:textAlignment="center"
         android:textColor="@color/white"
+        android:fontFamily="@font/jost_medium"
         android:background="@drawable/all_corner_radius_white_bg"
         android:backgroundTint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
