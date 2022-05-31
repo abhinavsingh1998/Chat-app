@@ -23,6 +23,7 @@ import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.login.AddNameResponse
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 
 class NameInputFragment : BaseFragment() {

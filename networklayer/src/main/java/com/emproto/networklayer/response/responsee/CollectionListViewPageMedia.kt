@@ -1,7 +1,7 @@
 package com.emproto.networklayer.response.responsee
 
-data class MediaContent(
+data class CollectionListViewPageMedia(
     val key: String,
     val name: String,
-    val value: ValueXXXX
+    val value: ValueXXXXX
 )

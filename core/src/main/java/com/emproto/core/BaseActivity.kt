@@ -49,7 +49,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 */
 
-    open fun isNetworkAvailable(view: View?): Boolean {
+    open fun isNetworkAvailable(): Boolean {
         val connectivityManager =
             getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

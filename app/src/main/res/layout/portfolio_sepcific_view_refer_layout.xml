@@ -63,13 +63,13 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_size_40"
             android:layout_marginHorizontal="@dimen/margin_size_8"
-            android:layout_marginTop="@dimen/margin_size_32"
+            android:layout_marginTop="30dp"
             android:layout_marginBottom="@dimen/margin_size_30"
             app:cardCornerRadius="@dimen/margin_size_5"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_refer_now">
+            app:layout_constraintTop_toBottomOf="@+id/iv_portfolio_share">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

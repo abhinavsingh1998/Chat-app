@@ -10,7 +10,9 @@ import com.emproto.networklayer.ApiService
 import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.networklayer.response.home.HomeResponse
+import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
+import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import javax.inject.Inject
@@ -37,6 +39,15 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
     // home modules apis
     suspend fun getDashboardData(pageType: Int): Response<HomeResponse> {
         return apiService.getDashboardData(pageType)
+    }
+
+    // all Latest udates modules apis
+    suspend fun getLatestUpdatesData(): Response<LatestUpdatesResponse> {
+        return apiService.getLatestUpdates()
+    }
+
+    suspend fun getTestimonialsData(): Response<TestimonialsResponse> {
+        return apiService.getTestimonials()
     }
 
     //promises modules apis

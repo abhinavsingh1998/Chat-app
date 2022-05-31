@@ -8,10 +8,9 @@ data class PageManagementsOrTestimonial(
     val firstName: String,
     val id: Int,
     val lastName: String,
-    val pageManagementAndTestimonials: PageManagementAndTestimonials,
     val priority: Int,
     val status: String,
     val testimonialContent: String,
     val updatedAt: String,
-    val updatedBy: Any
+    val updatedBy: Int
 )

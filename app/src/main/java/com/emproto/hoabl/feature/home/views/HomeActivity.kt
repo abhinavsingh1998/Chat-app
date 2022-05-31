@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.home.views
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -65,6 +66,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     lateinit var factory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
     var added = false
+    val appURL = "https://hoabl.in/"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -383,20 +385,46 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         homeViewModel.gethomeData().observe(this, Observer {
 
             it.let {
-                val totalLandsold: String? =
-                    it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value
-                val totalAmtLandSold: String? =
-                    it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
-                val grossWeight: String? =
-                    it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName + " " + it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
-                val num_User: String? =
-                    it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName + " " + it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
-                activityHomeActivity.searchLayout.rotateText.text =
-                    "$totalAmtLandSold    $totalLandsold Sqft    $grossWeight    $num_User"
+                val totalLandsold: String? = String.format(
+                    getString(R.string.header),
+                    it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName,
+                    it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value + " Sqft"
+                )
+                //it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value
+
+                val totalAmtLandSold: String? = String.format(
+                    getString(R.string.header),
+                    it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName,
+                    it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
+                )
+                //it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
+                val grossWeight: String? = String.format(
+                    getString(R.string.header),
+                    it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName,
+                    it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
+                )
+                //it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName + " " + it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
+                val num_User: String? = String.format(
+                    getString(R.string.header),
+                    it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName,
+                    it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
+                )
+                //it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName + " " + it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
+                activityHomeActivity.searchLayout.rotateText.text = showHTMLText(
+                    "$totalAmtLandSold    $totalLandsold    $grossWeight    $num_User"
+                )
 
             }
 
         })
+    }
+
+    fun share_app() {
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        shareIntent.type = "text/plain"
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "The House Of Abhinandan Lodha $appURL")
+        startActivity(shareIntent)
     }
 
 }

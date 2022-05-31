@@ -7,20 +7,26 @@ import androidx.lifecycle.ViewModel
 import com.emproto.hoabl.model.MapLocationModel
 import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.repository.InvestmentRepository
+import com.emproto.networklayer.request.investment.AddInventoryBody
+import com.emproto.networklayer.request.investment.VideoCallBody
+import com.emproto.networklayer.request.investment.WatchListBody
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.investment.*
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
 
-class InvestmentViewModel(private var mapplication: Application, private var investmentRepository: InvestmentRepository) :ViewModel(){
+class InvestmentViewModel(
+    private var mapplication: Application,
+    private var investmentRepository: InvestmentRepository
+) : ViewModel() {
 
-    private var skusLiveData = MutableLiveData<InventoryBucketContent>()
+    private var skusLiveData = MutableLiveData<Inventory>()
     private var smartDeals = MutableLiveData<List<PageManagementsOrCollectionOneModel>>()
     private var trendingProjects = MutableLiveData<List<PageManagementsOrCollectionTwoModel>>()
     private var projectid = MutableLiveData<Int>()
     private var mapLocationData = MutableLiveData<LocationInfrastructure>()
     private var oppDocData = MutableLiveData<List<OpprotunityDoc>>()
     private var landSkusData = MutableLiveData<List<InventoryBucketContent>>()
-    private var mediaData  = MutableLiveData<ProjectCoverImages>()
+    private var mediaData = MutableLiveData<ProjectCoverImages>()
     private var mediaViewItem = MutableLiveData<MediaViewItem>()
     private var newInvestments = MutableLiveData<List<PageManagementsOrNewInvestment>>()
     private var allInvestments = MutableLiveData<List<ApData>>()
@@ -29,6 +35,7 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
     private var nLLiveData = MutableLiveData<Boolean>()
     private var aPLiveData = MutableLiveData<Boolean>()
     private var locationData = MutableLiveData<MapLocationModel>()
+    private var mediaContent = ArrayList<MediaViewItem>()
 
     fun getInvestments(pageType: Int): LiveData<BaseResponse<InvestmentResponse>> {
         return investmentRepository.getInvestments(pageType)
@@ -48,6 +55,26 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
 
     fun getInvestmentsFaq(id: Int): LiveData<BaseResponse<FaqDetailResponse>> {
         return investmentRepository.getInvestmentsFaq(id)
+    }
+
+    fun addWatchList(watchListBody: WatchListBody): LiveData<BaseResponse<WatchListResponse>> {
+        return investmentRepository.addWatchList(watchListBody)
+    }
+
+    fun deleteWatchList(id: Int): LiveData<BaseResponse<WatchListResponse>> {
+        return investmentRepository.deleteWatchList(id)
+    }
+
+    fun getAllInventories(id: Int): LiveData<BaseResponse<GetInventoriesResponse>> {
+        return investmentRepository.getAllInventories(id)
+    }
+
+    fun addInventory(addInventoryBody: AddInventoryBody): LiveData<BaseResponse<WatchListResponse>> {
+        return investmentRepository.addInventory(addInventoryBody)
+    }
+
+    fun scheduleVideoCall(videoCallBody: VideoCallBody): LiveData<BaseResponse<VideoCallResponse>> {
+        return investmentRepository.scheduleVideoCall(videoCallBody)
     }
 
     fun setSmartDealsList(smartDeals: List<PageManagementsOrCollectionOneModel>) {
@@ -118,6 +145,14 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
         this.mediaData.postValue(media)
     }
 
+    fun setMediaContent(content: ArrayList<MediaViewItem>) {
+        this.mediaContent = content
+    }
+
+    fun getMediaContent(): ArrayList<MediaViewItem> {
+        return this.mediaContent
+    }
+
     fun getMedia(): LiveData<ProjectCoverImages> {
         return mediaData
     }
@@ -130,15 +165,15 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
         return mediaViewItem
     }
 
-    fun setSku(skusData: InventoryBucketContent) {
+    fun setSku(skusData: Inventory) {
         this.skusLiveData.postValue(skusData)
     }
 
-    fun getSku(): LiveData<InventoryBucketContent> {
+    fun getSku(): LiveData<Inventory> {
         return skusLiveData
     }
 
-    fun setSd(data:Boolean){
+    fun setSd(data: Boolean) {
         this.sDLiveData.postValue(data)
     }
 
@@ -146,7 +181,7 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
         return sDLiveData
     }
 
-    fun setTp(data:Boolean){
+    fun setTp(data: Boolean) {
         this.tPLiveData.postValue(data)
     }
 
@@ -154,7 +189,7 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
         return tPLiveData
     }
 
-    fun setNl(data:Boolean){
+    fun setNl(data: Boolean) {
         this.nLLiveData.postValue(data)
     }
 
@@ -162,7 +197,7 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
         return nLLiveData
     }
 
-    fun setAp(data:Boolean){
+    fun setAp(data: Boolean) {
         this.aPLiveData.postValue(data)
     }
 
@@ -170,7 +205,7 @@ class InvestmentViewModel(private var mapplication: Application, private var inv
         return aPLiveData
     }
 
-    fun setMapLocation(data:MapLocationModel){
+    fun setMapLocation(data: MapLocationModel) {
         this.locationData.postValue(data)
     }
 

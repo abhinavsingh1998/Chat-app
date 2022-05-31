@@ -4,11 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.networklayer.response.portfolio.ivdetails.Image
 import com.example.portfolioui.databinding.ProjectMediaBinding
 
 class VideoAdapter(
-    private val list: List<Image>,
+    private val list: List<MediaViewItem>,
     val ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface
 ) :
     RecyclerView.Adapter<VideoAdapter.MyViewHolder>() {
@@ -28,10 +29,10 @@ class VideoAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val element = list[position]
         Glide.with(holder.itemView.context)
-            .load(element.mediaContent.value.url)
+            .load(element.media)
             .into(holder.binding.ivLatestImage)
         holder.binding.ivLatestImage.setOnClickListener {
-            ivInterface.onClickImage(element.mediaContent.value.url)
+            ivInterface.onClickImage(element.media)
         }
     }
 
