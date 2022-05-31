@@ -3,8 +3,6 @@ package com.emproto.networklayer
 import com.emproto.networklayer.request.investment.AddInventoryBody
 import com.emproto.networklayer.request.investment.VideoCallBody
 import com.emproto.networklayer.request.investment.WatchListBody
-import com.emproto.networklayer.request.login.profile.EditUserNameRequest
-import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
 import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
@@ -67,7 +65,7 @@ public interface ApiService {
     suspend fun getLatestUpdates(@Query("byPrority") priority: Boolean = true): Response<LatestUpdatesResponse>
 
     @GET(ApiConstants.INSIGHTS)
-    suspend fun getInsightsData(@Query ("byPrority") byPrority: Boolean):Response<InsightsResponse>
+    suspend fun getInsightsData(@Query("byPrority") byPrority: Boolean): Response<InsightsResponse>
 
     @GET(ApiConstants.TESTIMONIALS)
     suspend fun getTestimonials(): Response<TestimonialsResponse>
@@ -130,7 +128,7 @@ public interface ApiService {
     suspend fun getInvestmentsProjectFaq(@Path("projectContentId") projectContentId: Int): Response<FaqDetailResponse>
 
     @POST(ApiConstants.REFER_NOW)
-    suspend fun referNow(@Body referBody:ReferalRequest):Response<ReferalResponse>
+    suspend fun referNow(@Body referBody: ReferalRequest): Response<ReferalResponse>
 
     @GET(ApiConstants.STATES)
     suspend fun getStates(@Path("countryIsoCode") countryIsoCode: String): Response<StatesResponse>
@@ -142,7 +140,7 @@ public interface ApiService {
     ): Response<CitiesResponse>
 
     @POST(ApiConstants.WATCHLIST)
-    suspend fun addWatchList(@Body watchListBody: WatchListBody ):Response<WatchListResponse>
+    suspend fun addWatchList(@Body watchListBody: WatchListBody): Response<WatchListResponse>
 
     @GET(ApiConstants.PROJECT_INVENTORIES)
     suspend fun getInventories(@Path("id") id: Int): Response<GetInventoriesResponse>
