@@ -17,7 +17,7 @@ data class PmData(
     val isTermsAndConditionsActive: Boolean,
     val name: String,
     val priority: String?,
-    val promiseIconType: String,
+    val promiseIconType: String?,
     val promiseMedia: PromiseMedia?,
     val promiseType: String?,
     val shortDescription: String?,

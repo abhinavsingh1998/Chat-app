@@ -59,6 +59,7 @@ class HomeFragment : BaseFragment() {
     private lateinit var pendingPaymentsAdapter: PendingPaymentsAdapter
 
     val appURL = "https://hoabl.in/"
+    private var projectId = 0
 
     @Inject
     lateinit var factory: HomeFactory
@@ -102,6 +103,7 @@ class HomeFragment : BaseFragment() {
 
                             it.data.let {
                                 if (it != null) {
+                                    projectId = it.data.page.promotionAndOffersProjectContentId
                                     homeViewModel.setDashBoardData(it)
                                 }
                             }
@@ -141,6 +143,11 @@ class HomeFragment : BaseFragment() {
                                 object : LatestUpdateAdapter.ItemInterface {
                                     override fun onClickItem(position: Int) {
                                         val convertedData = it.data!!.data.pageManagementOrLatestUpdates[position].toData()
+                                        val list = ArrayList<Data>()
+                                        for(item in it.data!!.data.pageManagementOrLatestUpdates){
+                                            list.add(item.toData())
+                                        }
+                                        homeViewModel.setLatestUpdatesData(list)
                                         homeViewModel.setSeLectedLatestUpdates(convertedData)
                                         homeViewModel.setSelectedPosition(
                                             LatesUpdatesPosition(
@@ -171,7 +178,7 @@ class HomeFragment : BaseFragment() {
                                 object : HoABLPromisesAdapter1.PromisesItemInterface {
                                     override fun onClickItem(position: Int) {
                                         val data =
-                                            it.data!!.data.homePagesOrPromises[0].toHomePagesOrPromise()
+                                            it.data!!.data.homePagesOrPromises[position].toHomePagesOrPromise()
                                         homeViewModel.setSelectedPromise(data)
                                         (requireActivity() as HomeActivity).addFragment(
                                             PromisesDetailsFragment(),
@@ -298,6 +305,16 @@ class HomeFragment : BaseFragment() {
 
         binding.referralLayout.appShareBtn.setOnClickListener {
             share_app()
+        }
+
+        binding.dontMissOut.setOnClickListener{
+            val bundle = Bundle()
+            bundle.putInt("ProjectId",projectId)
+            val fragment = ProjectDetailFragment()
+            fragment.arguments = bundle
+            (requireActivity() as HomeActivity).addFragment(
+                fragment, false
+            )
         }
     }
 

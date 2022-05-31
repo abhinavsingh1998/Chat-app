@@ -38,7 +38,7 @@ class HomeViewModel(
     private var testimonial = MutableLiveData<TestimonialsResponse>()
     private var selectedlatestUpdates = MutableLiveData<Data>()
     private var selectedInsights = MutableLiveData<com.emproto.networklayer.response.insights.Data>()
-    private var latestUpdates = MutableLiveData<LatestUpdatesResponse>()
+    private var latestUpdates = MutableLiveData<List<Data>>()
     private var insights = MutableLiveData<InsightsResponse>()
 
     private var position = MutableLiveData<LatesUpdatesPosition>()
@@ -94,11 +94,11 @@ class HomeViewModel(
         return homeRepository.getlatestUpdatesData(refresh, byPrority)
     }
 
-    fun setLatestUpdatesData(data: LatestUpdatesResponse) {
+    fun setLatestUpdatesData(data: List<Data>) {
         latestUpdates.postValue(data)
     }
 
-    fun getLatestUpdates(): LiveData<LatestUpdatesResponse>{
+    fun getLatestUpdates(): LiveData<List<Data>>{
         return latestUpdates
     }
 

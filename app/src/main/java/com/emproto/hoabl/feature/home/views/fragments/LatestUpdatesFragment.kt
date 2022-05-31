@@ -70,7 +70,7 @@ class LatestUpdatesFragment : BaseFragment() {
                          mBinding.loader.hide()
                          it.data.let {
                            if(it != null){
-                               homeViewModel.setLatestUpdatesData(it)
+                               homeViewModel.setLatestUpdatesData(it.data)
                            }
 
                              //loading List

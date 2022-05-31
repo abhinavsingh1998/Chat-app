@@ -91,7 +91,7 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
                 homeViewModel.getLatestUpdates().observe(viewLifecycleOwner, Observer {
 
                     it.let {
-                        homeViewModel.setSeLectedLatestUpdates(it.data[position])
+                        homeViewModel.setSeLectedLatestUpdates(it[position])
                     }
                 })
                 initObserver()
@@ -109,7 +109,7 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
                 homeViewModel.getLatestUpdates().observe(viewLifecycleOwner, Observer {
 
                     it.let {
-                        homeViewModel.setSeLectedLatestUpdates(it.data[position])
+                        homeViewModel.setSeLectedLatestUpdates(it[position])
                     }
                 })
                 initObserver()

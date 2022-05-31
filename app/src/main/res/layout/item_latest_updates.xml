@@ -35,10 +35,14 @@
         <com.emproto.core.textviews.CustomTextView
             android:id="@+id/tv_name"
             style="@style/text_style_grey_13"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Parikrama"
             app:fontName="@string/jost_regular"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginEnd="@dimen/margin_size_17"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/title"
             app:layout_constraintTop_toBottomOf="@id/title" />
 
@@ -46,7 +50,7 @@
             android:id="@+id/image_card"
             android:layout_width="150dp"
             android:layout_height="@dimen/margin_size_80"
-            android:layout_marginLeft="@dimen/margin_size_7"
+            android:layout_marginLeft="@dimen/margin_size_6"
             android:layout_marginRight="@dimen/margin_size_7"
             android:layout_marginBottom="@dimen/margin_size_4"
             android:layout_marginTop="@dimen/margin_size_10"
@@ -74,6 +78,7 @@
             android:layout_marginBottom="@dimen/margin_size_6"
             android:minLines="2"
             android:maxLines="2"
+            android:ellipsize="end"
             android:gravity="start|center"
             android:text="Coming Soon… Stay tuned for more updates"
             app:fontName="@string/jost_regular"

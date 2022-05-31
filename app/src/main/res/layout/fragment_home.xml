@@ -362,8 +362,6 @@
                             />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
                     <ImageView
                         android:id="@+id/dont_miss_out"
                         android:layout_width="match_parent"
