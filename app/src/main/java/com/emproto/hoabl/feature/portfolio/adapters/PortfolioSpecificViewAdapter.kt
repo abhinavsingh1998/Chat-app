@@ -10,6 +10,7 @@ import android.view.animation.BounceInterpolator
 import android.view.animation.TranslateAnimation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
@@ -251,6 +252,8 @@ class PortfolioSpecificViewAdapter(
                     binding.tvLongitude.text = data.projectInformation.crmProject.longitude
                     binding.tvAltitude.text = data.projectInformation.crmProject.altitude
                     binding.ownersName.text = data.investmentInformation.owners
+                    Glide.with(context).load(data.projectExtraDetails.projectIco.value.url)
+                        .into(binding.ivProjectImage)
 
                     //binding.tvRegistrationNumber.text = reraNumber
                 }

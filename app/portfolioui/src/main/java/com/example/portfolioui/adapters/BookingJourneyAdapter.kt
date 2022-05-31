@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.portfolioui.databinding.ItemBookingHeaderBinding
 import com.example.portfolioui.databinding.ItemTimelineDataBinding
 import com.example.portfolioui.models.BookingModel
+import com.example.portfolioui.models.BookingStepsModel
 import com.example.portfolioui.models.StepsModel
 
 class BookingJourneyAdapter(
@@ -58,14 +59,13 @@ class BookingJourneyAdapter(
                 val header_holder = holder as HeaderHolder
             }
             TYPE_LIST -> {
-//                val stepsList = ArrayList<StepsModel>()
-//                stepsList.add(StepsModel(StepsAdapter.TYPE_1, ))
-//                stepsList.add(StepsModel(StepsAdapter.TYPE_1,"Amenities & Clubhouse"))
-//                stepsList.add(StepsModel(StepsAdapter.TYPE_1,"Other Infra Development"))
-//
-//                val listHolder = holder as StepsListHolder
-//                listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
-//                listHolder.binding.stepsList.adapter = StepsAdapter(context, stepsList, null)
+                val listHolder = holder as StepsListHolder
+                val list = dataList[listHolder.adapterPosition].data as List<BookingStepsModel>
+                listHolder.binding.textHeader.text = "TRANSACTION"
+                listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
+                listHolder.binding.stepsList.adapter =
+                    BookingStepsAdapter(context, list, itemInterface)
+
             }
 
         }

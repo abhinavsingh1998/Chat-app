@@ -12,6 +12,8 @@ import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.ApiService
 import com.emproto.networklayer.di.DaggerDataComponent
 import com.emproto.networklayer.request.refernow.ReferalRequest
+import com.emproto.networklayer.response.ddocument.DDocumentResponse
+import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
@@ -41,6 +43,10 @@ public abstract class BaseDataSource(val baseApplication: Application) {
 
     suspend fun getRefer(referalRequest: ReferalRequest): Response<ReferalResponse> {
         return baseService.referNow(referalRequest)
+    }
+
+    suspend fun downloadDocument(): Response<DDocumentResponse> {
+        return baseService.downloadDocument()
     }
 
     fun isNetworkAvailable(): Boolean {

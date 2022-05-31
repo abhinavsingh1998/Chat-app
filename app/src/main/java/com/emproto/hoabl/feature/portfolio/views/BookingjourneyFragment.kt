@@ -10,6 +10,7 @@ import com.emproto.hoabl.R
 import com.example.portfolioui.adapters.BookingJourneyAdapter
 import com.example.portfolioui.databinding.FragmentBookingjourneyBinding
 import com.example.portfolioui.models.BookingModel
+import com.example.portfolioui.models.BookingStepsModel
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -44,9 +45,16 @@ class BookingjourneyFragment : Fragment() {
 
     private fun initView() {
         val bookingList = ArrayList<BookingModel>()
+        val list = ArrayList<BookingStepsModel>()
+        list.add(BookingStepsModel(0, "Application", "Payment 1"))
+        list.add(BookingStepsModel(1, "Allotment", "payment 2"))
         bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_HEADER))
-        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST))
-        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST))
+        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST, list))
+        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST, list))
+        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST, list))
+        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST, list))
+        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST, list))
+        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST, list))
         mBinding.bookingjourneyList.layoutManager = LinearLayoutManager(requireContext())
         mBinding.bookingjourneyList.adapter =
             BookingJourneyAdapter(requireContext(), bookingList, null)
