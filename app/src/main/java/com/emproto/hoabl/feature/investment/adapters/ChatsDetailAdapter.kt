@@ -15,8 +15,7 @@ import com.emproto.hoabl.databinding.ItemChatSenderMessageBinding
 import com.emproto.hoabl.feature.chat.model.ChatDetailModel
 import com.emproto.hoabl.feature.chat.model.MessageType
 import com.emproto.networklayer.response.chats.Option
-import java.text.SimpleDateFormat
-import java.util.*
+
 import kotlin.collections.ArrayList
 
 class ChatsDetailAdapter(
@@ -71,6 +70,7 @@ class ChatsDetailAdapter(
 
     class SenderViewHolder(ItemView: View) : BaseViewHolder(ItemView) {
         var tvSentMessage = itemView.findViewById<TextView>(R.id.tvSentMessage)
+        var tvChatSendTime=itemView.findViewById<TextView>(R.id.tvChatSendTime)
     }
 
     abstract class BaseViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {}
@@ -95,6 +95,10 @@ class ChatsDetailAdapter(
             }
         } else if (holder is SenderViewHolder) {
             holder.tvSentMessage.text = chatDetailList[position].message
+            holder.tvChatSendTime.text = chatDetailList[position].time
+
+
+
         }
     }
 

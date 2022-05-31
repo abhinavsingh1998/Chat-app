@@ -47,6 +47,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     private var sdf: SimpleDateFormat? = null
     private var time: String? = null
 
+
     lateinit var binding: FragmentChatsDetailBinding
 
     override fun onCreateView(
@@ -74,6 +75,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
             binding.clButtonStart.visibility = View.GONE
             binding.tvDay.visibility = View.VISIBLE
             getData()
+            getDay()
 
 
         }
@@ -92,6 +94,13 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                 .placeholder(R.drawable.ic_baseline_image_24).into(binding.ivThumb)
         }
         binding.ivBack.setOnClickListener { onBackPressed() }
+    }
+
+    private fun getDay() {
+        val sdf = SimpleDateFormat("EEEE")
+        val d = Date()
+        val dayOfTheWeek = sdf.format(d)
+        binding.tvDay.text = dayOfTheWeek
     }
 
 
@@ -148,10 +157,18 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
     override fun onOptionClick(option: Option, view: View, position: Int) {
 //        Toast.makeText(context, "$option isClicked", Toast.LENGTH_SHORT).show()
+        newChatMessageList.add(
+            ChatDetailModel(option.text,
+                null,
+                MessageType.SENDER, time
+            )
+        )
+
         if (option.actionType == ActionType.MORE_OPTIONS.name) {
             for (i in chatDetailList!!.autoChat.chatJSON.chatBody.indices) {
+
                 if (option.optionNumber == chatDetailList!!.autoChat.chatJSON.chatBody[i].linkedOption) {
-                   getTime()
+                    getTime()
                     newChatMessageList.add(
                         ChatDetailModel(
                             chatDetailList!!.autoChat.chatJSON.chatBody[i].message,
@@ -159,6 +176,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                             MessageType.RECEIVER, time
                         )
                     )
+
+
                     chatsDetailAdapter.notifyDataSetChanged()
                     break
                 }

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_color">
+
     <View
         android:id="@+id/complete_view"
         android:layout_width="wrap_content"
@@ -123,8 +124,6 @@
         app:layout_constraintTop_toBottomOf="@id/view1" />
 
 
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvChat"
         android:layout_width="match_parent"
@@ -164,7 +163,8 @@
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivOpen" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clSend"
