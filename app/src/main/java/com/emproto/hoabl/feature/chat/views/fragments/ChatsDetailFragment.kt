@@ -15,7 +15,10 @@ import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentChatsDetailBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.chat.model.*
+import com.emproto.hoabl.feature.chat.model.Action
+import com.emproto.hoabl.feature.chat.model.ActionType
+import com.emproto.hoabl.feature.chat.model.ChatDetailModel
+import com.emproto.hoabl.feature.chat.model.MessageType
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.ChatsDetailAdapter
 import com.emproto.hoabl.feature.investment.adapters.OnOptionClickListener
@@ -28,19 +31,21 @@ import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.networklayer.response.chats.ChatResponse
 import com.emproto.networklayer.response.chats.Option
 import com.emproto.networklayer.response.enums.Status
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     @Inject
     lateinit var homeFactory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
-    lateinit var chatMessage1: ChatDetailModel
-    lateinit var chatMessage2: ChatDetailModel
     var chatsList: ChatResponse.ChatList? = null
     var chatDetailList: ChatDetailResponse.ChatDetailList? = null
     lateinit var chatsDetailAdapter: ChatsDetailAdapter
     var newChatMessageList = ArrayList<ChatDetailModel>()
-
+    private var c: Calendar? = null
+    private var sdf: SimpleDateFormat? = null
+    private var time: String? = null
 
     lateinit var binding: FragmentChatsDetailBinding
 
@@ -68,8 +73,9 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         binding.clButtonStart.setOnClickListener {
             binding.clButtonStart.visibility = View.GONE
             binding.tvDay.visibility = View.VISIBLE
-            binding.tvChatTime.visibility = View.VISIBLE
             getData()
+
+
         }
         binding.rvChat.layoutManager =
             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
@@ -118,17 +124,18 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
 
     private fun addMessages(chatDetailList: ChatDetailResponse.ChatDetailList) {
+        getTime()
         newChatMessageList.add(
             ChatDetailModel(
                 chatDetailList.autoChat.chatJSON.welcomeMessage,
-                null, MessageType.RECEIVER
+                null, MessageType.RECEIVER, time
             )
         )
         newChatMessageList.add(
             ChatDetailModel(
                 chatDetailList.autoChat.chatJSON.chatBody[0].message,
                 chatDetailList.autoChat.chatJSON.chatBody[0].options,
-                MessageType.RECEIVER
+                MessageType.RECEIVER, time
             )
         )
 
@@ -140,15 +147,16 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     }
 
     override fun onOptionClick(option: Option, view: View, position: Int) {
-        Toast.makeText(context, "$option isClicked", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, "$option isClicked", Toast.LENGTH_SHORT).show()
         if (option.actionType == ActionType.MORE_OPTIONS.name) {
             for (i in chatDetailList!!.autoChat.chatJSON.chatBody.indices) {
                 if (option.optionNumber == chatDetailList!!.autoChat.chatJSON.chatBody[i].linkedOption) {
+                   getTime()
                     newChatMessageList.add(
                         ChatDetailModel(
                             chatDetailList!!.autoChat.chatJSON.chatBody[i].message,
                             chatDetailList!!.autoChat.chatJSON.chatBody[i].options,
-                            MessageType.RECEIVER
+                            MessageType.RECEIVER, time
                         )
                     )
                     chatsDetailAdapter.notifyDataSetChanged()
@@ -176,20 +184,22 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
             binding.clType.visibility = View.VISIBLE
             binding.ivSend.setOnClickListener {
                 if (binding.etType.text.isNotEmpty()) {
+                    getTime()
                     newChatMessageList.add(
                         ChatDetailModel(
                             binding.etType.text.toString(),
                             null,
-                            MessageType.SENDER
+                            MessageType.SENDER, time
                         )
                     )
                     newChatMessageList.add(
                         ChatDetailModel(
                             chatDetailList!!.autoChat.chatJSON.finalMessage,
-                            null, MessageType.RECEIVER
+                            null, MessageType.RECEIVER, time
                         )
                     )
                     chatsDetailAdapter.notifyDataSetChanged()
+                    binding.etType.text.clear();
 
 
                 } else {
@@ -200,16 +210,23 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
         } else if (option.actionType == ActionType.NOT_ALLOWED_TYPING.name) {
             binding.clType.visibility = View.GONE
-
+            getTime()
             newChatMessageList.add(
                 ChatDetailModel(
                     chatDetailList!!.autoChat.chatJSON.finalMessage,
-                    null, MessageType.RECEIVER
+                    null, MessageType.RECEIVER, time
                 )
             )
             chatsDetailAdapter.notifyDataSetChanged()
 
         }
+    }
+
+    private fun getTime() {
+        c = Calendar.getInstance()
+        sdf = SimpleDateFormat("h:mm a")
+        time = sdf!!.format(c!!.time)
+
     }
 
 

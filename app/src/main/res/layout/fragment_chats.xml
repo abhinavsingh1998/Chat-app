@@ -4,9 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/shape1"
+    android:background="@color/app_color"
 
     tools:context=".feature.chat.views.fragments.ChatsFragment">
+    <View
+        android:id="@+id/complete_view"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_size_20"
+        android:background="@drawable/shape1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvWelcome"
@@ -19,7 +28,7 @@
             android:layout_marginLeft="12dp"
             android:layout_marginBottom="12dp"
             android:textColor="#494a67"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/complete_view"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="Welcome to HoABL. Thanks for downloading the app. We are here to help you with your queries."/>

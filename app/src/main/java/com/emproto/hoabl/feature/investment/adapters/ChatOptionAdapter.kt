@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,22 +16,27 @@ class ChatOptionAdapter(
     private var option: ArrayList<Option>,
     private var optionListener: OnOptionClickListener
 ) : RecyclerView.Adapter<ChatOptionAdapter.ViewHolder>() {
+
     lateinit var binding: ItemOptionBinding
+
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ChatOptionAdapter.ViewHolder {
+    ): ViewHolder {
         binding = ItemOptionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ChatOptionAdapter.ViewHolder(binding.root)
+        return ViewHolder(binding.root)
     }
 
 
-    override fun onBindViewHolder(holder: ChatOptionAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvOption.text = option[position].text
+
         holder.tvOption.setOnClickListener {
             optionListener.onOptionClick(option[position], it, position)
+            
         }
+
 
     }
 

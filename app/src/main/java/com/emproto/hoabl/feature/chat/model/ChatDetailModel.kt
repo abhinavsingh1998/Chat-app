@@ -6,7 +6,8 @@ import com.emproto.networklayer.response.chats.Option
 data class ChatDetailModel(
     val message: String? = null,
     val option: ArrayList<Option>? = null,
-    val messageType: MessageType
+    val messageType: MessageType,
+    val time: String?
 )
 
 

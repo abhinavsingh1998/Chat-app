@@ -4,7 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff">
+    android:background="@color/app_color">
+    <View
+        android:id="@+id/complete_view"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_size_20"
+        android:background="@drawable/shape1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivBack"
@@ -14,7 +23,7 @@
         android:layout_marginTop="24dp"
         android:src="@drawable/img_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/complete_view" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvImage"
@@ -107,47 +116,13 @@
         android:textColor="#17171c"
         android:textSize="14sp"
         android:textStyle="normal"
+        tools:visibility="visible"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view1" />
 
-    <TextView
-        android:id="@+id/tvChatTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="12dp"
-        android:gravity="end"
-        android:letterSpacing="-0.02"
-        android:text="9:11 PM"
-        android:textColor="#17171c"
-        android:textSize="12sp"
-        android:textStyle="normal"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDay" />
 
-    <TextView
-        android:id="@+id/tvWelcomeMsg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/chat_blue_card"
-        android:gravity="center_vertical"
-        android:letterSpacing="-0.02"
-        android:paddingLeft="8dp"
-        android:paddingTop="10dp"
-        android:paddingRight="8dp"
-        android:paddingBottom="10dp"
-        android:text="Hi Anuj Singh! Thanks for connecting. \nI am Chat Bot. I will be helping you \nwith your queries today."
-        android:textColor="#494a67"
-        android:textSize="12sp"
-        android:textStyle="normal"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvChatTime" />
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -158,8 +133,8 @@
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/clType"
         app:layout_constraintEnd_toEndOf="@+id/clSearch"
-        app:layout_constraintStart_toStartOf="@id/tvWelcomeMsg"
-        app:layout_constraintTop_toBottomOf="@id/tvWelcomeMsg"
+        app:layout_constraintStart_toStartOf="@+id/clSearch"
+        app:layout_constraintTop_toBottomOf="@+id/tvDay"
         tools:listitem="@layout/item_chat_detail" />
 
 
