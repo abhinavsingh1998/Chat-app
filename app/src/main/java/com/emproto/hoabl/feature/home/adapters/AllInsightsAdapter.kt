@@ -8,10 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.InsightsListItemBinding
 import com.emproto.networklayer.response.home.PageManagementOrInsight
+import com.emproto.networklayer.response.insights.Data
 
 class AllInsightsAdapter(
     val context: Context,
-    val list: List<PageManagementOrInsight>,
+    val list: List<Data>,
     val itemInterface: InsightsItemsInterface
     ) : RecyclerView.Adapter<AllInsightsAdapter.MyViewHolder>() {
 

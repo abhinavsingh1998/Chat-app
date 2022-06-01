@@ -26,6 +26,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityHomeBinding
 import com.emproto.hoabl.databinding.FragmentNotificationBottomSheetBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.notification.HoabelNotifiaction
 import com.emproto.hoabl.feature.home.notification.adapter.NotificationAdapter
 import com.emproto.hoabl.feature.home.notification.data.NotificationDataModel
@@ -97,6 +98,15 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     private fun initClickListener() {
+
+        activityHomeActivity.searchLayout.headset.setOnClickListener {
+            val bundle = Bundle()
+            val chatsFragment = ChatsFragment()
+            chatsFragment.arguments = bundle
+            replaceFragment(chatsFragment.javaClass, "", true, bundle, null, 0, false
+            )
+            Toast.makeText(this, "Chat bot", Toast.LENGTH_SHORT).show()
+        }
 
         activityHomeActivity.searchLayout.search.onFocusChangeListener =
             View.OnFocusChangeListener { p0, p1 ->
@@ -221,28 +231,28 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         when (screen) {
             ScreenHome -> {
                 val homeFragment = HomeFragment()
-                homeFragment.setArguments(bundle)
+                homeFragment.arguments = bundle
                 replaceFragment(homeFragment.javaClass, "", true, bundle, null, 0, false)
             }
             ScreenInvestment -> {
                 val favouriteFragment = InvestmentFragment()
 //                val favouriteFragment = Testimonials()
-                favouriteFragment.setArguments(bundle)
+                favouriteFragment.arguments = bundle
                 replaceFragment(favouriteFragment.javaClass, "", true, bundle, null, 0, false)
             }
             ScreenPortfolio -> {
                 val portfolioFragment = PortfolioFragment()
-                portfolioFragment.setArguments(bundle)
+                portfolioFragment.arguments = bundle
                 replaceFragment(portfolioFragment.javaClass, "", true, bundle, null, 0, false)
             }
             ScreenPromises -> {
                 val cartFragment = HoablPromises()
-                cartFragment.setArguments(bundle)
+                cartFragment.arguments = bundle
                 replaceFragment(cartFragment.javaClass, "", true, bundle, null, 0, false)
             }
             ScreenProfile -> {
                 val profileFragment = ProfileFragment()
-                profileFragment.setArguments(bundle)
+                profileFragment.arguments = bundle
                 replaceFragment(profileFragment.javaClass, "", true, bundle, null, 0, false)
             }
 //            ScreenNotification -> {
@@ -375,16 +385,34 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         homeViewModel.gethomeData().observe(this, Observer {
 
             it.let {
-                val totalLandsold: String? =
-                    it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value
-                val totalAmtLandSold: String? =
-                    it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
-                val grossWeight: String? =
-                    it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName + " " + it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
-                val num_User: String? =
-                    it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName + " " + it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
-                activityHomeActivity.searchLayout.rotateText.text =
-                    "$totalAmtLandSold    $totalLandsold Sqft    $grossWeight    $num_User"
+                val totalLandsold: String? = String.format(
+                    getString(R.string.header),
+                    it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName,
+                    it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value + " Sqft"
+                )
+                //it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value
+
+                val totalAmtLandSold: String? = String.format(
+                    getString(R.string.header),
+                    it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName,
+                    it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
+                )
+                //it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
+                val grossWeight: String? = String.format(
+                    getString(R.string.header),
+                    it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName,
+                    it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
+                )
+                //it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName + " " + it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
+                val num_User: String? = String.format(
+                    getString(R.string.header),
+                    it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName,
+                    it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
+                )
+                //it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName + " " + it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
+                activityHomeActivity.searchLayout.rotateText.text = showHTMLText(
+                    "$totalAmtLandSold    $totalLandsold    $grossWeight    $num_User"
+                )
 
             }
 

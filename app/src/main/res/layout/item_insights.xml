@@ -53,12 +53,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_size_6"
-            android:layout_marginTop="@dimen/margin_size_9"
-            android:text="Video Title"
+            android:layout_marginTop="12dp"
             android:maxLines="1"
+            android:text="Video Title"
             android:textAlignment="textStart"
             app:fontName="@string/jost_regular"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.166"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,12 +71,24 @@
             app:layout_constraintStart_toStartOf="parent"
             style="@style/text_style_text_color_12"
             android:singleLine="false"
-            android:minLines="2"
             android:maxLines="2"
+            android:lines="2"
             android:gravity="start|center"
             app:fontName="@string/jost_light"
             android:layout_margin="@dimen/margin_size_6"
             android:text="Learn 5 important tips to hit the \nbest investment Goals "/>
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/btn_read_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/text_style_blue_14"
+            android:fontFamily="@font/jost_medium"
+            android:background="@color/white"
+            android:text="@string/read_more_expand"
+            android:paddingHorizontal="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/short_desc"
+            app:layout_constraintEnd_toEndOf="@+id/short_desc" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

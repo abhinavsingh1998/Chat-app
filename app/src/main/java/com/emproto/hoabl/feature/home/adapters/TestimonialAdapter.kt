@@ -1,11 +1,10 @@
-package com.emproto.hoabl.adapters
+package com.emproto.hoabl.feature.home.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.*
-import com.emproto.networklayer.response.home.PageManagementOrLatestUpdate
 import com.emproto.networklayer.response.home.PageManagementsOrTestimonial
 
 class TestimonialAdapter(val context: Context, val list: List<PageManagementsOrTestimonial>) : RecyclerView.Adapter<TestimonialAdapter.MyViewHolder>() {

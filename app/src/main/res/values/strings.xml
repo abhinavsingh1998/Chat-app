@@ -368,4 +368,6 @@
     <string name="please_after_one_hour">You have reached the maximum limit for resending the OTP. Please retry again after an hour.</string>
     <string name="all_investments">All investments</string>
     <string name="youtube_api_key">AIzaSyCdq-SBpqNl8q1w98hmfBYT-xUZQZ5KyuM</string>
+    <string name="header"><![CDATA[%1$s <font size="16"><b>%2$s</b></font> ]]></string>
+    <string name="viewreceipt"><![CDATA[<U>View Receipt</U>]]></string>
 </resources>

@@ -10,8 +10,12 @@ import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.request.refernow.ReferalRequest
+import com.emproto.networklayer.response.chats.ChatDetailResponse
+import com.emproto.networklayer.response.chats.ChatInitiateRequest
+import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
+import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.*
 import com.emproto.networklayer.response.login.AddNameResponse
 import com.emproto.networklayer.response.login.OtpResponse
@@ -33,6 +37,8 @@ import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
 import retrofit2.Response
 import retrofit2.http.*
+import com.emproto.networklayer.response.chats.ChatResponse
+
 
 /**
  * @author Hoabl.
@@ -64,7 +70,10 @@ public interface ApiService {
     suspend fun getDashboardData(@Query("pageType") pageType: Int): Response<HomeResponse>
 
     @GET(ApiConstants.LatestUpdates)
-    suspend fun getLatestUpdates(@Query("byPrority") priority: Boolean = true): Response<LatestUpdatesResponse>
+    suspend fun getLatestUpdates(@Query ("byPrority") byPrority: Boolean):Response<LatestUpdatesResponse>
+
+    @GET(ApiConstants.INSIGHTS)
+    suspend fun getInsightsData(@Query ("byPrority") byPrority: Boolean):Response<InsightsResponse>
 
     @GET(ApiConstants.TESTIMONIALS)
     suspend fun getTestimonials(): Response<TestimonialsResponse>
@@ -124,10 +133,10 @@ public interface ApiService {
     suspend fun getInvestmentsProjectFaq(@Path("projectContentId") projectContentId: Int): Response<FaqDetailResponse>
 
     @POST(ApiConstants.REFER_NOW)
-    suspend fun referNow(@Body referBody:ReferalRequest):Response<ReferalResponse>
+    suspend fun referNow(@Body referBody: ReferalRequest): Response<ReferalResponse>
 
     @POST(ApiConstants.WATCHLIST)
-    suspend fun addWatchList(@Body watchListBody: WatchListBody ):Response<WatchListResponse>
+    suspend fun addWatchList(@Body watchListBody: WatchListBody): Response<WatchListResponse>
 
     @GET(ApiConstants.PROJECT_INVENTORIES)
     suspend fun getInventories(@Path("id") id: Int): Response<GetInventoriesResponse>
@@ -138,4 +147,12 @@ public interface ApiService {
     @POST(ApiConstants.VIDEO_CALL)
     suspend fun scheduleVideoCall(@Body videoCallBody: VideoCallBody): Response<VideoCallResponse>
 
+    @GET(ApiConstants.DOCUMENT_DOWNLOAD)
+    suspend fun downloadDocument(): Response<DDocumentResponse>
+
+    @GET(ApiConstants.CHATS_LIST)
+    suspend fun getChatsList(): Response<ChatResponse>
+
+    @PUT(ApiConstants.CHATS_INITIATE)
+    suspend fun chatInitiate(@Body chatInitiateRequest: ChatInitiateRequest): Response<ChatDetailResponse>
 }

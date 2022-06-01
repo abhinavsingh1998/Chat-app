@@ -28,6 +28,7 @@ class InvestmentViewModel(
     private var landSkusData = MutableLiveData<List<InventoryBucketContent>>()
     private var mediaData = MutableLiveData<ProjectCoverImages>()
     private var mediaViewItem = MutableLiveData<MediaViewItem>()
+    private var mediaViewListItem = MutableLiveData<List<MediaViewItem>>()
     private var newInvestments = MutableLiveData<List<PageManagementsOrNewInvestment>>()
     private var allInvestments = MutableLiveData<List<ApData>>()
     private var sDLiveData = MutableLiveData<Boolean>()
@@ -36,6 +37,7 @@ class InvestmentViewModel(
     private var aPLiveData = MutableLiveData<Boolean>()
     private var locationData = MutableLiveData<MapLocationModel>()
     private var mediaContent = ArrayList<MediaViewItem>()
+    private var mediaPos = MutableLiveData<Int>()
 
     fun getInvestments(pageType: Int): LiveData<BaseResponse<InvestmentResponse>> {
         return investmentRepository.getInvestments(pageType)
@@ -163,6 +165,22 @@ class InvestmentViewModel(
 
     fun getMediaItem(): LiveData<MediaViewItem> {
         return mediaViewItem
+    }
+
+    fun setMediaListItem(media: List<MediaViewItem>) {
+        this.mediaViewListItem.postValue(media)
+    }
+
+    fun getMediaListItem(): LiveData<List<MediaViewItem>> {
+        return mediaViewListItem
+    }
+
+    fun setMediaListPosition(pos: Int) {
+        this.mediaPos.postValue(pos)
+    }
+
+    fun getMediaListPosition(): LiveData<Int> {
+        return mediaPos
     }
 
     fun setSku(skusData: Inventory) {

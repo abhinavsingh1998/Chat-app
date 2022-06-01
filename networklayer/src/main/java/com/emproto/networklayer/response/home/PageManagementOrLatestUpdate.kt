@@ -1,5 +1,6 @@
 package com.emproto.networklayer.response.home
 
+import com.emproto.networklayer.response.marketingUpdates.DetailedInfo
 import java.io.Serializable
 
 data class PageManagementOrLatestUpdate(

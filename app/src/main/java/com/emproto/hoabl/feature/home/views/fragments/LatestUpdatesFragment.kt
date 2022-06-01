@@ -57,7 +57,7 @@ class LatestUpdatesFragment : BaseFragment() {
     }
 
     private fun initObserver(refresh: Boolean) {
-        homeViewModel.getLatestUpdatesData(refresh).observe(viewLifecycleOwner, object:Observer<BaseResponse<LatestUpdatesResponse>> {
+        homeViewModel.getLatestUpdatesData(refresh, true).observe(viewLifecycleOwner, object:Observer<BaseResponse<LatestUpdatesResponse>> {
 
             override fun onChanged(it: BaseResponse<LatestUpdatesResponse>?) {
                 when(it?.status){
@@ -70,7 +70,7 @@ class LatestUpdatesFragment : BaseFragment() {
                          mBinding.loader.hide()
                          it.data.let {
                            if(it != null){
-                               homeViewModel.setLatestUpdatesData(it)
+                               homeViewModel.setLatestUpdatesData(it.data)
                            }
 
                              //loading List

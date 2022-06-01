@@ -8,12 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
+import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
 
 class InvestmentCardAdapter(
     val context: Context,
     val list: List<PageManagementsOrNewInvestment>,
-    val itemIntrface:InvestItemInterface) :
+    val itemIntrface:ItemClickListener) :
     RecyclerView.Adapter<InvestmentCardAdapter.MyViewHolder>() {
 
 
@@ -34,8 +35,17 @@ class InvestmentCardAdapter(
             .load(item.projectCoverImages.homePageMedia.value.url)
             .into(holder.binding.ivItemImage)
 
-        holder.binding.cvMainOuterCard.setOnClickListener {
-            itemIntrface.onClickItem(item.id)
+        holder.binding.cvTopView.setOnClickListener {
+            itemIntrface.onItemClicked(it,position,item.id.toString())
+        }
+        holder.binding.tvApplyNow.setOnClickListener {
+            itemIntrface.onItemClicked(it,position,item.id.toString())
+        }
+        holder.binding.tvItemLocationInfo.setOnClickListener {
+            itemIntrface.onItemClicked(it,position,item.id.toString())
+        }
+        holder.binding.ivBottomArrow.setOnClickListener {
+            itemIntrface.onItemClicked(it,position,item.id.toString())
         }
     }
 
