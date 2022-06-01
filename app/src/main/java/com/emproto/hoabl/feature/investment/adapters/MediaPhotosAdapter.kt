@@ -4,17 +4,17 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.model.MediaGalleryItem
+import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.utils.ItemClickListener
-import com.emproto.networklayer.response.investment.MediaGallery
+import com.emproto.hoabl.utils.MediaItemClickListener
 
 class MediaPhotosAdapter(
     private val context:Context,
     private val itemList: List<MediaGalleryItem>,
-    private val clickListener: ItemClickListener,
-    private val mediaData: List<String>
+    private val clickListener: MediaItemClickListener,
+    private val mediaData: List<MediaViewItem>
 ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object{

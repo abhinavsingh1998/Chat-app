@@ -289,7 +289,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
                                         override fun onClickImage(url: String) {
                                             val mediaViewItem =
-                                                MediaViewItem("Photo", url)
+                                                MediaViewItem("image", url)
                                             val bundle = Bundle()
                                             bundle.putSerializable("Data", mediaViewItem)
                                             val fragment = MediaViewFragment()

@@ -109,6 +109,9 @@ public interface ApiService {
     @GET(ApiConstants.WATCHLIST)
     suspend fun getMyWatchlist(): Response<WatchlistData>
 
+    @DELETE(ApiConstants.DELETE_WATCHLIST)
+    suspend fun deleteWatchlist(@Path("id") id: Int): Response<WatchListResponse>
+
     @GET(ApiConstants.GET_PROFILE)
     suspend fun getUserProfile(): Response<ProfileResponse>
 

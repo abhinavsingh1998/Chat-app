@@ -35,7 +35,6 @@ class InvestMentFragment : BaseFragment() {
         return binding.root
     }
 
-
     private fun initUI() {
         listViews = ArrayList()
         listViews.add(ViewItem(1, R.drawable.ic_arrow_down))

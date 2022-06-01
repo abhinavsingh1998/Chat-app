@@ -23,7 +23,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             style="@style/text_style_text_color_16"
-            android:fontFamily="@font/jostmedium"
             android:text="Title"
             android:layout_marginStart="@dimen/margin_size_6"
             android:layout_marginTop="@dimen/margin_size_10"

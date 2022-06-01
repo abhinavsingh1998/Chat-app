@@ -148,13 +148,25 @@ class CategoryListFragment() : BaseFragment() {
         override fun onItemClicked(view: View, position: Int, item: String) {
             //investmentViewModel.setProjectId(item.toInt())
             //(requireActivity() as HomeActivity).addFragment(ProjectDetailFragment(),false)
-            val bundle = Bundle()
-            bundle.putInt("ProjectId", item.toInt())
-            val fragment = ProjectDetailFragment()
-            fragment.arguments = bundle
-            (requireActivity() as HomeActivity).addFragment(
-                fragment, false
-            )
+            when(position){
+                0 -> {
+                    val bundle = Bundle()
+                    bundle.putInt("ProjectId", item.toInt())
+                    val fragment = ProjectDetailFragment()
+                    fragment.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(
+                        fragment, false
+                    )
+                }
+                1 -> {
+                    val fragment = LandSkusFragment()
+                    val bundle = Bundle()
+                    bundle.putInt("ProjectId", item.toInt())
+                    fragment.arguments = arguments
+                    (requireActivity() as HomeActivity).addFragment(fragment, false)
+                }
+            }
+
         }
     }
 

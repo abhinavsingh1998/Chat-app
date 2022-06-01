@@ -1,19 +1,16 @@
 package com.emproto.hoabl.feature.investment.views.mediagallery
 
 import android.annotation.SuppressLint
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.OptIn
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.media3.common.MediaItem
-import androidx.media3.common.MimeTypes
+import androidx.media3.common.util.Log
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.common.util.Util
 import androidx.media3.datasource.DataSource
@@ -44,6 +41,9 @@ class MediaViewFragment : BaseFragment() {
     private var playWhenReady = true
     private var currentItem = 0
     private var playbackPosition = 0L
+    private var mediaData = ArrayList<MediaViewItem>()
+    private lateinit var data:MediaViewItem
+    private var index = 0
 
     private lateinit var dataSourceFactory: DataSource.Factory
 
@@ -82,22 +82,68 @@ class MediaViewFragment : BaseFragment() {
     @SuppressLint("UnsafeOptInUsageError")
     private fun setUpUI() {
         investmentViewModel.getMediaItem().observe(viewLifecycleOwner, Observer {
+            data = it
             showMedia(it)
         })
 
         //if not from investment module
         arguments?.let {
             it.getSerializable("Data")?.let {
-                val data = it as MediaViewItem
+                data = it as MediaViewItem
                 showMedia(data)
             }
         }
 
-        binding.ivCloseButton.setOnClickListener{
-            (requireActivity() as HomeActivity).onBackPressed()
+        investmentViewModel.getMediaListItem().observe(viewLifecycleOwner,Observer{
+            mediaData.clear()
+            for (item in it) {
+                mediaData.add(item)
+            }
+            Log.d("jbcjadfaj", mediaData.toString())
+            for (i in 0..mediaData.size - 1) {
+                if (data.id == it[i].id) {
+                    index = i
+                }
+            }
+            when(mediaData.size){
+                1 -> {
+                    binding.ivMediaRightArrow.visibility = View.GONE
+                    binding.ivMediaLeftArrow.visibility = View.GONE
+                }
+                else -> {
+                    binding.ivMediaRightArrow.visibility = View.VISIBLE
+                    binding.ivMediaLeftArrow.visibility = View.VISIBLE
+                }
+            }
+        })
+
+        binding.ivMediaRightArrow.setOnClickListener {
+            if(index < mediaData.size-1){
+                binding.ivMediaRightArrow.visibility = View.VISIBLE
+                index++
+                Toast.makeText(this.requireContext(), index.toString(), Toast.LENGTH_SHORT).show()
+                showMedia(mediaData[index])
+            }
+            if(index == mediaData.size-1){
+                binding.ivMediaRightArrow.visibility = View.GONE
+                binding.ivMediaLeftArrow.visibility = View.VISIBLE
+            }
         }
 
-        binding.ivCloseButton.setOnClickListener {
+        binding.ivMediaLeftArrow.setOnClickListener {
+            if(index > 0){
+                binding.ivMediaLeftArrow.visibility = View.VISIBLE
+                index--
+                Toast.makeText(this.requireContext(), index.toString(), Toast.LENGTH_SHORT).show()
+                showMedia(mediaData[index])
+            }
+            if(index == 0){
+                binding.ivMediaLeftArrow.visibility = View.GONE
+                binding.ivMediaRightArrow.visibility = View.VISIBLE
+            }
+        }
+
+        binding.ivCloseButton.setOnClickListener{
             (requireActivity() as HomeActivity).onBackPressed()
         }
 
@@ -106,7 +152,7 @@ class MediaViewFragment : BaseFragment() {
     @OptIn(UnstableApi::class)
     fun showMedia(mediaType: MediaViewItem) {
         when (mediaType.mediaType) {
-            "Photo" -> {
+            "image" -> {
                 binding.ivMediaPhoto.visibility = View.VISIBLE
                 binding.videoView.visibility = View.GONE
                 Glide

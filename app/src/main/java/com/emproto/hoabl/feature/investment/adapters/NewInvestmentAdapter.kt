@@ -49,7 +49,7 @@ class NewInvestmentAdapter(private val activity:HomeActivity, private val contex
 
     private inner class NewLaunchViewHolder(private val binding: NewInvestmentTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvNewLaunch.text = data.page.newInvestments.displayName
+            binding.tvNewLaunch.text = data.page.newInvestments.Heading
             binding.tvComingSoon.text = data.page.newInvestments.subHeading
             binding.tvInvestmentProjectName.text = data.page.pageManagementsOrNewInvestments[0].launchName
             binding.tvAmount.text = data.page.pageManagementsOrNewInvestments[0].priceStartingFrom + " Onwards"
