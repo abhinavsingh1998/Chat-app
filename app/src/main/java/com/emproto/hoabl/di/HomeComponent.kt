@@ -12,10 +12,7 @@ import com.emproto.hoabl.feature.investment.views.mediagallery.MediaViewFragment
 import com.emproto.hoabl.feature.investment.views.mediagallery.PhotosFragment
 import com.emproto.hoabl.feature.investment.views.mediagallery.VideosFragment
 import com.emproto.hoabl.feature.login.*
-import com.emproto.hoabl.feature.portfolio.views.PortfolioExistingUsersFragment
-import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
-import com.emproto.hoabl.feature.portfolio.views.PortfolioSpecificProjectView
-import com.emproto.hoabl.feature.portfolio.views.ProjectTimelineFragment
+import com.emproto.hoabl.feature.portfolio.views.*
 import com.emproto.hoabl.feature.profile.EditProfileFragment
 import com.emproto.hoabl.feature.profile.ProfileFragment
 import com.emproto.hoabl.feature.promises.HoablPromises
@@ -62,6 +59,7 @@ interface HomeComponent {
     fun inject(fragment: MediaViewFragment)
     fun inject(fragment: VideosFragment)
     fun inject(fragment: ReferralDialog)
+    fun inject(fragment:DocViewerFragment)
     fun inject(fragment: ChatsFragment)
     fun inject(fragment: ChatsDetailFragment)
 
