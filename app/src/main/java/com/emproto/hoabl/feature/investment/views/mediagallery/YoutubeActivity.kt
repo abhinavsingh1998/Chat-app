@@ -65,15 +65,15 @@ class YoutubeActivity : YouTubeBaseActivity() {
 
     private fun initDatas() {
         videoId = intent.getStringExtra("YoutubeVideoId").toString()
-        val videoList = intent.getSerializableExtra("VideoList") as ArrayList<MediaViewItem>
-        Log.d("jdjshdsh",videoList.toString())
-
-        for(i in 0..videoList.size-1){
-            val youtubeUrl = videoList[i].media.replace("https://www.youtube.com/embed/","")
-            if(youtubeUrl == videoId){
-                index = i
-            }
-        }
+//        val videoList = intent.getSerializableExtra("VideoList") as ArrayList<MediaViewItem>
+//        Log.d("jdjshdsh",videoList.toString())
+//
+//        for(i in 0..videoList.size-1){
+//            val youtubeUrl = videoList[i].media.replace("https://www.youtube.com/embed/","")
+//            if(youtubeUrl == videoId){
+//                index = i
+//            }
+//        }
     }
 
     private fun playYoutubeVideo(youtubeId:String){
