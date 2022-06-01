@@ -6,11 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.HomeDataSource
+import com.emproto.networklayer.feature.InvestmentDataSource
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.insights.InsightsResponse
+import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
@@ -247,6 +249,33 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
             }
         }
         return mAddUsernameResponse
+    }
+
+    fun getAllInvestmentsProjects(): LiveData<BaseResponse<AllProjectsResponse>> {
+        val mAllInvestmentsResponse = MutableLiveData<BaseResponse<AllProjectsResponse>>()
+        mAllInvestmentsResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = HomeDataSource(application).getAllInvestments()
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mAllInvestmentsResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mAllInvestmentsResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mAllInvestmentsResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mAllInvestmentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mAllInvestmentsResponse
     }
 
 }

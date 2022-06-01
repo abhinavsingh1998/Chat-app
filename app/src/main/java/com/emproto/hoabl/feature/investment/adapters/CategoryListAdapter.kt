@@ -147,7 +147,7 @@ class CategoryListAdapter(
                 }
 
                 TYPE_DISCOVERALL -> {
-                    val element = list[position] as com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
+                    val element = list[position] as ApData
                     binding.cvCategoryOuterCard.setOnClickListener {
                         clickListener.onItemClicked(view, 0, element.id.toString())
                     }

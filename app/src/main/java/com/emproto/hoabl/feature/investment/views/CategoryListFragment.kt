@@ -110,7 +110,7 @@ class CategoryListFragment() : BaseFragment() {
                 setUpCategoryAdapter(data, -1)
             }
             "Home" ->{
-                binding.tvCategoryHeading.text = "Last few plot left."
+                binding.tvCategoryHeading.text = "All Investments"
                 val data =
                     arguments?.getSerializable("DiscoverAll") as List<com.emproto.networklayer.response.home.PageManagementsOrNewInvestment>
                 setUpCategoryAdapter(data, 5)
