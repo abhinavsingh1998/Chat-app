@@ -54,6 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/view_underlined"
+                android:paddingHorizontal="@dimen/margin_size_10"
                 style="@style/text_style_blue_14"
                 android:fontFamily="@font/jost_regular"
                 android:layout_marginEnd="@dimen/margin_size_14"

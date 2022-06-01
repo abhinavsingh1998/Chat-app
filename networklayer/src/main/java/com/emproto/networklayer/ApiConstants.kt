@@ -39,4 +39,5 @@ object ApiConstants {
     const val PROJECT_INVENTORIES = "hoabl-customer/inventories/{id}"
     const val ADD_INVENTORY = "hoabl-customer/inventories"
     const val VIDEO_CALL = "hoabl-customer/case"
+    const val DOCUMENT_DOWNLOAD = "hoabl-customer/doc-download"
 }

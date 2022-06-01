@@ -10,6 +10,7 @@ import android.view.animation.BounceInterpolator
 import android.view.animation.TranslateAnimation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
@@ -227,16 +228,18 @@ class PortfolioSpecificViewAdapter(
                     for (item in data.projectInformation.reraDetails.reraNumbers) {
                         reraNumber = reraNumber + item + "\n"
                     }
-                    binding.tvAllocationDate.text =
-                        Utility.parseDateFromUtc(
-                            data.investmentInformation.bookingJourney.allocationDate,
-                            null
-                        )
-                    binding.tvPossessionDate.text =
-                        Utility.parseDateFromUtc(
-                            data.investmentInformation.bookingJourney.possesionDate,
-                            null
-                        )
+                    if (data.investmentInformation.bookingJourney.allocationDate != null)
+                        binding.tvAllocationDate.text =
+                            Utility.parseDateFromUtc(
+                                data.investmentInformation.bookingJourney.allocationDate,
+                                null
+                            )
+                    if (data.investmentInformation.bookingJourney.possesionDate != null)
+                        binding.tvPossessionDate.text =
+                            Utility.parseDateFromUtc(
+                                data.investmentInformation.bookingJourney.possesionDate,
+                                null
+                            )
                     //view more
                     binding.tvLandId.text = data.investmentInformation.inventoryId
                     binding.tvSkuType.text = data.investmentInformation.inventoryBucket
@@ -251,6 +254,8 @@ class PortfolioSpecificViewAdapter(
                     binding.tvLongitude.text = data.projectInformation.crmProject.longitude
                     binding.tvAltitude.text = data.projectInformation.crmProject.altitude
                     binding.ownersName.text = data.investmentInformation.owners
+                    Glide.with(context).load(data.projectExtraDetails.projectIco.value.url)
+                        .into(binding.ivProjectImage)
 
                     //binding.tvRegistrationNumber.text = reraNumber
                 }
@@ -316,7 +321,12 @@ class PortfolioSpecificViewAdapter(
         fun bind(position: Int) {
             if (list[position].data != null) {
                 val docList = list[position].data as List<Data>
-                documentsAdapter = DocumentsAdapter(docList)
+                documentsAdapter = DocumentsAdapter(docList, false, object : DocumentInterface {
+                    override fun onclickDocument(position: Int) {
+                        ivInterface.onDocumentView(position)
+                    }
+
+                })
                 binding.rvDocuments.adapter = documentsAdapter
             }
             binding.tvDocumentsSeeAll.setOnClickListener {
@@ -486,6 +496,7 @@ class PortfolioSpecificViewAdapter(
         fun seeAllImages(imagesList: ArrayList<MediaViewItem>)
         fun shareApp()
         fun onClickAsk()
+        fun onDocumentView(position: Int)
     }
 
 }

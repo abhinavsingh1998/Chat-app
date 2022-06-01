@@ -2,7 +2,11 @@ package com.emproto.core
 
 import android.app.Activity
 import android.app.Dialog
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.view.Window
+import java.lang.Exception
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -88,6 +92,22 @@ object Utility {
             (if (d > 99.9 || isRound || !isRound && d > 9.99) //this decides whether to trim the decimals
                 d.toInt() * 10 / 10 else d.toString() + "" // (int) d * 10 / 10 drops the decimal
                     ).toString() + "" + c[iteration] else coolFormat(d, iteration + 1))
+    }
+
+    /**
+     * Getting bitmap from base64 data
+     *
+     * @param stringBase64
+     * @return
+     */
+    fun getBitmapFromBase64(stringBase64: String?): Bitmap? {
+        try {
+            val bytes = Base64.decode(stringBase64, Base64.DEFAULT)
+            return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
     }
 
 

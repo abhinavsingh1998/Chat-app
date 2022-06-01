@@ -12,6 +12,7 @@ import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.chats.ChatInitiateRequest
+import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.investment.*
@@ -128,10 +129,10 @@ public interface ApiService {
     suspend fun getInvestmentsProjectFaq(@Path("projectContentId") projectContentId: Int): Response<FaqDetailResponse>
 
     @POST(ApiConstants.REFER_NOW)
-    suspend fun referNow(@Body referBody:ReferalRequest):Response<ReferalResponse>
+    suspend fun referNow(@Body referBody: ReferalRequest): Response<ReferalResponse>
 
     @POST(ApiConstants.WATCHLIST)
-    suspend fun addWatchList(@Body watchListBody: WatchListBody ):Response<WatchListResponse>
+    suspend fun addWatchList(@Body watchListBody: WatchListBody): Response<WatchListResponse>
 
     @GET(ApiConstants.PROJECT_INVENTORIES)
     suspend fun getInventories(@Path("id") id: Int): Response<GetInventoriesResponse>
@@ -141,6 +142,9 @@ public interface ApiService {
 
     @POST(ApiConstants.VIDEO_CALL)
     suspend fun scheduleVideoCall(@Body videoCallBody: VideoCallBody): Response<VideoCallResponse>
+
+    @GET(ApiConstants.DOCUMENT_DOWNLOAD)
+    suspend fun downloadDocument(): Response<DDocumentResponse>
 
     @GET(ApiConstants.CHATS_LIST)
     suspend fun getChatsList(): Response<ChatResponse>
