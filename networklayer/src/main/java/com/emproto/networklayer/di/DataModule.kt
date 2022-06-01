@@ -5,7 +5,6 @@ import com.emproto.networklayer.ApiConstants
 import com.emproto.networklayer.ApiService
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.preferences.AppPreferenceImp
-import com.readystatesoftware.chuck.ChuckInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
@@ -43,8 +42,7 @@ class DataModule(private val application: Application) {
 //        })
 
         val defaultHttpClient: OkHttpClient =
-            OkHttpClient.Builder().addInterceptor(ChuckInterceptor(application.applicationContext)).
-            addInterceptor(
+            OkHttpClient.Builder().addInterceptor(
                 Interceptor { chain ->
                     val request: Request = chain.request().newBuilder()
                         .addHeader("jwt", getAppPreference().getToken()).addHeader("apptype", "app")
@@ -83,7 +81,7 @@ class DataModule(private val application: Application) {
 //        })
 
         val defaultHttpClient: OkHttpClient =
-            OkHttpClient.Builder().addInterceptor(ChuckInterceptor(application.applicationContext)).addInterceptor(
+            OkHttpClient.Builder().addInterceptor(
                 Interceptor { chain ->
                     val request: Request = chain.request().newBuilder()
                         //.addHeader("jwt", getAppPreference().getToken()).build()

@@ -19,5 +19,5 @@
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="About Hoabl" />
+        android:text="About Hoabl" />
 </androidx.constraintlayout.widget.ConstraintLayout>

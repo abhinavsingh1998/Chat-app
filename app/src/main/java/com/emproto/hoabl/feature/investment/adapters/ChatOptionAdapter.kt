@@ -51,7 +51,7 @@ class ChatOptionAdapter(
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
 
         var tvOption = itemView.findViewById<TextView>(R.id.tvOption)
-        var clOption = itemView.findViewById<ConstraintLayout>(R.id.clOption)
+//        var clOption = itemView.findViewById<ConstraintLayout>(R.id.clOption)
 
     }
 
