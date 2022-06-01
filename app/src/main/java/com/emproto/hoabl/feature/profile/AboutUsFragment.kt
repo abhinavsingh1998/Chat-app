@@ -26,7 +26,9 @@ class AboutUsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding= FragmentAboutUsBinding.inflate(inflater,container,false)
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible=true
+        (requireActivity() as HomeActivity).hideHeader()
+        (requireActivity() as HomeActivity).hideBottomNavigation()
+
         initClickListener()
         return binding.root
     }

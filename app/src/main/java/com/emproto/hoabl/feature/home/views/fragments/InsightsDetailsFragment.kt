@@ -1,5 +1,6 @@
 package com.emproto.hoabl.feature.home.views.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +13,10 @@ import com.emproto.hoabl.databinding.FragmentInsightsDetailsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.adapters.InsightsListAdapter
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.investment.views.mediagallery.YoutubeActivity
+import com.emproto.hoabl.utils.YoutubeItemClickListener
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
-import com.emproto.networklayer.response.home.InsightsMedia
 import javax.inject.Inject
 
 class InsightsDetailsFragment : BaseFragment() {
@@ -50,8 +52,18 @@ class InsightsDetailsFragment : BaseFragment() {
 
             mBinding.listInsights.layoutManager = LinearLayoutManager(requireContext())
             mBinding.listInsights.adapter = InsightsListAdapter(requireContext(),
-                it.insightsMedia)
+                it.insightsMedia,itemClickListener)
                 }
             )
+    }
+
+    val itemClickListener = object :YoutubeItemClickListener{
+        override fun onItemClicked(view: View, position: Int, url: String,title:String) {
+            val intent = Intent(requireActivity() as HomeActivity,YoutubeActivity::class.java)
+            intent.putExtra("YoutubeVideoId",url)
+            intent.putExtra("VideoTitle",title)
+            startActivity(intent)
+        }
+
     }
 }

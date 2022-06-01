@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.HomeDataSource
 import com.emproto.networklayer.feature.InvestmentDataSource
+import com.emproto.networklayer.feature.PortfolioDataSource
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
@@ -14,6 +15,7 @@ import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
+import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
@@ -276,6 +278,33 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
             }
         }
         return mAllInvestmentsResponse
+    }
+
+    fun getFacilitymanagment(): LiveData<BaseResponse<FMResponse>> {
+        val mDocumentsResponse = MutableLiveData<BaseResponse<FMResponse>>()
+        mDocumentsResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = HomeDataSource(application).getFacilityManagment()
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mDocumentsResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mDocumentsResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mDocumentsResponse
     }
 
 }

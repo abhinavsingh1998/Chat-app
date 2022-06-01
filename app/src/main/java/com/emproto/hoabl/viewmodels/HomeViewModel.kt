@@ -16,6 +16,7 @@ import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.Data
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
+import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
@@ -149,5 +150,9 @@ class HomeViewModel(
 
     fun getReferNow(referalRequest: ReferalRequest): LiveData<BaseResponse<ReferalResponse>> {
         return homeRepository.addReferral(referalRequest)
+    }
+
+    fun getFacilityManagment(): LiveData<BaseResponse<FMResponse>> {
+        return homeRepository.getFacilitymanagment()
     }
 }
