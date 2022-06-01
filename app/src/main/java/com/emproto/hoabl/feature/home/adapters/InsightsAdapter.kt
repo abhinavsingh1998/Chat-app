@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.home.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -30,6 +31,11 @@ class InsightsAdapter(
                 .into(holder.binding.image)
         }
 
+        when{
+            item.insightsMedia[0].description.isNullOrEmpty() -> {
+                holder.binding.btnReadMore.visibility = View.GONE
+            }
+        }
 
         holder.binding.rootView.setOnClickListener {
             itemIntrface.onClickItem(holder.adapterPosition)

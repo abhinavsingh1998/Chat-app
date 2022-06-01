@@ -8,6 +8,7 @@ import com.emproto.networklayer.ApiService
 import com.emproto.networklayer.di.DaggerDataComponent
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.insights.InsightsResponse
+import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.testimonials.TestimonialsResponse
@@ -54,6 +55,11 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
     //promises modules apis
     suspend fun getPromisesData(pageType: Int): Response<PromisesResponse> {
         return apiService.getPromises(pageType)
+    }
+
+    //get all investments
+    suspend fun getAllInvestments(): Response<AllProjectsResponse> {
+        return apiService.getAllInvestmentProjects()
     }
 
 }

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.motion.widget.OnSwipe
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -16,7 +15,7 @@ import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.feature.home.adapters.InsightsAdapter
 import com.emproto.hoabl.feature.home.adapters.LatestUpdateAdapter
-import com.emproto.hoabl.adapters.TestimonialAdapter
+import com.emproto.hoabl.feature.home.adapters.TestimonialAdapter
 import com.emproto.hoabl.databinding.FragmentHomeBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.adapters.HoABLPromisesAdapter1
@@ -25,12 +24,12 @@ import com.emproto.hoabl.feature.home.adapters.PendingPaymentsAdapter
 import com.emproto.hoabl.feature.home.data.LatesUpdatesPosition
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.views.CategoryListFragment
+import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
-import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
-import com.emproto.hoabl.repository.HomeRepository
 import com.emproto.hoabl.utils.Extensions.toData
 import com.emproto.hoabl.utils.Extensions.toHomePagesOrPromise
+import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
@@ -41,7 +40,6 @@ import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
 import com.emproto.networklayer.response.marketingUpdates.Data
 import com.google.android.material.tabs.TabLayoutMediator
-import com.skydoves.balloon.balloon
 import java.io.Serializable
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -114,16 +112,31 @@ class HomeFragment : BaseFragment() {
                             investmentAdapter = InvestmentCardAdapter(
                                 requireActivity(),
                                 it.data!!.data.page.pageManagementsOrNewInvestments,
-                                object : InvestmentCardAdapter.InvestItemInterface {
-                                    override fun onClickItem(id: Int) {
-                                        val fragment = ProjectDetailFragment()
-                                        val bundle = Bundle()
-                                        bundle.putInt("ProjectId", id)
-                                        fragment.arguments = bundle
-                                        (requireActivity() as HomeActivity).addFragment(
-                                            fragment,
-                                            false
-                                        )
+                                object : ItemClickListener {
+                                    override fun onItemClicked(
+                                        view: View,
+                                        position: Int,
+                                        item: String
+                                    ) {
+                                        when(view.id){
+                                            R.id.cv_top_view -> {
+                                                val fragment = ProjectDetailFragment()
+                                                val bundle = Bundle()
+                                                bundle.putInt("ProjectId", item.toInt())
+                                                fragment.arguments = bundle
+                                                (requireActivity() as HomeActivity).addFragment(
+                                                    fragment,
+                                                    false
+                                                )
+                                            }
+                                            R.id.tv_apply_now -> {
+                                                val fragment = LandSkusFragment()
+                                                val bundle = Bundle()
+                                                bundle.putInt("ProjectId", item.toInt())
+                                                fragment.arguments = bundle
+                                                (requireActivity() as HomeActivity).addFragment(fragment,false)
+                                            }
+                                        }
                                     }
 
                                 }
@@ -292,15 +305,33 @@ class HomeFragment : BaseFragment() {
         })
 
         binding.tvViewallInvestments.setOnClickListener(View.OnClickListener {
-            val fragment = CategoryListFragment()
-            val bundle = Bundle()
-            bundle.putString("Category", "Home")
-            bundle.putSerializable(
-                "DiscoverAll",
-                list as Serializable
-            )
-            fragment.arguments = bundle
-            (requireActivity() as HomeActivity).addFragment(fragment, false)
+            homeViewModel.getAllInvestmentsProjects().observe(viewLifecycleOwner,Observer{
+                when(it.status){
+                    Status.LOADING -> {
+                        binding.loader.show()
+                    }
+                    Status.SUCCESS -> {
+                        binding.loader.hide()
+                        it.data?.data?.let {  data ->
+                            val fragment = CategoryListFragment()
+                            val bundle = Bundle()
+                            bundle.putString("Category", "Home")
+                            bundle.putSerializable(
+                                "DiscoverAll",
+                                data as Serializable
+                            )
+                            fragment.arguments = bundle
+                            (requireActivity() as HomeActivity).addFragment(fragment, false)
+                        }
+                    }
+                    Status.ERROR -> {
+                        binding.loader.hide()
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            it.message!!
+                        )
+                    }
+                }
+            })
         })
 
         binding.referralLayout.appShareBtn.setOnClickListener {
