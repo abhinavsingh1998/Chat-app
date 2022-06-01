@@ -1,5 +1,7 @@
 package com.emproto.networklayer.response.portfolio.prtimeline
 
+import com.emproto.networklayer.response.home.Address
+
 data class Data(
     val areaStartingFrom: String,
     val createdAt: String,
@@ -18,5 +20,6 @@ data class Data(
     val projectTimelines: List<ProjectTimeline>,
     val shortDescription: String,
     val status: String,
-    val updatedAt: String
+    val updatedAt: String,
+    val address: Address
 )

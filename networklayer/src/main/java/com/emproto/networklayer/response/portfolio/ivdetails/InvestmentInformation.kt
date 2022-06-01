@@ -17,5 +17,8 @@ data class InvestmentInformation(
     val registryAmount: Int,
     val updatedAt: String,
     val userId: String,
-    val bookingJourney: BookingJourney
+    val bookingJourney: BookingJourney,
+    val possesionDate: String,
+    val allocationDate: String,
+    val ownershipDate: String
 )
