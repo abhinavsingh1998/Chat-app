@@ -169,6 +169,26 @@ class HomeFragment : BaseFragment() {
                                                 fragment.arguments = bundle
                                                 (requireActivity() as HomeActivity).addFragment(fragment,false)
                                             }
+                                            R.id.tv_item_location_info ->{
+                                                val fragment = ProjectDetailFragment()
+                                                val bundle = Bundle()
+                                                bundle.putInt("ProjectId", item.toInt())
+                                                fragment.arguments = bundle
+                                                (requireActivity() as HomeActivity).addFragment(
+                                                    fragment,
+                                                    false
+                                                )
+                                            }
+                                            R.id.iv_bottom_arrow ->{
+                                                val fragment = ProjectDetailFragment()
+                                                val bundle = Bundle()
+                                                bundle.putInt("ProjectId", item.toInt())
+                                                fragment.arguments = bundle
+                                                (requireActivity() as HomeActivity).addFragment(
+                                                    fragment,
+                                                    false
+                                                )
+                                            }
                                         }
                                     }
 

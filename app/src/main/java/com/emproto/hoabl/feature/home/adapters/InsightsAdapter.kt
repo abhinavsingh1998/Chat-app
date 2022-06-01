@@ -28,6 +28,7 @@ class InsightsAdapter(
         val item = list.get(holder.adapterPosition)
         holder.binding.tvVideotitle.text = item.displayTitle
         holder.binding.shortDesc.text = showHTMLText(item.insightsMedia[0].description)
+
         if(item.insightsMedia[0].media!=null){
             Glide.with(context)
                 .load(item.insightsMedia[0].media.value.url)
