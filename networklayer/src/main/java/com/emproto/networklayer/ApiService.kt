@@ -10,6 +10,8 @@ import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.request.refernow.ReferalRequest
+import com.emproto.networklayer.response.chats.ChatDetailResponse
+import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.investment.*
@@ -33,6 +35,8 @@ import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
 import retrofit2.Response
 import retrofit2.http.*
+import com.emproto.networklayer.response.chats.ChatResponse
+
 
 /**
  * @author Hoabl.
@@ -138,4 +142,9 @@ public interface ApiService {
     @POST(ApiConstants.VIDEO_CALL)
     suspend fun scheduleVideoCall(@Body videoCallBody: VideoCallBody): Response<VideoCallResponse>
 
+    @GET(ApiConstants.CHATS_LIST)
+    suspend fun getChatsList(): Response<ChatResponse>
+
+    @PUT(ApiConstants.CHATS_INITIATE)
+    suspend fun chatInitiate(@Body chatInitiateRequest: ChatInitiateRequest): Response<ChatDetailResponse>
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.motion.widget.OnSwipe
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +20,7 @@ import com.emproto.hoabl.feature.home.adapters.LatestUpdateAdapter
 import com.emproto.hoabl.adapters.TestimonialAdapter
 import com.emproto.hoabl.databinding.FragmentHomeBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.adapters.HoABLPromisesAdapter1
 import com.emproto.hoabl.feature.home.adapters.InvestmentCardAdapter
 import com.emproto.hoabl.feature.home.adapters.PendingPaymentsAdapter
@@ -202,6 +204,20 @@ class HomeFragment : BaseFragment() {
                                 }
 
                             )
+                            (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.headset.setOnClickListener {
+                                val bundle = Bundle()
+                                val chatsFragment = ChatsFragment()
+                                chatsFragment.arguments = bundle
+                                (requireActivity() as HomeActivity).replaceFragment(chatsFragment.javaClass,
+                                    "",
+                                    true,
+                                    bundle,
+                                    null,
+                                    0,
+                                    false
+                                )
+                                Toast.makeText(context, "Chat bot", Toast.LENGTH_SHORT).show()
+                            }
                             linearLayoutManager = LinearLayoutManager(
                                 requireContext(),
                                 RecyclerView.HORIZONTAL,
