@@ -93,6 +93,10 @@ class MediaViewFragment : BaseFragment() {
             }
         }
 
+        binding.ivCloseButton.setOnClickListener{
+            (requireActivity() as HomeActivity).onBackPressed()
+        }
+
         binding.ivCloseButton.setOnClickListener {
             (requireActivity() as HomeActivity).onBackPressed()
         }

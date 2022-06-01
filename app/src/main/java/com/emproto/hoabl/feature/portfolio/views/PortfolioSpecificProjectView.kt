@@ -320,7 +320,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                                     })
                             binding.rvPortfolioSpecificView.adapter = portfolioSpecificViewAdapter
 
-                            fetchDocuments()
+                            fetchDocuments(it.data.investmentInformation.crmProjectId)
                         }
 
 
@@ -337,7 +337,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
     }
 
-    private fun fetchDocuments() {
+    private fun fetchDocuments(id: String) {
         portfolioviewmodel.getFacilityManagment().observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.SUCCESS -> {
@@ -347,7 +347,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 }
             }
         })
-        portfolioviewmodel.getDocumentList(7).observe(viewLifecycleOwner, Observer {
+        portfolioviewmodel.getDocumentList(id).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
 

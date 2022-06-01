@@ -16,7 +16,7 @@ import com.emproto.networklayer.response.profile.ProfilePictureResponse
 import retrofit2.Response
 import javax.inject.Inject
 
-class ProfileDataSource(val application: Application) {
+class ProfileDataSource(val application: Application) : BaseDataSource(application) {
 
     @Inject
     lateinit var apiService:ApiService

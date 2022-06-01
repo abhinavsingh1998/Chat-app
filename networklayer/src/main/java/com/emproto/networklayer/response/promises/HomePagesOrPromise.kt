@@ -4,7 +4,7 @@ data class HomePagesOrPromise(
     val createdAt: String,
     val createdBy: String,
     val crmPromiseId: String,
-    val description: String,
+    val description: List<String>,
     val displayMedia: DisplayMedia,
     val howToApply: HowToApply,
     val id: Int,

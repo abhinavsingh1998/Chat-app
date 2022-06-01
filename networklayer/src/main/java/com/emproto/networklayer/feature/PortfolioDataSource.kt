@@ -21,7 +21,7 @@ import javax.inject.Named
  * All the api in portfolio modules
  * @property application
  */
-class PortfolioDataSource(val application: Application) {
+class PortfolioDataSource(val application: Application):BaseDataSource(application) {
 
     @Inject
     lateinit var apiService: ApiService
@@ -48,7 +48,7 @@ class PortfolioDataSource(val application: Application) {
     }
 
     //get documents listing
-    suspend fun getDocumentsListing(projectId: Int): Response<DocumentsResponse> {
+    suspend fun getDocumentsListing(projectId: String): Response<DocumentsResponse> {
         return apiService.documentsList(projectId)
     }
 

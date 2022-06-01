@@ -335,6 +335,8 @@ class PortfolioSpecificViewAdapter(
             }
             for (item in imagesData.images) {
                 imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+
             }
             for (item in imagesData.videos) {
                 imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
@@ -345,6 +347,12 @@ class PortfolioSpecificViewAdapter(
 
             latestImagesVideosAdapter = VideoAdapter(imagesList, ivInterface)
             val layoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
+
+//            layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+//                override fun getSpanSize(position: Int): Int {
+//                    return if (position == 0) 2 else 1
+//                }
+//            }
             binding.rvLatestImagesVideos.layoutManager = layoutManager
             binding.rvLatestImagesVideos.adapter = latestImagesVideosAdapter
             binding.tvLastUpdatedDate.text = Utility.parseDateFromUtc(imagesData.updatedAt, null)
@@ -379,16 +387,16 @@ class PortfolioSpecificViewAdapter(
             val linedataset = LineDataSet(linevalues, "")
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset.color = context.getColor(R.color.app_color)
+                linedataset.color = context.getColor(R.color.green)
             }
 
             linedataset.valueTextSize = 12F
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset.fillColor = context.getColor(R.color.light_app_color)
+                linedataset.fillColor = context.getColor(R.color.green)
             }
             linedataset.mode = LineDataSet.Mode.LINEAR;
-
-            //We connect our data to the UI Screen
+            linedataset.setDrawCircles(false)
+            linedataset.setDrawValues(false)
             val data = LineData(linedataset)
 
             //binding.ivPriceTrendsGraph.setDrawBorders(false);

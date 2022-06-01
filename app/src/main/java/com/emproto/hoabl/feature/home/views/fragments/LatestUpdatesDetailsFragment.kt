@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -17,15 +15,13 @@ import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentLatestUpdatesDetailsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.home.adapters.AllLatestUpdatesAdapter
-import com.emproto.hoabl.feature.home.adapters.InsightsListAdapter
 import com.emproto.hoabl.feature.home.adapters.LatestUpdateListAdapter
 import com.emproto.hoabl.feature.home.data.LatesUpdatesPosition
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.response.home.DetailedInfo
-import com.emproto.networklayer.response.home.PageManagementOrLatestUpdate
+import com.emproto.networklayer.response.marketingUpdates.Data
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -42,7 +38,7 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
     lateinit var bundle: Bundle
     var position:Int =0
     var listLength:Int=0
-    lateinit var it:PageManagementOrLatestUpdate
+    lateinit var it: Data
 
     lateinit var data: LiveData<LatesUpdatesPosition>
 
@@ -92,10 +88,10 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
                 --position
                 mBinding.storyView.removeAllViews()
                 initView(position)
-                homeViewModel.gethomeData().observe(viewLifecycleOwner, Observer {
+                homeViewModel.getLatestUpdates().observe(viewLifecycleOwner, Observer {
 
                     it.let {
-                        homeViewModel.setSeLectedLatestUpdates(it.data!!.pageManagementOrLatestUpdates[position])
+                        homeViewModel.setSeLectedLatestUpdates(it.data[position])
                     }
                 })
                 initObserver()
@@ -110,10 +106,10 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
                 mBinding.storyView.removeAllViews()
                 initView(position)
 
-                homeViewModel.gethomeData().observe(viewLifecycleOwner, Observer {
+                homeViewModel.getLatestUpdates().observe(viewLifecycleOwner, Observer {
 
                     it.let {
-                        homeViewModel.setSeLectedLatestUpdates(it.data!!.pageManagementOrLatestUpdates[position])
+                        homeViewModel.setSeLectedLatestUpdates(it.data[position])
                     }
                 })
                 initObserver()
