@@ -46,4 +46,14 @@
         app:layout_constraintEnd_toStartOf="@+id/textView11"
         app:layout_constraintTop_toTopOf="@+id/textView11"
         app:srcCompat="@drawable/ic_payment_icon" />
+
+    <TextView
+        android:id="@+id/textView12"
+        style="@style/text_regular_app_color_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/jost_regular"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

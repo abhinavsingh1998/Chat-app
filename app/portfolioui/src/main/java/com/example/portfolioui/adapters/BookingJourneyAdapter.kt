@@ -82,6 +82,8 @@ class BookingJourneyAdapter(
 
     interface TimelineInterface {
         fun onClickItem(position: Int)
+        fun viewDetails(position: Int, data: String)
+
     }
 
 }

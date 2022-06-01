@@ -1,6 +1,9 @@
 package com.example.portfolioui.adapters
 
 import android.content.Context
+import android.os.Build
+import android.text.Html
+import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
@@ -67,6 +70,7 @@ class BookingStepsAdapter(
                 val data = dataList[position]
                 type1Holder.binding.textView10.text = data.text
                 type1Holder.binding.textView11.text = data.description
+                type1Holder
 
 
             }
@@ -75,6 +79,11 @@ class BookingStepsAdapter(
                 val data = dataList[position]
                 type1Holder.binding.textView10.text = data.text
                 type1Holder.binding.textView11.text = data.description
+                type1Holder.binding.textView12.text =
+                    showHTMLText(context.getString(R.string.viewreceipt))
+                type1Holder.binding.textView12.setOnClickListener {
+                    itemInterface?.viewDetails(0, "")
+                }
             }
         }
     }
@@ -84,5 +93,13 @@ class BookingStepsAdapter(
 
     inner class InProgressHolder(var binding: ItemBokingjourBinding) :
         RecyclerView.ViewHolder(binding.root)
+
+    fun showHTMLText(message: String?): Spanned {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            Html.fromHtml(message)
+        }
+    }
 
 }
