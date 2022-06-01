@@ -228,16 +228,16 @@ class PortfolioSpecificViewAdapter(
                     for (item in data.projectInformation.reraDetails.reraNumbers) {
                         reraNumber = reraNumber + item + "\n"
                     }
-                    if (data.investmentInformation.bookingJourney.allocationDate != null)
+                    if (data.investmentInformation.allocationDate != null)
                         binding.tvAllocationDate.text =
                             Utility.parseDateFromUtc(
-                                data.investmentInformation.bookingJourney.allocationDate,
+                                data.investmentInformation.allocationDate,
                                 null
                             )
-                    if (data.investmentInformation.bookingJourney.possesionDate != null)
+                    if (data.investmentInformation.possesionDate != null)
                         binding.tvPossessionDate.text =
                             Utility.parseDateFromUtc(
-                                data.investmentInformation.bookingJourney.possesionDate,
+                                data.investmentInformation.possesionDate,
                                 null
                             )
                     //view more
@@ -264,7 +264,7 @@ class PortfolioSpecificViewAdapter(
             }
 
             binding.tvViewTimeline.setOnClickListener {
-                ivInterface.seeProjectTimeline()
+                ivInterface.seeProjectTimeline(data.projectInformation.id)
 
             }
             binding.tvViewBookingJourney.setOnClickListener {
@@ -481,7 +481,7 @@ class PortfolioSpecificViewAdapter(
     interface InvestmentScreenInterface {
         fun onClickFacilityCard()
         fun seeAllCard()
-        fun seeProjectTimeline()
+        fun seeProjectTimeline(id: Int)
         fun seeBookingJourney()
         fun referNow()
         fun seeAllSimilarInvestment()

@@ -202,10 +202,10 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         docsBottomSheet.show()
                     }
 
-                    override fun seeProjectTimeline() {
+                    override fun seeProjectTimeline(id: Int) {
                         (requireActivity() as HomeActivity).addFragment(
                             ProjectTimelineFragment.newInstance(
-                                "",
+                                id,
                                 ""
                             ), false
                         )
@@ -374,41 +374,6 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 }
             }
         })
-//        portfolioviewmodel.getDocumentList(id).observe(viewLifecycleOwner, Observer {
-//            when (it.status) {
-//                Status.LOADING -> {
-//
-//                }
-//                Status.SUCCESS -> {
-//                    if (it.data!!.data.isNotEmpty()) {
-//                        //list.removeAt(2)
-//                        list.add(
-//                            3,
-//                            RecyclerViewItem(
-//                                PortfolioSpecificViewAdapter.PORTFOLIO_DOCUMENTS,
-//                                it.data!!.data
-//                            )
-//                        )
-//                        portfolioSpecificViewAdapter.notifyItemChanged(3)
-//                        it.data?.let {
-//                            val adapter =
-//                                DocumentsAdapter(it.data, true, object : DocumentInterface {
-//                                    override fun onclickDocument(position: Int) {
-//                                        docsBottomSheet.dismiss()
-//                                        openDocument(position)
-//                                    }
-//
-//                                })
-//                            documentBinding.rvDocsItemRecycler.adapter = adapter
-//                        }
-//                    }
-//                }
-//                Status.ERROR -> {
-//
-//                }
-//
-//            }
-//        })
     }
 
     private fun setUpRecyclerView() {
