@@ -105,20 +105,24 @@ class ProjectDetailFragment : BaseFragment() {
                 }
                 R.id.tv_video_drone_see_all -> {
                     val imagesList = ArrayList<MediaViewItem>()
+                    Log.d("cscscs",mediaData.toString())
+                    var itemId = 0
                     for(i in 0..mediaData.size-1){
                         for (item in mediaData[i].droneShoots) {
-                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+                            itemId++
+                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url, title = "DroneShoots", id = itemId))
                         }
                         for (item in mediaData[i].images) {
-                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
-                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
-
+                            itemId++
+                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url,title = "Images", id = itemId))
                         }
                         for (item in mediaData[i].videos) {
-                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+                            itemId++
+                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url, title = "Videos", id = itemId))
                         }
                         for (item in mediaData[i].threeSixtyImages) {
-                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+                            itemId++
+                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url,title="ThreeSixtyImages", id = itemId))
                         }
                     }
                     Log.d("cscscs",imagesList.toString())

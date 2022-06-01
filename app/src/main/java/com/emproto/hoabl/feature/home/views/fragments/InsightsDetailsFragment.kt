@@ -49,10 +49,11 @@ class InsightsDetailsFragment : BaseFragment() {
             mBinding.title.text= it.displayTitle
 
             mBinding.listInsights.layoutManager = LinearLayoutManager(requireContext())
-            mBinding.listInsights.adapter = InsightsListAdapter(requireContext(),
-                it.insightsMedia as ArrayList<InsightsMedia>)
-                }
-            )
+//            mBinding.listInsights.adapter = InsightsListAdapter(requireContext(),
+//                it.insightsMedia as ArrayList<InsightsMedia>)
+//                }
+//            )
 
-        }
+        })
+    }
 }

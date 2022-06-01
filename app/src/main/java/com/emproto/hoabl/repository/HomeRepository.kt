@@ -7,12 +7,15 @@ import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
 import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.networklayer.feature.HomeDataSource
+import com.emproto.networklayer.feature.InvestmentDataSource
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.chats.ChatResponse
 import com.emproto.networklayer.response.home.HomeResponse
+import com.emproto.networklayer.response.insights.InsightsResponse
+import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
@@ -32,6 +35,8 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
     val mPromisesResponse = MutableLiveData<BaseResponse<PromisesResponse>>()
     val mHomeResponse = MutableLiveData<BaseResponse<HomeResponse>>()
     val mLatestUpdates= MutableLiveData<BaseResponse<LatestUpdatesResponse>>()
+
+    val mInsights= MutableLiveData<BaseResponse<InsightsResponse>>()
     val mTestimonials= MutableLiveData<BaseResponse<TestimonialsResponse>>()
 
 
@@ -107,13 +112,13 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         return mHomeResponse
     }
 
-    fun getlatestUpdatesData(refresh:Boolean=false): LiveData<BaseResponse<LatestUpdatesResponse>> {
+    fun getlatestUpdatesData(refresh:Boolean=false, byPrority:Boolean): LiveData<BaseResponse<LatestUpdatesResponse>> {
 
         if (mLatestUpdates.value == null || refresh) {
             mLatestUpdates.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
-                    val request = HomeDataSource(application).getLatestUpdatesData()
+                    val request = HomeDataSource(application).getLatestUpdatesData(byPrority)
                     if (request.isSuccessful) {
                         if (request.body()!!.data != null)
                             mLatestUpdates.postValue(BaseResponse.success(request.body()!!))
@@ -135,6 +140,36 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
 
         }
         return mLatestUpdates
+    }
+
+    fun getInsightsData(refresh:Boolean=false, byPrority:Boolean): LiveData<BaseResponse<InsightsResponse>> {
+
+        if (mInsights.value == null || refresh) {
+            mInsights.postValue(BaseResponse.loading())
+            coroutineScope.launch {
+                try {
+                    val request = HomeDataSource(application).getInsightsData(byPrority)
+                    if (request.isSuccessful) {
+                        if (request.body()!!.data != null)
+                            mInsights.postValue(BaseResponse.success(request.body()!!))
+                        else
+                            mInsights.postValue(BaseResponse.Companion.error("No data found"))
+                    } else {
+                        mInsights.postValue(
+                            BaseResponse.Companion.error(
+                                getErrorMessage(
+                                    request.errorBody()!!.string()
+                                )
+                            )
+                        )
+                    }
+                } catch (e: Exception) {
+                    mInsights.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                }
+            }
+
+        }
+        return mInsights
     }
 
     fun getTestimonialsData(refresh:Boolean=false): LiveData<BaseResponse<TestimonialsResponse>> {
@@ -217,6 +252,33 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
             }
         }
         return mAddUsernameResponse
+    }
+
+    fun getAllInvestmentsProjects(): LiveData<BaseResponse<AllProjectsResponse>> {
+        val mAllInvestmentsResponse = MutableLiveData<BaseResponse<AllProjectsResponse>>()
+        mAllInvestmentsResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = HomeDataSource(application).getAllInvestments()
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mAllInvestmentsResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mAllInvestmentsResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mAllInvestmentsResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mAllInvestmentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mAllInvestmentsResponse
     }
 
     fun getChatsList(): LiveData<BaseResponse<ChatResponse>> {

@@ -7,10 +7,7 @@ import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.home.views.fragments.*
 import com.emproto.hoabl.feature.investment.views.*
-import com.emproto.hoabl.feature.investment.views.mediagallery.MediaGalleryFragment
-import com.emproto.hoabl.feature.investment.views.mediagallery.MediaViewFragment
-import com.emproto.hoabl.feature.investment.views.mediagallery.PhotosFragment
-import com.emproto.hoabl.feature.investment.views.mediagallery.VideosFragment
+import com.emproto.hoabl.feature.investment.views.mediagallery.*
 import com.emproto.hoabl.feature.login.*
 import com.emproto.hoabl.feature.portfolio.views.*
 import com.emproto.hoabl.feature.profile.EditProfileFragment
@@ -59,6 +56,8 @@ interface HomeComponent {
     fun inject(fragment: MediaViewFragment)
     fun inject(fragment: VideosFragment)
     fun inject(fragment: ReferralDialog)
+    fun inject(fragment: DroneFragment)
+    fun inject(fragment: ThreeSixtyFragment)
     fun inject(fragment:DocViewerFragment)
     fun inject(fragment: ChatsFragment)
     fun inject(fragment: ChatsDetailFragment)

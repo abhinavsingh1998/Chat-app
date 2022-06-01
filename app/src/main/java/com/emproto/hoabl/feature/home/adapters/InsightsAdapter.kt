@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.home.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -22,6 +23,19 @@ class InsightsAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = list.get(holder.adapterPosition)
+        holder.binding.tvVideotitle.text = item.displayTitle
+        holder.binding.shortDesc.text = item.insightsMedia[0].description
+        if(item.insightsMedia[0].media!=null){
+            Glide.with(context)
+                .load(item.insightsMedia[0].media.value.url)
+                .into(holder.binding.image)
+        }
+
+        when{
+            item.insightsMedia[0].description.isNullOrEmpty() -> {
+                holder.binding.btnReadMore.visibility = View.GONE
+            }
+        }
         holder.binding.tvVideotitle.text= item.displayTitle
         holder.binding.shortDesc.text= item.insightsMedia[0].description
 //        Glide.with(context)
@@ -40,8 +54,9 @@ class InsightsAdapter(
     inner class MyViewHolder(val binding: ItemInsightsBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    interface InsightsItemInterface{
+    interface InsightsItemInterface {
         fun onClickItem(position: Int)
     }
 
 }
+

@@ -362,8 +362,6 @@
                             />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
                     <ImageView
                         android:id="@+id/dont_miss_out"
                         android:layout_width="match_parent"
@@ -463,7 +461,7 @@
                             android:id="@+id/testimonials_recyclerview"
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
-                            android:layout_marginTop="@dimen/margin_size_10"
+                            android:layout_marginTop="@dimen/margin_size_20"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/textview6" />
