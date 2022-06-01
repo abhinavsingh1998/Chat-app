@@ -13,6 +13,7 @@ import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
+import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import retrofit2.Response
@@ -68,6 +69,11 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
     //get all investments
     suspend fun getAllInvestments(): Response<AllProjectsResponse> {
         return apiService.getAllInvestmentProjects()
+    }
+
+    //get facility managment
+    suspend fun getFacilityManagment():Response<FMResponse>{
+        return apiService.getFacilityManagment()
     }
 
     //chats initiate api

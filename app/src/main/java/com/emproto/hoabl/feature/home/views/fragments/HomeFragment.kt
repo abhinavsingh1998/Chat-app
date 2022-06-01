@@ -29,6 +29,7 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.views.CategoryListFragment
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
+import com.emproto.hoabl.feature.portfolio.views.FmFragment
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.utils.Extensions.toData
 import com.emproto.hoabl.utils.Extensions.toHomePagesOrPromise
@@ -42,6 +43,7 @@ import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
 import com.emproto.networklayer.response.marketingUpdates.Data
+import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.google.android.material.tabs.TabLayoutMediator
 import java.io.Serializable
 import javax.inject.Inject
@@ -68,6 +70,8 @@ class HomeFragment : BaseFragment() {
     lateinit var homeViewModel: HomeViewModel
     val list = ArrayList<PageManagementsOrNewInvestment>()
     var isInvester by Delegates.notNull<Boolean>()
+
+    lateinit var fmData: FMResponse
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -107,7 +111,33 @@ class HomeFragment : BaseFragment() {
                                     projectId = it.data.page.promotionAndOffersProjectContentId
                                     homeViewModel.setDashBoardData(it)
                                 }
+
+//                                if (it?.data?.isKycComplete==true){
+//                                    binding.kycLayout.isVisible= false
+//
+//                                } else{
+//                                    binding.kycLayout.isVisible= true
+//                                }
+
+                                if( it?.data?.isFacilityVisible== true){
+                                    binding.facilityManagementCardLayout.isVisible= true
+                                    binding.dontMissOut.isVisible= false
+                                } else{
+                                    binding.facilityManagementCardLayout.isVisible= true
+                                    binding.dontMissOut.isVisible= false
+                                }
+
                             }
+
+                            homeViewModel.getFacilityManagment().observe(viewLifecycleOwner, Observer {
+                                when (it.status) {
+                                    Status.SUCCESS -> {
+                                        it.data.let {
+                                            fmData = it!!
+                                        }
+                                    }
+                                }
+                            })
 
                             //loading investment list
                             list.clear()
@@ -138,6 +168,26 @@ class HomeFragment : BaseFragment() {
                                                 bundle.putInt("ProjectId", item.toInt())
                                                 fragment.arguments = bundle
                                                 (requireActivity() as HomeActivity).addFragment(fragment,false)
+                                            }
+                                            R.id.tv_item_location_info ->{
+                                                val fragment = ProjectDetailFragment()
+                                                val bundle = Bundle()
+                                                bundle.putInt("ProjectId", item.toInt())
+                                                fragment.arguments = bundle
+                                                (requireActivity() as HomeActivity).addFragment(
+                                                    fragment,
+                                                    false
+                                                )
+                                            }
+                                            R.id.iv_bottom_arrow ->{
+                                                val fragment = ProjectDetailFragment()
+                                                val bundle = Bundle()
+                                                bundle.putInt("ProjectId", item.toInt())
+                                                fragment.arguments = bundle
+                                                (requireActivity() as HomeActivity).addFragment(
+                                                    fragment,
+                                                    false
+                                                )
                                             }
                                         }
                                     }
@@ -218,13 +268,19 @@ class HomeFragment : BaseFragment() {
                                 it.data!!.data.pageManagementOrInsights,
                                 object : InsightsAdapter.InsightsItemInterface {
                                     override fun onClickItem(position: Int) {
-//                                        homeViewModel.setSeLectedInsights(it.data!!.data.pageManagementOrInsights[position])
-//                                        (requireActivity() as HomeActivity).addFragment(
-//                                            InsightsDetailsFragment(),
-//                                            false
-//                                        )
-                                    }
+                                   val convertedData = it.data!!.data.pageManagementOrInsights[position].toData()
+                                        val list = ArrayList<com.emproto.networklayer.response.insights.Data>()
+                                        for(item in it.data!!.data.pageManagementOrInsights){
+                                            list.add(item.toData())
+                                        }
+                                        homeViewModel.setInsightsData(list)
+                                        homeViewModel.setSeLectedInsights(convertedData)
 
+                                        (requireActivity() as HomeActivity).addFragment(
+                                            InsightsDetailsFragment(),
+                                            false
+                                        )
+                                    }
                                 }
 
                             )
@@ -319,6 +375,16 @@ class HomeFragment : BaseFragment() {
 
         binding.tvSeeallPromise.setOnClickListener(View.OnClickListener {
             (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
+        })
+
+        binding.facilityManagementCard.rootView.setOnClickListener(View.OnClickListener {
+
+            (requireActivity() as HomeActivity).addFragment(
+                FmFragment.newInstance(
+                    fmData.data.web_url,
+                    ""
+                ), false
+            )
         })
 
         binding.tvViewallInvestments.setOnClickListener(View.OnClickListener {

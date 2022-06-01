@@ -19,6 +19,7 @@ import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.Data
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
+import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.home.PageManagementOrLatestUpdate
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
 import com.emproto.networklayer.response.promises.PromisesResponse
@@ -44,7 +45,7 @@ class HomeViewModel(
     private var selectedlatestUpdates = MutableLiveData<Data>()
     private var selectedInsights = MutableLiveData<com.emproto.networklayer.response.insights.Data>()
     private var latestUpdates = MutableLiveData<List<Data>>()
-    private var insights = MutableLiveData<InsightsResponse>()
+    private var insights = MutableLiveData<List<com.emproto.networklayer.response.insights.Data>>()
 
     private var position = MutableLiveData<LatesUpdatesPosition>()
 
@@ -127,7 +128,7 @@ class HomeViewModel(
         return homeRepository.getInsightsData(refresh, byPrority)
     }
 
-    fun setInsightsData(data: InsightsResponse) {
+    fun setInsightsData(data: List<com.emproto.networklayer.response.insights.Data>) {
         insights.postValue(data)
     }
 
@@ -158,6 +159,10 @@ class HomeViewModel(
     }
     fun getReferNow(referalRequest: ReferalRequest): LiveData<BaseResponse<ReferalResponse>> {
         return homeRepository.addReferral(referalRequest)
+    }
+
+    fun getFacilityManagment(): LiveData<BaseResponse<FMResponse>> {
+        return homeRepository.getFacilitymanagment()
     }
 
 }

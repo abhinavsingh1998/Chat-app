@@ -1,6 +1,9 @@
 package com.emproto.hoabl.feature.home.adapters
 
 import android.content.Context
+import android.os.Build
+import android.text.Html
+import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -28,11 +31,26 @@ class AllInsightsAdapter(
         Glide.with(context)
             .load(item.insightsMedia[0].media.value.url)
             .into(holder.binding.locationImage)
+        if(item.insightsMedia[0].media!=null){
+            when(item.insightsMedia[0].media.value.mediaType){
+                "VIDEO" -> {
+                    val url = item.insightsMedia[0].media.value.url.replace("https://www.youtube.com/embed/","")
+                    val youtubeUrl = "https://img.youtube.com/vi/${url}/hqdefault.jpg"
+                    Glide.with(context)
+                        .load(youtubeUrl)
+                        .into(holder.binding.locationImage)
+                }
+                else -> {
+                    Glide.with(context)
+                        .load(item.insightsMedia[0].media.value.url)
+                        .into(holder.binding.locationImage)
+                }
+            }}
         if (item.insightsMedia[0].description.isNullOrEmpty()){
             holder.binding.btnReadMore.isVisible= false
-            holder.binding.deatils.text= item.insightsMedia[0].description
+
         }else{
-            holder.binding.deatils.text= item.insightsMedia[0].description
+            holder.binding.deatils.text= showHTMLText(item.insightsMedia[0].description)
             holder.binding.btnReadMore.isVisible= true
         }
 
@@ -53,5 +71,13 @@ class AllInsightsAdapter(
 
     interface InsightsItemsInterface {
         fun onClickItem(position: Int)
+    }
+
+    public fun showHTMLText(message: String?): Spanned {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            Html.fromHtml(message)
+        }
     }
 }

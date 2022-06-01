@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentLatestUpdatesBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -114,6 +115,14 @@ class LatestUpdatesFragment : BaseFragment() {
 
         mBinding.appShareBtn.setOnClickListener(View.OnClickListener {
             share_app()
+        })
+
+        mBinding.refressLayout.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+            mBinding.loader.show()
+            initObserver(refresh = true)
+
+            mBinding.refressLayout.isRefreshing= false
+
         })
     }
 

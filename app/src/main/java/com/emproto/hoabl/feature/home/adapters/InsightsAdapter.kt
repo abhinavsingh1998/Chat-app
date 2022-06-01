@@ -1,6 +1,9 @@
 package com.emproto.hoabl.feature.home.adapters
 
 import android.content.Context
+import android.os.Build
+import android.text.Html
+import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +27,8 @@ class InsightsAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = list.get(holder.adapterPosition)
         holder.binding.tvVideotitle.text = item.displayTitle
-        holder.binding.shortDesc.text = item.insightsMedia[0].description
+        holder.binding.shortDesc.text = showHTMLText(item.insightsMedia[0].description)
+
         if(item.insightsMedia[0].media!=null){
             Glide.with(context)
                 .load(item.insightsMedia[0].media.value.url)
@@ -58,5 +62,12 @@ class InsightsAdapter(
         fun onClickItem(position: Int)
     }
 
+    public fun showHTMLText(message: String?): Spanned {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            Html.fromHtml(message)
+        }
+    }
 }
 
