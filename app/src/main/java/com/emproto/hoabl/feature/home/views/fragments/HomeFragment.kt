@@ -202,13 +202,19 @@ class HomeFragment : BaseFragment() {
                                 it.data!!.data.pageManagementOrInsights,
                                 object : InsightsAdapter.InsightsItemInterface {
                                     override fun onClickItem(position: Int) {
-//                                        homeViewModel.setSeLectedInsights(it.data!!.data.pageManagementOrInsights[position])
-//                                        (requireActivity() as HomeActivity).addFragment(
-//                                            InsightsDetailsFragment(),
-//                                            false
-//                                        )
-                                    }
+                                   val convertedData = it.data!!.data.pageManagementOrInsights[position].toData()
+                                        val list = ArrayList<com.emproto.networklayer.response.insights.Data>()
+                                        for(item in it.data!!.data.pageManagementOrInsights){
+                                            list.add(item.toData())
+                                        }
+                                        homeViewModel.setInsightsData(list)
+                                        homeViewModel.setSeLectedInsights(convertedData)
 
+                                        (requireActivity() as HomeActivity).addFragment(
+                                            InsightsDetailsFragment(),
+                                            false
+                                        )
+                                    }
                                 }
 
                             )

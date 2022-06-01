@@ -14,7 +14,7 @@ import com.emproto.networklayer.response.insights.Data
 
 class InsightsListAdapter(
     val context: Context,
-    private val list: List<Data>
+    private val list: List<com.emproto.networklayer.response.insights.InsightsMedia>
     ) : RecyclerView.Adapter<InsightsListAdapter.InsightsHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):InsightsHolder {
@@ -25,11 +25,11 @@ class InsightsListAdapter(
 
     override fun onBindViewHolder(holder: InsightsHolder, position: Int) {
         val item = list[position]
-        holder.binding.firstDetails.text= item.insightsMedia[0].description
-//        holder.binding.imageDesc.text= item.insightsMedia[0].
-//        Glide.with(context)
-//            .load(item.media.value.url)
-//            .into(holder.binding.image1)
+        holder.binding.firstDetails.text= item.description
+
+        Glide.with(context)
+            .load(item.media.value.url)
+            .into(holder.binding.image1)
 
 
     }

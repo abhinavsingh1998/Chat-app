@@ -39,7 +39,7 @@ class HomeViewModel(
     private var selectedlatestUpdates = MutableLiveData<Data>()
     private var selectedInsights = MutableLiveData<com.emproto.networklayer.response.insights.Data>()
     private var latestUpdates = MutableLiveData<List<Data>>()
-    private var insights = MutableLiveData<InsightsResponse>()
+    private var insights = MutableLiveData<List<com.emproto.networklayer.response.insights.Data>>()
 
     private var position = MutableLiveData<LatesUpdatesPosition>()
 
@@ -122,7 +122,7 @@ class HomeViewModel(
         return homeRepository.getInsightsData(refresh, byPrority)
     }
 
-    fun setInsightsData(data: InsightsResponse) {
+    fun setInsightsData(data: List<com.emproto.networklayer.response.insights.Data>) {
         insights.postValue(data)
     }
 

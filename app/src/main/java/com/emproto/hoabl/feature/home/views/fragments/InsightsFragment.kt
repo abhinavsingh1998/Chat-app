@@ -69,7 +69,7 @@ class InsightsFragment : BaseFragment() {
 
                        it.data.let {
                            if (it != null){
-                               homeViewModel.setInsightsData(it)
+                               homeViewModel.setInsightsData(it.data)
                            }
 
                            it?.data!!.size
@@ -83,7 +83,6 @@ class InsightsFragment : BaseFragment() {
                                            false
                                        )
                                    }
-
                                }
                            )
                            linearLayoutManager = LinearLayoutManager(
