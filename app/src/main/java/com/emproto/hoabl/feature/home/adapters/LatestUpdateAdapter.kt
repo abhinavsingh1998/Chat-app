@@ -29,8 +29,15 @@ class LatestUpdateAdapter(
         holder.binding.tvName.text= item.subTitle
 
         if (item.detailedInfo[0].media!= null){
-            Glide.with(context).load(item.detailedInfo[0]?.media?.value.url)
-                .into(holder.binding.image)
+
+            if (!item.detailedInfo[0].media.value.url.isNullOrEmpty()){
+                holder.binding.imageCard.isVisible= true
+                Glide.with(context).load(item.detailedInfo[0]?.media?.value.url)
+                    .into(holder.binding.image)
+            } else{
+                holder.binding.imageCard.isVisible= false
+            }
+
 
             holder.binding.description.text=showHTMLText(item.detailedInfo[0].description)
         }
