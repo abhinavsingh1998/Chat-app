@@ -28,6 +28,7 @@
             android:layout_marginLeft="12dp"
             android:layout_marginBottom="12dp"
             android:textColor="#494a67"
+            android:fontFamily="@font/jost_regular"
             app:layout_constraintTop_toTopOf="@+id/complete_view"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,6 +42,7 @@
             android:layout_marginTop="28dp"
             android:textColor="#17171c"
             android:text="Chats (5)"
+            android:fontFamily="@font/jost_medium"
             app:layout_constraintTop_toBottomOf="@+id/tvWelcome"
             app:layout_constraintStart_toStartOf="@id/tvWelcome"
             />
@@ -54,6 +56,7 @@
             app:layout_constraintTop_toBottomOf="@id/tvChats"
             app:layout_constraintStart_toStartOf="@id/tvChats"
             android:textColor="#707070"
+            android:fontFamily="@font/jost_light"
             android:text="Last Updated on:"/>
         <TextView
             android:id="@+id/tvLastUpdatedTime"
@@ -63,6 +66,7 @@
             android:textSize="14sp"
             android:textColor="#141615"
             android:text="11:32:44 AM"
+            android:fontFamily="@font/jost_regular"
             app:layout_constraintTop_toTopOf="@id/textLastUpdated"
             app:layout_constraintBottom_toBottomOf="@id/textLastUpdated"
             app:layout_constraintStart_toEndOf="@id/textLastUpdated"/>
@@ -73,6 +77,7 @@
             android:textStyle="normal"
             android:textSize="14sp"
             android:textColor="#141615"
+            android:fontFamily="@font/jost_regular"
             android:text="11th March’22"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="6dp"
