@@ -45,7 +45,7 @@ class VideosFragment:BaseFragment() {
     private fun initObserver() {
         val medialist = investmentViewModel.getMediaContent().filter { it.title == "Videos" }
         val list = ArrayList<MediaGalleryItem>()
-        list.add(MediaGalleryItem(1, "Videos"))
+//        list.add(MediaGalleryItem(1, "Videos"))
         list.add(MediaGalleryItem(2, "Videos"))
 
         for(item in medialist){

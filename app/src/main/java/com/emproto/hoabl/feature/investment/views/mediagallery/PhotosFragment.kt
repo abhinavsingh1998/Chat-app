@@ -71,7 +71,7 @@ class PhotosFragment : BaseFragment() {
 
     private fun setUpRecyclerView(list1: List<MediaViewItem>) {
         val list = ArrayList<MediaGalleryItem>()
-        list.add(MediaGalleryItem(1, "Photos"))
+//        list.add(MediaGalleryItem(1, "Photos"))
         list.add(MediaGalleryItem(2, "Photos"))
 
         val listImage = ArrayList<MediaViewItem>()
