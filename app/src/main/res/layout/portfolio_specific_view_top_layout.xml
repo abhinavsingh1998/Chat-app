@@ -26,10 +26,10 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:scaleType="fitXY"
                 android:id="@+id/iv_project_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:scaleType="fitXY"
                 android:src="@drawable/new_investment_page_image" />
 
         </com.google.android.material.card.MaterialCardView>
@@ -691,7 +691,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.textview.MaterialTextView
+        <com.emproto.core.textmore.ReadMoreTextView
             android:id="@+id/tv_project_info"
             style="@style/text_style_text_black_color_14"
             android:layout_width="match_parent"
@@ -700,9 +700,12 @@
             android:layout_marginTop="@dimen/margin_size_10"
             android:fontFamily="@font/jost_light"
             android:lineSpacingMultiplier="1.3"
-            android:text="The Isle of Bliss is phase 2 of Codename Bliss Dapoli, a seaside lifestyle plotting development from The House of Abhinandan Lodha…READ MORE"
+            android:text="The Isle of Bliss is phase 2 of Codename Bliss Dapoli, a seaside lifestyle plotting development from The House of Abhinandan"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cl_investment_details" />
+            app:layout_constraintTop_toBottomOf="@id/cl_investment_details"
+            app:trimCollapsedText="...Read More"
+            app:trimLines="2"
+            app:trimMode="trimModeLine" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_see_project_details"
