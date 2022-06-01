@@ -6,16 +6,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.emproto.core.Database.Dao.HomeSearchDao
 import com.emproto.core.Database.TableModel.SearchModel
+import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.hoabl.feature.home.data.LatesUpdatesPosition
+import com.emproto.networklayer.response.chats.ChatResponse
 import com.emproto.hoabl.repository.HomeRepository
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.home.PageManagementOrInsight
 import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.Data
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
+import com.emproto.networklayer.response.home.PageManagementOrLatestUpdate
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
@@ -146,8 +150,14 @@ class HomeViewModel(
     fun getAllInvestmentsProjects(): LiveData<BaseResponse<AllProjectsResponse>> {
         return homeRepository.getAllInvestmentsProjects()
     }
-
+    fun getChatsList(): LiveData<BaseResponse<ChatResponse>> {
+        return homeRepository.getChatsList()
+    }
+    fun chatInitiate(chatInitiateRequest: ChatInitiateRequest): LiveData<BaseResponse<ChatDetailResponse>> {
+        return homeRepository.chatInitiate(chatInitiateRequest)
+    }
     fun getReferNow(referalRequest: ReferalRequest): LiveData<BaseResponse<ReferalResponse>> {
         return homeRepository.addReferral(referalRequest)
     }
+
 }

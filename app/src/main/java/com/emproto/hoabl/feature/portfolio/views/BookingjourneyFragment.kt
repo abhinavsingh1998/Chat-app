@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
 import com.example.portfolioui.adapters.BookingJourneyAdapter
 import com.example.portfolioui.databinding.FragmentBookingjourneyBinding
 import com.example.portfolioui.models.BookingModel
+import com.example.portfolioui.models.BookingStepsModel
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -19,7 +21,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [Bookingjourney.newInstance] factory method to
  * create an instance of this fragment.
  */
-class BookingjourneyFragment : Fragment() {
+class BookingjourneyFragment : BaseFragment() {
 
     private var param1: String? = null
     private var param2: String? = null
@@ -44,12 +46,31 @@ class BookingjourneyFragment : Fragment() {
 
     private fun initView() {
         val bookingList = ArrayList<BookingModel>()
+        val list = ArrayList<BookingStepsModel>()
+        list.add(BookingStepsModel(0, "Application", "Payment 1"))
+        list.add(BookingStepsModel(1, "Allotment", "payment 2"))
         bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_HEADER))
-        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST))
-        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST))
+        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST, list))
+        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST, list))
+        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST, list))
+        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST, list))
+        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST, list))
+        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST, list))
         mBinding.bookingjourneyList.layoutManager = LinearLayoutManager(requireContext())
         mBinding.bookingjourneyList.adapter =
-            BookingJourneyAdapter(requireContext(), bookingList, null)
+            BookingJourneyAdapter(
+                requireContext(),
+                bookingList,
+                object : BookingJourneyAdapter.TimelineInterface {
+                    override fun onClickItem(position: Int) {
+                        TODO("Not yet implemented")
+                    }
+
+                    override fun viewDetails(position: Int, data: String) {
+                        //get write permisson
+                    }
+
+                })
     }
 
     companion object {
