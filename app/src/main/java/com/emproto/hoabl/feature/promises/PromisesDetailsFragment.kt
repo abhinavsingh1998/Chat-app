@@ -104,24 +104,30 @@ class PromisesDetailsFragment : BaseFragment() {
             Glide.with(requireContext())
                 .load(it.displayMedia.value.url)
                 .into(binding.imageSecurity)
+            //termsAndConditions
+            termsConditionDialogBinding.tvTitle.text =
+                showHTMLText(it.termsAndConditions.description)
+            termsConditionDialogBinding.tvTitle.setMovementMethod(
+                ScrollingMovementMethod()
+            )
         })
 
-        homeViewModel.getTermsCondition(5004).observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    it.data?.let {
-                        if (it.data.page.termsAndConditions != null) {
-                            termsConditionDialogBinding.tvTitle.text =
-                                showHTMLText(it.data.page.termsAndConditions.description)
-                            termsConditionDialogBinding.tvTitle.setMovementMethod(
-                                ScrollingMovementMethod()
-                            )
-                        }
-                    }
-                }
-
-            }
-        })
+//        homeViewModel.getTermsCondition(5004).observe(viewLifecycleOwner, Observer {
+//            when (it.status) {
+//                Status.SUCCESS -> {
+//                    it.data?.let {
+//                        if (it.data.page.termsAndConditions != null) {
+//                            termsConditionDialogBinding.tvTitle.text =
+//                                showHTMLText(it.data.page.termsAndConditions.description)
+//                            termsConditionDialogBinding.tvTitle.setMovementMethod(
+//                                ScrollingMovementMethod()
+//                            )
+//                        }
+//                    }
+//                }
+//
+//            }
+//        })
     }
 
 }

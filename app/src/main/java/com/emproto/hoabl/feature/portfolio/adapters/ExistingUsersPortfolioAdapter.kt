@@ -276,7 +276,7 @@ class ExistingUsersPortfolioAdapter(
                 binding.cvCompletedInvestment.visibility = View.VISIBLE
                 binding.rvCompletedInvestment.visibility = View.GONE
                 binding.cvCompletedInvestment.setOnClickListener {
-
+                    onItemClickListener.onGoingDetails()
                 }
             } else {
                 completedInvestmentAdapter =

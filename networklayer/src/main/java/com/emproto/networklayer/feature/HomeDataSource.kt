@@ -1,11 +1,14 @@
 package com.emproto.networklayer.feature
 
 import android.app.Application
+import com.emproto.networklayer.response.chats.ChatResponse
 import com.emproto.networklayer.di.DataAppModule
 import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
-import com.emproto.networklayer.ApiService
 import com.emproto.networklayer.di.DaggerDataComponent
+import com.emproto.networklayer.ApiService
+import com.emproto.networklayer.response.chats.ChatDetailResponse
+import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
@@ -14,6 +17,7 @@ import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import retrofit2.Response
+import retrofit2.http.Body
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -57,6 +61,10 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
     suspend fun getPromisesData(pageType: Int): Response<PromisesResponse> {
         return apiService.getPromises(pageType)
     }
+    //chats list api
+    suspend fun getChatsList(): Response<ChatResponse> {
+        return apiService.getChatsList()
+    }
 
     //get all investments
     suspend fun getAllInvestments(): Response<AllProjectsResponse> {
@@ -68,4 +76,8 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
         return apiService.getFacilityManagment()
     }
 
+    //chats initiate api
+    suspend fun chatInitiate(@Body chatInitiateRequest: ChatInitiateRequest): Response<ChatDetailResponse> {
+        return apiService.chatInitiate(chatInitiateRequest)
+    }
 }

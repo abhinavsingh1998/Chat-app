@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.emproto.hoabl.repository.PortfolioRepository
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.portfolio.dashboard.Address
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
@@ -69,5 +70,9 @@ class PortfolioViewModel(
 
     fun getFacilityManagment(): LiveData<BaseResponse<FMResponse>> {
         return portfolioRepository.getFacilitymanagment()
+    }
+
+    fun downloadDocument(): LiveData<BaseResponse<DDocumentResponse>> {
+        return portfolioRepository.downloadDocument()
     }
 }

@@ -9,6 +9,7 @@ import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimeline
 import com.example.portfolioui.databinding.ItemTimelineDataBinding
 import com.example.portfolioui.databinding.ItemTimelineHeaderBinding
 import com.example.portfolioui.models.StepsModel
+import com.example.portfolioui.models.TimelineHeaderData
 import com.example.portfolioui.models.TimelineModel
 
 class TimelineAdapter(
@@ -57,6 +58,9 @@ class TimelineAdapter(
         when (dataList[position].viewType) {
             TYPE_HEADER -> {
                 val header_holder = holder as HeaderHolder
+                val headerData = dataList[position].data as TimelineHeaderData
+                header_holder.binding.projectName.text = headerData.projectName
+                header_holder.binding.tvAddress.text = headerData.address
             }
             TYPE_LIST -> {
                 val listData = dataList[position].data as ProjectTimeline

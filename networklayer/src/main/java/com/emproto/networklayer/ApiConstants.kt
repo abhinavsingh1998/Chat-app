@@ -35,8 +35,11 @@ object ApiConstants {
     const val PROJECT_TIMELINE = "hoabl-admin/project-contents/{id}"
     const val FACILITY_MANAGMENT = "hoabl-customer/facility/authenticate"
     const val REFER_NOW = "hoabl-customer/addReferral"
+    const val CHATS_LIST = "hoabl-customer/chats"
+    const val CHATS_INITIATE = "hoabl-customer/chat/initiate"
     const val DELETE_WATCHLIST = "hoabl-customer/watchlist/{id}"
     const val PROJECT_INVENTORIES = "hoabl-customer/inventories/{id}"
     const val ADD_INVENTORY = "hoabl-customer/inventories"
     const val VIDEO_CALL = "hoabl-customer/case"
+    const val DOCUMENT_DOWNLOAD = "hoabl-customer/doc-download"
 }

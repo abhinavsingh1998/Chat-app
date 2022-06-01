@@ -39,6 +39,11 @@ class InsightsAdapter(
                 holder.binding.btnReadMore.visibility = View.GONE
             }
         }
+        holder.binding.tvVideotitle.text= item.displayTitle
+        holder.binding.shortDesc.text= item.insightsMedia[0].description
+//        Glide.with(context)
+//            .load(item.insightsMedia[0].media.value.url)
+//            .into(holder.binding.image)
 
         holder.binding.rootView.setOnClickListener {
             itemIntrface.onClickItem(holder.adapterPosition)

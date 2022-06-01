@@ -5,12 +5,15 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
+import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.networklayer.feature.HomeDataSource
 import com.emproto.networklayer.feature.InvestmentDataSource
 import com.emproto.networklayer.feature.PortfolioDataSource
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.chats.ChatDetailResponse
+import com.emproto.networklayer.response.chats.ChatResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
@@ -306,5 +309,68 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         }
         return mDocumentsResponse
     }
+
+    fun getChatsList(): LiveData<BaseResponse<ChatResponse>> {
+        val mChatResponse = MutableLiveData<BaseResponse<ChatResponse>>()
+        mChatResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = HomeDataSource(application).getChatsList()
+                if (request.isSuccessful) {
+                    if (request.body() != null&& request.body() is ChatResponse) {
+                        mChatResponse.postValue(BaseResponse.success(request.body()!!))
+
+                    }
+                    else
+                        mChatResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mChatResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+
+                mChatResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mChatResponse
+    }
+
+
+    fun chatInitiate(chatInitiateRequest: ChatInitiateRequest): LiveData<BaseResponse<ChatDetailResponse>> {
+        val mChatDetailResponse = MutableLiveData<BaseResponse<ChatDetailResponse>>()
+        mChatDetailResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = HomeDataSource(application).chatInitiate(chatInitiateRequest)
+                if (request.isSuccessful) {
+                    if (request.body() != null&& request.body() is ChatDetailResponse) {
+                        mChatDetailResponse.postValue(BaseResponse.success(request.body()!!))
+
+                    }
+                    else {
+                        mChatDetailResponse.postValue(BaseResponse.Companion.error("No data found"))
+                    }
+                } else {
+                    mChatDetailResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+
+                mChatDetailResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mChatDetailResponse
+    }
+
 
 }
