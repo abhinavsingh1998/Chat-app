@@ -110,6 +110,9 @@ class PromisesDetailsFragment : BaseFragment() {
             termsConditionDialogBinding.tvTitle.setMovementMethod(
                 ScrollingMovementMethod()
             )
+            binding.textViewTAndC.text = it.termsAndConditions.displayName
+            //apply
+            binding.textviewApply.text = it.howToApply.title
         })
 
 //        homeViewModel.getTermsCondition(5004).observe(viewLifecycleOwner, Observer {

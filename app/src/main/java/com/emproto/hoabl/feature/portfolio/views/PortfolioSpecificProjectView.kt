@@ -353,15 +353,17 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
         fetchDocuments(it.data.investmentInformation.crmProjectId)
         //for document bottom sheet
-        val adapter =
-            DocumentsAdapter(it.data.documentList, true, object : DocumentInterface {
-                override fun onclickDocument(position: Int) {
-                    docsBottomSheet.dismiss()
-                    openDocument(position)
-                }
+        if (it.data.documentList != null) {
+            val adapter =
+                DocumentsAdapter(it.data.documentList, true, object : DocumentInterface {
+                    override fun onclickDocument(position: Int) {
+                        docsBottomSheet.dismiss()
+                        openDocument(position)
+                    }
 
-            })
-        documentBinding.rvDocsItemRecycler.adapter = adapter
+                })
+            documentBinding.rvDocsItemRecycler.adapter = adapter
+        }
     }
 
     private fun fetchDocuments(id: String) {
