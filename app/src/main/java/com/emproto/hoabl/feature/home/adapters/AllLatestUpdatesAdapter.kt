@@ -41,10 +41,16 @@ class AllLatestUpdatesAdapter(
             }
 
 
-            holder.binding.deatils.text= showHTMLText(item.detailedInfo[0].description)
+            if (item.detailedInfo[0].description.isNullOrEmpty()){
+                holder.binding.btnReadMore.isVisible= false
+            } else{
+                holder.binding.btnReadMore.isVisible= true
+                holder.binding.deatils.text= showHTMLText(item.detailedInfo[0].description)
+            }
+
         }
 
-        holder.binding.btnReadMore.setOnClickListener {
+        holder.binding.rootView.setOnClickListener {
             itemInterface.onClickItem(holder.adapterPosition)
         }
     }
