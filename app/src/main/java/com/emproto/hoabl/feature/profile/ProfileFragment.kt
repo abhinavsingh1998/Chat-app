@@ -9,10 +9,11 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewbinding.BuildConfig
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.BuildConfig
 import com.emproto.hoabl.R
+
 import com.emproto.hoabl.databinding.FragmentProfileMainBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
@@ -25,6 +26,7 @@ import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.Data
+
 import javax.inject.Inject
 
 class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface {
@@ -136,7 +138,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible =
             false
 
-        binding.version.text = "App Version: v" + BuildConfig.VERSION_NAME
+//        binding.version.text = "App Version: v" + BuildConfig.VERSION_NAME
 
         val item1 = ProfileOptionsData(
             requireContext().resources.getString(R.string.my_accounts),
