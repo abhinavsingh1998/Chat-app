@@ -13,7 +13,8 @@ import com.emproto.networklayer.response.investment.ValueXXX
 class LocationInfrastructureAdapter(
     private val context: Context,
     private val list: List<ValueXXX>,
-    private val itemClickListener: ItemClickListener
+    private val itemClickListener: ItemClickListener,
+    private var isDistanceAvl: Boolean = false
 ):RecyclerView.Adapter<LocationInfrastructureAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: ItemLocationInfrastructureBinding) : RecyclerView.ViewHolder(binding.root)
@@ -27,7 +28,9 @@ class LocationInfrastructureAdapter(
         val element = list[position]
         holder.binding.apply {
             tvLocationName.text  = element.name
-            tvLocationDistance.visibility = View.VISIBLE
+            when(isDistanceAvl){
+                true ->  tvLocationDistance.visibility = View.VISIBLE
+            }
             cvLocationInfrastructureCard.setOnClickListener{
                 itemClickListener.onItemClicked(it,position,element.gpsLink.toString())
             }

@@ -16,7 +16,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_faq_title"
-            style="@style/text_style_text_black_color_16"
+            style="@style/text_style_text_black_color_18"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_size_12"

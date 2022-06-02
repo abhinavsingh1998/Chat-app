@@ -11,16 +11,21 @@ import androidx.core.text.color
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.model.RecyclerViewItem
+import com.emproto.hoabl.model.YoutubeModel
 import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.hoabl.utils.SimilarInvItemClickListener
+import com.emproto.hoabl.utils.YoutubeItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.networklayer.response.investment.Inventory
 import com.emproto.networklayer.response.investment.PdData
 import com.emproto.networklayer.response.investment.PmData
+import com.emproto.networklayer.response.investment.ProjectAminity
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -38,8 +43,10 @@ class ProjectDetailAdapter(
     private val promisesData: List<PmData>,
     private val itemClickListener: ItemClickListener,
     private val isBookmarked: Boolean,
-    private val investmentViewModel: InvestmentViewModel
-    ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val investmentViewModel: InvestmentViewModel,
+    private val videoItemClickListener: YoutubeItemClickListener,
+    private val similarInvItemClickListener: SimilarInvItemClickListener
+):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val VIEW_TYPE_ONE = 1
@@ -121,6 +128,9 @@ class ProjectDetailAdapter(
         fun bind(position: Int){
             val listViews = ArrayList<String>()
             listViews.add(data.projectCoverImages.newInvestmentPageMedia.value.url)
+            listViews.add(data.projectCoverImages.newInvestmentPageMedia.value.url)
+            listViews.add(data.projectCoverImages.newInvestmentPageMedia.value.url)
+            listViews.add(data.projectCoverImages.newInvestmentPageMedia.value.url)
 
             projectDetailViewPagerAdapter = ProjectDetailViewPagerAdapter(listViews)
             binding.projectDetailViewPager.adapter = projectDetailViewPagerAdapter
@@ -138,6 +148,17 @@ class ProjectDetailAdapter(
             TabLayoutMediator(binding.tabDotLayout,binding.projectDetailViewPager){ _, _ ->
             }.attach()
             itemView.tag = this
+
+            binding.projectDetailViewPager.registerOnPageChangeCallback(object:ViewPager2.OnPageChangeCallback(){
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    when(position){
+                        3 -> binding.clSeeAll.visibility = View.VISIBLE
+                        else -> binding.clSeeAll.visibility = View.GONE
+                    }
+                }
+            })
+            binding.clSeeAll.setOnClickListener(onItemClickListener)
             binding.whyInvestCard.clOuterWhyInvest.setOnClickListener(onItemClickListener)
 
             binding.apply {
@@ -170,7 +191,7 @@ class ProjectDetailAdapter(
                                 .append(data.shortDescription + data.shortDescription + " ")
                                 .bold { color(context.resources.getColor(R.color.app_color)) {
                                     append(
-                                        context.resources.getString(R.string.read_less_expand)
+                                        " ${context.resources.getString(R.string.read_less_expand)}"
                                     )
                                 }
                                 }
@@ -236,6 +257,7 @@ class ProjectDetailAdapter(
                 }
                 binding.whyInvestCard.clWhyInvest.setOnClickListener(onItemClickListener)
                 binding.tvApplyNow.setOnClickListener(onItemClickListener)
+                binding.tvRating.text = "${data.generalInfoEscalationGraph.estimatedAppreciation.toString()}%"
             }
         }
     }
@@ -256,26 +278,28 @@ class ProjectDetailAdapter(
             for(item in graphData){
                 linevalues.add(Entry(item.year.toFloat(),item.value.toFloat()))
             }
-            val linedataset = LineDataSet(linevalues, "First")
+            val linedataset = LineDataSet(linevalues, "")
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset.color = context.getColor(R.color.app_color)
+                linedataset.color = context.getColor(R.color.green)
             }
 
             linedataset.valueTextSize = 12F
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset.fillColor = context.getColor(R.color.light_app_color)
+                linedataset.fillColor = context.getColor(R.color.green)
             }
-            linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
-
-            //We connect our data to the UI Screen
+            linedataset.mode = LineDataSet.Mode.LINEAR;
+            linedataset.setDrawCircles(false)
+            linedataset.setDrawValues(false)
             val data = LineData(linedataset)
 
-            //binding.ivPriceTrendsGraph.setDrawBorders(false);
-            //binding.ivPriceTrendsGraph.setDrawGridBackground(false);
+
             binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
             binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
             binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false);
+            binding.ivPriceTrendsGraph.setTouchEnabled(false)
+            binding.ivPriceTrendsGraph.setPinchZoom(false)
+            binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
             binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false);
@@ -288,6 +312,7 @@ class ProjectDetailAdapter(
             //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
             binding.ivPriceTrendsGraph.data = data
             binding.ivPriceTrendsGraph.animateXY(2000, 2000)
+            binding.textView10.visibility = View.GONE
         }
     }
 
@@ -300,9 +325,14 @@ class ProjectDetailAdapter(
 
     private inner class ProjectVideosDroneViewHolder(private val binding: VideoDroneLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            val itemList = ArrayList<String>()
-            itemList.add(data.projectCoverImages.newInvestmentPageMedia.value.url)
-            videoDroneAdapter = VideoDroneAdapter(itemList)
+            val itemList = ArrayList<YoutubeModel>()
+            for(item in data.latestMediaGalleryOrProjectContent[0].videos){
+                itemList.add(YoutubeModel(title = item.name, url = item.mediaContent.value.url))
+            }
+            for(item in data.latestMediaGalleryOrProjectContent[0].droneShoots){
+                itemList.add(YoutubeModel(title = item.name, url = item.mediaContent.value.url))
+            }
+            videoDroneAdapter = VideoDroneAdapter(itemList,videoItemClickListener)
             binding.rvVideoDrone.adapter = videoDroneAdapter
             binding.tvVideoDroneSeeAll.setOnClickListener(onItemClickListener)
         }
@@ -331,7 +361,17 @@ class ProjectDetailAdapter(
     private inner class ProjectAmenitiesViewHolder(private val binding: ProjectAmenitiesLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             binding.apply {
-                val adapter = ProjectAmenitiesAdapter(context,data.opprotunityDocs[0].projectAminities)
+                val list = ArrayList<ProjectAminity>()
+                if(data.opprotunityDocs[0].projectAminities.size > 4){
+                    for(i in 0..3){
+                        list.add(data.opprotunityDocs[0].projectAminities[i])
+                    }
+                }else{
+                    for(item in data.opprotunityDocs[0].projectAminities){
+                        list.add(item)
+                    }
+                }
+                val adapter = ProjectAmenitiesAdapter(context,list)
                 rvProjectAmenitiesItemRecycler.adapter = adapter
                 tvProjectAmenitiesAll.setOnClickListener(onItemClickListener)
             }
@@ -384,7 +424,7 @@ class ProjectDetailAdapter(
     private inner class ProjectSimilarInvestmentsViewHolder(private val binding: SimilarInvestmentsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             val itemList = data.similarInvestments
-            similarInvestmentsAdapter = InvestmentAdapter(context, itemList, itemClickListener)
+            similarInvestmentsAdapter = InvestmentAdapter(context, itemList, similarInvItemClickListener)
             binding.rvSimilarInvestment.adapter = similarInvestmentsAdapter
         }
     }

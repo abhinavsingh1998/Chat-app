@@ -7,9 +7,9 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_location_infrastructure_card"
-        android:layout_width="180dp"
+        android:layout_width="165dp"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/margin_size_4"
+        android:layout_marginVertical="@dimen/margin_size_3"
         android:layout_marginStart="@dimen/margin_size_4"
         android:layout_marginEnd="@dimen/margin_size_1"
         app:cardElevation="@dimen/_3sdp"
@@ -27,11 +27,11 @@
                 android:id="@+id/iv_location_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_size_13"
-                android:layout_marginTop="@dimen/margin_size_16"
+                android:layout_marginHorizontal="@dimen/margin_size_12"
                 android:src="@drawable/hospital_symbol"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@id/tv_location_name"
+                app:layout_constraintBottom_toBottomOf="@id/tv_location_duration"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_location_name"
@@ -41,10 +41,11 @@
                 android:textSize="@dimen/text_size_14"
                 android:textColor="@color/text_color"
                 android:text="Hospital"
+                android:layout_marginTop="@dimen/margin_size_17"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginHorizontal="@dimen/margin_size_8"
                 app:layout_constraintStart_toEndOf="@id/iv_location_image"
-                app:layout_constraintTop_toTopOf="@id/iv_location_image"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/tv_location_duration"
                 />
 
@@ -80,7 +81,7 @@
                 app:layout_constraintTop_toTopOf="@id/tv_location_duration"
                 android:layout_marginEnd="@dimen/margin_size_8"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

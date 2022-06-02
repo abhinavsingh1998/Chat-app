@@ -20,7 +20,7 @@
             android:fontFamily="@font/jost_medium"
             android:text="@string/choose_skus"
             android:textColor="@color/text_light_black_color"
-            android:textSize="@dimen/text_size_16"
+            android:textSize="@dimen/text_size_18"
             app:layout_constraintEnd_toStartOf="@id/tv_skus_see_all"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:text="@string/see_all"
             android:textColor="@color/text_blue_color"
-            android:textSize="@dimen/text_size_12"
+            android:textSize="@dimen/text_size_14"
             android:layout_marginEnd="@dimen/margin_size_8"
             app:layout_constraintBottom_toBottomOf="@id/tv_choose_skus_apply_title"
             app:layout_constraintEnd_toStartOf="@+id/iv_skus_arrow"

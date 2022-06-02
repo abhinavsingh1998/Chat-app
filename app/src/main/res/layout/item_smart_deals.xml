@@ -46,7 +46,7 @@
                         android:layout_height="0dp"
                         android:background="@drawable/ic_home"
                         android:scaleType="fitXY"
-                        android:src="@drawable/inv_proj_image"
+                        android:src="@drawable/land_img"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

@@ -77,6 +77,7 @@ class MediaViewFragment : BaseFragment() {
             ViewModelProvider(requireActivity(), investmentFactory)[InvestmentViewModel::class.java]
         dataSourceFactory = DefaultDataSourceFactory(this.requireContext(), "exoplayer-sample")
         (requireActivity() as HomeActivity).hideHeader()
+        (requireActivity() as HomeActivity).hideBottomNavigation()
     }
 
     @SuppressLint("UnsafeOptInUsageError")

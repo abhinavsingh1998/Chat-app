@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_corner_radius_bg"
-        android:paddingBottom="@dimen/margin_size_50"
+        android:paddingBottom="@dimen/margin_size_30"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -64,7 +64,7 @@
             android:id="@+id/rv_trending_projects"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_size_6"
+            android:layout_marginStart="@dimen/margin_size_6"
             android:layout_marginTop="@dimen/margin_size_6"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

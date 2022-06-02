@@ -140,7 +140,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility = View.GONE
 
         investmentViewModel.getMapLocationInfrastructure().observe(viewLifecycleOwner, Observer {
-            val adapter = LocationInfrastructureAdapter(this.requireContext(),it.values,itemClickListener)
+            val adapter = LocationInfrastructureAdapter(this.requireContext(),it.values,itemClickListener,true)
             binding.mapLocationBottomSheet.rvMapLocationItemRecycler.adapter = adapter
         })
 

@@ -73,6 +73,10 @@ class OpportunityDocsAdapter(
 
     private inner class OppDocsTopViewHolder(private val binding: OppDocsTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
+            Glide
+                .with(context)
+                .load(data[0].bannerImage.value.url)
+                .into(binding.ivOppDocTopImage)
         }
     }
 
@@ -90,26 +94,28 @@ class OpportunityDocsAdapter(
 //            linevalues.add(Entry(40f, 2.0F))
 //            linevalues.add(Entry(50F, 5.0F))
 //            linevalues.add(Entry(60F, 6.0F))
-            val linedataset = LineDataSet(linevalues, "First")
+            val linedataset = LineDataSet(linevalues, "")
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset.color = context.getColor(R.color.app_color)
+                linedataset.color = context.getColor(R.color.green)
             }
 
             linedataset.valueTextSize = 12F
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset.fillColor = context.getColor(R.color.light_app_color)
+                linedataset.fillColor = context.getColor(R.color.green)
             }
-            linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
-
-            //We connect our data to the UI Screen
+            linedataset.mode = LineDataSet.Mode.LINEAR;
+            linedataset.setDrawCircles(false)
+            linedataset.setDrawValues(false)
             val data = LineData(linedataset)
 
-            //binding.ivPriceTrendsGraph.setDrawBorders(false);
-            //binding.ivPriceTrendsGraph.setDrawGridBackground(false);
+
             binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
             binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
             binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false);
+            binding.ivPriceTrendsGraph.setTouchEnabled(false)
+            binding.ivPriceTrendsGraph.setPinchZoom(false)
+            binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
             binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false);
@@ -122,6 +128,7 @@ class OpportunityDocsAdapter(
             //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
             binding.ivPriceTrendsGraph.data = data
             binding.ivPriceTrendsGraph.animateXY(2000, 2000)
+            binding.textView10.visibility = View.GONE
         }
     }
 
@@ -157,7 +164,7 @@ class OpportunityDocsAdapter(
                             .with(context)
                             .load(R.drawable.ic_arrow_upward)
                             .into(binding.ivViewMoreArrow)
-                        binding.tvViewMore.text = context.getString(R.string.read_less)
+                        binding.tvViewMore.text = context.getString(R.string.view_less_caps)
                         destinationAdapter = DestinationAdapter(context,data[0].tourismAround.stories)
                         binding.rvDestination.adapter = destinationAdapter
                         destinationAdapter.notifyDataSetChanged()
@@ -165,7 +172,7 @@ class OpportunityDocsAdapter(
                     }
                     false -> {
                         binding.ivViewMoreArrow.setImageResource(R.drawable.ic_drop_down)
-                        binding.tvViewMore.text = context.getString(R.string.read_more)
+                        binding.tvViewMore.text = context.getString(R.string.view_more_caps)
                         list.clear()
                         for(i in 0..1){
                             list.add(data[0].tourismAround.stories[i])
@@ -214,7 +221,7 @@ class OpportunityDocsAdapter(
                                 .with(context)
                                 .load(R.drawable.ic_arrow_upward)
                                 .into(binding.ivViewMoreArrow)
-                            binding.tvViewMore.text = context.getString(R.string.read_less)
+                            binding.tvViewMore.text = context.getString(R.string.view_less_caps)
                             projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,data[0].projectAminities)
                             rvProjectAmenitiesItemRecycler.adapter = projectAmenitiesAdapter
                             projectAmenitiesAdapter.notifyDataSetChanged()
@@ -222,7 +229,7 @@ class OpportunityDocsAdapter(
                         }
                         false -> {
                             binding.ivViewMoreArrow.setImageResource(R.drawable.ic_drop_down)
-                            binding.tvViewMore.text = context.getString(R.string.read_more)
+                            binding.tvViewMore.text = context.getString(R.string.view_all_caps)
                             list.clear()
                             for(i in 0..1){
                                 list.add(data[0].projectAminities[i])

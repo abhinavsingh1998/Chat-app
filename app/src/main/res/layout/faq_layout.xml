@@ -14,7 +14,7 @@
         android:fontFamily="@font/jost_medium"
         android:text="@string/faq_text"
         android:textColor="@color/text_light_black_color"
-        android:textSize="@dimen/text_size_16"
+        android:textSize="@dimen/text_size_18"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -73,7 +73,7 @@
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        android:textSize="@dimen/text_size_12"
+        android:textSize="@dimen/text_size_14"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

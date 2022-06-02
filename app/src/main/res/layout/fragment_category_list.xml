@@ -16,7 +16,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_category_heading"
-            style="@style/text_style_text_color_16"
+            style="@style/text_style_text_color_18"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_size_12"
@@ -30,7 +30,6 @@
             android:id="@+id/rv_category_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/margin_size_10"
             android:layout_marginBottom="@dimen/margin_size_4"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

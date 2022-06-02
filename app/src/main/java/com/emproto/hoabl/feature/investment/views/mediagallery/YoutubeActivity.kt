@@ -19,6 +19,7 @@ class YoutubeActivity : YouTubeBaseActivity() {
     var videoId = ""
     var index = 0
     var videoList = ArrayList<MediaViewItem>()
+    var videoTitle = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +73,8 @@ class YoutubeActivity : YouTubeBaseActivity() {
 
     private fun initDatas() {
         videoId = intent.getStringExtra("YoutubeVideoId").toString()
+        videoTitle = intent.getStringExtra("VideoTitle").toString()
+        binding.tvMediaImageName.text = videoTitle
 //        val videoList = intent.getSerializableExtra("VideoList") as ArrayList<MediaViewItem>
 //        Log.d("jdjshdsh",videoList.toString())
 //

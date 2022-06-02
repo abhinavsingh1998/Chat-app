@@ -82,12 +82,12 @@ class PhotosFragment : BaseFragment() {
         listImage.add(MediaViewItem("image", "https://www.gstatic.com/webp/gallery/1.jpg",id=14, title = "Images"))
         listImage.add(MediaViewItem("image", "https://www.gstatic.com/webp/gallery/2.jpg",id=15, title = "Images"))
         allImageList.clear()
-        for(item in list1){
+        for(item in listImage){
             allImageList.add(item)
         }
         Log.d("jshdjshds",allImageList.toString())
         mediaPhotosAdapter =
-            MediaPhotosAdapter(this.requireContext(), list, itemClickListener, list1)
+            MediaPhotosAdapter(this.requireContext(), list, itemClickListener, listImage)
         binding.rvMainPhotos.adapter = mediaPhotosAdapter
     }
 

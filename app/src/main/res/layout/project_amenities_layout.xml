@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:paddingBottom="@dimen/margin_size_8"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.textview.MaterialTextView
@@ -15,7 +14,7 @@
         android:fontFamily="@font/jost_medium"
         android:text="@string/project_amenities"
         android:textColor="@color/text_light_black_color"
-        android:textSize="@dimen/text_size_16"
+        android:textSize="@dimen/text_size_18"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +25,7 @@
         android:layout_height="wrap_content"
         android:text="@string/see_all"
         android:textColor="@color/text_blue_color"
-        android:textSize="@dimen/text_size_12"
+        android:textSize="@dimen/text_size_14"
         android:visibility="visible"
         android:layout_marginEnd="@dimen/margin_size_8"
         app:layout_constraintBottom_toBottomOf="@id/tv_project_amenities_title"
@@ -48,10 +47,11 @@
         android:id="@+id/rv_project_amenities_item_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_size_6"
+        android:layout_marginStart="@dimen/margin_size_5"
+        android:layout_marginEnd="@dimen/margin_size_13"
         android:layout_marginTop="@dimen/margin_size_8"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/margin_size_10"
+        android:paddingBottom="@dimen/margin_size_5"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +71,7 @@
         android:text="@string/view_more"
         android:textAllCaps="true"
         android:visibility="gone"
-        android:layout_marginTop="@dimen/margin_size_4"
+        android:layout_marginTop="@dimen/margin_size_14"
         style="@style/text_style_blue_14" />
 
     <ImageView

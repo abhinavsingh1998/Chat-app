@@ -49,6 +49,7 @@
     <string name="help_us">Help us with your</string>
 
     <string name="see_all">SEE ALL</string>
+    <string name="see_all_small_caps">See All</string>
     <string name="new_launch_soon">New Launch</string>
     <string name="my_portfolio">My Portfolio Summary</string>
     <string name="my_projects">My Projects</string>
@@ -131,6 +132,8 @@
     <string name="coming_soon">Coming Soon</string>
     <string name="you_invested">You Invested</string>
     <string name="view_more">View More</string>
+    <string name="view_more_caps">VIEW MORE</string>
+    <string name="view_less_caps">VIEW LESS</string>
     <string name="DemoText">The Isle of Bliss is phase 2 of Codename Bliss Dapoli, a seaside lifestyle plotting development from The House of Abhinandan Lodha</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="And_your_name">Please enter your name.</string>
