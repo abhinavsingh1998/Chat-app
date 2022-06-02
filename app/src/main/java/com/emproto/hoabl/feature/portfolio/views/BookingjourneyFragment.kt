@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.example.portfolioui.adapters.BookingJourneyAdapter
 import com.example.portfolioui.databinding.FragmentBookingjourneyBinding
 import com.example.portfolioui.models.BookingModel
@@ -51,6 +52,8 @@ class BookingjourneyFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         mBinding = FragmentBookingjourneyBinding.inflate(inflater, container, false)
+        (requireActivity() as HomeActivity).showBackArrow()
+        (requireActivity() as HomeActivity).hideBottomNavigation()
         initView()
         return mBinding.root
     }

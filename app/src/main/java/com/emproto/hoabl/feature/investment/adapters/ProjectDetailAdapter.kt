@@ -259,18 +259,19 @@ class ProjectDetailAdapter(
             val linedataset = LineDataSet(linevalues, "First")
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset.color = context.getColor(R.color.app_color)
+                linedataset.color = context.getColor(R.color.green)
             }
 
             linedataset.valueTextSize = 12F
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset.fillColor = context.getColor(R.color.light_app_color)
+                linedataset.fillColor = context.getColor(R.color.green)
             }
-            linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
+            linedataset.mode = LineDataSet.Mode.LINEAR;
+            linedataset.setDrawCircles(false)
+            linedataset.setDrawValues(false)
 
             //We connect our data to the UI Screen
             val data = LineData(linedataset)
-
             //binding.ivPriceTrendsGraph.setDrawBorders(false);
             //binding.ivPriceTrendsGraph.setDrawGridBackground(false);
             binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
@@ -284,6 +285,9 @@ class ProjectDetailAdapter(
             binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false);
             binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false);
             binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false);
+            binding.ivPriceTrendsGraph.setTouchEnabled(false)
+            binding.ivPriceTrendsGraph.setPinchZoom(false)
+            binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
             //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
             //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
             binding.ivPriceTrendsGraph.data = data
