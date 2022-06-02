@@ -8,9 +8,13 @@ import com.emproto.hoabl.databinding.FaqCategoryLayoutBinding
 import com.emproto.hoabl.databinding.FaqInvestmentFragmentBinding
 import com.emproto.hoabl.model.RecyclerViewFaqItem
 import com.emproto.networklayer.response.investment.CgData
-import com.emproto.networklayer.response.investment.Faq
 
-class FaqDetailAdapter(private val context: Context, private val list: List<RecyclerViewFaqItem>,private val faqData:List<CgData>):
+class FaqDetailAdapter(
+    private val context: Context,
+    private val list: List<RecyclerViewFaqItem>,
+    private val faqData: List<CgData>,
+    private val faqId: Int?
+):
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -73,7 +77,7 @@ class FaqDetailAdapter(private val context: Context, private val list: List<Recy
     private inner class CategoryViewHolder(private val binding: FaqCategoryLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int,data:CgData){
             binding.tvCategoryTitle.text = data.name
-            faqAdapter = FaqAdapter(data.faqs,context)
+            faqAdapter = FaqAdapter(data.faqs,context,faqId)
             binding.rvFaq.adapter = faqAdapter
         }
     }

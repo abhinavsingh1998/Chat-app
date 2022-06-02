@@ -13,7 +13,6 @@ import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.FaqDetailAdapter
 import com.emproto.hoabl.model.RecyclerViewFaqItem
-import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.response.enums.Status
@@ -27,6 +26,7 @@ class FaqDetailFragment : BaseFragment() {
     lateinit var investmentViewModel: InvestmentViewModel
     lateinit var binding: FaqDetailFragmentBinding
     var projectId = 0
+    var faqId  = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +36,7 @@ class FaqDetailFragment : BaseFragment() {
         binding = FaqDetailFragmentBinding.inflate(layoutInflater)
         arguments?.let {
             projectId = it.getInt("ProjectId")
+            faqId = it.getInt("FaqId")
         }
         return binding.root
     }
@@ -61,7 +62,6 @@ class FaqDetailFragment : BaseFragment() {
     }
 
     private fun callFaqApi() {
-        Log.d("Faq", projectId.toString())
         investmentViewModel.getInvestmentsFaq(projectId).observe(viewLifecycleOwner, Observer {
             Log.d("Faq", it.data.toString())
             when (it.status) {
@@ -71,7 +71,7 @@ class FaqDetailFragment : BaseFragment() {
                 Status.SUCCESS -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                     it.data?.data?.let { data ->
-                        setUpRecyclerView(data)
+                        setUpRecyclerView(data,faqId)
                     }
                 }
                 Status.ERROR -> {
@@ -84,13 +84,13 @@ class FaqDetailFragment : BaseFragment() {
         })
     }
 
-    private fun setUpRecyclerView(data: List<CgData>) {
+    private fun setUpRecyclerView(data: List<CgData>, faqId: Int) {
         val list = ArrayList<RecyclerViewFaqItem>()
         list.add(RecyclerViewFaqItem(1, data[0]))
         for (item in data) {
             list.add(RecyclerViewFaqItem(2, item))
         }
-        val adapter = FaqDetailAdapter(this.requireContext(), list, data)
+        val adapter = FaqDetailAdapter(this.requireContext(), list, data, faqId)
         binding.rvFaq.adapter = adapter
     }
 }
