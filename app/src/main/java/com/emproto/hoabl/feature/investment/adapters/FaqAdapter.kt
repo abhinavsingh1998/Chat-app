@@ -12,7 +12,7 @@ import com.emproto.hoabl.databinding.ItemFaqBinding
 import com.emproto.networklayer.response.investment.CgData
 import com.emproto.networklayer.response.investment.Faq
 
-class FaqAdapter(private val list: List<Faq>,private val context:Context, private val type:String= ""):RecyclerView.Adapter<FaqAdapter.FaqViewHolder>() {
+class FaqAdapter(private val list: List<Faq>, private val context:Context, private val faqId: Int?):RecyclerView.Adapter<FaqAdapter.FaqViewHolder>() {
     inner class FaqViewHolder(var binding: ItemFaqBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FaqViewHolder {
@@ -35,6 +35,13 @@ class FaqAdapter(private val list: List<Faq>,private val context:Context, privat
         holder.binding.apply {
             tvFaqQuestion.text = element.faqQuestion.question
             tvFaqAnswer.text = element.faqAnswer.answer
+        }
+        if(faqId != null){
+            when{
+                faqId == element.id -> {
+                    holder.binding.ivFaqCardDropDown.performClick()
+                }
+            }
         }
     }
 

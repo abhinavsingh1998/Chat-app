@@ -66,7 +66,7 @@ class InvestMentFragment : BaseFragment() {
 
         val list: ArrayList<SimilarInvestment> = ArrayList()
 
-        investmentAdapter = InvestmentAdapter(requireActivity(), list)
+//        investmentAdapter = InvestmentAdapter(requireActivity(), list, itemClickListener)
         linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
 //        binding.smartdealsRecyclerview.layoutManager = linearLayoutManager
 //        binding.smartdealsRecyclerview.adapter = investmentAdapter

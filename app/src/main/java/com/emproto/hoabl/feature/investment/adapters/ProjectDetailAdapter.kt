@@ -357,7 +357,7 @@ class ProjectDetailAdapter(
     private inner class ProjectPromisesViewHolder(private val binding: PromisesLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             val itemList = promisesData
-            promisesAdapter = PromisesAdapter(itemList,itemClickListener)
+            promisesAdapter = PromisesAdapter(itemList,itemClickListener,context)
             binding.rvPromises.adapter = promisesAdapter
             binding.clNotConvincedPromises.setOnClickListener(onItemClickListener)
             binding.tvPromisesSeeAll.setOnClickListener(onItemClickListener)
@@ -367,7 +367,7 @@ class ProjectDetailAdapter(
     private inner class ProjectFaqViewHolder(private val binding: FaqLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             val itemList = data.projectContentsAndFaqs
-            faqAdapter = FaqQuestionAdapter(itemList)
+            faqAdapter = FaqQuestionAdapter(itemList,itemClickListener)
             binding.rvFaq.adapter = faqAdapter
             binding.tvFaqReadAll.setOnClickListener(onItemClickListener)
         }
@@ -388,7 +388,7 @@ class ProjectDetailAdapter(
     private inner class ProjectSimilarInvestmentsViewHolder(private val binding: SimilarInvestmentsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             val itemList = data.similarInvestments
-            similarInvestmentsAdapter = InvestmentAdapter(context, itemList)
+            similarInvestmentsAdapter = InvestmentAdapter(context, itemList, itemClickListener)
             binding.rvSimilarInvestment.adapter = similarInvestmentsAdapter
         }
     }

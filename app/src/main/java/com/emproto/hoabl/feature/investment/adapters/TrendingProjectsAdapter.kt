@@ -35,14 +35,20 @@ class TrendingProjectsAdapter(val context: Context, val list: List<PageManagemen
                 .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
                 .into(holder.binding.ivItemImage)
         }
-        holder.binding.ivBottomArrow.setOnClickListener {
-            itemClickListener.onItemClicked(it, position, element.id.toString())
+        holder.binding.cvTopView.setOnClickListener {
+            itemClickListener.onItemClicked(it, 0, element.id.toString())
         }
         holder.binding.tvItemLocationInfo.setOnClickListener {
-            itemClickListener.onItemClicked(it, position, element.id.toString())
+            itemClickListener.onItemClicked(it, 1, element.id.toString())
+        }
+        holder.binding.ivBottomArrow.setOnClickListener {
+            itemClickListener.onItemClicked(it, 2, element.id.toString())
         }
         holder.binding.tvApplyNow.setOnClickListener {
-            itemClickListener.onItemClicked(it, position, element.id.toString())
+            itemClickListener.onItemClicked(it, 3, element.id.toString())
+        }
+        holder.binding.clItemInfo.setOnClickListener {
+            itemClickListener.onItemClicked(it, 4, element.id.toString())
         }
     }
 

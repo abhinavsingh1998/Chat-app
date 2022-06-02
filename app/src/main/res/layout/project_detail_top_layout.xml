@@ -30,6 +30,7 @@
                 android:id="@+id/iv_small_top_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:scaleType="fitXY"
                 android:src="@android:color/background_dark" />
         </com.google.android.material.card.MaterialCardView>
 
