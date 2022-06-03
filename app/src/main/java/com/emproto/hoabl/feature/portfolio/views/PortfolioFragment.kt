@@ -32,6 +32,7 @@ import com.emproto.hoabl.databinding.FragmentPortfolioBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.fragments.ReferralDialog
 import com.emproto.hoabl.feature.investment.views.CategoryListFragment
+import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.portfolio.adapters.ExistingUsersPortfolioAdapter
 import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
@@ -350,38 +351,6 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
     }
 
-//    private fun getWathclistData() {
-//        portfolioviewmodel.getWatchlist().observe(viewLifecycleOwner, Observer {
-//            when (it.status) {
-//                Status.SUCCESS -> {
-//                    list.add(
-//                        PortfolioModel(
-//                            ExistingUsersPortfolioAdapter.TYPE_NUDGE_CARD
-//                        )
-//                    )
-//                    it.data?.let {
-//                        watchList.clear()
-//                        watchList.addAll(it.data.filter { it.project != null })
-//                        if (watchList.isNotEmpty()) {
-//                            list.add(
-//                                PortfolioModel(
-//                                    ExistingUsersPortfolioAdapter.TYPE_WATCHLIST, watchList
-//                                )
-//                            )
-//                        }
-//                    }
-//
-//                    list.add(
-//                        PortfolioModel(
-//                            ExistingUsersPortfolioAdapter.TYPE_REFER
-//                        )
-//                    )
-//                    adapter.notifyItemRangeChanged(4, 7)
-//                }
-//            }
-//        })
-//    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
@@ -455,10 +424,26 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     }
 
     override fun onClickApplyNow(projectId: Int) {
+        //open sku screen
+        val fragment = LandSkusFragment()
+        val bundle = Bundle()
+        bundle.putInt("ProjectId", projectId)
+        fragment.arguments = bundle
+        (requireActivity() as HomeActivity).addFragment(fragment,false)
     }
 
     override fun onClickShare() {
         (requireActivity() as HomeActivity).share_app()
+    }
+
+    override fun dontMissoutCard() {
+        val bundle = Bundle()
+        bundle.putInt("ProjectId", 9)
+        val fragment = ProjectDetailFragment()
+        fragment.arguments = bundle
+        (requireActivity() as HomeActivity).addFragment(
+            fragment, false
+        )
     }
 
     private fun setUpRecyclerView() {
