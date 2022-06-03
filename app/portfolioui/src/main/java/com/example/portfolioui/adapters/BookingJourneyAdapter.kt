@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portfolioui.databinding.ItemBookingHeaderBinding
+import com.example.portfolioui.databinding.ItemBookingJourneyBinding
 import com.example.portfolioui.databinding.ItemTimelineDataBinding
 import com.example.portfolioui.models.BookingModel
 import com.example.portfolioui.models.BookingStepsModel
@@ -41,7 +42,7 @@ class BookingJourneyAdapter(
 
             else -> {
                 val view =
-                    ItemTimelineDataBinding.inflate(
+                    ItemBookingJourneyBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
@@ -77,7 +78,7 @@ class BookingJourneyAdapter(
     inner class HeaderHolder(var binding: ItemBookingHeaderBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    inner class StepsListHolder(var binding: ItemTimelineDataBinding) :
+    inner class StepsListHolder(var binding: ItemBookingJourneyBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     interface TimelineInterface {

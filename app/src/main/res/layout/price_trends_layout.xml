@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_size_13"
         android:layout_marginTop="28dp"
-        android:fontFamily="@font/jost_medium"
+        android:fontFamily="@font/jost_regular"
         android:text="Price Trends"
         android:textColor="@color/text_light_black_color"
         android:textSize="@dimen/text_size_16"
