@@ -307,13 +307,13 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             list.add(
                 PortfolioModel(
                     ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
-                    it.data.projects.filter { it.investment.isCompleted }
+                    it.data.projects.filter { it.investment.isBookingComplete }
                 )
             )
             list.add(
                 PortfolioModel(
                     ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
-                    it.data.projects.filter { !it.investment.isCompleted }
+                    it.data.projects.filter { !it.investment.isBookingComplete }
                 )
             )
             list.add(

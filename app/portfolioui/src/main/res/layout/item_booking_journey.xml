@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/margin_size_16"
-    android:layout_marginTop="@dimen/margin_size_8"
+    android:layout_marginTop="@dimen/margin_size_14"
     android:layout_marginBottom="@dimen/margin_size_2"
     app:cardElevation="@dimen/margin_size_4">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/border_appcolor">
 
         <View
             android:id="@+id/header_indicator"
