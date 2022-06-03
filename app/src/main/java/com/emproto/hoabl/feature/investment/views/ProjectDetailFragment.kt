@@ -61,12 +61,13 @@ class ProjectDetailFragment : BaseFragment() {
 
     private var projectId = 0
     private lateinit var oppDocData: List<OpprotunityDoc>
-    private lateinit var mediaData: List<LatestMediaGalleryOrProjectContent>
+    private lateinit var mediaData: List<MediaGalleryOrProjectContent>
     private lateinit var promisesData: List<PmData>
     private lateinit var landSkusData: List<InventoryBucketContent>
     private lateinit var mapLocationData: LocationInfrastructure
     private lateinit var watchList: List<Data>
     private lateinit var inventoryList : List<Inventory>
+    private lateinit var similarInvestments: List<SimilarInvestment>
     private lateinit var allData:PdData
 
     private var faqData: List<ProjectContentsAndFaq> = mutableListOf()
@@ -77,6 +78,14 @@ class ProjectDetailFragment : BaseFragment() {
     val onItemClickListener =
         View.OnClickListener { view ->
             when (view.id) {
+                R.id.tv_similar_investment_see_all -> {
+                    val list = CategoryListFragment()
+                    val bundle = Bundle()
+                    bundle.putString("Category", "SimilarInvestments")
+                    bundle.putSerializable("SimilarInvestmentsData", similarInvestments as Serializable)
+                    list.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(list, false)
+                }
                 R.id.cl_see_all -> {
                     navigateToMediaGallery()
                 }
@@ -97,8 +106,12 @@ class ProjectDetailFragment : BaseFragment() {
                 R.id.cl_why_invest -> {
                     investmentViewModel.setOpportunityDoc(oppDocData)
                     investmentViewModel.setSkus(landSkusData)
+                    val fragment = OpportunityDocsFragment()
+                    val bundle = Bundle()
+                    bundle.putString("ProjectName",allData.launchName)
+                    fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(
-                        OpportunityDocsFragment(),
+                        fragment,
                         false
                     )
                 }
@@ -109,24 +122,14 @@ class ProjectDetailFragment : BaseFragment() {
                     navigateToMediaGallery()
                 }
                 R.id.tv_project_amenities_all -> {
-//                    val docsBottomSheet =
-//                        BottomSheetDialog(this.requireContext(), R.style.BottomSheetDialogTheme)
-//                    docsBottomSheet.setContentView(R.layout.project_amenities_dialog_layout)
-//                    val adapter = ProjectAmenitiesAdapter(
-//                        this.requireContext(),
-//                        oppDocData[0].projectAminities
-//                    )
-//                    docsBottomSheet.findViewById<RecyclerView>(R.id.rv_project_amenities_item_recycler)?.adapter =
-//                        adapter
-//                    docsBottomSheet.findViewById<ImageView>(R.id.iv_project_amenities_close)
-//                        ?.setOnClickListener {
-//                            docsBottomSheet.dismiss()
-//                        }
-//                    docsBottomSheet.show()
                     investmentViewModel.setOpportunityDoc(oppDocData)
                     investmentViewModel.setSkus(landSkusData)
+                    val fragment = OpportunityDocsFragment()
+                    val bundle = Bundle()
+                    bundle.putString("ProjectName",allData.launchName)
+                    fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(
-                        OpportunityDocsFragment(),
+                        fragment,
                         false
                     )
                 }
@@ -167,19 +170,19 @@ class ProjectDetailFragment : BaseFragment() {
         for(i in 0..mediaData.size-1){
             for (item in mediaData[i].droneShoots) {
                 itemId++
-                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url, title = "DroneShoots", id = itemId))
+                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url, title = "DroneShoots", id = itemId, name = item.name))
             }
             for (item in mediaData[i].images) {
                 itemId++
-                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url,title = "Images", id = itemId))
+                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url,title = "Images", id = itemId, name = item.name))
             }
             for (item in mediaData[i].videos) {
                 itemId++
-                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url, title = "Videos", id = itemId))
+                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url, title = "Videos", id = itemId, name = item.name))
             }
             for (item in mediaData[i].threeSixtyImages) {
                 itemId++
-                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url,title="ThreeSixtyImages", id = itemId))
+                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url,title="ThreeSixtyImages", id = itemId, name = item.name))
             }
         }
         Log.d("cscscs",imagesList.toString())
@@ -191,7 +194,7 @@ class ProjectDetailFragment : BaseFragment() {
     }
 
     private fun callVideoCallApi() {
-        investmentViewModel.scheduleVideoCall(VideoCallBody(caseType = "1006",
+        investmentViewModel.scheduleVideoCall(VideoCallBody(caseType = "1004",
         description = "I want to know more about ${allData.launchName}",
         issueType = "Schedule a video call",
         projectId= projectId)).observe(viewLifecycleOwner,Observer{
@@ -251,6 +254,7 @@ class ProjectDetailFragment : BaseFragment() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
             View.GONE
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.VISIBLE
+        (requireActivity() as HomeActivity).hideBottomNavigation()
     }
 
     private fun callApi() {
@@ -287,11 +291,12 @@ class ProjectDetailFragment : BaseFragment() {
                         it.data?.data?.let {  data ->
                             allData = data
                             oppDocData = data.opprotunityDocs
-                            mediaData= data.latestMediaGalleryOrProjectContent
+                            mediaData= data.mediaGalleryOrProjectContent
                             landSkusData = data.inventoryBucketContents
                             faqData = data.projectContentsAndFaqs
                             mapLocationData = data.locationInfrastructure
                             watchList = data.watchlist
+                            similarInvestments = data.similarInvestments
                             inventoryList = data.inventoriesList.data
                             setUpRecyclerView(data, promiseData, inventoryList)
                         }

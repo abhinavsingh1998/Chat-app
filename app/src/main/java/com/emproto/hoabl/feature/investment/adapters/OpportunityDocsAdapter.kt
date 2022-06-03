@@ -21,7 +21,8 @@ import com.github.mikephil.charting.data.LineDataSet
 class OpportunityDocsAdapter(
     private val context: Context,
     private val itemList: List<RecyclerViewItem>,
-    private val data: List<OpprotunityDoc>
+    private val data: List<OpprotunityDoc>,
+    private val title: String
 ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -73,6 +74,7 @@ class OpportunityDocsAdapter(
 
     private inner class OppDocsTopViewHolder(private val binding: OppDocsTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
+            binding.tvOppDocProjectTitle.text = title
             Glide
                 .with(context)
                 .load(data[0].bannerImage.value.url)
@@ -174,7 +176,7 @@ class OpportunityDocsAdapter(
                         binding.ivViewMoreArrow.setImageResource(R.drawable.ic_drop_down)
                         binding.tvViewMore.text = context.getString(R.string.view_more_caps)
                         list.clear()
-                        for(i in 0..1){
+                        for(i in 0..2){
                             list.add(data[0].tourismAround.stories[i])
                         }
                         destinationAdapter = DestinationAdapter(context,list)
@@ -209,7 +211,7 @@ class OpportunityDocsAdapter(
                 ivViewMoreArrow.visibility = View.VISIBLE
                 var isClicked = true
                 val list = arrayListOf<ProjectAminity>()
-                for(i in 0..1){
+                for(i in 0..4){
                     list.add(data[0].projectAminities[i])
                 }
                 projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,list)

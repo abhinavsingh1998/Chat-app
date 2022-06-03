@@ -12,7 +12,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_new_launch"
-            style="@style/text_style_text_color_16"
+            style="@style/text_style_text_color_18"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/margin_size_12"
@@ -159,7 +159,7 @@
                                 android:layout_width="12dp"
                                 android:layout_height="12dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/ic_upward_double_arrow_green" />
+                                android:src="@drawable/ic_upward_double_arrow_dark_green" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:id="@+id/tv_rating"

@@ -59,9 +59,11 @@ class InvestmentRepository @Inject constructor(application: Application) : BaseR
             try {
                 val watchList = async { InvestmentDataSource(application).getMyWatchlist()  }
                 val inventories = async { InvestmentDataSource(application).getInventories(id) }
+                val testimonials = async { InvestmentDataSource(application).getTestimonialsData() }
                 val investmentDetail = async { InvestmentDataSource(application).getInvestmentsDetailData(id) }
                 val watchlistResponse = watchList.await()
                 val inventoriesResponse = inventories.await()
+                val testimonialsResponse = testimonials.await()
                 val investmentDetailResponse = investmentDetail.await()
                 if (investmentDetailResponse.isSuccessful) {
                     if (investmentDetailResponse.body()!!.data != null){
@@ -72,6 +74,10 @@ class InvestmentRepository @Inject constructor(application: Application) : BaseR
                         if(inventoriesResponse.isSuccessful){
                             investmentDetailResponse.body()!!.data.inventoriesList =
                                 inventoriesResponse.body()!!.data
+                        }
+                        if(testimonialsResponse.isSuccessful){
+                            investmentDetailResponse.body()!!.data.testimonials =
+                                testimonialsResponse.body()!!.data
                         }
                         mInvestmentDetailResponse.postValue(BaseResponse.success(investmentDetailResponse.body()!!))
                     }

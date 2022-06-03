@@ -9,6 +9,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.text.bold
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
 import com.bumptech.glide.Glide
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
@@ -17,6 +19,8 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.Data
+import com.google.android.material.tabs.TabLayoutMediator
+import kotlin.math.roundToInt
 
 class NewInvestmentAdapter(private val activity:HomeActivity, private val context: Context, val list:List<RecyclerViewItem>, private val data:Data,private val itemClickListener: ItemClickListener):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -54,8 +58,14 @@ class NewInvestmentAdapter(private val activity:HomeActivity, private val contex
             binding.tvNewLaunch.text = context.getString(R.string.new_launch)
             binding.tvComingSoon.text = context.getString(R.string.coming_soon)
             binding.tvInvestmentProjectName.text = data.page.pageManagementsOrNewInvestments[0].launchName
-            binding.tvAmount.text = data.page.pageManagementsOrNewInvestments[0].priceStartingFrom + " Onwards"
-            binding.tvArea.text = data.page.pageManagementsOrNewInvestments[0].areaStartingFrom + " Onwards"
+            val amount = data.page.pageManagementsOrNewInvestments[0].priceStartingFrom.toDouble() / 100000.0
+            val convertedAmount = amount.toString().replace(".0","")
+            binding.tvAmount.text = SpannableStringBuilder()
+                .bold { append("${convertedAmount}L") }
+                .append( " Onwards" )
+            binding.tvArea.text = SpannableStringBuilder()
+                .bold { append("${data.page.pageManagementsOrNewInvestments[0].areaStartingFrom} Sqft") }
+                .append( " Onwards" )
             binding.tvBackgroundGrey.text = data.page.pageManagementsOrNewInvestments[0].shortDescription
             binding.tvViewInfo.text = SpannableStringBuilder()
                 .bold { append("${Utility.coolFormat(data.page.pageManagementsOrNewInvestments[0].fomoContent.noOfViews.toDouble(),0)} People") }
@@ -80,7 +90,7 @@ class NewInvestmentAdapter(private val activity:HomeActivity, private val contex
 
     private inner class LastFewPlotsViewHolder(private val binding: LastFewPlotsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvSmartDealsTitle.text = data.page.collectionOne.displayName
+            binding.tvSmartDealsTitle.text = data.page.collectionOne.Heading
             binding.tvSmartDealsSubtitle.text = data.page.collectionOne.subHeading
 
             val list = data.pageManagementsOrCollectionOneModels
@@ -107,7 +117,7 @@ class NewInvestmentAdapter(private val activity:HomeActivity, private val contex
 
     private inner class TrendingProjectsViewHolder(private val binding: TrendingProjectsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvTrendingProjectsTitle.text = data.page.collectionTwo.displayName
+            binding.tvTrendingProjectsTitle.text = data.page.collectionTwo.Heading
             binding.tvTrendingProjectsSubtitle.text = data.page.collectionTwo.subHeading
 
             val list = data.pageManagementsOrCollectionTwoModels

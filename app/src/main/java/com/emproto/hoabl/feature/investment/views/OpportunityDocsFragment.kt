@@ -24,6 +24,7 @@ class OpportunityDocsFragment:BaseFragment() {
     lateinit var investmentViewModel: InvestmentViewModel
     lateinit var binding:FragmentOpportunityDocsBinding
     lateinit var opportunityDocsAdapter: OpportunityDocsAdapter
+    private var title = ""
 
     val onItemClickListener =
         View.OnClickListener { view ->
@@ -36,6 +37,9 @@ class OpportunityDocsFragment:BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentOpportunityDocsBinding.inflate(layoutInflater)
+        arguments.let {
+            title = it?.getString("ProjectName").toString()
+        }
         return binding.root
     }
 
@@ -55,6 +59,7 @@ class OpportunityDocsFragment:BaseFragment() {
     private fun setUpUI() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.VISIBLE
+        (requireActivity() as HomeActivity).hideBottomNavigation()
     }
 
     private fun setUpRecyclerView() {
@@ -71,7 +76,7 @@ class OpportunityDocsFragment:BaseFragment() {
             list.add(RecyclerViewItem(7))
             list.add(RecyclerViewItem(8))
 
-            opportunityDocsAdapter = OpportunityDocsAdapter(this.requireContext(),list,it)
+            opportunityDocsAdapter = OpportunityDocsAdapter(this.requireContext(),list,it,title)
             binding.rvOppDocs.adapter = opportunityDocsAdapter
             opportunityDocsAdapter.setItemClickListener(onItemClickListener)
         })

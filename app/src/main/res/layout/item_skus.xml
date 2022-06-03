@@ -45,6 +45,8 @@
                 android:fontFamily="@font/jost_regular"
                 android:text="Starting at 20L"
                 android:textAlignment="center"
+                android:lines="2"
+                android:maxLines="2"
                 android:textColor="@color/text_light_ash_color"
                 android:textSize="@dimen/text_size_14"
                 app:layout_constraintEnd_toEndOf="parent"

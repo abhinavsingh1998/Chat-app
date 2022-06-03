@@ -54,6 +54,7 @@ class FaqDetailFragment : BaseFragment() {
                 requireActivity(),
                 investmentFactory
             ).get(InvestmentViewModel::class.java)
+        (requireActivity() as HomeActivity).hideBottomNavigation()
     }
 
     private fun callApi() {

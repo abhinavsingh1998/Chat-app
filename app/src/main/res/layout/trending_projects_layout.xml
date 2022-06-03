@@ -25,7 +25,6 @@
             android:layout_marginTop="30dp"
             android:fontFamily="@font/jost_medium"
             android:text="Trending Projects"
-            android:textSize="@dimen/text_size_16"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

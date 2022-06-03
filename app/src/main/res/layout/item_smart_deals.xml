@@ -96,12 +96,58 @@
 
                     </com.google.android.material.card.MaterialCardView>
 
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cv_duration_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_size_6"
+                        android:backgroundTint="@color/views_bg_color"
+                        app:cardCornerRadius="@dimen/margin_size_4"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/duration_image"
+                                android:layout_width="14dp"
+                                android:layout_height="@dimen/margin_size_14"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="@dimen/margin_size_8"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/ic_baseline_schedule_white"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_duration"
+                                style="@style/text_style_white_14"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="@dimen/margin_size_3"
+                                android:layout_marginStart="@dimen/margin_size_6"
+                                android:layout_marginEnd="@dimen/margin_size_11"
+                                android:fontFamily="@font/jost_regular"
+                                android:text="1.5k"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/duration_image"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/cl_location_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_size_112"
-                        android:alpha="0.54"
+                        android:alpha="0.64"
                         android:background="@color/black"
                         android:visibility="visible"
                         app:layout_constraintBottom_toTopOf="@id/cl_bottom_view"
@@ -150,7 +196,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_size_20"
-                        android:alpha="0.74"
+                        android:alpha="0.85"
                         android:background="@color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

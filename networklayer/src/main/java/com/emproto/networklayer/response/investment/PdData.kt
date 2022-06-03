@@ -40,4 +40,5 @@ data class PdData(
     val updatedAt: String,
     var watchlist:List<Data>,
     var inventoriesList:IvData,
+    var testimonials: List<com.emproto.networklayer.response.testimonials.Data>
 )

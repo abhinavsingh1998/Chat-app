@@ -17,6 +17,7 @@
         android:backgroundTint="@color/background_yellow_color"
         android:layout_marginBottom="@dimen/margin_size_7"
         android:paddingVertical="@dimen/margin_size_8"
+        android:layout_marginHorizontal="@dimen/margin_size_7"
         android:fontFamily="@font/jost_medium"
         android:text="Booking starts from 13th April 2022."
         style="@style/text_style_dark_gold_color_14"

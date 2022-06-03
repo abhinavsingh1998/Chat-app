@@ -166,8 +166,10 @@ class ProjectDetailAdapter(
                 tvProjectLocation.text = "${data.address.city}, ${data.address.state}"
                 tvViewCount.text = Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)
                 tvDuration.text = "${data.fomoContent.targetTime.hours}:${data.fomoContent.targetTime.minutes}:${data.fomoContent.targetTime.seconds} Hrs Left"
-                tvPriceRange.text = data.priceStartingFrom
-                tvAreaRange.text = data.areaStartingFrom
+                val amount = data.priceStartingFrom.toDouble() / 100000
+                val convertedAmount = amount.toString().replace(".0","")
+                tvPriceRange.text = "₹${convertedAmount} L"
+                tvAreaRange.text = "${data.areaStartingFrom} Sqft"
                 tvProjectViewInfo.text = SpannableStringBuilder()
                     .bold { append("${Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)} People") }
                     .append( " saw this project in ${data.fomoContent.days} days" )
@@ -326,10 +328,10 @@ class ProjectDetailAdapter(
     private inner class ProjectVideosDroneViewHolder(private val binding: VideoDroneLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             val itemList = ArrayList<YoutubeModel>()
-            for(item in data.latestMediaGalleryOrProjectContent[0].videos){
+            for(item in data.mediaGalleryOrProjectContent[0].videos){
                 itemList.add(YoutubeModel(title = item.name, url = item.mediaContent.value.url))
             }
-            for(item in data.latestMediaGalleryOrProjectContent[0].droneShoots){
+            for(item in data.mediaGalleryOrProjectContent[0].droneShoots){
                 itemList.add(YoutubeModel(title = item.name, url = item.mediaContent.value.url))
             }
             videoDroneAdapter = VideoDroneAdapter(itemList,videoItemClickListener)
@@ -340,6 +342,11 @@ class ProjectDetailAdapter(
 
     private inner class ProjectDontMissViewHolder(private val binding: DontMissLayoutPdBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
+            val image = data.offersAndPromotions.value.url
+            Glide
+                .with(context)
+                .load(data.offersAndPromotions.value.url)
+                .into(binding.ivDontMissStaticImage)
         }
     }
 
@@ -411,7 +418,19 @@ class ProjectDetailAdapter(
 
     private inner class ProjectTestimonialsViewHolder(private val binding: NewInvestmentTestimonialsCardBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvHearSpeakSeeAll.setOnClickListener(onItemClickListener)
+            binding.apply {
+                for(item in data.testimonials){
+                    when(item.priority){
+                        1.0 -> {
+                            tvProfileName.text = item.firstName + " " + item.lastName
+                            tvProfileDesignation.text = item.designation
+                            tvProfileInfoText.text = item.testimonialContent
+                        }
+                    }
+                }
+
+                tvHearSpeakSeeAll.setOnClickListener(onItemClickListener)
+            }
         }
     }
 
@@ -426,6 +445,7 @@ class ProjectDetailAdapter(
             val itemList = data.similarInvestments
             similarInvestmentsAdapter = InvestmentAdapter(context, itemList, similarInvItemClickListener)
             binding.rvSimilarInvestment.adapter = similarInvestmentsAdapter
+            binding.tvSimilarInvestmentSeeAll.setOnClickListener(onItemClickListener)
         }
     }
 

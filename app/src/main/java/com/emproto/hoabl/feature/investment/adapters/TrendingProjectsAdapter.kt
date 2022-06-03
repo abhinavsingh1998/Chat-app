@@ -25,9 +25,12 @@ class TrendingProjectsAdapter(val context: Context, val list: List<PageManagemen
             tvItemLocationName.text = element.launchName
 //            tvItemLocation.text = ""
             tvItemLocationInfo.text = element.shortDescription
-            tvItemAmount.text = element.priceStartingFrom + " Onwards"
             tvNoViews.text = Utility.coolFormat(element.fomoContent.noOfViews.toDouble(),0)
-            tvItemArea.text = element.areaStartingFrom + " Onwards"
+            val amount = element.priceStartingFrom.toDouble() / 100000
+            val convertedAmount = amount.toString().replace(".0","")
+            tvItemAmount.text = "₹${convertedAmount} L" + " Onwards"
+            tvNoViews.text = Utility.coolFormat(element.fomoContent.noOfViews.toDouble(),0)
+            tvItemArea.text = "${element.areaStartingFrom} Sqft" + " Onwards"
 //            Glide.with(context)
 //                .load(element.mediaGalleries[0].coverImage[0].mediaContent.value.url)
 //                .into(holder.binding.ivItemImage)
@@ -50,6 +53,12 @@ class TrendingProjectsAdapter(val context: Context, val list: List<PageManagemen
         holder.binding.clItemInfo.setOnClickListener {
             itemClickListener.onItemClicked(it, 4, element.id.toString())
         }
+//        when(holder.absoluteAdapterPosition){
+//            1 -> {
+//                holder.binding.cvDurationView.visibility = View.VISIBLE
+//                holder.binding.tvDuration.text = "${element.fomoContent.targetTime.hours}:${element.fomoContent.targetTime.minutes}:${element.fomoContent.targetTime.seconds} Hrs Left"
+//            }
+//        }
     }
 
     override fun getItemCount(): Int {

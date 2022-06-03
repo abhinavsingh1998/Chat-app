@@ -42,7 +42,7 @@
             android:id="@+id/iv_video_drone_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_size_15"
+            android:layout_marginEnd="@dimen/margin_size_11"
             android:src="@drawable/ic_black_long_rightarrow"
             app:layout_constraintBottom_toBottomOf="@id/tv_hear_speak_see_all"
             app:layout_constraintEnd_toEndOf="parent"

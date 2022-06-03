@@ -102,4 +102,5 @@
     <color name="why_invest_light_blue_color">#9d9eb1</color>
     <color name="blur_white">#80FFFFFF</color>
     <color name="investment_see_all_bg">#eeeef3</color>
+    <color name="bottom_bg_color">#F2565454</color>
 </resources>

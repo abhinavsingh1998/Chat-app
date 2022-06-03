@@ -1,91 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/text_blue_color">
+    android:layout_height="@dimen/margin_size_200"
+    android:background="@color/text_blue_color"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_dont_miss"
+    <ImageView
+        android:id="@+id/iv_dont_miss_static_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="@dimen/margin_size_20"
-        android:layout_marginVertical="@dimen/margin_size_30"
-        android:background="@drawable/inv_dont_miss_pd_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_dont_miss"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_size_30"
-            android:layout_marginTop="@dimen/margin_size_25"
-            android:fontFamily="@font/jost_medium"
-            android:text="Don’t Miss Out"
-            android:textColor="@color/text_dark_black_color"
-            android:textSize="@dimen/text_size_16"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_dont_miss_info"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_size_2"
-            android:layout_marginEnd="@dimen/margin_size_12"
-            android:fontFamily="@font/jost_regular"
-            android:text="Buy more than 2 SKUs in Dapoli and get all the amentities for free"
-            android:textColor="@color/text_project_det_screen_brown"
-            android:textSize="@dimen/text_size_14"
-            app:layout_constraintEnd_toStartOf="@id/iv_dont_miss_static_image"
-            app:layout_constraintStart_toStartOf="@id/tv_dont_miss"
-            app:layout_constraintTop_toBottomOf="@id/tv_dont_miss" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_dont_miss_duration_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Offer valid till : "
-            android:textColor="@color/text_project_det_screen_brown"
-            android:textSize="@dimen/text_size_12"
-            android:fontFamily="@font/jost_regular"
-            app:layout_constraintStart_toStartOf="@id/tv_dont_miss"
-            app:layout_constraintTop_toBottomOf="@id/tv_dont_miss_info"
-            android:layout_marginVertical="@dimen/margin_size_10"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_dont_miss_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="28th Feb 2022"
-            android:textColor="@color/text_project_det_screen_brown"
-            android:textSize="@dimen/text_size_12"
-            android:fontFamily="@font/jost_bold"
-            android:layout_marginEnd="@dimen/margin_size_6"
-            app:layout_constraintStart_toEndOf="@id/tv_dont_miss_duration_title"
-            app:layout_constraintTop_toTopOf="@id/tv_dont_miss_duration_title"
-            app:layout_constraintBottom_toBottomOf="@id/tv_dont_miss_duration_title"
-            />
-
-        <ImageView
-            android:id="@+id/iv_dont_miss_static_image"
-            android:layout_width="101dp"
-            android:layout_height="93dp"
-            android:layout_marginEnd="@dimen/margin_size_30"
-            android:layout_marginBottom="@dimen/margin_size_25"
-            android:src="@drawable/free"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_dont_miss" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_margin="@dimen/margin_size_20"
+        android:scaleType="fitXY"
+        android:src="@drawable/free" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

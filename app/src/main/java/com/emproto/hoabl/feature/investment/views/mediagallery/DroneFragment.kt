@@ -13,8 +13,8 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.MediaPhotosAdapter
 import com.emproto.hoabl.model.MediaGalleryItem
 import com.emproto.hoabl.model.MediaViewItem
-import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.utils.MediaItemClickListener
+import com.emproto.hoabl.utils.YoutubeItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import javax.inject.Inject
@@ -41,9 +41,9 @@ class DroneFragment:BaseFragment() {
     }
 
     private fun initObserver() {
-        val medialist = investmentViewModel.getMediaContent().filter { it.title == "ThreeSixtyImages" }
+        val medialist = investmentViewModel.getMediaContent().filter { it.title == "DroneShoots" }
         val list = ArrayList<MediaGalleryItem>()
-        list.add(MediaGalleryItem(1, "Videos"))
+//        list.add(MediaGalleryItem(1, "Videos"))
         list.add(MediaGalleryItem(2, "Videos"))
 
         val videoList = arrayListOf<String>()
@@ -51,7 +51,13 @@ class DroneFragment:BaseFragment() {
             videoList.add(item.media)
         }
         mediaPhotosAdapter =
-            MediaPhotosAdapter(this.requireContext(), list, itemClickListener, medialist)
+            MediaPhotosAdapter(
+                this.requireContext(),
+                list,
+                mediaItemClickListener,
+                medialist,
+                itemClickListener
+            )
         binding.rvMainVideos.adapter = mediaPhotosAdapter
     }
 
@@ -64,19 +70,20 @@ class DroneFragment:BaseFragment() {
 
     }
 
-    private val itemClickListener = object : MediaItemClickListener {
+    private val mediaItemClickListener = object:MediaItemClickListener{
         override fun onItemClicked(view: View, position: Int, item: MediaViewItem) {
+
+        }
+    }
+
+    private val itemClickListener = object : YoutubeItemClickListener {
+        override fun onItemClicked(view: View, position: Int, url: String, title: String) {
             when(isYoutubeVideo){
                 true -> {
                     val intent = Intent(this@DroneFragment.requireActivity(),YoutubeActivity::class.java)
-                    intent.putExtra("YoutubeVideoId","Bl1FOKpFY2Q")
-                    intent.putExtra("VideoTitle","")
+                    intent.putExtra("YoutubeVideoId",url)
+                    intent.putExtra("VideoTitle",title)
                     startActivity(intent)
-                }
-                false -> {
-                    investmentViewModel.setMediaItem(item)
-                    val mediaViewFragment = MediaViewFragment()
-                    (requireActivity() as HomeActivity).replaceFragment(mediaViewFragment.javaClass, "", true, null, null, 0, false)
                 }
             }
         }
