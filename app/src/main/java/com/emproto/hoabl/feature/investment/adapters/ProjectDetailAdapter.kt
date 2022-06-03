@@ -128,10 +128,9 @@ class ProjectDetailAdapter(
         fun bind(position: Int){
             val listViews = ArrayList<String>()
             listViews.add(data.projectCoverImages.newInvestmentPageMedia.value.url)
-            listViews.add(data.projectCoverImages.newInvestmentPageMedia.value.url)
-            listViews.add(data.projectCoverImages.newInvestmentPageMedia.value.url)
-            listViews.add(data.projectCoverImages.newInvestmentPageMedia.value.url)
-
+            for(item in data.mediaGalleryOrProjectContent[0].images){
+                listViews.add(item.mediaContent.value.url)
+            }
             projectDetailViewPagerAdapter = ProjectDetailViewPagerAdapter(listViews)
             binding.projectDetailViewPager.adapter = projectDetailViewPagerAdapter
             binding.projectDetailViewPager.clipToPadding = false
@@ -153,7 +152,7 @@ class ProjectDetailAdapter(
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     when(position){
-                        3 -> binding.clSeeAll.visibility = View.VISIBLE
+                        listViews.size-1 -> binding.clSeeAll.visibility = View.VISIBLE
                         else -> binding.clSeeAll.visibility = View.GONE
                     }
                 }
