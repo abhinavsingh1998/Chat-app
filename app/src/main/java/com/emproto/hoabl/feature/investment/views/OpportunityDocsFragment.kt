@@ -25,12 +25,17 @@ class OpportunityDocsFragment:BaseFragment() {
     lateinit var binding:FragmentOpportunityDocsBinding
     lateinit var opportunityDocsAdapter: OpportunityDocsAdapter
     private var title = ""
+    private var projectId = 0
 
     val onItemClickListener =
         View.OnClickListener { view ->
             when(view.id){
                 R.id.tv_apply_now -> {
-                    (requireActivity() as HomeActivity).addFragment(LandSkusFragment(),false)
+                    val fragment = LandSkusFragment()
+                    val bundle = Bundle()
+                    bundle.putInt("ProjectId", projectId)
+                    fragment.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
             }
         }
@@ -39,6 +44,7 @@ class OpportunityDocsFragment:BaseFragment() {
         binding = FragmentOpportunityDocsBinding.inflate(layoutInflater)
         arguments.let {
             title = it?.getString("ProjectName").toString()
+            projectId = it?.getInt("ProjectId", 0)!!
         }
         return binding.root
     }

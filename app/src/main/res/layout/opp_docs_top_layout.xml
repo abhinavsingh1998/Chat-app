@@ -18,10 +18,21 @@
             android:layout_height="@dimen/margin_size_145"
             android:scaleType="fitXY"
             android:src="@drawable/img"
+            android:alpha="0.9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/ImageView.Corner"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="148dp"
+            android:background="@drawable/top_corner_radius_bg"
+            android:backgroundTint="@color/light_blur_bg_color"
+            app:layout_constraintStart_toStartOf="@id/iv_oppDoc_top_image"
+            app:layout_constraintEnd_toEndOf="@id/iv_oppDoc_top_image"
+            app:layout_constraintTop_toTopOf="@id/iv_oppDoc_top_image"
+            app:layout_constraintBottom_toBottomOf="@id/iv_oppDoc_top_image"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_oppDoc_project_title"

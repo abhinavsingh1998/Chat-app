@@ -1,7 +1,11 @@
 package com.emproto.hoabl.feature.investment.adapters
 
+import com.github.mikephil.charting.formatter.DefaultValueFormatter
+import com.github.mikephil.charting.formatter.IValueFormatter
+import com.github.mikephil.charting.utils.ViewPortHandler
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -91,11 +95,6 @@ class OpportunityDocsAdapter(
             for(item in graphData){
                 linevalues.add(Entry(item.year.toFloat(),item.value.toFloat()))
             }
-//            linevalues.add(Entry(10f, 0.0F))
-//            linevalues.add(Entry(20f, 3.0F))
-//            linevalues.add(Entry(40f, 2.0F))
-//            linevalues.add(Entry(50F, 5.0F))
-//            linevalues.add(Entry(60F, 6.0F))
             val linedataset = LineDataSet(linevalues, "")
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -110,7 +109,6 @@ class OpportunityDocsAdapter(
             linedataset.setDrawCircles(false)
             linedataset.setDrawValues(false)
             val data = LineData(linedataset)
-
 
             binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
             binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
@@ -154,7 +152,7 @@ class OpportunityDocsAdapter(
         fun bind(position: Int){
             var isClicked = true
             val list = arrayListOf<Story>()
-            for(i in 0..1){
+            for(i in 0..3){
                 list.add(data[0].tourismAround.stories[i])
             }
             destinationAdapter = DestinationAdapter(context,list)
@@ -176,7 +174,7 @@ class OpportunityDocsAdapter(
                         binding.ivViewMoreArrow.setImageResource(R.drawable.ic_drop_down)
                         binding.tvViewMore.text = context.getString(R.string.view_more_caps)
                         list.clear()
-                        for(i in 0..2){
+                        for(i in 0..3){
                             list.add(data[0].tourismAround.stories[i])
                         }
                         destinationAdapter = DestinationAdapter(context,list)
@@ -211,7 +209,7 @@ class OpportunityDocsAdapter(
                 ivViewMoreArrow.visibility = View.VISIBLE
                 var isClicked = true
                 val list = arrayListOf<ProjectAminity>()
-                for(i in 0..4){
+                for(i in 0..3){
                     list.add(data[0].projectAminities[i])
                 }
                 projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,list)
@@ -233,7 +231,7 @@ class OpportunityDocsAdapter(
                             binding.ivViewMoreArrow.setImageResource(R.drawable.ic_drop_down)
                             binding.tvViewMore.text = context.getString(R.string.view_all_caps)
                             list.clear()
-                            for(i in 0..1){
+                            for(i in 0..3){
                                 list.add(data[0].projectAminities[i])
                             }
                             projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,list)

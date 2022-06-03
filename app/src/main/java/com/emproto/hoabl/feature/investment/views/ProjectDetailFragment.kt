@@ -108,6 +108,7 @@ class ProjectDetailFragment : BaseFragment() {
                     investmentViewModel.setSkus(landSkusData)
                     val fragment = OpportunityDocsFragment()
                     val bundle = Bundle()
+                    bundle.putInt("ProjectId", projectId)
                     bundle.putString("ProjectName",allData.launchName)
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(
@@ -126,6 +127,7 @@ class ProjectDetailFragment : BaseFragment() {
                     investmentViewModel.setSkus(landSkusData)
                     val fragment = OpportunityDocsFragment()
                     val bundle = Bundle()
+                    bundle.putInt("ProjectId", projectId)
                     bundle.putString("ProjectName",allData.launchName)
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(
@@ -296,6 +298,13 @@ class ProjectDetailFragment : BaseFragment() {
                             faqData = data.projectContentsAndFaqs
                             mapLocationData = data.locationInfrastructure
                             watchList = data.watchlist
+                            for(item in watchList){
+                                if(item.watchlist.projectId.toInt() == projectId){
+                                    isBookmarked = true
+                                    watchListId = item.watchlist.id
+                                    investmentViewModel.setWatchListId(item.watchlist.id)
+                                }
+                            }
                             similarInvestments = data.similarInvestments
                             inventoryList = data.inventoriesList.data
                             setUpRecyclerView(data, promiseData, inventoryList)
@@ -358,12 +367,6 @@ class ProjectDetailFragment : BaseFragment() {
         when {
             data.similarInvestments.isNotEmpty() -> {
                 list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_FOURTEEN))
-            }
-        }
-        for(item in watchList){
-            if(item.project.id == projectId){
-                isBookmarked = true
-                watchListId = item.watchlist.id
             }
         }
         val adapter =
@@ -492,25 +495,28 @@ class ProjectDetailFragment : BaseFragment() {
     }
 
     private fun deleteWatchList() {
-        investmentViewModel.deleteWatchList(watchListId).observe(viewLifecycleOwner,Observer{
-            when(it.status){
-                Status.LOADING -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
-                }
-                Status.SUCCESS -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
-                    it.data?.let { data ->
-                        Toast.makeText(this.requireContext(), "Project removed from watchlist successfully", Toast.LENGTH_SHORT).show()
+        val id = investmentViewModel.getWatchListId().value
+        if (id != null) {
+            investmentViewModel.deleteWatchList(id).observe(viewLifecycleOwner,Observer{
+                when(it.status){
+                    Status.LOADING -> {
+                        (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                    }
+                    Status.SUCCESS -> {
+                        (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                        it.data?.let { data ->
+                            Toast.makeText(this.requireContext(), "Project removed from watchlist successfully", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    Status.ERROR -> {
+                        (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            it.message!!
+                        )
                     }
                 }
-                Status.ERROR -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
-                    (requireActivity() as HomeActivity).showErrorToast(
-                        it.message!!
-                    )
-                }
-            }
-        })
+            })
+        }
     }
 
 }

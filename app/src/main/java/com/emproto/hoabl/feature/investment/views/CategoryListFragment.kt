@@ -171,7 +171,7 @@ class CategoryListFragment() : BaseFragment() {
                     val fragment = LandSkusFragment()
                     val bundle = Bundle()
                     bundle.putInt("ProjectId", item.toInt())
-                    fragment.arguments = arguments
+                    fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
             }
