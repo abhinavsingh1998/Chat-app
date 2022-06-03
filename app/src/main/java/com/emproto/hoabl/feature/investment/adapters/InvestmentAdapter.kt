@@ -34,11 +34,13 @@ class InvestmentAdapter(
             tvNoViews.text = Utility.coolFormat(element.fomoContent.noOfViews.toDouble(),0)
             tvItemLocationName.text = element.launchName
             tvItemLocation.text = "${element.address.city}, ${element.address.state}"
+            val amount = element.priceStartingFrom.toDouble() / 100000
+            val convertedAmount = amount.toString().replace(".0","")
             tvItemAmount.text = SpannableStringBuilder()
-                .bold { append(element.priceStartingFrom) }
+                .bold { append("₹${convertedAmount} L") }
                 .append(" Onwards")
             tvItemArea.text = SpannableStringBuilder()
-                .bold { append(element.areaStartingFrom) }
+                .bold { append("${element.areaStartingFrom} Sqft") }
                 .append(" Onwards")
             tvItemLocationInfo.text = element.shortDescription
             Glide
