@@ -5,6 +5,15 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.emproto.networklayer.response.investment.PmData
 import com.emproto.networklayer.response.home.HomePagesOrPromise
+import com.emproto.networklayer.response.home.PageManagementOrInsight
+import com.emproto.networklayer.response.home.PageManagementOrLatestUpdate
+import com.emproto.networklayer.response.insights.InsightsCreatedAdmin
+import com.emproto.networklayer.response.insights.InsightsMedia
+import com.emproto.networklayer.response.insights.InsightsModifiedAdmin
+import com.emproto.networklayer.response.marketingUpdates.Data
+import com.emproto.networklayer.response.marketingUpdates.DetailedInfo
+import com.emproto.networklayer.response.marketingUpdates.MarketingUpdateCreatedBy
+import com.emproto.networklayer.response.marketingUpdates.MarketingUpdateUpdatedBy
 
 object Extensions{
 
@@ -54,13 +63,54 @@ object Extensions{
         isTermsAndConditionsActive = isTermsAndConditionsActive,
         name = name,
         priority = priority.toString(),
-        promiseIconType = promiseIconType,
+        promiseIconType = promiseIconType.toString(),
         promiseMedia = promiseMedia,
         promiseType = promiseType.toString(),
         shortDescription = shortDescription.toString(),
-        status = status,
+        status = status.toString(),
         termsAndConditions = termsAndConditions,
-        updatedAt = updatedAt,
+        updatedAt = updatedAt.toString(),
         updatedBy = updatedBy.toString()
+    )
+
+    fun PageManagementOrLatestUpdate.toData() = Data(
+        createdAt = createdAt,
+        createdBy = createdBy,
+        detailedInfo = detailedInfo,
+        displayTitle = displayTitle,
+        formType = formType,
+        id = id,
+        marketingUpdateCreatedBy = MarketingUpdateCreatedBy(firstName = "",id = 0),
+        marketingUpdateUpdatedBy = MarketingUpdateUpdatedBy(firstName = "",id=0),
+        priority = 0,
+        shouldDisplayDate = false,
+        status = status,
+        subTitle = subTitle,
+        updateType = updateType,
+        updatedAt = updatedAt,
+        updatedBy = updatedBy
+    )
+
+
+    fun PageManagementOrInsight.toData() = com.emproto.networklayer.response.insights.Data(
+
+        createdAt= createdAt,
+        createdBy= createdBy,
+        displayTitle= displayTitle,
+        id= id,
+        insightsCreatedAdmin= InsightsCreatedAdmin("","", "",
+        "", 0, "", "", "", "", 0,
+        false, "", "", "", 0,
+            "", "", 0),
+        insightsMedia= insightsMedia,
+        insightsModifiedAdmin=  InsightsModifiedAdmin("","", "",
+            "", 0, "", "", "", "", 0,
+            false, "", "", "", 0,
+            "", "", 0),
+        modifiedBy= modifiedBy,
+        priority= priority,
+        status= status,
+        updatedAt= updatedAt
+
     )
 }

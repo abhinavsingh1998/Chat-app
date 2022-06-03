@@ -4,18 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.emproto.hoabl.databinding.ItemDocumentsBinding
-import com.emproto.hoabl.databinding.ItemLandSkusBinding
 import com.emproto.hoabl.databinding.ItemPortfolioDocumentsBinding
-import com.emproto.hoabl.feature.investment.adapters.SkusListAdapter
 import com.emproto.networklayer.response.documents.Data
 
 class DocumentsAdapter(
     private val list: List<Data>,
-    private val docImageVisibility: Boolean = false
+    private val docImageVisibility: Boolean,
+    val ivInterface: DocumentInterface
 ) : RecyclerView.Adapter<DocumentsAdapter.DocumentsViewHolder>() {
-
-    private lateinit var onItemClickListener: View.OnClickListener
 
     inner class DocumentsViewHolder(var binding: ItemPortfolioDocumentsBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -34,12 +30,16 @@ class DocumentsAdapter(
         when (docImageVisibility) {
             true -> holder.binding.ivDocsImage.visibility = View.VISIBLE
         }
+        holder.binding.tvView.setOnClickListener {
+            ivInterface.onclickDocument(position)
+        }
     }
 
     override fun getItemCount(): Int = list.size
 
-    fun setSkusListItemClickListener(clickListener: View.OnClickListener) {
-        onItemClickListener = clickListener
-    }
 
+}
+
+interface DocumentInterface {
+    fun onclickDocument(position: Int)
 }

@@ -33,6 +33,7 @@
                     android:id="@+id/iv_completed_investment_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:scaleType="fitXY"
                     android:src="@drawable/new_investment_page_image" />
 
             </com.google.android.material.card.MaterialCardView>
@@ -198,6 +199,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/jost_medium"
                 android:text="+5%"
+                android:textColor="@color/app_color"
                 app:layout_constraintEnd_toEndOf="@id/view_light_bg"
                 app:layout_constraintStart_toEndOf="@id/tv_completed_investment_area"
                 app:layout_constraintTop_toTopOf="@id/tv_completed_investment_area" />
@@ -210,7 +212,7 @@
                 android:layout_marginTop="@dimen/margin_size_2"
                 android:layout_marginBottom="@dimen/margin_size_10"
                 android:fontFamily="@font/jost_light"
-                android:text="EA"
+                android:text="IEA"
                 app:layout_constraintBottom_toBottomOf="@id/view_light_bg"
                 app:layout_constraintEnd_toEndOf="@id/tv_completed_investment_rating"
                 app:layout_constraintStart_toStartOf="@id/tv_completed_investment_rating"
@@ -349,7 +351,7 @@
                         android:layout_marginHorizontal="@dimen/margin_size_9"
                         android:layout_marginTop="@dimen/margin_size_10"
                         android:fontFamily="@font/jost_bold"
-                        android:text="Estimated Appreciation"
+                        android:text="Estimated Appreciation (EA)"
                         android:textAlignment="textStart"
                         app:layout_constraintBottom_toTopOf="@id/tv_project_estimated_appreciation_description"
                         app:layout_constraintEnd_toStartOf="@id/project_curved_view"

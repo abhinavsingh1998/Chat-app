@@ -189,6 +189,12 @@ class CompletedInvestmentAdapter(
             //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
             holder.binding.ivCompletedInvestmentGraph.data = data1
             holder.binding.ivCompletedInvestmentGraph.animateXY(2000, 2000)
+            if (type == ONGOING) {
+                holder.binding.tvCompletedInvestmentRatingUnit.text = "Actions"
+                holder.binding.tvCompletedInvestmentRating.text = "5"
+                holder.binding.tvCompletedInvestmentRating.setTextColor(context.getColor(R.color.text_red_color))
+                holder.binding.tvCompletedInvestmentRatingUnit.setTextColor(context.getColor(R.color.text_red_color))
+            }
 
         }
 

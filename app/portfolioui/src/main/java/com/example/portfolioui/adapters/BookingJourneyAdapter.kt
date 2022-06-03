@@ -6,8 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portfolioui.databinding.ItemBookingHeaderBinding
+import com.example.portfolioui.databinding.ItemBookingJourneyBinding
 import com.example.portfolioui.databinding.ItemTimelineDataBinding
 import com.example.portfolioui.models.BookingModel
+import com.example.portfolioui.models.BookingStepsModel
 import com.example.portfolioui.models.StepsModel
 
 class BookingJourneyAdapter(
@@ -40,7 +42,7 @@ class BookingJourneyAdapter(
 
             else -> {
                 val view =
-                    ItemTimelineDataBinding.inflate(
+                    ItemBookingJourneyBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
@@ -58,14 +60,13 @@ class BookingJourneyAdapter(
                 val header_holder = holder as HeaderHolder
             }
             TYPE_LIST -> {
-//                val stepsList = ArrayList<StepsModel>()
-//                stepsList.add(StepsModel(StepsAdapter.TYPE_1, ))
-//                stepsList.add(StepsModel(StepsAdapter.TYPE_1,"Amenities & Clubhouse"))
-//                stepsList.add(StepsModel(StepsAdapter.TYPE_1,"Other Infra Development"))
-//
-//                val listHolder = holder as StepsListHolder
-//                listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
-//                listHolder.binding.stepsList.adapter = StepsAdapter(context, stepsList, null)
+                val listHolder = holder as StepsListHolder
+                val list = dataList[listHolder.adapterPosition].data as List<BookingStepsModel>
+                listHolder.binding.textHeader.text = "TRANSACTION"
+                listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
+                listHolder.binding.stepsList.adapter =
+                    BookingStepsAdapter(context, list, itemInterface)
+
             }
 
         }
@@ -77,11 +78,13 @@ class BookingJourneyAdapter(
     inner class HeaderHolder(var binding: ItemBookingHeaderBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    inner class StepsListHolder(var binding: ItemTimelineDataBinding) :
+    inner class StepsListHolder(var binding: ItemBookingJourneyBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     interface TimelineInterface {
         fun onClickItem(position: Int)
+        fun viewDetails(position: Int, data: String)
+
     }
 
 }

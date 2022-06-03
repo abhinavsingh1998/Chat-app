@@ -19,6 +19,8 @@ import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
 import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.BalloonSizeSpec
 import com.skydoves.balloon.createBalloon
+import java.text.NumberFormat
+import java.util.*
 
 class ExistingUsersPortfolioAdapter(
     private val context: Context,
@@ -204,7 +206,8 @@ class ExistingUsersPortfolioAdapter(
                 val completed = list[position].data as Completed
                 binding.contentTxt1.text = "" + completed.count
                 binding.contentTxt2.text = "" + completed.areaSqFt
-                binding.contentTxt3.text = "₹ " + completed.amountInvested
+                binding.contentTxt3.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
+                    .format(completed.amountInvested)
                 binding.contentTxt4.text = "+4% IEA"
             }
 
@@ -241,8 +244,10 @@ class ExistingUsersPortfolioAdapter(
                 val ongoing = list[position].data as Ongoing
                 binding.contentTxt1.text = "" + ongoing.count
                 binding.contentTxt2.text = "" + ongoing.areaSqFt
-                binding.contentTxt3.text = "₹ " + ongoing.amountPaid
-                binding.contentTxt4.text = "₹ " + ongoing.amountPending
+                binding.contentTxt3.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
+                    .format(ongoing.amountPaid)
+                binding.contentTxt4.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
+                    .format(ongoing.amountPending)
             }
 
             val balloon = createBalloon(context) {
@@ -276,7 +281,7 @@ class ExistingUsersPortfolioAdapter(
                 binding.cvCompletedInvestment.visibility = View.VISIBLE
                 binding.rvCompletedInvestment.visibility = View.GONE
                 binding.cvCompletedInvestment.setOnClickListener {
-
+                    onItemClickListener.onGoingDetails()
                 }
             } else {
                 completedInvestmentAdapter =
@@ -307,6 +312,9 @@ class ExistingUsersPortfolioAdapter(
     private inner class BlockchainViewHolder(private val binding: BlockchainLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
+            binding.ivDontMissImage.setOnClickListener {
+                onItemClickListener.dontMissoutCard()
+            }
         }
     }
 
@@ -348,6 +356,7 @@ class ExistingUsersPortfolioAdapter(
         fun onClickofWatchlist(projectId: Int)
         fun onClickApplyNow(projectId: Int)
         fun onClickShare()
+        fun dontMissoutCard()
     }
 
 }

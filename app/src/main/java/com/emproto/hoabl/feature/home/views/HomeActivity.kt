@@ -34,6 +34,7 @@ import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.home.views.fragments.SearchResultFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
 import com.emproto.hoabl.feature.portfolio.views.*
+import com.emproto.hoabl.feature.profile.AboutUsFragment
 import com.emproto.hoabl.feature.promises.HoablPromises
 import com.emproto.hoabl.feature.profile.ProfileFragment
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
@@ -182,6 +183,11 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
             launch_bottom_sheet()
 
+        })
+
+        activityHomeActivity.searchLayout.layout.setOnClickListener(View.OnClickListener {
+            val fragment = AboutUsFragment()
+            addFragment(fragment,false)
         })
 
     }

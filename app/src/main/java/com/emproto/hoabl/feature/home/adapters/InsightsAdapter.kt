@@ -1,7 +1,11 @@
 package com.emproto.hoabl.feature.home.adapters
 
 import android.content.Context
+import android.os.Build
+import android.text.Html
+import android.text.Spanned
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -26,11 +30,11 @@ class InsightsAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = list.get(holder.adapterPosition)
-        holder.tvVideotitle.text= item.displayTitle
-        holder.shortDesc.text= item.insightsMedia[0].description
-//        Glide.with(context)
-//            .load(item.insightsMedia[0].media.value.url)
-//            .into(holder.image)
+        holder.binding.tvVideotitle.text= item.displayTitle
+        holder.binding.shortDesc.text= item.insightsMedia[0].description
+        Glide.with(context)
+            .load(item.insightsMedia[0].media.value.url)
+            .into(holder.binding.image)
 
         holder.binding.rootView.setOnClickListener {
             itemIntrface.onClickItem(holder.adapterPosition)
@@ -41,17 +45,18 @@ class InsightsAdapter(
         return list.size
     }
 
-    inner class MyViewHolder(val binding: ItemInsightsBinding) : RecyclerView.ViewHolder(binding.root){
-        var shortDesc = itemView.findViewById<CustomTextView>(R.id.short_desc)
-        var tvVideotitle = itemView.findViewById<CustomTextView>(R.id.tv_videotitle)
-        var image = itemView.findViewById<ImageView>(R.id.image)
-
-
-
-    }
+    inner class MyViewHolder(val binding: ItemInsightsBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     interface InsightsItemInterface{
         fun onClickItem(position: Int)
     }
 
+    public fun showHTMLText(message: String?): Spanned {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            Html.fromHtml(message)
+        }
+    }
 }

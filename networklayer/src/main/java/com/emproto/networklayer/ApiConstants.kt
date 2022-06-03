@@ -1,5 +1,6 @@
 package com.emproto.networklayer
 
+import com.emproto.networklayer.response.home.InsightsMedia
 import com.emproto.networklayer.response.home.LatestUpdates
 
 object ApiConstants {
@@ -10,10 +11,11 @@ object ApiConstants {
     const val GENERATE_OTP = "hoabl-customer/generate_otp"
     const val VALIDATE_OTP = "hoabl-customer/verify_otp"
     const val SET_NAME = "hoabl-customer/set_name"
-    const val TROUBLE_SIGNING = "hoabl-customer/case/sign-in"
+    const val TROUBLE_SIGNING = "hoabl-customer/case"
 
     const val HOME = "hoabl-admin/get-page"
     const val LatestUpdates="hoabl-admin/marketing-updates"
+    const val INSIGHTS="hoabl-admin/insights"
     const val TESTIMONIALS= "hoabl-admin/testimonials"
     const val PROMISES = "hoabl-admin/get-page"
     const val INVESTMENT = "hoabl-admin/get-page"
@@ -39,4 +41,5 @@ object ApiConstants {
     const val PROJECT_INVENTORIES = "hoabl-customer/inventories/{id}"
     const val ADD_INVENTORY = "hoabl-customer/inventories"
     const val VIDEO_CALL = "hoabl-customer/case"
+    const val DOCUMENT_DOWNLOAD = "hoabl-customer/doc-download"
 }

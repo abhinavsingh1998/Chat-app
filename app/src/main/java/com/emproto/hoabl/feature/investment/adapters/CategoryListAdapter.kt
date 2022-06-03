@@ -39,8 +39,11 @@ class CategoryListAdapter(
             when (type) {
                 TYPE_NEW_LAUNCH -> {
                     val element = list[position] as PageManagementsOrNewInvestment
-                    itemView.setOnClickListener {
-                        clickListener.onItemClicked(view, position, element.id.toString())
+                    binding.cvCategoryOuterCard.setOnClickListener {
+                        clickListener.onItemClicked(view, 0, element.id.toString())
+                    }
+                    binding.tvApplyNowCategory.setOnClickListener {
+                        clickListener.onItemClicked(view, 1, element.id.toString())
                     }
                     binding.apply {
                         tvProjectName.text = element.launchName
@@ -54,8 +57,11 @@ class CategoryListAdapter(
                 }
                 TYPE_FEW_PLOTS -> {
                     val element = list[position] as PageManagementsOrCollectionOneModel
-                    itemView.setOnClickListener {
-                        clickListener.onItemClicked(view, position, element.id.toString())
+                    binding.cvCategoryOuterCard.setOnClickListener {
+                        clickListener.onItemClicked(view, 0, element.id.toString())
+                    }
+                    binding.tvApplyNowCategory.setOnClickListener {
+                        clickListener.onItemClicked(view, 1, element.id.toString())
                     }
                     binding.apply {
                         tvProjectName.text = element.launchName
@@ -69,8 +75,11 @@ class CategoryListAdapter(
                 }
                 TYPE_TRENDING_PROJECTS -> {
                     val element = list[position] as PageManagementsOrCollectionTwoModel
-                    itemView.setOnClickListener {
-                        clickListener.onItemClicked(view, position, element.id.toString())
+                    binding.cvCategoryOuterCard.setOnClickListener {
+                        clickListener.onItemClicked(view, 0, element.id.toString())
+                    }
+                    binding.tvApplyNowCategory.setOnClickListener {
+                        clickListener.onItemClicked(view, 1, element.id.toString())
                     }
                     binding.apply {
                         tvProjectName.text = element.launchName
@@ -84,8 +93,11 @@ class CategoryListAdapter(
                 }
                 TYPE_ALL_INVESTMENTS -> {
                     val element = list[position] as ApData
-                    itemView.setOnClickListener {
-                        clickListener.onItemClicked(view, position, element.id.toString())
+                    binding.cvCategoryOuterCard.setOnClickListener {
+                        clickListener.onItemClicked(view, 0, element.id.toString())
+                    }
+                    binding.tvApplyNowCategory.setOnClickListener {
+                        clickListener.onItemClicked(view, 1, element.id.toString())
                     }
                     binding.apply {
                         tvProjectName.text = element.launchName
@@ -99,8 +111,11 @@ class CategoryListAdapter(
                 }
                 TYPE_ALL_INVESTMENTS -> {
                     val element = list[position] as ApData
-                    itemView.setOnClickListener {
-                        clickListener.onItemClicked(view, position, element.id.toString())
+                    binding.cvCategoryOuterCard.setOnClickListener {
+                        clickListener.onItemClicked(view, 0, element.id.toString())
+                    }
+                    binding.tvApplyNowCategory.setOnClickListener {
+                        clickListener.onItemClicked(view, 1, element.id.toString())
                     }
                     binding.apply {
                         tvProjectName.text = element.launchName
@@ -114,8 +129,11 @@ class CategoryListAdapter(
                 }
                 TYPE_WATCHLIST -> {
                     val element = list[position] as Data
-                    itemView.setOnClickListener {
-                        clickListener.onItemClicked(view, position, element.project.id.toString())
+                    binding.cvCategoryOuterCard.setOnClickListener {
+                        clickListener.onItemClicked(view, 0, element.project.id.toString())
+                    }
+                    binding.tvApplyNowCategory.setOnClickListener {
+                        clickListener.onItemClicked(view, 1, element.project.id.toString())
                     }
                     binding.apply {
                         tvProjectName.text = element.project.launchName
@@ -129,9 +147,12 @@ class CategoryListAdapter(
                 }
 
                 TYPE_DISCOVERALL -> {
-                    val element = list[position] as com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
-                    itemView.setOnClickListener {
-                        clickListener.onItemClicked(view, position, element.id.toString())
+                    val element = list[position] as ApData
+                    binding.cvCategoryOuterCard.setOnClickListener {
+                        clickListener.onItemClicked(view, 0, element.id.toString())
+                    }
+                    binding.tvApplyNowCategory.setOnClickListener {
+                        clickListener.onItemClicked(view, 1, element.id.toString())
                     }
                     binding.apply {
                         tvProjectName.text = element.launchName
@@ -146,8 +167,11 @@ class CategoryListAdapter(
 
                 else -> {
                     val element = list[position] as SimilarInvestment
-                    itemView.setOnClickListener {
-                        clickListener.onItemClicked(view, position, element.id.toString())
+                    binding.cvCategoryOuterCard.setOnClickListener {
+                        clickListener.onItemClicked(view, 0, element.id.toString())
+                    }
+                    binding.tvApplyNowCategory.setOnClickListener {
+                        clickListener.onItemClicked(view, 1, element.id.toString())
                     }
                     binding.apply {
                         tvProjectName.text = element.launchName

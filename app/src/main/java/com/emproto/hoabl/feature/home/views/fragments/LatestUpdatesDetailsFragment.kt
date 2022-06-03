@@ -76,7 +76,7 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
 
             mBinding.listInsights.layoutManager = LinearLayoutManager(requireContext())
             mBinding.listInsights.adapter = LatestUpdateListAdapter(requireContext(),
-                it.detailedInfo as ArrayList<DetailedInfo>)
+                it.detailedInfo)
         }
         )
 
@@ -91,7 +91,7 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
                 homeViewModel.getLatestUpdates().observe(viewLifecycleOwner, Observer {
 
                     it.let {
-                        homeViewModel.setSeLectedLatestUpdates(it.data[position])
+                        homeViewModel.setSeLectedLatestUpdates(it[position])
                     }
                 })
                 initObserver()
@@ -109,7 +109,7 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
                 homeViewModel.getLatestUpdates().observe(viewLifecycleOwner, Observer {
 
                     it.let {
-                        homeViewModel.setSeLectedLatestUpdates(it.data[position])
+                        homeViewModel.setSeLectedLatestUpdates(it[position])
                     }
                 })
                 initObserver()
@@ -130,7 +130,7 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
             dummyView.layoutParams = viewParams
             if (i <= filledPosition!!) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    dummyView.background = requireContext().getDrawable(R.drawable.card_bg)
+                    dummyView.background = requireContext().getDrawable(R.color.app_color)
                 }
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

@@ -7,10 +7,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
+import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
 import com.emproto.networklayer.response.investment.SimilarInvestment
 
-class InvestmentAdapter(val context: Context, val list: List<SimilarInvestment>) : RecyclerView.Adapter<InvestmentAdapter.MyViewHolder>() {
+class InvestmentAdapter(
+    val context: Context,
+    val list: List<SimilarInvestment>,
+    val itemClickListener: ItemClickListener
+) : RecyclerView.Adapter<InvestmentAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = ItemSmartDealsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -30,6 +35,22 @@ class InvestmentAdapter(val context: Context, val list: List<SimilarInvestment>)
                 .with(context)
                 .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
                 .into(ivItemImage)
+
+            cvTopView.setOnClickListener {
+                itemClickListener.onItemClicked(it, 0, element.id.toString())
+            }
+            tvItemLocationInfo.setOnClickListener {
+                itemClickListener.onItemClicked(it, 1, element.id.toString())
+            }
+            ivBottomArrow.setOnClickListener {
+                itemClickListener.onItemClicked(it, 2, element.id.toString())
+            }
+            tvApplyNow.setOnClickListener {
+                itemClickListener.onItemClicked(it, 3, element.id.toString())
+            }
+            clItemInfo.setOnClickListener {
+                itemClickListener.onItemClicked(it, 4, element.id.toString())
+            }
         }
     }
 

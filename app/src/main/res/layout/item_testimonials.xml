@@ -52,18 +52,17 @@
         android:id="@+id/details"
         style="@style/text_style_text_color_14"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="@dimen/margin_size_12"
         android:layout_marginLeft="@dimen/margin_size_25"
         android:layout_marginRight="@dimen/margin_size_25"
-        android:maxLines="2"
-        android:minLines="2"
+        android:maxLines="3"
+        android:minLines="3"
         android:text="Neque porro quisquam estp qui dolorem ipsu porro \nquisquam estp qui ipsu."
         app:fontName="@string/jost_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_layout" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

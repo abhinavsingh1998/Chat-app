@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentLatestUpdatesBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -57,7 +58,7 @@ class LatestUpdatesFragment : BaseFragment() {
     }
 
     private fun initObserver(refresh: Boolean) {
-        homeViewModel.getLatestUpdatesData(refresh).observe(viewLifecycleOwner, object:Observer<BaseResponse<LatestUpdatesResponse>> {
+        homeViewModel.getLatestUpdatesData(refresh, true).observe(viewLifecycleOwner, object:Observer<BaseResponse<LatestUpdatesResponse>> {
 
             override fun onChanged(it: BaseResponse<LatestUpdatesResponse>?) {
                 when(it?.status){
@@ -70,7 +71,7 @@ class LatestUpdatesFragment : BaseFragment() {
                          mBinding.loader.hide()
                          it.data.let {
                            if(it != null){
-                               homeViewModel.setLatestUpdatesData(it)
+                               homeViewModel.setLatestUpdatesData(it.data)
                            }
 
                              //loading List
@@ -114,6 +115,14 @@ class LatestUpdatesFragment : BaseFragment() {
 
         mBinding.appShareBtn.setOnClickListener(View.OnClickListener {
             share_app()
+        })
+
+        mBinding.refressLayout.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+            mBinding.loader.show()
+            initObserver(refresh = true)
+
+            mBinding.refressLayout.isRefreshing= false
+
         })
     }
 

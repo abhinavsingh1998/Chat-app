@@ -18,10 +18,10 @@ import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.response.enums.Status
 import com.example.portfolioui.adapters.TimelineAdapter
 import com.example.portfolioui.databinding.FragmentProjectTimelineBinding
+import com.example.portfolioui.models.TimelineHeaderData
 import com.example.portfolioui.models.TimelineModel
 import javax.inject.Inject
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -32,8 +32,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ProjectTimelineFragment : BaseFragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
+    private var param1: Int = 0
     private var param2: String? = null
     lateinit var mBinding: FragmentProjectTimelineBinding
 
@@ -44,7 +43,7 @@ class ProjectTimelineFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
+            param1 = it.getInt(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
     }
@@ -66,7 +65,7 @@ class ProjectTimelineFragment : BaseFragment() {
     }
 
     private fun initObserver() {
-        portfolioviewmodel.getProjectTimeline(3).observe(viewLifecycleOwner, Observer {
+        portfolioviewmodel.getProjectTimeline(param1).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     mBinding.loader.show()
@@ -77,7 +76,17 @@ class ProjectTimelineFragment : BaseFragment() {
                     mBinding.rootView.show()
                     it.data?.let {
                         val timelineList = ArrayList<TimelineModel>()
-                        timelineList.add(TimelineModel(TimelineAdapter.TYPE_HEADER))
+                        val timelineHeaderData = TimelineHeaderData(
+                            it.data.launchName,
+                            it.data.address.city + " " + it.data.address.state,
+                            ""
+                        )
+                        timelineList.add(
+                            TimelineModel(
+                                TimelineAdapter.TYPE_HEADER,
+                                timelineHeaderData
+                            )
+                        )
                         for (item in it.data.projectTimelines) {
                             timelineList.add(TimelineModel(TimelineAdapter.TYPE_LIST, item))
                         }
@@ -111,12 +120,11 @@ class ProjectTimelineFragment : BaseFragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment ProjectTimelineFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(param1: Int, param2: String) =
             ProjectTimelineFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
+                    putInt(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
             }

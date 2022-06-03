@@ -35,7 +35,6 @@ class InvestMentFragment : BaseFragment() {
         return binding.root
     }
 
-
     private fun initUI() {
         listViews = ArrayList()
         listViews.add(ViewItem(1, R.drawable.ic_arrow_down))
@@ -67,7 +66,7 @@ class InvestMentFragment : BaseFragment() {
 
         val list: ArrayList<SimilarInvestment> = ArrayList()
 
-        investmentAdapter = InvestmentAdapter(requireActivity(), list)
+//        investmentAdapter = InvestmentAdapter(requireActivity(), list, itemClickListener)
         linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
 //        binding.smartdealsRecyclerview.layoutManager = linearLayoutManager
 //        binding.smartdealsRecyclerview.adapter = investmentAdapter

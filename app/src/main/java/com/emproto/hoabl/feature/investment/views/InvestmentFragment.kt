@@ -36,7 +36,6 @@ class InvestmentFragment : BaseFragment() {
         View.OnClickListener { view ->
             when (view.id) {
                 R.id.tv_smart_deals_see_all -> {
-//                    val smartDealsData = SmartDealsModel(smartDealsList,true)
                     investmentViewModel.setSd(true)
                     investmentViewModel.setSmartDealsList(smartDealsList)
                     (requireActivity() as HomeActivity).addFragment(CategoryListFragment(), true)
@@ -47,95 +46,25 @@ class InvestmentFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
                 }
                 R.id.tv_new_launch_see_all -> {
-//                    val newLaunchData = NewLaunchModel(newInvestmentsList,true)
                     investmentViewModel.setNl(true)
                     investmentViewModel.setNewInvestments(newInvestmentsList)
                     (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
                 }
                 R.id.cl_place_info -> {
-                    //investmentViewModel.setProjectId(newInvestmentsList[0].id)
-                    //(requireActivity() as HomeActivity).addFragment(ProjectDetailFragment(),false)
-                    val bundle = Bundle()
-                    bundle.putInt("ProjectId", newInvestmentsList[0].id)
-                    val fragment = ProjectDetailFragment()
-                    fragment.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(
-                        fragment, false
-                    )
+                    navigateToDetailScreen(newInvestmentsList[0].id)
                 }
                 R.id.tv_apply_now -> {
                     investmentViewModel.setProjectId(newInvestmentsList[0].id)
-                    val fragment = LandSkusFragment()
-                    val bundle = Bundle()
-                    bundle.putInt("ProjectId", newInvestmentsList[0].id)
-                    fragment.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(fragment,false)
-//                    callProjectDataApi()
+                    navigateToSkuScreen(newInvestmentsList[0].id)
                 }
                 R.id.btn_discover -> {
                     callProjectContentAPi()
                 }
                 R.id.iv_dont_miss_image -> {
-                    val bundle = Bundle()
-                    bundle.putInt("ProjectId", projectId)
-                    val fragment = ProjectDetailFragment()
-                    fragment.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(
-                        fragment, false
-                    )
+                    navigateToDetailScreen(projectId)
                 }
             }
         }
-
-    private fun callProjectDataApi() {
-        investmentViewModel.getProjectId().observe(viewLifecycleOwner, Observer {
-            investmentViewModel.getInvestmentsDetail(it).observe(viewLifecycleOwner, Observer {
-                when(it.status){
-                    Status.LOADING -> {
-                        (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
-                    }
-                    Status.SUCCESS -> {
-                        (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
-                        it.data?.data?.let {  data ->
-                            investmentViewModel.setSkus(data.inventoryBucketContents)
-                            (requireActivity() as HomeActivity).addFragment(LandSkusFragment(),false)
-                        }
-                    }
-                    Status.ERROR -> {
-                        (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            it.message!!
-                        )
-                    }
-                }
-            })
-        })
-    }
-
-    private fun callProjectContentAPi() {
-        investmentViewModel.getAllInvestmentsProjects().observe(viewLifecycleOwner, Observer {
-            when(it.status){
-                Status.LOADING -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
-                }
-                Status.SUCCESS -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
-                    it.data?.data?.let {  data ->
-//                        val allProjectsData = AllProjectsModel(data,true)
-                        investmentViewModel.setAp(true)
-                        investmentViewModel.setAllInvestments(data)
-                        (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
-                    }
-                }
-                Status.ERROR -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
-                    (requireActivity() as HomeActivity).showErrorToast(
-                        it.message!!
-                    )
-                }
-            }
-        })
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -216,35 +145,60 @@ class InvestmentFragment : BaseFragment() {
         newInvestmentAdapter.setItemClickListener(onInvestmentItemClickListener)
     }
 
+
+    private fun callProjectContentAPi() {
+        investmentViewModel.getAllInvestmentsProjects().observe(viewLifecycleOwner, Observer {
+            when(it.status){
+                Status.LOADING -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                }
+                Status.SUCCESS -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    it.data?.data?.let {  data ->
+                        investmentViewModel.setAp(true)
+                        investmentViewModel.setAllInvestments(data)
+                        (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
+                    }
+                }
+                Status.ERROR -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(
+                        it.message!!
+                    )
+                }
+            }
+        })
+    }
+
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
-            when(view.id){
-                R.id.tv_item_location_info-> {
-                    navigateToDetailScreen(item)
-                }
-                R.id.iv_bottom_arrow -> {
-                    navigateToDetailScreen(item)
-                }
-                R.id.tv_apply_now -> {
-                    val fragment = LandSkusFragment()
-                    val bundle = Bundle()
-                    bundle.putInt("ProjectId", item.toInt())
-                    fragment.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(fragment,false)
-                }
+            when(position){
+                0-> navigateToDetailScreen(item.toInt())
+                1 -> navigateToDetailScreen(item.toInt())
+                2 -> navigateToDetailScreen(item.toInt())
+                3 -> navigateToSkuScreen(item.toInt())
+                4 -> navigateToDetailScreen(item.toInt())
             }
 
         }
     }
 
-    private fun navigateToDetailScreen(item: String) {
+    private fun navigateToDetailScreen(id: Int) {
         val bundle = Bundle()
-        bundle.putInt("ProjectId", item.toInt())
+        bundle.putInt("ProjectId", id)
         val fragment = ProjectDetailFragment()
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(
             fragment, false
         )
+    }
+
+    private fun navigateToSkuScreen(id:Int){
+        val fragment = LandSkusFragment()
+        val bundle = Bundle()
+        bundle.putInt("ProjectId", id)
+        fragment.arguments = bundle
+        (requireActivity() as HomeActivity).addFragment(fragment,false)
     }
 
 }

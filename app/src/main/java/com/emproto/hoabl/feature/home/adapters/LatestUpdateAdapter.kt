@@ -32,7 +32,7 @@ class LatestUpdateAdapter(
             Glide.with(context).load(item.detailedInfo[0]?.media?.value.url)
                 .into(holder.binding.image)
 
-            holder.binding.description.text=showHTMLText( item.detailedInfo[0].description)
+            holder.binding.description.text=showHTMLText(item.detailedInfo[0].description)
         }
 
         holder.binding.rootView.setOnClickListener {

@@ -7,5 +7,8 @@ data class Data(
     val page: Page,
     val pageManagementOrInsights: List<PageManagementOrInsight>,
     val pageManagementOrLatestUpdates: List<PageManagementOrLatestUpdate>,
-    val pageManagementsOrTestimonials: List<PageManagementsOrTestimonial>
+    val pageManagementsOrTestimonials: List<PageManagementsOrTestimonial>,
+    val isKycComplete : Boolean,
+    val isProfileComplete : Boolean,
+    val isFacilityVisible : Boolean
 ):Serializable

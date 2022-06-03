@@ -15,8 +15,11 @@ import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.home.PageManagementOrInsight
+import com.emproto.networklayer.response.insights.InsightsResponse
+import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.Data
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
+import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.home.PageManagementOrLatestUpdate
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
 import com.emproto.networklayer.response.promises.PromisesResponse
@@ -37,10 +40,13 @@ class HomeViewModel(
     private var homeRepository: HomeRepository = mhomeRepository
     private var promise = MutableLiveData<HomePagesOrPromise>()
 
+
     private var testimonial = MutableLiveData<TestimonialsResponse>()
     private var selectedlatestUpdates = MutableLiveData<Data>()
-    private var latestUpdates = MutableLiveData<LatestUpdatesResponse>()
-    private var insights = MutableLiveData<PageManagementOrInsight>()
+    private var selectedInsights =
+        MutableLiveData<com.emproto.networklayer.response.insights.Data>()
+    private var latestUpdates = MutableLiveData<List<Data>>()
+    private var insights = MutableLiveData<List<com.emproto.networklayer.response.insights.Data>>()
 
     private var position = MutableLiveData<LatesUpdatesPosition>()
 
@@ -63,8 +69,8 @@ class HomeViewModel(
         getAllRecords()
     }
 
-    fun getPromises(pageType: Int): LiveData<BaseResponse<PromisesResponse>> {
-        return homeRepository.getPromises(pageType)
+    fun getPromises(pageType: Int, refresh: Boolean): LiveData<BaseResponse<PromisesResponse>> {
+        return homeRepository.getPromises(pageType, refresh)
     }
 
     fun setSelectedPromise(promise: HomePagesOrPromise) {
@@ -75,8 +81,8 @@ class HomeViewModel(
         return promise
     }
 
-    fun getDashBoardData(pageType: Int, refresh:Boolean): LiveData<BaseResponse<HomeResponse>> {
-        return homeRepository.getDashboardData(pageType,refresh)
+    fun getDashBoardData(pageType: Int, refresh: Boolean): LiveData<BaseResponse<HomeResponse>> {
+        return homeRepository.getDashboardData(pageType, refresh)
     }
 
     fun setDashBoardData(data: HomeResponse) {
@@ -91,15 +97,18 @@ class HomeViewModel(
         return mhomeRepository.getTermsCondition(pageType)
     }
 
-    fun getLatestUpdatesData(refresh: Boolean): LiveData<BaseResponse<LatestUpdatesResponse>>{
-        return homeRepository.getlatestUpdatesData(refresh)
+    fun getLatestUpdatesData(
+        refresh: Boolean,
+        byPrority: Boolean
+    ): LiveData<BaseResponse<LatestUpdatesResponse>> {
+        return homeRepository.getlatestUpdatesData(refresh, byPrority)
     }
 
-    fun setLatestUpdatesData(data: LatestUpdatesResponse) {
+    fun setLatestUpdatesData(data: List<Data>) {
         latestUpdates.postValue(data)
     }
 
-    fun getLatestUpdates(): LiveData<LatestUpdatesResponse>{
+    fun getLatestUpdates(): LiveData<List<Data>> {
         return latestUpdates
     }
 
@@ -119,29 +128,51 @@ class HomeViewModel(
         return position
     }
 
-    fun getTestimonialsData(refresh: Boolean): LiveData<BaseResponse<TestimonialsResponse>>{
+    fun getInsightsData(
+        refresh: Boolean,
+        byPrority: Boolean
+    ): LiveData<BaseResponse<InsightsResponse>> {
+        return homeRepository.getInsightsData(refresh, byPrority)
+    }
+
+    fun setInsightsData(data: List<com.emproto.networklayer.response.insights.Data>) {
+        insights.postValue(data)
+    }
+
+    fun setSeLectedInsights(insights: com.emproto.networklayer.response.insights.Data) {
+        this.selectedInsights.postValue(insights)
+    }
+
+    fun getSelectedInsights(): LiveData<com.emproto.networklayer.response.insights.Data> {
+        return selectedInsights
+    }
+
+    fun getTestimonialsData(refresh: Boolean): LiveData<BaseResponse<TestimonialsResponse>> {
         return homeRepository.getTestimonialsData(refresh)
     }
 
-    fun setTestimonials(data: TestimonialsResponse){
+    fun setTestimonials(data: TestimonialsResponse) {
         testimonial.postValue(data)
     }
 
-    fun setSeLectedInsights(insights: PageManagementOrInsight) {
-        this.insights.postValue(insights)
+    fun getAllInvestmentsProjects(): LiveData<BaseResponse<AllProjectsResponse>> {
+        return homeRepository.getAllInvestmentsProjects()
     }
 
-    fun getSelectedInsights(): LiveData<PageManagementOrInsight> {
-        return insights
-    }
     fun getChatsList(): LiveData<BaseResponse<ChatResponse>> {
         return homeRepository.getChatsList()
     }
+
     fun chatInitiate(chatInitiateRequest: ChatInitiateRequest): LiveData<BaseResponse<ChatDetailResponse>> {
         return homeRepository.chatInitiate(chatInitiateRequest)
     }
+
     fun getReferNow(referalRequest: ReferalRequest): LiveData<BaseResponse<ReferalResponse>> {
         return homeRepository.addReferral(referalRequest)
+    }
+
+    fun getFacilityManagment(): LiveData<BaseResponse<FMResponse>> {
+        return homeRepository.getFacilitymanagment()
     }
 
 }
