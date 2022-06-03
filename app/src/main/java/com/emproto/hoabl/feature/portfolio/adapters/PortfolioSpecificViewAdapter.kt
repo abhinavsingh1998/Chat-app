@@ -25,6 +25,9 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.google.android.material.tabs.TabLayoutMediator
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class PortfolioSpecificViewAdapter(
@@ -216,12 +219,12 @@ class PortfolioSpecificViewAdapter(
             if (data != null) {
                 binding.tvProjectName.text = data.projectInformation.launchName
                 binding.tvProjectLocation.text =
-                    data.projectExtraDetails.address.city + " " + data.projectExtraDetails.address.state
+                    data.projectExtraDetails.address.city + "," + data.projectExtraDetails.address.state
                 if (data.investmentInformation != null) {
-                    binding.tvPaidAmount.text =
-                        "₹" + data.investmentInformation.bookingJourney.paidAmount
-                    binding.tvPendingAmount.text =
-                        "₹" + data.investmentInformation.bookingJourney.amountPending
+                    binding.tvPaidAmount.text = //NumberFormat.getCurrencyInstance(Locale("en", "in")).format(data.investmentInformation.bookingJourney.paidAmount)
+                    "₹" + data.investmentInformation.bookingJourney.paidAmount
+                    binding.tvPendingAmount.text = //NumberFormat.getCurrencyInstance(Locale("en", "in")).format(data.investmentInformation.bookingJourney.amountPending)
+                    "₹" + data.investmentInformation.bookingJourney.amountPending
                     binding.tvAreaUnit.text = "" + data.investmentInformation.areaSqFt + " sqft"
                     binding.tvProjectInfo.text = data.projectInformation.shortDescription
                     var reraNumber = ""
@@ -244,12 +247,25 @@ class PortfolioSpecificViewAdapter(
                     binding.tvLandId.text = data.investmentInformation.inventoryId
                     binding.tvSkuType.text = data.investmentInformation.inventoryBucket
                     binding.tvInvestmentAmount.text =
-                        "₹" + data.investmentInformation.amountInvested
-                    binding.tvAmountPaid.text = "₹" + data.investmentInformation.amountInvested
+//                        NumberFormat.getCurrencyInstance(Locale("en", "in"))
+//                            .format(data.investmentInformation.amountInvested)
+                     "₹" + data.investmentInformation.amountInvested
+                    binding.tvAmountPaid.text =
+//                        NumberFormat.getCurrencyInstance(Locale("en", "in"))
+//                        .format(data.investmentInformation.amountInvested)
+                    "₹" + data.investmentInformation.amountInvested
                     binding.tvAmountPending.text =
-                        "₹" + data.investmentInformation.bookingJourney.amountPending
-                    binding.tvRegistryAmount.text = "₹" + data.investmentInformation.registryAmount
-                    binding.tvOtherExpenses.text = "₹" + data.investmentInformation.otherExpenses
+//                        NumberFormat.getCurrencyInstance(Locale("en", "in"))
+//                            .format(data.investmentInformation.bookingJourney.amountPending)
+                    "₹" + data.investmentInformation.bookingJourney.amountPending
+                    binding.tvRegistryAmount.text =
+//                        NumberFormat.getCurrencyInstance(Locale("en", "in"))
+//                            .format(data.investmentInformation.registryAmount)
+                    "₹" + data.investmentInformation.registryAmount
+                    binding.tvOtherExpenses.text =
+//                        NumberFormat.getCurrencyInstance(Locale("en", "in"))
+//                            .format(data.investmentInformation.otherExpenses)
+                    "₹" + data.investmentInformation.otherExpenses
                     binding.tvLatitude.text = data.projectInformation.crmProject.lattitude
                     binding.tvLongitude.text = data.projectInformation.crmProject.longitude
                     binding.tvAltitude.text = data.projectInformation.crmProject.altitude
@@ -345,8 +361,6 @@ class PortfolioSpecificViewAdapter(
             }
             for (item in imagesData.images) {
                 imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
-                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
-
             }
             for (item in imagesData.videos) {
                 imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
