@@ -369,4 +369,6 @@
     <string name="all_investments">All investments</string>
     <string name="youtube_api_key">AIzaSyCdq-SBpqNl8q1w98hmfBYT-xUZQZ5KyuM</string>
     <string name="header"><![CDATA[%1$s <font size="16"><b>%2$s</b></font> ]]></string>
+    <string name="welcome_to_hoabl">Welcome to HoABL App. We are happy to have you.</string>
+    <string name="last_updated_on">Last Updated on:</string>
 </resources>

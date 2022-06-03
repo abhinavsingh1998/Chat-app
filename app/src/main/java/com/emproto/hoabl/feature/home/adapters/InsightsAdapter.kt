@@ -3,8 +3,12 @@ package com.emproto.hoabl.feature.home.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.textviews.CustomTextView
+import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemInsightsBinding
 import com.emproto.networklayer.response.home.PageManagementOrInsight
 
@@ -22,11 +26,11 @@ class InsightsAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = list.get(holder.adapterPosition)
-        holder.binding.tvVideotitle.text= item.displayTitle
-        holder.binding.shortDesc.text= item.insightsMedia[0].description
-        Glide.with(context)
-            .load(item.insightsMedia[0].media.value.url)
-            .into(holder.binding.image)
+        holder.tvVideotitle.text= item.displayTitle
+        holder.shortDesc.text= item.insightsMedia[0].description
+//        Glide.with(context)
+//            .load(item.insightsMedia[0].media.value.url)
+//            .into(holder.image)
 
         holder.binding.rootView.setOnClickListener {
             itemIntrface.onClickItem(holder.adapterPosition)
@@ -37,8 +41,14 @@ class InsightsAdapter(
         return list.size
     }
 
-    inner class MyViewHolder(val binding: ItemInsightsBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    inner class MyViewHolder(val binding: ItemInsightsBinding) : RecyclerView.ViewHolder(binding.root){
+        var shortDesc = itemView.findViewById<CustomTextView>(R.id.short_desc)
+        var tvVideotitle = itemView.findViewById<CustomTextView>(R.id.tv_videotitle)
+        var image = itemView.findViewById<ImageView>(R.id.image)
+
+
+
+    }
 
     interface InsightsItemInterface{
         fun onClickItem(position: Int)

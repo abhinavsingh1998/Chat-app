@@ -100,4 +100,5 @@
     <color name="dark_blur_bg_color">#5a000000</color>
     <color name="light_blur_bg_color">#5b000000</color>
     <color name="why_invest_light_blue_color">#9d9eb1</color>
+    <color name="dark_blue">#17171c</color>
 </resources>
