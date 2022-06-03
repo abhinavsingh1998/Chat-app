@@ -61,7 +61,13 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         binding = FragmentChatsDetailBinding.inflate(layoutInflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel =
-            ViewModelProvider(requireActivity(), homeFactory).get(HomeViewModel::class.java)
+            ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
+            View.GONE
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
+            View.GONE
+
+
         return binding.root
     }
 
@@ -158,7 +164,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     override fun onOptionClick(option: Option, view: View, position: Int) {
 //        Toast.makeText(context, "$option isClicked", Toast.LENGTH_SHORT).show()
         newChatMessageList.add(
-            ChatDetailModel(option.text,
+            ChatDetailModel(
+                option.text,
                 null,
                 MessageType.SENDER, time
             )
