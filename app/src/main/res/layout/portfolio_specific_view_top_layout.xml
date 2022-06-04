@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/all_corner_radius_white_bg"
-        android:paddingBottom="@dimen/margin_size_30"
+        android:paddingBottom="@dimen/margin_size_20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -339,7 +339,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingBottom="@dimen/margin_size_40">
+                    android:paddingBottom="@dimen/margin_size_20">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_land_id"
@@ -704,7 +704,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_size_6"
                         android:fontFamily="@font/jost_regular"
-                        android:text="MAHARERA Registration No. Phase I - P52800031035"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@id/tv_current_owners"
                         app:layout_constraintTop_toBottomOf="@id/bottom_dashed_line1" />

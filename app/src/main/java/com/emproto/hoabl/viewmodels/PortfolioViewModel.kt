@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.emproto.hoabl.repository.PortfolioRepository
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.portfolio.dashboard.Address
@@ -74,5 +75,9 @@ class PortfolioViewModel(
 
     fun downloadDocument(): LiveData<BaseResponse<DDocumentResponse>> {
         return portfolioRepository.downloadDocument()
+    }
+
+    fun getBookingJourney(id: Int): LiveData<BaseResponse<BookingJourneyResponse>> {
+        return portfolioRepository.getBookingJourney(id)
     }
 }

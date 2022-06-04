@@ -10,7 +10,7 @@ data class InvestmentInformation(
     val id: Int,
     val inventoryBucket: String,
     val inventoryId: String,
-    val isCompleted: Boolean,
+    val isBookingComplete: Boolean,
     val otherExpenses: Double,
     val ownedSince: String,
     val owners: String,

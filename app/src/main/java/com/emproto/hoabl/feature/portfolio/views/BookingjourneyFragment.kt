@@ -10,14 +10,20 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
+import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.viewmodels.PortfolioViewModel
+import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
+import com.emproto.networklayer.response.enums.Status
 import com.example.portfolioui.adapters.BookingJourneyAdapter
 import com.example.portfolioui.databinding.FragmentBookingjourneyBinding
 import com.example.portfolioui.models.BookingModel
 import com.example.portfolioui.models.BookingStepsModel
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 
@@ -39,6 +45,10 @@ class BookingjourneyFragment : BaseFragment() {
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     var isReadPermissonGranted: Boolean = false
 
+    @Inject
+    lateinit var portfolioFactory: PortfolioFactory
+    lateinit var portfolioviewmodel: PortfolioViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -52,13 +62,46 @@ class BookingjourneyFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         mBinding = FragmentBookingjourneyBinding.inflate(inflater, container, false)
+        (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
+        portfolioviewmodel = ViewModelProvider(
+            requireActivity(),
+            portfolioFactory
+        )[PortfolioViewModel::class.java]
         (requireActivity() as HomeActivity).showBackArrow()
         (requireActivity() as HomeActivity).hideBottomNavigation()
         initView()
+        getBookingJourneyData()
         return mBinding.root
     }
 
     private fun initView() {
+
+        permissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+                isReadPermissonGranted =
+                    permissions[Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissonGranted
+            }
+    }
+
+    private fun getBookingJourneyData() {
+        portfolioviewmodel.getBookingJourney(23)
+            .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                when (it.status) {
+                    Status.LOADING -> {
+                        mBinding.loader.show()
+                    }
+                    Status.SUCCESS -> {
+                        mBinding.loader.hide()
+                        loadBookingJourneyData()
+                    }
+                    Status.ERROR -> {
+
+                    }
+                }
+            })
+    }
+
+    fun loadBookingJourneyData(){
         val bookingList = ArrayList<BookingModel>()
         val list = ArrayList<BookingStepsModel>()
         list.add(BookingStepsModel(0, "Application", "Payment 1"))
@@ -87,12 +130,6 @@ class BookingjourneyFragment : BaseFragment() {
                     }
 
                 })
-
-        permissionLauncher =
-            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-                isReadPermissonGranted =
-                    permissions[Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissonGranted
-            }
     }
 
     companion object {
