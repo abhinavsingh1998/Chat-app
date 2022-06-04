@@ -10,6 +10,8 @@ import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.request.refernow.ReferalRequest
+import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
+import com.emproto.networklayer.response.bookingjourney.BookingJourneyX
 import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
@@ -70,10 +72,10 @@ public interface ApiService {
     suspend fun getDashboardData(@Query("pageType") pageType: Int): Response<HomeResponse>
 
     @GET(ApiConstants.LatestUpdates)
-    suspend fun getLatestUpdates(@Query ("byPrority") byPrority: Boolean):Response<LatestUpdatesResponse>
+    suspend fun getLatestUpdates(@Query("byPrority") byPrority: Boolean): Response<LatestUpdatesResponse>
 
     @GET(ApiConstants.INSIGHTS)
-    suspend fun getInsightsData(@Query ("byPrority") byPrority: Boolean):Response<InsightsResponse>
+    suspend fun getInsightsData(@Query("byPrority") byPrority: Boolean): Response<InsightsResponse>
 
     @GET(ApiConstants.TESTIMONIALS)
     suspend fun getTestimonials(): Response<TestimonialsResponse>
@@ -155,4 +157,7 @@ public interface ApiService {
 
     @PUT(ApiConstants.CHATS_INITIATE)
     suspend fun chatInitiate(@Body chatInitiateRequest: ChatInitiateRequest): Response<ChatDetailResponse>
+
+    @GET(ApiConstants.BOOKING_JOURNEY)
+    suspend fun getBookingJourney(@Query("investmentId") investmentId: Int): Response<BookingJourneyResponse>
 }

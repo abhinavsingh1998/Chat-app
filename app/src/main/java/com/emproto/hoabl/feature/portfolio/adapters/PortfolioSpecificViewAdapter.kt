@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.BounceInterpolator
 import android.view.animation.TranslateAnimation
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -194,6 +195,7 @@ class PortfolioSpecificViewAdapter(
 
     private inner class ProjectSpecificTopViewHolder(private val binding: PortfolioSpecificViewTopLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @RequiresApi(Build.VERSION_CODES.M)
         fun bind(position: Int) {
             //binding.btnApplyNow.setOnClickListener(onItemClickListener)
             binding.tvViewMore.setOnClickListener {
@@ -221,15 +223,19 @@ class PortfolioSpecificViewAdapter(
                 binding.tvProjectLocation.text =
                     data.projectExtraDetails.address.city + "," + data.projectExtraDetails.address.state
                 if (data.investmentInformation != null) {
-                    binding.tvPaidAmount.text = //NumberFormat.getCurrencyInstance(Locale("en", "in")).format(data.investmentInformation.bookingJourney.paidAmount)
-                    "₹" + data.investmentInformation.bookingJourney.paidAmount
-                    binding.tvPendingAmount.text = //NumberFormat.getCurrencyInstance(Locale("en", "in")).format(data.investmentInformation.bookingJourney.amountPending)
-                    "₹" + data.investmentInformation.bookingJourney.amountPending
+                    binding.tvPaidAmount.text =
+                            //NumberFormat.getCurrencyInstance(Locale("en", "in")).format(data.investmentInformation.bookingJourney.paidAmount)
+                        "₹" + data.investmentInformation.bookingJourney.paidAmount
+
                     binding.tvAreaUnit.text = "" + data.investmentInformation.areaSqFt + " sqft"
                     binding.tvProjectInfo.text = data.projectInformation.shortDescription
                     var reraNumber = ""
-                    for (item in data.projectInformation.reraDetails.reraNumbers) {
-                        reraNumber = reraNumber + item + "\n"
+                    val mSize = data.projectInformation.reraDetails.reraNumbers.size
+                    for ((index, item) in data.projectInformation.reraDetails.reraNumbers.withIndex()) {
+                        reraNumber += item
+                        if (index + 1 != mSize) {
+                            reraNumber += "\n"
+                        }
                     }
                     if (data.investmentInformation.allocationDate != null)
                         binding.tvAllocationDate.text =
@@ -244,36 +250,52 @@ class PortfolioSpecificViewAdapter(
                                 null
                             )
                     //view more
-                    binding.tvLandId.text = data.investmentInformation.inventoryId
+                    binding.tvLandId.text = "Hoabl/" + data.investmentInformation.inventoryId
                     binding.tvSkuType.text = data.investmentInformation.inventoryBucket
                     binding.tvInvestmentAmount.text =
 //                        NumberFormat.getCurrencyInstance(Locale("en", "in"))
 //                            .format(data.investmentInformation.amountInvested)
-                     "₹" + data.investmentInformation.amountInvested
-                    binding.tvAmountPaid.text =
-//                        NumberFormat.getCurrencyInstance(Locale("en", "in"))
-//                        .format(data.investmentInformation.amountInvested)
-                    "₹" + data.investmentInformation.amountInvested
+                        "₹" + data.investmentInformation.amountInvested
+
                     binding.tvAmountPending.text =
 //                        NumberFormat.getCurrencyInstance(Locale("en", "in"))
 //                            .format(data.investmentInformation.bookingJourney.amountPending)
-                    "₹" + data.investmentInformation.bookingJourney.amountPending
+                        "₹" + data.investmentInformation.bookingJourney.amountPending
                     binding.tvRegistryAmount.text =
 //                        NumberFormat.getCurrencyInstance(Locale("en", "in"))
 //                            .format(data.investmentInformation.registryAmount)
-                    "₹" + data.investmentInformation.registryAmount
+                        "₹" + data.investmentInformation.registryAmount
                     binding.tvOtherExpenses.text =
 //                        NumberFormat.getCurrencyInstance(Locale("en", "in"))
 //                            .format(data.investmentInformation.otherExpenses)
-                    "₹" + data.investmentInformation.otherExpenses
+                        "₹" + data.investmentInformation.otherExpenses
+                    binding.registrationNo.text = reraNumber
+
                     binding.tvLatitude.text = data.projectInformation.crmProject.lattitude
                     binding.tvLongitude.text = data.projectInformation.crmProject.longitude
                     binding.tvAltitude.text = data.projectInformation.crmProject.altitude
                     binding.ownersName.text = data.investmentInformation.owners
                     Glide.with(context).load(data.projectExtraDetails.projectIco.value.url)
                         .into(binding.ivProjectImage)
+                    if (data.investmentInformation.isBookingComplete) {
+                        binding.tvPending.text = "IEA"
+                        binding.tvPendingAmount.text = "%5"
+                        binding.tvPendingAmount.setTextColor(context.getColor(R.color.app_color))
+                        binding.tvPaid.text = "Invested"
+                        binding.tvPaidAmount.text =
+                                //NumberFormat.getCurrencyInstance(Locale("en", "in")).format(data.investmentInformation.bookingJourney.paidAmount)
+                            "₹" + data.investmentInformation.amountInvested
+                    } else {
+                        binding.tvPendingAmount.text =
+                                //NumberFormat.getCurrencyInstance(Locale("en", "in")).format(data.investmentInformation.bookingJourney.amountPending)
+                            "₹" + data.investmentInformation.bookingJourney.amountPending
 
-                    //binding.tvRegistrationNumber.text = reraNumber
+                        binding.tvAmountPaid.text =
+//                        NumberFormat.getCurrencyInstance(Locale("en", "in"))
+//                        .format(data.investmentInformation.amountInvested)
+                            "₹" + data.investmentInformation.bookingJourney.paidAmount
+
+                    }
                 }
 
 
@@ -434,6 +456,8 @@ class PortfolioSpecificViewAdapter(
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
             binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false);
+            binding.ivPriceTrendsGraph.xAxis.typeface
+            binding.ivPriceTrendsGraph.xAxis.granularity = 1f
             binding.ivPriceTrendsGraph.getXAxis().position = XAxis.XAxisPosition.BOTTOM;
             //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
             binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false);

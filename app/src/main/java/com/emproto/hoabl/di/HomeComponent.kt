@@ -60,6 +60,7 @@ interface HomeComponent {
     fun inject(fragment: DocViewerFragment)
     fun inject(fragment: ChatsFragment)
     fun inject(fragment: ChatsDetailFragment)
+    fun inject(fragment: BookingjourneyFragment)
 
 
 }

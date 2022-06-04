@@ -71,19 +71,18 @@
                 android:fontFamily="@font/jost_medium"
                 android:text="Marina"
                 android:textAlignment="textStart"
-                app:layout_constraintBottom_toTopOf="@id/tv_completed_investment_project_code"
+                app:layout_constraintBottom_toTopOf="@id/tv_inventory_id"
                 app:layout_constraintStart_toStartOf="@id/cv_completed_investment_image"
                 app:layout_constraintTop_toBottomOf="@id/cv_completed_investment_image" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_completed_investment_project_code"
+                android:id="@+id/tv_inventory_id"
                 style="@style/text_style_blue_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_size_2"
                 android:layout_marginBottom="@dimen/margin_size_10"
                 android:fontFamily="@font/jost_medium"
-                android:text="Hoabl/Dap/A404"
                 android:textAlignment="textStart"
                 app:layout_constraintStart_toStartOf="@id/cv_completed_investment_image"
                 app:layout_constraintTop_toBottomOf="@id/tv_completed_investment_project_text" />
