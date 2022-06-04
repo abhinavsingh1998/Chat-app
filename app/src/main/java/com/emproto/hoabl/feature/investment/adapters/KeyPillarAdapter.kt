@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ItemKeyPillarBinding
 import com.emproto.networklayer.response.investment.ProjectValue
 import com.emproto.networklayer.response.investment.ValueX
@@ -23,6 +24,10 @@ class KeyPillarAdapter(val context: Context, private val list: List<ValueX>):
         holder.binding.tvPremiumLocation.text = element.name
         holder.binding.tvPointOne.text = element.points[0]
         holder.binding.tvPointTwo.text = element.points[1]
+        Glide
+            .with(context)
+            .load(element.icon.value.url)
+            .into(holder.binding.ivPremiumLocation)
     }
 
     override fun getItemCount(): Int = list.size

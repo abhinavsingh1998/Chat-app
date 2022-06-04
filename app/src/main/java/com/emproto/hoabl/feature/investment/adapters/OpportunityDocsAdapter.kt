@@ -17,10 +17,12 @@ import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.networklayer.response.investment.OpprotunityDoc
 import com.emproto.networklayer.response.investment.ProjectAminity
 import com.emproto.networklayer.response.investment.Story
+import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
 
 class OpportunityDocsAdapter(
     private val context: Context,
@@ -91,6 +93,7 @@ class OpportunityDocsAdapter(
             binding.tvXAxisLabel.text = data[0].escalationGraph.yAxisDisplayName
             binding.tvYAxisLabel.text = data[0].escalationGraph.xAxisDisplayName
             val graphData = data[0].escalationGraph.dataPoints.points
+
             val linevalues = ArrayList<Entry>()
             for(item in graphData){
                 linevalues.add(Entry(item.year.toFloat(),item.value.toFloat()))
@@ -124,11 +127,31 @@ class OpportunityDocsAdapter(
             binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false);
             binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false);
             binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false);
+            binding.ivPriceTrendsGraph.xAxis.granularity = 1f
+            binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
             //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
             //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
+            binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter = Xaxisformatter()
+            binding.ivPriceTrendsGraph.xAxis.valueFormatter = Xaxisformatter()
             binding.ivPriceTrendsGraph.data = data
             binding.ivPriceTrendsGraph.animateXY(2000, 2000)
             binding.textView10.visibility = View.GONE
+
+        }
+    }
+
+    inner class Xaxisformatter : IValueFormatter, IAxisValueFormatter {
+        override fun getFormattedValue(
+            p0: Float,
+            p1: Entry?,
+            p2: Int,
+            p3: ViewPortHandler?
+        ): String {
+            return p0.toString().replace(",.","")
+        }
+
+        override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
+            return String.format("%.0f", p0.toDouble())
         }
     }
 

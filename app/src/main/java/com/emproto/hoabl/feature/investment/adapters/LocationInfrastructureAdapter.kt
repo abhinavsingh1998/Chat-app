@@ -5,15 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ItemLocationInfrastructureBinding
 import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.hoabl.utils.MapItemClickListener
 import com.emproto.networklayer.response.investment.LocInfValues
 import com.emproto.networklayer.response.investment.ValueXXX
 
 class LocationInfrastructureAdapter(
     private val context: Context,
     private val list: List<ValueXXX>,
-    private val itemClickListener: ItemClickListener,
+    private val itemClickListener: MapItemClickListener,
     private var isDistanceAvl: Boolean = false
 ):RecyclerView.Adapter<LocationInfrastructureAdapter.MyViewHolder>() {
 
@@ -28,11 +30,15 @@ class LocationInfrastructureAdapter(
         val element = list[position]
         holder.binding.apply {
             tvLocationName.text  = element.name
+            Glide
+                .with(context)
+                .load(element.icon.value.url)
+                .into(ivLocationImage)
             when(isDistanceAvl){
                 true ->  tvLocationDistance.visibility = View.VISIBLE
             }
             cvLocationInfrastructureCard.setOnClickListener{
-                itemClickListener.onItemClicked(it,position,element.gpsLink.toString())
+                itemClickListener.onItemClicked(it,position,element.latitude,element.longitude)
             }
         }
     }

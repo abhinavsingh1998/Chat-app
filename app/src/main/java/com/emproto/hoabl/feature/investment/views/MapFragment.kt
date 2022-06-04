@@ -22,6 +22,7 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.LocationInfrastructureAdapter
 import com.emproto.hoabl.model.MapLocationModel
 import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.hoabl.utils.MapItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.response.MapData
@@ -47,11 +48,10 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private var data:MapLocationModel? = null
 
-    private val itemClickListener = object : ItemClickListener {
-        override fun onItemClicked(view: View, position: Int, item: String) {
-            when(position){
-                0 -> initMarkerLocation(12.9274,77.586387,12.9287469,77.5867364)
-                1 -> initMarkerLocation(12.9274,77.586387,12.9289413,77.5809379)
+    private val mapItemClickListener = object : MapItemClickListener {
+        override fun onItemClicked(view: View, position: Int, latitude: Double, longitude: Double) {
+            when(view.id){
+                R.id.cv_location_infrastructure_card -> initMarkerLocation(12.9274,77.586387,latitude,longitude)
             }
         }
     }
@@ -140,7 +140,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility = View.GONE
 
         investmentViewModel.getMapLocationInfrastructure().observe(viewLifecycleOwner, Observer {
-            val adapter = LocationInfrastructureAdapter(this.requireContext(),it.values,itemClickListener,true)
+            val adapter = LocationInfrastructureAdapter(this.requireContext(),it.values,mapItemClickListener,true)
             binding.mapLocationBottomSheet.rvMapLocationItemRecycler.adapter = adapter
         })
 

@@ -30,6 +30,7 @@ import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.Extensions.toHomePagesOrPromise
 import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.hoabl.utils.MapItemClickListener
 import com.emproto.hoabl.utils.SimilarInvItemClickListener
 import com.emproto.hoabl.utils.YoutubeItemClickListener
 import com.emproto.hoabl.viewmodels.HomeViewModel
@@ -89,7 +90,7 @@ class ProjectDetailFragment : BaseFragment() {
                 R.id.cl_see_all -> {
                     navigateToMediaGallery()
                 }
-                R.id.project_detail_map -> {
+                R.id.btn_view_on_map -> {
                     investmentViewModel.setMapLocationInfrastructure(mapLocationData)
                     (requireActivity() as HomeActivity).addFragment(MapFragment(), false)
                 }
@@ -370,9 +371,27 @@ class ProjectDetailFragment : BaseFragment() {
             }
         }
         val adapter =
-            ProjectDetailAdapter(this.requireContext(), list, data, promisesData, itemClickListener,isBookmarked,investmentViewModel,videoItemClickListener,similarInvItemClickListener)
+            ProjectDetailAdapter(this.requireContext(), list, data, promisesData, itemClickListener,isBookmarked,investmentViewModel,videoItemClickListener,similarInvItemClickListener,mapItemClickListener)
         binding.rvProjectDetail.adapter = adapter
         adapter.setItemClickListener(onItemClickListener)
+    }
+
+    val mapItemClickListener = object : MapItemClickListener {
+        override fun onItemClicked(view: View, position: Int, latitude: Double, longitude: Double) {
+            when(view.id){
+                R.id.cv_location_infrastructure_card -> {
+                    investmentViewModel.setMapLocationInfrastructure(mapLocationData)
+                    val bundle = Bundle()
+                    bundle.putSerializable("Location",MapLocationModel(12.9274,77.586387,latitude,longitude) as Serializable)
+                    val fragment = MapFragment()
+                    fragment.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(
+                        fragment,
+                        false
+                    )
+                }
+            }
+        }
     }
 
     val similarInvItemClickListener = object:SimilarInvItemClickListener{
@@ -405,15 +424,7 @@ class ProjectDetailFragment : BaseFragment() {
                     }
                 }
                 R.id.cv_location_infrastructure_card -> {
-                    investmentViewModel.setMapLocationInfrastructure(mapLocationData)
-                    val bundle = Bundle()
-                    bundle.putSerializable("Location",MapLocationModel(12.9274,77.586387,12.9287469,77.5867364) as Serializable)
-                    val fragment = MapFragment()
-                    fragment.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(
-                        fragment,
-                        false
-                    )
+
                 }
                 R.id.iv_bookmark_icon -> {
                     when(item){

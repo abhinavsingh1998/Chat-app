@@ -19,6 +19,7 @@ import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.model.YoutubeModel
 import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.hoabl.utils.MapItemClickListener
 import com.emproto.hoabl.utils.SimilarInvItemClickListener
 import com.emproto.hoabl.utils.YoutubeItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
@@ -26,10 +27,14 @@ import com.emproto.networklayer.response.investment.Inventory
 import com.emproto.networklayer.response.investment.PdData
 import com.emproto.networklayer.response.investment.PmData
 import com.emproto.networklayer.response.investment.ProjectAminity
+import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import com.github.mikephil.charting.formatter.IValueFormatter
+import com.github.mikephil.charting.utils.ViewPortHandler
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.textview.MaterialTextView
 import com.skydoves.balloon.BalloonAnimation
@@ -45,7 +50,8 @@ class ProjectDetailAdapter(
     private val isBookmarked: Boolean,
     private val investmentViewModel: InvestmentViewModel,
     private val videoItemClickListener: YoutubeItemClickListener,
-    private val similarInvItemClickListener: SimilarInvItemClickListener
+    private val similarInvItemClickListener: SimilarInvItemClickListener,
+    private val mapItemClickListener: MapItemClickListener
 ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -265,7 +271,11 @@ class ProjectDetailAdapter(
 
     private inner class ProjectMapViewHolder(private val binding: ViewMapLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.projectDetailMap.setOnClickListener(onItemClickListener)
+            Glide
+                .with(context)
+                .load(data.address.mapMedia.value.url)
+                .into(binding.projectDetailMap)
+            binding.btnViewOnMap.setOnClickListener(onItemClickListener)
         }
     }
 
@@ -310,11 +320,30 @@ class ProjectDetailAdapter(
             binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false);
             binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false);
             binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false);
+            binding.ivPriceTrendsGraph.xAxis.granularity = 1f
+            binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
             //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
             //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
+            binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter = Xaxisformatter()
+            binding.ivPriceTrendsGraph.xAxis.valueFormatter = Xaxisformatter()
             binding.ivPriceTrendsGraph.data = data
             binding.ivPriceTrendsGraph.animateXY(2000, 2000)
             binding.textView10.visibility = View.GONE
+        }
+    }
+
+    inner class Xaxisformatter : IValueFormatter, IAxisValueFormatter {
+        override fun getFormattedValue(
+            p0: Float,
+            p1: Entry?,
+            p2: Int,
+            p3: ViewPortHandler?
+        ): String {
+            return p0.toString().replace(",.","")
+        }
+
+        override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
+            return String.format("%.0f", p0.toDouble())
         }
     }
 
@@ -390,7 +419,7 @@ class ProjectDetailAdapter(
             locationInfrastructureAdapter = LocationInfrastructureAdapter(
                 context,
                 data.locationInfrastructure.values,
-                itemClickListener
+                mapItemClickListener
             )
             binding.rvLocationInfrastructure.adapter = locationInfrastructureAdapter
             binding.tvLocationInfrastructureAll.setOnClickListener(onItemClickListener)

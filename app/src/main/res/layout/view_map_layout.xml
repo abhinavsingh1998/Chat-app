@@ -7,13 +7,30 @@
     <ImageView
         android:id="@+id/project_detail_map"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
+        android:layout_height="@dimen/margin_size_150"
+        android:scaleType="centerCrop"
         android:layout_marginHorizontal="@dimen/margin_size_7"
         android:layout_marginTop="@dimen/margin_size_28"
         android:src="@drawable/group_13_copy_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_view_on_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/all_corner_radius_white_bg"
+        android:backgroundTint="@color/black"
+        android:text="@string/view_on_map"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:layout_marginBottom="@dimen/margin_size_25"
+        android:paddingHorizontal="@dimen/margin_size_40"
+        android:paddingVertical="@dimen/margin_size_7"
+        app:layout_constraintStart_toStartOf="@id/project_detail_map"
+        app:layout_constraintEnd_toEndOf="@id/project_detail_map"
+        app:layout_constraintBottom_toBottomOf="@id/project_detail_map"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

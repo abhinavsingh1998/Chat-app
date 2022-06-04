@@ -27,8 +27,10 @@ class SkuAdapter(
         val element = list[position]
         holder.binding.apply {
             tvProjectName.text = element.inventoryBucketName
-            tvStartingAt.text = "Starting at ${element.priceRange.from}"
-            tvAreaSkus.text = "${element.areaRange.from}ft - ${element.areaRange.to}ft"
+            val amount = element.priceRange.from.toDouble() / 100000
+            val convertedAmount = String.format("%.0f",amount)
+            tvStartingAt.text = "Starting at ₹${convertedAmount} L"
+            tvAreaSkus.text = "${element.areaRange.from} Sqft - ${element.areaRange.to} Sqft"
         }
         holder.binding.clOuterItemSkus.setOnClickListener {
             investmentViewModel.setSku(element)
