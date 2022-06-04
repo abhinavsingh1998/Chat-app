@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
@@ -169,10 +170,18 @@ class CompletedInvestmentAdapter(
         ivCompletedInvestmentGraph.xAxis.granularity = 1f
         ivCompletedInvestmentGraph.getXAxis().position =
             XAxis.XAxisPosition.BOTTOM;
+        ivCompletedInvestmentGraph.xAxis.typeface = ResourcesCompat.getFont(
+            context,
+            R.font.jost_regular
+        )
         //holder.binding.ivCompletedInvestmentGraph.getXAxis().setDrawAxisLine(false);
         ivCompletedInvestmentGraph.getAxisRight().setDrawGridLines(false)
         ivCompletedInvestmentGraph.getAxisRight().setDrawLabels(false)
         ivCompletedInvestmentGraph.getAxisRight().setDrawAxisLine(false)
+        ivCompletedInvestmentGraph.axisLeft.typeface = ResourcesCompat.getFont(
+            context,
+            R.font.jost_regular
+        )
         //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
         //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
         ivCompletedInvestmentGraph.data = data1
