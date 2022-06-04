@@ -156,7 +156,7 @@
     <string name="details">Details</string>
     <string name="see_project_details">See Project Details</string>
     <string name="view_timeline">View Timeline</string>
-    <string name="facility_management">Manage My Land</string>
+    <string name="facility_management">Management My Project</string>
     <string name="now_manage_bookings">Now manage your bookings, complaints, visitors, vehicles, etc with ease</string>
     <string name="manage_now">Manage Now</string>
     <string name="view_upload_documents">VIEW&amp;UPLOAD DOCUMENTS></string>
@@ -369,5 +369,7 @@
     <string name="all_investments">All investments</string>
     <string name="youtube_api_key">AIzaSyCdq-SBpqNl8q1w98hmfBYT-xUZQZ5KyuM</string>
     <string name="header"><![CDATA[%1$s <font size="16"><b>%2$s</b></font> ]]></string>
+    <string name="welcome_to_hoabl">Welcome to HoABL App. We are happy to have you.</string>
+    <string name="last_updated_on">Last Updated on:</string>
     <string name="viewreceipt"><![CDATA[<U>View Receipt</U>]]></string>
 </resources>

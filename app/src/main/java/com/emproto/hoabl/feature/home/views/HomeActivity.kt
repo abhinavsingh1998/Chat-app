@@ -104,9 +104,9 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             val bundle = Bundle()
             val chatsFragment = ChatsFragment()
             chatsFragment.arguments = bundle
-            replaceFragment(chatsFragment.javaClass, "", true, bundle, null, 0, false
+            replaceFragment(
+                chatsFragment.javaClass, "", true, bundle, null, 0, false
             )
-            Toast.makeText(this, "Chat bot", Toast.LENGTH_SHORT).show()
         }
 
         activityHomeActivity.searchLayout.search.onFocusChangeListener =
