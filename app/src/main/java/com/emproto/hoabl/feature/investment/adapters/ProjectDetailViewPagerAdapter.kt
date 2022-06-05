@@ -5,14 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.CustomImageLayoutBinding
+import com.emproto.hoabl.databinding.CustomViewpagerImageLayoutBinding
 import com.emproto.hoabl.model.ViewItem
 
 class ProjectDetailViewPagerAdapter(private val imageList: List<String>) : RecyclerView.Adapter<ProjectDetailViewPagerAdapter.MyViewHolder>() {
 
-    inner class MyViewHolder(var binding: CustomImageLayoutBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class MyViewHolder(var binding: CustomViewpagerImageLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = CustomImageLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = CustomViewpagerImageLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(view)
     }
 

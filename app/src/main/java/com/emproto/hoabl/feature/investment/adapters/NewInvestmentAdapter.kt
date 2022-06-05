@@ -73,6 +73,8 @@ class NewInvestmentAdapter(private val activity:HomeActivity, private val contex
 
             val listViews = ArrayList<String>()
             listViews.add(data.page.pageManagementsOrNewInvestments[0].projectCoverImages.newInvestmentPageMedia.value.url)
+            listViews.add(data.page.pageManagementsOrNewInvestments[0].projectCoverImages.newInvestmentPageMedia.value.url)
+            listViews.add(data.page.pageManagementsOrNewInvestments[0].projectCoverImages.newInvestmentPageMedia.value.url)
             adapter = InvestmentViewPagerAdapter(listViews)
             binding.viewPager.adapter = adapter
 
