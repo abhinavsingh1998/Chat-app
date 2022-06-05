@@ -168,7 +168,7 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun getStates() {
-        profileViewModel.getStates(countryIsoCode).observe(viewLifecycleOwner, {
+        profileViewModel.getStates(countryIsoCode).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
@@ -189,11 +189,11 @@ class EditProfileFragment : Fragment() {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                 }
             }
-        })
+        }
     }
 
     private fun getCities(value1: String, isoCode: String) {
-        profileViewModel.getCities(value1, isoCode).observe(viewLifecycleOwner, {
+        profileViewModel.getCities(value1, isoCode).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
@@ -212,7 +212,7 @@ class EditProfileFragment : Fragment() {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                 }
             }
-        })
+        }
     }
 
     private fun setGenderSpinnersData() {
@@ -224,7 +224,7 @@ class EditProfileFragment : Fragment() {
 
         binding.autoGender.setAdapter(adapter)
 
-        binding.autoGender.setOnItemClickListener(object : AdapterView.OnItemClickListener {
+        binding.autoGender.onItemClickListener = object : AdapterView.OnItemClickListener {
             override fun onItemClick(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -233,7 +233,7 @@ class EditProfileFragment : Fragment() {
             ) {
                 gender = parent?.adapter?.getItem(position).toString().substring(0,1)
             }
-        })
+        }
     }
 
     private fun setStateSpinnersData() {
@@ -241,19 +241,19 @@ class EditProfileFragment : Fragment() {
         stateArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         binding.autoState.setAdapter(stateArrayAdapter)
 
-        binding.autoState.setOnItemClickListener(object : AdapterView.OnItemClickListener {
+        binding.autoState.onItemClickListener = object : AdapterView.OnItemClickListener {
             override fun onItemClick(
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
                 id: Long
             ) {
-                state = listStates.get(position).toString()
-                stateIso = listStatesISO.get(position).toString()
+                state = listStates[position].toString()
+                stateIso = listStatesISO[position].toString()
                 getCities(stateIso, countryIsoCode)
             }
 
-        })
+        }
     }
 
     private fun setCitiesSpinner() {
@@ -261,17 +261,17 @@ class EditProfileFragment : Fragment() {
         cityAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         binding.autoCity.setAdapter(cityAdapter)
 
-        binding.autoCity.setOnItemClickListener(object : AdapterView.OnItemClickListener {
+        binding.autoCity.onItemClickListener = object : AdapterView.OnItemClickListener {
             override fun onItemClick(
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
                 id: Long
             ) {
-                city = listCities.get(position).toString()
+                city = listCities[position]
             }
 
-        })
+        }
     }
 
     private fun initView() {
@@ -284,8 +284,8 @@ class EditProfileFragment : Fragment() {
             }
         requestPermission()
 
-        binding.textviewEnterName.setText(data.firstName + " " + data.lastName)
-        binding.enterPhonenumberTextview.setText(data.phoneNumber)
+        binding.textviewEnterName.text = data.firstName + " " + data.lastName
+        binding.enterPhonenumberTextview.text = data.phoneNumber
 
         if (!data.email.isNullOrEmpty()) {
             binding.emailTv.setText(data.email)

@@ -19,8 +19,8 @@
             android:id="@+id/back_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_size_23"
-            android:layout_marginTop="@dimen/margin_size_24"
+            android:layout_marginStart="@dimen/margin_size_14"
+            android:layout_marginTop="@dimen/margin_size_21"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -59,8 +59,8 @@
                     style="@style/text_style_text_color_18"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:layout_marginStart="@dimen/margin_size_30"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="@dimen/margin_size_16"
+                    android:layout_marginTop="27dp"
                     android:fontFamily="@font/jost_regular"
                     android:lineSpacingExtra="0sp"
                     android:text="@string/profile_picture"
@@ -73,7 +73,7 @@
                     android:id="@+id/profilePicLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_size_33"
+                    android:layout_marginStart="@dimen/margin_size_16"
                     android:layout_marginTop="@dimen/margin_size_19"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/profile_picture">
@@ -83,21 +83,21 @@
                         android:layout_width="86dp"
                         android:layout_height="86dp"
                         android:layout_gravity="center"
+                        android:elevation="@dimen/margin_size_8"
                         android:src="@drawable/img"
+                        android:visibility="gone"
                         app:civ_border_color="@color/white"
                         app:civ_shadow="true"
-                        android:visibility="gone"
-                        android:elevation="@dimen/margin_size_8"
                         app:civ_shadow_color="@color/text_blue_color"
                         app:civ_shadow_radius="@dimen/margin_size_1"
-                        tools:ignore="MissingClass"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"/>
+                        tools:ignore="MissingClass" />
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/profile_user_letters"
-                        android:layout_width="96dp"
-                        android:layout_height="96dp"
+                        android:layout_width="95dp"
+                        android:layout_height="95dp"
                         android:visibility="visible"
                         app:cardBackgroundColor="@color/app_color"
                         app:cardCornerRadius="50dp"
@@ -113,8 +113,8 @@
                             app:cardMaxElevation="@dimen/margin_size_4">
 
                             <androidx.cardview.widget.CardView
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
+                                android:layout_width="82dp"
+                                android:layout_height="82dp"
                                 android:layout_gravity="center"
                                 app:cardBackgroundColor="@color/app_color"
                                 app:cardCornerRadius="50dp"
@@ -126,8 +126,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
-                                    android:gravity="center"
                                     android:elevation="@dimen/_8sdp"
+                                    android:gravity="center"
                                     android:textColor="@color/white"
                                     android:textSize="@dimen/margin_size_40" />
                             </androidx.cardview.widget.CardView>
@@ -214,8 +214,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_60"
                     android:layout_marginTop="@dimen/margin_size_17"
-                    android:layout_marginEnd="@dimen/margin_size_183"
-                    android:fontFamily="@font/jostregular"
+                    android:layout_marginEnd="@dimen/margin_size_80"
+                    android:fontFamily="@font/jost_regular"
                     android:text="@string/phone_number"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tv_enter_name"
@@ -253,9 +253,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_16"
-                    android:layout_marginTop="@dimen/margin_size_20"
+                    android:layout_marginTop="@dimen/margin_size_33"
                     android:layout_marginEnd="@dimen/margin_size_16"
                     android:hint="@string/email_address"
+                    app:hintTextColor="@color/text_grey_color"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textview_enter_name"
@@ -263,7 +264,7 @@
 
                     <EditText
                         android:id="@+id/email_tv"
-                        style="@style/text_style_text_color_16"
+                        style="@style/text_style_text_color_14"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/jost_medium"
@@ -273,9 +274,7 @@
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
                         android:textColor="@color/text_color"
-                        android:textColorHint="@color/text_grey_color"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="344dp" />
+                        />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -307,8 +306,7 @@
                         android:textAllCaps="false"
                         android:textColor="@color/text_color"
                         android:textColorHint="@color/text_grey_color"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="344dp" />
+                        app:layout_constraintStart_toStartOf="parent" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -338,9 +336,9 @@
                         android:gravity="center|left"
                         android:inputType="text"
                         android:paddingLeft="10dp"
-                        android:paddingTop="@dimen/margin_size_18"
+                        android:paddingTop="@dimen/margin_size_17"
                         android:paddingRight="10dp"
-                        android:paddingBottom="@dimen/margin_size_18"
+                        android:paddingBottom="@dimen/margin_size_17"
                         android:singleLine="true"
                         android:textColor="@color/text_color"
                         android:textColorHint="@color/text_grey_color"
@@ -405,13 +403,13 @@
                         style="@style/text_style_text_color_16"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:fontFamily="@font/jost_medium"
+                        android:fontFamily="@font/jost_regular"
                         android:gravity="center|left"
                         android:inputType="textPersonName|textCapSentences"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
-                        android:textColor="@color/text_color"
+                        android:textColor="#9d9eb1"
                         android:textColorHint="@color/text_grey_color"
                         app:layout_constraintStart_toStartOf="parent"
                         tools:layout_editor_absoluteY="344dp" />
@@ -440,7 +438,7 @@
                         style="@style/text_style_text_color_16"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:fontFamily="@font/jost_medium"
+                        android:fontFamily="@font/jost_light"
                         android:gravity="center|left"
                         android:inputType="textPersonName|textCapSentences"
                         android:paddingLeft="10dp"
@@ -462,7 +460,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_16"
-                    android:layout_marginTop="@dimen/margin_size_20"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="@dimen/margin_size_16"
                     android:hint="@string/Enter_Locality"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -476,7 +474,7 @@
                         style="@style/text_style_text_color_16"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:fontFamily="@font/jost_medium"
+                        android:fontFamily="@font/jost_light"
                         android:gravity="center|left"
                         android:inputType="textPersonName|textCapSentences"
                         android:paddingLeft="10dp"
@@ -490,43 +488,12 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/pincode"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_size_16"
-                    android:layout_marginTop="@dimen/margin_size_20"
-                    android:layout_marginEnd="@dimen/margin_size_16"
-                    android:hint="@string/Pincode"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_locality"
-                    app:placeholderText="@string/type_here">
-
-                    <EditText
-                        android:id="@+id/pincode_editText"
-                        style="@style/text_style_text_color_16"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/jost_medium"
-                        android:gravity="center|left"
-                        android:inputType="number"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:textAllCaps="false"
-                        android:textColor="@color/text_color"
-                        android:textColorHint="@color/text_grey_color"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="344dp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/spinner_city"
                     style="@style/CustomTextInputLayoutWithSpinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_size_16"
-                    android:layout_marginTop="@dimen/margin_size_18"
+                    android:layout_marginTop="20dp"
                     android:hint="@string/City"
                     android:orientation="vertical"
                     app:boxStrokeWidthFocused="0.7dp"
@@ -534,8 +501,8 @@
                     app:hintTextColor="@color/app_color"
                     app:layout_constraintEnd_toStartOf="@id/spinner_state"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/pincode"
-                    app:placeholderText="@string/selecte_gender"
+                    app:layout_constraintTop_toBottomOf="@id/tv_locality"
+                    app:placeholderText="@string/City"
                     app:prefixTextColor="@color/text_color">
 
                     <AutoCompleteTextView
@@ -555,44 +522,13 @@
                         android:textSize="@dimen/text_size_14" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!--
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:id="@+id/tv_city"
-                                    style="@style/CustomTextInputLayoutWithSpinner"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/margin_size_16"
-                                    android:layout_marginTop="@dimen/margin_size_20"
-                                    android:hint="@string/City"
-                                    android:visibility="gone"
-                                    app:layout_constraintEnd_toStartOf="@+id/spinner_state"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@+id/pincode">
-
-                                    <com.emproto.core.customdropdown.CustomDropDownEdittext
-                                        android:id="@+id/city"
-                                        style="@style/text_style_text_color_16"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:fontFamily="@font/jost_medium"
-                                        android:gravity="center|left"
-                                        android:inputType="textPersonName|textCapSentences"
-                                        android:textAllCaps="false"
-                                        android:textColor="@color/text_color"
-                                        app:hintText="@string/City"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:placeholdertext="@string/type_here"
-                                        tools:layout_editor_absoluteY="344dp" />
-
-                                </com.google.android.material.textfield.TextInputLayout>
-                -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/spinner_state"
                     style="@style/CustomTextInputLayoutWithSpinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_16"
-                    android:layout_marginTop="@dimen/margin_size_18"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="@dimen/margin_size_16"
                     android:hint="@string/State"
                     android:orientation="vertical"
@@ -601,7 +537,7 @@
                     app:hintTextColor="@color/app_color"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/spinner_city"
-                    app:layout_constraintTop_toBottomOf="@+id/pincode"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_locality"
                     app:placeholderText="@string/State"
                     app:prefixTextColor="@color/text_color">
 
@@ -609,7 +545,7 @@
                         android:id="@+id/auto_state"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:fontFamily="@font/jostregular"
+                        android:fontFamily="@font/jost_regular"
                         android:gravity="center|left"
                         android:inputType="text"
                         android:paddingLeft="10dp"
@@ -622,42 +558,71 @@
                         android:textSize="@dimen/text_size_14" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!--
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:id="@+id/state"
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/margin_size_10"
-                                    android:layout_marginTop="@dimen/margin_size_20"
-                                    android:layout_marginEnd="@dimen/margin_size_16"
-                                    android:hint="@string/State"
-                                    android:visibility="gone"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintHorizontal_bias="0.5"
-                                    app:layout_constraintStart_toEndOf="@+id/spinner_city"
-                                    app:layout_constraintTop_toBottomOf="@+id/pincode">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/spinnerCountry"
+                    style="@style/CustomTextInputLayoutWithSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/country"
+                    android:orientation="vertical"
+                    app:boxStrokeWidthFocused="0.7dp"
+                    app:endIconDrawable="@drawable/ic_arrow_down"
+                    app:hintTextColor="@color/app_color"
+                    app:layout_constraintStart_toStartOf="@id/spinner_city"
+                    app:layout_constraintEnd_toEndOf="@id/spinner_city"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_city"
+                    app:placeholderText="@string/country"
+                    app:prefixTextColor="@color/text_color">
 
-                                    <com.emproto.core.customdropdown.CustomDropDownEdittext
-                                        android:id="@+id/state_editText"
-                                        style="@style/text_style_text_color_16"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:drawableEnd="@drawable/ic_path_10_copy"
-                                        android:fontFamily="@font/jost_medium"
-                                        android:gravity="center|left"
-                                        android:inputType="textPersonName|textCapSentences"
-                                        android:paddingLeft="10dp"
-                                        android:paddingRight="10dp"
-                                        android:textAllCaps="false"
-                                        android:textColor="@color/text_color"
-                                        android:textColorHint="@color/text_grey_color"
-                                        app:hintText="@string/State"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:placeholdertext="@string/selecte_gender"
-                                        tools:layout_editor_absoluteY="344dp" />
-                                </com.google.android.material.textfield.TextInputLayout>
-                -->
+                    <AutoCompleteTextView
+                        android:id="@+id/auto_country"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/jost_regular"
+                        android:gravity="center|left"
+                        android:inputType="text"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="@dimen/margin_size_18"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="@dimen/margin_size_18"
+                        android:singleLine="true"
+                        android:textColor="@color/text_color"
+                        android:textColorHint="@color/text_grey_color"
+                        android:textSize="@dimen/text_size_14" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+
+                    android:id="@+id/pincode"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_20"
+                    android:hint="Pincode"
+                    app:layout_constraintEnd_toEndOf="@+id/spinner_state"
+                    app:layout_constraintStart_toStartOf="@+id/spinner_state"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_state"
+                    app:placeholderText="@string/type_here">
+
+
+                    <EditText
+                        android:id="@+id/pincode_editText"
+                        style="@style/text_style_text_color_16"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/jost_light"
+                        android:gravity="center|left"
+                        android:inputType="textPersonName|textCapSentences"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/text_color"
+                        android:textColorHint="@color/text_grey_color"
+                         />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/save_and_update"
@@ -680,9 +645,8 @@
                     app:fontName="@string/jost_medium"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spinner_state" />
+                    app:layout_constraintTop_toBottomOf="@+id/spinnerCountry" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
