@@ -16,6 +16,7 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ProjectDetailLayoutBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.fragments.Testimonials
 import com.emproto.hoabl.feature.investment.adapters.ProjectAmenitiesAdapter
 import com.emproto.hoabl.feature.investment.adapters.ProjectDetailAdapter
@@ -79,6 +80,14 @@ class ProjectDetailFragment : BaseFragment() {
     val onItemClickListener =
         View.OnClickListener { view ->
             when (view.id) {
+                R.id.bn_ask_here -> {
+                    val bundle = Bundle()
+                    val chatsFragment = ChatsFragment()
+                    chatsFragment.arguments = bundle
+                    (requireActivity() as HomeActivity).replaceFragment(chatsFragment.javaClass, "", true, bundle, null, 0, false
+                    )
+                    Toast.makeText(context, "Chat bot", Toast.LENGTH_SHORT).show()
+                }
                 R.id.tv_similar_investment_see_all -> {
                     val list = CategoryListFragment()
                     val bundle = Bundle()
@@ -104,7 +113,7 @@ class ProjectDetailFragment : BaseFragment() {
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
-                R.id.cl_why_invest -> {
+                R.id.cv_why_invest_card -> {
                     investmentViewModel.setOpportunityDoc(oppDocData)
                     investmentViewModel.setSkus(landSkusData)
                     val fragment = OpportunityDocsFragment()
@@ -293,7 +302,7 @@ class ProjectDetailFragment : BaseFragment() {
                         (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                         it.data?.data?.let {  data ->
                             allData = data
-                            oppDocData = data.opprotunityDocs
+                            oppDocData = data.opportunityDocs
                             mediaData= data.mediaGalleryOrProjectContent
                             landSkusData = data.inventoryBucketContents
                             faqData = data.projectContentsAndFaqs

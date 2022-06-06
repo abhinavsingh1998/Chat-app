@@ -47,11 +47,14 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private var data:MapLocationModel? = null
+    private lateinit var adapter:LocationInfrastructureAdapter
 
     private val mapItemClickListener = object : MapItemClickListener {
         override fun onItemClicked(view: View, position: Int, latitude: Double, longitude: Double) {
             when(view.id){
-                R.id.cv_location_infrastructure_card -> initMarkerLocation(12.9274,77.586387,latitude,longitude)
+                R.id.cv_location_infrastructure_card -> {
+                    initMarkerLocation(12.9274,77.586387,latitude,longitude)
+                }
             }
         }
     }
@@ -140,7 +143,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility = View.GONE
 
         investmentViewModel.getMapLocationInfrastructure().observe(viewLifecycleOwner, Observer {
-            val adapter = LocationInfrastructureAdapter(this.requireContext(),it.values,mapItemClickListener,true)
+            adapter = LocationInfrastructureAdapter(this.requireContext(),it.values,mapItemClickListener,true)
             binding.mapLocationBottomSheet.rvMapLocationItemRecycler.adapter = adapter
         })
 

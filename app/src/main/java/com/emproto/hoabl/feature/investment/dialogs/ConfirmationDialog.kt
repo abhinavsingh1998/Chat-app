@@ -38,8 +38,12 @@ class ConfirmationDialog(private val investmentViewModel: InvestmentViewModel, p
             it.let { data ->
                 binding.apply {
                     tvItemLandSkusName.text = data.inventoryBucketName
-                    tvItemLandSkusArea.text = "${data.areaRange.from} - ${data.areaRange.to} ft"
-                    tvItemLandSkusPrice.text = "${data.priceRange.from} - ${data.priceRange.to}"
+                    val amount = it.priceRange.from.toDouble() / 100000
+                    val convertedFromAmount = String.format("%.0f",amount)
+                    val amountTo = it.priceRange.to.toDouble() / 100000
+                    val convertedToAmount = String.format("%.0f",amountTo)
+                    tvItemLandSkusArea.text = "${data.areaRange.from} Sqft - ${data.areaRange.to} Sqft"
+                    tvItemLandSkusPrice.text = "₹${convertedFromAmount} L - ₹${convertedToAmount} L"
                     tvItemLandSkusDescription.text = data.inventoryBucketDescription
                 }
                 binding.tvYesText.setOnClickListener{ view ->

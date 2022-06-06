@@ -1,8 +1,10 @@
 package com.emproto.hoabl.feature.investment.adapters
 
+import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.bold
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemSkusBinding
 import com.emproto.hoabl.utils.ItemClickListener
@@ -29,7 +31,10 @@ class SkuAdapter(
             tvProjectName.text = element.inventoryBucketName
             val amount = element.priceRange.from.toDouble() / 100000
             val convertedAmount = String.format("%.0f",amount)
-            tvStartingAt.text = "Starting at ₹${convertedAmount} L"
+            tvStartingAt.text = SpannableStringBuilder()
+                .append("Starting at")
+                .bold { append(" ₹${convertedAmount} L") }
+//            tvStartingAt.text = "Starting at ₹${convertedAmount} L"
             tvAreaSkus.text = "${element.areaRange.from} Sqft - ${element.areaRange.to} Sqft"
         }
         holder.binding.clOuterItemSkus.setOnClickListener {

@@ -4,8 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemLocationInfrastructureBinding
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.utils.MapItemClickListener
@@ -18,6 +20,9 @@ class LocationInfrastructureAdapter(
     private val itemClickListener: MapItemClickListener,
     private var isDistanceAvl: Boolean = false
 ):RecyclerView.Adapter<LocationInfrastructureAdapter.MyViewHolder>() {
+
+    var lastCheckedPosition = -1
+    var checkedPosition = 0
 
     inner class MyViewHolder(var binding: ItemLocationInfrastructureBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -39,6 +44,19 @@ class LocationInfrastructureAdapter(
             }
             cvLocationInfrastructureCard.setOnClickListener{
                 itemClickListener.onItemClicked(it,position,element.latitude,element.longitude)
+//                for(i in 0..list.size-1){
+//                    if(position == i){
+//                        cvLocationInfrastructureCard.strokeWidth = 2
+//                        cvLocationInfrastructureCard.strokeColor = ContextCompat.getColor(context,R.color.text_blue_color)
+//                    }else{
+//                        cvLocationInfrastructureCard.strokeWidth = 0
+//                        cvLocationInfrastructureCard.strokeColor = ContextCompat.getColor(context,R.color.white)
+//                    }
+//                }
+//                checkedPosition = position
+//
+//                cvLocationInfrastructureCard.strokeWidth = 2
+//                cvLocationInfrastructureCard.strokeColor = ContextCompat.getColor(context,R.color.text_blue_color)
             }
         }
     }

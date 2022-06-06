@@ -211,9 +211,9 @@
                             android:layout_marginVertical="@dimen/margin_size_13"
                             android:fontFamily="@font/jost_regular"
                             android:text="$20L Onwards"
-                            android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/tv_item_area"
+                            app:layout_constraintHorizontal_bias="0.14"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -226,7 +226,6 @@
                             android:layout_marginVertical="@dimen/margin_size_13"
                             android:fontFamily="@font/jost_regular"
                             android:text="2000 Sqft Onwards"
-                            android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/tv_item_amount"

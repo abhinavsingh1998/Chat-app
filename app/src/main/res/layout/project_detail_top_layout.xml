@@ -80,6 +80,7 @@
             android:layout_marginStart="@dimen/margin_size_4"
             android:fontFamily="@font/jost_bold"
             android:text="5%"
+            android:textColor="@android:color/holo_green_dark"
             app:layout_constraintBottom_toBottomOf="@id/tv_rise_year"
             app:layout_constraintEnd_toStartOf="@id/iv_bookmark_icon"
             app:layout_constraintHorizontal_bias="0.1"
@@ -91,7 +92,7 @@
             android:layout_width="14dp"
             android:layout_height="14dp"
             android:layout_marginEnd="@dimen/margin_size_13"
-            android:src="@drawable/ic_upward_double_arrow_green"
+            android:src="@drawable/ic_upward_double_arrow_dark_green"
             app:layout_constraintBottom_toBottomOf="@id/tv_rating"
             app:layout_constraintEnd_toStartOf="@id/iv_bookmark_icon"
             app:layout_constraintHorizontal_bias="0.15"
@@ -431,14 +432,26 @@
             app:layout_constraintBottom_toBottomOf="@id/tv_registration_number"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <include
-            android:id="@+id/why_invest_card"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_why_invest_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            layout="@layout/why_invest_layout"
+            app:cardCornerRadius="@dimen/margin_size_8"
+            android:layout_marginTop="@dimen/margin_size_17"
+            android:layout_marginHorizontal="@dimen/margin_size_20"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_registration_number"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_registration_number"
+            >
+
+            <ImageView
+                android:id="@+id/why_invest_card"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_size_143"
+                android:scaleType="fitXY"
+                 />
+
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

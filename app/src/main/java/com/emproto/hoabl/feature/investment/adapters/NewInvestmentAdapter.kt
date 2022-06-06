@@ -19,10 +19,18 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.Data
+import com.emproto.networklayer.response.investment.MediaGalleries
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlin.math.roundToInt
 
-class NewInvestmentAdapter(private val activity:HomeActivity, private val context: Context, val list:List<RecyclerViewItem>, private val data:Data,private val itemClickListener: ItemClickListener):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class NewInvestmentAdapter(
+    private val activity: HomeActivity,
+    private val context: Context,
+    val list: List<RecyclerViewItem>,
+    private val data: Data,
+    private val itemClickListener: ItemClickListener,
+    private val mediaGalleries: MediaGalleries
+):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val TYPE_NEW_LAUNCH = 1
@@ -61,7 +69,7 @@ class NewInvestmentAdapter(private val activity:HomeActivity, private val contex
             val amount = data.page.pageManagementsOrNewInvestments[0].priceStartingFrom.toDouble() / 100000.0
             val convertedAmount = amount.toString().replace(".0","")
             binding.tvAmount.text = SpannableStringBuilder()
-                .bold { append("${convertedAmount}L") }
+                .bold { append("₹${convertedAmount}L") }
                 .append( " Onwards" )
             binding.tvArea.text = SpannableStringBuilder()
                 .bold { append("${data.page.pageManagementsOrNewInvestments[0].areaStartingFrom} Sqft") }
@@ -73,8 +81,13 @@ class NewInvestmentAdapter(private val activity:HomeActivity, private val contex
 
             val listViews = ArrayList<String>()
             listViews.add(data.page.pageManagementsOrNewInvestments[0].projectCoverImages.newInvestmentPageMedia.value.url)
-            listViews.add(data.page.pageManagementsOrNewInvestments[0].projectCoverImages.newInvestmentPageMedia.value.url)
-            listViews.add(data.page.pageManagementsOrNewInvestments[0].projectCoverImages.newInvestmentPageMedia.value.url)
+            for(item in mediaGalleries.images){
+                listViews.add(item.mediaContent.value.url)
+            }
+            for(item in mediaGalleries.threeSixtyImages){
+                listViews.add(item.mediaContent.value.url)
+            }
+//            for(item in data.page.pageManagementsOrNewInvestments[0])
             adapter = InvestmentViewPagerAdapter(listViews)
             binding.viewPager.adapter = adapter
 
@@ -92,7 +105,7 @@ class NewInvestmentAdapter(private val activity:HomeActivity, private val contex
 
     private inner class LastFewPlotsViewHolder(private val binding: LastFewPlotsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvSmartDealsTitle.text = data.page.collectionOne.Heading
+            binding.tvSmartDealsTitle.text = context.getString(R.string.last_few_plots)
             binding.tvSmartDealsSubtitle.text = data.page.collectionOne.subHeading
 
             val list = data.pageManagementsOrCollectionOneModels
@@ -119,7 +132,7 @@ class NewInvestmentAdapter(private val activity:HomeActivity, private val contex
 
     private inner class TrendingProjectsViewHolder(private val binding: TrendingProjectsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvTrendingProjectsTitle.text = data.page.collectionTwo.Heading
+            binding.tvTrendingProjectsTitle.text = context.getString(R.string.trending_projects)
             binding.tvTrendingProjectsSubtitle.text = data.page.collectionTwo.subHeading
 
             val list = data.pageManagementsOrCollectionTwoModels

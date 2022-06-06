@@ -48,8 +48,10 @@ class CategoryListAdapter(
                     }
                     binding.apply {
                         tvProjectName.text = element.launchName
-                        tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
-                        tvCategoryArea.text = element.areaStartingFrom + " Onwards"
+                        val amount = element.priceStartingFrom.toDouble() / 100000
+                        val convertedAmount = amount.toString().replace(".0","")
+                        tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
+                        tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
                         Glide.with(context)
                             .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
@@ -66,8 +68,10 @@ class CategoryListAdapter(
                     }
                     binding.apply {
                         tvProjectName.text = element.launchName
-                        tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
-                        tvCategoryArea.text = element.areaStartingFrom + " Onwards"
+                        val amount = element.priceStartingFrom.toDouble() / 100000
+                        val convertedAmount = amount.toString().replace(".0","")
+                        tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
+                        tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
                         Glide.with(context)
                             .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
@@ -84,8 +88,10 @@ class CategoryListAdapter(
                     }
                     binding.apply {
                         tvProjectName.text = element.launchName
-                        tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
-                        tvCategoryArea.text = element.areaStartingFrom + " Onwards"
+                        val amount = element.priceStartingFrom.toDouble() / 100000
+                        val convertedAmount = amount.toString().replace(".0","")
+                        tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
+                        tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
                         Glide.with(context)
                             .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
@@ -102,8 +108,10 @@ class CategoryListAdapter(
                     }
                     binding.apply {
                         tvProjectName.text = element.launchName
-                        tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
-                        tvCategoryArea.text = element.areaStartingFrom + " Onwards"
+                        val amount = element.priceStartingFrom.toDouble() / 100000
+                        val convertedAmount = amount.toString().replace(".0","")
+                        tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
+                        tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
                         Glide.with(context)
                             .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
@@ -120,8 +128,10 @@ class CategoryListAdapter(
                     }
                     binding.apply {
                         tvProjectName.text = element.launchName
-                        tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
-                        tvCategoryArea.text = element.areaStartingFrom + " Onwards"
+                        val amount = element.priceStartingFrom.toDouble() / 100000
+                        val convertedAmount = amount.toString().replace(".0","")
+                        tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
+                        tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
                         Glide.with(context)
                             .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
@@ -138,8 +148,10 @@ class CategoryListAdapter(
                     }
                     binding.apply {
                         tvProjectName.text = element.project.launchName
-                        tvCategoryPrice.text = element.project.priceStartingFrom + " Onwards"
-                        tvCategoryArea.text = element.project.areaStartingFrom + " Onwards"
+                        val amount = element.project.priceStartingFrom.toDouble() / 100000
+                        val convertedAmount = amount.toString().replace(".0","")
+                        tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
+                        tvCategoryArea.text = element.project.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.project.shortDescription
                         Glide.with(context)
                             .load(element.project.projectIcon.value.url)
@@ -157,8 +169,10 @@ class CategoryListAdapter(
                     }
                     binding.apply {
                         tvProjectName.text = element.launchName
-                        tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
-                        tvCategoryArea.text = element.areaStartingFrom + " Onwards"
+                        val amount = element.priceStartingFrom.toDouble() / 100000
+                        val convertedAmount = amount.toString().replace(".0","")
+                        tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
+                        tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
                         Glide.with(context)
                             .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
@@ -176,8 +190,10 @@ class CategoryListAdapter(
                     }
                     binding.apply {
                         tvProjectName.text = element.launchName
-                        tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
-                        tvCategoryArea.text = element.areaStartingFrom + " Onwards"
+                        val amount = element.priceStartingFrom.toDouble() / 100000
+                        val convertedAmount = amount.toString().replace(".0","")
+                        tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
+                        tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
                         Glide.with(context)
                             .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
@@ -195,8 +211,10 @@ class CategoryListAdapter(
                     }
                     binding.apply {
                         tvProjectName.text = element.launchName
-                        tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
-                        tvCategoryArea.text = element.areaStartingFrom + " Onwards"
+                        val amount = element.priceStartingFrom.toDouble() / 100000
+                        val convertedAmount = amount.toString().replace(".0","")
+                        tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
+                        tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
                         Glide.with(context)
                             .load(element.projectIcon.value.url)

@@ -40,6 +40,11 @@ class InvestmentDataSource(val application: Application) : BaseDataSource(applic
         return apiService.getInvestments(pageType)
     }
 
+    //get investment media galleries
+    suspend fun getMediaGallery(projectId: Int): Response<ProjectMediaGalleryResponse> {
+        return apiService.getProjectMediaGalleries(projectId)
+    }
+
     //get investment detail
     suspend fun getInvestmentsDetailData(id: Int): Response<ProjectDetailResponse> {
         return apiService.getInvestmentsProjectDetails(id)

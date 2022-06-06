@@ -52,6 +52,33 @@ class InvestmentRepository @Inject constructor(application: Application) : BaseR
         return mInvestmentResponse
     }
 
+    fun getProjectMediaGalleries(projectId: Int): LiveData<BaseResponse<ProjectMediaGalleryResponse>> {
+        val mInvestmentResponse = MutableLiveData<BaseResponse<ProjectMediaGalleryResponse>>()
+        mInvestmentResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = InvestmentDataSource(application).getMediaGallery(projectId = projectId)
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mInvestmentResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mInvestmentResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mInvestmentResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mInvestmentResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mInvestmentResponse
+    }
+
     fun getInvestmentsDetail(id: Int): LiveData<BaseResponse<ProjectDetailResponse>> {
         val mInvestmentDetailResponse = MutableLiveData<BaseResponse<ProjectDetailResponse>>()
         mInvestmentDetailResponse.postValue(BaseResponse.loading())

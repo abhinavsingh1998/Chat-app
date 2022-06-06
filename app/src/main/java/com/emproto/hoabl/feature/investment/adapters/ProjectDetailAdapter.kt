@@ -164,7 +164,7 @@ class ProjectDetailAdapter(
                 }
             })
             binding.clSeeAll.setOnClickListener(onItemClickListener)
-            binding.whyInvestCard.clOuterWhyInvest.setOnClickListener(onItemClickListener)
+            binding.cvWhyInvestCard.setOnClickListener(onItemClickListener)
 
             binding.apply {
                 tvProjectName.text = data.launchName
@@ -185,6 +185,9 @@ class ProjectDetailAdapter(
                         else -> regString = regString + "\n" + item
                     }
                 }
+                Glide.with(context)
+                    .load(data.opportunityDocs[0].whyToInvestMedia.value.url)
+                    .into(binding.whyInvestCard)
                 tvRegistrationNumber.text = regString
                 Glide.with(context)
                     .load(data.projectCoverImages.newInvestmentPageMedia.value.url)
@@ -262,7 +265,7 @@ class ProjectDetailAdapter(
                         }
                     }
                 }
-                binding.whyInvestCard.clWhyInvest.setOnClickListener(onItemClickListener)
+                binding.cvWhyInvestCard.setOnClickListener(onItemClickListener)
                 binding.tvApplyNow.setOnClickListener(onItemClickListener)
                 binding.tvRating.text = "${data.generalInfoEscalationGraph.estimatedAppreciation.toString()}%"
             }
@@ -281,7 +284,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectPriceTrendsViewHolder(private val binding: PriceTrendsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvRating.text = data.generalInfoEscalationGraph.estimatedAppreciation.toString()
+            binding.tvRating.text = data.generalInfoEscalationGraph.estimatedAppreciation.toString()+"%"
             binding.tvXAxisLabel.text = data.generalInfoEscalationGraph.yAxisDisplayName
             binding.tvYAxisLabel.text = data.generalInfoEscalationGraph.xAxisDisplayName
             val graphData = data.generalInfoEscalationGraph.dataPoints.points
@@ -398,12 +401,12 @@ class ProjectDetailAdapter(
         fun bind(position: Int){
             binding.apply {
                 val list = ArrayList<ProjectAminity>()
-                if(data.opprotunityDocs[0].projectAminities.size > 4){
+                if(data.opportunityDocs[0].projectAminities.size > 4){
                     for(i in 0..3){
-                        list.add(data.opprotunityDocs[0].projectAminities[i])
+                        list.add(data.opportunityDocs[0].projectAminities[i])
                     }
                 }else{
-                    for(item in data.opprotunityDocs[0].projectAminities){
+                    for(item in data.opportunityDocs[0].projectAminities){
                         list.add(item)
                     }
                 }
@@ -442,6 +445,7 @@ class ProjectDetailAdapter(
             faqAdapter = FaqQuestionAdapter(itemList,itemClickListener)
             binding.rvFaq.adapter = faqAdapter
             binding.tvFaqReadAll.setOnClickListener(onItemClickListener)
+            binding.bnAskHere.setOnClickListener(onItemClickListener)
         }
     }
 

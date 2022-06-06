@@ -27,7 +27,7 @@ data class PdData(
     val mediaGalleryOrProjectContent: List<MediaGalleryOrProjectContent>,
     val numberOfSimilarInvestmentsToShow: Any,
     val offersAndPromotions: OffersAndPromotions,
-    val opprotunityDocs: List<OpprotunityDoc>,
+    val opportunityDocs: List<OpprotunityDoc>,
     val priceStartingFrom: String,
     val projectContentsAndFaqs: List<ProjectContentsAndFaq>,
     val projectCoverImages: ProjectCoverImages,

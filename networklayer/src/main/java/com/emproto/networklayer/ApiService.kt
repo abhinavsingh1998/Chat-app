@@ -66,6 +66,9 @@ public interface ApiService {
     @GET(ApiConstants.INVESTMENT)
     suspend fun getInvestments(@Query("pageType") pageType: Int): Response<InvestmentResponse>
 
+    @GET(ApiConstants.PROJECT_MEDIA_GALLERIES)
+    suspend fun getProjectMediaGalleries(@Path("projectContentId") projectContentId: Int): Response<ProjectMediaGalleryResponse>
+
     @GET(ApiConstants.HOME)
     suspend fun getDashboardData(@Query("pageType") pageType: Int): Response<HomeResponse>
 

@@ -44,6 +44,10 @@ class InvestmentViewModel(
         return investmentRepository.getInvestments(pageType)
     }
 
+    fun getInvestmentsMediaGallery(projectId: Int): LiveData<BaseResponse<ProjectMediaGalleryResponse>> {
+        return investmentRepository.getProjectMediaGalleries(projectId)
+    }
+
     fun getInvestmentsDetail(id: Int): LiveData<BaseResponse<ProjectDetailResponse>> {
         return investmentRepository.getInvestmentsDetail(id)
     }
