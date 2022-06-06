@@ -1,5 +1,8 @@
 package com.emproto.networklayer
 
+import com.emproto.networklayer.response.home.InsightsMedia
+import com.emproto.networklayer.response.home.LatestUpdates
+
 object ApiConstants {
     const val COMMON_MSG = "Something Went Wrong"
     val BASE_URL_DEV =
@@ -8,7 +11,7 @@ object ApiConstants {
     const val GENERATE_OTP = "hoabl-customer/generate_otp"
     const val VALIDATE_OTP = "hoabl-customer/verify_otp"
     const val SET_NAME = "hoabl-customer/set_name"
-    const val TROUBLE_SIGNING = "hoabl-customer/case/sign-in"
+    const val TROUBLE_SIGNING = "hoabl-customer/case"
 
     const val HOME = "hoabl-admin/get-page"
     const val LatestUpdates="hoabl-admin/marketing-updates"
@@ -43,4 +46,5 @@ object ApiConstants {
     const val BOOKING_JOURNEY = "hoabl-customer/booking-journey"
     const val CHATS_LIST = "hoabl-customer/chats"
     const val CHATS_INITIATE = "hoabl-customer/chat/initiate"
+    const val PROJECT_MEDIA_GALLERIES = "hoabl-admin/project-contents/{projectContentId}/media-galleries"
 }
