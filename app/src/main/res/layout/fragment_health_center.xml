@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/margin_size_55"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/shape2">
 
 
@@ -34,13 +35,13 @@
 
             <TextView
                 android:id="@+id/tv_Account"
-                android:textSize="18sp"
-                android:textColor="@color/app_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/jostmedium"
                 android:text="@string/help_center"
+                android:textColor="@color/app_color"
+                android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/imgArrow"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,13 +57,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/back_action" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/healthCenterRecyclerView"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:layout_constraintTop_toBottomOf="@+id/divideView"
-            tools:layout_editor_absoluteX="-12dp"></androidx.recyclerview.widget.RecyclerView>
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divideView">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/healthCenterRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:itemCount="5"
+                    tools:listitem="@layout/health_center_view" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -31,6 +31,7 @@ class FaqFragment : Fragment() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             true
         initClickListener()
+        (requireActivity())
         return binding.root
     }
 

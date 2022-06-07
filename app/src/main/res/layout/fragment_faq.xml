@@ -51,17 +51,16 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clSearch"
             android:layout_width="0dp"
             android:layout_height="30dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="18dp"
             android:layout_marginEnd="12dp"
             android:background="@drawable/search_bar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/back_action"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/back_action">
 
             <ImageView
@@ -69,7 +68,7 @@
                 android:layout_width="14dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/img_search"
+                android:src="@drawable/search"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -94,15 +93,15 @@
 
         <TextView
             android:id="@+id/tv_Popular"
-            style="style/text_style_text_color_18"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/margin_size_12"
             android:layout_marginTop="@dimen/margin_size_30"
-            android:fontFamily="@font/jostregular"
+            android:fontFamily="@font/jost_regular"
             android:lineSpacingExtra="0sp"
-            android:text="@string/popular_categories"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="Popular Categories"
+            android:textColor="#17171c"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/clSearch"
             app:layout_constraintTop_toBottomOf="@+id/clSearch" />
 
         <TextView
@@ -115,6 +114,7 @@
             android:layout_marginEnd="@dimen/margin_size_6"
             android:fontFamily="@font/jostmedium"
             android:text="@string/see_all"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_Popular"
             app:layout_constraintTop_toBottomOf="@+id/view_search" />
@@ -126,6 +126,7 @@
             android:layout_marginStart="@dimen/margin_size_10"
             android:layout_marginTop="@dimen/margin_size_35"
             android:src="@drawable/rightarrow"
+            android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/tv_seeAll"
             app:layout_constraintTop_toBottomOf="@+id/view_search" />
 
@@ -148,7 +149,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="11dp"
-            android:fontFamily="@font/jostmedium"
+            android:fontFamily="@font/jost_medium"
             android:text="@string/general"
             app:layout_constraintBottom_toBottomOf="@+id/view_faq"
             app:layout_constraintStart_toStartOf="@+id/view_faq"
@@ -219,28 +220,25 @@
 
         <TextView
             android:id="@+id/tv_Category"
-            style="style/text_style_text_color_18"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginLeft="@dimen/margin_size_14"
             android:layout_marginTop="@dimen/margin_size_20"
             android:fontFamily="@font/jostregular"
             android:lineSpacingExtra="0sp"
             android:text="@string/category"
             android:textColor="#16161c"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/tv_Popular"
             app:layout_constraintTop_toBottomOf="@+id/line_view2" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/healthCenterRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_size_14"
-            android:layout_marginTop="@dimen/margin_size_6"
-            android:padding="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_Category" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_Category"
+            tools:listitem="@layout/item_faq" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
