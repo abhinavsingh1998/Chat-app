@@ -17,11 +17,11 @@ import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
+import com.emproto.networklayer.response.bookingjourney.BookingJourney
 import com.emproto.networklayer.response.enums.Status
 import com.example.portfolioui.adapters.BookingJourneyAdapter
 import com.example.portfolioui.databinding.FragmentBookingjourneyBinding
 import com.example.portfolioui.models.BookingModel
-import com.example.portfolioui.models.BookingStepsModel
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -92,7 +92,7 @@ class BookingjourneyFragment : BaseFragment() {
                     }
                     Status.SUCCESS -> {
                         mBinding.loader.hide()
-                        loadBookingJourneyData()
+                        loadBookingJourneyData(it.data!!.data.bookingJourney)
                     }
                     Status.ERROR -> {
 
@@ -101,18 +101,15 @@ class BookingjourneyFragment : BaseFragment() {
             })
     }
 
-    fun loadBookingJourneyData(){
+    fun loadBookingJourneyData(data: BookingJourney) {
         val bookingList = ArrayList<BookingModel>()
-        val list = ArrayList<BookingStepsModel>()
-        list.add(BookingStepsModel(0, "Application", "Payment 1"))
-        list.add(BookingStepsModel(1, "Allotment", "payment 2"))
         bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_HEADER))
-        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST, list))
-        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST, list))
-        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST, list))
-        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST, list))
-        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST, list))
-        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_LIST, list))
+        bookingList.add(BookingModel(BookingJourneyAdapter.TRANSACTION, data.transaction))
+        bookingList.add(BookingModel(BookingJourneyAdapter.DOCUMENTATION, data.documentation))
+        bookingList.add(BookingModel(BookingJourneyAdapter.PAYMENTS, data.payments))
+        bookingList.add(BookingModel(BookingJourneyAdapter.OWNERSHIP, data.ownership))
+        bookingList.add(BookingModel(BookingJourneyAdapter.POSSESSION, data.possession))
+        bookingList.add(BookingModel(BookingJourneyAdapter.FACILITY, data.facility))
         mBinding.bookingjourneyList.layoutManager = LinearLayoutManager(requireContext())
         mBinding.bookingjourneyList.adapter =
             BookingJourneyAdapter(
