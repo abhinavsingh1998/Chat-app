@@ -51,63 +51,46 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <View
-            android:id="@+id/view_search"
-            android:layout_width="match_parent"
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clSearch"
+            android:layout_width="0dp"
             android:layout_height="30dp"
-            android:layout_marginStart="@dimen/margin_size_12"
-            android:layout_marginTop="@dimen/margin_size_30"
-            android:layout_marginEnd="@dimen/margin_size_12"
-            android:background="@drawable/shape2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/back_action" />
-
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/margin_size_8"
-            android:layout_marginTop="@dimen/margin_size_4"
-            app:layout_constraintStart_toStartOf="@+id/view_search"
-            app:layout_constraintTop_toTopOf="@+id/view_search" />
-
-
-        <View
-            android:id="@+id/vertical_line"
-            android:layout_width="1dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="16dp"
-            android:background="#B4BABA"
-            app:layout_constraintBottom_toBottomOf="@+id/view_search"
-            app:layout_constraintEnd_toStartOf="@+id/iv_search"
-            app:layout_constraintTop_toTopOf="@+id/view_search"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <ImageView
-            android:id="@+id/iv_search"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="6dp"
-            android:src="@drawable/icshape3"
-            app:layout_constraintEnd_toStartOf="@+id/et_Search_Faq"
-            app:layout_constraintTop_toTopOf="@+id/view_search" />
-
-        <EditText
-            android:id="@+id/et_Search_Faq"
-            style="@style/text_style_text_color_10"
-            android:layout_width="240dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="18dp"
             android:layout_marginEnd="12dp"
-            android:background="@android:color/transparent"
-            android:fontFamily="@font/jostregular"
-            android:hint="@string/search_faq"
+            android:background="@drawable/search_bar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view_search"
-            tools:text="Search FAQs" />
+            app:layout_constraintStart_toStartOf="@id/back_action"
+            app:layout_constraintTop_toBottomOf="@id/back_action">
+
+            <ImageView
+                android:id="@+id/ivSearch"
+                android:layout_width="14dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/img_search"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/etSearch"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="6dp"
+                android:background="@null"
+                android:fontFamily="@font/jost_regular"
+                android:hint="Search"
+                android:letterSpacing="-0.02"
+                android:textColor="#85869f"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivSearch"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/tv_Popular"
@@ -120,7 +103,7 @@
             android:lineSpacingExtra="0sp"
             android:text="@string/popular_categories"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_search" />
+            app:layout_constraintTop_toBottomOf="@+id/clSearch" />
 
         <TextView
             android:id="@+id/tv_seeAll"
