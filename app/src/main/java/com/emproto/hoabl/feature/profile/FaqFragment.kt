@@ -32,6 +32,8 @@ class FaqFragment : Fragment() {
             true
         initClickListener()
         (requireActivity())
+        (requireActivity() as HomeActivity).hideBottomNavigation()
+
         return binding.root
     }
 

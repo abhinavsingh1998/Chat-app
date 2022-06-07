@@ -126,7 +126,14 @@ class HelpCenterFragment : BaseFragment() {
 
                 }
 
-            })
+            },
+            object : HoabelHealthAdapter.FooterInterface {
+                override fun onChatClick(position: Int) {
+
+                }
+
+            }
+        )
         //back click
         binding.backAction.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()

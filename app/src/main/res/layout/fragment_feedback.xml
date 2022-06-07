@@ -257,7 +257,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="@dimen/margin_size_22"
                     android:layout_marginEnd="@dimen/margin_size_12"
-                    android:background="@drawable/feedback_curve"
+                    android:background="@drawable/search_bar"
                     android:fontFamily="@font/jostregular"
                     android:gravity="top|start"
                     android:hint="Describe your experience here"

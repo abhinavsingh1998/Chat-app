@@ -5,10 +5,12 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cvProject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardCornerRadius="6dp"
         app:cardElevation="3dp"
+        android:layout_marginTop="@dimen/margin_size_10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -17,7 +19,6 @@
             android:id="@+id/project_image"
             android:layout_width="@dimen/margin_size_40"
             android:layout_height="@dimen/margin_size_40"
-            android:layout_marginTop="@dimen/margin_size_10"
             android:scaleType="fitXY"
             android:src="@drawable/img" />
 
@@ -35,7 +36,7 @@
         android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/project_image" />
+        app:layout_constraintTop_toBottomOf="@id/cvProject" />
 
     <View
         android:id="@+id/viewLine"

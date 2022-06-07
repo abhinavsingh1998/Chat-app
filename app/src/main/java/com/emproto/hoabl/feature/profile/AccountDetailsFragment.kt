@@ -31,6 +31,8 @@ class AccountDetailsFragment : Fragment() {
             true
 
         initClickListener()
+        (requireActivity() as HomeActivity).hideBottomNavigation()
+
 
         return binding.root
     }
