@@ -145,13 +145,14 @@
 
                         <LinearLayout
                             android:id="@+id/rating_linear"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/margin_size_24"
                             android:layout_marginStart="@dimen/margin_size_8"
                             android:orientation="horizontal"
                             app:layout_constraintStart_toEndOf="@id/tv_investment_project_name"
-                            app:layout_constraintTop_toTopOf="@id/tv_investment_project_name">
+                            app:layout_constraintTop_toTopOf="@id/tv_investment_project_name"
+                            app:layout_constraintEnd_toStartOf="@id/tv_amount">
 
                             <ImageView
                                 android:id="@+id/iv_rating"

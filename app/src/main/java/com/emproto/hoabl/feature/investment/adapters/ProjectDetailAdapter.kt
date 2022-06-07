@@ -23,10 +23,7 @@ import com.emproto.hoabl.utils.MapItemClickListener
 import com.emproto.hoabl.utils.SimilarInvItemClickListener
 import com.emproto.hoabl.utils.YoutubeItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
-import com.emproto.networklayer.response.investment.Inventory
-import com.emproto.networklayer.response.investment.PdData
-import com.emproto.networklayer.response.investment.PmData
-import com.emproto.networklayer.response.investment.ProjectAminity
+import com.emproto.networklayer.response.investment.*
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -442,7 +439,18 @@ class ProjectDetailAdapter(
     private inner class ProjectFaqViewHolder(private val binding: FaqLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             val itemList = data.projectContentsAndFaqs
-            faqAdapter = FaqQuestionAdapter(itemList,itemClickListener)
+            val list = ArrayList<ProjectContentsAndFaq>()
+            when{
+                itemList.size > 2 -> {
+                    for(i in 0..1){
+                        list.add(data.projectContentsAndFaqs[i])
+                        faqAdapter = FaqQuestionAdapter(list,itemClickListener)
+                    }
+                }
+                else -> {
+                    faqAdapter = FaqQuestionAdapter(itemList,itemClickListener)
+                }
+            }
             binding.rvFaq.adapter = faqAdapter
             binding.tvFaqReadAll.setOnClickListener(onItemClickListener)
             binding.bnAskHere.setOnClickListener(onItemClickListener)
