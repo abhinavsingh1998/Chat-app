@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/margin_size_16"
     android:layout_marginTop="@dimen/margin_size_7"
-    android:layout_marginBottom="@dimen/margin_size_2"
+    android:layout_marginBottom="@dimen/margin_size_20"
     android:outlineSpotShadowColor="#ababab"
     app:cardElevation="@dimen/margin_size_8">
 
@@ -40,19 +40,31 @@
             app:layout_constraintStart_toEndOf="@+id/header_indicator"
             app:layout_constraintTop_toTopOf="@+id/header_indicator" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/steps_list"
-            android:layout_width="match_parent"
+
+        <ImageView
+            android:id="@+id/iv_first"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_size_12"
-            android:layout_marginEnd="@dimen/margin_size_12"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="25dp"
             android:layout_marginBottom="16dp"
+            android:src="@drawable/ic_payment_icon"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_header"
-            app:layout_constraintVertical_bias="0.0"
-            tools:itemCount="4"
-            tools:listitem="@layout/item_bokingjour" />
+            app:layout_constraintEnd_toEndOf="@+id/header_indicator"
+            app:layout_constraintStart_toStartOf="@+id/header_indicator"
+            app:layout_constraintTop_toBottomOf="@+id/header_indicator" />
+
+        <TextView
+            android:id="@+id/tv_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/jost_regular"
+            android:text="Access Manage my Land"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_first"
+            app:layout_constraintStart_toEndOf="@+id/iv_first"
+            app:layout_constraintTop_toTopOf="@+id/iv_first" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
