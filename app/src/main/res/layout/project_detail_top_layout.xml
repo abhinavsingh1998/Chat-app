@@ -258,12 +258,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/project_detail_viewPager"/>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_location_information_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_size_12"
-            android:lineSpacingMultiplier="1.5"
+            android:lineSpacingMultiplier="1.2"
             android:maxLines="2"
             tools:text="The Isle of Bliss is phase 2 of Codename Bliss Dapoli, a seaside lifestyle plotting development from The House of Abhinandan Lodha…READ MORE"
             style="@style/text_style_text_black_color_14"
