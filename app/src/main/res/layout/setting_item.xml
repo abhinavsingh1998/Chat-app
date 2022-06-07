@@ -22,10 +22,9 @@
         style="@style/text_style_light_grey_12"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_size_16"
         android:fontFamily="@font/jostmedium"
         android:text="Control location access here"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvHeading"
         app:layout_constraintTop_toBottomOf="@+id/tvHeading" />
 
     <androidx.appcompat.widget.SwitchCompat

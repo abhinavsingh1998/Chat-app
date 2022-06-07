@@ -1,149 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/app_color">
+
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/margin_size_55"
-            android:background="@drawable/shape2"
-            app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/shape2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/back_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_14"
+            android:layout_marginTop="@dimen/margin_size_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/back_action"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_size_23"
-                    android:layout_marginTop="@dimen/margin_size_24"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
-                        android:id="@+id/imgArrow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ic_path"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/imgArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_path"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/tv_Account"
-                        style="@style/text_style_blue_16"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:fontFamily="@font/jostmedium"
-                        android:text="@string/privacypolicy"
-                        app:layout_constraintStart_toEndOf="@+id/imgArrow"
-                        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/tv_Account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/jost_medium"
+                android:text="@string/privacypolicy"
+                android:textColor="@color/app_color"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/imgArrow"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/back_action">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/homescreen_curve"
+            android:paddingBottom="@dimen/margin_size_28"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/back_action">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/homescreen_curve"
-                    android:paddingBottom="@dimen/margin_size_28"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/back_action">
+            <TextView
+                android:id="@+id/tv_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="27dp"
+                android:fontFamily="@font/jost_regular"
+                android:text="Terms &amp; Condition"
+                android:textColor="#17171c"
+                android:textSize="@dimen/text_size_22"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/tv_heading"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="28dp"
-                        android:layout_marginTop="30dp"
-                        android:fontFamily="@font/jost_regular"
-                        android:text="Terms &amp; Condition"
-                        android:textColor="#17171c"
-                        android:textSize="@dimen/text_size_22"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="28dp"
+                android:fontFamily="@font/jost_regular"
+                android:lineSpacingExtra="9sp"
+                android:text="Title goes here"
+                android:textColor="#17171c"
+                android:textSize="@dimen/text_size_16"
+                app:layout_constraintStart_toStartOf="@id/tv_heading"
+                app:layout_constraintTop_toBottomOf="@+id/tv_heading" />
 
-                    <TextView
-                        android:id="@+id/tv_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="28dp"
-                        android:layout_marginTop="30dp"
-                        android:fontFamily="@font/jost_regular"
-                        android:text="Title goes here"
-                        android:textColor="#17171c"
-                        android:lineSpacingExtra="9sp"
-                        android:textSize="@dimen/text_size_16"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_heading" />
+            <TextView
+                android:id="@+id/tv_description"
+                style="@style/text_style_reg_black_color_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="28dp"
+                android:fontFamily="@font/jost_light"
+                android:lineSpacingExtra="2sp"
+                android:text="@string/privacy_information"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/tv_heading"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
-                    <TextView
-                        android:id="@+id/tv_description"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="28dp"
-                        android:layout_marginTop="14dp"
-                        android:layout_marginEnd="28dp"
-                        android:lineSpacingExtra="2sp"
-                        android:fontFamily="@font/jost_light"
-                        android:text="@string/privacy_information"
-                       style="@style/text_style_reg_black_color_14"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+            <TextView
+                android:id="@+id/tv_privacy_discription"
+                style="@style/text_style_reg_black_color_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_10"
+                android:layout_marginEnd="28dp"
+                android:fontFamily="@font/jost_light"
+                android:lineSpacingExtra="2sp"
+                android:text="@string/privacy_information"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tv_heading"
+                app:layout_constraintTop_toBottomOf="@+id/tv_description" />
 
-                    <TextView
-                        android:id="@+id/tv_privacy_discription"
-                        style="@style/text_style_reg_black_color_14"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_size_28"
-                        android:layout_marginTop="@dimen/margin_size_5"
-                        android:layout_marginEnd="28dp"
-                        android:fontFamily="@font/jost_light"
-                        android:lineSpacingExtra="2sp"
-                        android:text="@string/privacy_information"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+            <TextView
 
-                    <TextView
+                android:id="@+id/tv_privacy_title"
+                style="@style/text_style_color_18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_28"
+                android:layout_marginTop="@dimen/margin_size_30"
+                android:layout_marginEnd="28dp"
+                android:fontFamily="@font/jost_regular"
+                android:lineSpacingExtra="0sp"
+                android:text="Title goes here"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_privacy_discription" />
 
-                        android:id="@+id/tv_privacy_title"
-                        style="@style/text_style_color_18"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_size_28"
-                        android:layout_marginTop="@dimen/margin_size_30"
-                        android:layout_marginEnd="232dp"
-                        android:fontFamily="@font/jostregular"
-                        android:lineSpacingExtra="0sp"
-                        android:text="Title goes here"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_privacy_discription" />
+            <TextView
+                android:id="@id/desc"
+                style="@style/text_style_reg_black_color_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_14"
+                android:layout_marginEnd="28dp"
+                android:fontFamily="@font/jost_light"
+                android:lineSpacingExtra="2sp"
+                android:text="@string/privacy_information"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tv_heading"
+                app:layout_constraintTop_toBottomOf="@+id/tv_privacy_title" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <TextView
-                        android:id="@id/desc"
-                        style="@style/text_style_reg_black_color_14"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_size_28"
-                        android:layout_marginTop="@dimen/margin_size_14"
-                        android:layout_marginEnd="28dp"
-                        android:fontFamily="@font/jost_light"
-                        android:lineSpacingExtra="2sp"
-                        android:text="@string/privacy_information"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_privacy_title" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

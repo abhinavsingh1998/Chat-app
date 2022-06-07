@@ -17,7 +17,7 @@
             android:id="@+id/back_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_size_23"
+            android:layout_marginStart="@dimen/margin_size_14"
             android:layout_marginTop="@dimen/margin_size_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -34,7 +34,8 @@
 
             <TextView
                 android:id="@+id/tv_Account"
-                style="@style/text_style_blue_16"
+                android:textSize="18sp"
+                android:textColor="@color/app_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"

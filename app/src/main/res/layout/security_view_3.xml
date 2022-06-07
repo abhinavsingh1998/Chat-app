@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
-        android:fontFamily="@font/jostmedium"
+        android:fontFamily="@font/jost_regular"
         android:text="Read Security Tips"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,20 +22,17 @@
         style="@style/text_style_lightgrey14"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/jostregular"
+        android:fontFamily="@font/jost_regular"
         android:text="Control location access here"
         app:layout_constraintEnd_toStartOf="@+id/imgarrow"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/Security"
         app:layout_constraintTop_toBottomOf="@+id/Security" />
 
     <ImageView
         android:id="@+id/imgarrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
         android:src="@drawable/rightarrow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

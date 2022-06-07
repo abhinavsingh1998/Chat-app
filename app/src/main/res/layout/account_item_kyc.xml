@@ -5,8 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="40dp"
-    android:layout_margin="@dimen/margin_size_5"
-    app:cardElevation="@dimen/margin_size_4">
+    app:cardCornerRadius="4dp"
+    android:layout_marginTop="6dp"
+    app:cardElevation="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
-            android:fontFamily="@font/jostregular"
+            android:fontFamily="@font/jost_regular"
             android:text="Aadhar Card"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +41,7 @@
         <View
             android:id="@+id/document_view_link_line"
             android:layout_width="0dp"
-            android:layout_height="1dp"
+            android:layout_height="0.75dp"
             android:background="@color/app_color"
             app:layout_constraintEnd_toEndOf="@+id/documentview_link"
             app:layout_constraintHorizontal_bias="1.0"

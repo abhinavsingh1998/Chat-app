@@ -8,10 +8,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_marginTop="55dp"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/shape2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -20,7 +22,7 @@
             android:id="@+id/back_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_size_23"
+            android:layout_marginStart="14dp"
             android:layout_marginTop="@dimen/margin_size_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -34,13 +36,14 @@
 
             <TextView
                 android:id="@+id/edit_profile"
-                style="@style/text_style_blue_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_size_16"
+                android:layout_marginStart="10dp"
                 android:layout_toRightOf="@+id/arrowimage"
-                android:fontFamily="@font/jostmedium"
-                android:text="@string/my_accounts" />
+                android:fontFamily="@font/jost_medium"
+                android:text="@string/my_accounts"
+                android:textSize="18sp"
+                android:textColor="@color/app_color"/>
         </RelativeLayout>
 
         <androidx.core.widget.NestedScrollView
@@ -62,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_16"
                     android:layout_marginTop="@dimen/margin_size_26"
-                    android:fontFamily="@font/jostregular"
+                    android:fontFamily="@font/jost_regular"
                     android:text="@string/kyc"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -72,7 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="14dp"
                     android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -95,7 +98,7 @@
 
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/tv_see_all_documents"
-                    style="@style/text_style_blue_14"
+                    style="@style/text_style_blue_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_size_16"
@@ -117,7 +120,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="14dp"
                     android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -131,8 +134,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_16"
-                    android:layout_marginTop="40dp"
-                    android:fontFamily="@font/jostregular"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/jost_regular"
                     android:lineSpacingExtra="0sp"
                     android:text="Payment History"
                     android:textColor="#16161c"
@@ -145,7 +148,7 @@
 
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/tv_see_all_payment_history"
-                    style="@style/text_style_blue_14"
+                    style="@style/text_style_blue_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_size_16"
@@ -165,12 +168,11 @@
                     android:id="@+id/list_paymenthistory"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView11" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView11"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/account_details_view"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>

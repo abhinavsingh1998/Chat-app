@@ -10,58 +10,64 @@
         style="@style/text_style_text_color_14"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/jost_bold"
-        android:text="@string/isle_of_bliss"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_payment_milestone"
-        app:layout_constraintStart_toEndOf="@+id/tv_payment_milestone"
-        app:layout_constraintTop_toTopOf="@+id/tv_payment_milestone" />
+        android:text="Isle of Bliss : "
+      app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_total_amount"/>
 
     <TextView
         android:id="@+id/tv_transaction_time_date"
-        style="@style/text_style_grey_14"
+        style="@style/text_style_grey_12"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:fontFamily="@font/jostregular"
+        android:fontFamily="@font/jost_italic"
         android:text="11th March 2022"
-        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/tv_total_amount"
+        app:layout_constraintBottom_toBottomOf="@id/tv_total_amount"/>
 
     <TextView
         android:id="@+id/receipt_tv"
-        style="@style/text_style_blue_14"
+        style="@style/text_style_blue_12"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:fontFamily="@font/jostregular"
+        android:fontFamily="@font/jost_regular"
         android:text="@string/see_receipt"
-
         android:textAlignment="textStart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_transaction_time_date" />
+        app:layout_constraintTop_toTopOf="@+id/tv_transaction_name"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_transaction_name"/>
+    <View
+        android:id="@+id/document_view_link_line"
+        android:layout_width="0dp"
+        android:layout_height="0.75dp"
+        android:background="@color/app_color"
+        app:layout_constraintEnd_toEndOf="@+id/receipt_tv"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/receipt_tv"
+        app:layout_constraintTop_toBottomOf="@+id/receipt_tv" />
 
     <TextView
         android:id="@+id/tv_payment_milestone"
         style="@style/text_style_text_color_14"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/jostregular"
-        android:text="Payment Milestone 2:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_total_amount" />
+        android:fontFamily="@font/jost_regular"
+        android:text="Payment Milestone 2"
+        app:layout_constraintStart_toEndOf="@id/tv_transaction_name"
+        app:layout_constraintTop_toTopOf="@+id/tv_transaction_name"
+        app:layout_constraintBottom_toBottomOf="@id/tv_transaction_name"/>
 
     <TextView
         android:id="@+id/tv_total_amount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="14dp"
         android:fontFamily="@font/jost_semibold"
         android:text="₹20,000"
         android:textColor="#676ac0"
@@ -73,7 +79,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:background="@color/category_bottom_ash_line_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
