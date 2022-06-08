@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="55dp"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/shape2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +21,7 @@
             android:id="@+id/back_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_size_23"
+            android:layout_marginStart="@dimen/margin_size_14"
             android:layout_marginTop="@dimen/margin_size_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -37,88 +38,71 @@
 
             <TextView
                 android:id="@+id/tv_Account"
-                style="@style/text_style_blue_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:fontFamily="@font/jostmedium"
-                android:text="@string/faq"
+                android:fontFamily="@font/jost_medium"
+                android:text="FAQ"
+                android:textColor="@color/app_color"
+                android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/imgArrow"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <View
-            android:id="@+id/view_search"
-            android:layout_width="match_parent"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clSearch"
+            android:layout_width="0dp"
             android:layout_height="30dp"
-            android:layout_marginStart="@dimen/margin_size_12"
-            android:layout_marginTop="@dimen/margin_size_30"
-            android:layout_marginEnd="@dimen/margin_size_12"
-            android:background="@drawable/shape2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/back_action" />
-
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/margin_size_8"
-            android:layout_marginTop="@dimen/margin_size_4"
-            app:layout_constraintStart_toStartOf="@+id/view_search"
-            app:layout_constraintTop_toTopOf="@+id/view_search" />
-
-
-        <View
-            android:id="@+id/vertical_line"
-            android:layout_width="1dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="16dp"
-            android:background="#B4BABA"
-            app:layout_constraintBottom_toBottomOf="@+id/view_search"
-            app:layout_constraintEnd_toStartOf="@+id/iv_search"
-            app:layout_constraintTop_toTopOf="@+id/view_search"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <ImageView
-            android:id="@+id/iv_search"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="6dp"
-            android:src="@drawable/icshape3"
-            app:layout_constraintEnd_toStartOf="@+id/et_Search_Faq"
-            app:layout_constraintTop_toTopOf="@+id/view_search" />
-
-        <EditText
-            android:id="@+id/et_Search_Faq"
-            style="@style/text_style_text_color_10"
-            android:layout_width="240dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="7dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="18dp"
             android:layout_marginEnd="12dp"
-            android:background="@android:color/transparent"
-            android:fontFamily="@font/jostregular"
-            android:hint="@string/search_faq"
+            android:background="@drawable/search_bar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view_search"
-            tools:text="Search FAQs" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/back_action">
+
+            <ImageView
+                android:id="@+id/ivSearch"
+                android:layout_width="14dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/search"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/etSearch"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="6dp"
+                android:background="@null"
+                android:fontFamily="@font/jost_regular"
+                android:hint="Search"
+                android:letterSpacing="-0.02"
+                android:textColor="#85869f"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivSearch"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/tv_Popular"
-            style="style/text_style_text_color_18"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/margin_size_12"
             android:layout_marginTop="@dimen/margin_size_30"
-            android:fontFamily="@font/jostregular"
+            android:fontFamily="@font/jost_regular"
             android:lineSpacingExtra="0sp"
-            android:text="@string/popular_categories"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_search" />
+            android:text="Popular Categories"
+            android:textColor="#17171c"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/clSearch"
+            app:layout_constraintTop_toBottomOf="@+id/clSearch" />
 
         <TextView
             android:id="@+id/tv_seeAll"
@@ -130,6 +114,7 @@
             android:layout_marginEnd="@dimen/margin_size_6"
             android:fontFamily="@font/jostmedium"
             android:text="@string/see_all"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_Popular"
             app:layout_constraintTop_toBottomOf="@+id/view_search" />
@@ -141,6 +126,7 @@
             android:layout_marginStart="@dimen/margin_size_10"
             android:layout_marginTop="@dimen/margin_size_35"
             android:src="@drawable/rightarrow"
+            android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/tv_seeAll"
             app:layout_constraintTop_toBottomOf="@+id/view_search" />
 
@@ -163,7 +149,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="11dp"
-            android:fontFamily="@font/jostmedium"
+            android:fontFamily="@font/jost_medium"
             android:text="@string/general"
             app:layout_constraintBottom_toBottomOf="@+id/view_faq"
             app:layout_constraintStart_toStartOf="@+id/view_faq"
@@ -232,30 +218,49 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_faq" />
 
-        <TextView
-            android:id="@+id/tv_Category"
-            style="style/text_style_text_color_18"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginLeft="@dimen/margin_size_14"
-            android:layout_marginTop="@dimen/margin_size_20"
-            android:fontFamily="@font/jostregular"
-            android:lineSpacingExtra="0sp"
-            android:text="@string/category"
-            android:textColor="#16161c"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/line_view2" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/healthCenterRecyclerView"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_size_14"
-            android:layout_marginTop="@dimen/margin_size_6"
-            android:padding="6dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_Category" />
+            app:layout_constraintTop_toBottomOf="@+id/line_view2">
+
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_Category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/margin_size_20"
+                    android:fontFamily="@font/jost_regular"
+                    android:lineSpacingExtra="0sp"
+                    android:text="Category 1"
+                    android:layout_marginStart="14dp"
+                    android:textColor="#16161c"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/healthCenterRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_Category"
+                    tools:itemCount="4"
+                    tools:listitem="@layout/item_faq" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

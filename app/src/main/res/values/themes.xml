@@ -45,6 +45,16 @@
         <item name="boxStrokeColor">@color/app_color</item>
     </style>
 
+    <style name="CustomTextInputLayoutWithSpinner" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+        <item name="boxCollapsedPaddingTop">0dp</item>
+        <item name="boxBackgroundMode">outline</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="android:textColorHint">@color/text_grey_color</item>
+        <item name="hintTextColor">@color/app_color</item>
+        <item name="boxStrokeColor">@color/app_color</item>
+    </style>
+
     <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="fontFamily">@font/jost_medium</item>
         <item name="android:fontFamily">@font/jost_medium</item>
@@ -52,6 +62,18 @@
 
 
     <style name="CustomTextInputEditText">
+        <item name="android:singleLine">true</item>
+        <item name="android:minLines">1</item>
+        <item name="android:maxLines">1</item>
+        <item name="maxLines">1</item>
+        <item name="paddingStart">@dimen/_8sdp</item>
+        <item name="paddingEnd">@dimen/_2sdp</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:paddingTop">@dimen/margin_size_12</item>
+        <item name="android:paddingBottom">@dimen/margin_size_12</item>
+    </style>
+
+    <style name="CustomTextInputEditTextWithSpinner">
         <item name="android:singleLine">true</item>
         <item name="android:minLines">1</item>
         <item name="android:maxLines">1</item>
@@ -449,11 +471,13 @@
         <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@color/text_lightgrey_color</item>
     </style>
+
     <style name="text_style_lightgrey14">
         <item name="android:gravity">center|left</item>
         <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@color/text_lightgrey_color</item>
     </style>
+
     <style name="text_style_gold_color_14">
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/text_size_14</item>
@@ -726,6 +750,7 @@
         <item name="android:textSize">@dimen/text_size_20</item>
         <item name="android:textColor">@color/text_color</item>
     </style>
+
     <style name="text_style_text_color20">
         <item name="android:gravity">center|left</item>
         <item name="android:textSize">@dimen/text_size_20</item>
@@ -756,6 +781,7 @@
 
 
     //textSize_24
+
     <style name="text_style_blue_24">
         <item name="android:gravity">start</item>
         <item name="android:textSize">@dimen/text_size_24</item>

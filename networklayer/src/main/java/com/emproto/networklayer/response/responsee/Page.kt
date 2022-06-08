@@ -1,5 +1,7 @@
 package com.emproto.networklayer.response.responsee
 
+import com.emproto.networklayer.response.investment.PromotionAndOffersMedia
+
 data class Page(
     val aboutUs: Any,
     val bookingJourney: Any,

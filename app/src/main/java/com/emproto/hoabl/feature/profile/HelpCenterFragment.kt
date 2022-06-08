@@ -126,7 +126,18 @@ class HelpCenterFragment : BaseFragment() {
 
                 }
 
-            })
+            },
+            object : HoabelHealthAdapter.FooterInterface {
+                override fun onChatClick(position: Int) {
+//                    (requireActivity() as HomeActivity).addFragment(
+//                        AboutUsFragment(),
+//                        false
+//                    )
+                    //open Chats Fragment
+                }
+
+            }
+        )
         //back click
         binding.backAction.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()

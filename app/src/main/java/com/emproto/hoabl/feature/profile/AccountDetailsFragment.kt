@@ -31,6 +31,8 @@ class AccountDetailsFragment : Fragment() {
             true
 
         initClickListener()
+        (requireActivity() as HomeActivity).hideBottomNavigation()
+
 
         return binding.root
     }
@@ -54,6 +56,11 @@ class AccountDetailsFragment : Fragment() {
 
     private fun initClickListener() {
         binding.backAction.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
+
+        binding.tvSeeAllPaymentHistory.setOnClickListener {
+            val myAcccount = AccountPaymentHistory()
+            (requireActivity() as HomeActivity).addFragment(myAcccount, false)
+        }
     }
 
     private fun initData(): ArrayList<AccountDetailsData> {
@@ -97,5 +104,7 @@ class AccountDetailsFragment : Fragment() {
 
         return accountdetailsList
     }
+
+
 
 }

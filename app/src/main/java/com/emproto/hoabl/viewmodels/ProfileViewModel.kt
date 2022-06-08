@@ -7,10 +7,8 @@ import com.emproto.hoabl.repository.ProfileRepository
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
 import com.emproto.networklayer.response.BaseResponse
-import com.emproto.networklayer.response.investment.InvestmentResponse
-import com.emproto.networklayer.response.profile.EditProfileResponse
-import com.emproto.networklayer.response.profile.ProfileCountriesResponse
-import com.emproto.networklayer.response.profile.ProfilePictureResponse
+import com.emproto.networklayer.response.profile.CitiesResponse
+import com.emproto.networklayer.response.profile.*
 
 class ProfileViewModel(
     private var mapplication: Application,
@@ -29,8 +27,24 @@ class ProfileViewModel(
         return profileRepository.uploadProfilePicture(uploadProfilePictureRequest)
     }
 
+    fun deleteProfilePicture():LiveData<BaseResponse<EditProfileResponse>>{
+        return profileRepository.deleteProfilePicture()
+    }
+
     fun getCountries(pageType: Int): LiveData<BaseResponse<ProfileCountriesResponse>> {
         return profileRepository.getCountries(pageType)
+    }
+
+    fun getUserProfile(): LiveData<BaseResponse<ProfileResponse>> {
+        return profileRepository.getUserProfile()
+    }
+
+    fun getStates(countryIsoCode:String):LiveData<BaseResponse<StatesResponse>>{
+        return profileRepository.getStates(countryIsoCode)
+    }
+
+    fun getCities(stateIsoCode:String,countryIsoCode: String):LiveData<BaseResponse<CitiesResponse>>{
+        return profileRepository.getCities(stateIsoCode,countryIsoCode)
     }
 
 }

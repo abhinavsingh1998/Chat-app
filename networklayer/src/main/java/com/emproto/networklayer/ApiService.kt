@@ -14,6 +14,7 @@ import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyX
 import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.chats.ChatInitiateRequest
+import com.emproto.networklayer.response.chats.ChatResponse
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
@@ -28,10 +29,7 @@ import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
 import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineResponse
-import com.emproto.networklayer.response.profile.EditProfileResponse
-import com.emproto.networklayer.response.profile.ProfileCountriesResponse
-import com.emproto.networklayer.response.profile.ProfilePictureResponse
-import com.emproto.networklayer.response.profile.ProfileResponse
+import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
@@ -39,14 +37,6 @@ import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
 import retrofit2.Response
 import retrofit2.http.*
-import com.emproto.networklayer.response.chats.ChatResponse
-
-
-/**
- * @author Hoabl.
- * ApiService.
- * Mention all end point of all different modules.
- */
 public interface ApiService {
 
     //auth-apis(all login module apis)
@@ -75,7 +65,7 @@ public interface ApiService {
     suspend fun getDashboardData(@Query("pageType") pageType: Int): Response<HomeResponse>
 
     @GET(ApiConstants.LatestUpdates)
-    suspend fun getLatestUpdates(@Query("byPrority") byPrority: Boolean): Response<LatestUpdatesResponse>
+    suspend fun getLatestUpdates(@Query("byPrority") priority: Boolean = true): Response<LatestUpdatesResponse>
 
     @GET(ApiConstants.INSIGHTS)
     suspend fun getInsightsData(@Query("byPrority") byPrority: Boolean): Response<InsightsResponse>
@@ -125,6 +115,9 @@ public interface ApiService {
     @GET(ApiConstants.GET_PROFILE)
     suspend fun getUserProfile(): Response<ProfileResponse>
 
+    @DELETE(ApiConstants.UPLOADPROFILEPICTURE)
+    suspend fun deleteProfilePic(): Response<EditProfileResponse>
+
     @GET(ApiConstants.PROJECT_TIMELINE)
     suspend fun getProjectTimeline(@Path("id") id: Int): Response<ProjectTimelineResponse>
 
@@ -139,6 +132,15 @@ public interface ApiService {
 
     @POST(ApiConstants.REFER_NOW)
     suspend fun referNow(@Body referBody: ReferalRequest): Response<ReferalResponse>
+
+    @GET(ApiConstants.STATES)
+    suspend fun getStates(@Path("countryIsoCode") countryIsoCode: String): Response<StatesResponse>
+
+    @GET(ApiConstants.CITIES)
+    suspend fun getCities(
+        @Query("stateIsoCode") stateIsoCode: String,
+        @Query("countryIsoCode") countryIsoCode: String
+    ): Response<CitiesResponse>
 
     @POST(ApiConstants.WATCHLIST)
     suspend fun addWatchList(@Body watchListBody: WatchListBody): Response<WatchListResponse>

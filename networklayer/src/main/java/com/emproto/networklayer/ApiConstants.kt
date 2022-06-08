@@ -1,8 +1,5 @@
 package com.emproto.networklayer
 
-import com.emproto.networklayer.response.home.InsightsMedia
-import com.emproto.networklayer.response.home.LatestUpdates
-
 object ApiConstants {
     const val COMMON_MSG = "Something Went Wrong"
     val BASE_URL_DEV =
@@ -11,7 +8,7 @@ object ApiConstants {
     const val GENERATE_OTP = "hoabl-customer/generate_otp"
     const val VALIDATE_OTP = "hoabl-customer/verify_otp"
     const val SET_NAME = "hoabl-customer/set_name"
-    const val TROUBLE_SIGNING = "hoabl-customer/case"
+    const val TROUBLE_SIGNING = "hoabl-customer/case/sign-in"
 
     const val HOME = "hoabl-admin/get-page"
     const val LatestUpdates="hoabl-admin/marketing-updates"
@@ -35,8 +32,8 @@ object ApiConstants {
     const val PROJECT_TIMELINE = "hoabl-admin/project-contents/{id}"
     const val FACILITY_MANAGMENT = "hoabl-customer/facility/authenticate"
     const val REFER_NOW = "hoabl-customer/addReferral"
-    const val CHATS_LIST = "hoabl-customer/chats"
-    const val CHATS_INITIATE = "hoabl-customer/chat/initiate"
+    const val STATES="hoabl-customer/profile/states/{countryIsoCode}"
+    const val CITIES="hoabl-customer/profile/cities"
     const val DELETE_WATCHLIST = "hoabl-customer/watchlist/{id}"
     const val PROJECT_INVENTORIES = "hoabl-customer/inventories/{id}"
     const val ADD_INVENTORY = "hoabl-customer/inventories"
@@ -44,4 +41,6 @@ object ApiConstants {
     const val DOCUMENT_DOWNLOAD = "hoabl-customer/doc-download"
     const val PROJECT_MEDIA_GALLERIES = "hoabl-admin/project-contents/{projectContentId}/media-galleries"
     const val BOOKING_JOURNEY = "hoabl-customer/booking-journey"
+    const val CHATS_LIST = "hoabl-customer/chats"
+    const val CHATS_INITIATE = "hoabl-customer/chat/initiate"
 }
