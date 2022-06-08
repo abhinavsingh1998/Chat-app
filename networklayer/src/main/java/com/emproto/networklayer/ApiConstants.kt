@@ -42,7 +42,6 @@ object ApiConstants {
     const val ADD_INVENTORY = "hoabl-customer/inventories"
     const val VIDEO_CALL = "hoabl-customer/case"
     const val DOCUMENT_DOWNLOAD = "hoabl-customer/doc-download"
-    const val PROJECT_MEDIA_GALLERIES = "hoabl-admin/project-contents/{projectContentId}/media-galleries"
     const val BOOKING_JOURNEY = "hoabl-customer/booking-journey"
     const val CHATS_LIST = "hoabl-customer/chats"
     const val CHATS_INITIATE = "hoabl-customer/chat/initiate"
