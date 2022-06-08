@@ -20,6 +20,7 @@ import com.emproto.hoabl.feature.home.adapters.*
 import com.emproto.hoabl.feature.home.data.LatesUpdatesPosition
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.views.CategoryListFragment
+import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.utils.Extensions.toData
@@ -106,22 +107,50 @@ class HomeFragment : BaseFragment() {
                                 requireActivity(),
                                 it.data!!.data.page.pageManagementsOrNewInvestments,
                                 object : ItemClickListener {
-                                    //                                    override fun onClickItem(id: Int) {
-//                                        val fragment = ProjectDetailFragment()
-//                                        val bundle = Bundle()
-//                                        bundle.putInt("ProjectId", id)
-//                                        fragment.arguments = bundle
-//                                        (requireActivity() as HomeActivity).addFragment(
-//                                            fragment,
-//                                            false
-//                                        )
-//                                    }
                                     override fun onItemClicked(
                                         view: View,
                                         position: Int,
                                         item: String
                                     ) {
-
+                                        when(view.id){
+                                            R.id.cv_top_view -> {
+                                                val fragment = ProjectDetailFragment()
+                                                val bundle = Bundle()
+                                                bundle.putInt("ProjectId", item.toInt())
+                                                fragment.arguments = bundle
+                                                (requireActivity() as HomeActivity).addFragment(
+                                                    fragment,
+                                                    false
+                                                )
+                                            }
+                                            R.id.tv_apply_now -> {
+                                                val fragment = LandSkusFragment()
+                                                val bundle = Bundle()
+                                                bundle.putInt("ProjectId", item.toInt())
+                                                fragment.arguments = bundle
+                                                (requireActivity() as HomeActivity).addFragment(fragment,false)
+                                            }
+                                            R.id.tv_item_location_info ->{
+                                                val fragment = ProjectDetailFragment()
+                                                val bundle = Bundle()
+                                                bundle.putInt("ProjectId", item.toInt())
+                                                fragment.arguments = bundle
+                                                (requireActivity() as HomeActivity).addFragment(
+                                                    fragment,
+                                                    false
+                                                )
+                                            }
+                                            R.id.iv_bottom_arrow ->{
+                                                val fragment = ProjectDetailFragment()
+                                                val bundle = Bundle()
+                                                bundle.putInt("ProjectId", item.toInt())
+                                                fragment.arguments = bundle
+                                                (requireActivity() as HomeActivity).addFragment(
+                                                    fragment,
+                                                    false
+                                                )
+                                            }
+                                        }
                                     }
 
                                 }
