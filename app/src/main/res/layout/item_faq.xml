@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="@dimen/margin_size_4">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_faq_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_size_4"
-        android:elevation="@dimen/_3sdp"
-        app:cardCornerRadius="@dimen/margin_size_8"
+        android:layout_marginHorizontal="@dimen/margin_size_12"
+        android:layout_marginTop="@dimen/margin_size_8"
+        android:layout_marginBottom="@dimen/margin_size_2"
+        android:outlineSpotShadowColor="#ababab"
+        app:cardCornerRadius="@dimen/margin_size_6"
+        app:cardElevation="@dimen/margin_size_8"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_faq_card"
@@ -27,17 +28,17 @@
                 android:id="@+id/tv_faq_question"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_size_15"
                 android:layout_marginStart="@dimen/margin_size_10"
                 android:layout_marginEnd="@dimen/margin_size_20"
                 android:fontFamily="@font/jost_light"
-                android:layout_marginVertical="@dimen/margin_size_15"
                 android:text="Is the Prize quoted per sqft. for ISLE of Bliss all inclusive or there are other cost and expenses?"
                 android:textColor="@color/text_blue_dark_color"
                 android:textSize="@dimen/text_size_14"
+                app:layout_constraintBottom_toTopOf="@id/tv_faq_answer"
                 app:layout_constraintEnd_toStartOf="@id/iv_faq_card_drop_down"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/view_line"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/iv_faq_card_drop_down"
@@ -55,33 +56,20 @@
                 android:id="@+id/iv_faq_card_up_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_size_17"
                 android:layout_marginStart="@dimen/margin_size_20"
+                android:layout_marginEnd="@dimen/margin_size_17"
                 android:src="@drawable/ic_arrow_upward"
                 android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@id/tv_faq_question"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_faq_question"
                 app:layout_constraintTop_toTopOf="@id/tv_faq_question" />
-
-            <View
-                android:id="@+id/view_line"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_size_1"
-                android:background="@color/faq_line"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_faq_question"
-                app:layout_constraintBottom_toTopOf="@id/tv_faq_answer"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_faq_answer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_size_15"
-                android:layout_marginTop="@dimen/margin_size_13"
                 android:layout_marginEnd="@dimen/margin_size_20"
+                android:layout_marginBottom="@dimen/margin_size_15"
                 android:fontFamily="@font/jost_light"
                 android:text="This place doesnt include expenses which are coming under maintenance, electricity"
                 android:textColor="@color/doc_label_black_color"
@@ -90,7 +78,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/iv_faq_card_drop_down"
                 app:layout_constraintStart_toStartOf="@id/tv_faq_question"
-                app:layout_constraintTop_toBottomOf="@id/view_line" />
+                app:layout_constraintTop_toBottomOf="@id/tv_faq_question" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

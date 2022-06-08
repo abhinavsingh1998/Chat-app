@@ -144,20 +144,20 @@ class CompletedInvestmentAdapter(
         linedataset1.mode = LineDataSet.Mode.LINEAR
         linedataset1.setDrawCircles(false)
         linedataset1.setDrawValues(false)
-        linedataset1.setDrawFilled(true)
-        linedataset1.fillDrawable = context.getDrawable(R.drawable.why_invest_blue_bg)
+        //linedataset1.setDrawFilled(true)
+        //linedataset1.fillDrawable = context.getDrawable(R.drawable.why_invest_blue_bg)
 
         //We connect our data to the UI Screen
         val data1 = LineData(linedataset1)
-//        val limitLine = LimitLine(2026F, "My Investment")
-//        limitLine.lineColor = context.getColor(R.color.app_color)
-//        limitLine.lineWidth = 1F
-//        limitLine.enableDashedLine(10F, 10F, 10F)
-//        limitLine.textSize = 14F
+        val limitLine = LimitLine(2018F, "My Investment")
+        limitLine.lineColor = context.getColor(R.color.app_color)
+        limitLine.lineWidth = 1F
+        limitLine.enableDashedLine(10F, 10F, 10F)
+        limitLine.textSize = 14F
 
         //binding.ivPriceTrendsGraph.setDrawBorders(false);
         //binding.ivPriceTrendsGraph.setDrawGridBackground(false);
-        //ivCompletedInvestmentGraph.xAxis.addLimitLine(limitLine)
+        ivCompletedInvestmentGraph.xAxis.addLimitLine(limitLine)
         ivCompletedInvestmentGraph.getDescription().setEnabled(false)
         ivCompletedInvestmentGraph.getLegend().setEnabled(false)
         ivCompletedInvestmentGraph.getAxisLeft().setDrawGridLines(false)
