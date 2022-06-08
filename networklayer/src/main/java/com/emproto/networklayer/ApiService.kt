@@ -3,13 +3,19 @@ package com.emproto.networklayer
 import com.emproto.networklayer.request.investment.AddInventoryBody
 import com.emproto.networklayer.request.investment.VideoCallBody
 import com.emproto.networklayer.request.investment.WatchListBody
+import com.emproto.networklayer.request.login.profile.EditUserNameRequest
+import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
 import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
-import com.emproto.networklayer.request.login.profile.EditUserNameRequest
-import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
 import com.emproto.networklayer.request.refernow.ReferalRequest
+import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
+import com.emproto.networklayer.response.bookingjourney.BookingJourneyX
+import com.emproto.networklayer.response.chats.ChatDetailResponse
+import com.emproto.networklayer.response.chats.ChatInitiateRequest
+import com.emproto.networklayer.response.chats.ChatResponse
+import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.insights.InsightsResponse
@@ -31,12 +37,6 @@ import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
 import retrofit2.Response
 import retrofit2.http.*
-
-/**
- * @author Hoabl.
- * ApiService.
- * Mention all end point of all different modules.
- */
 public interface ApiService {
 
     //auth-apis(all login module apis)
@@ -128,7 +128,7 @@ public interface ApiService {
     suspend fun getInvestmentsProjectFaq(@Path("projectContentId") projectContentId: Int): Response<FaqDetailResponse>
 
     @POST(ApiConstants.REFER_NOW)
-    suspend fun referNow(@Body referBody:ReferalRequest):Response<ReferalResponse>
+    suspend fun referNow(@Body referBody: ReferalRequest): Response<ReferalResponse>
 
     @GET(ApiConstants.STATES)
     suspend fun getStates(@Path("countryIsoCode") countryIsoCode: String): Response<StatesResponse>
@@ -151,4 +151,15 @@ public interface ApiService {
     @POST(ApiConstants.VIDEO_CALL)
     suspend fun scheduleVideoCall(@Body videoCallBody: VideoCallBody): Response<VideoCallResponse>
 
+    @GET(ApiConstants.DOCUMENT_DOWNLOAD)
+    suspend fun downloadDocument(): Response<DDocumentResponse>
+
+    @GET(ApiConstants.CHATS_LIST)
+    suspend fun getChatsList(): Response<ChatResponse>
+
+    @PUT(ApiConstants.CHATS_INITIATE)
+    suspend fun chatInitiate(@Body chatInitiateRequest: ChatInitiateRequest): Response<ChatDetailResponse>
+
+    @GET(ApiConstants.BOOKING_JOURNEY)
+    suspend fun getBookingJourney(@Query("investmentId") investmentId: Int): Response<BookingJourneyResponse>
 }

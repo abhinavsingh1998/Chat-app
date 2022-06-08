@@ -1,7 +1,5 @@
 package com.emproto.networklayer
 
-import com.emproto.networklayer.response.home.LatestUpdates
-
 object ApiConstants {
     const val COMMON_MSG = "Something Went Wrong"
     val BASE_URL_DEV =
@@ -40,4 +38,8 @@ object ApiConstants {
     const val PROJECT_INVENTORIES = "hoabl-customer/inventories/{id}"
     const val ADD_INVENTORY = "hoabl-customer/inventories"
     const val VIDEO_CALL = "hoabl-customer/case"
+    const val DOCUMENT_DOWNLOAD = "hoabl-customer/doc-download"
+    const val BOOKING_JOURNEY = "hoabl-customer/booking-journey"
+    const val CHATS_LIST = "hoabl-customer/chats"
+    const val CHATS_INITIATE = "hoabl-customer/chat/initiate"
 }
