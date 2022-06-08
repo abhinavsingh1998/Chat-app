@@ -141,10 +141,10 @@ class HomeFragment : BaseFragment() {
 
                             //loading investment list
                             list.clear()
-                            list.addAll(it.data!!.data.page.pageManagementsOrNewInvestments)
+                            list.addAll(it.data!!.data.pageManagementsOrNewInvestments)
                             investmentAdapter = InvestmentCardAdapter(
                                 requireActivity(),
-                                it.data!!.data.page.pageManagementsOrNewInvestments,
+                                it.data!!.data.pageManagementsOrNewInvestments,
                                 object : ItemClickListener {
                                     override fun onItemClicked(
                                         view: View,

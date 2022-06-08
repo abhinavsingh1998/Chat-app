@@ -115,7 +115,7 @@ class InvestmentFragment : BaseFragment() {
                 Status.SUCCESS -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                     it.data?.data?.let { data ->
-                        newInvestmentsList = data.page.pageManagementsOrNewInvestments
+                        newInvestmentsList = data.pageManagementsOrNewInvestments
                         smartDealsList = data.pageManagementsOrCollectionOneModels
                         trendingProjectsList = data.pageManagementsOrCollectionTwoModels
                         projectId = data.page.promotionAndOffersProjectContentId

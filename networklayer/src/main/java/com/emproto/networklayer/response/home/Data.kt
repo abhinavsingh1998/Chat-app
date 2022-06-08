@@ -4,6 +4,7 @@ import java.io.Serializable
 
 data class Data(
     val homePagesOrPromises: List<HomePagesOrPromise>,
+    val pageManagementsOrNewInvestments: List<PageManagementsOrNewInvestment>,
     val page: Page,
     val pageManagementOrInsights: List<PageManagementOrInsight>,
     val pageManagementOrLatestUpdates: List<PageManagementOrLatestUpdate>,
