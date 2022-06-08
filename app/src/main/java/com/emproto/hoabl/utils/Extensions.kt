@@ -58,13 +58,13 @@ object Extensions{
         isTermsAndConditionsActive = isTermsAndConditionsActive,
         name = name,
         priority = priority.toString(),
-        promiseIconType = promiseIconType,
+        promiseIconType = promiseIconType!!,
         promiseMedia = promiseMedia,
         promiseType = promiseType.toString(),
         shortDescription = shortDescription.toString(),
-        status = status,
+        status = status!!,
         termsAndConditions = termsAndConditions,
-        updatedAt = updatedAt,
+        updatedAt = updatedAt!!,
         updatedBy = updatedBy.toString()
     )
 
