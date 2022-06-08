@@ -32,6 +32,8 @@ import java.io.Serializable
 import javax.inject.Inject
 import android.content.Intent
 import android.net.Uri
+import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
+import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.feature.investment.views.mediagallery.MediaGalleryFragment
 import com.emproto.hoabl.feature.investment.views.mediagallery.MediaViewFragment
 import com.emproto.hoabl.feature.portfolio.adapters.DocumentInterface
@@ -243,7 +245,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
                     override fun onClickSimilarInvestment(project: Int) {
                         val bundle = Bundle()
-                        bundle.putInt("ProjectId", projectId)
+                        bundle.putInt("ProjectId", project)
                         val fragment = ProjectDetailFragment()
                         fragment.arguments = bundle
                         (requireActivity() as HomeActivity).addFragment(
@@ -251,15 +253,21 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         )
                     }
 
-                    override fun onApplySinvestment(projectId: Int) {
+                    override fun onApplySinvestment(project: Int) {
+                        val fragment = LandSkusFragment()
+                        val bundle = Bundle()
+                        bundle.putInt("ProjectId", project)
+                        fragment.arguments = bundle
+                        (requireActivity() as HomeActivity).addFragment(fragment, false)
                     }
 
-                    override fun readAllFaq(position: Int) {
+                    override fun readAllFaq(position: Int, faqId: Int) {
                         val fragment = FaqDetailFragment()
                         val bundle = Bundle()
                         bundle.putInt("ProjectId", projectId)
                         if (position != -1) {
                             bundle.putInt("SelectedPosition", position)
+                            bundle.putInt("FaqId", faqId)
                         }
                         fragment.arguments = bundle
                         (requireActivity() as HomeActivity).addFragment(
@@ -341,7 +349,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                     }
 
                     override fun onClickAsk() {
-                        showError("Chat is in Development", binding.root)
+                        (requireActivity() as HomeActivity).addFragment(ChatsFragment(), false)
                     }
 
                     override fun onDocumentView(position: Int) {

@@ -42,10 +42,10 @@ class ProjectFaqAdapter(
             holder.binding.ivFaqCardDropDown.setImageDrawable(context.getDrawable(R.drawable.rightarrow))
         }
         holder.binding.cvFaqCard.setOnClickListener {
-            ivInterface.readAllFaq(position)
+            ivInterface.readAllFaq(position, faqItem.faqId)
         }
 
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = 2
 }
