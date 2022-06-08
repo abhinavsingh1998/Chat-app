@@ -277,14 +277,20 @@ class PortfolioSpecificViewAdapter(
                     binding.ownersName.text = data.investmentInformation.owners
                     Glide.with(context).load(data.projectExtraDetails.projectIco.value.url)
                         .into(binding.ivProjectImage)
+                    //project status based configuration
                     if (data.investmentInformation.isBookingComplete) {
                         binding.tvPending.text = "IEA"
-                        binding.tvPendingAmount.text = "%5"
+                        binding.tvPendingAmount.text = "5%"
                         binding.tvPendingAmount.setTextColor(context.getColor(R.color.app_color))
                         binding.tvPaid.text = "Invested"
                         binding.tvPaidAmount.text =
                                 //NumberFormat.getCurrencyInstance(Locale("en", "in")).format(data.investmentInformation.bookingJourney.paidAmount)
                             "₹" + data.investmentInformation.amountInvested
+
+                        binding.tvAmountPaid.visibility = View.GONE
+                        binding.tvAmountPaidTitle.visibility = View.GONE
+                        binding.tvAmountPending.visibility = View.GONE
+                        binding.tvAmountPendingTitle.visibility = View.GONE
                     } else {
                         binding.tvPendingAmount.text =
                                 //NumberFormat.getCurrencyInstance(Locale("en", "in")).format(data.investmentInformation.bookingJourney.amountPending)

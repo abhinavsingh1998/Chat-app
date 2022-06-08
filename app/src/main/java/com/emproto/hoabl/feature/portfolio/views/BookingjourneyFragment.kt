@@ -1,18 +1,23 @@
 package com.emproto.hoabl.feature.portfolio.views
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
+import com.emproto.core.Utility
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
@@ -80,6 +85,9 @@ class BookingjourneyFragment : BaseFragment() {
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 isReadPermissonGranted =
                     permissions[Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissonGranted
+                if (isReadPermissonGranted) {
+                    openPdf("")
+                }
             }
     }
 
@@ -122,7 +130,7 @@ class BookingjourneyFragment : BaseFragment() {
 
                     override fun viewDetails(position: Int, data: String) {
                         //get write permisson
-                        //requestPermisson()
+                        requestPermisson()
                         //openPdf("")
                     }
 
@@ -157,6 +165,8 @@ class BookingjourneyFragment : BaseFragment() {
         if (!isReadPermissonGranted) {
             permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
             permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        } else {
+            openPdf("")
         }
         if (permissionRequest.isNotEmpty()) {
             permissionLauncher.launch(permissionRequest.toTypedArray())
@@ -165,6 +175,21 @@ class BookingjourneyFragment : BaseFragment() {
     }
 
     private fun openPdf(stringBase64: String) {
+        val file = Utility.writeResponseBodyToDisk("")
+        val path = FileProvider.getUriForFile(
+            requireContext(),
+            requireContext().applicationContext.packageName + ".provider",
+            file!!
+        )
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setDataAndType(path, "application/pdf")
+        try {
+            startActivity(intent)
+        } catch (e: Exception) {
+            Log.e("Error:openPdf: ", e.localizedMessage)
+        }
 
     }
 

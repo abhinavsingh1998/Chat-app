@@ -484,7 +484,9 @@
                         android:layout_marginEnd="@dimen/margin_size_10"
                         android:fontFamily="@font/jost_medium"
                         android:text="₹2.0Lakhs"
-                        app:layout_constraintStart_toStartOf="@id/tv_investment_amount_title"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_other_expenses"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/tv_investment_amount_title"
                         app:layout_constraintTop_toBottomOf="@id/tv_investment_amount_title" />
 
                     <com.google.android.material.textview.MaterialTextView
@@ -512,13 +514,15 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_other_expenses"
                         style="@style/text_style_dark_black_color_14"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin_size_4"
                         android:fontFamily="@font/jost_medium"
                         android:text="₹50k"
                         app:layout_constraintBottom_toTopOf="@id/tv_other_expenses_title"
-                        app:layout_constraintStart_toStartOf="@id/tv_other_expenses_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tv_registry_amount"
                         app:layout_constraintTop_toTopOf="@id/tv_registry_amount" />
 
                     <com.google.android.material.textview.MaterialTextView
@@ -529,7 +533,7 @@
                         android:fontFamily="@font/jost_light"
                         android:text="@string/other_expenses"
                         app:layout_constraintBottom_toBottomOf="@id/tv_registry_amount_title"
-                        app:layout_constraintStart_toStartOf="@id/tv_amount_paid_title"
+                        app:layout_constraintStart_toStartOf="@+id/tv_other_expenses"
                         app:layout_constraintTop_toTopOf="@id/tv_registry_amount_title" />
 
 
