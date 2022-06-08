@@ -378,18 +378,19 @@ class PortfolioSpecificViewAdapter(
         fun bind(position: Int) {
             val imagesList = ArrayList<MediaViewItem>()
             val imagesData = list[position].data as LatestMediaGalleryOrProjectContent
-            for (item in imagesData.droneShoots) {
-                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
-            }
             for (item in imagesData.images) {
                 imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
             }
+//            for (item in imagesData.droneShoots) {
+//                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+//            }
+
             for (item in imagesData.videos) {
                 imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
             }
-            for (item in imagesData.threeSixtyImages) {
-                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
-            }
+//            for (item in imagesData.threeSixtyImages) {
+//                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+//            }
 
             latestImagesVideosAdapter = VideoAdapter(imagesList, ivInterface)
             val layoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
@@ -491,7 +492,7 @@ class PortfolioSpecificViewAdapter(
             binding.tvFaqReadAll.visibility = View.VISIBLE
             binding.ivSeeAllArrow.visibility = View.VISIBLE
             binding.tvFaqReadAll.setOnClickListener {
-                ivInterface.readAllFaq(-1)
+                ivInterface.readAllFaq(-1, 0)
             }
             binding.bnAskHere.setOnClickListener {
                 ivInterface.onClickAsk()
@@ -525,7 +526,7 @@ class PortfolioSpecificViewAdapter(
         fun seeAllSimilarInvestment()
         fun onClickSimilarInvestment(project: Int)
         fun onApplySinvestment(projectId: Int)
-        fun readAllFaq(position: Int)
+        fun readAllFaq(position: Int, faqId: Int)
         fun seePromisesDetails(position: Int)
         fun moreAboutPromises()
         fun seeProjectDetails(projectId: Int)

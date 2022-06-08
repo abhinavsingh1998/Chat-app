@@ -187,7 +187,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
         activityHomeActivity.searchLayout.layout.setOnClickListener(View.OnClickListener {
             val fragment = AboutUsFragment()
-            addFragment(fragment,false)
+            addFragment(fragment, false)
         })
 
     }
@@ -332,6 +332,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             super.onBackPressed()
             if (getCurrentFragment() is HomeFragment) {
                 activityHomeActivity.includeNavigation.bottomNavigation.menu[0].isChecked = true
+            } else if (getCurrentFragment() is InvestmentFragment) {
+                activityHomeActivity.includeNavigation.bottomNavigation.menu[1].isChecked = true
             } else if (getCurrentFragment() is PortfolioFragment) {
                 activityHomeActivity.includeNavigation.bottomNavigation.menu[2].isChecked = true
             } else if (getCurrentFragment() is HoablPromises ||
