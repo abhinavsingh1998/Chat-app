@@ -115,6 +115,12 @@ class CategoryListFragment() : BaseFragment() {
                     arguments?.getSerializable("DiscoverAll") as List<com.emproto.networklayer.response.home.PageManagementsOrNewInvestment>
                 setUpCategoryAdapter(data, 5)
             }
+            "SimilarInvestments" -> {
+                binding.tvCategoryHeading.text = "Similar Investments"
+                val data =
+                    arguments?.getSerializable("SimilarInvestmentsData") as List<com.emproto.networklayer.response.investment.SimilarInvestment>
+                setUpAdapter("SimilarInvestments", data)
+            }
         }
     }
 
@@ -131,6 +137,9 @@ class CategoryListFragment() : BaseFragment() {
             }
             "AllInvestments" -> {
                 setUpCategoryAdapter(list, 3)
+            }
+            "SimilarInvestments" -> {
+                setUpCategoryAdapter(list, 6)
             }
             else -> {
                 setUpCategoryAdapter(list, 4)
@@ -162,7 +171,7 @@ class CategoryListFragment() : BaseFragment() {
                     val fragment = LandSkusFragment()
                     val bundle = Bundle()
                     bundle.putInt("ProjectId", item.toInt())
-                    fragment.arguments = arguments
+                    fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
             }

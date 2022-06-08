@@ -62,9 +62,9 @@ object Extensions{
         promiseMedia = promiseMedia,
         promiseType = promiseType.toString(),
         shortDescription = shortDescription.toString(),
-        status = status!!,
+        status = status.toString(),
         termsAndConditions = termsAndConditions,
-        updatedAt = updatedAt!!,
+        updatedAt = updatedAt.toString(),
         updatedBy = updatedBy.toString()
     )
 

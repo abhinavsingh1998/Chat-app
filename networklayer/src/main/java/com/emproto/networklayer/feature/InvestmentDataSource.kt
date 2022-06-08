@@ -10,6 +10,7 @@ import com.emproto.networklayer.request.investment.AddInventoryBody
 import com.emproto.networklayer.request.investment.VideoCallBody
 import com.emproto.networklayer.request.investment.WatchListBody
 import com.emproto.networklayer.response.investment.*
+import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
 import retrofit2.Response
 import javax.inject.Inject
@@ -37,6 +38,11 @@ class InvestmentDataSource(val application: Application) : BaseDataSource(applic
     //get investment dashboard
     suspend fun getInvestmentsData(pageType: Int): Response<InvestmentResponse> {
         return apiService.getInvestments(pageType)
+    }
+
+    //get investment media galleries
+    suspend fun getMediaGallery(projectId: Int): Response<ProjectMediaGalleryResponse> {
+        return apiService.getProjectMediaGalleries(projectId)
     }
 
     //get investment detail
@@ -87,5 +93,10 @@ class InvestmentDataSource(val application: Application) : BaseDataSource(applic
     //schedule video call
     suspend fun scheduleVideoCall(videoCallBody: VideoCallBody): Response<VideoCallResponse> {
         return apiService.scheduleVideoCall(videoCallBody)
+    }
+
+    //get testimonials
+    suspend fun getTestimonialsData(): Response<TestimonialsResponse> {
+        return apiService.getTestimonials()
     }
 }

@@ -27,8 +27,12 @@ class SkusListAppliedAdapter(private val fragment: LandSkusFragment, private val
         val element = list[position]
         holder.binding.apply {
             tvItemLandSkusName.text = element.inventoryBucketName
-            tvItemLandSkusArea.text = "${element.areaRange.from}ft - ${element.areaRange.to}ft"
-            tvItemLandSkusPrice.text = "${element.priceRange.from} - ${element.priceRange.to}"
+            tvItemLandSkusArea.text = "${element.areaRange.from} Sqft - ${element.areaRange.to} Sqft"
+            val amount = element.priceRange.from.toDouble() / 100000
+            val convertedFromAmount = String.format("%.0f",amount)
+            val amountTo = element.priceRange.to.toDouble() / 100000
+            val convertedToAmount = String.format("%.0f",amountTo)
+            tvItemLandSkusPrice.text = "${convertedFromAmount} L - ${convertedToAmount} L"
             tvItemLandSkusDescription.text = element.inventoryBucketDescription
         }
     }

@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_category_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="@dimen/margin_size_8"
@@ -26,7 +27,8 @@
                 android:text="@string/payments"
                 android:fontFamily="@font/jost_medium"
                 style="@style/text_style_dark_gold_color_14"
-                android:layout_margin="@dimen/margin_size_12"
+                android:layout_marginVertical="@dimen/margin_size_12"
+                android:layout_marginHorizontal="@dimen/margin_size_38"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

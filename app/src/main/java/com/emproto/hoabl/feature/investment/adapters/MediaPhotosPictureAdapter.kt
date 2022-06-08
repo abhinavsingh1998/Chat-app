@@ -36,6 +36,7 @@ class MediaPhotosPictureAdapter(private val context: Context, private val itemCl
         Glide.with(context)
             .load(element.media)
             .into(holder.image)
+        holder.binding.tvImageName.text = element.name
         holder.bind(holder.itemView,position,element,itemClickListener)
     }
 

@@ -65,9 +65,7 @@ class MediaViewFragment : BaseFragment() {
     @SuppressLint("UnsafeOptInUsageError")
     override fun onStart() {
         super.onStart()
-        if (Util.SDK_INT > 23) {
-            initializePlayer()
-        }
+
     }
 
     @SuppressLint("UnsafeOptInUsageError")
@@ -77,12 +75,14 @@ class MediaViewFragment : BaseFragment() {
             ViewModelProvider(requireActivity(), investmentFactory)[InvestmentViewModel::class.java]
         dataSourceFactory = DefaultDataSourceFactory(this.requireContext(), "exoplayer-sample")
         (requireActivity() as HomeActivity).hideHeader()
+        (requireActivity() as HomeActivity).hideBottomNavigation()
     }
 
     @SuppressLint("UnsafeOptInUsageError")
     private fun setUpUI() {
         investmentViewModel.getMediaItem().observe(viewLifecycleOwner, Observer {
             data = it
+            binding.tvMediaImageName.text = data.name
             showMedia(it)
         })
 
@@ -90,6 +90,7 @@ class MediaViewFragment : BaseFragment() {
         arguments?.let {
             it.getSerializable("Data")?.let {
                 data = it as MediaViewItem
+                binding.tvMediaImageName.text = data.name
                 showMedia(data)
             }
         }
@@ -111,8 +112,20 @@ class MediaViewFragment : BaseFragment() {
                     binding.ivMediaLeftArrow.visibility = View.GONE
                 }
                 else -> {
-                    binding.ivMediaRightArrow.visibility = View.VISIBLE
-                    binding.ivMediaLeftArrow.visibility = View.VISIBLE
+                    when {
+                        mediaData.size-1 == index -> {
+                            binding.ivMediaRightArrow.visibility = View.GONE
+                            binding.ivMediaLeftArrow.visibility = View.VISIBLE
+                        }
+                        index == 0 -> {
+                            binding.ivMediaRightArrow.visibility = View.VISIBLE
+                            binding.ivMediaLeftArrow.visibility = View.GONE
+                        }
+                        else -> {
+                            binding.ivMediaRightArrow.visibility = View.VISIBLE
+                            binding.ivMediaLeftArrow.visibility = View.VISIBLE
+                        }
+                    }
                 }
             }
         })
@@ -121,7 +134,6 @@ class MediaViewFragment : BaseFragment() {
             if(index < mediaData.size-1){
                 binding.ivMediaRightArrow.visibility = View.VISIBLE
                 index++
-                Toast.makeText(this.requireContext(), index.toString(), Toast.LENGTH_SHORT).show()
                 showMedia(mediaData[index])
             }
             if(index == mediaData.size-1){
@@ -134,7 +146,6 @@ class MediaViewFragment : BaseFragment() {
             if(index > 0){
                 binding.ivMediaLeftArrow.visibility = View.VISIBLE
                 index--
-                Toast.makeText(this.requireContext(), index.toString(), Toast.LENGTH_SHORT).show()
                 showMedia(mediaData[index])
             }
             if(index == 0){
@@ -154,7 +165,6 @@ class MediaViewFragment : BaseFragment() {
         when (mediaType.mediaType) {
             "image" -> {
                 binding.ivMediaPhoto.visibility = View.VISIBLE
-                binding.videoView.visibility = View.GONE
                 Glide
                     .with(requireContext())
                     .load(mediaType.media)
@@ -162,41 +172,7 @@ class MediaViewFragment : BaseFragment() {
             }
             "Video" -> {
                 binding.ivMediaPhoto.visibility = View.GONE
-                binding.videoView.visibility = View.VISIBLE
             }
-        }
-    }
-
-    @SuppressLint("UnsafeOptInUsageError")
-    private fun initializePlayer() {
-        player = ExoPlayer.Builder(this.requireContext())
-            .build()
-            .also { exoPlayer ->
-                binding.videoView.player = exoPlayer
-                val mediaItem =
-                    MediaItem.fromUri("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
-                exoPlayer.setMediaItem(mediaItem)
-                exoPlayer.playWhenReady = playWhenReady
-                exoPlayer.seekTo(currentItem, playbackPosition)
-                exoPlayer.prepare()
-            }
-    }
-
-    @SuppressLint("UnsafeOptInUsageError")
-    private fun buildMediaSource(mediaItem: MediaItem, type: String): MediaSource {
-        return if (type == "dash") {
-            DashMediaSource.Factory(dataSourceFactory).createMediaSource(mediaItem)
-        } else {
-            ProgressiveMediaSource.Factory(dataSourceFactory)
-                .createMediaSource(mediaItem)
-        }
-    }
-
-    @SuppressLint("UnsafeOptInUsageError")
-    override fun onStop() {
-        super.onStop()
-        if (Util.SDK_INT > 23) {
-            releasePlayer()
         }
     }
 
@@ -208,30 +184,4 @@ class MediaViewFragment : BaseFragment() {
 //            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 //        }
 //    }
-
-    @SuppressLint("UnsafeOptInUsageError")
-    override fun onPause() {
-        super.onPause()
-        if (Util.SDK_INT <= 23) {
-            releasePlayer()
-        }
-    }
-
-    @SuppressLint("UnsafeOptInUsageError")
-    override fun onResume() {
-        super.onResume()
-        if ((Util.SDK_INT <= 23 || player == null)) {
-            initializePlayer()
-        }
-    }
-
-    private fun releasePlayer() {
-        player?.let { exoPlayer ->
-            playbackPosition = exoPlayer.currentPosition
-            currentItem = exoPlayer.currentMediaItemIndex
-            playWhenReady = exoPlayer.playWhenReady
-            exoPlayer.release()
-        }
-        player = null
-    }
 }

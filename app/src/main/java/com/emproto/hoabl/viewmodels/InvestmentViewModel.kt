@@ -38,9 +38,14 @@ class InvestmentViewModel(
     private var locationData = MutableLiveData<MapLocationModel>()
     private var mediaContent = ArrayList<MediaViewItem>()
     private var mediaPos = MutableLiveData<Int>()
+    private var watchListId = MutableLiveData<Int>()
 
     fun getInvestments(pageType: Int): LiveData<BaseResponse<InvestmentResponse>> {
         return investmentRepository.getInvestments(pageType)
+    }
+
+    fun getInvestmentsMediaGallery(projectId: Int): LiveData<BaseResponse<ProjectMediaGalleryResponse>> {
+        return investmentRepository.getProjectMediaGalleries(projectId)
     }
 
     fun getInvestmentsDetail(id: Int): LiveData<BaseResponse<ProjectDetailResponse>> {
@@ -141,6 +146,14 @@ class InvestmentViewModel(
 
     fun getSkus(): LiveData<List<InventoryBucketContent>> {
         return landSkusData
+    }
+
+    fun setWatchListId(id: Int) {
+        this.watchListId.postValue(id)
+    }
+
+    fun getWatchListId(): LiveData<Int> {
+        return watchListId
     }
 
     fun setMedia(media: ProjectCoverImages) {

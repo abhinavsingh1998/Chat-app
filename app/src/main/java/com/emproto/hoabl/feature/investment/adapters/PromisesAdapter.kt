@@ -28,21 +28,15 @@ class PromisesAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val element = list[position]
         holder.binding.apply {
-            when(element.shortDescription.isNullOrEmpty()){
-                true -> { tvPromisesText.text = "No Description available"}
-                false -> {
-                    tvPromisesText.visibility = View.VISIBLE
-                    tvPromisesText.text = element.shortDescription
-                }
-            }
-            tvPromisesName.text = element.name
+            desc.text = element.shortDescription
+            title.text = element.name
             Glide
                 .with(context)
                 .load(element.displayMedia.value.url)
-                .into(ivPromisesItemImage)
+                .into(image)
 
         }
-        holder.binding.cvPromisesCard.setOnClickListener {
+        holder.binding.itemCard.setOnClickListener {
             itemClickListener.onItemClicked(it,position,element.id.toString())
         }
     }

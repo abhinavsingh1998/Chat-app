@@ -1,8 +1,11 @@
 package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
+import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.bold
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.core.Utility
@@ -23,9 +26,17 @@ class LastFewPlotsAdapter(val context: Context, val list: List<PageManagementsOr
             tvItemLocationName.text = element.launchName
             tvItemLocation.text = "${element.address.city}, ${element.address.state}"
             tvItemLocationInfo.text = element.shortDescription
-            tvItemAmount.text = element.priceStartingFrom + " Onwards"
+            val amount = element.priceStartingFrom.toDouble() / 100000
+            val convertedAmount = amount.toString().replace(".0","")
+            tvItemAmount.text = SpannableStringBuilder()
+                .bold { append("₹${convertedAmount} L") }
+                .append(" Onwards")
+//            tvItemAmount.text = "₹${convertedAmount} L" + " Onwards"
             tvNoViews.text = Utility.coolFormat(element.fomoContent.noOfViews.toDouble(),0)
-            tvItemArea.text = element.areaStartingFrom + " Onwards"
+            tvItemArea.text = SpannableStringBuilder()
+                .bold { append("${element.areaStartingFrom} Sqft") }
+                .append(" Onwards")
+//            tvItemArea.text = "${element.areaStartingFrom} Sqft" + " Onwards"
             Glide.with(context)
                 .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
                 .into(holder.binding.ivItemImage)
@@ -45,6 +56,12 @@ class LastFewPlotsAdapter(val context: Context, val list: List<PageManagementsOr
         holder.binding.clItemInfo.setOnClickListener {
             itemClickListener.onItemClicked(it, 4, element.id.toString())
         }
+//        when(holder.absoluteAdapterPosition){
+//            1 -> {
+//                holder.binding.cvDurationView.visibility = View.VISIBLE
+//                holder.binding.tvDuration.text = "${element.fomoContent.targetTime.hours}:${element.fomoContent.targetTime.minutes}:${element.fomoContent.targetTime.seconds} Hrs Left"
+//            }
+//        }
     }
 
     override fun getItemCount(): Int {

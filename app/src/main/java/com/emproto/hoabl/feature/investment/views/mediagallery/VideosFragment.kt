@@ -13,8 +13,8 @@ import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.investment.adapters.MediaPhotosAdapter
 import com.emproto.hoabl.model.MediaGalleryItem
 import com.emproto.hoabl.model.MediaViewItem
-import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.utils.MediaItemClickListener
+import com.emproto.hoabl.utils.YoutubeItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import javax.inject.Inject
@@ -54,7 +54,7 @@ class VideosFragment:BaseFragment() {
         videoList.add(MediaViewItem(mediaType = "video",media = "https://www.youtube.com/embed/nc5Lj90BzSQ","",33,"Videos"))
         videoList.add(MediaViewItem(mediaType = "video",media = "https://www.youtube.com/embed/g0W0s_Z6Je4","",35,"Videos"))
         mediaPhotosAdapter =
-            MediaPhotosAdapter(this.requireContext(), list, itemClickListener, medialist)
+            MediaPhotosAdapter(this.requireContext(), list, mediaItemClickListener, medialist,itemClickListener)
         binding.rvMainVideos.adapter = mediaPhotosAdapter
     }
 
@@ -67,20 +67,21 @@ class VideosFragment:BaseFragment() {
 
     }
 
-    private val itemClickListener = object : MediaItemClickListener {
+    private val mediaItemClickListener = object:MediaItemClickListener{
         override fun onItemClicked(view: View, position: Int, item: MediaViewItem) {
+
+        }
+
+    }
+
+    private val itemClickListener = object : YoutubeItemClickListener {
+        override fun onItemClicked(view: View, position: Int, url: String, title: String) {
             when(isYoutubeVideo){
                 true -> {
                     val intent = Intent(this@VideosFragment.requireActivity(),YoutubeActivity::class.java)
-                    intent.putExtra("YoutubeVideoId","Bl1FOKpFY2Q")
-                    intent.putExtra("VideoTitle","")
-                    intent.putExtra("VideoList",videoList)
+                    intent.putExtra("YoutubeVideoId",url)
+                    intent.putExtra("VideoTitle",title)
                     startActivity(intent)
-                }
-                false -> {
-                    investmentViewModel.setMediaItem(item)
-                    val mediaViewFragment = MediaViewFragment()
-                    (requireActivity() as HomeActivity).replaceFragment(mediaViewFragment.javaClass, "", true, null, null, 0, false)
                 }
             }
         }

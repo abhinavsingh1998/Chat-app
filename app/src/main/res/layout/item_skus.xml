@@ -4,7 +4,8 @@
     android:id="@+id/cl_outer_item_skus"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_size_8">
+    android:layout_marginStart="@dimen/margin_size_8"
+    android:layout_marginTop="@dimen/margin_size_10">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_key_pillar_card"
@@ -28,7 +29,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_size_10"
-                android:layout_marginTop="@dimen/margin_size_16"
+                android:layout_marginTop="@dimen/margin_size_11"
                 android:fontFamily="@font/jost_medium"
                 android:text="Marina"
                 android:textAlignment="center"
@@ -40,11 +41,13 @@
                 android:id="@+id/tv_starting_at"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_size_10"
+                android:layout_marginHorizontal="@dimen/margin_size_13"
                 android:layout_marginTop="@dimen/margin_size_6"
                 android:fontFamily="@font/jost_regular"
+                android:gravity="center|center_vertical"
+                android:lines="1"
+                android:maxLines="1"
                 android:text="Starting at 20L"
-                android:textAlignment="center"
                 android:textColor="@color/text_light_ash_color"
                 android:textSize="@dimen/text_size_14"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -55,13 +58,13 @@
                 android:id="@+id/tv_area_skus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_size_20"
-                android:layout_marginVertical="@dimen/margin_size_12"
+                android:layout_marginHorizontal="@dimen/margin_size_15"
+                android:layout_marginVertical="@dimen/margin_size_6"
                 android:fontFamily="@font/jost_regular"
                 android:text="1000-2000 sqft"
                 android:textAlignment="center"
                 android:textColor="@color/text_lightgrey_color"
-                android:textSize="@dimen/text_size_12"
+                android:textSize="@dimen/text_size_13"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_starting_at" />
@@ -70,7 +73,7 @@
                 android:id="@+id/bottom_line"
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:layout_marginTop="@dimen/margin_size_8"
+                android:layout_marginTop="@dimen/margin_size_7"
                 android:background="@color/line_view_color"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_area_skus" />
@@ -79,25 +82,50 @@
                 android:id="@+id/tv_apply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/margin_size_13"
+                android:layout_marginTop="@dimen/margin_size_10"
+                android:layout_marginBottom="@dimen/margin_size_11"
+                android:drawableEnd="@drawable/ic_black_long_rightarrow"
+                android:drawablePadding="@dimen/margin_size_4"
                 android:fontFamily="@font/jost_medium"
                 android:text="@string/apply_now"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_12"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/bottom_line" />
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_applied"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jost_medium"
+                android:text="@string/applied"
+                android:textAllCaps="false"
+                android:textColor="@color/text_grey_color"
+                android:textSize="@dimen/text_size_12"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/margin_size_10"
+                android:layout_marginBottom="@dimen/margin_size_11"
+                app:layout_constraintStart_toEndOf="@id/iv_tick"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bottom_line" />
+
             <ImageView
-                android:id="@+id/iv_details_arrow"
-                android:layout_width="@dimen/margin_size_12"
-                android:layout_height="7dp"
-                android:layout_marginStart="@dimen/margin_size_4"
-                android:src="@drawable/ic_arrow_forward_black"
-                app:layout_constraintBottom_toBottomOf="@id/tv_apply"
-                app:layout_constraintStart_toEndOf="@id/tv_apply"
-                app:layout_constraintTop_toTopOf="@id/tv_apply" />
+                android:id="@+id/iv_tick"
+                android:layout_width="@dimen/margin_size_13"
+                android:layout_height="@dimen/margin_size_13"
+                android:layout_marginEnd="@dimen/margin_size_6"
+                android:visibility="gone"
+                android:layout_marginStart="@dimen/margin_size_26"
+                android:src="@drawable/submitted_tick_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_applied"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bottom_line" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

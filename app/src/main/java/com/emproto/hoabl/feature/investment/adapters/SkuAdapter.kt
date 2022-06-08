@@ -1,8 +1,10 @@
 package com.emproto.hoabl.feature.investment.adapters
 
+import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.bold
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemSkusBinding
 import com.emproto.hoabl.utils.ItemClickListener
@@ -27,10 +29,28 @@ class SkuAdapter(
         val element = list[position]
         holder.binding.apply {
             tvProjectName.text = element.inventoryBucketName
-            tvStartingAt.text = "Starting at ${element.priceRange.from}"
-            tvAreaSkus.text = "${element.areaRange.from}ft - ${element.areaRange.to}ft"
+            val amount = element.priceRange.from.toDouble() / 100000
+            val convertedAmount = String.format("%.0f",amount)
+            tvStartingAt.text = SpannableStringBuilder()
+                .append("Starting at")
+                .bold { append(" ₹${convertedAmount} L") }
+            tvAreaSkus.text = "${element.areaRange.from} Sqft - ${element.areaRange.to} Sqft"
+            //Changing UI corresponding to application
+            when (element.isApplied) {
+                true -> {
+                    tvApply.visibility = View.GONE
+                    tvApplied.visibility = View.VISIBLE
+                    ivTick.visibility = View.VISIBLE
+                }
+                false -> {
+                    tvApply.visibility = View.VISIBLE
+                    tvApplied.visibility = View.GONE
+                    ivTick.visibility = View.GONE
+                }
+            }
         }
-        holder.binding.clOuterItemSkus.setOnClickListener {
+
+        holder.binding.tvApply.setOnClickListener {
             investmentViewModel.setSku(element)
             itemClickListener.onItemClicked(it,position,element.id.toString())
         }

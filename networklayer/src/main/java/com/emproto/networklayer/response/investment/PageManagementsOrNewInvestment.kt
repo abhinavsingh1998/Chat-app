@@ -11,5 +11,6 @@ data class PageManagementsOrNewInvestment(
     val pageManagementAndNewInvestments: PageManagementAndNewInvestments,
     val priceStartingFrom: String,
     val projectCoverImages: ProjectCoverImages,
-    val shortDescription: String
+    val shortDescription: String,
+    val mediaGalleryOrProjectContent: MediaGalleryOrProjectContent
 )

@@ -6,6 +6,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.emproto.hoabl.feature.investment.views.mediagallery.DroneFragment
 import com.emproto.hoabl.feature.investment.views.mediagallery.PhotosFragment
+import com.emproto.hoabl.feature.investment.views.mediagallery.ThreeSixtyFragment
 import com.emproto.hoabl.feature.investment.views.mediagallery.VideosFragment
 
 class MediaViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle)
@@ -23,8 +24,8 @@ class MediaViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecyc
         return when(position){
             0 -> PhotosFragment()
             1 -> VideosFragment()
-            2 -> VideosFragment()
-            else -> PhotosFragment()
+            2 -> DroneFragment()
+            else -> ThreeSixtyFragment()
         }
     }
 

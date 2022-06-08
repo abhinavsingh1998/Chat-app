@@ -17,6 +17,7 @@ import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.response.investment.MediaGallery
 import com.emproto.networklayer.response.investment.ProjectCoverImages
+import com.emproto.networklayer.response.responsee.Home
 import com.google.android.material.tabs.TabLayoutMediator
 import javax.inject.Inject
 
@@ -58,7 +59,7 @@ class MediaGalleryFragment : BaseFragment() {
             View.VISIBLE
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
             View.VISIBLE
-
+        (requireActivity() as HomeActivity).hideBottomNavigation()
     }
 
     private fun setUpTabLayoutViewPager() {

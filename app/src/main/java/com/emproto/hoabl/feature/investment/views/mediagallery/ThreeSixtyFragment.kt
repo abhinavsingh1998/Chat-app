@@ -13,8 +13,8 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.MediaPhotosAdapter
 import com.emproto.hoabl.model.MediaGalleryItem
 import com.emproto.hoabl.model.MediaViewItem
-import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.utils.MediaItemClickListener
+import com.emproto.hoabl.utils.YoutubeItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import javax.inject.Inject
@@ -71,7 +71,7 @@ class ThreeSixtyFragment:BaseFragment() {
 
     private fun setUpRecyclerView(list1: List<MediaViewItem>) {
         val list = ArrayList<MediaGalleryItem>()
-        list.add(MediaGalleryItem(1, "Photos"))
+//        list.add(MediaGalleryItem(1, "Photos"))
         list.add(MediaGalleryItem(2, "Photos"))
 
         val imageList = arrayListOf<String>()
@@ -84,8 +84,20 @@ class ThreeSixtyFragment:BaseFragment() {
             allImageList.add(item)
         }
         mediaPhotosAdapter =
-            MediaPhotosAdapter(this.requireContext(), list, itemClickListener, list1)
+            MediaPhotosAdapter(
+                this.requireContext(),
+                list,
+                itemClickListener,
+                list1,
+                youtubeItemClickListener
+            )
         binding.rvMainPhotos.adapter = mediaPhotosAdapter
+    }
+
+    val youtubeItemClickListener = object: YoutubeItemClickListener {
+        override fun onItemClicked(view: View, position: Int, url: String, title: String) {
+
+        }
     }
 
     private val itemClickListener = object : MediaItemClickListener {

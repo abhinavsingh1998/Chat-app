@@ -217,7 +217,7 @@
                     android:layout_width="14dp"
                     android:layout_height="14dp"
                     android:layout_marginStart="@dimen/margin_size_13"
-                    android:src="@drawable/ic_upward_double_arrow_green"
+                    android:src="@drawable/ic_upward_double_arrow_dark_green"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -225,6 +225,8 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_rating"
                     style="@style/text_style_dark_green_color_12"
+                    android:textSize="@dimen/text_size_12"
+                    android:textColor="@android:color/holo_green_dark"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_4"
@@ -280,7 +282,7 @@
         android:id="@+id/iv_apply_now_category"
         android:layout_width="@dimen/margin_size_16"
         android:layout_height="9dp"
-        android:layout_marginTop="@dimen/margin_size_12"
+        android:layout_marginTop="@dimen/margin_size_14"
         android:layout_marginEnd="@dimen/margin_size_12"
         android:src="@drawable/ic_black_long_rightarrow"
         app:layout_constraintEnd_toEndOf="parent"
@@ -301,7 +303,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="@dimen/margin_size_6"
+        android:layout_marginTop="@dimen/margin_size_8"
         android:background="@color/category_bottom_ash_line_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

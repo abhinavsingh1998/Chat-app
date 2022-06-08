@@ -14,7 +14,7 @@
         android:layout_marginTop="@dimen/margin_size_30"
         android:text="Tourism around"
         android:textAlignment="textStart"
-        style="@style/text_style_text_light_black_color_16"
+        style="@style/text_style_text_light_black_color_18"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

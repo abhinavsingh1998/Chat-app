@@ -7,5 +7,6 @@ data class MediaViewItem(
     val media: String,
     val content: String? = "",
     val id:Int = 0,
-    val title:String = ""
+    val title:String = "",
+    val name:String = ""
 ) : Serializable

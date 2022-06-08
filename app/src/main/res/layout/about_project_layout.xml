@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_size_30"
-        android:fontFamily="@font/jost_regular"
+        android:fontFamily="@font/jost_medium"
         android:text="@string/about_the_project"
         android:textAlignment="center"
         style="@style/text_style_blue_20"
@@ -42,7 +42,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_abt_project_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="135dp"
         android:layout_marginHorizontal="@dimen/margin_size_18"
         android:layout_marginTop="@dimen/margin_size_30"
         app:cardCornerRadius="@dimen/margin_size_8"

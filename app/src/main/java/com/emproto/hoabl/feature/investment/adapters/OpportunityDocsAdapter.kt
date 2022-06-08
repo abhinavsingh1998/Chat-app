@@ -1,7 +1,11 @@
 package com.emproto.hoabl.feature.investment.adapters
 
+import com.github.mikephil.charting.formatter.DefaultValueFormatter
+import com.github.mikephil.charting.formatter.IValueFormatter
+import com.github.mikephil.charting.utils.ViewPortHandler
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,15 +17,19 @@ import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.networklayer.response.investment.OpprotunityDoc
 import com.emproto.networklayer.response.investment.ProjectAminity
 import com.emproto.networklayer.response.investment.Story
+import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
 
 class OpportunityDocsAdapter(
     private val context: Context,
     private val itemList: List<RecyclerViewItem>,
-    private val data: List<OpprotunityDoc>
+    private val data: List<OpprotunityDoc>,
+    private val title: String,
+    private val isFromProjectAmenities: Boolean
 ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -41,6 +49,8 @@ class OpportunityDocsAdapter(
     private lateinit var upcomingInfraStoryAdapter: UpcomingInfraStoryAdapter
     private lateinit var onItemClickListener : View.OnClickListener
     private lateinit var projectAmenitiesAdapter: ProjectAmenitiesAdapter
+
+    private var isClicked = true
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -73,6 +83,11 @@ class OpportunityDocsAdapter(
 
     private inner class OppDocsTopViewHolder(private val binding: OppDocsTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
+            binding.tvOppDocProjectTitle.text = title
+            Glide
+                .with(context)
+                .load(data[0].bannerImage.value.url)
+                .into(binding.ivOppDocTopImage)
         }
     }
 
@@ -81,35 +96,32 @@ class OpportunityDocsAdapter(
             binding.tvXAxisLabel.text = data[0].escalationGraph.yAxisDisplayName
             binding.tvYAxisLabel.text = data[0].escalationGraph.xAxisDisplayName
             val graphData = data[0].escalationGraph.dataPoints.points
+
             val linevalues = ArrayList<Entry>()
             for(item in graphData){
                 linevalues.add(Entry(item.year.toFloat(),item.value.toFloat()))
             }
-//            linevalues.add(Entry(10f, 0.0F))
-//            linevalues.add(Entry(20f, 3.0F))
-//            linevalues.add(Entry(40f, 2.0F))
-//            linevalues.add(Entry(50F, 5.0F))
-//            linevalues.add(Entry(60F, 6.0F))
-            val linedataset = LineDataSet(linevalues, "First")
+            val linedataset = LineDataSet(linevalues, "")
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset.color = context.getColor(R.color.app_color)
+                linedataset.color = context.getColor(R.color.green)
             }
 
             linedataset.valueTextSize = 12F
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset.fillColor = context.getColor(R.color.light_app_color)
+                linedataset.fillColor = context.getColor(R.color.green)
             }
-            linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
-
-            //We connect our data to the UI Screen
+            linedataset.mode = LineDataSet.Mode.LINEAR;
+            linedataset.setDrawCircles(false)
+            linedataset.setDrawValues(false)
             val data = LineData(linedataset)
 
-            //binding.ivPriceTrendsGraph.setDrawBorders(false);
-            //binding.ivPriceTrendsGraph.setDrawGridBackground(false);
             binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
             binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
             binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false);
+            binding.ivPriceTrendsGraph.setTouchEnabled(false)
+            binding.ivPriceTrendsGraph.setPinchZoom(false)
+            binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
             binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false);
@@ -118,10 +130,31 @@ class OpportunityDocsAdapter(
             binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false);
             binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false);
             binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false);
+            binding.ivPriceTrendsGraph.xAxis.granularity = 1f
+            binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
             //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
             //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
+            binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter = Xaxisformatter()
+            binding.ivPriceTrendsGraph.xAxis.valueFormatter = Xaxisformatter()
             binding.ivPriceTrendsGraph.data = data
             binding.ivPriceTrendsGraph.animateXY(2000, 2000)
+            binding.textView10.visibility = View.GONE
+
+        }
+    }
+
+    inner class Xaxisformatter : IValueFormatter, IAxisValueFormatter {
+        override fun getFormattedValue(
+            p0: Float,
+            p1: Entry?,
+            p2: Int,
+            p3: ViewPortHandler?
+        ): String {
+            return p0.toString().replace(",.","")
+        }
+
+        override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
+            return String.format("%.0f", p0.toDouble())
         }
     }
 
@@ -143,9 +176,8 @@ class OpportunityDocsAdapter(
 
     private inner class OppDocsTourismViewHolder(private val binding: OppDocsDestinationLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            var isClicked = true
             val list = arrayListOf<Story>()
-            for(i in 0..1){
+            for(i in 0..3){
                 list.add(data[0].tourismAround.stories[i])
             }
             destinationAdapter = DestinationAdapter(context,list)
@@ -157,7 +189,7 @@ class OpportunityDocsAdapter(
                             .with(context)
                             .load(R.drawable.ic_arrow_upward)
                             .into(binding.ivViewMoreArrow)
-                        binding.tvViewMore.text = context.getString(R.string.read_less)
+                        binding.tvViewMore.text = context.getString(R.string.view_less_caps)
                         destinationAdapter = DestinationAdapter(context,data[0].tourismAround.stories)
                         binding.rvDestination.adapter = destinationAdapter
                         destinationAdapter.notifyDataSetChanged()
@@ -165,9 +197,9 @@ class OpportunityDocsAdapter(
                     }
                     false -> {
                         binding.ivViewMoreArrow.setImageResource(R.drawable.ic_drop_down)
-                        binding.tvViewMore.text = context.getString(R.string.read_more)
+                        binding.tvViewMore.text = context.getString(R.string.view_more_caps)
                         list.clear()
-                        for(i in 0..1){
+                        for(i in 0..3){
                             list.add(data[0].tourismAround.stories[i])
                         }
                         destinationAdapter = DestinationAdapter(context,list)
@@ -202,8 +234,20 @@ class OpportunityDocsAdapter(
                 ivViewMoreArrow.visibility = View.VISIBLE
                 var isClicked = true
                 val list = arrayListOf<ProjectAminity>()
-                for(i in 0..1){
-                    list.add(data[0].projectAminities[i])
+                when(isFromProjectAmenities){
+                    true -> {
+                        for(item in data[0].projectAminities){
+                            list.add(item)
+                        }
+                        binding.ivViewMoreArrow.setImageResource(R.drawable.ic_arrow_upward)
+                        binding.tvViewMore.text = context.getString(R.string.view_less_caps)
+                        isClicked = false
+                    }
+                    false -> {
+                        for(i in 0..3){
+                            list.add(data[0].projectAminities[i])
+                        }
+                    }
                 }
                 projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,list)
                 rvProjectAmenitiesItemRecycler.adapter = projectAmenitiesAdapter
@@ -214,7 +258,7 @@ class OpportunityDocsAdapter(
                                 .with(context)
                                 .load(R.drawable.ic_arrow_upward)
                                 .into(binding.ivViewMoreArrow)
-                            binding.tvViewMore.text = context.getString(R.string.read_less)
+                            binding.tvViewMore.text = context.getString(R.string.view_less_caps)
                             projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,data[0].projectAminities)
                             rvProjectAmenitiesItemRecycler.adapter = projectAmenitiesAdapter
                             projectAmenitiesAdapter.notifyDataSetChanged()
@@ -222,9 +266,9 @@ class OpportunityDocsAdapter(
                         }
                         false -> {
                             binding.ivViewMoreArrow.setImageResource(R.drawable.ic_drop_down)
-                            binding.tvViewMore.text = context.getString(R.string.read_more)
+                            binding.tvViewMore.text = context.getString(R.string.view_all_caps)
                             list.clear()
-                            for(i in 0..1){
+                            for(i in 0..3){
                                 list.add(data[0].projectAminities[i])
                             }
                             projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,list)

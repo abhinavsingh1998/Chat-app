@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.investment.views
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -97,6 +98,12 @@ class InvestmentFragment : BaseFragment() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
             View.VISIBLE
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.GONE
+//        binding.slSwipeRefresh.setOnClickListener {
+//            callApi()
+//            Handler().postDelayed(Runnable {
+//                binding.slSwipeRefresh.isRefreshing = false
+//            }, 4000)
+//        }
     }
 
     private fun callApi() {
@@ -108,11 +115,11 @@ class InvestmentFragment : BaseFragment() {
                 Status.SUCCESS -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                     it.data?.data?.let { data ->
-                        setUpRecyclerView(data)
-                        newInvestmentsList = data.page.pageManagementsOrNewInvestments
+                        newInvestmentsList = data.pageManagementsOrNewInvestments
                         smartDealsList = data.pageManagementsOrCollectionOneModels
                         trendingProjectsList = data.pageManagementsOrCollectionTwoModels
                         projectId = data.page.promotionAndOffersProjectContentId
+                        mediaGalleryApi(data)
                     }
                 }
                 Status.ERROR -> {
@@ -125,7 +132,31 @@ class InvestmentFragment : BaseFragment() {
         })
     }
 
-    private fun setUpRecyclerView(data: Data) {
+    private fun mediaGalleryApi(invData:Data){
+        investmentViewModel.getInvestmentsMediaGallery(newInvestmentsList[0].id).observe(viewLifecycleOwner,Observer{
+            when (it.status) {
+                Status.LOADING -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                }
+                Status.SUCCESS -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    it.data?.data?.let { data ->
+                        if(data!=null){
+                            setUpRecyclerView(invData,data.mediaGalleries)
+                        }
+                    }
+                }
+                Status.ERROR -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(
+                        it.message!!
+                    )
+                }
+            }
+        })
+    }
+
+    private fun setUpRecyclerView(data: Data,mediaGalleries: MediaGalleries) {
         val list = ArrayList<RecyclerViewItem>()
         list.add(RecyclerViewItem(NewInvestmentAdapter.TYPE_NEW_LAUNCH))
         when(data.page.isCollectionOneActive){
@@ -139,12 +170,12 @@ class InvestmentFragment : BaseFragment() {
             this.requireContext(),
             list,
             data,
-            itemClickListener
+            itemClickListener,
+            mediaGalleries
         )
         binding.rvInvestmentPage.adapter = newInvestmentAdapter
         newInvestmentAdapter.setItemClickListener(onInvestmentItemClickListener)
     }
-
 
     private fun callProjectContentAPi() {
         investmentViewModel.getAllInvestmentsProjects().observe(viewLifecycleOwner, Observer {

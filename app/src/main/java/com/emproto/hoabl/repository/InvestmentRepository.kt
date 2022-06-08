@@ -52,6 +52,33 @@ class InvestmentRepository @Inject constructor(application: Application) : BaseR
         return mInvestmentResponse
     }
 
+    fun getProjectMediaGalleries(projectId: Int): LiveData<BaseResponse<ProjectMediaGalleryResponse>> {
+        val mInvestmentResponse = MutableLiveData<BaseResponse<ProjectMediaGalleryResponse>>()
+        mInvestmentResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = InvestmentDataSource(application).getMediaGallery(projectId = projectId)
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mInvestmentResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mInvestmentResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mInvestmentResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mInvestmentResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mInvestmentResponse
+    }
+
     fun getInvestmentsDetail(id: Int): LiveData<BaseResponse<ProjectDetailResponse>> {
         val mInvestmentDetailResponse = MutableLiveData<BaseResponse<ProjectDetailResponse>>()
         mInvestmentDetailResponse.postValue(BaseResponse.loading())
@@ -59,9 +86,11 @@ class InvestmentRepository @Inject constructor(application: Application) : BaseR
             try {
                 val watchList = async { InvestmentDataSource(application).getMyWatchlist()  }
                 val inventories = async { InvestmentDataSource(application).getInventories(id) }
+                val testimonials = async { InvestmentDataSource(application).getTestimonialsData() }
                 val investmentDetail = async { InvestmentDataSource(application).getInvestmentsDetailData(id) }
                 val watchlistResponse = watchList.await()
                 val inventoriesResponse = inventories.await()
+                val testimonialsResponse = testimonials.await()
                 val investmentDetailResponse = investmentDetail.await()
                 if (investmentDetailResponse.isSuccessful) {
                     if (investmentDetailResponse.body()!!.data != null){
@@ -72,6 +101,10 @@ class InvestmentRepository @Inject constructor(application: Application) : BaseR
                         if(inventoriesResponse.isSuccessful){
                             investmentDetailResponse.body()!!.data.inventoriesList =
                                 inventoriesResponse.body()!!.data
+                        }
+                        if(testimonialsResponse.isSuccessful){
+                            investmentDetailResponse.body()!!.data.testimonials =
+                                testimonialsResponse.body()!!.data
                         }
                         mInvestmentDetailResponse.postValue(BaseResponse.success(investmentDetailResponse.body()!!))
                     }

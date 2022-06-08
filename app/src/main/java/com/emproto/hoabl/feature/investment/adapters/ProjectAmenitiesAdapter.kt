@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.hoabl.databinding.ProjectAmenitiesItemLayoutBinding
 import com.emproto.networklayer.response.investment.ProjectAminity
@@ -20,6 +21,10 @@ class ProjectAmenitiesAdapter(val context: Context,val list: List<ProjectAminity
         val element = list[position]
         holder.binding.apply {
             tvPaFirstText.text = element.name
+            Glide
+                .with(context)
+                .load(element.icon.value.url)
+                .into(ivPaFirstImage)
         }
     }
 

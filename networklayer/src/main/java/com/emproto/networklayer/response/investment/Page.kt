@@ -35,7 +35,6 @@ data class Page(
     val numberOfScreens: Any,
     val pageManagementsOrCollectionOneModels: List<Any>,
     val pageManagementsOrCollectionTwoModels: List<Any>,
-    val pageManagementsOrNewInvestments: List<PageManagementsOrNewInvestment>,
     val pageName: String,
     val pageType: String,
     val playTimeInSeconds: Any,

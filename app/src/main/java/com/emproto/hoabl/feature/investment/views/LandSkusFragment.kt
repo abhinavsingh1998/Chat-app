@@ -106,6 +106,7 @@ class LandSkusFragment:BaseFragment() {
             ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
         (activity as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.VISIBLE
+        (requireActivity() as HomeActivity).hideBottomNavigation()
     }
 
     private fun setUpRecyclerview() {

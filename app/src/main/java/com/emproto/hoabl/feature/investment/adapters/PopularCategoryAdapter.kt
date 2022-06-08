@@ -6,9 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.FaqCategoryLayoutBinding
 import com.emproto.hoabl.databinding.ItemPopularCategoryBinding
+import com.emproto.hoabl.utils.ItemClickListener
 
 
-class PopularCategoryAdapter (val context: Context, private val list: List<String>):
+class PopularCategoryAdapter(
+    val context: Context,
+    private val list: List<String>,
+    private val itemClickListener: ItemClickListener
+):
     RecyclerView.Adapter<PopularCategoryAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: ItemPopularCategoryBinding) : RecyclerView.ViewHolder(binding.root)
@@ -22,6 +27,9 @@ class PopularCategoryAdapter (val context: Context, private val list: List<Strin
         val element = list[position]
         holder.binding.apply {
             tvCategoryName.text = element
+            cvCategoryName.setOnClickListener {
+                itemClickListener.onItemClicked(it,position,position.toString())
+            }
         }
     }
 

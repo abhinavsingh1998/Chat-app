@@ -1,7 +1,6 @@
 package com.emproto.hoabl.feature.investment.views.mediagallery
 
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,7 @@ import com.emproto.hoabl.feature.investment.adapters.MediaPhotosAdapter
 import com.emproto.hoabl.model.MediaGalleryItem
 import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.utils.MediaItemClickListener
+import com.emproto.hoabl.utils.YoutubeItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import javax.inject.Inject
@@ -87,8 +87,21 @@ class PhotosFragment : BaseFragment() {
         }
         Log.d("jshdjshds",allImageList.toString())
         mediaPhotosAdapter =
-            MediaPhotosAdapter(this.requireContext(), list, itemClickListener, list1)
+            MediaPhotosAdapter(
+                this.requireContext(),
+                list,
+                itemClickListener,
+                list1,
+                youtubeItemClickListener
+            )
         binding.rvMainPhotos.adapter = mediaPhotosAdapter
+    }
+
+    val youtubeItemClickListener = object:YoutubeItemClickListener{
+        override fun onItemClicked(view: View, position: Int, url: String, title: String) {
+
+        }
+
     }
 
     private val itemClickListener = object : MediaItemClickListener {

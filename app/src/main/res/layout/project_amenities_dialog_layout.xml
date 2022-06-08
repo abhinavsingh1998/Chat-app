@@ -8,12 +8,12 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_project_amenities_text"
-        style="@style/text_style_text_color_16"
+        style="@style/text_style_text_color_18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_size_28"
         android:layout_marginTop="@dimen/margin_size_30"
-        android:fontFamily="@font/jost_regular"
+        android:fontFamily="@font/jost_medium"
         android:text="@string/project_amenities"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
