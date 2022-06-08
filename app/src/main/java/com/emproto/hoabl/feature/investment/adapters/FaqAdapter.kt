@@ -26,13 +26,13 @@ class FaqAdapter(private val list: List<Faq>, private val context:Context, priva
             holder.binding.ivFaqCardDropDown.visibility = View.INVISIBLE
             holder.binding.tvFaqAnswer.visibility = View.VISIBLE
             holder.binding.ivFaqCardUpArrow.visibility = View.VISIBLE
-            holder.binding.viewLine.visibility = View.VISIBLE
+//            holder.binding.viewLine.visibility = View.VISIBLE
         }
         holder.binding.ivFaqCardUpArrow.setOnClickListener{
             holder.binding.ivFaqCardDropDown.visibility = View.VISIBLE
             holder.binding.tvFaqAnswer.visibility = View.GONE
             holder.binding.ivFaqCardUpArrow.visibility = View.GONE
-            holder.binding.viewLine.visibility = View.GONE
+//            holder.binding.viewLine.visibility = View.GONE
         }
         holder.binding.apply {
             tvFaqQuestion.text = element.faqQuestion.question
