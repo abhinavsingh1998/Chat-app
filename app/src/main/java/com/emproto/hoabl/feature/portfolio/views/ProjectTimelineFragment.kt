@@ -88,7 +88,10 @@ class ProjectTimelineFragment : BaseFragment() {
                             )
                         )
                         for (item in it.data.projectTimelines) {
-                            timelineList.add(TimelineModel(TimelineAdapter.TYPE_LIST, item))
+                            if (item.timeLineSectionHeading == "Project Registration") {
+                                timelineList.add(TimelineModel(TimelineAdapter.TYPE_RERA, item))
+                            } else
+                                timelineList.add(TimelineModel(TimelineAdapter.TYPE_LIST, item))
                         }
                         mBinding.timelineList.layoutManager = LinearLayoutManager(requireContext())
                         mBinding.timelineList.adapter =

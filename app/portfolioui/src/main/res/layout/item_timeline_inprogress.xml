@@ -19,7 +19,7 @@
         android:layout_width="@dimen/margin_size_10"
         android:layout_height="@dimen/margin_size_10"
         android:layout_marginTop="4dp"
-        android:src="@drawable/ic_progress_complete"
+        android:src="@drawable/ic_in_progress"
         app:layout_constraintEnd_toEndOf="@+id/step_view"
         app:layout_constraintStart_toStartOf="@+id/step_view"
         app:layout_constraintTop_toBottomOf="@+id/step_view" />
