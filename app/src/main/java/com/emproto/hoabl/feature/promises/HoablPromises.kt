@@ -18,6 +18,7 @@ import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.enum.ModuleEnum
 import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.promises.Data
 import javax.inject.Inject
 
 
@@ -46,72 +47,90 @@ class HoablPromises : BaseFragment() {
         (requireActivity() as HomeActivity).hideBackArrow()
         (requireActivity() as HomeActivity).showBottomNavigation()
 
-
-        homeViewModel.getPromises(ModuleEnum.PROMISES.value).observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Status.LOADING -> {
-                    binding.loader.show()
-                    binding.listPromises.hide()
-
-                }
-                Status.SUCCESS -> {
-                    binding.loader.hide()
-                    binding.listPromises.show()
-                    it.data!!.data?.let { promisesData ->
-                        val list = ArrayList<PromisesData>()
-                        list.add(
-                            PromisesData(
-                                HoabelPromiseAdapter.TYPE_HEADER,
-                                "",
-                                promisesData.page.promiseSection,
-                                emptyList()
-                            )
-                        )
-                        list.add(
-                            PromisesData(
-                                HoabelPromiseAdapter.TYPE_LIST,
-                                "",
-                                null,
-                                promisesData.homePagesOrPromises
-                            )
-                        )
-                        list.add(
-                            PromisesData(
-                                HoabelPromiseAdapter.TYPE_DISCLAIMER,
-                                "",
-                                promisesData.page.promiseSection,
-                                emptyList()
-                            )
-                        )
-
-                        binding.listPromises.layoutManager = LinearLayoutManager(requireActivity())
-                        binding.listPromises.adapter = HoabelPromiseAdapter(
-                            requireContext(),
-                            list,
-                            object : HoabelPromiseAdapter.PromisedItemInterface {
-                                override fun onClickItem(position: Int) {
-                                    homeViewModel.setSelectedPromise(promisesData.homePagesOrPromises[position])
-                                    (requireActivity() as HomeActivity).addFragment(
-                                        PromisesDetailsFragment(),
-                                        false
-                                    )
-                                }
-
-                            })
-                    }
-
-                }
-                Status.ERROR -> {
-                    binding.loader.hide()
-                    (requireActivity() as HomeActivity).showErrorToast(
-                        it.message!!
-                    )
-                }
-            }
-        })
-
+        initViews()
+        fetchPromises(false)
 
         return binding.root
+    }
+
+    private fun fetchPromises(refresh: Boolean) {
+        homeViewModel.getPromises(ModuleEnum.PROMISES.value, refresh)
+            .observe(viewLifecycleOwner, Observer {
+                when (it.status) {
+                    Status.LOADING -> {
+                        binding.loader.show()
+                        binding.listPromises.hide()
+
+                    }
+                    Status.SUCCESS -> {
+                        binding.swipeRefresh.isRefreshing = false
+                        binding.loader.hide()
+                        binding.listPromises.show()
+                        it.data!!.data?.let { promisesData ->
+                            showPromises(promisesData)
+                        }
+
+                    }
+                    Status.ERROR -> {
+                        binding.loader.hide()
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            it.message!!
+                        )
+                    }
+                }
+            })
+
+    }
+
+    private fun showPromises(promisesData: Data) {
+        val list = ArrayList<PromisesData>()
+        list.add(
+            PromisesData(
+                HoabelPromiseAdapter.TYPE_HEADER,
+                "",
+                promisesData.page.promiseSection,
+                emptyList()
+            )
+        )
+        list.add(
+            PromisesData(
+                HoabelPromiseAdapter.TYPE_LIST,
+                "",
+                null,
+                promisesData.homePagesOrPromises
+            )
+        )
+        list.add(
+            PromisesData(
+                HoabelPromiseAdapter.TYPE_DISCLAIMER,
+                "",
+                promisesData.page.promiseSection,
+                emptyList()
+            )
+        )
+
+        binding.listPromises.layoutManager =
+            LinearLayoutManager(requireActivity())
+        binding.listPromises.adapter = HoabelPromiseAdapter(
+            requireContext(),
+            list,
+            object : HoabelPromiseAdapter.PromisedItemInterface {
+                override fun onClickItem(position: Int) {
+                    homeViewModel.setSelectedPromise(promisesData.homePagesOrPromises[position])
+                    (requireActivity() as HomeActivity).addFragment(
+                        PromisesDetailsFragment(),
+                        false
+                    )
+                }
+
+            })
+    }
+
+    private fun initViews() {
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = true
+            fetchPromises(true)
+        }
     }
 
 

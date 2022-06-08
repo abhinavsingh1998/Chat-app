@@ -6,6 +6,7 @@ import android.text.Html
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portfolioui.R
@@ -62,28 +63,41 @@ class BookingStepsAdapter(
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (dataList[position].type) {
 
             TYPE_COMPLETED -> {
                 val type1Holder = holder as InProgressHolder
                 val data = dataList[position]
-                type1Holder.binding.textView10.text = data.text
-                type1Holder.binding.textView11.text = data.description
-                type1Holder
-
+                type1Holder.binding.tvTitle.text = data.text
+                type1Holder.binding.tvDescription.text = data.description
+                type1Holder.binding.tvLink.text =
+                    showHTMLText(
+                        String.format(
+                            context.getString(R.string.tv_receipt),
+                            data.linkText
+                        )
+                    )
 
             }
             TYPE_INPROGRESS -> {
                 val type1Holder = holder as InProgressHolder
                 val data = dataList[position]
-                type1Holder.binding.textView10.text = data.text
-                type1Holder.binding.textView11.text = data.description
-                type1Holder.binding.textView12.text =
-                    showHTMLText(context.getString(R.string.viewreceipt))
-                type1Holder.binding.textView12.setOnClickListener {
+                type1Holder.binding.tvTitle.text = data.text
+                type1Holder.binding.tvDescription.text = data.description
+                type1Holder.binding.tvLink.setTextColor(context.getColor(R.color.background_grey))
+                type1Holder.binding.tvLink.text =
+                    showHTMLText(
+                        String.format(
+                            context.getString(R.string.tv_receipt),
+                            data.linkText
+                        )
+                    )
+                type1Holder.binding.tvLink.setOnClickListener {
                     itemInterface?.viewDetails(0, "")
                 }
+                type1Holder.binding.ivProgressIcon.setImageDrawable(context.getDrawable(R.drawable.ic_in_progress))
             }
         }
     }

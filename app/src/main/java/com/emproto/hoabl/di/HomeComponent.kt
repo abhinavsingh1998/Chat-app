@@ -35,7 +35,6 @@ interface HomeComponent {
     fun inject(fragment: InvestmentFragment)
     fun inject(fragment: ProjectDetailFragment)
     fun inject(fragment: PortfolioFragment)
-    fun inject(fragment: PortfolioExistingUsersFragment)
     fun inject(service: MyFirebasemessagingService)
     fun inject(fragment: PortfolioSpecificProjectView)
     fun inject(fragment: EditProfileFragment)
@@ -58,9 +57,10 @@ interface HomeComponent {
     fun inject(fragment: ReferralDialog)
     fun inject(fragment: DroneFragment)
     fun inject(fragment: ThreeSixtyFragment)
-    fun inject(fragment:DocViewerFragment)
+    fun inject(fragment: DocViewerFragment)
     fun inject(fragment: ChatsFragment)
     fun inject(fragment: ChatsDetailFragment)
+    fun inject(fragment: BookingjourneyFragment)
 
 
 }

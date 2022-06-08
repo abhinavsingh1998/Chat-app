@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">portfolioui</string>
-    <string name="viewreceipt"><![CDATA[<u>View Receipt</u>]]></string>
+    <string name="tv_receipt"><![CDATA[<u>%1$s</u>]]></string>
 
 </resources>

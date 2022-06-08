@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/margin_size_16"
+    android:layout_marginTop="@dimen/margin_size_7"
+    android:layout_marginBottom="@dimen/margin_size_2"
+    android:outlineSpotShadowColor="#ababab"
+    app:cardElevation="@dimen/margin_size_8"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <View
+            android:id="@+id/header_indicator"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ic_progress_complete"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/text_header"
+            style="@style/text_medium_black_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:lines="1"
+            android:text="Project Registration"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toBottomOf="@+id/header_indicator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/header_indicator"
+            app:layout_constraintTop_toTopOf="@+id/header_indicator" />
+
+
+        <View
+            android:id="@+id/header_indicator_2"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ic_progress_complete"
+            app:layout_constraintEnd_toEndOf="@+id/header_indicator"
+            app:layout_constraintStart_toStartOf="@+id/header_indicator"
+            app:layout_constraintTop_toBottomOf="@+id/text_header" />
+
+
+        <TextView
+            android:id="@+id/text_header2"
+            style="@style/text_medium_black_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/jost_regular"
+            android:lines="1"
+            android:text="Documents"
+            android:textAllCaps="false"
+            android:textColor="#707193"
+            app:layout_constraintStart_toEndOf="@+id/header_indicator_2"
+            app:layout_constraintTop_toTopOf="@+id/header_indicator_2" />
+
+        <LinearLayout
+            android:id="@+id/first_section"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@+id/text_header2"
+            app:layout_constraintTop_toBottomOf="@id/text_header2">
+
+            <ImageView
+                android:id="@+id/iv_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_payment_icon" />
+
+            <TextView
+                android:id="@+id/tv_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/jost_regular"
+                android:text="Deed of conveyance" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/second_section"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/text_header2"
+            app:layout_constraintTop_toBottomOf="@id/first_section">
+
+            <ImageView
+                android:id="@+id/iv_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_payment_icon" />
+
+            <TextView
+                android:id="@+id/tv_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/jost_regular"
+                android:text="7/12 document" />
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

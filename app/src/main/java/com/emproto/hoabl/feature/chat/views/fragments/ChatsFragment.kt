@@ -35,7 +35,12 @@ class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
         binding = FragmentChatsBinding.inflate(layoutInflater)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel =
-            ViewModelProvider(requireActivity(), homeFactory).get(HomeViewModel::class.java)
+            ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
+
+        (requireActivity() as HomeActivity).showBackArrow()
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
+            View.GONE
+
         return binding.root
     }
 
@@ -56,7 +61,11 @@ class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
                         binding.rvChats.layoutManager =
                             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
                         binding.rvChats.adapter = ChatsAdapter(context, it.data!!.chatList, this)
-                        Log.i("LastMsg",it.data!!.chatList.toString())
+
+                        val chatListSize=it.data!!.chatList.size.toString()
+                        binding.tvChats.text="Chat($chatListSize)"
+
+//                        Log.i("ChatListSize",it.data!!.chatList.size.toString())
                     }
                 }
                 Status.ERROR -> {

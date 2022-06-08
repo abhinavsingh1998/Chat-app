@@ -257,7 +257,7 @@
     <string name="see_receipt">See Receipt</string>
     <string name="this_page_will_be_activated_after_possession_handover_is_done">This page will be activated after possession handover is done</string>
     <string name="okay">OKAY</string>
-    <string name="facility_management_desc">Now manage your bookings, complaints, visitors, vehicles, etc with ease</string>
+    <string name="facility_management_desc">Manage your bookings, visitors, vehicles, raise complaints &amp; more.</string>
     <string name="document_label">Document Label</string>
     <string name="view_underlined"><u>View</u></string>
     <string name="more_abt_promises">Want to know more about Promises? Click here</string>
@@ -272,7 +272,7 @@
     <string name="land_id">Land ID</string>
     <string name="sku_type">SKU Type</string>
     <string name="investment_amount">Investment amount</string>
-    <string name="amount_pending">Amount pending</string>
+    <string name="amount_pending">Pending</string>
     <string name="registry_amount">Registry Amount</string>
     <string name="other_expenses">Other Expenses</string>
     <string name="latitude">Latitude</string>
@@ -290,7 +290,7 @@
     <string name="share_your_friend_txt">Share HOABL APP with your friends</string>
     <string name="share_text">SHARE</string>
     <string name="blockchain">BlockChain</string>
-    <string name="amount_paid">Amount Paid</string>
+    <string name="amount_paid">Paid</string>
     <string name="manage_projects">Manage Projects</string>
     <string name="invest_now">Invest Now</string>
     <string name="attention_text">The following items need your attention</string>
@@ -372,5 +372,7 @@
     <string name="all_investments">All investments</string>
     <string name="youtube_api_key">AIzaSyCdq-SBpqNl8q1w98hmfBYT-xUZQZ5KyuM</string>
     <string name="header"><![CDATA[%1$s <font size="16"><b>%2$s</b></font> ]]></string>
+    <string name="welcome_to_hoabl">Welcome to HoABL App. We are happy to have you.</string>
+    <string name="last_updated_on">Last Updated on:</string>
     <string name="viewreceipt"><![CDATA[<U>View Receipt</U>]]></string>
 </resources>

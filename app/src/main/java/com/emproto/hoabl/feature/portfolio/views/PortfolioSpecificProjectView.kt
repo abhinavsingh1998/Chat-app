@@ -138,7 +138,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 it.data
             )
         )
-        //list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_PENDINGCARD))
+        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_PENDINGCARD))
         list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_FACILITY_CARD))
         if (it.data.documentList != null) {
             list.add(

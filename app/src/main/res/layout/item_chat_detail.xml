@@ -17,6 +17,7 @@
         android:textColor="#17171c"
         android:textSize="12sp"
         android:textStyle="normal"
+        android:fontFamily="@font/jost_regular"
         tools:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,8 +34,9 @@
         android:paddingVertical="12dp"
         android:text="Hi Anuj Singh! Thanks for connecting. \nI am Chat Bot. I will be helping you \nwith your queries today."
         android:textColor="#494a67"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:textStyle="normal"
+        android:fontFamily="@font/jost_regular"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvChatTime" />
 

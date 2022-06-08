@@ -103,4 +103,5 @@
     <color name="blur_white">#80FFFFFF</color>
     <color name="investment_see_all_bg">#eeeef3</color>
     <color name="bottom_bg_color">#F2565454</color>
+    <color name="dark_blue">#17171c</color>
 </resources>
