@@ -28,7 +28,8 @@ class OpportunityDocsAdapter(
     private val context: Context,
     private val itemList: List<RecyclerViewItem>,
     private val data: List<OpprotunityDoc>,
-    private val title: String
+    private val title: String,
+    private val isFromProjectAmenities: Boolean
 ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -48,6 +49,8 @@ class OpportunityDocsAdapter(
     private lateinit var upcomingInfraStoryAdapter: UpcomingInfraStoryAdapter
     private lateinit var onItemClickListener : View.OnClickListener
     private lateinit var projectAmenitiesAdapter: ProjectAmenitiesAdapter
+
+    private var isClicked = true
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -173,7 +176,6 @@ class OpportunityDocsAdapter(
 
     private inner class OppDocsTourismViewHolder(private val binding: OppDocsDestinationLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            var isClicked = true
             val list = arrayListOf<Story>()
             for(i in 0..3){
                 list.add(data[0].tourismAround.stories[i])
@@ -232,8 +234,20 @@ class OpportunityDocsAdapter(
                 ivViewMoreArrow.visibility = View.VISIBLE
                 var isClicked = true
                 val list = arrayListOf<ProjectAminity>()
-                for(i in 0..3){
-                    list.add(data[0].projectAminities[i])
+                when(isFromProjectAmenities){
+                    true -> {
+                        for(item in data[0].projectAminities){
+                            list.add(item)
+                        }
+                        binding.ivViewMoreArrow.setImageResource(R.drawable.ic_arrow_upward)
+                        binding.tvViewMore.text = context.getString(R.string.view_less_caps)
+                        isClicked = false
+                    }
+                    false -> {
+                        for(i in 0..3){
+                            list.add(data[0].projectAminities[i])
+                        }
+                    }
                 }
                 projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,list)
                 rvProjectAmenitiesItemRecycler.adapter = projectAmenitiesAdapter

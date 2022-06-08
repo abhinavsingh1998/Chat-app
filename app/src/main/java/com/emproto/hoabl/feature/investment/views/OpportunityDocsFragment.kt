@@ -26,6 +26,7 @@ class OpportunityDocsFragment:BaseFragment() {
     lateinit var opportunityDocsAdapter: OpportunityDocsAdapter
     private var title = ""
     private var projectId = 0
+    private var isFromProjectAmenities = false
 
     val onItemClickListener =
         View.OnClickListener { view ->
@@ -45,6 +46,7 @@ class OpportunityDocsFragment:BaseFragment() {
         arguments.let {
             title = it?.getString("ProjectName").toString()
             projectId = it?.getInt("ProjectId", 0)!!
+            isFromProjectAmenities = it.getBoolean("isProjectAmenitiesClicked",false)
         }
         return binding.root
     }
@@ -82,11 +84,15 @@ class OpportunityDocsFragment:BaseFragment() {
             list.add(RecyclerViewItem(7))
             list.add(RecyclerViewItem(8))
 
-            opportunityDocsAdapter = OpportunityDocsAdapter(this.requireContext(),list,it,title)
+            opportunityDocsAdapter = OpportunityDocsAdapter(this.requireContext(),list,it,title,isFromProjectAmenities)
             binding.rvOppDocs.adapter = opportunityDocsAdapter
             opportunityDocsAdapter.setItemClickListener(onItemClickListener)
+            when(isFromProjectAmenities){
+                true -> {
+                    binding.rvOppDocs.scrollToPosition(6)
+                }
+            }
         })
-
     }
 
 

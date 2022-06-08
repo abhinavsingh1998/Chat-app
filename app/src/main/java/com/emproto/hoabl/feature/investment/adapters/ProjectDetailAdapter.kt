@@ -419,7 +419,8 @@ class ProjectDetailAdapter(
             locationInfrastructureAdapter = LocationInfrastructureAdapter(
                 context,
                 data.locationInfrastructure.values,
-                mapItemClickListener
+                mapItemClickListener,
+                false
             )
             binding.rvLocationInfrastructure.adapter = locationInfrastructureAdapter
             binding.tvLocationInfrastructureAll.setOnClickListener(onItemClickListener)
@@ -469,7 +470,6 @@ class ProjectDetailAdapter(
                         }
                     }
                 }
-
                 tvHearSpeakSeeAll.setOnClickListener(onItemClickListener)
             }
         }

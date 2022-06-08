@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.investment.views
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -140,7 +141,9 @@ class InvestmentFragment : BaseFragment() {
                 Status.SUCCESS -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                     it.data?.data?.let { data ->
-                        setUpRecyclerView(invData,data.mediaGalleries)
+                        if(data!=null){
+                            setUpRecyclerView(invData,data.mediaGalleries)
+                        }
                     }
                 }
                 Status.ERROR -> {
@@ -173,7 +176,6 @@ class InvestmentFragment : BaseFragment() {
         binding.rvInvestmentPage.adapter = newInvestmentAdapter
         newInvestmentAdapter.setItemClickListener(onInvestmentItemClickListener)
     }
-
 
     private fun callProjectContentAPi() {
         investmentViewModel.getAllInvestmentsProjects().observe(viewLifecycleOwner, Observer {

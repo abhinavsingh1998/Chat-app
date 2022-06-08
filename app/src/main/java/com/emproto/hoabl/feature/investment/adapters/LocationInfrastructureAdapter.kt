@@ -18,13 +18,44 @@ class LocationInfrastructureAdapter(
     private val context: Context,
     private val list: List<ValueXXX>,
     private val itemClickListener: MapItemClickListener,
-    private var isDistanceAvl: Boolean = false
+    private var isDistanceAvl: Boolean = false,
+    private var selectedItemPos: Int = -1
 ):RecyclerView.Adapter<LocationInfrastructureAdapter.MyViewHolder>() {
 
-    var lastCheckedPosition = -1
-    var checkedPosition = 0
+//    var selectedItemPos = -1
+    var lastItemSelectedPos = -1
 
-    inner class MyViewHolder(var binding: ItemLocationInfrastructureBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class MyViewHolder(var binding: ItemLocationInfrastructureBinding) : RecyclerView.ViewHolder(binding.root){
+        fun bind(
+            view: View,
+            position: Int,
+            item: Any,
+            clickListener: MapItemClickListener
+        ){
+            val element = list[position]
+            binding.apply {
+                tvLocationName.text  = element.name
+                Glide
+                    .with(context)
+                    .load(element.icon.value.url)
+                    .into(ivLocationImage)
+                when(isDistanceAvl){
+                    true ->  tvLocationDistance.visibility = View.VISIBLE
+                }
+            }
+            binding.cvLocationInfrastructureCard.setOnClickListener{
+                selectedItemPos = adapterPosition
+                if(lastItemSelectedPos == -1)
+                    lastItemSelectedPos = selectedItemPos
+                else {
+                    notifyItemChanged(lastItemSelectedPos)
+                    lastItemSelectedPos = selectedItemPos
+                }
+                notifyItemChanged(selectedItemPos)
+                itemClickListener.onItemClicked(it,position,element.latitude,element.longitude)
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = ItemLocationInfrastructureBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -32,33 +63,15 @@ class LocationInfrastructureAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val element = list[position]
-        holder.binding.apply {
-            tvLocationName.text  = element.name
-            Glide
-                .with(context)
-                .load(element.icon.value.url)
-                .into(ivLocationImage)
-            when(isDistanceAvl){
-                true ->  tvLocationDistance.visibility = View.VISIBLE
-            }
-            cvLocationInfrastructureCard.setOnClickListener{
-                itemClickListener.onItemClicked(it,position,element.latitude,element.longitude)
-//                for(i in 0..list.size-1){
-//                    if(position == i){
-//                        cvLocationInfrastructureCard.strokeWidth = 2
-//                        cvLocationInfrastructureCard.strokeColor = ContextCompat.getColor(context,R.color.text_blue_color)
-//                    }else{
-//                        cvLocationInfrastructureCard.strokeWidth = 0
-//                        cvLocationInfrastructureCard.strokeColor = ContextCompat.getColor(context,R.color.white)
-//                    }
-//                }
-//                checkedPosition = position
-//
-//                cvLocationInfrastructureCard.strokeWidth = 2
-//                cvLocationInfrastructureCard.strokeColor = ContextCompat.getColor(context,R.color.text_blue_color)
-            }
+        if(position == selectedItemPos) {
+            holder.binding.cvLocationInfrastructureCard.strokeWidth = 2
+            holder.binding.cvLocationInfrastructureCard.strokeColor = ContextCompat.getColor(context,R.color.text_blue_color)
         }
+        else {
+            holder.binding.cvLocationInfrastructureCard.strokeWidth = 0
+            holder.binding.cvLocationInfrastructureCard.strokeColor = ContextCompat.getColor(context,R.color.white)
+        }
+        holder.bind(holder.itemView, position, list, itemClickListener)
     }
 
     override fun getItemCount(): Int = list.size

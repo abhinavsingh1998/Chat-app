@@ -139,6 +139,7 @@ class ProjectDetailFragment : BaseFragment() {
                     val bundle = Bundle()
                     bundle.putInt("ProjectId", projectId)
                     bundle.putString("ProjectName",allData.launchName)
+                    bundle.putBoolean("isProjectAmenitiesClicked",true)
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(
                         fragment,
@@ -431,9 +432,6 @@ class ProjectDetailFragment : BaseFragment() {
                             false
                         )
                     }
-                }
-                R.id.cv_location_infrastructure_card -> {
-
                 }
                 R.id.iv_bookmark_icon -> {
                     when(item){
