@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_size_12"
         android:layout_marginTop="@dimen/margin_size_30"
-        android:fontFamily="@font/jost_medium"
+        android:fontFamily="@font/jost_regular"
         android:text="Completed Investments"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

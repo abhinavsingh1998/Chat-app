@@ -21,7 +21,7 @@ import com.emproto.hoabl.model.RecyclerViewItem
 import com.github.mikephil.charting.components.XAxis
 
 
-class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
+class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
     lateinit var binding: FragmentAboutUsBinding
     lateinit var adapter: AboutUSAdapter
     lateinit var ivarrow: ImageView
@@ -123,9 +123,9 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
         } else {
             line.visibility = View.GONE
         }
+
+
     }
-
-
 }
 
 

@@ -259,18 +259,19 @@ class ProjectDetailAdapter(
             val linedataset = LineDataSet(linevalues, "First")
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset.color = context.getColor(R.color.app_color)
+                linedataset.color = context.getColor(R.color.green)
             }
 
             linedataset.valueTextSize = 12F
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset.fillColor = context.getColor(R.color.light_app_color)
+                linedataset.fillColor = context.getColor(R.color.green)
             }
-            linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
+            linedataset.mode = LineDataSet.Mode.LINEAR;
+            linedataset.setDrawCircles(false)
+            linedataset.setDrawValues(false)
 
             //We connect our data to the UI Screen
             val data = LineData(linedataset)
-
             //binding.ivPriceTrendsGraph.setDrawBorders(false);
             //binding.ivPriceTrendsGraph.setDrawGridBackground(false);
             binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
@@ -284,6 +285,9 @@ class ProjectDetailAdapter(
             binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false);
             binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false);
             binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false);
+            binding.ivPriceTrendsGraph.setTouchEnabled(false)
+            binding.ivPriceTrendsGraph.setPinchZoom(false)
+            binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
             //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
             //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
             binding.ivPriceTrendsGraph.data = data
@@ -353,7 +357,7 @@ class ProjectDetailAdapter(
     private inner class ProjectPromisesViewHolder(private val binding: PromisesLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             val itemList = promisesData
-            promisesAdapter = PromisesAdapter(itemList,itemClickListener)
+            promisesAdapter = PromisesAdapter(itemList,itemClickListener,context)
             binding.rvPromises.adapter = promisesAdapter
             binding.clNotConvincedPromises.setOnClickListener(onItemClickListener)
             binding.tvPromisesSeeAll.setOnClickListener(onItemClickListener)
@@ -363,7 +367,7 @@ class ProjectDetailAdapter(
     private inner class ProjectFaqViewHolder(private val binding: FaqLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             val itemList = data.projectContentsAndFaqs
-            faqAdapter = FaqQuestionAdapter(itemList)
+            faqAdapter = FaqQuestionAdapter(itemList,itemClickListener)
             binding.rvFaq.adapter = faqAdapter
             binding.tvFaqReadAll.setOnClickListener(onItemClickListener)
         }
@@ -384,7 +388,7 @@ class ProjectDetailAdapter(
     private inner class ProjectSimilarInvestmentsViewHolder(private val binding: SimilarInvestmentsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             val itemList = data.similarInvestments
-            similarInvestmentsAdapter = InvestmentAdapter(context, itemList)
+            similarInvestmentsAdapter = InvestmentAdapter(context, itemList, itemClickListener)
             binding.rvSimilarInvestment.adapter = similarInvestmentsAdapter
         }
     }

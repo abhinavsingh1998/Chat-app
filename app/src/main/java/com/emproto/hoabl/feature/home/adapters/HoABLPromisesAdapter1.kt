@@ -30,6 +30,7 @@ class HoABLPromisesAdapter1(
         holder.binding.desc.text= item.shortDescription
         Glide.with(context)
             .load(item.displayMedia.value.url)
+            .dontAnimate()
             .into(holder.binding.image)
 
         holder.binding.itemCard.setOnClickListener(View.OnClickListener {

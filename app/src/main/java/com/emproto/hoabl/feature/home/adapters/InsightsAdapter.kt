@@ -1,10 +1,18 @@
 package com.emproto.hoabl.feature.home.adapters
 
 import android.content.Context
+import android.os.Build
+import android.text.Html
+import android.text.Spanned
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.textviews.CustomTextView
+import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemInsightsBinding
 import com.emproto.networklayer.response.home.PageManagementOrInsight
 
@@ -44,4 +52,11 @@ class InsightsAdapter(
         fun onClickItem(position: Int)
     }
 
+    public fun showHTMLText(message: String?): Spanned {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            Html.fromHtml(message)
+        }
+    }
 }

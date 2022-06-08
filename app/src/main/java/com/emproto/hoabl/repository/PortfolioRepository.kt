@@ -7,6 +7,8 @@ import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.PortfolioDataSource
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
+import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
@@ -28,6 +30,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
     private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
         mPromisesResponse.postValue(BaseResponse.Companion.error(exception.localizedMessage))
     }
+
     /**
      * Get all investments
      *
@@ -80,17 +83,26 @@ class PortfolioRepository @Inject constructor(application: Application) :
         mPromisesResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val request = PortfolioDataSource(application).getInvestmentDetails(ivID, projectId)
-                if (request.isSuccessful) {
-                    if (request.body()!!.data != null)
-                        mPromisesResponse.postValue(BaseResponse.success(request.body()!!))
-                    else
+                val topResponse =
+                    PortfolioDataSource(application).getInvestmentDetails(ivID, projectId)
+                if (topResponse.isSuccessful) {
+                    if (topResponse.body()!!.data != null) {
+                        val crmId = topResponse.body()!!.data.investmentInformation.crmProjectId
+                        val documentResponse =
+                            PortfolioDataSource(application).getDocumentsListing(crmId)
+                        if (documentResponse.isSuccessful && documentResponse.body()!!.data.isNotEmpty()) {
+                            topResponse.body()!!.data.documentList = documentResponse.body()!!.data
+                            mPromisesResponse.postValue(BaseResponse.success(topResponse.body()!!))
+                        } else {
+                            mPromisesResponse.postValue(BaseResponse.success(topResponse.body()!!))
+                        }
+                    } else
                         mPromisesResponse.postValue(BaseResponse.Companion.error("No data found"))
                 } else {
                     mPromisesResponse.postValue(
                         BaseResponse.Companion.error(
                             getErrorMessage(
-                                request.errorBody()!!.string()
+                                topResponse.errorBody()!!.string()
                             )
                         )
                     )
@@ -216,6 +228,60 @@ class PortfolioRepository @Inject constructor(application: Application) :
         coroutineScope.launch {
             try {
                 val request = PortfolioDataSource(application).getFacilityManagment()
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mDocumentsResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mDocumentsResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mDocumentsResponse
+    }
+
+    fun downloadDocument(): MutableLiveData<BaseResponse<DDocumentResponse>> {
+        val mDocumentsResponse = MutableLiveData<BaseResponse<DDocumentResponse>>()
+        mDocumentsResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = PortfolioDataSource(application).downloadDocument()
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mDocumentsResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mDocumentsResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mDocumentsResponse
+    }
+
+    fun getBookingJourney(id: Int): LiveData<BaseResponse<BookingJourneyResponse>> {
+        val mDocumentsResponse = MutableLiveData<BaseResponse<BookingJourneyResponse>>()
+        mDocumentsResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = PortfolioDataSource(application).getBookingJourney(id)
                 if (request.isSuccessful) {
                     if (request.body()!!.data != null)
                         mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))

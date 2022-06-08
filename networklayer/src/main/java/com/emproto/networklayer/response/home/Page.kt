@@ -44,7 +44,7 @@ data class Page(
     val promiseSection: Any,
     val promisesHeading: String,
     val promotionAndOffersMedia: Any,
-    val promotionAndOffersProjectContentId: Any,
+    val promotionAndOffersProjectContentId: Int,
     val propositionScreens: Any,
     val sectionName: Any,
     val securityTips: Any,

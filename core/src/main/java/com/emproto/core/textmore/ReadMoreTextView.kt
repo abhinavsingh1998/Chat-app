@@ -1,4 +1,4 @@
-package com.emproto.core.Textmore
+package com.emproto.core.textmore
 
 import android.content.Context
 import android.content.res.TypedArray
@@ -181,7 +181,7 @@ class ReadMoreTextView(context: Context, attrs: AttributeSet?) : AppCompatTextVi
         private const val DEFAULT_TRIM_LINES = 2
         private const val INVALID_END_INDEX = -1
         private const val DEFAULT_SHOW_TRIM_EXPANDED_TEXT = true
-        private const val ELLIPSIZE = "... "
+        private const val ELLIPSIZE = " ..."
     }
 
     init {
@@ -201,7 +201,7 @@ class ReadMoreTextView(context: Context, attrs: AttributeSet?) : AppCompatTextVi
         trimLines = typedArray.getInt(R.styleable.ReadMoreTextView_trimLines, DEFAULT_TRIM_LINES)
         colorClickableText = typedArray.getColor(
             R.styleable.ReadMoreTextView_colorClickableText,
-            ContextCompat.getColor(context, R.color.black)
+            ContextCompat.getColor(context, R.color.app_color)
         )
         showTrimExpandedText = typedArray.getBoolean(
             R.styleable.ReadMoreTextView_showTrimExpandedText,

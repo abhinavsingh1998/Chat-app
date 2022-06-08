@@ -84,7 +84,7 @@ class ProjectDetailFragment : BaseFragment() {
                     val fragment = FaqDetailFragment()
                     val bundle = Bundle()
                     bundle.putInt("ProjectId", projectId)
-                    fragment.arguments = arguments
+                    fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
                 R.id.cl_why_invest -> {
@@ -96,29 +96,28 @@ class ProjectDetailFragment : BaseFragment() {
                     )
                 }
                 R.id.tv_skus_see_all -> {
-                    val fragment = LandSkusFragment()
-                    val bundle = Bundle()
-                    bundle.putInt("ProjectId", projectId)
-                    fragment.arguments = arguments
-                    investmentViewModel.setSkus(landSkusData)
-                    (requireActivity() as HomeActivity).addFragment(fragment, false)
+                    navigateToSkuScreen()
                 }
                 R.id.tv_video_drone_see_all -> {
                     val imagesList = ArrayList<MediaViewItem>()
+                    Log.d("cscscs",mediaData.toString())
+                    var itemId = 0
                     for(i in 0..mediaData.size-1){
                         for (item in mediaData[i].droneShoots) {
-                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+                            itemId++
+                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url, title = "DroneShoots", id = itemId))
                         }
                         for (item in mediaData[i].images) {
-                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
-                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
-
+                            itemId++
+                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url,title = "Images", id = itemId))
                         }
                         for (item in mediaData[i].videos) {
-                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+                            itemId++
+                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url, title = "Videos", id = itemId))
                         }
                         for (item in mediaData[i].threeSixtyImages) {
-                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+                            itemId++
+                            imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url,title="ThreeSixtyImages", id = itemId))
                         }
                     }
                     Log.d("cscscs",imagesList.toString())
@@ -164,7 +163,7 @@ class ProjectDetailFragment : BaseFragment() {
                     val fragment = LandSkusFragment()
                     val bundle = Bundle()
                     bundle.putInt("ProjectId", projectId)
-                    fragment.arguments = arguments
+                    fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
                 R.id.tv_location_infrastructure_all -> {
@@ -244,7 +243,6 @@ class ProjectDetailFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
                 }
                 Status.SUCCESS -> {
-//                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                     it.data?.data?.let { data ->
                         promisesData = data
                         callProjectIdApi(promisesData)
@@ -262,8 +260,6 @@ class ProjectDetailFragment : BaseFragment() {
     }
 
     private fun callProjectIdApi(promiseData: List<PmData>) {
-        val pjId = arguments?.getInt("ProjectId") as Int
-            projectId = pjId
             investmentViewModel.getInvestmentsDetail(projectId).observe(viewLifecycleOwner, Observer {
                 when(it.status){
                     Status.LOADING -> {
@@ -290,32 +286,6 @@ class ProjectDetailFragment : BaseFragment() {
                     }
                 }
             })
-//
-//        investmentViewModel.getInvestmentsDetail(projectId).observe(viewLifecycleOwner, Observer {
-//            when (it.status) {
-//                Status.LOADING -> {
-//                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
-//                }
-//                Status.SUCCESS -> {
-//                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
-//                    it.data?.data?.let { data ->
-//                        oppDocData = data.opprotunityDocs
-//                        mediaData = data.projectCoverImages
-//                        landSkusData = data.inventoryBucketContents
-//                        faqData = data.projectContentsAndFaqs
-//                        mapLocationData = data.locationInfrastructure
-//                        setUpRecyclerView(data, promiseData)
-//                    }
-//                }
-//                Status.ERROR -> {
-//                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
-//                    (requireActivity() as HomeActivity).showErrorToast(
-//                        it.message!!
-//                    )
-//                }
-//            }
-//        })
-
     }
 
     private fun addWatchList(){
@@ -412,6 +382,14 @@ class ProjectDetailFragment : BaseFragment() {
                         "false" -> deleteWatchList()
                     }
                 }
+                R.id.cv_faq_card -> {
+                    val fragment = FaqDetailFragment()
+                    val bundle = Bundle()
+                    bundle.putInt("ProjectId", projectId)
+                    bundle.putInt("FaqId",item.toInt())
+                    fragment.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(fragment, false)
+                }
             }
             when(item){
                 "Yes" -> {
@@ -443,7 +421,27 @@ class ProjectDetailFragment : BaseFragment() {
                     })
                 }
             }
+            when(position){
+                0 -> refreshingPage(item.toInt())
+                1 -> refreshingPage(item.toInt())
+                2 -> refreshingPage(item.toInt())
+                3 -> navigateToSkuScreen()
+                4 -> refreshingPage(item.toInt())
+            }
         }
+    }
+
+    private fun navigateToSkuScreen() {
+        val fragment = LandSkusFragment()
+        val bundle = Bundle()
+        bundle.putInt("ProjectId", projectId)
+        fragment.arguments = bundle
+        (requireActivity() as HomeActivity).addFragment(fragment, false)
+    }
+
+    private fun refreshingPage(id:Int) {
+        projectId = id
+        callApi()
     }
 
     private fun openDialog() {

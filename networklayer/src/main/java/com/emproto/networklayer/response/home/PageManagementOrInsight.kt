@@ -1,5 +1,6 @@
 package com.emproto.networklayer.response.home
 
+import com.emproto.networklayer.response.insights.InsightsMedia
 import java.io.Serializable
 
 data class PageManagementOrInsight(
@@ -8,8 +9,8 @@ data class PageManagementOrInsight(
     val displayTitle: String,
     val id: Int,
     val insightsMedia: List<InsightsMedia>,
-    val modifiedBy: Any,
-    val priority: Any,
+    val modifiedBy: Int,
+    val priority: Int,
     val status: String,
     val updatedAt: String
 ):Serializable

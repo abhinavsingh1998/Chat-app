@@ -6,6 +6,7 @@ import com.emproto.networklayer.di.DaggerDataComponent
 import com.emproto.networklayer.di.DataAppModule
 import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
+import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
@@ -65,6 +66,10 @@ class PortfolioDataSource(val application: Application):BaseDataSource(applicati
     //get facility managment
     suspend fun getFacilityManagment():Response<FMResponse>{
         return apiService.getFacilityManagment()
+    }
+
+    suspend fun getBookingJourney(investedId:Int):Response<BookingJourneyResponse>{
+        return apiService.getBookingJourney(23)
     }
 
 

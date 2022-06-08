@@ -37,6 +37,7 @@ class MediaGalleryFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMediaGalleryBinding.inflate(layoutInflater)
+        list.clear()
         arguments?.let {
             list.addAll(it.getSerializable("Data") as List<MediaViewItem>)
         }
@@ -61,18 +62,13 @@ class MediaGalleryFragment : BaseFragment() {
     }
 
     private fun setUpTabLayoutViewPager() {
-        Log.d("jhdjhdsj",list.toString())
+        Log.d("ssss",list.toString())
         investmentViewModel.setMediaContent(list)
-        //investmentViewModel.getMedia().observe(viewLifecycleOwner, Observer {
         mediaViewPagerAdapter = MediaViewPagerAdapter(childFragmentManager, lifecycle)
         binding.vpMediaGallery.adapter = mediaViewPagerAdapter
 
         TabLayoutMediator(binding.tlMediaGallery, binding.vpMediaGallery) { tab, position ->
             tab.text = tabList[position]
         }.attach()
-        //})
-
-
     }
-
 }

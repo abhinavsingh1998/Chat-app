@@ -128,7 +128,7 @@ public interface ApiService {
     suspend fun getInvestmentsProjectFaq(@Path("projectContentId") projectContentId: Int): Response<FaqDetailResponse>
 
     @POST(ApiConstants.REFER_NOW)
-    suspend fun referNow(@Body referBody: ReferalRequest): Response<ReferalResponse>
+    suspend fun referNow(@Body referBody:ReferalRequest):Response<ReferalResponse>
 
     @GET(ApiConstants.STATES)
     suspend fun getStates(@Path("countryIsoCode") countryIsoCode: String): Response<StatesResponse>

@@ -4,7 +4,9 @@ data class Investment(
     val crmProjectId: String,
     val id: Int,
     val inventoryBucket: String,
-    val isCompleted: Boolean,
+    val isBookingComplete: Boolean,
     val ownershipDate: String,
-    val userId: String
+    val userId: String,
+    val actionItemCount: Int,
+    val inventoryId: String
 )

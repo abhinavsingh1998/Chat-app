@@ -24,7 +24,7 @@ class MediaViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecyc
             0 -> PhotosFragment()
             1 -> VideosFragment()
             2 -> VideosFragment()
-            else -> VideosFragment()
+            else -> PhotosFragment()
         }
     }
 

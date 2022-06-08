@@ -69,10 +69,10 @@ class SearchResultFragment : BaseFragment() {
         projectListAdapter = CategoryListAdapter(requireContext(), emptyList(), null)
         fragmentSearchResultBinding.projectList.adapter = projectListAdapter
 
-        fragmentSearchResultBinding.documentsList.layoutManager =
-            LinearLayoutManager(requireContext())
-        documentAdapter = DocumentsAdapter(emptyList())
-        fragmentSearchResultBinding.documentsList.adapter = documentAdapter
+//        fragmentSearchResultBinding.documentsList.layoutManager =
+//            LinearLayoutManager(requireContext())
+//        documentAdapter = DocumentsAdapter(emptyList())
+//        fragmentSearchResultBinding.documentsList.adapter = documentAdapter
 
 //        fragmentSearchResultBinding.faqsList.layoutManager = LinearLayoutManager(requireContext())
 //        faqAdapter = ProjectFaqAdapter(requireContext(), emptyList(), ivInterface)

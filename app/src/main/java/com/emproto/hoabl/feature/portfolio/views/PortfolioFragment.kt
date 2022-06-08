@@ -1,29 +1,38 @@
 package com.emproto.hoabl.feature.portfolio.views
 
+import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.app.Dialog
 import android.app.KeyguardManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.emproto.core.BaseFragment
+import com.emproto.core.Utility
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentPortfolioBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.fragments.ReferralDialog
 import com.emproto.hoabl.feature.investment.views.CategoryListFragment
+import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.portfolio.adapters.ExistingUsersPortfolioAdapter
 import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
@@ -36,6 +45,8 @@ import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
 import com.emproto.networklayer.response.watchlist.Data
 import com.example.portfolioui.databinding.DailogLockPermissonBinding
 import com.example.portfolioui.databinding.DialogAllowPinBinding
+import okhttp3.ResponseBody
+import java.io.File
 import java.io.Serializable
 import java.util.concurrent.Executor
 import javax.inject.Inject
@@ -69,6 +80,9 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     var watchList = ArrayList<Data>()
 
     private lateinit var adapter: ExistingUsersPortfolioAdapter
+    val permissionRequest: MutableList<String> = ArrayList()
+    private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
+    var isReadPermissonGranted: Boolean = false
 
 
     override fun onCreateView(
@@ -82,6 +96,13 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             requireActivity(),
             portfolioFactory
         )[PortfolioViewModel::class.java]
+
+        permissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+                isReadPermissonGranted =
+                    permissions[Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissonGranted
+            }
+        //requestPermisson()
 
         return binding.root
     }
@@ -287,13 +308,13 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             list.add(
                 PortfolioModel(
                     ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
-                    it.data.projects.filter { it.investment.isCompleted }
+                    it.data.projects.filter { it.investment.isBookingComplete }
                 )
             )
             list.add(
                 PortfolioModel(
                     ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
-                    it.data.projects.filter { !it.investment.isCompleted }
+                    it.data.projects.filter { !it.investment.isBookingComplete }
                 )
             )
             list.add(
@@ -329,38 +350,6 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
 
     }
-
-//    private fun getWathclistData() {
-//        portfolioviewmodel.getWatchlist().observe(viewLifecycleOwner, Observer {
-//            when (it.status) {
-//                Status.SUCCESS -> {
-//                    list.add(
-//                        PortfolioModel(
-//                            ExistingUsersPortfolioAdapter.TYPE_NUDGE_CARD
-//                        )
-//                    )
-//                    it.data?.let {
-//                        watchList.clear()
-//                        watchList.addAll(it.data.filter { it.project != null })
-//                        if (watchList.isNotEmpty()) {
-//                            list.add(
-//                                PortfolioModel(
-//                                    ExistingUsersPortfolioAdapter.TYPE_WATCHLIST, watchList
-//                                )
-//                            )
-//                        }
-//                    }
-//
-//                    list.add(
-//                        PortfolioModel(
-//                            ExistingUsersPortfolioAdapter.TYPE_REFER
-//                        )
-//                    )
-//                    adapter.notifyItemRangeChanged(4, 7)
-//                }
-//            }
-//        })
-//    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -435,10 +424,26 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     }
 
     override fun onClickApplyNow(projectId: Int) {
+        //open sku screen
+        val fragment = LandSkusFragment()
+        val bundle = Bundle()
+        bundle.putInt("ProjectId", projectId)
+        fragment.arguments = bundle
+        (requireActivity() as HomeActivity).addFragment(fragment,false)
     }
 
     override fun onClickShare() {
         (requireActivity() as HomeActivity).share_app()
+    }
+
+    override fun dontMissoutCard() {
+        val bundle = Bundle()
+        bundle.putInt("ProjectId", 9)
+        val fragment = ProjectDetailFragment()
+        fragment.arguments = bundle
+        (requireActivity() as HomeActivity).addFragment(
+            fragment, false
+        )
     }
 
     private fun setUpRecyclerView() {
@@ -457,6 +462,22 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             this@PortfolioFragment
         )
         binding.financialRecycler.adapter = adapter
+    }
+
+    private fun requestPermisson() {
+        isReadPermissonGranted = ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if (!isReadPermissonGranted) {
+            permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
+            permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+        if (permissionRequest.isNotEmpty()) {
+            permissionLauncher.launch(permissionRequest.toTypedArray())
+        }
+
     }
 
 
