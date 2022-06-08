@@ -58,7 +58,7 @@ object Extensions{
         isTermsAndConditionsActive = isTermsAndConditionsActive,
         name = name,
         priority = priority.toString(),
-        promiseIconType = promiseIconType.toString(),
+        promiseIconType = promiseIconType!!,
         promiseMedia = promiseMedia,
         promiseType = promiseType.toString(),
         shortDescription = shortDescription.toString(),
