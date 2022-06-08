@@ -34,10 +34,23 @@ class SkuAdapter(
             tvStartingAt.text = SpannableStringBuilder()
                 .append("Starting at")
                 .bold { append(" ₹${convertedAmount} L") }
-//            tvStartingAt.text = "Starting at ₹${convertedAmount} L"
             tvAreaSkus.text = "${element.areaRange.from} Sqft - ${element.areaRange.to} Sqft"
+            //Changing UI corresponding to application
+            when (element.isApplied) {
+                true -> {
+                    tvApply.visibility = View.GONE
+                    tvApplied.visibility = View.VISIBLE
+                    ivTick.visibility = View.VISIBLE
+                }
+                false -> {
+                    tvApply.visibility = View.VISIBLE
+                    tvApplied.visibility = View.GONE
+                    ivTick.visibility = View.GONE
+                }
+            }
         }
-        holder.binding.clOuterItemSkus.setOnClickListener {
+
+        holder.binding.tvApply.setOnClickListener {
             investmentViewModel.setSku(element)
             itemClickListener.onItemClicked(it,position,element.id.toString())
         }

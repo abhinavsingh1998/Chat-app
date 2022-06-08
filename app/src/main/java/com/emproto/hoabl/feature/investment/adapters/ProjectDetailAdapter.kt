@@ -381,13 +381,13 @@ class ProjectDetailAdapter(
 
     private inner class ProjectSkusViewHolder(private val binding: SkusLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            val notAppliedList = ArrayList<Inventory>()
-            for(item in data.inventoriesList.data){
-                when(item.isApplied){
-                    false -> notAppliedList.add(item)
-                }
-            }
-            skuAdapter = SkuAdapter(notAppliedList,itemClickListener, investmentViewModel)
+//            val notAppliedList = ArrayList<Inventory>()
+//            for(item in data.inventoriesList.data){
+//                when(item.isApplied){
+//                    false -> notAppliedList.add(item)
+//                }
+//            }
+            skuAdapter = SkuAdapter(data.inventoriesList.data,itemClickListener, investmentViewModel)
             binding.rvSkus.adapter = skuAdapter
             itemView.tag = this
             binding.tvSkusSeeAll.setOnClickListener(onItemClickListener)

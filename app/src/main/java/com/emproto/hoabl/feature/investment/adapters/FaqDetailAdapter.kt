@@ -7,13 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.FaqCategoryLayoutBinding
 import com.emproto.hoabl.databinding.FaqInvestmentFragmentBinding
 import com.emproto.hoabl.model.RecyclerViewFaqItem
+import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.CgData
 
 class FaqDetailAdapter(
     private val context: Context,
     private val list: List<RecyclerViewFaqItem>,
     private val faqData: List<CgData>,
-    private val faqId: Int?
+    private val faqId: Int?,
+    private val itemClickListener: ItemClickListener
 ):
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -69,7 +71,7 @@ class FaqDetailAdapter(
             for(item in faqData){
                 list.add(item.name)
             }
-            categoryAdapter = PopularCategoryAdapter(context,list)
+            categoryAdapter = PopularCategoryAdapter(context,list,itemClickListener)
             binding.rvPopCategory.adapter = categoryAdapter
         }
     }

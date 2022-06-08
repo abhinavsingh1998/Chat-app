@@ -13,6 +13,7 @@ import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.FaqDetailAdapter
 import com.emproto.hoabl.model.RecyclerViewFaqItem
+import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.response.enums.Status
@@ -91,7 +92,13 @@ class FaqDetailFragment : BaseFragment() {
         for (item in data) {
             list.add(RecyclerViewFaqItem(2, item))
         }
-        val adapter = FaqDetailAdapter(this.requireContext(), list, data, faqId)
+        val adapter = FaqDetailAdapter(this.requireContext(), list, data, faqId,itemClickListener)
         binding.rvFaq.adapter = adapter
+    }
+
+    val itemClickListener = object:ItemClickListener{
+        override fun onItemClicked(view: View, position: Int, item: String) {
+
+        }
     }
 }

@@ -420,7 +420,7 @@ class ProjectDetailFragment : BaseFragment() {
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
             when(view.id) {
-                R.id.cl_outer_item_skus -> {
+                R.id.tv_apply -> {
                     openDialog()
                 }
                 R.id.item_card -> {
