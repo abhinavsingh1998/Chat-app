@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
-import com.emproto.hoabl.adapters.TestimonialAdapter
 import com.emproto.hoabl.databinding.FragmentHomeBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
@@ -25,6 +24,7 @@ import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.utils.Extensions.toData
 import com.emproto.hoabl.utils.Extensions.toHomePagesOrPromise
+import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
@@ -105,16 +105,23 @@ class HomeFragment : BaseFragment() {
                             investmentAdapter = InvestmentCardAdapter(
                                 requireActivity(),
                                 it.data!!.data.page.pageManagementsOrNewInvestments,
-                                object : InvestmentCardAdapter.InvestItemInterface {
-                                    override fun onClickItem(id: Int) {
-                                        val fragment = ProjectDetailFragment()
-                                        val bundle = Bundle()
-                                        bundle.putInt("ProjectId", id)
-                                        fragment.arguments = bundle
-                                        (requireActivity() as HomeActivity).addFragment(
-                                            fragment,
-                                            false
-                                        )
+                                object : ItemClickListener {
+                                    //                                    override fun onClickItem(id: Int) {
+//                                        val fragment = ProjectDetailFragment()
+//                                        val bundle = Bundle()
+//                                        bundle.putInt("ProjectId", id)
+//                                        fragment.arguments = bundle
+//                                        (requireActivity() as HomeActivity).addFragment(
+//                                            fragment,
+//                                            false
+//                                        )
+//                                    }
+                                    override fun onItemClicked(
+                                        view: View,
+                                        position: Int,
+                                        item: String
+                                    ) {
+
                                     }
 
                                 }
