@@ -7,6 +7,7 @@ data class Data(
     val pageManagementsOrNewInvestments: List<PageManagementsOrNewInvestment>,
     val page: Page,
     val pageManagementOrInsights: List<PageManagementOrInsight>,
+    val pageManagementsOrNewInvestments: List<PageManagementsOrNewInvestment>,
     val pageManagementOrLatestUpdates: List<PageManagementOrLatestUpdate>,
     val pageManagementsOrTestimonials: List<PageManagementsOrTestimonial>,
     val isKycComplete : Boolean,
