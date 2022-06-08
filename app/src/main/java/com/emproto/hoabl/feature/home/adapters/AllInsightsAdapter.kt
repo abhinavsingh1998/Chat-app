@@ -28,9 +28,6 @@ class AllInsightsAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = list.get(holder.adapterPosition)
         holder.binding.title.text= item.displayTitle
-        Glide.with(context)
-            .load(item.insightsMedia[0].media.value.url)
-            .into(holder.binding.locationImage)
         if(item.insightsMedia[0].media!=null){
             when(item.insightsMedia[0].media.value.mediaType){
                 "VIDEO" -> {
@@ -39,6 +36,8 @@ class AllInsightsAdapter(
                     Glide.with(context)
                         .load(youtubeUrl)
                         .into(holder.binding.locationImage)
+
+                    holder.binding.playBtn.isVisible= true
                 }
                 else -> {
                     Glide.with(context)
@@ -48,6 +47,7 @@ class AllInsightsAdapter(
             }}
         if (item.insightsMedia[0].description.isNullOrEmpty()){
             holder.binding.btnReadMore.isVisible= false
+
 
         }else{
             holder.binding.deatils.text= showHTMLText(item.insightsMedia[0].description)

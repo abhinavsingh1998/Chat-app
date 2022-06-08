@@ -39,9 +39,15 @@ class LatestUpdateListAdapter(
 
         if(item.media!=null){
             //holder.binding.imageDesc.text= showHTMLText(item.media.d)
-            Glide.with(context)
-                .load(item.media.value.url)
-                .into(holder.binding.image1)
+                if (!item.media.value.url.isNullOrEmpty()){
+                    holder.binding.landImage1.isVisible= true
+                    Glide.with(context)
+                        .load(item.media.value.url)
+                        .into(holder.binding.image1)
+                } else{
+                    holder.binding.landImage1.isVisible= false
+                }
+
         }
 
     }

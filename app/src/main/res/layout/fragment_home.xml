@@ -30,7 +30,7 @@
                     android:id="@+id/main_layout1"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:background="@drawable/dialog_curve_bg"
+                    android:background="@drawable/homescreen_curve"
                     android:paddingBottom="@dimen/margin_size_30"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -123,7 +123,8 @@
                         android:id="@+id/investment_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_8sdp"
+                        android:layout_marginVertical="@dimen/margin_size_12"
+                        android:layout_marginLeft="@dimen/margin_size_12"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/investment_layout" />
@@ -211,7 +212,7 @@
                     android:id="@+id/main_layout2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/homescreen_curve"
+                    android:background="#FFFFFF"
                     app:layout_constraintTop_toBottomOf="@id/kyc_layout">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -291,7 +292,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_marginTop="@dimen/margin_size_5"
-                            android:paddingHorizontal="@dimen/margin_size_8"
+                            android:paddingLeft="@dimen/margin_size_8"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/textview2" />
@@ -338,7 +339,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_size_5"
-                            android:paddingHorizontal="@dimen/margin_size_8"
+                            android:paddingLeft="@dimen/margin_size_8"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -414,7 +415,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_size_3"
-                            android:paddingHorizontal="@dimen/margin_size_8"
+                            android:paddingLeft="@dimen/margin_size_8"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
