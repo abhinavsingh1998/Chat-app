@@ -1,12 +1,12 @@
 package com.emproto.networklayer.request.login.profile
 
 data class EditUserNameRequest(
-    val firstName : String,
-    val lastName: String,
+    val firstName:String,
+    val lastName:String,
     val email: String,
     val dateOfBirth:String,
     val gender:String,
-    val housenumber:String,
+    val houseNumber:String,
     val streetAddress:String,
     val locality:String,
     val pincode:String,

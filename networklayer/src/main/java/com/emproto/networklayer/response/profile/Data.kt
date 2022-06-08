@@ -1,5 +1,7 @@
 package com.emproto.networklayer.response.profile
 
+import java.io.Serializable
+
 class Data (
     val contactType: String,
     val countryCode: String,
@@ -20,4 +22,4 @@ class Data (
     val pincode:Int,
     val locality:String,
     val houseNumber:String,
-    val streetAddress:String)
+    val streetAddress:String) : Serializable

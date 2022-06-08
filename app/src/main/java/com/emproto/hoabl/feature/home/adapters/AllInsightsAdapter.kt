@@ -17,7 +17,7 @@ class AllInsightsAdapter(
     val context: Context,
     val list: List<Data>,
     val itemInterface: InsightsItemsInterface
-    ) : RecyclerView.Adapter<AllInsightsAdapter.MyViewHolder>() {
+) : RecyclerView.Adapter<AllInsightsAdapter.MyViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

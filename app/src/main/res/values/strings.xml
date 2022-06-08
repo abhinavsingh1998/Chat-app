@@ -12,6 +12,7 @@
     <string name="security_tv">SECURITY</string>
     <string name="how_to_apply">How to apply?</string>
     <string name="selected_item">Selected item:</string>
+    <string name="selecte_gender">Select</string>
     <string name="dialog_msg_auth">Please enter Password</string>
     <string name="dialog_title_auth">Lock Screen</string>
 
@@ -89,7 +90,7 @@
     <string name="location_prompt"><![CDATA[Location prompt, SMS & Push Notification, Google assistant access]]></string>
     <string name="help">Help</string>
     <string name="contact_aboutus">Contact, About Us, Privacy Policy, Ratings, Chat</string>
-    <string name="faq">FAQ</string>
+    <string name="faq">Help Centre - FAQs</string>
     <string name="support">Support</string>
     <string name="logout">LOGOUT</string>
     <string name="hurry">Hurry! Only a few units left</string>
@@ -186,7 +187,7 @@
     <string name="date_of_birth">Dob</string>
     <string name="gender">Gender</string>
     <string name="Address_details">Address details</string>
-    <string name="Enter_complete_Address">Enter complete Address</string>
+    <string name="Enter_complete_Address">Enter complete street address</string>
     <string name="Enter_Layality">Enter Layality</string>
     <string name="Pincode">Pincode</string>
     <string name="State">State</string>
@@ -203,7 +204,7 @@
     <string name="control_location_access_here">Control location access here</string>
     <string name="wants_to_connect">Wants to Connect?</string>
     <string name="chat_with_us">Chat with us</string>
-    <string name="information">Or Call us: +91 123 123 1231 Email us: help@hoabl.in</string>
+    <string name="information">Or \nCall us: +91 123 123 1231 \nEmail us: help@hoabl.in</string>
     <string name="contact_about_us_privacy_policy_chat">Contact, About Us , Privacy Policy,Chat</string>
     <string name="logout_text">Logout</string>
     <string name="personal_details_string">Personal Details</string>
@@ -250,7 +251,6 @@
     <string name="phone_num">+91 897 160 0316</string>
     <string name="view_document">View Document</string>
     <string name="pan_card">Pan Card</string>
-    <string name="isle_of_bliss">Isle of Bliss</string>
     <string name="see_receipt">See Receipt</string>
     <string name="this_page_will_be_activated_after_possession_handover_is_done">This page will be activated after possession handover is done</string>
     <string name="okay">OKAY</string>
@@ -312,11 +312,11 @@
     <string name="home_checkbox">Home</string>
     <string name="invest_checkbox">Invest</string>
     <string name="other">Other</string>
-    <string name="checkbox_desc">Please share your valuable feedback on the above selected HoABL services.</string>
+    <string name="checkbox_desc">Please share your valuable feedback.</string>
     <string name="very_poor_text">Very Poor</string>
     <string name="excellent">Excellent</string>
-    <string name="share_your_feedback">Share Your Feedback</string>
-    <string name="founder_vision">Founder vision</string>
+    <string name="share_your_feedback">Share your feedback</string>
+    <string name="founder_vision">Founder\'s vision</string>
     <string name="abhinandan_lodha">Abhinandan Lodha</string>
     <string name="full_description_about">The House of Abhinandan Lodha was born out of a vision to democratize land in the country. We are changing what it means to own land. We are making it liquid, so that you’re never stuck with it. We are changing everything that is wrong with it – the red tape, the hassles and the risk.</string>
     <string name="about_hoabl">About HoABL</string>
@@ -331,7 +331,6 @@
     <string name="invest_with_us_today">Invest with us today</string>
     <string name="query">Have any questions reach out to us</string>
     <string name="privacy_information">Investement will generate appreciate in Future.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.</string>
-    <string name="country">Country</string>
 
     <string name="try_after_one_hour">You have incorrectly typed the OTP 5 times. Please retry again after an hour.</string>
     <string name="five_attempts_remaining">Please enter the OTP sent to your mobile number.</string>
@@ -369,6 +368,15 @@
     <string name="all_investments">All investments</string>
     <string name="youtube_api_key">AIzaSyCdq-SBpqNl8q1w98hmfBYT-xUZQZ5KyuM</string>
     <string name="header"><![CDATA[%1$s <font size="16"><b>%2$s</b></font> ]]></string>
+    <string name="manage_your_land_book">Manage your land, book, etc</string>
+    <string name="email_address">Email Address</string>
+    <string name="security_tips">Security Tips</string>
+    <string name="title_here">Title goes here goes here title goes here goes here goes here</string>
+    <string name="investment_will_generate">Investement will generate appreciate in Future. Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple invest</string>
+    <string name="investment_will_generate_text">Investement will generate appreciate in Future. Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.Simple investment strategies beat Complex ones.</string>
+    <string name="select_category">Select category for which you want to share feedback</string>
+    <string name="project_appreciation">PROJECT APPRECIATION (%)</string>
+    <string name="country">Country</string>
     <string name="welcome_to_hoabl">Welcome to HoABL App. We are happy to have you.</string>
     <string name="last_updated_on">Last Updated on:</string>
     <string name="viewreceipt"><![CDATA[<U>View Receipt</U>]]></string>

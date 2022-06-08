@@ -66,39 +66,39 @@ class LatestUpdatesFragment : BaseFragment() {
                         mBinding.rootView.hide()
                         mBinding.loader.show()
                     }
-                     Status.SUCCESS ->{
-                         mBinding.rootView.show()
-                         mBinding.loader.hide()
-                         it.data.let {
-                           if(it != null){
-                               homeViewModel.setLatestUpdatesData(it.data)
-                           }
+                    Status.SUCCESS ->{
+                        mBinding.rootView.show()
+                        mBinding.loader.hide()
+                        it.data.let {
+                            if(it != null){
+                                homeViewModel.setLatestUpdatesData(it.data)
+                            }
 
-                             //loading List
-                             it?.data!!.size
-                             latestUpatesAdapter = AllLatestUpdatesAdapter(requireActivity(),
-                                 it.data,
-                                 object : AllLatestUpdatesAdapter.UpdatesItemsInterface {
-                                     override fun onClickItem( position: Int) {
-                                         homeViewModel.setSeLectedLatestUpdates(it.data[position])
-                                         homeViewModel.setSelectedPosition(LatesUpdatesPosition(position,
-                                             it.data.size))
-                                         (requireActivity() as HomeActivity).addFragment(LatestUpdatesDetailsFragment(),
-                                             false)
-                                     }
+                            //loading List
+                            it?.data!!.size
+                            latestUpatesAdapter = AllLatestUpdatesAdapter(requireActivity(),
+                                it.data,
+                                object : AllLatestUpdatesAdapter.UpdatesItemsInterface {
+                                    override fun onClickItem( position: Int) {
+                                        homeViewModel.setSeLectedLatestUpdates(it.data[position])
+                                        homeViewModel.setSelectedPosition(LatesUpdatesPosition(position,
+                                            it.data.size))
+                                        (requireActivity() as HomeActivity).addFragment(LatestUpdatesDetailsFragment(),
+                                            false)
+                                    }
 
-                                 }
-                             )
-                             linearLayoutManager = LinearLayoutManager(
-                                 requireContext(),
-                                 RecyclerView.VERTICAL,
-                                 false
-                             )
-                             mBinding.recyclerLatestUpdates.layoutManager = linearLayoutManager
-                             mBinding.recyclerLatestUpdates.adapter = latestUpatesAdapter
-                         }
+                                }
+                            )
+                            linearLayoutManager = LinearLayoutManager(
+                                requireContext(),
+                                RecyclerView.VERTICAL,
+                                false
+                            )
+                            mBinding.recyclerLatestUpdates.layoutManager = linearLayoutManager
+                            mBinding.recyclerLatestUpdates.adapter = latestUpatesAdapter
+                        }
 
-                     }
+                    }
                     Status.ERROR -> {
                         mBinding.loader.hide()
                         (requireActivity() as HomeActivity).showErrorToast(

@@ -11,8 +11,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="14dp"
-        android:fontFamily="@font/jostmedium"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/jost_medium"
         android:text="Whatsapp Communication"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,11 +22,9 @@
         style="@style/text_style_lightgrey14"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/jostregular"
-        android:layout_marginRight="@dimen/margin_size_10"
+        android:fontFamily="@font/jost_regular"
         android:text="Control location access here"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvWhatsapp"
         app:layout_constraintTop_toBottomOf="@+id/tvWhatsapp" />
 
     <androidx.appcompat.widget.SwitchCompat

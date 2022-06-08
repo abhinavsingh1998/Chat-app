@@ -5,5 +5,5 @@ data class Media(
     val key: String,
     val mediaDescription: String,
     val name: String,
-    val value: ValueXXXXXXXXXX
+    val value: ValueXX
 )

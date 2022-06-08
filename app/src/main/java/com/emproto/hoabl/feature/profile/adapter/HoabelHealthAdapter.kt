@@ -13,7 +13,9 @@ import com.emproto.hoabl.feature.profile.data.HelpModel
 class HoabelHealthAdapter(
     var context: Context,
     val dataList: ArrayList<HelpModel>,
-    val itemInterface: HelpItemInterface
+    val itemInterface: HelpItemInterface,
+    val footerInterface: FooterInterface
+
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
@@ -62,8 +64,13 @@ class HoabelHealthAdapter(
                 }
 
             }
-            HoabelHealthAdapter.VIEW_FOOTER -> {
+            VIEW_FOOTER -> {
                 val listHolder = holder as HoabelHealthAdapter.HoablHealthFooterHolder
+                listHolder.binding.actionChat.setOnClickListener {
+                    footerInterface.onChatClick(holder.layoutPosition)
+
+                }
+
             }
         }
     }
@@ -77,5 +84,8 @@ class HoabelHealthAdapter(
 
     interface HelpItemInterface {
         fun onClickItem(position: Int)
+    }
+    interface FooterInterface {
+        fun onChatClick(position: Int)
     }
 }

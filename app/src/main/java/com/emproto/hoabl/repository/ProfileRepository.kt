@@ -4,16 +4,12 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
-import com.emproto.networklayer.feature.InvestmentDataSource
 import com.emproto.networklayer.feature.ProfileDataSource
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
 import com.emproto.networklayer.response.BaseResponse
-import com.emproto.networklayer.response.investment.InvestmentResponse
-import com.emproto.networklayer.response.profile.EditProfileResponse
-import com.emproto.networklayer.response.profile.ProfileCountriesResponse
-import com.emproto.networklayer.response.profile.ProfilePictureResponse
-import com.emproto.networklayer.response.profile.ProfileResponse
+import com.emproto.networklayer.response.profile.CitiesResponse
+import com.emproto.networklayer.response.profile.*
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,8 +22,6 @@ class ProfileRepository @Inject constructor(application: Application) :
     BaseRepository(application) {
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + parentJob)
-    private val ProfileResponse = MutableLiveData<BaseResponse<ProfileResponse>>()
-
     fun editUserNameProfile(editUserNameRequest: EditUserNameRequest): LiveData<BaseResponse<EditProfileResponse>> {
         val mEditProfileResponse = MutableLiveData<BaseResponse<EditProfileResponse>>()
         mEditProfileResponse.postValue(BaseResponse.loading())
@@ -99,6 +93,118 @@ class ProfileRepository @Inject constructor(application: Application) :
         }
         return mCountriesResponse
     }
+
+    fun getStates(countryIsoCode: String): LiveData<BaseResponse<StatesResponse>> {
+        val mStatesResponse = MutableLiveData<BaseResponse<StatesResponse>>()
+        mStatesResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).getStates(countryIsoCode)
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mStatesResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mStatesResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mStatesResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mStatesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mStatesResponse
+    }
+
+    fun getCities(stateIsoCode:String,countryIsoCode: String):LiveData<BaseResponse<CitiesResponse>>{
+        val mCitiesResponse = MutableLiveData<BaseResponse<CitiesResponse>>()
+        mCitiesResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).getCities(stateIsoCode,countryIsoCode)
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mCitiesResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mCitiesResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mCitiesResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mCitiesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mCitiesResponse
+    }
+
+    fun getUserProfile(): LiveData<BaseResponse<ProfileResponse>> {
+        val mDocumentsResponse = MutableLiveData<BaseResponse<ProfileResponse>>()
+        mDocumentsResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).getUserProfile()
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mDocumentsResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mDocumentsResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mDocumentsResponse
+    }
+
+    fun deleteProfilePicture(): LiveData<BaseResponse<EditProfileResponse>> {
+        val deleteResponse = MutableLiveData<BaseResponse<EditProfileResponse>>()
+        deleteResponse.postValue(BaseResponse.loading())
+
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).deleteProfilePic()
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null) {
+                        deleteResponse.postValue(BaseResponse.success(request.body()!!))
+                    } else {
+                        deleteResponse.postValue(BaseResponse.Companion.error("No Data Found"))
+                    }
+                } else {
+                    deleteResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                deleteResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return deleteResponse
+    }
+
+
 }
 
 
