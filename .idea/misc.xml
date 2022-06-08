@@ -60,6 +60,7 @@
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable-hdpi/faq.xml" value="0.1" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable-hdpi/shape1.xml" value="0.1355" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable-xxxhdpi/card_bg.xml" value="0.1355" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable-xxxhdpi/img_search.xml" value="0.1" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable-xxxhdpi/refresh_icon.xml" value="0.1" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable-xxxhdpi/search_bar.xml" value="0.1235" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable/bottom_corner_radius_bg.xml" value="0.1355" />
@@ -79,6 +80,9 @@
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/corporate_philosphy_about_us.xml" value="0.17395833333333333" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/corporate_philosphy_about_us_view.xml" value="0.22" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/custom_toolbar.xml" value="0.17395833333333333" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/faq_view_1.xml" value="0.17395833333333333" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/faq_view_2.xml" value="0.17395833333333333" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/faq_view_3.xml" value="0.17395833333333333" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/financial_summary_card_2.xml" value="0.1" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/fragment_about_us.xml" value="0.22" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/fragment_account_details.xml" value="0.14666666666666667" />
