@@ -9,6 +9,7 @@ import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
+import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyX
@@ -191,4 +192,6 @@ public interface ApiService {
 
     @GET(ApiConstants.SEARCH_DOCS)
     suspend fun getSearchDocResultsQuery(@Query("searchKey") searchWord: String):Response<DocumentsResponse>
+    @POST(ApiConstants.FEEDBACK)
+    suspend fun submitFeedback(@Body feedBackResponse: FeedBackRequest): Response<FeedBackResponse>
 }

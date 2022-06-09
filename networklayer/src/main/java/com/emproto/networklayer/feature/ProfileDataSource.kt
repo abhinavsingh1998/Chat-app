@@ -7,11 +7,12 @@ import com.emproto.networklayer.di.DataAppModule
 import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
+import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
+import com.emproto.networklayer.request.profile.FeedBackRequest
+import com.emproto.networklayer.response.chats.ChatDetailResponse
+import com.emproto.networklayer.response.chats.ChatInitiateRequest
+import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
-import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Response
 import java.io.File
 import javax.inject.Inject
@@ -76,7 +77,6 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
     suspend fun presignedUrl(type: String, destinationFile: File): Response<PresignedUrlResponse> {
         return apiService.presignedUrl(type, destinationFile)
     }
-
     suspend fun getCountry(pageType: Int): Response<ProfileCountriesResponse> {
         return apiService.getCountryList(pageType)
     }
@@ -88,6 +88,11 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
     suspend fun getCities(stateIsoCode: String, countryIsoCode: String): Response<CitiesResponse> {
         return apiService.getCities(stateIsoCode, countryIsoCode)
     }
+
+    suspend fun shareFeedBack(feedBackRequest: FeedBackRequest): Response<FeedBackResponse>{
+        return apiService.submitFeedback(feedBackRequest)
+    }
+
 
     suspend fun getFaqList(typeOfFAQ: String): Response<ProfileFaqResponse> {
         return apiService.getFaqList(typeOfFAQ)

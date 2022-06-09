@@ -6,8 +6,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.ProfileDataSource
+import com.emproto.networklayer.feature.RegistrationDataSource
+import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
 
@@ -229,6 +232,25 @@ class ProfileRepository @Inject constructor(application: Application) :
     }
 
 
+    fun submitFeedback(): LiveData<BaseResponse<FeedBackResponse>> {
+        val mCaseResponse = MutableLiveData<BaseResponse<FeedBackResponse>>()
+
+        mCaseResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = RegistrationDataSource(application).submitTroubleCase(signingRequest)
+                if (request.isSuccessful) {
+                    mCaseResponse.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    mCaseResponse.postValue(BaseResponse.Companion.error(request.message()))
+                }
+
+            } catch (e: Exception) {
+                mCaseResponse.postValue(BaseResponse.Companion.error(e.message!!))
+            }
+        }
+        return mCaseResponse
+    }
     fun getFaqList(typeOfFAQ: String): LiveData<BaseResponse<ProfileFaqResponse>> {
         val faqResponse = MutableLiveData<BaseResponse<ProfileFaqResponse>>()
         faqResponse.postValue(BaseResponse.loading())
