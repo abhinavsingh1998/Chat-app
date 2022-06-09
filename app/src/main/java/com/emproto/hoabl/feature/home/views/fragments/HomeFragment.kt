@@ -38,6 +38,7 @@ import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.enum.ModuleEnum
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.home.HomeResponse
@@ -73,6 +74,9 @@ class HomeFragment : BaseFragment() {
 
     lateinit var fmData: FMResponse
 
+    @Inject
+    lateinit var appPreference: AppPreference
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -91,7 +95,7 @@ class HomeFragment : BaseFragment() {
     }
 
 
-    private fun initObserver(refresh:Boolean) {
+    private fun initObserver(refresh: Boolean) {
 
         homeViewModel.getDashBoardData(ModuleEnum.HOME.value, refresh)
             .observe(viewLifecycleOwner, object : Observer<BaseResponse<HomeResponse>> {
@@ -118,26 +122,27 @@ class HomeFragment : BaseFragment() {
 //                                } else{
 //                                    binding.kycLayout.isVisible= true
 //                                }
-
-                                if( it?.data?.isFacilityVisible== true){
-                                    binding.facilityManagementCardLayout.isVisible= true
-                                    binding.dontMissOut.isVisible= false
-                                } else{
-                                    binding.facilityManagementCardLayout.isVisible= true
-                                    binding.dontMissOut.isVisible= false
+                                appPreference.setFacilityCard(it!!.data.isFacilityVisible)
+                                if (it?.data?.isFacilityVisible) {
+                                    binding.facilityManagementCardLayout.isVisible = true
+                                    binding.dontMissOut.isVisible = false
+                                } else {
+                                    binding.facilityManagementCardLayout.isVisible = true
+                                    binding.dontMissOut.isVisible = false
                                 }
 
                             }
 
-                            homeViewModel.getFacilityManagment().observe(viewLifecycleOwner, Observer {
-                                when (it.status) {
-                                    Status.SUCCESS -> {
-                                        it.data.let {
-                                            fmData = it!!
+                            homeViewModel.getFacilityManagment()
+                                .observe(viewLifecycleOwner, Observer {
+                                    when (it.status) {
+                                        Status.SUCCESS -> {
+                                            it.data.let {
+                                                fmData = it!!
+                                            }
                                         }
                                     }
-                                }
-                            })
+                                })
 
                             //loading investment list
                             list.clear()
@@ -151,7 +156,7 @@ class HomeFragment : BaseFragment() {
                                         position: Int,
                                         item: String
                                     ) {
-                                        when(view.id){
+                                        when (view.id) {
                                             R.id.cv_top_view -> {
                                                 val fragment = ProjectDetailFragment()
                                                 val bundle = Bundle()
@@ -167,9 +172,12 @@ class HomeFragment : BaseFragment() {
                                                 val bundle = Bundle()
                                                 bundle.putInt("ProjectId", item.toInt())
                                                 fragment.arguments = bundle
-                                                (requireActivity() as HomeActivity).addFragment(fragment,false)
+                                                (requireActivity() as HomeActivity).addFragment(
+                                                    fragment,
+                                                    false
+                                                )
                                             }
-                                            R.id.tv_item_location_info ->{
+                                            R.id.tv_item_location_info -> {
                                                 val fragment = ProjectDetailFragment()
                                                 val bundle = Bundle()
                                                 bundle.putInt("ProjectId", item.toInt())
@@ -179,7 +187,7 @@ class HomeFragment : BaseFragment() {
                                                     false
                                                 )
                                             }
-                                            R.id.iv_bottom_arrow ->{
+                                            R.id.iv_bottom_arrow -> {
                                                 val fragment = ProjectDetailFragment()
                                                 val bundle = Bundle()
                                                 bundle.putInt("ProjectId", item.toInt())
@@ -208,9 +216,10 @@ class HomeFragment : BaseFragment() {
                                 it.data!!.data.pageManagementOrLatestUpdates,
                                 object : LatestUpdateAdapter.ItemInterface {
                                     override fun onClickItem(position: Int) {
-                                        val convertedData = it.data!!.data.pageManagementOrLatestUpdates[position].toData()
+                                        val convertedData =
+                                            it.data!!.data.pageManagementOrLatestUpdates[position].toData()
                                         val list = ArrayList<Data>()
-                                        for(item in it.data!!.data.pageManagementOrLatestUpdates){
+                                        for (item in it.data!!.data.pageManagementOrLatestUpdates) {
                                             list.add(item.toData())
                                         }
                                         homeViewModel.setLatestUpdatesData(list)
@@ -288,7 +297,8 @@ class HomeFragment : BaseFragment() {
                                 val bundle = Bundle()
                                 val chatsFragment = ChatsFragment()
                                 chatsFragment.arguments = bundle
-                                (requireActivity() as HomeActivity).replaceFragment(chatsFragment.javaClass,
+                                (requireActivity() as HomeActivity).replaceFragment(
+                                    chatsFragment.javaClass,
                                     "",
                                     true,
                                     bundle,
@@ -335,8 +345,8 @@ class HomeFragment : BaseFragment() {
 
     private fun initView() {
 
-        binding.facilityManagementCardLayout.isVisible= false
-        binding.kycLayout.isVisible= false
+        binding.facilityManagementCardLayout.isVisible = false
+        binding.kycLayout.isVisible = false
 
         (requireActivity() as HomeActivity).hideBackArrow()
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
@@ -355,7 +365,7 @@ class HomeFragment : BaseFragment() {
             binding.loader.show()
             initObserver(refresh = true)
 
-            binding.refressLayout.isRefreshing= false
+            binding.refressLayout.isRefreshing = false
 
         })
     }
@@ -366,7 +376,7 @@ class HomeFragment : BaseFragment() {
         }
 
         binding.tvSeeAllUpdate.setOnClickListener {
-            (requireActivity() as HomeActivity).addFragment(LatestUpdatesFragment(),false)
+            (requireActivity() as HomeActivity).addFragment(LatestUpdatesFragment(), false)
         }
 
         binding.tvSeeallTestimonial.setOnClickListener {
@@ -388,14 +398,14 @@ class HomeFragment : BaseFragment() {
         })
 
         binding.tvViewallInvestments.setOnClickListener(View.OnClickListener {
-            homeViewModel.getAllInvestmentsProjects().observe(viewLifecycleOwner,Observer{
-                when(it.status){
+            homeViewModel.getAllInvestmentsProjects().observe(viewLifecycleOwner, Observer {
+                when (it.status) {
                     Status.LOADING -> {
                         binding.loader.show()
                     }
                     Status.SUCCESS -> {
                         binding.loader.hide()
-                        it.data?.data?.let {  data ->
+                        it.data?.data?.let { data ->
                             val fragment = CategoryListFragment()
                             val bundle = Bundle()
                             bundle.putString("Category", "Home")
@@ -421,9 +431,9 @@ class HomeFragment : BaseFragment() {
             share_app()
         }
 
-        binding.dontMissOut.setOnClickListener{
+        binding.dontMissOut.setOnClickListener {
             val bundle = Bundle()
-            bundle.putInt("ProjectId",projectId)
+            bundle.putInt("ProjectId", projectId)
             val fragment = ProjectDetailFragment()
             fragment.arguments = bundle
             (requireActivity() as HomeActivity).addFragment(

@@ -427,7 +427,7 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_amount_paid"
-                        style="@style/text_style_dark_black_color_14"
+                        style="@style/text_style_dark_black_color_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin_size_4"
@@ -439,7 +439,7 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_amount_paid_title"
-                        style="@style/text_style_dark_black_color_14"
+                        style="@style/text_style_dark_black_color_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_size_10"
@@ -452,7 +452,7 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_amount_pending"
-                        style="@style/text_style_dark_black_color_14"
+                        style="@style/text_style_dark_black_color_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin_size_4"
@@ -464,7 +464,7 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_amount_pending_title"
-                        style="@style/text_style_dark_black_color_14"
+                        style="@style/text_style_dark_black_color_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_size_16"

@@ -4,7 +4,7 @@ import java.io.Serializable
 
 data class GeneralInfoEscalationGraph(
     val dataPoints: DataPoints,
-    val estimatedAppreciation: Int,
+    val estimatedAppreciation: Double,
     val xAxisDisplayName: String,
     val yAxisDisplayName: String
-):Serializable
+) : Serializable
