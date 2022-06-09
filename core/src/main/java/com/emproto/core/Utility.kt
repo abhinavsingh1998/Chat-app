@@ -6,10 +6,16 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Environment
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Base64
 import android.util.Log
 import android.view.Window
+import android.widget.TextView
+import androidx.annotation.RequiresApi
 import java.io.*
 import java.lang.Exception
 import java.text.ParseException
@@ -116,36 +122,6 @@ object Utility {
     }
 
 
-//    public static final int MAX_LINES = 3;
-//    public static final String TWO_SPACES = " ";
-//
-//    String myReallyLongText = "Bacon ipsum dolor amet porchetta venison ham fatback alcatra tri-tip, turducken strip steak sausage rump burgdoggen pork loin. Spare ribs filet mignon salami, strip steak ball tip shank frankfurter corned beef venison. Pig pork belly pork chop andouille. Porchetta pork belly ground round, filet mignon bresaola chuck swine shoulder leberkas jerky boudin. Landjaeger pork chop corned beef, tri-tip brisket rump pastrami flank."
-//
-//    textView.setText(myReallyLongText);
-//    textView.post(new Runnable() {
-//        @Override
-//        public void run() {
-//            // Past the maximum number of lines we want to display.
-//            if (textView.getLineCount() > MAX_LINES) {
-//                int lastCharShown = textView.getLayout().getLineVisibleEnd(MAX_LINES - 1);
-//
-//                textView.setMaxLines(MAX_LINES);
-//
-//                String moreString = context.getString(R.string.more);
-//                String suffix = TWO_SPACES + moreString;
-//
-//                // 3 is a "magic number" but it's just basically the length of the ellipsis we're going to insert
-//                String actionDisplayText = myReallyLongText.substring(0, lastCharShown - suffix.length() - 3) + "..." + suffix;
-//
-//                SpannableString truncatedSpannableString = new SpannableString(actionDisplayText);
-//                int startIndex = actionDisplayText.indexOf(moreString);
-//                truncatedSpannableString.setSpan(new ForegroundColorSpan(context.getColor(android.R.color.blue)), startIndex, startIndex + moreString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//                textView.setText(truncatedSpannableString);
-//            }
-//        }
-//    });
-
-
     fun writeResponseBodyToDisk(body: String): File? {
         return try {
             // todo change the file location/name according to your needs
@@ -202,4 +178,42 @@ object Utility {
 
         return amountInString
     }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun convertString(textView: TextView, context: Context, text: String) {
+        val MAX_LINES = 3
+        val TWO_SPACES = " "
+        textView.text = text
+        textView.post(object : Runnable {
+            override fun run() {
+
+                // Past the maximum number of lines we want to display.
+                if (textView.lineCount > MAX_LINES) {
+                    val lastCharShown = textView.layout.getLineVisibleEnd(MAX_LINES - 1)
+                    textView.maxLines = MAX_LINES
+                    val moreString = "Read More"
+                    val suffix = TWO_SPACES + moreString
+
+                    // 3 is a "magic number" but it's just basically the length of the ellipsis we're going to insert
+                    val actionDisplayText =
+                        text.substring(
+                            0,
+                            lastCharShown - suffix.length - 3
+                        ) + "..." + suffix
+                    val truncatedSpannableString = SpannableString(actionDisplayText)
+                    val startIndex = actionDisplayText.indexOf(moreString)
+                    truncatedSpannableString.setSpan(
+                        ForegroundColorSpan(context.getColor(R.color.app_color)),
+                        startIndex,
+                        startIndex + moreString.length,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                    textView.text = truncatedSpannableString
+                }
+            }
+        })
+
+    }
+
+
 }
