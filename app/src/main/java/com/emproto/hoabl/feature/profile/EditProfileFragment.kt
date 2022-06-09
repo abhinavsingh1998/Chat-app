@@ -733,17 +733,6 @@ class EditProfileFragment : Fragment() {
                             binding.completeAddress.clearFocus()
                             binding.tvLocality.clearFocus()
                             binding.pincodeEditText.clearFocus()
-
-
-//                            val dialog = SucessDialogFragment()
-//                            val bundle = Bundle()
-//                            bundle.putString(
-//                                "FirstName",
-//                                binding.tvEnterName.text.toString()
-//                            )
-//                            dialog.arguments = bundle
-//                            dialog.isCancelable = false
-//                            dialog.show(parentFragmentManager, "Welcome Card")
                         }
                         Status.ERROR -> {
                             binding.saveAndUpdate.visibility = View.VISIBLE
@@ -860,10 +849,6 @@ class EditProfileFragment : Fragment() {
                 e.printStackTrace()
             }
             binding.profileImage.setImageBitmap(bitmap)
-
-            //imgPath = getRealPathFromURI(selectedImage);
-            // destination = new File(imgPath);
-            //profile_image.setImageBitmap(bitmap);
             if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
                 callingUploadPicApi()
             } else {
