@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.home.views.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -277,13 +278,13 @@ class HomeFragment : BaseFragment() {
                                 it.data!!.data.pageManagementOrInsights,
                                 object : InsightsAdapter.InsightsItemInterface {
                                     override fun onClickItem(position: Int) {
-//                                        val convertedData = it.data!!.data.pageManagementOrInsights[position].toData()
-//                                        val list = ArrayList<com.emproto.networklayer.response.insights.Data>()
-//                                        for(item in it.data!!.data.pageManagementOrInsights){
-//                                            list.add(item.toData())
-//                                        }
-//                                        homeViewModel.setInsightsData(list)
-//                                        homeViewModel.setSeLectedInsights(convertedData)
+                                        val convertedData = it.data!!.data.pageManagementOrInsights[position].toData()
+                                        val list = ArrayList<com.emproto.networklayer.response.insights.Data>()
+                                        for(item in it.data!!.data.pageManagementOrInsights){
+                                            list.add(item.toData())
+                                        }
+                                        homeViewModel.setInsightsData(list)
+                                        homeViewModel.setSeLectedInsights(convertedData)
 
                                         (requireActivity() as HomeActivity).addFragment(
                                             InsightsDetailsFragment(),

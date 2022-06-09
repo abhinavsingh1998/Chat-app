@@ -42,24 +42,24 @@ class InsightsListAdapter(
             } else{
                 holder.binding.image1.isVisible= false
             }
-        when(item.media.value.mediaType){
-            "VIDEO" -> {
-                val url = item.media.value.url.replace("https://www.youtube.com/embed/","")
-                val youtubeUrl = "https://img.youtube.com/vi/${url}/hqdefault.jpg"
-                Glide.with(context)
-                    .load(youtubeUrl)
-                    .into(holder.binding.image1)
-                holder.binding.playBtn.isVisible= true
-                holder.binding.image1.setOnClickListener{
-                    itemClickListener.onItemClicked(it,position,url,item.media.mediaDescription)
+            when(item.media.value.mediaType){
+                "VIDEO" -> {
+                    val url = item.media.value.url.replace("https://www.youtube.com/embed/","")
+                    val youtubeUrl = "https://img.youtube.com/vi/${url}/hqdefault.jpg"
+                    Glide.with(context)
+                        .load(youtubeUrl)
+                        .into(holder.binding.image1)
+                    holder.binding.playBtn.isVisible= true
+                    holder.binding.image1.setOnClickListener{
+                        itemClickListener.onItemClicked(it,position,url,item.media.mediaDescription)
+                    }
                 }
-            }
-            else -> {
-                Glide.with(context)
-                    .load(item.media.value.url)
-                    .into(holder.binding.image1)
-            }
-        }}
+                else -> {
+                    Glide.with(context)
+                        .load(item.media.value.url)
+                        .into(holder.binding.image1)
+                }
+            }}
     }
 
 

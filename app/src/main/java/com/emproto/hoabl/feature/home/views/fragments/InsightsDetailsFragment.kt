@@ -53,8 +53,8 @@ class InsightsDetailsFragment : BaseFragment() {
             mBinding.listInsights.layoutManager = LinearLayoutManager(requireContext())
             mBinding.listInsights.adapter = InsightsListAdapter(requireContext(),
                 it.insightsMedia,itemClickListener)
-                }
-            )
+        }
+        )
     }
 
     val itemClickListener = object :YoutubeItemClickListener{
