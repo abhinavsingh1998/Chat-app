@@ -274,8 +274,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
-                        android:textColor="@color/text_color"
-                        />
+                        android:textColor="@color/text_color" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -341,6 +340,7 @@
                         android:paddingRight="10dp"
                         android:paddingBottom="@dimen/margin_size_17"
                         android:singleLine="true"
+
                         android:textColor="@color/text_color"
                         android:textColorHint="@color/text_grey_color"
                         android:textSize="@dimen/margin_size_14" />
@@ -489,25 +489,24 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/spinner_city"
+                    android:id="@+id/spinnerCountry"
                     style="@style/CustomTextInputLayoutWithSpinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_size_16"
                     android:layout_marginTop="20dp"
-                    android:hint="@string/City"
+                    android:hint="@string/country"
                     android:orientation="vertical"
                     app:boxStrokeWidthFocused="0.7dp"
                     app:endIconDrawable="@drawable/ic_arrow_down"
                     app:hintTextColor="@color/app_color"
                     app:layout_constraintEnd_toStartOf="@id/spinner_state"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_locality"
-                    app:placeholderText="@string/City"
+                    app:layout_constraintStart_toStartOf="@id/tv_locality"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_locality"
+                    app:placeholderText="@string/country"
                     app:prefixTextColor="@color/text_color">
 
                     <AutoCompleteTextView
-                        android:id="@+id/auto_city"
+                        android:id="@+id/auto_country"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/jost_regular"
@@ -530,16 +529,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_16"
                     android:layout_marginTop="20dp"
-                    android:layout_marginEnd="@dimen/margin_size_16"
                     android:hint="@string/State"
                     android:orientation="vertical"
                     app:boxStrokeWidthFocused="0.7dp"
                     app:endIconDrawable="@drawable/ic_arrow_down"
                     app:hintTextColor="@color/app_color"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/spinner_city"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_locality"
-                    app:placeholderText="@string/State"
+                    app:layout_constraintEnd_toEndOf="@id/tv_locality"
+                    app:layout_constraintStart_toEndOf="@id/spinnerCountry"
+                    app:layout_constraintTop_toBottomOf="@id/tv_locality"
+                    app:placeholderText="State"
                     app:prefixTextColor="@color/text_color">
 
                     <AutoCompleteTextView
@@ -560,24 +558,24 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/spinnerCountry"
+                    android:id="@+id/spinner_city"
                     style="@style/CustomTextInputLayoutWithSpinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:hint="@string/country"
+                    android:hint="@string/City"
                     android:orientation="vertical"
                     app:boxStrokeWidthFocused="0.7dp"
                     app:endIconDrawable="@drawable/ic_arrow_down"
                     app:hintTextColor="@color/app_color"
-                    app:layout_constraintStart_toStartOf="@id/spinner_city"
-                    app:layout_constraintEnd_toEndOf="@id/spinner_city"
-                    app:layout_constraintTop_toBottomOf="@+id/spinner_city"
-                    app:placeholderText="@string/country"
+                    app:layout_constraintEnd_toEndOf="@id/spinnerCountry"
+                    app:layout_constraintStart_toStartOf="@id/spinnerCountry"
+                    app:layout_constraintTop_toBottomOf="@id/spinnerCountry"
+                    app:placeholderText="@string/City"
                     app:prefixTextColor="@color/text_color">
 
                     <AutoCompleteTextView
-                        android:id="@+id/auto_country"
+                        android:id="@+id/auto_city"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/jost_regular"
@@ -594,7 +592,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-
                     android:id="@+id/pincode"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
@@ -606,21 +603,20 @@
                     app:layout_constraintTop_toBottomOf="@+id/spinner_state"
                     app:placeholderText="@string/type_here">
 
-
                     <EditText
                         android:id="@+id/pincode_editText"
-                        style="@style/text_style_text_color_16"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:fontFamily="@font/jost_light"
+                        android:fontFamily="@font/jost_regular"
                         android:gravity="center|left"
                         android:inputType="textPersonName|textCapSentences"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
+
                         android:textColor="@color/text_color"
                         android:textColorHint="@color/text_grey_color"
-                         />
+                        android:textSize="@dimen/text_size_14" />
 
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -647,7 +643,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spinnerCountry" />
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_city" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
@@ -656,6 +652,17 @@
 
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/progress_baar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/updateProgressBar"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

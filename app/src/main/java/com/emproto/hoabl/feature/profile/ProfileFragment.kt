@@ -10,7 +10,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewbinding.BuildConfig
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
@@ -123,7 +122,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
         if (profileData.profilePictureUrl.isNullOrEmpty()){
             binding.profileImage.visibility=View.GONE
             binding.profileUserLetters.visibility=View.VISIBLE
-            setuserNamePIC(profileData)
+            setUserNamePIC(profileData)
         }else{
             binding.profileImage.visibility=View.VISIBLE
             binding.profileUserLetters.visibility=View.GONE
@@ -133,10 +132,10 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
         }
     }
 
-    private fun setuserNamePIC(profileData: Data) {
+    private fun setUserNamePIC(profileData: Data) {
         val firstLetter: String = profileData.firstName!!.substring(0, 1)
        val lastLetter:String = profileData.lastName!!.substring(0,1)
-        binding.tvUserName.text=firstLetter+""
+        binding.tvUserName.text=firstLetter+""+lastLetter
     }
 
 
@@ -197,14 +196,12 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
             requireActivity().finish()
         }
 
-        binding.editProfile.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                val editProfile = EditProfileFragment()
-                bundle.putSerializable("profileData", profileData)
-                editProfile.arguments = bundle
-                (requireActivity() as HomeActivity).addFragment(editProfile, false)
-            }
-        })
+        binding.editProfile.setOnClickListener {
+            val editProfile = EditProfileFragment()
+            bundle.putSerializable("profileData", profileData)
+            editProfile.arguments = bundle
+            (requireActivity() as HomeActivity).addFragment(editProfile, false)
+        }
 
     }
 

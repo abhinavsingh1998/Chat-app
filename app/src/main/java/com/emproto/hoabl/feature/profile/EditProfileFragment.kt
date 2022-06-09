@@ -45,7 +45,6 @@ import com.emproto.networklayer.request.login.profile.UploadProfilePictureReques
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.Data
-import com.emproto.networklayer.response.profile.EditProfileResponse
 import com.emproto.networklayer.response.profile.ProfilePictureResponse
 import com.emproto.networklayer.response.profile.States
 import java.io.*
@@ -86,7 +85,7 @@ class EditProfileFragment : Fragment() {
     lateinit var state: String
     lateinit var stateIso: String
     lateinit var city: String
-    lateinit var gender :String
+    lateinit var gender: String
 
 
     @Inject
@@ -123,7 +122,6 @@ class EditProfileFragment : Fragment() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             false
 
-
         val myCalender = Calendar.getInstance()
         val datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayofMonth ->
             myCalender.set(Calendar.YEAR, year)
@@ -131,8 +129,8 @@ class EditProfileFragment : Fragment() {
             myCalender.set(Calendar.DAY_OF_MONTH, dayofMonth)
             updateLable(myCalender)
         }
-        binding.tvDatePicker.setOnFocusChangeListener(object : View.OnFocusChangeListener {
-            override fun onFocusChange(p0: View?, p1: Boolean) {
+        binding.tvDatePicker.onFocusChangeListener =
+            View.OnFocusChangeListener { p0, p1 ->
                 if (p1) {
                     context?.let {
                         DatePickerDialog(
@@ -145,7 +143,6 @@ class EditProfileFragment : Fragment() {
                     }
                 }
             }
-        })
         binding.tvDatePicker.setOnClickListener {
             context?.let { it1 ->
                 DatePickerDialog(
@@ -231,7 +228,7 @@ class EditProfileFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                gender = parent?.adapter?.getItem(position).toString().substring(0,1)
+                gender = parent?.adapter?.getItem(position).toString().substring(0, 1)
             }
         }
     }
@@ -241,19 +238,12 @@ class EditProfileFragment : Fragment() {
         stateArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         binding.autoState.setAdapter(stateArrayAdapter)
 
-        binding.autoState.onItemClickListener = object : AdapterView.OnItemClickListener {
-            override fun onItemClick(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                state = listStates[position].toString()
-                stateIso = listStatesISO[position].toString()
+        binding.autoState.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, view, position, id ->
+                state = listStates[position]
+                stateIso = listStatesISO[position]
                 getCities(stateIso, countryIsoCode)
             }
-
-        }
     }
 
     private fun setCitiesSpinner() {
@@ -261,17 +251,10 @@ class EditProfileFragment : Fragment() {
         cityAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         binding.autoCity.setAdapter(cityAdapter)
 
-        binding.autoCity.onItemClickListener = object : AdapterView.OnItemClickListener {
-            override fun onItemClick(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
+        binding.autoCity.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, view, position, id ->
                 city = listCities[position]
             }
-
-        }
     }
 
     private fun initView() {
@@ -292,6 +275,19 @@ class EditProfileFragment : Fragment() {
         } else {
             binding.emailTv.setText("")
         }
+        val string = data.dateOfBirth
+        val date = string.substring(0, 10)
+        if (!data.dateOfBirth.isNullOrEmpty()) {
+            binding.tvDatePicker.setText(date)
+        } else {
+            binding.tvDatePicker.setText("")
+        }
+        if (!data.gender.isNullOrEmpty()) {
+            binding.autoGender.setText(data.gender)
+            binding.autoGender.isCursorVisible = false;
+        } else {
+            binding.autoGender.setText("")
+        }
         if (!data.houseNumber.isNullOrEmpty()) {
             binding.houseNo.setText(data.houseNumber)
         } else {
@@ -307,34 +303,60 @@ class EditProfileFragment : Fragment() {
         } else {
             binding.locality.setText("")
         }
+        if (!data.country.isNullOrEmpty()) {
+            binding.autoCountry.setText(data.country)
+            binding.autoCountry.isCursorVisible = false;
+        } else {
+            binding.autoCountry.setText("")
+
+        }
+        if (!data.state.isNullOrEmpty()) {
+            binding.autoState.setText(data.state)
+            binding.autoState.isCursorVisible = false;
+        } else {
+            binding.autoState.setText("")
+
+        }
+        if (!data.city.isNullOrEmpty()) {
+            binding.autoCity.setText(data.city)
+            binding.autoCity.isCursorVisible = false;
+        } else {
+            binding.autoCity.setText("")
+
+        }
         if (!data.pincode.toString().isNullOrEmpty()) {
             binding.pincodeEditText.setText(data.pincode.toString())
         } else {
             binding.pincodeEditText.setText("")
         }
-        if (data.profilePictureUrl.isNullOrEmpty()){
-            binding.profileImage.visibility=View.GONE
-            binding.profileUserLetters.visibility=View.VISIBLE
+        if (data.profilePictureUrl.isNullOrEmpty()) {
+            binding.profileImage.visibility = View.GONE
+            binding.profileUserLetters.visibility = View.VISIBLE
             setuserNamePIC()
-        }else{
-            binding.profileImage.visibility=View.VISIBLE
-            binding.profileUserLetters.visibility=View.GONE
+        } else {
+            binding.profileImage.visibility = View.VISIBLE
+            binding.profileUserLetters.visibility = View.GONE
             Glide.with(requireContext())
                 .load(data.profilePictureUrl)
                 .into(binding.profileImage)
         }
     }
 
-    private fun setuserNamePIC(){
-        val firstLetter: String = data?.firstName!!.substring(0, 1)
-        val lastLetter:String = data.lastName!!.substring(0,1)
-        binding.tvUserName.text=firstLetter+""+lastLetter
+    private fun setuserNamePIC() {
+        val firstLetter: String = data.firstName.substring(0, 1)
+        val lastLetter: String = data.lastName.substring(0, 1)
+        if (data.lastName.isNullOrEmpty()) {
+            binding.tvUserName.text = firstLetter
+        } else {
+            binding.tvUserName.text = firstLetter + "" + lastLetter
+
+        }
     }
 
     private fun updateLable(myCalendar: Calendar) {
-        val myFormat = "dd/MM/yyyy"
-        val sdf = SimpleDateFormat(myFormat, Locale.UK)
-        binding.tvDatePicker.setText(sdf.format(myCalendar.time))
+        val myCalendar = Calendar.getInstance()
+        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH)
+        binding.tvDatePicker.setText(sdf.format(myCalendar.timeZone))
     }
 
 
@@ -384,37 +406,34 @@ class EditProfileFragment : Fragment() {
 
                 )
             profileViewModel.uploadProfilePicture(uploadProfilePictureRequest)
-                .observe(viewLifecycleOwner,
-                    object : Observer<BaseResponse<ProfilePictureResponse>> {
-                        override fun onChanged(t: BaseResponse<ProfilePictureResponse>?) {
+                .observe(
+                    viewLifecycleOwner
+                ) { t ->
+                    when (t!!.status) {
+                        Status.LOADING -> {
 
-                            when (t!!.status) {
-                                Status.LOADING -> {
-
-                                    binding.uploadImage.visibility = View.GONE
-                                }
-                                Status.SUCCESS -> {
-                                    appPreference.saveLogin(true)
-
-                                    binding.uploadImage.visibility = View.VISIBLE
-                                    val dialog = SucessDialogFragment()
-                                    val bundle = Bundle()
-                                    bundle.putString(
-                                        "ProfilePictureUrl",
-                                        binding.uploadNewPicture.text.toString()
-                                    )
-                                    dialog.arguments = bundle
-                                    dialog.isCancelable = false
-                                    dialog.show(parentFragmentManager, "Welcome Card")
-                                }
-                                Status.ERROR -> {
-
-                                    binding.uploadImage.visibility = View.VISIBLE
-                                }
-                            }
+                            binding.uploadImage.visibility = View.GONE
                         }
+                        Status.SUCCESS -> {
+                            appPreference.saveLogin(true)
 
-                    })
+                            binding.uploadImage.visibility = View.VISIBLE
+                            val dialog = SucessDialogFragment()
+                            val bundle = Bundle()
+                            bundle.putString(
+                                "ProfilePictureUrl",
+                                binding.uploadNewPicture.text.toString()
+                            )
+                            dialog.arguments = bundle
+                            dialog.isCancelable = false
+                            dialog.show(parentFragmentManager, "Welcome Card")
+                        }
+                        Status.ERROR -> {
+
+                            binding.uploadImage.visibility = View.VISIBLE
+                        }
+                    }
+                }
         })
     }
 
@@ -545,23 +564,23 @@ class EditProfileFragment : Fragment() {
 
          })*/
 
-    /*    binding.saveAndUpdate.setOnClickListener {
-            if (hMobileNo.isEmpty()) {
-                binding.genderEditText.showError()
-                return@setOnClickListener
-            }
-            if (data.dateOfBirth.isNotEmpty()) {
-                binding.tvDatePicker.setText(data.dateOfBirth)
-            }
-            if (data.email.isNotEmpty()) {
-                binding.emailTv.setText(data.email)
+        /*    binding.saveAndUpdate.setOnClickListener {
+                if (hMobileNo.isEmpty()) {
+                    binding.genderEditText.showError()
+                    return@setOnClickListener
+                }
+                if (data.dateOfBirth.isNotEmpty()) {
+                    binding.tvDatePicker.setText(data.dateOfBirth)
+                }
+                if (data.email.isNotEmpty()) {
+                    binding.emailTv.setText(data.email)
 
-            }
-            if (data.dateOfBirth.isNotEmpty()) {
-                binding.dob.setTag(data.dateOfBirth)
+                }
+                if (data.dateOfBirth.isNotEmpty()) {
+                    binding.dob.setTag(data.dateOfBirth)
 
-            }
-            *//*if (data.gender.toString().isNotEmpty()) {
+                }
+                *//*if (data.gender.toString().isNotEmpty()) {
                 binding.genderEditText.setTag(data.gender)
 
             }*//*
@@ -677,53 +696,61 @@ class EditProfileFragment : Fragment() {
             })
         }*/
 
-        binding.saveAndUpdate.setOnClickListener(View.OnClickListener {
+        binding.saveAndUpdate.setOnClickListener {
+            binding.saveAndUpdate.text = "Save and Update"
+            binding.updateProgressBar.visibility = View.VISIBLE
             val editUserNameRequest = EditUserNameRequest(
                 data.firstName,
                 data.lastName,
                 binding.emailTv.text.toString(),
                 binding.tvDatePicker.text.toString(),
-                gender,
+                binding.autoGender.text.toString(),
                 binding.houseNo.text.toString(),
                 binding.completeAddress.text.toString(),
                 binding.locality.text.toString(),
                 binding.pincodeEditText.text.toString(),
-                city,
-                state,
+                data.city,
+                binding.autoState.text.toString(),
                 "India"
             )
             profileViewModel.editUserNameProfile(editUserNameRequest)
-                .observe(viewLifecycleOwner,
-                    object : Observer<BaseResponse<EditProfileResponse>> {
-                        override fun onChanged(t: BaseResponse<EditProfileResponse>?) {
+                .observe(
+                    viewLifecycleOwner
+                ) { t ->
+                    when (t!!.status) {
+                        Status.LOADING -> {
 
-                            when (t!!.status) {
-                                Status.LOADING -> {
-
-                                    binding.saveAndUpdate.visibility = View.GONE
-                                }
-                                Status.SUCCESS -> {
-                                    appPreference.saveLogin(true)
-
-                                    binding.saveAndUpdate.visibility = View.VISIBLE
-                                    val dialog = SucessDialogFragment()
-                                    val bundle = Bundle()
-                                    bundle.putString(
-                                        "FirstName",
-                                        binding.tvEnterName.text.toString()
-                                    )
-                                    dialog.arguments = bundle
-                                    dialog.isCancelable = false
-                                    dialog.show(parentFragmentManager, "Welcome Card")
-                                }
-                                Status.ERROR -> {
-                                    binding.saveAndUpdate.visibility = View.VISIBLE
-                                }
-                            }
+                            binding.saveAndUpdate.visibility = View.GONE
                         }
+                        Status.SUCCESS -> {
+                            appPreference.saveLogin(true)
+                            binding.updateProgressBar.visibility = View.GONE
+                            binding.saveAndUpdate.text = "Updated"
+                            binding.saveAndUpdate.visibility = View.VISIBLE
+                            binding.emailTv.clearFocus()
 
-                    })
-        })
+                            binding.houseNo.clearFocus()
+                            binding.completeAddress.clearFocus()
+                            binding.tvLocality.clearFocus()
+                            binding.pincodeEditText.clearFocus()
+
+
+//                            val dialog = SucessDialogFragment()
+//                            val bundle = Bundle()
+//                            bundle.putString(
+//                                "FirstName",
+//                                binding.tvEnterName.text.toString()
+//                            )
+//                            dialog.arguments = bundle
+//                            dialog.isCancelable = false
+//                            dialog.show(parentFragmentManager, "Welcome Card")
+                        }
+                        Status.ERROR -> {
+                            binding.saveAndUpdate.visibility = View.VISIBLE
+                        }
+                    }
+                }
+        }
 
     }
 
