@@ -317,7 +317,7 @@ class PortfolioSpecificViewAdapter(
 
             }
             binding.tvViewBookingJourney.setOnClickListener {
-                ivInterface.seeBookingJourney()
+                ivInterface.seeBookingJourney(data.investmentInformation.id)
             }
             binding.tvSeeProjectDetails.setOnClickListener {
                 ivInterface.seeProjectDetails(data.projectInformation.id)
@@ -393,22 +393,54 @@ class PortfolioSpecificViewAdapter(
             val imagesData = list[position].data as LatestMediaGalleryOrProjectContent
             for (item in imagesData.droneShoots) {
                 itemId++
-                allMediasList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url, title = "DroneShoots", id = itemId, name = item.name))
+                allMediasList.add(
+                    MediaViewItem(
+                        item.mediaContentType,
+                        item.mediaContent.value.url,
+                        title = "DroneShoots",
+                        id = itemId,
+                        name = item.name
+                    )
+                )
             }
             for (item in imagesData.images) {
                 itemId++
-                allMediasList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url,title = "Images", id = itemId, name = item.name))
+                allMediasList.add(
+                    MediaViewItem(
+                        item.mediaContentType,
+                        item.mediaContent.value.url,
+                        title = "Images",
+                        id = itemId,
+                        name = item.name
+                    )
+                )
             }
             for (item in imagesData.videos) {
                 itemId++
-                allMediasList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url, title = "Videos", id = itemId, name = item.name))
+                allMediasList.add(
+                    MediaViewItem(
+                        item.mediaContentType,
+                        item.mediaContent.value.url,
+                        title = "Videos",
+                        id = itemId,
+                        name = item.name
+                    )
+                )
             }
             for (item in imagesData.threeSixtyImages) {
                 itemId++
-                allMediasList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url,title="ThreeSixtyImages", id = itemId, name = item.name))
+                allMediasList.add(
+                    MediaViewItem(
+                        item.mediaContentType,
+                        item.mediaContent.value.url,
+                        title = "ThreeSixtyImages",
+                        id = itemId,
+                        name = item.name
+                    )
+                )
             }
-            for(item in allMediasList){
-                when(item.title){
+            for (item in allMediasList) {
+                when (item.title) {
                     "Images" -> {
                         imagesList.add(item)
                     }
@@ -417,7 +449,7 @@ class PortfolioSpecificViewAdapter(
                     }
                 }
             }
-            Log.d("allmedia",allMediaList.toString())
+            Log.d("allmedia", allMediaList.toString())
             latestImagesVideosAdapter = VideoAdapter(allMediaList, ivInterface)
             val layoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
 
@@ -564,7 +596,7 @@ class PortfolioSpecificViewAdapter(
         fun onClickFacilityCard()
         fun seeAllCard()
         fun seeProjectTimeline(id: Int)
-        fun seeBookingJourney()
+        fun seeBookingJourney(id: Int)
         fun referNow()
         fun seeAllSimilarInvestment()
         fun onClickSimilarInvestment(project: Int)
@@ -574,7 +606,7 @@ class PortfolioSpecificViewAdapter(
         fun moreAboutPromises()
         fun seeProjectDetails(projectId: Int)
         fun seeOnMap(latitude: String, longitude: String)
-        fun onClickImage(mediaViewItem: MediaViewItem,position:Int)
+        fun onClickImage(mediaViewItem: MediaViewItem, position: Int)
         fun seeAllImages(imagesList: ArrayList<MediaViewItem>)
         fun shareApp()
         fun onClickAsk()

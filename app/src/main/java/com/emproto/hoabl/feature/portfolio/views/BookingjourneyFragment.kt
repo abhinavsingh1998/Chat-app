@@ -42,7 +42,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class BookingjourneyFragment : BaseFragment() {
 
-    private var param1: String? = null
+    private var param1: Int = 0
     private var param2: String? = null
     lateinit var mBinding: FragmentBookingjourneyBinding
 
@@ -57,7 +57,7 @@ class BookingjourneyFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
+            param1 = it.getInt(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
     }
@@ -75,7 +75,7 @@ class BookingjourneyFragment : BaseFragment() {
         (requireActivity() as HomeActivity).showBackArrow()
         (requireActivity() as HomeActivity).hideBottomNavigation()
         initView()
-        getBookingJourneyData()
+        getBookingJourneyData(param1)
         return mBinding.root
     }
 
@@ -91,8 +91,8 @@ class BookingjourneyFragment : BaseFragment() {
             }
     }
 
-    private fun getBookingJourneyData() {
-        portfolioviewmodel.getBookingJourney(23)
+    private fun getBookingJourneyData(investedId: Int) {
+        portfolioviewmodel.getBookingJourney(investedId)
             .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                 when (it.status) {
                     Status.LOADING -> {
@@ -147,10 +147,10 @@ class BookingjourneyFragment : BaseFragment() {
          * @return A new instance of fragment Bookingjourney.
          */
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(param1: Int, param2: String) =
             BookingjourneyFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
+                    putInt(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
             }

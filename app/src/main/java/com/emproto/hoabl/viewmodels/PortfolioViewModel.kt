@@ -26,8 +26,8 @@ class PortfolioViewModel(
     private var portfolioData = MutableLiveData<PortfolioData>()
     private lateinit var projectDetails: ProjectExtraDetails
 
-    fun getPortfolioDashboard(): LiveData<BaseResponse<PortfolioData>> {
-        return portfolioRepository.getPortfolioDashboard()
+    fun getPortfolioDashboard(refresh:Boolean): LiveData<BaseResponse<PortfolioData>> {
+        return portfolioRepository.getPortfolioDashboard(refresh)
     }
 
     fun setPortfolioData(data: PortfolioData) {

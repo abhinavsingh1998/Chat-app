@@ -240,42 +240,50 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     }
 
     private fun setUpUI(authenticated: Boolean = false) {
+        fetchUserPortfolio(false)
+        binding.refreshLayout.setOnRefreshListener {
+            binding.refreshLayout.isRefreshing = true
+            fetchUserPortfolio(true)
+        }
+    }
 
-        portfolioviewmodel.getPortfolioDashboard().observe(viewLifecycleOwner, Observer { it ->
-            when (it.status) {
-                Status.LOADING -> {
-                    binding.progressBaar.show()
-                }
-                Status.SUCCESS -> {
-                    binding.progressBaar.hide()
-                    it.data?.let {
-                        //load data in listview
-                        binding.financialRecycler.show()
-                        observePortFolioData(it)
+    private fun fetchUserPortfolio(refresh: Boolean) {
+        portfolioviewmodel.getPortfolioDashboard(refresh)
+            .observe(viewLifecycleOwner, Observer { it ->
+                when (it.status) {
+                    Status.LOADING -> {
+                        binding.progressBaar.show()
                     }
+                    Status.SUCCESS -> {
+                        binding.refreshLayout.isRefreshing = false
+                        binding.progressBaar.hide()
+                        it.data?.let {
+                            //load data in listview
+                            binding.financialRecycler.show()
+                            observePortFolioData(it)
+                        }
 
 
-                }
-                Status.ERROR -> {
-                    binding.progressBaar.hide()
-                    //show error dialog
-                    if (it.message == "The current user is not an investor") {
-                        binding.noUserView.show()
-                        binding.portfolioTopImg.visibility = View.VISIBLE
-                        binding.addYouProject.visibility = View.VISIBLE
-                        binding.instriction.visibility = View.VISIBLE
-                        binding.btnExploreNewInvestmentProject.visibility = View.VISIBLE
-                    } else {
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            it.message!!
-                        )
                     }
+                    Status.ERROR -> {
+                        binding.refreshLayout.isRefreshing = false
+                        binding.progressBaar.hide()
+                        //show error dialog
+                        if (it.message == "The current user is not an investor") {
+                            binding.noUserView.show()
+                            binding.portfolioTopImg.visibility = View.VISIBLE
+                            binding.addYouProject.visibility = View.VISIBLE
+                            binding.instriction.visibility = View.VISIBLE
+                            binding.btnExploreNewInvestmentProject.visibility = View.VISIBLE
+                        } else {
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                it.message!!
+                            )
+                        }
 
+                    }
                 }
-            }
-        })
-
-
+            })
     }
 
     private fun observePortFolioData(portfolioData: PortfolioData) {
@@ -406,7 +414,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     override fun onGoingDetails() {
         (requireActivity() as HomeActivity).addFragment(
             BookingjourneyFragment.newInstance(
-                "",
+                23,
                 ""
             ), false
         )

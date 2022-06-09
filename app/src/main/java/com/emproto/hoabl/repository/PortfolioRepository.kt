@@ -38,8 +38,8 @@ class PortfolioRepository @Inject constructor(application: Application) :
      * @return
      */
 
-    fun getPortfolioDashboard(): LiveData<BaseResponse<PortfolioData>> {
-        if (mPromisesResponse.value == null) {
+    fun getPortfolioDashboard(refresh: Boolean = false): LiveData<BaseResponse<PortfolioData>> {
+        if (mPromisesResponse.value == null || refresh) {
             mPromisesResponse.postValue(BaseResponse.loading())
             coroutineScope.launch(exceptionHandler) {
                 try {

@@ -283,10 +283,10 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         )
                     }
 
-                    override fun seeBookingJourney() {
+                    override fun seeBookingJourney(id: Int) {
                         (requireActivity() as HomeActivity).addFragment(
                             BookingjourneyFragment.newInstance(
-                                "",
+                                id,
                                 ""
                             ), false
                         )
@@ -392,7 +392,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         startActivity(mapIntent)
                     }
 
-                    override fun onClickImage(mediaViewItem: MediaViewItem,position: Int) {
+                    override fun onClickImage(mediaViewItem: MediaViewItem, position: Int) {
                         investmentViewModel =
                             ViewModelProvider(
                                 requireActivity(),
@@ -400,10 +400,13 @@ class PortfolioSpecificProjectView : BaseFragment() {
                             ).get(InvestmentViewModel::class.java)
 //                        val mediaViewItem = MediaViewItem(media.mediaContentType, item.mediaContent.value.url,title = "Images", id = itemId, name = item.name)
                         val bundle = Bundle()
-                        Log.d("kjdkjds","${mediaViewItem.toString()}, tyyt== ${allMediaList.toString()}, pos = $position")
+                        Log.d(
+                            "kjdkjds",
+                            "${mediaViewItem.toString()}, tyyt== ${allMediaList.toString()}, pos = $position"
+                        )
                         bundle.putSerializable("Data", mediaViewItem)
-                        bundle.putInt("ImagePosition",position)
-                        Log.d("kjdjdsj",allMediaList.toString())
+                        bundle.putInt("ImagePosition", position)
+                        Log.d("kjdjdsj", allMediaList.toString())
                         investmentViewModel.setMediaListItem(allMediaList)
                         val fragment = MediaViewFragment()
                         fragment.arguments = bundle
@@ -440,8 +443,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         openDocument(position)
                     }
 
-                }
-            ,allMediaList)
+                }, allMediaList
+            )
         binding.rvPortfolioSpecificView.adapter = portfolioSpecificViewAdapter
 
         fetchDocuments(it.data.investmentInformation.crmProjectId)
