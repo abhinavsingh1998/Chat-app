@@ -80,11 +80,11 @@ class MediaViewFragment : BaseFragment() {
 
     @SuppressLint("UnsafeOptInUsageError")
     private fun setUpUI() {
-        investmentViewModel.getMediaItem().observe(viewLifecycleOwner, Observer {
-            data = it
-            binding.tvMediaImageName.text = data.name
-            showMedia(it)
-        })
+//        investmentViewModel.getMediaItem().observe(viewLifecycleOwner, Observer {
+//            data = it
+//            binding.tvMediaImageName.text = data.name
+//            showMedia(it)
+//        })
 
         //if not from investment module
         arguments?.let {
@@ -93,6 +93,9 @@ class MediaViewFragment : BaseFragment() {
                 binding.tvMediaImageName.text = data.name
                 showMedia(data)
             }
+            it.getInt("ImagePosition").let{
+                index = it
+            }
         }
 
         investmentViewModel.getMediaListItem().observe(viewLifecycleOwner,Observer{
@@ -100,12 +103,13 @@ class MediaViewFragment : BaseFragment() {
             for (item in it) {
                 mediaData.add(item)
             }
-            Log.d("jbcjadfaj", mediaData.toString())
-            for (i in 0..mediaData.size - 1) {
-                if (data.id == it[i].id) {
-                    index = i
-                }
-            }
+            Log.d("jbcjadfaj", "${mediaData[index].toString()}  ge= ${data.toString()} index=$index")
+//            for (i in 0..mediaData.size - 1) {
+//                if (data.id == it[i].id) {
+//                    index = i
+//                }
+//            }
+            Log.d("dhdhhd","${mediaData[index].toString()}, ${index.toString()}")
             when(mediaData.size){
                 1 -> {
                     binding.ivMediaRightArrow.visibility = View.GONE
@@ -133,6 +137,7 @@ class MediaViewFragment : BaseFragment() {
         binding.ivMediaRightArrow.setOnClickListener {
             if(index < mediaData.size-1){
                 binding.ivMediaRightArrow.visibility = View.VISIBLE
+                binding.ivMediaLeftArrow.visibility = View.VISIBLE
                 index++
                 showMedia(mediaData[index])
             }
@@ -145,6 +150,7 @@ class MediaViewFragment : BaseFragment() {
         binding.ivMediaLeftArrow.setOnClickListener {
             if(index > 0){
                 binding.ivMediaLeftArrow.visibility = View.VISIBLE
+                binding.ivMediaRightArrow.visibility = View.VISIBLE
                 index--
                 showMedia(mediaData[index])
             }

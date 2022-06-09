@@ -102,11 +102,13 @@ class ThreeSixtyFragment:BaseFragment() {
 
     private val itemClickListener = object : MediaItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: MediaViewItem) {
-            investmentViewModel.setMediaItem(item)
+//            investmentViewModel.setMediaItem(item)
             investmentViewModel.setMediaListItem(allImageList)
             val mediaViewFragment = MediaViewFragment()
             val bundle = Bundle()
+            bundle.putSerializable("Data", item)
             bundle.putSerializable("medialist",allImageList)
+            bundle.putInt("ImagePosition",position)
             mediaViewFragment.arguments = bundle
             (requireActivity() as HomeActivity).addFragment(mediaViewFragment, false)
         }

@@ -7,6 +7,8 @@ object ApiConstants {
     const val COMMON_MSG = "Something Went Wrong"
     val BASE_URL_DEV =
         "http://hoabl-backend-dev-306342355.ap-south-1.elb.amazonaws.com/"
+//    val BASE_URL_DEV =
+//        "http://hoabl-backend-qa-1093935714.ap-south-1.elb.amazonaws.com/"
 
     const val GENERATE_OTP = "hoabl-customer/generate_otp"
     const val VALIDATE_OTP = "hoabl-customer/verify_otp"

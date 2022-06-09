@@ -32,12 +32,15 @@ import java.io.Serializable
 import javax.inject.Inject
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.feature.investment.views.mediagallery.MediaGalleryFragment
 import com.emproto.hoabl.feature.investment.views.mediagallery.MediaViewFragment
 import com.emproto.hoabl.feature.portfolio.adapters.DocumentInterface
 import com.emproto.hoabl.model.MediaViewItem
+import com.emproto.hoabl.viewmodels.InvestmentViewModel
+import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
 
 
@@ -57,10 +60,15 @@ class PortfolioSpecificProjectView : BaseFragment() {
     lateinit var homeFactory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
 
+    @Inject
+    lateinit var investmentFactory: InvestmentFactory
+    lateinit var investmentViewModel: InvestmentViewModel
+
     val list = ArrayList<RecyclerViewItem>()
     lateinit var fmData: FMResponse
     var crmId: Int = 0
     var projectId: Int = 0
+    var allMediaList = ArrayList<MediaViewItem>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -132,6 +140,56 @@ class PortfolioSpecificProjectView : BaseFragment() {
     }
 
     private fun loadInvestmentDetails(it: InvestmentDetailsResponse) {
+        var itemId = 0
+//        for (item in it.data.projectInformation.latestMediaGalleryOrProjectContent[0].droneShoots) {
+//            itemId++
+//            allMediaList.add(
+//                MediaViewItem(
+//                    item.mediaContentType,
+//                    item.mediaContent.value.url,
+//                    title = "DroneShoots",
+//                    id = itemId,
+//                    name = item.name
+//                )
+//            )
+//        }
+        allMediaList.clear()
+        for (item in it.data.projectInformation.latestMediaGalleryOrProjectContent[0].images) {
+            itemId++
+            allMediaList.add(
+                MediaViewItem(
+                    item.mediaContentType,
+                    item.mediaContent.value.url,
+                    title = "Images",
+                    id = itemId,
+                    name = item.name
+                )
+            )
+        }
+//        for (item in it.data.projectInformation.latestMediaGalleryOrProjectContent[0].videos) {
+//            itemId++
+//            allMediaList.add(
+//                MediaViewItem(
+//                    item.mediaContentType,
+//                    item.mediaContent.value.url,
+//                    title = "Videos",
+//                    id = itemId,
+//                    name = item.name
+//                )
+//            )
+//        }
+        for (item in it.data.projectInformation.latestMediaGalleryOrProjectContent[0].threeSixtyImages) {
+            itemId++
+            allMediaList.add(
+                MediaViewItem(
+                    item.mediaContentType,
+                    item.mediaContent.value.url,
+                    title = "ThreeSixtyImages",
+                    id = itemId,
+                    name = item.name
+                )
+            )
+        }
         list.clear()
         it.data.projectExtraDetails = portfolioviewmodel.getprojectAddress()
         list.add(
@@ -322,11 +380,19 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         startActivity(mapIntent)
                     }
 
-                    override fun onClickImage(url: String) {
-                        val mediaViewItem =
-                            MediaViewItem("Photo", url)
+                    override fun onClickImage(mediaViewItem: MediaViewItem,position: Int) {
+                        investmentViewModel =
+                            ViewModelProvider(
+                                requireActivity(),
+                                investmentFactory
+                            ).get(InvestmentViewModel::class.java)
+//                        val mediaViewItem = MediaViewItem(media.mediaContentType, item.mediaContent.value.url,title = "Images", id = itemId, name = item.name)
                         val bundle = Bundle()
+                        Log.d("kjdkjds","${mediaViewItem.toString()}, tyyt== ${allMediaList.toString()}, pos = $position")
                         bundle.putSerializable("Data", mediaViewItem)
+                        bundle.putInt("ImagePosition",position)
+                        Log.d("kjdjdsj",allMediaList.toString())
+                        investmentViewModel.setMediaListItem(allMediaList)
                         val fragment = MediaViewFragment()
                         fragment.arguments = bundle
                         (requireActivity() as HomeActivity).addFragment(
@@ -335,9 +401,15 @@ class PortfolioSpecificProjectView : BaseFragment() {
                     }
 
                     override fun seeAllImages(imagesList: ArrayList<MediaViewItem>) {
+                        investmentViewModel =
+                            ViewModelProvider(
+                                requireActivity(),
+                                investmentFactory
+                            ).get(InvestmentViewModel::class.java)
                         val fragment = MediaGalleryFragment()
                         val bundle = Bundle()
                         bundle.putSerializable("Data", imagesList)
+                        investmentViewModel.setMediaListItem(imagesList)
                         fragment.arguments = bundle
                         (requireActivity() as HomeActivity).addFragment(
                             fragment, false
@@ -356,7 +428,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         openDocument(position)
                     }
 
-                })
+                }
+            ,allMediaList)
         binding.rvPortfolioSpecificView.adapter = portfolioSpecificViewAdapter
 
         fetchDocuments(it.data.investmentInformation.crmProjectId)
