@@ -1,8 +1,16 @@
-package com.emproto.networklayer.response.profile
+package com.emproto.networklayer.response.responsee
+
 
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
 
+data class Data(
+    @SerializedName("code")
+    val code: Int,
+    @SerializedName("data")
+    val `data`: Data,
+    @SerializedName("message")
+    val message: String
+) {
     data class Data(
         @SerializedName("city")
         val city: String,
@@ -21,7 +29,7 @@ import java.io.Serializable
         @SerializedName("deviceToken")
         val deviceToken: Any?,
         @SerializedName("email")
-        val email: String?,
+        val email: Any?,
         @SerializedName("firstName")
         val firstName: String,
         @SerializedName("gender")
@@ -45,7 +53,7 @@ import java.io.Serializable
         @SerializedName("pincode")
         val pincode: Any?,
         @SerializedName("profilePictureUrl")
-        val profilePictureUrl: String?,
+        val profilePictureUrl: Any?,
         @SerializedName("state")
         val state: String,
         @SerializedName("streetAddress")
@@ -54,4 +62,5 @@ import java.io.Serializable
         val updatedAt: String,
         @SerializedName("whatsappConsent")
         val whatsappConsent: Boolean
-    ):Serializable
+    )
+}
