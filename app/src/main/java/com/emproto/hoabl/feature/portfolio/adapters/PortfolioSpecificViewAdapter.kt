@@ -22,10 +22,14 @@ import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.networklayer.response.documents.Data
 import com.emproto.networklayer.response.portfolio.dashboard.GeneralInfoEscalationGraph
 import com.emproto.networklayer.response.portfolio.ivdetails.*
+import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import com.github.mikephil.charting.formatter.IValueFormatter
+import com.github.mikephil.charting.utils.ViewPortHandler
 import com.google.android.material.tabs.TabLayoutMediator
 import java.text.NumberFormat
 import java.util.*
@@ -257,20 +261,20 @@ class PortfolioSpecificViewAdapter(
                     binding.tvInvestmentAmount.text =
 //                        NumberFormat.getCurrencyInstance(Locale("en", "in"))
 //                            .format(data.investmentInformation.amountInvested)
-                        "₹" + data.investmentInformation.amountInvested
+                        Utility.formatAmount(data.investmentInformation.amountInvested)
 
                     binding.tvAmountPending.text =
 //                        NumberFormat.getCurrencyInstance(Locale("en", "in"))
 //                            .format(data.investmentInformation.bookingJourney.amountPending)
-                        "₹" + data.investmentInformation.bookingJourney.amountPending
+                        Utility.formatAmount(data.investmentInformation.bookingJourney.amountPending)
                     binding.tvRegistryAmount.text =
 //                        NumberFormat.getCurrencyInstance(Locale("en", "in"))
 //                            .format(data.investmentInformation.registryAmount)
-                        "₹" + data.investmentInformation.registryAmount
+                        Utility.formatAmount(data.investmentInformation.registryAmount)
                     binding.tvOtherExpenses.text =
 //                        NumberFormat.getCurrencyInstance(Locale("en", "in"))
 //                            .format(data.investmentInformation.otherExpenses)
-                        "₹" + data.investmentInformation.otherExpenses
+                        Utility.formatAmount(data.investmentInformation.otherExpenses)
                     binding.registrationNo.text = reraNumber
 
                     binding.tvLatitude.text = data.projectInformation.crmProject.lattitude
@@ -287,7 +291,7 @@ class PortfolioSpecificViewAdapter(
                         binding.tvPaid.text = "Invested"
                         binding.tvPaidAmount.text =
                                 //NumberFormat.getCurrencyInstance(Locale("en", "in")).format(data.investmentInformation.bookingJourney.paidAmount)
-                            "₹" + data.investmentInformation.amountInvested
+                            Utility.formatAmount(data.investmentInformation.amountInvested)
 
                         binding.tvAmountPaid.visibility = View.GONE
                         binding.tvAmountPaidTitle.visibility = View.GONE
@@ -296,12 +300,11 @@ class PortfolioSpecificViewAdapter(
                     } else {
                         binding.tvPendingAmount.text =
                                 //NumberFormat.getCurrencyInstance(Locale("en", "in")).format(data.investmentInformation.bookingJourney.amountPending)
-                            "₹" + data.investmentInformation.bookingJourney.amountPending
-
+                            Utility.formatAmount(data.investmentInformation.bookingJourney.amountPending)
                         binding.tvAmountPaid.text =
 //                        NumberFormat.getCurrencyInstance(Locale("en", "in"))
 //                        .format(data.investmentInformation.amountInvested)
-                            "₹" + data.investmentInformation.bookingJourney.paidAmount
+                            Utility.formatAmount(data.investmentInformation.bookingJourney.paidAmount)
 
                     }
                 }
@@ -473,20 +476,22 @@ class PortfolioSpecificViewAdapter(
             //binding.ivPriceTrendsGraph.setDrawGridBackground(false);
             binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
             binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
-            binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false);
+            binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false)
             binding.ivPriceTrendsGraph.setTouchEnabled(false)
             binding.ivPriceTrendsGraph.setPinchZoom(false)
             binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
             //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
-            binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false);
+            binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false)
             binding.ivPriceTrendsGraph.xAxis.typeface
             binding.ivPriceTrendsGraph.xAxis.granularity = 1f
-            binding.ivPriceTrendsGraph.getXAxis().position = XAxis.XAxisPosition.BOTTOM;
+            binding.ivPriceTrendsGraph.getXAxis().position = XAxis.XAxisPosition.BOTTOM
             //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
-            binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false);
-            binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false);
-            binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false);
+            binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false)
+            binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false)
+            binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false)
+            binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter = Xaxisformatter()
+            binding.ivPriceTrendsGraph.xAxis.valueFormatter = Xaxisformatter()
             //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
             //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
             binding.ivPriceTrendsGraph.data = data
@@ -536,6 +541,21 @@ class PortfolioSpecificViewAdapter(
             binding.tvTrendingProjectsSeeAll.setOnClickListener {
                 ivInterface.seeAllSimilarInvestment()
             }
+        }
+    }
+
+    inner class Xaxisformatter : IValueFormatter, IAxisValueFormatter {
+        override fun getFormattedValue(
+            p0: Float,
+            p1: Entry?,
+            p2: Int,
+            p3: ViewPortHandler?
+        ): String {
+            return p0.toString().replace(",.", "")
+        }
+
+        override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
+            return String.format("%.0f", p0.toDouble())
         }
     }
 

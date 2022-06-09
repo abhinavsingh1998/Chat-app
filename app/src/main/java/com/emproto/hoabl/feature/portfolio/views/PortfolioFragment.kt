@@ -83,6 +83,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     val permissionRequest: MutableList<String> = ArrayList()
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     var isReadPermissonGranted: Boolean = false
+    var oneTimeValidation = false
 
 
     override fun onCreateView(
@@ -156,7 +157,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
         if (appPreference.isPinDialogShown()) {
             // if dialog is shown already and pin is activated show pin screen.
-            if (appPreference.getPinActivationStatus()) {
+            if (appPreference.getPinActivationStatus() && !oneTimeValidation) {
                 setUpInitialUI()
                 setUpAuthentication()
             } else {
@@ -207,14 +208,12 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                     result: BiometricPrompt.AuthenticationResult
                 ) {
                     super.onAuthenticationSucceeded(result)
-                    Toast.makeText(context, "Authentication succeeded!", Toast.LENGTH_SHORT).show()
+                    oneTimeValidation = true
                     setUpUI(true)
                 }
 
                 override fun onAuthenticationFailed() {
                     super.onAuthenticationFailed()
-                    Toast.makeText(context, "Authentication failed", Toast.LENGTH_SHORT).show()
-                    //setUpUI(false)
                 }
             })
 
@@ -429,7 +428,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         val bundle = Bundle()
         bundle.putInt("ProjectId", projectId)
         fragment.arguments = bundle
-        (requireActivity() as HomeActivity).addFragment(fragment,false)
+        (requireActivity() as HomeActivity).addFragment(fragment, false)
     }
 
     override fun onClickShare() {
