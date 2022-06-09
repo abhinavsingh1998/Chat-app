@@ -78,7 +78,8 @@ class CompletedInvestmentAdapter(
                 project.investment.inventoryBucket
             holder.binding.tvCompletedInvestmentLocation.text =
                 project.project.address.city + "," + project.project.address.state
-            holder.binding.tvCompletedInvestmentPrice.text = project.project.priceStartingFrom
+            val amount = (project.project.priceStartingFrom.toDouble()) / 100000
+            holder.binding.tvCompletedInvestmentPrice.text = "₹$amount"
             holder.binding.tvCompletedInvestmentArea.text =
                 "" + project.project.areaStartingFrom.split(" ")[0]
 

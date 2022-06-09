@@ -7,6 +7,7 @@ import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -30,11 +31,34 @@ class InsightsAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = list.get(holder.adapterPosition)
+        holder.binding.tvVideotitle.text = item.displayTitle
+        holder.binding.shortDesc.text = showHTMLText(item.insightsMedia[0].description)
+
+
+            if(item.insightsMedia[0].media!=null){
+                when(item.insightsMedia[0].media.value.mediaType){
+                    "VIDEO" -> {
+                        val url = item.insightsMedia[0].media.value.url.replace("https://www.youtube.com/embed/","")
+                        val youtubeUrl = "https://img.youtube.com/vi/${url}/hqdefault.jpg"
+
+                        holder.binding.playBtn.isVisible= true
+                        Glide.with(context)
+                            .load(youtubeUrl)
+                            .into(holder.binding.image)
+                    }
+                    else -> {
+                        Glide.with(context)
+                            .load(item.insightsMedia[0].media.value.url)
+                            .into(holder.binding.image)
+                    }
+                }}
+
+        when{
+            item.insightsMedia[0].description.isNullOrEmpty() -> {
+                holder.binding.btnReadMore.visibility = View.GONE
+            }
+        }
         holder.binding.tvVideotitle.text= item.displayTitle
-        holder.binding.shortDesc.text= item.insightsMedia[0].description
-        Glide.with(context)
-            .load(item.insightsMedia[0].media.value.url)
-            .into(holder.binding.image)
 
         holder.binding.rootView.setOnClickListener {
             itemIntrface.onClickItem(holder.adapterPosition)
@@ -48,7 +72,7 @@ class InsightsAdapter(
     inner class MyViewHolder(val binding: ItemInsightsBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    interface InsightsItemInterface{
+    interface InsightsItemInterface {
         fun onClickItem(position: Int)
     }
 
@@ -60,3 +84,4 @@ class InsightsAdapter(
         }
     }
 }
+

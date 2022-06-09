@@ -6,6 +6,7 @@ import android.text.Html
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ProjectUpdatesItemBinding
@@ -30,13 +31,26 @@ class AllLatestUpdatesAdapter(
 
 
         if (item.detailedInfo[0].media!=null){
-            Glide.with(context).load(item.detailedInfo[0].media.value.url)
-                .into(holder.binding.locationImage)
 
-            holder.binding.deatils.text= showHTMLText(item.detailedInfo[0].description)
+            if(!item.detailedInfo[0].media.value.url.isNullOrEmpty()){
+                holder.binding.imageCard.isVisible= true
+                Glide.with(context).load(item.detailedInfo[0].media.value.url)
+                    .into(holder.binding.locationImage)
+            } else{
+                holder.binding.imageCard.isVisible= true
+            }
+
+
+            if (item.detailedInfo[0].description.isNullOrEmpty()){
+                holder.binding.btnReadMore.isVisible= false
+            } else{
+                holder.binding.btnReadMore.isVisible= true
+                holder.binding.deatils.text= showHTMLText(item.detailedInfo[0].description)
+            }
+
         }
 
-        holder.binding.btnReadMore.setOnClickListener {
+        holder.binding.rootView.setOnClickListener {
             itemInterface.onClickItem(holder.adapterPosition)
         }
     }

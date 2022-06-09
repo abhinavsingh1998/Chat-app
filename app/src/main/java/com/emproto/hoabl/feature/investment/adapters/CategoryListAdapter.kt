@@ -201,6 +201,25 @@ class CategoryListAdapter(
                     }
                 }
 
+                SIMILAR_INVESTMENT_NI -> {
+                    val element = list[position] as com.emproto.networklayer.response.investment.SimilarInvestment
+                    binding.cvCategoryOuterCard.setOnClickListener {
+                        clickListener.onItemClicked(view, 0, element.id.toString())
+                    }
+                    binding.tvApplyNowCategory.setOnClickListener {
+                        clickListener.onItemClicked(view, 1, element.id.toString())
+                    }
+                    binding.apply {
+                        tvProjectName.text = element.launchName
+                        tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
+                        tvCategoryArea.text = element.areaStartingFrom + " Onwards"
+                        tvCategoryItemInfo.text = element.shortDescription
+                        Glide.with(context)
+                            .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                            .into(ivCategoryImage)
+                    }
+                }
+
                 else -> {
                     val element = list[position] as SimilarInvestment
                     binding.cvCategoryOuterCard.setOnClickListener {

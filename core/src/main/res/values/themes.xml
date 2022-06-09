@@ -49,6 +49,15 @@
         <item name="singleLine">true</item>
         <item name="fontFamily">@font/jost_medium</item>
     </style>
+
+    <style name="text_regular_pcolor5_12">
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/primarycolor_5</item>
+        <item name="singleLine">true</item>
+        <item name="android:fontFamily">@font/jost_regular</item>
+    </style>
+
     <!-- all font with size 14 -->
     <style name="text_regular_black_14">
         <item name="android:gravity">left</item>

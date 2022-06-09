@@ -7,6 +7,7 @@ import android.text.Html
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.DetailViewItemBinding
@@ -34,6 +35,13 @@ class InsightsListAdapter(
         holder.binding.firstDetails.text= showHTMLText(item.description)
 
         if(item.media!=null){
+            holder.binding.imageDesc.text= item.media.mediaDescription
+
+            if (!item.media.value.url.isNullOrEmpty()){
+                holder.binding.image1.isVisible= true
+            } else{
+                holder.binding.image1.isVisible= false
+            }
         when(item.media.value.mediaType){
             "VIDEO" -> {
                 val url = item.media.value.url.replace("https://www.youtube.com/embed/","")
@@ -41,6 +49,7 @@ class InsightsListAdapter(
                 Glide.with(context)
                     .load(youtubeUrl)
                     .into(holder.binding.image1)
+                holder.binding.playBtn.isVisible= true
                 holder.binding.image1.setOnClickListener{
                     itemClickListener.onItemClicked(it,position,url,item.media.mediaDescription)
                 }
