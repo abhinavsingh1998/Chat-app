@@ -3,6 +3,7 @@ package com.emproto.hoabl.feature.portfolio.adapters
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,7 +35,8 @@ import kotlin.collections.ArrayList
 class PortfolioSpecificViewAdapter(
     private val context: Context,
     private val list: List<RecyclerViewItem>,
-    private val ivInterface: InvestmentScreenInterface
+    private val ivInterface: InvestmentScreenInterface,
+    private val allMediaList: ArrayList<MediaViewItem>
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -377,22 +379,37 @@ class PortfolioSpecificViewAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             val imagesList = ArrayList<MediaViewItem>()
+            var itemId = 0
+            val allMediasList = ArrayList<MediaViewItem>()
             val imagesData = list[position].data as LatestMediaGalleryOrProjectContent
+            for (item in imagesData.droneShoots) {
+                itemId++
+                allMediasList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url, title = "DroneShoots", id = itemId, name = item.name))
+            }
             for (item in imagesData.images) {
-                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+                itemId++
+                allMediasList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url,title = "Images", id = itemId, name = item.name))
             }
-//            for (item in imagesData.droneShoots) {
-//                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
-//            }
-
             for (item in imagesData.videos) {
-                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
+                itemId++
+                allMediasList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url, title = "Videos", id = itemId, name = item.name))
             }
-//            for (item in imagesData.threeSixtyImages) {
-//                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url))
-//            }
-
-            latestImagesVideosAdapter = VideoAdapter(imagesList, ivInterface)
+            for (item in imagesData.threeSixtyImages) {
+                itemId++
+                allMediasList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url,title="ThreeSixtyImages", id = itemId, name = item.name))
+            }
+            for(item in allMediasList){
+                when(item.title){
+                    "Images" -> {
+                        imagesList.add(item)
+                    }
+                    "ThreeSixtyImages" -> {
+                        imagesList.add(item)
+                    }
+                }
+            }
+            Log.d("allmedia",allMediaList.toString())
+            latestImagesVideosAdapter = VideoAdapter(allMediaList, ivInterface)
             val layoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
 
 //            layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
@@ -405,7 +422,7 @@ class PortfolioSpecificViewAdapter(
             binding.tvLastUpdatedDate.text = Utility.parseDateFromUtc(imagesData.updatedAt, null)
 
             binding.tvSeeAll.setOnClickListener {
-                ivInterface.seeAllImages(imagesList)
+                ivInterface.seeAllImages(allMediasList)
             }
         }
     }
@@ -531,7 +548,7 @@ class PortfolioSpecificViewAdapter(
         fun moreAboutPromises()
         fun seeProjectDetails(projectId: Int)
         fun seeOnMap(latitude: String, longitude: String)
-        fun onClickImage(url: String)
+        fun onClickImage(mediaViewItem: MediaViewItem,position:Int)
         fun seeAllImages(imagesList: ArrayList<MediaViewItem>)
         fun shareApp()
         fun onClickAsk()
