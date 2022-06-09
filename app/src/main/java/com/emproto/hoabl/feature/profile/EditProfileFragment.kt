@@ -326,8 +326,8 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun setuserNamePIC(){
-        val firstLetter: String = data.firstName.substring(0, 1)
-        val lastLetter:String = data.lastName.substring(0,1)
+        val firstLetter: String = data?.firstName!!.substring(0, 1)
+        val lastLetter:String = data.lastName!!.substring(0,1)
         binding.tvUserName.text=firstLetter+""+lastLetter
     }
 

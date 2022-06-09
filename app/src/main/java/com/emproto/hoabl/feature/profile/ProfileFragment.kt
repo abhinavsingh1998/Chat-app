@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,7 +38,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
 
     @Inject
     lateinit var profileFactory: ProfileFactory
-    lateinit var profileViewModel: ProfileViewModel
+    private lateinit var profileViewModel: ProfileViewModel
     lateinit var profileData: Data
 
     @Inject
@@ -67,8 +68,11 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                     binding.progressBaar.show()
                 }
                 Status.SUCCESS -> {
+                    Log.i("Data Check",it.data.toString())
+
                     binding.progressBaar.hide()
                     if (it.data != null) {
+                        Log.i("Data",it.data.toString())
                         it.data?.let {
                             /* val contactType=it.data.contactType
                              val countryCode=it.data.countryCode
@@ -101,6 +105,10 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                 }
                 Status.ERROR -> {
                     binding.progressBaar.hide()
+                    it.data
+                    (requireActivity() as HomeActivity).showErrorToast(
+                        it.message!!
+                    )
                 }
 
             }
@@ -108,6 +116,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
     }
 
     private fun setUiData(profileData: Data) {
+        profileData
         binding.tvName.text=profileData.firstName+""+profileData.lastName
 
         /*for user pic not available show username as pic label*/
@@ -125,9 +134,9 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
     }
 
     private fun setuserNamePIC(profileData: Data) {
-        val firstLetter: String = profileData.firstName.substring(0, 1)
-        val lastLetter:String = profileData.lastName.substring(0,1)
-        binding.tvUserName.text=firstLetter+""+lastLetter
+        val firstLetter: String = profileData.firstName!!.substring(0, 1)
+       val lastLetter:String = profileData.lastName!!.substring(0,1)
+        binding.tvUserName.text=firstLetter+""
     }
 
 
