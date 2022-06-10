@@ -35,7 +35,9 @@ class AccountsDocumentListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvDocName.text = accountsDocumentList[position].documentType
+        if(accountsDocumentList[position].documentCategory=="KYC"){
+            holder.tvDocName.text = accountsDocumentList[position].documentType
+        }
         holder.tvViewDoc.setOnClickListener {
             mListener.onAccountsKycItemClick(accountsDocumentList, it, position)
         }
