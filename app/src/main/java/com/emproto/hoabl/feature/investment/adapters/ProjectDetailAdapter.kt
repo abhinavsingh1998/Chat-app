@@ -3,6 +3,7 @@ package com.emproto.hoabl.feature.investment.adapters
 import android.content.Context
 import android.os.Build
 import android.text.SpannableStringBuilder
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -82,6 +83,8 @@ class ProjectDetailAdapter(
     private var isCollapsed = true
     private var isClicked = true
     private var isReadMoreClicked = true
+    private var graphType = ""
+    private var xaxisList = ArrayList<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
@@ -285,11 +288,58 @@ class ProjectDetailAdapter(
             binding.tvXAxisLabel.text = data.generalInfoEscalationGraph.yAxisDisplayName
             binding.tvYAxisLabel.text = data.generalInfoEscalationGraph.xAxisDisplayName
             val graphData = data.generalInfoEscalationGraph.dataPoints.points
-
             val linevalues = ArrayList<Entry>()
-            for(item in graphData){
-                linevalues.add(Entry(item.year.toFloat(),item.value.toFloat()))
+            when(data.generalInfoEscalationGraph.dataPoints.dataPointType){
+                "Yearly" -> {
+                    graphType = "Yearly"
+                    for(item in graphData){
+                        linevalues.add(Entry(item.year.toFloat(),item.value.toFloat()))
+                    }
+                }
+                "Half Yearly" -> {
+                    graphType = "Half Yearly"
+                    for(i in 0..data.generalInfoEscalationGraph.dataPoints.points.size-1){
+                        val fmString = data.generalInfoEscalationGraph.dataPoints.points[i].quater.substring(0,2)
+                        val yearString = data.generalInfoEscalationGraph.dataPoints.points[i].year.substring(0,2)
+                        val str = "$fmString-$yearString"
+                        xaxisList.add(str)
+                    }
+                    var index = 0
+                    for(item in graphData){
+                        linevalues.add(Entry(index.toFloat(),item.value.toFloat()))
+                        index++
+                    }
+                }
+                "Quaterly" -> {
+                    graphType = "Quaterly"
+                    for(i in 0..data.generalInfoEscalationGraph.dataPoints.points.size-1){
+                        val fmString = data.generalInfoEscalationGraph.dataPoints.points[i].quater.substring(0,2)
+                        val yearString = data.generalInfoEscalationGraph.dataPoints.points[i].year.substring(0,2)
+                        val str = "$fmString-$yearString"
+                        xaxisList.add(str)
+                    }
+                    var index = 0
+                    for(item in graphData){
+                        linevalues.add(Entry(index.toFloat(),item.value.toFloat()))
+                        index++
+                    }
+                }
+                "Monthly" -> {
+                    graphType = "Monthly"
+                    for(i in 0..data.generalInfoEscalationGraph.dataPoints.points.size-1){
+                        val fmString = data.generalInfoEscalationGraph.dataPoints.points[i].quater.substring(0,3)
+                        val yearString = data.generalInfoEscalationGraph.dataPoints.points[i].year.substring(0,2)
+                        val str = "$fmString-$yearString"
+                        xaxisList.add(str)
+                    }
+                    var index = 0
+                    for(item in graphData){
+                        linevalues.add(Entry(index.toFloat(),item.value.toFloat()))
+                        index++
+                    }
+                }
             }
+
             val linedataset = LineDataSet(linevalues, "")
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -304,8 +354,7 @@ class ProjectDetailAdapter(
             linedataset.setDrawCircles(false)
             linedataset.setDrawValues(false)
             val data = LineData(linedataset)
-
-
+            
             binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
             binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
             binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false);
@@ -322,6 +371,8 @@ class ProjectDetailAdapter(
             binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false);
             binding.ivPriceTrendsGraph.xAxis.granularity = 1f
             binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
+//            binding.ivPriceTrendsGraph.getXAxis().setAxisMaximum(data.getXMax() + 0.25f);
+//            binding.ivPriceTrendsGraph.getXAxis().setAxisMinimum(data.getXMin() - 0.25f);
             //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
             //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
             binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter = Xaxisformatter()
@@ -332,18 +383,21 @@ class ProjectDetailAdapter(
         }
     }
 
-    inner class Xaxisformatter : IValueFormatter, IAxisValueFormatter {
-        override fun getFormattedValue(
-            p0: Float,
-            p1: Entry?,
-            p2: Int,
-            p3: ViewPortHandler?
-        ): String {
-            return p0.toString().replace(",.","")
-        }
-
+    inner class Xaxisformatter :  IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
-            return String.format("%.0f", p0.toDouble())
+            return when(graphType){
+                "Quaterly" -> returnFormattedValue(p0)
+                "Monthly" -> returnFormattedValue(p0)
+                "Half Yearly" -> returnFormattedValue(p0)
+                else -> { String.format("%.0f", p0.toDouble()) }
+            }
+        }
+    }
+
+    private fun returnFormattedValue(floatValue:Float):String{
+        return when {
+            floatValue.toInt() < 10 -> xaxisList[floatValue.toInt()]
+            else -> { "" }
         }
     }
 

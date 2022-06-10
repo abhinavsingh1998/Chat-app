@@ -5,9 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
+import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FaqDetailFragmentBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
@@ -26,6 +28,8 @@ class FaqDetailFragment : BaseFragment() {
     lateinit var investmentFactory: InvestmentFactory
     lateinit var investmentViewModel: InvestmentViewModel
     lateinit var binding: FaqDetailFragmentBinding
+
+    private lateinit var adapter: FaqDetailAdapter
     var projectId = 0
     var faqId  = 0
 
@@ -92,13 +96,17 @@ class FaqDetailFragment : BaseFragment() {
         for (item in data) {
             list.add(RecyclerViewFaqItem(2, item))
         }
-        val adapter = FaqDetailAdapter(this.requireContext(), list, data, faqId,itemClickListener)
+        adapter = FaqDetailAdapter(this.requireContext(), list, data, faqId,itemClickListener)
         binding.rvFaq.adapter = adapter
     }
 
     val itemClickListener = object:ItemClickListener{
         override fun onItemClicked(view: View, position: Int, item: String) {
-
+            when(view.id){
+                R.id.cv_category_name -> {
+                    binding.rvFaq.smoothScrollToPosition(position+1)
+                }
+            }
         }
     }
 }

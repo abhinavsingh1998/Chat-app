@@ -1,9 +1,9 @@
 package com.emproto.networklayer.response.investment
 
 data class Point(
-    val halfYear: Any,
-    val month: Any,
-    val quater: Any,
+    val halfYear: String,
+    val month: String,
+    val quater: String,
     val value: Int,
     val year: String
 )

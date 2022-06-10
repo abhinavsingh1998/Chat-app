@@ -303,7 +303,9 @@ class ProjectDetailFragment : BaseFragment() {
                         (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                         it.data?.data?.let {  data ->
                             allData = data
-                            watchList = data.watchlist.toMutableList()
+                            if(watchList != null){
+                                watchList = data.watchlist.toMutableList()
+                            }
                             oppDocData = data.opportunityDocs
                             mediaData= data.mediaGalleryOrProjectContent
                             landSkusData = data.inventoryBucketContents
