@@ -1,15 +1,15 @@
 package com.emproto.networklayer.response.bookingjourney
 
 data class Investment(
-    val agreementValue: Int,
+    val agreementValue: Double,
     val allocationDate: String,
     val areaSqFt: Int,
     val bookingId: String,
     val bookingJourney: BookingJourneyX,
     val bookingStatus: String,
-    val camCharges: Int,
+    val camCharges: Double,
     val camGST: Any,
-    val corpusCharges: Int,
+    val corpusCharges: Double,
     val corpusGST: Any,
     val createdAt: String,
     val crmBookingId: String,
@@ -17,7 +17,7 @@ data class Investment(
     val crmProjectId: String,
     val id: Int,
     val infraGST: Double,
-    val infraValue: Int,
+    val infraValue: Double,
     val inventoryBucket: String,
     val inventoryId: String,
     val isBookingComplete: Boolean,
@@ -28,8 +28,8 @@ data class Investment(
     val registrationCharges: Any,
     val registrationDate: Any,
     val registrationNumber: Any,
-    val registryAmount: Int,
-    val sdrCharges: Int,
+    val registryAmount: Double,
+    val sdrCharges: Double,
     val updatedAt: String,
     val userId: String
 )

@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemCompletedInvestmentsBinding
 import com.emproto.networklayer.response.portfolio.dashboard.Point
@@ -85,10 +86,11 @@ class CompletedInvestmentAdapter(
                 project.investment.inventoryBucket
             holder.binding.tvCompletedInvestmentLocation.text =
                 project.project.address.city + "," + project.project.address.state
-            val amount = (project.project.priceStartingFrom.toDouble()) / 100000
-            holder.binding.tvCompletedInvestmentPrice.text = "₹$amount"
+//            val amount = (project.investment.amountInvested) / 100000
+            holder.binding.tvCompletedInvestmentPrice.text =
+                "₹${Utility.convertToDecimal(project.investment.amountInvested)}"
             holder.binding.tvCompletedInvestmentArea.text =
-                "" + project.project.areaStartingFrom.split(" ")[0]
+                "" + project.investment.areaSqFt
 
             holder.binding.viewDarkBg.setOnClickListener {
                 if (holder.binding.ivCompletedInvestmentDropArrow.visibility == View.VISIBLE) {
