@@ -299,8 +299,8 @@ class ProjectDetailAdapter(
                 "Half Yearly" -> {
                     graphType = "Half Yearly"
                     for(i in 0..data.generalInfoEscalationGraph.dataPoints.points.size-1){
-                        val fmString = data.generalInfoEscalationGraph.dataPoints.points[i].quater.substring(0,2)
-                        val yearString = data.generalInfoEscalationGraph.dataPoints.points[i].year.substring(0,2)
+                        val fmString = data.generalInfoEscalationGraph.dataPoints.points[i].halfYear.substring(0,3)
+                        val yearString = data.generalInfoEscalationGraph.dataPoints.points[i].year.substring(2,4)
                         val str = "$fmString-$yearString"
                         xaxisList.add(str)
                     }
@@ -314,7 +314,7 @@ class ProjectDetailAdapter(
                     graphType = "Quaterly"
                     for(i in 0..data.generalInfoEscalationGraph.dataPoints.points.size-1){
                         val fmString = data.generalInfoEscalationGraph.dataPoints.points[i].quater.substring(0,2)
-                        val yearString = data.generalInfoEscalationGraph.dataPoints.points[i].year.substring(0,2)
+                        val yearString = data.generalInfoEscalationGraph.dataPoints.points[i].year.substring(2,4)
                         val str = "$fmString-$yearString"
                         xaxisList.add(str)
                     }
@@ -327,8 +327,8 @@ class ProjectDetailAdapter(
                 "Monthly" -> {
                     graphType = "Monthly"
                     for(i in 0..data.generalInfoEscalationGraph.dataPoints.points.size-1){
-                        val fmString = data.generalInfoEscalationGraph.dataPoints.points[i].quater.substring(0,3)
-                        val yearString = data.generalInfoEscalationGraph.dataPoints.points[i].year.substring(0,2)
+                        val fmString = data.generalInfoEscalationGraph.dataPoints.points[i].month.substring(0,3)
+                        val yearString = data.generalInfoEscalationGraph.dataPoints.points[i].year.substring(2,4)
                         val str = "$fmString-$yearString"
                         xaxisList.add(str)
                     }
@@ -378,6 +378,7 @@ class ProjectDetailAdapter(
             binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter = Xaxisformatter()
             binding.ivPriceTrendsGraph.xAxis.valueFormatter = Xaxisformatter()
             binding.ivPriceTrendsGraph.data = data
+            binding.ivPriceTrendsGraph.extraBottomOffset
             binding.ivPriceTrendsGraph.animateXY(2000, 2000)
             binding.textView10.visibility = View.GONE
         }
@@ -397,7 +398,7 @@ class ProjectDetailAdapter(
     private fun returnFormattedValue(floatValue:Float):String{
         return when {
             floatValue.toInt() < 10 -> xaxisList[floatValue.toInt()]
-            else -> { "" }
+            else -> { String.format("%.0f", floatValue.toDouble()) }
         }
     }
 
