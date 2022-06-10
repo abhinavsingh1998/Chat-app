@@ -89,7 +89,7 @@ class CompletedInvestmentAdapter(
             holder.binding.tvCompletedInvestmentPrice.text =
                 "₹${Utility.convertToDecimal(project.investment.amountInvested)}"
             holder.binding.tvCompletedInvestmentArea.text =
-                "" + project.investment.areaSqFt
+                Utility.convertTo(project.investment.areaSqFt)
 
             holder.binding.viewDarkBg.setOnClickListener {
                 if (holder.binding.ivCompletedInvestmentDropArrow.visibility == View.VISIBLE) {
