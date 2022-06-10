@@ -2,13 +2,21 @@ package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.view.menu.MenuView
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FaqCategoryLayoutBinding
 import com.emproto.hoabl.databinding.FaqInvestmentFragmentBinding
 import com.emproto.hoabl.model.RecyclerViewFaqItem
+import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.networklayer.response.investment.CgData
+import com.google.android.material.textview.MaterialTextView
 
 class FaqDetailAdapter(
     private val context: Context,
@@ -31,18 +39,13 @@ class FaqDetailAdapter(
         return when(viewType) {
             VIEW_TYPE_ONE -> {
                 TopViewHolder(
-                    FaqInvestmentFragmentBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
+                        LayoutInflater.from(parent.context).inflate(R.layout.faq_investment_fragment,parent,false)
+
                 )
             }
             else -> {
                 CategoryViewHolder(
-                    FaqCategoryLayoutBinding.inflate(
-                        LayoutInflater.from(parent.context), parent, false
-                    )
+                    LayoutInflater.from(parent.context).inflate(R.layout.faq_category_layout,parent,false)
                 )
             }
         }
@@ -65,22 +68,25 @@ class FaqDetailAdapter(
         return list[position].viewType
     }
 
-    private inner class TopViewHolder(private val binding: FaqInvestmentFragmentBinding):RecyclerView.ViewHolder(binding.root){
+    private inner class TopViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
+        val rvPopCategory = itemView.findViewById<RecyclerView>(R.id.rv_pop_category)
         fun bind(position: Int){
             val list = arrayListOf<String>()
             for(item in faqData){
                 list.add(item.name)
             }
             categoryAdapter = PopularCategoryAdapter(context,list,itemClickListener)
-            binding.rvPopCategory.adapter = categoryAdapter
+            rvPopCategory.adapter = categoryAdapter
         }
     }
 
-    private inner class CategoryViewHolder(private val binding: FaqCategoryLayoutBinding):RecyclerView.ViewHolder(binding.root){
+    inner class CategoryViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
+        val tvCategoryTitle = itemView.findViewById<MaterialTextView>(R.id.tv_category_title)
+        val rvFaq = itemView.findViewById<RecyclerView>(R.id.rv_faq)
         fun bind(position: Int,data:CgData){
-            binding.tvCategoryTitle.text = data.name
+            tvCategoryTitle.text = data.name
             faqAdapter = FaqAdapter(data.faqs,context,faqId)
-            binding.rvFaq.adapter = faqAdapter
+            rvFaq.adapter = faqAdapter
         }
     }
 

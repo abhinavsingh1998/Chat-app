@@ -70,6 +70,10 @@ class PortfolioSpecificViewAdapter(
     private lateinit var similarInvestmentsAdapter: SimilarInvestmentAdapter
     private lateinit var onItemClickListener: View.OnClickListener
 
+    //for graph
+    private var graphType = ""
+    private var xaxisList = ArrayList<String>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             PORTFOLIO_TOP_SECTION -> {
@@ -511,11 +515,64 @@ class PortfolioSpecificViewAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             val graphData = list[position].data as GeneralInfoEscalationGraph
+            binding.tvXAxisLabel.text = graphData.yAxisDisplayName
+            binding.tvYAxisLabel.text = graphData.xAxisDisplayName
             val linevalues = ArrayList<Entry>()
 
-            for (item in graphData.dataPoints.points) {
-                linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
+            when(graphData.dataPoints.dataPointType){
+                "Yearly" -> {
+                    graphType = "Yearly"
+                    for(item in graphData.dataPoints.points){
+                        linevalues.add(Entry(item.year.toFloat(),item.value.toFloat()))
+                    }
+                }
+                "Half Yearly" -> {
+                    graphType = "Half Yearly"
+                    for(i in 0..graphData.dataPoints.points.size-1){
+                        val fmString = graphData.dataPoints.points[i].halfYear.substring(0,3)
+                        val yearString = graphData.dataPoints.points[i].year.substring(2,4)
+                        val str = "$fmString-$yearString"
+                        xaxisList.add(str)
+                    }
+                    var index = 0
+                    for(item in graphData.dataPoints.points){
+                        linevalues.add(Entry(index.toFloat(),item.value.toFloat()))
+                        index++
+                    }
+                }
+                "Quaterly" -> {
+                    graphType = "Quaterly"
+                    for(i in 0..graphData.dataPoints.points.size-1){
+                        val fmString = graphData.dataPoints.points[i].quater.substring(0,2)
+                        val yearString = graphData.dataPoints.points[i].year.substring(2,4)
+                        val str = "$fmString-$yearString"
+                        xaxisList.add(str)
+                    }
+                    var index = 0
+                    for(item in graphData.dataPoints.points){
+                        linevalues.add(Entry(index.toFloat(),item.value.toFloat()))
+                        index++
+                    }
+                }
+                "Monthly" -> {
+                    graphType = "Monthly"
+                    for(i in 0..graphData.dataPoints.points.size-1){
+                        val fmString = graphData.dataPoints.points[i].month.substring(0,3)
+                        val yearString = graphData.dataPoints.points[i].year.substring(2,4)
+                        val str = "$fmString-$yearString"
+                        xaxisList.add(str)
+                    }
+                    var index = 0
+                    for(item in graphData.dataPoints.points){
+                        linevalues.add(Entry(index.toFloat(),item.value.toFloat()))
+                        index++
+                    }
+                }
             }
+
+//            for (item in graphData.dataPoints.points) {
+//                linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
+//            }
             val linedataset = LineDataSet(linevalues, "")
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -604,18 +661,21 @@ class PortfolioSpecificViewAdapter(
         }
     }
 
-    inner class Xaxisformatter : IValueFormatter, IAxisValueFormatter {
-        override fun getFormattedValue(
-            p0: Float,
-            p1: Entry?,
-            p2: Int,
-            p3: ViewPortHandler?
-        ): String {
-            return p0.toString().replace(",.", "")
-        }
-
+    inner class Xaxisformatter :  IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
-            return String.format("%.0f", p0.toDouble())
+            return when(graphType){
+                "Quaterly" -> returnFormattedValue(p0)
+                "Monthly" -> returnFormattedValue(p0)
+                "Half Yearly" -> returnFormattedValue(p0)
+                else -> { String.format("%.0f", p0.toDouble()) }
+            }
+        }
+    }
+
+    private fun returnFormattedValue(floatValue:Float):String{
+        return when {
+            floatValue.toInt() < 10 -> xaxisList[floatValue.toInt()]
+            else -> { String.format("%.0f", floatValue.toDouble()) }
         }
     }
 
