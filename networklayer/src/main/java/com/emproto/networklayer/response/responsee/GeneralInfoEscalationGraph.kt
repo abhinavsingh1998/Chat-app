@@ -2,7 +2,7 @@ package com.emproto.networklayer.response.responsee
 
 data class GeneralInfoEscalationGraph(
     val dataPoints: DataPoints,
-    val estimatedAppreciation: Int,
+    val estimatedAppreciation: Double,
     val xAxisDisplayName: String,
     val yAxisDisplayName: String
 )

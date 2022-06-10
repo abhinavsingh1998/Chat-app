@@ -42,7 +42,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class BookingjourneyFragment : BaseFragment() {
 
-    private var param1: String? = null
+    private var param1: Int = 0
     private var param2: String? = null
     lateinit var mBinding: FragmentBookingjourneyBinding
 
@@ -57,7 +57,7 @@ class BookingjourneyFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
+            param1 = it.getInt(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
     }
@@ -75,7 +75,7 @@ class BookingjourneyFragment : BaseFragment() {
         (requireActivity() as HomeActivity).showBackArrow()
         (requireActivity() as HomeActivity).hideBottomNavigation()
         initView()
-        getBookingJourneyData()
+        getBookingJourneyData(param1)
         return mBinding.root
     }
 
@@ -86,13 +86,13 @@ class BookingjourneyFragment : BaseFragment() {
                 isReadPermissonGranted =
                     permissions[Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissonGranted
                 if (isReadPermissonGranted) {
-                    openPdf("")
+                    //openPdf("")
                 }
             }
     }
 
-    private fun getBookingJourneyData() {
-        portfolioviewmodel.getBookingJourney(23)
+    private fun getBookingJourneyData(investedId: Int) {
+        portfolioviewmodel.getBookingJourney(investedId)
             .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                 when (it.status) {
                     Status.LOADING -> {
@@ -103,7 +103,10 @@ class BookingjourneyFragment : BaseFragment() {
                         loadBookingJourneyData(it.data!!.data.bookingJourney)
                     }
                     Status.ERROR -> {
-
+                        mBinding.loader.hide()
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            it.message!!
+                        )
                     }
                 }
             })
@@ -129,9 +132,25 @@ class BookingjourneyFragment : BaseFragment() {
                     }
 
                     override fun viewDetails(position: Int, data: String) {
-                        //get write permisson
-                        requestPermisson()
-                        //openPdf("")
+//                        //get write permisson
+//                        requestPermisson()
+//                        //openPdf("")
+                        portfolioviewmodel.downloadDocument("quote/_5C68B3B4FBE34AB19B76B06390E281E9/ACE Check-Personal Information/hoabl.pdf")
+                            .observe(viewLifecycleOwner,
+                                androidx.lifecycle.Observer {
+                                    when (it.status) {
+                                        Status.LOADING -> {
+                                            mBinding.loader.show()
+                                        }
+                                        Status.SUCCESS -> {
+                                            mBinding.loader.hide()
+                                            requestPermisson(it.data!!.data)
+                                        }
+                                        Status.ERROR -> {
+
+                                        }
+                                    }
+                                })
                     }
 
                 })
@@ -147,16 +166,16 @@ class BookingjourneyFragment : BaseFragment() {
          * @return A new instance of fragment Bookingjourney.
          */
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(param1: Int, param2: String) =
             BookingjourneyFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
+                    putInt(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
             }
     }
 
-    private fun requestPermisson() {
+    private fun requestPermisson(base64: String) {
         isReadPermissonGranted = ContextCompat.checkSelfPermission(
             requireContext(),
             Manifest.permission.READ_EXTERNAL_STORAGE
@@ -166,7 +185,7 @@ class BookingjourneyFragment : BaseFragment() {
             permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
             permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         } else {
-            openPdf("")
+            openPdf(base64)
         }
         if (permissionRequest.isNotEmpty()) {
             permissionLauncher.launch(permissionRequest.toTypedArray())
@@ -175,7 +194,7 @@ class BookingjourneyFragment : BaseFragment() {
     }
 
     private fun openPdf(stringBase64: String) {
-        val file = Utility.writeResponseBodyToDisk("")
+        val file = Utility.writeResponseBodyToDisk(stringBase64)
         val path = FileProvider.getUriForFile(
             requireContext(),
             requireContext().applicationContext.packageName + ".provider",
