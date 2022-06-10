@@ -132,9 +132,6 @@ class BookingjourneyFragment : BaseFragment() {
                     }
 
                     override fun viewDetails(position: Int, data: String) {
-//                        //get write permisson
-//                        requestPermisson()
-//                        //openPdf("")
                         portfolioviewmodel.downloadDocument("quote/_5C68B3B4FBE34AB19B76B06390E281E9/ACE Check-Personal Information/hoabl.pdf")
                             .observe(viewLifecycleOwner,
                                 androidx.lifecycle.Observer {

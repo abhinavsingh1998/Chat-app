@@ -190,6 +190,10 @@
         <entry key="app/portfolioui/src/main/res/drawable/ic_steps_four.xml" value="0.2552083333333333" />
         <entry key="app/portfolioui/src/main/res/layout/dailog_lock_permisson.xml" value="0.335" />
         <entry key="app/portfolioui/src/main/res/layout/fragment_project_timeline.xml" value="0.2328125" />
+        <entry key="app/portfolioui/src/main/res/layout/item_bokingjour.xml" value="0.45" />
+        <entry key="app/portfolioui/src/main/res/layout/item_booking_journey.xml" value="0.45" />
+        <entry key="app/portfolioui/src/main/res/layout/item_booking_journey_ownership.xml" value="0.375" />
+        <entry key="app/portfolioui/src/main/res/layout/item_facility.xml" value="0.375" />
         <entry key="app/portfolioui/src/main/res/layout/item_latest_images_videos.xml" value="0.19270833333333334" />
         <entry key="app/portfolioui/src/main/res/layout/item_timeline_data.xml" value="0.625" />
         <entry key="app/portfolioui/src/main/res/layout/item_timeline_inprogress.xml" value="0.5" />
@@ -217,7 +221,7 @@
         <entry key="app/src/main/res/layout/fragment_financial_summary.xml" value="0.19635416666666666" />
         <entry key="app/src/main/res/layout/fragment_fm.xml" value="0.17119565217391305" />
         <entry key="app/src/main/res/layout/fragment_hoabel_promises.xml" value="0.2269021739130435" />
-        <entry key="app/src/main/res/layout/fragment_portfolio.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/fragment_portfolio.xml" value="0.3055555555555556" />
         <entry key="app/src/main/res/layout/fragment_portfolio_new_user.xml" value="0.20416666666666666" />
         <entry key="app/src/main/res/layout/fragment_profile_main.xml" value="0.45" />
         <entry key="app/src/main/res/layout/item_completed_investments.xml" value="0.375" />
@@ -225,7 +229,7 @@
         <entry key="app/src/main/res/layout/item_hoabl_promises.xml" value="0.375" />
         <entry key="app/src/main/res/layout/item_latest_images_videos.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/item_promises.xml" value="0.2265625" />
-        <entry key="app/src/main/res/layout/item_smart_deals.xml" value="0.2346014492753623" />
+        <entry key="app/src/main/res/layout/item_smart_deals.xml" value="0.45" />
         <entry key="app/src/main/res/layout/latest_images_videos_layout.xml" value="0.6456692913385826" />
         <entry key="app/src/main/res/layout/new_investment_top_layout.xml" value="0.22760416666666666" />
         <entry key="app/src/main/res/layout/ongoing_investments_layout.xml" value="0.335" />
