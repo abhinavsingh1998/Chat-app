@@ -165,4 +165,7 @@ public interface ApiService {
 
     @GET(ApiConstants.BOOKING_JOURNEY)
     suspend fun getBookingJourney(@Query("investmentId") investmentId: Int): Response<BookingJourneyResponse>
+
+    @GET(ApiConstants.ACCOUNTS_LIST)
+    suspend fun getAccountsList(): Response<AccountsResponse>
 }

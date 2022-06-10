@@ -46,4 +46,6 @@ object ApiConstants {
     const val CHATS_LIST = "hoabl-customer/chats"
     const val CHATS_INITIATE = "hoabl-customer/chat/initiate"
     const val PROJECT_MEDIA_GALLERIES = "hoabl-admin/project-contents/{projectContentId}/media-galleries"
+    const val ACCOUNTS_LIST = "hoabl-customer/profile/account"
+
 }

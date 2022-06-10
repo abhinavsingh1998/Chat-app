@@ -19,6 +19,7 @@ import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
+import com.emproto.networklayer.response.profile.AccountsResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
@@ -376,6 +377,36 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         }
         return mChatDetailResponse
     }
+
+    fun getAccountsList(): LiveData<BaseResponse<AccountsResponse>> {
+        val mAccountsResponse = MutableLiveData<BaseResponse<AccountsResponse>>()
+        mAccountsResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = HomeDataSource(application).getAccountsList()
+                if (request.isSuccessful) {
+                    if (request.body() != null && request.body() is AccountsResponse) {
+                        mAccountsResponse.postValue(BaseResponse.success(request.body()!!))
+
+                    } else
+                        mAccountsResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mAccountsResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+
+                mAccountsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mAccountsResponse
+    }
+
 
 
 }

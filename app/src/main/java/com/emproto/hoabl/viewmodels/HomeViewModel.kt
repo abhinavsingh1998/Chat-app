@@ -21,6 +21,7 @@ import com.emproto.networklayer.response.marketingUpdates.Data
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.home.PageManagementOrLatestUpdate
+import com.emproto.networklayer.response.profile.AccountsResponse
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
@@ -165,6 +166,9 @@ class HomeViewModel(
 
     fun chatInitiate(chatInitiateRequest: ChatInitiateRequest): LiveData<BaseResponse<ChatDetailResponse>> {
         return homeRepository.chatInitiate(chatInitiateRequest)
+    }
+    fun getAccountsList(): LiveData<BaseResponse<AccountsResponse>> {
+        return homeRepository.getAccountsList()
     }
 
     fun getReferNow(referalRequest: ReferalRequest): LiveData<BaseResponse<ReferalResponse>> {
