@@ -1,6 +1,7 @@
 package com.emproto.hoabl.repository
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
@@ -155,10 +156,8 @@ class ProfileRepository @Inject constructor(application: Application) :
             try {
                 val request = ProfileDataSource(application).getUserProfile()
                 if (request.isSuccessful) {
-                    if (request.body()!!.data != null)
-                        mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
-                    else
-                        mDocumentsResponse.postValue(BaseResponse.Companion.error("No data found"))
+                    Log.i("Request",request.message())
+                    mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
                 } else {
                     mDocumentsResponse.postValue(
                         BaseResponse.Companion.error(
