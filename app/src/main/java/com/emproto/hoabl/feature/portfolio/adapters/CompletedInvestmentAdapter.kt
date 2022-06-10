@@ -23,8 +23,6 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
-import com.github.mikephil.charting.formatter.IValueFormatter
-import com.github.mikephil.charting.utils.ViewPortHandler
 
 class CompletedInvestmentAdapter(
     val context: Context,
@@ -73,7 +71,8 @@ class CompletedInvestmentAdapter(
             onCLickInterface.manageProject(
                 project.investment.id,
                 project.project.id,
-                projectExtraDetails
+                projectExtraDetails,
+                project.investment.projectIea
             )
         }
         if (project.project != null) {
@@ -107,15 +106,11 @@ class CompletedInvestmentAdapter(
             holder.binding.tvInventoryId.text = "Hoabl/${project.investment.inventoryId}"
             holder.binding.tvEstimatedAppreciationRating.text =
                 "" + project.project.generalInfoEscalationGraph.estimatedAppreciation + "%"
-            if (type == COMPLETED) {
-                holder.binding.cvInvesterAppreciation.visibility = View.VISIBLE
-            } else {
-                holder.binding.cvInvesterAppreciation.visibility = View.GONE
-            }
 
             setFirstGraph(
                 holder.binding.ivCompletedInvestmentGraphImage,
-                project.project.generalInfoEscalationGraph.dataPoints.points
+                project.project.generalInfoEscalationGraph.dataPoints.points,
+                project.project.generalInfoEscalationGraph.dataPoints.dataPointType
             )
             //setting chart data
             setDropDownGraph(
@@ -125,11 +120,19 @@ class CompletedInvestmentAdapter(
             )
 
             if (type == ONGOING) {
+                holder.binding.cvInvesterAppreciation.visibility = View.GONE
                 holder.binding.tvCompletedInvestmentRatingUnit.text = "Actions"
                 holder.binding.tvCompletedInvestmentRating.text =
                     "" + project.investment.actionItemCount
                 holder.binding.tvCompletedInvestmentRating.setTextColor(context.getColor(R.color.text_red_color))
                 holder.binding.tvCompletedInvestmentRatingUnit.setTextColor(context.getColor(R.color.text_red_color))
+            } else {
+                holder.binding.tvCompletedInvestmentRating.text =
+                    "${project.investment.projectIea}% "
+                holder.binding.cvInvesterAppreciation.visibility = View.VISIBLE
+                holder.binding.tvInvestorAppreciationRating.text =
+                    "${project.investment.projectIea}% "
+
             }
 
         }
@@ -146,52 +149,52 @@ class CompletedInvestmentAdapter(
 //        for (item in points) {
 //            linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
 //        }
-        when(dataPointType){
+        when (dataPointType) {
             "Yearly" -> {
                 graphType = "Yearly"
-                for(item in points){
-                    linevalues.add(Entry(item.year.toFloat(),item.value.toFloat()))
+                for (item in points) {
+                    linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
                 }
             }
             "Half Yearly" -> {
                 graphType = "Half Yearly"
-                for(i in 0..points.size-1){
-                    val fmString = points[i].halfYear.substring(0,3)
-                    val yearString = points[i].year.substring(2,4)
+                for (i in 0..points.size - 1) {
+                    val fmString = points[i].halfYear.substring(0, 3)
+                    val yearString = points[i].year.substring(2, 4)
                     val str = "$fmString-$yearString"
                     xaxisList.add(str)
                 }
                 var index = 0
-                for(item in points){
-                    linevalues.add(Entry(index.toFloat(),item.value.toFloat()))
+                for (item in points) {
+                    linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
                     index++
                 }
             }
             "Quaterly" -> {
                 graphType = "Quaterly"
-                for(i in 0..points.size-1){
-                    val fmString = points[i].quater.substring(0,2)
-                    val yearString = points[i].year.substring(2,4)
+                for (i in 0..points.size - 1) {
+                    val fmString = points[i].quater.substring(0, 2)
+                    val yearString = points[i].year.substring(2, 4)
                     val str = "$fmString-$yearString"
                     xaxisList.add(str)
                 }
                 var index = 0
-                for(item in points){
-                    linevalues.add(Entry(index.toFloat(),item.value.toFloat()))
+                for (item in points) {
+                    linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
                     index++
                 }
             }
             "Monthly" -> {
                 graphType = "Monthly"
-                for(i in 0..points.size-1){
-                    val fmString = points[i].month.substring(0,3)
-                    val yearString = points[i].year.substring(2,4)
+                for (i in 0..points.size - 1) {
+                    val fmString = points[i].month.substring(0, 3)
+                    val yearString = points[i].year.substring(2, 4)
                     val str = "$fmString-$yearString"
                     xaxisList.add(str)
                 }
                 var index = 0
-                for(item in points){
-                    linevalues.add(Entry(index.toFloat(),item.value.toFloat()))
+                for (item in points) {
+                    linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
                     index++
                 }
             }
@@ -256,11 +259,66 @@ class CompletedInvestmentAdapter(
         ivCompletedInvestmentGraph.animateXY(2000, 2000)
     }
 
-    private fun setFirstGraph(ivCompletedInvestmentGraphImage: LineChart, points: List<Point>) {
+    private fun setFirstGraph(
+        ivCompletedInvestmentGraphImage: LineChart,
+        points: List<Point>,
+        dataPointType: String
+    ) {
         val linevalues = ArrayList<Entry>()
-        for (item in points) {
-            linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
+//        for (item in points) {
+//            linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
+//        }
+        when (dataPointType) {
+            "Yearly" -> {
+                graphType = "Yearly"
+                for (item in points) {
+                    linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
+                }
+            }
+            "Half Yearly" -> {
+                graphType = "Half Yearly"
+                for (i in 0..points.size - 1) {
+                    val fmString = points[i].halfYear.substring(0, 3)
+                    val yearString = points[i].year.substring(2, 4)
+                    val str = "$fmString-$yearString"
+                    xaxisList.add(str)
+                }
+                var index = 0
+                for (item in points) {
+                    linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
+                    index++
+                }
+            }
+            "Quaterly" -> {
+                graphType = "Quaterly"
+                for (i in 0..points.size - 1) {
+                    val fmString = points[i].quater.substring(0, 2)
+                    val yearString = points[i].year.substring(2, 4)
+                    val str = "$fmString-$yearString"
+                    xaxisList.add(str)
+                }
+                var index = 0
+                for (item in points) {
+                    linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
+                    index++
+                }
+            }
+            "Monthly" -> {
+                graphType = "Monthly"
+                for (i in 0..points.size - 1) {
+                    val fmString = points[i].month.substring(0, 3)
+                    val yearString = points[i].year.substring(2, 4)
+                    val str = "$fmString-$yearString"
+                    xaxisList.add(str)
+                }
+                var index = 0
+                for (item in points) {
+                    linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
+                    index++
+                }
+            }
         }
+
         val linedataset = LineDataSet(linevalues, "First")
         //We add features to our chart
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -297,21 +355,25 @@ class CompletedInvestmentAdapter(
 
     }
 
-    inner class Xaxisformatter :  IAxisValueFormatter {
+    inner class Xaxisformatter : IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
-            return when(graphType){
+            return when (graphType) {
                 "Quaterly" -> returnFormattedValue(p0)
                 "Monthly" -> returnFormattedValue(p0)
                 "Half Yearly" -> returnFormattedValue(p0)
-                else -> { String.format("%.0f", p0.toDouble()) }
+                else -> {
+                    String.format("%.0f", p0.toDouble())
+                }
             }
         }
     }
 
-    private fun returnFormattedValue(floatValue:Float):String{
+    private fun returnFormattedValue(floatValue: Float): String {
         return when {
             floatValue.toInt() < 10 -> xaxisList[floatValue.toInt()]
-            else -> { String.format("%.0f", floatValue.toDouble()) }
+            else -> {
+                String.format("%.0f", floatValue.toDouble())
+            }
         }
     }
 

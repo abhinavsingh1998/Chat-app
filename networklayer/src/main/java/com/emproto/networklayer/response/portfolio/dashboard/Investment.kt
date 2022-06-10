@@ -10,6 +10,7 @@ data class Investment(
     val actionItemCount: Int,
     val inventoryId: String,
     val areaSqFt: Double,
-    val amountInvested: Double
+    val amountInvested: Double,
+    val projectIea: String
 
 )

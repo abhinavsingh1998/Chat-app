@@ -14,6 +14,7 @@ import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
 import com.emproto.networklayer.response.portfolio.dashboard.Completed
 import com.emproto.networklayer.response.portfolio.dashboard.Ongoing
 import com.emproto.networklayer.response.portfolio.dashboard.Project
+import com.emproto.networklayer.response.portfolio.dashboard.Summary
 import com.emproto.networklayer.response.watchlist.Data
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
 import com.skydoves.balloon.Balloon
@@ -204,12 +205,13 @@ class ExistingUsersPortfolioAdapter(
             binding.ivAmountPending.visibility = View.GONE
             //getting data
             if (list[position].data != null) {
-                val completed = list[position].data as Completed
+                val summary = list[position].data as Summary
+                val completed = summary.completed
                 binding.contentTxt1.text = "" + completed.count
                 binding.contentTxt2.text = "" + completed.areaSqFt
                 binding.contentTxt3.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
                     .format(completed.amountInvested)
-                binding.contentTxt4.text = "+4% IEA"
+                binding.contentTxt4.text = "${summary.iea}% IEA"
             }
 
             val balloon = createBalloon(context) {
@@ -349,7 +351,13 @@ class ExistingUsersPortfolioAdapter(
     }
 
     interface ExistingUserInterface {
-        fun manageProject(crmId: Int, projectId: Int, otherDetails: ProjectExtraDetails)
+        fun manageProject(
+            crmId: Int,
+            projectId: Int,
+            otherDetails: ProjectExtraDetails,
+            iea: String?
+        )
+
         fun referNow()
         fun seeAllWatchlist()
         fun investNow()
