@@ -7,4 +7,4 @@ data class GeneralInfoEscalationGraph(
     val estimatedAppreciation: Double,
     val xAxisDisplayName: String,
     val yAxisDisplayName: String
-):Serializable
+) : Serializable

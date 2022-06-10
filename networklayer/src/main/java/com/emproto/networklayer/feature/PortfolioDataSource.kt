@@ -22,7 +22,7 @@ import javax.inject.Named
  * All the api in portfolio modules
  * @property application
  */
-class PortfolioDataSource(val application: Application):BaseDataSource(application) {
+class PortfolioDataSource(val application: Application) : BaseDataSource(application) {
 
     @Inject
     lateinit var apiService: ApiService
@@ -64,12 +64,12 @@ class PortfolioDataSource(val application: Application):BaseDataSource(applicati
     }
 
     //get facility managment
-    suspend fun getFacilityManagment():Response<FMResponse>{
+    suspend fun getFacilityManagment(): Response<FMResponse> {
         return apiService.getFacilityManagment()
     }
 
-    suspend fun getBookingJourney(investedId:Int):Response<BookingJourneyResponse>{
-        return apiService.getBookingJourney(23)
+    suspend fun getBookingJourney(investedId: Int): Response<BookingJourneyResponse> {
+        return apiService.getBookingJourney(investedId)
     }
 
 

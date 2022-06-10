@@ -46,7 +46,7 @@ class OTPVerificationFragment : BaseFragment() {
 
     private lateinit var mBinding: FragmentVerifyOtpBinding
     lateinit var smsBroadcastReceiver: SmsBroadcastReceiver
-    var counter= 30000L
+    var counter = 30000L
     lateinit var countDownTimer: CountDownTimer
 
     /// lateinit var dialog: Dialog
@@ -64,12 +64,17 @@ class OTPVerificationFragment : BaseFragment() {
     lateinit var appPreference: AppPreference
     lateinit var bottomSheetDialog: BottomSheetDialog
 
-    var attempts_num= 0
-    val Invalid_otp = "You have incorrectly typed the OTP 5 times. Please retry again after an hour."
-    val fisrt_attempt= "You have incorrectly typed the OTP 1 time. Click on Resend OTP to receive OTP again"
-    val second_attempt= "You have incorrectly typed the OTP 2 times. Click on Resend OTP to receive OTP again"
-    val third_attempt= "You have incorrectly typed the OTP 3 times. Click on Resend OTP to receive OTP again"
-    val fourth_attempt= "You have incorrectly typed the OTP 4 times. Click on Resend OTP to receive OTP again"
+    var attempts_num = 0
+    val Invalid_otp =
+        "You have incorrectly typed the OTP 5 times. Please retry again after an hour."
+    val fisrt_attempt =
+        "You have incorrectly typed the OTP 1 time. Click on Resend OTP to receive OTP again"
+    val second_attempt =
+        "You have incorrectly typed the OTP 2 times. Click on Resend OTP to receive OTP again"
+    val third_attempt =
+        "You have incorrectly typed the OTP 3 times. Click on Resend OTP to receive OTP again"
+    val fourth_attempt =
+        "You have incorrectly typed the OTP 4 times. Click on Resend OTP to receive OTP again"
 
 
     companion object {
@@ -77,14 +82,18 @@ class OTPVerificationFragment : BaseFragment() {
         const val REQ_USER_CONSENT = 100
         var mobileno: String = ""
         var countryCode: String = ""
-        var hint_txt:String=""
+        var hint_txt: String = ""
 
-        fun newInstance(mobileNumber: String, cCode: String, hintText:String): OTPVerificationFragment {
+        fun newInstance(
+            mobileNumber: String,
+            cCode: String,
+            hintText: String
+        ): OTPVerificationFragment {
             val fragment = OTPVerificationFragment()
             val bundle = Bundle()
             mobileno = bundle.getString("mobilenumber", mobileNumber)
             countryCode = bundle.getString("countrycode", cCode)
-            hint_txt = bundle.getString("hint_txt", hintText )
+            hint_txt = bundle.getString("hint_txt", hintText)
             fragment.arguments = bundle
             return fragment
         }
@@ -98,7 +107,7 @@ class OTPVerificationFragment : BaseFragment() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         authViewModel = ViewModelProvider(requireActivity(), authFactory)[AuthViewmodel::class.java]
         mBinding = FragmentVerifyOtpBinding.inflate(layoutInflater)
-        authActivity= AuthActivity()
+        authActivity = AuthActivity()
         initView()
         initClickListener()
         otpTimerCount()
@@ -144,7 +153,13 @@ class OTPVerificationFragment : BaseFragment() {
                     if (isNetworkAvailable(mBinding.root)) {
                         hideSoftKeyboard()
                         val otpVerifyRequest =
-                            OtpVerifyRequest(s.toString(), mobileno, false, "+91")
+                            OtpVerifyRequest(
+                                s.toString(),
+                                mobileno,
+                                false,
+                                "+91",
+                                appPreference.getNotificationToken()
+                            )
 
                         authViewModel.verifyOtp(otpVerifyRequest).observe(viewLifecycleOwner,
                             Observer {
@@ -156,21 +171,37 @@ class OTPVerificationFragment : BaseFragment() {
                                         mBinding.loader.visibility = View.GONE
                                         if (it.message.toString().equals(fisrt_attempt)) {
                                             mBinding.loginEdittext.setHint("Enter OTP (4 attempts left)")
-                                            mBinding.tryAgainTxt.isVisible=false
-                                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
-                                        }else if(it.message.toString().equals(second_attempt)) {
+                                            mBinding.tryAgainTxt.isVisible = false
+                                            Toast.makeText(
+                                                requireContext(),
+                                                it.message,
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        } else if (it.message.toString().equals(second_attempt)) {
                                             mBinding.loginEdittext.setHint("Enter OTP (3 attempts left)")
-                                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
-                                            mBinding.tryAgainTxt.isVisible=false
-                                        }else if(it.message.toString().equals(third_attempt)) {
+                                            Toast.makeText(
+                                                requireContext(),
+                                                it.message,
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                            mBinding.tryAgainTxt.isVisible = false
+                                        } else if (it.message.toString().equals(third_attempt)) {
                                             mBinding.loginEdittext.setHint("Enter OTP (2 attempts left)")
-                                            mBinding.tryAgainTxt.isVisible=false
-                                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
-                                        }else if(it.message.toString().equals(fourth_attempt)) {
+                                            mBinding.tryAgainTxt.isVisible = false
+                                            Toast.makeText(
+                                                requireContext(),
+                                                it.message,
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        } else if (it.message.toString().equals(fourth_attempt)) {
                                             mBinding.loginEdittext.setHint("Enter OTP (1 attempts left)")
-                                            mBinding.tryAgainTxt.isVisible=false
-                                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
-                                        } else if(it.message.toString().equals(Invalid_otp)){
+                                            mBinding.tryAgainTxt.isVisible = false
+                                            Toast.makeText(
+                                                requireContext(),
+                                                it.message,
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        } else if (it.message.toString().equals(Invalid_otp)) {
                                             mBinding.loginEdittext.setHint("Enter OTP (0 attempts left)")
                                             block_for_one_hour(it.message.toString())
                                         }
@@ -217,7 +248,7 @@ class OTPVerificationFragment : BaseFragment() {
 
     }
 
-    private fun resentOtp(){
+    private fun resentOtp() {
         mBinding.resentOtp.setOnClickListener(View.OnClickListener {
             val otpRequest = OtpRequest(mobileno, "+91", "IN")
             authViewModel.getOtp(otpRequest).observe(viewLifecycleOwner, Observer {
@@ -245,6 +276,7 @@ class OTPVerificationFragment : BaseFragment() {
         })
 
     }
+
     private fun startSMSRetrieverClient() {
         val client = SmsRetriever.getClient(requireActivity())
         val task: Task<Void> = client.startSmsRetriever()
@@ -272,7 +304,7 @@ class OTPVerificationFragment : BaseFragment() {
         }.start()
     }*/
 
-    private fun edit_number(){
+    private fun edit_number() {
         mBinding.etEdit.setOnClickListener(View.OnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         })
@@ -337,6 +369,7 @@ class OTPVerificationFragment : BaseFragment() {
                     override fun onSuccess(intent: Intent?) {
                         intent?.let { context -> startActivityForResult(context, REQ_USER_CONSENT) }
                     }
+
                     override fun onFailure() {
                     }
                 }
@@ -350,56 +383,58 @@ class OTPVerificationFragment : BaseFragment() {
         return Regex("(\\d{6})").find(message)?.value ?: ""
     }
 
-    private fun otpTimerCount(){
-        mBinding.resentOtp.isVisible= true
-        countDownTimer= object: CountDownTimer((counter).toLong(), 1000){
-           @SuppressLint("SetTextI18n")
-           override fun onTick(millisUntilFinished: Long) {
-               when(millisUntilFinished/1000){
-                   0L ->{
-                       mBinding.resentOtp.isVisible= true
-                       mBinding.timerTxt.isVisible= false
-                       mBinding.tryAgainTxt.isVisible= false
-                   }
-                   else -> {
+    private fun otpTimerCount() {
+        mBinding.resentOtp.isVisible = true
+        countDownTimer = object : CountDownTimer((counter).toLong(), 1000) {
+            @SuppressLint("SetTextI18n")
+            override fun onTick(millisUntilFinished: Long) {
+                when (millisUntilFinished / 1000) {
+                    0L -> {
+                        mBinding.resentOtp.isVisible = true
+                        mBinding.timerTxt.isVisible = false
+                        mBinding.tryAgainTxt.isVisible = false
+                    }
+                    else -> {
 
-                       mBinding.resentOtp.isVisible= false
-                       mBinding.timerTxt.visibility= View.VISIBLE
-                       if((millisUntilFinished/1000)%60 <10){
-                           mBinding.timerTxt.text= "Resend OTP in " + "0" +  (millisUntilFinished/1000)/60+ ":" + "0"+(millisUntilFinished/1000)%60 + " sec"
+                        mBinding.resentOtp.isVisible = false
+                        mBinding.timerTxt.visibility = View.VISIBLE
+                        if ((millisUntilFinished / 1000) % 60 < 10) {
+                            mBinding.timerTxt.text =
+                                "Resend OTP in " + "0" + (millisUntilFinished / 1000) / 60 + ":" + "0" + (millisUntilFinished / 1000) % 60 + " sec"
 
-                       } else{
-                           mBinding.timerTxt.text= "Resend OTP in " + "0" +  (millisUntilFinished/1000)/60+ ":" +(millisUntilFinished/1000)%60 + " sec"
-                       }
-                   }
-               }
-           }
+                        } else {
+                            mBinding.timerTxt.text =
+                                "Resend OTP in " + "0" + (millisUntilFinished / 1000) / 60 + ":" + (millisUntilFinished / 1000) % 60 + " sec"
+                        }
+                    }
+                }
+            }
 
-           override fun onFinish() {
-             mBinding.resentOtp.isVisible= true
-               mBinding.timerTxt.isVisible= false
-               mBinding.tryAgainTxt.isVisible=true
-           }
+            override fun onFinish() {
+                mBinding.resentOtp.isVisible = true
+                mBinding.timerTxt.isVisible = false
+                mBinding.tryAgainTxt.isVisible = true
+            }
 
-       }.start()
-        counter+=15000
+        }.start()
+        counter += 15000
     }
 
     @SuppressLint("ResourceType")
     @RequiresApi(Build.VERSION_CODES.M)
-    private fun block_for_one_hour(msg:String){
-        mBinding.resentOtp.isEnabled= false
-        mBinding.resentOtp.isClickable= false
+    private fun block_for_one_hour(msg: String) {
+        mBinding.resentOtp.isEnabled = false
+        mBinding.resentOtp.isClickable = false
 
         mBinding.resentOtp.setTextAppearance(R.font.jost_regular)
         mBinding.resentOtp.setTextColor(resources.getColor(R.color.completed_investment_ash_text_color))
-        mBinding.etOtp.isFocusable= false
+        mBinding.etOtp.isFocusable = false
         mBinding.etOtp.setTextColor(resources.getColor(R.color.completed_investment_ash_text_color))
-        mBinding.etOtp.isEnabled= false
+        mBinding.etOtp.isEnabled = false
         Toast.makeText(requireContext(), "Invalid otp", Toast.LENGTH_LONG).show()
-        mBinding.timerTxt.isVisible=false
-        mBinding.tryAgainTxt.isVisible= true
-        mBinding.tryAgainTxt.text= msg
+        mBinding.timerTxt.isVisible = false
+        mBinding.tryAgainTxt.isVisible = true
+        mBinding.tryAgainTxt.text = msg
         countDownTimer.cancel()
 
     }

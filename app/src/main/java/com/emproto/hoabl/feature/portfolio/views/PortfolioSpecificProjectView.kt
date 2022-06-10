@@ -39,6 +39,7 @@ import com.emproto.hoabl.feature.investment.views.mediagallery.MediaGalleryFragm
 import com.emproto.hoabl.feature.investment.views.mediagallery.MediaViewFragment
 import com.emproto.hoabl.feature.portfolio.adapters.DocumentInterface
 import com.emproto.hoabl.model.MediaViewItem
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
@@ -65,10 +66,13 @@ class PortfolioSpecificProjectView : BaseFragment() {
     lateinit var investmentViewModel: InvestmentViewModel
 
     val list = ArrayList<RecyclerViewItem>()
-    lateinit var fmData: FMResponse
+    var fmData: FMResponse? = null
     var crmId: Int = 0
     var projectId: Int = 0
     var allMediaList = ArrayList<MediaViewItem>()
+
+    @Inject
+    lateinit var appPreference: AppPreference
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -199,7 +203,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
             )
         )
         list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_PENDINGCARD))
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_FACILITY_CARD))
+        if (appPreference.isFacilityCard())
+            list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_FACILITY_CARD))
         if (it.data.documentList != null) {
             list.add(
                 RecyclerViewItem(
@@ -250,12 +255,19 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 object :
                     PortfolioSpecificViewAdapter.InvestmentScreenInterface {
                     override fun onClickFacilityCard() {
-                        (requireActivity() as HomeActivity).addFragment(
-                            FmFragment.newInstance(
-                                fmData.data.web_url,
-                                ""
-                            ), false
-                        )
+                        if (fmData != null) {
+                            (requireActivity() as HomeActivity).addFragment(
+                                FmFragment.newInstance(
+                                    fmData!!.data.web_url,
+                                    ""
+                                ), false
+                            )
+
+                        } else {
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                "Something Went Wrong"
+                            )
+                        }
                     }
 
                     override fun seeAllCard() {
@@ -271,10 +283,10 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         )
                     }
 
-                    override fun seeBookingJourney() {
+                    override fun seeBookingJourney(id: Int) {
                         (requireActivity() as HomeActivity).addFragment(
                             BookingjourneyFragment.newInstance(
-                                "",
+                                id,
                                 ""
                             ), false
                         )
@@ -380,7 +392,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         startActivity(mapIntent)
                     }
 
-                    override fun onClickImage(mediaViewItem: MediaViewItem,position: Int) {
+                    override fun onClickImage(mediaViewItem: MediaViewItem, position: Int) {
                         investmentViewModel =
                             ViewModelProvider(
                                 requireActivity(),
@@ -388,10 +400,13 @@ class PortfolioSpecificProjectView : BaseFragment() {
                             ).get(InvestmentViewModel::class.java)
 //                        val mediaViewItem = MediaViewItem(media.mediaContentType, item.mediaContent.value.url,title = "Images", id = itemId, name = item.name)
                         val bundle = Bundle()
-                        Log.d("kjdkjds","${mediaViewItem.toString()}, tyyt== ${allMediaList.toString()}, pos = $position")
+                        Log.d(
+                            "kjdkjds",
+                            "${mediaViewItem.toString()}, tyyt== ${allMediaList.toString()}, pos = $position"
+                        )
                         bundle.putSerializable("Data", mediaViewItem)
-                        bundle.putInt("ImagePosition",position)
-                        Log.d("kjdjdsj",allMediaList.toString())
+                        bundle.putInt("ImagePosition", position)
+                        Log.d("kjdjdsj", allMediaList.toString())
                         investmentViewModel.setMediaListItem(allMediaList)
                         val fragment = MediaViewFragment()
                         fragment.arguments = bundle
@@ -428,8 +443,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         openDocument(position)
                     }
 
-                }
-            ,allMediaList)
+                }, allMediaList
+            )
         binding.rvPortfolioSpecificView.adapter = portfolioSpecificViewAdapter
 
         fetchDocuments(it.data.investmentInformation.crmProjectId)

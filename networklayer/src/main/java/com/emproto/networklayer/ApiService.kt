@@ -37,6 +37,7 @@ import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
 import retrofit2.Response
 import retrofit2.http.*
+
 public interface ApiService {
 
     //auth-apis(all login module apis)
@@ -155,7 +156,7 @@ public interface ApiService {
     suspend fun scheduleVideoCall(@Body videoCallBody: VideoCallBody): Response<VideoCallResponse>
 
     @GET(ApiConstants.DOCUMENT_DOWNLOAD)
-    suspend fun downloadDocument(): Response<DDocumentResponse>
+    suspend fun downloadDocument(@Query("path") path: String): Response<DDocumentResponse>
 
     @GET(ApiConstants.CHATS_LIST)
     suspend fun getChatsList(): Response<ChatResponse>

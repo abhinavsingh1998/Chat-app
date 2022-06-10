@@ -16,11 +16,15 @@ import com.emproto.networklayer.response.portfolio.dashboard.Point
 import com.emproto.networklayer.response.portfolio.dashboard.Project
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import com.github.mikephil.charting.formatter.IValueFormatter
+import com.github.mikephil.charting.utils.ViewPortHandler
 
 class CompletedInvestmentAdapter(
     val context: Context,
@@ -150,15 +154,16 @@ class CompletedInvestmentAdapter(
 
         //We connect our data to the UI Screen
         val data1 = LineData(linedataset1)
-        val limitLine = LimitLine(2018F, "My Investment")
-        limitLine.lineColor = context.getColor(R.color.app_color)
-        limitLine.lineWidth = 1F
-        limitLine.enableDashedLine(10F, 10F, 10F)
-        limitLine.textSize = 14F
-
-        //binding.ivPriceTrendsGraph.setDrawBorders(false);
-        //binding.ivPriceTrendsGraph.setDrawGridBackground(false);
-        ivCompletedInvestmentGraph.xAxis.addLimitLine(limitLine)
+        if (type == COMPLETED) {
+            val limitLine = LimitLine(2018F, "My Investment")
+            limitLine.lineColor = context.getColor(R.color.app_color)
+            limitLine.lineWidth = 1F
+            limitLine.enableDashedLine(10F, 10F, 10F)
+            limitLine.textSize = 14F
+            //binding.ivPriceTrendsGraph.setDrawBorders(false);
+            //binding.ivPriceTrendsGraph.setDrawGridBackground(false);
+            ivCompletedInvestmentGraph.xAxis.addLimitLine(limitLine)
+        }
         ivCompletedInvestmentGraph.getDescription().setEnabled(false)
         ivCompletedInvestmentGraph.getLegend().setEnabled(false)
         ivCompletedInvestmentGraph.getAxisLeft().setDrawGridLines(false)
@@ -183,6 +188,8 @@ class CompletedInvestmentAdapter(
             context,
             R.font.jost_regular
         )
+        ivCompletedInvestmentGraph.getAxisLeft().valueFormatter = Xaxisformatter()
+        ivCompletedInvestmentGraph.xAxis.valueFormatter = Xaxisformatter()
         //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
         //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
         ivCompletedInvestmentGraph.data = data1
@@ -228,6 +235,21 @@ class CompletedInvestmentAdapter(
         ivCompletedInvestmentGraphImage.data = data
         ivCompletedInvestmentGraphImage.animateXY(2000, 2000)
 
+    }
+
+    inner class Xaxisformatter : IValueFormatter, IAxisValueFormatter {
+        override fun getFormattedValue(
+            p0: Float,
+            p1: Entry?,
+            p2: Int,
+            p3: ViewPortHandler?
+        ): String {
+            return p0.toString().replace(",.", "")
+        }
+
+        override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
+            return String.format("%.0f", p0.toDouble())
+        }
     }
 
     override fun getItemCount(): Int = list.size

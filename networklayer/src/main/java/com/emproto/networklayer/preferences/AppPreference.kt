@@ -13,4 +13,6 @@ interface AppPreference {
     fun isPinDialogShown():Boolean
     fun activatePin(status: Boolean)
     fun getPinActivationStatus():Boolean
+    fun setFacilityCard(status: Boolean)
+    fun isFacilityCard():Boolean
 }
