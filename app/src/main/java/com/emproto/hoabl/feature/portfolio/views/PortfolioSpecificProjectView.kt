@@ -69,6 +69,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
     var fmData: FMResponse? = null
     var crmId: Int = 0
     var projectId: Int = 0
+    var iea: String = ""
     var allMediaList = ArrayList<MediaViewItem>()
 
     @Inject
@@ -90,6 +91,9 @@ class PortfolioSpecificProjectView : BaseFragment() {
         arguments?.let {
             crmId = it.getInt("IVID")
             projectId = it.getInt("PID")
+            it.getString("IEA")?.let {
+                iea = it
+            }
         }
         return binding.root
     }
@@ -145,18 +149,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
     private fun loadInvestmentDetails(it: InvestmentDetailsResponse) {
         var itemId = 0
-//        for (item in it.data.projectInformation.latestMediaGalleryOrProjectContent[0].droneShoots) {
-//            itemId++
-//            allMediaList.add(
-//                MediaViewItem(
-//                    item.mediaContentType,
-//                    item.mediaContent.value.url,
-//                    title = "DroneShoots",
-//                    id = itemId,
-//                    name = item.name
-//                )
-//            )
-//        }
+
         allMediaList.clear()
         for (item in it.data.projectInformation.latestMediaGalleryOrProjectContent[0].images) {
             itemId++
@@ -170,18 +163,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 )
             )
         }
-//        for (item in it.data.projectInformation.latestMediaGalleryOrProjectContent[0].videos) {
-//            itemId++
-//            allMediaList.add(
-//                MediaViewItem(
-//                    item.mediaContentType,
-//                    item.mediaContent.value.url,
-//                    title = "Videos",
-//                    id = itemId,
-//                    name = item.name
-//                )
-//            )
-//        }
+
         for (item in it.data.projectInformation.latestMediaGalleryOrProjectContent[0].threeSixtyImages) {
             itemId++
             allMediaList.add(
@@ -199,10 +181,18 @@ class PortfolioSpecificProjectView : BaseFragment() {
         list.add(
             RecyclerViewItem(
                 PortfolioSpecificViewAdapter.PORTFOLIO_TOP_SECTION,
-                it.data
+                it.data,
+                iea
             )
         )
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_PENDINGCARD))
+        if (!it.data.investmentInformation.isBookingComplete) {
+            list.add(
+                RecyclerViewItem(
+                    PortfolioSpecificViewAdapter.PORTFOLIO_PENDINGCARD,
+                    it.data.investmentInformation.paymentSchedules
+                )
+            )
+        }
         if (appPreference.isFacilityCard())
             list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_FACILITY_CARD))
         if (it.data.documentList != null) {
@@ -228,7 +218,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
         list.add(
             RecyclerViewItem(
                 PortfolioSpecificViewAdapter.PORTFOLIO_GRAPH,
-                it.data.projectExtraDetails.graphData
+                it.data.projectExtraDetails.graphData,
+                iea
             )
         )
         list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_REFERNOW))

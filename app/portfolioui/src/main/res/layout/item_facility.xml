@@ -20,7 +20,7 @@
             android:layout_height="20dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/ic_progress_complete"
+            android:background="@drawable/ic_payment_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,6 +35,7 @@
             android:lines="1"
             android:text="Project Registration"
             android:textAllCaps="true"
+            android:textColor="@color/disable_text"
             app:layout_constraintBottom_toBottomOf="@+id/header_indicator"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/header_indicator"
@@ -60,7 +61,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/jost_regular"
-            android:text="Access Manage my Land"
+            android:text="Manage my Land"
+            android:textColor="@color/disable_text"
             app:layout_constraintBottom_toBottomOf="@+id/iv_first"
             app:layout_constraintStart_toEndOf="@+id/iv_first"
             app:layout_constraintTop_toTopOf="@+id/iv_first" />

@@ -37,4 +37,5 @@
     <color name="primarycolor_4">#494a67</color>
     <color name="primarycolor_5">#17171c</color>
     <color name="green">#47b35f</color>
+    <color name="disable_text">#707193</color>
 </resources>

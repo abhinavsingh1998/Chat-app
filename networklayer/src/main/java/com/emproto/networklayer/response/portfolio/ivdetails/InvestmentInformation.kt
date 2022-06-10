@@ -18,6 +18,7 @@ data class InvestmentInformation(
     val updatedAt: String,
     val userId: String,
     val bookingJourney: BookingJourney,
+    val paymentSchedules: List<PaymentSchedulesItem>,
     val possesionDate: String,
     val allocationDate: String,
     val ownershipDate: String

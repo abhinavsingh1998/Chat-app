@@ -300,7 +300,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                 list.add(
                     PortfolioModel(
                         ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED,
-                        it.data.summary.completed
+                        it.data.summary
                     )
                 )
             }
@@ -379,11 +379,17 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         }
     }
 
-    override fun manageProject(crmId: Int, projectId: Int, otherDetails: ProjectExtraDetails) {
+    override fun manageProject(
+        crmId: Int,
+        projectId: Int,
+        otherDetails: ProjectExtraDetails,
+        iea: String?
+    ) {
         val portfolioSpecificProjectView = PortfolioSpecificProjectView()
         val arguments = Bundle()
         arguments.putInt("IVID", crmId)
         arguments.putInt("PID", projectId)
+        arguments.putString("IEA", iea)
         portfolioSpecificProjectView.arguments = arguments
         portfolioviewmodel.setprojectAddress(otherDetails)
         (requireActivity() as HomeActivity).addFragment(portfolioSpecificProjectView, false)
