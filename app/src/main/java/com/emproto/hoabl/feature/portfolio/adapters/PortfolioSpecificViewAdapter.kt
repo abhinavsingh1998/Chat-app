@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.animation.BounceInterpolator
 import android.view.animation.TranslateAnimation
 import androidx.annotation.RequiresApi
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -31,6 +32,10 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import com.github.mikephil.charting.formatter.IValueFormatter
 import com.github.mikephil.charting.utils.ViewPortHandler
 import com.google.android.material.tabs.TabLayoutMediator
+import com.skydoves.balloon.Balloon
+import com.skydoves.balloon.BalloonAnimation
+import com.skydoves.balloon.BalloonSizeSpec
+import com.skydoves.balloon.createBalloon
 import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -205,21 +210,18 @@ class PortfolioSpecificViewAdapter(
         fun bind(position: Int) {
             //binding.btnApplyNow.setOnClickListener(onItemClickListener)
             binding.tvViewMore.setOnClickListener {
-                binding.tvViewLess.visibility = View.VISIBLE
-                binding.ivViewMoreArrowUpward.visibility = View.VISIBLE
-                binding.cvMoreInfoCard.visibility = View.VISIBLE
-//                moveBottom(binding.cvMoreInfoCard)
 
-                binding.tvViewMore.visibility = View.GONE
-                binding.ivViewMoreDropDown.visibility = View.GONE
-            }
-            binding.tvViewLess.setOnClickListener {
-                binding.tvViewLess.visibility = View.GONE
-                binding.ivViewMoreArrowUpward.visibility = View.GONE
-                binding.cvMoreInfoCard.visibility = View.GONE
+                if (binding.cvMoreInfoCard.visibility == View.VISIBLE) {
+                    binding.cvMoreInfoCard.visibility = View.GONE
+                    binding.tvViewMore.text = "View More"
+                    binding.ivViewMoreDropDown.setImageDrawable(context.getDrawable(R.drawable.ic_drop_down))
 
-                binding.tvViewMore.visibility = View.VISIBLE
-                binding.ivViewMoreDropDown.visibility = View.VISIBLE
+                } else {
+                    binding.cvMoreInfoCard.visibility = View.VISIBLE
+                    binding.tvViewMore.text = "View Less"
+                    binding.ivViewMoreDropDown.setImageDrawable(context.getDrawable(R.drawable.ic_arrow_upward))
+                }
+
             }
             //set data to view
             val data =
@@ -230,9 +232,7 @@ class PortfolioSpecificViewAdapter(
                     data.projectExtraDetails.address.city + "," + data.projectExtraDetails.address.state
                 if (data.investmentInformation != null) {
                     binding.tvPaidAmount.text =
-                            //NumberFormat.getCurrencyInstance(Locale("en", "in")).format(data.investmentInformation.bookingJourney.paidAmount)
-                        "₹" + data.investmentInformation.bookingJourney.paidAmount
-
+                        Utility.formatAmount(data.investmentInformation.bookingJourney.paidAmount)
                     binding.tvAreaUnit.text = "" + data.investmentInformation.areaSqFt + " sqft"
                     binding.tvProjectInfo.text = data.projectInformation.shortDescription
                     var reraNumber = ""
@@ -259,24 +259,31 @@ class PortfolioSpecificViewAdapter(
                     binding.tvLandId.text = "Hoabl/" + data.investmentInformation.inventoryId
                     binding.tvSkuType.text = data.investmentInformation.inventoryBucket
                     binding.tvInvestmentAmount.text =
-//                        NumberFormat.getCurrencyInstance(Locale("en", "in"))
-//                            .format(data.investmentInformation.amountInvested)
                         Utility.formatAmount(data.investmentInformation.amountInvested)
-
                     binding.tvAmountPending.text =
-//                        NumberFormat.getCurrencyInstance(Locale("en", "in"))
-//                            .format(data.investmentInformation.bookingJourney.amountPending)
                         Utility.formatAmount(data.investmentInformation.bookingJourney.amountPending)
                     binding.tvRegistryAmount.text =
-//                        NumberFormat.getCurrencyInstance(Locale("en", "in"))
-//                            .format(data.investmentInformation.registryAmount)
                         Utility.formatAmount(data.investmentInformation.registryAmount)
                     binding.tvOtherExpenses.text =
-//                        NumberFormat.getCurrencyInstance(Locale("en", "in"))
-//                            .format(data.investmentInformation.otherExpenses)
                         Utility.formatAmount(data.investmentInformation.otherExpenses)
-                    binding.registrationNo.text = reraNumber
 
+                    binding.ivInvestedAmount.setOnClickListener {
+                        getToolTip("${data.investmentInformation.amountInvested}").showAlignTop(
+                            binding.ivInvestedAmount
+                        )
+                    }
+                    binding.ivAmountPending.setOnClickListener {
+                        getToolTip("${data.investmentInformation.registryAmount}").showAlignTop(
+                            binding.ivAmountPending
+                        )
+                    }
+                    binding.ivAmountPending1.setOnClickListener {
+                        getToolTip("${data.investmentInformation.otherExpenses}").showAlignTop(
+                            binding.ivAmountPending1
+                        )
+                    }
+
+                    binding.registrationNo.text = reraNumber
                     binding.tvLatitude.text = data.projectInformation.crmProject.lattitude
                     binding.tvLongitude.text = data.projectInformation.crmProject.longitude
                     binding.tvAltitude.text = data.projectInformation.crmProject.altitude
@@ -286,12 +293,24 @@ class PortfolioSpecificViewAdapter(
                     //project status based configuration
                     if (data.investmentInformation.isBookingComplete) {
                         binding.tvPending.text = "IEA"
+                        binding.tvPending.setCompoundDrawablesWithIntrinsicBounds(
+                            null,
+                            null,
+                            null,
+                            null
+                        )
                         binding.tvPendingAmount.text = "5%"
                         binding.tvPendingAmount.setTextColor(context.getColor(R.color.app_color))
                         binding.tvPaid.text = "Invested"
                         binding.tvPaidAmount.text =
                                 //NumberFormat.getCurrencyInstance(Locale("en", "in")).format(data.investmentInformation.bookingJourney.paidAmount)
                             Utility.formatAmount(data.investmentInformation.amountInvested)
+                        getToolTip("${data.investmentInformation.amountInvested}")
+                        binding.tvPaid.setOnClickListener {
+                            getToolTip("${data.investmentInformation.amountInvested}").showAlignTop(
+                                binding.tvPaid
+                            )
+                        }
 
                         binding.tvAmountPaid.visibility = View.GONE
                         binding.tvAmountPaidTitle.visibility = View.GONE
@@ -299,13 +318,19 @@ class PortfolioSpecificViewAdapter(
                         binding.tvAmountPendingTitle.visibility = View.GONE
                     } else {
                         binding.tvPendingAmount.text =
-                                //NumberFormat.getCurrencyInstance(Locale("en", "in")).format(data.investmentInformation.bookingJourney.amountPending)
                             Utility.formatAmount(data.investmentInformation.bookingJourney.amountPending)
                         binding.tvAmountPaid.text =
-//                        NumberFormat.getCurrencyInstance(Locale("en", "in"))
-//                        .format(data.investmentInformation.amountInvested)
                             Utility.formatAmount(data.investmentInformation.bookingJourney.paidAmount)
-
+                        binding.tvPaid.setOnClickListener {
+                            getToolTip("${data.investmentInformation.bookingJourney.paidAmount}").showAlignTop(
+                                binding.tvPaid
+                            )
+                        }
+                        binding.tvPending.setOnClickListener {
+                            getToolTip("${data.investmentInformation.bookingJourney.amountPending}").showAlignTop(
+                                binding.tvPending
+                            )
+                        }
                     }
                 }
 
@@ -451,7 +476,8 @@ class PortfolioSpecificViewAdapter(
             }
             Log.d("allmedia", allMediaList.toString())
             latestImagesVideosAdapter = VideoAdapter(allMediaList, ivInterface)
-            val layoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
+            val layoutManager =
+                GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
 
 //            layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
 //                override fun getSpanSize(position: Int): Int {
@@ -460,7 +486,8 @@ class PortfolioSpecificViewAdapter(
 //            }
             binding.rvLatestImagesVideos.layoutManager = layoutManager
             binding.rvLatestImagesVideos.adapter = latestImagesVideosAdapter
-            binding.tvLastUpdatedDate.text = Utility.parseDateFromUtc(imagesData.updatedAt, null)
+            binding.tvLastUpdatedDate.text =
+                Utility.parseDateFromUtc(imagesData.updatedAt, null)
 
             binding.tvSeeAll.setOnClickListener {
                 ivInterface.seeAllImages(allMediasList)
@@ -565,7 +592,8 @@ class PortfolioSpecificViewAdapter(
         fun bind(position: Int) {
             if (list[position].data != null) {
                 val itemList = list[position].data as List<SimilarInvestment>
-                similarInvestmentsAdapter = SimilarInvestmentAdapter(context, itemList, ivInterface)
+                similarInvestmentsAdapter =
+                    SimilarInvestmentAdapter(context, itemList, ivInterface)
                 binding.rvTrendingProjects.adapter = similarInvestmentsAdapter
                 binding.tvTrendingProjectsTitle.text = "Similar Investments"
                 binding.tvTrendingProjectsSubtitle.visibility = View.GONE
@@ -589,6 +617,24 @@ class PortfolioSpecificViewAdapter(
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
             return String.format("%.0f", p0.toDouble())
         }
+    }
+
+    fun getToolTip(text: String): Balloon {
+        val balloon = createBalloon(context) {
+            setArrowSize(6)
+            setWidth(BalloonSizeSpec.WRAP)
+            setTextSize(12F)
+            setCornerRadius(4f)
+            setAlpha(0.9f)
+            setText(text)
+            setTextColorResource(R.color.white)
+            setBackgroundColorResource(R.color.black)
+            setPadding(5)
+            setTextTypeface(ResourcesCompat.getFont(context, R.font.jost_medium)!!)
+            setBalloonAnimation(BalloonAnimation.FADE)
+            setLifecycleOwner(lifecycleOwner)
+        }
+        return balloon
     }
 
 

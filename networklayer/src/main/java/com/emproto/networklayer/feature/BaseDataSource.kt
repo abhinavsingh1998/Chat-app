@@ -45,8 +45,8 @@ public abstract class BaseDataSource(val baseApplication: Application) {
         return baseService.referNow(referalRequest)
     }
 
-    suspend fun downloadDocument(): Response<DDocumentResponse> {
-        return baseService.downloadDocument()
+    suspend fun downloadDocument(path: String): Response<DDocumentResponse> {
+        return baseService.downloadDocument(path)
     }
 
     fun isNetworkAvailable(): Boolean {

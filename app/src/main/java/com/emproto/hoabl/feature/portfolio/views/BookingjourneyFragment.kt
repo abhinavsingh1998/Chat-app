@@ -86,7 +86,7 @@ class BookingjourneyFragment : BaseFragment() {
                 isReadPermissonGranted =
                     permissions[Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissonGranted
                 if (isReadPermissonGranted) {
-                    openPdf("")
+                    //openPdf("")
                 }
             }
     }
@@ -103,7 +103,10 @@ class BookingjourneyFragment : BaseFragment() {
                         loadBookingJourneyData(it.data!!.data.bookingJourney)
                     }
                     Status.ERROR -> {
-
+                        mBinding.loader.hide()
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            it.message!!
+                        )
                     }
                 }
             })
@@ -129,9 +132,25 @@ class BookingjourneyFragment : BaseFragment() {
                     }
 
                     override fun viewDetails(position: Int, data: String) {
-                        //get write permisson
-                        requestPermisson()
-                        //openPdf("")
+//                        //get write permisson
+//                        requestPermisson()
+//                        //openPdf("")
+                        portfolioviewmodel.downloadDocument("quote/_5C68B3B4FBE34AB19B76B06390E281E9/ACE Check-Personal Information/hoabl.pdf")
+                            .observe(viewLifecycleOwner,
+                                androidx.lifecycle.Observer {
+                                    when (it.status) {
+                                        Status.LOADING -> {
+                                            mBinding.loader.show()
+                                        }
+                                        Status.SUCCESS -> {
+                                            mBinding.loader.hide()
+                                            requestPermisson(it.data!!.data)
+                                        }
+                                        Status.ERROR -> {
+
+                                        }
+                                    }
+                                })
                     }
 
                 })
@@ -156,7 +175,7 @@ class BookingjourneyFragment : BaseFragment() {
             }
     }
 
-    private fun requestPermisson() {
+    private fun requestPermisson(base64: String) {
         isReadPermissonGranted = ContextCompat.checkSelfPermission(
             requireContext(),
             Manifest.permission.READ_EXTERNAL_STORAGE
@@ -166,7 +185,7 @@ class BookingjourneyFragment : BaseFragment() {
             permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
             permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         } else {
-            openPdf("")
+            openPdf(base64)
         }
         if (permissionRequest.isNotEmpty()) {
             permissionLauncher.launch(permissionRequest.toTypedArray())
@@ -175,7 +194,7 @@ class BookingjourneyFragment : BaseFragment() {
     }
 
     private fun openPdf(stringBase64: String) {
-        val file = Utility.writeResponseBodyToDisk("")
+        val file = Utility.writeResponseBodyToDisk(stringBase64)
         val path = FileProvider.getUriForFile(
             requireContext(),
             requireContext().applicationContext.packageName + ".provider",

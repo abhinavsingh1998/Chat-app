@@ -16,6 +16,7 @@ import com.emproto.networklayer.response.portfolio.dashboard.Ongoing
 import com.emproto.networklayer.response.portfolio.dashboard.Project
 import com.emproto.networklayer.response.watchlist.Data
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
+import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.BalloonSizeSpec
 import com.skydoves.balloon.createBalloon
@@ -357,6 +358,25 @@ class ExistingUsersPortfolioAdapter(
         fun onClickApplyNow(projectId: Int)
         fun onClickShare()
         fun dontMissoutCard()
+    }
+
+    fun getToolTip(text: String): Balloon {
+        val balloon = createBalloon(context) {
+            setArrowSize(6)
+            setWidth(200)
+            setTextSize(12F)
+            setArrowPosition(0.5f)
+            setCornerRadius(4f)
+            setAlpha(0.9f)
+            setText(text)
+            setTextColorResource(R.color.white)
+            setBackgroundColorResource(R.color.black)
+            setPadding(5)
+            setTextTypeface(ResourcesCompat.getFont(context, R.font.jost_medium)!!)
+            setBalloonAnimation(BalloonAnimation.FADE)
+            setLifecycleOwner(lifecycleOwner)
+        }
+        return balloon
     }
 
 }
