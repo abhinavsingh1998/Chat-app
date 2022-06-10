@@ -106,6 +106,7 @@ class EditProfileFragment : Fragment() {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
             data = requireArguments().getSerializable("profileData") as Data
+            Log.i("data", data.toString())
         }
     }
 
@@ -201,7 +202,7 @@ class EditProfileFragment : Fragment() {
                         cityData = data!!
                     }
                     for (i in cityData.indices) {
-                        listCities.add(cityData[i].toString())
+                        listCities.add(cityData[i])
                     }
                     setCitiesSpinner()
                 }
@@ -229,6 +230,7 @@ class EditProfileFragment : Fragment() {
                 id: Long
             ) {
                 gender = parent?.adapter?.getItem(position).toString().substring(0, 1)
+                binding.autoGender.isCursorVisible=false
             }
         }
     }
@@ -244,6 +246,8 @@ class EditProfileFragment : Fragment() {
                 stateIso = listStatesISO[position]
                 getCities(stateIso, countryIsoCode)
             }
+        binding.autoState.isCursorVisible=false
+
     }
 
     private fun setCitiesSpinner() {
@@ -255,6 +259,7 @@ class EditProfileFragment : Fragment() {
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 city = listCities[position]
             }
+        binding.autoCity.isCursorVisible=false
     }
 
     private fun initView() {
@@ -268,23 +273,21 @@ class EditProfileFragment : Fragment() {
         requestPermission()
 
         binding.textviewEnterName.text = data.firstName + " " + data.lastName
+        Log.i("name",data.firstName + " " + data.lastName+data.email)
         binding.enterPhonenumberTextview.text = data.phoneNumber
-
         if (!data.email.isNullOrEmpty()) {
             binding.emailTv.setText(data.email)
         } else {
             binding.emailTv.setText("")
         }
-        val string = data.dateOfBirth
-        val date = string.substring(0, 10)
         if (!data.dateOfBirth.isNullOrEmpty()) {
-            binding.tvDatePicker.setText(date)
+            binding.tvDatePicker.setText(data.dateOfBirth.substring(0, 10))
         } else {
             binding.tvDatePicker.setText("")
         }
         if (!data.gender.isNullOrEmpty()) {
             binding.autoGender.setText(data.gender)
-            binding.autoGender.isCursorVisible = false;
+            binding.autoGender.isCursorVisible = false
         } else {
             binding.autoGender.setText("")
         }
@@ -354,9 +357,10 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun updateLable(myCalendar: Calendar) {
-        val myCalendar = Calendar.getInstance()
-        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH)
-        binding.tvDatePicker.setText(sdf.format(myCalendar.timeZone))
+            val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH)
+            binding.tvDatePicker.setText(sdf.format(myCalendar.timeZone))
+
+
     }
 
 
@@ -728,7 +732,6 @@ class EditProfileFragment : Fragment() {
                             binding.saveAndUpdate.text = "Updated"
                             binding.saveAndUpdate.visibility = View.VISIBLE
                             binding.emailTv.clearFocus()
-
                             binding.houseNo.clearFocus()
                             binding.completeAddress.clearFocus()
                             binding.tvLocality.clearFocus()
