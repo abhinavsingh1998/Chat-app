@@ -44,6 +44,7 @@ class LocationInfrastructureAdapter(
                 }
             }
             binding.cvLocationInfrastructureCard.setOnClickListener{
+                lastItemSelectedPos = selectedItemPos
                 selectedItemPos = adapterPosition
                 if(lastItemSelectedPos == -1)
                     lastItemSelectedPos = selectedItemPos
@@ -71,6 +72,14 @@ class LocationInfrastructureAdapter(
             holder.binding.cvLocationInfrastructureCard.strokeWidth = 0
             holder.binding.cvLocationInfrastructureCard.strokeColor = ContextCompat.getColor(context,R.color.white)
         }
+//        when(isSelectedFromDetail){
+//            true -> {
+//                if(position == selectedItemPos){
+//                    holder.binding.cvLocationInfrastructureCard.strokeWidth = 2
+//                    holder.binding.cvLocationInfrastructureCard.strokeColor = ContextCompat.getColor(context,R.color.text_blue_color)
+//                }
+//            }
+//        }
         holder.bind(holder.itemView, position, list, itemClickListener)
     }
 

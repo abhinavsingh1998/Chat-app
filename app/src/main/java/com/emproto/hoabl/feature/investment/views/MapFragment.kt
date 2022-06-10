@@ -49,7 +49,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     private var data:MapLocationModel? = null
     private lateinit var adapter:LocationInfrastructureAdapter
 
-    private var selectedPosition = 0
+    private var selectedPosition = -1
 
     private val mapItemClickListener = object : MapItemClickListener {
         override fun onItemClicked(view: View, position: Int, latitude: Double, longitude: Double) {
@@ -74,6 +74,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
             data = it.getSerializable("Location") as MapLocationModel
+            selectedPosition = it.getInt("ItemPosition")
         }
         initMap()
         setUpUI()
@@ -128,9 +129,13 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     private fun initMarkerLocation(originLatitude:Double,originLongitude:Double,destinationLatitude:Double,destinationLongitude:Double) {
         mMap.clear()
         val originLocation = LatLng(originLatitude, originLongitude)
-        mMap.addMarker(MarkerOptions().position(originLocation))
+        mMap.addMarker(MarkerOptions()
+            .position(originLocation)
+            .icon(BitmapFromVector(this.requireContext(), R.drawable.ic_baseline_location_on_24)))
         val destinationLocation = LatLng(destinationLatitude, destinationLongitude)
-        mMap.addMarker(MarkerOptions().position(destinationLocation))
+        mMap.addMarker(MarkerOptions()
+            .position(destinationLocation)
+            .icon(BitmapFromVector(this.requireContext(), R.drawable.ic_baseline_location_on_24_red)))
         val urll = getDirectionURL(originLocation, destinationLocation, resources.getString(R.string.map_api_key))
         GetDirection(urll).execute()
         val bounds = LatLngBounds.builder()
