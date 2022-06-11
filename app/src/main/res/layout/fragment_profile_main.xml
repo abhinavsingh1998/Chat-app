@@ -74,6 +74,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:gravity="center"
+                        tools:text="AB"
                         android:textColor="@color/white"
                         android:textSize="@dimen/margin_size_40" />
                 </androidx.cardview.widget.CardView>
