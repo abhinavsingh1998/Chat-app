@@ -415,7 +415,6 @@ class EditProfileFragment : Fragment() {
                 ) { t ->
                     when (t!!.status) {
                         Status.LOADING -> {
-
                             binding.uploadImage.visibility = View.GONE
                         }
                         Status.SUCCESS -> {
@@ -702,7 +701,6 @@ class EditProfileFragment : Fragment() {
 
         binding.saveAndUpdate.setOnClickListener {
             binding.saveAndUpdate.text = "Save and Update"
-            binding.updateProgressBar.visibility = View.VISIBLE
             val editUserNameRequest = EditUserNameRequest(
                 data.firstName,
                 data.lastName,
@@ -713,24 +711,24 @@ class EditProfileFragment : Fragment() {
                 binding.completeAddress.text.toString(),
                 binding.locality.text.toString(),
                 binding.pincodeEditText.text.toString(),
-                data.city,
+                binding.autoCity.text.toString(),
                 binding.autoState.text.toString(),
                 "India"
             )
+            Log.d("jhdss",editUserNameRequest.toString())
             profileViewModel.editUserNameProfile(editUserNameRequest)
                 .observe(
                     viewLifecycleOwner
                 ) { t ->
                     when (t!!.status) {
                         Status.LOADING -> {
-
                             binding.saveAndUpdate.visibility = View.GONE
+
                         }
                         Status.SUCCESS -> {
                             appPreference.saveLogin(true)
-                            binding.updateProgressBar.visibility = View.GONE
-                            binding.saveAndUpdate.text = "Updated"
                             binding.saveAndUpdate.visibility = View.VISIBLE
+                            binding.saveAndUpdate.text = "Updated"
                             binding.emailTv.clearFocus()
                             binding.houseNo.clearFocus()
                             binding.completeAddress.clearFocus()
