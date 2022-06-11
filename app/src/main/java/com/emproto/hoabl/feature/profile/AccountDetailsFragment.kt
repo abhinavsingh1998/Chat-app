@@ -13,23 +13,24 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.FragmentAccountDetailsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.chat.views.fragments.ChatsDetailFragment
 import com.emproto.hoabl.feature.profile.adapter.accounts.AccountsPaymentListAdapter
 import com.emproto.hoabl.feature.profile.adapter.accounts.AccountsDocumentListAdapter
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.AccountsResponse
+import javax.inject.Inject
 
 class AccountDetailsFragment : Fragment(), AccountsDocumentListAdapter.OnKycItemClickListener,
     AccountsPaymentListAdapter.OnPaymentItemClickListener {
-    lateinit var binding: FragmentAccountDetailsBinding
-    lateinit var accountsPaymentListAdapter: AccountsPaymentListAdapter
-    lateinit var accountsDocumentListAdapter: AccountsDocumentListAdapter
 
-    val bundle = Bundle()
+    @Inject
     lateinit var homeFactory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
+    lateinit var binding: FragmentAccountDetailsBinding
+
+
+    val bundle = Bundle()
 
 
     override fun onCreateView(
@@ -64,16 +65,21 @@ class AccountDetailsFragment : Fragment(), AccountsDocumentListAdapter.OnKycItem
                 Status.SUCCESS -> {
                     binding.progressBar.hide()
                     if (it.data?.data!!.documents != null && it.data!!.data.documents is List<AccountsResponse.Data.Document>) {
-                        binding.rvDocuments.layoutManager =
+
+                        binding.rvKyc.layoutManager =
                             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-                        binding.rvDocuments.adapter = accountsPaymentListAdapter
+                        binding.rvKyc.adapter = AccountsDocumentListAdapter(context,
+                            it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>, this)
+
 
                     }
 
                     if (it.data?.data!!.paymentHistory != null && it.data!!.data.paymentHistory is List<AccountsResponse.Data.PaymentHistory>) {
                         binding.rvPaymentHistory.layoutManager =
                             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-                        binding.rvPaymentHistory.adapter = accountsPaymentListAdapter
+                        binding.rvPaymentHistory.adapter = AccountsPaymentListAdapter(context,
+                            it.data!!.data.paymentHistory as ArrayList<AccountsResponse.Data.PaymentHistory>, this)
+
                     }
                 }
                 Status.ERROR -> {

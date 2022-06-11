@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.profile.adapter.accounts
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemAccountsKycDocBinding
-import com.emproto.hoabl.feature.profile.AccountDetailsFragment
 import com.emproto.networklayer.response.profile.AccountsResponse
 
 class AccountsDocumentListAdapter(
@@ -35,9 +35,12 @@ class AccountsDocumentListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(accountsDocumentList[position].documentCategory=="KYC"){
-            holder.tvDocName.text = accountsDocumentList[position].documentType
-        }
+//        if(accountsDocumentList[position].documentCategory=="KYC"){
+//            holder.tvDocName.text = accountsDocumentList[position].documentType
+//        }
+        holder.tvDocName.text = accountsDocumentList[position].documentType
+        Log.i("doc type", accountsDocumentList[position].documentCategory)
+
         holder.tvViewDoc.setOnClickListener {
             mListener.onAccountsKycItemClick(accountsDocumentList, it, position)
         }
