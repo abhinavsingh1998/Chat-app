@@ -379,7 +379,6 @@ class EditProfileFragment : Fragment() {
 
         binding.uploadImage.setOnClickListener(View.OnClickListener {
             val uploadProfilePictureRequest = UploadProfilePictureRequest(
-
                 binding.uploadNewPicture.text.toString(),
 
                 )
