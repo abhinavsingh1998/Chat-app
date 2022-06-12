@@ -15,6 +15,7 @@ import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
+import com.emproto.networklayer.response.search.SearchResponse
 import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -79,5 +80,10 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
     //chats initiate api
     suspend fun chatInitiate(@Body chatInitiateRequest: ChatInitiateRequest): Response<ChatDetailResponse> {
         return apiService.chatInitiate(chatInitiateRequest)
+    }
+
+    //search api
+    suspend fun getSearchResults(): Response<SearchResponse> {
+        return apiService.getSearchResults()
     }
 }

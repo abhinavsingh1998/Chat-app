@@ -32,6 +32,7 @@ import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineRes
 import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
+import com.emproto.networklayer.response.search.SearchResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
@@ -166,4 +167,7 @@ public interface ApiService {
 
     @GET(ApiConstants.BOOKING_JOURNEY)
     suspend fun getBookingJourney(@Query("investmentId") investmentId: Int): Response<BookingJourneyResponse>
+
+    @GET(ApiConstants.SEARCH)
+    suspend fun getSearchResults():Response<SearchResponse>
 }

@@ -24,6 +24,7 @@ import com.emproto.networklayer.response.home.PageManagementOrLatestUpdate
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
+import com.emproto.networklayer.response.search.SearchResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import javax.inject.Inject
@@ -173,6 +174,10 @@ class HomeViewModel(
 
     fun getFacilityManagment(): LiveData<BaseResponse<FMResponse>> {
         return homeRepository.getFacilitymanagment()
+    }
+
+    fun getSearchResult(): LiveData<BaseResponse<SearchResponse>> {
+        return homeRepository.getSearchResult()
     }
 
 }

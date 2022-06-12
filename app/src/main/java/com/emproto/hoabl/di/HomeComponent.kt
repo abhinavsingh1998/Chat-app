@@ -61,6 +61,6 @@ interface HomeComponent {
     fun inject(fragment: ChatsFragment)
     fun inject(fragment: ChatsDetailFragment)
     fun inject(fragment: BookingjourneyFragment)
-
+    fun inject(fragment: SearchResultFragment)
 
 }

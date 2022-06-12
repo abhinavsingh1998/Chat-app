@@ -7,8 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
 import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.networklayer.feature.HomeDataSource
-import com.emproto.networklayer.feature.InvestmentDataSource
-import com.emproto.networklayer.feature.PortfolioDataSource
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
@@ -21,6 +19,7 @@ import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
+import com.emproto.networklayer.response.search.SearchResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import kotlinx.coroutines.CoroutineScope
@@ -377,5 +376,31 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         return mChatDetailResponse
     }
 
+    fun getSearchResult(): LiveData<BaseResponse<SearchResponse>> {
+        val mSearchResponse = MutableLiveData<BaseResponse<SearchResponse>>()
+        mSearchResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = HomeDataSource(application).getSearchResults()
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mSearchResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mSearchResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mSearchResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mSearchResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mSearchResponse
+    }
 
 }

@@ -48,4 +48,5 @@ object ApiConstants {
     const val CHATS_INITIATE = "hoabl-customer/chat/initiate"
     const val PROJECT_MEDIA_GALLERIES =
         "hoabl-admin/project-contents/{projectContentId}/media-galleries"
+    const val SEARCH = "hoabl-admin/search"
 }
