@@ -1,6 +1,6 @@
-package com.emproto.networklayer.response.bookingjourney
+package com.emproto.networklayer.response.portfolio.ivdetails
 
-data class Payment(
+data class PaymentSchedulesItem(
     val bookingAmount: Any,
     val bookingDate: Any,
     val createdAt: String,
@@ -12,7 +12,7 @@ data class Payment(
     val paidAmount: Double,
     val paymentMilestone: String,
     val pendingAmount: Double,
-    val targetDate: Any,
+    val targetDate: String,
     val updatedAt: String,
     val userId: String
 )

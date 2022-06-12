@@ -38,8 +38,8 @@ class PortfolioRepository @Inject constructor(application: Application) :
      * @return
      */
 
-    fun getPortfolioDashboard(): LiveData<BaseResponse<PortfolioData>> {
-        if (mPromisesResponse.value == null) {
+    fun getPortfolioDashboard(refresh: Boolean = false): LiveData<BaseResponse<PortfolioData>> {
+        if (mPromisesResponse.value == null || refresh) {
             mPromisesResponse.postValue(BaseResponse.loading())
             coroutineScope.launch(exceptionHandler) {
                 try {
@@ -249,12 +249,12 @@ class PortfolioRepository @Inject constructor(application: Application) :
         return mDocumentsResponse
     }
 
-    fun downloadDocument(): MutableLiveData<BaseResponse<DDocumentResponse>> {
+    fun downloadDocument(path: String): MutableLiveData<BaseResponse<DDocumentResponse>> {
         val mDocumentsResponse = MutableLiveData<BaseResponse<DDocumentResponse>>()
         mDocumentsResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val request = PortfolioDataSource(application).downloadDocument()
+                val request = PortfolioDataSource(application).downloadDocument(path)
                 if (request.isSuccessful) {
                     if (request.body()!!.data != null)
                         mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))

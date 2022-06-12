@@ -38,7 +38,7 @@
         android:layout_marginStart="@dimen/margin_size_5"
         android:fontFamily="@font/jost_bold"
         android:text="5%"
-        android:textColor="@android:color/holo_green_dark"
+        android:textColor="@color/green"
         android:textSize="@dimen/text_size_14"
         app:layout_constraintBottom_toBottomOf="@id/iv_rating"
         app:layout_constraintEnd_toStartOf="@id/iv_rating"
@@ -77,6 +77,8 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/margin_size_200"
                 android:layout_marginTop="@dimen/margin_size_12"
+                android:paddingEnd="@dimen/margin_size_10"
+                android:paddingBottom="@dimen/margin_size_10"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_yAxis_label"
                 app:layout_constraintTop_toTopOf="parent" />

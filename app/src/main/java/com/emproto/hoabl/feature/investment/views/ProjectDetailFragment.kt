@@ -67,7 +67,7 @@ class ProjectDetailFragment : BaseFragment() {
     private lateinit var promisesData: List<PmData>
     private lateinit var landSkusData: List<InventoryBucketContent>
     private lateinit var mapLocationData: LocationInfrastructure
-    private lateinit var watchList: List<Data>
+    private var watchList: MutableList<Data> = mutableListOf()
     private lateinit var inventoryList : List<Inventory>
     private lateinit var similarInvestments: List<SimilarInvestment>
     private lateinit var allData:PdData
@@ -303,12 +303,14 @@ class ProjectDetailFragment : BaseFragment() {
                         (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                         it.data?.data?.let {  data ->
                             allData = data
+                            if(watchList != null){
+                                watchList = data.watchlist.toMutableList()
+                            }
                             oppDocData = data.opportunityDocs
                             mediaData= data.mediaGalleryOrProjectContent
                             landSkusData = data.inventoryBucketContents
                             faqData = data.projectContentsAndFaqs
                             mapLocationData = data.locationInfrastructure
-                            watchList = data.watchlist
                             for(item in watchList){
                                 if(item.watchlist.projectId.toInt() == projectId){
                                     isBookmarked = true

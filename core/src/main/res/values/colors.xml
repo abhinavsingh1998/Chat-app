@@ -19,7 +19,7 @@
     <color name="snackbartext_color">#e6e1e1</color>
     <color name="kyc_card_color">#494c9a</color>
     <color name="greeting_txt_color">#393000</color>
-    <color name="text_hint_color">#b9b9b9</color>
+    <color name="text_hint_color">#eeeeee</color>
     <!--<color name="progress_primary">#fff</color>-->
     <color name="progress_primary">@color/white</color>
     <color name="progress_secondary">@color/gray_scale</color>
@@ -35,5 +35,7 @@
     <color name="primarytext_color2">#313131</color>
     <color name="primarycolor_3">#28282e</color>
     <color name="primarycolor_4">#494a67</color>
+    <color name="primarycolor_5">#17171c</color>
     <color name="green">#47b35f</color>
+    <color name="disable_text">#707193</color>
 </resources>

@@ -3,7 +3,7 @@ package com.emproto.networklayer.response.portfolio.ivdetails
 data class SimilarInvestment(
     val address: Address,
     val areaStartingFrom: String,
-    val estimatedAppreciation: Int,
+    val estimatedAppreciation: Double,
     val fomoContent: FomoContent,
     val id: Int,
     val launchName: String,

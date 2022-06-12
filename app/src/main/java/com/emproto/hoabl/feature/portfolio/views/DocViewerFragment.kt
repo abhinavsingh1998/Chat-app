@@ -77,21 +77,22 @@ class DocViewerFragment : BaseFragment() {
     }
 
     private fun initObserver() {
-        portfolioviewmodel.downloadDocument().observe(viewLifecycleOwner,
-            Observer {
-                when (it.status) {
-                    Status.LOADING -> {
-                        binding.progressBar.visibility = View.VISIBLE
-                    }
-                    Status.SUCCESS -> {
-                        binding.tvMediaImageName.text = param1
-                        binding.progressBar.visibility = View.GONE
-                        val bitmap = Utility.getBitmapFromBase64(it.data!!.data)
-                        binding.ivMediaPhoto.setImageBitmap(bitmap)
+        portfolioviewmodel.downloadDocument("/quote/_5C68B3B4FBE34AB19B76B06390E281E9/ACE Check-Personal Information/hoabl_test.png")
+            .observe(viewLifecycleOwner,
+                Observer {
+                    when (it.status) {
+                        Status.LOADING -> {
+                            binding.progressBar.visibility = View.VISIBLE
+                        }
+                        Status.SUCCESS -> {
+                            binding.tvMediaImageName.text = param1
+                            binding.progressBar.visibility = View.GONE
+                            val bitmap = Utility.getBitmapFromBase64(it.data!!.data)
+                            binding.ivMediaPhoto.setImageBitmap(bitmap)
 
+                        }
                     }
-                }
-            })
+                })
     }
 
     companion object {

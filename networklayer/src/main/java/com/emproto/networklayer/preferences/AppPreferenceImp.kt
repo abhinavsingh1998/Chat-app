@@ -11,6 +11,8 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
         val Number = "number"
         val PINVARIFICATION = "pin"
         val PIN_AUTH = "pin_auth"
+        val FACILITY_CARD = "facility_card"
+        val NOTIFICATION_TOKEN = "notification_token"
     }
 
     private var preference = context.getSharedPreferences("hoabl-pref", Context.MODE_PRIVATE)
@@ -48,11 +50,11 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
     }
 
     override fun setNotificationToken(token: String) {
-        saveString(TOKEN, token)
+        saveString(NOTIFICATION_TOKEN, token)
     }
 
     override fun getNotificationToken(): String {
-        return getString(TOKEN, "")
+        return getString(NOTIFICATION_TOKEN, "")
     }
 
     override fun getMobilenum(): String {
@@ -77,6 +79,14 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
 
     override fun getPinActivationStatus(): Boolean {
         return getBoolean(PIN_AUTH, false)
+    }
+
+    override fun setFacilityCard(status: Boolean) {
+        saveBoolean(FACILITY_CARD, status)
+    }
+
+    override fun isFacilityCard(): Boolean {
+        return getBoolean(FACILITY_CARD, false)
     }
 
 

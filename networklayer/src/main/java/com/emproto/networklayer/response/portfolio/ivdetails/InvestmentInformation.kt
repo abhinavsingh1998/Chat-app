@@ -1,8 +1,8 @@
 package com.emproto.networklayer.response.portfolio.ivdetails
 
 data class InvestmentInformation(
-    val agreementValue: Int,
-    val amountInvested: Int,
+    val agreementValue: Double,
+    val amountInvested: Double,
     val areaSqFt: Int,
     val createdAt: String,
     val crmProjectId: String,
@@ -14,10 +14,11 @@ data class InvestmentInformation(
     val otherExpenses: Double,
     val ownedSince: String,
     val owners: String,
-    val registryAmount: Int,
+    val registryAmount: Double,
     val updatedAt: String,
     val userId: String,
     val bookingJourney: BookingJourney,
+    val paymentSchedules: List<PaymentSchedulesItem>,
     val possesionDate: String,
     val allocationDate: String,
     val ownershipDate: String

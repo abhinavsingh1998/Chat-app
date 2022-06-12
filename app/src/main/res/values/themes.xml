@@ -297,6 +297,12 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="text_style_dark_black_color_12">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/portfolio_info_text</item>
+    </style>
+
     //textSize_13
 
     <style name="text_style_dark_green_color_13">

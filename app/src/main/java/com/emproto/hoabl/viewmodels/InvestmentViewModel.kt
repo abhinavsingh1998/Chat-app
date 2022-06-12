@@ -39,6 +39,7 @@ class InvestmentViewModel(
     private var mediaContent = ArrayList<MediaViewItem>()
     private var mediaPos = MutableLiveData<Int>()
     private var watchListId = MutableLiveData<Int>()
+    private var faqPosition = MutableLiveData<Int>()
 
     fun getInvestments(pageType: Int): LiveData<BaseResponse<InvestmentResponse>> {
         return investmentRepository.getInvestments(pageType)
@@ -242,6 +243,14 @@ class InvestmentViewModel(
 
     fun getMapLocation(): LiveData<MapLocationModel> {
         return locationData
+    }
+
+    fun setFaqPosition(pos:Int) {
+        this.faqPosition.postValue(pos)
+    }
+
+    fun getFaqPosition(): LiveData<Int> {
+        return faqPosition
     }
 
 }

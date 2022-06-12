@@ -83,6 +83,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     val permissionRequest: MutableList<String> = ArrayList()
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     var isReadPermissonGranted: Boolean = false
+    var oneTimeValidation = false
 
 
     override fun onCreateView(
@@ -156,7 +157,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
         if (appPreference.isPinDialogShown()) {
             // if dialog is shown already and pin is activated show pin screen.
-            if (appPreference.getPinActivationStatus()) {
+            if (appPreference.getPinActivationStatus() && !oneTimeValidation) {
                 setUpInitialUI()
                 setUpAuthentication()
             } else {
@@ -207,14 +208,12 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                     result: BiometricPrompt.AuthenticationResult
                 ) {
                     super.onAuthenticationSucceeded(result)
-                    Toast.makeText(context, "Authentication succeeded!", Toast.LENGTH_SHORT).show()
+                    oneTimeValidation = true
                     setUpUI(true)
                 }
 
                 override fun onAuthenticationFailed() {
                     super.onAuthenticationFailed()
-                    Toast.makeText(context, "Authentication failed", Toast.LENGTH_SHORT).show()
-                    //setUpUI(false)
                 }
             })
 
@@ -241,42 +240,50 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     }
 
     private fun setUpUI(authenticated: Boolean = false) {
+        fetchUserPortfolio(false)
+        binding.refreshLayout.setOnRefreshListener {
+            binding.refreshLayout.isRefreshing = true
+            fetchUserPortfolio(true)
+        }
+    }
 
-        portfolioviewmodel.getPortfolioDashboard().observe(viewLifecycleOwner, Observer { it ->
-            when (it.status) {
-                Status.LOADING -> {
-                    binding.progressBaar.show()
-                }
-                Status.SUCCESS -> {
-                    binding.progressBaar.hide()
-                    it.data?.let {
-                        //load data in listview
-                        binding.financialRecycler.show()
-                        observePortFolioData(it)
+    private fun fetchUserPortfolio(refresh: Boolean) {
+        portfolioviewmodel.getPortfolioDashboard(refresh)
+            .observe(viewLifecycleOwner, Observer { it ->
+                when (it.status) {
+                    Status.LOADING -> {
+                        binding.progressBaar.show()
                     }
+                    Status.SUCCESS -> {
+                        binding.refreshLayout.isRefreshing = false
+                        binding.progressBaar.hide()
+                        it.data?.let {
+                            //load data in listview
+                            binding.financialRecycler.show()
+                            observePortFolioData(it)
+                        }
 
 
-                }
-                Status.ERROR -> {
-                    binding.progressBaar.hide()
-                    //show error dialog
-                    if (it.message == "The current user is not an investor") {
-                        binding.noUserView.show()
-                        binding.portfolioTopImg.visibility = View.VISIBLE
-                        binding.addYouProject.visibility = View.VISIBLE
-                        binding.instriction.visibility = View.VISIBLE
-                        binding.btnExploreNewInvestmentProject.visibility = View.VISIBLE
-                    } else {
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            it.message!!
-                        )
                     }
+                    Status.ERROR -> {
+                        binding.refreshLayout.isRefreshing = false
+                        binding.progressBaar.hide()
+                        //show error dialog
+                        if (it.message == "The current user is not an investor") {
+                            binding.noUserView.show()
+                            binding.portfolioTopImg.visibility = View.VISIBLE
+                            binding.addYouProject.visibility = View.VISIBLE
+                            binding.instriction.visibility = View.VISIBLE
+                            binding.btnExploreNewInvestmentProject.visibility = View.VISIBLE
+                        } else {
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                it.message!!
+                            )
+                        }
 
+                    }
                 }
-            }
-        })
-
-
+            })
     }
 
     private fun observePortFolioData(portfolioData: PortfolioData) {
@@ -293,7 +300,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                 list.add(
                     PortfolioModel(
                         ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED,
-                        it.data.summary.completed
+                        it.data.summary
                     )
                 )
             }
@@ -372,11 +379,17 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         }
     }
 
-    override fun manageProject(crmId: Int, projectId: Int, otherDetails: ProjectExtraDetails) {
+    override fun manageProject(
+        crmId: Int,
+        projectId: Int,
+        otherDetails: ProjectExtraDetails,
+        iea: String?
+    ) {
         val portfolioSpecificProjectView = PortfolioSpecificProjectView()
         val arguments = Bundle()
         arguments.putInt("IVID", crmId)
         arguments.putInt("PID", projectId)
+        arguments.putString("IEA", iea)
         portfolioSpecificProjectView.arguments = arguments
         portfolioviewmodel.setprojectAddress(otherDetails)
         (requireActivity() as HomeActivity).addFragment(portfolioSpecificProjectView, false)
@@ -407,7 +420,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     override fun onGoingDetails() {
         (requireActivity() as HomeActivity).addFragment(
             BookingjourneyFragment.newInstance(
-                "",
+                23,
                 ""
             ), false
         )
@@ -429,7 +442,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         val bundle = Bundle()
         bundle.putInt("ProjectId", projectId)
         fragment.arguments = bundle
-        (requireActivity() as HomeActivity).addFragment(fragment,false)
+        (requireActivity() as HomeActivity).addFragment(fragment, false)
     }
 
     override fun onClickShare() {

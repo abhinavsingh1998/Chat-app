@@ -106,11 +106,15 @@ class PhotosFragment : BaseFragment() {
 
     private val itemClickListener = object : MediaItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: MediaViewItem) {
-            Log.d("jdjisjd",item.toString())
-            investmentViewModel.setMediaItem(item)
+            Log.d("jdjisjd",allImageList.toString())
+//            investmentViewModel.setMediaItem(item)
             investmentViewModel.setMediaListItem(allImageList)
-            investmentViewModel.setMediaListPosition(position)
+//            investmentViewModel.setMediaListPosition(position)
             val mediaViewFragment = MediaViewFragment()
+            val bundle = Bundle()
+            bundle.putSerializable("Data", item)
+            bundle.putInt("ImagePosition",position)
+            mediaViewFragment.arguments = bundle
             (requireActivity() as HomeActivity).addFragment(mediaViewFragment, false)
         }
     }

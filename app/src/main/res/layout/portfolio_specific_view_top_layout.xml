@@ -145,8 +145,11 @@
                     style="@style/text_style_medium_gold_color_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_info_outlined"
+                    android:drawablePadding="4dp"
                     android:fontFamily="@font/jost_regular"
-                    android:text="@string/paid" />
+                    android:text="@string/paid"
+                    app:drawableTint="@color/gold_color" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_paid_amount"
@@ -174,6 +177,8 @@
                     style="@style/text_style_medium_gold_color_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_info_outlined"
+                    android:drawablePadding="4dp"
                     android:fontFamily="@font/jost_regular"
                     android:text="@string/pending" />
 
@@ -222,10 +227,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_size_14"
-                android:layout_marginEnd="@dimen/margin_size_8"
-                android:layout_marginBottom="@dimen/margin_size_14"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toTopOf="@id/cv_more_info_card"
                 app:layout_constraintStart_toStartOf="@id/paid_linear"
                 app:layout_constraintTop_toBottomOf="@id/paid_linear">
 
@@ -298,35 +300,24 @@
                 app:layout_constraintStart_toEndOf="@id/tv_view_more"
                 app:layout_constraintTop_toTopOf="@id/tv_view_more" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_view_less"
-                style="@style/text_style_view_more_brown_color_14"
+            <TextView
+                android:id="@+id/textView12"
+                style="@style/text_style_gold_color_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="16dp"
                 android:fontFamily="@font/jost_medium"
-                android:text="@string/view_less"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@id/tv_possession_date_linear"
-                app:layout_constraintStart_toStartOf="@id/area_linear"
-                app:layout_constraintTop_toTopOf="@id/tv_possession_date_linear" />
-
-            <ImageView
-                android:id="@+id/iv_view_more_arrow_upward"
-                android:layout_width="@dimen/margin_size_18"
-                android:layout_height="@dimen/margin_size_18"
-                android:layout_marginStart="@dimen/margin_size_4"
-                android:src="@drawable/ic_arrow_upward"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@id/tv_view_less"
-                app:layout_constraintStart_toEndOf="@id/tv_view_less"
-                app:layout_constraintTop_toTopOf="@id/tv_view_less" />
+                android:text="* Rounded"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_possession_date_linear" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cv_more_info_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_size_9"
-                android:layout_marginTop="@dimen/margin_size_18"
+                android:layout_marginTop="4dp"
                 android:layout_marginBottom="@dimen/margin_size_2"
                 android:backgroundTint="@color/portfolio_light_brown_color"
                 android:visibility="gone"
@@ -334,7 +325,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/allocation_date_linear">
+                app:layout_constraintTop_toBottomOf="@+id/textView12">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -425,9 +416,20 @@
                         app:layout_constraintStart_toStartOf="@id/tv_investment_amount"
                         app:layout_constraintTop_toBottomOf="@id/tv_investment_amount" />
 
+                    <ImageView
+                        android:id="@+id/iv_invested_amount"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginStart="3dp"
+                        android:src="@drawable/ic_info_outlined"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_investment_amount_title"
+                        app:layout_constraintStart_toEndOf="@+id/tv_investment_amount_title"
+                        app:layout_constraintTop_toTopOf="@+id/tv_investment_amount_title" />
+
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_amount_paid"
-                        style="@style/text_style_dark_black_color_14"
+                        style="@style/text_style_dark_black_color_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin_size_4"
@@ -439,7 +441,7 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_amount_paid_title"
-                        style="@style/text_style_dark_black_color_14"
+                        style="@style/text_style_dark_black_color_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_size_10"
@@ -452,7 +454,7 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_amount_pending"
-                        style="@style/text_style_dark_black_color_14"
+                        style="@style/text_style_dark_black_color_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin_size_4"
@@ -464,7 +466,7 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_amount_pending_title"
-                        style="@style/text_style_dark_black_color_14"
+                        style="@style/text_style_dark_black_color_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_size_16"
