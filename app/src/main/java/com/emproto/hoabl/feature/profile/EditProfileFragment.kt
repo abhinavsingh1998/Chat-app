@@ -520,7 +520,7 @@ class EditProfileFragment : Fragment() {
         binding.profileUserLetters.visibility = View.GONE
         binding.profileImage.setImageBitmap(thumbnail)
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-            getPresignedUrl(destinationFile)
+            getPreSignedUrl(destinationFile)
         } else {
             (requireActivity() as BaseActivity).showError(
                 "Please check Internet Connections to upload image",
@@ -530,7 +530,7 @@ class EditProfileFragment : Fragment() {
         }
     }
 
-    private fun getPresignedUrl(destinationFile: File) {
+    private fun getPreSignedUrl(destinationFile: File) {
         val type = "upload"
         profileViewModel.presignedUrl(type, destinationFile)
             .observe(viewLifecycleOwner,
@@ -618,7 +618,7 @@ class EditProfileFragment : Fragment() {
             binding.profileImage.setImageBitmap(bitmap)
 
             if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-                getPresignedUrl(destinationFile)
+                getPreSignedUrl(destinationFile)
             } else {
                 (requireActivity() as BaseActivity).showError(
                     "Please check Internet Connections to upload image",
