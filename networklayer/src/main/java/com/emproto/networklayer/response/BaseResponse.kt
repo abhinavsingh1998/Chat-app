@@ -9,7 +9,6 @@ class BaseResponse<T> private constructor(val status: Status, val data: T?, var 
 
     companion object {
 
-
         fun <T> success(data: T): BaseResponse<T> {
             return BaseResponse(Status.SUCCESS, data, null)
         }

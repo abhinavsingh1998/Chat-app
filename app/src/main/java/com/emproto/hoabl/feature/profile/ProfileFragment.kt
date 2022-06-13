@@ -73,30 +73,6 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                     if (it.data != null) {
                         Log.i("Data",it.data.toString())
                         it.data?.let {
-                            /* val contactType=it.data.contactType
-                             val countryCode=it.data.countryCode
-                             val crmId=it.data.crmId
-                             val Id=it.data.id
-                             val profilePictureUrl=it.data.profilePictureUrl
-                             val state=it.data.state
-                             val firstName=it.data.firstName
-                             val lastName=it.data.lastName
-                             val gender=it.data.gender
-                             val city=it.data.city
-                             val address=it.data.streetAddress
-                             val dateOfBirth=it.data.dateOfBirth
-                             val phoneNumber=it.data.phoneNumber
-                             val pincode=it.data.pincode
-                             val emailId=it.data.email
-                             val otpVerified=it.data.otpVerified
-                             val status=it.data.status
-                             val whtsappConsent=it.data.whatsappConsent
-                             val country=it.data.country
-                             val houseNUmber=it.data.houseNumber
-                             val locality=it.data.locality
-                             profileData=Data(contactType,countryCode,crmId,dateOfBirth,emailId,firstName,gender,id,lastName,
-                                     otpVerified,phoneNumber,profilePictureUrl,status,whtsappConsent,country,city,state,
-                                     pincode,locality,houseNUmber,address)*/
                             profileData = it.data
                         }
                         setUiData(profileData)
@@ -115,27 +91,27 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
     }
 
     private fun setUiData(profileData: Data) {
-        profileData
         binding.tvName.text=profileData.firstName+""+profileData.lastName
 
         /*for user pic not available show username as pic label*/
         if (profileData.profilePictureUrl.isNullOrEmpty()){
+            binding.profileImage.visibility=View.VISIBLE
+            binding.profileUserLetters.visibility=View.GONE
+        }else{
             binding.profileImage.visibility=View.GONE
             binding.profileUserLetters.visibility=View.VISIBLE
             setUserNamePIC(profileData)
-        }else{
-            binding.profileImage.visibility=View.VISIBLE
-            binding.profileUserLetters.visibility=View.GONE
-            Glide.with(requireContext())
-                .load(EditProfileFragment.data.profilePictureUrl)
-                .into(binding.profileImage)
+
+//            Glide.with(requireContext())
+//                .load(profileData.profilePictureUrl)
+//                .into(binding.profileImage)
         }
     }
 
     private fun setUserNamePIC(profileData: Data) {
-        val firstLetter: String = profileData.firstName!!.substring(0, 1)
-       val lastLetter:String = profileData.lastName!!.substring(0,1)
-        binding.tvUserName.text=firstLetter+""+lastLetter
+        val firstLetter: String = profileData.firstName.substring(0, 1)
+       val lastLetter:String = profileData.lastName.substring(0,1)
+        binding.tvUserName.text= firstLetter+""+lastLetter
     }
 
 

@@ -9,6 +9,7 @@ import com.emproto.networklayer.request.login.profile.UploadProfilePictureReques
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
+import java.io.File
 
 class ProfileViewModel(
     private var mapplication: Application,
@@ -25,6 +26,9 @@ class ProfileViewModel(
 
     fun uploadProfilePicture(uploadProfilePictureRequest: UploadProfilePictureRequest): LiveData<BaseResponse<ProfilePictureResponse>> {
         return profileRepository.uploadProfilePicture(uploadProfilePictureRequest)
+    }
+    fun presignedUrl(type: String, destinationFile: File): LiveData<BaseResponse<PresignedUrlResponse>> {
+        return profileRepository.presignedUrl(type,destinationFile)
     }
 
     fun deleteProfilePicture():LiveData<BaseResponse<EditProfileResponse>>{

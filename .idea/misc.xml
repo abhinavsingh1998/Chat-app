@@ -141,11 +141,14 @@
         <entry key="..\:/Users/Admin/StudioProjects/hoabl_customer_app_android/app/src/main/res/layout/view_map_layout.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/StudioProjects/hoabl_customer_app_android/app/src/main/res/layout/why_invest_layout.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/StudioProjects/hoabl_customer_app_android/core/src/main/res/drawable/border_appcolor.xml" value="0.148" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable/sad.xml" value="0.1" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/account_details_view.xml" value="0.12129629629629629" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/account_item_kyc.xml" value="0.12129629629629629" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/fragment_account_details.xml" value="0.12129629629629629" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/fragment_chats.xml" value="0.12129629629629629" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/fragment_edit_profile.xml" value="0.14666666666666667" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/fragment_feedback.xml" value="0.2387218045112782" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/fragment_health_center.xml" value="0.17395833333333333" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/fragment_payment_history.xml" value="0.17395833333333333" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/item_accounts_kyc_doc.xml" value="0.17395833333333333" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/item_accounts_payment.xml" value="0.17395833333333333" />

@@ -81,19 +81,19 @@
 
                     <com.mikhaellopez.circularimageview.CircularImageView
                         android:id="@+id/profile_image"
-                        android:layout_width="86dp"
-                        android:layout_height="86dp"
+                        android:layout_width="95dp"
+                        android:layout_height="95dp"
                         android:layout_gravity="center"
                         android:elevation="@dimen/margin_size_8"
                         android:src="@drawable/img"
                         android:visibility="gone"
-                        app:civ_border_color="@color/white"
+                        app:civ_border_color="@color/app_color"
                         app:civ_shadow="true"
                         app:civ_shadow_color="@color/text_blue_color"
                         app:civ_shadow_radius="@dimen/margin_size_1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="MissingClass" />
+                        tools:visibility="visible"/>
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/profile_user_letters"
@@ -102,6 +102,7 @@
                         android:visibility="visible"
                         app:cardBackgroundColor="@color/app_color"
                         app:cardCornerRadius="50dp"
+                        tools:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/profile_picture">
 
