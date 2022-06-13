@@ -24,6 +24,9 @@ object ApiConstants {
     const val INVESTMENT_ALL_PROJECT = "hoabl-admin/project-contents"
     const val INVESTMENT_PROMISES = "hoabl-admin/promises"
     const val PORTFOLIO_DASHBOARD = "hoabl-customer/investment-summary"
+
+    const val PRESIGNEDURL = "hoabl-customer/aws/s3/presignedUrl"
+
     const val INVESTMENT_DETAILS = "hoabl-customer/investment-details"
     const val DOC_FILTER = "hoabl-customer/doc-filter"
     const val TERMS_CONDITION = "hoabl-admin/get-page"

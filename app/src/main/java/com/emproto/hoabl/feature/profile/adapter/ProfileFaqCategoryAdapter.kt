@@ -27,7 +27,7 @@ class ProfileFaqCategoryAdapter(
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.categoryNumber.text = "Category"+ faqCategoryList[position].categoryId.toString()
+        holder.categoryNumber.text = "Category"+" "+ faqCategoryList[position].categoryId.toString()
         holder.rvFaqList.layoutManager =
             LinearLayoutManager(mContext, RecyclerView.VERTICAL, false)
         holder.rvFaqList.adapter =

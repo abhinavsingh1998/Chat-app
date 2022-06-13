@@ -14,6 +14,7 @@ import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
 import retrofit2.Response
 import retrofit2.http.Body
+import java.io.File
 import javax.inject.Inject
 
 class ProfileDataSource(val application: Application) : BaseDataSource(application) {
@@ -47,6 +48,9 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
         return apiService.uploadPicture(uploadProfilePictureRequest)
     }
 
+    suspend fun presignedUrl(type: String, destinationFile: File): Response<PresignedUrlResponse> {
+        return apiService.presignedUrl(type,destinationFile)
+    }
     suspend fun getCountry(pageType: Int): Response<ProfileCountriesResponse> {
         return apiService.getCountryList(pageType)
     }

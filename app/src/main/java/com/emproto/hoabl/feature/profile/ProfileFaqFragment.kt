@@ -53,7 +53,6 @@ class ProfileFaqFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getData()
-        setAdapter()
 
 
 //        binding.rvHelpCenterCategory.layoutManager = LinearLayoutManager(requireContext())
@@ -72,6 +71,7 @@ class ProfileFaqFragment : Fragment() {
                     binding.loader.hide()
                     if (it.data?.data != null) {
                         faqCategory=it.data!!.data
+                        setAdapter()
                         profileFaqCategoryAdapter.notifyDataSetChanged()
 
                     }

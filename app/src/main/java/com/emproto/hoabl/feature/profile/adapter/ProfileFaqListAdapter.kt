@@ -27,7 +27,7 @@ class ProfileFaqListAdapter(
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvFaqQuestion.text = faqList[position].faqQuestion.toString()
+        holder.tvFaqQuestion.text = faqList[position].faqQuestion.question
 
 
     }
