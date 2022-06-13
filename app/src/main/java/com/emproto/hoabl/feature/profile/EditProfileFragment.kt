@@ -36,7 +36,6 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentEditProfileBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.feature.login.SucessDialogFragment
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
@@ -54,21 +53,21 @@ import javax.inject.Inject
 
 
 class EditProfileFragment : Fragment() {
-    lateinit var binding: FragmentEditProfileBinding
     val bundle = Bundle()
-
-
     var charSequence1: Editable? = null
     var charSequence2: Editable? = null
+
 
     @Inject
     lateinit var profileFactory: ProfileFactory
     lateinit var profileViewModel: ProfileViewModel
+    lateinit var binding: FragmentEditProfileBinding
+
     var hMobileNo = ""
     var hCountryCode = ""
 
-    private val PICK_IMAGE = 1
-    private val PICK_Camera_IMAGE = 2
+    private val PICK_GALLERY_IMAGE = 1
+    private val PICK_CAMERA_IMAGE = 2
     lateinit var bitmap: Bitmap
     lateinit var destinationFile: File
 
@@ -78,23 +77,23 @@ class EditProfileFragment : Fragment() {
     val permissionRequest: MutableList<String> = ArrayList()
     private lateinit var statesData: List<States>
     private lateinit var cityData: List<String>
-    val listStates = ArrayList<String>()
-    val listStatesISO = ArrayList<String>()
-    val listCities = ArrayList<String>()
-    val countryIsoCode = "IN"
+    private val listStates = ArrayList<String>()
+    private val listStatesISO = ArrayList<String>()
+    private val listCities = ArrayList<String>()
+    private val countryIsoCode = "IN"
     lateinit var state: String
     lateinit var stateIso: String
     lateinit var city: String
     lateinit var gender: String
-
+    lateinit var uploadProfilePictureRequest:UploadProfilePictureRequest
 
     @Inject
     lateinit var appPreference: AppPreference
+    lateinit var data: Data
 
     companion object {
-        lateinit var data: Data
-        fun newInstance(
-        ): EditProfileFragment {
+        fun newInstance():
+                EditProfileFragment {
             val fragment = EditProfileFragment()
             val bundle = Bundle()
             fragment.arguments = bundle
@@ -106,20 +105,19 @@ class EditProfileFragment : Fragment() {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
             data = requireArguments().getSerializable("profileData") as Data
-            Log.i("data", data.toString())
         }
     }
 
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentEditProfileBinding.inflate(inflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         profileViewModel =
             ViewModelProvider(requireActivity(), profileFactory)[ProfileViewModel::class.java]
         binding = FragmentEditProfileBinding.inflate(layoutInflater)
-
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             false
 
@@ -155,13 +153,12 @@ class EditProfileFragment : Fragment() {
                 ).show()
             }
         }
-
-
         init()
         initView()
         setGenderSpinnersData()
         getStates()
         initClickListener()
+
         return binding.root
     }
 
@@ -230,7 +227,7 @@ class EditProfileFragment : Fragment() {
                 id: Long
             ) {
                 gender = parent?.adapter?.getItem(position).toString().substring(0, 1)
-                binding.autoGender.isCursorVisible=false
+                binding.autoGender.isCursorVisible = false
             }
         }
     }
@@ -246,7 +243,7 @@ class EditProfileFragment : Fragment() {
                 stateIso = listStatesISO[position]
                 getCities(stateIso, countryIsoCode)
             }
-        binding.autoState.isCursorVisible=false
+        binding.autoState.isCursorVisible = false
 
     }
 
@@ -259,7 +256,7 @@ class EditProfileFragment : Fragment() {
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 city = listCities[position]
             }
-        binding.autoCity.isCursorVisible=false
+        binding.autoCity.isCursorVisible = false
     }
 
     private fun initView() {
@@ -273,7 +270,7 @@ class EditProfileFragment : Fragment() {
         requestPermission()
 
         binding.textviewEnterName.text = data.firstName + " " + data.lastName
-        Log.i("name",data.firstName + " " + data.lastName+data.email)
+        Log.i("name", data.firstName + " " + data.lastName + data.email)
         binding.enterPhonenumberTextview.text = data.phoneNumber
         if (!data.email.isNullOrEmpty()) {
             binding.emailTv.setText(data.email)
@@ -332,20 +329,21 @@ class EditProfileFragment : Fragment() {
         } else {
             binding.pincodeEditText.setText("")
         }
-        if (data.profilePictureUrl.isNullOrEmpty()) {
+        if (!data.profilePictureUrl.isNullOrEmpty()) {
             binding.profileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
-            setuserNamePIC()
+            setUserNamePIC()
         } else {
             binding.profileImage.visibility = View.VISIBLE
             binding.profileUserLetters.visibility = View.GONE
-            Glide.with(requireContext())
-                .load(data.profilePictureUrl)
-                .into(binding.profileImage)
+//            Glide.with(requireContext())
+//                .load(data.profilePictureUrl)
+//                .into(binding.profileImage)
+
         }
     }
 
-    private fun setuserNamePIC() {
+    private fun setUserNamePIC() {
         val firstLetter: String = data.firstName.substring(0, 1)
         val lastLetter: String = data.lastName.substring(0, 1)
         if (data.lastName.isNullOrEmpty()) {
@@ -357,18 +355,13 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun updateLable(myCalendar: Calendar) {
-            val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH)
-            binding.tvDatePicker.setText(sdf.format(myCalendar.timeZone))
-
-
+        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH)
+        binding.tvDatePicker.setText(sdf.format(myCalendar.timeZone))
     }
 
 
     ///*************ProfilePicture upload****************************//
     private fun init() {
-        /* if (data.profilePictureUrl.isNotEmpty()) {
-             binding.uploadNewPicture.setText(data.profilePictureUrl)
-         }*/
         binding.tvremove.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
@@ -402,301 +395,42 @@ class EditProfileFragment : Fragment() {
                 }
             }
         })
-
-        binding.uploadImage.setOnClickListener(View.OnClickListener {
-            val uploadProfilePictureRequest = UploadProfilePictureRequest(
-                binding.uploadNewPicture.text.toString(),
-
-                )
-            profileViewModel.uploadProfilePicture(uploadProfilePictureRequest)
-                .observe(
-                    viewLifecycleOwner
-                ) { t ->
-                    when (t!!.status) {
-                        Status.LOADING -> {
-                            binding.uploadImage.visibility = View.GONE
-                        }
-                        Status.SUCCESS -> {
-                            appPreference.saveLogin(true)
-
-                            binding.uploadImage.visibility = View.VISIBLE
-                            val dialog = SucessDialogFragment()
-                            val bundle = Bundle()
-                            bundle.putString(
-                                "ProfilePictureUrl",
-                                binding.uploadNewPicture.text.toString()
-                            )
-                            dialog.arguments = bundle
-                            dialog.isCancelable = false
-                            dialog.show(parentFragmentManager, "Welcome Card")
-                        }
-                        Status.ERROR -> {
-
-                            binding.uploadImage.visibility = View.VISIBLE
-                        }
-                    }
-                }
-        })
     }
 
     /////**************************Create Profile***************************///
     private fun initClickListener() {
-
         binding.backAction.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
 
-        binding.uploadNewPicture.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                selectImage()
-            }
-        })
+        binding.uploadNewPicture.setOnClickListener { selectImage() }
 
-        binding.tvremove.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                profileViewModel.deleteProfilePicture().observe(viewLifecycleOwner, Observer {
-                    when (it.status) {
-                        Status.LOADING -> {
-                            binding.progressBaar.show()
-                        }
-                        Status.SUCCESS -> {
-                            binding.progressBaar.hide()
-                            if (it.data != null) {
-                                Glide.with(requireContext())
-                                    .load(R.drawable.img)
-                                    .into(binding.profileImage)
-                                Toast.makeText(
-                                    requireContext(),
-                                    it.message.toString(),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
-
-                        Status.ERROR -> {
-                            binding.progressBaar.hide()
+        binding.tvremove.setOnClickListener {
+            profileViewModel.deleteProfilePicture().observe(viewLifecycleOwner, Observer {
+                when (it.status) {
+                    Status.LOADING -> {
+                        binding.progressBaar.show()
+                    }
+                    Status.SUCCESS -> {
+                        binding.progressBaar.hide()
+                        if (it.data != null) {
+                            Glide.with(requireContext())
+                                .load(R.drawable.img)
+                                .into(binding.profileImage)
+                            Toast.makeText(
+                                requireContext(),
+                                it.message.toString(),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
-                })
-            }
 
-        })
-
-/*
-        binding.genderEditText.onValueChangeListner(object : OnValueChangedListener {
-            override fun onValueChanged(value: String?, tvDrop: String) {
-                hCountryCode = tvDrop
-                binding.saveAndUpdate.visibility = View.VISIBLE
-            }
-
-            override fun afterValueChanges(value1: String?) {
-                hMobileNo = value1!!
-                if (value1.isNullOrEmpty()) {
-                    binding.saveAndUpdate.isEnabled = false
-                    binding.saveAndUpdate.isClickable = false
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        binding.saveAndUpdate.background =
-                            resources.getDrawable(R.drawable.unselect_button_bg)
-                    }
-                } else {
-                    binding.saveAndUpdate.isEnabled = true
-                    binding.saveAndUpdate.isClickable = true
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        binding.saveAndUpdate.background =
-                            resources.getDrawable(R.drawable.button_bg)
+                    Status.ERROR -> {
+                        binding.progressBaar.hide()
                     }
                 }
-            }
-
-        })
-*/
-
-        /* binding.city.onValueChangeListner(object : OnValueChangedListener {
-             override fun onValueChanged(value: String?, tvDrop: String) {
-                 hCountryCode = tvDrop
-                 binding.saveAndUpdate.visibility = View.VISIBLE
-             }
-
-             override fun afterValueChanges(value1: String?) {
-                 hMobileNo = value1!!
-                 if (value1.isNullOrEmpty()) {
-                     binding.saveAndUpdate.isEnabled = false
-                     binding.saveAndUpdate.isClickable = false
-                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                         binding.saveAndUpdate.background =
-                             resources.getDrawable(R.drawable.unselect_button_bg)
-                     }
-                 } else {
-                     binding.saveAndUpdate.isEnabled = true
-                     binding.saveAndUpdate.isClickable = true
-                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                         binding.saveAndUpdate.background =
-                             resources.getDrawable(R.drawable.button_bg)
-                     }
-                 }
-             }
-
-         })
-
-         binding.stateEditText.onValueChangeListner(object : OnValueChangedListener {
-             override fun onValueChanged(value: String?, tvDrop: String) {
-                 hCountryCode = tvDrop
-                 binding.saveAndUpdate.visibility = View.VISIBLE
-             }
-
-             override fun afterValueChanges(value1: String?) {
-                 hMobileNo = value1!!
-                 getCities(value1.toString(), isoCode)
-                 if (value1.isNullOrEmpty()) {
-                     binding.saveAndUpdate.isEnabled = false
-                     binding.saveAndUpdate.isClickable = false
-                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                         binding.saveAndUpdate.background =
-                             resources.getDrawable(R.drawable.unselect_button_bg)
-                     }
-                 } else {
-                     binding.saveAndUpdate.isEnabled = true
-                     binding.saveAndUpdate.isClickable = true
-                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                         binding.saveAndUpdate.background =
-                             resources.getDrawable(R.drawable.button_bg)
-                     }
-                 }
-             }
-
-         })*/
-
-        /*    binding.saveAndUpdate.setOnClickListener {
-                if (hMobileNo.isEmpty()) {
-                    binding.genderEditText.showError()
-                    return@setOnClickListener
-                }
-                if (data.dateOfBirth.isNotEmpty()) {
-                    binding.tvDatePicker.setText(data.dateOfBirth)
-                }
-                if (data.email.isNotEmpty()) {
-                    binding.emailTv.setText(data.email)
-
-                }
-                if (data.dateOfBirth.isNotEmpty()) {
-                    binding.dob.setTag(data.dateOfBirth)
-
-                }
-                *//*if (data.gender.toString().isNotEmpty()) {
-                binding.genderEditText.setTag(data.gender)
-
-            }*//*
-            if (data.houseNumber.isNotEmpty()) {
-                binding.houseNo.setText(data.houseNumber)
-
-            }
-            if (data.locality.isNotEmpty()) {
-                binding.locality.setText(data.locality)
-
-            }
-
-            *//* if (data.city.isNotEmpty()) {
-                 binding.city.setTag(data.city)
-
-             }
-             if (data.state.isNotEmpty()) {
-                 binding.stateEditText.setTag(data.state)
-             }*//*
-
-            if (data.pincode.toString().isNotEmpty()) {
-                binding.pincodeEditText.setText(data.pincode)
-
-            }
-
-
-            binding.emailTv.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                }
-
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                }
-
-                override fun afterTextChanged(p0: Editable?) {
-
-                }
-
-
             })
-
-            binding.tvDatePicker.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                }
-
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                }
-
-                override fun afterTextChanged(p0: Editable?) {
-
-                }
-
-
-            })
-
-            binding.houseNo.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                }
-
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                }
-
-                override fun afterTextChanged(p0: Editable?) {
-
-                }
-
-
-            })
-            binding.locality.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                }
-
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                }
-
-                override fun afterTextChanged(p0: Editable?) {
-
-                }
-
-
-            })
-            binding.pincodeEditText.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                }
-
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                }
-
-                override fun afterTextChanged(p0: Editable?) {
-
-                }
-
-
-            })
-
-            binding.tvDatePicker.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                }
-
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                }
-
-                override fun afterTextChanged(p0: Editable?) {
-
-                }
-
-
-            })
-        }*/
+        }
 
         binding.saveAndUpdate.setOnClickListener {
             binding.saveAndUpdate.text = "Save and Update"
@@ -714,7 +448,6 @@ class EditProfileFragment : Fragment() {
                 binding.autoState.text.toString(),
                 "India"
             )
-            Log.d("jhdss",editUserNameRequest.toString())
             profileViewModel.editUserNameProfile(editUserNameRequest)
                 .observe(
                     viewLifecycleOwner
@@ -743,7 +476,6 @@ class EditProfileFragment : Fragment() {
 
     }
 
-
     /*----------upload picture--------------*/
 
     private fun requestPermission() {
@@ -769,14 +501,14 @@ class EditProfileFragment : Fragment() {
         val thumbnail = data.extras!!["data"] as Bitmap?
         val bytes = ByteArrayOutputStream()
         thumbnail!!.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val destination = File(
+        destinationFile = File(
             Environment.getExternalStorageDirectory(),
             "Profile_pic_" + System.currentTimeMillis() + ".jpg"
         )
         val fo: FileOutputStream
         try {
-            destination.createNewFile()
-            fo = FileOutputStream(destination)
+            destinationFile.createNewFile()
+            fo = FileOutputStream(destinationFile)
             fo.write(bytes.toByteArray())
             fo.close()
         } catch (e: FileNotFoundException) {
@@ -784,22 +516,23 @@ class EditProfileFragment : Fragment() {
         } catch (e: IOException) {
             e.printStackTrace()
         }
+        binding.profileImage.visibility = View.VISIBLE
+        binding.profileUserLetters.visibility = View.GONE
         binding.profileImage.setImageBitmap(thumbnail)
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-            callingUploadPicApi()
+            getPresignedUrl(destinationFile)
         } else {
             (requireActivity() as BaseActivity).showError(
                 "Please check Internet Connections to upload image",
                 binding.root
+
             )
         }
     }
 
-    private fun callingUploadPicApi() {
-        val url =
-            "http://hoabl-backend-dev-306342355.ap-south-1.elb.amazonaws.com/" + destinationFile.name
-        val uploadProfilePictureRequest = UploadProfilePictureRequest(url)
-        profileViewModel.uploadProfilePicture(uploadProfilePictureRequest)
+    private fun getPresignedUrl(destinationFile: File) {
+        val type = "upload"
+        profileViewModel.presignedUrl(type, destinationFile)
             .observe(viewLifecycleOwner,
                 Observer {
                     when (it.status) {
@@ -809,9 +542,36 @@ class EditProfileFragment : Fragment() {
                         Status.SUCCESS -> {
                             binding.progressBaar.hide()
                             try {
-                                Glide.with(requireContext())
-                                    .load(it.data?.data?.profilePictureUrl)
-                                    .into(binding.profileImage)
+                                val preSignedUrl = it.data!!.preSignedUrl
+                                callingUploadPicApi(preSignedUrl)
+
+                            } catch (e: IOException) {
+                                println(e)
+                            }
+                        }
+                        Status.ERROR -> {
+                            binding.progressBaar.hide()
+                        }
+                    }
+                })
+
+    }
+
+    private fun callingUploadPicApi(url: String) {
+        uploadProfilePictureRequest= UploadProfilePictureRequest(url)
+        profileViewModel.uploadProfilePicture(uploadProfilePictureRequest)
+            .observe(viewLifecycleOwner, object : Observer<BaseResponse<ProfilePictureResponse>>{
+                override fun onChanged(it: BaseResponse<ProfilePictureResponse>?) {
+                    when (it?.status) {
+                        Status.LOADING -> {
+                            binding.progressBaar.show()
+                        }
+                        Status.SUCCESS -> {
+                            binding.progressBaar.hide()
+                            try {
+//                                Glide.with(requireContext())
+//                                    .load(it.data?.data?.profilePictureUrl)
+//                                    .into(binding.profileImage)
                             } catch (e: IOException) {
                                 System.out.println(e)
                             }
@@ -820,7 +580,12 @@ class EditProfileFragment : Fragment() {
                             binding.progressBaar.hide()
                         }
                     }
-                })
+                }
+
+
+
+
+            })
     }
 
     private fun onSelectFromGalleryResult(data: Intent) {
@@ -848,9 +613,12 @@ class EditProfileFragment : Fragment() {
             } catch (e: IOException) {
                 e.printStackTrace()
             }
+            binding.profileImage.visibility = View.VISIBLE
+            binding.profileUserLetters.visibility = View.GONE
             binding.profileImage.setImageBitmap(bitmap)
+
             if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-                callingUploadPicApi()
+                getPresignedUrl(destinationFile)
             } else {
                 (requireActivity() as BaseActivity).showError(
                     "Please check Internet Connections to upload image",
@@ -872,24 +640,28 @@ class EditProfileFragment : Fragment() {
 
     private fun selectImage() {
         val options = arrayOf<CharSequence>("Take Photo", "Choose from Gallery", "Cancel")
-        val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(requireActivity())
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireActivity())
         builder.setTitle("Add Photo!")
         builder.setItems(options) { dialog, item ->
-            if (options[item] == "Take Photo") {
-                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                startActivityForResult(intent, PICK_Camera_IMAGE)
+            when {
+                options[item] == "Take Photo" -> {
+                    val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    startActivityForResult(intent, PICK_CAMERA_IMAGE)
 
-            } else if (options[item] == "Choose from Gallery") {
-                val intent = Intent()
-                intent.type = "image/*"
-                intent.action = Intent.ACTION_GET_CONTENT //
+                }
+                options[item] == "Choose from Gallery" -> {
+                    val intent = Intent()
+                    intent.type = "image/*"
+                    intent.action = Intent.ACTION_GET_CONTENT //
 
-                startActivityForResult(
-                    Intent.createChooser(intent, "Select Picture"),
-                    PICK_IMAGE
-                )
-            } else if (options[item] == "Cancel") {
-                dialog.dismiss()
+                    startActivityForResult(
+                        Intent.createChooser(intent, "Select Picture"),
+                        PICK_GALLERY_IMAGE
+                    )
+                }
+                options[item] == "Cancel" -> {
+                    dialog.dismiss()
+                }
             }
         }
         builder.show()
@@ -898,9 +670,9 @@ class EditProfileFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == PICK_IMAGE) {
+            if (requestCode == PICK_GALLERY_IMAGE) {
                 onSelectFromGalleryResult(data!!)
-            } else if (requestCode == PICK_Camera_IMAGE) {
+            } else if (requestCode == PICK_CAMERA_IMAGE) {
                 onCaptureImageResult(data!!)
             } else {
                 (requireActivity() as BaseActivity).showError(

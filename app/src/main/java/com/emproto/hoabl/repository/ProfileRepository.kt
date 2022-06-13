@@ -16,6 +16,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 
@@ -66,6 +67,28 @@ class ProfileRepository @Inject constructor(application: Application) :
             }
         }
         return mUploadProfilePicture
+    }
+    fun presignedUrl(type: String, destinationFile: File): LiveData<BaseResponse<PresignedUrlResponse>> {
+        val presignedUrlResponse = MutableLiveData<BaseResponse<PresignedUrlResponse>>()
+        presignedUrlResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+
+                val request =
+                    ProfileDataSource(application).presignedUrl(type,destinationFile)
+                if (request.isSuccessful) {
+                    presignedUrlResponse.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    presignedUrlResponse.postValue(BaseResponse.Companion.error(request.message()))
+                }
+
+
+            } catch (e: Exception) {
+                presignedUrlResponse.postValue(BaseResponse.Companion.error(e.message!!))
+
+            }
+        }
+        return presignedUrlResponse
     }
 
     fun getCountries(pageType: Int): LiveData<BaseResponse<ProfileCountriesResponse>> {
