@@ -57,7 +57,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"></activity>
         <activity
             android:name=".feature.home.views.ProjectDetailsExpandView"
             android:screenOrientation="portrait"

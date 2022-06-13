@@ -68,17 +68,15 @@ class MediaGalleryFragment : BaseFragment() {
         investmentViewModel.setMediaContent(list)
         mediaViewPagerAdapter = MediaViewPagerAdapter(childFragmentManager, lifecycle)
         binding.vpMediaGallery.adapter = mediaViewPagerAdapter
-
         TabLayoutMediator(binding.tlMediaGallery, binding.vpMediaGallery) { tab, position ->
             tab.text = tabList[position]
         }.attach()
 
         when(isVideoSeeAllClicked){
             true -> {
-                val tab = binding.tlMediaGallery.getTabAt(1)
-                tab?.select()
-                binding.tlMediaGallery.setScrollPosition(1,0f,true)
-                binding.vpMediaGallery.currentItem = 1
+                binding.vpMediaGallery.setCurrentItem(1,false)
+                mediaViewPagerAdapter = MediaViewPagerAdapter(childFragmentManager, lifecycle)
+                mediaViewPagerAdapter.notifyDataSetChanged()
             }
         }
     }

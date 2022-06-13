@@ -22,10 +22,7 @@ import com.emproto.networklayer.response.refer.ReferalResponse
 import com.emproto.networklayer.response.search.SearchResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 import com.emproto.networklayer.response.testimonials.TestimonialsResponse
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import javax.inject.Inject
 import kotlin.Exception
 
@@ -376,22 +373,29 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         return mChatDetailResponse
     }
 
-    fun getSearchResult(): LiveData<BaseResponse<SearchResponse>> {
+    fun getSearchResult(searchWord: String): LiveData<BaseResponse<SearchResponse>> {
         val mSearchResponse = MutableLiveData<BaseResponse<SearchResponse>>()
         mSearchResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val request = HomeDataSource(application).getSearchResults()
-                if (request.isSuccessful) {
-                    if (request.body()!!.data != null)
-                        mSearchResponse.postValue(BaseResponse.success(request.body()!!))
+                val docs = async { HomeDataSource(application).getSearchDocResults("ALL",searchWord) }
+                val search = async {  HomeDataSource(application).getSearchResults(searchWord) }
+                val docsResponse = docs.await()
+                val searchResponse = search.await()
+                if (searchResponse.isSuccessful) {
+                    if (searchResponse.body()!!.data != null){
+                        if(docsResponse.isSuccessful){
+                            searchResponse.body()!!.data.docsData = docsResponse.body()?.data!!
+                        }
+                        mSearchResponse.postValue(BaseResponse.success(searchResponse.body()!!))
+                    }
                     else
                         mSearchResponse.postValue(BaseResponse.Companion.error("No data found"))
                 } else {
                     mSearchResponse.postValue(
                         BaseResponse.Companion.error(
                             getErrorMessage(
-                                request.errorBody()!!.string()
+                                searchResponse.errorBody()!!.string()
                             )
                         )
                     )

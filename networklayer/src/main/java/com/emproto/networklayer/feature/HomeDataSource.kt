@@ -9,6 +9,7 @@ import com.emproto.networklayer.di.DaggerDataComponent
 import com.emproto.networklayer.ApiService
 import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.chats.ChatInitiateRequest
+import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
@@ -83,7 +84,12 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
     }
 
     //search api
-    suspend fun getSearchResults(): Response<SearchResponse> {
-        return apiService.getSearchResults()
+    suspend fun getSearchResults(searchWord: String): Response<SearchResponse> {
+        return apiService.getSearchResults(searchWord)
+    }
+
+    //search doc api
+    suspend fun getSearchDocResults(docCategory: String,searchWord: String): Response<DocumentsResponse> {
+        return apiService.getSearchDocResults(searchWord)
     }
 }

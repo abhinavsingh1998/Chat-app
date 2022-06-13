@@ -1,21 +1,29 @@
 package com.emproto.hoabl.feature.home.views.fragments
 
 
+import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
+import android.os.Handler
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
 import com.emproto.core.Database.TableModel.SearchModel
-
-import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentSearchResultBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.adapters.SearchResultAdapter
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.CategoryListAdapter
 import com.emproto.hoabl.feature.portfolio.adapters.DocumentInterface
 import com.emproto.hoabl.feature.portfolio.adapters.DocumentsAdapter
@@ -30,6 +38,7 @@ import com.emproto.networklayer.response.investment.ApData
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectContentsAndFaq
 import javax.inject.Inject
 
+
 class SearchResultFragment : BaseFragment() {
 
     lateinit var fragmentSearchResultBinding: FragmentSearchResultBinding
@@ -41,9 +50,13 @@ class SearchResultFragment : BaseFragment() {
     lateinit var searchResultAdapter: SearchResultAdapter
     lateinit var gridLayoutManager: GridLayoutManager
 
-    lateinit var faqAdapter: SearchFaqAdapter
-    lateinit var projectListAdapter: CategoryListAdapter
+//    lateinit var faqAdapter: SearchFaqAdapter
+//    lateinit var projectListAdapter: CategoryListAdapter
     lateinit var documentAdapter: DocumentsAdapter
+
+    private var topText = ""
+    val faqList = ArrayList<ProjectContentsAndFaq>()
+    val projectList = ArrayList<Data>()
 
     companion object {
         fun newInstance(): SearchResultFragment {
@@ -62,13 +75,101 @@ class SearchResultFragment : BaseFragment() {
         fragmentSearchResultBinding = FragmentSearchResultBinding.inflate(layoutInflater)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel = ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
+        fragmentSearchResultBinding.searchLayout.rotateText.text = " "
+        fragmentSearchResultBinding.searchLayout.rotateText.isSelected = true
+        arguments.let {
+            if (it != null) {
+                topText = it.getString("TopText").toString()
+            }
+        }
         initObserver()
         initView()
+        initClickListeners()
         return fragmentSearchResultBinding.root
     }
 
+    private fun initClickListeners() {
+        fragmentSearchResultBinding.searchLayout.search.requestFocus()
+        fragmentSearchResultBinding.searchLayout.imageBack.setOnClickListener{
+            (requireActivity() as HomeActivity).onBackPressed()
+        }
+        fragmentSearchResultBinding.searchLayout.ivCloseImage.setOnClickListener {
+            fragmentSearchResultBinding.searchLayout.search.setText("")
+        }
+    }
+
     private fun initObserver() {
-        homeViewModel.getSearchResult().observe(viewLifecycleOwner,Observer{
+        //for ticker
+        homeViewModel.gethomeData().observe(viewLifecycleOwner) {
+            it.let {
+                val totalLandsold: String? = String.format(
+                    getString(R.string.header),
+                    it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName,
+                    it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value + " Sqft"
+                )
+                //it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value
+
+                val totalAmtLandSold: String? = String.format(
+                    getString(R.string.header),
+                    it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName,
+                    it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
+                )
+                //it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
+                val grossWeight: String? = String.format(
+                    getString(R.string.header),
+                    it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName,
+                    it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
+                )
+                //it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName + " " + it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
+                val num_User: String? = String.format(
+                    getString(R.string.header),
+                    it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName,
+                    it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
+                )
+                //it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName + " " + it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
+                fragmentSearchResultBinding.searchLayout.rotateText.text = showHTMLText(
+                    "$totalAmtLandSold    $totalLandsold    $grossWeight    $num_User"
+                )
+            }
+        }
+
+        fragmentSearchResultBinding.searchLayout.search.addTextChangedListener(object :
+            TextWatcher {
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//                if (p0.toString().isNotEmpty()) {
+//                    Handler().postDelayed({
+//                        callSearchApi(p0.toString())
+//                    },2000)
+//                } else {
+//
+//                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                //get the fragment
+                if (p0.toString().isNotEmpty()) {
+                    if(p0.toString() != ""){
+                        fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.VISIBLE
+                    }
+                    Handler().postDelayed({
+                        callSearchApi(p0.toString())
+                    },2000)
+                } else {
+
+                }
+            }
+
+        })
+
+
+    }
+
+    private fun callSearchApi(searchWord:String){
+        homeViewModel.getSearchResult(searchWord).observe(viewLifecycleOwner,Observer{
             when(it.status){
                 Status.LOADING -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
@@ -76,19 +177,43 @@ class SearchResultFragment : BaseFragment() {
                 Status.SUCCESS -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                     it.data?.data?.let { data ->
-                        val faqList = ArrayList<ProjectContentsAndFaq>()
-                        for(item in data.faqData){
-                            val pjd = ProjectContentsAndFaq("",0,item,0,0,0,"")
-                            faqList.add(pjd)
-                        }
-                        val list = ArrayList<Data>()
-                        list.add(Data("","Image",1,"","","",""))
-                        list.add(Data("","Image",1,"","","",""))
-                        list.add(Data("","Image",1,"","","",""))
-                        list.add(Data("","Image",1,"","","",""))
-                        setUpAdapter(faqList,data.projectContentData,list)
-// for docs --> com.emproto.networklayer.response.documents
+                        fragmentSearchResultBinding.nsvSearchInfo.visibility = View.VISIBLE
+                        when{
+                            data.faqData.isNotEmpty() -> {
+                                fragmentSearchResultBinding.tvFaq.visibility = View.VISIBLE
+                                faqList.clear()
+                                for(item in data.faqData){
+                                    val pjd = ProjectContentsAndFaq("",0,item,0,0,0,"")
+                                    faqList.add(pjd)
+                                }
+                            }
+                            data.faqData.isEmpty() -> {
+                                fragmentSearchResultBinding.tvFaq.visibility = View.GONE
+                            }
+                            data.projectContentData.isEmpty() -> {
+                                fragmentSearchResultBinding.tvProject.visibility = View.GONE
+                            }
+                            data.projectContentData.isNotEmpty() -> {
 
+                            }
+                            data.docsData.isNotEmpty() -> {
+                                for(item in data.docsData){
+                                    projectList.add(item)
+                                }
+                            }
+                            data.docsData.isEmpty() -> {
+                                fragmentSearchResultBinding.tvDocuments.visibility = View.GONE
+                                fragmentSearchResultBinding.documentsList.visibility = View.GONE
+                            }
+
+                        }
+//                        projectList.clear()
+//                        projectList.add(Data("","Image",1,"","","",""))
+//                        projectList.add(Data("","Image",1,"","","",""))
+//                        projectList.add(Data("","Image",1,"","","",""))
+//                        projectList.add(Data("","Image",1,"","","",""))
+                        setUpAdapter(faqList,data.projectContentData,projectList)
+// for docs --> com.emproto.networklayer.response.documents
                     }
                 }
                 Status.ERROR -> {
@@ -107,6 +232,9 @@ class SearchResultFragment : BaseFragment() {
 
     private fun initView() {
         (requireActivity() as HomeActivity).hideBottomNavigation()
+        (requireActivity() as HomeActivity).hideHeader()
+        val inputMethodManager = (requireActivity() as HomeActivity).getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(fragmentSearchResultBinding.searchLayout.search, InputMethodManager.SHOW_IMPLICIT)
     }
 
     private fun setUpAdapter(
@@ -116,7 +244,7 @@ class SearchResultFragment : BaseFragment() {
     ) {
         fragmentSearchResultBinding.projectList.layoutManager =
             LinearLayoutManager(requireContext())
-        projectListAdapter = CategoryListAdapter(requireContext(), projectContentData, itemClickListener,3)
+        val projectListAdapter = CategoryListAdapter(requireContext(), projectContentData, itemClickListener,3)
         fragmentSearchResultBinding.projectList.adapter = projectListAdapter
 
         fragmentSearchResultBinding.documentsList.layoutManager =
@@ -124,9 +252,13 @@ class SearchResultFragment : BaseFragment() {
         documentAdapter = DocumentsAdapter(list,false,ivinterface)
         fragmentSearchResultBinding.documentsList.adapter = documentAdapter
 
-        fragmentSearchResultBinding.faqsList.layoutManager = LinearLayoutManager(requireContext())
-        faqAdapter = SearchFaqAdapter(requireContext(), faqList, investmentScreenInterface)
-        fragmentSearchResultBinding.faqsList.adapter = faqAdapter
+        when{
+            faqList.isNotEmpty() -> {
+                val faqAdapter = SearchFaqAdapter(requireContext(), faqList, investmentScreenInterface)
+                fragmentSearchResultBinding.faqsList.layoutManager = LinearLayoutManager(requireContext())
+                fragmentSearchResultBinding.faqsList.adapter = faqAdapter
+            }
+        }
     }
 
     val itemClickListener = object : ItemClickListener {

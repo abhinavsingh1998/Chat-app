@@ -11,9 +11,11 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewTreeObserver
+import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.postDelayed
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -68,7 +70,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     lateinit var homeViewModel: HomeViewModel
     var added = false
     val appURL = "https://hoabl.in/"
-
+    var topText = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,37 +111,13 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             )
         }
 
-        activityHomeActivity.searchLayout.search.onFocusChangeListener =
-            View.OnFocusChangeListener { p0, p1 ->
-                if (p1) {
-                    Toast.makeText(this, "Focus", Toast.LENGTH_SHORT).show()
-                    //show bottom dropdown
-                } else {
-                }
-            }
-        activityHomeActivity.searchLayout.search.addTextChangedListener(object : TextWatcher {
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                //get the fragment
-
-                if (p0.toString().isNotEmpty()) {
-                    if (!added) {
-                        added = true
-                        addFragment(SearchResultFragment.newInstance(), false)
-                    }
-                } else {
-                    added = false
-                    onBackPressed()
-                }
-            }
-
-        })
+        activityHomeActivity.searchLayout.search.setOnClickListener {
+            val fragment = SearchResultFragment()
+            val bundle = Bundle()
+            bundle.putString("TopText", topText)
+            fragment.arguments = bundle
+            addFragment(fragment, false)
+        }
 
         activityHomeActivity.searchLayout.notification.setOnClickListener(View.OnClickListener {
             bottomSheetDialog = BottomSheetDialog(this)
@@ -421,7 +399,9 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 activityHomeActivity.searchLayout.rotateText.text = showHTMLText(
                     "$totalAmtLandSold    $totalLandsold    $grossWeight    $num_User"
                 )
-
+                topText = showHTMLText(
+                    "$totalAmtLandSold    $totalLandsold    $grossWeight    $num_User"
+                ).toString()
             }
 
         })

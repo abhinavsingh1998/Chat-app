@@ -13,7 +13,8 @@ data class Data(
     val faqData: List<FrequentlyAskedQuestion>,
     val insightsData: List<InsightsData>,
     val marketingUpdateData: List<MarketingUpdateData>,
-    val projectContentData: List<ApData>
+    val projectContentData: List<ApData>,
+    var docsData: List<com.emproto.networklayer.response.documents.Data>
 )
 
 data class InsightsData(

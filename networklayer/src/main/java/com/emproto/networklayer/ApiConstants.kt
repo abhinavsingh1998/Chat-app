@@ -49,4 +49,5 @@ object ApiConstants {
     const val PROJECT_MEDIA_GALLERIES =
         "hoabl-admin/project-contents/{projectContentId}/media-galleries"
     const val SEARCH = "hoabl-admin/search"
+    const val SEARCH_DOCS = "hoabl-customer/doc-filter"
 }

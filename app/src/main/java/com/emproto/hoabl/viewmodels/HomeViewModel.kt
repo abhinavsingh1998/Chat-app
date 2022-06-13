@@ -14,13 +14,11 @@ import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.home.HomeResponse
-import com.emproto.networklayer.response.home.PageManagementOrInsight
 import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.Data
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
-import com.emproto.networklayer.response.home.PageManagementOrLatestUpdate
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
@@ -176,8 +174,8 @@ class HomeViewModel(
         return homeRepository.getFacilitymanagment()
     }
 
-    fun getSearchResult(): LiveData<BaseResponse<SearchResponse>> {
-        return homeRepository.getSearchResult()
+    fun getSearchResult(searchWord: String): LiveData<BaseResponse<SearchResponse>> {
+        return homeRepository.getSearchResult(searchWord)
     }
 
 }

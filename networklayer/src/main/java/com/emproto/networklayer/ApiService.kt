@@ -169,5 +169,8 @@ public interface ApiService {
     suspend fun getBookingJourney(@Query("investmentId") investmentId: Int): Response<BookingJourneyResponse>
 
     @GET(ApiConstants.SEARCH)
-    suspend fun getSearchResults():Response<SearchResponse>
+    suspend fun getSearchResults(@Query("searchKey") searchWord: String):Response<SearchResponse>
+
+    @GET(ApiConstants.SEARCH_DOCS)
+    suspend fun getSearchDocResults(@Query("searchKey") searchWord: String):Response<DocumentsResponse>
 }
