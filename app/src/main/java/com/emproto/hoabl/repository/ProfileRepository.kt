@@ -9,10 +9,13 @@ import com.emproto.networklayer.feature.ProfileDataSource
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
+import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
+import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
+import com.emproto.networklayer.response.terms.TermsConditionResponse
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -232,13 +235,13 @@ class ProfileRepository @Inject constructor(application: Application) :
     }
 
 
-    fun submitFeedback(): LiveData<BaseResponse<FeedBackResponse>> {
+    fun submitFeedback(feedBackRequest: FeedBackRequest): LiveData<BaseResponse<FeedBackResponse>> {
         val mCaseResponse = MutableLiveData<BaseResponse<FeedBackResponse>>()
 
         mCaseResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val request = RegistrationDataSource(application).submitTroubleCase(signingRequest)
+                val request = ProfileDataSource(application).shareFeedBack(feedBackRequest)
                 if (request.isSuccessful) {
                     mCaseResponse.postValue(BaseResponse.success(request.body()!!))
                 } else {
@@ -250,6 +253,30 @@ class ProfileRepository @Inject constructor(application: Application) :
             }
         }
         return mCaseResponse
+    }
+
+    fun getPrivacyAndPolicy(pageType: Int): LiveData<BaseResponse<TermsConditionResponse>> {
+        mAddUsernameResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).getPrivacyAndPolicy(pageType)
+                if (request.isSuccessful) {
+                    mAddUsernameResponse.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    mAddUsernameResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+
+            } catch (e: Exception) {
+                mAddUsernameResponse.postValue(BaseResponse.Companion.error(e.message!!))
+            }
+        }
+        return mAddUsernameResponse
     }
     fun getFaqList(typeOfFAQ: String): LiveData<BaseResponse<ProfileFaqResponse>> {
         val faqResponse = MutableLiveData<BaseResponse<ProfileFaqResponse>>()

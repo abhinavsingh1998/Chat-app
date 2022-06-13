@@ -13,10 +13,10 @@ import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
+import com.emproto.networklayer.response.terms.TermsConditionResponse
 import retrofit2.Response
 import java.io.File
 import javax.inject.Inject
-
 
 class ProfileDataSource(val application: Application) : BaseDataSource(application) {
 
@@ -93,6 +93,9 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
         return apiService.submitFeedback(feedBackRequest)
     }
 
+    suspend fun getPrivacyAndPolicy(pageType: Int): Response<TermsConditionResponse> {
+        return apiService.getTermscondition(pageType)
+    }
 
     suspend fun getFaqList(typeOfFAQ: String): Response<ProfileFaqResponse> {
         return apiService.getFaqList(typeOfFAQ)

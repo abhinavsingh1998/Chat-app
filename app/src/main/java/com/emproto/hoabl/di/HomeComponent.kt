@@ -12,6 +12,8 @@ import com.emproto.hoabl.feature.login.*
 import com.emproto.hoabl.feature.portfolio.views.*
 import com.emproto.hoabl.feature.profile.AccountDetailsFragment
 import com.emproto.hoabl.feature.profile.EditProfileFragment
+import com.emproto.hoabl.feature.profile.FeedbackFragment
+import com.emproto.hoabl.feature.profile.PrivacyFragment
 import com.emproto.hoabl.feature.profile.ProfileFaqFragment
 import com.emproto.hoabl.feature.profile.ProfileFragment
 import com.emproto.hoabl.feature.promises.HoablPromises
@@ -63,6 +65,8 @@ interface HomeComponent {
     fun inject(fragment: ChatsFragment)
     fun inject(fragment: ChatsDetailFragment)
     fun inject(fragment: BookingjourneyFragment)
+    fun inject(fragment:FeedbackFragment)
+    fun inject(fragment:PrivacyFragment)
     fun inject(fragment: SearchResultFragment)
     fun inject(fragment: AccountDetailsFragment)
     fun inject(fragment: ProfileFaqFragment)
