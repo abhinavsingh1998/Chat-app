@@ -95,7 +95,19 @@ class ProjectTimelineFragment : BaseFragment() {
                         }
                         mBinding.timelineList.layoutManager = LinearLayoutManager(requireContext())
                         mBinding.timelineList.adapter =
-                            TimelineAdapter(requireContext(), timelineList, null)
+                            TimelineAdapter(
+                                requireContext(),
+                                timelineList,
+                                object : TimelineAdapter.TimelineInterface {
+                                    override fun onClickVDetails(url: String) {
+                                        //open image viewer
+                                        (requireActivity() as HomeActivity).addFragment(
+                                            DocViewerFragment.newInstance(false, "Test.png", url),
+                                            false
+                                        )
+                                    }
+
+                                })
                     }
 
                 }
@@ -111,7 +123,9 @@ class ProjectTimelineFragment : BaseFragment() {
     }
 
     private fun initView() {
-
+        (requireActivity() as HomeActivity).showHeader()
+        (requireActivity() as HomeActivity).showBackArrow()
+        (requireActivity() as HomeActivity).hideBottomNavigation()
     }
 
     companion object {

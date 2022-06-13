@@ -272,17 +272,17 @@ class PortfolioSpecificViewAdapter(
                         Utility.formatAmount(data.investmentInformation.otherExpenses)
 
                     binding.ivInvestedAmount.setOnClickListener {
-                        getToolTip("${data.investmentInformation.amountInvested}").showAlignTop(
+                        getToolTip("₹${data.investmentInformation.amountInvested}").showAlignTop(
                             binding.ivInvestedAmount
                         )
                     }
                     binding.ivAmountPending.setOnClickListener {
-                        getToolTip("${data.investmentInformation.registryAmount}").showAlignTop(
+                        getToolTip("₹${data.investmentInformation.registryAmount}").showAlignTop(
                             binding.ivAmountPending
                         )
                     }
                     binding.ivAmountPending1.setOnClickListener {
-                        getToolTip("${data.investmentInformation.otherExpenses}").showAlignTop(
+                        getToolTip("₹${data.investmentInformation.otherExpenses}").showAlignTop(
                             binding.ivAmountPending1
                         )
                     }
@@ -309,9 +309,9 @@ class PortfolioSpecificViewAdapter(
                         binding.tvPaidAmount.text =
                                 //NumberFormat.getCurrencyInstance(Locale("en", "in")).format(data.investmentInformation.bookingJourney.paidAmount)
                             Utility.formatAmount(data.investmentInformation.amountInvested)
-                        getToolTip("${data.investmentInformation.amountInvested}")
+                        getToolTip("₹${data.investmentInformation.amountInvested}")
                         binding.tvPaid.setOnClickListener {
-                            getToolTip("${data.investmentInformation.amountInvested}").showAlignTop(
+                            getToolTip("₹${data.investmentInformation.amountInvested}").showAlignTop(
                                 binding.tvPaid
                             )
                         }
@@ -326,12 +326,12 @@ class PortfolioSpecificViewAdapter(
                         binding.tvAmountPaid.text =
                             Utility.formatAmount(data.investmentInformation.bookingJourney.paidAmount)
                         binding.tvPaid.setOnClickListener {
-                            getToolTip("${data.investmentInformation.bookingJourney.paidAmount}").showAlignTop(
+                            getToolTip("₹${data.investmentInformation.bookingJourney.paidAmount}").showAlignTop(
                                 binding.tvPaid
                             )
                         }
                         binding.tvPending.setOnClickListener {
-                            getToolTip("${data.investmentInformation.bookingJourney.amountPending}").showAlignTop(
+                            getToolTip("₹${data.investmentInformation.bookingJourney.amountPending}").showAlignTop(
                                 binding.tvPending
                             )
                         }

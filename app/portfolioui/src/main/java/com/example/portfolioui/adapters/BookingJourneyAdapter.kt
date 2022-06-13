@@ -126,7 +126,12 @@ class BookingJourneyAdapter(
                 listHolder.binding.textHeader.text = "PAYMENTS"
                 listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
                 listHolder.binding.stepsList.adapter =
-                    BookingStepsAdapter(context, list, itemInterface)
+                    BookingStepsAdapter(
+                        context,
+                        list,
+                        itemInterface,
+                        BookingStepsAdapter.SECTION_PAYMENT
+                    )
             }
             OWNERSHIP -> {
                 val listHolder = holder as OwnershipHolder
@@ -288,7 +293,7 @@ class BookingJourneyAdapter(
                     BookingStepsModel(
                         BookingStepsAdapter.TYPE_COMPLETED,
                         item.paymentMilestone,
-                        "Payment Pending",
+                        "Payment Completed",
                         "View Details"
                     )
                 )

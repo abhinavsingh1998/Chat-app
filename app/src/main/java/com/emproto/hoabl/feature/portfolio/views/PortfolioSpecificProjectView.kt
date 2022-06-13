@@ -437,6 +437,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 }, allMediaList
             )
         binding.rvPortfolioSpecificView.adapter = portfolioSpecificViewAdapter
+        binding.rvPortfolioSpecificView.setHasFixedSize(true)
+        binding.rvPortfolioSpecificView.setItemViewCacheSize(10)
 
         fetchDocuments(it.data.investmentInformation.crmProjectId)
         //for document bottom sheet
@@ -484,7 +486,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
     private fun openDocument(position: Int) {
         (requireActivity() as HomeActivity).addFragment(
-            DocViewerFragment.newInstance("Doc Name", ""),
+            DocViewerFragment.newInstance(true, "Test.ong"),
             false
         )
     }

@@ -29,7 +29,7 @@
         style="@style/text_regular_normal_12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="14dp"
         android:text="Internal Roads "
         android:textColor="#17171c"
         app:layout_constraintBottom_toBottomOf="@+id/steps_type"
@@ -52,7 +52,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
-        android:text="View Details"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

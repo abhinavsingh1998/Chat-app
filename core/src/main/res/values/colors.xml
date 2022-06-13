@@ -38,4 +38,6 @@
     <color name="primarycolor_5">#17171c</color>
     <color name="green">#47b35f</color>
     <color name="disable_text">#707193</color>
+    <color name="grey_color">#d3d3d3</color>
+
 </resources>

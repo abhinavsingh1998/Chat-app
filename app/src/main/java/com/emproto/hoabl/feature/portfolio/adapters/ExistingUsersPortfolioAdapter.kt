@@ -214,24 +214,10 @@ class ExistingUsersPortfolioAdapter(
                 binding.contentTxt4.text = "${summary.iea}% IEA"
             }
 
-            val balloon = createBalloon(context) {
-                setArrowSize(6)
-                setWidth(200)
-                setTextSize(12F)
-                setArrowPosition(0.5f)
-                setCornerRadius(4f)
-                setAlpha(0.9f)
-                setText("Investor Estimated Appreciation")
-                setTextColorResource(R.color.white)
-                setBackgroundColorResource(R.color.black)
-                setPadding(5)
-                setTextTypeface(ResourcesCompat.getFont(context, R.font.jost_medium)!!)
-                setBalloonAnimation(BalloonAnimation.FADE)
-                setLifecycleOwner(lifecycleOwner)
-            }
+
 
             binding.ivAmount.setOnClickListener {
-                balloon.showAlignBottom(binding.ivAmount)
+                getToolTip("Investor Estimated Appreciation").showAlignBottom(binding.ivAmount)
             }
 
         }
@@ -253,24 +239,9 @@ class ExistingUsersPortfolioAdapter(
                     .format(ongoing.amountPending)
             }
 
-            val balloon = createBalloon(context) {
-                setArrowSize(6)
-                setWidth(BalloonSizeSpec.WRAP)
-                setTextSize(12F)
-                setArrowPosition(0.5f)
-                setCornerRadius(4f)
-                setAlpha(0.9f)
-                setText("Excluding taxes & other charges")
-                setTextColorResource(R.color.white)
-                setBackgroundColorResource(R.color.black)
-                setPadding(5)
-                setTextTypeface(ResourcesCompat.getFont(context, R.font.jost_medium)!!)
-                setBalloonAnimation(BalloonAnimation.FADE)
-                setLifecycleOwner(lifecycleOwner)
-            }
 
             binding.ivAmountPending.setOnClickListener {
-                balloon.showAlignTop(binding.ivAmountPending)
+                getToolTip("Excluding taxes & other charges").showAlignTop(binding.ivAmountPending)
             }
         }
     }

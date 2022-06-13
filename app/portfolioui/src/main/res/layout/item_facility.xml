@@ -20,7 +20,7 @@
             android:layout_height="20dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/ic_payment_icon"
+            android:background="@drawable/ic_inprogress_bg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,12 +44,12 @@
 
         <ImageView
             android:id="@+id/iv_first"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/margin_size_12"
+            android:layout_height="@dimen/margin_size_12"
             android:layout_gravity="center_vertical"
             android:layout_marginTop="25dp"
             android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_payment_icon"
+            android:src="@drawable/ic_inprogress_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/header_indicator"
             app:layout_constraintStart_toStartOf="@+id/header_indicator"
