@@ -1,6 +1,9 @@
 package com.example.portfolioui.adapters
 
 import android.content.Context
+import android.os.Build
+import android.text.Html
+import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
@@ -87,9 +90,17 @@ class StepsAdapter(
                 val type1Holder = holder as InCompletedHolder
                 val data = dataList[position].timeline
                 type1Holder.binding.tvName.text = data.heading
-
+                type1Holder.binding.textView7.text = showHTMLText(
+                    String.format(
+                        context.getString(R.string.tv_receipt),
+                        "View Details"
+                    )
+                )
                 type1Holder.binding.imageView.setOnClickListener {
                     getToolTip(data.heading).showAlignBottom(type1Holder.binding.imageView)
+                }
+                type1Holder.binding.textView7.setOnClickListener {
+                    //on click receipt
                 }
             }
             TYPE_INPROGRESS -> {
@@ -99,6 +110,12 @@ class StepsAdapter(
                 type1Holder.binding.tvPercentage.text =
                     "" + data.sections[0].values.percentage + "%"
 
+                type1Holder.binding.textView7.text = showHTMLText(
+                    String.format(
+                        context.getString(R.string.tv_receipt),
+                        "View Details"
+                    )
+                )
 
                 type1Holder.binding.imageView.setOnClickListener {
                     getToolTip(data.heading).showAlignBottom(type1Holder.binding.imageView)
@@ -139,6 +156,14 @@ class StepsAdapter(
 
     interface TimelineInterface {
         fun onClickItem(position: Int)
+    }
+
+    fun showHTMLText(message: String?): Spanned {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            Html.fromHtml(message)
+        }
     }
 
 }

@@ -83,7 +83,6 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     val permissionRequest: MutableList<String> = ArrayList()
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     var isReadPermissonGranted: Boolean = false
-    var oneTimeValidation = false
 
 
     override fun onCreateView(
@@ -157,7 +156,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
         if (appPreference.isPinDialogShown()) {
             // if dialog is shown already and pin is activated show pin screen.
-            if (appPreference.getPinActivationStatus() && !oneTimeValidation) {
+            if (appPreference.getPinActivationStatus() && !(requireActivity() as HomeActivity).isFingerprintValidate()) {
                 setUpInitialUI()
                 setUpAuthentication()
             } else {
@@ -208,7 +207,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                     result: BiometricPrompt.AuthenticationResult
                 ) {
                     super.onAuthenticationSucceeded(result)
-                    oneTimeValidation = true
+                    (requireActivity() as HomeActivity).fingerprintValidation(true)
                     setUpUI(true)
                 }
 
@@ -353,6 +352,8 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                     this@PortfolioFragment
                 )
             binding.financialRecycler.adapter = adapter
+            binding.financialRecycler.setHasFixedSize(true)
+            binding.financialRecycler.setItemViewCacheSize(10)
         }
 
 

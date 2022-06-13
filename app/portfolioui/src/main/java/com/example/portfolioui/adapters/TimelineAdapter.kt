@@ -20,7 +20,7 @@ import com.example.portfolioui.models.TimelineModel
 class TimelineAdapter(
     var context: Context,
     val dataList: ArrayList<TimelineModel>,
-    val itemInterface: TimelineInterface?
+    val itemInterface: TimelineInterface
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -87,6 +87,9 @@ class TimelineAdapter(
                         "View Details"
                     )
                 )
+                listHolder.binding.textView7.setOnClickListener {
+                    itemInterface.onClickVDetails(listData.timeLines[0].sections[0].values.medias.value.url)
+                }
 
             }
             TYPE_LIST -> {
@@ -126,7 +129,7 @@ class TimelineAdapter(
         RecyclerView.ViewHolder(binding.root)
 
     interface TimelineInterface {
-        fun onClickItem(position: Int)
+        fun onClickVDetails(url: String)
     }
 
     fun showHTMLText(message: String?): Spanned {
