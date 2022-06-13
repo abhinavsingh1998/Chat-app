@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/tv_transaction_name"
+        android:id="@+id/tvProjectName"
         style="@style/text_style_text_color_14"
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -15,10 +15,10 @@
         android:fontFamily="@font/jost_bold"
         android:text="Isle of Bliss : "
       app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_total_amount"/>
+        app:layout_constraintTop_toBottomOf="@id/tvPaidAmount"/>
 
     <TextView
-        android:id="@+id/tv_transaction_time_date"
+        android:id="@+id/tvPaymentDate"
         style="@style/text_style_grey_12"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -26,11 +26,11 @@
         android:fontFamily="@font/jost_italic"
         android:text="11th March 2022"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_total_amount"
-        app:layout_constraintBottom_toBottomOf="@id/tv_total_amount"/>
+        app:layout_constraintTop_toTopOf="@id/tvPaidAmount"
+        app:layout_constraintBottom_toBottomOf="@id/tvPaidAmount"/>
 
     <TextView
-        android:id="@+id/receipt_tv"
+        android:id="@+id/tvSeeReceipt"
         style="@style/text_style_blue_12"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -39,31 +39,31 @@
         android:text="@string/see_receipt"
         android:textAlignment="textStart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_transaction_name"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_transaction_name"/>
+        app:layout_constraintTop_toTopOf="@+id/tvProjectName"
+        app:layout_constraintBottom_toBottomOf="@+id/tvProjectName"/>
     <View
-        android:id="@+id/document_view_link_line"
+        android:id="@+id/viewUnderLine"
         android:layout_width="0dp"
         android:layout_height="0.75dp"
         android:background="@color/app_color"
-        app:layout_constraintEnd_toEndOf="@+id/receipt_tv"
+        app:layout_constraintEnd_toEndOf="@+id/tvSeeReceipt"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/receipt_tv"
-        app:layout_constraintTop_toBottomOf="@+id/receipt_tv" />
+        app:layout_constraintStart_toStartOf="@+id/tvSeeReceipt"
+        app:layout_constraintTop_toBottomOf="@+id/tvSeeReceipt" />
 
     <TextView
-        android:id="@+id/tv_payment_milestone"
+        android:id="@+id/tvPaymentMilestone"
         style="@style/text_style_text_color_14"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/jost_regular"
         android:text="Payment Milestone 2"
-        app:layout_constraintStart_toEndOf="@id/tv_transaction_name"
-        app:layout_constraintTop_toTopOf="@+id/tv_transaction_name"
-        app:layout_constraintBottom_toBottomOf="@id/tv_transaction_name"/>
+        app:layout_constraintStart_toEndOf="@id/tvProjectName"
+        app:layout_constraintTop_toTopOf="@+id/tvProjectName"
+        app:layout_constraintBottom_toBottomOf="@id/tvProjectName"/>
 
     <TextView
-        android:id="@+id/tv_total_amount"
+        android:id="@+id/tvPaidAmount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
@@ -83,6 +83,6 @@
         android:background="@color/category_bottom_ash_line_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_payment_milestone" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPaymentMilestone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

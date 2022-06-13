@@ -14,6 +14,7 @@ import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
+import com.emproto.networklayer.response.profile.AccountsResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import retrofit2.Response
@@ -29,6 +30,7 @@ import javax.inject.Named
 public class HomeDataSource(val application: Application) : BaseDataSource(application) {
     @Inject
     lateinit var apiService: ApiService
+
     @Named("dummy")
 
     private var dataComponent: DataComponent =
@@ -45,11 +47,11 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
     }
 
     // all Latest udates modules apis
-    suspend fun getLatestUpdatesData(byPrority:Boolean): Response<LatestUpdatesResponse> {
+    suspend fun getLatestUpdatesData(byPrority: Boolean): Response<LatestUpdatesResponse> {
         return apiService.getLatestUpdates(byPrority)
     }
 
-    suspend fun getInsightsData(byPrority:Boolean): Response<InsightsResponse> {
+    suspend fun getInsightsData(byPrority: Boolean): Response<InsightsResponse> {
         return apiService.getInsightsData(byPrority)
     }
 
@@ -61,10 +63,6 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
     suspend fun getPromisesData(pageType: Int): Response<PromisesResponse> {
         return apiService.getPromises(pageType)
     }
-    //chats list api
-    suspend fun getChatsList(): Response<ChatResponse> {
-        return apiService.getChatsList()
-    }
 
     //get all investments
     suspend fun getAllInvestments(): Response<AllProjectsResponse> {
@@ -72,12 +70,22 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
     }
 
     //get facility managment
-    suspend fun getFacilityManagment():Response<FMResponse>{
+    suspend fun getFacilityManagment(): Response<FMResponse> {
         return apiService.getFacilityManagment()
+    }
+
+    //chats list api
+    suspend fun getChatsList(): Response<ChatResponse> {
+        return apiService.getChatsList()
     }
 
     //chats initiate api
     suspend fun chatInitiate(@Body chatInitiateRequest: ChatInitiateRequest): Response<ChatDetailResponse> {
         return apiService.chatInitiate(chatInitiateRequest)
+    }
+
+    //accounts list api
+    suspend fun getAccountsList(): Response<AccountsResponse> {
+        return apiService.getAccountsList()
     }
 }

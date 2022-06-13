@@ -10,8 +10,6 @@
     android:layout_marginTop="6dp"
     android:layout_marginEnd="16dp"
     android:layout_marginBottom="6dp"
-
-
     android:background="@drawable/card_bg"
     android:elevation="2dp">
 
@@ -20,7 +18,7 @@
         android:layout_height="@dimen/margin_size_40">
 
         <TextView
-            android:id="@+id/tv_documentname"
+            android:id="@+id/tvDocName"
             style="@style/text_style_text_color_14"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -32,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/documentview_link"
+            android:id="@+id/tvViewDoc"
             style="@style/text_style_blue_12"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -45,14 +43,14 @@
 
 
         <View
-            android:id="@+id/document_view_link_line"
+            android:id="@+id/viewUnderLine"
             android:layout_width="0dp"
             android:layout_height="0.75dp"
             android:background="@color/app_color"
-            app:layout_constraintEnd_toEndOf="@+id/documentview_link"
+            app:layout_constraintEnd_toEndOf="@+id/tvViewDoc"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/documentview_link"
-            app:layout_constraintTop_toBottomOf="@+id/documentview_link" />
+            app:layout_constraintStart_toStartOf="@+id/tvViewDoc"
+            app:layout_constraintTop_toBottomOf="@+id/tvViewDoc" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
