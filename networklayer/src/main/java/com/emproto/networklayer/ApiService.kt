@@ -164,6 +164,9 @@ public interface ApiService {
     @PUT(ApiConstants.CHATS_INITIATE)
     suspend fun chatInitiate(@Body chatInitiateRequest: ChatInitiateRequest): Response<ChatDetailResponse>
 
+    @GET(ApiConstants.PROFILE_FAQ)
+    suspend fun getFaqList(): Response<ProfileFaqResponse>
+
     @GET(ApiConstants.BOOKING_JOURNEY)
     suspend fun getBookingJourney(@Query("investmentId") investmentId: Int): Response<BookingJourneyResponse>
 
