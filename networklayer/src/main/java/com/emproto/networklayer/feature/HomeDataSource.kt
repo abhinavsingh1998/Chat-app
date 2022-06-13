@@ -101,7 +101,7 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
     }
 
     //accounts list api
-    suspend fun getAccountsList(): Response<AccountsResponse> {
-        return apiService.getAccountsList()
-    }
+//    suspend fun getAccountsList(): Response<AccountsResponse> {
+//        return apiService.getAccountsList()
+//    }
 }

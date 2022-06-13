@@ -179,11 +179,11 @@ class FeedbackFragment : BaseFragment() {
                 catagories(),
                 description
             )
-            binding.ivRating1.background= resources.getDrawable(R.drawable.emoji_sad2)
+            binding.ivRating1.background= resources.getDrawable(R.drawable.emoji_verysad)
             binding.ivRating2.background= resources.getDrawable(R.drawable.sad)
             binding.ivRating3.background= resources.getDrawable(R.drawable.confused)
             binding.ivRating4.background= resources.getDrawable(R.drawable.happy)
-            binding.ivRating5.background= resources.getDrawable(R.drawable.sad)
+            binding.ivRating5.background= resources.getDrawable(R.drawable.in_love)
         })
 
         binding.ivRating2.setOnClickListener(View.OnClickListener {
@@ -198,7 +198,7 @@ class FeedbackFragment : BaseFragment() {
             binding.ivRating1.background= resources.getDrawable(R.drawable.sad_2)
             binding.ivRating3.background= resources.getDrawable(R.drawable.confused)
             binding.ivRating4.background= resources.getDrawable(R.drawable.happy)
-            binding.ivRating5.background= resources.getDrawable(R.drawable.sad)
+            binding.ivRating5.background= resources.getDrawable(R.drawable.in_love)
 
         })
 
@@ -210,9 +210,10 @@ class FeedbackFragment : BaseFragment() {
                 description
             )
             binding.ivRating3.background= resources.getDrawable(R.drawable.emoji_confused)
+            binding.ivRating2.background= resources.getDrawable(R.drawable.sad)
             binding.ivRating1.background= resources.getDrawable(R.drawable.sad_2)
             binding.ivRating4.background= resources.getDrawable(R.drawable.happy)
-            binding.ivRating5.background= resources.getDrawable(R.drawable.sad)
+            binding.ivRating5.background= resources.getDrawable(R.drawable.in_love)
         })
 
         binding.ivRating4.setOnClickListener(View.OnClickListener {
@@ -223,9 +224,10 @@ class FeedbackFragment : BaseFragment() {
                 description
             )
             binding.ivRating4.background= resources.getDrawable(R.drawable.emoji_happy)
+            binding.ivRating2.background= resources.getDrawable(R.drawable.sad)
             binding.ivRating1.background= resources.getDrawable(R.drawable.sad_2)
             binding.ivRating3.background= resources.getDrawable(R.drawable.confused)
-            binding.ivRating5.background= resources.getDrawable(R.drawable.sad)
+            binding.ivRating5.background= resources.getDrawable(R.drawable.in_love)
         })
 
         binding.ivRating5.setOnClickListener(View.OnClickListener {
@@ -235,6 +237,12 @@ class FeedbackFragment : BaseFragment() {
                 catagories(),
                 description
             )
+
+            binding.ivRating4.background= resources.getDrawable(R.drawable.happy)
+            binding.ivRating1.background= resources.getDrawable(R.drawable.sad_2)
+            binding.ivRating2.background= resources.getDrawable(R.drawable.sad)
+            binding.ivRating3.background= resources.getDrawable(R.drawable.confused)
+            binding.ivRating5.background= resources.getDrawable(R.drawable.emoji_love)
         })
     }
 

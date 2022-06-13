@@ -82,6 +82,37 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        homeViewModel.getAccountsList().observe(viewLifecycleOwner, Observer {
+//            when (it.status) {
+//                Status.LOADING -> {
+//                    binding.progressBar.show()
+//                }
+//                Status.SUCCESS -> {
+//                    binding.progressBar.hide()
+//                    if (it.data?.data!!.documents != null && it.data!!.data.documents is List<AccountsResponse.Data.Document>) {
+//
+//                        binding.rvKyc.layoutManager =
+//                            LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+//                        binding.rvKyc.adapter = AccountsDocumentListAdapter(context,
+//                            it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>, this)
+//
+//
+//                    }
+//
+//                    if (it.data?.data!!.paymentHistory != null && it.data!!.data.paymentHistory is List<AccountsResponse.Data.PaymentHistory>) {
+//                        binding.rvPaymentHistory.layoutManager =
+//                            LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+//                        binding.rvPaymentHistory.adapter = AccountsPaymentListAdapter(context,
+//                            it.data!!.data.paymentHistory as ArrayList<AccountsResponse.Data.PaymentHistory>, this)
+//
+//                    }
+//                }
+//                Status.ERROR -> {
+//                    binding.progressBar.hide()
+//                    (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+//                }
+//            }
+//        })
         homeViewModel.getAccountsList().observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
