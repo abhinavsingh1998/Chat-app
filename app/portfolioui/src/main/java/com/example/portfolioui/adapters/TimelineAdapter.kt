@@ -94,9 +94,17 @@ class TimelineAdapter(
             }
             TYPE_LIST -> {
                 var isOneComplete: Boolean = false
+                var isAllDisable: Boolean = false
 
                 val listData = dataList[position].data as ProjectTimeline
                 val listHolder = holder as StepsListHolder
+
+                val mDisableCount =
+                    listData.timeLines.filter { it.sections[0].values.percentage == 0.0 }
+
+                if (mDisableCount.size == listData.timeLines.size) {
+                    isAllDisable = true
+                }
 
                 listHolder.binding.textHeader.text = listData.timeLineSectionHeading
                 val stepsList = ArrayList<StepsModel>()
@@ -118,10 +126,13 @@ class TimelineAdapter(
                     listHolder.binding.headerIndicator.background =
                         context.getDrawable(R.drawable.ic_progress_complete)
                 }
+                if (isAllDisable)
+                    listHolder.binding.headerIndicator.background =
+                        context.getDrawable(R.drawable.ic_inprogress_bg)
 
                 listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
                 listHolder.binding.stepsList.adapter =
-                    StepsAdapter(context, stepsList, null)
+                    StepsAdapter(context, stepsList, itemInterface)
             }
 
 
