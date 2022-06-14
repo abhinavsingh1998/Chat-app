@@ -1,5 +1,6 @@
 package com.emproto.hoabl.feature.profile
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -26,6 +27,7 @@ import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.Data
+import com.example.portfolioui.databinding.LogoutConfirmationBinding
 
 import javax.inject.Inject
 
@@ -124,6 +126,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
 
 //        binding.version.text = "App Version: v" + BuildConfig.VERSION_NAME
 
+
         val item1 = ProfileOptionsData(
             requireContext().resources.getString(R.string.my_accounts),
             requireContext().resources.getString(R.string.payment_history_kyc),
@@ -166,11 +169,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
 
 
     private fun initClickListener() {
-        binding.Logoutbtn.setOnClickListener {
-            appPreference.saveLogin(false)
-            startActivity(Intent(context, AuthActivity::class.java))
-            requireActivity().finish()
-        }
+        logOut()
 
         binding.editProfile.setOnClickListener {
             val editProfile = EditProfileFragment()
@@ -178,6 +177,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
             editProfile.arguments = bundle
             (requireActivity() as HomeActivity).addFragment(editProfile, false)
         }
+
 
     }
 
@@ -201,7 +201,33 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                     facilityManagerPopViewFragment,
                     false
                 )
+
             }
+
+
         }
+
+
+    }
+    private fun logOut(){
+            val logoutDialoglayout = LogoutConfirmationBinding.inflate(layoutInflater)
+            val logoutDialog = Dialog(requireContext())
+            logoutDialog.setCancelable(false)
+            logoutDialog.setContentView(logoutDialoglayout.root)
+
+            logoutDialoglayout.actionYes.setOnClickListener {
+                appPreference.saveLogin(false)
+                startActivity(Intent(context, AuthActivity::class.java))
+                requireActivity().finish()
+            }
+
+            logoutDialoglayout.actionNo.setOnClickListener {
+                logoutDialog.dismiss()
+            }
+
+            binding.Logoutbtn.setOnClickListener {
+                logoutDialog.show()
+            }
+
     }
 }
