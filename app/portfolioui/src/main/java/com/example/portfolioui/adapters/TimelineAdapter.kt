@@ -93,6 +93,8 @@ class TimelineAdapter(
 
             }
             TYPE_LIST -> {
+                var isOneComplete: Boolean = false
+
                 val listData = dataList[position].data as ProjectTimeline
                 val listHolder = holder as StepsListHolder
 
@@ -100,13 +102,23 @@ class TimelineAdapter(
                 val stepsList = ArrayList<StepsModel>()
                 for (item in listData.timeLines) {
                     when (item.sections[0].values.percentage) {
-                        0.0 -> stepsList.add(StepsModel(StepsAdapter.TYPE_INSTART, item))
+                        0.0 -> {
+                            stepsList.add(StepsModel(StepsAdapter.TYPE_INSTART, item))
+                        }
                         in 1.0..99.99 -> {
                             stepsList.add(StepsModel(StepsAdapter.TYPE_INPROGRESS, item))
                         }
-                        else -> stepsList.add(StepsModel(StepsAdapter.TYPE_COMPLETED, item))
+                        else -> {
+                            isOneComplete = true
+                            stepsList.add(StepsModel(StepsAdapter.TYPE_COMPLETED, item))
+                        }
                     }
                 }
+                if (isOneComplete) {
+                    listHolder.binding.headerIndicator.background =
+                        context.getDrawable(R.drawable.ic_progress_complete)
+                }
+
                 listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
                 listHolder.binding.stepsList.adapter =
                     StepsAdapter(context, stepsList, null)
