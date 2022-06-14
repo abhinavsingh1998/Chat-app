@@ -246,6 +246,8 @@ class HomeFragment : BaseFragment() {
                             )
                             binding.latesUpdatesRecyclerview.layoutManager = linearLayoutManager
                             binding.latesUpdatesRecyclerview.adapter = latestUpdateAdapter
+                            binding.latesUpdatesRecyclerview.setHasFixedSize(true)
+                            binding.latesUpdatesRecyclerview.setItemViewCacheSize(10)
 
                             //loading Promises list
                             hoABLPromisesAdapter = HoABLPromisesAdapter1(
@@ -271,6 +273,7 @@ class HomeFragment : BaseFragment() {
                             )
                             binding.hoablPromisesRecyclerview.layoutManager = linearLayoutManager
                             binding.hoablPromisesRecyclerview.adapter = hoABLPromisesAdapter
+
 
                             //loading insights list
                             insightsAdapter = InsightsAdapter(
@@ -315,6 +318,8 @@ class HomeFragment : BaseFragment() {
                             )
                             binding.insightsRecyclerview.layoutManager = linearLayoutManager
                             binding.insightsRecyclerview.adapter = insightsAdapter
+                            binding.insightsRecyclerview.setHasFixedSize(true)
+                            binding.insightsRecyclerview.setItemViewCacheSize(10)
 
 
                             //loading Testimonial Cards list
