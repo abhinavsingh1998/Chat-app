@@ -12,6 +12,7 @@ import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.chats.ChatResponse
+import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
@@ -378,16 +379,10 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         mSearchResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val docs = async { HomeDataSource(application).getSearchDocResults("ALL",searchWord) }
-                val search = async {  HomeDataSource(application).getSearchResults(searchWord) }
-                val docsResponse = docs.await()
-                val searchResponse = search.await()
-                if (searchResponse.isSuccessful) {
-                    if (searchResponse.body()!!.data != null){
-                        if(docsResponse.isSuccessful){
-                            searchResponse.body()!!.data.docsData = docsResponse.body()?.data!!
-                        }
-                        mSearchResponse.postValue(BaseResponse.success(searchResponse.body()!!))
+                val search =   HomeDataSource(application).getSearchResults(searchWord)
+                if (search.isSuccessful) {
+                    if (search.body()!!.data != null){
+                        mSearchResponse.postValue(BaseResponse.success(search.body()!!))
                     }
                     else
                         mSearchResponse.postValue(BaseResponse.Companion.error("No data found"))
@@ -395,7 +390,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                     mSearchResponse.postValue(
                         BaseResponse.Companion.error(
                             getErrorMessage(
-                                searchResponse.errorBody()!!.string()
+                                search.errorBody()!!.string()
                             )
                         )
                     )
@@ -405,6 +400,37 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
             }
         }
         return mSearchResponse
+    }
+
+    fun getSearchDocResult(searchWord: String): LiveData<BaseResponse<DocumentsResponse>> {
+        val mSearchDocResponse = MutableLiveData<BaseResponse<DocumentsResponse>>()
+        mSearchDocResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val docs = when(searchWord){
+                    "" -> HomeDataSource(application).getSearchDocResults()
+                    else -> HomeDataSource(application).getSearchDocResultsQuery(searchWord)
+                }
+                if (docs.isSuccessful) {
+                    if (docs.body()!!.data != null){
+                        mSearchDocResponse.postValue(BaseResponse.success(docs.body()!!))
+                    }
+                    else
+                        mSearchDocResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mSearchDocResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                docs.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mSearchDocResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mSearchDocResponse
     }
 
 }

@@ -23,6 +23,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_no_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No Search results found"
+            android:textAlignment="center"
+            android:visibility="gone"
+            android:textSize="@dimen/margin_size_14"
+            android:fontFamily="@font/jost_medium"
+            android:layout_marginTop="@dimen/margin_size_40"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_layout"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nsv_search_info"
             android:layout_width="match_parent"
@@ -37,8 +51,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_search_info"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="visible">
+                android:layout_height="wrap_content">
 
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/tv_project"
@@ -57,6 +70,8 @@
                     android:id="@+id/project_list"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_project"
@@ -72,6 +87,7 @@
                     android:layout_marginTop="@dimen/margin_size_30"
                     android:gravity="start|center"
                     android:text="Documents"
+                    android:visibility="visible"
                     app:fontName="@string/jost_regular"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/project_list" />
@@ -83,6 +99,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_documents"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="vertical"
                     tools:itemCount="3"
                     tools:listitem="@layout/item_portfolio_documents" />
 
@@ -105,6 +123,8 @@
                     android:layout_height="0dp"
                     android:clipToPadding="true"
                     android:paddingBottom="@dimen/margin_size_10"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_faq"

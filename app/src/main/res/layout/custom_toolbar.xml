@@ -90,6 +90,7 @@
             android:padding="@dimen/_4sdp"
             android:inputType="none"
             android:focusable="false"
+            android:enabled="true"
             android:textColor="@color/text_color"
             android:textColorHint="@color/search_hint"
             android:textSize="@dimen/text_size_12"

@@ -13,6 +13,7 @@ import com.emproto.hoabl.repository.HomeRepository
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.chats.ChatDetailResponse
+import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
@@ -178,4 +179,7 @@ class HomeViewModel(
         return homeRepository.getSearchResult(searchWord)
     }
 
+    fun getSearchDocResult(searchWord: String): LiveData<BaseResponse<DocumentsResponse>> {
+        return homeRepository.getSearchDocResult(searchWord)
+    }
 }

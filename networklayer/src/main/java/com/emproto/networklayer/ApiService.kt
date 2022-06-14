@@ -172,5 +172,8 @@ public interface ApiService {
     suspend fun getSearchResults(@Query("searchKey") searchWord: String):Response<SearchResponse>
 
     @GET(ApiConstants.SEARCH_DOCS)
-    suspend fun getSearchDocResults(@Query("searchKey") searchWord: String):Response<DocumentsResponse>
+    suspend fun getSearchDocResults():Response<DocumentsResponse>
+
+    @GET(ApiConstants.SEARCH_DOCS)
+    suspend fun getSearchDocResultsQuery(@Query("searchKey") searchWord: String):Response<DocumentsResponse>
 }

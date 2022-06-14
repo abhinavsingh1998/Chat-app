@@ -89,7 +89,11 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
     }
 
     //search doc api
-    suspend fun getSearchDocResults(docCategory: String,searchWord: String): Response<DocumentsResponse> {
-        return apiService.getSearchDocResults(searchWord)
+    suspend fun getSearchDocResults(): Response<DocumentsResponse> {
+        return apiService.getSearchDocResults()
+    }
+
+    suspend fun getSearchDocResultsQuery(searchWord: String): Response<DocumentsResponse> {
+        return apiService.getSearchDocResultsQuery(searchWord)
     }
 }

@@ -266,6 +266,7 @@ class ProjectDetailFragment : BaseFragment() {
             ViewModelProvider(requireActivity(), investmentFactory)[InvestmentViewModel::class.java]
         homeViewModel =
             ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
+        (requireActivity() as HomeActivity).showHeader()
     }
 
     private fun setUpUI() {

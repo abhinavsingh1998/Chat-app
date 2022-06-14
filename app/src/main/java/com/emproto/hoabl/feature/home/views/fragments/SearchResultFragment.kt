@@ -1,33 +1,32 @@
 package com.emproto.hoabl.feature.home.views.fragments
 
 
-import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
-import com.emproto.core.Database.TableModel.SearchModel
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentSearchResultBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.adapters.SearchResultAdapter
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.CategoryListAdapter
+import com.emproto.hoabl.feature.investment.views.LandSkusFragment
+import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.portfolio.adapters.DocumentInterface
 import com.emproto.hoabl.feature.portfolio.adapters.DocumentsAdapter
 import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
+import com.emproto.hoabl.feature.portfolio.views.DocViewerFragment
 import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.HomeViewModel
@@ -35,6 +34,7 @@ import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.response.documents.Data
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.investment.ApData
+import com.emproto.networklayer.response.portfolio.ivdetails.FrequentlyAskedQuestion
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectContentsAndFaq
 import javax.inject.Inject
 
@@ -50,13 +50,13 @@ class SearchResultFragment : BaseFragment() {
     lateinit var searchResultAdapter: SearchResultAdapter
     lateinit var gridLayoutManager: GridLayoutManager
 
-//    lateinit var faqAdapter: SearchFaqAdapter
+    //    lateinit var faqAdapter: SearchFaqAdapter
 //    lateinit var projectListAdapter: CategoryListAdapter
     lateinit var documentAdapter: DocumentsAdapter
 
     private var topText = ""
     val faqList = ArrayList<ProjectContentsAndFaq>()
-    val projectList = ArrayList<Data>()
+    val docList = ArrayList<Data>()
 
     companion object {
         fun newInstance(): SearchResultFragment {
@@ -75,22 +75,26 @@ class SearchResultFragment : BaseFragment() {
         fragmentSearchResultBinding = FragmentSearchResultBinding.inflate(layoutInflater)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel = ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
-        fragmentSearchResultBinding.searchLayout.rotateText.text = " "
-        fragmentSearchResultBinding.searchLayout.rotateText.isSelected = true
+
         arguments.let {
             if (it != null) {
                 topText = it.getString("TopText").toString()
             }
         }
+        return fragmentSearchResultBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initObserver()
         initView()
         initClickListeners()
-        return fragmentSearchResultBinding.root
+        callSearchApi("")
     }
 
     private fun initClickListeners() {
         fragmentSearchResultBinding.searchLayout.search.requestFocus()
-        fragmentSearchResultBinding.searchLayout.imageBack.setOnClickListener{
+        fragmentSearchResultBinding.searchLayout.imageBack.setOnClickListener {
             (requireActivity() as HomeActivity).onBackPressed()
         }
         fragmentSearchResultBinding.searchLayout.ivCloseImage.setOnClickListener {
@@ -140,37 +144,30 @@ class SearchResultFragment : BaseFragment() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//                if (p0.toString().isNotEmpty()) {
-//                    Handler().postDelayed({
-//                        callSearchApi(p0.toString())
-//                    },2000)
-//                } else {
-//
-//                }
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                //get the fragment
-                if (p0.toString().isNotEmpty()) {
-                    if(p0.toString() != ""){
-                        fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.VISIBLE
-                    }
-                    Handler().postDelayed({
-                        callSearchApi(p0.toString())
-                    },2000)
-                } else {
-
+                if(p0.toString().isEmpty() || p0.toString().isBlank()){
+                    fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.GONE
+//                    callSearchApi("")
                 }
             }
 
+            override fun afterTextChanged(p0: Editable?) {
+                if (p0.toString() != "" && p0.toString().length > 1) {
+                    fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.VISIBLE
+                    Handler().postDelayed({
+                        callSearchApi(p0.toString())
+                    }, 2000)
+                } else if(p0.toString().isEmpty()) {
+                    Handler().postDelayed({
+                        callSearchApi("")
+                    }, 2000)
+                }
+            }
         })
-
-
     }
 
-    private fun callSearchApi(searchWord:String){
-        homeViewModel.getSearchResult(searchWord).observe(viewLifecycleOwner,Observer{
-            when(it.status){
+    private fun callSearchApi(searchWord: String) {
+        homeViewModel.getSearchResult(searchWord).observe(viewLifecycleOwner, Observer {
+            when (it.status) {
                 Status.LOADING -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
                 }
@@ -178,42 +175,52 @@ class SearchResultFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                     it.data?.data?.let { data ->
                         fragmentSearchResultBinding.nsvSearchInfo.visibility = View.VISIBLE
-                        when{
-                            data.faqData.isNotEmpty() -> {
+                        when (data.faqData.size) {
+                            0 -> {
+                                fragmentSearchResultBinding.tvFaq.visibility = View.GONE
+                                fragmentSearchResultBinding.faqsList.visibility = View.GONE
+                            }
+                            else -> {
                                 fragmentSearchResultBinding.tvFaq.visibility = View.VISIBLE
+                                fragmentSearchResultBinding.faqsList.visibility = View.VISIBLE
                                 faqList.clear()
-                                for(item in data.faqData){
-                                    val pjd = ProjectContentsAndFaq("",0,item,0,0,0,"")
+                                for (item in data.faqData) {
+                                    val pjd = ProjectContentsAndFaq("", 0, item, 0, 0, 0, "")
                                     faqList.add(pjd)
                                 }
+                                val faqAdapter = SearchFaqAdapter(
+                                    requireContext(),
+                                    faqList,
+                                    investmentScreenInterface
+                                )
+                                fragmentSearchResultBinding.faqsList.adapter = faqAdapter
                             }
-                            data.faqData.isEmpty() -> {
-                                fragmentSearchResultBinding.tvFaq.visibility = View.GONE
-                            }
-                            data.projectContentData.isEmpty() -> {
-                                fragmentSearchResultBinding.tvProject.visibility = View.GONE
-                            }
-                            data.projectContentData.isNotEmpty() -> {
-
-                            }
-                            data.docsData.isNotEmpty() -> {
-                                for(item in data.docsData){
-                                    projectList.add(item)
-                                }
-                            }
-                            data.docsData.isEmpty() -> {
-                                fragmentSearchResultBinding.tvDocuments.visibility = View.GONE
-                                fragmentSearchResultBinding.documentsList.visibility = View.GONE
-                            }
-
                         }
-//                        projectList.clear()
-//                        projectList.add(Data("","Image",1,"","","",""))
-//                        projectList.add(Data("","Image",1,"","","",""))
-//                        projectList.add(Data("","Image",1,"","","",""))
-//                        projectList.add(Data("","Image",1,"","","",""))
-                        setUpAdapter(faqList,data.projectContentData,projectList)
-// for docs --> com.emproto.networklayer.response.documents
+                        when (data.projectContentData.size) {
+                            0 -> {
+                                fragmentSearchResultBinding.tvProject.visibility = View.GONE
+                                fragmentSearchResultBinding.projectList.visibility = View.GONE
+                            }
+                            else -> {
+                                fragmentSearchResultBinding.tvProject.visibility = View.VISIBLE
+                                fragmentSearchResultBinding.projectList.visibility = View.VISIBLE
+                                val projectListAdapter = CategoryListAdapter(
+                                    requireContext(),
+                                    data.projectContentData,
+                                    itemClickListener,
+                                    3
+                                )
+                                fragmentSearchResultBinding.projectList.adapter = projectListAdapter
+                            }
+                        }
+
+                        callDocsApi(searchWord,data.projectContentData,data.faqData)
+
+                        if(data.projectContentData.isEmpty() && data.faqData.isEmpty()){
+                            fragmentSearchResultBinding.tvNoData.visibility = View.VISIBLE
+                        }else{
+                            fragmentSearchResultBinding.tvNoData.visibility = View.GONE
+                        }
                     }
                 }
                 Status.ERROR -> {
@@ -226,110 +233,169 @@ class SearchResultFragment : BaseFragment() {
         })
     }
 
-    private fun setrecentAdapter(t: List<SearchModel>) {
-
+    private fun callDocsApi(
+        searchWord: String,
+        projectContentData: List<ApData>,
+        faqData: List<FrequentlyAskedQuestion>
+    ){
+        homeViewModel.getSearchDocResult(searchWord).observe(viewLifecycleOwner,Observer{
+            when(it.status){
+                Status.LOADING -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                }
+                Status.SUCCESS -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    it.data?.data?.let { data ->
+                        if (!data.isNullOrEmpty()) {
+                            when (data.size) {
+                                0 -> {
+                                    fragmentSearchResultBinding.tvDocuments.visibility = View.GONE
+                                    fragmentSearchResultBinding.documentsList.visibility = View.GONE
+                                }
+                                else -> {
+                                    Log.d("getget",data.toString())
+                                    for (item in data) {
+                                        docList.add(item)
+                                    }
+                                    documentAdapter = DocumentsAdapter(docList, false, ivinterface)
+                                    fragmentSearchResultBinding.documentsList.adapter =
+                                        documentAdapter
+                                    when(docList.size){
+                                        0 -> {
+                                            fragmentSearchResultBinding.tvDocuments.visibility = View.GONE
+                                            fragmentSearchResultBinding.documentsList.visibility = View.GONE
+                                        }
+                                    }
+                                }
+                            }
+                        }else{
+                            fragmentSearchResultBinding.tvDocuments.visibility = View.GONE
+                            fragmentSearchResultBinding.documentsList.visibility = View.GONE
+                            if(projectContentData.isEmpty() && faqData.isEmpty()){
+                                fragmentSearchResultBinding.tvNoData.visibility = View.VISIBLE
+                            }else{
+                                fragmentSearchResultBinding.tvNoData.visibility = View.GONE
+                            }
+                        }
+                    }
+                }
+                Status.ERROR -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(
+                        it.message!!
+                    )
+                }
+            }
+        })
     }
 
     private fun initView() {
         (requireActivity() as HomeActivity).hideBottomNavigation()
         (requireActivity() as HomeActivity).hideHeader()
-        val inputMethodManager = (requireActivity() as HomeActivity).getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.showSoftInput(fragmentSearchResultBinding.searchLayout.search, InputMethodManager.SHOW_IMPLICIT)
-    }
-
-    private fun setUpAdapter(
-        faqList: ArrayList<ProjectContentsAndFaq>,
-        projectContentData: List<ApData>,
-        list: ArrayList<Data>
-    ) {
-        fragmentSearchResultBinding.projectList.layoutManager =
-            LinearLayoutManager(requireContext())
-        val projectListAdapter = CategoryListAdapter(requireContext(), projectContentData, itemClickListener,3)
-        fragmentSearchResultBinding.projectList.adapter = projectListAdapter
-
-        fragmentSearchResultBinding.documentsList.layoutManager =
-            LinearLayoutManager(requireContext())
-        documentAdapter = DocumentsAdapter(list,false,ivinterface)
-        fragmentSearchResultBinding.documentsList.adapter = documentAdapter
-
-        when{
-            faqList.isNotEmpty() -> {
-                val faqAdapter = SearchFaqAdapter(requireContext(), faqList, investmentScreenInterface)
-                fragmentSearchResultBinding.faqsList.layoutManager = LinearLayoutManager(requireContext())
-                fragmentSearchResultBinding.faqsList.adapter = faqAdapter
-            }
-        }
+        fragmentSearchResultBinding.searchLayout.rotateText.text = " "
+        fragmentSearchResultBinding.searchLayout.rotateText.isSelected = true
+        val inputMethodManager =
+            (requireActivity() as HomeActivity).getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(
+            fragmentSearchResultBinding.searchLayout.search,
+            InputMethodManager.SHOW_IMPLICIT
+        )
     }
 
     val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
-
+            when(position){
+                0 -> {
+                    val bundle = Bundle()
+                    bundle.putInt("ProjectId", item.toInt())
+                    val fragment = ProjectDetailFragment()
+                    fragment.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(
+                        fragment, false
+                    )
+                }
+                1 -> {
+                    val fragment = LandSkusFragment()
+                    val bundle = Bundle()
+                    bundle.putInt("ProjectId", item.toInt())
+                    fragment.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(fragment, false)
+                }
+            }
         }
     }
 
-    val ivinterface = object:DocumentInterface{
+    val ivinterface = object : DocumentInterface {
         override fun onclickDocument(position: Int) {
-
+            openDocument(position)
         }
     }
 
-    val investmentScreenInterface = object:PortfolioSpecificViewAdapter.InvestmentScreenInterface{
-        override fun onClickFacilityCard() {
-
-        }
-
-        override fun seeAllCard() {
-
-        }
-
-        override fun seeProjectTimeline(id: Int) {
-        }
-
-        override fun seeBookingJourney(id: Int) {
-        }
-
-        override fun referNow() {
-        }
-
-        override fun seeAllSimilarInvestment() {
-        }
-
-        override fun onClickSimilarInvestment(project: Int) {
-        }
-
-        override fun onApplySinvestment(projectId: Int) {
-        }
-
-        override fun readAllFaq(position: Int, faqId: Int) {
-
-        }
-
-        override fun seePromisesDetails(position: Int) {
-        }
-
-        override fun moreAboutPromises() {
-        }
-
-        override fun seeProjectDetails(projectId: Int) {
-        }
-
-        override fun seeOnMap(latitude: String, longitude: String) {
-        }
-
-        override fun onClickImage(mediaViewItem: MediaViewItem, position: Int) {
-        }
-
-        override fun seeAllImages(imagesList: ArrayList<MediaViewItem>) {
-        }
-
-        override fun shareApp() {
-        }
-
-        override fun onClickAsk() {
-        }
-
-        override fun onDocumentView(position: Int) {
-        }
+    private fun openDocument(position: Int) {
+        (requireActivity() as HomeActivity).addFragment(
+            DocViewerFragment.newInstance("Doc Name", ""),
+            false
+        )
     }
+
+    val investmentScreenInterface =
+        object : PortfolioSpecificViewAdapter.InvestmentScreenInterface {
+            override fun onClickFacilityCard() {
+
+            }
+
+            override fun seeAllCard() {
+
+            }
+
+            override fun seeProjectTimeline(id: Int) {
+            }
+
+            override fun seeBookingJourney(id: Int) {
+            }
+
+            override fun referNow() {
+            }
+
+            override fun seeAllSimilarInvestment() {
+            }
+
+            override fun onClickSimilarInvestment(project: Int) {
+            }
+
+            override fun onApplySinvestment(projectId: Int) {
+            }
+
+            override fun readAllFaq(position: Int, faqId: Int) {
+
+            }
+
+            override fun seePromisesDetails(position: Int) {
+            }
+
+            override fun moreAboutPromises() {
+            }
+
+            override fun seeProjectDetails(projectId: Int) {
+            }
+
+            override fun seeOnMap(latitude: String, longitude: String) {
+            }
+
+            override fun onClickImage(mediaViewItem: MediaViewItem, position: Int) {
+            }
+
+            override fun seeAllImages(imagesList: ArrayList<MediaViewItem>) {
+            }
+
+            override fun shareApp() {
+            }
+
+            override fun onClickAsk() {
+            }
+
+            override fun onDocumentView(position: Int) {
+            }
+        }
 
 }

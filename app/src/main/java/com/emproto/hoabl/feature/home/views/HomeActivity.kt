@@ -415,4 +415,9 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         startActivity(shareIntent)
     }
 
+    override fun onResume() {
+        super.onResume()
+        hideSoftKeyboard()
+    }
+
 }
