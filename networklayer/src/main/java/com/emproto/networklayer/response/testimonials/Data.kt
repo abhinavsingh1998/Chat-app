@@ -8,7 +8,7 @@ data class Data(
     val firstName: String,
     val id: Int,
     val lastName: String,
-    val priority: Any,
+    val priority: Int,
     val status: String,
     val testimonialContent: String,
     val testimonialCreatedBy: TestimonialCreatedBy,

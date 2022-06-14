@@ -59,4 +59,6 @@ object ApiConstants {
     const val UPLOADPROFILEPICTURE = "hoabl-customer/profile/picture"
     const val PROFILE_FAQ="hoabl-admin/faqs"
 
+    const val SEARCH = "hoabl-admin/search"
+    const val SEARCH_DOCS = "hoabl-customer/doc-filter"
 }

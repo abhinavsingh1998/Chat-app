@@ -7,13 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
 import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.networklayer.feature.HomeDataSource
-import com.emproto.networklayer.feature.InvestmentDataSource
-import com.emproto.networklayer.feature.PortfolioDataSource
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.chats.ChatResponse
+import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
@@ -22,12 +21,10 @@ import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.profile.AccountsResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
+import com.emproto.networklayer.response.search.SearchResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 import com.emproto.networklayer.response.testimonials.TestimonialsResponse
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import javax.inject.Inject
 import kotlin.Exception
 
@@ -378,6 +375,64 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         return mChatDetailResponse
     }
 
+    fun getSearchResult(searchWord: String): LiveData<BaseResponse<SearchResponse>> {
+        val mSearchResponse = MutableLiveData<BaseResponse<SearchResponse>>()
+        mSearchResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val search =   HomeDataSource(application).getSearchResults(searchWord)
+                if (search.isSuccessful) {
+                    if (search.body()!!.data != null){
+                        mSearchResponse.postValue(BaseResponse.success(search.body()!!))
+                    }
+                    else
+                        mSearchResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mSearchResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                search.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mSearchResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mSearchResponse
+    }
+
+    fun getSearchDocResult(searchWord: String): LiveData<BaseResponse<DocumentsResponse>> {
+        val mSearchDocResponse = MutableLiveData<BaseResponse<DocumentsResponse>>()
+        mSearchDocResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val docs = when(searchWord){
+                    "" -> HomeDataSource(application).getSearchDocResults()
+                    else -> HomeDataSource(application).getSearchDocResultsQuery(searchWord)
+                }
+                if (docs.isSuccessful) {
+                    if (docs.body()!!.data != null){
+                        mSearchDocResponse.postValue(BaseResponse.success(docs.body()!!))
+                    }
+                    else
+                        mSearchDocResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mSearchDocResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                docs.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mSearchDocResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mSearchDocResponse
+    }
     fun getAccountsList(): LiveData<BaseResponse<AccountsResponse>> {
         val mAccountsResponse = MutableLiveData<BaseResponse<AccountsResponse>>()
         mAccountsResponse.postValue(BaseResponse.loading())

@@ -458,4 +458,9 @@ class HomeFragment : BaseFragment() {
         shareIntent.putExtra(Intent.EXTRA_TEXT, "The House Of Abhinandan Lodha $appURL")
         startActivity(shareIntent)
     }
+
+    override fun onResume() {
+        super.onResume()
+        hideSoftKeyboard()
+    }
 }
