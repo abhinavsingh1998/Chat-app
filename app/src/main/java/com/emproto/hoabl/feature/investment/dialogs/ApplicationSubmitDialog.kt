@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.emproto.hoabl.R
@@ -63,5 +64,9 @@ class ApplicationSubmitDialog(
         val width = (resources.displayMetrics.widthPixels * 0.75).toInt()
         val height = (resources.displayMetrics.heightPixels * 0.40).toInt()
         dialog!!.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
+        val layoutParams: WindowManager.LayoutParams =
+            dialog!!.window!!.attributes
+        layoutParams.dimAmount = 0.9f
+        dialog!!.window?.attributes = layoutParams
     }
 }

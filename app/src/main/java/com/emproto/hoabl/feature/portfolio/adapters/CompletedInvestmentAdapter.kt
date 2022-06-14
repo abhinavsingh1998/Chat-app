@@ -209,7 +209,7 @@ class CompletedInvestmentAdapter(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             linedataset1.fillColor = context.getColor(R.color.app_color)
         }
-        linedataset1.mode = LineDataSet.Mode.LINEAR
+        linedataset1.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
         linedataset1.setDrawCircles(false)
         linedataset1.setDrawValues(false)
         //linedataset1.setDrawFilled(true)
@@ -329,7 +329,7 @@ class CompletedInvestmentAdapter(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             linedataset.fillColor = context.getColor(R.color.green)
         }
-        linedataset.mode = LineDataSet.Mode.LINEAR
+        linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
         linedataset.setDrawCircles(false)
         val data = LineData(linedataset)
         ivCompletedInvestmentGraphImage.getDescription().setEnabled(false)

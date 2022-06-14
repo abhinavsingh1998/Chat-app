@@ -32,15 +32,6 @@ class DataModule(private val application: Application) {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
-//        val httpClient = OkHttpClient.Builder()
-//        httpClient.connectTimeout(1000, TimeUnit.SECONDS)
-//            .readTimeout(100, TimeUnit.SECONDS)
-//            .writeTimeout(100, TimeUnit.SECONDS)
-//        httpClient.addInterceptor(Interceptor {
-//            val request = it.request().newBuilder().addHeader("jwt","").build()
-//            return it.proceed(request)
-//        })
-
         val defaultHttpClient: OkHttpClient =
             OkHttpClient.Builder().addInterceptor(
                 Interceptor { chain ->

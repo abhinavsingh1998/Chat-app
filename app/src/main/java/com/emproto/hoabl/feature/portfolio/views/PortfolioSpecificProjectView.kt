@@ -33,6 +33,7 @@ import javax.inject.Inject
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import com.emproto.core.Utility
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.feature.investment.views.mediagallery.MediaGalleryFragment
@@ -186,12 +187,18 @@ class PortfolioSpecificProjectView : BaseFragment() {
             )
         )
         if (!it.data.investmentInformation.isBookingComplete) {
-            list.add(
-                RecyclerViewItem(
-                    PortfolioSpecificViewAdapter.PORTFOLIO_PENDINGCARD,
-                    it.data.investmentInformation.paymentSchedules
+
+            val filteredpayments = it.data.investmentInformation.paymentSchedules.filter {
+                it.targetDate != null && !it.isPaymentDone && Utility.compareDates(it.targetDate)
+            }
+            if (filteredpayments.isNotEmpty()) {
+                list.add(
+                    RecyclerViewItem(
+                        PortfolioSpecificViewAdapter.PORTFOLIO_PENDINGCARD,
+                        filteredpayments, "", it.data.investmentInformation.id
+                    )
                 )
-            )
+            }
         }
         if (appPreference.isFacilityCard())
             list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_FACILITY_CARD))

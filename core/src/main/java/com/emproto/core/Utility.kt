@@ -45,6 +45,15 @@ object Utility {
         return str
     }
 
+    fun compareDates(dateFrom: String): Boolean {
+        val c = Calendar.getInstance()
+        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
+        val currentDate = format.format(c.time)
+
+        return dateFrom < currentDate
+
+    }
+
     fun parseDateFromUtc(time: String?, inputDateFormat: String?): String? {
         val inputPattern: String
         inputPattern = inputDateFormat ?: "yyyy-MM-dd'T'HH:mm:ss.SSS"

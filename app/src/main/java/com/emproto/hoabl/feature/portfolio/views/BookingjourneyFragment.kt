@@ -3,7 +3,6 @@ package com.emproto.hoabl.feature.portfolio.views
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -22,7 +21,7 @@ import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
-import com.emproto.networklayer.response.bookingjourney.BookingJourney
+import com.emproto.networklayer.response.bookingjourney.Data
 import com.emproto.networklayer.response.enums.Status
 import com.example.portfolioui.adapters.BookingJourneyAdapter
 import com.example.portfolioui.databinding.FragmentBookingjourneyBinding
@@ -100,7 +99,7 @@ class BookingjourneyFragment : BaseFragment() {
                     }
                     Status.SUCCESS -> {
                         mBinding.loader.hide()
-                        loadBookingJourneyData(it.data!!.data.bookingJourney)
+                        loadBookingJourneyData(it.data!!.data)
                     }
                     Status.ERROR -> {
                         mBinding.loader.hide()
@@ -112,9 +111,10 @@ class BookingjourneyFragment : BaseFragment() {
             })
     }
 
-    fun loadBookingJourneyData(data: BookingJourney) {
+    fun loadBookingJourneyData(data1: Data) {
+        val data = data1.bookingJourney
         val bookingList = ArrayList<BookingModel>()
-        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_HEADER))
+        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_HEADER, data1.investment))
         bookingList.add(BookingModel(BookingJourneyAdapter.TRANSACTION, data.transaction))
         bookingList.add(BookingModel(BookingJourneyAdapter.DOCUMENTATION, data.documentation))
         bookingList.add(BookingModel(BookingJourneyAdapter.PAYMENTS, data.payments))

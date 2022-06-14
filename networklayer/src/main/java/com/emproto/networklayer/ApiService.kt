@@ -123,7 +123,7 @@ public interface ApiService {
     suspend fun getProjectTimeline(@Path("id") id: Int): Response<ProjectTimelineResponse>
 
     @GET(ApiConstants.FACILITY_MANAGMENT)
-    suspend fun getFacilityManagment(): Response<FMResponse>
+    suspend fun getFacilityManagment(@Query("isTest") isTest: Boolean = true): Response<FMResponse>
 
     @GET(ApiConstants.INVESTMENT_PROMISES)
     suspend fun getInvestmentsPromises(): Response<InvestmentPromisesResponse>
