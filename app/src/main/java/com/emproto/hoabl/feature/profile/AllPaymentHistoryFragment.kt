@@ -8,11 +8,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentPaymentHistoryBinding
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.profile.adapter.accounts.AccountsPaymentListAdapter
-import com.emproto.hoabl.feature.profile.data.AccountDetailsData
 import com.emproto.networklayer.response.profile.AccountsResponse
 
 class AllPaymentHistoryFragment : Fragment() {

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentFaqBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.profile.adapter.ProfileFaqCategoryAdapter
+import com.emproto.hoabl.feature.profile.adapter.faq.ProfileFaqCategoryAdapter
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.response.enums.Status

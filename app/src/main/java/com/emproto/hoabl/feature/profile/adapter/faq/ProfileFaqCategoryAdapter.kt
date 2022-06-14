@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.profile.adapter
+package com.emproto.hoabl.feature.profile.adapter.faq
 
 import android.content.Context
 import android.view.LayoutInflater

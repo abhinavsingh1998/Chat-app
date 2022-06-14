@@ -42,10 +42,7 @@ class AccountDetailsFragment : Fragment(), AccountsDocumentListAdapter.OnKycItem
         homeViewModel =
             ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
 
-//        initView()
-
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
-            true
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible = true
 
         initClickListener()
         (requireActivity() as HomeActivity).hideBottomNavigation()
@@ -91,22 +88,7 @@ class AccountDetailsFragment : Fragment(), AccountsDocumentListAdapter.OnKycItem
 
     }
 
-//    private fun initView() {
-//        val list = ArrayList<String>()
-//        list.add("Address proof")
-//        list.add("Pan Card")
-//        list.add("Cancelled Check")
-//        list.add("Bank Account Details")
-//        binding.listKyc.layoutManager = LinearLayoutManager(requireContext())
-//        binding.listKyc.adapter = DocumentKycAdapter(requireContext(), list)
-//
-//        binding.listDocuments.layoutManager = LinearLayoutManager(requireContext())
-//        binding.listDocuments.adapter = DocumentKycAdapter(requireContext(), list)
-//
-//        binding.listPaymenthistory.layoutManager = LinearLayoutManager(requireContext())
-//        val detailAdapter = AccountsPaymentListAdapter(initData())
-//        binding.listPaymenthistory.adapter = detailAdapter
-//    }
+
 
     private fun initClickListener() {
         binding.backAction.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
@@ -116,48 +98,6 @@ class AccountDetailsFragment : Fragment(), AccountsDocumentListAdapter.OnKycItem
             (requireActivity() as HomeActivity).addFragment(allPaymentHistory, false)
         }
     }
-
-//    private fun initData(): ArrayList<AccountDetailsData> {
-//        val accountdetailsList: ArrayList<AccountDetailsData> = ArrayList<AccountDetailsData>()
-//        accountdetailsList.add(
-//            AccountDetailsData(
-//                "Isle of Bliss", " 11th March 2022",
-//                "See receipt", R.drawable.rupee_icon, "Payment Milestone 2:", "₹20,000"
-//            )
-//        )
-//        accountdetailsList.add(
-//            AccountDetailsData(
-//                "Yellow Meadow",
-//                "10th March 2022",
-//                "See receipt",
-//                R.drawable.rupee_icon,
-//                "Payment Milestone 4:",
-//                "₹80,000"
-//            )
-//        )
-//        accountdetailsList.add(
-//            AccountDetailsData(
-//                "Yellow Meadow",
-//                "10th March 2022",
-//                "See receipt",
-//                R.drawable.rupee_icon,
-//                "Payment Milestone 4:",
-//                "₹80,000"
-//            )
-//        )
-//        accountdetailsList.add(
-//            AccountDetailsData(
-//                "Yellow Meadow",
-//                "10th March 2022",
-//                "See receipt",
-//                R.drawable.rupee_icon,
-//                "Payment Milestone 4:",
-//                "₹80,000"
-//            )
-//        )
-//
-//        return accountdetailsList
-//    }
 
     override fun onAccountsKycItemClick(
         accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
@@ -172,19 +112,7 @@ class AccountDetailsFragment : Fragment(), AccountsDocumentListAdapter.OnKycItem
         view: View,
         position: Int
     ) {
-        //open payment receipt page
-//        val bundle = Bundle()
-//        bundle.putSerializable("paymentHistoryItemData", accountsPaymentList[position])
-//        val seePaymentReceipt = SeePaymentReceiptFragment()
-//        seePaymentReceipt.arguments = bundle
-//        (requireActivity() as HomeActivity).replaceFragment(seePaymentReceipt.javaClass,
-//            "",
-//            true,
-//            bundle,
-//            null,
-//            0,
-//            false
-//        )
+
 
     }
 
