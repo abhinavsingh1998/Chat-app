@@ -419,6 +419,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             mRequestCode -> {
                 when (resultCode) {
                     RESULT_OK -> {
+                        (requireActivity() as HomeActivity).fingerprintValidation(true)
                         setUpUI(true)
                     }
                 }

@@ -1,12 +1,17 @@
 package com.example.portfolioui.adapters
 
 import android.content.Context
+import android.os.Build
+import android.text.Html
+import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.Utility
 import com.emproto.networklayer.response.bookingjourney.*
+import com.example.portfolioui.R
 import com.example.portfolioui.databinding.*
 import com.example.portfolioui.models.BookingModel
 import com.example.portfolioui.models.BookingStepsModel
@@ -15,7 +20,7 @@ import com.example.portfolioui.models.StepsModel
 class BookingJourneyAdapter(
     var context: Context,
     val dataList: ArrayList<BookingModel>,
-    val itemInterface: TimelineInterface?
+    val itemInterface: TimelineInterface
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -97,13 +102,19 @@ class BookingJourneyAdapter(
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (dataList[position].viewType) {
             TYPE_HEADER -> {
                 val header_holder = holder as HeaderHolder
                 val data = dataList[header_holder.layoutPosition].data as Investment
-                header_holder.binding.textView5.text = data.owners
-                header_holder.binding.textView6.text = "Hoabl/${data.inventoryId}"
+                header_holder.binding.tvOwner.text = data.owners
+                header_holder.binding.tvId.text = "Hoabl/${data.inventoryId}"
+                header_holder.binding.tvProjectName.text = data.extraDetails.launchName
+                header_holder.binding.tvLocation.text =
+                    data.extraDetails.address.city + "," + data.extraDetails.address.state
+
+
             }
             TRANSACTION -> {
                 val listHolder = holder as StepsListHolder
@@ -142,6 +153,61 @@ class BookingJourneyAdapter(
                 val list = dataList[listHolder.adapterPosition].data as Ownership
                 listHolder.binding.textHeader.text = "OWNERSHIP"
 
+                listHolder.binding.textHint.text =
+                    showHTMLText(
+                        String.format(
+                            context.getString(R.string.tv_receipt),
+                            "View"
+                        )
+                    )
+                listHolder.binding.textHint2.text = showHTMLText(
+                    String.format(
+                        context.getString(R.string.tv_receipt),
+                        "View"
+                    )
+                )
+
+                if (list.documents.SEVEN != null) {
+                    listHolder.binding.headerIndicator.background =
+                        context.getDrawable(R.drawable.ic_in_progress)
+                    listHolder.binding.headerIndicator2.background =
+                        context.getDrawable(R.drawable.ic_in_progress)
+                    listHolder.binding.ivFirst.setImageDrawable(context.getDrawable(R.drawable.ic_in_progress))
+
+                    //changing text color
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        listHolder.binding.tvFirst.setTextColor(context.getColor(R.color.text_color))
+                        listHolder.binding.textHeader.setTextColor(context.getColor(R.color.text_color))
+                        listHolder.binding.textHeader2.setTextColor(context.getColor(R.color.text_color))
+                        listHolder.binding.textHint.setTextColor(context.getColor(R.color.app_color))
+                        listHolder.binding.textHint.setOnClickListener {
+                            itemInterface.onClickViewDocument(list.documents.SEVEN.path!!)
+                        }
+                    }
+
+
+                }
+                if (list.documents.DOC != null) {
+                    listHolder.binding.headerIndicator.background =
+                        context.getDrawable(R.drawable.ic_in_progress)
+                    listHolder.binding.headerIndicator2.background =
+                        context.getDrawable(R.drawable.ic_in_progress)
+                    listHolder.binding.ivSecond.setImageDrawable(context.getDrawable(R.drawable.ic_in_progress))
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        listHolder.binding.tvSecond.setTextColor(context.getColor(R.color.text_color))
+                        listHolder.binding.textHeader.setTextColor(context.getColor(R.color.text_color))
+                        listHolder.binding.textHeader2.setTextColor(context.getColor(R.color.text_color))
+                        listHolder.binding.textHint2.setTextColor(context.getColor(R.color.app_color))
+                        listHolder.binding.textHint2.setOnClickListener {
+                            itemInterface.onClickViewDocument(list.documents.DOC.path!!)
+                        }
+
+                    }
+
+
+                }
+
+
             }
             POSSESSION -> {
                 val listHolder = holder as OwnershipHolder
@@ -149,6 +215,57 @@ class BookingJourneyAdapter(
                 listHolder.binding.textHeader.text = "Possession"
                 listHolder.binding.tvFirst.text = "Handover Completed"
                 listHolder.binding.tvSecond.text = "Customer Guidelines"
+                listHolder.binding.textHint.text =
+                    showHTMLText(
+                        String.format(
+                            context.getString(R.string.tv_receipt),
+                            "View Details"
+                        )
+                    )
+                listHolder.binding.textHint2.text = showHTMLText(
+                    String.format(
+                        context.getString(R.string.tv_receipt),
+                        "View"
+                    )
+                )
+
+                if (list.handover.handoverDate != null && Utility.compareDates(list.handover.handoverDate)) {
+                    listHolder.binding.headerIndicator.background =
+                        context.getDrawable(R.drawable.ic_in_progress)
+                    listHolder.binding.headerIndicator2.background =
+                        context.getDrawable(R.drawable.ic_in_progress)
+                    listHolder.binding.ivFirst.setImageDrawable(context.getDrawable(R.drawable.ic_in_progress))
+
+                    //changing text color
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        listHolder.binding.tvFirst.setTextColor(context.getColor(R.color.text_color))
+                        listHolder.binding.textHeader.setTextColor(context.getColor(R.color.text_color))
+                        listHolder.binding.textHeader2.setTextColor(context.getColor(R.color.text_color))
+                    }
+
+
+                }
+                if (list.handover.guidelines != null) {
+                    listHolder.binding.headerIndicator.background =
+                        context.getDrawable(R.drawable.ic_in_progress)
+                    listHolder.binding.headerIndicator2.background =
+                        context.getDrawable(R.drawable.ic_in_progress)
+                    listHolder.binding.ivSecond.setImageDrawable(context.getDrawable(R.drawable.ic_in_progress))
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        listHolder.binding.tvSecond.setTextColor(context.getColor(R.color.text_color))
+                        listHolder.binding.textHeader.setTextColor(context.getColor(R.color.text_color))
+                        listHolder.binding.textHeader2.setTextColor(context.getColor(R.color.text_color))
+                        listHolder.binding.textHint2.setTextColor(context.getColor(R.color.app_color))
+                        listHolder.binding.textHint2.setOnClickListener {
+                            list.handover.guidelines.path?.let {
+                                itemInterface.onClickViewDocument(it)
+                            }
+
+                        }
+                    }
+
+
+                }
 
             }
             FACILITY -> {
@@ -179,6 +296,8 @@ class BookingJourneyAdapter(
     interface TimelineInterface {
         fun onClickItem(position: Int)
         fun viewDetails(position: Int, data: String)
+        fun onClickPendingCardDetails(payment: Payment)
+        fun onClickViewDocument(path: String)
 
     }
 
@@ -189,8 +308,8 @@ class BookingJourneyAdapter(
                 BookingStepsModel(
                     BookingStepsAdapter.TYPE_COMPLETED,
                     "Application",
-                    data.application.milestoneName,
-                    VIEW_RECEIPT
+                    data.application.milestoneName ?: "",
+                    ""
                 )
             )
         } else {
@@ -198,15 +317,15 @@ class BookingJourneyAdapter(
                 BookingStepsModel(
                     BookingStepsAdapter.TYPE_INPROGRESS,
                     "Application",
-                    data.application.milestoneName,
-                    VIEW_RECEIPT
+                    data.application.milestoneName ?: "",
+                    ""
                 )
             )
         }
-        if (data.allotment.receipt == null) {
+        if (Utility.compareDates(data.allotment.allotmentDate)) {
             list.add(
                 BookingStepsModel(
-                    BookingStepsAdapter.TYPE_INPROGRESS,
+                    BookingStepsAdapter.TYPE_COMPLETED,
                     "Allotment",
                     "Plot Alloted",
                     VIEW_ALLOTMENT_LETTER
@@ -215,7 +334,7 @@ class BookingJourneyAdapter(
         } else {
             list.add(
                 BookingStepsModel(
-                    BookingStepsAdapter.TYPE_COMPLETED,
+                    BookingStepsAdapter.TYPE_INPROGRESS,
                     "Allotment",
                     "Plot Alloted",
                     VIEW_ALLOTMENT_LETTER
@@ -266,7 +385,12 @@ class BookingJourneyAdapter(
         }
 
 
-        if (data.Registration.isRegistrationScheduled) {
+        if (data.Registration.isRegistrationScheduled &&
+            data.Registration.registrationDate != null &&
+            Utility.compareDates(
+                data.Registration.registrationDate
+            )
+        ) {
             list.add(
                 BookingStepsModel(
                     BookingStepsAdapter.TYPE_COMPLETED, "Registration", "Registration Scheduled",
@@ -282,10 +406,6 @@ class BookingJourneyAdapter(
             )
         }
 
-
-
-
-
         return list
     }
 
@@ -298,7 +418,7 @@ class BookingJourneyAdapter(
                         BookingStepsAdapter.TYPE_INPROGRESS,
                         item.paymentMilestone,
                         "Payment Pending",
-                        "View Details"
+                        "View Details", item
                     )
                 )
 
@@ -308,12 +428,20 @@ class BookingJourneyAdapter(
                         BookingStepsAdapter.TYPE_COMPLETED,
                         item.paymentMilestone,
                         "Payment Completed",
-                        "View Details"
+                        "View Details", item
                     )
                 )
             }
         }
         return list
+    }
+
+    fun showHTMLText(message: String?): Spanned {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            Html.fromHtml(message)
+        }
     }
 
 }

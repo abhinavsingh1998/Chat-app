@@ -54,7 +54,7 @@ object Utility {
 
     }
 
-    fun parseDateFromUtc(time: String?, inputDateFormat: String?): String? {
+    fun parseDateFromUtc(time: String?, inputDateFormat: String? = null): String? {
         val inputPattern: String
         inputPattern = inputDateFormat ?: "yyyy-MM-dd'T'HH:mm:ss.SSS"
         //yyyy-MM-dd HH:mm:ss.SSS
