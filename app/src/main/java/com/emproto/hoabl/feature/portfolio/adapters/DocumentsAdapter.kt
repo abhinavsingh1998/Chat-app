@@ -26,7 +26,7 @@ class DocumentsAdapter(
     }
 
     override fun onBindViewHolder(holder: DocumentsViewHolder, position: Int) {
-        holder.binding.tvDocLabel.text = list[position].documentType
+        holder.binding.tvDocLabel.text = list[position].name
         when (docImageVisibility) {
             true -> holder.binding.ivDocsImage.visibility = View.VISIBLE
         }

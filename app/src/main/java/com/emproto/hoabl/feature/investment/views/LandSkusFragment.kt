@@ -107,6 +107,7 @@ class LandSkusFragment:BaseFragment() {
         (activity as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.VISIBLE
         (requireActivity() as HomeActivity).hideBottomNavigation()
+        (requireActivity() as HomeActivity).showHeader()
     }
 
     private fun setUpRecyclerview() {

@@ -9,6 +9,7 @@ import com.emproto.networklayer.di.DaggerDataComponent
 import com.emproto.networklayer.ApiService
 import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.chats.ChatInitiateRequest
+import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
@@ -16,6 +17,7 @@ import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.profile.AccountsResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
+import com.emproto.networklayer.response.search.SearchResponse
 import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -82,6 +84,20 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
     //chats initiate api
     suspend fun chatInitiate(@Body chatInitiateRequest: ChatInitiateRequest): Response<ChatDetailResponse> {
         return apiService.chatInitiate(chatInitiateRequest)
+    }
+
+    //search api
+    suspend fun getSearchResults(searchWord: String): Response<SearchResponse> {
+        return apiService.getSearchResults(searchWord)
+    }
+
+    //search doc api
+    suspend fun getSearchDocResults(): Response<DocumentsResponse> {
+        return apiService.getSearchDocResults()
+    }
+
+    suspend fun getSearchDocResultsQuery(searchWord: String): Response<DocumentsResponse> {
+        return apiService.getSearchDocResultsQuery(searchWord)
     }
 
     //accounts list api

@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
+import com.emproto.hoabl.feature.home.adapters.TestimonialAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.model.YoutubeModel
 import com.emproto.hoabl.utils.ItemClickListener
@@ -24,6 +25,7 @@ import com.emproto.hoabl.utils.MapItemClickListener
 import com.emproto.hoabl.utils.SimilarInvItemClickListener
 import com.emproto.hoabl.utils.YoutubeItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
+import com.emproto.networklayer.response.home.PageManagementsOrTestimonial
 import com.emproto.networklayer.response.investment.*
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
@@ -516,15 +518,32 @@ class ProjectDetailAdapter(
     private inner class ProjectTestimonialsViewHolder(private val binding: NewInvestmentTestimonialsCardBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             binding.apply {
+                val list = ArrayList<PageManagementsOrTestimonial>()
                 for(item in data.testimonials){
-                    when(item.priority){
-                        1.0 -> {
-                            tvProfileName.text = item.firstName + " " + item.lastName
-                            tvProfileDesignation.text = item.designation
-                            tvProfileInfoText.text = item.testimonialContent
-                        }
-                    }
+                    list.add(
+                        PageManagementsOrTestimonial(
+                            firstName = item.firstName,
+                            lastName = item.lastName,
+                            designation = item.designation,
+                            testimonialContent = item.testimonialContent,
+                            companyName = item.companyName,
+                            createdAt = item.createdAt,
+                            createdBy = item.createdBy,
+                            id = item.id,
+                            priority = item.priority,
+                            status= item.status,
+                            updatedAt= item.updatedAt,
+                            updatedBy=  item.updatedBy
+                        )
+                    )
                 }
+                val adapter = TestimonialAdapter(context,list)
+                binding.vpTestimonials.adapter = adapter
+                TabLayoutMediator(
+                    binding.tabDotLayout,
+                    binding.vpTestimonials
+                ) { _, _ ->
+                }.attach()
                 tvHearSpeakSeeAll.setOnClickListener(onItemClickListener)
             }
         }

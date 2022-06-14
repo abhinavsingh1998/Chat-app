@@ -13,8 +13,8 @@ import com.emproto.hoabl.repository.HomeRepository
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.chats.ChatDetailResponse
+import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
-import com.emproto.networklayer.response.home.PageManagementOrInsight
 import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.Data
@@ -25,6 +25,7 @@ import com.emproto.networklayer.response.profile.AccountsResponse
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
+import com.emproto.networklayer.response.search.SearchResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import javax.inject.Inject
@@ -179,4 +180,11 @@ class HomeViewModel(
         return homeRepository.getFacilitymanagment()
     }
 
+    fun getSearchResult(searchWord: String): LiveData<BaseResponse<SearchResponse>> {
+        return homeRepository.getSearchResult(searchWord)
+    }
+
+    fun getSearchDocResult(searchWord: String): LiveData<BaseResponse<DocumentsResponse>> {
+        return homeRepository.getSearchDocResult(searchWord)
+    }
 }

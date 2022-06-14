@@ -197,11 +197,16 @@ class ProjectDetailFragment : BaseFragment() {
                 itemId++
                 imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url,title="ThreeSixtyImages", id = itemId, name = item.name))
             }
+            for(item in mediaData[i].coverImage){
+                itemId++
+                imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url,title = "Images", id = itemId, name = item.name))
+            }
         }
         Log.d("cscscs",imagesList.toString())
         val fragment = MediaGalleryFragment()
         val bundle = Bundle()
         bundle.putSerializable("Data", imagesList)
+        bundle.putBoolean("isVideoSeeAllClicked",true)
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(fragment, false)
     }
@@ -261,6 +266,7 @@ class ProjectDetailFragment : BaseFragment() {
             ViewModelProvider(requireActivity(), investmentFactory)[InvestmentViewModel::class.java]
         homeViewModel =
             ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
+        (requireActivity() as HomeActivity).showHeader()
     }
 
     private fun setUpUI() {
@@ -394,6 +400,7 @@ class ProjectDetailFragment : BaseFragment() {
                 R.id.cv_location_infrastructure_card -> {
                     investmentViewModel.setMapLocationInfrastructure(mapLocationData)
                     val bundle = Bundle()
+                    bundle.putInt("ItemPosition",position)
                     bundle.putSerializable("Location",MapLocationModel(12.9274,77.586387,latitude,longitude) as Serializable)
                     val fragment = MapFragment()
                     fragment.arguments = bundle

@@ -32,6 +32,7 @@ import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineRes
 import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
+import com.emproto.networklayer.response.search.SearchResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
@@ -178,4 +179,13 @@ public interface ApiService {
 
     @GET(ApiConstants.ACCOUNTS_LIST)
     suspend fun getAccountsList(): Response<AccountsResponse>
+
+    @GET(ApiConstants.SEARCH)
+    suspend fun getSearchResults(@Query("searchKey") searchWord: String):Response<SearchResponse>
+
+    @GET(ApiConstants.SEARCH_DOCS)
+    suspend fun getSearchDocResults():Response<DocumentsResponse>
+
+    @GET(ApiConstants.SEARCH_DOCS)
+    suspend fun getSearchDocResultsQuery(@Query("searchKey") searchWord: String):Response<DocumentsResponse>
 }
