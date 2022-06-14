@@ -12,7 +12,7 @@ data class HomePagesOrPromise(
     val isTermsAndConditionsActive: Boolean,
     val name: String,
     val priority: Any,
-    val promiseIconType: String,
+    val promiseIconType: String?,
     val promiseMedia: PromiseMedia?,
     val promiseType: String,
     val shortDescription: String,
