@@ -2,7 +2,6 @@ package com.emproto.networklayer.response.profile
 
 
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
 
 data class AccountsResponse(
     @SerializedName("code")
@@ -19,20 +18,26 @@ data class AccountsResponse(
         val paymentHistory: List<PaymentHistory>
     ) {
         data class Document(
+            @SerializedName("bookingId")
+            val bookingId: Any?,
             @SerializedName("documentCategory")
-            val documentCategory: String,
+            val documentCategory: Any?,
             @SerializedName("documentType")
-            val documentType: String,
+            val documentType: Any?,
             @SerializedName("id")
             val id: Int,
-            @SerializedName("link")
-            val link: String,
+            @SerializedName("itemInternalId")
+            val itemInternalId: Any?,
             @SerializedName("name")
             val name: String,
+            @SerializedName("path")
+            val path: Any?,
+            @SerializedName("paymentId")
+            val paymentId: Any?,
             @SerializedName("projectId")
             val projectId: String?,
             @SerializedName("userId")
-            val userId: Int
+            val userId: Any?
         )
 
         data class PaymentHistory(
@@ -44,14 +49,12 @@ data class AccountsResponse(
             val paidAmount: Int,
             @SerializedName("paymentDate")
             val paymentDate: String,
-            @SerializedName("paymentMilestone")
-            val paymentMilestone: String,
             @SerializedName("projectName")
             val projectName: String,
             @SerializedName("receiptLink")
-            val receiptLink: Any?,
+            val receiptLink: String,
             @SerializedName("userId")
-            val userId: Int
-        ) : Serializable
+            val userId: String
+        )
     }
 }

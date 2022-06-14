@@ -1,7 +1,6 @@
 package com.emproto.hoabl.feature.profile.adapter.accounts
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +10,12 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemAccountsKycDocBinding
 import com.emproto.networklayer.response.profile.AccountsResponse
 
-class AccountsDocumentListAdapter(
+class AccountsDocumentLabelListAdapter(
     private var mContext: Context?,
     private var accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
-    private var mListener: OnKycItemClickListener
+    private var mListener: OnDocumentLabelItemClickListener
 
-) : RecyclerView.Adapter<AccountsDocumentListAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<AccountsDocumentLabelListAdapter.ViewHolder>() {
 
     lateinit var binding: ItemAccountsKycDocBinding
 
@@ -26,8 +25,8 @@ class AccountsDocumentListAdapter(
         return ViewHolder(binding.root)
     }
 
-    interface OnKycItemClickListener {
-        fun onAccountsKycItemClick(
+    interface OnDocumentLabelItemClickListener {
+        fun onAccountsDocumentLabelItemClick(
             accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
             view: View,
             position: Int
@@ -35,14 +34,12 @@ class AccountsDocumentListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        if(accountsDocumentList[position].documentCategory=="KYC"){
-//            holder.tvDocName.text = accountsDocumentList[position].documentType
-//        }
-        holder.tvDocName.text = accountsDocumentList[position].documentType
-        Log.i("doc type", accountsDocumentList[position].documentCategory)
+        if(accountsDocumentList[position].documentCategory!="KYC"){
+            holder.tvDocName.text = accountsDocumentList[position].documentType.toString()
+        }
 
         holder.tvViewDoc.setOnClickListener {
-            mListener.onAccountsKycItemClick(accountsDocumentList, it, position)
+            mListener.onAccountsDocumentLabelItemClick(accountsDocumentList, it, position)
         }
     }
 
