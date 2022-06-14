@@ -13,9 +13,8 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.profile.adapter.accounts.AccountsPaymentListAdapter
 import com.emproto.networklayer.response.profile.AccountsResponse
 
-class AllPaymentHistoryFragment : Fragment() {
+class AllPaymentHistoryFragment : Fragment() ,AccountsPaymentListAdapter.OnPaymentItemClickListener{
     lateinit var binding: FragmentPaymentHistoryBinding
-    lateinit var accountsPaymentListAdapter: AccountsPaymentListAdapter
     lateinit var accountsPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>
     val bundle = Bundle()
 
@@ -36,15 +35,23 @@ class AllPaymentHistoryFragment : Fragment() {
         return binding.root
     }
     private fun initView() {
-        binding.rvAllPaymentHistory.layoutManager = LinearLayoutManager(
-            requireContext(),
-            RecyclerView.VERTICAL, false
-        )
-        binding.rvAllPaymentHistory.adapter = accountsPaymentListAdapter
+
+        binding.rvAllPaymentHistory.layoutManager =
+            LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+        binding.rvAllPaymentHistory.adapter = AccountsPaymentListAdapter(context,
+          accountsPaymentList, this)
     }
 
     private fun initClickListener() {
         binding.backAction.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
+    }
+
+    override fun onAccountsPaymentItemClick(
+        accountsPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>,
+        view: View,
+        position: Int
+    ) {
+
     }
 
 

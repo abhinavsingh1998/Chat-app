@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentHelpCenterBinding
+import com.emproto.hoabl.feature.chat.views.fragments.ChatsDetailFragment
+import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.profile.adapter.HelpCenterAdapter
 import com.emproto.hoabl.feature.profile.data.DataHealthCenter
@@ -132,7 +134,7 @@ class HelpCenterFragment : BaseFragment() {
             object : HelpCenterAdapter.FooterInterface {
                 override fun onChatClick(position: Int) {
                     (requireActivity() as HomeActivity).addFragment(
-                        AboutUsFragment(),
+                        ChatsFragment(),
                         false
                     )
                 }

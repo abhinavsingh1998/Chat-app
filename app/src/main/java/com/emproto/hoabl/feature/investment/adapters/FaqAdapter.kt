@@ -9,31 +9,30 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemFaqBinding
-import com.emproto.hoabl.databinding.ItemInvFaqBinding
 import com.emproto.networklayer.response.investment.CgData
 import com.emproto.networklayer.response.investment.Faq
 
 class FaqAdapter(private val list: List<Faq>, private val context:Context, private val faqId: Int?):RecyclerView.Adapter<FaqAdapter.FaqViewHolder>() {
-    inner class FaqViewHolder(var binding: ItemInvFaqBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class FaqViewHolder(var binding: ItemFaqBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FaqViewHolder {
-        val view = ItemInvFaqBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val view = ItemFaqBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return FaqViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: FaqViewHolder, position: Int) {
         val element = list[position]
-        holder.binding.ivFaqCardDropDown.setOnClickListener{
-            holder.binding.ivFaqCardDropDown.visibility = View.INVISIBLE
+        holder.binding.ivArrowDown.setOnClickListener{
+            holder.binding.ivArrowDown.visibility = View.INVISIBLE
             holder.binding.tvFaqAnswer.visibility = View.VISIBLE
-            holder.binding.ivFaqCardUpArrow.visibility = View.VISIBLE
-//            holder.binding.viewLine.visibility = View.VISIBLE
+            holder.binding.ivArrowUp.visibility = View.VISIBLE
+            holder.binding.viewLine.visibility = View.VISIBLE
         }
-        holder.binding.ivFaqCardUpArrow.setOnClickListener{
-            holder.binding.ivFaqCardDropDown.visibility = View.VISIBLE
+        holder.binding.ivArrowUp.setOnClickListener{
+            holder.binding.ivArrowDown.visibility = View.VISIBLE
             holder.binding.tvFaqAnswer.visibility = View.GONE
-            holder.binding.ivFaqCardUpArrow.visibility = View.GONE
-//            holder.binding.viewLine.visibility = View.GONE
+            holder.binding.ivArrowUp.visibility = View.GONE
+            holder.binding.viewLine.visibility = View.GONE
         }
         holder.binding.apply {
             tvFaqQuestion.text = element.faqQuestion.question
@@ -42,7 +41,7 @@ class FaqAdapter(private val list: List<Faq>, private val context:Context, priva
         if(faqId != null){
             when{
                 faqId == element.id -> {
-                    holder.binding.ivFaqCardDropDown.performClick()
+                    holder.binding.ivArrowDown.performClick()
                 }
             }
         }
