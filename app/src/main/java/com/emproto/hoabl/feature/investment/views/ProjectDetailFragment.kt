@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.BoolRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -96,9 +97,6 @@ class ProjectDetailFragment : BaseFragment() {
                     list.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(list, false)
                 }
-                R.id.cl_see_all -> {
-                    navigateToMediaGallery()
-                }
                 R.id.btn_view_on_map -> {
                     investmentViewModel.setMapLocationInfrastructure(mapLocationData)
                     (requireActivity() as HomeActivity).addFragment(MapFragment(), false)
@@ -130,7 +128,7 @@ class ProjectDetailFragment : BaseFragment() {
                     navigateToSkuScreen()
                 }
                 R.id.tv_video_drone_see_all -> {
-                    navigateToMediaGallery()
+                    navigateToMediaGallery(true)
                 }
                 R.id.tv_project_amenities_all -> {
                     investmentViewModel.setOpportunityDoc(oppDocData)
@@ -176,7 +174,7 @@ class ProjectDetailFragment : BaseFragment() {
             }
         }
 
-    private fun navigateToMediaGallery() {
+    private fun navigateToMediaGallery(isVideoAllCLicked:Boolean) {
         val imagesList = ArrayList<MediaViewItem>()
         Log.d("cscscs",mediaData.toString())
         var itemId = 0
@@ -206,7 +204,7 @@ class ProjectDetailFragment : BaseFragment() {
         val fragment = MediaGalleryFragment()
         val bundle = Bundle()
         bundle.putSerializable("Data", imagesList)
-        bundle.putBoolean("isVideoSeeAllClicked",true)
+        bundle.putBoolean("isVideoSeeAllClicked",isVideoAllCLicked)
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(fragment, false)
     }
@@ -455,6 +453,9 @@ class ProjectDetailFragment : BaseFragment() {
                     bundle.putInt("FaqId",item.toInt())
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, false)
+                }
+                R.id.cl_see_all -> {
+                    navigateToMediaGallery(false)
                 }
             }
             when(item){

@@ -69,15 +69,13 @@ class NewInvestmentAdapter(
             val amount = data.pageManagementsOrNewInvestments[0].priceStartingFrom.toDouble() / 100000.0
             val convertedAmount = amount.toString().replace(".0","")
             binding.tvAmount.text = SpannableStringBuilder()
-                .bold { append("₹${convertedAmount}L") }
-                .append( " Onwards" )
+                .append("₹${convertedAmount}L")
             binding.tvArea.text = SpannableStringBuilder()
-                .bold { append("${data.pageManagementsOrNewInvestments[0].areaStartingFrom} Sqft") }
-                .append( " Onwards" )
+                .append("${data.pageManagementsOrNewInvestments[0].areaStartingFrom} Sqft")
             binding.tvBackgroundGrey.text = data.pageManagementsOrNewInvestments[0].shortDescription
             binding.tvViewInfo.text = SpannableStringBuilder()
                 .bold { append("${Utility.coolFormat(data.pageManagementsOrNewInvestments[0].fomoContent.noOfViews.toDouble(),0)} People") }
-                .append( " saw this project in ${data.pageManagementsOrNewInvestments[0].fomoContent.days} days" )
+                .append( " saw this in ${data.pageManagementsOrNewInvestments[0].fomoContent.days} days" )
 
             val listViews = ArrayList<String>()
             listViews.add(data.pageManagementsOrNewInvestments[0].projectCoverImages.newInvestmentPageMedia.value.url)
