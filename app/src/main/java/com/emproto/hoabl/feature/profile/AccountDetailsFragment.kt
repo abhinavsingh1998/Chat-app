@@ -13,15 +13,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.FragmentAccountDetailsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.profile.adapter.accounts.AccountsDocumentLabelListAdapter
 import com.emproto.hoabl.feature.profile.adapter.accounts.AccountsPaymentListAdapter
-import com.emproto.hoabl.feature.profile.adapter.accounts.AccountsDocumentListAdapter
+import com.emproto.hoabl.feature.profile.adapter.accounts.AccountsKycListAdapter
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.AccountsResponse
 import javax.inject.Inject
 
-class AccountDetailsFragment : Fragment(), AccountsDocumentListAdapter.OnKycItemClickListener,
+class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClickListener,AccountsDocumentLabelListAdapter.OnDocumentLabelItemClickListener,
     AccountsPaymentListAdapter.OnPaymentItemClickListener {
 
     @Inject
@@ -65,10 +66,13 @@ class AccountDetailsFragment : Fragment(), AccountsDocumentListAdapter.OnKycItem
 
                         binding.rvKyc.layoutManager =
                             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-                        binding.rvKyc.adapter = AccountsDocumentListAdapter(context,
+                        binding.rvKyc.adapter = AccountsKycListAdapter(context,
                             it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>, this)
 
-
+                        binding.rvDocuments.layoutManager =
+                            LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+                        binding.rvDocuments.adapter = AccountsDocumentLabelListAdapter(context,
+                            it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>, this)
                     }
 
                     if (it.data?.data!!.paymentHistory != null && it.data!!.data.paymentHistory is List<AccountsResponse.Data.PaymentHistory>) {
@@ -113,6 +117,14 @@ class AccountDetailsFragment : Fragment(), AccountsDocumentListAdapter.OnKycItem
         position: Int
     ) {
 
+
+    }
+
+    override fun onAccountsDocumentLabelItemClick(
+        accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
+        view: View,
+        position: Int
+    ) {
 
     }
 

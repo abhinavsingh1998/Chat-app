@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.ItemAccountsKycDocBinding
 import com.emproto.hoabl.databinding.ItemAccountsPaymentBinding
 import com.emproto.networklayer.response.profile.AccountsResponse
 
@@ -37,7 +36,6 @@ class AccountsPaymentListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvPaidAmount.text = accountsPaymentList[position].paidAmount.toString()
         holder.tvProjectName.text = accountsPaymentList[position].projectName
-        holder.tvPaymentMilestone.text = "Payment Milestone" + "" + accountsPaymentList[position].paymentMilestone
         holder.tvPaymentDate.text=accountsPaymentList[position].paymentDate.substring(0,10)
 
         holder.tvSeeReceipt.setOnClickListener {
