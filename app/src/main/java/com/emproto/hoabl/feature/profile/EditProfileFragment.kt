@@ -46,6 +46,10 @@ import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.Data
 import com.emproto.networklayer.response.profile.ProfilePictureResponse
 import com.emproto.networklayer.response.profile.States
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -56,12 +60,13 @@ class EditProfileFragment : Fragment() {
     val bundle = Bundle()
     var charSequence1: Editable? = null
     var charSequence2: Editable? = null
-
+    lateinit var filePart: MultipartBody.Part
 
     @Inject
     lateinit var profileFactory: ProfileFactory
     lateinit var profileViewModel: ProfileViewModel
     lateinit var binding: FragmentEditProfileBinding
+
 
     var hMobileNo = ""
     var hCountryCode = ""
@@ -85,7 +90,7 @@ class EditProfileFragment : Fragment() {
     lateinit var stateIso: String
     lateinit var city: String
     lateinit var gender: String
-    lateinit var uploadProfilePictureRequest:UploadProfilePictureRequest
+    lateinit var uploadProfilePictureRequest: UploadProfilePictureRequest
 
     @Inject
     lateinit var appPreference: AppPreference
@@ -503,7 +508,7 @@ class EditProfileFragment : Fragment() {
         thumbnail!!.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
         destinationFile = File(
             Environment.getExternalStorageDirectory(),
-            "Profile_pic_" + System.currentTimeMillis() + ".jpg"
+            "Profile_pic_" + this.data.crmId + ".jpg"
         )
         val fo: FileOutputStream
         try {
@@ -520,7 +525,10 @@ class EditProfileFragment : Fragment() {
         binding.profileUserLetters.visibility = View.GONE
         binding.profileImage.setImageBitmap(thumbnail)
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-            getPreSignedUrl(destinationFile)
+
+
+            callingUploadPicApi(destinationFile)
+//            getPreSignedUrl(destinationFile)
         } else {
             (requireActivity() as BaseActivity).showError(
                 "Please check Internet Connections to upload image",
@@ -530,37 +538,45 @@ class EditProfileFragment : Fragment() {
         }
     }
 
-    private fun getPreSignedUrl(destinationFile: File) {
-        val type = "upload"
-        profileViewModel.presignedUrl(type, destinationFile)
-            .observe(viewLifecycleOwner,
-                Observer {
-                    when (it.status) {
-                        Status.LOADING -> {
-                            binding.progressBaar.show()
-                        }
-                        Status.SUCCESS -> {
-                            binding.progressBaar.hide()
-                            try {
-                                val preSignedUrl = it.data!!.preSignedUrl
-                                callingUploadPicApi(preSignedUrl)
+//    private fun getPreSignedUrl(destinationFile: File) {
+//        val type = "upload"
+//        profileViewModel.presignedUrl(type, destinationFile)
+//            .observe(viewLifecycleOwner,
+//                Observer {
+//                    when (it.status) {
+//                        Status.LOADING -> {
+//                            binding.progressBaar.show()
+//                        }
+//                        Status.SUCCESS -> {
+//                            binding.progressBaar.hide()
+//                            try {
+//                                val preSignedUrl = it.data!!.preSignedUrl
+//                                callingUploadPicApi(preSignedUrl)
+//
+//                            } catch (e: IOException) {
+//                                println(e)
+//                            }
+//                        }
+//                        Status.ERROR -> {
+//                            binding.progressBaar.hide()
+//                        }
+//                    }
+//                })
+//
+//    }
 
-                            } catch (e: IOException) {
-                                println(e)
-                            }
-                        }
-                        Status.ERROR -> {
-                            binding.progressBaar.hide()
-                        }
-                    }
-                })
+    private fun callingUploadPicApi(destinationFile: File) {
 
-    }
 
-    private fun callingUploadPicApi(url: String) {
-        uploadProfilePictureRequest= UploadProfilePictureRequest(url)
+        filePart = MultipartBody.Part.createFormData(
+            "file", destinationFile.name, RequestBody.create(
+                "image/*".toMediaTypeOrNull(), destinationFile
+            )
+
+        )
+        uploadProfilePictureRequest = UploadProfilePictureRequest(destinationFile.name,filePart)
         profileViewModel.uploadProfilePicture(uploadProfilePictureRequest)
-            .observe(viewLifecycleOwner, object : Observer<BaseResponse<ProfilePictureResponse>>{
+            .observe(viewLifecycleOwner, object : Observer<BaseResponse<ProfilePictureResponse>> {
                 override fun onChanged(it: BaseResponse<ProfilePictureResponse>?) {
                     when (it?.status) {
                         Status.LOADING -> {
@@ -573,7 +589,7 @@ class EditProfileFragment : Fragment() {
 //                                    .load(it.data?.data?.profilePictureUrl)
 //                                    .into(binding.profileImage)
                             } catch (e: IOException) {
-                                System.out.println(e)
+                                println(e)
                             }
                         }
                         Status.ERROR -> {
@@ -581,8 +597,6 @@ class EditProfileFragment : Fragment() {
                         }
                     }
                 }
-
-
 
 
             })
@@ -618,7 +632,8 @@ class EditProfileFragment : Fragment() {
             binding.profileImage.setImageBitmap(bitmap)
 
             if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-                getPreSignedUrl(destinationFile)
+                callingUploadPicApi(destinationFile)
+//                getPreSignedUrl(destinationFile)
             } else {
                 (requireActivity() as BaseActivity).showError(
                     "Please check Internet Connections to upload image",

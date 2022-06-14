@@ -16,6 +16,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import java.io.File
 import javax.inject.Inject
 
@@ -46,7 +47,8 @@ class ProfileRepository @Inject constructor(application: Application) :
         return mEditProfileResponse
     }
 
-    fun uploadProfilePicture(uploadProfilePictureRequest: UploadProfilePictureRequest): LiveData<BaseResponse<ProfilePictureResponse>> {
+    fun uploadProfilePicture(
+        uploadProfilePictureRequest: UploadProfilePictureRequest): LiveData<BaseResponse<ProfilePictureResponse>> {
         val mUploadProfilePicture = MutableLiveData<BaseResponse<ProfilePictureResponse>>()
         mUploadProfilePicture.postValue(BaseResponse.loading())
         coroutineScope.launch {

@@ -9,6 +9,7 @@ import com.emproto.networklayer.request.login.profile.UploadProfilePictureReques
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
+import okhttp3.MultipartBody
 import java.io.File
 
 class ProfileViewModel(
@@ -24,7 +25,8 @@ class ProfileViewModel(
         return profileRepository.editUserNameProfile(editUserNameRequest)
     }
 
-    fun uploadProfilePicture(uploadProfilePictureRequest: UploadProfilePictureRequest): LiveData<BaseResponse<ProfilePictureResponse>> {
+    fun uploadProfilePicture(
+        uploadProfilePictureRequest: UploadProfilePictureRequest): LiveData<BaseResponse<ProfilePictureResponse>> {
         return profileRepository.uploadProfilePicture(uploadProfilePictureRequest)
     }
     fun presignedUrl(type: String, destinationFile: File): LiveData<BaseResponse<PresignedUrlResponse>> {

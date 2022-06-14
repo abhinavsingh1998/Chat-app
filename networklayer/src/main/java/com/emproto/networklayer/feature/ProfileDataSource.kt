@@ -12,6 +12,7 @@ import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
 import java.io.File
@@ -44,7 +45,8 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
         return apiService.addUserName(editUserNameRequest)
     }
 
-    suspend fun uploadPictureProfile(uploadProfilePictureRequest: UploadProfilePictureRequest): Response<ProfilePictureResponse> {
+    suspend fun uploadPictureProfile(
+        uploadProfilePictureRequest: UploadProfilePictureRequest): Response<ProfilePictureResponse> {
         return apiService.uploadPicture(uploadProfilePictureRequest)
     }
 
