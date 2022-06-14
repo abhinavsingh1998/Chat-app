@@ -141,10 +141,8 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
         }
     }
 
-
-
     fun initClickListener() {
-        mBinding.backBtn.setOnClickListener(View.OnClickListener {
+        mBinding.backBtnView.setOnClickListener(View.OnClickListener {
             (this.requireActivity() as HomeActivity).onBackPressed()
         })
     }

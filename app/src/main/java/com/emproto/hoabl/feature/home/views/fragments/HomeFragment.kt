@@ -125,10 +125,10 @@ class HomeFragment : BaseFragment() {
 //                                }
                                 appPreference.setFacilityCard(it!!.data.isFacilityVisible)
                                 if (it?.data?.isFacilityVisible) {
-                                    binding.facilityManagementCardLayout.isVisible = true
+                                    binding.facilityManagementCardLayout.isVisible = false
                                     binding.dontMissOut.isVisible = false
                                 } else {
-                                    binding.facilityManagementCardLayout.isVisible = true
+                                    binding.facilityManagementCardLayout.isVisible = false
                                     binding.dontMissOut.isVisible = false
                                 }
 

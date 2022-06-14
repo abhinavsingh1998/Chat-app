@@ -384,7 +384,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 val totalLandsold: String? = String.format(
                     getString(R.string.header),
                     it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName,
-                    it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value + " Sqft"
+                    it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value
                 )
                 //it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value
 
@@ -393,6 +393,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                     it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName,
                     it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
                 )
+
                 //it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
                 val grossWeight: String? = String.format(
                     getString(R.string.header),
@@ -407,7 +408,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 )
                 //it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName + " " + it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
                 activityHomeActivity.searchLayout.rotateText.text = showHTMLText(
-                    "$totalAmtLandSold    $totalLandsold    $grossWeight    $num_User"
+                    "$totalAmtLandSold           $totalLandsold    $grossWeight    $num_User"
                 )
                 topText = showHTMLText(
                     "$totalAmtLandSold    $totalLandsold    $grossWeight    $num_User"

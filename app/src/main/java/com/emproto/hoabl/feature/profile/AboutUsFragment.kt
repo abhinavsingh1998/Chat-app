@@ -23,6 +23,7 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.profile.adapter.AboutUSAdapter
 import com.emproto.hoabl.feature.profile.adapter.CorporatePhilosphyAdapter
 import com.emproto.hoabl.feature.profile.adapter.GraphOptionsAdapter
+import com.emproto.hoabl.feature.profile.adapter.ProductAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
@@ -43,6 +44,7 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
     lateinit var adapter: AboutUSAdapter
     lateinit var ivarrow: ImageView
     lateinit var philosophyAdapter:CorporatePhilosphyAdapter
+    lateinit var productAdapter: ProductAdapter
     lateinit var linearLayoutManager: LinearLayoutManager
 
     val bundle = Bundle()
@@ -52,6 +54,9 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
     ): View? {
         binding = FragmentAboutUsBinding.inflate(inflater, container, false)
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
+            false
+
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible =
             false
 
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
@@ -176,7 +181,7 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                         binding.ttvAboutHoabel.text= showHTMLText(commonData?.aboutHoabl?.description)
 
 
-                        //loading Promises list
+                        //loading Philosphy list
                         philosophyAdapter = CorporatePhilosphyAdapter(
                             requireActivity(),
                             commonData?.corporatePhilosophy!!.detailedInformation,
@@ -190,6 +195,18 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                         )
                         binding.aboutUsRv.layoutManager = linearLayoutManager
                         binding.aboutUsRv.adapter = philosophyAdapter
+
+                        //loading product list
+                        productAdapter= ProductAdapter(requireActivity(),
+                        commonData?.productCategory!!.detailedInformation)
+
+                        linearLayoutManager = LinearLayoutManager(
+                            requireContext(),
+                            RecyclerView.VERTICAL,
+                            false
+                        )
+                        binding.productcategoryRv.layoutManager = linearLayoutManager
+                        binding.productcategoryRv.adapter = productAdapter
                     }
                 }
             }

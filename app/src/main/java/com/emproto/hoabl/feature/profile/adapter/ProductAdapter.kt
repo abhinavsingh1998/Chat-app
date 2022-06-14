@@ -32,9 +32,11 @@ class ProductAdapter(
     override fun onBindViewHolder(holder: ProductAdapter.MyViewHolder, position: Int) {
         val currentItem= corporateList[position]
 
-//        holder.binding.fullDescTv.text= showHTMLText(currentItem.description)
-//        Glide.with(context).load(currentItem.media.value.url)
-//            .into(holder.binding.ivImage)
+        holder.binding.tileTxt.text= currentItem.displayName
+        Glide.with(context).load(currentItem.media.value.url)
+            .into(holder.binding.locationIv)
+
+        holder.binding.fullDesc.text= showHTMLText(currentItem.description)
     }
 
     override fun getItemCount(): Int {
