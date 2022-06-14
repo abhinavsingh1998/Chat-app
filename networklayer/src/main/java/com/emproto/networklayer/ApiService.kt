@@ -38,6 +38,7 @@ import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
 import retrofit2.Response
 import retrofit2.http.*
+import java.io.File
 
 public interface ApiService {
 
@@ -89,6 +90,11 @@ public interface ApiService {
 
     @PUT(ApiConstants.UPLOADPROFILEPICTURE)
     suspend fun uploadPicture(@Body uploadProfilePictureRequest: UploadProfilePictureRequest): Response<ProfilePictureResponse>
+
+    @PUT(ApiConstants.PRESIGNEDURL)
+    suspend fun presignedUrl(
+        @Query("type") type: String, @Query("key") destinationFile: File
+    ): Response<PresignedUrlResponse>
 
     @GET(ApiConstants.COUNTRY)
     suspend fun getCountryList(@Query("pageType") pageType: Int): Response<ProfileCountriesResponse>
@@ -165,8 +171,14 @@ public interface ApiService {
     @PUT(ApiConstants.CHATS_INITIATE)
     suspend fun chatInitiate(@Body chatInitiateRequest: ChatInitiateRequest): Response<ChatDetailResponse>
 
+    @GET(ApiConstants.PROFILE_FAQ)
+    suspend fun getFaqList(@Query("typeOfFAQ") typeOfFAQ:String): Response<ProfileFaqResponse>
+
     @GET(ApiConstants.BOOKING_JOURNEY)
     suspend fun getBookingJourney(@Query("investmentId") investmentId: Int): Response<BookingJourneyResponse>
+
+    @GET(ApiConstants.ACCOUNTS_LIST)
+    suspend fun getAccountsList(): Response<AccountsResponse>
 
     @GET(ApiConstants.SEARCH)
     suspend fun getSearchResults(@Query("searchKey") searchWord: String):Response<SearchResponse>

@@ -4,15 +4,15 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.emproto.hoabl.databinding.HealthCenterViewBinding
+import com.emproto.hoabl.databinding.ItemHelpCenterBinding
 import com.emproto.hoabl.feature.profile.data.DataHealthCenter
 
-class HelpListAdapter(context: Context, private val data: List<DataHealthCenter>, val itemInterface: HoabelHealthAdapter.HelpItemInterface
+class HelpListAdapter(context: Context, private val data: List<DataHealthCenter>, val itemInterface: HelpCenterAdapter.HelpItemInterface
 
 ) : RecyclerView.Adapter<HelpListAdapter.ListHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HelpListAdapter.ListHolder {
-        val view = HealthCenterViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = ItemHelpCenterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ListHolder(view)
     }
 
@@ -23,7 +23,7 @@ class HelpListAdapter(context: Context, private val data: List<DataHealthCenter>
         return data.size
     }
 
-    inner class ListHolder(var binding: HealthCenterViewBinding) :
+    inner class ListHolder(var binding: ItemHelpCenterBinding) :
         RecyclerView.ViewHolder(binding.root)
 
 }

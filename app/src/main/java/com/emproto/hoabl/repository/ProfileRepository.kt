@@ -1,6 +1,7 @@
 package com.emproto.hoabl.repository
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
@@ -15,6 +16,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 
@@ -65,6 +67,28 @@ class ProfileRepository @Inject constructor(application: Application) :
             }
         }
         return mUploadProfilePicture
+    }
+    fun presignedUrl(type: String, destinationFile: File): LiveData<BaseResponse<PresignedUrlResponse>> {
+        val presignedUrlResponse = MutableLiveData<BaseResponse<PresignedUrlResponse>>()
+        presignedUrlResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+
+                val request =
+                    ProfileDataSource(application).presignedUrl(type,destinationFile)
+                if (request.isSuccessful) {
+                    presignedUrlResponse.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    presignedUrlResponse.postValue(BaseResponse.Companion.error(request.message()))
+                }
+
+
+            } catch (e: Exception) {
+                presignedUrlResponse.postValue(BaseResponse.Companion.error(e.message!!))
+
+            }
+        }
+        return presignedUrlResponse
     }
 
     fun getCountries(pageType: Int): LiveData<BaseResponse<ProfileCountriesResponse>> {
@@ -155,10 +179,8 @@ class ProfileRepository @Inject constructor(application: Application) :
             try {
                 val request = ProfileDataSource(application).getUserProfile()
                 if (request.isSuccessful) {
-                    if (request.body()!!.data != null)
-                        mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
-                    else
-                        mDocumentsResponse.postValue(BaseResponse.Companion.error("No data found"))
+                    Log.i("Request",request.message())
+                    mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
                 } else {
                     mDocumentsResponse.postValue(
                         BaseResponse.Companion.error(
@@ -202,6 +224,37 @@ class ProfileRepository @Inject constructor(application: Application) :
             }
         }
         return deleteResponse
+    }
+
+
+    fun getFaqList(typeOfFAQ: String): LiveData<BaseResponse<ProfileFaqResponse>> {
+        val faqResponse = MutableLiveData<BaseResponse<ProfileFaqResponse>>()
+        faqResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).getFaqList(typeOfFAQ)
+                if (request.isSuccessful) {
+                    if (request.body() != null && request.body() is ProfileFaqResponse) {
+                        faqResponse.postValue(BaseResponse.success(request.body()!!))
+
+                    } else {
+                        faqResponse.postValue(BaseResponse.Companion.error("No data found"))
+                    }
+                } else {
+                    faqResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+
+                faqResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return faqResponse
     }
 
 

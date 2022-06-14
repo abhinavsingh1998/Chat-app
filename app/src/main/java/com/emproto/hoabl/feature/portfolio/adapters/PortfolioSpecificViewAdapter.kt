@@ -272,17 +272,17 @@ class PortfolioSpecificViewAdapter(
                         Utility.formatAmount(data.investmentInformation.otherExpenses)
 
                     binding.ivInvestedAmount.setOnClickListener {
-                        getToolTip("${data.investmentInformation.amountInvested}").showAlignTop(
+                        getToolTip("₹${data.investmentInformation.amountInvested}").showAlignTop(
                             binding.ivInvestedAmount
                         )
                     }
                     binding.ivAmountPending.setOnClickListener {
-                        getToolTip("${data.investmentInformation.registryAmount}").showAlignTop(
+                        getToolTip("₹${data.investmentInformation.registryAmount}").showAlignTop(
                             binding.ivAmountPending
                         )
                     }
                     binding.ivAmountPending1.setOnClickListener {
-                        getToolTip("${data.investmentInformation.otherExpenses}").showAlignTop(
+                        getToolTip("₹${data.investmentInformation.otherExpenses}").showAlignTop(
                             binding.ivAmountPending1
                         )
                     }
@@ -297,21 +297,21 @@ class PortfolioSpecificViewAdapter(
                     //project status based configuration
                     if (data.investmentInformation.isBookingComplete) {
                         binding.tvPending.text = "IEA"
+                        binding.tvPendingAmount.text = list[position].iea + "%"
                         binding.tvPending.setCompoundDrawablesWithIntrinsicBounds(
                             null,
                             null,
                             null,
                             null
                         )
-                        binding.tvPendingAmount.text = "5%"
                         binding.tvPendingAmount.setTextColor(context.getColor(R.color.app_color))
                         binding.tvPaid.text = "Invested"
                         binding.tvPaidAmount.text =
                                 //NumberFormat.getCurrencyInstance(Locale("en", "in")).format(data.investmentInformation.bookingJourney.paidAmount)
                             Utility.formatAmount(data.investmentInformation.amountInvested)
-                        getToolTip("${data.investmentInformation.amountInvested}")
+                        getToolTip("₹${data.investmentInformation.amountInvested}")
                         binding.tvPaid.setOnClickListener {
-                            getToolTip("${data.investmentInformation.amountInvested}").showAlignTop(
+                            getToolTip("₹${data.investmentInformation.amountInvested}").showAlignTop(
                                 binding.tvPaid
                             )
                         }
@@ -326,12 +326,12 @@ class PortfolioSpecificViewAdapter(
                         binding.tvAmountPaid.text =
                             Utility.formatAmount(data.investmentInformation.bookingJourney.paidAmount)
                         binding.tvPaid.setOnClickListener {
-                            getToolTip("${data.investmentInformation.bookingJourney.paidAmount}").showAlignTop(
+                            getToolTip("₹${data.investmentInformation.bookingJourney.paidAmount}").showAlignTop(
                                 binding.tvPaid
                             )
                         }
                         binding.tvPending.setOnClickListener {
-                            getToolTip("${data.investmentInformation.bookingJourney.amountPending}").showAlignTop(
+                            getToolTip("₹${data.investmentInformation.bookingJourney.amountPending}").showAlignTop(
                                 binding.tvPending
                             )
                         }
@@ -378,9 +378,13 @@ class PortfolioSpecificViewAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
 
-            val listViews = arrayListOf<String>("1", "2", "3", "4", "5")
-            specificViewPagerAdapter = PortfolioSpecificViewPagerAdapter(listViews)
+            val allPayments = list[position].data as List<PaymentSchedulesItem>
+            //val listViews = allPayments.filter { it.isPaymentDone }
+            specificViewPagerAdapter = PortfolioSpecificViewPagerAdapter(allPayments)
             binding.vpAttention.adapter = specificViewPagerAdapter
+            binding.tvSeeallAttention.setOnClickListener {
+                //ivInterface.seeBookingJourney(27)
+            }
 
             TabLayoutMediator(binding.tabDotLayout, binding.vpAttention) { _, _ ->
             }.attach()
@@ -514,57 +518,58 @@ class PortfolioSpecificViewAdapter(
     private inner class PriceTrendsViewHolder(private val binding: PriceTrendsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
+            binding.tvRating.text = list[position].iea + "%"
             val graphData = list[position].data as GeneralInfoEscalationGraph
             binding.tvXAxisLabel.text = graphData.yAxisDisplayName
             binding.tvYAxisLabel.text = graphData.xAxisDisplayName
             val linevalues = ArrayList<Entry>()
 
-            when(graphData.dataPoints.dataPointType){
+            when (graphData.dataPoints.dataPointType) {
                 "Yearly" -> {
                     graphType = "Yearly"
-                    for(item in graphData.dataPoints.points){
-                        linevalues.add(Entry(item.year.toFloat(),item.value.toFloat()))
+                    for (item in graphData.dataPoints.points) {
+                        linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
                     }
                 }
                 "Half Yearly" -> {
                     graphType = "Half Yearly"
-                    for(i in 0..graphData.dataPoints.points.size-1){
-                        val fmString = graphData.dataPoints.points[i].halfYear.substring(0,3)
-                        val yearString = graphData.dataPoints.points[i].year.substring(2,4)
+                    for (i in 0..graphData.dataPoints.points.size - 1) {
+                        val fmString = graphData.dataPoints.points[i].halfYear.substring(0, 3)
+                        val yearString = graphData.dataPoints.points[i].year.substring(2, 4)
                         val str = "$fmString-$yearString"
                         xaxisList.add(str)
                     }
                     var index = 0
-                    for(item in graphData.dataPoints.points){
-                        linevalues.add(Entry(index.toFloat(),item.value.toFloat()))
+                    for (item in graphData.dataPoints.points) {
+                        linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
                         index++
                     }
                 }
                 "Quaterly" -> {
                     graphType = "Quaterly"
-                    for(i in 0..graphData.dataPoints.points.size-1){
-                        val fmString = graphData.dataPoints.points[i].quater.substring(0,2)
-                        val yearString = graphData.dataPoints.points[i].year.substring(2,4)
+                    for (i in 0..graphData.dataPoints.points.size - 1) {
+                        val fmString = graphData.dataPoints.points[i].quater.substring(0, 2)
+                        val yearString = graphData.dataPoints.points[i].year.substring(2, 4)
                         val str = "$fmString-$yearString"
                         xaxisList.add(str)
                     }
                     var index = 0
-                    for(item in graphData.dataPoints.points){
-                        linevalues.add(Entry(index.toFloat(),item.value.toFloat()))
+                    for (item in graphData.dataPoints.points) {
+                        linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
                         index++
                     }
                 }
                 "Monthly" -> {
                     graphType = "Monthly"
-                    for(i in 0..graphData.dataPoints.points.size-1){
-                        val fmString = graphData.dataPoints.points[i].month.substring(0,3)
-                        val yearString = graphData.dataPoints.points[i].year.substring(2,4)
+                    for (i in 0..graphData.dataPoints.points.size - 1) {
+                        val fmString = graphData.dataPoints.points[i].month.substring(0, 3)
+                        val yearString = graphData.dataPoints.points[i].year.substring(2, 4)
                         val str = "$fmString-$yearString"
                         xaxisList.add(str)
                     }
                     var index = 0
-                    for(item in graphData.dataPoints.points){
-                        linevalues.add(Entry(index.toFloat(),item.value.toFloat()))
+                    for (item in graphData.dataPoints.points) {
+                        linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
                         index++
                     }
                 }
@@ -661,21 +666,25 @@ class PortfolioSpecificViewAdapter(
         }
     }
 
-    inner class Xaxisformatter :  IAxisValueFormatter {
+    inner class Xaxisformatter : IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
-            return when(graphType){
+            return when (graphType) {
                 "Quaterly" -> returnFormattedValue(p0)
                 "Monthly" -> returnFormattedValue(p0)
                 "Half Yearly" -> returnFormattedValue(p0)
-                else -> { String.format("%.0f", p0.toDouble()) }
+                else -> {
+                    String.format("%.0f", p0.toDouble())
+                }
             }
         }
     }
 
-    private fun returnFormattedValue(floatValue:Float):String{
+    private fun returnFormattedValue(floatValue: Float): String {
         return when {
             floatValue.toInt() < 10 -> xaxisList[floatValue.toInt()]
-            else -> { String.format("%.0f", floatValue.toDouble()) }
+            else -> {
+                String.format("%.0f", floatValue.toDouble())
+            }
         }
     }
 

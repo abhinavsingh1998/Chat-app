@@ -65,7 +65,6 @@ class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
                         val chatListSize=it.data!!.chatList.size.toString()
                         binding.tvChats.text="Chat($chatListSize)"
 
-//                        Log.i("ChatListSize",it.data!!.chatList.size.toString())
                     }
                 }
                 Status.ERROR -> {

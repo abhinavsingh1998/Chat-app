@@ -8,5 +8,9 @@ data class Investment(
     val ownershipDate: String,
     val userId: String,
     val actionItemCount: Int,
-    val inventoryId: String
+    val inventoryId: String,
+    val areaSqFt: Double,
+    val amountInvested: Double,
+    val projectIea: String
+
 )

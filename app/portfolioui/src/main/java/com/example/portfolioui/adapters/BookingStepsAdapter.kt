@@ -5,24 +5,19 @@ import android.os.Build
 import android.text.Html
 import android.text.Spanned
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portfolioui.R
 import com.example.portfolioui.databinding.ItemBokingjourBinding
-import com.example.portfolioui.databinding.ItemTimelineInprogressBinding
-import com.example.portfolioui.databinding.ItemTimelineStepCompletedBinding
-import com.example.portfolioui.databinding.ItemTimelineStepDisabledBinding
 import com.example.portfolioui.models.BookingStepsModel
-import com.skydoves.balloon.BalloonAnimation
-import com.skydoves.balloon.BalloonSizeSpec
-import com.skydoves.balloon.createBalloon
 
 class BookingStepsAdapter(
     var context: Context,
     private val dataList: List<BookingStepsModel>,
-    val itemInterface: BookingJourneyAdapter.TimelineInterface?
+    val itemInterface: BookingJourneyAdapter.TimelineInterface?,
+    val type: Int = -1
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -30,6 +25,8 @@ class BookingStepsAdapter(
         const val TYPE_INSTART = 0
         const val TYPE_INPROGRESS = 1
         const val TYPE_COMPLETED = 2
+
+        const val SECTION_PAYMENT = 0
 
     }
 
@@ -79,6 +76,15 @@ class BookingStepsAdapter(
                             data.linkText
                         )
                     )
+                if (type == SECTION_PAYMENT) {
+                    type1Holder.binding.imageView3.visibility = View.VISIBLE
+                    type1Holder.binding.imageView3.setImageDrawable(context.getDrawable(R.drawable.rupee_filled))
+                } else {
+                    type1Holder.binding.imageView3.visibility = View.GONE
+                }
+                type1Holder.binding.tvLink.setOnClickListener {
+                    itemInterface?.viewDetails(0, "")
+                }
 
             }
             TYPE_INPROGRESS -> {
@@ -86,7 +92,6 @@ class BookingStepsAdapter(
                 val data = dataList[position]
                 type1Holder.binding.tvTitle.text = data.text
                 type1Holder.binding.tvDescription.text = data.description
-                type1Holder.binding.tvLink.setTextColor(context.getColor(R.color.background_grey))
                 type1Holder.binding.tvLink.text =
                     showHTMLText(
                         String.format(
@@ -94,10 +99,19 @@ class BookingStepsAdapter(
                             data.linkText
                         )
                     )
-                type1Holder.binding.tvLink.setOnClickListener {
-                    itemInterface?.viewDetails(0, "")
+
+                type1Holder.binding.ivProgressIcon.setImageDrawable(context.getDrawable(R.drawable.ic_inprogress_bg))
+                type1Holder.binding.tvTitle.setTextColor(context.getColor(R.color.disable_text))
+                type1Holder.binding.tvDescription.setTextColor(context.getColor(R.color.disable_text))
+                type1Holder.binding.tvLink.setTextColor(context.getColor(R.color.disable_text))
+
+                if (type == SECTION_PAYMENT) {
+                    type1Holder.binding.imageView3.visibility = View.VISIBLE
+                    type1Holder.binding.imageView3.setImageDrawable(context.getDrawable(R.drawable.rupee_disable))
+                } else {
+                    type1Holder.binding.imageView3.visibility = View.GONE
                 }
-                type1Holder.binding.ivProgressIcon.setImageDrawable(context.getDrawable(R.drawable.ic_in_progress))
+
             }
         }
     }

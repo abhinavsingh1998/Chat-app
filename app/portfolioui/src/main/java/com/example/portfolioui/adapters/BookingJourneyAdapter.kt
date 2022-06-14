@@ -126,28 +126,32 @@ class BookingJourneyAdapter(
                 listHolder.binding.textHeader.text = "PAYMENTS"
                 listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
                 listHolder.binding.stepsList.adapter =
-                    BookingStepsAdapter(context, list, itemInterface)
+                    BookingStepsAdapter(
+                        context,
+                        list,
+                        itemInterface,
+                        BookingStepsAdapter.SECTION_PAYMENT
+                    )
             }
             OWNERSHIP -> {
                 val listHolder = holder as OwnershipHolder
                 val list = dataList[listHolder.adapterPosition].data as Ownership
                 listHolder.binding.textHeader.text = "OWNERSHIP"
-//                listHolder.binding.stepsList.adapter =
-//                    BookingStepsAdapter(context, list, itemInterface)
+
             }
             POSSESSION -> {
                 val listHolder = holder as OwnershipHolder
                 val list = dataList[listHolder.adapterPosition].data as Possession
-                listHolder.binding.textHeader.text = "POSSESSION"
-//                listHolder.binding.stepsList.adapter =
-//                    BookingStepsAdapter(context, list, itemInterface)
+                listHolder.binding.textHeader.text = "Possession"
+                listHolder.binding.tvFirst.text = "Handover Completed"
+                listHolder.binding.tvSecond.text = "Customer Guidelines"
+
             }
             FACILITY -> {
                 val listHolder = holder as FacilityHolder
                 val list = dataList[listHolder.adapterPosition].data as Facility
-                listHolder.binding.textHeader.text = "FACILITY MANAGMENT"
-//                listHolder.binding.stepsList.adapter =
-//                    BookingStepsAdapter(context, list, itemInterface)
+                listHolder.binding.textHeader.text = "Land Management"
+
             }
 
         }
@@ -289,7 +293,7 @@ class BookingJourneyAdapter(
                     BookingStepsModel(
                         BookingStepsAdapter.TYPE_COMPLETED,
                         item.paymentMilestone,
-                        "Payment Pending",
+                        "Payment Completed",
                         "View Details"
                     )
                 )

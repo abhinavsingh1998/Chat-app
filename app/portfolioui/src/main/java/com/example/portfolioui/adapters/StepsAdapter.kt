@@ -1,6 +1,9 @@
 package com.example.portfolioui.adapters
 
 import android.content.Context
+import android.os.Build
+import android.text.Html
+import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
@@ -10,6 +13,7 @@ import com.example.portfolioui.databinding.ItemTimelineInprogressBinding
 import com.example.portfolioui.databinding.ItemTimelineStepCompletedBinding
 import com.example.portfolioui.databinding.ItemTimelineStepDisabledBinding
 import com.example.portfolioui.models.StepsModel
+import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.BalloonSizeSpec
 import com.skydoves.balloon.createBalloon
@@ -76,24 +80,9 @@ class StepsAdapter(
                 val data = dataList[position].timeline
                 type1Holder.binding.tvName.text = data.heading
 
-                val balloon = createBalloon(context) {
-                    setArrowSize(6)
-                    setWidth(BalloonSizeSpec.WRAP)
-                    setTextSize(12F)
-                    setArrowPosition(0.8f)
-                    setCornerRadius(4f)
-                    setAlpha(0.9f)
-                    setText(data.heading)
-                    setTextColorResource(R.color.white)
-                    setBackgroundColorResource(R.color.black)
-                    setPadding(5)
-                    setTextTypeface(ResourcesCompat.getFont(context, R.font.jost_medium)!!)
-                    setBalloonAnimation(BalloonAnimation.FADE)
-                    setLifecycleOwner(lifecycleOwner)
-                }
 
                 type1Holder.binding.imageView.setOnClickListener {
-                    balloon.showAlignBottom(type1Holder.binding.imageView)
+                    getToolTip(data.heading).showAlignBottom(type1Holder.binding.imageView)
                 }
 
             }
@@ -101,24 +90,17 @@ class StepsAdapter(
                 val type1Holder = holder as InCompletedHolder
                 val data = dataList[position].timeline
                 type1Holder.binding.tvName.text = data.heading
-                val balloon = createBalloon(context) {
-                    setArrowSize(6)
-                    setWidth(BalloonSizeSpec.WRAP)
-                    setTextSize(12F)
-                    setArrowPosition(0.8f)
-                    setCornerRadius(4f)
-                    setAlpha(0.9f)
-                    setText(data.heading)
-                    setTextColorResource(R.color.white)
-                    setBackgroundColorResource(R.color.black)
-                    setPadding(5)
-                    setTextTypeface(ResourcesCompat.getFont(context, R.font.jost_medium)!!)
-                    setBalloonAnimation(BalloonAnimation.FADE)
-                    setLifecycleOwner(lifecycleOwner)
-                }
-
+                type1Holder.binding.textView7.text = showHTMLText(
+                    String.format(
+                        context.getString(R.string.tv_receipt),
+                        "View Details"
+                    )
+                )
                 type1Holder.binding.imageView.setOnClickListener {
-                    balloon.showAlignBottom(type1Holder.binding.imageView)
+                    getToolTip(data.heading).showAlignBottom(type1Holder.binding.imageView)
+                }
+                type1Holder.binding.textView7.setOnClickListener {
+                    //on click receipt
                 }
             }
             TYPE_INPROGRESS -> {
@@ -127,27 +109,37 @@ class StepsAdapter(
                 type1Holder.binding.tvName.text = data.heading
                 type1Holder.binding.tvPercentage.text =
                     "" + data.sections[0].values.percentage + "%"
-                val balloon = createBalloon(context) {
-                    setArrowSize(6)
-                    setWidth(BalloonSizeSpec.WRAP)
-                    setTextSize(12F)
-                    setArrowPosition(0.8f)
-                    setCornerRadius(4f)
-                    setAlpha(0.9f)
-                    setText(data.heading)
-                    setTextColorResource(R.color.white)
-                    setBackgroundColorResource(R.color.black)
-                    setPadding(5)
-                    setTextTypeface(ResourcesCompat.getFont(context, R.font.jost_medium)!!)
-                    setBalloonAnimation(BalloonAnimation.FADE)
-                    setLifecycleOwner(lifecycleOwner)
-                }
+
+                type1Holder.binding.textView7.text = showHTMLText(
+                    String.format(
+                        context.getString(R.string.tv_receipt),
+                        "View Details"
+                    )
+                )
 
                 type1Holder.binding.imageView.setOnClickListener {
-                    balloon.showAlignBottom(type1Holder.binding.imageView)
+                    getToolTip(data.heading).showAlignBottom(type1Holder.binding.imageView)
                 }
             }
         }
+    }
+
+    fun getToolTip(text: String): Balloon {
+        val balloon = createBalloon(context) {
+            setArrowSize(6)
+            setWidth(BalloonSizeSpec.WRAP)
+            setTextSize(12F)
+            setCornerRadius(4f)
+            setAlpha(0.9f)
+            setText(text)
+            setTextColorResource(R.color.white)
+            setBackgroundColorResource(R.color.black)
+            setPadding(5)
+            setTextTypeface(ResourcesCompat.getFont(context, R.font.jost_medium)!!)
+            setBalloonAnimation(BalloonAnimation.FADE)
+            setLifecycleOwner(lifecycleOwner)
+        }
+        return balloon
     }
 
 
@@ -164,6 +156,14 @@ class StepsAdapter(
 
     interface TimelineInterface {
         fun onClickItem(position: Int)
+    }
+
+    fun showHTMLText(message: String?): Spanned {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            Html.fromHtml(message)
+        }
     }
 
 }

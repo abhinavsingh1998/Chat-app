@@ -15,9 +15,6 @@ import com.emproto.hoabl.feature.investment.adapters.MediaViewPagerAdapter
 import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
-import com.emproto.networklayer.response.investment.MediaGallery
-import com.emproto.networklayer.response.investment.ProjectCoverImages
-import com.emproto.networklayer.response.responsee.Home
 import com.google.android.material.tabs.TabLayoutMediator
 import javax.inject.Inject
 

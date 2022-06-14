@@ -945,7 +945,7 @@
                         android:layout_marginEnd="@dimen/margin_size_15"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         android:orientation="vertical"
-                        tools:listitem="@layout/item_faq"
+                        tools:listitem="@layout/item_faq_category"
                         tools:itemCount="5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

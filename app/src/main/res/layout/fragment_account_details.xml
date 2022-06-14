@@ -71,7 +71,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list_kyc"
+                    android:id="@+id/rvKyc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
@@ -80,7 +80,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_kyc"
                     tools:itemCount="3"
-                    tools:listitem="@layout/account_item_kyc" />
+                    tools:listitem="@layout/item_accounts_kyc_doc" />
 
                 <TextView
                     android:id="@+id/tv_Doc"
@@ -92,7 +92,7 @@
                     android:fontFamily="@font/jostregular"
                     android:text="@string/documents"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/list_kyc" />
+                    app:layout_constraintTop_toBottomOf="@+id/rvKyc" />
 
 
                 <com.emproto.core.textviews.CustomTextView
@@ -111,11 +111,11 @@
                     android:text="@string/see_all"
                     app:fontName="@string/jost_regular"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/list_kyc" />
+                    app:layout_constraintTop_toBottomOf="@id/rvKyc" />
 
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list_documents"
+                    android:id="@+id/rvDocuments"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
@@ -124,7 +124,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_Doc"
                     tools:itemCount="3"
-                    tools:listitem="@layout/account_item_kyc" />
+                    tools:listitem="@layout/item_accounts_kyc_doc" />
 
 
                 <TextView
@@ -142,7 +142,7 @@
                     android:textStyle="normal"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/list_documents" />
+                    app:layout_constraintTop_toBottomOf="@+id/rvDocuments" />
 
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/tv_see_all_payment_history"
@@ -160,20 +160,31 @@
                     android:text="@string/see_all"
                     app:fontName="@string/jost_regular"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/list_documents" />
+                    app:layout_constraintTop_toBottomOf="@id/rvDocuments" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list_paymenthistory"
+                    android:id="@+id/rvPaymentHistory"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView11"
                     tools:itemCount="3"
-                    tools:listitem="@layout/account_details_view"/>
+                    tools:listitem="@layout/item_accounts_payment"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

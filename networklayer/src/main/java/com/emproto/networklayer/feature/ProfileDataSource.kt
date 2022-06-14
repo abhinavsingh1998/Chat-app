@@ -8,9 +8,13 @@ import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
+import com.emproto.networklayer.response.chats.ChatDetailResponse
+import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
 import retrofit2.Response
+import retrofit2.http.Body
+import java.io.File
 import javax.inject.Inject
 
 class ProfileDataSource(val application: Application) : BaseDataSource(application) {
@@ -44,6 +48,9 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
         return apiService.uploadPicture(uploadProfilePictureRequest)
     }
 
+    suspend fun presignedUrl(type: String, destinationFile: File): Response<PresignedUrlResponse> {
+        return apiService.presignedUrl(type,destinationFile)
+    }
     suspend fun getCountry(pageType: Int): Response<ProfileCountriesResponse> {
         return apiService.getCountryList(pageType)
     }
@@ -55,5 +62,7 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
     suspend fun getCities(stateIsoCode: String, countryIsoCode: String): Response<CitiesResponse> {
         return apiService.getCities(stateIsoCode, countryIsoCode)
     }
-
+    suspend fun getFaqList(typeOfFAQ: String): Response<ProfileFaqResponse> {
+        return apiService.getFaqList(typeOfFAQ)
+    }
 }

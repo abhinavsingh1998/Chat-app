@@ -182,6 +182,18 @@ object Utility {
         return amountInString
     }
 
+    fun convertToDecimal(value: Double): String {
+        val df = DecimalFormat()
+        df.maximumFractionDigits = 2
+        return df.format(value / 100000)
+    }
+
+    fun convertTo(value: Double): String {
+        val df = DecimalFormat()
+        df.maximumFractionDigits = 2
+        return df.format(value)
+    }
+
     @RequiresApi(Build.VERSION_CODES.M)
     fun convertString(textView: TextView, context: Context, text: String) {
         val MAX_LINES = 3

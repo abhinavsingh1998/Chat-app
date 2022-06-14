@@ -70,6 +70,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     lateinit var homeViewModel: HomeViewModel
     var added = false
     val appURL = "https://hoabl.in/"
+    private var oneTimeValidation = false
+
     var topText = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -364,6 +366,14 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     fun hideBottomNavigation() {
         activityHomeActivity.includeNavigation.bottomNavigation.hide()
+    }
+
+    fun fingerprintValidation(status: Boolean) {
+        oneTimeValidation = status
+    }
+
+    fun isFingerprintValidate(): Boolean {
+        return oneTimeValidation
     }
 
     @SuppressLint("SetTextI18n")

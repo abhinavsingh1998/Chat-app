@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewbinding.BuildConfig
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
@@ -37,7 +37,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
 
     @Inject
     lateinit var profileFactory: ProfileFactory
-    lateinit var profileViewModel: ProfileViewModel
+    private lateinit var profileViewModel: ProfileViewModel
     lateinit var profileData: Data
 
     @Inject
@@ -67,33 +67,12 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                     binding.progressBaar.show()
                 }
                 Status.SUCCESS -> {
+                    Log.i("Data Check",it.data.toString())
+
                     binding.progressBaar.hide()
                     if (it.data != null) {
+                        Log.i("Data",it.data.toString())
                         it.data?.let {
-                            /* val contactType=it.data.contactType
-                             val countryCode=it.data.countryCode
-                             val crmId=it.data.crmId
-                             val Id=it.data.id
-                             val profilePictureUrl=it.data.profilePictureUrl
-                             val state=it.data.state
-                             val firstName=it.data.firstName
-                             val lastName=it.data.lastName
-                             val gender=it.data.gender
-                             val city=it.data.city
-                             val address=it.data.streetAddress
-                             val dateOfBirth=it.data.dateOfBirth
-                             val phoneNumber=it.data.phoneNumber
-                             val pincode=it.data.pincode
-                             val emailId=it.data.email
-                             val otpVerified=it.data.otpVerified
-                             val status=it.data.status
-                             val whtsappConsent=it.data.whatsappConsent
-                             val country=it.data.country
-                             val houseNUmber=it.data.houseNumber
-                             val locality=it.data.locality
-                             profileData=Data(contactType,countryCode,crmId,dateOfBirth,emailId,firstName,gender,id,lastName,
-                                     otpVerified,phoneNumber,profilePictureUrl,status,whtsappConsent,country,city,state,
-                                     pincode,locality,houseNUmber,address)*/
                             profileData = it.data
                         }
                         setUiData(profileData)
@@ -101,6 +80,10 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                 }
                 Status.ERROR -> {
                     binding.progressBaar.hide()
+                    it.data
+                    (requireActivity() as HomeActivity).showErrorToast(
+                        it.message!!
+                    )
                 }
 
             }
@@ -112,22 +95,23 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
 
         /*for user pic not available show username as pic label*/
         if (profileData.profilePictureUrl.isNullOrEmpty()){
-            binding.profileImage.visibility=View.GONE
-            binding.profileUserLetters.visibility=View.VISIBLE
-            setuserNamePIC(profileData)
-        }else{
             binding.profileImage.visibility=View.VISIBLE
             binding.profileUserLetters.visibility=View.GONE
-            Glide.with(requireContext())
-                .load(EditProfileFragment.data.profilePictureUrl)
-                .into(binding.profileImage)
+        }else{
+            binding.profileImage.visibility=View.GONE
+            binding.profileUserLetters.visibility=View.VISIBLE
+            setUserNamePIC(profileData)
+
+//            Glide.with(requireContext())
+//                .load(profileData.profilePictureUrl)
+//                .into(binding.profileImage)
         }
     }
 
-    private fun setuserNamePIC(profileData: Data) {
+    private fun setUserNamePIC(profileData: Data) {
         val firstLetter: String = profileData.firstName.substring(0, 1)
-        val lastLetter:String = profileData.lastName.substring(0,1)
-        binding.tvUserName.text=firstLetter+""+lastLetter
+       val lastLetter:String = profileData.lastName.substring(0,1)
+        binding.tvUserName.text= firstLetter+""+lastLetter
     }
 
 
@@ -188,14 +172,12 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
             requireActivity().finish()
         }
 
-        binding.editProfile.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                val editProfile = EditProfileFragment()
-                bundle.putSerializable("profileData", profileData)
-                editProfile.arguments = bundle
-                (requireActivity() as HomeActivity).addFragment(editProfile, false)
-            }
-        })
+        binding.editProfile.setOnClickListener {
+            val editProfile = EditProfileFragment()
+            bundle.putSerializable("profileData", profileData)
+            editProfile.arguments = bundle
+            (requireActivity() as HomeActivity).addFragment(editProfile, false)
+        }
 
     }
 
