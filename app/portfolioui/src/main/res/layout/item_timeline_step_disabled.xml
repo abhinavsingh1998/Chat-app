@@ -20,11 +20,11 @@
         android:layout_width="@dimen/margin_size_10"
         android:layout_height="@dimen/margin_size_10"
         android:layout_marginTop="4dp"
-        android:src="@drawable/ic_in_progress"
+        android:src="@drawable/ic_inprogress_bg"
         app:layout_constraintEnd_toEndOf="@+id/step_view"
         app:layout_constraintStart_toStartOf="@+id/step_view"
         app:layout_constraintTop_toBottomOf="@+id/step_view"
-        app:tint="@color/grey_color" />
+         />
 
     <TextView
         android:id="@+id/tv_name"

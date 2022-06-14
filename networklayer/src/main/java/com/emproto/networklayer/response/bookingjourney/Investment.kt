@@ -1,5 +1,8 @@
 package com.emproto.networklayer.response.bookingjourney
 
+import com.emproto.networklayer.response.portfolio.dashboard.Address
+import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
+
 data class Investment(
     val agreementValue: Double,
     val allocationDate: String,
@@ -31,5 +34,7 @@ data class Investment(
     val registryAmount: Double,
     val sdrCharges: Double,
     val updatedAt: String,
-    val userId: String
+    val userId: String,
+    //for booking journey
+    var extraDetails: ProjectExtraDetails
 )

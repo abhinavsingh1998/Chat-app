@@ -31,7 +31,7 @@ data class AccountsResponse(
             @SerializedName("name")
             val name: String,
             @SerializedName("path")
-            val path: Any?,
+            val path: String?,
             @SerializedName("paymentId")
             val paymentId: Any?,
             @SerializedName("projectId")
