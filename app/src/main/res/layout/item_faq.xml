@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_faq_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_size_12"
-        android:layout_marginTop="@dimen/margin_size_8"
-        android:layout_marginBottom="@dimen/margin_size_2"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/margin_size_10"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/card_bg"
         android:outlineSpotShadowColor="#ababab"
         app:cardCornerRadius="@dimen/margin_size_6"
         app:cardElevation="@dimen/margin_size_8"
@@ -25,35 +29,37 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_faq_question"
+                android:id="@+id/tvFaqQuestion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/margin_size_15"
                 android:layout_marginStart="@dimen/margin_size_10"
-                android:layout_marginEnd="@dimen/margin_size_20"
+                android:layout_marginEnd="@dimen/margin_size_60"
                 android:fontFamily="@font/jost_light"
                 android:text="Is the Prize quoted per sqft. for ISLE of Bliss all inclusive or there are other cost and expenses?"
                 android:textColor="@color/text_blue_dark_color"
                 android:textSize="@dimen/text_size_14"
-                app:layout_constraintBottom_toTopOf="@id/tv_faq_answer"
-                app:layout_constraintEnd_toStartOf="@id/iv_faq_card_drop_down"
+                app:layout_constraintBottom_toTopOf="@+id/tvFaqAnswer"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/iv_faq_card_drop_down"
+                android:id="@+id/ivArrowDown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
                 android:src="@drawable/ic_arrow_down"
                 android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/viewLine"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_faq_question"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/tvFaqQuestion"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="@dimen/margin_size_20"
+                android:layout_marginEnd="@dimen/margin_size_17"
+            />
 
             <ImageView
-                android:id="@+id/iv_faq_card_up_arrow"
+                android:id="@+id/ivArrowUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_size_20"
@@ -61,24 +67,38 @@
                 android:src="@drawable/ic_arrow_upward"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_faq_question"
-                app:layout_constraintTop_toTopOf="@id/tv_faq_question" />
+                app:layout_constraintBottom_toBottomOf="@id/viewLine"
+                app:layout_constraintStart_toEndOf="@+id/tvFaqQuestion"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
+            <View
+                android:id="@+id/viewLine"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/margin_size_14"
+                android:background="#eeeeee"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/tvFaqQuestion"
+           />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_faq_answer"
+                android:id="@+id/tvFaqAnswer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_size_20"
+                android:layout_marginTop="@dimen/margin_size_12"
                 android:layout_marginBottom="@dimen/margin_size_15"
                 android:fontFamily="@font/jost_light"
                 android:text="This place doesnt include expenses which are coming under maintenance, electricity"
                 android:textColor="@color/doc_label_black_color"
                 android:textSize="@dimen/text_size_14"
+                android:layout_marginEnd="@dimen/margin_size_60"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/iv_faq_card_drop_down"
-                app:layout_constraintStart_toStartOf="@id/tv_faq_question"
-                app:layout_constraintTop_toBottomOf="@id/tv_faq_question" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvFaqQuestion"
+                app:layout_constraintTop_toBottomOf="@id/tvFaqQuestion"
+            />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

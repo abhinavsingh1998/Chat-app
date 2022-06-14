@@ -22,16 +22,16 @@ class FaqAdapter(private val list: List<Faq>, private val context:Context, priva
 
     override fun onBindViewHolder(holder: FaqViewHolder, position: Int) {
         val element = list[position]
-        holder.binding.ivFaqCardDropDown.setOnClickListener{
-            holder.binding.ivFaqCardDropDown.visibility = View.INVISIBLE
+        holder.binding.ivArrowDown.setOnClickListener{
+            holder.binding.ivArrowDown.visibility = View.INVISIBLE
             holder.binding.tvFaqAnswer.visibility = View.VISIBLE
-            holder.binding.ivFaqCardUpArrow.visibility = View.VISIBLE
+            holder.binding.ivArrowUp.visibility = View.VISIBLE
 //            holder.binding.viewLine.visibility = View.VISIBLE
         }
-        holder.binding.ivFaqCardUpArrow.setOnClickListener{
-            holder.binding.ivFaqCardDropDown.visibility = View.VISIBLE
+        holder.binding.ivArrowUp.setOnClickListener{
+            holder.binding.ivArrowDown.visibility = View.VISIBLE
             holder.binding.tvFaqAnswer.visibility = View.GONE
-            holder.binding.ivFaqCardUpArrow.visibility = View.GONE
+            holder.binding.ivArrowUp.visibility = View.GONE
 //            holder.binding.viewLine.visibility = View.GONE
         }
         holder.binding.apply {
@@ -41,7 +41,7 @@ class FaqAdapter(private val list: List<Faq>, private val context:Context, priva
         if(faqId != null){
             when{
                 faqId == element.id -> {
-                    holder.binding.ivFaqCardDropDown.performClick()
+                    holder.binding.ivArrowDown.performClick()
                 }
             }
         }

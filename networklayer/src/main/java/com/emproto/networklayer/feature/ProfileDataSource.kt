@@ -62,7 +62,7 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
     suspend fun getCities(stateIsoCode: String, countryIsoCode: String): Response<CitiesResponse> {
         return apiService.getCities(stateIsoCode, countryIsoCode)
     }
-    suspend fun getFaqList(): Response<ProfileFaqResponse> {
-        return apiService.getFaqList()
+    suspend fun getFaqList(typeOfFAQ: String): Response<ProfileFaqResponse> {
+        return apiService.getFaqList(typeOfFAQ)
     }
 }

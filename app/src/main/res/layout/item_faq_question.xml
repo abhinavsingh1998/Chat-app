@@ -24,7 +24,7 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_faq_question"
+                android:id="@+id/tvFaqQuestion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_size_10"
@@ -34,22 +34,22 @@
                 android:text="Is the Prize quoted per sqft. for ISLE of Bliss all inclusive or there are other cost and expenses?"
                 android:textColor="@color/text_blue_dark_color"
                 android:textSize="@dimen/text_size_14"
-                app:layout_constraintEnd_toStartOf="@id/iv_faq_card_drop_down"
+                app:layout_constraintEnd_toStartOf="@id/ivArrowDown"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
             <ImageView
-                android:id="@+id/iv_faq_card_drop_down"
+                android:id="@+id/ivArrowDown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margin_size_17"
                 android:src="@drawable/ic_baseline_black_arrow_right"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_faq_question"
-                app:layout_constraintTop_toTopOf="@id/tv_faq_question"
-                app:layout_constraintBottom_toBottomOf="@id/tv_faq_question"/>
+                app:layout_constraintStart_toEndOf="@+id/tvFaqQuestion"
+                app:layout_constraintTop_toTopOf="@id/tvFaqQuestion"
+                app:layout_constraintBottom_toBottomOf="@id/tvFaqQuestion"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

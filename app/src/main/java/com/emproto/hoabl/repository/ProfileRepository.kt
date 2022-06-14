@@ -5,13 +5,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
-import com.emproto.networklayer.feature.HomeDataSource
 import com.emproto.networklayer.feature.ProfileDataSource
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
 import com.emproto.networklayer.response.BaseResponse
-import com.emproto.networklayer.response.chats.ChatDetailResponse
-import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
 
@@ -230,12 +227,12 @@ class ProfileRepository @Inject constructor(application: Application) :
     }
 
 
-    fun getFaqList(): LiveData<BaseResponse<ProfileFaqResponse>> {
+    fun getFaqList(typeOfFAQ: String): LiveData<BaseResponse<ProfileFaqResponse>> {
         val faqResponse = MutableLiveData<BaseResponse<ProfileFaqResponse>>()
         faqResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val request = ProfileDataSource(application).getFaqList()
+                val request = ProfileDataSource(application).getFaqList(typeOfFAQ)
                 if (request.isSuccessful) {
                     if (request.body() != null && request.body() is ProfileFaqResponse) {
                         faqResponse.postValue(BaseResponse.success(request.body()!!))

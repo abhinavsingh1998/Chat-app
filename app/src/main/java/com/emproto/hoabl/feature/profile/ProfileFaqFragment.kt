@@ -52,7 +52,7 @@ class ProfileFaqFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getData()
+        getProfileFaqData()
 
 
 //        binding.rvHelpCenterCategory.layoutManager = LinearLayoutManager(requireContext())
@@ -61,8 +61,9 @@ class ProfileFaqFragment : Fragment() {
 
     }
 
-    private fun getData() {
-        profileViewModel.getFaqList("app","3001").observe(viewLifecycleOwner, Observer {
+    private fun getProfileFaqData() {
+        val typeOfFAQ="3001"
+        profileViewModel.getFaqList(typeOfFAQ).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     binding.loader.show()
