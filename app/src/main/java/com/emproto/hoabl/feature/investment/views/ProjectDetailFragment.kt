@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.investment.views
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -272,6 +273,10 @@ class ProjectDetailFragment : BaseFragment() {
             View.GONE
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.VISIBLE
         (requireActivity() as HomeActivity).hideBottomNavigation()
+        binding.slSwipeRefresh.setOnRefreshListener {
+            callApi()
+            binding.slSwipeRefresh.isRefreshing = false
+        }
     }
 
     private fun callApi() {
@@ -495,9 +500,11 @@ class ProjectDetailFragment : BaseFragment() {
         override fun onItemClicked(view: View, position: Int, url: String, title: String) {
             when(view.id){
                 R.id.iv_latest_image -> {
-                    val intent = Intent(this@ProjectDetailFragment.requireActivity(), YoutubeActivity::class.java)
-                    intent.putExtra("YoutubeVideoId",url)
-                    intent.putExtra("VideoTitle",title)
+//                    val intent = Intent(this@ProjectDetailFragment.requireActivity(), YoutubeActivity::class.java)
+//                    intent.putExtra("YoutubeVideoId",url)
+//                    intent.putExtra("VideoTitle",title)
+//                    startActivity(intent)
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=${url}"))
                     startActivity(intent)
                 }
             }

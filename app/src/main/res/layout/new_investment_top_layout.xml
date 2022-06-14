@@ -168,15 +168,15 @@
 
                             <ImageView
                                 android:id="@+id/iv_rating"
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
+                                android:layout_width="9dp"
+                                android:layout_height="9dp"
                                 android:scaleType="fitXY"
                                 android:layout_gravity="center|center_vertical"
-                                android:src="@drawable/ic_upward_double_arrow_green" />
+                                android:src="@drawable/shape_filled" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:id="@+id/tv_rating"
-                                style="@style/text_style_dark_green_color_13"
+                                style="@style/text_style_dark_greenp_color_13"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/margin_size_4"

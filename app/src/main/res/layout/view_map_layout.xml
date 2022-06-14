@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/project_detail_map"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/margin_size_150"
+        android:layout_height="@dimen/margin_size_148"
         android:scaleType="centerCrop"
         android:layout_marginHorizontal="@dimen/margin_size_7"
         android:layout_marginTop="@dimen/margin_size_28"
@@ -27,8 +27,8 @@
         android:textColor="@color/white"
         android:textAllCaps="false"
         android:layout_marginBottom="@dimen/margin_size_25"
-        android:paddingHorizontal="@dimen/margin_size_40"
-        android:paddingVertical="@dimen/margin_size_7"
+        android:paddingHorizontal="@dimen/margin_size_16"
+        android:paddingVertical="@dimen/margin_size_9"
         app:layout_constraintStart_toStartOf="@id/project_detail_map"
         app:layout_constraintEnd_toEndOf="@id/project_detail_map"
         app:layout_constraintBottom_toBottomOf="@id/project_detail_map"/>
