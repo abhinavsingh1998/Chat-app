@@ -25,21 +25,21 @@ class ProjectFaqAdapter(
 
     override fun onBindViewHolder(holder: FaqViewHolder, position: Int) {
         val faqItem = list[position]
-        holder.binding.ivFaqCardDropDown.setOnClickListener {
+        holder.binding.ivArrowDown.setOnClickListener {
             //move to another screen flow.
 //            holder.binding.ivFaqCardDropDown.visibility = View.INVISIBLE
 //            holder.binding.tvFaqAnswer.visibility = View.VISIBLE
 //            holder.binding.ivFaqCardUpArrow.visibility = View.VISIBLE
         }
-        holder.binding.ivFaqCardUpArrow.setOnClickListener {
-            holder.binding.ivFaqCardDropDown.visibility = View.VISIBLE
+        holder.binding.ivArrowUp.setOnClickListener {
+            holder.binding.ivArrowDown.visibility = View.VISIBLE
             holder.binding.tvFaqAnswer.visibility = View.GONE
-            holder.binding.ivFaqCardUpArrow.visibility = View.GONE
+            holder.binding.ivArrowUp.visibility = View.GONE
         }
         holder.binding.tvFaqQuestion.text = faqItem.frequentlyAskedQuestion.faqQuestion.question
         holder.binding.tvFaqAnswer.text = faqItem.frequentlyAskedQuestion.faqAnswer.answer
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            holder.binding.ivFaqCardDropDown.setImageDrawable(context.getDrawable(R.drawable.rightarrow))
+            holder.binding.ivArrowDown.setImageDrawable(context.getDrawable(R.drawable.rightarrow))
         }
         holder.binding.cvFaqCard.setOnClickListener {
             ivInterface.readAllFaq(position, faqItem.faqId)

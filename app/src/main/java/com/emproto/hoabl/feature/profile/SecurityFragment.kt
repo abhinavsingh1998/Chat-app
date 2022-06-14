@@ -40,7 +40,7 @@ class SecurityFragment : Fragment() ,SecurityAdapter.HelpItemInterface{
         }
 
         val adapter = SecurityAdapter(this.requireContext(), initData(),this)
-        binding.healthCenterRecyclerView.adapter = adapter
+        binding.rvHelpCenter.adapter = adapter
 
         binding.backAction.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()

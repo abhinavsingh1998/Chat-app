@@ -9,18 +9,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.FragmentHealthCenterBinding
+import com.emproto.hoabl.databinding.FragmentHelpCenterBinding
 import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.feature.profile.adapter.HoabelHealthAdapter
+import com.emproto.hoabl.feature.profile.adapter.HelpCenterAdapter
 import com.emproto.hoabl.feature.profile.data.DataHealthCenter
 import com.emproto.hoabl.feature.profile.data.HelpModel
+import javax.inject.Inject
 
 
 class HelpCenterFragment : BaseFragment() {
 
-
-    lateinit var binding: FragmentHealthCenterBinding
-    private lateinit var adapter: HoabelHealthAdapter
+    @Inject
+    lateinit var binding: FragmentHelpCenterBinding
+    private lateinit var adapter: HelpCenterAdapter
     lateinit var recyclerView: RecyclerView
     private var dataList = ArrayList<DataHealthCenter>()
     val bundle = Bundle()
@@ -30,7 +31,7 @@ class HelpCenterFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHealthCenterBinding.inflate(inflater, container, false)
+        binding = FragmentHelpCenterBinding.inflate(inflater, container, false)
         initView()
 
         return binding.root
@@ -84,23 +85,24 @@ class HelpCenterFragment : BaseFragment() {
 
         )
         val listHolder = ArrayList<HelpModel>()
-        listHolder.add(HelpModel(HoabelHealthAdapter.VIEW_ITEM, item1))
-        listHolder.add(HelpModel(HoabelHealthAdapter.VIEW_ITEM, item2))
-        listHolder.add(HelpModel(HoabelHealthAdapter.VIEW_ITEM, item3))
-        listHolder.add(HelpModel(HoabelHealthAdapter.VIEW_ITEM, item4))
-        listHolder.add(HelpModel(HoabelHealthAdapter.VIEW_ITEM, item5))
-        listHolder.add(HelpModel(HoabelHealthAdapter.VIEW_FOOTER, item1))
+        listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item1))
+        listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item2))
+        listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item3))
+        listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item4))
+        listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item5))
+        listHolder.add(HelpModel(HelpCenterAdapter.VIEW_FOOTER, item1))
 
-        binding.healthCenterRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
-        binding.healthCenterRecyclerView.adapter = HoabelHealthAdapter(
+        binding.rvHelpCenter.layoutManager = LinearLayoutManager(requireActivity())
+        binding.rvHelpCenter.adapter = HelpCenterAdapter(
             requireContext(),
             listHolder,
-            object : HoabelHealthAdapter.HelpItemInterface {
+            object : HelpCenterAdapter.HelpItemInterface {
                 override fun onClickItem(position: Int) {
                     when (position) {
                         0 -> {
+
                             (requireActivity() as HomeActivity).addFragment(
-                                FaqFragment(),
+                                ProfileFaqFragment(),
                                 false
                             )
                         }
@@ -127,13 +129,12 @@ class HelpCenterFragment : BaseFragment() {
                 }
 
             },
-            object : HoabelHealthAdapter.FooterInterface {
+            object : HelpCenterAdapter.FooterInterface {
                 override fun onChatClick(position: Int) {
-//                    (requireActivity() as HomeActivity).addFragment(
-//                        AboutUsFragment(),
-//                        false
-//                    )
-                    //open Chats Fragment
+                    (requireActivity() as HomeActivity).addFragment(
+                        AboutUsFragment(),
+                        false
+                    )
                 }
 
             }
@@ -143,6 +144,8 @@ class HelpCenterFragment : BaseFragment() {
             requireActivity().supportFragmentManager.popBackStack()
         }
     }
+
+
 
 
 }

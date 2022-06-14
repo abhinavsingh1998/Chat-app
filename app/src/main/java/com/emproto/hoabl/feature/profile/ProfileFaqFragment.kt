@@ -6,16 +6,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentFaqBinding
-import com.emproto.hoabl.feature.profile.data.FaqData
-import com.emproto.hoabl.feature.profile.adapter.FaqViewAdapter
+import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.profile.adapter.faq.ProfileFaqCategoryAdapter
+import com.emproto.hoabl.viewmodels.ProfileViewModel
+import com.emproto.hoabl.viewmodels.factory.HomeFactory
+import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.profile.ProfileFaqResponse
+import javax.inject.Inject
 
 
-class FaqFragment : Fragment() {
+class ProfileFaqFragment : Fragment() {
+
+    @Inject
+    lateinit var homeFactory: HomeFactory
+    private lateinit var profileViewModel: ProfileViewModel
+    lateinit var faqCategory: ArrayList<ProfileFaqResponse.ProfileFaqData>
     lateinit var binding: FragmentFaqBinding
-    lateinit var adapter: FaqViewAdapter
+    lateinit var profileFaqCategoryAdapter: ProfileFaqCategoryAdapter
     val bundle = Bundle()
 
     override fun onCreateView(
@@ -23,11 +36,11 @@ class FaqFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentFaqBinding.inflate(inflater, container, false)
-        binding.healthCenterRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val detailAdapter = FaqViewAdapter(requireContext(), initData())
 
-        binding.healthCenterRecyclerView.adapter = detailAdapter
+        binding = FragmentFaqBinding.inflate(layoutInflater, container, false)
+        (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
+        profileViewModel =
+            ViewModelProvider(requireActivity(), homeFactory)[ProfileViewModel::class.java]
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             true
         initClickListener()
@@ -36,6 +49,50 @@ class FaqFragment : Fragment() {
 
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        getProfileFaqData()
+
+
+//        binding.rvHelpCenterCategory.layoutManager = LinearLayoutManager(requireContext())
+//        val detailAdapter = ProfileFaqAdapter(requireContext(), initData())
+//        binding.rvHelpCenterCategory.adapter = detailAdapter
+
+    }
+
+    private fun getProfileFaqData() {
+        val typeOfFAQ="3001"
+        profileViewModel.getFaqList(typeOfFAQ).observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.LOADING -> {
+                    binding.loader.show()
+                }
+                Status.SUCCESS -> {
+                    binding.loader.hide()
+                    if (it.data?.data != null) {
+                        faqCategory=it.data!!.data
+                        setAdapter()
+                        profileFaqCategoryAdapter.notifyDataSetChanged()
+
+                    }
+                }
+                Status.ERROR -> {
+                    binding.loader.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                }
+            }
+        })
+
+    }
+
+    private fun setAdapter() {
+        binding.rvHelpCenterCategory.layoutManager =
+            LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+        profileFaqCategoryAdapter = ProfileFaqCategoryAdapter(context, faqCategory)
+        binding.rvHelpCenterCategory.adapter = profileFaqCategoryAdapter
+    }
+
 
     private fun initClickListener() {
 
@@ -46,6 +103,7 @@ class FaqFragment : Fragment() {
         })
     }
 
+/*
     private fun initData(): ArrayList<FaqData> {
         val dataList: ArrayList<FaqData> = ArrayList<FaqData>()
         dataList.add(
@@ -108,4 +166,5 @@ class FaqFragment : Fragment() {
 
         return dataList
     }
+*/
 }

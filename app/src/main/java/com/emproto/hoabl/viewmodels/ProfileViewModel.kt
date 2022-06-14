@@ -51,6 +51,10 @@ class ProfileViewModel(
         return profileRepository.getCities(stateIsoCode,countryIsoCode)
     }
 
+    fun getFaqList(typeOfFAQ: String): LiveData<BaseResponse<ProfileFaqResponse>> {
+        return profileRepository.getFaqList(typeOfFAQ)
+    }
+
 }
 
 

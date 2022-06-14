@@ -227,6 +227,37 @@ class ProfileRepository @Inject constructor(application: Application) :
     }
 
 
+    fun getFaqList(typeOfFAQ: String): LiveData<BaseResponse<ProfileFaqResponse>> {
+        val faqResponse = MutableLiveData<BaseResponse<ProfileFaqResponse>>()
+        faqResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).getFaqList(typeOfFAQ)
+                if (request.isSuccessful) {
+                    if (request.body() != null && request.body() is ProfileFaqResponse) {
+                        faqResponse.postValue(BaseResponse.success(request.body()!!))
+
+                    } else {
+                        faqResponse.postValue(BaseResponse.Companion.error("No data found"))
+                    }
+                } else {
+                    faqResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+
+                faqResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return faqResponse
+    }
+
+
 }
 
 

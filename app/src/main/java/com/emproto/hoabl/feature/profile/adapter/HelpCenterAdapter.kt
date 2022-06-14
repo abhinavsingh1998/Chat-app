@@ -4,13 +4,12 @@ import android.content.Context
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.profile.data.HelpModel
 
 
-class HoabelHealthAdapter(
+class HelpCenterAdapter(
     var context: Context,
     val dataList: ArrayList<HelpModel>,
     val itemInterface: HelpItemInterface,
@@ -30,7 +29,7 @@ class HoabelHealthAdapter(
         when (viewType) {
             VIEW_ITEM -> {
                 val view =
-                    HealthCenterViewBinding.inflate(
+                    ItemHelpCenterBinding.inflate(
                         LayoutInflater.from(parent.context), parent,
                         false
                     )
@@ -39,7 +38,7 @@ class HoabelHealthAdapter(
 
             else -> {
                 val view =
-                    HealthCenterFooterBinding.inflate(
+                    HelpCenterFooterBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
@@ -53,7 +52,7 @@ class HoabelHealthAdapter(
         when (holder.itemViewType) {
             VIEW_ITEM -> {
                 val item = dataList[holder.layoutPosition].data
-                val header_holder = holder as HoabelHealthAdapter.HoablHealthViewHolder
+                val header_holder = holder as HelpCenterAdapter.HoablHealthViewHolder
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     header_holder.binding.ivIcon.setImageResource(item.img)
                 }
@@ -65,7 +64,7 @@ class HoabelHealthAdapter(
 
             }
             VIEW_FOOTER -> {
-                val listHolder = holder as HoabelHealthAdapter.HoablHealthFooterHolder
+                val listHolder = holder as HelpCenterAdapter.HoablHealthFooterHolder
                 listHolder.binding.actionChat.setOnClickListener {
                     footerInterface.onChatClick(holder.layoutPosition)
 
@@ -76,10 +75,10 @@ class HoabelHealthAdapter(
     }
 
     override fun getItemCount() = dataList.size
-    inner class HoablHealthViewHolder(var binding: HealthCenterViewBinding) :
+    inner class HoablHealthViewHolder(var binding: ItemHelpCenterBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    inner class HoablHealthFooterHolder(var binding: HealthCenterFooterBinding) :
+    inner class HoablHealthFooterHolder(var binding: HelpCenterFooterBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     interface HelpItemInterface {

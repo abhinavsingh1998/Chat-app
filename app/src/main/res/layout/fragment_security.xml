@@ -88,7 +88,7 @@
             app:layout_constraintTop_toBottomOf="@+id/button_View" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/healthCenterRecyclerView"
+            android:id="@+id/rvHelpCenter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
