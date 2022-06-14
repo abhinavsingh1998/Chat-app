@@ -25,6 +25,7 @@ class PortfolioViewModel(
 
     private var portfolioData = MutableLiveData<PortfolioData>()
     private lateinit var projectDetails: ProjectExtraDetails
+    private lateinit var projectname: String
 
     fun getPortfolioDashboard(refresh: Boolean): LiveData<BaseResponse<PortfolioData>> {
         return portfolioRepository.getPortfolioDashboard(refresh)
@@ -44,6 +45,14 @@ class PortfolioViewModel(
 
     fun getprojectAddress(): ProjectExtraDetails {
         return this.projectDetails
+    }
+
+    fun setProjectName(name: String) {
+        this.projectname = name
+    }
+
+    fun getProjectName(): String {
+        return this.projectname
     }
 
     fun getInvestmentDetails(

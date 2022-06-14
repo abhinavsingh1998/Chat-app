@@ -87,6 +87,15 @@ class TimelineAdapter(
                         "View Details"
                     )
                 )
+                var reraNumber = ""
+                val mSize = listData.reraDetails.reraNumbers.size
+                for ((index, item) in listData.reraDetails.reraNumbers.withIndex()) {
+                    reraNumber += item
+                    if (index + 1 != mSize) {
+                        reraNumber += "\n"
+                    }
+                }
+                listHolder.binding.textView10.text = reraNumber
                 listHolder.binding.textView7.setOnClickListener {
                     itemInterface.onClickVDetails(listData.timeLines[0].sections[0].values.medias.value.url)
                 }

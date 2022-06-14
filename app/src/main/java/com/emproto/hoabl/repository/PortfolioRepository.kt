@@ -25,6 +25,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + parentJob)
     val mPromisesResponse = MutableLiveData<BaseResponse<PortfolioData>>()
+    val mDocumentsResponse = MutableLiveData<BaseResponse<ProjectTimelineResponse>>()
 
 
     private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
@@ -196,27 +197,29 @@ class PortfolioRepository @Inject constructor(application: Application) :
     }
 
     fun getProjectTimeline(id: Int): LiveData<BaseResponse<ProjectTimelineResponse>> {
-        val mDocumentsResponse = MutableLiveData<BaseResponse<ProjectTimelineResponse>>()
-        mDocumentsResponse.postValue(BaseResponse.loading())
-        coroutineScope.launch {
-            try {
-                val request = PortfolioDataSource(application).getProjectTimeline(id)
-                if (request.isSuccessful) {
-                    if (request.body()!!.data != null)
-                        mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
-                    else
-                        mDocumentsResponse.postValue(BaseResponse.Companion.error("No data found"))
-                } else {
-                    mDocumentsResponse.postValue(
-                        BaseResponse.Companion.error(
-                            getErrorMessage(
-                                request.errorBody()!!.string()
+
+        if (mDocumentsResponse.value == null || mDocumentsResponse.value!!.data!!.data.id != id) {
+            mDocumentsResponse.postValue(BaseResponse.loading())
+            coroutineScope.launch {
+                try {
+                    val request = PortfolioDataSource(application).getProjectTimeline(id)
+                    if (request.isSuccessful) {
+                        if (request.body()!!.data != null)
+                            mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
+                        else
+                            mDocumentsResponse.postValue(BaseResponse.Companion.error("No data found"))
+                    } else {
+                        mDocumentsResponse.postValue(
+                            BaseResponse.Companion.error(
+                                getErrorMessage(
+                                    request.errorBody()!!.string()
+                                )
                             )
                         )
-                    )
+                    }
+                } catch (e: Exception) {
+                    mDocumentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
                 }
-            } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
             }
         }
         return mDocumentsResponse

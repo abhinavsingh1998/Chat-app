@@ -89,6 +89,7 @@ class ProjectTimelineFragment : BaseFragment() {
                         )
                         for (item in it.data.projectTimelines) {
                             if (item.timeLineSectionHeading == "Project Registration") {
+                                item.reraDetails = it.data.reraDetails
                                 timelineList.add(TimelineModel(TimelineAdapter.TYPE_RERA, item))
                             } else
                                 timelineList.add(TimelineModel(TimelineAdapter.TYPE_LIST, item))
