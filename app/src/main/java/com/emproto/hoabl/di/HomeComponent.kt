@@ -10,6 +10,7 @@ import com.emproto.hoabl.feature.investment.views.*
 import com.emproto.hoabl.feature.investment.views.mediagallery.*
 import com.emproto.hoabl.feature.login.*
 import com.emproto.hoabl.feature.portfolio.views.*
+import com.emproto.hoabl.feature.profile.*
 import com.emproto.hoabl.feature.profile.AccountDetailsFragment
 import com.emproto.hoabl.feature.profile.EditProfileFragment
 import com.emproto.hoabl.feature.profile.FeedbackFragment
@@ -69,6 +70,7 @@ interface HomeComponent {
     fun inject(fragment:PrivacyFragment)
     fun inject(fragment: SearchResultFragment)
     fun inject(fragment: AccountDetailsFragment)
+    fun inject(fragment:AboutUsFragment)
     fun inject(fragment: ProfileFaqFragment)
     fun inject(fragment: ReceiptFragment)
 

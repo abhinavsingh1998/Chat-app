@@ -5,8 +5,6 @@ import com.emproto.networklayer.response.home.LatestUpdates
 
 object ApiConstants {
     const val COMMON_MSG = "Something Went Wrong"
-    const val BASE_URL_DEV =
-        "http://hoabl-backend-dev-306342355.ap-south-1.elb.amazonaws.com/"
     const val BASE_URL_UAT = "http://hoabl-backend-qa-1093935714.ap-south-1.elb.amazonaws.com/"
 
     const val GENERATE_OTP = "hoabl-customer/generate_otp"
@@ -51,6 +49,7 @@ object ApiConstants {
     const val CHATS_LIST = "hoabl-customer/chats"
     const val CHATS_INITIATE = "hoabl-customer/chat/initiate"
     const val FEEDBACK = "hoabl-customer/profile/feedback"
+    const val PROFILE_RESOURCE= "hoabl-admin/get-page"
     const val PROJECT_MEDIA_GALLERIES =
         "hoabl-admin/project-contents/{projectContentId}/media-galleries"
 

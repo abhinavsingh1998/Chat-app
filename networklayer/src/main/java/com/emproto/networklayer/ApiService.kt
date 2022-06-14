@@ -33,6 +33,7 @@ import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineRes
 import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
+import com.emproto.networklayer.response.resourceManagment.ProflieResponse
 import com.emproto.networklayer.response.search.SearchResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 import com.emproto.networklayer.response.testimonials.TestimonialsResponse
@@ -194,4 +195,7 @@ public interface ApiService {
     suspend fun getSearchDocResultsQuery(@Query("searchKey") searchWord: String):Response<DocumentsResponse>
     @POST(ApiConstants.FEEDBACK)
     suspend fun submitFeedback(@Body feedBackResponse: FeedBackRequest): Response<FeedBackResponse>
+
+    @GET(ApiConstants.PROFILE_RESOURCE)
+    suspend fun getAboutHobal(@Query("pageType") pageType: Int): Response<ProflieResponse>
 }

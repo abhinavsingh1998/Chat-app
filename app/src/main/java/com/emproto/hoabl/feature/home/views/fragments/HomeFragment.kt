@@ -73,7 +73,7 @@ class HomeFragment : BaseFragment() {
     val list = ArrayList<PageManagementsOrNewInvestment>()
     var isInvester by Delegates.notNull<Boolean>()
 
-    lateinit var fmData: FMResponse
+    var fmData: FMResponse? = null
 
     @Inject
     lateinit var appPreference: AppPreference
@@ -250,11 +250,11 @@ class HomeFragment : BaseFragment() {
                             //loading Promises list
                             hoABLPromisesAdapter = HoABLPromisesAdapter1(
                                 requireActivity(),
-                                it.data!!.data.homePagesOrPromises,
+                                it.data!!.data?.homePagesOrPromises,
                                 object : HoABLPromisesAdapter1.PromisesItemInterface {
                                     override fun onClickItem(position: Int) {
                                         val data =
-                                            it.data!!.data.homePagesOrPromises[position].toHomePagesOrPromise()
+                                            it.data!!.data?.homePagesOrPromises[position].toHomePagesOrPromise()
                                         homeViewModel.setSelectedPromise(data)
                                         (requireActivity() as HomeActivity).addFragment(
                                             PromisesDetailsFragment(),
@@ -389,12 +389,19 @@ class HomeFragment : BaseFragment() {
 
         binding.facilityManagementCard.rootView.setOnClickListener(View.OnClickListener {
 
-            (requireActivity() as HomeActivity).addFragment(
-                FmFragment.newInstance(
-                    fmData.data.web_url,
-                    ""
-                ), false
-            )
+            if (fmData != null) {
+                (requireActivity() as HomeActivity).addFragment(
+                    FmFragment.newInstance(
+                        fmData!!.data.web_url,
+                        ""
+                    ), false
+                )
+
+            } else {
+                (requireActivity() as HomeActivity).showErrorToast(
+                    "Something Went Wrong"
+                )
+            }
         })
 
         binding.tvViewallInvestments.setOnClickListener(View.OnClickListener {

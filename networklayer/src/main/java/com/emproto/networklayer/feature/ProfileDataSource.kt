@@ -13,6 +13,7 @@ import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
+import com.emproto.networklayer.response.resourceManagment.ProflieResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 import retrofit2.Response
 import java.io.File
@@ -95,6 +96,10 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
 
     suspend fun getPrivacyAndPolicy(pageType: Int): Response<TermsConditionResponse> {
         return apiService.getTermscondition(pageType)
+    }
+
+    suspend fun getAboutHobal(pageType: Int): Response<ProflieResponse>{
+        return apiService.getAboutHobal(pageType)
     }
 
     suspend fun getFaqList(typeOfFAQ: String): Response<ProfileFaqResponse> {

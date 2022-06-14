@@ -10,6 +10,7 @@ import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
+import com.emproto.networklayer.response.resourceManagment.ProflieResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 import java.io.File
 
@@ -59,6 +60,10 @@ class ProfileViewModel(
 
     fun submitFeedback(feedBackRequest: FeedBackRequest): LiveData<BaseResponse<FeedBackResponse>> {
         return mprofileRepository.submitFeedback(feedBackRequest)
+    }
+
+    fun getAboutHoabl(pageType: Int): LiveData<BaseResponse<ProflieResponse>>{
+        return mprofileRepository.getAboutHoaBl(pageType)
     }
     fun getFaqList(typeOfFAQ: String): LiveData<BaseResponse<ProfileFaqResponse>> {
         return profileRepository.getFaqList(typeOfFAQ)

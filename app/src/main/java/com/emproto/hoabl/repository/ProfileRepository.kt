@@ -15,6 +15,7 @@ import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
+import com.emproto.networklayer.response.resourceManagment.ProflieResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 
 import kotlinx.coroutines.CoroutineScope
@@ -29,6 +30,10 @@ class ProfileRepository @Inject constructor(application: Application) :
     BaseRepository(application) {
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + parentJob)
+    val termsConditionResponse = MutableLiveData<BaseResponse<TermsConditionResponse>>()
+
+    val aboutusResponse = MutableLiveData<BaseResponse<ProflieResponse>>()
+
     fun editUserNameProfile(editUserNameRequest: EditUserNameRequest): LiveData<BaseResponse<EditProfileResponse>> {
         val mEditProfileResponse = MutableLiveData<BaseResponse<EditProfileResponse>>()
         mEditProfileResponse.postValue(BaseResponse.loading())
@@ -256,14 +261,14 @@ class ProfileRepository @Inject constructor(application: Application) :
     }
 
     fun getPrivacyAndPolicy(pageType: Int): LiveData<BaseResponse<TermsConditionResponse>> {
-        mAddUsernameResponse.postValue(BaseResponse.loading())
+        termsConditionResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
                 val request = ProfileDataSource(application).getPrivacyAndPolicy(pageType)
                 if (request.isSuccessful) {
-                    mAddUsernameResponse.postValue(BaseResponse.success(request.body()!!))
+                    termsConditionResponse.postValue(BaseResponse.success(request.body()!!))
                 } else {
-                    mAddUsernameResponse.postValue(
+                    termsConditionResponse.postValue(
                         BaseResponse.Companion.error(
                             getErrorMessage(
                                 request.errorBody()!!.string()
@@ -273,10 +278,34 @@ class ProfileRepository @Inject constructor(application: Application) :
                 }
 
             } catch (e: Exception) {
-                mAddUsernameResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                termsConditionResponse.postValue(BaseResponse.Companion.error(e.message!!))
             }
         }
-        return mAddUsernameResponse
+        return termsConditionResponse
+    }
+
+    fun getAboutHoaBl(pageType: Int): LiveData<BaseResponse<ProflieResponse>> {
+        aboutusResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).getAboutHobal(pageType)
+                if (request.isSuccessful) {
+                    aboutusResponse.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    aboutusResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+
+            } catch (e: Exception) {
+                aboutusResponse.postValue(BaseResponse.Companion.error(e.message!!))
+            }
+        }
+        return aboutusResponse
     }
     fun getFaqList(typeOfFAQ: String): LiveData<BaseResponse<ProfileFaqResponse>> {
         val faqResponse = MutableLiveData<BaseResponse<ProfileFaqResponse>>()
