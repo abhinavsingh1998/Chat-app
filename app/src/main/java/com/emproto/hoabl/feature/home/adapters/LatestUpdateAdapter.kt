@@ -4,12 +4,14 @@ import android.content.Context
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ItemLatestUpdatesBinding
 import com.emproto.networklayer.response.home.PageManagementOrLatestUpdate
 
@@ -38,8 +40,9 @@ class LatestUpdateAdapter(
                 holder.binding.imageCard.isVisible= false
             }
 
-
-            holder.binding.description.text=showHTMLText(item.detailedInfo[0].description)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                Utility.convertString(holder.binding.description,context,showHTMLText(item.detailedInfo[0].description).toString(),3)
+            }
         }
 
         holder.binding.rootView.setOnClickListener {

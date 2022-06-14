@@ -104,7 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_size_16"
-            android:src="@drawable/ic_favourite"
+            android:src="@drawable/heart_5"
             app:layout_constraintEnd_toStartOf="@id/iv_share_icon"
             app:layout_constraintTop_toTopOf="@id/tv_project_name" />
 
@@ -249,7 +249,7 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_dot_layout"
-            android:layout_width="@dimen/margin_size_90"
+            android:layout_width="@dimen/margin_size_80"
             android:layout_height="wrap_content"
             app:tabBackground="@drawable/tab_selector"
             app:tabGravity="center"
