@@ -333,7 +333,7 @@ class SearchResultFragment : BaseFragment() {
 
     private fun openDocument(position: Int) {
         (requireActivity() as HomeActivity).addFragment(
-            DocViewerFragment.newInstance("Doc Name", ""),
+            DocViewerFragment.newInstance(false,"Doc Name", ""),
             false
         )
     }

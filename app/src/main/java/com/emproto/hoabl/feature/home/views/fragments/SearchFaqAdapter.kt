@@ -26,16 +26,16 @@ class SearchFaqAdapter(
 
     override fun onBindViewHolder(holder: FaqViewHolder, position: Int) {
         val faqItem = list[position]
-        holder.binding.ivFaqCardDropDown.setOnClickListener {
+        holder.binding.ivArrowDown.setOnClickListener {
             //move to another screen flow.
-            holder.binding.ivFaqCardDropDown.visibility = View.INVISIBLE
+            holder.binding.ivArrowDown.visibility = View.INVISIBLE
             holder.binding.tvFaqAnswer.visibility = View.VISIBLE
-            holder.binding.ivFaqCardUpArrow.visibility = View.VISIBLE
+            holder.binding.ivArrowUp.visibility = View.VISIBLE
         }
-        holder.binding.ivFaqCardUpArrow.setOnClickListener {
-            holder.binding.ivFaqCardDropDown.visibility = View.VISIBLE
+        holder.binding.ivArrowUp.setOnClickListener {
+            holder.binding.ivArrowDown.visibility = View.VISIBLE
             holder.binding.tvFaqAnswer.visibility = View.GONE
-            holder.binding.ivFaqCardUpArrow.visibility = View.GONE
+            holder.binding.ivArrowUp.visibility = View.GONE
         }
         holder.binding.tvFaqQuestion.text = faqItem.frequentlyAskedQuestion.faqQuestion.question
         holder.binding.tvFaqAnswer.text = faqItem.frequentlyAskedQuestion.faqAnswer.answer
