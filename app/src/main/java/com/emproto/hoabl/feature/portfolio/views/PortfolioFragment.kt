@@ -44,7 +44,9 @@ import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
 import com.emproto.networklayer.response.watchlist.Data
 import com.example.portfolioui.databinding.DailogLockPermissonBinding
+import com.example.portfolioui.databinding.DailogSecurePinConfirmationBinding
 import com.example.portfolioui.databinding.DialogAllowPinBinding
+import com.example.portfolioui.databinding.DialogSecurePinBinding
 import okhttp3.ResponseBody
 import java.io.File
 import java.io.Serializable
@@ -57,6 +59,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
     companion object {
         const val mRequestCode = 300
+        const val SETTING_REQUEST_CODE = 301
     }
 
     lateinit var binding: FragmentPortfolioBinding
@@ -74,6 +77,11 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     lateinit var pinPermissonDialog: DailogLockPermissonBinding
     lateinit var pinAllowDailog: DialogAllowPinBinding
 
+    lateinit var dialogSecurePinBinding: DialogSecurePinBinding
+    lateinit var dialogSecurePinConfirmationBinding: DailogSecurePinConfirmationBinding
+
+    lateinit var securePinDialog: Dialog
+    lateinit var securePinConfirmationDialog: Dialog
 
     lateinit var pinDialog: Dialog
     lateinit var pinAllowD: Dialog
@@ -122,6 +130,9 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
         pinPermissonDialog = DailogLockPermissonBinding.inflate(layoutInflater)
         pinAllowDailog = DialogAllowPinBinding.inflate(layoutInflater)
+        dialogSecurePinBinding = DialogSecurePinBinding.inflate(layoutInflater)
+        dialogSecurePinConfirmationBinding =
+            DailogSecurePinConfirmationBinding.inflate(layoutInflater)
 
         pinPermissonDialog.tvActivate.setOnClickListener {
             //activate pin
@@ -141,18 +152,28 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
         }
         pinAllowDailog.tvActivate.setOnClickListener {
-            setUpUI(true)
-            appPreference.savePinDialogStatus(true)
+            //setUpUI(true)
+            //appPreference.savePinDialogStatus(true)
             pinAllowD.dismiss()
+            pinDialog.show()
         }
 
         pinDialog = Dialog(requireContext())
         pinAllowD = Dialog(requireContext())
+        securePinDialog = Dialog(requireContext())
+        securePinConfirmationDialog = Dialog(requireContext())
+
         pinDialog.setContentView(pinPermissonDialog.root)
         pinDialog.setCancelable(false)
 
         pinAllowD.setContentView(pinAllowDailog.root)
         pinAllowD.setCancelable(false)
+
+        securePinDialog.setContentView(dialogSecurePinBinding.root)
+        securePinDialog.setCancelable(false)
+
+        securePinConfirmationDialog.setContentView(dialogSecurePinConfirmationBinding.root)
+        securePinConfirmationDialog.setCancelable(false)
 
         if (appPreference.isPinDialogShown()) {
             // if dialog is shown already and pin is activated show pin screen.
@@ -173,6 +194,31 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
     private fun setUpClickListeners() {
         binding.btnExploreNewInvestmentProject.setOnClickListener(this)
+
+        //secure pin dialog actions
+        dialogSecurePinBinding.acitionSecure.setOnClickListener {
+            startActivityForResult(
+                Intent(android.provider.Settings.ACTION_SETTINGS),
+                SETTING_REQUEST_CODE
+            );
+            securePinDialog.dismiss()
+        }
+
+        dialogSecurePinBinding.actionDontsecure.setOnClickListener {
+            securePinDialog.dismiss()
+            securePinConfirmationDialog.show()
+        }
+
+        dialogSecurePinConfirmationBinding.actionNo.setOnClickListener {
+            securePinConfirmationDialog.dismiss()
+            securePinDialog.show()
+        }
+
+        dialogSecurePinConfirmationBinding.actionYes.setOnClickListener {
+            securePinConfirmationDialog.dismiss()
+            setUpUI(true)
+            (requireActivity() as HomeActivity).fingerprintValidation(true)
+        }
     }
 
     private fun setUpInitialUI() {
@@ -183,7 +229,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         executor = ContextCompat.getMainExecutor(this.requireContext())
         //Biometric dialog
         promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Biometric login for my app")
+            .setTitle("Hoabl")
             .setSubtitle("Log in using your biometric credential")
             .setNegativeButtonText("Use Pattern")
             .build()
@@ -195,9 +241,17 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                     if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
                         setUpKeyGuardManager()
                     } else if (errorCode == BiometricPrompt.ERROR_NO_BIOMETRICS) {
-                        setUpUI(true)
+                        //user doesn't have any biometric
+                        //show dialog here.
+                        //setUpUI(true)
+                        securePinDialog.show()
                     } else if (errorCode == BiometricPrompt.ERROR_USER_CANCELED) {
                         (requireActivity() as HomeActivity).onBackPressed()
+                    } else if (errorCode == BiometricPrompt.ERROR_NO_DEVICE_CREDENTIAL) {
+                        //no enrollment
+
+                    } else if (errorCode == BiometricPrompt.ERROR_HW_NOT_PRESENT) {
+                        setUpKeyGuardManager()
                     } else {
                         setUpUI(true)
                     }
@@ -368,6 +422,9 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                         setUpUI(true)
                     }
                 }
+            }
+            SETTING_REQUEST_CODE -> {
+                setUpAuthentication()
             }
         }
     }

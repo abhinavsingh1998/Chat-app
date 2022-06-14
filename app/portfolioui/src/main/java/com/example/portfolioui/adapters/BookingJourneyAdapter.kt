@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.core.Utility
 import com.emproto.networklayer.response.bookingjourney.*
 import com.example.portfolioui.databinding.*
 import com.example.portfolioui.models.BookingModel
@@ -100,6 +101,9 @@ class BookingJourneyAdapter(
         when (dataList[position].viewType) {
             TYPE_HEADER -> {
                 val header_holder = holder as HeaderHolder
+                val data = dataList[header_holder.layoutPosition].data as Investment
+                header_holder.binding.textView5.text = data.owners
+                header_holder.binding.textView6.text = "Hoabl/${data.inventoryId}"
             }
             TRANSACTION -> {
                 val listHolder = holder as StepsListHolder
@@ -288,21 +292,22 @@ class BookingJourneyAdapter(
     private fun buildPaymentData(data: List<Payment>): List<BookingStepsModel> {
         val list = ArrayList<BookingStepsModel>()
         for (item in data) {
-            if (item.isPaymentDone) {
-                list.add(
-                    BookingStepsModel(
-                        BookingStepsAdapter.TYPE_COMPLETED,
-                        item.paymentMilestone,
-                        "Payment Completed",
-                        "View Details"
-                    )
-                )
-            } else {
+            if (item.targetDate != null && !item.isPaymentDone && Utility.compareDates(item.targetDate)) {
                 list.add(
                     BookingStepsModel(
                         BookingStepsAdapter.TYPE_INPROGRESS,
                         item.paymentMilestone,
                         "Payment Pending",
+                        "View Details"
+                    )
+                )
+
+            } else {
+                list.add(
+                    BookingStepsModel(
+                        BookingStepsAdapter.TYPE_COMPLETED,
+                        item.paymentMilestone,
+                        "Payment Completed",
                         "View Details"
                     )
                 )
