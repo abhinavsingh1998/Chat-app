@@ -214,6 +214,10 @@ class BookingjourneyFragment : BaseFragment() {
                         )
                     }
 
+                    override fun loadError(message: String) {
+                        (requireActivity() as HomeActivity).showErrorToast(message)
+                    }
+
                 })
         mBinding.bookingjourneyList.setItemViewCacheSize(10)
         mBinding.bookingjourneyList.setHasFixedSize(true)
