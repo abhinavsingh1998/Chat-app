@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.investment.views
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.BoolRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -97,9 +99,6 @@ class ProjectDetailFragment : BaseFragment() {
                     list.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(list, false)
                 }
-                R.id.cl_see_all -> {
-                    navigateToMediaGallery()
-                }
                 R.id.btn_view_on_map -> {
                     investmentViewModel.setMapLocationInfrastructure(mapLocationData)
                     (requireActivity() as HomeActivity).addFragment(MapFragment(), false)
@@ -131,7 +130,7 @@ class ProjectDetailFragment : BaseFragment() {
                     navigateToSkuScreen()
                 }
                 R.id.tv_video_drone_see_all -> {
-                    navigateToMediaGallery()
+                    navigateToMediaGallery(true)
                 }
                 R.id.tv_project_amenities_all -> {
                     investmentViewModel.setOpportunityDoc(oppDocData)
@@ -177,7 +176,7 @@ class ProjectDetailFragment : BaseFragment() {
             }
         }
 
-    private fun navigateToMediaGallery() {
+    private fun navigateToMediaGallery(isVideoAllCLicked:Boolean) {
         val imagesList = ArrayList<MediaViewItem>()
         Log.d("cscscs",mediaData.toString())
         var itemId = 0
@@ -207,7 +206,7 @@ class ProjectDetailFragment : BaseFragment() {
         val fragment = MediaGalleryFragment()
         val bundle = Bundle()
         bundle.putSerializable("Data", imagesList)
-        bundle.putBoolean("isVideoSeeAllClicked",true)
+        bundle.putBoolean("isVideoSeeAllClicked",isVideoAllCLicked)
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(fragment, false)
     }
@@ -275,6 +274,10 @@ class ProjectDetailFragment : BaseFragment() {
             View.GONE
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.VISIBLE
         (requireActivity() as HomeActivity).hideBottomNavigation()
+        binding.slSwipeRefresh.setOnRefreshListener {
+            callApi()
+            binding.slSwipeRefresh.isRefreshing = false
+        }
     }
 
     private fun callApi() {
@@ -457,6 +460,9 @@ class ProjectDetailFragment : BaseFragment() {
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
+                R.id.cl_see_all -> {
+                    navigateToMediaGallery(false)
+                }
             }
             when(item){
                 "Yes" -> {
@@ -495,9 +501,11 @@ class ProjectDetailFragment : BaseFragment() {
         override fun onItemClicked(view: View, position: Int, url: String, title: String) {
             when(view.id){
                 R.id.iv_latest_image -> {
-                    val intent = Intent(this@ProjectDetailFragment.requireActivity(), YoutubeActivity::class.java)
-                    intent.putExtra("YoutubeVideoId",url)
-                    intent.putExtra("VideoTitle",title)
+//                    val intent = Intent(this@ProjectDetailFragment.requireActivity(), YoutubeActivity::class.java)
+//                    intent.putExtra("YoutubeVideoId",url)
+//                    intent.putExtra("VideoTitle",title)
+//                    startActivity(intent)
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=${url}"))
                     startActivity(intent)
                 }
             }

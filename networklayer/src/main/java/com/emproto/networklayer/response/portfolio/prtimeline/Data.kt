@@ -1,6 +1,7 @@
 package com.emproto.networklayer.response.portfolio.prtimeline
 
 import com.emproto.networklayer.response.home.Address
+import com.emproto.networklayer.response.investment.ReraDetails
 
 data class Data(
     val areaStartingFrom: String,
@@ -21,5 +22,7 @@ data class Data(
     val shortDescription: String,
     val status: String,
     val updatedAt: String,
-    val address: Address
-)
+    val address: Address,
+    val reraDetails: ReraDetails,
+
+    )

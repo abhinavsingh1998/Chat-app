@@ -10,5 +10,6 @@ data class ProjectExtraDetails(
 //    val latitude: String,
 //    val longitude: String,
 //    val altitude: String?,
-    val graphData:GeneralInfoEscalationGraph
+    val graphData:GeneralInfoEscalationGraph,
+    val launchName:String
 )

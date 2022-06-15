@@ -98,12 +98,10 @@ class InvestmentFragment : BaseFragment() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
             View.VISIBLE
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.GONE
-//        binding.slSwipeRefresh.setOnClickListener {
-//            callApi()
-//            Handler().postDelayed(Runnable {
-//                binding.slSwipeRefresh.isRefreshing = false
-//            }, 4000)
-//        }
+        binding.slSwipeRefresh.setOnRefreshListener {
+            callApi()
+            binding.slSwipeRefresh.isRefreshing = false
+        }
     }
 
     private fun callApi() {

@@ -3,7 +3,6 @@ package com.emproto.hoabl.feature.investment.adapters
 import android.content.Context
 import android.os.Build
 import android.text.SpannableStringBuilder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import androidx.core.text.color
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
-import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
@@ -33,8 +31,6 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
-import com.github.mikephil.charting.formatter.IValueFormatter
-import com.github.mikephil.charting.utils.ViewPortHandler
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.textview.MaterialTextView
 import com.skydoves.balloon.BalloonAnimation
@@ -134,12 +130,16 @@ class ProjectDetailAdapter(
 
     private inner class ProjectTopCardViewHolder(val binding: ProjectDetailTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
+            val list = ArrayList<RecyclerViewItem>()
             val listViews = ArrayList<String>()
             listViews.add(data.projectCoverImages.newInvestmentPageMedia.value.url)
             for(item in data.mediaGalleryOrProjectContent[0].images){
                 listViews.add(item.mediaContent.value.url)
+                list.add(RecyclerViewItem(1))
             }
-            projectDetailViewPagerAdapter = ProjectDetailViewPagerAdapter(listViews)
+            list.add(RecyclerViewItem(2))
+
+            projectDetailViewPagerAdapter = ProjectDetailViewPagerAdapter(context,list,listViews,itemClickListener)
             binding.projectDetailViewPager.adapter = projectDetailViewPagerAdapter
             binding.projectDetailViewPager.clipToPadding = false
             binding.projectDetailViewPager.clipChildren = false
@@ -156,16 +156,19 @@ class ProjectDetailAdapter(
             }.attach()
             itemView.tag = this
 
-            binding.projectDetailViewPager.registerOnPageChangeCallback(object:ViewPager2.OnPageChangeCallback(){
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    when(position){
-                        listViews.size-1 -> binding.clSeeAll.visibility = View.VISIBLE
-                        else -> binding.clSeeAll.visibility = View.GONE
-                    }
-                }
-            })
-            binding.clSeeAll.setOnClickListener(onItemClickListener)
+//            binding.projectDetailViewPager.registerOnPageChangeCallback(object:ViewPager2.OnPageChangeCallback(){
+//                override fun onPageSelected(position: Int) {
+//                    super.onPageSelected(position)
+//                    when(position){
+//                        listViews.size-1 -> {
+//
+//                        }
+//                        else -> {
+//
+//                        }
+//                    }
+//                }
+//            })
             binding.cvWhyInvestCard.setOnClickListener(onItemClickListener)
 
             binding.apply {
@@ -179,7 +182,7 @@ class ProjectDetailAdapter(
                 tvAreaRange.text = "${data.areaStartingFrom} Sqft"
                 tvProjectViewInfo.text = SpannableStringBuilder()
                     .bold { append("${Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)} People") }
-                    .append( " saw this project in ${data.fomoContent.days} days" )
+                    .append( " saw this in ${data.fomoContent.days} days" )
                 var regString = ""
                 for(item in data.reraDetails.reraNumbers){
                     when (regString) {
@@ -256,12 +259,12 @@ class ProjectDetailAdapter(
                 binding.ivBookmarkIcon.setOnClickListener{
                     when(isClicked){
                         true -> {
-                            ivBookmarkIcon.setImageResource(R.drawable.ic_favourite_dark)
+                            ivBookmarkIcon.setImageResource(R.drawable.heart_5_filled)
                             itemClickListener.onItemClicked(it,position,isClicked.toString())
                             isClicked = false
                         }
                         false -> {
-                            ivBookmarkIcon.setImageResource(R.drawable.ic_favourite)
+                            ivBookmarkIcon.setImageResource(R.drawable.heart_5)
                             itemClickListener.onItemClicked(it,position,isClicked.toString())
                             isClicked = true
                         }
@@ -269,7 +272,7 @@ class ProjectDetailAdapter(
                 }
                 binding.cvWhyInvestCard.setOnClickListener(onItemClickListener)
                 binding.tvApplyNow.setOnClickListener(onItemClickListener)
-                binding.tvRating.text = "${data.generalInfoEscalationGraph.estimatedAppreciation.toString()}%"
+                binding.tvRating.text = "${String.format("%.0f",data.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
             }
         }
     }

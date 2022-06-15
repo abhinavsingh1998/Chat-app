@@ -56,6 +56,7 @@ class CategoryListAdapter(
                         Glide.with(context)
                             .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
                             .into(ivCategoryImage)
+                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
                     }
                 }
                 TYPE_FEW_PLOTS -> {
@@ -73,6 +74,7 @@ class CategoryListAdapter(
                         tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
                         tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
+                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
                         Glide.with(context)
                             .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
                             .into(ivCategoryImage)
@@ -93,6 +95,7 @@ class CategoryListAdapter(
                         tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
                         tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
+                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
                         Glide.with(context)
                             .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
                             .into(ivCategoryImage)
@@ -113,6 +116,7 @@ class CategoryListAdapter(
                         tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
                         tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
+                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
                         Glide.with(context)
                             .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
                             .into(ivCategoryImage)
@@ -133,6 +137,7 @@ class CategoryListAdapter(
                         tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
                         tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
+                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
                         Glide.with(context)
                             .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
                             .into(ivCategoryImage)
@@ -174,6 +179,7 @@ class CategoryListAdapter(
                         tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
                         tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
+                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
                         Glide.with(context)
                             .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
                             .into(ivCategoryImage)
@@ -195,6 +201,7 @@ class CategoryListAdapter(
                         tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
                         tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
+                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
                         Glide.with(context)
                             .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
                             .into(ivCategoryImage)
@@ -214,6 +221,7 @@ class CategoryListAdapter(
                         tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
                         tvCategoryArea.text = element.areaStartingFrom + " Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
+                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
                         Glide.with(context)
                             .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
                             .into(ivCategoryImage)
@@ -235,6 +243,7 @@ class CategoryListAdapter(
                         tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
                         tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
+                        tvRating.text = "${String.format("%.0f",element.estimatedAppreciation.toDouble())}%"
                         Glide.with(context)
                             .load(element.projectIcon.value.url)
                             .into(ivCategoryImage)

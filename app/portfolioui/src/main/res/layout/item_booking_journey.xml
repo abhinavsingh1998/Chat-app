@@ -20,7 +20,7 @@
             android:layout_height="20dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/ic_in_progress"
+            android:background="@drawable/ic_inprogress_bg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,12 +31,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
             android:lines="1"
             android:text="Project Registration"
             android:textAllCaps="true"
             app:layout_constraintBottom_toBottomOf="@+id/header_indicator"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_viewall"
             app:layout_constraintStart_toEndOf="@+id/header_indicator"
             app:layout_constraintTop_toTopOf="@+id/header_indicator" />
 
@@ -49,10 +48,22 @@
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_header"
             app:layout_constraintVertical_bias="0.0"
             tools:itemCount="4"
             tools:listitem="@layout/item_bokingjour" />
+
+        <TextView
+            android:id="@+id/tv_viewall"
+            style="@style/text_regular_app_color_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

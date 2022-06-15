@@ -21,7 +21,7 @@ import com.skydoves.balloon.createBalloon
 class StepsAdapter(
     var context: Context,
     private val dataList: ArrayList<StepsModel>,
-    val itemInterface: TimelineInterface?
+    val itemInterface: TimelineAdapter.TimelineInterface
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -100,7 +100,8 @@ class StepsAdapter(
                     getToolTip(data.heading).showAlignBottom(type1Holder.binding.imageView)
                 }
                 type1Holder.binding.textView7.setOnClickListener {
-                    //on click receipt
+                    itemInterface.onClickVDetails(data.sections[0].values.medias.value.url)
+
                 }
             }
             TYPE_INPROGRESS -> {
@@ -154,9 +155,6 @@ class StepsAdapter(
     inner class InCompletedHolder(var binding: ItemTimelineStepCompletedBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    interface TimelineInterface {
-        fun onClickItem(position: Int)
-    }
 
     fun showHTMLText(message: String?): Spanned {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

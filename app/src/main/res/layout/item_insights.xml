@@ -99,6 +99,7 @@
             android:fontFamily="@font/jost_medium"
             android:background="@color/white"
             android:text="@string/read_more_expand"
+            android:visibility="gone"
             android:paddingHorizontal="4dp"
             app:layout_constraintBottom_toBottomOf="@+id/short_desc"
             app:layout_constraintEnd_toEndOf="@+id/short_desc" />

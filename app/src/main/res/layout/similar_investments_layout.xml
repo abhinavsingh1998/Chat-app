@@ -55,7 +55,7 @@
                 android:layout_width="15dp"
                 android:layout_height="9dp"
                 android:layout_marginEnd="@dimen/margin_size_11"
-                android:src="@drawable/ic_black_long_rightarrow"
+                android:src="@drawable/combined_shape"
                 app:layout_constraintBottom_toBottomOf="@id/tv_similar_investment_see_all"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_similar_investment_see_all" />

@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.investment.views.mediagallery
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -80,9 +81,11 @@ class DroneFragment:BaseFragment() {
         override fun onItemClicked(view: View, position: Int, url: String, title: String) {
             when(isYoutubeVideo){
                 true -> {
-                    val intent = Intent(this@DroneFragment.requireActivity(),YoutubeActivity::class.java)
-                    intent.putExtra("YoutubeVideoId",url)
-                    intent.putExtra("VideoTitle",title)
+//                    val intent = Intent(this@DroneFragment.requireActivity(),YoutubeActivity::class.java)
+//                    intent.putExtra("YoutubeVideoId",url)
+//                    intent.putExtra("VideoTitle",title)
+//                    startActivity(intent)
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=${url}"))
                     startActivity(intent)
                 }
             }
