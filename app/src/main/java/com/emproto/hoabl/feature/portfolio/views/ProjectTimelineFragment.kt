@@ -109,6 +109,8 @@ class ProjectTimelineFragment : BaseFragment() {
                                     }
 
                                 })
+                        mBinding.timelineList.setHasFixedSize(true)
+                        mBinding.timelineList.setItemViewCacheSize(10)
                     }
 
                 }
