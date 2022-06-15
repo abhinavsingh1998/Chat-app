@@ -22,8 +22,8 @@
         android:id="@+id/rv_faq"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_size_8"
-        android:layout_marginEnd="@dimen/margin_size_15"
+        android:layout_marginStart="@dimen/margin_size_2"
+        android:layout_marginEnd="@dimen/margin_size_1"
         android:layout_marginTop="@dimen/margin_size_4"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -31,6 +31,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_category_title"
         tools:itemCount="5"
-        tools:listitem="@layout/item_faq_category" />
+        tools:listitem="@layout/item_inv_faq" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
