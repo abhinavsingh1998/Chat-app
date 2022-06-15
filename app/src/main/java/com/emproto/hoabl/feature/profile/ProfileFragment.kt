@@ -69,11 +69,11 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                     binding.progressBaar.show()
                 }
                 Status.SUCCESS -> {
-                    Log.i("Data Check",it.data.toString())
+                    Log.i("Data Check", it.data.toString())
 
                     binding.progressBaar.hide()
                     if (it.data != null) {
-                        Log.i("Data",it.data.toString())
+                        Log.i("Data", it.data.toString())
                         it.data?.let {
                             profileData = it.data
                         }
@@ -93,29 +93,27 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
     }
 
     private fun setUiData(profileData: Data) {
-        binding.tvName.text=profileData.firstName+""+profileData.lastName
+        binding.tvName.text = profileData.firstName + " " + profileData.lastName
 
         /*for user pic not available show username as pic label*/
-        if (profileData.profilePictureUrl.isNullOrEmpty()){
-            binding.profileImage.visibility=View.VISIBLE
-            binding.profileUserLetters.visibility=View.GONE
-        }else{
-            binding.profileImage.visibility=View.GONE
-            binding.profileUserLetters.visibility=View.VISIBLE
+        if (profileData.profilePictureUrl != null && profileData.profilePictureUrl!!.isNotEmpty()) {
+            binding.profileImage.visibility = View.VISIBLE
+            binding.profileUserLetters.visibility = View.GONE
+            Glide.with(requireContext())
+                .load(profileData.profilePictureUrl)
+                .into(binding.profileImage)
+        } else {
+            binding.profileImage.visibility = View.GONE
+            binding.profileUserLetters.visibility = View.VISIBLE
             setUserNamePIC(profileData)
-
-//            Glide.with(requireContext())
-//                .load(profileData.profilePictureUrl)
-//                .into(binding.profileImage)
         }
     }
 
     private fun setUserNamePIC(profileData: Data) {
         val firstLetter: String = profileData.firstName.substring(0, 1)
-       val lastLetter:String = profileData.lastName.substring(0,1)
-        binding.tvUserName.text= firstLetter+""+lastLetter
+        val lastLetter: String = profileData.lastName.substring(0, 1)
+        binding.tvUserName.text = firstLetter + "" + lastLetter
     }
-
 
 
     private fun initView() {
@@ -209,25 +207,26 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
 
 
     }
-    private fun logOut(){
-            val logoutDialoglayout = LogoutConfirmationBinding.inflate(layoutInflater)
-            val logoutDialog = Dialog(requireContext())
-            logoutDialog.setCancelable(false)
-            logoutDialog.setContentView(logoutDialoglayout.root)
 
-            logoutDialoglayout.actionYes.setOnClickListener {
-                appPreference.saveLogin(false)
-                startActivity(Intent(context, AuthActivity::class.java))
-                requireActivity().finish()
-            }
+    private fun logOut() {
+        val logoutDialoglayout = LogoutConfirmationBinding.inflate(layoutInflater)
+        val logoutDialog = Dialog(requireContext())
+        logoutDialog.setCancelable(false)
+        logoutDialog.setContentView(logoutDialoglayout.root)
 
-            logoutDialoglayout.actionNo.setOnClickListener {
-                logoutDialog.dismiss()
-            }
+        logoutDialoglayout.actionYes.setOnClickListener {
+            appPreference.saveLogin(false)
+            startActivity(Intent(context, AuthActivity::class.java))
+            requireActivity().finish()
+        }
 
-            binding.Logoutbtn.setOnClickListener {
-                logoutDialog.show()
-            }
+        logoutDialoglayout.actionNo.setOnClickListener {
+            logoutDialog.dismiss()
+        }
+
+        binding.Logoutbtn.setOnClickListener {
+            logoutDialog.show()
+        }
 
     }
 }
