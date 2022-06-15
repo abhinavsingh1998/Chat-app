@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.ProfileDataSource
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
-import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
@@ -16,7 +15,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import okhttp3.MultipartBody
 import java.io.File
 import javax.inject.Inject
 
@@ -48,14 +46,16 @@ class ProfileRepository @Inject constructor(application: Application) :
     }
 
     fun uploadProfilePicture(
-        uploadProfilePictureRequest: UploadProfilePictureRequest): LiveData<BaseResponse<ProfilePictureResponse>> {
+        file: File,
+        fileName: String
+    ): LiveData<BaseResponse<ProfilePictureResponse>> {
         val mUploadProfilePicture = MutableLiveData<BaseResponse<ProfilePictureResponse>>()
         mUploadProfilePicture.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
 
                 val request =
-                    ProfileDataSource(application).uploadPictureProfile(uploadProfilePictureRequest)
+                    ProfileDataSource(application).uploadPictureProfile(file,fileName)
                 if (request.isSuccessful) {
                     mUploadProfilePicture.postValue(BaseResponse.success(request.body()!!))
                 } else {

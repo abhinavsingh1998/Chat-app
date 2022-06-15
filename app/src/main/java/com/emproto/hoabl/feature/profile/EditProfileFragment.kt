@@ -46,10 +46,7 @@ import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.Data
 import com.emproto.networklayer.response.profile.ProfilePictureResponse
 import com.emproto.networklayer.response.profile.States
-import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -79,6 +76,8 @@ class EditProfileFragment : Fragment() {
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private var isReadStorageGranted = false
     private var isCameraPermissionGranted = false
+    private var isWriteStorageGranted = false
+
     val permissionRequest: MutableList<String> = ArrayList()
     private lateinit var statesData: List<States>
     private lateinit var cityData: List<String>
@@ -271,6 +270,8 @@ class EditProfileFragment : Fragment() {
                     ?: isReadStorageGranted
                 isCameraPermissionGranted =
                     permissions[Manifest.permission.CAMERA] ?: isCameraPermissionGranted
+                isWriteStorageGranted =
+                    permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: isWriteStorageGranted
             }
         requestPermission()
 
@@ -482,20 +483,21 @@ class EditProfileFragment : Fragment() {
     }
 
     /*----------upload picture--------------*/
-
     private fun requestPermission() {
         isReadStorageGranted = ContextCompat.checkSelfPermission(
             requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
-
         isCameraPermissionGranted = ContextCompat.checkSelfPermission(
             requireContext(),
             Manifest.permission.CAMERA
         ) == PackageManager.PERMISSION_GRANTED
-
-        if (!isReadStorageGranted && !isCameraPermissionGranted) {
+        isWriteStorageGranted = ContextCompat.checkSelfPermission(
+            requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+        if (!isReadStorageGranted && !isCameraPermissionGranted && !isWriteStorageGranted) {
             permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
             permissionRequest.add(Manifest.permission.CAMERA)
+            permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         }
         if (permissionRequest.isNotEmpty()) {
             permissionLauncher.launch(permissionRequest.toTypedArray())
@@ -566,16 +568,7 @@ class EditProfileFragment : Fragment() {
 //    }
 
     private fun callingUploadPicApi(destinationFile: File) {
-
-
-        filePart = MultipartBody.Part.createFormData(
-            "file", destinationFile.name, RequestBody.create(
-                "image/*".toMediaTypeOrNull(), destinationFile
-            )
-
-        )
-        uploadProfilePictureRequest = UploadProfilePictureRequest(destinationFile.name,filePart)
-        profileViewModel.uploadProfilePicture(uploadProfilePictureRequest)
+        profileViewModel.uploadProfilePicture(destinationFile, destinationFile.name)
             .observe(viewLifecycleOwner, object : Observer<BaseResponse<ProfilePictureResponse>> {
                 override fun onChanged(it: BaseResponse<ProfilePictureResponse>?) {
                     when (it?.status) {
@@ -584,6 +577,7 @@ class EditProfileFragment : Fragment() {
                         }
                         Status.SUCCESS -> {
                             binding.progressBaar.hide()
+
                             try {
 //                                Glide.with(requireContext())
 //                                    .load(it.data?.data?.profilePictureUrl)

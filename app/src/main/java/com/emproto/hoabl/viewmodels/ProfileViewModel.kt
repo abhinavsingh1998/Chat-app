@@ -5,11 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.emproto.hoabl.repository.ProfileRepository
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
-import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
-import okhttp3.MultipartBody
 import java.io.File
 
 class ProfileViewModel(
@@ -25,9 +23,8 @@ class ProfileViewModel(
         return profileRepository.editUserNameProfile(editUserNameRequest)
     }
 
-    fun uploadProfilePicture(
-        uploadProfilePictureRequest: UploadProfilePictureRequest): LiveData<BaseResponse<ProfilePictureResponse>> {
-        return profileRepository.uploadProfilePicture(uploadProfilePictureRequest)
+    fun uploadProfilePicture(file:File,fileName:String): LiveData<BaseResponse<ProfilePictureResponse>> {
+        return profileRepository.uploadProfilePicture(file,fileName)
     }
     fun presignedUrl(type: String, destinationFile: File): LiveData<BaseResponse<PresignedUrlResponse>> {
         return profileRepository.presignedUrl(type,destinationFile)
