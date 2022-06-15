@@ -27,9 +27,8 @@
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/profile_image"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/margin_size_88"
-            android:src="@drawable/img"
+            android:layout_width="86dp"
+            android:layout_height="86dp"
             android:visibility="gone"
             app:civ_border_color="@color/app_color"
             app:civ_shadow="true"
@@ -74,9 +73,9 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        tools:text="AB"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/margin_size_40" />
+                        android:textSize="@dimen/margin_size_40"
+                        tools:text="AB" />
                 </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
         </androidx.cardview.widget.CardView>
@@ -195,7 +194,6 @@
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminateTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

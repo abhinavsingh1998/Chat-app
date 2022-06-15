@@ -94,20 +94,19 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
     }
 
     private fun setUiData(profileData: Data) {
-        binding.tvName.text = profileData.firstName + "" + profileData.lastName
+        binding.tvName.text = profileData.firstName + " " + profileData.lastName
 
         /*for user pic not available show username as pic label*/
-        if (profileData.profilePictureUrl.isNullOrEmpty()) {
+        if (profileData.profilePictureUrl != null && profileData.profilePictureUrl!!.isNotEmpty()) {
             binding.profileImage.visibility = View.VISIBLE
             binding.profileUserLetters.visibility = View.GONE
+            Glide.with(requireContext())
+                .load(profileData.profilePictureUrl)
+                .into(binding.profileImage)
         } else {
             binding.profileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
             setUserNamePIC(profileData)
-
-//            Glide.with(requireContext())
-//                .load(profileData.profilePictureUrl)
-//                .into(binding.profileImage)
         }
     }
 
