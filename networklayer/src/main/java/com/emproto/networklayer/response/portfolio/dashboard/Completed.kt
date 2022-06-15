@@ -1,7 +1,7 @@
 package com.emproto.networklayer.response.portfolio.dashboard
 
 data class Completed(
-    val amountInvested: Int,
+    val amountInvested: Double,
     val areaSqFt: Int,
     val count: Int
 )

@@ -67,12 +67,15 @@
             app:layout_constraintStart_toEndOf="@+id/header_indicator_2"
             app:layout_constraintTop_toTopOf="@+id/header_indicator_2" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/first_section"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/text_header2"
             app:layout_constraintTop_toBottomOf="@id/text_header2">
 
@@ -81,7 +84,10 @@
                 android:layout_width="@dimen/margin_size_10"
                 android:layout_height="@dimen/margin_size_10"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_inprogress_bg" />
+                android:src="@drawable/ic_inprogress_bg"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_first"
@@ -90,17 +96,32 @@
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/jost_regular"
                 android:text="Deed of conveyance"
-                android:textColor="@color/disable_text" />
-        </LinearLayout>
+                android:textColor="@color/disable_text"
+                app:layout_constraintLeft_toRightOf="@id/iv_first"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
+            <TextView
+                android:id="@+id/text_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/jost_regular"
+                android:textSize="@dimen/text_size_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/second_section"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="16dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/text_header2"
             app:layout_constraintTop_toBottomOf="@id/first_section">
 
@@ -109,17 +130,32 @@
                 android:layout_width="@dimen/margin_size_10"
                 android:layout_height="@dimen/margin_size_10"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_inprogress_bg" />
+                android:src="@drawable/ic_inprogress_bg"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_second"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="@dimen/margin_size_8"
                 android:fontFamily="@font/jost_regular"
                 android:text="7/12 document"
-                android:textColor="@color/disable_text" />
-        </LinearLayout>
+                android:textColor="@color/disable_text"
+                app:layout_constraintStart_toEndOf="@id/iv_second"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_hint2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/jost_regular"
+                android:textSize="@dimen/text_size_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

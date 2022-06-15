@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/text_blue_color"
+    android:background="@drawable/top_corner_bg"
     tools:context=".feature.portfolio.views.PortfolioNewUserFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -117,7 +117,7 @@
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminateTint="@color/white"
+        android:indeterminateTint="@color/app_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -34,10 +34,10 @@
 
     <ImageView
         android:id="@+id/iv_location_infrastructure_arrow"
-        android:layout_width="13dp"
+        android:layout_width="15dp"
         android:layout_height="9dp"
         android:layout_marginEnd="@dimen/margin_size_11"
-        android:src="@drawable/ic_black_long_rightarrow"
+        android:src="@drawable/combined_shape"
         app:layout_constraintBottom_toBottomOf="@id/tv_location_infrastructure_all"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_location_infrastructure_all" />

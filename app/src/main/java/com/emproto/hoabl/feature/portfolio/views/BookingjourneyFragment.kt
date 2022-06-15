@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.portfolio.views
 
 import android.Manifest
+import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -17,13 +18,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
 import com.emproto.core.Utility
+import com.emproto.hoabl.R
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.response.bookingjourney.Data
+import com.emproto.networklayer.response.bookingjourney.Payment
 import com.emproto.networklayer.response.enums.Status
 import com.example.portfolioui.adapters.BookingJourneyAdapter
+import com.example.portfolioui.databinding.DialogHandoverDetailsBinding
+import com.example.portfolioui.databinding.DialogPendingPaymentBinding
+import com.example.portfolioui.databinding.DialogRegistrationDetailsBinding
 import com.example.portfolioui.databinding.FragmentBookingjourneyBinding
 import com.example.portfolioui.models.BookingModel
 import java.util.*
@@ -48,6 +54,16 @@ class BookingjourneyFragment : BaseFragment() {
     val permissionRequest: MutableList<String> = ArrayList()
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     var isReadPermissonGranted: Boolean = false
+    var base64Data: String = ""
+
+    lateinit var dialogRegistrationDetailsBinding: DialogRegistrationDetailsBinding
+    lateinit var registrationDialog: Dialog
+
+    lateinit var dialogPendingPayment: DialogPendingPaymentBinding
+    lateinit var pendingPaymentDialog: CustomDialog
+
+    lateinit var dialogHandoverDetailsBinding: DialogHandoverDetailsBinding
+    lateinit var handoverDialog: Dialog
 
     @Inject
     lateinit var portfolioFactory: PortfolioFactory
@@ -85,9 +101,31 @@ class BookingjourneyFragment : BaseFragment() {
                 isReadPermissonGranted =
                     permissions[Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissonGranted
                 if (isReadPermissonGranted) {
-                    //openPdf("")
+                    openPdf(base64Data)
                 }
             }
+
+        dialogRegistrationDetailsBinding = DialogRegistrationDetailsBinding.inflate(layoutInflater)
+        registrationDialog = Dialog(requireContext())
+        registrationDialog.setContentView(dialogRegistrationDetailsBinding.root)
+
+        dialogPendingPayment = DialogPendingPaymentBinding.inflate(layoutInflater)
+        pendingPaymentDialog = CustomDialog(requireContext())
+        pendingPaymentDialog.setContentView(dialogPendingPayment.root)
+
+        dialogHandoverDetailsBinding = DialogHandoverDetailsBinding.inflate(layoutInflater)
+        handoverDialog = Dialog(requireContext())
+        handoverDialog.setContentView(dialogHandoverDetailsBinding.root)
+
+        dialogPendingPayment.actionOkay.setOnClickListener {
+            pendingPaymentDialog.dismiss()
+        }
+        dialogHandoverDetailsBinding.actionOkay.setOnClickListener {
+            handoverDialog.dismiss()
+        }
+        dialogRegistrationDetailsBinding.tvActivate.setOnClickListener {
+            registrationDialog.dismiss()
+        }
     }
 
     private fun getBookingJourneyData(investedId: Int) {
@@ -113,6 +151,7 @@ class BookingjourneyFragment : BaseFragment() {
 
     fun loadBookingJourneyData(data1: Data) {
         val data = data1.bookingJourney
+        data1.investment.extraDetails = portfolioviewmodel.getprojectAddress()
         val bookingList = ArrayList<BookingModel>()
         bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_HEADER, data1.investment))
         bookingList.add(BookingModel(BookingJourneyAdapter.TRANSACTION, data.transaction))
@@ -132,25 +171,56 @@ class BookingjourneyFragment : BaseFragment() {
                     }
 
                     override fun viewDetails(position: Int, data: String) {
-                        portfolioviewmodel.downloadDocument("quote/_5C68B3B4FBE34AB19B76B06390E281E9/ACE Check-Personal Information/hoabl.pdf")
-                            .observe(viewLifecycleOwner,
-                                androidx.lifecycle.Observer {
-                                    when (it.status) {
-                                        Status.LOADING -> {
-                                            mBinding.loader.show()
-                                        }
-                                        Status.SUCCESS -> {
-                                            mBinding.loader.hide()
-                                            requestPermisson(it.data!!.data)
-                                        }
-                                        Status.ERROR -> {
+                        if (data.isNotEmpty()) {
+                            getDocumentData(data)
+                        }
+                    }
 
-                                        }
-                                    }
-                                })
+                    override fun onClickPendingCardDetails(payment: Payment) {
+                        dialogPendingPayment.tvPaidAmount.text =
+                            "₹ ${Utility.convertTo(payment.paidAmount)}"
+                        dialogPendingPayment.tvPendingAmount.text =
+                            "${Utility.convertTo(payment.pendingAmount)}"
+                        dialogPendingPayment.tvMilestoneName.text = payment.paymentMilestone
+                        dialogPendingPayment.tvDueDate.text =
+                            "Due date: ${Utility.parseDateFromUtc(payment.targetDate)}"
+                        pendingPaymentDialog.showDialog()
+
+                    }
+
+                    override fun onClickViewDocument(path: String) {
+                        getDocumentData(path)
+                    }
+
+                    override fun onClickHandoverDetails(date: String) {
+                        dialogHandoverDetailsBinding.tvHandoverDate.text =
+                            Utility.parseDateFromUtc(date)
+                        handoverDialog.show()
+                    }
+
+                    override fun onClickRegistrationDetails(date: String, number: String) {
+//                        dialogRegistrationDetailsBinding.tvRegistrationDate.text =
+//                            Utility.parseDateFromUtc(date)
+//                        dialogRegistrationDetailsBinding.tvRegistrationNo.text = number
+                        registrationDialog.show()
+                    }
+
+                    override fun onClickAllReceipt() {
+                        (requireActivity() as HomeActivity).addFragment(
+                            ReceiptFragment.newInstance(
+                                "",
+                                ""
+                            ), false
+                        )
+                    }
+
+                    override fun loadError(message: String) {
+                        (requireActivity() as HomeActivity).showErrorToast(message)
                     }
 
                 })
+        mBinding.bookingjourneyList.setItemViewCacheSize(10)
+        mBinding.bookingjourneyList.setHasFixedSize(true)
     }
 
     companion object {
@@ -185,6 +255,7 @@ class BookingjourneyFragment : BaseFragment() {
             openPdf(base64)
         }
         if (permissionRequest.isNotEmpty()) {
+            base64Data = base64
             permissionLauncher.launch(permissionRequest.toTypedArray())
         }
 
@@ -207,6 +278,27 @@ class BookingjourneyFragment : BaseFragment() {
             Log.e("Error:openPdf: ", e.localizedMessage)
         }
 
+    }
+
+    fun getDocumentData(path: String) {
+        portfolioviewmodel.downloadDocument(path)
+            .observe(viewLifecycleOwner,
+                androidx.lifecycle.Observer {
+                    when (it.status) {
+                        Status.LOADING -> {
+                            mBinding.loader.show()
+                        }
+                        Status.SUCCESS -> {
+                            mBinding.loader.hide()
+                            requestPermisson(it.data!!.data)
+                        }
+                        Status.ERROR -> {
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                it.message!!
+                            )
+                        }
+                    }
+                })
     }
 
 }
