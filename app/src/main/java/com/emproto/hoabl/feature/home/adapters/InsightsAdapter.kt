@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Utility
 import com.emproto.core.textviews.CustomTextView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemInsightsBinding
@@ -34,8 +35,11 @@ class InsightsAdapter(
         holder.binding.tvVideotitle.text = item.displayTitle
         holder.binding.shortDesc.text = showHTMLText(item.insightsMedia[0].description)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Utility.convertStringIns(holder.binding.shortDesc,context,showHTMLText(item.insightsMedia[0].description).toString(),2)
+        }
 
-            if(item.insightsMedia[0].media!=null){
+        if(item.insightsMedia[0].media!=null){
                 when(item.insightsMedia[0].media.value.mediaType){
                     "VIDEO" -> {
                         val url = item.insightsMedia[0].media.value.url.replace("https://www.youtube.com/embed/","")

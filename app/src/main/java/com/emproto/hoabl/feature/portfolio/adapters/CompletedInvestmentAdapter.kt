@@ -63,10 +63,8 @@ class CompletedInvestmentAdapter(
                 ProjectExtraDetails(
                     project.project.address,
                     project.project.projectIcon,
-//                    project.project.latitude,
-//                    project.project.longitude,
-//                    project.project.altitude,
-                    project.project.generalInfoEscalationGraph
+                    project.project.generalInfoEscalationGraph,
+                    project.project.launchName
                 )
             onCLickInterface.manageProject(
                 project.investment.id,

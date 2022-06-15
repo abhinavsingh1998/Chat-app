@@ -32,7 +32,6 @@
                 android:layout_width="@dimen/margin_size_230"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/margin_size_8"
-                app:cardElevation="@dimen/margin_size_4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -57,7 +56,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/margin_size_6"
-                        android:backgroundTint="@color/views_bg_color"
+                        android:backgroundTint="@color/black"
+                        android:alpha="0.38"
                         app:cardCornerRadius="@dimen/margin_size_4"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -197,7 +197,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_size_20"
-                        android:alpha="0.85"
+                        android:alpha="0.75"
                         android:background="@color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -323,26 +323,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/margin_size_4"
+                android:layout_marginStart="64dp"
                 android:background="?android:selectableItemBackground"
-                android:drawableEnd="@drawable/ic_black_long_rightarrow"
-                android:drawablePadding="@dimen/margin_size_8"
                 android:fontFamily="@font/jost_medium"
-                android:padding="@dimen/margin_size_10"
+                android:paddingVertical="@dimen/margin_size_10"
+                android:paddingStart="@dimen/margin_size_10"
                 android:text="Apply Now"
+                android:paddingEnd="@dimen/margin_size_4"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_bottom_outer_arrow"
+                app:layout_constraintHorizontal_bias="0.09"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cl_item_info" />
 
-            <!--            <ImageView-->
-            <!--                android:id="@+id/iv_bottom_outer_arrow"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginStart="@dimen/margin_size_4"-->
-            <!--                android:src="@drawable/rightarrow"-->
-            <!--                app:layout_constraintBottom_toBottomOf="@id/tv_apply_now"-->
-            <!--                app:layout_constraintStart_toEndOf="@id/tv_apply_now"-->
-            <!--                app:layout_constraintTop_toTopOf="@id/tv_apply_now" />-->
+            <ImageView
+                android:id="@+id/iv_bottom_outer_arrow"
+                android:layout_width="@dimen/margin_size_16"
+                android:layout_height="@dimen/margin_size_9"
+                android:src="@drawable/combined_shape"
+                app:layout_constraintBottom_toBottomOf="@id/tv_apply_now"
+                app:layout_constraintStart_toEndOf="@id/tv_apply_now"
+                app:layout_constraintTop_toTopOf="@id/tv_apply_now" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

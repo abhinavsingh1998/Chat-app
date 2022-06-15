@@ -87,29 +87,62 @@ class TimelineAdapter(
                         "View Details"
                     )
                 )
+                var reraNumber = ""
+                val mSize = listData.reraDetails.reraNumbers.size
+                for ((index, item) in listData.reraDetails.reraNumbers.withIndex()) {
+                    reraNumber += item
+                    if (index + 1 != mSize) {
+                        reraNumber += "\n"
+                    }
+                }
+                listHolder.binding.textView10.text = reraNumber
                 listHolder.binding.textView7.setOnClickListener {
                     itemInterface.onClickVDetails(listData.timeLines[0].sections[0].values.medias.value.url)
                 }
 
             }
             TYPE_LIST -> {
+                var isOneProgress: Boolean = false
+                var isAllDisable: Boolean = false
+
                 val listData = dataList[position].data as ProjectTimeline
                 val listHolder = holder as StepsListHolder
+
+                val mDisableCount =
+                    listData.timeLines.filter { it.sections[0].values.percentage == 0.0 }
+
+                if (mDisableCount.size == listData.timeLines.size) {
+                    isAllDisable = true
+                }
 
                 listHolder.binding.textHeader.text = listData.timeLineSectionHeading
                 val stepsList = ArrayList<StepsModel>()
                 for (item in listData.timeLines) {
                     when (item.sections[0].values.percentage) {
-                        0.0 -> stepsList.add(StepsModel(StepsAdapter.TYPE_INSTART, item))
+                        0.0 -> {
+                            stepsList.add(StepsModel(StepsAdapter.TYPE_INSTART, item))
+                        }
                         in 1.0..99.99 -> {
+                            isOneProgress = true
                             stepsList.add(StepsModel(StepsAdapter.TYPE_INPROGRESS, item))
                         }
-                        else -> stepsList.add(StepsModel(StepsAdapter.TYPE_COMPLETED, item))
+                        else -> {
+                            stepsList.add(StepsModel(StepsAdapter.TYPE_COMPLETED, item))
+                        }
                     }
                 }
+                if (isOneProgress) {
+                    listHolder.binding.headerIndicator.background =
+                        context.getDrawable(R.drawable.ic_in_progress)
+                }
+                if (isAllDisable) {
+                    listHolder.binding.headerIndicator.background =
+                        context.getDrawable(R.drawable.ic_inprogress_bg)
+                }
+
                 listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
                 listHolder.binding.stepsList.adapter =
-                    StepsAdapter(context, stepsList, null)
+                    StepsAdapter(context, stepsList, itemInterface)
             }
 
 

@@ -83,6 +83,8 @@ class HoabelPromiseAdapter(
                 listHolder.binding.promisesItems.layoutManager = GridLayoutManager(context, 2)
                 listHolder.binding.promisesItems.adapter =
                     PromisesListAdapter(context, dataList[position].data, itemInterface)
+                listHolder.binding.promisesItems.setItemViewCacheSize(10)
+                listHolder.binding.promisesItems.setHasFixedSize(true)
             }
             TYPE_DISCLAIMER -> {
                 val disclaimerViewHolder = holder as DisclaimerViewHolder

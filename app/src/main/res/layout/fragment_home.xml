@@ -23,14 +23,13 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/margin_size_10">
+                android:layout_height="match_parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/main_layout1"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:background="@drawable/homescreen_curve"
+                    android:background="@drawable/top_corner_bg"
                     android:paddingBottom="@dimen/margin_size_30"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -73,8 +72,8 @@
                                 android:layout_width="0dp"
                                 android:layout_height="1dp"
                                 android:background="#b6b3d0"
-                                app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toLeftOf="@id/heading"
                                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,11 +82,11 @@
                                 style="@style/text_style_text_color_30"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_size_4"
                                 android:fontFamily="@font/seaside"
                                 android:maxLines="1"
                                 android:minLines="1"
                                 android:paddingHorizontal="@dimen/margin_size_5"
-                                android:layout_marginTop="@dimen/margin_size_4"
                                 android:singleLine="true"
                                 android:text="@string/new_generation"
                                 android:textStyle="normal"
@@ -95,11 +94,12 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
+
                             <TextView
                                 android:id="@+id/tm"
+                                style="@style/text_style_text_color_10"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                style="@style/text_style_text_color_10"
                                 android:fontFamily="@font/jost_regular"
                                 android:text="TM"
                                 app:layout_constraintLeft_toRightOf="@id/heading"
@@ -111,9 +111,9 @@
                                 android:layout_width="0dp"
                                 android:layout_height="1dp"
                                 android:background="#b6b3d0"
-                                app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintLeft_toRightOf="@id/heading"
+                                app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -350,29 +350,28 @@
                         android:id="@+id/facility_management_card_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_25"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        android:layout_marginTop="@dimen/margin_size_25"
-                        app:layout_constraintTop_toBottomOf="@id/hoabl_promises_layout" >
+                        app:layout_constraintTop_toBottomOf="@id/hoabl_promises_layout">
 
                         <include
                             android:id="@+id/facility_management_card"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             layout="@layout/facility_management_layout"
-                            />
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <ImageView
                         android:id="@+id/dont_miss_out"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/dont_miss_new"
-                        android:scaleType="fitXY"
                         android:layout_marginHorizontal="@dimen/margin_size_15"
                         android:layout_marginTop="@dimen/margin_size_20"
-                        app:layout_constraintRight_toRightOf="parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/dont_miss_new"
                         app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/facility_management_card_layout" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -484,12 +483,12 @@
 
                 <include
                     android:id="@+id/referral_layout"
+                    layout="@layout/portfolio_refer_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    layout="@layout/portfolio_refer_layout"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/main_layout2"/>
+                    app:layout_constraintTop_toBottomOf="@id/main_layout2" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -497,14 +496,13 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/loader"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
         android:indeterminateTint="@color/white"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

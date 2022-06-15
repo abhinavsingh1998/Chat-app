@@ -54,7 +54,7 @@ object Utility {
 
     }
 
-    fun parseDateFromUtc(time: String?, inputDateFormat: String?): String? {
+    fun parseDateFromUtc(time: String?, inputDateFormat: String? = null): String? {
         val inputPattern: String
         inputPattern = inputDateFormat ?: "yyyy-MM-dd'T'HH:mm:ss.SSS"
         //yyyy-MM-dd HH:mm:ss.SSS
@@ -204,18 +204,54 @@ object Utility {
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    fun convertString(textView: TextView, context: Context, text: String) {
-        val MAX_LINES = 3
-        val TWO_SPACES = " "
+    fun convertString(textView: TextView, context: Context, text: String,maxLines:Int) {
+        val TWO_SPACES = ""
         textView.text = text
         textView.post(object : Runnable {
             override fun run() {
 
                 // Past the maximum number of lines we want to display.
-                if (textView.lineCount > MAX_LINES) {
-                    val lastCharShown = textView.layout.getLineVisibleEnd(MAX_LINES - 1)
-                    textView.maxLines = MAX_LINES
-                    val moreString = "Read More"
+                if (textView.lineCount > maxLines) {
+                    val lastCharShown = textView.layout.getLineVisibleEnd(maxLines - 1) + 5
+                    Log.d("SSS",lastCharShown.toString())
+                    textView.maxLines = maxLines
+                    val moreString = "READ MORE"
+                    val suffix = TWO_SPACES + moreString
+
+                    // 3 is a "magic number" but it's just basically the length of the ellipsis we're going to insert
+                    val actionDisplayText =
+                        text.substring(
+                            0,
+                            lastCharShown - suffix.length - 3
+                        ) + "..." + suffix
+                    val truncatedSpannableString = SpannableString(actionDisplayText)
+                    val startIndex = actionDisplayText.indexOf(moreString)
+                    truncatedSpannableString.setSpan(
+                        ForegroundColorSpan(context.getColor(R.color.app_color)),
+                        startIndex,
+                        startIndex + moreString.length,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                    textView.text = truncatedSpannableString
+                }
+            }
+        })
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun convertStringIns(textView: TextView, context: Context, text: String,maxLines:Int) {
+        val TWO_SPACES = ""
+        textView.text = text
+        textView.post(object : Runnable {
+            override fun run() {
+
+                // Past the maximum number of lines we want to display.
+                if (textView.lineCount > maxLines) {
+                    val lastCharShown = textView.layout.getLineVisibleEnd(maxLines - 1) - 2
+                    Log.d("SSS",lastCharShown.toString())
+                    textView.maxLines = maxLines
+                    val moreString = "READ MORE"
                     val suffix = TWO_SPACES + moreString
 
                     // 3 is a "magic number" but it's just basically the length of the ellipsis we're going to insert
