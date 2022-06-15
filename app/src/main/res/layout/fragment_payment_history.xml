@@ -46,12 +46,13 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvAllPaymentHistory"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="27dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:listitem="@layout/item_accounts_payment"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/back_action" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
