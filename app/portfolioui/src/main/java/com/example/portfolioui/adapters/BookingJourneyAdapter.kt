@@ -43,6 +43,8 @@ class BookingJourneyAdapter(
         const val VIEW = "View"
         const val VIEW_POA = "View POA Agreement"
 
+        const val PATH_ERROR = "No Path Found For Document!!"
+
 
     }
 
@@ -191,7 +193,7 @@ class BookingJourneyAdapter(
                     )
                 )
 
-                if (list.documents.SEVEN != null) {
+                if (list.documents.DOC != null) {
                     listHolder.binding.headerIndicator.background =
                         context.getDrawable(R.drawable.ic_in_progress)
                     listHolder.binding.headerIndicator2.background =
@@ -205,13 +207,15 @@ class BookingJourneyAdapter(
                         listHolder.binding.textHeader2.setTextColor(context.getColor(R.color.text_color))
                         listHolder.binding.textHint.setTextColor(context.getColor(R.color.app_color))
                         listHolder.binding.textHint.setOnClickListener {
-                            itemInterface.onClickViewDocument(list.documents.SEVEN.path!!)
+                            if (list.documents.DOC.path != null)
+                                itemInterface.onClickViewDocument(list.documents.DOC.path!!)
+                            else itemInterface.loadError(PATH_ERROR)
                         }
                     }
 
 
                 }
-                if (list.documents.DOC != null) {
+                if (list.documents.SEVEN != null) {
                     listHolder.binding.headerIndicator.background =
                         context.getDrawable(R.drawable.ic_in_progress)
                     listHolder.binding.headerIndicator2.background =
@@ -223,7 +227,10 @@ class BookingJourneyAdapter(
                         listHolder.binding.textHeader2.setTextColor(context.getColor(R.color.text_color))
                         listHolder.binding.textHint2.setTextColor(context.getColor(R.color.app_color))
                         listHolder.binding.textHint2.setOnClickListener {
-                            itemInterface.onClickViewDocument(list.documents.DOC.path!!)
+                            if (list.documents.SEVEN.path != null)
+                                itemInterface.onClickViewDocument(list.documents.SEVEN.path!!)
+                            else itemInterface.loadError(PATH_ERROR)
+
                         }
 
                     }
@@ -285,8 +292,10 @@ class BookingJourneyAdapter(
                         listHolder.binding.textHeader2.setTextColor(context.getColor(R.color.text_color))
                         listHolder.binding.textHint2.setTextColor(context.getColor(R.color.app_color))
                         listHolder.binding.textHint2.setOnClickListener {
-                            list.handover.guidelines.path?.let {
-                                itemInterface.onClickViewDocument(it)
+                            if (list.handover.guidelines.path != null) {
+                                itemInterface.onClickViewDocument(list.handover.guidelines.path!!)
+                            } else {
+                                itemInterface.loadError(PATH_ERROR)
                             }
 
                         }
@@ -341,6 +350,7 @@ class BookingJourneyAdapter(
         fun onClickHandoverDetails(date: String)
         fun onClickRegistrationDetails(date: String, number: String)
         fun onClickAllReceipt()
+        fun loadError(message: String)
 
     }
 
@@ -375,7 +385,8 @@ class BookingJourneyAdapter(
                     "Allotment",
                     "Plot Alloted",
                     VIEW_ALLOTMENT_LETTER,
-                    data.allotment.allotmentLetter
+                    data.allotment.allotmentLetter,
+                    data.allotment.allotmentLetter == null
                 )
             )
         } else {

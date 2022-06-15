@@ -93,21 +93,25 @@ class BookingStepsAdapter(
                     type1Holder.binding.tvLink.visibility = View.VISIBLE
 
                 }
-                type1Holder.binding.tvLink.setOnClickListener {
-                    if (data.text == "Registration") {
-                        val rData = data.data as Registration
-                        itemInterface.onClickRegistrationDetails(
-                            "",
-                            ""
-                        )
+                if (!data.disableLink) {
+                    type1Holder.binding.tvLink.setOnClickListener {
+                        if (data.text == "Registration") {
+                            val rData = data.data as Registration
+                            itemInterface.onClickRegistrationDetails(
+                                "",
+                                ""
+                            )
 
-                    } else {
-                        docData?.let {
-                            it.path?.let {
-                                itemInterface.onClickViewDocument(it)
+                        } else {
+                            docData?.let {
+                                it.path?.let {
+                                    itemInterface.onClickViewDocument(it)
+                                }
                             }
                         }
                     }
+                } else {
+                    type1Holder.binding.tvLink.setTextColor(context.getColor(R.color.disable_text))
                 }
 
             }
