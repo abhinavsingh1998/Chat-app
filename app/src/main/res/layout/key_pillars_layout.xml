@@ -23,13 +23,15 @@
         android:id="@+id/rv_key_pillars"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_size_14"
+        android:layout_marginTop="@dimen/margin_size_10"
         android:layout_marginHorizontal="@dimen/margin_size_6"
         android:orientation="horizontal"
+        android:layout_marginStart="@dimen/margin_size_9"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_key_pillars_title"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:itemCount="5"
         tools:listitem="@layout/item_key_pillar" />
 

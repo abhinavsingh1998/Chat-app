@@ -182,7 +182,7 @@ class ProjectDetailAdapter(
                 tvAreaRange.text = "${data.areaStartingFrom} Sqft"
                 tvProjectViewInfo.text = SpannableStringBuilder()
                     .bold { append("${Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)} People") }
-                    .append( " saw this project in ${data.fomoContent.days} days" )
+                    .append( " saw this in ${data.fomoContent.days} days" )
                 var regString = ""
                 for(item in data.reraDetails.reraNumbers){
                     when (regString) {
@@ -259,12 +259,12 @@ class ProjectDetailAdapter(
                 binding.ivBookmarkIcon.setOnClickListener{
                     when(isClicked){
                         true -> {
-                            ivBookmarkIcon.setImageResource(R.drawable.ic_favourite_dark)
+                            ivBookmarkIcon.setImageResource(R.drawable.heart_5_filled)
                             itemClickListener.onItemClicked(it,position,isClicked.toString())
                             isClicked = false
                         }
                         false -> {
-                            ivBookmarkIcon.setImageResource(R.drawable.ic_favourite)
+                            ivBookmarkIcon.setImageResource(R.drawable.heart_5)
                             itemClickListener.onItemClicked(it,position,isClicked.toString())
                             isClicked = true
                         }
@@ -272,7 +272,7 @@ class ProjectDetailAdapter(
                 }
                 binding.cvWhyInvestCard.setOnClickListener(onItemClickListener)
                 binding.tvApplyNow.setOnClickListener(onItemClickListener)
-                binding.tvRating.text = "${data.generalInfoEscalationGraph.estimatedAppreciation.toString()}%"
+                binding.tvRating.text = "${String.format("%.0f",data.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
             }
         }
     }

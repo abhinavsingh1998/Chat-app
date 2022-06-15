@@ -2,26 +2,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/margin_size_4"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="@dimen/margin_size_4"
+        android:layout_height="match_parent"
+        android:background="@color/investment_see_all_bg"
         app:cardCornerRadius="@dimen/margin_size_6">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_see_all"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_size_177"
-            android:background="@drawable/all_corner_radius_white_bg"
-            android:backgroundTint="@color/investment_see_all_bg"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/project_detail_viewPager"
-            app:layout_constraintBottom_toBottomOf="@id/project_detail_viewPager">
+            android:layout_height="match_parent"
+            android:background="@color/investment_see_all_bg">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_vp_see_all"

@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_size_13"
         android:layout_marginTop="28dp"
-        android:fontFamily="@font/jost_regular"
+        android:fontFamily="@font/jost_medium"
         android:text="Price Trends"
         android:textColor="@color/text_light_black_color"
         android:textSize="@dimen/text_size_18"
@@ -26,6 +26,7 @@
         android:layout_marginHorizontal="@dimen/margin_size_5"
         android:fontFamily="@font/jost_regular"
         android:text="(Rise in last 1 Year)"
+        android:textColor="@color/category_location_ash_color"
         android:textSize="@dimen/text_size_14"
         app:layout_constraintBottom_toBottomOf="@id/tv_price_trends_title"
         app:layout_constraintEnd_toStartOf="@id/tv_rating"
@@ -40,16 +41,17 @@
         android:text="5%"
         android:textColor="@color/green"
         android:textSize="@dimen/text_size_14"
+        android:layout_marginEnd="@dimen/margin_size_2"
         app:layout_constraintBottom_toBottomOf="@id/iv_rating"
         app:layout_constraintEnd_toStartOf="@id/iv_rating"
         app:layout_constraintTop_toTopOf="@id/iv_rating" />
 
     <ImageView
         android:id="@+id/iv_rating"
-        android:layout_width="14dp"
-        android:layout_height="14dp"
+        android:layout_width="9dp"
+        android:layout_height="9dp"
         android:layout_marginEnd="@dimen/margin_size_13"
-        android:src="@drawable/ic_upward_double_arrow_dark_green"
+        android:src="@drawable/shape_filled"
         app:layout_constraintBottom_toBottomOf="@id/tv_price_trends_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_price_trends_title" />

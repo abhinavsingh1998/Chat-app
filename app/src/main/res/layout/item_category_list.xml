@@ -214,19 +214,19 @@
 
                 <ImageView
                     android:id="@+id/iv_rating"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
+                    android:layout_width="9dp"
+                    android:layout_height="9dp"
                     android:layout_marginStart="@dimen/margin_size_13"
-                    android:src="@drawable/ic_upward_double_arrow_dark_green"
+                    android:src="@drawable/shape_filled"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_rating"
-                    style="@style/text_style_dark_green_color_12"
-                    android:textSize="@dimen/text_size_12"
-                    android:textColor="@android:color/holo_green_dark"
+                    style="@style/text_style_dark_greenp_color_13"
+                    android:textSize="@dimen/text_size_13"
+                    android:textColor="#44b75d"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_4"
@@ -239,11 +239,11 @@
 
             <ImageView
                 android:id="@+id/iv_forward_arrow_category"
-                android:layout_width="@dimen/margin_size_16"
-                android:layout_height="7dp"
+                android:layout_width="@dimen/margin_size_15"
+                android:layout_height="8dp"
                 android:layout_marginBottom="@dimen/margin_size_7"
                 android:layout_marginEnd="@dimen/margin_size_12"
-                android:src="@drawable/ic_black_long_rightarrow"
+                android:src="@drawable/combined_shape"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/category_bottom_view_bg" />
 
@@ -280,11 +280,11 @@
 
     <ImageView
         android:id="@+id/iv_apply_now_category"
-        android:layout_width="@dimen/margin_size_16"
-        android:layout_height="9dp"
+        android:layout_width="@dimen/margin_size_15"
+        android:layout_height="8dp"
         android:layout_marginTop="@dimen/margin_size_14"
         android:layout_marginEnd="@dimen/margin_size_12"
-        android:src="@drawable/ic_black_long_rightarrow"
+        android:src="@drawable/combined_shape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cv_category_outer_card" />
 

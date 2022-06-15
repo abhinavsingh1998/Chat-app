@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_size_10"
                 android:layout_marginBottom="@dimen/margin_size_11"
-                android:drawableEnd="@drawable/ic_black_long_rightarrow"
+                android:drawableEnd="@drawable/combined_shape"
                 android:drawablePadding="@dimen/margin_size_4"
                 android:fontFamily="@font/jost_medium"
                 android:text="@string/apply_now"

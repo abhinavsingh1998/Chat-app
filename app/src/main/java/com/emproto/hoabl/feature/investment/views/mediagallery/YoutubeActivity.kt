@@ -93,7 +93,7 @@ class YoutubeActivity : YouTubeBaseActivity() {
                 p1: YouTubePlayer?,
                 p2: Boolean
             ) {
-                p1?.loadVideo(youtubeId)
+                p1?.cueVideo(youtubeId)
                 p1?.play()
             }
 

@@ -108,6 +108,10 @@ class LandSkusFragment:BaseFragment() {
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.VISIBLE
         (requireActivity() as HomeActivity).hideBottomNavigation()
         (requireActivity() as HomeActivity).showHeader()
+        binding.slSwipeRefresh.setOnRefreshListener {
+            callApi()
+            binding.slSwipeRefresh.isRefreshing = false
+        }
     }
 
     private fun setUpRecyclerview() {
