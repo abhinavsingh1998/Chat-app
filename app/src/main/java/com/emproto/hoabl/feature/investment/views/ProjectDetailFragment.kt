@@ -97,8 +97,6 @@ class ProjectDetailFragment : BaseFragment() {
                     list.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(list, false)
                 }
-
-                
                 R.id.cl_see_all -> {
                     navigateToMediaGallery()
                 }
