@@ -13,8 +13,8 @@ android {
         applicationId "com.emproto.hoabl"
         minSdk 19
         targetSdk 32
-        versionCode 15
-        versionName "0.0.15_qa"
+        versionCode 16
+        versionName "0.0.15_qa_profile"
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
