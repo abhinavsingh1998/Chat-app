@@ -1,8 +1,10 @@
 package com.emproto.hoabl.feature.portfolio.adapters
 
 import android.content.Context
+import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.text.bold
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.core.Utility
@@ -26,16 +28,22 @@ class WatchlistAdapter(
         holder.binding.apply {
             Glide.with(context)
                 .load(element.project.projectIcon.value.url)
-                .into(holder.binding.ivItemImage)
-            holder.binding.tvItemLocationName.text = element.project.launchName
-            holder.binding.tvItemLocation.text =
+                .into(ivItemImage)
+            tvItemLocationName.text = element.project.launchName
+            tvItemLocation.text =
                 element.project.address.city + " " + element.project.address.state
-            holder.binding.tvItemAmount.text = element.project.priceStartingFrom + " Onwards"
-            holder.binding.tvItemArea.text = element.project.areaStartingFrom + " Onwards"
-            holder.binding.tvNoViews.text =
+            val amount = element.project.priceStartingFrom.toDouble() / 100000
+            val convertedAmount = amount.toString().replace(".0", "")
+            tvItemAmount.text = SpannableStringBuilder()
+                .bold { append("₹${convertedAmount} L") }
+                .append(" Onwards")
+            tvItemArea.text = SpannableStringBuilder()
+                .bold { append("${element.project.areaStartingFrom} Sqft") }
+                .append(" Onwards")
+            tvNoViews.text =
                 Utility.coolFormat(element.project.fomoContent.noOfViews.toDouble(), 0)
-            holder.binding.tvItemLocationInfo.text = element.project.shortDescription
-            holder.binding.tvRating.text = "${element.project.estimatedAppreciation}%"
+            tvItemLocationInfo.text = element.project.shortDescription
+            tvRating.text = "${element.project.estimatedAppreciation}%"
         }
         holder.binding.cvMainOuterCard.setOnClickListener {
             onItemClickListener.onClickofWatchlist(element.project.id)
