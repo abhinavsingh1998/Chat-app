@@ -46,15 +46,15 @@ class ReceiptFragment : BaseFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         fragmentReceiptBinding = FragmentReceiptBinding.inflate(inflater)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         portfolioviewmodel = ViewModelProvider(
-            requireActivity(),
-            portfolioFactory
+                requireActivity(),
+                portfolioFactory
         )[PortfolioViewModel::class.java]
         initView()
         initObserver()
@@ -75,17 +75,16 @@ class ReceiptFragment : BaseFragment() {
 
         fragmentReceiptBinding.receiptList.layoutManager = LinearLayoutManager(requireContext())
         fragmentReceiptBinding.receiptList.adapter = ReceiptListAdapter(
-            requireContext(),
-            paymentHistory,
-            object : ReceiptListAdapter.OnPaymentItemClickListener {
-                override fun onAccountsPaymentItemClick(
-                    accountsPaymentList: String,
-                    view: View,
-                    position: Int
-                ) {
-                }
+                requireContext(),
+                paymentHistory,
+                object : ReceiptListAdapter.OnPaymentItemClickListener {
+                    override fun onAccountsPaymentItemClick(
+                            accountsPaymentList: String
+                    ) {
+                        //download the receipt
+                    }
 
-            })
+                })
     }
 
     companion object {
@@ -100,11 +99,11 @@ class ReceiptFragment : BaseFragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            ReceiptFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                ReceiptFragment().apply {
+                    arguments = Bundle().apply {
+                        putString(ARG_PARAM1, param1)
+                        putString(ARG_PARAM2, param2)
+                    }
                 }
-            }
     }
 }
