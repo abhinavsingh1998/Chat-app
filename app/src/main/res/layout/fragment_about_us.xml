@@ -76,13 +76,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <View
+                <ImageView
                     android:id="@+id/aboutus_view"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/margin_size_140"
                     android:layout_marginStart="@dimen/margin_size_19"
                     android:layout_marginTop="@dimen/margin_size_30"
                     android:layout_marginEnd="@dimen/margin_size_21"
+                    android:scaleType="centerCrop"
                     android:background="@drawable/aboutus_curve"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -112,7 +113,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/jost_light"
-                    android:text="@string/full_description_about"
                     app:layout_constraintEnd_toEndOf="@id/aboutus_view"
                     app:layout_constraintStart_toStartOf="@id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@+id/name_tv" />
@@ -150,8 +150,6 @@
                     android:layout_marginTop="@dimen/margin_size_14"
                     android:layout_marginEnd="@dimen/margin_size_19"
                     android:fontFamily="@font/jost_light"
-                    android:text="@string/description_about_us"
-
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/img_hoabl" />
@@ -173,17 +171,60 @@
                     android:id="@+id/aboutUs_rv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:background="@color/white"
-                    android:orientation="vertical"
-                    android:layout_marginTop="14dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/margin_size_4"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/corporate_phillosophy"
                     tools:itemCount="2"
-                    tools:listitem="@layout/corporate_philosphy_about_us_view">
+                    tools:listitem="@layout/corporate_philosphy_about_us_view"/>
 
-                </androidx.recyclerview.widget.RecyclerView>
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_product_category"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="@dimen/margin_size_30"-->
+<!--                    android:fontFamily="@font/jostregular"-->
+<!--                    android:lineSpacingExtra="0sp"-->
+<!--                    android:text="Corporate Philosophy"-->
+<!--                    android:textColor="#16161c"-->
+<!--                    android:textSize="16sp"-->
+<!--                    app:layout_constraintStart_toStartOf="@id/tv_heading"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/aboutUs_rv" />-->
+
+                <TextView
+                    android:id="@+id/tv_product_category"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_size_15"
+                    android:layout_marginTop="@dimen/margin_size_30"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:fontFamily="@font/jostregular"
+                    style="@style/text_style_color_18"
+                    android:lineSpacingExtra="0sp"
+                    android:text="@string/product_text_about"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/aboutUs_rv" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/productcategory_rv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/margin_size_4"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_product_category"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/product_category"/>
 
                 <TextView
                     android:id="@+id/explore_text"
@@ -198,7 +239,7 @@
                     android:text="@string/explore_growth"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_heading"
-                    app:layout_constraintTop_toBottomOf="@+id/aboutUs_rv" />
+                    app:layout_constraintTop_toBottomOf="@+id/productcategory_rv" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/graph_layout"
@@ -209,15 +250,15 @@
                     app:layout_constraintStart_toStartOf="@id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@id/explore_text">
 
-                    <com.github.mikephil.charting.charts.LineChart
-                        android:id="@+id/iv_price_trends_graph"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/margin_size_200"
-                        android:layout_marginTop="@dimen/margin_size_12"
-                        android:layout_marginEnd="@dimen/margin_size_12"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/tv_yAxis_label"
-                        app:layout_constraintTop_toTopOf="parent" />
+<!--                    <com.github.mikephil.charting.charts.LineChart-->
+<!--                        android:id="@+id/iv_price_trends_graph"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="@dimen/margin_size_200"-->
+<!--                        android:layout_marginTop="@dimen/margin_size_12"-->
+<!--                        android:layout_marginEnd="@dimen/margin_size_12"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toEndOf="@+id/tv_yAxis_label"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_xAxis_label"

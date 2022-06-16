@@ -28,8 +28,11 @@ class InvestmentCardAdapter(
         val item = list.get(holder.adapterPosition)
         holder.binding.tvItemLocationName.text = item.launchName
         holder.binding.tvItemLocation.text = item.address.city +","+item.address.state
-        holder.binding.tvItemAmount.text = item.priceStartingFrom + " Onwards"
-        holder.binding.tvItemArea.text = item.areaStartingFrom + " Onwards"
+
+        val amount = item.priceStartingFrom.toDouble()/100000
+        val convertedAmount = amount.toString().replace(".0","")
+        holder.binding.tvItemAmount.text = "₹$convertedAmount L Onwards"
+        holder.binding.tvItemArea.text = item.areaStartingFrom + " Sqft Onwards"
         holder.binding.tvItemLocationInfo.text = item.shortDescription
         Glide.with(context)
             .load(item.projectCoverImages.homePageMedia.value.url)

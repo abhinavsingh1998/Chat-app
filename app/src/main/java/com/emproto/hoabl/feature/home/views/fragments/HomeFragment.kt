@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.home.views.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -72,7 +73,7 @@ class HomeFragment : BaseFragment() {
     val list = ArrayList<PageManagementsOrNewInvestment>()
     var isInvester by Delegates.notNull<Boolean>()
 
-    lateinit var fmData: FMResponse
+    var fmData: FMResponse? = null
 
     @Inject
     lateinit var appPreference: AppPreference
@@ -124,10 +125,10 @@ class HomeFragment : BaseFragment() {
 //                                }
                                 appPreference.setFacilityCard(it!!.data.isFacilityVisible)
                                 if (it?.data?.isFacilityVisible) {
-                                    binding.facilityManagementCardLayout.isVisible = true
+                                    binding.facilityManagementCardLayout.isVisible = false
                                     binding.dontMissOut.isVisible = false
                                 } else {
-                                    binding.facilityManagementCardLayout.isVisible = true
+                                    binding.facilityManagementCardLayout.isVisible = false
                                     binding.dontMissOut.isVisible = false
                                 }
 
@@ -245,15 +246,17 @@ class HomeFragment : BaseFragment() {
                             )
                             binding.latesUpdatesRecyclerview.layoutManager = linearLayoutManager
                             binding.latesUpdatesRecyclerview.adapter = latestUpdateAdapter
+                            binding.latesUpdatesRecyclerview.setHasFixedSize(true)
+                            binding.latesUpdatesRecyclerview.setItemViewCacheSize(10)
 
                             //loading Promises list
                             hoABLPromisesAdapter = HoABLPromisesAdapter1(
                                 requireActivity(),
-                                it.data!!.data.homePagesOrPromises,
+                                it.data!!.data?.homePagesOrPromises,
                                 object : HoABLPromisesAdapter1.PromisesItemInterface {
                                     override fun onClickItem(position: Int) {
                                         val data =
-                                            it.data!!.data.homePagesOrPromises[position].toHomePagesOrPromise()
+                                            it.data!!.data?.homePagesOrPromises[position].toHomePagesOrPromise()
                                         homeViewModel.setSelectedPromise(data)
                                         (requireActivity() as HomeActivity).addFragment(
                                             PromisesDetailsFragment(),
@@ -271,19 +274,20 @@ class HomeFragment : BaseFragment() {
                             binding.hoablPromisesRecyclerview.layoutManager = linearLayoutManager
                             binding.hoablPromisesRecyclerview.adapter = hoABLPromisesAdapter
 
+
                             //loading insights list
                             insightsAdapter = InsightsAdapter(
                                 requireActivity(),
                                 it.data!!.data.pageManagementOrInsights,
                                 object : InsightsAdapter.InsightsItemInterface {
                                     override fun onClickItem(position: Int) {
-//                                        val convertedData = it.data!!.data.pageManagementOrInsights[position].toData()
-//                                        val list = ArrayList<com.emproto.networklayer.response.insights.Data>()
-//                                        for(item in it.data!!.data.pageManagementOrInsights){
-//                                            list.add(item.toData())
-//                                        }
-//                                        homeViewModel.setInsightsData(list)
-//                                        homeViewModel.setSeLectedInsights(convertedData)
+                                        val convertedData = it.data!!.data.pageManagementOrInsights[position].toData()
+                                        val list = ArrayList<com.emproto.networklayer.response.insights.Data>()
+                                        for(item in it.data!!.data.pageManagementOrInsights){
+                                            list.add(item.toData())
+                                        }
+                                        homeViewModel.setInsightsData(list)
+                                        homeViewModel.setSeLectedInsights(convertedData)
 
                                         (requireActivity() as HomeActivity).addFragment(
                                             InsightsDetailsFragment(),
@@ -314,6 +318,8 @@ class HomeFragment : BaseFragment() {
                             )
                             binding.insightsRecyclerview.layoutManager = linearLayoutManager
                             binding.insightsRecyclerview.adapter = insightsAdapter
+                            binding.insightsRecyclerview.setHasFixedSize(true)
+                            binding.insightsRecyclerview.setItemViewCacheSize(10)
 
 
                             //loading Testimonial Cards list
@@ -388,42 +394,23 @@ class HomeFragment : BaseFragment() {
 
         binding.facilityManagementCard.rootView.setOnClickListener(View.OnClickListener {
 
-            (requireActivity() as HomeActivity).addFragment(
-                FmFragment.newInstance(
-                    fmData.data.web_url,
-                    ""
-                ), false
-            )
+            if (fmData != null) {
+                (requireActivity() as HomeActivity).addFragment(
+                    FmFragment.newInstance(
+                        fmData!!.data.web_url,
+                        ""
+                    ), false
+                )
+
+            } else {
+                (requireActivity() as HomeActivity).showErrorToast(
+                    "Something Went Wrong"
+                )
+            }
         })
 
         binding.tvViewallInvestments.setOnClickListener(View.OnClickListener {
-            homeViewModel.getAllInvestmentsProjects().observe(viewLifecycleOwner, Observer {
-                when (it.status) {
-                    Status.LOADING -> {
-                        binding.loader.show()
-                    }
-                    Status.SUCCESS -> {
-                        binding.loader.hide()
-                        it.data?.data?.let { data ->
-                            val fragment = CategoryListFragment()
-                            val bundle = Bundle()
-                            bundle.putString("Category", "Home")
-                            bundle.putSerializable(
-                                "DiscoverAll",
-                                data as Serializable
-                            )
-                            fragment.arguments = bundle
-                            (requireActivity() as HomeActivity).addFragment(fragment, false)
-                        }
-                    }
-                    Status.ERROR -> {
-                        binding.loader.hide()
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            it.message!!
-                        )
-                    }
-                }
-            })
+            (requireActivity() as HomeActivity).navigate(R.id.navigation_investment)
         })
 
         binding.referralLayout.appShareBtn.setOnClickListener {

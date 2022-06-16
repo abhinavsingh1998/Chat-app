@@ -61,7 +61,7 @@ class AboutUSAdapter(private val context: Context, private val list: ArrayList<R
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (list[position].viewType) {
             AboutUSAdapter.VIEW_CORPORATE_PHILOSOPHY -> {
-                (holder as AboutUSAdapter.CorporatePhilosphyViewHolder).bind(position)
+         //       (holder as AboutUSAdapter.CorporatePhilosphyViewHolder).bind(position)
             }
             AboutUSAdapter.VIEW_LIFESTYLE -> {
                 (holder as AboutUSAdapter.StatsOverviewHolder).bind(position)
@@ -75,35 +75,35 @@ class AboutUSAdapter(private val context: Context, private val list: ArrayList<R
 
     private inner class CorporatePhilosphyViewHolder(private val binding: CorporatePhilosphyAboutUsBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
-            binding.corporatePhillosophyRecyclerList.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            corporatePhilosphyAdapter = CorporatePhilosphyAdapter(context, init())
-            binding.corporatePhillosophyRecyclerList.adapter = corporatePhilosphyAdapter
-
-        }
+//        fun bind(position: Int) {
+//            binding.corporatePhillosophyRecyclerList.layoutManager =
+//                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+//        //    corporatePhilosphyAdapter = CorporatePhilosphyAdapter(context, init())
+//            binding.corporatePhillosophyRecyclerList.adapter = corporatePhilosphyAdapter
+//
+//        }
     }
 
-    private fun init(): ArrayList<CorporateAboutusData> {
-        val corporateList: ArrayList<CorporateAboutusData> = ArrayList<CorporateAboutusData>()
-        corporateList.add(
-            CorporateAboutusData(
-                R.drawable.management,
-                "Peace of Land",
-                "For HoABL, it is not just a piece of land, we believe in the Peace of Land.It is our aim to give back to land more than we take from it.",
-            )
-        )
-        corporateList.add(
-            CorporateAboutusData(
-                R.drawable.isustainable_image,
-                "Sustainability",
-                "For HoABL, it is not just a piece of land, we believe in the Peace of Land.It is our aim to give back to land more than we take from it.",
-            )
-        )
-
-
-        return corporateList
-    }
+//    private fun init(): ArrayList<CorporateAboutusData> {
+////        val corporateList: ArrayList<CorporateAboutusData> = ArrayList<CorporateAboutusData>()
+////        corporateList.add(
+////            CorporateAboutusData(
+////                R.drawable.management,
+////                "Peace of Land",
+////                "For HoABL, it is not just a piece of land, we believe in the Peace of Land.It is our aim to give back to land more than we take from it.",
+////            )
+//        )
+////        corporateList.add(
+////            CorporateAboutusData(
+////                R.drawable.isustainable_image,
+////                "Sustainability",
+////                "For HoABL, it is not just a piece of land, we believe in the Peace of Land.It is our aim to give back to land more than we take from it.",
+////            )
+////        )
+//
+//
+//        return corporateList
+//    }
 
     private inner class StatsOverviewHolder(private val binding: StatsAboutusBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -181,7 +181,7 @@ class AboutUSAdapter(private val context: Context, private val list: ArrayList<R
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             binding.productRecyclerList.layoutManager = LinearLayoutManager(context)
-            productAdapter = ProductAdapter(context, initData())
+       //     productAdapter = ProductAdapter(context, initData())
             binding.productRecyclerList.adapter = productAdapter
 
         }

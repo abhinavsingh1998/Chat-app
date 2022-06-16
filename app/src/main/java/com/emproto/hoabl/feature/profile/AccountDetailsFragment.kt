@@ -57,7 +57,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
         homeViewModel =
             ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
 
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
+ //       (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             true
 
         initView()
@@ -79,78 +79,79 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        homeViewModel.getAccountsList().observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Status.LOADING -> {
-                    binding.progressBar.show()
-                }
-                Status.SUCCESS -> {
-                    binding.progressBar.hide()
-                    if (it.data?.data!!.documents != null && it.data!!.data.documents is List<AccountsResponse.Data.Document>) {
-                        allKycList =
-                            it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>
-                        if (allKycList.isNullOrEmpty()) {
-                            binding.rvKyc.visibility = View.GONE
-                            binding.tvKyc.visibility = View.GONE
-                            binding.rvDocuments.visibility = View.GONE
-                            binding.tvSeeAllDocuments.visibility = View.GONE
-                        } else {
-                            binding.rvKyc.visibility = View.VISIBLE
-                            binding.tvKyc.visibility = View.VISIBLE
-                            binding.rvKyc.layoutManager =
-                                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-                            binding.rvKyc.adapter = AccountsKycListAdapter(
-                                context,
-                                allKycList,
-                                this
-                            )
-                            binding.rvDocuments.visibility = View.VISIBLE
-                            binding.tvSeeAllDocuments.visibility = View.VISIBLE
-                            binding.rvDocuments.layoutManager =
-                                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-                            binding.rvDocuments.adapter = AccountsDocumentLabelListAdapter(
-                                context,
-                                it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>,
-                                this
-                            )
-                        }
-
-                    }
-
-                    if (it.data?.data!!.paymentHistory != null && it.data!!.data.paymentHistory is List<AccountsResponse.Data.PaymentHistory>) {
-                        allPaymentList =
-                            it.data!!.data.paymentHistory as ArrayList<AccountsResponse.Data.PaymentHistory>
-                        if (allPaymentList.isNullOrEmpty()) {
-                            binding.tvPaymentHistory.visibility = View.GONE
-                            binding.tvSeeAllPayment.visibility = View.GONE
-                            binding.rvPaymentHistory.visibility = View.GONE
-                        } else {
-                            binding.tvPaymentHistory.visibility = View.VISIBLE
-                            binding.tvSeeAllPayment.visibility = View.VISIBLE
-                            binding.rvPaymentHistory.visibility = View.VISIBLE
-                            binding.rvPaymentHistory.layoutManager =
-                                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-                            binding.rvPaymentHistory.adapter = AccountsPaymentListAdapter(
-                                context,
-                                it.data!!.data.paymentHistory as ArrayList<AccountsResponse.Data.PaymentHistory>,
-                                this
-                            )
-                        }
-
-
-                    }
-                }
-                Status.ERROR -> {
-                    binding.progressBar.hide()
-                    (requireActivity() as HomeActivity).showErrorToast(it.message!!)
-                }
-            }
-        })
-
-    }
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+//
+//        homeViewModel.getAccountsList().observe(viewLifecycleOwner, Observer {
+//            when (it.status) {
+//                Status.LOADING -> {
+//                    binding.progressBar.show()
+//                }
+//                Status.SUCCESS -> {
+//                    binding.progressBar.hide()
+//                    if (it.data?.data!!.documents != null && it.data!!.data.documents is List<AccountsResponse.Data.Document>) {
+//                        allKycList =
+//                            it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>
+//                        if (allKycList.isNullOrEmpty()) {
+//                            binding.rvKyc.visibility = View.GONE
+//                            binding.tvKyc.visibility = View.GONE
+//                            binding.rvDocuments.visibility = View.GONE
+//                            binding.tvSeeAllDocuments.visibility = View.GONE
+//                        } else {
+//                            binding.rvKyc.visibility = View.VISIBLE
+//                            binding.tvKyc.visibility = View.VISIBLE
+//                            binding.rvKyc.layoutManager =
+//                                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+//                            binding.rvKyc.adapter = AccountsKycListAdapter(
+//                                context,
+//                                allKycList,
+//                                this
+//                            )
+//                            binding.rvDocuments.visibility = View.VISIBLE
+//                            binding.tvSeeAllDocuments.visibility = View.VISIBLE
+//                            binding.rvDocuments.layoutManager =
+//                                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+//                            binding.rvDocuments.adapter = AccountsDocumentLabelListAdapter(
+//                                context,
+//                                it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>,
+//                                this
+//                            )
+//                        }
+//
+//                    }
+//
+//                    if (it.data?.data!!.paymentHistory != null && it.data!!.data.paymentHistory is List<AccountsResponse.Data.PaymentHistory>) {
+//                        allPaymentList =
+//                            it.data!!.data.paymentHistory as ArrayList<AccountsResponse.Data.PaymentHistory>
+//                        if (allPaymentList.isNullOrEmpty()) {
+//                            binding.tvPaymentHistory.visibility = View.GONE
+//                            binding.tvSeeAllPayment.visibility = View.GONE
+//                            binding.rvPaymentHistory.visibility = View.GONE
+//                        } else {
+//                            binding.tvPaymentHistory.visibility = View.VISIBLE
+//                            binding.tvSeeAllPayment.visibility = View.VISIBLE
+//                            binding.rvPaymentHistory.visibility = View.VISIBLE
+//                            binding.rvPaymentHistory.layoutManager =
+//                                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+//                            binding.rvPaymentHistory.adapter = AccountsPaymentListAdapter(
+//                                context,
+//                                it.data!!.data.paymentHistory as ArrayList<AccountsResponse.Data.PaymentHistory>,
+//                                this
+//                            )
+//                        }
+//
+//
+//                    }
+//                }
+//                Status.ERROR -> {
+//                    binding.progressBar.hide()
+//                    (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+//                }
+//            }
+//        })
+//
+//    }
 
 
     private fun initClickListener() {

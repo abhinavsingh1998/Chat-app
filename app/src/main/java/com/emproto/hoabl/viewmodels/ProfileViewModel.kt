@@ -5,9 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.emproto.hoabl.repository.ProfileRepository
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
+import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
+import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
+import com.emproto.networklayer.response.resourceManagment.ProflieResponse
+import com.emproto.networklayer.response.terms.TermsConditionResponse
 import java.io.File
 
 class ProfileViewModel(
@@ -23,9 +27,9 @@ class ProfileViewModel(
         return profileRepository.editUserNameProfile(editUserNameRequest)
     }
 
-    fun uploadProfilePicture(file:File,fileName:String): LiveData<BaseResponse<ProfilePictureResponse>> {
-        return profileRepository.uploadProfilePicture(file,fileName)
-    }
+//    fun uploadProfilePicture(file:File,fileName:String): LiveData<BaseResponse<ProfilePictureResponse>> {
+//        return profileRepository.uploadProfilePicture(file,fileName)
+//    }
     fun presignedUrl(type: String, destinationFile: File): LiveData<BaseResponse<PresignedUrlResponse>> {
         return profileRepository.presignedUrl(type,destinationFile)
     }
@@ -50,6 +54,17 @@ class ProfileViewModel(
         return profileRepository.getCities(stateIsoCode,countryIsoCode)
     }
 
+    fun getPrivacyAndPolicy(pageType: Int):LiveData<BaseResponse<TermsConditionResponse>>{
+        return mprofileRepository.getPrivacyAndPolicy(pageType)
+    }
+
+    fun submitFeedback(feedBackRequest: FeedBackRequest): LiveData<BaseResponse<FeedBackResponse>> {
+        return mprofileRepository.submitFeedback(feedBackRequest)
+    }
+
+    fun getAboutHoabl(pageType: Int): LiveData<BaseResponse<ProflieResponse>>{
+        return mprofileRepository.getAboutHoaBl(pageType)
+    }
     fun getFaqList(typeOfFAQ: String): LiveData<BaseResponse<ProfileFaqResponse>> {
         return profileRepository.getFaqList(typeOfFAQ)
     }

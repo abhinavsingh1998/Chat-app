@@ -58,45 +58,45 @@ class InsightsFragment : BaseFragment() {
 
         homeViewModel.getInsightsData(refresh, true).observe(viewLifecycleOwner, object : Observer<BaseResponse<InsightsResponse>>{
             override fun onChanged(it: BaseResponse<InsightsResponse>?) {
-               when(it?.status){
+                when(it?.status){
 
-                   Status.ERROR ->{
-                       mBinding.rootView.hide()
-                       mBinding.loader.show()
-                   }
-                   Status.SUCCESS ->{
-                       mBinding.rootView.show()
-                       mBinding.loader.hide()
+                    Status.ERROR ->{
+                        mBinding.rootView.hide()
+                        mBinding.loader.show()
+                    }
+                    Status.SUCCESS ->{
+                        mBinding.rootView.show()
+                        mBinding.loader.hide()
 
-                       it.data.let {
-                           if (it != null){
-                               homeViewModel.setInsightsData(it.data)
-                           }
+                        it.data.let {
+                            if (it != null){
+                                homeViewModel.setInsightsData(it.data)
+                            }
 
-                           it?.data!!.size
-                           insightsAdapter = AllInsightsAdapter(requireActivity(),
-                               it.data,
-                               object : AllInsightsAdapter.InsightsItemsInterface {
-                                   override fun onClickItem(position: Int) {
-                                       homeViewModel.setSeLectedInsights(it.data[position])
-                                       (requireActivity() as HomeActivity).addFragment(
-                                           InsightsDetailsFragment(),
-                                           false
-                                       )
-                                   }
-                               }
-                           )
-                           linearLayoutManager = LinearLayoutManager(
-                               requireContext(),
-                               RecyclerView.VERTICAL,
-                               false
-                           )
-                           mBinding.recyclerInsights.layoutManager = linearLayoutManager
-                           mBinding.recyclerInsights.adapter = insightsAdapter
+                            it?.data!!.size
+                            insightsAdapter = AllInsightsAdapter(requireActivity(),
+                                it.data,
+                                object : AllInsightsAdapter.InsightsItemsInterface {
+                                    override fun onClickItem(position: Int) {
+                                        homeViewModel.setSeLectedInsights(it.data[position])
+                                        (requireActivity() as HomeActivity).addFragment(
+                                            InsightsDetailsFragment(),
+                                            false
+                                        )
+                                    }
+                                }
+                            )
+                            linearLayoutManager = LinearLayoutManager(
+                                requireContext(),
+                                RecyclerView.VERTICAL,
+                                false
+                            )
+                            mBinding.recyclerInsights.layoutManager = linearLayoutManager
+                            mBinding.recyclerInsights.adapter = insightsAdapter
 
-                       }
-                   }
-               }
+                        }
+                    }
+                }
             }
 
         })
