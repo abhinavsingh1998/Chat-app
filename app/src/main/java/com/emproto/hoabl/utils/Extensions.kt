@@ -4,7 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import com.emproto.networklayer.response.home.HomePagesOrPromise
+import com.emproto.networklayer.response.home.PageManagementOrInsight
 import com.emproto.networklayer.response.home.PageManagementOrLatestUpdate
+import com.emproto.networklayer.response.insights.InsightsCreatedAdmin
+import com.emproto.networklayer.response.insights.InsightsModifiedAdmin
 import com.emproto.networklayer.response.investment.PmData
 import com.emproto.networklayer.response.marketingUpdates.Data
 import com.emproto.networklayer.response.marketingUpdates.MarketingUpdateCreatedBy

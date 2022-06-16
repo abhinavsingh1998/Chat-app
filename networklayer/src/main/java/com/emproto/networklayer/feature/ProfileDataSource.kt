@@ -60,20 +60,20 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
 //            MultipartBody.Part.createFormData("documentType", documentType!!)
 //        )
 //    }
-    suspend fun uploadPictureProfile(
-        file: File,
-        fileName: String
-
-    ): Response<ProfilePictureResponse> {
-
-        return apiService.uploadPicture(
-
-            MultipartBody.Part.createFormData(
-                "file", file.name,
-                RequestBody.create("image/*".toMediaTypeOrNull(), file)
-            ), MultipartBody.Part.createFormData("fileName", fileName!!)
-        )
-    }
+//    suspend fun uploadPictureProfile(
+//        file: File,
+//        fileName: String
+//
+//    ): Response<ProfilePictureResponse> {
+//
+//        return apiService.uploadPicture(
+//
+//            MultipartBody.Part.createFormData(
+//                "file", file.name,
+//                RequestBody.create("image/*".toMediaTypeOrNull(), file)
+//            ), MultipartBody.Part.createFormData("fileName", fileName!!)
+//        )
+//    }
 
     suspend fun presignedUrl(type: String, destinationFile: File): Response<PresignedUrlResponse> {
         return apiService.presignedUrl(type, destinationFile)
