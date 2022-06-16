@@ -223,6 +223,7 @@
     <string name="help_center">Help Center</string>
     <string name="new_generation_land_is_now_safe_and_secure_owning_land_will_never_feel_like_a_gamble_again">New Generation Land is now safe and secure. Owning land will never feel like a gamble again.</string>
     <string name="read_our_terms_amp_conditions"><![CDATA[Read our Terms & Conditions]]></string>
+    <string name="read_our_terms"><u><![CDATA[Read our Terms & Conditions]]></u></string>
     <string name="just_invest_we_have_your_back">Just Invest \nWe have your back!</string>
     <string name="buy_maintain_and_liquidate_land_with_amazing_ease_con_dence_and_trust">Buy, maintain and liquidate land with amazing ease, conﬁdence and trust.</string>
     <string name="desc">Desc</string>
@@ -384,4 +385,5 @@
     <string name="last_updated_on">Last Updated on:</string>
     <string name="viewreceipt"><![CDATA[<U>View Receipt</U>]]></string>
     <string name="schedule_video_call_info">Schedule a video call with our Project Managers, to answer any further questions you may have.</string>
+    <string name="myportfolio">Portfolio</string>
 </resources>
