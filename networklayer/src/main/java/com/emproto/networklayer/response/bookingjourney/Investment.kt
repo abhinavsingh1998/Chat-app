@@ -6,7 +6,7 @@ import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
 data class Investment(
     val agreementValue: Double,
     val allocationDate: String,
-    val areaSqFt: Int,
+    val areaSqFt: Double,
     val bookingId: String,
     val bookingJourney: BookingJourneyX,
     val bookingStatus: String,

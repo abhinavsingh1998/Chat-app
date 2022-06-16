@@ -1,9 +1,11 @@
 package com.emproto.networklayer.response.portfolio.ivdetails
 
+import com.emproto.networklayer.response.portfolio.dashboard.Address
+
 data class InvestmentInformation(
     val agreementValue: Double,
     val amountInvested: Double,
-    val areaSqFt: Int,
+    val areaSqFt: Double,
     val createdAt: String,
     val crmProjectId: String,
 //    val documentLinks: List<String>,
@@ -21,5 +23,10 @@ data class InvestmentInformation(
     val paymentSchedules: List<PaymentSchedulesItem>,
     val possesionDate: String,
     val allocationDate: String,
-    val ownershipDate: String
-)
+    val ownershipDate: String,
+    val bookingStatus: String,
+    var launchName:String,
+    var address: Address
+
+
+    )

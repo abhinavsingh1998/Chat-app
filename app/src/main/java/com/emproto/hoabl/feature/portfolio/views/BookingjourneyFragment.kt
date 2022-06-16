@@ -155,9 +155,14 @@ class BookingjourneyFragment : BaseFragment() {
 
     fun loadBookingJourneyData(data1: Data) {
         val data = data1.bookingJourney
-        data1.investment.extraDetails = portfolioviewmodel.getprojectAddress()
+        data1.investmentInformation = portfolioviewmodel.getInvestmentInfo()
         val bookingList = ArrayList<BookingModel>()
-        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_HEADER, data1.investment))
+        bookingList.add(
+            BookingModel(
+                BookingJourneyAdapter.TYPE_HEADER,
+                data1.investmentInformation
+            )
+        )
         bookingList.add(BookingModel(BookingJourneyAdapter.TRANSACTION, data.transaction))
         bookingList.add(BookingModel(BookingJourneyAdapter.DOCUMENTATION, data.documentation))
         bookingList.add(BookingModel(BookingJourneyAdapter.PAYMENTS, data.payments))
