@@ -46,6 +46,7 @@ import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.Data
 import com.emproto.networklayer.response.profile.ProfilePictureResponse
 import com.emproto.networklayer.response.profile.States
+import okhttp3.MultipartBody
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -56,12 +57,13 @@ class EditProfileFragment : Fragment() {
     val bundle = Bundle()
     var charSequence1: Editable? = null
     var charSequence2: Editable? = null
-
+    lateinit var filePart: MultipartBody.Part
 
     @Inject
     lateinit var profileFactory: ProfileFactory
     lateinit var profileViewModel: ProfileViewModel
     lateinit var binding: FragmentEditProfileBinding
+
 
     var hMobileNo = ""
     var hCountryCode = ""
@@ -74,6 +76,8 @@ class EditProfileFragment : Fragment() {
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private var isReadStorageGranted = false
     private var isCameraPermissionGranted = false
+    private var isWriteStorageGranted = false
+
     val permissionRequest: MutableList<String> = ArrayList()
     private lateinit var statesData: List<States>
     private lateinit var cityData: List<String>
@@ -85,7 +89,7 @@ class EditProfileFragment : Fragment() {
     lateinit var stateIso: String
     lateinit var city: String
     lateinit var gender: String
-    lateinit var uploadProfilePictureRequest:UploadProfilePictureRequest
+    lateinit var uploadProfilePictureRequest: UploadProfilePictureRequest
 
     @Inject
     lateinit var appPreference: AppPreference
@@ -266,6 +270,8 @@ class EditProfileFragment : Fragment() {
                     ?: isReadStorageGranted
                 isCameraPermissionGranted =
                     permissions[Manifest.permission.CAMERA] ?: isCameraPermissionGranted
+                isWriteStorageGranted =
+                    permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: isWriteStorageGranted
             }
         requestPermission()
 
@@ -477,20 +483,21 @@ class EditProfileFragment : Fragment() {
     }
 
     /*----------upload picture--------------*/
-
     private fun requestPermission() {
         isReadStorageGranted = ContextCompat.checkSelfPermission(
             requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
-
         isCameraPermissionGranted = ContextCompat.checkSelfPermission(
             requireContext(),
             Manifest.permission.CAMERA
         ) == PackageManager.PERMISSION_GRANTED
-
-        if (!isReadStorageGranted && !isCameraPermissionGranted) {
+        isWriteStorageGranted = ContextCompat.checkSelfPermission(
+            requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+        if (!isReadStorageGranted && !isCameraPermissionGranted && !isWriteStorageGranted) {
             permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
             permissionRequest.add(Manifest.permission.CAMERA)
+            permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         }
         if (permissionRequest.isNotEmpty()) {
             permissionLauncher.launch(permissionRequest.toTypedArray())
@@ -503,7 +510,7 @@ class EditProfileFragment : Fragment() {
         thumbnail!!.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
         destinationFile = File(
             Environment.getExternalStorageDirectory(),
-            "Profile_pic_" + System.currentTimeMillis() + ".jpg"
+            "Profile_pic_" + this.data.crmId + ".jpg"
         )
         val fo: FileOutputStream
         try {
@@ -520,7 +527,10 @@ class EditProfileFragment : Fragment() {
         binding.profileUserLetters.visibility = View.GONE
         binding.profileImage.setImageBitmap(thumbnail)
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-            getPreSignedUrl(destinationFile)
+
+
+            callingUploadPicApi(destinationFile)
+//            getPreSignedUrl(destinationFile)
         } else {
             (requireActivity() as BaseActivity).showError(
                 "Please check Internet Connections to upload image",
@@ -530,21 +540,48 @@ class EditProfileFragment : Fragment() {
         }
     }
 
-    private fun getPreSignedUrl(destinationFile: File) {
-        val type = "upload"
-        profileViewModel.presignedUrl(type, destinationFile)
-            .observe(viewLifecycleOwner,
-                Observer {
-                    when (it.status) {
+//    private fun getPreSignedUrl(destinationFile: File) {
+//        val type = "upload"
+//        profileViewModel.presignedUrl(type, destinationFile)
+//            .observe(viewLifecycleOwner,
+//                Observer {
+//                    when (it.status) {
+//                        Status.LOADING -> {
+//                            binding.progressBaar.show()
+//                        }
+//                        Status.SUCCESS -> {
+//                            binding.progressBaar.hide()
+//                            try {
+//                                val preSignedUrl = it.data!!.preSignedUrl
+//                                callingUploadPicApi(preSignedUrl)
+//
+//                            } catch (e: IOException) {
+//                                println(e)
+//                            }
+//                        }
+//                        Status.ERROR -> {
+//                            binding.progressBaar.hide()
+//                        }
+//                    }
+//                })
+//
+//    }
+
+    private fun callingUploadPicApi(destinationFile: File) {
+        profileViewModel.uploadProfilePicture(destinationFile, destinationFile.name)
+            .observe(viewLifecycleOwner, object : Observer<BaseResponse<ProfilePictureResponse>> {
+                override fun onChanged(it: BaseResponse<ProfilePictureResponse>?) {
+                    when (it?.status) {
                         Status.LOADING -> {
                             binding.progressBaar.show()
                         }
                         Status.SUCCESS -> {
                             binding.progressBaar.hide()
-                            try {
-                                val preSignedUrl = it.data!!.preSignedUrl
-                                callingUploadPicApi(preSignedUrl)
 
+                            try {
+//                                Glide.with(requireContext())
+//                                    .load(it.data?.data?.profilePictureUrl)
+//                                    .into(binding.profileImage)
                             } catch (e: IOException) {
                                 println(e)
                             }
@@ -553,36 +590,7 @@ class EditProfileFragment : Fragment() {
                             binding.progressBaar.hide()
                         }
                     }
-                })
-
-    }
-
-    private fun callingUploadPicApi(url: String) {
-        uploadProfilePictureRequest= UploadProfilePictureRequest(url)
-        profileViewModel.uploadProfilePicture(uploadProfilePictureRequest)
-            .observe(viewLifecycleOwner, object : Observer<BaseResponse<ProfilePictureResponse>>{
-                override fun onChanged(it: BaseResponse<ProfilePictureResponse>?) {
-                    when (it?.status) {
-                        Status.LOADING -> {
-                            binding.progressBaar.show()
-                        }
-                        Status.SUCCESS -> {
-                            binding.progressBaar.hide()
-                            try {
-//                                Glide.with(requireContext())
-//                                    .load(it.data?.data?.profilePictureUrl)
-//                                    .into(binding.profileImage)
-                            } catch (e: IOException) {
-                                System.out.println(e)
-                            }
-                        }
-                        Status.ERROR -> {
-                            binding.progressBaar.hide()
-                        }
-                    }
                 }
-
-
 
 
             })
@@ -618,7 +626,8 @@ class EditProfileFragment : Fragment() {
             binding.profileImage.setImageBitmap(bitmap)
 
             if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-                getPreSignedUrl(destinationFile)
+                callingUploadPicApi(destinationFile)
+//                getPreSignedUrl(destinationFile)
             } else {
                 (requireActivity() as BaseActivity).showError(
                     "Please check Internet Connections to upload image",

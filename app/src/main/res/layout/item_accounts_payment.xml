@@ -16,6 +16,17 @@
         android:text="Isle of Bliss"
       app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvPaidAmount"/>
+    <TextView
+        android:id="@+id/tvLandId"
+        style="@style/text_style_text_color_12"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/jost_bold"
+        android:text="Isle of Bliss"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvProjectName"/>
 
     <TextView
         android:id="@+id/tvPaymentDate"
@@ -68,7 +79,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/jost_semibold"
         android:text="₹20,000"
         android:textColor="#676ac0"
@@ -80,10 +91,10 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@color/category_bottom_ash_line_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPaymentMilestone" />
+        app:layout_constraintTop_toBottomOf="@+id/tvLandId" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

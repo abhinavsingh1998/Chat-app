@@ -36,8 +36,9 @@ class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel =
             ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
-
         (requireActivity() as HomeActivity).showBackArrow()
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
+            View.VISIBLE
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
             View.GONE
 
@@ -46,7 +47,6 @@ class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         homeViewModel.getChatsList().observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
@@ -57,14 +57,13 @@ class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
                     binding.loader.hide()
                     binding.rvChats.visibility = View.VISIBLE
                     if (it.data?.chatList != null && it.data!!.chatList is List<ChatList>) {
-                        Log.i("LastMsg",it.data!!.chatList.toString())
+                        Log.i("LastMsg", it.data!!.chatList.toString())
                         binding.rvChats.layoutManager =
                             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
                         binding.rvChats.adapter = ChatsAdapter(context, it.data!!.chatList, this)
 
-                        val chatListSize=it.data!!.chatList.size.toString()
-                        binding.tvChats.text="Chat($chatListSize)"
-
+                        val chatListSize = it.data!!.chatList.size.toString()
+                        binding.tvChats.text = "Chat($chatListSize)"
                     }
                 }
                 Status.ERROR -> {
@@ -74,12 +73,14 @@ class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
             }
         })
     }
+
     override fun onChatItemClick(chat: List<ChatList>, view: View, position: Int) {
         val bundle = Bundle()
         bundle.putSerializable("chatModel", chat[position])
         val chatsDetailFragment = ChatsDetailFragment()
         chatsDetailFragment.arguments = bundle
-        (requireActivity() as HomeActivity).replaceFragment(chatsDetailFragment.javaClass,
+        (requireActivity() as HomeActivity).replaceFragment(
+            chatsDetailFragment.javaClass,
             "",
             true,
             bundle,

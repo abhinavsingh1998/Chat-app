@@ -36,6 +36,7 @@ import com.emproto.networklayer.response.search.SearchResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 import java.io.File
@@ -88,8 +89,10 @@ public interface ApiService {
     @PUT(ApiConstants.EDITPROFILE)
     suspend fun addUserName(@Body editUserNameRequest: EditUserNameRequest): Response<EditProfileResponse>
 
+
+    @Multipart
     @PUT(ApiConstants.UPLOADPROFILEPICTURE)
-    suspend fun uploadPicture(@Body uploadProfilePictureRequest: UploadProfilePictureRequest): Response<ProfilePictureResponse>
+    suspend fun uploadPicture(@Part file: MultipartBody.Part, @Part fileName:MultipartBody.Part): Response<ProfilePictureResponse>
 
     @PUT(ApiConstants.PRESIGNEDURL)
     suspend fun presignedUrl(

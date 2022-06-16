@@ -88,7 +88,8 @@ class ProjectDetailFragment : BaseFragment() {
                     chatsFragment.arguments = bundle
                     (requireActivity() as HomeActivity).replaceFragment(chatsFragment.javaClass, "", true, bundle, null, 0, false
                     )
-                    Toast.makeText(context, "Chat bot", Toast.LENGTH_SHORT).show()
+
+
                 }
                 R.id.tv_similar_investment_see_all -> {
                     val list = CategoryListFragment()
