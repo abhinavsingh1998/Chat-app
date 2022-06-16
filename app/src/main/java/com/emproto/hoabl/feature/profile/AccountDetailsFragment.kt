@@ -22,16 +22,16 @@ import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.AccountsResponse
 import javax.inject.Inject
 
-class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClickListener,AccountsDocumentLabelListAdapter.OnDocumentLabelItemClickListener,
+class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClickListener,
+    AccountsDocumentLabelListAdapter.OnDocumentLabelItemClickListener,
     AccountsPaymentListAdapter.OnPaymentItemClickListener {
 
     @Inject
     lateinit var homeFactory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
     lateinit var binding: FragmentAccountDetailsBinding
-
-
     val bundle = Bundle()
+    lateinit var allPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>
 
 
     override fun onCreateView(
@@ -43,7 +43,8 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
         homeViewModel =
             ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
 
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible = true
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
+            true
 
         initClickListener()
         (requireActivity() as HomeActivity).hideBottomNavigation()
@@ -66,20 +67,31 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
 
                         binding.rvKyc.layoutManager =
                             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-                        binding.rvKyc.adapter = AccountsKycListAdapter(context,
-                            it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>, this)
+                        binding.rvKyc.adapter = AccountsKycListAdapter(
+                            context,
+                            it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>,
+                            this
+                        )
 
                         binding.rvDocuments.layoutManager =
                             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-                        binding.rvDocuments.adapter = AccountsDocumentLabelListAdapter(context,
-                            it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>, this)
+                        binding.rvDocuments.adapter = AccountsDocumentLabelListAdapter(
+                            context,
+                            it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>,
+                            this
+                        )
                     }
 
                     if (it.data?.data!!.paymentHistory != null && it.data!!.data.paymentHistory is List<AccountsResponse.Data.PaymentHistory>) {
+                        allPaymentList =
+                            it.data!!.data.paymentHistory as ArrayList<AccountsResponse.Data.PaymentHistory>
                         binding.rvPaymentHistory.layoutManager =
                             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-                        binding.rvPaymentHistory.adapter = AccountsPaymentListAdapter(context,
-                            it.data!!.data.paymentHistory as ArrayList<AccountsResponse.Data.PaymentHistory>, this)
+                        binding.rvPaymentHistory.adapter = AccountsPaymentListAdapter(
+                            context,
+                            it.data!!.data.paymentHistory as ArrayList<AccountsResponse.Data.PaymentHistory>,
+                            this
+                        )
 
                     }
                 }
@@ -93,13 +105,26 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
     }
 
 
-
     private fun initClickListener() {
         binding.backAction.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
 
         binding.tvSeeAllPaymentHistory.setOnClickListener {
-            val allPaymentHistory = AllPaymentHistoryFragment()
-            (requireActivity() as HomeActivity).addFragment(allPaymentHistory, false)
+            val bundle = Bundle()
+            bundle.putSerializable(
+                "accountResponse",
+                allPaymentList
+            )
+            val allPaymentHistoryFragment = AllPaymentHistoryFragment()
+            allPaymentHistoryFragment.arguments = bundle
+            (requireActivity() as HomeActivity).replaceFragment(
+                allPaymentHistoryFragment.javaClass,
+                "",
+                true,
+                bundle,
+                null,
+                0,
+                false
+            )
         }
     }
 
