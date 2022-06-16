@@ -215,7 +215,7 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_dot_layout"
-            android:layout_width="@dimen/margin_size_80"
+            android:layout_width="@dimen/margin_size_85"
             android:layout_height="wrap_content"
             app:tabBackground="@drawable/tab_selector"
             app:tabGravity="center"

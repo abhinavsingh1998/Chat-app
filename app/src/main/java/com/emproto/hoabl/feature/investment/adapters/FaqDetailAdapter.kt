@@ -40,7 +40,6 @@ class FaqDetailAdapter(
             VIEW_TYPE_ONE -> {
                 TopViewHolder(
                         LayoutInflater.from(parent.context).inflate(R.layout.faq_investment_fragment,parent,false)
-
                 )
             }
             else -> {

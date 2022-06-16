@@ -99,8 +99,8 @@ class InvestmentFragment : BaseFragment() {
             View.VISIBLE
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.GONE
         binding.slSwipeRefresh.setOnRefreshListener {
+            binding.slSwipeRefresh.isRefreshing = true
             callApi()
-            binding.slSwipeRefresh.isRefreshing = false
         }
     }
 
@@ -113,6 +113,7 @@ class InvestmentFragment : BaseFragment() {
                 Status.SUCCESS -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                     it.data?.data?.let { data ->
+                        binding.slSwipeRefresh.isRefreshing = false
                         newInvestmentsList = data.pageManagementsOrNewInvestments
                         smartDealsList = data.pageManagementsOrCollectionOneModels
                         trendingProjectsList = data.pageManagementsOrCollectionTwoModels
