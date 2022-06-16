@@ -6,5 +6,6 @@ data class BookingJourney(
     val ownership: Ownership,
     val payments: List<Payment>,
     val possession: Possession,
-    val transaction: Transaction
+    val transaction: Transaction,
+    val paymentHistory: List<PaymentHistory>
 )
