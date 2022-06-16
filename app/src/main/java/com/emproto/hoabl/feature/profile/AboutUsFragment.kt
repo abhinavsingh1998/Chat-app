@@ -95,21 +95,21 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
  */
         //binding.ivPriceTrendsGraph.setDrawBorders(false);
         //binding.ivPriceTrendsGraph.setDrawGridBackground(false);
-        binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
-        binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
-        binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false);
-        //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
-        //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
-        binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false);
-        binding.ivPriceTrendsGraph.getXAxis().position = XAxis.XAxisPosition.BOTTOM;
-        //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
-        binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false);
-        binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false);
-        binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false);
-        //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
-        //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
-        //  binding.ivPriceTrendsGraph.data = data
-        binding.ivPriceTrendsGraph.animateXY(2000, 2000)
+//        binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
+//        binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
+//        binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false);
+//        //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
+//        //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
+//        binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false);
+//        binding.ivPriceTrendsGraph.getXAxis().position = XAxis.XAxisPosition.BOTTOM;
+//        //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
+//        binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false);
+//        binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false);
+//        binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false);
+//        //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
+//        //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
+//        //  binding.ivPriceTrendsGraph.data = data
+//        binding.ivPriceTrendsGraph.animateXY(2000, 2000)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -410,33 +410,7 @@ class HomeFragment : BaseFragment() {
         })
 
         binding.tvViewallInvestments.setOnClickListener(View.OnClickListener {
-            homeViewModel.getAllInvestmentsProjects().observe(viewLifecycleOwner, Observer {
-                when (it.status) {
-                    Status.LOADING -> {
-                        binding.loader.show()
-                    }
-                    Status.SUCCESS -> {
-                        binding.loader.hide()
-                        it.data?.data?.let { data ->
-                            val fragment = CategoryListFragment()
-                            val bundle = Bundle()
-                            bundle.putString("Category", "Home")
-                            bundle.putSerializable(
-                                "DiscoverAll",
-                                data as Serializable
-                            )
-                            fragment.arguments = bundle
-                            (requireActivity() as HomeActivity).addFragment(fragment, false)
-                        }
-                    }
-                    Status.ERROR -> {
-                        binding.loader.hide()
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            it.message!!
-                        )
-                    }
-                }
-            })
+            (requireActivity() as HomeActivity).navigate(R.id.navigation_investment)
         })
 
         binding.referralLayout.appShareBtn.setOnClickListener {
