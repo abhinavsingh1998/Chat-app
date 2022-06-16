@@ -178,55 +178,20 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
             docsBottomSheet.show()
             documentBinding.rvDocsItemRecycler.layoutManager =
                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-            documentBinding.rvDocsItemRecycler.adapter = AllDocumentAdapter(
-                context,
-                allKycList,
-                this
-            )
-
-
+            documentBinding.rvDocsItemRecycler.adapter = AllDocumentAdapter(context, allKycList, this)
         }
     }
 
 
-    override fun onAccountsKycItemClick(
-        accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
-        view: View,
-        position: Int
-    ) {
+    override fun onAccountsKycItemClick(accountsDocumentList: ArrayList<AccountsResponse.Data.Document>, view: View, position: Int) {
         openDocument(position)
     }
 
-    override fun onAccountsPaymentItemClick(
-        accountsPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>,
-        view: View,
-        position: Int
-    ) {
-
-
+    override fun onAccountsPaymentItemClick(accountsPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>, view: View, position: Int) {
     }
-//
-//    if (it.data.documentList != null) {
-//        val adapter =
-//            DocumentsAdapter(it.data.documentList, true, object : DocumentInterface {
-//                override fun onclickDocument(position: Int) {
-//                    docsBottomSheet.dismiss()
-//                    openDocument(position)
-//                }
-//
-//            })
-//        documentBinding.rvDocsItemRecycler.adapter = adapter
-//    }
-
-    override fun onAccountsDocumentLabelItemClick(
-        accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
-        view: View,
-        position: Int
-    ) {
+    override fun onAccountsDocumentLabelItemClick(accountsDocumentList: ArrayList<AccountsResponse.Data.Document>, view: View, position: Int) {
         docsBottomSheet.dismiss()
         openDocument(position)
-
-
     }
 
     private fun openDocument(position: Int) {
