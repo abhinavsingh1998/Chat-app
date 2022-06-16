@@ -8,25 +8,26 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemAccountsKycDocBinding
+import com.emproto.hoabl.databinding.ItemPortfolioDocumentsBinding
 import com.emproto.networklayer.response.profile.AccountsResponse
 
-class AccountsDocumentLabelListAdapter(
-    private var mContext: Context?,
-    private var accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
-    private var mListener: OnDocumentLabelItemClickListener
+class AllDocumentAdapter(
+        private var mContext: Context?,
+        private var accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
+        private var mListener: OnDocumentLabelClickListener
 
-) : RecyclerView.Adapter<AccountsDocumentLabelListAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<AllDocumentAdapter.ViewHolder>() {
 
-    lateinit var binding: ItemAccountsKycDocBinding
+    lateinit var binding: ItemPortfolioDocumentsBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding =
-            ItemAccountsKycDocBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemPortfolioDocumentsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding.root)
     }
 
-    interface OnDocumentLabelItemClickListener {
-        fun onAccountsDocumentLabelItemClick(
+    interface OnDocumentLabelClickListener {
+        fun onAccountsDocumentLabelClick(
             accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
             view: View,
             position: Int
@@ -34,12 +35,12 @@ class AccountsDocumentLabelListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(accountsDocumentList[position].documentCategory!="KYC"){
+        if (accountsDocumentList[position].documentCategory != "KYC") {
             holder.tvDocName.text = accountsDocumentList[position].documentType.toString()
         }
 
         holder.tvViewDoc.setOnClickListener {
-            mListener.onAccountsDocumentLabelItemClick(accountsDocumentList, it, position)
+            mListener.onAccountsDocumentLabelClick(accountsDocumentList, it, position)
         }
 
     }
@@ -49,7 +50,7 @@ class AccountsDocumentLabelListAdapter(
     }
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-        val tvDocName: TextView = itemView.findViewById(R.id.tvDocName)
-        val tvViewDoc: TextView = itemView.findViewById(R.id.tvViewDoc)
+        val tvDocName: TextView = itemView.findViewById(R.id.tv_doc_label)
+        val tvViewDoc: TextView = itemView.findViewById(R.id.tv_view)
     }
 }
