@@ -66,8 +66,7 @@ interface HomeComponent {
     fun inject(fragment: SearchResultFragment)
     fun inject(fragment: AccountDetailsFragment)
     fun inject(fragment: ProfileFaqFragment)
-
-
+    fun inject(fragment: ReceiptFragment)
 
 
 }

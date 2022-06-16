@@ -35,11 +35,13 @@ class HelpCenterFragment : BaseFragment() {
     ): View? {
         binding = FragmentHelpCenterBinding.inflate(inflater, container, false)
         initView()
-
         return binding.root
     }
 
     private fun initView() {
+
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
+            View.GONE
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             false
 

@@ -102,7 +102,7 @@ class TimelineAdapter(
 
             }
             TYPE_LIST -> {
-                var isOneComplete: Boolean = false
+                var isOneProgress: Boolean = false
                 var isAllDisable: Boolean = false
 
                 val listData = dataList[position].data as ProjectTimeline
@@ -123,21 +123,22 @@ class TimelineAdapter(
                             stepsList.add(StepsModel(StepsAdapter.TYPE_INSTART, item))
                         }
                         in 1.0..99.99 -> {
+                            isOneProgress = true
                             stepsList.add(StepsModel(StepsAdapter.TYPE_INPROGRESS, item))
                         }
                         else -> {
-                            isOneComplete = true
                             stepsList.add(StepsModel(StepsAdapter.TYPE_COMPLETED, item))
                         }
                     }
                 }
-                if (isOneComplete) {
+                if (isOneProgress) {
                     listHolder.binding.headerIndicator.background =
-                        context.getDrawable(R.drawable.ic_progress_complete)
+                        context.getDrawable(R.drawable.ic_in_progress)
                 }
-                if (isAllDisable)
+                if (isAllDisable) {
                     listHolder.binding.headerIndicator.background =
                         context.getDrawable(R.drawable.ic_inprogress_bg)
+                }
 
                 listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
                 listHolder.binding.stepsList.adapter =

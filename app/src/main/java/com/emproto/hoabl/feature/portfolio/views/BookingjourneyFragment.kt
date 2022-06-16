@@ -120,6 +120,12 @@ class BookingjourneyFragment : BaseFragment() {
         dialogPendingPayment.actionOkay.setOnClickListener {
             pendingPaymentDialog.dismiss()
         }
+        dialogHandoverDetailsBinding.actionOkay.setOnClickListener {
+            handoverDialog.dismiss()
+        }
+        dialogRegistrationDetailsBinding.tvActivate.setOnClickListener {
+            registrationDialog.dismiss()
+        }
     }
 
     private fun getBookingJourneyData(investedId: Int) {
@@ -184,6 +190,32 @@ class BookingjourneyFragment : BaseFragment() {
 
                     override fun onClickViewDocument(path: String) {
                         getDocumentData(path)
+                    }
+
+                    override fun onClickHandoverDetails(date: String) {
+                        dialogHandoverDetailsBinding.tvHandoverDate.text =
+                            Utility.parseDateFromUtc(date)
+                        handoverDialog.show()
+                    }
+
+                    override fun onClickRegistrationDetails(date: String, number: String) {
+//                        dialogRegistrationDetailsBinding.tvRegistrationDate.text =
+//                            Utility.parseDateFromUtc(date)
+//                        dialogRegistrationDetailsBinding.tvRegistrationNo.text = number
+                        registrationDialog.show()
+                    }
+
+                    override fun onClickAllReceipt() {
+                        (requireActivity() as HomeActivity).addFragment(
+                            ReceiptFragment.newInstance(
+                                "",
+                                ""
+                            ), false
+                        )
+                    }
+
+                    override fun loadError(message: String) {
+                        (requireActivity() as HomeActivity).showErrorToast(message)
                     }
 
                 })

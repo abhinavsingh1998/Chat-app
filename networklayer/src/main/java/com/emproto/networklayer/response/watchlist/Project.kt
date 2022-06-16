@@ -10,5 +10,6 @@ data class Project(
     val launchName: String,
     val priceStartingFrom: String,
     val projectIcon: ProjectIcon,
-    val shortDescription: String
-):Serializable
+    val shortDescription: String,
+    val estimatedAppreciation: Double
+) : Serializable

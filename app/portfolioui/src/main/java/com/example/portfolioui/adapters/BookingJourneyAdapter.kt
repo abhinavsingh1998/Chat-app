@@ -43,6 +43,8 @@ class BookingJourneyAdapter(
         const val VIEW = "View"
         const val VIEW_POA = "View POA Agreement"
 
+        const val PATH_ERROR = "No Path Found For Document!!"
+
 
     }
 
@@ -113,6 +115,7 @@ class BookingJourneyAdapter(
                 header_holder.binding.tvProjectName.text = data.extraDetails.launchName
                 header_holder.binding.tvLocation.text =
                     data.extraDetails.address.city + "," + data.extraDetails.address.state
+                header_holder.binding.tvProgress.text = data.bookingStatus
 
 
             }
@@ -123,7 +126,11 @@ class BookingJourneyAdapter(
                 listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
                 val list = buildTransactionData(data)
                 listHolder.binding.stepsList.adapter =
-                    BookingStepsAdapter(context, list, itemInterface)
+                    BookingStepsAdapter(context, list.first, itemInterface)
+                if (list.second) {
+                    listHolder.binding.headerIndicator.background =
+                        context.getDrawable(R.drawable.ic_in_progress)
+                }
             }
             DOCUMENTATION -> {
                 val listHolder = holder as StepsListHolder
@@ -132,7 +139,11 @@ class BookingJourneyAdapter(
                 listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
                 val list = buildDocumentationData(data)
                 listHolder.binding.stepsList.adapter =
-                    BookingStepsAdapter(context, list, itemInterface)
+                    BookingStepsAdapter(context, list.first, itemInterface)
+                if (list.second) {
+                    listHolder.binding.headerIndicator.background =
+                        context.getDrawable(R.drawable.ic_in_progress)
+                }
             }
             PAYMENTS -> {
                 val listHolder = holder as StepsListHolder
@@ -143,10 +154,25 @@ class BookingJourneyAdapter(
                 listHolder.binding.stepsList.adapter =
                     BookingStepsAdapter(
                         context,
-                        list,
+                        list.first,
                         itemInterface,
                         BookingStepsAdapter.SECTION_PAYMENT
                     )
+                if (list.second) {
+                    listHolder.binding.headerIndicator.background =
+                        context.getDrawable(R.drawable.ic_in_progress)
+                    listHolder.binding.tvViewall.text =
+                        showHTMLText(
+                            String.format(
+                                context.getString(R.string.tv_receipt),
+                                "VIEW RECEIPTS"
+                            )
+                        )
+                    listHolder.binding.tvViewall.setOnClickListener {
+                        itemInterface.onClickAllReceipt()
+                    }
+
+                }
             }
             OWNERSHIP -> {
                 val listHolder = holder as OwnershipHolder
@@ -167,7 +193,7 @@ class BookingJourneyAdapter(
                     )
                 )
 
-                if (list.documents.SEVEN != null) {
+                if (list.documents.DOC != null) {
                     listHolder.binding.headerIndicator.background =
                         context.getDrawable(R.drawable.ic_in_progress)
                     listHolder.binding.headerIndicator2.background =
@@ -181,13 +207,15 @@ class BookingJourneyAdapter(
                         listHolder.binding.textHeader2.setTextColor(context.getColor(R.color.text_color))
                         listHolder.binding.textHint.setTextColor(context.getColor(R.color.app_color))
                         listHolder.binding.textHint.setOnClickListener {
-                            itemInterface.onClickViewDocument(list.documents.SEVEN.path!!)
+                            if (list.documents.DOC.path != null)
+                                itemInterface.onClickViewDocument(list.documents.DOC.path!!)
+                            else itemInterface.loadError(PATH_ERROR)
                         }
                     }
 
 
                 }
-                if (list.documents.DOC != null) {
+                if (list.documents.SEVEN != null) {
                     listHolder.binding.headerIndicator.background =
                         context.getDrawable(R.drawable.ic_in_progress)
                     listHolder.binding.headerIndicator2.background =
@@ -199,7 +227,10 @@ class BookingJourneyAdapter(
                         listHolder.binding.textHeader2.setTextColor(context.getColor(R.color.text_color))
                         listHolder.binding.textHint2.setTextColor(context.getColor(R.color.app_color))
                         listHolder.binding.textHint2.setOnClickListener {
-                            itemInterface.onClickViewDocument(list.documents.DOC.path!!)
+                            if (list.documents.SEVEN.path != null)
+                                itemInterface.onClickViewDocument(list.documents.SEVEN.path!!)
+                            else itemInterface.loadError(PATH_ERROR)
+
                         }
 
                     }
@@ -241,6 +272,10 @@ class BookingJourneyAdapter(
                         listHolder.binding.tvFirst.setTextColor(context.getColor(R.color.text_color))
                         listHolder.binding.textHeader.setTextColor(context.getColor(R.color.text_color))
                         listHolder.binding.textHeader2.setTextColor(context.getColor(R.color.text_color))
+                        listHolder.binding.textHint.setTextColor(context.getColor(R.color.app_color))
+                        listHolder.binding.textHint.setOnClickListener {
+                            itemInterface.onClickHandoverDetails(list.handover.handoverDate)
+                        }
                     }
 
 
@@ -257,8 +292,10 @@ class BookingJourneyAdapter(
                         listHolder.binding.textHeader2.setTextColor(context.getColor(R.color.text_color))
                         listHolder.binding.textHint2.setTextColor(context.getColor(R.color.app_color))
                         listHolder.binding.textHint2.setOnClickListener {
-                            list.handover.guidelines.path?.let {
-                                itemInterface.onClickViewDocument(it)
+                            if (list.handover.guidelines.path != null) {
+                                itemInterface.onClickViewDocument(list.handover.guidelines.path!!)
+                            } else {
+                                itemInterface.loadError(PATH_ERROR)
                             }
 
                         }
@@ -272,6 +309,18 @@ class BookingJourneyAdapter(
                 val listHolder = holder as FacilityHolder
                 val list = dataList[listHolder.adapterPosition].data as Facility
                 listHolder.binding.textHeader.text = "Land Management"
+
+                if (list.isFacilityVisible) {
+                    listHolder.binding.headerIndicator.background =
+                        context.getDrawable(R.drawable.ic_in_progress)
+                    listHolder.binding.ivFirst.setImageDrawable(context.getDrawable(R.drawable.ic_in_progress))
+                    listHolder.binding.tvFirst.setTextColor(context.getColor(R.color.text_color))
+                    listHolder.binding.textHeader.setTextColor(context.getColor(R.color.text_color))
+
+                } else {
+
+                }
+
 
             }
 
@@ -298,12 +347,18 @@ class BookingJourneyAdapter(
         fun viewDetails(position: Int, data: String)
         fun onClickPendingCardDetails(payment: Payment)
         fun onClickViewDocument(path: String)
+        fun onClickHandoverDetails(date: String)
+        fun onClickRegistrationDetails(date: String, number: String)
+        fun onClickAllReceipt()
+        fun loadError(message: String)
 
     }
 
-    private fun buildTransactionData(data: Transaction): List<BookingStepsModel> {
+    private fun buildTransactionData(data: Transaction): Pair<List<BookingStepsModel>, Boolean> {
         val list = ArrayList<BookingStepsModel>()
+        var anyInProgress = false
         if (data.application.isApplicationDone) {
+            anyInProgress = true
             list.add(
                 BookingStepsModel(
                     BookingStepsAdapter.TYPE_COMPLETED,
@@ -323,12 +378,15 @@ class BookingJourneyAdapter(
             )
         }
         if (Utility.compareDates(data.allotment.allotmentDate)) {
+            anyInProgress = true
             list.add(
                 BookingStepsModel(
                     BookingStepsAdapter.TYPE_COMPLETED,
                     "Allotment",
                     "Plot Alloted",
-                    VIEW_ALLOTMENT_LETTER
+                    VIEW_ALLOTMENT_LETTER,
+                    data.allotment.allotmentLetter,
+                    data.allotment.allotmentLetter == null
                 )
             )
         } else {
@@ -341,19 +399,22 @@ class BookingJourneyAdapter(
                 )
             )
         }
-        return list
+        return Pair(list, anyInProgress)
 
     }
 
-    private fun buildDocumentationData(data: Documentation): List<BookingStepsModel> {
+    private fun buildDocumentationData(data: Documentation): Pair<List<BookingStepsModel>, Boolean> {
         val list = ArrayList<BookingStepsModel>()
+        var anyInProgress = false
 
         if (data.POA.isPOARequired) {
             if (data.POA.isPOAAlloted) {
+                anyInProgress = true
                 list.add(
                     BookingStepsModel(
                         BookingStepsAdapter.TYPE_COMPLETED, "Power of Attorney", "POA Assigned",
-                        VIEW_POA
+                        VIEW_POA,
+                        data.POA.poaLetter
                     )
                 )
             } else {
@@ -368,16 +429,17 @@ class BookingJourneyAdapter(
 
         if (data.AFS.isAfsVisible) {
             if (data.AFS.afsLetter != null) {
+                anyInProgress = true
                 list.add(
                     BookingStepsModel(
                         BookingStepsAdapter.TYPE_COMPLETED, "Agreement for Sale", "Completed",
-                        VIEW
+                        VIEW, data.AFS.afsLetter
                     )
                 )
             } else {
                 list.add(
                     BookingStepsModel(
-                        BookingStepsAdapter.TYPE_INPROGRESS, "Agreement for Sale", "Completed",
+                        BookingStepsAdapter.TYPE_INPROGRESS, "Agreement for Sale", "",
                         VIEW
                     )
                 )
@@ -391,26 +453,29 @@ class BookingJourneyAdapter(
                 data.Registration.registrationDate
             )
         ) {
+            anyInProgress = true
             list.add(
                 BookingStepsModel(
-                    BookingStepsAdapter.TYPE_COMPLETED, "Registration", "Registration Scheduled",
-                    VIEW
+                    BookingStepsAdapter.TYPE_COMPLETED, "Registration", "Completed",
+                    VIEW_DETAILS, data.Registration
                 )
             )
         } else {
             list.add(
                 BookingStepsModel(
-                    BookingStepsAdapter.TYPE_INPROGRESS, "Registration", "Registration Scheduled",
-                    VIEW
+                    BookingStepsAdapter.TYPE_INPROGRESS, "Registration", "",
+                    VIEW_DETAILS
                 )
             )
         }
 
-        return list
+        return Pair(list, anyInProgress)
     }
 
-    private fun buildPaymentData(data: List<Payment>): List<BookingStepsModel> {
+    private fun buildPaymentData(data: List<Payment>): Pair<List<BookingStepsModel>, Boolean> {
         val list = ArrayList<BookingStepsModel>()
+        var anyInProgress = false
+
         for (item in data) {
             if (item.targetDate != null && !item.isPaymentDone && Utility.compareDates(item.targetDate)) {
                 list.add(
@@ -423,6 +488,7 @@ class BookingJourneyAdapter(
                 )
 
             } else {
+                anyInProgress = true
                 list.add(
                     BookingStepsModel(
                         BookingStepsAdapter.TYPE_COMPLETED,
@@ -433,7 +499,7 @@ class BookingJourneyAdapter(
                 )
             }
         }
-        return list
+        return Pair(list, anyInProgress)
     }
 
     fun showHTMLText(message: String?): Spanned {

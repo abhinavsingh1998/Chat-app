@@ -124,6 +124,9 @@ class HoablPromises : BaseFragment() {
                 }
 
             })
+        binding.listPromises.setHasFixedSize(true)
+        binding.listPromises.setItemViewCacheSize(10)
+        binding.listPromises.isNestedScrollingEnabled = false
     }
 
     private fun initViews() {

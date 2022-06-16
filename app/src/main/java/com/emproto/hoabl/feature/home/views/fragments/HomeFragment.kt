@@ -306,7 +306,6 @@ class HomeFragment : BaseFragment() {
                                     0,
                                     false
                                 )
-                                Toast.makeText(context, "Chat bot", Toast.LENGTH_SHORT).show()
                             }
                             linearLayoutManager = LinearLayoutManager(
                                 requireContext(),

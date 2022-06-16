@@ -251,7 +251,8 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                         //no enrollment
 
                     } else if (errorCode == BiometricPrompt.ERROR_HW_NOT_PRESENT) {
-                        setUpKeyGuardManager()
+                        setUpUI(true)
+                        //setUpKeyGuardManager()
                     } else {
                         setUpUI(true)
                     }

@@ -8,5 +8,6 @@ data class BookingStepsModel(
     val text: String,
     val description: String,
     val linkText: String,
-    val payment: Payment? = null
+    val data: Any? = null,
+    val disableLink: Boolean = false
 )
