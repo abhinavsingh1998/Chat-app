@@ -170,6 +170,7 @@ object Utility {
                 outputStream?.close()
             }
         } catch (e: IOException) {
+            Log.e("Error in file", e.localizedMessage )
             null
         }
     }
