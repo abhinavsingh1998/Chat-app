@@ -289,7 +289,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectPriceTrendsViewHolder(private val binding: PriceTrendsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvRating.text = data.generalInfoEscalationGraph.estimatedAppreciation.toString()+"%"
+            binding.tvRating.text = String.format("%.0f",data.generalInfoEscalationGraph.estimatedAppreciation)+"%"
             binding.tvXAxisLabel.text = data.generalInfoEscalationGraph.yAxisDisplayName
             binding.tvYAxisLabel.text = data.generalInfoEscalationGraph.xAxisDisplayName
             val graphData = data.generalInfoEscalationGraph.dataPoints.points

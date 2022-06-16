@@ -1,91 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="@dimen/margin_size_4">
+    android:id="@+id/cv_location_infrastructure_card"
+    android:layout_width="165dp"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/margin_size_7"
+    android:layout_marginStart="@dimen/margin_size_6"
+    android:layout_marginEnd="@dimen/margin_size_5"
+    android:outlineSpotShadowColor="#ababab"
+    app:cardCornerRadius="@dimen/margin_size_6"
+    app:cardElevation="4dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cv_location_infrastructure_card"
-        android:layout_width="165dp"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/margin_size_3"
-        android:layout_marginStart="@dimen/margin_size_4"
-        android:layout_marginEnd="@dimen/margin_size_1"
-        app:cardElevation="@dimen/_3sdp"
-        app:cardCornerRadius="@dimen/margin_size_8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/iv_location_image"
+            android:layout_width="@dimen/margin_size_30"
+            android:layout_height="@dimen/margin_size_30"
+            android:layout_marginHorizontal="@dimen/margin_size_12"
+            android:src="@drawable/hospital_symbol"
+            app:layout_constraintBottom_toBottomOf="@id/tv_location_duration"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_location_name" />
 
-            <ImageView
-                android:id="@+id/iv_location_image"
-                android:layout_width="@dimen/margin_size_30"
-                android:layout_height="@dimen/margin_size_30"
-                android:layout_marginHorizontal="@dimen/margin_size_12"
-                android:src="@drawable/hospital_symbol"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_location_name"
-                app:layout_constraintBottom_toBottomOf="@id/tv_location_duration"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_location_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_size_8"
+            android:layout_marginTop="@dimen/margin_size_17"
+            android:fontFamily="@font/jost_bold"
+            android:text="Hospital"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintBottom_toTopOf="@id/tv_location_duration"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_location_image"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_location_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/jost_bold"
-                android:textSize="@dimen/text_size_14"
-                android:textColor="@color/text_color"
-                android:text="Hospital"
-                android:layout_marginTop="@dimen/margin_size_17"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginHorizontal="@dimen/margin_size_8"
-                app:layout_constraintStart_toEndOf="@id/iv_location_image"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/tv_location_duration"
-                />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_location_duration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_size_8"
+            android:layout_marginTop="@dimen/margin_size_6"
+            android:layout_marginEnd="@dimen/margin_size_8"
+            android:layout_marginBottom="@dimen/margin_size_16"
+            android:fontFamily="@font/jost_regular"
+            android:text="5 Min"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_location_distance"
+            app:layout_constraintStart_toStartOf="@id/tv_location_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_location_name" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_location_duration"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/jost_regular"
-                android:textSize="@dimen/text_size_14"
-                android:textColor="@color/text_color"
-                android:text="5 Min"
-                android:layout_marginBottom="@dimen/margin_size_16"
-                android:layout_marginTop="@dimen/margin_size_6"
-                android:layout_marginHorizontal="@dimen/margin_size_8"
-                app:layout_constraintStart_toStartOf="@id/tv_location_name"
-                app:layout_constraintTop_toBottomOf="@id/tv_location_name"
-                android:layout_marginEnd="@dimen/margin_size_8"
-                app:layout_constraintEnd_toStartOf="@id/tv_location_distance"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_location_distance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_size_8"
+            android:layout_marginEnd="@dimen/margin_size_8"
+            android:layout_marginBottom="@dimen/margin_size_16"
+            android:fontFamily="@font/jost_regular"
+            android:text="2.5 Km"
+            android:textAlignment="textEnd"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_14"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_location_duration"
+            app:layout_constraintTop_toTopOf="@id/tv_location_duration" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_location_distance"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/jost_regular"
-                android:textSize="@dimen/text_size_14"
-                android:textColor="@color/text_color"
-                android:text="2.5 Km"
-                android:textAlignment="textEnd"
-                android:layout_marginBottom="@dimen/margin_size_16"
-                android:layout_marginHorizontal="@dimen/margin_size_8"
-                app:layout_constraintStart_toEndOf="@id/tv_location_duration"
-                app:layout_constraintTop_toTopOf="@id/tv_location_duration"
-                android:layout_marginEnd="@dimen/margin_size_8"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

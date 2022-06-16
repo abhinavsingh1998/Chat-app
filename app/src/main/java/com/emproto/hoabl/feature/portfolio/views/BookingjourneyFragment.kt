@@ -54,6 +54,7 @@ class BookingjourneyFragment : BaseFragment() {
     val permissionRequest: MutableList<String> = ArrayList()
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     var isReadPermissonGranted: Boolean = false
+    var isWritePermissonGranted: Boolean = false
     var base64Data: String = ""
 
     lateinit var dialogRegistrationDetailsBinding: DialogRegistrationDetailsBinding
@@ -100,7 +101,10 @@ class BookingjourneyFragment : BaseFragment() {
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 isReadPermissonGranted =
                     permissions[Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissonGranted
-                if (isReadPermissonGranted) {
+                isWritePermissonGranted = permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE]
+                    ?: isWritePermissonGranted
+
+                if (isReadPermissonGranted && isWritePermissonGranted) {
                     openPdf(base64Data)
                 }
             }
@@ -248,7 +252,12 @@ class BookingjourneyFragment : BaseFragment() {
             Manifest.permission.READ_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
 
-        if (!isReadPermissonGranted) {
+        isWritePermissonGranted = ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if (!isReadPermissonGranted || !isWritePermissonGranted) {
             permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
             permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         } else {

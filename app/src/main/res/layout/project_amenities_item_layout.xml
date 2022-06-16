@@ -1,54 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv_pa_first_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_marginStart="@dimen/margin_size_8"
+    android:layout_marginTop="@dimen/margin_size_8"
+    android:layout_marginEnd="@dimen/margin_size_2"
+    android:layout_marginBottom="@dimen/margin_size_4"
+    app:cardCornerRadius="@dimen/margin_size_6"
+    app:cardElevation="@dimen/margin_size_4"
+    android:outlineSpotShadowColor="#ababab"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_pa_first_card"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_size_8"
-        android:layout_marginStart="@dimen/margin_size_8"
-        android:layout_marginEnd="@dimen/margin_size_2"
-        android:layout_marginBottom="@dimen/margin_size_4"
-        app:cardCornerRadius="@dimen/margin_size_8"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/iv_pa_first_image"
+            android:layout_width="@dimen/margin_size_20"
+            android:layout_height="@dimen/margin_size_20"
+            android:layout_marginHorizontal="@dimen/margin_size_9"
+            android:layout_marginVertical="@dimen/margin_size_8"
+            android:src="@drawable/golf"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/iv_pa_first_image"
-                android:layout_width="@dimen/margin_size_20"
-                android:layout_height="@dimen/margin_size_20"
-                android:layout_marginHorizontal="@dimen/margin_size_9"
-                android:layout_marginVertical="@dimen/margin_size_8"
-                android:src="@drawable/golf"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_pa_first_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_size_8"
+            android:layout_marginVertical="@dimen/margin_size_10"
+            android:fontFamily="@font/jost_regular"
+            android:text="Club House"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_pa_first_image"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_pa_first_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_size_8"
-                android:fontFamily="@font/jost_regular"
-                android:text="Club House"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_14"
-                android:layout_marginVertical="@dimen/margin_size_10"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iv_pa_first_image"
-                app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
 
-    </androidx.cardview.widget.CardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
