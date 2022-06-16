@@ -372,7 +372,8 @@ class EditProfileFragment : Fragment() {
 
     private fun updateLable(myCalendar: Calendar) {
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH)
-        binding.tvDatePicker.setText(sdf.format(myCalendar.timeZone))
+        var dateSelected=sdf.format(myCalendar.time)
+        binding.tvDatePicker.setText(dateSelected.substring(0,10))
     }
 
 
