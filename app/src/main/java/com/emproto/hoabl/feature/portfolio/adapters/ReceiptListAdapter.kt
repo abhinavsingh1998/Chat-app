@@ -6,13 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemAccountsPaymentBinding
+import com.emproto.networklayer.response.bookingjourney.PaymentHistory
 import com.emproto.networklayer.response.profile.AccountsResponse
 
 class ReceiptListAdapter(
     private var mContext: Context?,
-    private var accountsPaymentList: ArrayList<String>,
+    private var accountsPaymentList: List<PaymentHistory>,
     private var mListener: OnPaymentItemClickListener
 
 ) : RecyclerView.Adapter<ReceiptListAdapter.ViewHolder>() {
@@ -34,9 +36,10 @@ class ReceiptListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        holder.tvPaidAmount.text = accountsPaymentList[position].paidAmount.toString()
-//        holder.tvProjectName.text = accountsPaymentList[position].projectName
-//        holder.tvPaymentDate.text=accountsPaymentList[position].paymentDate.substring(0,10)
+        holder.tvPaidAmount.text =
+            Utility.convertTo(accountsPaymentList[position].paidAmount)
+        holder.tvProjectName.text = accountsPaymentList[position].projectName
+        holder.tvPaymentDate.text = accountsPaymentList[position].paymentDate.substring(0, 10)
 
         holder.tvSeeReceipt.setOnClickListener {
             mListener.onAccountsPaymentItemClick("", it, position)
@@ -44,7 +47,7 @@ class ReceiptListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return accountsPaymentList.size
     }
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {

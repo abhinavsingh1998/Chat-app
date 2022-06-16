@@ -215,6 +215,7 @@ class BookingjourneyFragment : BaseFragment() {
                     }
 
                     override fun onClickAllReceipt() {
+                        portfolioviewmodel.setPaymentHistory(data.paymentHistory)
                         (requireActivity() as HomeActivity).addFragment(
                             ReceiptFragment.newInstance(
                                 "",

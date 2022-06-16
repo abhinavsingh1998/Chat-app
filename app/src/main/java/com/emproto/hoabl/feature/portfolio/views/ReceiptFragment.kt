@@ -67,14 +67,16 @@ class ReceiptFragment : BaseFragment() {
     }
 
     private fun initView() {
-        val list = ArrayList<String>()
         fragmentReceiptBinding.actionClose.setOnClickListener {
             (requireActivity() as HomeActivity).onBackPressed()
         }
+
+        val paymentHistory = portfolioviewmodel.getPaymentHistory()
+
         fragmentReceiptBinding.receiptList.layoutManager = LinearLayoutManager(requireContext())
         fragmentReceiptBinding.receiptList.adapter = ReceiptListAdapter(
             requireContext(),
-            list,
+            paymentHistory,
             object : ReceiptListAdapter.OnPaymentItemClickListener {
                 override fun onAccountsPaymentItemClick(
                     accountsPaymentList: String,

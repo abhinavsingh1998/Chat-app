@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.emproto.hoabl.repository.PortfolioRepository
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
+import com.emproto.networklayer.response.bookingjourney.PaymentHistory
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.portfolio.dashboard.Address
@@ -27,6 +28,7 @@ class PortfolioViewModel(
     private var portfolioData = MutableLiveData<PortfolioData>()
     private lateinit var projectDetails: ProjectExtraDetails
     private lateinit var investmentInfo: InvestmentInformation
+    private lateinit var paymentHistory: List<PaymentHistory>
 
     fun getPortfolioDashboard(refresh: Boolean): LiveData<BaseResponse<PortfolioData>> {
         return portfolioRepository.getPortfolioDashboard(refresh)
@@ -48,12 +50,20 @@ class PortfolioViewModel(
         return this.projectDetails
     }
 
-    fun setInvestmentInfo(investementInfo:InvestmentInformation) {
+    fun setInvestmentInfo(investementInfo: InvestmentInformation) {
         this.investmentInfo = investementInfo
     }
 
     fun getInvestmentInfo(): InvestmentInformation {
         return this.investmentInfo
+    }
+
+    fun setPaymentHistory(history: List<PaymentHistory>) {
+        this.paymentHistory = history
+    }
+
+    fun getPaymentHistory(): List<PaymentHistory> {
+        return this.paymentHistory
     }
 
     fun getInvestmentDetails(
