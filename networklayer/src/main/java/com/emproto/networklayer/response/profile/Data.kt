@@ -9,7 +9,7 @@ import java.io.Serializable
         @SerializedName("contactType")
         val contactType: String,
         @SerializedName("country")
-        val country: String?,
+        val country: String,
         @SerializedName("countryCode")
         val countryCode: String,
         @SerializedName("createdAt")

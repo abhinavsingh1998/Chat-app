@@ -28,7 +28,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.loader.content.CursorLoader
@@ -38,7 +37,6 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentEditProfileBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
@@ -61,9 +59,11 @@ import android.provider.DocumentsContract
 import android.content.ContentUris
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.core.content.FileProvider
+import com.emproto.core.BaseFragment
+import com.emproto.hoabl.viewmodels.ProfileViewModel
 
 
-class EditProfileFragment : Fragment() {
+class EditProfileFragment : BaseFragment() {
     val bundle = Bundle()
     var charSequence1: Editable? = null
     var charSequence2: Editable? = null
@@ -529,24 +529,24 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun callingUploadPicApi(destinationFile: File) {
-        profileViewModel.uploadProfilePicture(destinationFile, destinationFile.name)
-            .observe(viewLifecycleOwner, object : Observer<BaseResponse<ProfilePictureResponse>> {
-                override fun onChanged(it: BaseResponse<ProfilePictureResponse>?) {
-                    when (it?.status) {
-                        Status.LOADING -> {
-                            binding.progressBaar.show()
-                        }
-                        Status.SUCCESS -> {
-                            binding.progressBaar.hide()
-                        }
-                        Status.ERROR -> {
-                            binding.progressBaar.hide()
-                        }
-                    }
-                }
-
-
-            })
+//        profileViewModel.uploadProfilePicture(destinationFile, destinationFile.name)
+//            .observe(viewLifecycleOwner, object : Observer<BaseResponse<ProfilePictureResponse>> {
+//                override fun onChanged(it: BaseResponse<ProfilePictureResponse>?) {
+//                    when (it?.status) {
+//                        Status.LOADING -> {
+//                            binding.progressBaar.show()
+//                        }
+//                        Status.SUCCESS -> {
+//                            binding.progressBaar.hide()
+//                        }
+//                        Status.ERROR -> {
+//                            binding.progressBaar.hide()
+//                        }
+//                    }
+//                }
+//
+//
+//            })
     }
 
     private fun onSelectFromGalleryResult(data: Intent) {
