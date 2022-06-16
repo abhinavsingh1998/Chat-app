@@ -21,6 +21,7 @@ import com.emproto.hoabl.feature.portfolio.views.DocViewerFragment
 import com.emproto.hoabl.feature.profile.adapter.accounts.AccountsDocumentLabelListAdapter
 import com.emproto.hoabl.feature.profile.adapter.accounts.AccountsPaymentListAdapter
 import com.emproto.hoabl.feature.profile.adapter.accounts.AccountsKycListAdapter
+import com.emproto.hoabl.feature.profile.adapter.accounts.AllDocumentAdapter
 import com.emproto.hoabl.utils.Extensions.toData
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
@@ -32,7 +33,8 @@ import javax.inject.Inject
 
 class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClickListener,
     AccountsDocumentLabelListAdapter.OnDocumentLabelItemClickListener,
-    AccountsPaymentListAdapter.OnPaymentItemClickListener {
+    AccountsPaymentListAdapter.OnPaymentItemClickListener,
+    AllDocumentAdapter.OnDocumentLabelClickListener {
 
     @Inject
     lateinit var homeFactory: HomeFactory
@@ -176,22 +178,16 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
             docsBottomSheet.show()
             documentBinding.rvDocsItemRecycler.layoutManager =
                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-            val list = ArrayList<Data>()
-            for(item in allKycList){
-                item.toData()?.let { it1 -> list.add(it1) }
-            }
-            binding.rvDocuments.adapter = DocumentsAdapter(list,false,
-                documentClickListener
+            documentBinding.rvDocsItemRecycler.adapter = AllDocumentAdapter(
+                context,
+                allKycList,
+                this
             )
+
+
         }
     }
 
-    val documentClickListener = object : DocumentInterface{
-        override fun onclickDocument(position: Int) {
-
-        }
-
-    }
 
     override fun onAccountsKycItemClick(
         accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
@@ -238,6 +234,15 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
             DocViewerFragment.newInstance(true, "Test.ong"),
             false
         )
+    }
+
+    override fun onAccountsDocumentLabelClick(
+        accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
+        view: View,
+        position: Int
+    ) {
+        docsBottomSheet.dismiss()
+        openDocument(position)
     }
 
 

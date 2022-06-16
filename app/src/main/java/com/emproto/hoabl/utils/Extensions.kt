@@ -90,15 +90,4 @@ object Extensions {
         updatedBy = updatedBy
     )
 
-    fun AccountsResponse.Data.Document.toData() = documentCategory?.let {
-        com.emproto.networklayer.response.documents.Data(
-            documentCategory = it,
-            documentType = documentType,
-            id = id,
-            link = "",
-            name = name,
-            projectId=projectId,
-            userId= userId as String
-        )
-    }
 }
