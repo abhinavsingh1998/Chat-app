@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_color">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/shape2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/back_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_14"
+            android:layout_marginTop="@dimen/margin_size_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_path"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_Account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/jost_medium"
+                android:text="FAQ"
+                android:textColor="@color/app_color"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/imgArrow"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clSearch"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/search_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/back_action">
+
+            <ImageView
+                android:id="@+id/ivSearch"
+                android:layout_width="14dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/search"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/etSearch"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="6dp"
+                android:background="@null"
+                android:fontFamily="@font/jost_regular"
+                android:hint="Search"
+                android:letterSpacing="-0.02"
+                android:textColor="#85869f"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivSearch"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_Popular"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_size_30"
+            android:fontFamily="@font/jost_regular"
+            android:lineSpacingExtra="0sp"
+            android:text="Popular Categories"
+            android:textColor="#17171c"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/clSearch"
+            app:layout_constraintTop_toBottomOf="@+id/clSearch" />
+
+        <TextView
+            android:id="@+id/tv_seeAll"
+            style="@style/text_style_blue_12"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_size_148"
+            android:layout_marginTop="@dimen/margin_size_30"
+            android:layout_marginEnd="@dimen/margin_size_6"
+            android:fontFamily="@font/jostmedium"
+            android:text="@string/see_all"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_Popular"
+            app:layout_constraintTop_toBottomOf="@+id/view_search" />
+
+        <ImageView
+            android:id="@+id/imageView_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_10"
+            android:layout_marginTop="@dimen/margin_size_35"
+            android:src="@drawable/rightarrow"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/tv_seeAll"
+            app:layout_constraintTop_toBottomOf="@+id/view_search" />
+
+
+        <View
+            android:id="@+id/view_faq"
+            android:layout_width="107dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="@dimen/margin_size_13"
+            android:layout_marginTop="@dimen/margin_size_14"
+            android:background="@drawable/faq"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Popular" />
+
+        <TextView
+            android:id="@+id/tv_general"
+            style="@style/text_style_text_color_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="11dp"
+            android:fontFamily="@font/jost_medium"
+            android:text="@string/general"
+            app:layout_constraintBottom_toBottomOf="@+id/view_faq"
+            app:layout_constraintStart_toStartOf="@+id/view_faq"
+            app:layout_constraintTop_toTopOf="@+id/view_faq" />
+
+        <View
+            android:id="@+id/view_investment"
+            android:layout_width="107dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="@dimen/margin_size_20"
+            android:layout_marginTop="@dimen/margin_size_12"
+            android:background="@drawable/faq"
+            app:layout_constraintStart_toEndOf="@+id/view_faq"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Popular" />
+
+        <TextView
+            android:id="@+id/tv_investment"
+            style="@style/text_style_text_color_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="33dp"
+            android:layout_marginBottom="11dp"
+            android:fontFamily="@font/jostmedium"
+            android:text="@string/investment"
+            app:layout_constraintBottom_toBottomOf="@+id/view_investment"
+            app:layout_constraintEnd_toEndOf="@+id/view_investment"
+            app:layout_constraintStart_toStartOf="@+id/view_investment"
+            app:layout_constraintTop_toTopOf="@+id/view_investment" />
+
+        <View
+            android:id="@+id/view_Payments"
+            android:layout_width="107dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="@dimen/margin_size_8"
+            android:layout_marginTop="@dimen/margin_size_14"
+            android:background="@drawable/faq"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/view_investment"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Popular" />
+
+        <TextView
+            android:id="@+id/tv_payments"
+            style="@style/text_style_text_color_14"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="11dp"
+            android:fontFamily="@font/jostmedium"
+            android:text="@string/payments"
+            app:layout_constraintBottom_toBottomOf="@+id/view_Payments"
+            app:layout_constraintEnd_toEndOf="@+id/view_Payments"
+            app:layout_constraintStart_toStartOf="@+id/view_Payments"
+            app:layout_constraintTop_toTopOf="@+id/view_Payments" />
+
+        <View
+            android:id="@+id/line_view2"
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_marginTop="@dimen/margin_size_20"
+            android:background="#eeeeee"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_faq" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/line_view2">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvHelpCenterCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_Category"
+                    tools:itemCount="4"
+                    tools:listitem="@layout/item_faq_category" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/loader"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

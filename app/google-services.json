@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "214198870691",
+    "project_id": "hoablandroid",
+    "storage_bucket": "hoablandroid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:214198870691:android:4b03543092951afb3f1516",
+        "android_client_info": {
+          "package_name": "com.emproto.hoabl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "214198870691-639kmjhc72a3pea457ubgg1c9e9jgnpf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRudDu-BeA0N9WLdb5aJaAqqAKHaOU-Go"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "214198870691-639kmjhc72a3pea457ubgg1c9e9jgnpf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

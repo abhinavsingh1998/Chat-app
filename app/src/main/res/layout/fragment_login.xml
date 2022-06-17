@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout_1"
+    android:background="@color/app_color">
+
+    <ImageView
+        android:id="@+id/header_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_size_100"
+        android:layout_marginTop="@dimen/margin_size_33"
+        android:layout_marginRight="@dimen/margin_size_100"
+        android:background="@drawable/ic_logo_white"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_size_30"
+        android:background="@drawable/homescreen_curve"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_text">
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/tv_login"
+            style="@style/text_style_blue_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_size_28"
+            android:layout_marginTop="@dimen/margin_size_55"
+            android:layout_marginRight="@dimen/margin_size_28"
+            android:text="@string/login"
+            app:fontName="@string/montserrat_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/layout_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_login">
+
+            <com.emproto.core.customedittext.CustomEdittext
+                android:id="@+id/input_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_28"
+                android:layout_marginTop="@dimen/margin_size_40"
+                android:layout_marginEnd="@dimen/margin_size_28"
+                app:hintText="@string/enter_your_phonenumber"
+                app:placeholdertext="@string/type_here" />
+
+
+        </LinearLayout>
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/otp_text"
+            style="@style/text_style_lightgrey_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_size_28"
+            android:layout_marginTop="@dimen/margin_size_10"
+            android:text="OTP will be sent to this number to verify your account."
+            app:fontName="@string/jost_medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_edittext" />
+
+        <com.emproto.core.textviews.CustomTextView
+            android:visibility="gone"
+            android:id="@+id/text"
+            style="@style/text_style_lightgrey_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_2sdp"
+            android:layout_marginTop="@dimen/margin_size_10"
+            android:text="@string/sent_otp"
+            app:fontName="@string/jost_regular"
+            app:layout_constraintStart_toEndOf="@id/otp_text"
+            app:layout_constraintTop_toBottomOf="@id/layout_edittext" />
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/text_error"
+            style="@style/text_style_lightgrey_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_size_10"
+            android:layout_marginEnd="28dp"
+            android:text="Please enter a valid phone number"
+            android:textAlignment="center"
+            android:textColor="@color/error_color"
+            android:visibility="gone"
+            app:fontName="@string/jost_regular"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_edittext" />
+
+        <LinearLayout
+            android:id="@+id/switch_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_13sdp"
+            android:gravity="start|center"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/otp_text">
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_whatspp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:thumb="@drawable/custom_thumb"
+                app:track="@drawable/custom_track" />
+
+            <TextView
+                android:id="@+id/tv_switch"
+                style="@style/text_style_lightgrey_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_8"
+                android:fontFamily="@font/jost_regular"
+                android:text="@string/whatsapp" />
+
+        </LinearLayout>
+
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/getOtp_button"
+            style="@style/text_style_white_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/unselect_button_bg"
+            android:clickable="false"
+            android:drawableRight="@drawable/ic_baseline_arrow_right"
+            android:drawablePadding="@dimen/_2sdp"
+            android:enabled="false"
+            android:paddingStart="@dimen/margin_size_45"
+            android:paddingTop="@dimen/margin_size_12"
+            android:paddingEnd="@dimen/margin_size_45"
+            android:paddingBottom="@dimen/margin_size_12"
+            android:text="@string/get_otp"
+            android:textAlignment="center"
+            app:fontName="@string/jost_medium"
+            android:layout_marginTop="@dimen/margin_size_60"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/switch_layout" />
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/text_terms"
+            style="@style/text_style_text_color_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_28"
+            android:layout_marginTop="@dimen/margin_size_20"
+            android:layout_marginEnd="@dimen/margin_size_28"
+            android:layout_marginBottom="65dp"
+            android:text="@string/login_terms_text"
+            app:fontName="@string/jost_regular"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/getOtp_button" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_size_60"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/getOtp_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/getOtp_button" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

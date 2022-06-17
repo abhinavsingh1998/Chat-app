@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_color">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_size_55"
+        android:layout_marginBottom="@dimen/margin_size_55"
+        android:background="@drawable/shape2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:id="@+id/back_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_14"
+            android:layout_marginTop="@dimen/margin_size_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/arrowimage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_path" />
+
+            <TextView
+                android:id="@+id/edit_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_16"
+                android:textColor="@color/app_color"
+                android:textSize="18sp"
+                android:layout_toRightOf="@+id/arrowimage"
+                android:fontFamily="@font/jost_medium"
+                android:text="@string/securityandsetting" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/security_tv"
+            style="@style/text_style_color_18"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_14"
+            android:layout_marginTop="@dimen/margin_size_27"
+            android:fontFamily="@font/jostregular"
+            android:text="Security"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/back_action" />
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/button_View"
+            style="@style/text_style_white_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_40"
+            android:layout_marginTop="@dimen/margin_size_24"
+            android:layout_marginEnd="@dimen/margin_size_40"
+            android:background="@drawable/red"
+            android:drawableLeft="@drawable/ic_siren"
+            android:drawableRight="@drawable/arrow_right_"
+            android:fontFamily="@font/jost_regular"
+            android:gravity="center_horizontal|center"
+            android:paddingLeft="@dimen/margin_size_10"
+            android:paddingTop="@dimen/margin_size_10"
+            android:paddingRight="@dimen/margin_size_10"
+            android:paddingBottom="@dimen/margin_size_12"
+            android:text="@string/report_a_security_emergency"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/security_tv" />
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="#E3E1E1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_View" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvHelpCenter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_line">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+

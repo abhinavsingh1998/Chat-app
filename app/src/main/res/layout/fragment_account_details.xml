@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_color">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/shape2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <RelativeLayout
+            android:id="@+id/back_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="@dimen/margin_size_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/arrowimage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_path" />
+
+            <TextView
+                android:id="@+id/edit_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_toRightOf="@+id/arrowimage"
+                android:fontFamily="@font/jost_medium"
+                android:text="@string/my_accounts"
+                android:textSize="18sp"
+                android:textColor="@color/app_color"/>
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/back_action">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvKyc"
+                    style="@style/text_style_text_color_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_size_16"
+                    android:layout_marginTop="@dimen/margin_size_26"
+                    android:fontFamily="@font/jost_regular"
+                    android:text="@string/kyc"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvKyc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:paddingBottom="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvKyc"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_accounts_kyc_doc" />
+
+                <TextView
+                    android:id="@+id/tv_Doc"
+                    style="@style/text_style_text_color_16"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_size_16"
+                    android:layout_marginTop="@dimen/margin_size_30"
+                    android:fontFamily="@font/jostregular"
+                    android:text="@string/documents"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rvKyc" />
+
+
+                <com.emproto.core.textviews.CustomTextView
+                    android:id="@+id/tvSeeAllDocuments"
+                    style="@style/text_style_blue_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_size_16"
+                    android:layout_marginStart="@dimen/margin_size_16"
+                    android:layout_marginTop="40dp"
+                    android:drawableEnd="@drawable/ic_black_long_rightarrow"
+                    android:drawablePadding="@dimen/margin_size_4"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:singleLine="true"
+                    android:text="@string/see_all"
+                    app:fontName="@string/jost_regular"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rvKyc" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvDocuments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:paddingBottom="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_Doc"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_accounts_kyc_doc" />
+
+
+                <TextView
+                    android:id="@+id/tvPaymentHistory"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_size_16"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/jost_regular"
+                    android:lineSpacingExtra="0sp"
+                    android:text="Payment History"
+                    android:textColor="#16161c"
+                    android:textSize="16sp"
+                    android:singleLine="true"
+                    android:textStyle="normal"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rvDocuments" />
+
+                <com.emproto.core.textviews.CustomTextView
+                    android:id="@+id/tvSeeAllPayment"
+                    style="@style/text_style_blue_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_size_16"
+                    android:layout_marginStart="@dimen/margin_size_16"
+                    android:layout_marginTop="40dp"
+                    android:drawableEnd="@drawable/ic_black_long_rightarrow"
+                    android:drawablePadding="@dimen/margin_size_4"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:singleLine="true"
+                    android:text="@string/see_all"
+                    app:fontName="@string/jost_regular"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rvDocuments" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvPaymentHistory"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPaymentHistory"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_accounts_payment"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

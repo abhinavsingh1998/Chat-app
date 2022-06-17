@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/kyc_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        android:layout_marginHorizontal="@dimen/margin_size_16"
+        app:cardElevation="@dimen/margin_size_4"
+        app:cardCornerRadius="@dimen/margin_size_8"
+        app:cardUseCompatPadding="true"
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/margin_size_12">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/image_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_12"
+                android:elevation="1dp"
+                app:cardBackgroundColor="#fff4bc"
+                app:cardCornerRadius="12dp"
+                android:layout_marginStart="@dimen/margin_size_18"
+                android:layout_marginEnd="177dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingVertical="@dimen/margin_size_3">
+
+                    <ImageView
+                        android:id="@+id/action_info_img"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/yello_info"
+                        android:layout_marginStart="@dimen/margin_size_7"
+                        android:layout_marginEnd="@dimen/margin_size_7"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/view"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/view"
+                        android:layout_width="1.2dp"
+                        android:layout_height="20dp"
+                        android:background="#C5B874"
+                        android:layout_marginHorizontal="@dimen/margin_size_7"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/action_info_img"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.emproto.core.textviews.CustomTextView
+                        android:id="@+id/action_required"
+                        style="@style/text_style_gold_color_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_size_7"
+                        android:layout_marginRight="@dimen/margin_size_7"
+                        android:fontFamily="@font/jostmedium"
+                        android:text="Action Required"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/view"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <com.emproto.core.textviews.CustomTextView
+                android:id="@+id/see_all_pending_payment"
+                style="@style/text_style_thick_blue_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_15"
+                android:layout_marginEnd="@dimen/margin_size_14"
+                android:drawableRight="@drawable/ic_blue_right_arrow"
+                android:drawablePadding="@dimen/margin_size_6"
+                android:singleLine="true"
+                android:text="@string/see_all"
+                app:fontName="@string/jost_regular"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <com.emproto.core.textviews.CustomTextView
+                android:id="@+id/pending_kyc"
+                style="@style/text_style_text_black_color_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_15"
+                android:layout_marginEnd="@dimen/margin_size_80"
+                android:drawablePadding="@dimen/margin_size_6"
+                android:fontFamily="@font/jost_medium"
+                android:gravity="start|center"
+                android:text="@string/payment_pending"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/image_card"
+                app:layout_constraintTop_toBottomOf="@+id/image_card" />
+
+            <com.emproto.core.textviews.CustomTextView
+                android:id="@+id/upload_kyc_statement"
+                style="text_style_text_black_color_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_8"
+                android:layout_marginBottom="@dimen/margin_size_10"
+                android:layout_marginEnd="@dimen/margin_size_24"
+                android:gravity="start|center"
+                android:text="@string/please_complete_payment"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/pending_kyc"
+                app:layout_constraintTop_toBottomOf="@id/pending_kyc" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

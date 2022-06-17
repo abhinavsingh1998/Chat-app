@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_ongoing_investment_title"
+        style="@style/text_style_text_light_black_color_18"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_size_12"
+        android:layout_marginTop="@dimen/margin_size_30"
+        android:fontFamily="@font/jost_regular"
+        android:text="Ongoing Investments"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_ongoing_investment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_size_21"
+        android:layout_marginTop="@dimen/margin_size_14"
+        app:cardCornerRadius="@dimen/margin_size_6"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_ongoing_investment_title">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/ash_background_color">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_ongoing_info"
+                style="@style/text_style_light_grey_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_size_12"
+                android:layout_marginVertical="@dimen/margin_size_18"
+                android:fontFamily="@font/jost_regular"
+                android:text="You have no ongoing investment Select amongst the best investment products now."
+                android:textAlignment="textStart"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/view_ongoing_curve"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <View
+                android:id="@+id/view_ongoing_curve"
+                android:layout_width="110dp"
+                android:layout_height="0dp"
+                android:background="@drawable/left_bigger_corner_radius_bg"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_oi_invest_now"
+                style="@style/text_style_text_black_color_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jost_medium"
+                android:drawablePadding="@dimen/_4sdp"
+                android:drawableEnd="@drawable/rightarrow"
+                android:text="@string/invest_now"
+                app:layout_constraintBottom_toBottomOf="@id/view_ongoing_curve"
+                app:layout_constraintEnd_toEndOf="@id/view_ongoing_curve"
+                app:layout_constraintStart_toStartOf="@id/view_ongoing_curve"
+                app:layout_constraintTop_toTopOf="@id/view_ongoing_curve" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_ongoing_investment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cv_ongoing_investment"
+        tools:itemCount="1"
+        tools:listitem="@layout/item_completed_investments" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

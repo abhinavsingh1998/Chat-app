@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/top_corner_bg"
+    tools:context=".feature.portfolio.views.PortfolioNewUserFragment">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/portfolio_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/financial_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:nestedScrollingEnabled="false"
+                android:orientation="vertical"
+                android:visibility="gone" />
+        </androidx.core.widget.NestedScrollView>
+
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/no_user_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/homescreen_curve"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/portfolio_top_img"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_size_18"
+            android:layout_marginTop="@dimen/margin_size_67"
+            android:layout_marginRight="@dimen/margin_size_18"
+            android:src="@drawable/portfolio_add_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/add_you_project"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_100"
+            android:layout_marginTop="@dimen/margin_size_50"
+            android:layout_marginEnd="@dimen/margin_size_100"
+            android:fontFamily="@font/jost_medium"
+            android:text="@string/add_your_first_project"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_20"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/portfolio_top_img" />
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/instriction"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_size_50"
+            android:layout_marginTop="@dimen/margin_size_12"
+            android:layout_marginRight="@dimen/margin_size_50"
+            android:fontFamily="@font/jost_regular"
+            android:text="@string/instriction_txt"
+            android:textAlignment="center"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_16"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_you_project" />
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/btn_explore_new_investment_project"
+            style="@style/text_style_white_16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_25"
+            android:layout_marginTop="@dimen/margin_size_67"
+            android:layout_marginEnd="@dimen/margin_size_25"
+            android:layout_marginBottom="@dimen/margin_size_65"
+            android:background="@drawable/button_bg"
+            android:drawableStart="@drawable/profit"
+            android:drawableEnd="@drawable/ic_baseline_arrow_right"
+            android:paddingStart="@dimen/margin_size_45"
+            android:paddingTop="@dimen/margin_size_12"
+            android:paddingEnd="@dimen/margin_size_45"
+            android:paddingBottom="@dimen/margin_size_12"
+            android:text="Explore New Investment Projects"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_size_15"
+            app:fontName="@font/jost_medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/instriction" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/progress_baar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/app_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

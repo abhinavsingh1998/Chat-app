@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_outer_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_size_6"
+        android:layout_marginVertical="@dimen/margin_size_4"
+        app:cardCornerRadius="@dimen/margin_size_8"
+        android:outlineSpotShadowColor="#ababab"
+        app:cardElevation="@dimen/margin_size_4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_story_image"
+                android:layout_width="@dimen/margin_size_200"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/margin_size_8"
+                android:layout_marginHorizontal="@dimen/margin_size_4"
+                android:layout_marginTop="@dimen/margin_size_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/iv_story_image"
+                        android:layout_width="@dimen/margin_size_200"
+                        android:layout_height="@dimen/margin_size_190"
+                        android:scaleType="fitXY"
+                        tools:src="@drawable/img"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_image_name"
+                        style="@style/text_style_white_14"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/bottom_bg_color"
+                        android:background="@drawable/bottom_corner_radius_bg"
+                        android:fontFamily="@font/jost_regular"
+                        android:paddingVertical="@dimen/margin_size_6"
+                        android:paddingHorizontal="@dimen/margin_size_12"
+                        android:textAlignment="textStart"
+                        android:text="Navi Mumbai Airport"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/iv_story_image"
+                        app:layout_constraintStart_toStartOf="@id/iv_story_image" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_image_info"
+                style="@style/text_style_black_color_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_size_8"
+                android:layout_marginTop="@dimen/margin_size_8"
+                android:layout_marginBottom="@dimen/margin_size_10"
+                android:fontFamily="@font/jost_light"
+                android:maxLines="3"
+                android:lines="3"
+                android:ellipsize="end"
+                android:text="Neque porro quisquam estp qui dolorem ipsu porro quisquam estp qui ipsu.Neque porro quisquam estp qui dolorem."
+                android:textAlignment="textStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_story_image" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

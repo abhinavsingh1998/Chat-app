@@ -1,0 +1,997 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/margin_size_30">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/text_blue_color"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_main_top_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cv_small_top_image"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:layout_marginHorizontal="@dimen/margin_size_12"
+                        android:layout_marginTop="@dimen/margin_size_30"
+                        app:cardCornerRadius="@dimen/margin_size_4"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/iv_small_top_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@android:color/background_dark" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <LinearLayout
+                        android:id="@+id/text_address_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|top|center"
+                        android:layout_marginHorizontal="@dimen/margin_size_8"
+                        android:gravity="start|top|center"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="@id/cv_small_top_image"
+                        app:layout_constraintStart_toEndOf="@id/cv_small_top_image"
+                        app:layout_constraintTop_toTopOf="@id/cv_small_top_image">
+
+                        <com.emproto.core.textviews.CustomTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/jost_regular"
+                            android:singleLine="true"
+                            android:text="Isle of Bliss"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/text_size_12"
+                            android:textStyle="bold" />
+
+                        <com.emproto.core.textviews.CustomTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pune, Maharashtra"
+                            android:textColor="@color/text_black_color"
+                            android:textSize="@dimen/text_size_10"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_bookmark_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_size_16"
+                        android:src="@drawable/ic_bookmark"
+                        app:layout_constraintBottom_toBottomOf="@id/cv_small_top_image"
+                        app:layout_constraintEnd_toStartOf="@id/iv_share_icon"
+                        app:layout_constraintTop_toTopOf="@id/cv_small_top_image" />
+
+                    <ImageView
+                        android:id="@+id/iv_share_icon"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginEnd="@dimen/margin_size_16"
+                        android:src="@drawable/ic_share"
+                        app:layout_constraintBottom_toBottomOf="@id/cv_small_top_image"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/cv_small_top_image" />
+
+                    <ImageView
+                        android:id="@+id/iv_view_image"
+                        android:layout_width="@dimen/margin_size_13"
+                        android:layout_height="@dimen/margin_size_12"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/margin_size_6"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_view"
+                        app:layout_constraintStart_toStartOf="@id/text_address_layout"
+                        app:layout_constraintTop_toBottomOf="@id/cv_small_top_image" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_view_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_size_3"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="6.5k"
+                        android:textColor="@color/text_blue_color"
+                        android:textSize="@dimen/text_size_10"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_view_image"
+                        app:layout_constraintStart_toEndOf="@id/iv_view_image"
+                        app:layout_constraintTop_toTopOf="@id/iv_view_image" />
+
+                    <ImageView
+                        android:id="@+id/iv_duration_image"
+                        android:layout_width="@dimen/margin_size_12"
+                        android:layout_height="@dimen/margin_size_12"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/margin_size_8"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_clock"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_view_image"
+                        app:layout_constraintStart_toEndOf="@id/tv_view_count"
+                        app:layout_constraintTop_toTopOf="@id/iv_view_image" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_duration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_size_3"
+                        android:fontFamily="@font/jost_bold"
+                        android:text="48:43:44 Hrs Left"
+                        android:textColor="@color/text_red_color"
+                        android:textSize="@dimen/text_size_10"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_duration_image"
+                        app:layout_constraintStart_toEndOf="@id/iv_duration_image"
+                        app:layout_constraintTop_toTopOf="@id/iv_duration_image" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_project_view_info"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_7"
+                        android:layout_marginTop="@dimen/margin_size_10"
+                        android:background="@drawable/left_corner_radius_bg"
+                        android:backgroundTint="@color/background_yellow_color"
+                        android:paddingHorizontal="@dimen/margin_size_18"
+                        android:paddingVertical="@dimen/margin_size_10"
+                        android:text="20 People saw this project in 7 days"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toStartOf="@id/tv_apply_now"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv_view_image" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_apply_now"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/margin_size_5"
+                        android:layout_marginEnd="@dimen/margin_size_7"
+                        android:background="@drawable/right_corner_radius_bg"
+                        android:backgroundTint="@color/black"
+                        android:paddingHorizontal="@dimen/margin_size_18"
+                        android:paddingVertical="@dimen/margin_size_10"
+                        android:text="Apply now"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_project_view_info"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_project_view_info"
+                        app:layout_constraintTop_toTopOf="@id/tv_project_view_info" />
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/project_detail_viewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/margin_size_200"
+                        android:layout_marginTop="10dp"
+                        android:paddingHorizontal="50dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_project_view_info" />
+
+                    <LinearLayout
+                        android:id="@+id/dot_linear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_10"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/project_detail_viewPager" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_location_information_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_size_12"
+                        android:layout_marginVertical="@dimen/margin_size_12"
+                        android:lineSpacingMultiplier="1.5"
+                        android:text="The Isle of Bliss is phase 2 of Codename Bliss Dapoli, a seaside lifestyle plotting development from The House of Abhinandan Lodha…READ MORE"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_12"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/dot_linear" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cv_price_range"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/margin_size_12"
+                        android:layout_marginStart="@dimen/margin_size_13"
+                        app:cardCornerRadius="@dimen/margin_size_8"
+                        app:layout_constraintEnd_toStartOf="@id/cv_area_range"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_location_information_text">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/project_detail_price_bg">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_price_range"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_size_16"
+                                android:layout_marginTop="@dimen/margin_size_10"
+                                android:fontFamily="@font/jost_bold"
+                                android:text="₹2L - ₹2CR"
+                                android:textSize="@dimen/text_size_18"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_price_range_text"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/margin_size_10"
+                                android:fontFamily="@font/jost_medium"
+                                android:text="Prize range"
+                                android:textColor="@color/text_brown_dark_color"
+                                android:textSize="@dimen/text_size_14"
+                                android:textStyle="italic"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="@id/tv_price_range"
+                                app:layout_constraintStart_toStartOf="@id/tv_price_range"
+                                app:layout_constraintTop_toBottomOf="@id/tv_price_range" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cv_area_range"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_10"
+                        android:layout_marginEnd="11dp"
+                        app:layout_constraintBottom_toBottomOf="@id/cv_price_range"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/cv_price_range"
+                        app:layout_constraintTop_toTopOf="@id/cv_price_range">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/project_detail_price_bg">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_area_range"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_size_16"
+                                android:layout_marginTop="@dimen/margin_size_10"
+                                android:fontFamily="@font/jost_bold"
+                                android:text="₹2k - ₹20k"
+                                android:textSize="@dimen/text_size_18"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_area_range_text"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/margin_size_10"
+                                android:fontFamily="@font/jost_medium"
+                                android:text="Area available"
+                                android:textColor="@color/text_brown_dark_color"
+                                android:textSize="@dimen/text_size_14"
+                                android:textStyle="italic"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="@id/tv_area_range"
+                                app:layout_constraintStart_toStartOf="@id/tv_area_range"
+                                app:layout_constraintTop_toBottomOf="@id/tv_area_range" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_opportunity_doc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_10"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="View Opportunity Document"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_10"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cv_price_range" />
+
+                    <ImageView
+                        android:id="@+id/iv_iv_opportunity_doc_arrow"
+                        android:layout_width="@dimen/margin_size_14"
+                        android:layout_height="@dimen/margin_size_7"
+                        android:layout_marginStart="@dimen/margin_size_4"
+                        android:src="@drawable/ic_arrow_forward_black"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_opportunity_doc"
+                        app:layout_constraintStart_toEndOf="@id/tv_opportunity_doc"
+                        app:layout_constraintTop_toTopOf="@id/tv_opportunity_doc" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_view_map_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_28"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="View on Map"
+                        android:textColor="@color/text_light_black_color"
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintStart_toStartOf="@id/cv_price_range"
+                        app:layout_constraintTop_toBottomOf="@id/tv_opportunity_doc" />
+
+                    <ImageView
+                        android:id="@+id/project_detail_map"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/margin_size_180"
+                        android:layout_marginHorizontal="@dimen/margin_size_13"
+                        android:layout_marginTop="@dimen/margin_size_16"
+                        android:src="@drawable/project_detail_price_bg"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_view_map_title" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_price_trends_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_size_13"
+                        android:layout_marginTop="58dp"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="Price Trends"
+                        android:textColor="@color/text_light_black_color"
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/project_detail_map" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_rise_year"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_size_5"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="Rise in last 1 Year"
+                        android:textSize="@dimen/text_size_12"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_price_trends_title"
+                        app:layout_constraintEnd_toStartOf="@id/tv_rating"
+                        app:layout_constraintTop_toTopOf="@id/tv_price_trends_title" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_4"
+                        android:fontFamily="@font/jost_bold"
+                        android:text="5%"
+                        android:textColor="@android:color/holo_green_dark"
+                        android:textSize="@dimen/text_size_10"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_rating"
+                        app:layout_constraintEnd_toStartOf="@id/iv_rating"
+                        app:layout_constraintTop_toTopOf="@id/iv_rating" />
+
+                    <ImageView
+                        android:id="@+id/iv_rating"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginEnd="@dimen/margin_size_13"
+                        android:src="@drawable/ic_upward_double_arrow_green"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_price_trends_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_price_trends_title" />
+
+                    <ImageView
+                        android:id="@+id/iv_price_trends_graph"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/margin_size_200"
+                        android:layout_marginHorizontal="@dimen/margin_size_13"
+                        android:layout_marginVertical="@dimen/margin_size_12"
+                        android:src="@drawable/project_detail_price_bg"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_price_trends_title" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_key_pillars_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_size_13"
+                        android:layout_marginTop="@dimen/margin_size_30"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="Key Pillars"
+                        android:textColor="@color/text_light_black_color"
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv_price_trends_graph" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_key_pillars"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_size_14"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_key_pillars_title"
+                        tools:itemCount="5"
+                        tools:listitem="@layout/item_key_pillar" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_video_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_28"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="@string/video_drone_text"
+                        android:textColor="@color/text_light_black_color"
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintStart_toStartOf="@id/tv_key_pillars_title"
+                        app:layout_constraintTop_toBottomOf="@id/rv_key_pillars" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_video_drone_see_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/see_all"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_11"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_video_title"
+                        app:layout_constraintEnd_toStartOf="@+id/iv_video_drone_arrow"
+                        app:layout_constraintTop_toTopOf="@id/tv_video_title" />
+
+                    <ImageView
+                        android:id="@+id/iv_video_drone_arrow"
+                        android:layout_width="@dimen/margin_size_14"
+                        android:layout_height="@dimen/margin_size_7"
+                        android:layout_marginEnd="@dimen/margin_size_15"
+                        android:src="@drawable/ic_arrow_forward_black"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_video_drone_see_all"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_video_drone_see_all" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_video_drone"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/margin_size_200"
+                        android:layout_margin="@dimen/margin_size_14"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_video_title" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <include
+                android:id="@+id/dont_miss_layout_brown"
+                layout="@layout/dont_miss_layout_pd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_size_20"
+                android:layout_marginVertical="@dimen/margin_size_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_main_top_card" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_main_second_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_12"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dont_miss_layout_brown">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_choose_skus_apply_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_size_13"
+                        android:layout_marginTop="@dimen/margin_size_28"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="@string/choose_skus"
+                        android:textColor="@color/text_light_black_color"
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintEnd_toStartOf="@id/tv_skus_see_all"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_skus_see_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/see_all"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_11"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_choose_skus_apply_title"
+                        app:layout_constraintEnd_toStartOf="@+id/iv_skus_arrow"
+                        app:layout_constraintTop_toTopOf="@id/tv_choose_skus_apply_title" />
+
+                    <ImageView
+                        android:id="@+id/iv_skus_arrow"
+                        android:layout_width="@dimen/margin_size_14"
+                        android:layout_height="@dimen/margin_size_7"
+                        android:layout_marginEnd="@dimen/margin_size_15"
+                        android:src="@drawable/ic_arrow_forward_black"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_skus_see_all"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_skus_see_all" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_skus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_size_13"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_choose_skus_apply_title"
+                        tools:itemCount="5"
+                        tools:listitem="@layout/item_skus" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_project_amenities_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_size_13"
+                        android:layout_marginTop="@dimen/margin_size_28"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="@string/project_amenities"
+                        android:textColor="@color/text_light_black_color"
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintEnd_toStartOf="@id/tv_project_amenities_all"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/rv_skus" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_project_amenities_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/see_all"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_11"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_project_amenities_title"
+                        app:layout_constraintEnd_toStartOf="@+id/iv_project_amenities_arrow"
+                        app:layout_constraintTop_toTopOf="@id/tv_project_amenities_title" />
+
+                    <ImageView
+                        android:id="@+id/iv_project_amenities_arrow"
+                        android:layout_width="@dimen/margin_size_14"
+                        android:layout_height="@dimen/margin_size_7"
+                        android:layout_marginEnd="@dimen/margin_size_15"
+                        android:src="@drawable/ic_arrow_forward_black"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_project_amenities_all"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_project_amenities_all" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_pa_first_card"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_14"
+                        android:elevation="@dimen/_3sdp"
+                        app:cardCornerRadius="@dimen/margin_size_8"
+                        app:layout_constraintEnd_toStartOf="@id/cv_pa_second_card"
+                        app:layout_constraintStart_toStartOf="@id/tv_project_amenities_title"
+                        app:layout_constraintTop_toBottomOf="@id/tv_project_amenities_title">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/iv_pa_first_image"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_size_9"
+                                android:layout_marginVertical="@dimen/margin_size_5"
+                                android:src="@drawable/golf"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_pa_first_text"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_size_8"
+                                android:fontFamily="@font/jost_regular"
+                                android:text="Club House"
+                                android:textColor="@color/text_color"
+                                android:textSize="@dimen/text_size_12"
+                                app:layout_constraintBottom_toBottomOf="@id/iv_pa_first_image"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/iv_pa_first_image"
+                                app:layout_constraintTop_toTopOf="@id/iv_pa_first_image" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_pa_second_card"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="@dimen/margin_size_13"
+                        android:elevation="@dimen/_3sdp"
+                        app:cardCornerRadius="@dimen/margin_size_8"
+                        app:layout_constraintBottom_toBottomOf="@id/cv_pa_first_card"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/cv_pa_first_card"
+                        app:layout_constraintTop_toTopOf="@id/cv_pa_first_card">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/iv_pa_second_image"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_size_9"
+                                android:layout_marginVertical="@dimen/margin_size_5"
+                                android:src="@drawable/park"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_pa_second_text"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_size_8"
+                                android:fontFamily="@font/jost_regular"
+                                android:text="Park"
+                                android:textColor="@color/text_color"
+                                android:textSize="@dimen/text_size_12"
+                                app:layout_constraintBottom_toBottomOf="@id/iv_pa_second_image"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/iv_pa_second_image"
+                                app:layout_constraintTop_toTopOf="@id/iv_pa_second_image" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_pa_third_card"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_14"
+                        android:elevation="@dimen/_3sdp"
+                        app:cardCornerRadius="@dimen/margin_size_8"
+                        app:layout_constraintEnd_toStartOf="@id/cv_pa_four_card"
+                        app:layout_constraintStart_toStartOf="@id/tv_project_amenities_title"
+                        app:layout_constraintTop_toBottomOf="@id/cv_pa_first_card">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/iv_pa_third_image"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_size_9"
+                                android:layout_marginVertical="@dimen/margin_size_5"
+                                android:src="@drawable/wedding_arch"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_pa_third_text"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_size_8"
+                                android:fontFamily="@font/jost_regular"
+                                android:text="Marriage Hall"
+                                android:textColor="@color/text_color"
+                                android:textSize="@dimen/text_size_12"
+                                app:layout_constraintBottom_toBottomOf="@id/iv_pa_third_image"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/iv_pa_third_image"
+                                app:layout_constraintTop_toTopOf="@id/iv_pa_third_image" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_pa_four_card"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="@dimen/margin_size_13"
+                        android:elevation="@dimen/_3sdp"
+                        app:cardCornerRadius="@dimen/margin_size_8"
+                        app:layout_constraintBottom_toBottomOf="@id/cv_pa_third_card"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/cv_pa_third_card"
+                        app:layout_constraintTop_toTopOf="@id/cv_pa_third_card">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/iv_pa_four_image"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_size_9"
+                                android:layout_marginVertical="@dimen/margin_size_5"
+                                android:src="@drawable/sun_umbrella"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_pa_four_text"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_size_8"
+                                android:fontFamily="@font/jost_regular"
+                                android:text="Swimming Pool"
+                                android:textColor="@color/text_color"
+                                android:textSize="@dimen/text_size_12"
+                                app:layout_constraintBottom_toBottomOf="@id/iv_pa_four_image"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/iv_pa_four_image"
+                                app:layout_constraintTop_toTopOf="@id/iv_pa_four_image" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_project_amenities_see_map"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_size_20"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="See on map"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_12"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cv_pa_four_card" />
+
+                    <ImageView
+                        android:id="@+id/iv_project_amenities_see_map_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_size_5"
+                        android:src="@drawable/location_image_red"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_project_amenities_see_map"
+                        app:layout_constraintEnd_toStartOf="@id/tv_project_amenities_see_map"
+                        app:layout_constraintTop_toTopOf="@id/tv_project_amenities_see_map" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_location_infrastructure_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_size_13"
+                        android:layout_marginTop="@dimen/margin_size_28"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="Location Infrastructure"
+                        android:textColor="@color/text_light_black_color"
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintEnd_toStartOf="@id/tv_location_infrastructure_all"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv_project_amenities_see_map_image" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_location_infrastructure_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/see_all"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_11"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_location_infrastructure_title"
+                        app:layout_constraintEnd_toStartOf="@+id/iv_location_infrastructure_arrow"
+                        app:layout_constraintTop_toTopOf="@id/tv_location_infrastructure_title" />
+
+                    <ImageView
+                        android:id="@+id/iv_location_infrastructure_arrow"
+                        android:layout_width="@dimen/margin_size_14"
+                        android:layout_height="@dimen/margin_size_7"
+                        android:layout_marginEnd="@dimen/margin_size_15"
+                        android:src="@drawable/ic_arrow_forward_black"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_location_infrastructure_all"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_location_infrastructure_all" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_location_infrastructure"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_size_13"
+                        android:layout_marginTop="@dimen/margin_size_14"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_location_infrastructure_title"
+                        tools:itemCount="5"
+                        tools:listitem="@layout/item_location_infrastructure" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_location_infrastructure_see_map"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_size_15"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="See on map"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_12"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/rv_location_infrastructure" />
+
+                    <ImageView
+                        android:id="@+id/iv_location_infrastructure_see_map_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_size_3"
+                        android:src="@drawable/location_image_red"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_location_infrastructure_see_map"
+                        app:layout_constraintEnd_toStartOf="@id/tv_location_infrastructure_see_map"
+                        app:layout_constraintTop_toTopOf="@id/tv_location_infrastructure_see_map" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_promises_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_size_13"
+                        android:layout_marginTop="@dimen/margin_size_28"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="Promises securing these investments"
+                        android:textColor="@color/text_light_black_color"
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintEnd_toStartOf="@id/tv_promises_see_all"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_location_infrastructure_see_map" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_promises_see_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/see_all"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_11"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_promises_title"
+                        app:layout_constraintEnd_toStartOf="@+id/iv_promises_arrow"
+                        app:layout_constraintTop_toTopOf="@id/tv_promises_title" />
+
+                    <ImageView
+                        android:id="@+id/iv_promises_arrow"
+                        android:layout_width="@dimen/margin_size_14"
+                        android:layout_height="@dimen/margin_size_7"
+                        android:layout_marginEnd="@dimen/margin_size_15"
+                        android:src="@drawable/ic_arrow_forward_black"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_promises_see_all"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_promises_see_all" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_promises"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_size_13"
+                        android:layout_marginTop="@dimen/margin_size_14"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_promises_title"
+                        tools:itemCount="5"
+                        tools:listitem="@layout/item_promises" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_faq_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_size_13"
+                        android:layout_marginTop="@dimen/margin_size_28"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="@string/faq_text"
+                        android:textColor="@color/text_light_black_color"
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintEnd_toStartOf="@id/tv_promises_see_all"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/rv_promises" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_faq"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_12"
+                        android:layout_marginEnd="@dimen/margin_size_15"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:orientation="vertical"
+                        tools:listitem="@layout/item_faq_category"
+                        tools:itemCount="5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_faq_title"/>
+                    
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/bn_ask_here"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:backgroundTint="@color/black"
+                        android:textAllCaps="false"
+                        android:fontFamily="@font/jost_medium"
+                        android:textSize="@dimen/text_size_10"
+                        android:text="Have any questions? Ask Here"
+                        android:layout_marginTop="@dimen/margin_size_20"
+                        android:layout_marginHorizontal="@dimen/margin_size_52"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/rv_faq"/>
+
+                    <include
+                        android:id="@+id/testimonials_card"
+                        layout="@layout/new_investment_testimonials_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/bn_ask_here"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <include
+                        android:id="@+id/similar_investment_card"
+                        layout="@layout/similar_investments_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/testimonials_card"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_outer_why_invest"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_why_invest"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/margin_size_13"
+        android:layout_marginTop="@dimen/margin_size_19"
+        android:background="@drawable/why_invest_blue_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_why_invest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_size_30"
+            android:layout_marginTop="@dimen/margin_size_25"
+            android:fontFamily="@font/jost_medium"
+            android:text="Why Invest in this land"
+            style="@style/text_style_white_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_why_invest_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_size_6"
+            android:layout_marginEnd="@dimen/margin_size_12"
+            android:fontFamily="@font/jost_regular"
+            android:text="Nequepokyokirroquisquamswqpaisaquidofekloremipsuporroqtamasauisqdekhst "
+            android:textColor="@color/why_invest_light_blue_color"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintEnd_toStartOf="@id/iv_why_invest_image"
+            app:layout_constraintStart_toStartOf="@id/tv_why_invest"
+            app:layout_constraintTop_toBottomOf="@id/tv_why_invest" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_read_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Read More"
+            android:background="@drawable/white_border_big_bg"
+            style="@style/text_style_text_black_color_14"
+            android:fontFamily="@font/jost_medium"
+            android:layout_marginTop="@dimen/margin_size_13"
+            android:layout_marginBottom="@dimen/margin_size_16"
+            app:layout_constraintStart_toStartOf="@id/tv_why_invest"
+            app:layout_constraintTop_toBottomOf="@id/tv_why_invest_info"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <ImageView
+            android:id="@+id/iv_why_invest_image"
+            android:layout_width="101dp"
+            android:layout_height="93dp"
+            android:layout_marginEnd="@dimen/margin_size_30"
+            android:layout_marginBottom="@dimen/margin_size_25"
+            android:src="@drawable/why_invest_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_why_invest" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

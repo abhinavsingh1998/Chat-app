@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- all font with size 12-->
+    <style name="text_medium_green_12">
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/green</item>
+        <item name="singleLine">true</item>
+        <item name="fontFamily">@font/jost_medium</item>
+    </style>
+
+    <style name="text_regular_normal_12">
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/color_text_normal</item>
+        <item name="singleLine">true</item>
+        <item name="fontFamily">@font/jost_regular</item>
+        <item name="android:fontFamily">@font/jost_regular</item>
+    </style>
+
+    <style name="text_regular_app_color_12">
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/app_color</item>
+        <item name="singleLine">true</item>
+        <item name="fontFamily">@font/jost_regular</item>
+    </style>
+
+    <style name="text_regular_primary3_12">
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/primarycolor_3</item>
+        <item name="singleLine">true</item>
+        <item name="fontFamily">@font/jost_regular</item>
+    </style>
+
+    <style name="text_light_primary4_12">
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/primarycolor_4</item>
+        <item name="singleLine">true</item>
+        <item name="fontFamily">@font/jost_light</item>
+    </style>
+
+    <style name="text_medium_pcolor1_12">
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/primarytext_color</item>
+        <item name="singleLine">true</item>
+        <item name="fontFamily">@font/jost_medium</item>
+    </style>
+
+    <style name="text_regular_pcolor5_12">
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/primarycolor_5</item>
+        <item name="singleLine">true</item>
+        <item name="android:fontFamily">@font/jost_regular</item>
+    </style>
+
+    <!-- all font with size 14 -->
+    <style name="text_regular_black_14">
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="singleLine">true</item>
+        <item name="fontFamily">@font/jost_regular</item>
+    </style>
+
+    <style name="text_medium_black_14">
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="singleLine">true</item>
+        <item name="fontFamily">@font/jost_medium</item>
+        <item name="android:fontFamily">@font/jost_medium</item>
+    </style>
+
+    <style name="text_medium_pcolor1_14">
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/primarytext_color</item>
+        <item name="singleLine">true</item>
+        <item name="fontFamily">@font/jost_medium</item>
+    </style>
+
+    <style name="text_medium_14">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="fontFamily">@font/jost_medium</item>
+        <item name="android:fontFamily">@font/jost_medium</item>
+
+    </style>
+
+    <style name="text_regular_medium_14">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="fontFamily">@font/jost_regular</item>
+        <item name="android:fontFamily">@font/jost_regular</item>
+
+    </style>
+
+    <style name="text_bold_appcolor_14">
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/app_color</item>
+        <item name="singleLine">true</item>
+        <item name="fontFamily">@font/jost_bold</item>
+        <item name="android:fontFamily">@font/jost_bold</item>
+    </style>
+
+    <style name="text_light_appcolor_14">
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/app_color</item>
+        <item name="singleLine">true</item>
+        <item name="fontFamily">@font/jost_regular</item>
+        <item name="android:fontFamily">@font/jost_regular</item>
+    </style>
+
+    <!-- all font size 16-->
+    <style name="text_regular_pcolor1_16">
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/primarytext_color</item>
+        <item name="singleLine">true</item>
+        <item name="fontFamily">@font/jost_regular</item>
+    </style>
+
+    <style name="text_medium_16">
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="fontFamily">@font/jost_medium</item>
+        <item name="android:fontFamily">@font/jost_medium</item>
+
+    </style>
+
+    <!-- all font size 17 -->
+    <style name="text_medium_17">
+        <item name="android:textSize">@dimen/text_size_17</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="fontFamily">@font/jost_medium</item>
+        <item name="android:fontFamily">@font/jost_medium</item>
+
+    </style>
+
+</resources>

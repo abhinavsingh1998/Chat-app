@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv_key_pillar_card"
+    android:layout_width="170dp"
+    android:layout_height="@dimen/margin_size_200"
+    android:layout_marginStart="@dimen/margin_size_4"
+    android:layout_marginEnd="@dimen/margin_size_6"
+    android:outlineSpotShadowColor="#ababab"
+    android:layout_marginTop="@dimen/margin_size_4"
+    android:layout_marginBottom="@dimen/margin_size_8"
+    app:cardCornerRadius="@dimen/margin_size_8"
+    app:cardElevation="@dimen/margin_size_4">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_premium_location"
+            android:layout_width="@dimen/margin_size_20"
+            android:layout_height="@dimen/margin_size_20"
+            android:layout_marginStart="@dimen/margin_size_17"
+            android:layout_marginTop="@dimen/margin_size_16"
+            android:layout_marginEnd="@dimen/margin_size_6"
+            android:src="@drawable/premium_location_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_premium_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_6"
+            android:layout_marginEnd="@dimen/margin_size_12"
+            android:ellipsize="end"
+            android:fontFamily="@font/jost_medium"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:text="@string/premium_location"
+            android:textColor="@color/text_violet_dark_color"
+            android:textSize="@dimen/text_size_15"
+            app:layout_constraintBottom_toBottomOf="@id/iv_premium_location"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_premium_location"
+            app:layout_constraintTop_toTopOf="@id/iv_premium_location" />
+
+        <View
+            android:id="@+id/top_line"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/margin_size_16"
+            android:background="@color/line_view_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_premium_location" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_point_one"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_size_8"
+            android:layout_marginVertical="@dimen/margin_size_6"
+            android:fontFamily="@font/jost_regular"
+            android:gravity="center|center_vertical"
+            android:lines="3"
+            android:text="Point 1 goes here Point 1 goes here"
+            android:textColor="@color/text_blue_color"
+            android:textSize="@dimen/text_size_13"
+            app:layout_constraintBottom_toTopOf="@id/tv_point_two"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_line" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_point_two"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_size_6"
+            android:layout_marginEnd="@dimen/margin_size_7"
+            android:fontFamily="@font/jost_regular"
+            android:gravity="center|center_vertical"
+            android:lines="3"
+            android:layout_marginBottom="@dimen/margin_size_14"
+            android:text="Point 1 goes here Point 1 goes here"
+            android:textColor="@color/text_blue_color"
+            android:textSize="@dimen/text_size_13"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_point_one"
+            app:layout_constraintTop_toBottomOf="@id/tv_point_one" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

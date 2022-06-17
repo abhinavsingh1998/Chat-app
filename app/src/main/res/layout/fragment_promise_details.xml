@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/view_full"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="@drawable/top_corner_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/image_security"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="@dimen/margin_size_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view_full" />
+
+        <TextView
+            android:id="@+id/tv_promise_title"
+            style="@style/text_style_text_color_25"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="@font/jostregular"
+            android:gravity="left"
+            android:textColor="@color/text_security_head"
+            android:lineSpacingExtra="0sp"
+            android:lines="1"
+            android:textSize="26dp"
+            android:text="@string/security"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toBottomOf="@+id/image_security"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image_security"
+            app:layout_constraintTop_toTopOf="@+id/view_full" />
+
+        <TextView
+            android:id="@+id/tv_promise_info"
+            style="@style/text_style_text_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_22"
+            android:layout_marginTop="@dimen/margin_size_13"
+            android:layout_marginEnd="@dimen/margin_size_22"
+            android:layout_marginRight="@dimen/margin_size_22"
+            android:fontFamily="@font/jost_regular"
+            android:lineSpacingExtra="2sp"
+            android:textSize="14sp"
+            android:textColor="@color/text_security"
+            android:text="@string/new_generation_land_is_now_safe_and_secure_owning_land_will_never_feel_like_a_gamble_again"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_promise_title" />
+
+        <View
+            android:id="@+id/line_view2"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/margin_size_10"
+            android:background="@color/ash_line_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_promise_info">
+
+        </View>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tv_desc_list"
+            android:layout_marginTop="22dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingBottom="@dimen/margin_size_18"
+            app:layout_constraintBottom_toTopOf="@+id/apply_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/line_view2" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/apply_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="0dp"
+            android:background="@color/background_grey_color"
+            android:paddingBottom="@dimen/margin_size_20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_desc_list">
+
+            <TextView
+                android:id="@+id/textview_apply"
+                style="@style/text_style_text_color_16"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="34dp"
+                android:layout_marginTop="@dimen/margin_size_20"
+                android:fontFamily="@font/jost_regular"
+                android:lineSpacingExtra="6sp"
+                android:text="@string/how_to_apply"
+                android:textColor="#17171c"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textview_apply1"
+                style="@style/text_style_text_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_size_19"
+                android:layout_marginStart="@dimen/margin_size_34"
+                android:layout_marginTop="@dimen/margin_size_20"
+                android:layout_marginEnd="@dimen/margin_size_35"
+                android:fontFamily="@font/jost_light"
+                android:justificationMode="inter_word"
+                android:lineSpacingExtra="2sp"
+                android:text="@string/new_generation_land_is_now_safe_and_secure_owning_land_will_never_feel_like_a_gamble_again"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textview_apply" />
+
+            <TextView
+                android:id="@+id/textView_apply2"
+                style="@style/text_style_text_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_35"
+                android:layout_marginTop="@dimen/margin_size_10"
+                android:layout_marginEnd="@dimen/margin_size_35"
+                android:fontFamily="@font/jostregular"
+                android:lineSpacingExtra="2sp"
+                android:text="@string/new_generation_land_is_now_safe_and_secure_owning_land_will_never_feel_like_a_gamble_again"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textview_apply1" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/getPortfolio_button"
+            style="@style/text_style_white_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_112"
+            android:layout_marginTop="42dp"
+            android:layout_marginEnd="@dimen/margin_size_112"
+            android:background="@drawable/portfolio_btn_shape"
+            android:drawableLeft="@drawable/ic_briefcase_1"
+            android:drawableRight="@drawable/combined_shape_copy_5"            android:drawablePadding="@dimen/margin_size_6"
+            android:paddingStart="@dimen/margin_size_45"
+            android:paddingTop="@dimen/margin_size_12"
+            android:paddingEnd="@dimen/margin_size_45"
+            android:paddingBottom="@dimen/margin_size_12"
+            android:text="@string/myportfolio"
+            android:textAlignment="center"
+            android:textSize="13sp"
+            app:fontName="@string/jost_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/apply_view" />
+
+        <TextView
+            android:id="@+id/textView_t_and_c"
+            style="@style/text_style_text_color_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_112"
+            android:layout_marginTop="@dimen/margin_size_30"
+            android:layout_marginEnd="@dimen/margin_size_112"
+            android:layout_marginBottom="82dp"
+            android:fontFamily="@font/jost_regular"
+            android:lineSpacingExtra="9sp"
+            android:textSize="13sp"
+             android:textColor="#212a2b"
+            android:text="@string/read_our_terms"
+            app:layout_constraintBottom_toBottomOf="@+id/view_full"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/getPortfolio_button" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

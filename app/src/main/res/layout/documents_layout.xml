@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_documents"
+        style="@style/text_style_text_light_black_color_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_size_16"
+        android:layout_marginTop="@dimen/margin_size_12"
+        android:fontFamily="@font/jost_regular"
+        android:text="@string/documents"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_see_all_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_size_17"
+        android:src="@drawable/rightarrow"
+        app:layout_constraintBottom_toBottomOf="@id/tv_documents"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_documents" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_documents_see_all"
+        style="@style/text_style_blue_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_size_8"
+        android:fontFamily="@font/jost_regular"
+        android:text="@string/see_all"
+        app:layout_constraintBottom_toBottomOf="@id/tv_documents"
+        app:layout_constraintEnd_toStartOf="@id/iv_see_all_arrow"
+        app:layout_constraintTop_toTopOf="@id/tv_documents" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_documents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="@dimen/margin_size_8"
+        android:layout_marginTop="@dimen/margin_size_11"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_portfolio_documents"
+        tools:itemCount="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_documents" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

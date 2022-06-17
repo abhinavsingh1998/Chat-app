@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_promises_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_size_13"
+        android:layout_marginTop="@dimen/margin_size_28"
+        android:fontFamily="@font/jost_medium"
+        android:text="Promises securing these investments"
+        android:textColor="@color/text_light_black_color"
+        android:textSize="@dimen/text_size_18"
+        app:layout_constraintEnd_toStartOf="@id/tv_promises_see_all"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_promises_see_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/see_all"
+        android:textColor="@color/text_blue_color"
+        android:textSize="@dimen/text_size_14"
+        android:layout_marginEnd="@dimen/margin_size_8"
+        app:layout_constraintBottom_toBottomOf="@id/tv_promises_title"
+        app:layout_constraintEnd_toStartOf="@+id/iv_promises_arrow"
+        app:layout_constraintTop_toTopOf="@id/tv_promises_title" />
+
+    <ImageView
+        android:id="@+id/iv_promises_arrow"
+        android:layout_width="15dp"
+        android:layout_height="9dp"
+        android:layout_marginEnd="@dimen/margin_size_11"
+        android:src="@drawable/combined_shape"
+        app:layout_constraintBottom_toBottomOf="@id/tv_promises_see_all"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_promises_see_all" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_promises"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_size_5"
+        android:layout_marginTop="@dimen/margin_size_4"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_promises_title"
+        tools:listitem="@layout/item_promises" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_not_convinced_promises"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/not_convinced_bg"
+        android:layout_marginHorizontal="@dimen/margin_size_20"
+        android:layout_marginTop="@dimen/margin_size_30"
+        android:layout_marginBottom="@dimen/margin_size_8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_promises"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_still_not_convinced"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="textStart"
+            android:layout_marginHorizontal="@dimen/margin_size_23"
+            android:layout_marginTop="@dimen/margin_size_20"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Still not convinced?"
+            style="@style/text_style_white_18"
+            android:fontFamily="@font/jost_medium" />
+        
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_still_not_convinced_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/jost_regular"
+            android:text="@string/schedule_video_call_info"
+            style="@style/text_light_ash_16"
+            android:layout_marginTop="@dimen/_4sdp"
+            app:layout_constraintStart_toStartOf="@id/tv_still_not_convinced"
+            app:layout_constraintTop_toBottomOf="@id/tv_still_not_convinced"
+            app:layout_constraintEnd_toStartOf="@id/iv_not_convinced_arrow"
+            android:layout_marginEnd="@dimen/margin_size_20"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/margin_size_20"
+            />
+
+        <ImageView
+            android:id="@+id/iv_not_convinced_arrow"
+            android:layout_width="@dimen/margin_size_16"
+            android:layout_height="9dp"
+            android:src="@drawable/combined_shape_copy_5"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/margin_size_30"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

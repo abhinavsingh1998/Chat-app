@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">portfolioui</string>
+    <string name="tv_receipt"><![CDATA[<u>%1$s</u>]]></string>
+    <string name="viewreceipt"><![CDATA[<U>View Receipt</U>]]></string>
+    <string name="viewdetails"><![CDATA[<U>View Details</U>]]></string>
+
+
+</resources>

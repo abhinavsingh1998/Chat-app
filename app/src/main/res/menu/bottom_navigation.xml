@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_hoabl"
+        android:checked="true"
+        android:icon="@drawable/ic_home"
+        android:title="@string/hoabl" />
+
+    <item
+        android:id="@+id/navigation_investment"
+        android:checked="false"
+        android:icon="@drawable/ic_profit"
+        android:title="@string/new_investment" />
+
+    <item
+        android:id="@+id/navigation_portfolio"
+        android:checked="false"
+        android:icon="@drawable/ic_briefcase"
+        android:title="@string/portfolio" />
+    <item
+        android:id="@+id/navigation_promises"
+        android:checked="false"
+        android:icon="@drawable/ic_promises"
+        android:title="@string/promises" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:checked="false"
+        android:icon="@drawable/ic_user_profile"
+        android:title="@string/profile" />
+</menu>

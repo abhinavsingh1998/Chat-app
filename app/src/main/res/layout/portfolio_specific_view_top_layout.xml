@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/text_blue_color">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/all_corner_radius_top_bg"
+        android:paddingBottom="@dimen/margin_size_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_project_image_card"
+            android:layout_width="@dimen/margin_size_50"
+            android:layout_height="@dimen/margin_size_50"
+            android:layout_marginStart="@dimen/margin_size_12"
+            android:layout_marginTop="@dimen/margin_size_30"
+            app:cardCornerRadius="@dimen/margin_size_4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_project_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/new_investment_page_image" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_project_name"
+            style="@style/text_style_text_black_color_16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_size_8"
+            android:fontFamily="@font/jost_semibold"
+            android:text="Isle of Bliss"
+            android:textAlignment="textStart"
+            app:layout_constraintBottom_toTopOf="@id/tv_project_location"
+            app:layout_constraintEnd_toStartOf="@id/btn_apply_now"
+            app:layout_constraintStart_toEndOf="@id/cv_project_image_card"
+            app:layout_constraintTop_toTopOf="@id/cv_project_image_card" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_project_location"
+            style="@style/text_style_text_black_color_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_size_8"
+            android:fontFamily="@font/jost_regular"
+            android:text="Anjarle , Maharastra"
+            android:textAlignment="textStart"
+            app:layout_constraintBottom_toBottomOf="@id/cv_project_image_card"
+            app:layout_constraintEnd_toStartOf="@id/btn_apply_now"
+            app:layout_constraintStart_toStartOf="@id/tv_project_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_project_name" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_apply_now"
+            style="@style/text_style_white_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_size_12"
+            android:background="@drawable/all_corner_radius_black_bg"
+            android:backgroundTint="@color/black"
+            android:drawableEnd="@drawable/arrow_right_"
+            android:drawablePadding="@dimen/_4sdp"
+            android:fontFamily="@font/jost_medium"
+            android:paddingHorizontal="@dimen/margin_size_18"
+            android:text="Apply Again"
+            android:textAllCaps="false"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_project_name"
+            app:layout_constraintTop_toTopOf="@id/tv_project_name" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_investment_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_size_12"
+            android:layout_marginTop="@dimen/margin_size_13"
+            android:background="@drawable/project_detail_price_bg"
+            android:paddingBottom="@dimen/margin_size_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cv_project_image_card">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_investment_details"
+                style="@style/text_style_dark_brown_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_17"
+                android:layout_marginTop="@dimen/margin_size_10"
+                android:fontFamily="@font/jost_regular"
+                android:text="Investment Details"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_view_booking_journey"
+                style="@style/text_style_text_black_color_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_size_16"
+                android:drawableEnd="@drawable/rightarrow"
+                android:drawablePadding="@dimen/_4sdp"
+                android:fontFamily="@font/jost_medium"
+                android:text="@string/view_booking_journey"
+                app:layout_constraintBottom_toBottomOf="@id/tv_investment_details"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_investment_details" />
+
+            <View
+                android:id="@+id/view_line"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_size_1"
+                android:layout_marginTop="@dimen/margin_size_10"
+                android:background="@color/light_brown_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_investment_details" />
+
+            <LinearLayout
+                android:id="@+id/paid_linear"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_12"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@id/pending_linear"
+                app:layout_constraintStart_toStartOf="@id/tv_investment_details"
+                app:layout_constraintTop_toBottomOf="@id/view_line">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_paid"
+                    style="@style/text_style_medium_gold_color_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_info_outlined"
+                    android:drawablePadding="4dp"
+                    android:fontFamily="@font/jost_regular"
+                    android:text="@string/paid"
+                    app:drawableTint="@color/gold_color" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_paid_amount"
+                    style="@style/text_style_thick_brown_color_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_4"
+                    android:fontFamily="@font/jost_bold"
+                    android:text="₹2.0Lakhs" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/pending_linear"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_10"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@id/area_linear"
+                app:layout_constraintStart_toEndOf="@id/paid_linear"
+                app:layout_constraintTop_toTopOf="@id/paid_linear">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_pending"
+                    style="@style/text_style_medium_gold_color_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_info_outlined"
+                    android:drawablePadding="4dp"
+                    android:fontFamily="@font/jost_regular"
+                    android:text="@string/pending" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_pending_amount"
+                    style="@style/text_style_thick_brown_color_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_4"
+                    android:fontFamily="@font/jost_bold"
+                    android:text="₹1.0Lakhs" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/area_linear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_size_20"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@id/tv_view_booking_journey"
+                app:layout_constraintStart_toEndOf="@id/pending_linear"
+                app:layout_constraintTop_toTopOf="@id/paid_linear">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_area"
+                    style="@style/text_style_medium_gold_color_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jost_regular"
+                    android:text="@string/area" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_area_unit"
+                    style="@style/text_style_thick_brown_color_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_4"
+                    android:fontFamily="@font/jost_bold"
+                    android:text="5000sqft" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/allocation_date_linear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_14"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@id/paid_linear"
+                app:layout_constraintTop_toBottomOf="@id/paid_linear">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_allocation_date_text"
+                    style="@style/text_style_medium_gold_color_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jost_regular"
+                    android:text="@string/allocation_date" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_allocation_date"
+                    style="@style/text_style_thick_brown_color_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_4"
+                    android:fontFamily="@font/jost_bold"
+                    android:text="11 Nov 2021" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tv_possession_date_linear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@id/pending_linear"
+                app:layout_constraintTop_toTopOf="@id/allocation_date_linear">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_possession_date_text"
+                    style="@style/text_style_medium_gold_color_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jost_regular"
+                    android:text="@string/possession_date" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_possession_date"
+                    style="@style/text_style_thick_brown_color_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_4"
+                    android:fontFamily="@font/jost_bold"
+                    android:text="18 Dec 2022" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_view_more"
+                style="@style/text_style_view_more_brown_color_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jost_medium"
+                android:text="@string/view_more"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@id/tv_possession_date_linear"
+                app:layout_constraintStart_toStartOf="@id/area_linear"
+                app:layout_constraintTop_toTopOf="@id/tv_possession_date_linear" />
+
+            <ImageView
+                android:id="@+id/iv_view_more_drop_down"
+                android:layout_width="@dimen/margin_size_18"
+                android:layout_height="@dimen/margin_size_18"
+                android:layout_marginStart="@dimen/margin_size_4"
+                android:src="@drawable/ic_drop_down"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@id/tv_view_more"
+                app:layout_constraintStart_toEndOf="@id/tv_view_more"
+                app:layout_constraintTop_toTopOf="@id/tv_view_more" />
+
+            <TextView
+                android:id="@+id/textView12"
+                style="@style/text_style_gold_color_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/jost_medium"
+                android:text="* Rounded"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_possession_date_linear" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_more_info_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_size_9"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="@dimen/margin_size_2"
+                android:backgroundTint="@color/portfolio_light_brown_color"
+                android:visibility="gone"
+                app:cardCornerRadius="@dimen/margin_size_8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/margin_size_20">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_land_id"
+                        style="@style/text_style_dark_black_color_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_25"
+                        android:layout_marginTop="@dimen/margin_size_22"
+                        android:layout_marginEnd="@dimen/margin_size_10"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="Hoabl/Dap/A404"
+                        app:layout_constraintEnd_toStartOf="@id/tv_sku_type"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_land_id_title"
+                        style="@style/text_style_dark_black_color_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_4"
+                        android:fontFamily="@font/jost_light"
+                        android:text="@string/land_id"
+                        app:layout_constraintStart_toStartOf="@id/tv_land_id"
+                        app:layout_constraintTop_toBottomOf="@id/tv_land_id" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_sku_type"
+                        style="@style/text_style_dark_black_color_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_size_4"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="Marina"
+                        app:layout_constraintBottom_toTopOf="@id/tv_sku_type_title"
+                        app:layout_constraintStart_toStartOf="@id/tv_sku_type_title"
+                        app:layout_constraintTop_toTopOf="@id/tv_land_id" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_sku_type_title"
+                        style="@style/text_style_dark_black_color_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/jost_light"
+                        android:text="@string/sku_type"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_land_id_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_land_id_title"
+                        app:layout_constraintTop_toTopOf="@id/tv_land_id_title" />
+
+                    <View
+                        android:id="@+id/top_dashed_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginStart="@dimen/margin_size_26"
+                        android:layout_marginTop="@dimen/margin_size_12"
+                        android:layout_marginEnd="@dimen/margin_size_16"
+                        android:background="@drawable/dashed_line_brown"
+                        android:layerType="software"
+                        app:layout_constraintTop_toBottomOf="@id/tv_land_id_title" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_investment_amount"
+                        style="@style/text_style_dark_black_color_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_25"
+                        android:layout_marginTop="@dimen/margin_size_12"
+                        android:layout_marginEnd="@dimen/margin_size_10"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="₹20Lakhs"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/top_dashed_line" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_investment_amount_title"
+                        style="@style/text_style_dark_black_color_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_4"
+                        android:fontFamily="@font/jost_light"
+                        android:text="@string/investment_amount"
+                        app:layout_constraintStart_toStartOf="@id/tv_investment_amount"
+                        app:layout_constraintTop_toBottomOf="@id/tv_investment_amount" />
+
+                    <ImageView
+                        android:id="@+id/iv_invested_amount"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginStart="3dp"
+                        android:src="@drawable/ic_info_outlined"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_investment_amount_title"
+                        app:layout_constraintStart_toEndOf="@+id/tv_investment_amount_title"
+                        app:layout_constraintTop_toTopOf="@+id/tv_investment_amount_title" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_amount_paid"
+                        style="@style/text_style_dark_black_color_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_size_4"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="₹1Lakhs"
+                        app:layout_constraintBottom_toTopOf="@id/tv_amount_paid_title"
+                        app:layout_constraintStart_toStartOf="@id/tv_amount_paid_title"
+                        app:layout_constraintTop_toTopOf="@id/tv_investment_amount" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_amount_paid_title"
+                        style="@style/text_style_dark_black_color_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_10"
+                        android:fontFamily="@font/jost_light"
+                        android:text="@string/amount_paid"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_investment_amount_title"
+                        app:layout_constraintEnd_toStartOf="@id/tv_amount_pending_title"
+                        app:layout_constraintStart_toEndOf="@id/tv_investment_amount_title"
+                        app:layout_constraintTop_toTopOf="@id/tv_investment_amount_title" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_amount_pending"
+                        style="@style/text_style_dark_black_color_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_size_4"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="₹1.5Lakhs"
+                        app:layout_constraintBottom_toTopOf="@id/tv_amount_pending_title"
+                        app:layout_constraintStart_toStartOf="@id/tv_amount_pending_title"
+                        app:layout_constraintTop_toTopOf="@id/tv_investment_amount" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_amount_pending_title"
+                        style="@style/text_style_dark_black_color_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_16"
+                        android:fontFamily="@font/jost_light"
+                        android:text="@string/amount_pending"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_investment_amount_title"
+                        app:layout_constraintEnd_toEndOf="@id/top_dashed_line"
+                        app:layout_constraintStart_toEndOf="@id/tv_amount_paid_title"
+                        app:layout_constraintTop_toTopOf="@id/tv_investment_amount_title" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_registry_amount"
+                        style="@style/text_style_dark_black_color_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_12"
+                        android:layout_marginEnd="@dimen/margin_size_10"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="₹2.0Lakhs"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_other_expenses"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/tv_investment_amount_title"
+                        app:layout_constraintTop_toBottomOf="@id/tv_investment_amount_title" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_registry_amount_title"
+                        style="@style/text_style_dark_black_color_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_4"
+                        android:fontFamily="@font/jost_light"
+                        android:text="@string/registry_amount"
+                        app:layout_constraintStart_toStartOf="@id/tv_registry_amount"
+                        app:layout_constraintTop_toBottomOf="@id/tv_registry_amount" />
+
+                    <ImageView
+                        android:id="@+id/iv_amount_pending"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginStart="3dp"
+                        android:src="@drawable/ic_info_outlined"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_registry_amount_title"
+                        app:layout_constraintStart_toEndOf="@+id/tv_registry_amount_title"
+                        app:layout_constraintTop_toTopOf="@+id/tv_registry_amount_title" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_other_expenses"
+                        style="@style/text_style_dark_black_color_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_size_4"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="₹50k"
+                        app:layout_constraintBottom_toTopOf="@id/tv_other_expenses_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tv_registry_amount"
+                        app:layout_constraintTop_toTopOf="@id/tv_registry_amount" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_other_expenses_title"
+                        style="@style/text_style_dark_black_color_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/jost_light"
+                        android:text="@string/other_expenses"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_registry_amount_title"
+                        app:layout_constraintStart_toStartOf="@+id/tv_other_expenses"
+                        app:layout_constraintTop_toTopOf="@id/tv_registry_amount_title" />
+
+
+                    <ImageView
+                        android:id="@+id/iv_amount_pending1"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginStart="3dp"
+                        android:src="@drawable/ic_info_outlined"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_other_expenses_title"
+                        app:layout_constraintStart_toEndOf="@+id/tv_other_expenses_title"
+                        app:layout_constraintTop_toTopOf="@+id/tv_other_expenses_title" />
+
+                    <View
+                        android:id="@+id/middle_dashed_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginStart="@dimen/margin_size_26"
+                        android:layout_marginTop="@dimen/margin_size_12"
+                        android:layout_marginEnd="@dimen/margin_size_16"
+                        android:background="@drawable/dashed_line_brown"
+                        android:layerType="software"
+                        app:layout_constraintTop_toBottomOf="@id/tv_registry_amount_title" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_latitude"
+                        style="@style/text_style_dark_black_color_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_25"
+                        android:layout_marginTop="@dimen/margin_size_12"
+                        android:layout_marginEnd="@dimen/margin_size_10"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="23.640699"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/middle_dashed_line" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_latitude_title"
+                        style="@style/text_style_dark_black_color_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_4"
+                        android:fontFamily="@font/jost_light_italic"
+                        android:text="@string/latitude"
+                        app:layout_constraintEnd_toStartOf="@id/tv_longitude_title"
+                        app:layout_constraintStart_toStartOf="@id/tv_latitude"
+                        app:layout_constraintTop_toBottomOf="@id/tv_latitude" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_longitude"
+                        style="@style/text_style_dark_black_color_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_size_4"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="85.282204"
+                        app:layout_constraintBottom_toTopOf="@id/tv_longitude_title"
+                        app:layout_constraintStart_toStartOf="@id/tv_longitude_title"
+                        app:layout_constraintTop_toTopOf="@id/tv_latitude" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_longitude_title"
+                        style="@style/text_style_dark_black_color_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_16"
+                        android:fontFamily="@font/jost_light_italic"
+                        android:text="@string/Longitude"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_latitude_title"
+                        app:layout_constraintEnd_toStartOf="@id/tv_altitude_title"
+                        app:layout_constraintStart_toEndOf="@id/tv_latitude_title"
+                        app:layout_constraintTop_toTopOf="@id/tv_latitude_title" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_altitude"
+                        style="@style/text_style_dark_black_color_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_size_4"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="85m"
+                        app:layout_constraintBottom_toTopOf="@id/tv_altitude_title"
+                        app:layout_constraintStart_toStartOf="@id/tv_altitude_title"
+                        app:layout_constraintTop_toTopOf="@id/tv_longitude" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_altitude_title"
+                        style="@style/text_style_dark_black_color_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_16"
+                        android:fontFamily="@font/jost_light_italic"
+                        android:text="@string/altitude"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_longitude_title"
+                        app:layout_constraintEnd_toEndOf="@id/middle_dashed_line"
+                        app:layout_constraintStart_toEndOf="@id/tv_longitude_title"
+                        app:layout_constraintTop_toTopOf="@id/tv_longitude_title" />
+
+                    <ImageView
+                        android:id="@+id/iv_location_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_size_4"
+                        android:src="@drawable/ic_location_brown"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_see_on_map"
+                        app:layout_constraintEnd_toStartOf="@id/tv_see_on_map"
+                        app:layout_constraintTop_toTopOf="@id/tv_see_on_map" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_see_on_map"
+                        style="@style/text_style_dark_black_color_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_16"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="See on map"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_latitude_title" />
+
+                    <View
+                        android:id="@+id/bottom_dashed_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginStart="@dimen/margin_size_26"
+                        android:layout_marginTop="@dimen/margin_size_12"
+                        android:layout_marginEnd="@dimen/margin_size_16"
+                        android:background="@drawable/dashed_line_brown"
+                        android:layerType="software"
+                        app:layout_constraintTop_toBottomOf="@id/tv_see_on_map" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_current_owners"
+                        style="@style/text_style_dark_black_color_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_11"
+                        android:fontFamily="@font/jost_light"
+                        android:text="@string/current_owners"
+                        app:layout_constraintStart_toStartOf="@id/tv_latitude"
+                        app:layout_constraintTop_toBottomOf="@id/bottom_dashed_line" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/owners_name"
+                        style="@style/text_style_dark_black_color_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_6"
+                        android:fontFamily="@font/jost_regular"
+                        android:lineSpacingMultiplier="1.5"
+                        android:text="@string/draft_owners_name"
+                        app:layout_constraintStart_toStartOf="@id/tv_current_owners"
+                        app:layout_constraintTop_toBottomOf="@id/tv_current_owners" />
+
+                    <View
+                        android:id="@+id/bottom_dashed_line1"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginStart="@dimen/margin_size_26"
+                        android:layout_marginTop="@dimen/margin_size_12"
+                        android:layout_marginEnd="@dimen/margin_size_16"
+                        android:background="@drawable/dashed_line_brown"
+                        android:layerType="software"
+                        app:layout_constraintTop_toBottomOf="@id/owners_name" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/registration_no"
+                        style="@style/text_style_dark_black_color_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_6"
+                        android:fontFamily="@font/jost_regular"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/tv_current_owners"
+                        app:layout_constraintTop_toBottomOf="@id/bottom_dashed_line1" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.emproto.core.textmore.ReadMoreTextView
+            android:id="@+id/tv_project_info"
+            style="@style/text_style_text_black_color_14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_size_12"
+            android:layout_marginTop="@dimen/margin_size_10"
+            android:fontFamily="@font/jost_light"
+            android:lineSpacingMultiplier="1.3"
+            android:text="The Isle of Bliss is phase 2 of Codename Bliss Dapoli, a seaside lifestyle plotting development from The House of Abhinandan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_investment_details"
+            app:trimCollapsedText="...Read More"
+            app:trimLines="2"
+            app:trimMode="trimModeLine" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_see_project_details"
+            style="@style/text_style_text_color_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_12"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/white_button_bg"
+            android:fontFamily="@font/jost_medium"
+            android:paddingVertical="@dimen/margin_size_10"
+            android:text="@string/see_project_details"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toStartOf="@id/tv_view_timeline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_project_info" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_view_timeline"
+            style="@style/text_style_text_color_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_12"
+            android:layout_marginEnd="@dimen/margin_size_12"
+            android:background="@drawable/white_button_bg"
+            android:fontFamily="@font/jost_medium"
+            android:paddingVertical="@dimen/margin_size_10"
+            android:text="@string/view_timeline"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@id/tv_see_project_details"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_see_project_details"
+            app:layout_constraintTop_toTopOf="@id/tv_see_project_details" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

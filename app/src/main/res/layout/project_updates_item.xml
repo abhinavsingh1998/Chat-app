@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/root_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_size_12"
+        android:layout_marginTop="@dimen/margin_size_4"
+        android:layout_marginBottom="@dimen/margin_size_4"
+        app:cardCornerRadius="7dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.emproto.core.textviews.CustomTextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                style="@style/text_style_text_color_16"
+                android:fontFamily="@font/jost_medium"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_12"
+                android:maxLines="2"
+                android:text="Title goes here goes here title goes here goes here goes here"
+                android:layout_marginHorizontal="8dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <com.emproto.core.textviews.CustomTextView
+                android:id="@+id/place_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_style_dark_grey_14"
+                android:text="Parikrama"
+                android:fontFamily="@font/jost_italic"
+                android:layout_marginTop="@dimen/margin_size_5"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                app:layout_constraintLeft_toLeftOf="@id/title"/>
+
+            <com.emproto.core.textviews.CustomTextView
+                android:id="@+id/location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/text_style_medium_grey_14"
+                android:text="Ayodhya, UP"
+                android:fontFamily="@font/jost_italic"
+                android:layout_marginLeft="@dimen/margin_size_4"
+                android:layout_marginTop="@dimen/margin_size_5"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                app:layout_constraintLeft_toRightOf="@id/place_name"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/image_card"
+                android:layout_width="350dp"
+                android:layout_height="@dimen/margin_size_98"
+                app:cardCornerRadius="@dimen/margin_size_6"
+                android:layout_marginTop="@dimen/margin_size_5"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/place_name">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/location_image"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:scaleType="center"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <com.emproto.core.textviews.CustomTextView
+                android:id="@+id/deatils"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/text_style_light_grey_14"
+                android:fontFamily="@font/jost_regular"
+                android:layout_marginTop="@dimen/margin_size_5"
+                android:maxLines="2"
+                android:text="Coming Soon Stay tuned for more updates. Coming Soon.…Stay tuned for more upd..Coming Soon Stay tuned for more updates. Coming Soon.…Stay tuned for more upd.."
+                android:layout_marginBottom="@dimen/margin_size_12"
+                app:layout_constraintTop_toBottomOf="@id/image_card"
+                app:layout_constraintLeft_toLeftOf="@id/title"
+                app:layout_constraintRight_toRightOf="@id/title"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <com.emproto.core.textviews.CustomTextView
+                android:id="@+id/btn_read_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_style_blue_16"
+                android:fontFamily="@font/jost_medium"
+                android:background="@color/white"
+                android:text="READ MORE."
+                android:paddingHorizontal="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/deatils"
+                app:layout_constraintEnd_toEndOf="@+id/deatils" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/text_blue_color">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_oppDoc_top_image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_size_145"
+            android:scaleType="fitXY"
+            android:src="@drawable/img"
+            android:alpha="0.9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ImageView.Corner"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="148dp"
+            android:background="@drawable/top_corner_radius_bg"
+            android:backgroundTint="@color/light_blur_bg_color"
+            app:layout_constraintStart_toStartOf="@id/iv_oppDoc_top_image"
+            app:layout_constraintEnd_toEndOf="@id/iv_oppDoc_top_image"
+            app:layout_constraintTop_toTopOf="@id/iv_oppDoc_top_image"
+            app:layout_constraintBottom_toBottomOf="@id/iv_oppDoc_top_image"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_oppDoc_project_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="43dp"
+            android:layout_marginTop="@dimen/margin_size_50"
+            android:fontFamily="@font/jost_bold"
+            android:text="Isle of Bliss 2022"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_16"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toTopOf="@id/tv_oppDoc_project_theme_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_oppDoc_project_theme_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_size_13"
+            android:fontFamily="@font/jost_medium"
+            android:text="The investment destination of the decade"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_oppDoc_project_title" />
+
+        <View
+            android:id="@+id/view_top_line"
+            android:layout_width="33dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="@dimen/margin_size_6"
+            android:background="@color/viewpager_dot_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_oppDoc_project_theme_title"
+            app:layout_constraintVertical_bias="0.15" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

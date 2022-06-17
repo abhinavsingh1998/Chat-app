@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/_5sdp"
+    android:layout_gravity="center_horizontal"
+    app:cardElevation="@dimen/_1sdp"
+    android:layout_margin="@dimen/margin_size_4"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root_view"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_size_210"
+        android:paddingBottom="@dimen/margin_size_2">
+
+        <TextView
+            android:fontFamily="@font/jost_medium"
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/text_style_text_color_16"
+            android:text="Title"
+            android:layout_marginStart="@dimen/margin_size_6"
+            android:layout_marginTop="@dimen/margin_size_10"
+            android:layout_marginEnd="@dimen/margin_size_17"
+            android:maxLines="1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/tv_name"
+            style="@style/text_style_grey_13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Parikrama"
+            app:fontName="@string/jost_regular"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginEnd="@dimen/margin_size_17"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/image_card"
+            android:layout_width="150dp"
+            android:layout_height="@dimen/margin_size_80"
+            android:layout_marginLeft="@dimen/margin_size_6"
+            android:layout_marginRight="@dimen/margin_size_7"
+            android:layout_marginBottom="@dimen/margin_size_4"
+            android:layout_marginTop="@dimen/margin_size_10"
+            app:cardCornerRadius="@dimen/margin_size_6"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_name">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/mountain"
+                android:scaleType="fitXY" />
+        </androidx.cardview.widget.CardView>
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/description"
+            style="@style/text_style_text_color_13"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_size_6"
+            android:layout_marginTop="@dimen/margin_size_6"
+            android:layout_marginRight="@dimen/margin_size_6"
+            android:layout_marginBottom="@dimen/margin_size_6"
+            android:maxLines="3"
+            android:minLines="3"
+            android:gravity="start|center"
+            android:text="Coming Soon… Stay tuned for more updates"
+            app:fontName="@string/jost_regular"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_card" />
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/btn_read_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/text_style_blue_14"
+            android:fontFamily="@font/jost_medium"
+            android:background="@color/white"
+            android:text="@string/read_more_expand"
+            android:visibility="gone"
+            android:paddingHorizontal="4dp"
+            android:layout_marginBottom="@dimen/margin_size_2"
+            app:layout_constraintBottom_toBottomOf="@+id/description"
+            app:layout_constraintEnd_toEndOf="@+id/description" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

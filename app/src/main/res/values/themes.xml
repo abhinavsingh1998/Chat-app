@@ -1,0 +1,930 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.HOABL" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorPrimaryVariant">@color/app_color</item>
+        <item name="colorOnPrimary">@color/app_color</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/app_color</item>
+        <item name="colorSecondaryVariant">@color/app_color</item>
+        <item name="colorOnSecondary">@color/app_color</item>
+        <!-- Status bar color. -->
+        <!--
+                <item name="android:fontFamily">@font/blooming_elegant_regular</item>
+        -->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/black</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:elevation" tools:targetApi="lollipop">0dp</item>
+        <item name="elevation">0dp</item>
+    </style>
+
+    <style name="BottomNavigationView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:fontFamily">@font/jost_light</item>
+        <item name="android:textSize">@dimen/text_size_10</item>
+        <item name="android:textColor">@color/text_bluelightcolor</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="CustomTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCollapsedPaddingTop">0dp</item>
+        <item name="boxBackgroundMode">none</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="android:textColorHint">@color/text_grey_color</item>
+        <item name="hintTextColor">@color/app_color</item>
+        <item name="boxStrokeColor">@color/app_color</item>
+    </style>
+
+    <style name="CustomTextInputLayoutWithSpinner" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+        <item name="boxCollapsedPaddingTop">0dp</item>
+        <item name="boxBackgroundMode">outline</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="android:textColorHint">@color/text_grey_color</item>
+        <item name="hintTextColor">@color/app_color</item>
+        <item name="boxStrokeColor">@color/app_color</item>
+    </style>
+
+    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="fontFamily">@font/jost_medium</item>
+        <item name="android:fontFamily">@font/jost_medium</item>
+    </style>
+
+
+    <style name="CustomTextInputEditText">
+        <item name="android:singleLine">true</item>
+        <item name="android:minLines">1</item>
+        <item name="android:maxLines">1</item>
+        <item name="maxLines">1</item>
+        <item name="paddingStart">@dimen/_8sdp</item>
+        <item name="paddingEnd">@dimen/_2sdp</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:paddingTop">@dimen/margin_size_12</item>
+        <item name="android:paddingBottom">@dimen/margin_size_12</item>
+    </style>
+
+    <style name="CustomTextInputEditTextWithSpinner">
+        <item name="android:singleLine">true</item>
+        <item name="android:minLines">1</item>
+        <item name="android:maxLines">1</item>
+        <item name="maxLines">1</item>
+        <item name="paddingStart">@dimen/_8sdp</item>
+        <item name="paddingEnd">@dimen/_2sdp</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:paddingTop">@dimen/margin_size_12</item>
+        <item name="android:paddingBottom">@dimen/margin_size_12</item>
+    </style>
+
+    <style name="customtabs">
+        <item name="android:textSize">@dimen/text_size_10</item>
+        <item name="singleLine">true</item>
+        <item name="android:minLines">1</item>
+        <item name="maxLines">1</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    //textSize_8
+
+    <style name="text_style_brown_8">
+        <item name="android:gravity">start|center</item>
+        <item name="android:textSize">@dimen/text_size_8</item>
+        <item name="android:textColor">@color/text_lite_brown_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    //textSize_10
+
+    <style name="text_style_blue_10">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_10</item>
+        <item name="android:textColor">@color/app_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_brown_10">
+        <item name="android:gravity">start|center</item>
+        <item name="android:textSize">@dimen/text_size_10</item>
+        <item name="android:textColor">@color/text_thick_brown_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_light_text_color_10">
+        <item name="android:gravity">start|center</item>
+        <item name="android:textSize">@dimen/text_size_10</item>
+        <item name="android:textColor">@color/light_text_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_liquidity_text_color_10">
+        <item name="android:gravity">start|center</item>
+        <item name="android:textSize">@dimen/text_size_10</item>
+        <item name="android:textColor">@color/liquidity_text_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_lighttext_color_10">
+        <item name="android:gravity">start|center</item>
+        <item name="android:textSize">@dimen/text_size_10</item>
+        <item name="android:textColor">@color/lighttext_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_text_color_10">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_10</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    //textSize_11
+
+    <style name="text_style_text_color_11">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_11</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="text_style_white_11">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_11</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_lightbrown_11">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_11</item>
+        <item name="android:textColor">@color/light_brown</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_light_blue_11">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_11</item>
+        <item name="android:textColor">@color/light_app_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_grey_11">
+        <item name="android:gravity">start|center</item>
+        <item name="android:textSize">@dimen/text_size_11</item>
+        <item name="android:textColor">@color/text_fullgrey_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_gold_color_11">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_11</item>
+        <item name="android:textColor">@color/text_gold_color</item>
+    </style>
+
+    <style name="text_style_normal_textcolor_11">
+        <item name="android:gravity">start|center</item>
+        <item name="android:textSize">@dimen/text_size_11</item>
+        <item name="android:textColor">@color/normal_text_color</item>
+    </style>
+
+    //textSize_12
+
+    <style name="text_style_dark_red_12">
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/text_red_color</item>
+    </style>
+
+    <style name="text_style_text_light_black_color_12">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/land_skus_text_black_color</item>
+    </style>
+
+    <style name="text_style_text_light_black_color_13">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/land_skus_text_black_color</item>
+    </style>
+
+    <style name="text_style_dark_green_color_12">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/rating_dark_green_color</item>
+    </style>
+
+    <style name="text_style_white_12">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="text_style_daiog_text_color_12">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/text_dailog_color</item>
+    </style>
+
+    <style name="text_style_blue_12">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/app_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_light_blue_12">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/light_app_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_lightgrey_12">
+        <item name="android:gravity">start|center</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/text_lightgrey_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_light_grey_12">
+        <item name="android:gravity">start|center</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/text_lightgrey_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_light_grey_color_12">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/completed_investment_ash_text_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_medium_grey_12">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/category_location_ash_color</item>
+    </style>
+
+    <style name="text_style_text_color_12">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_thick_blue_12">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/thick_blue</item>
+    </style>
+
+    <style name="text_style_grey_12">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/share_text_grey_color</item>
+    </style>
+
+    <style name="text_style_text_black_color_12">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="text_style_dark_black_color_12">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/portfolio_info_text</item>
+    </style>
+
+    //textSize_13
+
+    <style name="text_style_dark_green_color_13">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/rating_dark_green_color</item>
+    </style>
+
+    <style name="text_style_white_13">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/light_brown</item>
+    </style>
+
+    <style name="text_style_white_color_13">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="text_style_grey_13">
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/text_fullgrey_color</item>
+    </style>
+
+    <style name="text_style_text_color_13">
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="text_style_medium_grey_13">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/category_location_ash_color</item>
+    </style>
+
+    <style name="text_dark_blue_color_13">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/latest_images_blue_color</item>
+    </style>
+
+    <style name="text_style_dark_greenp_color_13">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/rating_percent_green_color</item>
+    </style>
+
+    //textSize_14
+
+    <style name="text_style_dark_black_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/portfolio_info_text</item>
+    </style>
+
+
+    <style name="text_style_black_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/story_black_color</item>
+    </style>
+
+    <style name="text_style_reg_black_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/reg_no_black_color</item>
+    </style>
+
+    <style name="text_style_view_more_brown_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/view_more_brown_color</item>
+    </style>
+
+    <style name="text_style_thick_brown_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/thick_brown_color</item>
+    </style>
+
+    <style name="text_style_medium_gold_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/text_gold_color</item>
+    </style>
+
+    <style name="text_style_text_light_black_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/land_skus_text_black_color</item>
+    </style>
+
+    <style name="text_style_dark_brown_14">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/dark_brown_color</item>
+    </style>
+
+    <style name="text_style_light_grey_14">
+        <item name="android:gravity">start|left</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/completed_investment_ash_text_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_medium_grey_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/category_location_ash_color</item>
+    </style>
+
+    <style name="text_style_light_white_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/text_ash_light_color</item>
+    </style>
+
+    <style name="text_style_white_14">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="text_style_dark_gold_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/text_gold_colr</item>
+    </style>
+
+    <style name="text_style_dark_green_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/rating_percent_green_color</item>
+    </style>
+
+    <style name="text_style_light_black_color_14">
+        <item name="android:gravity">start|center</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/opp_doc_item_text_color</item>
+    </style>
+
+    <style name="text_style_text_black_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="text_style_text_black_color_15">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_15</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="text_style_blue_14">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/app_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_thick_blue_14">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/thick_blue</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_grey_14">
+        <item name="android:gravity">start|center</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/primarytext_color2</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_lightgrey_14">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/text_lightgrey_color</item>
+    </style>
+
+    <style name="text_style_lightgrey14">
+        <item name="android:gravity">center|left</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/text_lightgrey_color</item>
+    </style>
+
+    <style name="text_style_gold_color_14">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/gold_color</item>
+    </style>
+
+    <style name="text_style_light_gold_color_14">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/light_gold_color</item>
+    </style>
+
+    <style name="text_style_brown_14">
+        <item name="android:gravity">start|center</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/text_brown_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_text_color_14">
+        <item name="android:gravity">center|left</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_regular_text_color_14">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="singleLine">true</item>
+        <item name="fontFamily">@font/jost_regular</item>
+    </style>
+
+    <style name="text_style_text_brown_color_14">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/completed_inv_brown_color_text</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_text_14">
+        <item name="android:gravity">center|left</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_light_black_14">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/jost_light</item>
+    </style>
+
+    <style name="text_light_ash_14">
+        <item name="android:gravity">center|start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/unselected_button_color</item>
+    </style>
+
+    <style name="text_light_black_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/doc_label_black_color</item>
+    </style>
+
+    <style name="text_style_dark_grey_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">#3B3B4A</item>
+    </style>
+
+    <style name="text_dark_blue_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/latest_images_blue_color</item>
+    </style>
+
+    //textSize_15
+
+    <style name="text_style__text_color_15">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_15</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    //textSize_16
+
+    <style name="text_light_black_color_16">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/doc_label_black_color</item>
+    </style>
+
+    <style name="text_light_ash_16">
+        <item name="android:gravity">center|start</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/unselected_button_color</item>
+    </style>
+
+    <style name="text_white_16">
+        <item name="android:gravity">center|start</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="text_style_ash_color_16">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/light_appcolor</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="text_style_thick_blue_16">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/thick_blue</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_daiog_text_color_16">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/text_dailog_color</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="text_style_white_16">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_white_18">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="text_style_blue_16">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/app_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_gold_color_16">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/gold_color</item>
+    </style>
+
+    <style name="text_style_light_appcolor_16">
+        <item name="android:gravity">start|center</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/light_appcolor</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_text_color_16">
+        <item name="android:gravity">center|left</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_text_black_color_16">
+        <item name="android:gravity">center|left</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_greting_style_16">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/greeting_txt_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_pcolor1_16">
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/primarytext_color</item>
+        <item name="singleLine">true</item>
+        <item name="fontFamily">@font/jost_regular</item>
+    </style>
+
+    <style name="text_style_text_light_black_color_16">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/text_light_black_color</item>
+    </style>
+
+    //textSize_17
+
+    <style name="text_style_text_black_color_17">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_17</item>
+        <item name="android:textColor">@color/text_black_color</item>
+    </style>
+
+    //textSize_18
+
+    <style name="text_style_ash_color_18">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:textColor">@color/light_appcolor</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="text_style_color_18">
+        <item name="android:gravity">center|left</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_medium_gold_18">
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:textColor">@color/gold_color</item>
+        <item name="fontFamily">@font/jost_medium</item>
+    </style>
+
+    <style name="text_style_gold_18">
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:textColor">@color/gold_color</item>
+        <item name="fontFamily">@font/jost_medium</item>
+    </style>
+
+    <style name="text_style_text_color_18">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="text_light_black_color_18">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:textColor">@color/doc_label_black_color</item>
+    </style>
+
+    <style name="text_style_text_light_black_color_18">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:textColor">@color/text_light_black_color</item>
+    </style>
+
+    <style name="text_style_text_black_color_18">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    //textSize_20
+
+    <style name="text_style_white_20">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_text_color_20">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_20</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="text_style_text_color20">
+        <item name="android:gravity">center|left</item>
+        <item name="android:textSize">@dimen/text_size_20</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="text_style_blue_20">
+        <item name="android:gravity">start|center</item>
+        <item name="android:textSize">@dimen/text_size_20</item>
+        <item name="android:textColor">@color/app_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    //textSize_22
+
+    <style name="text_light_black_color_22">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_22</item>
+        <item name="android:textColor">@color/doc_label_black_color</item>
+    </style>
+
+    <style name="text_regular_blue_22">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_22</item>
+        <item name="android:textColor">@color/app_color</item>
+        <item name="android:fontFamily">@font/jost_regular</item>
+    </style>
+
+
+    //textSize_24
+
+    <style name="text_style_blue_24">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_24</item>
+        <item name="android:textColor">@color/app_color</item>
+        <item name="android:fontFamily">@font/jost_regular</item>
+    </style>
+
+    //textSize_25
+
+    <style name="text_style_text_color_25">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_25</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_text_black_color_25">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_25</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    //textSize_26
+
+    <style name="text_style_text_color_26">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_26</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    //textSize_30
+
+    <style name="text_style_white_30">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_30</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="text_style_text_color_30">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_30</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    //textSize_32
+
+    <style name="text_style_blue_32">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_32</item>
+        <item name="android:textColor">@color/app_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_blue_40">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_40</item>
+        <item name="android:textColor">@color/app_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="CustomCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialCardView.Cut
+        </item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MaterialCardView.Cut" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">40dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomRight">15dp</item>
+        <item name="cornerSizeBottomLeft">15dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MaterialCardView.Cut.item_investment" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeTopLeft">13dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">13dp</item>
+    </style>
+
+    <style name="SpinnerWithNoArrow" parent="@android:style/Widget.Spinner">
+        <item name="android:background">@android:drawable/edit_text</item>
+    </style>
+
+    <style name="MediaCustomTabText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="text_style_green_text_color_18">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:textColor">@color/rating_green_color</item>
+    </style>
+
+    <style name="RoundCorner" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
+        <item name="color">@color/white</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="ImageView.Corner" parent="">
+        <item name="cornerSizeTopRight">10dp</item>
+        <item name="cornerSizeTopLeft">10dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
+
+    <style name="Theme_Dialog" parent="android:Theme.Holo.Dialog">
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+    </style>
+</resources>

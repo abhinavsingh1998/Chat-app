@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/text_blue_color">
+
+    <ImageView
+        android:id="@+id/iv_hand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_size_19"
+        android:layout_marginTop="@dimen/margin_size_17"
+        android:src="@drawable/ic_baseline_back_hand"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_attention_text"
+        style="@style/text_style_white_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_size_11"
+        android:fontFamily="@font/jost_medium"
+        android:text="@string/attention_text"
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toBottomOf="@id/iv_hand"
+        app:layout_constraintEnd_toStartOf="@id/tv_seeall_attention"
+        app:layout_constraintStart_toEndOf="@id/iv_hand"
+        app:layout_constraintTop_toTopOf="@id/iv_hand" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_seeall_attention"
+        style="@style/text_style_white_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_size_16"
+        android:drawableEnd="@drawable/arrow_right_"
+        android:drawablePadding="@dimen/_2sdp"
+        android:fontFamily="@font/jost_regular"
+        android:text="@string/see_all"
+        app:layout_constraintBottom_toBottomOf="@id/tv_attention_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_attention_text"
+        app:layout_constraintTop_toTopOf="@id/tv_attention_text" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp_attention"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_size_16"
+        android:layout_marginTop="@dimen/margin_size_13"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_hand" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_dot_layout"
+        android:layout_width="@dimen/margin_size_90"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_size_6"
+        android:backgroundTint="@color/text_blue_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vp_attention"
+        app:tabBackground="@drawable/tab_selector_white"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

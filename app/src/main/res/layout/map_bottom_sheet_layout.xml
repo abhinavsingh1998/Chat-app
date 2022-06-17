@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_map_bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/top_corner_radius_bg">
+
+    <ImageView
+        android:layout_width="@dimen/margin_size_75"
+        android:layout_height="3dp"
+        android:background="@drawable/all_corner_radius_white_bg"
+        android:backgroundTint="@color/homescreen_background"
+        android:layout_marginTop="@dimen/margin_size_8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_around_project_text"
+        style="@style/text_light_black_color_18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_size_14"
+        android:layout_marginTop="@dimen/margin_size_30"
+        android:fontFamily="@font/jost_medium"
+        android:text="@string/around_this_project"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_map_location_item_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_size_6"
+        android:layout_marginTop="@dimen/margin_size_6"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/margin_size_10"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_around_project_text"
+        android:clipToPadding="false"
+        app:layout_constrainedHeight="true"
+        tools:itemCount="10"
+        tools:listitem="@layout/item_location_infrastructure" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

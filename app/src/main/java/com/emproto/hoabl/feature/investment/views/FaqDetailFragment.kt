@@ -1,0 +1,112 @@
+package com.emproto.hoabl.feature.investment.views
+
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.emproto.core.BaseFragment
+import com.emproto.hoabl.R
+import com.emproto.hoabl.databinding.FaqDetailFragmentBinding
+import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.investment.adapters.FaqDetailAdapter
+import com.emproto.hoabl.model.RecyclerViewFaqItem
+import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.hoabl.viewmodels.InvestmentViewModel
+import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
+import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.investment.CgData
+import javax.inject.Inject
+
+class FaqDetailFragment : BaseFragment() {
+
+    @Inject
+    lateinit var investmentFactory: InvestmentFactory
+    lateinit var investmentViewModel: InvestmentViewModel
+    lateinit var binding: FaqDetailFragmentBinding
+
+    private lateinit var adapter: FaqDetailAdapter
+    var projectId = 0
+    var faqId  = 0
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FaqDetailFragmentBinding.inflate(layoutInflater)
+        arguments?.let {
+            projectId = it.getInt("ProjectId")
+            faqId = it.getInt("FaqId")
+        }
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpInitialization()
+        callApi()
+    }
+
+    private fun setUpInitialization() {
+        (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
+        investmentViewModel =
+            ViewModelProvider(
+                requireActivity(),
+                investmentFactory
+            ).get(InvestmentViewModel::class.java)
+        (requireActivity() as HomeActivity).hideBottomNavigation()
+    }
+
+    private fun callApi() {
+        callFaqApi()
+
+    }
+
+    private fun callFaqApi() {
+        investmentViewModel.getInvestmentsFaq(projectId).observe(viewLifecycleOwner, Observer {
+            Log.d("Faq", it.data.toString())
+            when (it.status) {
+                Status.LOADING -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                }
+                Status.SUCCESS -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    it.data?.data?.let { data ->
+                        setUpRecyclerView(data,faqId)
+                    }
+                }
+                Status.ERROR -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(
+                        it.message!!
+                    )
+                }
+            }
+        })
+    }
+
+    private fun setUpRecyclerView(data: List<CgData>, faqId: Int) {
+        val list = ArrayList<RecyclerViewFaqItem>()
+        list.add(RecyclerViewFaqItem(1, data[0]))
+        for (item in data) {
+            list.add(RecyclerViewFaqItem(2, item))
+        }
+        adapter = FaqDetailAdapter(this.requireContext(), list, data, faqId,itemClickListener)
+        binding.rvFaq.adapter = adapter
+    }
+
+    val itemClickListener = object:ItemClickListener{
+        override fun onItemClicked(view: View, position: Int, item: String) {
+            when(view.id){
+                R.id.cv_category_name -> {
+                    binding.rvFaq.smoothScrollToPosition(position+1)
+                }
+            }
+        }
+    }
+}

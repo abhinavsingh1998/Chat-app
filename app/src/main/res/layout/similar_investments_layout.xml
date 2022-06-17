@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_similar_investments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/margin_size_8"
+        app:cardElevation="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_similiar_investments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_corner_radius_bg"
+            android:layout_marginBottom="@dimen/margin_size_25"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_similar_investment_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_size_13"
+                android:layout_marginTop="@dimen/margin_size_1"
+                android:fontFamily="@font/jost_medium"
+                android:text="@string/similar_investments"
+                android:textColor="@color/text_light_black_color"
+                android:textSize="@dimen/text_size_18"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_similar_investment_see_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/see_all"
+                android:textColor="@color/text_blue_color"
+                android:textSize="@dimen/text_size_14"
+                android:layout_marginEnd="@dimen/margin_size_8"
+                app:layout_constraintBottom_toBottomOf="@id/tv_similar_investment_title"
+                app:layout_constraintEnd_toStartOf="@+id/iv_video_drone_arrow"
+                app:layout_constraintTop_toTopOf="@id/tv_similar_investment_title" />
+
+            <ImageView
+                android:id="@+id/iv_video_drone_arrow"
+                android:layout_width="15dp"
+                android:layout_height="9dp"
+                android:layout_marginEnd="@dimen/margin_size_11"
+                android:src="@drawable/combined_shape"
+                app:layout_constraintBottom_toBottomOf="@id/tv_similar_investment_see_all"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_similar_investment_see_all" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_similar_investment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_7"
+                android:layout_marginTop="@dimen/margin_size_4"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_similar_investment_title"
+                tools:itemCount="5"
+                tools:listitem="@layout/item_smart_deals" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

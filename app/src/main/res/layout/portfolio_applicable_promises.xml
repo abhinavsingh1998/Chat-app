@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_applicable_promises"
+        style="@style/text_style_text_light_black_color_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_size_16"
+        android:layout_marginTop="@dimen/margin_size_26"
+        android:fontFamily="@font/jost_regular"
+        android:text="Applicable Promises"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_applicable_promises"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_size_14"
+        android:layout_marginHorizontal="@dimen/margin_size_8"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_applicable_promises"
+        tools:listitem="@layout/item_promises" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/btn_more_about_promises"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_size_20"
+        android:layout_marginTop="@dimen/margin_size_20"
+        android:layout_marginBottom="@dimen/margin_size_4"
+        android:background="@drawable/all_corner_radius_black_bg"
+        android:fontFamily="@font/jost_medium"
+        android:lineSpacingMultiplier="1.3"
+        android:paddingHorizontal="@dimen/margin_size_18"
+        android:paddingVertical="@dimen/margin_size_12"
+        android:text="@string/more_abt_promises"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_13"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_applicable_promises" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_ongoing_investments"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/content_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_size_12"
+        android:layout_marginTop="@dimen/margin_size_24"
+        android:fontFamily="@font/jost_regular"
+        android:text="Summary - Ongoing Investments"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_18"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardView_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_size_12"
+        android:layout_marginTop="@dimen/margin_size_14"
+        android:background="@drawable/financial_summary_light_card"
+        app:layout_constraintEnd_toStartOf="@id/cardView_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/content_header">
+
+        <TextView
+            android:id="@+id/card_name_1"
+            style="@style/text_style_text_color_16"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/margin_size_14"
+            android:layout_marginTop="@dimen/margin_size_14"
+            android:layout_marginBottom="@dimen/margin_size_37"
+            android:fontFamily="@font/jost_medium"
+            android:text="No. of Products"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/content_txt_1"
+            style="@style/text_style_text_brown_color_14"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/margin_size_14"
+            android:layout_marginTop="@dimen/margin_size_3"
+            android:layout_marginBottom="@dimen/margin_size_14"
+            android:fontFamily="@font/jost_regular"
+            android:text="2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_name_1" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardView_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_size_12"
+        android:background="@drawable/financial_summary_light_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cardView_1"
+        app:layout_constraintTop_toTopOf="@id/cardView_1">
+
+        <TextView
+            android:id="@+id/card_name_2"
+            style="@style/text_style_text_color_16"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/margin_size_14"
+            android:layout_marginTop="@dimen/margin_size_14"
+            android:layout_marginBottom="@dimen/margin_size_37"
+            android:fontFamily="@font/jost_medium"
+            android:text="Sqft Applied"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/content_txt_2"
+            style="@style/text_style_text_brown_color_14"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/margin_size_14"
+            android:layout_marginTop="@dimen/margin_size_3"
+            android:layout_marginBottom="@dimen/margin_size_14"
+            android:fontFamily="@font/jost_regular"
+            android:text="3600"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_name_2" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardView_3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/margin_size_12"
+        android:layout_marginTop="@dimen/margin_size_12"
+        android:background="@drawable/financial_summary_light_card"
+        app:layout_constraintBottom_toBottomOf="@id/card_View_4"
+        app:layout_constraintEnd_toStartOf="@id/card_View_4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView_1">
+
+        <TextView
+            android:id="@+id/card_name_3"
+            style="@style/text_style_text_color_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_14"
+            android:layout_marginTop="@dimen/margin_size_14"
+            android:layout_marginBottom="@dimen/margin_size_37"
+            android:fontFamily="@font/jost_medium"
+            android:text="@string/amount_paid"
+            app:layout_constraintBottom_toTopOf="@id/content_txt_3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/content_txt_3"
+            style="@style/text_style_text_brown_color_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_size_3"
+            android:layout_marginBottom="@dimen/margin_size_14"
+            android:fontFamily="@font/jost_regular"
+            android:text="₹ 36,00,000"
+            app:layout_constraintStart_toStartOf="@id/card_name_3"
+            app:layout_constraintTop_toBottomOf="@id/card_name_3" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_View_4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_size_12"
+        android:background="@drawable/financial_summary_light_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cardView_3"
+        app:layout_constraintTop_toTopOf="@+id/cardView_3">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/card_name_4"
+            style="@style/text_style_text_color_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_14"
+            android:layout_marginTop="@dimen/margin_size_14"
+            android:layout_marginEnd="6dp"
+            android:fontFamily="@font/jost_medium"
+            android:text="@string/amount_pending"
+            app:layout_constraintEnd_toStartOf="@+id/iv_amount_pending"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/content_txt_4"
+            style="@style/text_style_text_brown_color_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_14"
+            android:layout_marginTop="@dimen/margin_size_3"
+            android:layout_marginBottom="@dimen/margin_size_14"
+            android:fontFamily="@font/jost_regular"
+            android:text="₹ 36,00,000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_name_4" />
+
+        <ImageView
+            android:id="@+id/iv_amount_pending"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="@dimen/margin_size_6"
+            android:src="@drawable/ic_info_outlined"
+            android:tooltipText="Investor Estimated Appreciation"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@id/card_name_4"
+            app:layout_constraintStart_toEndOf="@id/card_name_4"
+            app:layout_constraintTop_toTopOf="@id/card_name_4" />
+
+        <ImageView
+            android:id="@+id/iv_amount"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="@dimen/margin_size_6"
+            android:src="@drawable/ic_info_outlined"
+            android:tooltipText="Investor Estimated Appreciation"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/content_txt_4"
+            app:layout_constraintStart_toEndOf="@id/content_txt_4"
+            app:layout_constraintTop_toTopOf="@id/content_txt_4"
+            app:tint="@color/white" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
