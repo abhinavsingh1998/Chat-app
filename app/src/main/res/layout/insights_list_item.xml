@@ -54,7 +54,6 @@
                         android:id="@+id/location_image"
                         android:layout_width="350dp"
                         android:layout_height="@dimen/margin_size_98"
-                        android:src="@drawable/land_img"
                         android:scaleType="center"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
