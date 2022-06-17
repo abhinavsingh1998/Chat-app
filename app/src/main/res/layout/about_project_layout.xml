@@ -54,7 +54,6 @@
             android:id="@+id/iv_abt_project_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/inv_proj_image"
             android:scaleType="fitXY"
             />
 

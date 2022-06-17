@@ -16,8 +16,13 @@ android {
         versionCode 16
         versionName "0.0.15_qa_profile"
         multiDexEnabled true
+        archivesBaseName = "0.0.15_qa_profile"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    lintOptions {
+        abortOnError false
     }
 
     buildTypes {
