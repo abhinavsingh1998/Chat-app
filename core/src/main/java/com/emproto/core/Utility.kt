@@ -170,6 +170,7 @@ object Utility {
                 outputStream?.close()
             }
         } catch (e: IOException) {
+            Log.e("Error in file", e.localizedMessage )
             null
         }
     }
@@ -182,7 +183,7 @@ object Utility {
         df.maximumFractionDigits = 2
         var amountInString = ""
         amountInString = if (amount < 100000) {
-            "₹ $amount"
+            "₹ ${df.format(amount)}"
         } else {
             val value = df.format(amount / 100000)
             "₹$value Lakhs*"

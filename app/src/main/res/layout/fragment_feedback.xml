@@ -55,8 +55,10 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/back_action">
+            app:layout_constraintTop_toBottomOf="@+id/back_action"
+            app:layout_constraintVertical_bias="0.0">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -128,7 +130,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/home_checkbox" />
 
                 <CheckBox
-                    android:id="@+id/checkBox2"
+                    android:id="@+id/checkbox_promises"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_size_8"
@@ -144,7 +146,7 @@
                     android:layout_marginEnd="@dimen/margin_size_272"
                     android:text="@string/portfolio"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
-                    app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
+                    app:layout_constraintTop_toBottomOf="@+id/checkbox_promises" />
 
                 <CheckBox
                     android:id="@+id/checkbox_profile"
@@ -168,53 +170,58 @@
 
 
                 <ImageView
-                    android:id="@+id/iv_sad"
+                    android:id="@+id/iv_rating_1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_35"
                     android:layout_marginTop="@dimen/margin_size_14"
-                    android:src="@drawable/sad_emoji"
+                    android:clickable="true"
+                    android:background="@drawable/sad_2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/checkbox_desc" />
 
                 <ImageView
-                    android:id="@+id/sad_emoji_iv"
+                    android:id="@+id/iv_rating_2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_30"
                     android:layout_marginTop="@dimen/margin_size_14"
-                    android:src="@drawable/sad"
-                    app:layout_constraintStart_toEndOf="@+id/iv_sad"
+                    android:clickable="true"
+                    android:background="@drawable/sad"
+                    app:layout_constraintStart_toEndOf="@+id/iv_rating_1"
                     app:layout_constraintTop_toBottomOf="@+id/checkbox_desc" />
 
                 <ImageView
-                    android:id="@+id/confused_iv"
+                    android:id="@+id/iv_rating_3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_30"
                     android:layout_marginTop="@dimen/margin_size_14"
-                    android:src="@drawable/confused_emoji"
-                    app:layout_constraintStart_toEndOf="@+id/sad_emoji_iv"
+                    android:clickable="true"
+                    android:background="@drawable/confused"
+                    app:layout_constraintStart_toEndOf="@+id/iv_rating_2"
                     app:layout_constraintTop_toBottomOf="@+id/checkbox_desc" />
 
                 <ImageView
-                    android:id="@+id/happy_Iv"
+                    android:id="@+id/iv_rating_4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_30"
                     android:layout_marginTop="@dimen/margin_size_14"
-                    android:src="@drawable/happy_emoji"
-                    app:layout_constraintStart_toEndOf="@+id/confused_iv"
+                    android:clickable="true"
+                    android:background="@drawable/happy"
+                    app:layout_constraintStart_toEndOf="@+id/iv_rating_3"
                     app:layout_constraintTop_toBottomOf="@+id/checkbox_desc" />
 
                 <ImageView
-                    android:id="@+id/imageView5"
+                    android:id="@+id/iv_rating_5"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_30"
                     android:layout_marginTop="@dimen/margin_size_14"
-                    android:src="@drawable/love_emoji"
-                    app:layout_constraintStart_toEndOf="@+id/happy_Iv"
+                    android:clickable="true"
+                    android:src="@drawable/in_love"
+                    app:layout_constraintStart_toEndOf="@+id/iv_rating_4"
                     app:layout_constraintTop_toBottomOf="@+id/checkbox_desc" />
 
                 <TextView
@@ -225,8 +232,8 @@
                     android:layout_marginTop="@dimen/margin_size_6"
                     android:fontFamily="@font/jost_light"
                     android:text="@string/very_poor_text"
-                    app:layout_constraintStart_toStartOf="@id/iv_sad"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_sad" />
+                    app:layout_constraintStart_toStartOf="@+id/iv_rating_1"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_rating_1" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -234,8 +241,8 @@
                     android:layout_marginTop="@dimen/margin_size_6"
                     android:fontFamily="@font/jost_light"
                     android:text="@string/excellent"
-                    app:layout_constraintEnd_toEndOf="@id/imageView5"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+                    app:layout_constraintEnd_toEndOf="@+id/iv_rating_5"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_rating_5" />
 
                 <View
                     android:id="@+id/feedback_view"

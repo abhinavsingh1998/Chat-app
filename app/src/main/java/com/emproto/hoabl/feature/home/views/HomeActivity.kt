@@ -105,12 +105,14 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private fun initClickListener() {
 
         activityHomeActivity.searchLayout.headset.setOnClickListener {
-            val bundle = Bundle()
-            val chatsFragment = ChatsFragment()
-            chatsFragment.arguments = bundle
-            replaceFragment(
-                chatsFragment.javaClass, "", true, bundle, null, 0, false
-            )
+
+            Toast.makeText(this, "Chat is Under Development", Toast.LENGTH_LONG).show()
+//            val bundle = Bundle()
+//            val chatsFragment = ChatsFragment()
+//            chatsFragment.arguments = bundle
+//            replaceFragment(
+//                chatsFragment.javaClass, "", true, bundle, null, 0, false
+//            )
         }
 
         activityHomeActivity.searchLayout.search.setOnClickListener {
@@ -122,46 +124,47 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         }
 
         activityHomeActivity.searchLayout.notification.setOnClickListener(View.OnClickListener {
-            bottomSheetDialog = BottomSheetDialog(this)
-            bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
-            fragmentNotificationBottomSheetBinding =
-                FragmentNotificationBottomSheetBinding.inflate(layoutInflater)
-            bottomSheetDialog.setContentView(fragmentNotificationBottomSheetBinding.root)
-
-            view?.viewTreeObserver?.addOnGlobalLayoutListener(object :
-                ViewTreeObserver.OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    val bottomSheetDialog =
-                        (bottomSheetDialog as BottomSheetDialog).findViewById<View>(R.id.locUXView) as LinearLayout
-                    BottomSheetBehavior.from<View>(bottomSheetDialog).apply {
-                        peekHeight = 100
-                    }
-
-                    view?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
-                }
-            })
-
-            var data = ArrayList<NotificationDataModel>()
-            for (i in 1..20) {
-                data.add(
-                    NotificationDataModel(
-                        R.drawable.img,
-                        "Notification Topic 1",
-                        "It is a long established fact that a reader will be distracted ",
-                        "1h"
-                    )
-                )
-                Log.i("msg", "data")
-            }
-            val customAdapter = NotificationAdapter(this, data)
-
-            bottomSheetDialog.findViewById<RecyclerView>(R.id.rv)?.apply {
-                layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-                adapter = customAdapter
-            }
-
-
-            launch_bottom_sheet()
+//            bottomSheetDialog = BottomSheetDialog(this)
+//            bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+//            fragmentNotificationBottomSheetBinding =
+//                FragmentNotificationBottomSheetBinding.inflate(layoutInflater)
+//            bottomSheetDialog.setContentView(fragmentNotificationBottomSheetBinding.root)
+//
+//            view?.viewTreeObserver?.addOnGlobalLayoutListener(object :
+//                ViewTreeObserver.OnGlobalLayoutListener {
+//                override fun onGlobalLayout() {
+//                    val bottomSheetDialog =
+//                        (bottomSheetDialog as BottomSheetDialog).findViewById<View>(R.id.locUXView) as LinearLayout
+//                    BottomSheetBehavior.from<View>(bottomSheetDialog).apply {
+//                        peekHeight = 100
+//                    }
+//
+//                    view?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
+//                }
+//            })
+//
+//            var data = ArrayList<NotificationDataModel>()
+//            for (i in 1..20) {
+//                data.add(
+//                    NotificationDataModel(
+//                        R.drawable.img,
+//                        "Notification Topic 1",
+//                        "It is a long established fact that a reader will be distracted ",
+//                        "1h"
+//                    )
+//                )
+//                Log.i("msg", "data")
+//            }
+//            val customAdapter = NotificationAdapter(this, data)
+//
+//            bottomSheetDialog.findViewById<RecyclerView>(R.id.rv)?.apply {
+//                layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+//                adapter = customAdapter
+//            }
+//
+//
+//            launch_bottom_sheet()
+            Toast.makeText(this, "Notification is Under Development", Toast.LENGTH_LONG).show()
 
         })
 
@@ -384,7 +387,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 val totalLandsold: String? = String.format(
                     getString(R.string.header),
                     it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName,
-                    it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value + " Sqft"
+                    it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value
                 )
                 //it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value
 
@@ -393,6 +396,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                     it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName,
                     it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
                 )
+
                 //it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
                 val grossWeight: String? = String.format(
                     getString(R.string.header),
@@ -407,7 +411,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 )
                 //it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName + " " + it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
                 activityHomeActivity.searchLayout.rotateText.text = showHTMLText(
-                    "$totalAmtLandSold    $totalLandsold    $grossWeight    $num_User"
+                    "$totalAmtLandSold           $totalLandsold    $grossWeight    $num_User"
                 )
                 topText = showHTMLText(
                     "$totalAmtLandSold    $totalLandsold    $grossWeight    $num_User"

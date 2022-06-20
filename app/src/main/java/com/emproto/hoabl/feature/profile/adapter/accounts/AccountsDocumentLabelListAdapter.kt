@@ -41,6 +41,7 @@ class AccountsDocumentLabelListAdapter(
         holder.tvViewDoc.setOnClickListener {
             mListener.onAccountsDocumentLabelItemClick(accountsDocumentList, it, position)
         }
+
     }
 
     override fun getItemCount(): Int {

@@ -61,6 +61,7 @@
     <color name="category_location_ash_color">#918fa3</color>
     <color name="category_item_light_ash_color">#f4f4f6</color>
     <color name="category_bottom_ash_line_color">#dcdbe6</color>
+    <color name="ash_line_color">#eeeeee</color>
     <color name="light_appcolor">#cdceed</color>
     <color name="opp_doc_info_card_color">#454130</color>
     <color name="opp_doc_ash_line">#b6b3d0</color>

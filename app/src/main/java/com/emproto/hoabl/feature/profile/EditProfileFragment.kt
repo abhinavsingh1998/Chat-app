@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -27,16 +28,15 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.loader.content.CursorLoader
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentEditProfileBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
@@ -48,12 +48,22 @@ import com.emproto.networklayer.response.profile.ProfilePictureResponse
 import com.emproto.networklayer.response.profile.States
 import okhttp3.MultipartBody
 import java.io.*
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+import android.annotation.SuppressLint
+import android.content.Context
+import android.provider.DocumentsContract
+
+import android.content.ContentUris
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.core.content.FileProvider
+import com.emproto.core.BaseFragment
+import com.emproto.hoabl.viewmodels.ProfileViewModel
 
 
-class EditProfileFragment : Fragment() {
+class EditProfileFragment : BaseFragment() {
     val bundle = Bundle()
     var charSequence1: Editable? = null
     var charSequence2: Editable? = null
@@ -90,6 +100,8 @@ class EditProfileFragment : Fragment() {
     lateinit var city: String
     lateinit var gender: String
     lateinit var uploadProfilePictureRequest: UploadProfilePictureRequest
+
+    lateinit var cameraFile: File
 
     @Inject
     lateinit var appPreference: AppPreference
@@ -268,8 +280,6 @@ class EditProfileFragment : Fragment() {
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 isReadStorageGranted = permissions[Manifest.permission.READ_EXTERNAL_STORAGE]
                     ?: isReadStorageGranted
-                isCameraPermissionGranted =
-                    permissions[Manifest.permission.CAMERA] ?: isCameraPermissionGranted
                 isWriteStorageGranted =
                     permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: isWriteStorageGranted
             }
@@ -335,16 +345,16 @@ class EditProfileFragment : Fragment() {
         } else {
             binding.pincodeEditText.setText("")
         }
-        if (!data.profilePictureUrl.isNullOrEmpty()) {
+        if (data.profilePictureUrl.isNullOrEmpty()) {
             binding.profileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
             setUserNamePIC()
         } else {
             binding.profileImage.visibility = View.VISIBLE
             binding.profileUserLetters.visibility = View.GONE
-//            Glide.with(requireContext())
-//                .load(data.profilePictureUrl)
-//                .into(binding.profileImage)
+            Glide.with(requireContext())
+                .load(data.profilePictureUrl)
+                .into(binding.profileImage)
 
         }
     }
@@ -362,7 +372,8 @@ class EditProfileFragment : Fragment() {
 
     private fun updateLable(myCalendar: Calendar) {
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH)
-        binding.tvDatePicker.setText(sdf.format(myCalendar.timeZone))
+        var dateSelected=sdf.format(myCalendar.time)
+        binding.tvDatePicker.setText(dateSelected.substring(0,10))
     }
 
 
@@ -487,16 +498,12 @@ class EditProfileFragment : Fragment() {
         isReadStorageGranted = ContextCompat.checkSelfPermission(
             requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
-        isCameraPermissionGranted = ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.CAMERA
-        ) == PackageManager.PERMISSION_GRANTED
+
         isWriteStorageGranted = ContextCompat.checkSelfPermission(
             requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
-        if (!isReadStorageGranted && !isCameraPermissionGranted && !isWriteStorageGranted) {
+        if (!isReadStorageGranted && !isWriteStorageGranted) {
             permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
-            permissionRequest.add(Manifest.permission.CAMERA)
             permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         }
         if (permissionRequest.isNotEmpty()) {
@@ -504,33 +511,14 @@ class EditProfileFragment : Fragment() {
         }
     }
 
-    private fun onCaptureImageResult(data: Intent) {
-        val thumbnail = data.extras!!["data"] as Bitmap?
-        val bytes = ByteArrayOutputStream()
-        thumbnail!!.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        destinationFile = File(
-            Environment.getExternalStorageDirectory(),
-            "Profile_pic_" + this.data.crmId + ".jpg"
-        )
-        val fo: FileOutputStream
-        try {
-            destinationFile.createNewFile()
-            fo = FileOutputStream(destinationFile)
-            fo.write(bytes.toByteArray())
-            fo.close()
-        } catch (e: FileNotFoundException) {
-            e.printStackTrace()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
+    private fun onCaptureImageResult() {
+        val selectedImage = cameraFile.path
+        val thumbnail = BitmapFactory.decodeFile(selectedImage)
         binding.profileImage.visibility = View.VISIBLE
         binding.profileUserLetters.visibility = View.GONE
         binding.profileImage.setImageBitmap(thumbnail)
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-
-
-            callingUploadPicApi(destinationFile)
-//            getPreSignedUrl(destinationFile)
+            callingUploadPicApi(cameraFile)
         } else {
             (requireActivity() as BaseActivity).showError(
                 "Please check Internet Connections to upload image",
@@ -540,111 +528,58 @@ class EditProfileFragment : Fragment() {
         }
     }
 
-//    private fun getPreSignedUrl(destinationFile: File) {
-//        val type = "upload"
-//        profileViewModel.presignedUrl(type, destinationFile)
-//            .observe(viewLifecycleOwner,
-//                Observer {
-//                    when (it.status) {
+    private fun callingUploadPicApi(destinationFile: File) {
+//        profileViewModel.uploadProfilePicture(destinationFile, destinationFile.name)
+//            .observe(viewLifecycleOwner, object : Observer<BaseResponse<ProfilePictureResponse>> {
+//                override fun onChanged(it: BaseResponse<ProfilePictureResponse>?) {
+//                    when (it?.status) {
 //                        Status.LOADING -> {
 //                            binding.progressBaar.show()
 //                        }
 //                        Status.SUCCESS -> {
 //                            binding.progressBaar.hide()
-//                            try {
-//                                val preSignedUrl = it.data!!.preSignedUrl
-//                                callingUploadPicApi(preSignedUrl)
-//
-//                            } catch (e: IOException) {
-//                                println(e)
-//                            }
 //                        }
 //                        Status.ERROR -> {
 //                            binding.progressBaar.hide()
 //                        }
 //                    }
-//                })
+//                }
 //
-//    }
-
-    private fun callingUploadPicApi(destinationFile: File) {
-        profileViewModel.uploadProfilePicture(destinationFile, destinationFile.name)
-            .observe(viewLifecycleOwner, object : Observer<BaseResponse<ProfilePictureResponse>> {
-                override fun onChanged(it: BaseResponse<ProfilePictureResponse>?) {
-                    when (it?.status) {
-                        Status.LOADING -> {
-                            binding.progressBaar.show()
-                        }
-                        Status.SUCCESS -> {
-                            binding.progressBaar.hide()
-
-                            try {
-//                                Glide.with(requireContext())
-//                                    .load(it.data?.data?.profilePictureUrl)
-//                                    .into(binding.profileImage)
-                            } catch (e: IOException) {
-                                println(e)
-                            }
-                        }
-                        Status.ERROR -> {
-                            binding.progressBaar.hide()
-                        }
-                    }
-                }
-
-
-            })
+//
+//            })
     }
 
     private fun onSelectFromGalleryResult(data: Intent) {
         val selectedImage = data.data
+        var inputStream = requireContext().contentResolver.openInputStream(selectedImage!!)
         try {
-            bitmap = MediaStore.Images.Media.getBitmap(
-                requireActivity().getContentResolver(),
-                selectedImage
-            )
+            bitmap = BitmapFactory.decodeStream(inputStream)
             val bytes = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-            Log.e("Activity", "Pick from Gallery::>>> ")
-            destinationFile = File(
-                Environment.getExternalStorageDirectory(),
-                "Profile_pic_" + System.currentTimeMillis() + ".jpg"
-            )
-            val fo: FileOutputStream
+
             try {
-                destinationFile.createNewFile()
-                fo = FileOutputStream(destinationFile)
-                fo.write(bytes.toByteArray())
-                fo.close()
-            } catch (e: FileNotFoundException) {
-                e.printStackTrace()
-            } catch (e: IOException) {
-                e.printStackTrace()
+                val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
+                if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
+                    destinationFile = File(filePath)
+                    callingUploadPicApi(destinationFile)
+                } else {
+                    (requireActivity() as BaseActivity).showError(
+                        "Please check Internet Connections to upload image",
+                        binding.root
+                    )
+                }
+            } catch (e: Exception) {
+                Log.e("Error", "onSelectFromGalleryResult: " + e.localizedMessage)
             }
+
             binding.profileImage.visibility = View.VISIBLE
             binding.profileUserLetters.visibility = View.GONE
             binding.profileImage.setImageBitmap(bitmap)
 
-            if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-                callingUploadPicApi(destinationFile)
-//                getPreSignedUrl(destinationFile)
-            } else {
-                (requireActivity() as BaseActivity).showError(
-                    "Please check Internet Connections to upload image",
-                    binding.root
-                )
-            }
+
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }
-    }
-
-    fun getRealPathFromURI(contentUri: Uri?): String? {
-        val proj = arrayOf(MediaStore.Audio.Media.DATA)
-        val cursor: Cursor = requireActivity().managedQuery(contentUri, proj, null, null, null)
-        val column_index = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA)
-        cursor.moveToFirst()
-        return cursor.getString(column_index)
     }
 
     private fun selectImage() {
@@ -655,18 +590,16 @@ class EditProfileFragment : Fragment() {
             when {
                 options[item] == "Take Photo" -> {
                     val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    startActivityForResult(intent, PICK_CAMERA_IMAGE)
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, getPhotoFile(requireContext()))
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                    cameraLauncher.launch(intent)
 
                 }
                 options[item] == "Choose from Gallery" -> {
-                    val intent = Intent()
-                    intent.type = "image/*"
-                    intent.action = Intent.ACTION_GET_CONTENT //
-
-                    startActivityForResult(
-                        Intent.createChooser(intent, "Select Picture"),
-                        PICK_GALLERY_IMAGE
-                    )
+                    val intent =
+                        Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                    resultLauncher.launch(intent)
                 }
                 options[item] == "Cancel" -> {
                     dialog.dismiss()
@@ -676,13 +609,29 @@ class EditProfileFragment : Fragment() {
         builder.show()
     }
 
+    var cameraLauncher = registerForActivityResult(
+        StartActivityForResult()
+    ) { result ->
+        if (result.resultCode === Activity.RESULT_OK) {
+            onCaptureImageResult()
+        }
+    }
+
+    var resultLauncher = registerForActivityResult(
+        StartActivityForResult()
+    ) { result ->
+        if (result != null && result.resultCode === Activity.RESULT_OK) {
+            if (result.data != null) {
+                onSelectFromGalleryResult(result.data!!)
+            }
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == PICK_GALLERY_IMAGE) {
                 onSelectFromGalleryResult(data!!)
-            } else if (requestCode == PICK_CAMERA_IMAGE) {
-                onCaptureImageResult(data!!)
             } else {
                 (requireActivity() as BaseActivity).showError(
                     "Nothing Selected",
@@ -691,8 +640,125 @@ class EditProfileFragment : Fragment() {
             }
         }
     }
-}
 
+    @SuppressLint("NewApi")
+    fun getRealPathFromURI_API19(context: Context, uri: Uri): String? {
+        val isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
+
+        // DocumentProvider
+        if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
+            // ExternalStorageProvider
+            if (isExternalStorageDocument(uri)) {
+                val docId = DocumentsContract.getDocumentId(uri)
+                val split = docId.split(":".toRegex()).toTypedArray()
+                val type = split[0]
+                if ("primary".equals(type, ignoreCase = true)) {
+                    return Environment.getExternalStorageDirectory().toString() + "/" + split[1]
+                }
+
+                // TODO handle non-primary volumes
+            } else if (isDownloadsDocument(uri)) {
+                val id = DocumentsContract.getDocumentId(uri)
+                val contentUri = ContentUris.withAppendedId(
+                    Uri.parse("content://downloads/public_downloads"), java.lang.Long.valueOf(id)
+                )
+                return getDataColumn(context, contentUri, null, null)
+            } else if (isMediaDocument(uri)) {
+                val docId = DocumentsContract.getDocumentId(uri)
+                val split = docId.split(":".toRegex()).toTypedArray()
+                val type = split[0]
+                var contentUri: Uri? = null
+                if ("image" == type) {
+                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                } else if ("video" == type) {
+                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+                } else if ("audio" == type) {
+                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                }
+                val selection = "_id=?"
+                val selectionArgs = arrayOf(
+                    split[1]
+                )
+                return getDataColumn(context, contentUri, selection, selectionArgs!!)
+            }
+        } else if ("content".equals(uri.scheme, ignoreCase = true)) {
+
+            // Return the remote address
+            return if (isGooglePhotosUri(uri)) uri.lastPathSegment else getDataColumn(
+                context,
+                uri,
+                null,
+                null
+            )
+        } else if ("file".equals(uri.scheme, ignoreCase = true)) {
+            return uri.path
+        }
+        return null
+    }
+
+    fun isExternalStorageDocument(uri: Uri): Boolean {
+        return "com.android.externalstorage.documents" == uri.authority
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is DownloadsProvider.
+     */
+    fun isDownloadsDocument(uri: Uri): Boolean {
+        return "com.android.providers.downloads.documents" == uri.authority
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is MediaProvider.
+     */
+    fun isMediaDocument(uri: Uri): Boolean {
+        return "com.android.providers.media.documents" == uri.authority
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is Google Photos.
+     */
+    fun isGooglePhotosUri(uri: Uri): Boolean {
+        return "com.google.android.apps.photos.content" == uri.authority
+    }
+
+    fun getDataColumn(
+        context: Context, uri: Uri?, selection: String?,
+        selectionArgs: Array<String>?
+    ): String? {
+        var cursor: Cursor? = null
+        val column = "_data"
+        val projection = arrayOf(
+            column
+        )
+        try {
+            cursor = context.contentResolver.query(
+                uri!!, projection, selection, selectionArgs,
+                null
+            )
+            if (cursor != null && cursor.moveToFirst()) {
+                val index = cursor.getColumnIndexOrThrow(column)
+                return cursor.getString(index)
+            }
+        } finally {
+            cursor?.close()
+        }
+        return null
+    }
+
+    fun getPhotoFile(context: Context): Uri? {
+        val fileSuffix = SimpleDateFormat("yyyyMMddHHmmss").format(Date())
+        cameraFile = File(context.externalCacheDir, "$fileSuffix.jpg")
+        return FileProvider.getUriForFile(
+            requireContext(),
+            requireContext().applicationContext.packageName + ".provider",
+            cameraFile
+        )
+    }
+
+}
 
 
 

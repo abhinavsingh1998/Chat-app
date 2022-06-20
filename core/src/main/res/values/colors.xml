@@ -10,9 +10,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="blackk">#000000</color>
     <color name="text_color">#1c1c1c</color>
     <color name="text_grey_color">#9d9d9d</color>
+    <color name="text_security_head">#21202b</color>
     <color name="button_color">#323a44</color>
+    <color name="text_security">#59576e</color>
     <color name="circle_indicator_color">#9d9d9d</color>
     <color name="uncircle_indicator_color">#b9b9b9</color>
     <color name="snackbar_color">#17171c</color>

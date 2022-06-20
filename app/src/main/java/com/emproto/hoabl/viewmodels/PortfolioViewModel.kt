@@ -7,12 +7,14 @@ import androidx.lifecycle.ViewModel
 import com.emproto.hoabl.repository.PortfolioRepository
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
+import com.emproto.networklayer.response.bookingjourney.PaymentHistory
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.portfolio.dashboard.Address
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
+import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentInformation
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
 import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineResponse
 import com.emproto.networklayer.response.profile.ProfileResponse
@@ -25,7 +27,8 @@ class PortfolioViewModel(
 
     private var portfolioData = MutableLiveData<PortfolioData>()
     private lateinit var projectDetails: ProjectExtraDetails
-    private lateinit var projectname: String
+    private lateinit var investmentInfo: InvestmentInformation
+    private lateinit var paymentHistory: List<PaymentHistory>
 
     fun getPortfolioDashboard(refresh: Boolean): LiveData<BaseResponse<PortfolioData>> {
         return portfolioRepository.getPortfolioDashboard(refresh)
@@ -47,12 +50,20 @@ class PortfolioViewModel(
         return this.projectDetails
     }
 
-    fun setProjectName(name: String) {
-        this.projectname = name
+    fun setInvestmentInfo(investementInfo: InvestmentInformation) {
+        this.investmentInfo = investementInfo
     }
 
-    fun getProjectName(): String {
-        return this.projectname
+    fun getInvestmentInfo(): InvestmentInformation {
+        return this.investmentInfo
+    }
+
+    fun setPaymentHistory(history: List<PaymentHistory>) {
+        this.paymentHistory = history
+    }
+
+    fun getPaymentHistory(): List<PaymentHistory> {
+        return this.paymentHistory
     }
 
     fun getInvestmentDetails(

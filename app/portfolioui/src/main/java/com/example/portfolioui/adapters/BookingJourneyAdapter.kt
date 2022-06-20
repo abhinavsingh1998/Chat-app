@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.Utility
 import com.emproto.networklayer.response.bookingjourney.*
+import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentInformation
+import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
 import com.example.portfolioui.R
 import com.example.portfolioui.databinding.*
 import com.example.portfolioui.models.BookingModel
@@ -109,12 +111,12 @@ class BookingJourneyAdapter(
         when (dataList[position].viewType) {
             TYPE_HEADER -> {
                 val header_holder = holder as HeaderHolder
-                val data = dataList[header_holder.layoutPosition].data as Investment
+                val data = dataList[header_holder.layoutPosition].data as InvestmentInformation
                 header_holder.binding.tvOwner.text = data.owners
                 header_holder.binding.tvId.text = "Hoabl/${data.inventoryId}"
-                header_holder.binding.tvProjectName.text = data.extraDetails.launchName
+                header_holder.binding.tvProjectName.text = data.launchName
                 header_holder.binding.tvLocation.text =
-                    data.extraDetails.address.city + "," + data.extraDetails.address.state
+                    data.address.city + "," + data.address.state
                 header_holder.binding.tvProgress.text = data.bookingStatus
 
 

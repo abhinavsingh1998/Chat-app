@@ -18,9 +18,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
 import com.emproto.core.Utility
-import com.emproto.hoabl.R
+import com.emproto.hoabl.databinding.FragmentReceiptBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.portfolio.adapters.ReceiptListAdapter
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.response.bookingjourney.Data
@@ -32,6 +33,8 @@ import com.example.portfolioui.databinding.DialogPendingPaymentBinding
 import com.example.portfolioui.databinding.DialogRegistrationDetailsBinding
 import com.example.portfolioui.databinding.FragmentBookingjourneyBinding
 import com.example.portfolioui.models.BookingModel
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -54,6 +57,7 @@ class BookingjourneyFragment : BaseFragment() {
     val permissionRequest: MutableList<String> = ArrayList()
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     var isReadPermissonGranted: Boolean = false
+    var isWritePermissonGranted: Boolean = false
     var base64Data: String = ""
 
     lateinit var dialogRegistrationDetailsBinding: DialogRegistrationDetailsBinding
@@ -64,6 +68,9 @@ class BookingjourneyFragment : BaseFragment() {
 
     lateinit var dialogHandoverDetailsBinding: DialogHandoverDetailsBinding
     lateinit var handoverDialog: Dialog
+
+    lateinit var allReceiptDialog: FragmentReceiptBinding
+    lateinit var bottomSheetDialog: BottomSheetDialog
 
     @Inject
     lateinit var portfolioFactory: PortfolioFactory
@@ -78,14 +85,14 @@ class BookingjourneyFragment : BaseFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         mBinding = FragmentBookingjourneyBinding.inflate(inflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         portfolioviewmodel = ViewModelProvider(
-            requireActivity(),
-            portfolioFactory
+                requireActivity(),
+                portfolioFactory
         )[PortfolioViewModel::class.java]
         (requireActivity() as HomeActivity).showBackArrow()
         (requireActivity() as HomeActivity).hideBottomNavigation()
@@ -97,13 +104,17 @@ class BookingjourneyFragment : BaseFragment() {
     private fun initView() {
 
         permissionLauncher =
-            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-                isReadPermissonGranted =
-                    permissions[Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissonGranted
-                if (isReadPermissonGranted) {
-                    openPdf(base64Data)
+                registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+                    isReadPermissonGranted =
+                            permissions[Manifest.permission.READ_EXTERNAL_STORAGE]
+                                    ?: isReadPermissonGranted
+                    isWritePermissonGranted = permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE]
+                            ?: isWritePermissonGranted
+
+                    if (isReadPermissonGranted && isWritePermissonGranted) {
+                        openPdf(base64Data)
+                    }
                 }
-            }
 
         dialogRegistrationDetailsBinding = DialogRegistrationDetailsBinding.inflate(layoutInflater)
         registrationDialog = Dialog(requireContext())
@@ -126,34 +137,47 @@ class BookingjourneyFragment : BaseFragment() {
         dialogRegistrationDetailsBinding.tvActivate.setOnClickListener {
             registrationDialog.dismiss()
         }
+
+        allReceiptDialog = FragmentReceiptBinding.inflate(layoutInflater)
+        bottomSheetDialog = BottomSheetDialog(requireContext())
+        bottomSheetDialog.behavior.setState(BottomSheetBehavior.STATE_EXPANDED)
+        bottomSheetDialog.setContentView(allReceiptDialog.root)
+        allReceiptDialog.actionClose.setOnClickListener {
+            bottomSheetDialog.dismiss()
+        }
     }
 
     private fun getBookingJourneyData(investedId: Int) {
         portfolioviewmodel.getBookingJourney(investedId)
-            .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-                when (it.status) {
-                    Status.LOADING -> {
-                        mBinding.loader.show()
+                .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                    when (it.status) {
+                        Status.LOADING -> {
+                            mBinding.loader.show()
+                        }
+                        Status.SUCCESS -> {
+                            mBinding.loader.hide()
+                            loadBookingJourneyData(it.data!!.data)
+                        }
+                        Status.ERROR -> {
+                            mBinding.loader.hide()
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                    it.message!!
+                            )
+                        }
                     }
-                    Status.SUCCESS -> {
-                        mBinding.loader.hide()
-                        loadBookingJourneyData(it.data!!.data)
-                    }
-                    Status.ERROR -> {
-                        mBinding.loader.hide()
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            it.message!!
-                        )
-                    }
-                }
-            })
+                })
     }
 
     fun loadBookingJourneyData(data1: Data) {
         val data = data1.bookingJourney
-        data1.investment.extraDetails = portfolioviewmodel.getprojectAddress()
+        data1.investmentInformation = portfolioviewmodel.getInvestmentInfo()
         val bookingList = ArrayList<BookingModel>()
-        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_HEADER, data1.investment))
+        bookingList.add(
+                BookingModel(
+                        BookingJourneyAdapter.TYPE_HEADER,
+                        data1.investmentInformation
+                )
+        )
         bookingList.add(BookingModel(BookingJourneyAdapter.TRANSACTION, data.transaction))
         bookingList.add(BookingModel(BookingJourneyAdapter.DOCUMENTATION, data.documentation))
         bookingList.add(BookingModel(BookingJourneyAdapter.PAYMENTS, data.payments))
@@ -162,63 +186,73 @@ class BookingjourneyFragment : BaseFragment() {
         bookingList.add(BookingModel(BookingJourneyAdapter.FACILITY, data.facility))
         mBinding.bookingjourneyList.layoutManager = LinearLayoutManager(requireContext())
         mBinding.bookingjourneyList.adapter =
-            BookingJourneyAdapter(
-                requireContext(),
-                bookingList,
-                object : BookingJourneyAdapter.TimelineInterface {
-                    override fun onClickItem(position: Int) {
-                        TODO("Not yet implemented")
-                    }
+                BookingJourneyAdapter(
+                        requireContext(),
+                        bookingList,
+                        object : BookingJourneyAdapter.TimelineInterface {
+                            override fun onClickItem(position: Int) {
+                                TODO("Not yet implemented")
+                            }
 
-                    override fun viewDetails(position: Int, data: String) {
-                        if (data.isNotEmpty()) {
-                            getDocumentData(data)
-                        }
-                    }
+                            override fun viewDetails(position: Int, data: String) {
+                                if (data.isNotEmpty()) {
+                                    getDocumentData(data)
+                                }
+                            }
 
-                    override fun onClickPendingCardDetails(payment: Payment) {
-                        dialogPendingPayment.tvPaidAmount.text =
-                            "₹ ${Utility.convertTo(payment.paidAmount)}"
-                        dialogPendingPayment.tvPendingAmount.text =
-                            "${Utility.convertTo(payment.pendingAmount)}"
-                        dialogPendingPayment.tvMilestoneName.text = payment.paymentMilestone
-                        dialogPendingPayment.tvDueDate.text =
-                            "Due date: ${Utility.parseDateFromUtc(payment.targetDate)}"
-                        pendingPaymentDialog.showDialog()
+                            override fun onClickPendingCardDetails(payment: Payment) {
+                                dialogPendingPayment.tvPaidAmount.text =
+                                        "₹ ${Utility.convertTo(payment.paidAmount)}"
+                                dialogPendingPayment.tvPendingAmount.text =
+                                        "${Utility.convertTo(payment.pendingAmount)}"
+                                dialogPendingPayment.tvMilestoneName.text = payment.paymentMilestone
+                                dialogPendingPayment.tvDueDate.text =
+                                        "Due date: ${Utility.parseDateFromUtc(payment.targetDate)}"
+                                pendingPaymentDialog.showDialog()
 
-                    }
+                            }
 
-                    override fun onClickViewDocument(path: String) {
-                        getDocumentData(path)
-                    }
+                            override fun onClickViewDocument(path: String) {
+                                getDocumentData(path)
+                            }
 
-                    override fun onClickHandoverDetails(date: String) {
-                        dialogHandoverDetailsBinding.tvHandoverDate.text =
-                            Utility.parseDateFromUtc(date)
-                        handoverDialog.show()
-                    }
+                            override fun onClickHandoverDetails(date: String) {
+                                dialogHandoverDetailsBinding.tvHandoverDate.text =
+                                        Utility.parseDateFromUtc(date)
+                                handoverDialog.show()
+                            }
 
-                    override fun onClickRegistrationDetails(date: String, number: String) {
+                            override fun onClickRegistrationDetails(date: String, number: String) {
 //                        dialogRegistrationDetailsBinding.tvRegistrationDate.text =
 //                            Utility.parseDateFromUtc(date)
 //                        dialogRegistrationDetailsBinding.tvRegistrationNo.text = number
-                        registrationDialog.show()
-                    }
+                                registrationDialog.show()
+                            }
 
-                    override fun onClickAllReceipt() {
-                        (requireActivity() as HomeActivity).addFragment(
-                            ReceiptFragment.newInstance(
-                                "",
-                                ""
-                            ), false
-                        )
-                    }
+                            override fun onClickAllReceipt() {
+                                allReceiptDialog.receiptList.layoutManager = LinearLayoutManager(requireContext())
+                                allReceiptDialog.receiptList.adapter = ReceiptListAdapter(
+                                        requireContext(),
+                                        data.paymentHistory,
+                                        object : ReceiptListAdapter.OnPaymentItemClickListener {
+                                            override fun onAccountsPaymentItemClick(
+                                                    path: String
+                                            ) {
+                                                //download the receipt
+                                                bottomSheetDialog.dismiss()
+                                                getDocumentData(path)
+                                            }
 
-                    override fun loadError(message: String) {
-                        (requireActivity() as HomeActivity).showErrorToast(message)
-                    }
+                                        })
+                                bottomSheetDialog.show()
 
-                })
+                            }
+
+                            override fun loadError(message: String) {
+                                (requireActivity() as HomeActivity).showErrorToast(message)
+                            }
+
+                        })
         mBinding.bookingjourneyList.setItemViewCacheSize(10)
         mBinding.bookingjourneyList.setHasFixedSize(true)
     }
@@ -234,21 +268,26 @@ class BookingjourneyFragment : BaseFragment() {
          */
         @JvmStatic
         fun newInstance(param1: Int, param2: String) =
-            BookingjourneyFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                BookingjourneyFragment().apply {
+                    arguments = Bundle().apply {
+                        putInt(ARG_PARAM1, param1)
+                        putString(ARG_PARAM2, param2)
+                    }
                 }
-            }
     }
 
     private fun requestPermisson(base64: String) {
         isReadPermissonGranted = ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.READ_EXTERNAL_STORAGE
+                requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
 
-        if (!isReadPermissonGranted) {
+        isWritePermissonGranted = ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if (!isReadPermissonGranted || !isWritePermissonGranted) {
             permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
             permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         } else {
@@ -264,9 +303,9 @@ class BookingjourneyFragment : BaseFragment() {
     private fun openPdf(stringBase64: String) {
         val file = Utility.writeResponseBodyToDisk(stringBase64)
         val path = FileProvider.getUriForFile(
-            requireContext(),
-            requireContext().applicationContext.packageName + ".provider",
-            file!!
+                requireContext(),
+                requireContext().applicationContext.packageName + ".provider",
+                file!!
         )
         val intent = Intent(Intent.ACTION_VIEW)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -282,23 +321,23 @@ class BookingjourneyFragment : BaseFragment() {
 
     fun getDocumentData(path: String) {
         portfolioviewmodel.downloadDocument(path)
-            .observe(viewLifecycleOwner,
-                androidx.lifecycle.Observer {
-                    when (it.status) {
-                        Status.LOADING -> {
-                            mBinding.loader.show()
-                        }
-                        Status.SUCCESS -> {
-                            mBinding.loader.hide()
-                            requestPermisson(it.data!!.data)
-                        }
-                        Status.ERROR -> {
-                            (requireActivity() as HomeActivity).showErrorToast(
-                                it.message!!
-                            )
-                        }
-                    }
-                })
+                .observe(viewLifecycleOwner,
+                        androidx.lifecycle.Observer {
+                            when (it.status) {
+                                Status.LOADING -> {
+                                    mBinding.loader.show()
+                                }
+                                Status.SUCCESS -> {
+                                    mBinding.loader.hide()
+                                    requestPermisson(it.data!!.data)
+                                }
+                                Status.ERROR -> {
+                                    (requireActivity() as HomeActivity).showErrorToast(
+                                            it.message!!
+                                    )
+                                }
+                            }
+                        })
     }
 
 }

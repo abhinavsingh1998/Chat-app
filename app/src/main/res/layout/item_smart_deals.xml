@@ -46,7 +46,6 @@
                         android:layout_height="0dp"
                         android:background="@drawable/ic_home"
                         android:scaleType="fitXY"
-                        android:src="@drawable/land_img"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -236,7 +235,7 @@
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/cv_item_rating_bg"
-                        android:layout_width="61dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="26dp"
                         android:backgroundTint="@color/black"
                         app:cardPreventCornerOverlap="false"
@@ -268,7 +267,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/margin_size_4"
                                 android:fontFamily="@font/jost_bold"
-                                android:text="5%"
+                                android:text="10.0%"
                                 app:layout_constraintBottom_toBottomOf="@id/iv_rating"
                                 app:layout_constraintStart_toEndOf="@id/iv_rating"
                                 app:layout_constraintTop_toTopOf="@id/iv_rating" />
