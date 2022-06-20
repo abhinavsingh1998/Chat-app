@@ -74,7 +74,6 @@ class EditProfileFragment : BaseFragment() {
     lateinit var profileViewModel: ProfileViewModel
     lateinit var binding: FragmentEditProfileBinding
 
-
     var hMobileNo = ""
     var hCountryCode = ""
 

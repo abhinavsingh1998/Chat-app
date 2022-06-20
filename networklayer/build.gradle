@@ -65,4 +65,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomDBVersion"
     kapt "androidx.room:room-compiler:$roomDBVersion"
 
+    //disable emoji
+    implementation 'com.xw.repo:xedittext:2.0.0@aar'
+
 }
