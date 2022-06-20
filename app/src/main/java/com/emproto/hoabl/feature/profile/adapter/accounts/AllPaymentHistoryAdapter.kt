@@ -31,16 +31,16 @@ class AllPaymentHistoryAdapter(
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(accountsPaymentList[position].paidAmount.toString()!=null){
+        if(!accountsPaymentList[position].paidAmount.toString().isNullOrEmpty()){
             holder.tvPaidAmount.text = "₹" + accountsPaymentList[position].paidAmount.toString()
         }
-        if(accountsPaymentList[position].projectName!=null){
+        if(!accountsPaymentList[position].projectName.isNullOrEmpty()){
             holder.tvProjectName.text = accountsPaymentList[position].projectName
         }
-        if(accountsPaymentList[position].paymentDate.substring(0, 10)!=null) {
+        if(!accountsPaymentList[position].paymentDate.substring(0, 10).isNullOrEmpty()) {
             holder.tvPaymentDate.text = accountsPaymentList[position].paymentDate.substring(0, 10)
         }
-        if (accountsPaymentList[position].investment.crmInventory.id.toString()!=null) {
+        if (!accountsPaymentList[position].investment.crmInventory.id.toString().isNullOrEmpty()) {
             holder.tvLandId.text = "Land id:" + "" + accountsPaymentList[position].investment.crmInventory.id.toString()
         }
     }
