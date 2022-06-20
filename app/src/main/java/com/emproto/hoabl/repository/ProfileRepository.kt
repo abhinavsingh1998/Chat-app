@@ -56,28 +56,28 @@ class ProfileRepository @Inject constructor(application: Application) :
         return mEditProfileResponse
     }
 
-//    fun uploadProfilePicture(file: File, fileName: String): LiveData<BaseResponse<ProfilePictureResponse>> {
-//        val mUploadProfilePicture = MutableLiveData<BaseResponse<ProfilePictureResponse>>()
-//        mUploadProfilePicture.postValue(BaseResponse.loading())
-//        coroutineScope.launch {
-//            try {
-//
-//                val request =
-//                    ProfileDataSource(application).uploadPictureProfile(file,fileName)
-//                if (request.isSuccessful) {
-//                    mUploadProfilePicture.postValue(BaseResponse.success(request.body()!!))
-//                } else {
-//                    mUploadProfilePicture.postValue(BaseResponse.Companion.error(request.message()))
-//                }
-//
-//
-//            } catch (e: Exception) {
-//                mUploadProfilePicture.postValue(BaseResponse.Companion.error(e.message!!))
-//
-//            }
-//        }
-//        return mUploadProfilePicture
-//    }
+    fun uploadProfilePicture(file: File, fileName: String): LiveData<BaseResponse<ProfilePictureResponse>> {
+        val mUploadProfilePicture = MutableLiveData<BaseResponse<ProfilePictureResponse>>()
+        mUploadProfilePicture.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+
+                val request =
+                    ProfileDataSource(application).uploadPictureProfile(file,fileName)
+                if (request.isSuccessful) {
+                    mUploadProfilePicture.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    mUploadProfilePicture.postValue(BaseResponse.Companion.error(request.message()))
+                }
+
+
+            } catch (e: Exception) {
+                mUploadProfilePicture.postValue(BaseResponse.Companion.error(e.message!!))
+
+            }
+        }
+        return mUploadProfilePicture
+    }
     fun presignedUrl(type: String, destinationFile: File): LiveData<BaseResponse<PresignedUrlResponse>> {
         val presignedUrlResponse = MutableLiveData<BaseResponse<PresignedUrlResponse>>()
         presignedUrlResponse.postValue(BaseResponse.loading())

@@ -15,6 +15,9 @@ import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.resourceManagment.ProflieResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import java.io.File
 import javax.inject.Inject
@@ -46,7 +49,7 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
         return apiService.addUserName(editUserNameRequest)
     }
 
-    //    fun uploadDocument(
+//        fun uploadDocument(
 //        token: String?,
 //        document: File,
 //        documentType: String?
@@ -60,20 +63,20 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
 //            MultipartBody.Part.createFormData("documentType", documentType!!)
 //        )
 //    }
-//    suspend fun uploadPictureProfile(
-//        file: File,
-//        fileName: String
-//
-//    ): Response<ProfilePictureResponse> {
-//
-//        return apiService.uploadPicture(
-//
-//            MultipartBody.Part.createFormData(
-//                "file", file.name,
-//                RequestBody.create("image/*".toMediaTypeOrNull(), file)
-//            ), MultipartBody.Part.createFormData("fileName", fileName!!)
-//        )
-//    }
+    suspend fun uploadPictureProfile(
+        file: File,
+        fileName: String
+
+    ): Response<ProfilePictureResponse> {
+
+        return apiService.uploadPicture(
+
+            MultipartBody.Part.createFormData(
+                "file", file.name,
+                RequestBody.create("image/*".toMediaTypeOrNull(), file)
+            ), MultipartBody.Part.createFormData("fileName", fileName!!)
+        )
+    }
 
     suspend fun presignedUrl(type: String, destinationFile: File): Response<PresignedUrlResponse> {
         return apiService.presignedUrl(type, destinationFile)

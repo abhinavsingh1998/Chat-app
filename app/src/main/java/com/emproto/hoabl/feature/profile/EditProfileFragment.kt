@@ -529,24 +529,24 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun callingUploadPicApi(destinationFile: File) {
-//        profileViewModel.uploadProfilePicture(destinationFile, destinationFile.name)
-//            .observe(viewLifecycleOwner, object : Observer<BaseResponse<ProfilePictureResponse>> {
-//                override fun onChanged(it: BaseResponse<ProfilePictureResponse>?) {
-//                    when (it?.status) {
-//                        Status.LOADING -> {
-//                            binding.progressBaar.show()
-//                        }
-//                        Status.SUCCESS -> {
-//                            binding.progressBaar.hide()
-//                        }
-//                        Status.ERROR -> {
-//                            binding.progressBaar.hide()
-//                        }
-//                    }
-//                }
-//
-//
-//            })
+        profileViewModel.uploadProfilePicture(destinationFile, destinationFile.name)
+            .observe(viewLifecycleOwner, object : Observer<BaseResponse<ProfilePictureResponse>> {
+                override fun onChanged(it: BaseResponse<ProfilePictureResponse>?) {
+                    when (it?.status) {
+                        Status.LOADING -> {
+                            binding.progressBaar.show()
+                        }
+                        Status.SUCCESS -> {
+                            binding.progressBaar.hide()
+                        }
+                        Status.ERROR -> {
+                            binding.progressBaar.hide()
+                        }
+                    }
+                }
+
+
+            })
     }
 
     private fun onSelectFromGalleryResult(data: Intent) {
