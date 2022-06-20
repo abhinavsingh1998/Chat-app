@@ -43,7 +43,7 @@ class AccountsPaymentListAdapter(
         if(!accountsPaymentList[position].paymentDate.substring(0, 10).isNullOrEmpty()) {
             holder.tvPaymentDate.text = accountsPaymentList[position].paymentDate.substring(0, 10)
         }
-        if (!accountsPaymentList[position].investment.crmInventory.id.toString().isNullOrEmpty()) {
+        if (accountsPaymentList[position].investment.crmInventory!=null) {
             holder.tvLandId.text = "Land id:" + "" + accountsPaymentList[position].investment.crmInventory.id.toString()
         }
 
