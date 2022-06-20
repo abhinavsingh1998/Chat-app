@@ -35,7 +35,7 @@ class AllDocumentAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (accountsDocumentList[position].documentCategory != "KYC" && accountsDocumentList[position].documentCategory!!.isNotEmpty()) {
+        if (accountsDocumentList[position].documentCategory != "KYC" && accountsDocumentList[position].documentCategory!=null) {
             holder.tvDocName.text = accountsDocumentList[position].documentType.toString()
         }
 
