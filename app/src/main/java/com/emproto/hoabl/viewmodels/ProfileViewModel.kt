@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.emproto.hoabl.repository.ProfileRepository
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
-import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
@@ -37,8 +36,8 @@ class ProfileViewModel(
     fun deleteProfilePicture():LiveData<BaseResponse<EditProfileResponse>>{
         return profileRepository.deleteProfilePicture()
     }
-    fun deleteProfileImage():LiveData<BaseResponse<DeleteProfilePicResponse>>{
-        return profileRepository.deleteProfileImage()
+    fun deleteProfileImage(destinationFileName: String):LiveData<BaseResponse<EditProfileResponse>>{
+        return profileRepository.deleteProfileImage(destinationFileName)
     }
 
     fun getCountries(pageType: Int): LiveData<BaseResponse<ProfileCountriesResponse>> {

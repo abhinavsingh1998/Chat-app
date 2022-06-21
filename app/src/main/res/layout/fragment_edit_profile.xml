@@ -268,15 +268,16 @@
 
                     <EditText
                         android:id="@+id/email_tv"
-                        style="@style/text_style_text_color_14"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/jost_medium"
                         android:gravity="center|left"
+                        android:textSize="14sp"
                         android:inputType="textEmailAddress"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
+                        android:textColorHint="@color/text_grey_color"
                         android:textColor="@color/text_color"
                         app:x_disableEmoji="true" />
 
@@ -405,7 +406,6 @@
 
                     <EditText
                         android:id="@+id/house_no"
-                        style="@style/text_style_text_color_16"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/jost_regular"
@@ -414,7 +414,8 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
-                        android:textColor="#9d9eb1"
+                        android:textColor="@color/text_color"
+                        android:textSize="14sp"
                         android:textColorHint="@color/text_grey_color"
                         app:layout_constraintStart_toStartOf="parent"
                         tools:layout_editor_absoluteY="344dp" />
@@ -438,15 +439,15 @@
 
                     <EditText
                         android:id="@+id/complete_address"
-                        style="@style/text_style_text_color_16"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:fontFamily="@font/jost_light"
+                        android:fontFamily="@font/jost_medium"
                         android:gravity="center|left"
                         android:inputType="textPersonName|textCapSentences"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
+                        android:textSize="14sp"
                         android:textColor="@color/text_color"
                         android:textColorHint="@color/text_grey_color"
                         app:layout_constraintStart_toStartOf="parent"
@@ -474,7 +475,6 @@
 
                     <EditText
                         android:id="@+id/locality"
-                        style="@style/text_style_text_color_16"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/jost_light"
@@ -483,6 +483,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
+                        android:textSize="14sp"
                         android:textColor="@color/text_color"
                         android:textColorHint="@color/text_grey_color"
                         app:layout_constraintStart_toStartOf="parent"
@@ -609,13 +610,12 @@
                         android:id="@+id/pincode_editText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:fontFamily="@font/jost_regular"
+                        android:fontFamily="@font/jost_medium"
                         android:gravity="center|left"
                         android:inputType="textPersonName|textCapSentences"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
-
                         android:textColor="@color/text_color"
                         android:textColorHint="@color/text_grey_color"
                         android:textSize="@dimen/text_size_14" />
