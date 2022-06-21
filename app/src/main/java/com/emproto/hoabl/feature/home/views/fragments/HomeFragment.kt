@@ -124,8 +124,8 @@ class HomeFragment : BaseFragment() {
 //                                    binding.kycLayout.isVisible= true
 //                                }
                                 appPreference.setFacilityCard(it!!.data.isFacilityVisible)
-                                if (it?.data?.isFacilityVisible) {
-                                    binding.facilityManagementCardLayout.isVisible = false
+                                if (it?.data?.isFacilityVisible == true) {
+                                    binding.facilityManagementCardLayout.isVisible = true
                                     binding.dontMissOut.isVisible = false
                                 } else {
                                     binding.facilityManagementCardLayout.isVisible = false
