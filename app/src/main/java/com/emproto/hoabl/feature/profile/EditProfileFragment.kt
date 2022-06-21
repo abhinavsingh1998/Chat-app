@@ -80,7 +80,7 @@ class EditProfileFragment : BaseFragment() {
     val emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
 
     var houseNo = ""
-    val houseNoPattern =Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
+    val houseNoPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
     var address = ""
     val addressPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
     var locality = ""
@@ -408,68 +408,92 @@ class EditProfileFragment : BaseFragment() {
 
             }
 
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
             }
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
-                binding.tvEmail.error=null
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                binding.tvEmail.isErrorEnabled = false
             }
         })
         binding.houseNo.addTextChangedListener(object : TextWatcher {
-
             override fun afterTextChanged(s: Editable) {
+
             }
 
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
             }
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
-                binding.houseNo.error=null
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                binding.floorHouseNum.isErrorEnabled = false
             }
         })
         binding.completeAddress.addTextChangedListener(object : TextWatcher {
-
             override fun afterTextChanged(s: Editable) {
 
             }
 
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
             }
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
-                binding.completeAddress.error=null
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                binding.comAdd.isErrorEnabled = false
             }
         })
         binding.locality.addTextChangedListener(object : TextWatcher {
-
             override fun afterTextChanged(s: Editable) {
 
             }
 
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
             }
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
-                binding.locality.error=null
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                binding.tvLocality.isErrorEnabled = false
             }
         })
         binding.pincodeEditText.addTextChangedListener(object : TextWatcher {
-
             override fun afterTextChanged(s: Editable) {
+
             }
 
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
             }
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
-                binding.pincodeEditText.error=null
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                binding.pincode.isErrorEnabled = false
             }
         })
+
         binding.tvremove.setOnClickListener {
             binding.profileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
@@ -525,7 +549,8 @@ class EditProfileFragment : BaseFragment() {
             }
 
             houseNo = binding.houseNo.text.toString()
-            if (!houseNo.isNullOrEmpty()&&houseNo.isValidHouseNo()) {
+            Log.i("houseNo", houseNo)
+            if (!houseNo.isNullOrEmpty() && houseNo.isValidHouseNo()) {
                 binding.floorHouseNum.isErrorEnabled = false
                 sendProfileDetail()
             } else {
@@ -589,15 +614,13 @@ class EditProfileFragment : BaseFragment() {
                     ).show()
                 }
             }
-            if (!email.isNullOrEmpty() && email.isValidEmail()&& houseNo.isValidHouseNo()&&address.isValidAddress()&&locality.isValidLocality()&&pinCode.isValidPinCode()){
-                binding.saveAndUpdate.text="Updated"
+            if (!email.isNullOrEmpty() && email.isValidEmail() && houseNo.isValidHouseNo() && address.isValidAddress() && locality.isValidLocality() && pinCode.isValidPinCode()) {
+                binding.saveAndUpdate.text = "Updated"
             }
 
         }
 
     }
-
-
 
 
     private fun sendProfileDetail() {
