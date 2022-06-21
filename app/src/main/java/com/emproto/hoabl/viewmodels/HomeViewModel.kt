@@ -167,9 +167,9 @@ class HomeViewModel(
     fun chatInitiate(chatInitiateRequest: ChatInitiateRequest): LiveData<BaseResponse<ChatDetailResponse>> {
         return homeRepository.chatInitiate(chatInitiateRequest)
     }
-//    fun getAccountsList(): LiveData<BaseResponse<AccountsResponse>> {
-//        return homeRepository.getAccountsList()
-//    }
+    fun getAccountsList(): LiveData<BaseResponse<AccountsResponse>> {
+        return homeRepository.getAccountsList()
+    }
 
     fun getReferNow(referalRequest: ReferalRequest): LiveData<BaseResponse<ReferalResponse>> {
         return homeRepository.addReferral(referalRequest)

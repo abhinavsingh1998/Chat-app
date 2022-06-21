@@ -34,10 +34,18 @@ class AccountsPaymentListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvPaidAmount.text = "₹"+accountsPaymentList[position].paidAmount.toString()
-        holder.tvProjectName.text = accountsPaymentList[position].projectName
-        holder.tvPaymentDate.text=accountsPaymentList[position].paymentDate.substring(0,10)
-        holder.tvLandId.text="Land id:"+""+accountsPaymentList[position].investment.crmInventory.id.toString()
+        if(!accountsPaymentList[position].paidAmount.toString().isNullOrEmpty()){
+            holder.tvPaidAmount.text = "₹" + accountsPaymentList[position].paidAmount.toString()
+        }
+        if(!accountsPaymentList[position].projectName.isNullOrEmpty()){
+            holder.tvProjectName.text = accountsPaymentList[position].projectName
+        }
+        if(!accountsPaymentList[position].paymentDate.substring(0, 10).isNullOrEmpty()) {
+            holder.tvPaymentDate.text = accountsPaymentList[position].paymentDate.substring(0, 10)
+        }
+        if (accountsPaymentList[position].investment.crmInventory!=null) {
+            holder.tvLandId.text = "Land id:" + "" + accountsPaymentList[position].investment.crmInventory.id.toString()
+        }
 
         holder.tvSeeReceipt.setOnClickListener {
             mListener.onAccountsPaymentItemClick(accountsPaymentList, it, position)
