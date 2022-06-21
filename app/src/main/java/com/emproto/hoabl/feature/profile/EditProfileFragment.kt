@@ -80,13 +80,13 @@ class EditProfileFragment : BaseFragment() {
     val emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
 
     var houseNo = ""
-    val houseNoPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
+    val houseNoPattern =Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
     var address = ""
     val addressPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
     var locality = ""
     val localityPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
     var pinCode = ""
-    val pinCodePattern = Pattern.compile("^{10}$")
+    val pinCodePattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
     var hMobileNo = ""
     var hCountryCode = ""
 
@@ -477,113 +477,90 @@ class EditProfileFragment : BaseFragment() {
         }
 
         binding.saveAndUpdate.setOnClickListener {
-            binding.saveAndUpdate.text="Save and Update"
-            emailCheck()
-            floorAndHouseNumberCheck()
-            completeAddressCheck()
-            localityCheck()
-            pinCodeCheck()
-            binding.saveAndUpdate.text="Updated"
-        }
-
-    }
-
-    private fun pinCodeCheck() {
-        pinCode = binding.pincodeEditText.text.toString()
-        if (pinCode.isNullOrEmpty() || pinCode.isValidAddress()) {
-            binding.pincode.isErrorEnabled = false
-            sendProfileDetail()
-        } else {
-            binding.pincode.error = "Please enter valid pincode"
-            pinCode = binding.pincodeEditText.text.toString()
-            if (pinCode.length == 150) {
-                binding.pincode.error = "You have reached the max characters limit"
-                Toast.makeText(
-                    context,
-                    "You have reached the max characters limit",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }
-    }
-
-    private fun localityCheck() {
-        locality = binding.locality.text.toString()
-        if (address.isNullOrEmpty() || address.isValidAddress()) {
-            binding.tvLocality.isErrorEnabled = false
-            sendProfileDetail()
-        } else {
-            binding.tvLocality.error = "Please enter valid locality"
-            locality = binding.locality.text.toString()
-            if (locality.length == 150) {
-                binding.tvLocality.error = "You have reached the max characters limit"
-                Toast.makeText(
-                    context,
-                    "You have reached the max characters limit",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }
-    }
-
-    private fun completeAddressCheck() {
-        address = binding.completeAddress.text.toString()
-        if (address.isNullOrEmpty() || address.isValidAddress()) {
-            binding.comAdd.isErrorEnabled = false
-            sendProfileDetail()
-        } else {
-            binding.comAdd.error = "Please enter valid address"
-            address = binding.completeAddress.text.toString()
-            if (address.length == 150) {
-                binding.comAdd.error = "You have reached the max characters limit"
-                Toast.makeText(
-                    context,
-                    "You have reached the max characters limit",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }
-
-    }
-
-    private fun floorAndHouseNumberCheck() {
-        houseNo = binding.houseNo.text.toString()
-        if (houseNo.isNullOrEmpty() || houseNo.isValidHouseNo()) {
-            binding.floorHouseNum.isErrorEnabled = false
-            sendProfileDetail()
-        } else {
-            binding.floorHouseNum.error = "Please enter valid floor and house number"
-            houseNo = binding.houseNo.text.toString()
-            if (houseNo.length == 150) {
-                binding.floorHouseNum.error = "You have reached the max characters limit"
-                Toast.makeText(
-                    context,
-                    "You have reached the max characters limit",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }
-
-    }
-
-    private fun emailCheck() {
-        email = binding.emailTv.text.toString()
-        if (email.isNullOrEmpty() || email.isValidEmail()) {
-            binding.tvEmail.isErrorEnabled = false
-            sendProfileDetail()
-        } else {
-            binding.tvEmail.error = "Please enter valid email"
+            binding.saveAndUpdate.text = "Save and Update"
             email = binding.emailTv.text.toString()
-
-            if (email.length == 150) {
-                binding.tvEmail.error = "You have reached the max characters limit"
-                Toast.makeText(
-                    context,
-                    "You have reached the max characters limit",
-                    Toast.LENGTH_LONG
-                ).show()
+            if (email.isNullOrEmpty() || email.isValidEmail()) {
+                binding.tvEmail.isErrorEnabled = false
+                sendProfileDetail()
+            } else {
+                binding.tvEmail.error = "Please enter valid email"
+                email = binding.emailTv.text.toString()
+                if (email.length == 150) {
+                    binding.tvEmail.error = "You have reached the max characters limit"
+                    Toast.makeText(
+                        context,
+                        "You have reached the max characters limit",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
+            houseNo = binding.houseNo.text.toString()
+            if (houseNo.isValidHouseNo()) {
+                binding.floorHouseNum.isErrorEnabled = false
+                sendProfileDetail()
+            } else {
+                binding.floorHouseNum.error = "Please enter valid floor and house number"
+                houseNo = binding.houseNo.text.toString()
+                if (houseNo.length == 150) {
+                    binding.floorHouseNum.error = "You have reached the max characters limit"
+                    Toast.makeText(
+                        context,
+                        "You have reached the max characters limit",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+            address = binding.completeAddress.text.toString()
+            if (address.isValidAddress()) {
+                binding.comAdd.isErrorEnabled = false
+                sendProfileDetail()
+            } else {
+                binding.comAdd.error = "Please enter valid address"
+                address = binding.completeAddress.text.toString()
+                if (address.length == 150) {
+                    binding.comAdd.error = "You have reached the max characters limit"
+                    Toast.makeText(
+                        context,
+                        "You have reached the max characters limit",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+            locality = binding.locality.text.toString()
+            if (locality.isValidAddress()) {
+                binding.tvLocality.isErrorEnabled = false
+                sendProfileDetail()
+            } else {
+                binding.tvLocality.error = "Please enter valid locality"
+                locality = binding.locality.text.toString()
+                if (locality.length == 150) {
+                    binding.tvLocality.error = "You have reached the max characters limit"
+                    Toast.makeText(
+                        context,
+                        "You have reached the max characters limit",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+            pinCode = binding.pincodeEditText.text.toString()
+            if (pinCode.isValidAddress()) {
+                binding.pincode.isErrorEnabled = false
+                sendProfileDetail()
+            } else {
+                binding.pincode.error = "Please enter valid pincode"
+                pinCode = binding.pincodeEditText.text.toString()
+                if (pinCode.length == 150) {
+                    binding.pincode.error = "You have reached the max characters limit"
+                    Toast.makeText(
+                        context,
+                        "You have reached the max characters limit",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+            binding.saveAndUpdate.text = "Updated"
         }
+
     }
 
 
