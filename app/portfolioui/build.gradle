@@ -14,6 +14,15 @@ android {
     }
 
     buildTypes {
+
+        qa {
+            buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-qa-1093935714.ap-south-1.elb.amazonaws.com\"")
+        }
+
+        preProd{
+            buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-preprod-1970620156.ap-south-1.elb.amazonaws.com\"")
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
