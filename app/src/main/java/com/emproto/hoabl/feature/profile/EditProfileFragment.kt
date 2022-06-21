@@ -526,6 +526,7 @@ class EditProfileFragment : BaseFragment() {
                 }
             }
 
+
             houseNo = binding.houseNo.text.toString()
             Log.i("houseNo", houseNo)
             if (!houseNo.isNullOrEmpty() && houseNo.isValidHouseNo()) {

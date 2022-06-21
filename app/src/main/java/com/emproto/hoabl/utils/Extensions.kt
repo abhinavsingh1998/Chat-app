@@ -53,7 +53,7 @@ object Extensions{
         createdAt = createdAt.toString(),
         createdBy = createdBy.toString(),
         crmPromiseId = crmPromiseId.toString(),
-        description = listOf(description.toString()),
+        description = description,
         displayMedia = displayMedia,
         howToApply = howToApply,
         id = id,
