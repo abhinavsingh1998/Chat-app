@@ -79,11 +79,11 @@ class EditProfileFragment : BaseFragment() {
     var houseNo = ""
     val houseNoPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
     var address = ""
-    val addressPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
+    val addressPattern = Pattern.compile("\\d{1,5}\\s\\w.\\s(\\b\\w*\\b\\s){1,2}\\w*\\.")
     var locality = ""
     val localityPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
     var pinCode = ""
-    val pinCodePattern = Pattern.compile("^[0-9]*$")
+    val pinCodePattern = Pattern.compile("^[1-9][0-9]{5}\$")
     var hMobileNo = ""
     var hCountryCode = ""
 
@@ -575,7 +575,7 @@ class EditProfileFragment : BaseFragment() {
                 }
             }
             pinCode = binding.pincodeEditText.text.toString()
-            if (pinCode.isValidAddress()) {
+            if (pinCode.isValidPinCode()) {
                 binding.pincode.isErrorEnabled = false
             } else {
                 binding.pincode.error = "Please enter valid pincode"
@@ -589,6 +589,7 @@ class EditProfileFragment : BaseFragment() {
                     ).show()
                 }
             }
+
             if (!email.isNullOrEmpty() && email.isValidEmail() && houseNo.isValidHouseNo() && address.isValidAddress() && locality.isValidLocality() && pinCode.isValidPinCode()) {
                 val validEmail = binding.emailTv.text
                 val validHouse = binding.houseNo.text
@@ -772,7 +773,7 @@ class EditProfileFragment : BaseFragment() {
                     }
                     Status.SUCCESS -> {
                         binding.progressBaar.hide()
-                        if (data.profilePictureUrl == null && data.profilePictureUrl!!.isEmpty()) {
+                        if (data.profilePictureUrl == null) {
                             binding.profileImage.visibility = View.GONE
                             binding.profileUserLetters.visibility = View.VISIBLE
                             setUserNamePIC(data)
