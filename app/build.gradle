@@ -14,9 +14,9 @@ android {
         minSdk 19
         targetSdk 32
         versionCode 16
-        versionName "0.0.16_qa"
+        versionName "0.0.16"
         multiDexEnabled true
-        archivesBaseName = "0.0.16_qa"
+        archivesBaseName = "Hoabl"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.debug
