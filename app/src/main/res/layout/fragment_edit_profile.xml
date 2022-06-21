@@ -48,8 +48,10 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/back_action">
+            app:layout_constraintTop_toBottomOf="@+id/back_action"
+            app:layout_constraintVertical_bias="0.0">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -272,11 +274,11 @@
                         android:fontFamily="@font/jost_medium"
                         android:gravity="center|left"
                         android:inputType="textEmailAddress"
-                        app:x_disableEmoji="true"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
-                        android:textColor="@color/text_color" />
+                        android:textColor="@color/text_color"
+                        app:x_disableEmoji="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -421,7 +423,6 @@
 
 
                 <com.google.android.material.textfield.TextInputLayout
-
                     android:id="@+id/com_add"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
@@ -434,7 +435,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/floor_house_num"
                     app:placeholderText="@string/type_here">
-
 
                     <EditText
                         android:id="@+id/complete_address"

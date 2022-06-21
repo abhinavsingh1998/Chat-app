@@ -44,6 +44,9 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
     suspend fun deleteProfilePic(): Response<EditProfileResponse> {
         return apiService.deleteProfilePic()
     }
+    suspend fun deleteProfileImage(): Response<DeleteProfilePicResponse> {
+        return apiService.deleteProfileImage()
+    }
 
     suspend fun editProfile(editUserNameRequest: EditUserNameRequest): Response<EditProfileResponse> {
         return apiService.addUserName(editUserNameRequest)

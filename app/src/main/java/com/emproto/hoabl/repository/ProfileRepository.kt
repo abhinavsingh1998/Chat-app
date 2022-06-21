@@ -235,6 +235,34 @@ class ProfileRepository @Inject constructor(application: Application) :
         }
         return deleteResponse
     }
+    fun deleteProfileImage(): LiveData<BaseResponse<DeleteProfilePicResponse>> {
+        val deleteResponse = MutableLiveData<BaseResponse<DeleteProfilePicResponse>>()
+        deleteResponse.postValue(BaseResponse.loading())
+
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).deleteProfileImage()
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null) {
+                        deleteResponse.postValue(BaseResponse.success(request.body()!!))
+                    } else {
+                        deleteResponse.postValue(BaseResponse.Companion.error("No Data Found"))
+                    }
+                } else {
+                    deleteResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                deleteResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return deleteResponse
+    }
 
 
     fun submitFeedback(feedBackRequest: FeedBackRequest): LiveData<BaseResponse<FeedBackResponse>> {

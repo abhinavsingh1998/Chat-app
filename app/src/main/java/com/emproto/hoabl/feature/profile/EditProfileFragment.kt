@@ -57,10 +57,12 @@ import android.content.Context
 import android.provider.DocumentsContract
 
 import android.content.ContentUris
+import android.text.InputFilter
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.core.content.FileProvider
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.viewmodels.ProfileViewModel
+import java.util.regex.Pattern
 
 
 class EditProfileFragment : BaseFragment() {
@@ -74,6 +76,17 @@ class EditProfileFragment : BaseFragment() {
     lateinit var profileViewModel: ProfileViewModel
     lateinit var binding: FragmentEditProfileBinding
 
+    var email = ""
+    val emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
+
+    var houseNo = ""
+    val houseNoPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
+    var address = ""
+    val addressPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
+    var locality = ""
+    val localityPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
+    var pinCode = ""
+    val pinCodePattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
     var hMobileNo = ""
     var hCountryCode = ""
 
@@ -168,11 +181,13 @@ class EditProfileFragment : BaseFragment() {
                 ).show()
             }
         }
-        init()
         initView()
         setGenderSpinnersData()
         getStates()
         initClickListener()
+
+
+
 
         return binding.root
     }
@@ -248,7 +263,8 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun setStateSpinnersData() {
-        val stateArrayAdapter = ArrayAdapter(requireContext(), R.layout.spinner_text, listStates)
+        val stateArrayAdapter =
+            ArrayAdapter(requireContext(), R.layout.spinner_text, listStates)
         stateArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         binding.autoState.setAdapter(stateArrayAdapter)
 
@@ -275,12 +291,19 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun initView() {
+        binding.emailTv.setText("")
+        binding.completeAddress.setText("")
+        binding.houseNo.setText("")
+        binding.pincodeEditText.setText("")
+
+
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 isReadStorageGranted = permissions[Manifest.permission.READ_EXTERNAL_STORAGE]
                     ?: isReadStorageGranted
                 isWriteStorageGranted =
-                    permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: isWriteStorageGranted
+                    permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE]
+                        ?: isWriteStorageGranted
             }
         requestPermission()
 
@@ -371,52 +394,111 @@ class EditProfileFragment : BaseFragment() {
 
     private fun updateLable(myCalendar: Calendar) {
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH)
-        var dateSelected=sdf.format(myCalendar.time)
-        binding.tvDatePicker.setText(dateSelected.substring(0,10))
+        var dateSelected = sdf.format(myCalendar.time)
+        binding.tvDatePicker.setText(dateSelected.substring(0, 10))
     }
 
 
-    ///*************ProfilePicture upload****************************//
-    private fun init() {
-        binding.tvremove.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-
-                charSequence1 = p0
-                if (p0.toString().isNullOrEmpty()) {
-                    binding.uploadImage.isEnabled = false
-                    binding.uploadImage.isClickable = false
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        binding.uploadImage.background =
-                            AppCompatResources.getDrawable(
-                                requireContext(),
-                                R.drawable.unselect_button_bg
-                            )
-                    }
-                } else {
-                    binding.uploadImage.isEnabled = true
-                    binding.uploadImage.isClickable = true
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        binding.uploadImage.background =
-                            AppCompatResources.getDrawable(requireContext(), R.drawable.button_bg)
-
-                    }
-                }
-            }
-        })
-    }
-
-    /////**************************Create Profile***************************///
     private fun initClickListener() {
         binding.backAction.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
+        }
+        binding.emailTv.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                binding.tvEmail.isErrorEnabled = false
+            }
+        })
+        binding.houseNo.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                binding.floorHouseNum.isErrorEnabled = false
+            }
+        })
+        binding.completeAddress.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                binding.comAdd.isErrorEnabled = false
+            }
+        })
+        binding.locality.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                binding.tvLocality.isErrorEnabled = false
+            }
+        })
+        binding.pincodeEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                binding.pincode.isErrorEnabled = false
+            }
+        })
+
+        binding.tvremove.setOnClickListener {
+            binding.profileImage.visibility = View.GONE
+            binding.profileUserLetters.visibility = View.VISIBLE
+            setUserNamePIC()
+
         }
 
         binding.uploadNewPicture.setOnClickListener { selectImage() }
@@ -447,50 +529,156 @@ class EditProfileFragment : BaseFragment() {
                 }
             })
         }
-
         binding.saveAndUpdate.setOnClickListener {
             binding.saveAndUpdate.text = "Save and Update"
-            val editUserNameRequest = EditUserNameRequest(
-                data.firstName,
-                data.lastName,
-                binding.emailTv.text.toString(),
-                binding.tvDatePicker.text.toString(),
-                binding.autoGender.text.toString(),
-                binding.houseNo.text.toString(),
-                binding.completeAddress.text.toString(),
-                binding.locality.text.toString(),
-                binding.pincodeEditText.text.toString(),
-                binding.autoCity.text.toString(),
-                binding.autoState.text.toString(),
-                "India"
-            )
-            profileViewModel.editUserNameProfile(editUserNameRequest)
-                .observe(
-                    viewLifecycleOwner
-                ) { t ->
-                    when (t!!.status) {
-                        Status.LOADING -> {
-                            binding.saveAndUpdate.visibility = View.GONE
-
-                        }
-                        Status.SUCCESS -> {
-                            appPreference.saveLogin(true)
-                            binding.saveAndUpdate.visibility = View.VISIBLE
-                            binding.saveAndUpdate.text = "Updated"
-                            binding.emailTv.clearFocus()
-                            binding.houseNo.clearFocus()
-                            binding.completeAddress.clearFocus()
-                            binding.tvLocality.clearFocus()
-                            binding.pincodeEditText.clearFocus()
-                        }
-                        Status.ERROR -> {
-                            binding.saveAndUpdate.visibility = View.VISIBLE
-                        }
-                    }
+            email = binding.emailTv.text.toString()
+            if (!email.isNullOrEmpty() && email.isValidEmail()) {
+                binding.tvEmail.isErrorEnabled = false
+                sendProfileDetail()
+            } else {
+                binding.tvEmail.error = "Please enter valid email"
+                email = binding.emailTv.text.toString()
+                if (email.length == 150) {
+                    binding.tvEmail.error = "You have reached the max characters limit"
+                    Toast.makeText(
+                        context,
+                        "You have reached the max characters limit",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
+            }
+
+            houseNo = binding.houseNo.text.toString()
+            Log.i("houseNo", houseNo)
+            if (!houseNo.isNullOrEmpty() && houseNo.isValidHouseNo()) {
+                binding.floorHouseNum.isErrorEnabled = false
+                sendProfileDetail()
+            } else {
+                binding.floorHouseNum.error = "Please enter valid floor and house number"
+                houseNo = binding.houseNo.text.toString()
+                if (houseNo.length == 150) {
+                    binding.floorHouseNum.error = "You have reached the max characters limit"
+                    Toast.makeText(
+                        context,
+                        "You have reached the max characters limit",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            address = binding.completeAddress.text.toString()
+            if (address.isValidAddress()) {
+                binding.comAdd.isErrorEnabled = false
+                sendProfileDetail()
+            } else {
+                binding.comAdd.error = "Please enter valid address"
+                address = binding.completeAddress.text.toString()
+                if (address.length == 150) {
+                    binding.comAdd.error = "You have reached the max characters limit"
+                    Toast.makeText(
+                        context,
+                        "You have reached the max characters limit",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+            locality = binding.locality.text.toString()
+            if (locality.isValidAddress()) {
+                binding.tvLocality.isErrorEnabled = false
+                sendProfileDetail()
+            } else {
+                binding.tvLocality.error = "Please enter valid locality"
+                locality = binding.locality.text.toString()
+                if (locality.length == 150) {
+                    binding.tvLocality.error = "You have reached the max characters limit"
+                    Toast.makeText(
+                        context,
+                        "You have reached the max characters limit",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+            pinCode = binding.pincodeEditText.text.toString()
+            if (pinCode.isValidAddress()) {
+                binding.pincode.isErrorEnabled = false
+                sendProfileDetail()
+            } else {
+                binding.pincode.error = "Please enter valid pincode"
+                pinCode = binding.pincodeEditText.text.toString()
+                if (pinCode.length == 150) {
+                    binding.pincode.error = "You have reached the max characters limit"
+                    Toast.makeText(
+                        context,
+                        "You have reached the max characters limit",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+            if (!email.isNullOrEmpty() && email.isValidEmail() && houseNo.isValidHouseNo() && address.isValidAddress() && locality.isValidLocality() && pinCode.isValidPinCode()) {
+                binding.saveAndUpdate.text = "Updated"
+            }
+
         }
 
     }
+
+
+    private fun sendProfileDetail() {
+        val editUserNameRequest = EditUserNameRequest(
+            data.firstName,
+            data.lastName,
+            binding.emailTv.text.toString(),
+            binding.tvDatePicker.text.toString(),
+            binding.autoGender.text.toString(),
+            binding.houseNo.text.toString(),
+            binding.completeAddress.text.toString(),
+            binding.locality.text.toString(),
+            binding.pincodeEditText.text.toString(),
+            binding.autoCity.text.toString(),
+            binding.autoState.text.toString(),
+            "India"
+        )
+        profileViewModel.editUserNameProfile(editUserNameRequest)
+            .observe(
+                viewLifecycleOwner
+            ) { t ->
+                when (t!!.status) {
+                    Status.LOADING -> {
+                        binding.saveAndUpdate.visibility = View.GONE
+
+                    }
+                    Status.SUCCESS -> {
+                        appPreference.saveLogin(true)
+                        binding.saveAndUpdate.visibility = View.VISIBLE
+                        binding.emailTv.clearFocus()
+                        binding.houseNo.clearFocus()
+                        binding.completeAddress.clearFocus()
+                        binding.tvLocality.clearFocus()
+                        binding.pincodeEditText.clearFocus()
+                    }
+                    Status.ERROR -> {
+                        binding.saveAndUpdate.visibility = View.VISIBLE
+                    }
+                }
+            }
+
+    }
+
+
+    fun CharSequence?.isValidEmail() =
+        emailPattern.matcher(this).matches()
+
+    fun CharSequence?.isValidAddress() =
+        addressPattern.matcher(this).matches()
+
+    fun CharSequence?.isValidHouseNo() =
+        houseNoPattern.matcher(this).matches()
+
+    fun CharSequence?.isValidLocality() =
+        localityPattern.matcher(this).matches()
+
+    fun CharSequence?.isValidPinCode() =
+        pinCodePattern.matcher(this).matches()
 
     /*----------upload picture--------------*/
     private fun requestPermission() {
@@ -529,28 +717,31 @@ class EditProfileFragment : BaseFragment() {
 
     private fun callingUploadPicApi(destinationFile: File) {
         profileViewModel.uploadProfilePicture(destinationFile, destinationFile.name)
-            .observe(viewLifecycleOwner, object : Observer<BaseResponse<ProfilePictureResponse>> {
-                override fun onChanged(it: BaseResponse<ProfilePictureResponse>?) {
-                    when (it?.status) {
-                        Status.LOADING -> {
-                            binding.progressBaar.show()
-                        }
-                        Status.SUCCESS -> {
-                            binding.progressBaar.hide()
-                        }
-                        Status.ERROR -> {
-                            binding.progressBaar.hide()
+            .observe(
+                viewLifecycleOwner,
+                object : Observer<BaseResponse<ProfilePictureResponse>> {
+                    override fun onChanged(it: BaseResponse<ProfilePictureResponse>?) {
+                        when (it?.status) {
+                            Status.LOADING -> {
+                                binding.progressBaar.show()
+                            }
+                            Status.SUCCESS -> {
+                                binding.progressBaar.hide()
+                            }
+                            Status.ERROR -> {
+                                binding.progressBaar.hide()
+                            }
                         }
                     }
-                }
 
 
-            })
+                })
     }
 
     private fun onSelectFromGalleryResult(data: Intent) {
         val selectedImage = data.data
-        var inputStream = requireContext().contentResolver.openInputStream(selectedImage!!)
+        var inputStream =
+            requireContext().contentResolver.openInputStream(selectedImage!!)
         try {
             bitmap = BitmapFactory.decodeStream(inputStream)
             val bytes = ByteArrayOutputStream()
@@ -582,14 +773,18 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun selectImage() {
-        val options = arrayOf<CharSequence>("Take Photo", "Choose from Gallery", "Cancel")
+        val options =
+            arrayOf<CharSequence>("Take Photo", "Choose from Gallery", "Cancel")
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireActivity())
         builder.setTitle("Add Photo!")
         builder.setItems(options) { dialog, item ->
             when {
                 options[item] == "Take Photo" -> {
                     val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, getPhotoFile(requireContext()))
+                    intent.putExtra(
+                        MediaStore.EXTRA_OUTPUT,
+                        getPhotoFile(requireContext())
+                    )
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                     intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
                     cameraLauncher.launch(intent)
@@ -597,7 +792,10 @@ class EditProfileFragment : BaseFragment() {
                 }
                 options[item] == "Choose from Gallery" -> {
                     val intent =
-                        Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                        Intent(
+                            Intent.ACTION_PICK,
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                        )
                     resultLauncher.launch(intent)
                 }
                 options[item] == "Cancel" -> {
@@ -659,7 +857,8 @@ class EditProfileFragment : BaseFragment() {
             } else if (isDownloadsDocument(uri)) {
                 val id = DocumentsContract.getDocumentId(uri)
                 val contentUri = ContentUris.withAppendedId(
-                    Uri.parse("content://downloads/public_downloads"), java.lang.Long.valueOf(id)
+                    Uri.parse("content://downloads/public_downloads"),
+                    java.lang.Long.valueOf(id)
                 )
                 return getDataColumn(context, contentUri, null, null)
             } else if (isMediaDocument(uri)) {
