@@ -25,12 +25,10 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.loader.content.CursorLoader
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseActivity
 import com.emproto.hoabl.R
@@ -57,7 +55,6 @@ import android.content.Context
 import android.provider.DocumentsContract
 
 import android.content.ContentUris
-import android.text.InputFilter
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.core.content.FileProvider
 import com.emproto.core.BaseFragment
@@ -534,7 +531,6 @@ class EditProfileFragment : BaseFragment() {
             email = binding.emailTv.text.toString()
             if (!email.isNullOrEmpty() && email.isValidEmail()) {
                 binding.tvEmail.isErrorEnabled = false
-                sendProfileDetail()
             } else {
                 binding.tvEmail.error = "Please enter valid email"
                 email = binding.emailTv.text.toString()
@@ -548,11 +544,11 @@ class EditProfileFragment : BaseFragment() {
                 }
             }
 
+
             houseNo = binding.houseNo.text.toString()
             Log.i("houseNo", houseNo)
             if (!houseNo.isNullOrEmpty() && houseNo.isValidHouseNo()) {
                 binding.floorHouseNum.isErrorEnabled = false
-                sendProfileDetail()
             } else {
                 binding.floorHouseNum.error = "Please enter valid floor and house number"
                 houseNo = binding.houseNo.text.toString()
@@ -569,7 +565,6 @@ class EditProfileFragment : BaseFragment() {
             address = binding.completeAddress.text.toString()
             if (address.isValidAddress()) {
                 binding.comAdd.isErrorEnabled = false
-                sendProfileDetail()
             } else {
                 binding.comAdd.error = "Please enter valid address"
                 address = binding.completeAddress.text.toString()
@@ -585,7 +580,6 @@ class EditProfileFragment : BaseFragment() {
             locality = binding.locality.text.toString()
             if (locality.isValidAddress()) {
                 binding.tvLocality.isErrorEnabled = false
-                sendProfileDetail()
             } else {
                 binding.tvLocality.error = "Please enter valid locality"
                 locality = binding.locality.text.toString()
@@ -601,7 +595,6 @@ class EditProfileFragment : BaseFragment() {
             pinCode = binding.pincodeEditText.text.toString()
             if (pinCode.isValidAddress()) {
                 binding.pincode.isErrorEnabled = false
-                sendProfileDetail()
             } else {
                 binding.pincode.error = "Please enter valid pincode"
                 pinCode = binding.pincodeEditText.text.toString()
@@ -615,6 +608,13 @@ class EditProfileFragment : BaseFragment() {
                 }
             }
             if (!email.isNullOrEmpty() && email.isValidEmail() && houseNo.isValidHouseNo() && address.isValidAddress() && locality.isValidLocality() && pinCode.isValidPinCode()) {
+                val validEmail = binding.emailTv.text
+                val validHouse = binding.houseNo.text
+                val validAdd = binding.completeAddress.text
+                val validLocality = binding.locality.text
+                val validPinCode = binding.pincodeEditText.text
+
+                sendProfileDetail(validEmail, validHouse, validAdd, validLocality, validPinCode)
                 binding.saveAndUpdate.text = "Updated"
             }
 
@@ -623,17 +623,23 @@ class EditProfileFragment : BaseFragment() {
     }
 
 
-    private fun sendProfileDetail() {
+    private fun sendProfileDetail(
+        validEmail: Editable,
+        validHouse: Editable,
+        validAdd: Editable,
+        validLocality: Editable,
+        validPinCode: Editable
+    ) {
         val editUserNameRequest = EditUserNameRequest(
             data.firstName,
             data.lastName,
-            binding.emailTv.text.toString(),
+            validEmail.toString(),
             binding.tvDatePicker.text.toString(),
             binding.autoGender.text.toString(),
-            binding.houseNo.text.toString(),
-            binding.completeAddress.text.toString(),
-            binding.locality.text.toString(),
-            binding.pincodeEditText.text.toString(),
+            validHouse.toString(),
+            validAdd.toString(),
+            validLocality.toString(),
+            validPinCode.toString(),
             binding.autoCity.text.toString(),
             binding.autoState.text.toString(),
             "India"
