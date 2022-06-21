@@ -37,6 +37,9 @@ class ProfileViewModel(
     fun deleteProfilePicture():LiveData<BaseResponse<EditProfileResponse>>{
         return profileRepository.deleteProfilePicture()
     }
+    fun deleteProfileImage():LiveData<BaseResponse<DeleteProfilePicResponse>>{
+        return profileRepository.deleteProfileImage()
+    }
 
     fun getCountries(pageType: Int): LiveData<BaseResponse<ProfileCountriesResponse>> {
         return profileRepository.getCountries(pageType)

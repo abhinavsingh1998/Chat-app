@@ -56,6 +56,7 @@ object ApiConstants {
     //PROFILE APIS
 
     const val ACCOUNTS_LIST = "hoabl-customer/profile/account"
+    const val DELETE_PROFILE = "hoabl-customer/profile/picture"
 
     const val PROFILE_FAQ="hoabl-admin/faqs"
 

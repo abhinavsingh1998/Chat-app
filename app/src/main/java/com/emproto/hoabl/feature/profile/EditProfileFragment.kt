@@ -181,7 +181,6 @@ class EditProfileFragment : BaseFragment() {
                 ).show()
             }
         }
-        init()
         initView()
         setGenderSpinnersData()
         getStates()
@@ -400,51 +399,82 @@ class EditProfileFragment : BaseFragment() {
     }
 
 
-    ///*************ProfilePicture upload****************************//
-    private fun init() {
-        binding.tvremove.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-
-                charSequence1 = p0
-                if (p0.toString().isNullOrEmpty()) {
-                    binding.uploadImage.isEnabled = false
-                    binding.uploadImage.isClickable = false
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        binding.uploadImage.background =
-                            AppCompatResources.getDrawable(
-                                requireContext(),
-                                R.drawable.unselect_button_bg
-                            )
-                    }
-                } else {
-                    binding.uploadImage.isEnabled = true
-                    binding.uploadImage.isClickable = true
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        binding.uploadImage.background =
-                            AppCompatResources.getDrawable(
-                                requireContext(),
-                                R.drawable.button_bg
-                            )
-
-                    }
-                }
-            }
-        })
-    }
-
-    /////**************************Create Profile***************************///
-    @SuppressLint("ResourceAsColor")
     private fun initClickListener() {
         binding.backAction.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
+        }
+        binding.emailTv.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+                binding.tvEmail.error=null
+            }
+        })
+        binding.houseNo.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+                binding.houseNo.error=null
+            }
+        })
+        binding.completeAddress.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+                binding.completeAddress.error=null
+            }
+        })
+        binding.locality.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+                binding.locality.error=null
+            }
+        })
+        binding.pincodeEditText.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+                binding.pincodeEditText.error=null
+            }
+        })
+        binding.tvremove.setOnClickListener {
+            binding.profileImage.visibility = View.GONE
+            binding.profileUserLetters.visibility = View.VISIBLE
+            setUserNamePIC()
+
         }
 
         binding.uploadNewPicture.setOnClickListener { selectImage() }
@@ -475,11 +505,10 @@ class EditProfileFragment : BaseFragment() {
                 }
             })
         }
-
         binding.saveAndUpdate.setOnClickListener {
             binding.saveAndUpdate.text = "Save and Update"
             email = binding.emailTv.text.toString()
-            if (email.isNullOrEmpty() || email.isValidEmail()) {
+            if (!email.isNullOrEmpty() && email.isValidEmail()) {
                 binding.tvEmail.isErrorEnabled = false
                 sendProfileDetail()
             } else {
@@ -494,8 +523,9 @@ class EditProfileFragment : BaseFragment() {
                     ).show()
                 }
             }
+
             houseNo = binding.houseNo.text.toString()
-            if (houseNo.isValidHouseNo()) {
+            if (!houseNo.isNullOrEmpty()&&houseNo.isValidHouseNo()) {
                 binding.floorHouseNum.isErrorEnabled = false
                 sendProfileDetail()
             } else {
@@ -510,6 +540,7 @@ class EditProfileFragment : BaseFragment() {
                     ).show()
                 }
             }
+
             address = binding.completeAddress.text.toString()
             if (address.isValidAddress()) {
                 binding.comAdd.isErrorEnabled = false
@@ -558,10 +589,15 @@ class EditProfileFragment : BaseFragment() {
                     ).show()
                 }
             }
-            binding.saveAndUpdate.text = "Updated"
+            if (!email.isNullOrEmpty() && email.isValidEmail()&& houseNo.isValidHouseNo()&&address.isValidAddress()&&locality.isValidLocality()&&pinCode.isValidPinCode()){
+                binding.saveAndUpdate.text="Updated"
+            }
+
         }
 
     }
+
+
 
 
     private fun sendProfileDetail() {
