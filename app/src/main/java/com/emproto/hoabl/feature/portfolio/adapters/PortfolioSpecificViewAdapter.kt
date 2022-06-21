@@ -235,9 +235,11 @@ class PortfolioSpecificViewAdapter(
                 binding.tvProjectLocation.text =
                     data.projectExtraDetails.address.city + "," + data.projectExtraDetails.address.state
                 if (data.investmentInformation != null) {
-                    binding.tvPaidAmount.text =
-                        Utility.formatAmount(data.investmentInformation.bookingJourney.paidAmount)
-                    binding.tvAreaUnit.text = "" + data.investmentInformation.areaSqFt + " sqft"
+                    if (data.investmentInformation.bookingJourney != null){
+                        binding.tvPaidAmount.text =
+                            Utility.formatAmount(data?.investmentInformation?.bookingJourney?.paidAmount)
+                    }
+                    binding.tvAreaUnit.text = "" + data?.investmentInformation?.areaSqFt + " sqft"
                     binding.tvProjectInfo.text = data.projectInformation.shortDescription
                     var reraNumber = ""
                     val mSize = data.projectInformation.reraDetails.reraNumbers.size
@@ -262,10 +264,18 @@ class PortfolioSpecificViewAdapter(
                     //view more
                     binding.tvLandId.text = "Hoabl/" + data.investmentInformation.inventoryId
                     binding.tvSkuType.text = data.investmentInformation.inventoryBucket
+
+                    if(data.investmentInformation.bookingJourney != null){
+
+                    }
                     binding.tvInvestmentAmount.text =
                         Utility.formatAmount(data.investmentInformation.amountInvested)
-                    binding.tvAmountPending.text =
-                        Utility.formatAmount(data.investmentInformation.bookingJourney.amountPending)
+
+                    if(data.investmentInformation.bookingJourney!= null){
+                        binding.tvAmountPending.text =
+                            Utility.formatAmount(data.investmentInformation.bookingJourney.amountPending)
+                    }
+
                     binding.tvRegistryAmount.text =
                         Utility.formatAmount(data.investmentInformation.registryAmount)
                     binding.tvOtherExpenses.text =
@@ -322,16 +332,16 @@ class PortfolioSpecificViewAdapter(
                         binding.tvAmountPendingTitle.visibility = View.GONE
                     } else {
                         binding.tvPendingAmount.text =
-                            Utility.formatAmount(data.investmentInformation.bookingJourney.amountPending)
+                            Utility.formatAmount(data.investmentInformation.bookingJourney?.amountPending)
                         binding.tvAmountPaid.text =
-                            Utility.formatAmount(data.investmentInformation.bookingJourney.paidAmount)
+                            Utility.formatAmount(data.investmentInformation.bookingJourney?.paidAmount)
                         binding.tvPaid.setOnClickListener {
-                            getToolTip("₹${data.investmentInformation.bookingJourney.paidAmount}").showAlignTop(
+                            getToolTip("₹${data.investmentInformation.bookingJourney?.paidAmount}").showAlignTop(
                                 binding.tvPaid
                             )
                         }
                         binding.tvPending.setOnClickListener {
-                            getToolTip("₹${data.investmentInformation.bookingJourney.amountPending}").showAlignTop(
+                            getToolTip("₹${data.investmentInformation.bookingJourney?.amountPending}").showAlignTop(
                                 binding.tvPending
                             )
                         }
