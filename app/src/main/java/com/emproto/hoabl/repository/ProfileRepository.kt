@@ -6,13 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.ProfileDataSource
-import com.emproto.networklayer.feature.RegistrationDataSource
-import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
-import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.response.BaseResponse
-import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.resourceManagment.ProflieResponse
@@ -235,13 +231,13 @@ class ProfileRepository @Inject constructor(application: Application) :
         }
         return deleteResponse
     }
-    fun deleteProfileImage(): LiveData<BaseResponse<DeleteProfilePicResponse>> {
-        val deleteResponse = MutableLiveData<BaseResponse<DeleteProfilePicResponse>>()
+    fun deleteProfileImage(destinationFileName: String): LiveData<BaseResponse<EditProfileResponse>> {
+        val deleteResponse = MutableLiveData<BaseResponse<EditProfileResponse>>()
         deleteResponse.postValue(BaseResponse.loading())
 
         coroutineScope.launch {
             try {
-                val request = ProfileDataSource(application).deleteProfileImage()
+                val request = ProfileDataSource(application).deleteProfileImage(destinationFileName)
                 if (request.isSuccessful) {
                     if (request.body()!!.data != null) {
                         deleteResponse.postValue(BaseResponse.success(request.body()!!))
