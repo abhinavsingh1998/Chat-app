@@ -29,17 +29,15 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/progress_baar" />
 
-    <com.emproto.core.textviews.CustomTextView
+    <ImageView
         android:id="@+id/tm_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/text_white_16"
-        android:fontFamily="@font/jostmedium"
+        android:layout_width="@dimen/margin_size_20"
+        android:layout_height="@dimen/margin_size_20"
+        android:src="@drawable/logo_r"
         app:layout_constraintTop_toBottomOf="@id/progress_baar"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="@dimen/margin_size_37"
-        android:layout_marginRight="@dimen/margin_size_30"
-        android:text="TM"/>
+        android:layout_marginRight="@dimen/margin_size_30"/>
 
     <ImageView
         android:id="@+id/image"

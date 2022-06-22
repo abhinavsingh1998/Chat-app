@@ -94,27 +94,35 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
     }
 
     private fun setUiData(profileData: Data) {
-        binding.tvName.text = profileData.firstName + "" + profileData.lastName
+        binding.tvName.text = profileData.firstName + " " + profileData.lastName
 
         /*for user pic not available show username as pic label*/
-        if (profileData.profilePictureUrl.isNullOrEmpty()) {
+        if (profileData.profilePictureUrl != null && profileData.profilePictureUrl!!.isNotEmpty()) {
             binding.profileImage.visibility = View.VISIBLE
             binding.profileUserLetters.visibility = View.GONE
+            Glide.with(requireContext())
+                .load(profileData.profilePictureUrl)
+                .into(binding.profileImage)
         } else {
             binding.profileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
             setUserNamePIC(profileData)
-
-//            Glide.with(requireContext())
-//                .load(profileData.profilePictureUrl)
-//                .into(binding.profileImage)
         }
     }
 
     private fun setUserNamePIC(profileData: Data) {
-        val firstLetter: String = profileData.firstName.substring(0, 1)
-        val lastLetter: String = profileData.lastName.substring(0, 1)
-        binding.tvUserName.text = firstLetter + "" + lastLetter
+
+        if (profileData.lastName.isNullOrEmpty()) {
+            val firstLetter: String = profileData.firstName.substring(0, 2)
+
+            binding.tvUserName.text = firstLetter
+        } else {
+            val firstLetter: String = profileData.firstName.substring(0, 1)
+
+            val lastLetter: String = profileData.lastName.substring(0, 1)
+            binding.tvUserName.text = firstLetter + "" + lastLetter
+
+        }
     }
 
 

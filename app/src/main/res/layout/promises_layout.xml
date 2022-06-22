@@ -79,7 +79,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="Still not convinced?"
-            style="@style/text_style_white_16"
+            style="@style/text_style_white_18"
             android:fontFamily="@font/jost_medium" />
         
         <com.google.android.material.textview.MaterialTextView
@@ -87,8 +87,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/jost_regular"
-            android:text="Schedule a video call with our supervisors and have them show you a live demo"
-            style="@style/text_light_ash_14"
+            android:text="@string/schedule_video_call_info"
+            style="@style/text_light_ash_16"
             android:layout_marginTop="@dimen/_4sdp"
             app:layout_constraintStart_toStartOf="@id/tv_still_not_convinced"
             app:layout_constraintTop_toBottomOf="@id/tv_still_not_convinced"
@@ -100,9 +100,9 @@
 
         <ImageView
             android:id="@+id/iv_not_convinced_arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/arrow_right_"
+            android:layout_width="@dimen/margin_size_16"
+            android:layout_height="9dp"
+            android:src="@drawable/combined_shape_copy_5"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

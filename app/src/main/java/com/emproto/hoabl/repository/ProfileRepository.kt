@@ -7,9 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.ProfileDataSource
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
+import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
+import com.emproto.networklayer.response.resourceManagment.ProflieResponse
+import com.emproto.networklayer.response.terms.TermsConditionResponse
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,6 +26,10 @@ class ProfileRepository @Inject constructor(application: Application) :
     BaseRepository(application) {
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + parentJob)
+    val termsConditionResponse = MutableLiveData<BaseResponse<TermsConditionResponse>>()
+
+    val aboutusResponse = MutableLiveData<BaseResponse<ProflieResponse>>()
+
     fun editUserNameProfile(editUserNameRequest: EditUserNameRequest): LiveData<BaseResponse<EditProfileResponse>> {
         val mEditProfileResponse = MutableLiveData<BaseResponse<EditProfileResponse>>()
         mEditProfileResponse.postValue(BaseResponse.loading())
@@ -45,10 +52,7 @@ class ProfileRepository @Inject constructor(application: Application) :
         return mEditProfileResponse
     }
 
-    fun uploadProfilePicture(
-        file: File,
-        fileName: String
-    ): LiveData<BaseResponse<ProfilePictureResponse>> {
+    fun uploadProfilePicture(file: File, fileName: String): LiveData<BaseResponse<ProfilePictureResponse>> {
         val mUploadProfilePicture = MutableLiveData<BaseResponse<ProfilePictureResponse>>()
         mUploadProfilePicture.postValue(BaseResponse.loading())
         coroutineScope.launch {
@@ -227,8 +231,103 @@ class ProfileRepository @Inject constructor(application: Application) :
         }
         return deleteResponse
     }
+    fun deleteProfileImage(destinationFileName: String): LiveData<BaseResponse<EditProfileResponse>> {
+        val deleteResponse = MutableLiveData<BaseResponse<EditProfileResponse>>()
+        deleteResponse.postValue(BaseResponse.loading())
+
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).deleteProfileImage(destinationFileName)
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null) {
+                        deleteResponse.postValue(BaseResponse.success(request.body()!!))
+                    } else {
+                        deleteResponse.postValue(BaseResponse.Companion.error("No Data Found"))
+                    }
+                } else {
+                    deleteResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                deleteResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return deleteResponse
+    }
 
 
+    fun submitFeedback(feedBackRequest: FeedBackRequest): LiveData<BaseResponse<FeedBackResponse>> {
+        val mCaseResponse = MutableLiveData<BaseResponse<FeedBackResponse>>()
+
+        mCaseResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).shareFeedBack(feedBackRequest)
+                if (request.isSuccessful) {
+                    mCaseResponse.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    mCaseResponse.postValue(BaseResponse.Companion.error(request.message()))
+                }
+
+            } catch (e: Exception) {
+                mCaseResponse.postValue(BaseResponse.Companion.error(e.message!!))
+            }
+        }
+        return mCaseResponse
+    }
+
+    fun getPrivacyAndPolicy(pageType: Int): LiveData<BaseResponse<TermsConditionResponse>> {
+        termsConditionResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).getPrivacyAndPolicy(pageType)
+                if (request.isSuccessful) {
+                    termsConditionResponse.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    termsConditionResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+
+            } catch (e: Exception) {
+                termsConditionResponse.postValue(BaseResponse.Companion.error(e.message!!))
+            }
+        }
+        return termsConditionResponse
+    }
+
+    fun getAboutHoaBl(pageType: Int): LiveData<BaseResponse<ProflieResponse>> {
+        aboutusResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).getAboutHobal(pageType)
+                if (request.isSuccessful) {
+                    aboutusResponse.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    aboutusResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+
+            } catch (e: Exception) {
+                aboutusResponse.postValue(BaseResponse.Companion.error(e.message!!))
+            }
+        }
+        return aboutusResponse
+    }
     fun getFaqList(typeOfFAQ: String): LiveData<BaseResponse<ProfileFaqResponse>> {
         val faqResponse = MutableLiveData<BaseResponse<ProfileFaqResponse>>()
         faqResponse.postValue(BaseResponse.loading())

@@ -5,9 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.emproto.hoabl.repository.ProfileRepository
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
+import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
+import com.emproto.networklayer.response.resourceManagment.ProflieResponse
+import com.emproto.networklayer.response.terms.TermsConditionResponse
 import java.io.File
 
 class ProfileViewModel(
@@ -33,6 +36,9 @@ class ProfileViewModel(
     fun deleteProfilePicture():LiveData<BaseResponse<EditProfileResponse>>{
         return profileRepository.deleteProfilePicture()
     }
+    fun deleteProfileImage(destinationFileName: String):LiveData<BaseResponse<EditProfileResponse>>{
+        return profileRepository.deleteProfileImage(destinationFileName)
+    }
 
     fun getCountries(pageType: Int): LiveData<BaseResponse<ProfileCountriesResponse>> {
         return profileRepository.getCountries(pageType)
@@ -50,6 +56,17 @@ class ProfileViewModel(
         return profileRepository.getCities(stateIsoCode,countryIsoCode)
     }
 
+    fun getPrivacyAndPolicy(pageType: Int):LiveData<BaseResponse<TermsConditionResponse>>{
+        return mprofileRepository.getPrivacyAndPolicy(pageType)
+    }
+
+    fun submitFeedback(feedBackRequest: FeedBackRequest): LiveData<BaseResponse<FeedBackResponse>> {
+        return mprofileRepository.submitFeedback(feedBackRequest)
+    }
+
+    fun getAboutHoabl(pageType: Int): LiveData<BaseResponse<ProflieResponse>>{
+        return mprofileRepository.getAboutHoaBl(pageType)
+    }
     fun getFaqList(typeOfFAQ: String): LiveData<BaseResponse<ProfileFaqResponse>> {
         return profileRepository.getFaqList(typeOfFAQ)
     }

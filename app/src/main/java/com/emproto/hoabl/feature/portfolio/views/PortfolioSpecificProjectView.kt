@@ -150,7 +150,9 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
     private fun loadInvestmentDetails(it: InvestmentDetailsResponse) {
         //saving project name and address for booking journey screen
-        portfolioviewmodel.setProjectName(it.data.projectInformation.launchName)
+        portfolioviewmodel.setInvestmentInfo(it.data.investmentInformation)
+        it.data.investmentInformation.launchName = it.data.projectInformation.launchName
+        it.data.investmentInformation.address = portfolioviewmodel.getprojectAddress().address
         var itemId = 0
 
         allMediaList.clear()

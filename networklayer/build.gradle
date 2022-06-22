@@ -17,6 +17,19 @@ android {
     }
 
     buildTypes {
+
+        debug {
+            buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-dev-306342355.ap-south-1.elb.amazonaws.com\"")
+        }
+
+        qa {
+            buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-qa-1093935714.ap-south-1.elb.amazonaws.com\"")
+        }
+
+        preProd{
+            buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-preprod-1970620156.ap-south-1.elb.amazonaws.com\"")
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -64,5 +77,8 @@ dependencies {
     //Room Database
     implementation "androidx.room:room-runtime:$roomDBVersion"
     kapt "androidx.room:room-compiler:$roomDBVersion"
+
+    //disable emoji
+    implementation 'com.xw.repo:xedittext:2.0.0@aar'
 
 }

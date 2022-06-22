@@ -78,7 +78,6 @@
                         android:id="@+id/location_image"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:src="@drawable/land_img"
                         android:scaleType="center"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

@@ -275,8 +275,8 @@ class ProjectDetailFragment : BaseFragment() {
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.VISIBLE
         (requireActivity() as HomeActivity).hideBottomNavigation()
         binding.slSwipeRefresh.setOnRefreshListener {
+            binding.slSwipeRefresh.isRefreshing = true
             callApi()
-            binding.slSwipeRefresh.isRefreshing = false
         }
     }
 
@@ -312,6 +312,7 @@ class ProjectDetailFragment : BaseFragment() {
                     Status.SUCCESS -> {
                         (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                         it.data?.data?.let {  data ->
+                            binding.slSwipeRefresh.isRefreshing = false
                             allData = data
                             if(watchList != null){
                                 watchList = data.watchlist.toMutableList()

@@ -27,7 +27,11 @@ class AllLatestUpdatesAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = list.get(holder.adapterPosition)
         holder.binding.title.text= item.displayTitle
-        holder.binding.location.text= item.subTitle.toString()
+        if (!item.subTitle.isNullOrEmpty()){
+            holder.binding.placeName.text= item.subTitle
+        } else{
+            holder.binding.placeName.isVisible= false
+        }
 
 
         if (item.detailedInfo[0].media!=null){
@@ -37,15 +41,16 @@ class AllLatestUpdatesAdapter(
                 Glide.with(context).load(item.detailedInfo[0].media.value.url)
                     .into(holder.binding.locationImage)
             } else{
-                holder.binding.imageCard.isVisible= true
+                holder.binding.imageCard.isVisible= false
             }
 
 
-            if (item.detailedInfo[0].description.isNullOrEmpty()){
-                holder.binding.btnReadMore.isVisible= false
-            } else{
+            if (!item.detailedInfo[0].description.isNullOrEmpty()){
                 holder.binding.btnReadMore.isVisible= true
                 holder.binding.deatils.text= showHTMLText(item.detailedInfo[0].description)
+            } else{
+                holder.binding.btnReadMore.isVisible= false
+
             }
 
         }

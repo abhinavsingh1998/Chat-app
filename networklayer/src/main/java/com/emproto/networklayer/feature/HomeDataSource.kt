@@ -73,7 +73,7 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
 
     //get facility managment
     suspend fun getFacilityManagment(): Response<FMResponse> {
-        return apiService.getFacilityManagment()
+        return apiService.getFacilityManagment(true)
     }
 
     //chats list api
@@ -100,7 +100,7 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
         return apiService.getSearchDocResultsQuery(searchWord)
     }
 
-    //accounts list api
+
     suspend fun getAccountsList(): Response<AccountsResponse> {
         return apiService.getAccountsList()
     }

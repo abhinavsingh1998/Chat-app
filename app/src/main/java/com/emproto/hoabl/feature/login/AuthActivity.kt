@@ -193,7 +193,7 @@ class AuthActivity : BaseActivity() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 issueDetail=p0.toString()
-                if( p0.toString().length==150){
+                if( p0.toString().length==250){
                     signingInIssueBiding.editIssues.error = "You have reached the max characters limit"
                     Toast.makeText(this@AuthActivity, "You have reached the max characters limit", Toast.LENGTH_SHORT).show()
                 }

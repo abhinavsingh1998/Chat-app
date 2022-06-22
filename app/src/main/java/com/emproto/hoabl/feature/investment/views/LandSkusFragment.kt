@@ -78,7 +78,7 @@ class LandSkusFragment:BaseFragment() {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                     binding.clOuterLayout.visibility = View.VISIBLE
                     it.data?.data?.let { data ->
-                        Log.d("hdhdhd",data.data.toString())
+                        binding.slSwipeRefresh.isRefreshing = false
                         appliedList.clear()
                         notAppliedList.clear()
                         for(item in data.data){
@@ -109,8 +109,8 @@ class LandSkusFragment:BaseFragment() {
         (requireActivity() as HomeActivity).hideBottomNavigation()
         (requireActivity() as HomeActivity).showHeader()
         binding.slSwipeRefresh.setOnRefreshListener {
+            binding.slSwipeRefresh.isRefreshing = true
             callApi()
-            binding.slSwipeRefresh.isRefreshing = false
         }
     }
 

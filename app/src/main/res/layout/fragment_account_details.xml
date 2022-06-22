@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/tv_kyc"
+                    android:id="@+id/tvKyc"
                     style="@style/text_style_text_color_16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
                     android:paddingBottom="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_kyc"
+                    app:layout_constraintTop_toBottomOf="@id/tvKyc"
                     tools:itemCount="3"
                     tools:listitem="@layout/item_accounts_kyc_doc" />
 
@@ -96,7 +96,7 @@
 
 
                 <com.emproto.core.textviews.CustomTextView
-                    android:id="@+id/tv_see_all_documents"
+                    android:id="@+id/tvSeeAllDocuments"
                     style="@style/text_style_blue_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -128,7 +128,7 @@
 
 
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/tvPaymentHistory"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_16"
@@ -145,7 +145,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/rvDocuments" />
 
                 <com.emproto.core.textviews.CustomTextView
-                    android:id="@+id/tv_see_all_payment_history"
+                    android:id="@+id/tvSeeAllPayment"
                     style="@style/text_style_blue_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -167,8 +167,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
+
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView11"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPaymentHistory"
                     tools:itemCount="3"
                     tools:listitem="@layout/item_accounts_payment"/>
             </androidx.constraintlayout.widget.ConstraintLayout>

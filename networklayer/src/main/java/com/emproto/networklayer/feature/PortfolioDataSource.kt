@@ -65,12 +65,10 @@ class PortfolioDataSource(val application: Application) : BaseDataSource(applica
 
     //get facility managment
     suspend fun getFacilityManagment(): Response<FMResponse> {
-        return apiService.getFacilityManagment()
+        return apiService.getFacilityManagment(true)
     }
 
     suspend fun getBookingJourney(investedId: Int): Response<BookingJourneyResponse> {
         return apiService.getBookingJourney(investedId)
     }
-
-
 }

@@ -48,8 +48,10 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/back_action">
+            app:layout_constraintTop_toBottomOf="@+id/back_action"
+            app:layout_constraintVertical_bias="0.0">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -93,7 +95,7 @@
                         app:civ_shadow_radius="@dimen/margin_size_1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:visibility="visible"/>
+                        tools:visibility="visible" />
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/profile_user_letters"
@@ -102,9 +104,9 @@
                         android:visibility="visible"
                         app:cardBackgroundColor="@color/app_color"
                         app:cardCornerRadius="50dp"
-                        tools:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/profile_picture">
+                        app:layout_constraintTop_toBottomOf="@id/profile_picture"
+                        tools:visibility="gone">
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="86dp"
@@ -266,16 +268,18 @@
 
                     <EditText
                         android:id="@+id/email_tv"
-                        style="@style/text_style_text_color_14"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/jost_medium"
                         android:gravity="center|left"
-                        android:inputType="textPersonName|textCapSentences"
+                        android:textSize="14sp"
+                        android:inputType="textEmailAddress"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
-                        android:textColor="@color/text_color" />
+                        android:textColorHint="@color/text_grey_color"
+                        android:textColor="@color/text_color"
+                        app:x_disableEmoji="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -402,7 +406,6 @@
 
                     <EditText
                         android:id="@+id/house_no"
-                        style="@style/text_style_text_color_16"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/jost_regular"
@@ -411,7 +414,8 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
-                        android:textColor="#9d9eb1"
+                        android:textColor="@color/text_color"
+                        android:textSize="14sp"
                         android:textColorHint="@color/text_grey_color"
                         app:layout_constraintStart_toStartOf="parent"
                         tools:layout_editor_absoluteY="344dp" />
@@ -420,7 +424,6 @@
 
 
                 <com.google.android.material.textfield.TextInputLayout
-
                     android:id="@+id/com_add"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
@@ -434,18 +437,17 @@
                     app:layout_constraintTop_toBottomOf="@+id/floor_house_num"
                     app:placeholderText="@string/type_here">
 
-
                     <EditText
                         android:id="@+id/complete_address"
-                        style="@style/text_style_text_color_16"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:fontFamily="@font/jost_light"
+                        android:fontFamily="@font/jost_medium"
                         android:gravity="center|left"
                         android:inputType="textPersonName|textCapSentences"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
+                        android:textSize="14sp"
                         android:textColor="@color/text_color"
                         android:textColorHint="@color/text_grey_color"
                         app:layout_constraintStart_toStartOf="parent"
@@ -473,7 +475,6 @@
 
                     <EditText
                         android:id="@+id/locality"
-                        style="@style/text_style_text_color_16"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/jost_light"
@@ -482,6 +483,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
+                        android:textSize="14sp"
                         android:textColor="@color/text_color"
                         android:textColorHint="@color/text_grey_color"
                         app:layout_constraintStart_toStartOf="parent"
@@ -608,13 +610,12 @@
                         android:id="@+id/pincode_editText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:fontFamily="@font/jost_regular"
+                        android:fontFamily="@font/jost_medium"
                         android:gravity="center|left"
-                        android:inputType="textPersonName|textCapSentences"
+                        android:inputType="number"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
-
                         android:textColor="@color/text_color"
                         android:textColorHint="@color/text_grey_color"
                         android:textSize="@dimen/text_size_14" />
@@ -656,7 +657,6 @@
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminateTint="@color/white"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

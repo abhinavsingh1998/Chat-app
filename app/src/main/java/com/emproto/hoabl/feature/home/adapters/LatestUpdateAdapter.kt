@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +27,13 @@ class LatestUpdateAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = list.get(holder.adapterPosition)
         holder.binding.title.text = item.displayTitle
-        holder.binding.tvName.text= item.subTitle
+
+        if (!item.subTitle.isNullOrEmpty()){
+            holder.binding.tvName.text= item.subTitle
+        } else{
+            holder.binding.tvName.isVisible= false
+        }
+
 
         if (item.detailedInfo[0].media!= null){
 
@@ -40,9 +45,7 @@ class LatestUpdateAdapter(
                 holder.binding.imageCard.isVisible= false
             }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                Utility.convertString(holder.binding.description,context,showHTMLText(item.detailedInfo[0].description).toString(),3)
-            }
+            holder.binding.description.text=showHTMLText(item.detailedInfo[0].description)
         }
 
         holder.binding.rootView.setOnClickListener {

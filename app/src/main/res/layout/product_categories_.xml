@@ -4,19 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/tv_product_category"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_size_15"
-        android:layout_marginTop="@dimen/margin_size_30"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:fontFamily="@font/jostregular"
-        style="@style/text_style_color_18"
-        android:lineSpacingExtra="0sp"
-        android:text="@string/product_text_about"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/product_recycler_list"

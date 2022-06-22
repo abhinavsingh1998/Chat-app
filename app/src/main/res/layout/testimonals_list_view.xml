@@ -49,7 +49,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.emproto.core.textviews.CustomTextView
+    <TextView
         android:id="@+id/details"
         style="@style/text_style_text_color_14"
         android:layout_width="match_parent"
@@ -59,7 +59,7 @@
         android:layout_marginLeft="@dimen/margin_size_25"
         android:layout_marginRight="@dimen/margin_size_25"
         android:text="Neque porro quisquam estp qui dolorem ipsu porro \nquisquam estp qui ipsu."
-        app:fontName="@string/jost_regular"
+        android:fontFamily="@font/jost_light"
         android:layout_marginBottom="@dimen/margin_size_9"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

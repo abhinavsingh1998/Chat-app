@@ -9,6 +9,7 @@ import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
+import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyX
@@ -32,6 +33,7 @@ import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineRes
 import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
+import com.emproto.networklayer.response.resourceManagment.ProflieResponse
 import com.emproto.networklayer.response.search.SearchResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 import com.emproto.networklayer.response.testimonials.TestimonialsResponse
@@ -129,6 +131,9 @@ public interface ApiService {
     @DELETE(ApiConstants.UPLOADPROFILEPICTURE)
     suspend fun deleteProfilePic(): Response<EditProfileResponse>
 
+    @DELETE(ApiConstants.DELETE_PROFILE)
+    suspend fun deleteProfileImage(@Path("key") destinationFileName: String): Response<EditProfileResponse>
+
     @GET(ApiConstants.PROJECT_TIMELINE)
     suspend fun getProjectTimeline(@Path("id") id: Int): Response<ProjectTimelineResponse>
 
@@ -191,4 +196,9 @@ public interface ApiService {
 
     @GET(ApiConstants.SEARCH_DOCS)
     suspend fun getSearchDocResultsQuery(@Query("searchKey") searchWord: String):Response<DocumentsResponse>
+    @POST(ApiConstants.FEEDBACK)
+    suspend fun submitFeedback(@Body feedBackResponse: FeedBackRequest): Response<FeedBackResponse>
+
+    @GET(ApiConstants.PROFILE_RESOURCE)
+    suspend fun getAboutHobal(@Query("pageType") pageType: Int): Response<ProflieResponse>
 }
