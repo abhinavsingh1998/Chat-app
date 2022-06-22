@@ -37,7 +37,7 @@ class HoablSplashActivity : BaseActivity() {
                 startActivity(Intent(this, IntroSliderActivity::class.java))
                 finish()
             }
-        }, 1000)
+        }, 2000)
 
     }
 
