@@ -12,8 +12,8 @@
         android:layout_marginTop="55dp"
         android:layout_marginBottom="50dp"
         android:background="@drawable/shape2"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -42,8 +42,8 @@
                 android:layout_toRightOf="@+id/arrowimage"
                 android:fontFamily="@font/jost_medium"
                 android:text="@string/my_accounts"
-                android:textSize="18sp"
-                android:textColor="@color/app_color"/>
+                android:textColor="@color/app_color"
+                android:textSize="18sp" />
         </RelativeLayout>
 
         <androidx.core.widget.NestedScrollView
@@ -79,7 +79,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvKyc"
-                    tools:itemCount="3"
+                    tools:itemCount="2"
                     tools:listitem="@layout/item_accounts_kyc_doc" />
 
                 <TextView
@@ -100,9 +100,9 @@
                     style="@style/text_style_blue_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_size_16"
                     android:layout_marginStart="@dimen/margin_size_16"
                     android:layout_marginTop="40dp"
+                    android:layout_marginEnd="@dimen/margin_size_16"
                     android:drawableEnd="@drawable/ic_black_long_rightarrow"
                     android:drawablePadding="@dimen/margin_size_4"
                     android:maxLines="1"
@@ -127,16 +127,54 @@
                     tools:listitem="@layout/item_accounts_kyc_doc" />
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cvNoPayment"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="16dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvPaymentHistory"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPaymentHistory">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="18sp"
+                        android:textColor="@color/app_color"
+                        android:fontFamily="@font/jost_bold"
+                        android:text="No Payment to show" />
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
                     android:id="@+id/cvNoDoc"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:layout_marginTop="14dp"
-                    android:paddingBottom="10dp"
-                    android:visibility="gone"
                     android:layout_marginEnd="16dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    app:cardCornerRadius="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tv_Doc"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_Doc" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_Doc">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="18sp"
+                        android:textColor="@color/app_color"
+                        android:fontFamily="@font/jost_bold"
+                        android:text="No Document to show" />
+                </androidx.cardview.widget.CardView>
+
 
                 <TextView
                     android:id="@+id/tvPaymentHistory"
@@ -146,10 +184,10 @@
                     android:layout_marginTop="30dp"
                     android:fontFamily="@font/jost_regular"
                     android:lineSpacingExtra="0sp"
+                    android:singleLine="true"
                     android:text="Payment History"
                     android:textColor="#16161c"
                     android:textSize="16sp"
-                    android:singleLine="true"
                     android:textStyle="normal"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -160,9 +198,9 @@
                     style="@style/text_style_blue_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_size_16"
                     android:layout_marginStart="@dimen/margin_size_16"
                     android:layout_marginTop="40dp"
+                    android:layout_marginEnd="@dimen/margin_size_16"
                     android:drawableEnd="@drawable/ic_black_long_rightarrow"
                     android:drawablePadding="@dimen/margin_size_4"
                     android:maxLines="1"
@@ -182,7 +220,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvPaymentHistory"
                     tools:itemCount="3"
-                    tools:listitem="@layout/item_accounts_payment"/>
+                    tools:listitem="@layout/item_accounts_payment" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
