@@ -3,6 +3,7 @@ package com.emproto.networklayer.di
 import android.app.Application
 import com.emproto.networklayer.ApiConstants
 import com.emproto.networklayer.ApiService
+import com.emproto.networklayer.BuildConfig
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.preferences.AppPreferenceImp
 import dagger.Module
@@ -46,7 +47,7 @@ class DataModule(private val application: Application) {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .client(defaultHttpClient)
-            .baseUrl(ApiConstants.BASE_URL_UAT).build()
+            .baseUrl(BuildConfig.BASE_URL).build()
     }
 
     @Provides

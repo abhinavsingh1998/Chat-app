@@ -10,6 +10,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="resend_otp">#707070</color>
+
     <color name="blackk">#000000</color>
     <color name="text_color">#1c1c1c</color>
     <color name="text_grey_color">#9d9d9d</color>
@@ -34,6 +36,7 @@
     <color name="color_text_normal">#9192a0</color>
     <color name="grey_line">#b6b3d0</color>
     <color name="error_color">#f45353</color>
+    <color name="success_color">#5ee67c</color>
     <color name="primarytext_color">#16161C</color>
     <color name="primarytext_color2">#313131</color>
     <color name="primarycolor_3">#28282e</color>
@@ -45,4 +48,5 @@
     <color name="color_golden">#7b7878</color>
     <color name="color_ash_line">#d3d3d9</color>
     <color name="color_security_red">#c94d4d</color>
+    <color name="unselected_button_color">#d3d3d9</color>
 </resources>

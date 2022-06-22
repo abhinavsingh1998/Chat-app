@@ -232,13 +232,13 @@ class ProfileRepository @Inject constructor(application: Application) :
         }
         return deleteResponse
     }
-    fun deleteProfileImage(): LiveData<BaseResponse<DeleteProfilePicResponse>> {
-        val deleteResponse = MutableLiveData<BaseResponse<DeleteProfilePicResponse>>()
+    fun deleteProfileImage(destinationFileName: String): LiveData<BaseResponse<EditProfileResponse>> {
+        val deleteResponse = MutableLiveData<BaseResponse<EditProfileResponse>>()
         deleteResponse.postValue(BaseResponse.loading())
 
         coroutineScope.launch {
             try {
-                val request = ProfileDataSource(application).deleteProfileImage()
+                val request = ProfileDataSource(application).deleteProfileImage(destinationFileName)
                 if (request.isSuccessful) {
                     if (request.body()!!.data != null) {
                         deleteResponse.postValue(BaseResponse.success(request.body()!!))

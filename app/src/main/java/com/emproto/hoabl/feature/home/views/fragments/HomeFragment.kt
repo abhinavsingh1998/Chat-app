@@ -114,6 +114,8 @@ class HomeFragment : BaseFragment() {
                             it.data.let {
                                 if (it != null) {
                                     projectId = it.data.page.promotionAndOffersProjectContentId
+                                    appPreference.saveOfferId(projectId)
+                                    appPreference.saveOfferUrl(it.data.page.promotionAndOffersMedia.value.url)
                                     homeViewModel.setDashBoardData(it)
                                 }
 
@@ -281,9 +283,11 @@ class HomeFragment : BaseFragment() {
                                 it.data!!.data.pageManagementOrInsights,
                                 object : InsightsAdapter.InsightsItemInterface {
                                     override fun onClickItem(position: Int) {
-                                        val convertedData = it.data!!.data.pageManagementOrInsights[position].toData()
-                                        val list = ArrayList<com.emproto.networklayer.response.insights.Data>()
-                                        for(item in it.data!!.data.pageManagementOrInsights){
+                                        val convertedData =
+                                            it.data!!.data.pageManagementOrInsights[position].toData()
+                                        val list =
+                                            ArrayList<com.emproto.networklayer.response.insights.Data>()
+                                        for (item in it.data!!.data.pageManagementOrInsights) {
                                             list.add(item.toData())
                                         }
                                         homeViewModel.setInsightsData(list)

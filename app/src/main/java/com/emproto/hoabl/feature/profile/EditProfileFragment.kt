@@ -1,18 +1,23 @@
 package com.emproto.hoabl.feature.profile
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.ContentUris
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
@@ -25,16 +30,21 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseActivity
+import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentEditProfileBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
@@ -46,20 +56,10 @@ import com.emproto.networklayer.response.profile.ProfilePictureResponse
 import com.emproto.networklayer.response.profile.States
 import okhttp3.MultipartBody
 import java.io.*
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.inject.Inject
-import android.annotation.SuppressLint
-import android.content.Context
-import android.provider.DocumentsContract
-
-import android.content.ContentUris
-import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
-import androidx.core.content.FileProvider
-import com.emproto.core.BaseFragment
-import com.emproto.hoabl.viewmodels.ProfileViewModel
 import java.util.regex.Pattern
+import javax.inject.Inject
 
 
 class EditProfileFragment : BaseFragment() {
@@ -77,13 +77,10 @@ class EditProfileFragment : BaseFragment() {
     val emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
 
     var houseNo = ""
-    val houseNoPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
     var address = ""
-    val addressPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
     var locality = ""
-    val localityPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
     var pinCode = ""
-    val pinCodePattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
+    val pinCodePattern = Pattern.compile("([1-9]{1}[0-9]{5}|[1-9]{1}[0-9]{3}\\\\s[0-9]{3})")
     var hMobileNo = ""
     var hCountryCode = ""
 
@@ -133,6 +130,7 @@ class EditProfileFragment : BaseFragment() {
         if (arguments != null) {
             data = requireArguments().getSerializable("profileData") as Data
         }
+
     }
 
     override fun onCreateView(
@@ -148,6 +146,7 @@ class EditProfileFragment : BaseFragment() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             false
 
+        binding.saveAndUpdate.text="Save and Update"
         val myCalender = Calendar.getInstance()
         val datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayofMonth ->
             myCalender.set(Calendar.YEAR, year)
@@ -369,7 +368,7 @@ class EditProfileFragment : BaseFragment() {
         if (data.profilePictureUrl.isNullOrEmpty()) {
             binding.profileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
-            setUserNamePIC()
+            setUserNamePIC(data)
         } else {
             binding.profileImage.visibility = View.VISIBLE
             binding.profileUserLetters.visibility = View.GONE
@@ -380,12 +379,16 @@ class EditProfileFragment : BaseFragment() {
         }
     }
 
-    private fun setUserNamePIC() {
-        val firstLetter: String = data.firstName.substring(0, 1)
-        val lastLetter: String = data.lastName.substring(0, 1)
-        if (data.lastName.isNullOrEmpty()) {
+    private fun setUserNamePIC(data: Data) {
+
+        if (this.data.lastName.isNullOrEmpty()) {
+            val firstLetter: String = this.data.firstName.substring(0, 2)
+
             binding.tvUserName.text = firstLetter
         } else {
+            val firstLetter: String = this.data.firstName.substring(0, 1)
+
+            val lastLetter: String = this.data.lastName.substring(0, 1)
             binding.tvUserName.text = firstLetter + "" + lastLetter
 
         }
@@ -395,6 +398,7 @@ class EditProfileFragment : BaseFragment() {
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH)
         var dateSelected = sdf.format(myCalendar.time)
         binding.tvDatePicker.setText(dateSelected.substring(0, 10))
+
     }
 
 
@@ -411,12 +415,15 @@ class EditProfileFragment : BaseFragment() {
                 s: CharSequence, start: Int,
                 count: Int, after: Int
             ) {
+
             }
 
             override fun onTextChanged(
                 s: CharSequence, start: Int,
                 before: Int, count: Int
             ) {
+                val typeface = ResourcesCompat.getFont(context!!, R.font.jost_medium)
+                binding.tvEmail.setTypeface(typeface)
                 binding.tvEmail.isErrorEnabled = false
             }
         })
@@ -435,6 +442,9 @@ class EditProfileFragment : BaseFragment() {
                 s: CharSequence, start: Int,
                 before: Int, count: Int
             ) {
+
+                val typeface = ResourcesCompat.getFont(context!!, R.font.jost_medium)
+                binding.houseNo.setTypeface(typeface)
                 binding.floorHouseNum.isErrorEnabled = false
             }
         })
@@ -447,12 +457,15 @@ class EditProfileFragment : BaseFragment() {
                 s: CharSequence, start: Int,
                 count: Int, after: Int
             ) {
+
             }
 
             override fun onTextChanged(
                 s: CharSequence, start: Int,
                 before: Int, count: Int
             ) {
+                val typeface = ResourcesCompat.getFont(context!!, R.font.jost_medium)
+                binding.comAdd.setTypeface(typeface)
                 binding.comAdd.isErrorEnabled = false
             }
         })
@@ -471,6 +484,8 @@ class EditProfileFragment : BaseFragment() {
                 s: CharSequence, start: Int,
                 before: Int, count: Int
             ) {
+                val typeface = ResourcesCompat.getFont(context!!, R.font.jost_medium)
+                binding.tvLocality.setTypeface(typeface)
                 binding.tvLocality.isErrorEnabled = false
             }
         })
@@ -489,44 +504,19 @@ class EditProfileFragment : BaseFragment() {
                 s: CharSequence, start: Int,
                 before: Int, count: Int
             ) {
+                val typeface = ResourcesCompat.getFont(context!!, R.font.jost_medium)
+                binding.pincode.setTypeface(typeface)
                 binding.pincode.isErrorEnabled = false
             }
         })
-
-        binding.tvremove.setOnClickListener {
-            binding.profileImage.visibility = View.GONE
-            binding.profileUserLetters.visibility = View.VISIBLE
-            setUserNamePIC()
-
-        }
-
+        
         binding.uploadNewPicture.setOnClickListener { selectImage() }
 
-        binding.tvremove.setOnClickListener {
-            profileViewModel.deleteProfilePicture().observe(viewLifecycleOwner, Observer {
-                when (it.status) {
-                    Status.LOADING -> {
-                        binding.progressBaar.show()
-                    }
-                    Status.SUCCESS -> {
-                        binding.progressBaar.hide()
-                        if (it.data != null) {
-                            Glide.with(requireContext())
-                                .load(R.drawable.img)
-                                .into(binding.profileImage)
-                            Toast.makeText(
-                                requireContext(),
-                                it.message.toString(),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
 
-                    Status.ERROR -> {
-                        binding.progressBaar.hide()
-                    }
-                }
-            })
+
+        binding.tvremove.setOnClickListener {
+            callDeletePic(data)
+            binding.saveAndUpdate.text="Save and Update"
         }
         binding.saveAndUpdate.setOnClickListener {
             binding.saveAndUpdate.text = "Save and Update"
@@ -545,63 +535,51 @@ class EditProfileFragment : BaseFragment() {
                     ).show()
                 }
             }
-
-
             houseNo = binding.houseNo.text.toString()
-            Log.i("houseNo", houseNo)
-            if (!houseNo.isNullOrEmpty() && houseNo.isValidHouseNo()) {
-                binding.floorHouseNum.isErrorEnabled = false
-            } else {
-                binding.floorHouseNum.error = "Please enter valid floor and house number"
-                houseNo = binding.houseNo.text.toString()
-                if (houseNo.length == 150) {
+            when {
+                houseNo.length == 150 -> {
                     binding.floorHouseNum.error = "You have reached the max characters limit"
-                    Toast.makeText(
-                        context,
-                        "You have reached the max characters limit",
-                        Toast.LENGTH_LONG
-                    ).show()
+                }
+                houseNo.isEmpty() -> {
+                    binding.floorHouseNum.error = "Field cannot be empty"
+                }
+                else -> {
+                    houseNo = binding.houseNo.text.toString()
                 }
             }
 
             address = binding.completeAddress.text.toString()
-            if (address.isValidAddress()) {
-                binding.comAdd.isErrorEnabled = false
-            } else {
-                binding.comAdd.error = "Please enter valid address"
-                address = binding.completeAddress.text.toString()
-                if (address.length == 150) {
-                    binding.comAdd.error = "You have reached the max characters limit"
-                    Toast.makeText(
-                        context,
-                        "You have reached the max characters limit",
-                        Toast.LENGTH_LONG
-                    ).show()
+            when {
+                address.length == 150 -> {
+                    binding.completeAddress.error = "You have reached the max characters limit"
+                }
+                address.isEmpty() -> {
+                    binding.completeAddress.error = "Field cannot be empty"
+                }
+                else -> {
+                    address = binding.completeAddress.text.toString()
                 }
             }
             locality = binding.locality.text.toString()
-            if (locality.isValidAddress()) {
-                binding.tvLocality.isErrorEnabled = false
-            } else {
-                binding.tvLocality.error = "Please enter valid locality"
-                locality = binding.locality.text.toString()
-                if (locality.length == 150) {
-                    binding.tvLocality.error = "You have reached the max characters limit"
-                    Toast.makeText(
-                        context,
-                        "You have reached the max characters limit",
-                        Toast.LENGTH_LONG
-                    ).show()
+            when {
+                locality.length == 150 -> {
+                    binding.locality.error = "You have reached the max characters limit"
+                }
+                locality.isEmpty() -> {
+                    binding.locality.error = "Field cannot be empty"
+                }
+                else -> {
+                    locality = binding.locality.text.toString()
                 }
             }
             pinCode = binding.pincodeEditText.text.toString()
-            if (pinCode.isValidAddress()) {
+            if (pinCode.isValidPinCode()) {
                 binding.pincode.isErrorEnabled = false
             } else {
                 binding.pincode.error = "Please enter valid pincode"
                 pinCode = binding.pincodeEditText.text.toString()
-                if (pinCode.length == 150) {
-                    binding.pincode.error = "You have reached the max characters limit"
+                if (pinCode.length > 6) {
+                    binding.pincode.error = "Invalid Pincode"
                     Toast.makeText(
                         context,
                         "You have reached the max characters limit",
@@ -609,7 +587,8 @@ class EditProfileFragment : BaseFragment() {
                     ).show()
                 }
             }
-            if (!email.isNullOrEmpty() && email.isValidEmail() && houseNo.isValidHouseNo() && address.isValidAddress() && locality.isValidLocality() && pinCode.isValidPinCode()) {
+
+            if (!email.isNullOrEmpty() && email.isValidEmail() && !houseNo.isNullOrEmpty() && !address.isNullOrEmpty() && !locality.isNullOrEmpty() && pinCode.isValidPinCode()) {
                 val validEmail = binding.emailTv.text
                 val validHouse = binding.houseNo.text
                 val validAdd = binding.completeAddress.text
@@ -676,15 +655,6 @@ class EditProfileFragment : BaseFragment() {
     fun CharSequence?.isValidEmail() =
         emailPattern.matcher(this).matches()
 
-    fun CharSequence?.isValidAddress() =
-        addressPattern.matcher(this).matches()
-
-    fun CharSequence?.isValidHouseNo() =
-        houseNoPattern.matcher(this).matches()
-
-    fun CharSequence?.isValidLocality() =
-        localityPattern.matcher(this).matches()
-
     fun CharSequence?.isValidPinCode() =
         pinCodePattern.matcher(this).matches()
 
@@ -708,12 +678,15 @@ class EditProfileFragment : BaseFragment() {
 
     private fun onCaptureImageResult() {
         val selectedImage = cameraFile.path
+        destinationFile = cameraFile
         val thumbnail = BitmapFactory.decodeFile(selectedImage)
         binding.profileImage.visibility = View.VISIBLE
         binding.profileUserLetters.visibility = View.GONE
         binding.profileImage.setImageBitmap(thumbnail)
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
             callingUploadPicApi(cameraFile)
+            binding.saveAndUpdate.text="Save and Update"
+
         } else {
             (requireActivity() as BaseActivity).showError(
                 "Please check Internet Connections to upload image",
@@ -722,6 +695,43 @@ class EditProfileFragment : BaseFragment() {
             )
         }
     }
+
+    private fun onSelectFromGalleryResult(data: Intent) {
+        val selectedImage = data.data
+        var inputStream =
+            requireContext().contentResolver.openInputStream(selectedImage!!)
+        try {
+            bitmap = BitmapFactory.decodeStream(inputStream)
+            val bytes = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+
+            try {
+                val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
+                if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
+                    destinationFile = File(filePath)
+                    callingUploadPicApi(destinationFile)
+                    binding.saveAndUpdate.text="Save and Update"
+
+                } else {
+                    (requireActivity() as BaseActivity).showError(
+                        "Please check Internet Connections to upload image",
+                        binding.root
+                    )
+                }
+            } catch (e: Exception) {
+                Log.e("Error", "onSelectFromGalleryResult: " + e.localizedMessage)
+            }
+
+            binding.profileImage.visibility = View.VISIBLE
+            binding.profileUserLetters.visibility = View.GONE
+            binding.profileImage.setImageBitmap(bitmap)
+
+
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
+    }
+
 
     private fun callingUploadPicApi(destinationFile: File) {
         profileViewModel.uploadProfilePicture(destinationFile, destinationFile.name)
@@ -746,38 +756,37 @@ class EditProfileFragment : BaseFragment() {
                 })
     }
 
-    private fun onSelectFromGalleryResult(data: Intent) {
-        val selectedImage = data.data
-        var inputStream =
-            requireContext().contentResolver.openInputStream(selectedImage!!)
-        try {
-            bitmap = BitmapFactory.decodeStream(inputStream)
-            val bytes = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+    private fun callDeletePic(data: Data) {
+        val fileName: String = data.profilePictureUrl.toString()
+            .substring(data.profilePictureUrl.toString().lastIndexOf('/') + 1)
+        Log.i("profileUrl", fileName)
+        profileViewModel.deleteProfileImage(fileName)
+            .observe(viewLifecycleOwner, Observer {
+                when (it.status) {
+                    Status.LOADING -> {
+                        binding.progressBaar.show()
+                    }
+                    Status.SUCCESS -> {
+                        binding.progressBaar.hide()
+                        if (data.profilePictureUrl == null) {
+                            binding.profileImage.visibility = View.GONE
+                            binding.profileUserLetters.visibility = View.VISIBLE
+                            setUserNamePIC(data)
+                        }
 
-            try {
-                val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
-                if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-                    destinationFile = File(filePath)
-                    callingUploadPicApi(destinationFile)
-                } else {
-                    (requireActivity() as BaseActivity).showError(
-                        "Please check Internet Connections to upload image",
-                        binding.root
-                    )
+                    }
+
+                    Status.ERROR -> {
+                        binding.progressBaar.hide()
+                        Toast.makeText(
+                            this.requireContext(),
+                            it.message.toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        Log.i("delete api errpr", it.message.toString())
+                    }
                 }
-            } catch (e: Exception) {
-                Log.e("Error", "onSelectFromGalleryResult: " + e.localizedMessage)
-            }
-
-            binding.profileImage.visibility = View.VISIBLE
-            binding.profileUserLetters.visibility = View.GONE
-            binding.profileImage.setImageBitmap(bitmap)
-
-
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
-        }
+            })
     }
 
     private fun selectImage() {

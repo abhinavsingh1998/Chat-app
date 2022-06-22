@@ -1,5 +1,6 @@
 package com.emproto.hoabl.feature.portfolio.views
 
+import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,8 +32,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.io.Serializable
 import javax.inject.Inject
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.util.Log
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import com.emproto.core.Utility
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
@@ -75,6 +81,13 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
     @Inject
     lateinit var appPreference: AppPreference
+
+    private var isReadPermissonGranted: Boolean = false
+    private var isWritePermissonGranted: Boolean = false
+    private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
+    private val permissionRequest: MutableList<String> = ArrayList()
+    var base64Data: String = ""
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -119,6 +132,19 @@ class PortfolioSpecificProjectView : BaseFragment() {
         documentBinding.ivDocsClose.setOnClickListener {
             docsBottomSheet.dismiss()
         }
+
+        permissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+                isReadPermissonGranted =
+                    permissions[Manifest.permission.READ_EXTERNAL_STORAGE]
+                        ?: isReadPermissonGranted
+                isWritePermissonGranted = permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE]
+                    ?: isWritePermissonGranted
+
+                if (isReadPermissonGranted && isWritePermissonGranted) {
+                    openPdf(base64Data)
+                }
+            }
     }
 
     private fun initObserver() {
@@ -441,8 +467,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         (requireActivity() as HomeActivity).addFragment(ChatsFragment(), false)
                     }
 
-                    override fun onDocumentView(position: Int) {
-                        openDocument(position)
+                    override fun onDocumentView(name: String, path: String) {
+                        openDocumentScreen(name, path)
                     }
 
                 }, allMediaList
@@ -456,9 +482,9 @@ class PortfolioSpecificProjectView : BaseFragment() {
         if (it.data.documentList != null) {
             val adapter =
                 DocumentsAdapter(it.data.documentList, true, object : DocumentInterface {
-                    override fun onclickDocument(position: Int) {
+                    override fun onclickDocument(name: String, path: String) {
                         docsBottomSheet.dismiss()
-                        openDocument(position)
+                        openDocumentScreen(name, path)
                     }
 
                 })
@@ -466,8 +492,20 @@ class PortfolioSpecificProjectView : BaseFragment() {
         }
     }
 
+    private fun openDocumentScreen(name: String, path: String) {
+        val strings = name.split(".")
+        if (strings[1] == "png" || strings[1] == "jpg") {
+            //open image loading screen
+            openDocument(name, path)
+        } else if (strings[1] == "pdf") {
+            getDocumentData(path)
+        } else {
+
+        }
+    }
+
     private fun fetchDocuments(id: String) {
-        portfolioviewmodel.getFacilityManagment().observe(viewLifecycleOwner, Observer {
+        portfolioviewmodel.getFacilityManagment("", "").observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data.let {
@@ -495,10 +533,80 @@ class PortfolioSpecificProjectView : BaseFragment() {
         //portfolioSpecificViewAdapter.setItemClickListener(onPortfolioSpecificItemClickListener)
     }
 
-    private fun openDocument(position: Int) {
+    private fun openDocument(name: String, path: String) {
         (requireActivity() as HomeActivity).addFragment(
-            DocViewerFragment.newInstance(true, "Test.ong"),
+            DocViewerFragment.newInstance(true, name, path),
             false
         )
     }
+
+    fun getDocumentData(path: String) {
+        portfolioviewmodel.downloadDocument(path)
+            .observe(viewLifecycleOwner,
+                androidx.lifecycle.Observer {
+                    when (it.status) {
+                        Status.LOADING -> {
+                            binding.loader.show()
+                        }
+                        Status.SUCCESS -> {
+                            binding.loader.hide()
+                            requestPermisson(it.data!!.data)
+                        }
+                        Status.ERROR -> {
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                it.message!!
+                            )
+                        }
+                    }
+                })
+    }
+
+    private fun requestPermisson(base64: String) {
+        isReadPermissonGranted = ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+
+        isWritePermissonGranted = ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if (!isReadPermissonGranted || !isWritePermissonGranted) {
+            permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
+            permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        } else {
+            openPdf(base64)
+        }
+        if (permissionRequest.isNotEmpty()) {
+            base64Data = base64
+            permissionLauncher.launch(permissionRequest.toTypedArray())
+        }
+
+    }
+
+    private fun openPdf(stringBase64: String) {
+        val file = Utility.writeResponseBodyToDisk(stringBase64)
+        if (file != null) {
+            val path = FileProvider.getUriForFile(
+                requireContext(),
+                requireContext().applicationContext.packageName + ".provider",
+                file!!
+            )
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(path, "application/pdf")
+            try {
+                startActivity(intent)
+            } catch (e: Exception) {
+                Log.e("Error:openPdf: ", e.localizedMessage)
+            }
+        } else {
+            (requireActivity() as HomeActivity).showErrorToast("Something Went Wrong")
+        }
+
+
+    }
+
 }

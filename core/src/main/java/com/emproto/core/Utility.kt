@@ -136,12 +136,18 @@ object Utility {
         return try {
             // todo change the file location/name according to your needs
             val bytes = Base64.decode(body, Base64.DEFAULT)
-
+            val fileSuffix = SimpleDateFormat("yyyyMMddHHmmss").format(Date())
             val futureStudioIconFile =
                 File(
                     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                    "Image" + ".pdf"
+                    fileSuffix + ".pdf"
                 )
+            if (!futureStudioIconFile.exists()) {
+                futureStudioIconFile.createNewFile()
+            } else {
+                futureStudioIconFile.delete()
+                futureStudioIconFile.createNewFile()
+            }
             val inputStream: InputStream =
                 ByteArrayInputStream(bytes)
 
@@ -164,6 +170,7 @@ object Utility {
                 outputStream?.flush()
                 futureStudioIconFile
             } catch (e: IOException) {
+                Log.e("Error in file", e.localizedMessage)
                 null
             } finally {
                 inputStream?.close()
