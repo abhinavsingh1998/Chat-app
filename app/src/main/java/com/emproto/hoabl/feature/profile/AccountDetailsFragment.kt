@@ -95,9 +95,9 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                             it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>
                         if (allKycList.isNullOrEmpty()) {
                             binding.rvKyc.visibility = View.GONE
-                            binding.tvKyc.visibility = View.GONE
+                            binding.tvKyc.visibility = View.VISIBLE
                             binding.rvDocuments.visibility = View.GONE
-                            binding.tvSeeAllDocuments.visibility = View.GONE
+                            binding.tvSeeAllDocuments.visibility = View.VISIBLE
                         } else {
                             binding.rvKyc.visibility = View.VISIBLE
                             binding.tvKyc.visibility = View.VISIBLE

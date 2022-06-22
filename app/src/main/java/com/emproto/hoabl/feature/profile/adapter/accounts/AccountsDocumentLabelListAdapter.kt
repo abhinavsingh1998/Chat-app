@@ -41,11 +41,10 @@ class AccountsDocumentLabelListAdapter(
         holder.tvViewDoc.setOnClickListener {
             mListener.onAccountsDocumentLabelItemClick(accountsDocumentList, it, position)
         }
-
     }
 
     override fun getItemCount(): Int {
-        return accountsDocumentList.size
+        return 2
     }
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
