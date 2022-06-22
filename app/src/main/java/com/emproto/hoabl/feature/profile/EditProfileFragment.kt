@@ -507,16 +507,12 @@ class EditProfileFragment : BaseFragment() {
                 binding.pincode.isErrorEnabled = false
             }
         })
-
-
+        
         binding.uploadNewPicture.setOnClickListener { selectImage() }
 
 
 
         binding.tvremove.setOnClickListener {
-//                binding.profileImage.visibility = View.GONE
-//                binding.profileUserLetters.visibility = View.VISIBLE
-//                setUserNamePIC()
             callDeletePic(data)
             binding.saveAndUpdate.text="Save and Update"
         }
