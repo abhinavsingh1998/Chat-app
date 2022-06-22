@@ -119,6 +119,16 @@ abstract class BaseFragment : Fragment() {
     }
 
 
+    fun showSnackBarSuccess(view: View?) {
+        val snackbar = Snackbar.make(requireView(), "", Snackbar.LENGTH_INDEFINITE)
+        val View: View = layoutInflater.inflate(R.layout.custom_snackbar_view, null)
+        val snackbarLayout = snackbar.view as Snackbar.SnackbarLayout
+        snackbarLayout.setPadding(0, 5, 0, 5)
+        snackbarLayout.addView(View, 0)
+        snackbar.show()
+    }
+
+
     open fun isValidPhoneNumber(phoneNumber: CharSequence?): Boolean {
         return if (!TextUtils.isEmpty(phoneNumber)) {
             Patterns.PHONE.matcher(phoneNumber).matches()

@@ -538,6 +538,13 @@
         <item name="singleLine">true</item>
     </style>
 
+    <style name="text_style_resend">
+        <item name="android:gravity">center|left</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/error_text_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
     <style name="text_light_black_14">
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/text_size_14</item>
@@ -657,6 +664,12 @@
         <item name="android:textColor">@color/text_color</item>
         <item name="singleLine">true</item>
     </style>
+    <style name="text_size_14">
+        <item name="android:gravity">center|left</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="singleLine">true</item>
+    </style>
 
     <style name="text_style_text_black_color_16">
         <item name="android:gravity">center|left</item>
@@ -747,6 +760,8 @@
         <item name="android:textSize">@dimen/text_size_18</item>
         <item name="android:textColor">@color/black</item>
     </style>
+
+
 
     //textSize_20
 

@@ -3,6 +3,8 @@
     <string name="NO_INTERNET">No Internet available</string>
     <string name="internet_slow">Uh-oh! Your internet is slow or disconnected. Connect again</string>
     <string name="jost_bold">jost_bold</string>
+    <string name="success_msg">OTP Verified Successfully!</string>
+
     <string name="jost_medium">jost_medium</string>
     <string name="jost_regular">jost_regular</string>
     <string name="jost_light">jost_light</string>

@@ -82,6 +82,7 @@
     <dimen name="margin_size_40">40dp</dimen>
     <dimen name="margin_size_45">45dp</dimen>
     <dimen name="margin_size_50">50dp</dimen>
+    <dimen name="margin_size_51">51dp</dimen>
     <dimen name="margin_size_53">53dp</dimen>
     <dimen name="margin_size_55">55dp</dimen>
     <dimen name="margin_size_60">60dp</dimen>
