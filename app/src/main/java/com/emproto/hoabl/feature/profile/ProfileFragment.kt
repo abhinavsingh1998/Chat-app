@@ -47,6 +47,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
     lateinit var appPreference: AppPreference
 
     private var isWhatsappConsent = false
+    private var isPushNotificationSend = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -80,6 +81,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                         it.data?.let {
                             profileData = it.data
                             isWhatsappConsent = it.data.whatsappConsent
+                            isPushNotificationSend = it.data.showPushNotifications
                         }
                         setUiData(profileData)
                     }
@@ -210,6 +212,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
             1 -> {
                 val bundle = Bundle()
                 bundle.putBoolean("whatsappConsentEnabled",isWhatsappConsent)
+                bundle.putBoolean("showPushNotifications",isPushNotificationSend)
                 val securityFragment = SecurityFragment()
                 securityFragment.arguments = bundle
                 (requireActivity() as HomeActivity).addFragment(securityFragment, false)

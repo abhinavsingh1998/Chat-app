@@ -24,7 +24,6 @@ import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.enums.Status
-import com.google.android.youtube.player.internal.i
 import javax.inject.Inject
 
 
@@ -39,6 +38,7 @@ class SecurityFragment : Fragment(){
     val bundle = Bundle()
 
     private var isWhatsappEnabled = false
+    private var showPushNotifications = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -50,6 +50,7 @@ class SecurityFragment : Fragment(){
         binding = FragmentSecurityBinding.inflate(layoutInflater)
         arguments.let {
             isWhatsappEnabled = it?.getBoolean("whatsappConsentEnabled") as Boolean
+            showPushNotifications = it.getBoolean("showPushNotifications") as Boolean
         }
         return binding.root
 
@@ -65,7 +66,7 @@ class SecurityFragment : Fragment(){
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SETTINGS_ALL_OPTIONS))
 
         Log.d("tststs",isWhatsappEnabled.toString())
-        val adapter = SecurityAdapter(this.requireContext(), dataList, itemClickListener, isWhatsappEnabled)
+        val adapter = SecurityAdapter(this.requireContext(), dataList, itemClickListener, isWhatsappEnabled, showPushNotifications)
         binding.rvHelpCenter.adapter = adapter
 
         binding.arrowimage.setOnClickListener {
@@ -78,8 +79,14 @@ class SecurityFragment : Fragment(){
             when(view.id){
                 R.id.switch1 -> {
                     when(item){
-                        "true" -> callWhatsAppConsentApi(true)
-                        "false" -> callWhatsAppConsentApi(false)
+                        "true" -> {
+                            isWhatsappEnabled = true
+                            callWhatsAppConsentApi(isWhatsappEnabled,showPushNotifications)
+                        }
+                        "false" -> {
+                            isWhatsappEnabled = false
+                            callWhatsAppConsentApi(isWhatsappEnabled,showPushNotifications)
+                        }
                     }
                 }
                 R.id.cl_security_tips -> {
@@ -95,12 +102,24 @@ class SecurityFragment : Fragment(){
                         Toast.makeText(context, "An error occurred", Toast.LENGTH_LONG).show()
                     }
                 }
+                R.id.setting_switch -> {
+                    when(item){
+                        "true" -> {
+                            showPushNotifications = true
+                            callWhatsAppConsentApi(isWhatsappEnabled,showPushNotifications)
+                        }
+                        "false" -> {
+                            showPushNotifications = false
+                            callWhatsAppConsentApi(isWhatsappEnabled,showPushNotifications)
+                        }
+                    }
+                }
             }
         }
     }
 
-    private fun callWhatsAppConsentApi(status: Boolean) {
-        profileViewModel.putWhatsappconsent(WhatsappConsentBody(whatsappConsent = status)).observe(viewLifecycleOwner,Observer{
+    private fun callWhatsAppConsentApi(status: Boolean,showPushNotifications:Boolean) {
+        profileViewModel.putWhatsappconsent(WhatsappConsentBody(whatsappConsent = status,showPushNotifications=showPushNotifications)).observe(viewLifecycleOwner,Observer{
             when(it.status){
                 Status.LOADING -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.show()

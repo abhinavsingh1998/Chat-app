@@ -14,7 +14,8 @@ class SecurityAdapter(
     private val context: Context,
     private val list: ArrayList<RecyclerViewItem>,
     private val itemClickListener: ItemClickListener,
-    private val isWhatsappEnabled: Boolean
+    private val isWhatsappEnabled: Boolean,
+    private val showPushNotifications: Boolean
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -160,7 +161,7 @@ class SecurityAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             binding.recyclerview1.layoutManager = LinearLayoutManager(context)
-            settingsAdapter = SettingsAdapter(context, initData())
+            settingsAdapter = SettingsAdapter(context, initData(),showPushNotifications,itemClickListener)
             binding.recyclerview1.adapter = settingsAdapter
         }
     }
