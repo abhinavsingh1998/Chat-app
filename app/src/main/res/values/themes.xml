@@ -53,6 +53,8 @@
         <item name="android:textColorHint">@color/text_grey_color</item>
         <item name="hintTextColor">@color/app_color</item>
         <item name="boxStrokeColor">@color/app_color</item>
+        <item name="font">@font/jost_medium</item>
+
     </style>
 
     <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
