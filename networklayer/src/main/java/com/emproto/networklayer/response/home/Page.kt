@@ -1,5 +1,6 @@
 package com.emproto.networklayer.response.home
 
+import com.emproto.networklayer.response.portfolio.ivdetails.Image
 import java.io.Serializable
 
 data class Page(
@@ -42,7 +43,7 @@ data class Page(
     val playTimeInSeconds: Any,
     val promiseSection: Any,
     val promisesHeading: String,
-    val promotionAndOffersMedia: Any,
+    val promotionAndOffersMedia: FacilityManagement,
     val promotionAndOffersProjectContentId: Int,
     val propositionScreens: Any,
     val sectionName: Any,

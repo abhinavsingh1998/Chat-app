@@ -73,7 +73,7 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
 
     //get facility managment
     suspend fun getFacilityManagment(): Response<FMResponse> {
-        return apiService.getFacilityManagment(true)
+        return apiService.getFacilityManagment("", "", true)
     }
 
     //chats list api

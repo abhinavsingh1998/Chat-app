@@ -319,6 +319,13 @@ class BookingJourneyAdapter(
                     listHolder.binding.tvFirst.setTextColor(context.getColor(R.color.text_color))
                     listHolder.binding.textHeader.setTextColor(context.getColor(R.color.text_color))
 
+                    listHolder.binding.getOtpButton.background =
+                        context.getDrawable(R.drawable.button_bg)
+
+                    listHolder.binding.getOtpButton.setOnClickListener {
+                        itemInterface.facilityManagment(list.plotNumber, list.crmProjectId)
+                    }
+
                 } else {
 
                 }
@@ -353,6 +360,7 @@ class BookingJourneyAdapter(
         fun onClickRegistrationDetails(date: String, number: String)
         fun onClickAllReceipt()
         fun loadError(message: String)
+        fun facilityManagment(plotId: String, projectId: String)
 
     }
 

@@ -225,12 +225,12 @@ class PortfolioRepository @Inject constructor(application: Application) :
         return mDocumentsResponse
     }
 
-    fun getFacilitymanagment(): LiveData<BaseResponse<FMResponse>> {
+    fun getFacilitymanagment(plotId: String, crmId: String): LiveData<BaseResponse<FMResponse>> {
         val mDocumentsResponse = MutableLiveData<BaseResponse<FMResponse>>()
         mDocumentsResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val request = PortfolioDataSource(application).getFacilityManagment()
+                val request = PortfolioDataSource(application).getFacilityManagment(plotId, crmId)
                 if (request.isSuccessful) {
                     if (request.body()!!.data != null)
                         mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
