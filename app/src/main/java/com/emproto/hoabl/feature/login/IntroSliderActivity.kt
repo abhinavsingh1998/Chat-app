@@ -138,10 +138,8 @@ class IntroSliderActivity : BaseActivity(), StoriesProgressView.StoriesListener 
     }
 
     override fun onComplete() {
-//        counter = 0
-//        storyStart()
-        startActivity(Intent(this@IntroSliderActivity, AuthActivity::class.java))
-        finish()
+        counter=0
+        storyStart()
     }
 
     class SliderViewHolder(view: View?) : RecyclerView.ViewHolder(view!!)

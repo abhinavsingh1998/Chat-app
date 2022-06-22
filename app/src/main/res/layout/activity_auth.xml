@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_size_28"
             android:layout_marginRight="@dimen/margin_size_28"
+            android:lineSpacingExtra="8sp"
             android:text="@string/trouble_login"
             app:fontName="@font/jost_medium"
             app:layout_constraintEnd_toEndOf="parent"

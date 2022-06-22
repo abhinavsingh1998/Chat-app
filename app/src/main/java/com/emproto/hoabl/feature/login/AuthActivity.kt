@@ -214,7 +214,7 @@ class AuthActivity : BaseActivity() {
 
         signingInIssueBiding.emailInput.addTextChangedListener(object: TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    signingInIssueBiding.emailLayout.isErrorEnabled= false
+                signingInIssueBiding.emailLayout.isErrorEnabled= false
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -237,7 +237,7 @@ class AuthActivity : BaseActivity() {
                     }
                     if (p0.length == 150 ){
                         signingInIssueBiding.emailLayout.error = "You have reached the max characters limit"
-                       Toast.makeText(this@AuthActivity, "You have reached the max characters limit", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@AuthActivity, "You have reached the max characters limit", Toast.LENGTH_LONG).show()
                     }
                 }
             }
@@ -372,8 +372,8 @@ class AuthActivity : BaseActivity() {
                         AppCompatResources.getDrawable(
                             this@AuthActivity,
                             R.drawable.unselect_button_bg)
-            }
-        }}
+                }
+            }}
 
     }
 

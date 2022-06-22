@@ -3,6 +3,7 @@ package com.emproto.hoabl.feature.login
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
@@ -76,7 +77,6 @@ class OTPVerificationFragment : BaseFragment() {
     val fourth_attempt =
         "You have incorrectly typed the OTP 4 times. Click on Resend OTP to receive OTP again"
 
-
     companion object {
         const val TAG = "SMS_USER_CONSENT"
         const val REQ_USER_CONSENT = 100
@@ -132,6 +132,8 @@ class OTPVerificationFragment : BaseFragment() {
         mBinding.tvMobileNumber.text = "$countryCode-$mobileno"
         mBinding.tvMobileNumber.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         mBinding.loginEdittext.hint = hint_txt
+        mBinding.resend.text=" Resend OTP in"
+
         startSmsUserConsent()
 
     }
@@ -391,20 +393,22 @@ class OTPVerificationFragment : BaseFragment() {
                 when (millisUntilFinished / 1000) {
                     0L -> {
                         mBinding.resentOtp.isVisible = true
+                        mBinding.resend.isVisible = false
                         mBinding.timerTxt.isVisible = false
                         mBinding.tryAgainTxt.isVisible = false
                     }
                     else -> {
 
-                        mBinding.resentOtp.isVisible = false
+                        mBinding.resend.isVisible = true
                         mBinding.timerTxt.visibility = View.VISIBLE
                         if ((millisUntilFinished / 1000) % 60 < 10) {
+                            mBinding.resentOtp.isVisible = true
                             mBinding.timerTxt.text =
-                                "Resend OTP in " + "0" + (millisUntilFinished / 1000) / 60 + ":" + "0" + (millisUntilFinished / 1000) % 60 + " sec"
+                                "0" + (millisUntilFinished / 1000) / 60 + ":" + "0" + (millisUntilFinished / 1000) % 60 + " sec"
 
                         } else {
                             mBinding.timerTxt.text =
-                                "Resend OTP in " + "0" + (millisUntilFinished / 1000) / 60 + ":" + (millisUntilFinished / 1000) % 60 + " sec"
+                                 "0" + (millisUntilFinished / 1000) / 60 + ":" + (millisUntilFinished / 1000) % 60 + " sec"
                         }
                     }
                 }
