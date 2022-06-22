@@ -21,6 +21,7 @@ import android.graphics.drawable.ShapeDrawable
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import java.util.ArrayList
 
@@ -31,6 +32,8 @@ class CustomEdittext : ConstraintLayout {
     private lateinit var dropdownView: RelativeLayout
     private lateinit var countryCodeText: TextView
     private lateinit var editText: EditText
+    private lateinit var arrowDrop: ImageView
+
     private lateinit var hintTextView: TextView
     private lateinit var backGroundView: View
     private lateinit var appContext: Context
@@ -74,6 +77,8 @@ class CustomEdittext : ConstraintLayout {
         view = inflate(context, R.layout.custom_edittext, this)
         dropdownView = view.findViewById(R.id.dropdown_view)
         countryCodeText = view.findViewById(R.id.country_code)
+        arrowDrop = view.findViewById(R.id.dropArrow)
+
         editText = view.findViewById(R.id.et_phonenumber)
         hintTextView = view.findViewById(R.id.hint_text)
 
@@ -109,6 +114,8 @@ class CustomEdittext : ConstraintLayout {
         view = inflate(context, R.layout.custom_edittext, this)
         dropdownView = view.findViewById(R.id.dropdown_view)
         countryCodeText = view.findViewById(R.id.country_code)
+        arrowDrop = view.findViewById(R.id.dropArrow)
+
         editText = view.findViewById(R.id.et_phonenumber)
         hintTextView = view.findViewById(R.id.hint_text)
         backGroundView = view.findViewById(R.id.background_view)
@@ -150,6 +157,7 @@ class CustomEdittext : ConstraintLayout {
                     editText.setTextColor(appContext.getColor(R.color.black))
                     countryCodeText.setTextColor(appContext.getColor(R.color.black))
                     hintTextView.setTextColor(appContext.getColor(R.color.app_color))
+                    arrowDrop.setImageResource(R.drawable.ic_arrow_down)
                     backGroundView.background = appContext.getDrawable(R.drawable.custom_et_bg)
                 }
                 if (onValueChangeListner != null) {
@@ -199,9 +207,13 @@ class CustomEdittext : ConstraintLayout {
     public fun showError() {
         //change edittext color//hint color//country color//view background color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
             editText.setTextColor(appContext.getColor(R.color.error_color))
             countryCodeText.setTextColor(appContext.getColor(R.color.error_color))
-            hintTextView.setTextColor(appContext.getColor(R.color.error_color))
+           hintTextView.setTextColor(appContext.getColor(R.color.error_color))
+           // arrowDrop.background=appContext.getDrawable(R.drawable.ic_error)
+            arrowDrop.setImageResource(R.drawable.ic_error);
+
             backGroundView.background = appContext.getDrawable(R.drawable.custom_et_error_bg)
 //            editText.error= ""
         }

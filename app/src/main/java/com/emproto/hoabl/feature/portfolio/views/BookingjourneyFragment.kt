@@ -103,6 +103,10 @@ class BookingjourneyFragment : BaseFragment() {
 
     private fun initView() {
 
+        (requireActivity() as HomeActivity).showHeader()
+        (requireActivity() as HomeActivity).showBackArrow()
+        (requireActivity() as HomeActivity).hideBottomNavigation()
+
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 isReadPermissonGranted =
@@ -253,6 +257,10 @@ class BookingjourneyFragment : BaseFragment() {
                         (requireActivity() as HomeActivity).showErrorToast(message)
                     }
 
+                    override fun facilityManagment(plotId: String, projectId: String) {
+                        manageMyLand(plotId, projectId)
+                    }
+
                 })
         mBinding.bookingjourneyList.setItemViewCacheSize(10)
         mBinding.bookingjourneyList.setHasFixedSize(true)
@@ -344,6 +352,38 @@ class BookingjourneyFragment : BaseFragment() {
                         }
                     }
                 })
+    }
+
+    fun manageMyLand(plotId: String, crmId: String) {
+        portfolioviewmodel.getFacilityManagment(plotId, crmId)
+            .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                when (it.status) {
+                    Status.LOADING -> {
+
+                    }
+                    Status.SUCCESS -> {
+                        if (it.data!!.data.web_url != null) {
+                            (requireActivity() as HomeActivity).addFragment(
+                                FmFragment.newInstance(
+                                    it.data!!.data.web_url!!,
+                                    ""
+                                ), false
+                            )
+
+                        } else {
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                "Something Went Wrong"
+                            )
+                        }
+
+                    }
+                    Status.ERROR -> {
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            "Something Went Wrong"
+                        )
+                    }
+                }
+            })
     }
 
 }

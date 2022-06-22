@@ -15,9 +15,9 @@ import com.emproto.hoabl.databinding.ItemPaymentReceiptBinding
 import com.emproto.networklayer.response.bookingjourney.PaymentHistory
 
 class ReceiptListAdapter(
-        private var mContext: Context,
-        private var accountsPaymentList: List<PaymentHistory>,
-        private var mListener: OnPaymentItemClickListener
+    private var mContext: Context,
+    private var accountsPaymentList: List<PaymentHistory>,
+    private var mListener: OnPaymentItemClickListener
 
 ) : RecyclerView.Adapter<ReceiptListAdapter.ViewHolder>() {
 
@@ -25,13 +25,13 @@ class ReceiptListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding =
-                ItemPaymentReceiptBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemPaymentReceiptBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding.root)
     }
 
     interface OnPaymentItemClickListener {
         fun onAccountsPaymentItemClick(
-                path: String
+            path: String
         )
     }
 
@@ -42,14 +42,21 @@ class ReceiptListAdapter(
             //tvProjectName.text = accountsPaymentList[position].projectName
             tvPaymentDate.text = Utility.parseDateFromUtc(accountsPaymentList[position].paymentDate)
 
-            tvSeeReceipt.text = showHTMLText(String.format(
+            tvSeeReceipt.text = showHTMLText(
+                String.format(
                     mContext.getString(R.string.tv_receipt),
                     "See Receipt"
-            ))
-            tvSeeReceipt.setOnClickListener {
-                if (accountsPaymentList[position].document.path != null)
-                    mListener.onAccountsPaymentItemClick(accountsPaymentList[position].document.path)
-            }
+                )
+            )
+            tvSeeReceipt.setOnClickListener(object : View.OnClickListener {
+                override fun onClick(p0: View?) {
+                    if (accountsPaymentList[position].document != null &&
+                        accountsPaymentList[position].document.path != null
+                    )
+                        mListener.onAccountsPaymentItemClick(accountsPaymentList[position].document.path)
+                }
+
+            })
         }
     }
 
