@@ -31,7 +31,7 @@ class DocumentsAdapter(
             true -> holder.binding.ivDocsImage.visibility = View.VISIBLE
         }
         holder.binding.tvView.setOnClickListener {
-            ivInterface.onclickDocument(position)
+            ivInterface.onclickDocument(list[position].name,list[position].path)
         }
     }
 
@@ -41,5 +41,5 @@ class DocumentsAdapter(
 }
 
 interface DocumentInterface {
-    fun onclickDocument(position: Int)
+    fun onclickDocument(name: String, path: String)
 }

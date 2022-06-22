@@ -94,7 +94,10 @@ public interface ApiService {
 
     @Multipart
     @PUT(ApiConstants.UPLOADPROFILEPICTURE)
-    suspend fun uploadPicture(@Part file: MultipartBody.Part, @Part fileName:MultipartBody.Part): Response<ProfilePictureResponse>
+    suspend fun uploadPicture(
+        @Part file: MultipartBody.Part,
+        @Part fileName: MultipartBody.Part
+    ): Response<ProfilePictureResponse>
 
     @PUT(ApiConstants.PRESIGNEDURL)
     suspend fun presignedUrl(
@@ -138,7 +141,11 @@ public interface ApiService {
     suspend fun getProjectTimeline(@Path("id") id: Int): Response<ProjectTimelineResponse>
 
     @GET(ApiConstants.FACILITY_MANAGMENT)
-    suspend fun getFacilityManagment(@Query("isTest") isTest: Boolean = true): Response<FMResponse>
+    suspend fun getFacilityManagment(
+        @Query("plotNumber") plotNumber: String,
+        @Query("crmProjectId") projectId: String,
+        @Query("isTest") isTest: Boolean = true
+    ): Response<FMResponse>
 
     @GET(ApiConstants.INVESTMENT_PROMISES)
     suspend fun getInvestmentsPromises(): Response<InvestmentPromisesResponse>
@@ -180,7 +187,7 @@ public interface ApiService {
     suspend fun chatInitiate(@Body chatInitiateRequest: ChatInitiateRequest): Response<ChatDetailResponse>
 
     @GET(ApiConstants.PROFILE_FAQ)
-    suspend fun getFaqList(@Query("typeOfFAQ") typeOfFAQ:String): Response<ProfileFaqResponse>
+    suspend fun getFaqList(@Query("typeOfFAQ") typeOfFAQ: String): Response<ProfileFaqResponse>
 
     @GET(ApiConstants.BOOKING_JOURNEY)
     suspend fun getBookingJourney(@Query("investmentId") investmentId: Int): Response<BookingJourneyResponse>
@@ -189,13 +196,14 @@ public interface ApiService {
     suspend fun getAccountsList(): Response<AccountsResponse>
 
     @GET(ApiConstants.SEARCH)
-    suspend fun getSearchResults(@Query("searchKey") searchWord: String):Response<SearchResponse>
+    suspend fun getSearchResults(@Query("searchKey") searchWord: String): Response<SearchResponse>
 
     @GET(ApiConstants.SEARCH_DOCS)
-    suspend fun getSearchDocResults():Response<DocumentsResponse>
+    suspend fun getSearchDocResults(): Response<DocumentsResponse>
 
     @GET(ApiConstants.SEARCH_DOCS)
-    suspend fun getSearchDocResultsQuery(@Query("searchKey") searchWord: String):Response<DocumentsResponse>
+    suspend fun getSearchDocResultsQuery(@Query("searchKey") searchWord: String): Response<DocumentsResponse>
+
     @POST(ApiConstants.FEEDBACK)
     suspend fun submitFeedback(@Body feedBackResponse: FeedBackRequest): Response<FeedBackResponse>
 

@@ -6,6 +6,7 @@ import android.text.Html
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimeline
@@ -16,6 +17,10 @@ import com.example.portfolioui.databinding.ItemTimelineStepReraBinding
 import com.example.portfolioui.models.StepsModel
 import com.example.portfolioui.models.TimelineHeaderData
 import com.example.portfolioui.models.TimelineModel
+import com.skydoves.balloon.Balloon
+import com.skydoves.balloon.BalloonAnimation
+import com.skydoves.balloon.BalloonSizeSpec
+import com.skydoves.balloon.createBalloon
 
 class TimelineAdapter(
     var context: Context,
@@ -97,7 +102,14 @@ class TimelineAdapter(
                 }
                 listHolder.binding.textView10.text = reraNumber
                 listHolder.binding.textView7.setOnClickListener {
-                    itemInterface.onClickVDetails(listData.timeLines[0].sections[0].values.medias.value.url)
+                    //navigate to weblink.
+                    itemInterface.onClickReraDetails(listData.timeLines[0].sections[0].values.webLink)
+
+                }
+                listHolder.binding.imageView.setOnClickListener {
+                    getToolTip(listData.timeLines[0].sections[0].values.toolTipDetails).showAlignBottom(
+                        listHolder.binding.imageView
+                    )
                 }
 
             }
@@ -162,7 +174,8 @@ class TimelineAdapter(
         RecyclerView.ViewHolder(binding.root)
 
     interface TimelineInterface {
-        fun onClickVDetails(url: String)
+        fun onClickVDetails(name: String, url: String)
+        fun onClickReraDetails(url: String)
     }
 
     fun showHTMLText(message: String?): Spanned {
@@ -171,6 +184,24 @@ class TimelineAdapter(
         } else {
             Html.fromHtml(message)
         }
+    }
+
+    fun getToolTip(text: String): Balloon {
+        val balloon = createBalloon(context) {
+            setArrowSize(6)
+            setWidth(BalloonSizeSpec.WRAP)
+            setTextSize(12F)
+            setCornerRadius(4f)
+            setAlpha(0.9f)
+            setText(text)
+            setTextColorResource(R.color.white)
+            setBackgroundColorResource(R.color.black)
+            setPadding(5)
+            setTextTypeface(ResourcesCompat.getFont(context, R.font.jost_medium)!!)
+            setBalloonAnimation(BalloonAnimation.FADE)
+            setLifecycleOwner(lifecycleOwner)
+        }
+        return balloon
     }
 
 }

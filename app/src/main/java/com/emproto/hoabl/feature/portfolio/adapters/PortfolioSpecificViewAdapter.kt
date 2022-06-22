@@ -235,7 +235,7 @@ class PortfolioSpecificViewAdapter(
                 binding.tvProjectLocation.text =
                     data.projectExtraDetails.address.city + "," + data.projectExtraDetails.address.state
                 if (data.investmentInformation != null) {
-                    if (data.investmentInformation.bookingJourney != null){
+                    if (data.investmentInformation.bookingJourney != null) {
                         binding.tvPaidAmount.text =
                             Utility.formatAmount(data?.investmentInformation?.bookingJourney?.paidAmount)
                     }
@@ -265,13 +265,13 @@ class PortfolioSpecificViewAdapter(
                     binding.tvLandId.text = "Hoabl/" + data.investmentInformation.inventoryId
                     binding.tvSkuType.text = data.investmentInformation.inventoryBucket
 
-                    if(data.investmentInformation.bookingJourney != null){
+                    if (data.investmentInformation.bookingJourney != null) {
 
                     }
                     binding.tvInvestmentAmount.text =
                         Utility.formatAmount(data.investmentInformation.amountInvested)
 
-                    if(data.investmentInformation.bookingJourney!= null){
+                    if (data.investmentInformation.bookingJourney != null) {
                         binding.tvAmountPending.text =
                             Utility.formatAmount(data.investmentInformation.bookingJourney.amountPending)
                     }
@@ -415,8 +415,8 @@ class PortfolioSpecificViewAdapter(
             if (list[position].data != null) {
                 val docList = list[position].data as List<Data>
                 documentsAdapter = DocumentsAdapter(docList, false, object : DocumentInterface {
-                    override fun onclickDocument(position: Int) {
-                        ivInterface.onDocumentView(position)
+                    override fun onclickDocument(name: String,path:String) {
+                        ivInterface.onDocumentView(name,path)
                     }
 
                 })
@@ -736,7 +736,7 @@ class PortfolioSpecificViewAdapter(
         fun seeAllImages(imagesList: ArrayList<MediaViewItem>)
         fun shareApp()
         fun onClickAsk()
-        fun onDocumentView(position: Int)
+        fun onDocumentView(name: String, path: String)
     }
 
 }

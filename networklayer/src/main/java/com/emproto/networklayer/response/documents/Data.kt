@@ -7,5 +7,6 @@ data class Data(
     val link: String,
     val name: String,
     val projectId: String,
-    val userId: String
+    val userId: String,
+    val path:String
 )

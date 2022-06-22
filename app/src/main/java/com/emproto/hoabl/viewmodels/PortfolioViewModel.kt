@@ -89,8 +89,8 @@ class PortfolioViewModel(
         return portfolioRepository.getProjectTimeline(id)
     }
 
-    fun getFacilityManagment(): LiveData<BaseResponse<FMResponse>> {
-        return portfolioRepository.getFacilitymanagment()
+    fun getFacilityManagment(plotId: String, crmId: String): LiveData<BaseResponse<FMResponse>> {
+        return portfolioRepository.getFacilitymanagment(plotId, crmId)
     }
 
     fun downloadDocument(path: String): LiveData<BaseResponse<DDocumentResponse>> {
