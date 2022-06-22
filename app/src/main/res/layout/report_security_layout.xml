@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/security_tv"
+        style="@style/text_style_color_18"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_size_14"
+        android:layout_marginTop="@dimen/margin_size_27"
+        android:fontFamily="@font/jost_regular"
+        android:text="@string/security"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.emproto.core.textviews.CustomTextView
+        android:id="@+id/button_View"
+        style="@style/text_style_white_16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_size_40"
+        android:layout_marginTop="@dimen/margin_size_24"
+        android:layout_marginEnd="@dimen/margin_size_40"
+        android:background="@drawable/red"
+        android:drawableStart="@drawable/ic_siren"
+        android:drawableEnd="@drawable/combined_shape_copy_5"
+        android:fontFamily="@font/jost_regular"
+        android:gravity="center_horizontal|center"
+        android:paddingLeft="@dimen/margin_size_10"
+        android:paddingTop="@dimen/margin_size_10"
+        android:paddingRight="@dimen/margin_size_10"
+        android:paddingBottom="@dimen/margin_size_12"
+        android:text="@string/report_a_security_emergency"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/security_tv" />
+
+    <View
+        android:id="@+id/horizontal_line_view"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/color_ash_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_View" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

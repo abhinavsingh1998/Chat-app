@@ -6,13 +6,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.ProfileDataSource
-import com.emproto.networklayer.feature.RegistrationDataSource
-import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
-import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
+import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.BaseResponse
-import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.resourceManagment.ProflieResponse
@@ -332,6 +329,7 @@ class ProfileRepository @Inject constructor(application: Application) :
         }
         return aboutusResponse
     }
+
     fun getFaqList(typeOfFAQ: String): LiveData<BaseResponse<ProfileFaqResponse>> {
         val faqResponse = MutableLiveData<BaseResponse<ProfileFaqResponse>>()
         faqResponse.postValue(BaseResponse.loading())
@@ -362,7 +360,55 @@ class ProfileRepository @Inject constructor(application: Application) :
         return faqResponse
     }
 
+    fun putWhatsappConsent(whatsappConsentBody: WhatsappConsentBody): LiveData<BaseResponse<WhatsappConsentResponse>> {
+        val wcResponse = MutableLiveData<BaseResponse<WhatsappConsentResponse>>()
+        wcResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).putWhatsappConsent(whatsappConsentBody)
+                if (request.isSuccessful) {
+                    wcResponse.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    wcResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
 
+            } catch (e: Exception) {
+                wcResponse.postValue(BaseResponse.Companion.error(e.message!!))
+            }
+        }
+        return wcResponse
+    }
+
+    fun getSecurityTips(pageType: Int): LiveData<BaseResponse<SecurityTipsResponse>> {
+        val stResponse = MutableLiveData<BaseResponse<SecurityTipsResponse>>()
+        stResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).getSecurityTips(pageType)
+                if (request.isSuccessful) {
+                    stResponse.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    stResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+
+            } catch (e: Exception) {
+                stResponse.postValue(BaseResponse.Companion.error(e.message!!))
+            }
+        }
+        return stResponse
+    }
 }
 
 

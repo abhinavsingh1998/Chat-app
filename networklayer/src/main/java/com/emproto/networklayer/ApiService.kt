@@ -10,6 +10,7 @@ import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
+import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyX
@@ -196,9 +197,16 @@ public interface ApiService {
 
     @GET(ApiConstants.SEARCH_DOCS)
     suspend fun getSearchDocResultsQuery(@Query("searchKey") searchWord: String):Response<DocumentsResponse>
+
     @POST(ApiConstants.FEEDBACK)
     suspend fun submitFeedback(@Body feedBackResponse: FeedBackRequest): Response<FeedBackResponse>
 
     @GET(ApiConstants.PROFILE_RESOURCE)
     suspend fun getAboutHobal(@Query("pageType") pageType: Int): Response<ProflieResponse>
+
+    @PUT(ApiConstants.WHATSAPP_CONSENT)
+    suspend fun putWhatsappConsent(@Body whatsappConsentBody: WhatsappConsentBody): Response<WhatsappConsentResponse>
+
+    @GET(ApiConstants.TERMS_CONDITION)
+    suspend fun getSecurityTips(@Query("pageType") pageType: Int):Response<SecurityTipsResponse>
 }

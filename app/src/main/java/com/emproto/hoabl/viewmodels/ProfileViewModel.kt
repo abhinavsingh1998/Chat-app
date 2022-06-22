@@ -7,6 +7,7 @@ import com.emproto.hoabl.repository.ProfileRepository
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
+import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
@@ -68,10 +69,18 @@ class ProfileViewModel(
     fun getAboutHoabl(pageType: Int): LiveData<BaseResponse<ProflieResponse>>{
         return mprofileRepository.getAboutHoaBl(pageType)
     }
+
     fun getFaqList(typeOfFAQ: String): LiveData<BaseResponse<ProfileFaqResponse>> {
         return profileRepository.getFaqList(typeOfFAQ)
     }
 
+    fun putWhatsappconsent(whatsappConsentBody: WhatsappConsentBody): LiveData<BaseResponse<WhatsappConsentResponse>> {
+        return profileRepository.putWhatsappConsent(whatsappConsentBody)
+    }
+
+    fun getSecurityTips(pageType: Int): LiveData<BaseResponse<SecurityTipsResponse>> {
+        return profileRepository.getSecurityTips(pageType)
+    }
 }
 
 

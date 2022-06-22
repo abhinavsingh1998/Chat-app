@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/cl_security_tips"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TextView
@@ -10,12 +12,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/jost_regular"
-        android:text="Read Security Tips"
+        android:layout_marginTop="14dp"
+        android:fontFamily="@font/jost_medium"
+        android:text="@string/read_security_tips"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <TextView
         android:id="@+id/tv_loc"
@@ -23,7 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/jost_regular"
-        android:text="Control location access here"
+        android:text="@string/control_location_access_here"
         app:layout_constraintEnd_toStartOf="@+id/imgarrow"
         app:layout_constraintStart_toStartOf="@id/Security"
         app:layout_constraintTop_toBottomOf="@+id/Security" />
@@ -33,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:src="@drawable/rightarrow"
+        android:src="@drawable/combined_shape"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,13 +43,11 @@
         android:id="@+id/view19"
         android:layout_width="wrap_content"
         android:layout_height="1dp"
-        android:layout_marginTop="12dp"
-        android:background="#DCD8D8DA"
+        android:layout_marginTop="14dp"
+        android:background="@color/color_ash_line"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_loc"
-        app:layout_constraintVertical_bias="0.035" />
-
+        app:layout_constraintTop_toBottomOf="@+id/tv_loc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

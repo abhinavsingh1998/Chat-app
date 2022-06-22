@@ -52,6 +52,10 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
         return apiService.addUserName(editUserNameRequest)
     }
 
+    suspend fun putWhatsappConsent(whatsappConsentBody: com.emproto.networklayer.request.profile.WhatsappConsentBody): Response<WhatsappConsentResponse> {
+        return apiService.putWhatsappConsent(whatsappConsentBody)
+    }
+
 //        fun uploadDocument(
 //        token: String?,
 //        document: File,
@@ -110,5 +114,9 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
 
     suspend fun getFaqList(typeOfFAQ: String): Response<ProfileFaqResponse> {
         return apiService.getFaqList(typeOfFAQ)
+    }
+
+    suspend fun getSecurityTips(pageType: Int):Response<SecurityTipsResponse> {
+        return apiService.getSecurityTips(pageType)
     }
 }

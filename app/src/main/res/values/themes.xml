@@ -705,7 +705,7 @@
 
     <style name="text_style_color_18">
         <item name="android:gravity">center|left</item>
-        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
         <item name="android:textColor">@color/text_color</item>
         <item name="singleLine">true</item>
     </style>
