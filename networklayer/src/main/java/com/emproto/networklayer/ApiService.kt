@@ -132,7 +132,7 @@ public interface ApiService {
     suspend fun deleteProfilePic(): Response<EditProfileResponse>
 
     @DELETE(ApiConstants.DELETE_PROFILE)
-    suspend fun deleteProfileImage(): Response<DeleteProfilePicResponse>
+    suspend fun deleteProfileImage(@Path("key") destinationFileName: String): Response<EditProfileResponse>
 
     @GET(ApiConstants.PROJECT_TIMELINE)
     suspend fun getProjectTimeline(@Path("id") id: Int): Response<ProjectTimelineResponse>

@@ -79,11 +79,11 @@ class EditProfileFragment : BaseFragment() {
     var houseNo = ""
     val houseNoPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
     var address = ""
-    val addressPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
+    val addressPattern = Pattern.compile("\\d{1,5}\\s\\w.\\s(\\b\\w*\\b\\s){1,2}\\w*\\.")
     var locality = ""
     val localityPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
     var pinCode = ""
-    val pinCodePattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
+    val pinCodePattern = Pattern.compile("^[1-9][0-9]{5}\$")
     var hMobileNo = ""
     var hCountryCode = ""
 
@@ -367,7 +367,7 @@ class EditProfileFragment : BaseFragment() {
         if (data.profilePictureUrl.isNullOrEmpty()) {
             binding.profileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
-            setUserNamePIC()
+            setUserNamePIC(data)
         } else {
             binding.profileImage.visibility = View.VISIBLE
             binding.profileUserLetters.visibility = View.GONE
@@ -378,12 +378,16 @@ class EditProfileFragment : BaseFragment() {
         }
     }
 
-    private fun setUserNamePIC() {
-        val firstLetter: String = data.firstName.substring(0, 1)
-        val lastLetter: String = data.lastName.substring(0, 1)
-        if (data.lastName.isNullOrEmpty()) {
+    private fun setUserNamePIC(data: Data) {
+
+        if (this.data.lastName.isNullOrEmpty()) {
+            val firstLetter: String = this.data.firstName.substring(0, 2)
+
             binding.tvUserName.text = firstLetter
         } else {
+            val firstLetter: String = this.data.firstName.substring(0, 1)
+
+            val lastLetter: String = this.data.lastName.substring(0, 1)
             binding.tvUserName.text = firstLetter + "" + lastLetter
 
         }
@@ -409,6 +413,7 @@ class EditProfileFragment : BaseFragment() {
                 s: CharSequence, start: Int,
                 count: Int, after: Int
             ) {
+
             }
 
             override fun onTextChanged(
@@ -445,6 +450,7 @@ class EditProfileFragment : BaseFragment() {
                 s: CharSequence, start: Int,
                 count: Int, after: Int
             ) {
+
             }
 
             override fun onTextChanged(
@@ -491,40 +497,16 @@ class EditProfileFragment : BaseFragment() {
             }
         })
 
-        binding.tvremove.setOnClickListener {
-            binding.profileImage.visibility = View.GONE
-            binding.profileUserLetters.visibility = View.VISIBLE
-            setUserNamePIC()
-
-        }
 
         binding.uploadNewPicture.setOnClickListener { selectImage() }
 
-        binding.tvremove.setOnClickListener {
-            profileViewModel.deleteProfilePicture().observe(viewLifecycleOwner, Observer {
-                when (it.status) {
-                    Status.LOADING -> {
-                        binding.progressBaar.show()
-                    }
-                    Status.SUCCESS -> {
-                        binding.progressBaar.hide()
-                        if (it.data != null) {
-                            Glide.with(requireContext())
-                                .load(R.drawable.img)
-                                .into(binding.profileImage)
-                            Toast.makeText(
-                                requireContext(),
-                                it.message.toString(),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
 
-                    Status.ERROR -> {
-                        binding.progressBaar.hide()
-                    }
-                }
-            })
+
+        binding.tvremove.setOnClickListener {
+//                binding.profileImage.visibility = View.GONE
+//                binding.profileUserLetters.visibility = View.VISIBLE
+//                setUserNamePIC()
+            callDeletePic(data)
         }
         binding.saveAndUpdate.setOnClickListener {
             binding.saveAndUpdate.text = "Save and Update"
@@ -593,7 +575,7 @@ class EditProfileFragment : BaseFragment() {
                 }
             }
             pinCode = binding.pincodeEditText.text.toString()
-            if (pinCode.isValidAddress()) {
+            if (pinCode.isValidPinCode()) {
                 binding.pincode.isErrorEnabled = false
             } else {
                 binding.pincode.error = "Please enter valid pincode"
@@ -607,6 +589,7 @@ class EditProfileFragment : BaseFragment() {
                     ).show()
                 }
             }
+
             if (!email.isNullOrEmpty() && email.isValidEmail() && houseNo.isValidHouseNo() && address.isValidAddress() && locality.isValidLocality() && pinCode.isValidPinCode()) {
                 val validEmail = binding.emailTv.text
                 val validHouse = binding.houseNo.text
@@ -706,12 +689,14 @@ class EditProfileFragment : BaseFragment() {
 
     private fun onCaptureImageResult() {
         val selectedImage = cameraFile.path
+        destinationFile=cameraFile
         val thumbnail = BitmapFactory.decodeFile(selectedImage)
         binding.profileImage.visibility = View.VISIBLE
         binding.profileUserLetters.visibility = View.GONE
         binding.profileImage.setImageBitmap(thumbnail)
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
             callingUploadPicApi(cameraFile)
+
         } else {
             (requireActivity() as BaseActivity).showError(
                 "Please check Internet Connections to upload image",
@@ -720,30 +705,6 @@ class EditProfileFragment : BaseFragment() {
             )
         }
     }
-
-    private fun callingUploadPicApi(destinationFile: File) {
-        profileViewModel.uploadProfilePicture(destinationFile, destinationFile.name)
-            .observe(
-                viewLifecycleOwner,
-                object : Observer<BaseResponse<ProfilePictureResponse>> {
-                    override fun onChanged(it: BaseResponse<ProfilePictureResponse>?) {
-                        when (it?.status) {
-                            Status.LOADING -> {
-                                binding.progressBaar.show()
-                            }
-                            Status.SUCCESS -> {
-                                binding.progressBaar.hide()
-                            }
-                            Status.ERROR -> {
-                                binding.progressBaar.hide()
-                            }
-                        }
-                    }
-
-
-                })
-    }
-
     private fun onSelectFromGalleryResult(data: Intent) {
         val selectedImage = data.data
         var inputStream =
@@ -776,6 +737,61 @@ class EditProfileFragment : BaseFragment() {
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }
+    }
+
+
+    private fun callingUploadPicApi(destinationFile: File) {
+        profileViewModel.uploadProfilePicture(destinationFile, destinationFile.name)
+            .observe(
+                viewLifecycleOwner,
+                object : Observer<BaseResponse<ProfilePictureResponse>> {
+                    override fun onChanged(it: BaseResponse<ProfilePictureResponse>?) {
+                        when (it?.status) {
+                            Status.LOADING -> {
+                                binding.progressBaar.show()
+                            }
+                            Status.SUCCESS -> {
+                                binding.progressBaar.hide()
+                            }
+                            Status.ERROR -> {
+                                binding.progressBaar.hide()
+                            }
+                        }
+                    }
+
+
+                })
+    }
+    private fun callDeletePic(data: Data) {
+        val fileName :String=  data.profilePictureUrl.toString().substring( data.profilePictureUrl.toString().lastIndexOf('/') + 1)
+        Log.i("profileUrl", fileName)
+        profileViewModel.deleteProfileImage(fileName)
+            .observe(viewLifecycleOwner, Observer {
+                when (it.status) {
+                    Status.LOADING -> {
+                        binding.progressBaar.show()
+                    }
+                    Status.SUCCESS -> {
+                        binding.progressBaar.hide()
+                        if (data.profilePictureUrl == null) {
+                            binding.profileImage.visibility = View.GONE
+                            binding.profileUserLetters.visibility = View.VISIBLE
+                            setUserNamePIC(data)
+                        }
+
+                    }
+
+                    Status.ERROR -> {
+                        binding.progressBaar.hide()
+                        Toast.makeText(
+                            this.requireContext(),
+                            it.message.toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        Log.i("delete api errpr", it.message.toString())
+                    }
+                }
+            })
     }
 
     private fun selectImage() {

@@ -7,10 +7,7 @@ import com.emproto.networklayer.di.DataAppModule
 import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
-import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
-import com.emproto.networklayer.response.chats.ChatDetailResponse
-import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.resourceManagment.ProflieResponse
@@ -44,8 +41,8 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
     suspend fun deleteProfilePic(): Response<EditProfileResponse> {
         return apiService.deleteProfilePic()
     }
-    suspend fun deleteProfileImage(): Response<DeleteProfilePicResponse> {
-        return apiService.deleteProfileImage()
+    suspend fun deleteProfileImage(destinationFileName: String): Response<EditProfileResponse> {
+        return apiService.deleteProfileImage(destinationFileName)
     }
 
     suspend fun editProfile(editUserNameRequest: EditUserNameRequest): Response<EditProfileResponse> {
