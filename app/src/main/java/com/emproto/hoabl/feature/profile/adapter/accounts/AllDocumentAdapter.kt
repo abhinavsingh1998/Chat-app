@@ -41,6 +41,7 @@ class AllDocumentAdapter(
         }
 
         holder.tvViewDoc.setOnClickListener {
+         
             mListener.onAllDocumentLabelClick(accountsDocumentList, it, position,accountsDocumentList[position].name,accountsDocumentList[position].path)
         }
 
