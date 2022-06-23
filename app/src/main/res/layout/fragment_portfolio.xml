@@ -112,6 +112,11 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <include
+        android:id="@+id/no_internet_view"
+        layout="@layout/no_internet_layout"
+        android:visibility="gone" />
+
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/progress_baar"
         style="?android:attr/progressBarStyleLarge"

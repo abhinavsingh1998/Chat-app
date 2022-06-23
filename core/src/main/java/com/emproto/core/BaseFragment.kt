@@ -53,7 +53,7 @@ abstract class BaseFragment : Fragment() {
          }
      }*/
 
-    fun isNetworkAvailable(view: View?): Boolean {
+    fun isNetworkAvailable(): Boolean {
         val connectivityManager =
             requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

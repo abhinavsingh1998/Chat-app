@@ -38,6 +38,7 @@ import com.emproto.hoabl.feature.portfolio.adapters.ExistingUsersPortfolioAdapte
 import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
+import com.emproto.networklayer.ApiConstants
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
@@ -306,42 +307,61 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     }
 
     private fun fetchUserPortfolio(refresh: Boolean) {
-        portfolioviewmodel.getPortfolioDashboard(refresh)
-            .observe(viewLifecycleOwner, Observer { it ->
-                when (it.status) {
-                    Status.LOADING -> {
-                        binding.progressBaar.show()
-                    }
-                    Status.SUCCESS -> {
-                        binding.refreshLayout.isRefreshing = false
-                        binding.progressBaar.hide()
-                        it.data?.let {
-                            //load data in listview
-                            binding.financialRecycler.show()
-                            observePortFolioData(it)
+        if (isNetworkAvailable()) {
+            portfolioviewmodel.getPortfolioDashboard(refresh)
+                .observe(viewLifecycleOwner, Observer { it ->
+                    when (it.status) {
+                        Status.LOADING -> {
+                            binding.progressBaar.show()
+                            binding.noInternetView.mainContainer.hide()
                         }
+                        Status.SUCCESS -> {
+                            binding.noInternetView.mainContainer.hide()
+                            binding.refreshLayout.isRefreshing = false
+                            binding.progressBaar.hide()
+                            it.data?.let {
+                                //load data in listview
+                                binding.financialRecycler.show()
+                                observePortFolioData(it)
+                            }
 
 
-                    }
-                    Status.ERROR -> {
-                        binding.refreshLayout.isRefreshing = false
-                        binding.progressBaar.hide()
-                        //show error dialog
-                        if (it.message == "The current user is not an investor") {
-                            binding.noUserView.show()
-                            binding.portfolioTopImg.visibility = View.VISIBLE
-                            binding.addYouProject.visibility = View.VISIBLE
-                            binding.instriction.visibility = View.VISIBLE
-                            binding.btnExploreNewInvestmentProject.visibility = View.VISIBLE
-                        } else {
-                            (requireActivity() as HomeActivity).showErrorToast(
-                                it.message!!
-                            )
                         }
+                        Status.ERROR -> {
+                            binding.refreshLayout.isRefreshing = false
+                            binding.progressBaar.hide()
+                            //show error dialog
+                            if (it.message == "The current user is not an investor") {
+                                binding.noUserView.show()
+                                binding.portfolioTopImg.visibility = View.VISIBLE
+                                binding.addYouProject.visibility = View.VISIBLE
+                                binding.instriction.visibility = View.VISIBLE
+                                binding.btnExploreNewInvestmentProject.visibility = View.VISIBLE
+                            }
+//                        else if (it.message == ApiConstants.NO_INTERNET) {
+//                            binding.noInternetView.mainContainer.show()
+//                            binding.noInternetView.textView6.setOnClickListener {
+//                                fetchUserPortfolio(true)
+//                            }
+//                        }
+                            else {
+                                (requireActivity() as HomeActivity).showErrorToast(
+                                    it.message!!
+                                )
+                            }
 
+                        }
                     }
-                }
-            })
+                })
+        } else {
+            binding.refreshLayout.isRefreshing = false
+            binding.progressBaar.hide()
+            binding.financialRecycler.hide()
+            binding.noInternetView.mainContainer.show()
+            binding.noInternetView.textView6.setOnClickListener {
+                fetchUserPortfolio(true)
+            }
+        }
     }
 
     private fun observePortFolioData(portfolioData: PortfolioData) {
