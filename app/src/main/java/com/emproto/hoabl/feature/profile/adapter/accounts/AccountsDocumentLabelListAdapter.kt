@@ -36,7 +36,7 @@ class AccountsDocumentLabelListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.tvDocName.text = accountsDocumentList[position].documentType.toString()
+            holder.tvDocName.text = accountsDocumentList[position].name
 
 
         holder.tvViewDoc.setOnClickListener {

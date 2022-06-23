@@ -42,10 +42,14 @@ import com.emproto.hoabl.feature.portfolio.views.DocViewerFragment
 import com.emproto.hoabl.feature.profile.adapter.accounts.*
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
+import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
+import com.emproto.hoabl.viewmodels.factory.ProfileFactory
+import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.AccountsResponse
+import com.emproto.networklayer.response.profile.ProfilePictureResponse
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -65,12 +69,17 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
     lateinit var homeViewModel: HomeViewModel
 
     @Inject
+    lateinit var profileFactory: ProfileFactory
+    lateinit var profileViewModel: ProfileViewModel
+
+    @Inject
     lateinit var portfolioFactory: PortfolioFactory
     lateinit var portfolioviewmodel: PortfolioViewModel
 
     lateinit var binding: FragmentAccountDetailsBinding
     val bundle = Bundle()
     lateinit var allPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>
+
     lateinit var allKycDocList: ArrayList<AccountsResponse.Data.Document>
 
     lateinit var documentBinding: DocumentsBottomSheetBinding
@@ -81,6 +90,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
     private val PICK_GALLERY_IMAGE = 1
     lateinit var bitmap: Bitmap
 
+    lateinit var selectedDoc: String
     private var isReadPermissonGranted: Boolean = false
     private var isWritePermissonGranted: Boolean = false
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
@@ -97,11 +107,16 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
         homeViewModel =
             ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
 
-        portfolioviewmodel = ViewModelProvider(requireActivity(), portfolioFactory)[PortfolioViewModel::class.java]
+        portfolioviewmodel =
+            ViewModelProvider(requireActivity(), portfolioFactory)[PortfolioViewModel::class.java]
+
+        profileViewModel =
+            ViewModelProvider(requireActivity(), profileFactory)[ProfileViewModel::class.java]
         initView()
         initClickListener()
         (requireActivity() as HomeActivity).hideBottomNavigation()
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =false
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
+            false
         return binding.root
     }
 
@@ -181,6 +196,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                     if (it.data?.data!!.paymentHistory != null && it.data!!.data.paymentHistory is List<AccountsResponse.Data.PaymentHistory>) {
                         allPaymentList =
                             it.data!!.data.paymentHistory as ArrayList<AccountsResponse.Data.PaymentHistory>
+                        Log.i("paymentList", allPaymentList.toString())
                         if (allPaymentList.isNullOrEmpty()) {
                             binding.tvPaymentHistory.visibility = View.VISIBLE
                             binding.cvNoPayment.visibility = View.VISIBLE
@@ -243,7 +259,6 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
         }
     }
 
-
     override fun onAccountsKycItemClick(
         accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
         view: View,
@@ -251,14 +266,38 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
         name: String,
         path: String?
     ) {
-        openDocument(name, path.toString())
+        openDocumentScreen(name, path.toString())
     }
 
     override fun onAccountsPaymentItemClick(
         accountsPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>,
         view: View,
-        position: Int
+        position: Int,
+        name: String,
+        path: String
     ) {
+        openDocumentScreen(name, path)
+    }
+
+    override fun onAllDocumentLabelClick(
+        accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
+        view: View,
+        position: Int,
+        name: String,
+        path: String?
+    ) {
+        openDocumentScreen(name, path.toString())
+    }
+
+    override fun onAccountsDocumentLabelItemClick(
+        accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
+        view: View,
+        position: Int,
+        name: String,
+        path: String?
+    ) {
+        docsBottomSheet.dismiss()
+        openDocumentScreen(name, path.toString())
     }
 
     private fun openDocument(name: String, path: String) {
@@ -351,6 +390,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
 
     override fun onUploadClick(newList: ArrayList<String>, view: View, position: Int) {
         selectImage()
+        selectedDoc = newList[position]
     }
 
     private fun selectImage() {
@@ -409,7 +449,8 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
         val selectedImage = cameraFile.path
         destinationFile = cameraFile
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-//            callingUploadPicApi(cameraFile)
+            val extension: String = cameraFile.name.substring(cameraFile.name.lastIndexOf("."))
+            callingUploadPicApi(cameraFile, extension)
         } else {
             (requireActivity() as BaseActivity).showError(
                 "Please check Internet Connections to upload image",
@@ -417,6 +458,29 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
 
             )
         }
+    }
+
+    private fun callingUploadPicApi(destinationFile: File, extension: String) {
+//        profileViewModel.uploadKycDocument(destinationFile, extension,selectedDoc)
+//            .observe(
+//                viewLifecycleOwner,
+//                object : Observer<BaseResponse<ProfilePictureResponse>> {
+//                    override fun onChanged(it: BaseResponse<ProfilePictureResponse>?) {
+//                        when (it?.status) {
+//                            Status.LOADING -> {
+//                                binding.progressBar.show()
+//                            }
+//                            Status.SUCCESS -> {
+//                                binding.progressBar.hide()
+//                            }
+//                            Status.ERROR -> {
+//                                binding.progressBar.hide()
+//                            }
+//                        }
+//                    }
+//
+//
+//                })
     }
 
 
@@ -443,7 +507,10 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                 val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
                 if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
                     destinationFile = File(filePath)
-//                    callingUploadPicApi(destinationFile)
+                    val extension: String =
+                        destinationFile.name.substring(destinationFile.name.lastIndexOf("."))
+
+                    callingUploadPicApi(destinationFile, extension)
 
                 } else {
                     (requireActivity() as BaseActivity).showError(
@@ -584,25 +651,5 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
         return null
     }
 
-    override fun onAllDocumentLabelClick(
-        accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
-        view: View,
-        position: Int,
-        name: String,
-        path: String?
-    ) {
-        openDocumentScreen(name, path.toString())
-    }
-
-    override fun onAccountsDocumentLabelItemClick(
-        accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
-        view: View,
-        position: Int,
-        name: String,
-        path: String?
-    ) {
-        docsBottomSheet.dismiss()
-        openDocumentScreen(name, path.toString())
-    }
 
 }

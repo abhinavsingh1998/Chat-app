@@ -11,9 +11,9 @@ import com.emproto.hoabl.databinding.ItemPortfolioDocumentsBinding
 import com.emproto.networklayer.response.profile.AccountsResponse
 
 class AllDocumentAdapter(
-        private var mContext: Context?,
-        private var accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
-        private var mListener: OnAllDocumentLabelClickListener
+    private var mContext: Context?,
+    private var accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
+    private var mListener: OnAllDocumentLabelClickListener
 
 ) : RecyclerView.Adapter<AllDocumentAdapter.ViewHolder>() {
 

@@ -29,6 +29,8 @@ class ProfileViewModel(
     fun uploadProfilePicture(file:File,fileName:String): LiveData<BaseResponse<ProfilePictureResponse>> {
         return profileRepository.uploadProfilePicture(file,fileName)
     }
+
+
     fun presignedUrl(type: String, destinationFile: File): LiveData<BaseResponse<PresignedUrlResponse>> {
         return profileRepository.presignedUrl(type,destinationFile)
     }
