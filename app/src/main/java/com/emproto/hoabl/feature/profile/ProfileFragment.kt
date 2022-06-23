@@ -46,6 +46,9 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
     @Inject
     lateinit var appPreference: AppPreference
 
+    private var isWhatsappConsent = false
+    private var isPushNotificationSend = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -77,6 +80,8 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                         Log.i("Data", it.data.toString())
                         it.data?.let {
                             profileData = it.data
+                            isWhatsappConsent = it.data.whatsappConsent
+                            isPushNotificationSend = it.data.showPushNotifications
                         }
                         setUiData(profileData)
                     }
@@ -111,6 +116,14 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
     }
 
     private fun setUserNamePIC(profileData: Data) {
+        val firstLetter: String = profileData.firstName.substring(0, 1)
+        val lastLetter = when{
+            profileData.lastName.isNotEmpty() -> {
+                 profileData.lastName.substring(0, 1)
+            }
+            else -> { "" }
+        }
+        binding.tvUserName.text = firstLetter + "" + lastLetter
 
         if (profileData.lastName.isNullOrEmpty()) {
             val firstLetter: String = profileData.firstName.substring(0, 2)
@@ -197,8 +210,12 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                 (requireActivity() as HomeActivity).addFragment(myAcccount, false)
             }
             1 -> {
-                val settingsFragment = SecurityFragment()
-                (requireActivity() as HomeActivity).addFragment(settingsFragment, false)
+                val bundle = Bundle()
+                bundle.putBoolean("whatsappConsentEnabled",isWhatsappConsent)
+                bundle.putBoolean("showPushNotifications",isPushNotificationSend)
+                val securityFragment = SecurityFragment()
+                securityFragment.arguments = bundle
+                (requireActivity() as HomeActivity).addFragment(securityFragment, false)
             }
             2 -> {
                 val helpCenterFragment = HelpCenterFragment()
