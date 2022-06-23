@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.Paint
 import android.os.Build
 import android.os.Bundle
@@ -406,21 +407,19 @@ class OTPVerificationFragment : BaseFragment() {
                             mBinding.resentOtp.isVisible = true
                             mBinding.timerTxt.text =
                                     SpannableStringBuilder()
-                                        .color( context!!.resources.getColor(R.color.resend_otp)){
+
+                                        .color(Color.GRAY){
                                             append("RESEND OTP in ")
                                         }
                                         .append("0${(millisUntilFinished / 1000) / 60}:0${(millisUntilFinished / 1000) % 60} sec")
-//                                        .append("")
-//                                        .append("")
-//                                        .append(" sec")
-//                                "" + (millisUntilFinished / 1000) / 60 + ":0" + (millisUntilFinished / 1000) % 60 + ""
-                        } else {73266
+                        } else {
                             mBinding.timerTxt.text =
 
                                 SpannableStringBuilder()
-                                    .color( context!!.resources.getColor(R.color.resend_otp)){
-                                        append("RESEND OTP in ")
+                                    .color(Color.GRAY){
+                                        append("RESEND OTP in  ")
                                     }
+//
                                     .append("0${(millisUntilFinished / 1000) / 60}:0${(millisUntilFinished / 1000) % 60} sec")
                         }
                     }
