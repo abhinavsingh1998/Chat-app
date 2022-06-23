@@ -29,7 +29,9 @@ class AccountsDocumentLabelListAdapter(
         fun onAccountsDocumentLabelItemClick(
             accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
             view: View,
-            position: Int
+            position: Int,
+            name: String,
+            path: String?
         )
     }
 
@@ -38,7 +40,7 @@ class AccountsDocumentLabelListAdapter(
 
 
         holder.tvViewDoc.setOnClickListener {
-            mListener.onAccountsDocumentLabelItemClick(accountsDocumentList, it, position)
+            mListener.onAccountsDocumentLabelItemClick(accountsDocumentList, it, position,accountsDocumentList[position].name,accountsDocumentList[position].path)
         }
     }
 

@@ -78,6 +78,10 @@ class EditProfileFragment : BaseFragment() {
     var address = ""
     var locality = ""
     var pinCode = ""
+    var countrySelected = ""
+    var stateSelected = ""
+    var citySelected = ""
+
     val pinCodePattern = Pattern.compile("([1-9]{1}[0-9]{5}|[1-9]{1}[0-9]{3}\\\\s[0-9]{3})")
     var hMobileNo = ""
     var hCountryCode = ""
@@ -141,6 +145,7 @@ class EditProfileFragment : BaseFragment() {
         binding = FragmentEditProfileBinding.inflate(layoutInflater)
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             false
+        changeFontOnSave()
 
         binding.saveAndUpdate.text = "Save and Update"
         val myCalender = Calendar.getInstance()
@@ -264,6 +269,7 @@ class EditProfileFragment : BaseFragment() {
 
         binding.autoState.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
+                binding.autoCity.setText("")
                 state = listStates[position]
                 stateIso = listStatesISO[position]
                 getCities(stateIso, countryIsoCode)
@@ -275,7 +281,6 @@ class EditProfileFragment : BaseFragment() {
         val cityAdapter = ArrayAdapter(requireContext(), R.layout.spinner_text, listCities)
         cityAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         binding.autoCity.setAdapter(cityAdapter)
-
         binding.autoCity.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 city = listCities[position]
@@ -513,8 +518,7 @@ class EditProfileFragment : BaseFragment() {
                 s: CharSequence, start: Int,
                 before: Int, count: Int
             ) {
-                val typeface = ResourcesCompat.getFont(context!!, R.font.jost_medium)
-                binding.tvEmail.setTypeface(typeface)
+
                 binding.tvEmail.isErrorEnabled = false
             }
         })
@@ -534,8 +538,7 @@ class EditProfileFragment : BaseFragment() {
                 before: Int, count: Int
             ) {
 
-                val typeface = ResourcesCompat.getFont(context!!, R.font.jost_medium)
-                binding.houseNo.setTypeface(typeface)
+
                 binding.floorHouseNum.isErrorEnabled = false
             }
         })
@@ -555,8 +558,7 @@ class EditProfileFragment : BaseFragment() {
                 s: CharSequence, start: Int,
                 before: Int, count: Int
             ) {
-                val typeface = ResourcesCompat.getFont(context!!, R.font.jost_medium)
-                binding.comAdd.setTypeface(typeface)
+
                 binding.comAdd.isErrorEnabled = false
             }
         })
@@ -575,8 +577,7 @@ class EditProfileFragment : BaseFragment() {
                 s: CharSequence, start: Int,
                 before: Int, count: Int
             ) {
-                val typeface = ResourcesCompat.getFont(context!!, R.font.jost_medium)
-                binding.tvLocality.setTypeface(typeface)
+
                 binding.tvLocality.isErrorEnabled = false
             }
         })
@@ -595,8 +596,7 @@ class EditProfileFragment : BaseFragment() {
                 s: CharSequence, start: Int,
                 before: Int, count: Int
             ) {
-                val typeface = ResourcesCompat.getFont(context!!, R.font.jost_medium)
-                binding.pincode.setTypeface(typeface)
+
                 binding.pincode.isErrorEnabled = false
             }
         })
@@ -613,7 +613,9 @@ class EditProfileFragment : BaseFragment() {
             binding.saveAndUpdate.text = "Save and Update"
             email = binding.emailTv.text.toString()
             if (!email.isNullOrEmpty() && email.isValidEmail()) {
+
                 binding.tvEmail.isErrorEnabled = false
+                email = binding.emailTv.text.toString()
             } else {
                 binding.tvEmail.error = "Please enter valid email"
                 email = binding.emailTv.text.toString()
@@ -642,10 +644,10 @@ class EditProfileFragment : BaseFragment() {
             address = binding.completeAddress.text.toString()
             when {
                 address.length == 150 -> {
-                    binding.completeAddress.error = "You have reached the max characters limit"
+                    binding.comAdd.error = "You have reached the max characters limit"
                 }
                 address.isEmpty() -> {
-                    binding.completeAddress.error = "Field cannot be empty"
+                    binding.comAdd.error = "Field cannot be empty"
                 }
                 else -> {
                     address = binding.completeAddress.text.toString()
@@ -654,10 +656,10 @@ class EditProfileFragment : BaseFragment() {
             locality = binding.locality.text.toString()
             when {
                 locality.length == 150 -> {
-                    binding.locality.error = "You have reached the max characters limit"
+                    binding.tvLocality.error = "You have reached the max characters limit"
                 }
                 locality.isEmpty() -> {
-                    binding.locality.error = "Field cannot be empty"
+                    binding.tvLocality.error = "Field cannot be empty"
                 }
                 else -> {
                     locality = binding.locality.text.toString()
@@ -666,7 +668,11 @@ class EditProfileFragment : BaseFragment() {
             pinCode = binding.pincodeEditText.text.toString()
             if (pinCode.isValidPinCode()) {
                 binding.pincode.isErrorEnabled = false
-            } else {
+            } else if(pinCode.isEmpty()){
+                binding.pincode.error = "Field cannot be empty"
+
+            }
+            else {
                 binding.pincode.error = "Please enter valid pincode"
                 pinCode = binding.pincodeEditText.text.toString()
                 if (pinCode.length > 6) {
@@ -679,19 +685,80 @@ class EditProfileFragment : BaseFragment() {
                 }
             }
 
-            if (!email.isNullOrEmpty() && email.isValidEmail() && !houseNo.isNullOrEmpty() && !address.isNullOrEmpty() && !locality.isNullOrEmpty() && pinCode.isValidPinCode()) {
+            countrySelected = binding.autoCountry.text.toString()
+            if (!countrySelected.isNullOrEmpty()) {
+                binding.spinnerCountry.isErrorEnabled = false
+            } else {
+                binding.spinnerCountry.error = "Select Country"
+                countrySelected = binding.autoCountry.text.toString()
+            }
+            stateSelected = binding.autoState.text.toString()
+            if (!stateSelected.isNullOrEmpty()) {
+                binding.spinnerState.isErrorEnabled = false
+            } else {
+                binding.spinnerState.error = "Select State"
+                stateSelected = binding.autoState.text.toString()
+            }
+            citySelected = binding.autoCity.text.toString()
+            if (!citySelected.isNullOrEmpty()) {
+                binding.spinnerCity.isErrorEnabled = false
+            } else {
+                binding.spinnerCity.error = "Select City"
+                citySelected = binding.autoCity.text.toString()
+            }
+
+            if (!email.isNullOrEmpty() && email.isValidEmail() && !houseNo.isNullOrEmpty() && !address.isNullOrEmpty() && !locality.isNullOrEmpty() && pinCode.isValidPinCode() && !countrySelected.isNullOrEmpty() && !stateSelected.isNullOrEmpty() && !citySelected.isNullOrEmpty()) {
                 val validEmail = binding.emailTv.text
                 val validHouse = binding.houseNo.text
                 val validAdd = binding.completeAddress.text
                 val validLocality = binding.locality.text
                 val validPinCode = binding.pincodeEditText.text
+                val validCountry = binding.autoCountry.text
+                val validState = binding.autoState.text
+                val validCity = binding.autoCity.text
 
-                sendProfileDetail(validEmail, validHouse, validAdd, validLocality, validPinCode)
+
+
+                sendProfileDetail(
+                    validEmail,
+                    validHouse,
+                    validAdd,
+                    validLocality,
+                    validPinCode,
+                    validCountry,
+                    validState,
+                    validCity
+                )
+                changeFontOnSave()
+
                 binding.saveAndUpdate.text = "Updated"
             }
 
         }
 
+    }
+
+    private fun changeFontOnSave() {
+        val typeface1 = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
+        binding.emailTv.setTypeface(typeface1)
+        val typeface2= context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
+        binding.houseNo.setTypeface(typeface2)
+        val typeface3 = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
+        binding.completeAddress.setTypeface(typeface3)
+        val typeface4 = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
+        binding.locality.setTypeface(typeface4)
+        val typeface5 = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
+        binding.autoCountry.setTypeface(typeface5)
+        val typeface6 = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
+        binding.autoState.setTypeface(typeface6)
+        val typeface7 = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
+        binding.autoCity.setTypeface(typeface7)
+        val typeface8 = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
+        binding.pincodeEditText.setTypeface(typeface8)
+        val typeface9 = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
+        binding.spinnerGender.setTypeface(typeface9)
+        val typeface10= context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
+        binding.tvDatePicker.setTypeface(typeface10)
     }
 
 
@@ -700,7 +767,10 @@ class EditProfileFragment : BaseFragment() {
         validHouse: Editable,
         validAdd: Editable,
         validLocality: Editable,
-        validPinCode: Editable
+        validPinCode: Editable,
+        validCountry: Editable,
+        validState: Editable,
+        validCity: Editable
     ) {
         val editUserNameRequest = EditUserNameRequest(
             data.firstName,
@@ -712,8 +782,8 @@ class EditProfileFragment : BaseFragment() {
             validAdd.toString(),
             validLocality.toString(),
             validPinCode.toString(),
-            binding.autoCity.text.toString(),
-            binding.autoState.text.toString(),
+            validCity.toString(),
+            validState.toString(),
             "India"
         )
         profileViewModel.editUserNameProfile(editUserNameRequest)
