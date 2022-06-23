@@ -23,8 +23,7 @@ class ProfileViewModel(
     private var profileRepository: ProfileRepository = mprofileRepository
 
     fun editUserNameProfile(editUserNameRequest: EditUserNameRequest): LiveData<BaseResponse<EditProfileResponse>> {
-        return profileRepository.editUserNameProfile(editUserNameRequest)
-    }
+        return profileRepository.editUserNameProfile(editUserNameRequest) }
 
     fun uploadProfilePicture(file:File,fileName:String): LiveData<BaseResponse<ProfilePictureResponse>> {
         return profileRepository.uploadProfilePicture(file,fileName)
