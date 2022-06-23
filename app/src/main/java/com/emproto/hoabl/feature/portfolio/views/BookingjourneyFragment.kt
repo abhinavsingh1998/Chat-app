@@ -103,6 +103,10 @@ class BookingjourneyFragment : BaseFragment() {
 
     private fun initView() {
 
+        (requireActivity() as HomeActivity).showHeader()
+        (requireActivity() as HomeActivity).showBackArrow()
+        (requireActivity() as HomeActivity).hideBottomNavigation()
+
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 isReadPermissonGranted =
@@ -201,10 +205,16 @@ class BookingjourneyFragment : BaseFragment() {
                     }
 
                     override fun onClickPendingCardDetails(payment: Payment) {
-                        dialogPendingPayment.tvPaidAmount.text =
-                            "₹ ${Utility.convertTo(payment.paidAmount)}"
                         dialogPendingPayment.tvPendingAmount.text =
-                            "${Utility.convertTo(payment.pendingAmount)}"
+                            "₹ ${Utility.convertTo(payment.pendingAmount)}"
+
+                        if (payment.pendingAmount == 0.0) {
+                            dialogPendingPayment.tvPaidAmount.visibility = View.GONE
+                            dialogPendingPayment.textView14.visibility = View.GONE
+                        } else {
+                            dialogPendingPayment.tvPaidAmount.text =
+                                "₹ ${Utility.convertTo(payment.paidAmount)}"
+                        }
                         dialogPendingPayment.tvMilestoneName.text = payment.paymentMilestone
                         dialogPendingPayment.tvDueDate.text =
                             "Due date: ${Utility.parseDateFromUtc(payment.targetDate)}"
@@ -230,27 +240,35 @@ class BookingjourneyFragment : BaseFragment() {
                     }
 
                     override fun onClickAllReceipt() {
-                        allReceiptDialog.receiptList.layoutManager =
-                            LinearLayoutManager(requireContext())
-                        allReceiptDialog.receiptList.adapter = ReceiptListAdapter(
-                            requireContext(),
-                            data.paymentHistory,
-                            object : ReceiptListAdapter.OnPaymentItemClickListener {
-                                override fun onAccountsPaymentItemClick(
-                                    path: String
-                                ) {
-                                    //download the receipt
-                                    bottomSheetDialog.dismiss()
-                                    getDocumentData(path)
-                                }
+                        if (data.paymentHistory.isEmpty()) {
+                            allReceiptDialog.errorText.visibility = View.VISIBLE
+                        } else {
+                            allReceiptDialog.receiptList.layoutManager =
+                                LinearLayoutManager(requireContext())
+                            allReceiptDialog.receiptList.adapter = ReceiptListAdapter(
+                                requireContext(),
+                                data.paymentHistory,
+                                object : ReceiptListAdapter.OnPaymentItemClickListener {
+                                    override fun onAccountsPaymentItemClick(
+                                        path: String
+                                    ) {
+                                        //download the receipt
+                                        bottomSheetDialog.dismiss()
+                                        getDocumentData(path)
+                                    }
 
-                            })
+                                })
+                        }
                         bottomSheetDialog.show()
 
                     }
 
                     override fun loadError(message: String) {
                         (requireActivity() as HomeActivity).showErrorToast(message)
+                    }
+
+                    override fun facilityManagment(plotId: String, projectId: String) {
+                        manageMyLand(plotId, projectId)
                     }
 
                 })
@@ -344,6 +362,38 @@ class BookingjourneyFragment : BaseFragment() {
                         }
                     }
                 })
+    }
+
+    fun manageMyLand(plotId: String, crmId: String) {
+        portfolioviewmodel.getFacilityManagment(plotId, crmId)
+            .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                when (it.status) {
+                    Status.LOADING -> {
+
+                    }
+                    Status.SUCCESS -> {
+                        if (it.data!!.data.web_url != null) {
+                            (requireActivity() as HomeActivity).addFragment(
+                                FmFragment.newInstance(
+                                    it.data!!.data.web_url!!,
+                                    ""
+                                ), false
+                            )
+
+                        } else {
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                "Something Went Wrong"
+                            )
+                        }
+
+                    }
+                    Status.ERROR -> {
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            "Something Went Wrong"
+                        )
+                    }
+                }
+            })
     }
 
 }

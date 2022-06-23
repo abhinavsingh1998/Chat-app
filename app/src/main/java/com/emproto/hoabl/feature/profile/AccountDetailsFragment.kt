@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.profile
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,10 +19,7 @@ import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.portfolio.adapters.DocumentInterface
 import com.emproto.hoabl.feature.portfolio.adapters.DocumentsAdapter
 import com.emproto.hoabl.feature.portfolio.views.DocViewerFragment
-import com.emproto.hoabl.feature.profile.adapter.accounts.AccountsDocumentLabelListAdapter
-import com.emproto.hoabl.feature.profile.adapter.accounts.AccountsPaymentListAdapter
-import com.emproto.hoabl.feature.profile.adapter.accounts.AccountsKycListAdapter
-import com.emproto.hoabl.feature.profile.adapter.accounts.AllDocumentAdapter
+import com.emproto.hoabl.feature.profile.adapter.accounts.*
 import com.emproto.hoabl.utils.Extensions.toData
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
@@ -93,44 +91,70 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                     if (it.data?.data!!.documents != null && it.data!!.data.documents is List<AccountsResponse.Data.Document>) {
                         allKycList =
                             it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>
-                        if (allKycList.isNullOrEmpty()) {
-                            binding.rvKyc.visibility = View.GONE
-                            binding.tvKyc.visibility = View.GONE
-                            binding.rvDocuments.visibility = View.GONE
-                            binding.tvSeeAllDocuments.visibility = View.GONE
+                        val kycLists = ArrayList<AccountsResponse.Data.Document>()
+                        val documentList  = ArrayList<AccountsResponse.Data.Document>()
+                        for(document in allKycList){
+                            if(document.documentCategory=="KYC"){
+                                kycLists.add(document)
+                            }else{
+                                documentList.add(document)
+                            }
+                        }
+                        if (kycLists.isNullOrEmpty()) {
+                            val newList=ArrayList<String>()
+                            newList.add("Aadhaar Card")
+                            newList.add("Pan Card")
+
+                            binding.rvKyc.layoutManager =
+                                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+                            binding.rvKyc.adapter = AccountKycUploadAdapter(
+                                context,
+                                newList
+                            )
                         } else {
-                            binding.rvKyc.visibility = View.VISIBLE
-                            binding.tvKyc.visibility = View.VISIBLE
+                            Log.i("list",allKycList.toString())
                             binding.rvKyc.layoutManager =
                                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
                             binding.rvKyc.adapter = AccountsKycListAdapter(
                                 context,
-                                allKycList,
+                                kycLists,
                                 this
                             )
+
+                        }
+                        if(documentList.isNullOrEmpty()){
+                            binding.rvDocuments.visibility = View.GONE
+                            binding.tvSeeAllDocuments.visibility = View.GONE
+                            binding.cvNoDoc.visibility=View.VISIBLE
+
+                        }else{
                             binding.rvDocuments.visibility = View.VISIBLE
                             binding.tvSeeAllDocuments.visibility = View.VISIBLE
+                            binding.cvNoDoc.visibility=View.GONE
                             binding.rvDocuments.layoutManager =
                                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
                             binding.rvDocuments.adapter = AccountsDocumentLabelListAdapter(
                                 context,
-                                it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>,
+                                documentList,
                                 this
                             )
                         }
+
 
                     }
 
                     if (it.data?.data!!.paymentHistory != null && it.data!!.data.paymentHistory is List<AccountsResponse.Data.PaymentHistory>) {
                         allPaymentList =
                             it.data!!.data.paymentHistory as ArrayList<AccountsResponse.Data.PaymentHistory>
-                        if (allPaymentList.isNullOrEmpty()) {
-                            binding.tvPaymentHistory.visibility = View.GONE
+                        if (allPaymentList.isEmpty()) {
+                            binding.tvPaymentHistory.visibility = View.VISIBLE
+                            binding.cvNoPayment.visibility=View.VISIBLE
                             binding.tvSeeAllPayment.visibility = View.GONE
                             binding.rvPaymentHistory.visibility = View.GONE
                         } else {
                             binding.tvPaymentHistory.visibility = View.VISIBLE
                             binding.tvSeeAllPayment.visibility = View.VISIBLE
+                            binding.cvNoPayment.visibility=View.GONE
                             binding.rvPaymentHistory.visibility = View.VISIBLE
                             binding.rvPaymentHistory.layoutManager =
                                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)

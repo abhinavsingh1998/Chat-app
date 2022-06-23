@@ -9,6 +9,7 @@
     >
 
     <com.emproto.core.gifview.GIFImageView
+        android:background="@color/app_color"
         android:id="@+id/imageView4"
         android:layout_width="300dp"
         android:layout_height="200dp"

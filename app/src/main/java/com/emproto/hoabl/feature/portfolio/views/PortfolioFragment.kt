@@ -382,11 +382,13 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                     it.data.projects.filter { !it.investment.isBookingComplete }
                 )
             )
-            list.add(
-                PortfolioModel(
-                    ExistingUsersPortfolioAdapter.TYPE_NUDGE_CARD
+            if (appPreference.getOfferUrl() != null && appPreference.getOfferUrl().isNotEmpty()) {
+                list.add(
+                    PortfolioModel(
+                        ExistingUsersPortfolioAdapter.TYPE_NUDGE_CARD, appPreference.getOfferUrl()
+                    )
                 )
-            )
+            }
 
             if (it.data.watchlist != null && it.data.watchlist.isNotEmpty()) {
                 watchList.clear()
@@ -515,7 +517,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
     override fun dontMissoutCard() {
         val bundle = Bundle()
-        bundle.putInt("ProjectId", 9)
+        bundle.putInt("ProjectId", appPreference.getOfferId())
         val fragment = ProjectDetailFragment()
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(

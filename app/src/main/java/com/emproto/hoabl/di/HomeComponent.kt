@@ -73,6 +73,6 @@ interface HomeComponent {
     fun inject(fragment:AboutUsFragment)
     fun inject(fragment: ProfileFaqFragment)
     fun inject(fragment: ReceiptFragment)
-
-
+    fun inject(fragment: SecurityFragment)
+    fun inject(fragment: SecurityTipsFragment)
 }

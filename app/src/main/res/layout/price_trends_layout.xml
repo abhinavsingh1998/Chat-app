@@ -6,15 +6,14 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.textview.MaterialTextView
+        style="@style/text_style_text_light_black_color_18"
         android:id="@+id/tv_price_trends_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_size_13"
         android:layout_marginTop="28dp"
-        android:fontFamily="@font/jost_medium"
+        android:fontFamily="@font/jost_regular"
         android:text="Price Trends"
-        android:textColor="@color/text_light_black_color"
-        android:textSize="@dimen/text_size_18"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

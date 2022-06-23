@@ -144,4 +144,11 @@
 
     </style>
 
+    <style name="text_style_white_16">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="singleLine">true</item>
+    </style>
+
 </resources>

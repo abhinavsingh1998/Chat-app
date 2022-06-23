@@ -82,7 +82,7 @@ class StepsAdapter(
 
 
                 type1Holder.binding.imageView.setOnClickListener {
-                    getToolTip(data.heading).showAlignBottom(type1Holder.binding.imageView)
+                    getToolTip(data.sections[0].values.toolTipDetails).showAlignBottom(type1Holder.binding.imageView)
                 }
 
             }
@@ -97,10 +97,10 @@ class StepsAdapter(
                     )
                 )
                 type1Holder.binding.imageView.setOnClickListener {
-                    getToolTip(data.heading).showAlignBottom(type1Holder.binding.imageView)
+                    getToolTip(data.sections[0].values.toolTipDetails).showAlignBottom(type1Holder.binding.imageView)
                 }
                 type1Holder.binding.textView7.setOnClickListener {
-                    itemInterface.onClickVDetails(data.sections[0].values.medias.value.url)
+                    itemInterface.onClickVDetails(data.sections[0].values.medias.key,data.sections[0].values.medias.value.url)
 
                 }
             }
@@ -119,7 +119,7 @@ class StepsAdapter(
                 )
 
                 type1Holder.binding.imageView.setOnClickListener {
-                    getToolTip(data.heading).showAlignBottom(type1Holder.binding.imageView)
+                    getToolTip(data.sections[0].values.toolTipDetails).showAlignBottom(type1Holder.binding.imageView)
                 }
             }
         }

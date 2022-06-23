@@ -100,12 +100,28 @@ class ProjectTimelineFragment : BaseFragment() {
                                 requireContext(),
                                 timelineList,
                                 object : TimelineAdapter.TimelineInterface {
-                                    override fun onClickVDetails(url: String) {
+                                    override fun onClickVDetails(name: String, url: String) {
                                         //open image viewer
                                         (requireActivity() as HomeActivity).addFragment(
-                                            DocViewerFragment.newInstance(false, "Test.png", url),
+                                            DocViewerFragment.newInstance(false, name, url),
                                             false
                                         )
+                                    }
+
+                                    override fun onClickReraDetails(url: String) {
+                                        if (url != null) {
+                                            (requireActivity() as HomeActivity).addFragment(
+                                                FmFragment.newInstance(
+                                                    url,
+                                                    ""
+                                                ), false
+                                            )
+
+                                        } else {
+                                            (requireActivity() as HomeActivity).showErrorToast(
+                                                "Something Went Wrong"
+                                            )
+                                        }
                                     }
 
                                 })

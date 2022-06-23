@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
@@ -286,6 +287,9 @@ class ExistingUsersPortfolioAdapter(
     private inner class BlockchainViewHolder(private val binding: BlockchainLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
+            val url = list[position].data as String
+            Glide.with(context).load(url).placeholder(R.drawable.dont_miss_new)
+                .into(binding.ivDontMissImage)
             binding.ivDontMissImage.setOnClickListener {
                 onItemClickListener.dontMissoutCard()
             }
