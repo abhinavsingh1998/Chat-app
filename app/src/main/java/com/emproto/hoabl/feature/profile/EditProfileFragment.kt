@@ -185,14 +185,14 @@ class EditProfileFragment : BaseFragment() {
         initView()
         setGenderSpinnersData()
         getStates()
-        initClickListener()
-
-
-
 
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initClickListener()
+    }
     private fun getStates() {
         profileViewModel.getStates(countryIsoCode).observe(viewLifecycleOwner) {
             when (it.status) {
@@ -609,6 +609,9 @@ class EditProfileFragment : BaseFragment() {
 
         binding.tvremove.setOnClickListener {
             callDeletePic(data)
+//            binding.profileImage.visibility = View.GONE
+//            binding.profileUserLetters.visibility = View.VISIBLE
+//            setUserNamePIC(data)
             binding.saveAndUpdate.text = "Save and Update"
         }
         binding.saveAndUpdate.setOnClickListener {
@@ -920,8 +923,7 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun callDeletePic(data: Data) {
-        val fileName: String = data.profilePictureUrl.toString()
-            .substring(data.profilePictureUrl.toString().lastIndexOf('/') + 1)
+        val fileName :String=  data.profilePictureUrl.toString().substring( data.profilePictureUrl.toString().lastIndexOf('/') + 1)
         Log.i("profileUrl", fileName)
         profileViewModel.deleteProfileImage(fileName)
             .observe(viewLifecycleOwner, Observer {
@@ -946,7 +948,7 @@ class EditProfileFragment : BaseFragment() {
                             it.message.toString(),
                             Toast.LENGTH_SHORT
                         ).show()
-                        Log.i("delete api errpr", it.message.toString())
+                        Log.i("delete api error", it.message.toString())
                     }
                 }
             })
