@@ -13,6 +13,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
+import android.text.SpannableStringBuilder
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
@@ -21,6 +22,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.text.color
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -132,7 +134,6 @@ class OTPVerificationFragment : BaseFragment() {
         mBinding.tvMobileNumber.text = "$countryCode-$mobileno"
         mBinding.tvMobileNumber.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         mBinding.loginEdittext.hint = hint_txt
-        mBinding.resend.text=" Resend OTP in"
 
         startSmsUserConsent()
 
@@ -393,22 +394,34 @@ class OTPVerificationFragment : BaseFragment() {
                 when (millisUntilFinished / 1000) {
                     0L -> {
                         mBinding.resentOtp.isVisible = true
-                        mBinding.resend.isVisible = false
+//                        mBinding.resend.isVisible = false
                         mBinding.timerTxt.isVisible = false
                         mBinding.tryAgainTxt.isVisible = false
                     }
                     else -> {
 
-                        mBinding.resend.isVisible = true
+//                        mBinding.resend.isVisible = true
                         mBinding.timerTxt.visibility = View.VISIBLE
                         if ((millisUntilFinished / 1000) % 60 < 10) {
                             mBinding.resentOtp.isVisible = true
                             mBinding.timerTxt.text =
-                                "0" + (millisUntilFinished / 1000) / 60 + ":" + "0" + (millisUntilFinished / 1000) % 60 + " sec"
-
-                        } else {
+                                    SpannableStringBuilder()
+                                        .color( context!!.resources.getColor(R.color.resend_otp)){
+                                            append("RESEND OTP in ")
+                                        }
+                                        .append("0${(millisUntilFinished / 1000) / 60}:0${(millisUntilFinished / 1000) % 60} sec")
+//                                        .append("")
+//                                        .append("")
+//                                        .append(" sec")
+//                                "" + (millisUntilFinished / 1000) / 60 + ":0" + (millisUntilFinished / 1000) % 60 + ""
+                        } else {73266
                             mBinding.timerTxt.text =
-                                 "0" + (millisUntilFinished / 1000) / 60 + ":" + (millisUntilFinished / 1000) % 60 + " sec"
+
+                                SpannableStringBuilder()
+                                    .color( context!!.resources.getColor(R.color.resend_otp)){
+                                        append("RESEND OTP in ")
+                                    }
+                                    .append("0${(millisUntilFinished / 1000) / 60}:0${(millisUntilFinished / 1000) % 60} sec")
                         }
                     }
                 }
