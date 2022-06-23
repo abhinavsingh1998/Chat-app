@@ -895,7 +895,7 @@ class EditProfileFragment : BaseFragment() {
 
 
     private fun callingUploadPicApi(destinationFile: File) {
-        profileViewModel.uploadProfilePicture(destinationFile, destinationFile.name, selectedDoc)
+        profileViewModel.uploadProfilePicture(destinationFile, destinationFile.name)
             .observe(
                 viewLifecycleOwner,
                 object : Observer<BaseResponse<ProfilePictureResponse>> {
