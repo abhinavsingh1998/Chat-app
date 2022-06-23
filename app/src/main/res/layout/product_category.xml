@@ -22,8 +22,8 @@
 
             <ImageView
                 android:id="@+id/location_iv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="15dp"
+                android:layout_height="20dp"
                 android:layout_marginStart="@dimen/margin_size_16"
                 android:layout_marginTop="@dimen/margin_size_16"
                 android:scaleType="fitXY"

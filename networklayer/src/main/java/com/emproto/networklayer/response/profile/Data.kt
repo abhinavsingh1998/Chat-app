@@ -53,5 +53,7 @@ import java.io.Serializable
         @SerializedName("updatedAt")
         val updatedAt: String,
         @SerializedName("whatsappConsent")
-        val whatsappConsent: Boolean
+        val whatsappConsent: Boolean,
+        @SerializedName("showPushNotifications")
+        val showPushNotifications: Boolean
     ):Serializable

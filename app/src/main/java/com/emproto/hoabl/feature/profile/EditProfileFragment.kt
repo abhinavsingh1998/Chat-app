@@ -115,6 +115,8 @@ class EditProfileFragment : BaseFragment() {
     lateinit var appPreference: AppPreference
     lateinit var data: Data
 
+    private var isWhatsappConsentEnabled : Boolean = false
+
     companion object {
         fun newInstance():
                 EditProfileFragment {

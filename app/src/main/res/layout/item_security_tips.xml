@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_aboutus_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/margin_size_8"
+        android:layout_marginTop="@dimen/margin_size_14"
+        android:layout_marginHorizontal="@dimen/margin_size_18"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_security_tips"
+            android:layout_width="match_parent"
+            android:layout_height="198dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/red"
+            />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/jost_light_italic"
+        android:text="Image description goes here."
+        android:textColor="#494a67"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/cv_aboutus_view"
+        app:layout_constraintTop_toBottomOf="@+id/cv_aboutus_view" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_full_description"
+        style="@style/text_style_light_grey_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_size_11"
+        android:fontFamily="@font/jost_light"
+        android:text="@string/investment_will_generate"
+        app:layout_constraintEnd_toEndOf="@id/cv_aboutus_view"
+        app:layout_constraintStart_toStartOf="@+id/cv_aboutus_view"
+        app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

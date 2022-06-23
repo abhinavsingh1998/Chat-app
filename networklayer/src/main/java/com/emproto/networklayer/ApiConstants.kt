@@ -4,6 +4,7 @@ import com.emproto.networklayer.response.home.InsightsMedia
 import com.emproto.networklayer.response.home.LatestUpdates
 
 object ApiConstants {
+    const val NO_INTERNET = "No Network Available"
     const val COMMON_MSG = "Something Went Wrong"
     const val BASE_URL_DEV = "http://hoabl-backend-dev-306342355.ap-south-1.elb.amazonaws.com/"
     const val BASE_URL_UAT = "http://hoabl-backend-qa-1093935714.ap-south-1.elb.amazonaws.com/"
@@ -67,4 +68,7 @@ object ApiConstants {
 
     const val SEARCH = "hoabl-admin/search"
     const val SEARCH_DOCS = "hoabl-customer/doc-filter"
+
+    const val WHATSAPP_CONSENT = "hoabl-customer/profile/user-settings"
+    const val GET_ALL_PROJECTS= "hoabl-admin/project-contents"
 }

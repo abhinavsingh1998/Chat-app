@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.hoabl.feature.home.views.HomeActivity
@@ -33,8 +32,13 @@ class SettingsFragment:Fragment() {
     ): View {
         binding = FragmentSettingsBinding.inflate(layoutInflater)
         binding.recyclerview1.layoutManager = LinearLayoutManager(requireContext())
-        val detailAdapter = SettingsAdapter(requireContext(),initData())
-        binding.recyclerview1.adapter = detailAdapter
+//        val detailAdapter = SettingsAdapter(
+//            requireContext(),
+//            initData(),
+//            showPushNotifications,
+//            itemClickListener
+//        )
+//        binding.recyclerview1.adapter = detailAdapter
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible=false
         return binding.root
     }

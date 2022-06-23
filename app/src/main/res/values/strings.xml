@@ -326,11 +326,11 @@
     <string name="about_hoabl">About HoABL</string>
     <string name="description_about_us">We are building a platform that will bring anyone who wants to create wealth to join the New Generation LandTM revolution. Now is your time. You can buy, maintain and liquidate land with amazing ease, conﬁdence and trust.</string>
     <string name="explore_growth">Explore Growth</string>
+    <string name="stats_overview">Stats Overview</string>
     <string name="about_us_discription">For HoABL, it is not just a piece of land, we believe in the Peace of Land.It is our aim to give back to land more than we take from it.</string>
     <string name="product_text_about">Product Category</string>
     <string name="lifestyle_text_about_us">Lifestyle</string>
     <string name="complete_description_about_us">For HoABL, it is not just a piece of land, we believe in the Peace of Land.It is our aim to give back to land more than we take from it.</string>
-    <string name="stats_overview">Stats Overview</string>
     <string name="stats_desc">Neque porro quisquam estp qui dolorem ipsu porro quisqua m estp qui ipsu.Neque porro quisquam estp qui dolorem ip</string>
     <string name="invest_with_us_today">Invest with us today</string>
     <string name="query">Have any questions reach out to us</string>
@@ -386,5 +386,8 @@
     <string name="viewreceipt"><![CDATA[<U>View Receipt</U>]]></string>
     <string name="schedule_video_call_info">Schedule a video call with our Project Managers, to answer any further questions you may have.</string>
     <string name="myportfolio">Portfolio</string>
+    <string name="mobile_pin_authentication">Mobile Pin Authentication</string>
+    <string name="whatsapp_communication">Whatsapp Communication</string>
+    <string name="read_security_tips">Read Security Tips</string>
     <string name="resendotp">Resend OTP</string>
 </resources>

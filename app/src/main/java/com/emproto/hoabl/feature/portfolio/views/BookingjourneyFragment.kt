@@ -205,10 +205,16 @@ class BookingjourneyFragment : BaseFragment() {
                     }
 
                     override fun onClickPendingCardDetails(payment: Payment) {
-                        dialogPendingPayment.tvPaidAmount.text =
-                            "₹ ${Utility.convertTo(payment.paidAmount)}"
                         dialogPendingPayment.tvPendingAmount.text =
-                            "${Utility.convertTo(payment.pendingAmount)}"
+                            "₹ ${Utility.convertTo(payment.pendingAmount)}"
+
+                        if (payment.pendingAmount == 0.0) {
+                            dialogPendingPayment.tvPaidAmount.visibility = View.GONE
+                            dialogPendingPayment.textView14.visibility = View.GONE
+                        } else {
+                            dialogPendingPayment.tvPaidAmount.text =
+                                "₹ ${Utility.convertTo(payment.paidAmount)}"
+                        }
                         dialogPendingPayment.tvMilestoneName.text = payment.paymentMilestone
                         dialogPendingPayment.tvDueDate.text =
                             "Due date: ${Utility.parseDateFromUtc(payment.targetDate)}"
@@ -234,21 +240,25 @@ class BookingjourneyFragment : BaseFragment() {
                     }
 
                     override fun onClickAllReceipt() {
-                        allReceiptDialog.receiptList.layoutManager =
-                            LinearLayoutManager(requireContext())
-                        allReceiptDialog.receiptList.adapter = ReceiptListAdapter(
-                            requireContext(),
-                            data.paymentHistory,
-                            object : ReceiptListAdapter.OnPaymentItemClickListener {
-                                override fun onAccountsPaymentItemClick(
-                                    path: String
-                                ) {
-                                    //download the receipt
-                                    bottomSheetDialog.dismiss()
-                                    getDocumentData(path)
-                                }
+                        if (data.paymentHistory.isEmpty()) {
+                            allReceiptDialog.errorText.visibility = View.VISIBLE
+                        } else {
+                            allReceiptDialog.receiptList.layoutManager =
+                                LinearLayoutManager(requireContext())
+                            allReceiptDialog.receiptList.adapter = ReceiptListAdapter(
+                                requireContext(),
+                                data.paymentHistory,
+                                object : ReceiptListAdapter.OnPaymentItemClickListener {
+                                    override fun onAccountsPaymentItemClick(
+                                        path: String
+                                    ) {
+                                        //download the receipt
+                                        bottomSheetDialog.dismiss()
+                                        getDocumentData(path)
+                                    }
 
-                            })
+                                })
+                        }
                         bottomSheetDialog.show()
 
                     }
