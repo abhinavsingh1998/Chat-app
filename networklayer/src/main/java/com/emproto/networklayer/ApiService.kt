@@ -32,6 +32,7 @@ import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
 import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineResponse
 import com.emproto.networklayer.response.profile.*
+import com.emproto.networklayer.response.profile.AllProjectsResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
 import com.emproto.networklayer.response.resourceManagment.ProflieResponse
@@ -84,7 +85,7 @@ public interface ApiService {
     suspend fun getInvestmentsProjectDetails(@Path("id") id: Int): Response<ProjectDetailResponse>
 
     @GET(ApiConstants.INVESTMENT_ALL_PROJECT)
-    suspend fun getAllInvestmentProjects(): Response<AllProjectsResponse>
+    suspend fun getAllInvestmentProjects(): Response<com.emproto.networklayer.response.investment.AllProjectsResponse>
 
     @GET(ApiConstants.PORTFOLIO_DASHBOARD)
     suspend fun getPortfolioDashboard(): Response<PortfolioData>
@@ -209,6 +210,9 @@ public interface ApiService {
 
     @GET(ApiConstants.PROFILE_RESOURCE)
     suspend fun getAboutHobal(@Query("pageType") pageType: Int): Response<ProflieResponse>
+
+    @GET(ApiConstants.GET_ALL_PROJECTS)
+    suspend fun getAllProjects():Response<AllProjectsResponse>
 
     @PUT(ApiConstants.WHATSAPP_CONSENT)
     suspend fun putWhatsappConsent(@Body whatsappConsentBody: WhatsappConsentBody): Response<WhatsappConsentResponse>

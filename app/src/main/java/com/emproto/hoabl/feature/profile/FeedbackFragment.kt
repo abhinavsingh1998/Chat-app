@@ -40,7 +40,7 @@ class FeedbackFragment : BaseFragment() {
     @Inject
     lateinit var factory: ProfileFactory
     lateinit var profileViewModel: ProfileViewModel
-    lateinit var feedBackRequest: FeedBackRequest
+     var feedBackRequest: FeedBackRequest? = null
     lateinit var description:String
 
     var ratings=0
@@ -85,10 +85,15 @@ class FeedbackFragment : BaseFragment() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 description=p0.toString()
                 if( p0.toString().length==250){
-                    binding.experienceTv.error = "You have reached the max characters limit"
+                    binding.maxDesc.text= "250/250 Characters"
+                    binding.maxDesc.setTextColor(resources.getColor(R.color.text_red_color))
+                    binding.experienceTv.setTextColor(resources.getColor(R.color.text_red_color))
+
                 }
                 else{
-//                    binding.checkboxDesc.isErrorEnabled= false
+                    binding.maxDesc.text= "0/250 Characters"
+                    binding.maxDesc.setTextColor(resources.getColor(R.color.text_light_grey_color))
+                    binding.experienceTv.setTextColor(resources.getColor(R.color.land_skus_text_black_color))
                 }
             }
 
@@ -104,7 +109,10 @@ class FeedbackFragment : BaseFragment() {
 
         binding.shareYourFeedback.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                initObserver()
+
+                if(feedBackRequest!=null){
+                    initObserver()
+                }
             }
         })
 
@@ -326,22 +334,33 @@ class FeedbackFragment : BaseFragment() {
 
 
     private fun initObserver(){
-        profileViewModel.submitFeedback(feedBackRequest).observe(viewLifecycleOwner, object : Observer<BaseResponse<FeedBackResponse>>{
-            override fun onChanged(it: BaseResponse<FeedBackResponse>?)
-            {
-                when (it!!.status){
-                    Status.ERROR ->{
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            it.message!!
-                        )
+        feedBackRequest?.let {
+            profileViewModel.submitFeedback(it).observe(viewLifecycleOwner, object : Observer<BaseResponse<FeedBackResponse>>{
+                override fun onChanged(it: BaseResponse<FeedBackResponse>?) {
+                    when (it!!.status) {
+                        Status.ERROR -> {
+                            binding.progressBar.isVisible= false
+                            binding.shareYourFeedback.isVisible= true
+                            binding.shareYourFeedback.text= "Share your feedback"
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                it.message!!
+                            )
+                        }
+
+                        Status.SUCCESS ->{
+
+                            binding.progressBar.isVisible= false
+                            binding.shareYourFeedback.isVisible= true
+                            binding.shareYourFeedback.text= "Submitted"
                     }
 
+                        Status.LOADING ->{
+                            binding.shareYourFeedback.isVisible= false
+                            binding.progressBar.isVisible= true
+                        }
                 }
-                when(it!!.status){
-                    Status.SUCCESS ->{
-                    }
                 }
-            }
-        })
+            })
+        }
     }
 }

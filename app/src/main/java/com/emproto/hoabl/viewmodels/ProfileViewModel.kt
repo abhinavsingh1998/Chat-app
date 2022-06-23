@@ -80,6 +80,9 @@ class ProfileViewModel(
     fun getSecurityTips(pageType: Int): LiveData<BaseResponse<SecurityTipsResponse>> {
         return profileRepository.getSecurityTips(pageType)
     }
+    fun getAllProjects(refresh: Boolean): LiveData<BaseResponse<AllProjectsResponse>>{
+        return profileRepository.getAllProjects(refresh)
+    }
 }
 
 
