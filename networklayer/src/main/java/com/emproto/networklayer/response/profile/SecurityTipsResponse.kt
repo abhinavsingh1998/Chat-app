@@ -141,13 +141,13 @@ data class Media(
     val value: Value
 )
 
-data class Value(
-    val height: Int,
-    val mediaType: String,
-    val size: Double,
-    val url: String,
-    val width: Int
-)
+//data class Value(
+//    val height: Int,
+//    val mediaType: String,
+//    val size: Double,
+//    val url: String,
+//    val width: Int
+//)
 
 data class MediaX(
     val key: String,
@@ -155,13 +155,13 @@ data class MediaX(
     val value: ValueX
 )
 
-data class ValueX(
-    val height: Int,
-    val mediaType: String,
-    val size: Double,
-    val url: String,
-    val width: Int
-)
+//data class ValueX(
+//    val height: Int,
+//    val mediaType: String,
+//    val size: Double,
+//    val url: String,
+//    val width: Int
+//)
 
 data class DetailedInformationX(
     val description: String,
@@ -175,13 +175,13 @@ data class MediaXX(
     val value: ValueXX
 )
 
-data class ValueXX(
-    val height: Int,
-    val mediaType: String,
-    val size: Double,
-    val url: String,
-    val width: Int
-)
+//data class ValueXX(
+//    val height: Int,
+//    val mediaType: String,
+//    val size: Double,
+//    val url: String,
+//    val width: Int
+//)
 
 data class DetailedInformationXX(
     val description: String,
@@ -197,10 +197,10 @@ data class DetailedInformationXXX(
 data class MediaXXX(
     val key: String,
     val name: String,
-    val value: ValueXXX
+    val value: ValueXXXD
 )
 
-data class ValueXXX(
+data class ValueXXXD(
     val height: Int,
     val mediaType: String,
     val size: Double,

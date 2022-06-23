@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
+import com.emproto.networklayer.feature.HomeDataSource
 import com.emproto.networklayer.feature.ProfileDataSource
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
@@ -12,6 +13,7 @@ import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
+import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.resourceManagment.ProflieResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 
@@ -28,6 +30,7 @@ class ProfileRepository @Inject constructor(application: Application) :
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + parentJob)
     val termsConditionResponse = MutableLiveData<BaseResponse<TermsConditionResponse>>()
+    val allprojects = MutableLiveData<BaseResponse<AllProjectsResponse>>()
 
     val aboutusResponse = MutableLiveData<BaseResponse<ProflieResponse>>()
 
@@ -385,6 +388,34 @@ class ProfileRepository @Inject constructor(application: Application) :
         return wcResponse
     }
 
+    // get All Projects
+    fun getAllProjects(refresh: Boolean): LiveData<BaseResponse<AllProjectsResponse>> {
+        if (allprojects.value == null || refresh) {
+            allprojects.postValue(BaseResponse.loading())
+            coroutineScope.launch {
+                try {
+                    val request = ProfileDataSource(application).getAllProjects()
+                    if (request.isSuccessful) {
+                        if (request.body()!!.data != null)
+                            allprojects.postValue(BaseResponse.success(request.body()!!))
+                        else
+                            allprojects.postValue(BaseResponse.Companion.error("No data found"))
+                    } else {
+                        allprojects.postValue(
+                            BaseResponse.Companion.error(
+                                getErrorMessage(
+                                    request.errorBody()!!.string()
+                                )
+                            )
+                        )
+                    }
+                } catch (e: Exception) {
+                    allprojects.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                }
+            }
+        }
+        return allprojects
+    }
     fun getSecurityTips(pageType: Int): LiveData<BaseResponse<SecurityTipsResponse>> {
         val stResponse = MutableLiveData<BaseResponse<SecurityTipsResponse>>()
         stResponse.postValue(BaseResponse.loading())
