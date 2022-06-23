@@ -152,7 +152,7 @@ class OTPVerificationFragment : BaseFragment() {
             @SuppressLint("ResourceType")
             override fun afterTextChanged(s: Editable?) {
                 if (s?.length == 6) {
-                    if (isNetworkAvailable(mBinding.root)) {
+                    if (isNetworkAvailable()) {
                         hideSoftKeyboard()
                         val otpVerifyRequest =
                             OtpVerifyRequest(
