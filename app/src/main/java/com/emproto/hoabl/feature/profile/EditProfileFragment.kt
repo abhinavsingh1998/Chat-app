@@ -12,7 +12,6 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -22,9 +21,7 @@ import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -54,6 +51,7 @@ import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.Data
 import com.emproto.networklayer.response.profile.ProfilePictureResponse
 import com.emproto.networklayer.response.profile.States
+
 import okhttp3.MultipartBody
 import java.io.*
 import java.text.SimpleDateFormat
@@ -144,7 +142,7 @@ class EditProfileFragment : BaseFragment() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             false
 
-        binding.saveAndUpdate.text="Save and Update"
+        binding.saveAndUpdate.text = "Save and Update"
         val myCalender = Calendar.getInstance()
         val datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayofMonth ->
             myCalender.set(Calendar.YEAR, year)
@@ -253,7 +251,7 @@ class EditProfileFragment : BaseFragment() {
                 id: Long
             ) {
                 gender = parent?.adapter?.getItem(position).toString().substring(0, 1)
-                binding.autoGender.isCursorVisible = false
+                enableGenderEdit()
             }
         }
     }
@@ -270,8 +268,7 @@ class EditProfileFragment : BaseFragment() {
                 stateIso = listStatesISO[position]
                 getCities(stateIso, countryIsoCode)
             }
-        binding.autoState.isCursorVisible = false
-
+        enableStateEdit()
     }
 
     private fun setCitiesSpinner() {
@@ -283,7 +280,7 @@ class EditProfileFragment : BaseFragment() {
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 city = listCities[position]
             }
-        binding.autoCity.isCursorVisible = false
+        enableCityEdit()
     }
 
     private fun initView() {
@@ -318,7 +315,7 @@ class EditProfileFragment : BaseFragment() {
         }
         if (!data.gender.isNullOrEmpty()) {
             binding.autoGender.setText(data.gender)
-            binding.autoGender.isCursorVisible = false
+            enableGenderEdit()
         } else {
             binding.autoGender.setText("")
         }
@@ -339,27 +336,30 @@ class EditProfileFragment : BaseFragment() {
         }
         if (!data.country.isNullOrEmpty()) {
             binding.autoCountry.setText(data.country)
-            binding.autoCountry.isCursorVisible = false;
+            enableCountryEdit()
         } else {
             binding.autoCountry.setText("")
 
         }
         if (!data.state.isNullOrEmpty()) {
             binding.autoState.setText(data.state)
-            binding.autoState.isCursorVisible = false;
+            enableStateEdit()
         } else {
             binding.autoState.setText("")
 
         }
         if (!data.city.isNullOrEmpty()) {
             binding.autoCity.setText(data.city)
-            binding.autoCity.isCursorVisible = false;
+            enableCityEdit()
         } else {
             binding.autoCity.setText("")
 
         }
         if (!data.pincode.toString().isNullOrEmpty()) {
             binding.pincodeEditText.setText(data.pincode.toString())
+        } else if (data.pincode.toString() == null) {
+            binding.pincodeEditText.setText("")
+
         } else {
             binding.pincodeEditText.setText("")
         }
@@ -376,6 +376,99 @@ class EditProfileFragment : BaseFragment() {
 
         }
     }
+
+    private fun enableGenderEdit() {
+        binding.autoGender.isCursorVisible = false
+        binding.autoGender.customSelectionActionModeCallback = object : ActionMode.Callback {
+            override fun onCreateActionMode(p0: ActionMode?, p1: Menu?): Boolean {
+                return false
+            }
+
+            override fun onPrepareActionMode(p0: ActionMode?, p1: Menu?): Boolean {
+                return false
+            }
+
+            override fun onActionItemClicked(p0: ActionMode?, p1: MenuItem?): Boolean {
+                return false
+            }
+
+            override fun onDestroyActionMode(p0: ActionMode?) {
+
+            }
+        }
+        binding.autoGender.setTextIsSelectable(false)
+        binding.autoGender.isLongClickable = false
+    }
+
+    private fun enableCountryEdit() {
+        binding.autoCountry.isCursorVisible = false
+        binding.autoCountry.customSelectionActionModeCallback = object : ActionMode.Callback {
+            override fun onCreateActionMode(p0: ActionMode?, p1: Menu?): Boolean {
+                return false
+            }
+
+            override fun onPrepareActionMode(p0: ActionMode?, p1: Menu?): Boolean {
+                return false
+            }
+
+            override fun onActionItemClicked(p0: ActionMode?, p1: MenuItem?): Boolean {
+                return false
+            }
+
+            override fun onDestroyActionMode(p0: ActionMode?) {
+
+            }
+        }
+        binding.autoCountry.setTextIsSelectable(false)
+        binding.autoCountry.isLongClickable = false
+    }
+
+    private fun enableCityEdit() {
+        binding.autoCity.isCursorVisible = false
+        binding.autoCity.customSelectionActionModeCallback = object : ActionMode.Callback {
+            override fun onCreateActionMode(p0: ActionMode?, p1: Menu?): Boolean {
+                return false
+            }
+
+            override fun onPrepareActionMode(p0: ActionMode?, p1: Menu?): Boolean {
+                return false
+            }
+
+            override fun onActionItemClicked(p0: ActionMode?, p1: MenuItem?): Boolean {
+                return false
+            }
+
+            override fun onDestroyActionMode(p0: ActionMode?) {
+
+            }
+        }
+        binding.autoCity.setTextIsSelectable(false)
+        binding.autoCity.isLongClickable = false
+    }
+
+    private fun enableStateEdit() {
+        binding.autoState.isCursorVisible = false
+        binding.autoState.customSelectionActionModeCallback = object : ActionMode.Callback {
+            override fun onCreateActionMode(p0: ActionMode?, p1: Menu?): Boolean {
+                return false
+            }
+
+            override fun onPrepareActionMode(p0: ActionMode?, p1: Menu?): Boolean {
+                return false
+            }
+
+            override fun onActionItemClicked(p0: ActionMode?, p1: MenuItem?): Boolean {
+                return false
+            }
+
+            override fun onDestroyActionMode(p0: ActionMode?) {
+
+            }
+        }
+        binding.autoState.setTextIsSelectable(false)
+        binding.autoState.isLongClickable = false
+    }
+
 
     private fun setUserNamePIC(data: Data) {
 
@@ -507,14 +600,14 @@ class EditProfileFragment : BaseFragment() {
                 binding.pincode.isErrorEnabled = false
             }
         })
-        
+
         binding.uploadNewPicture.setOnClickListener { selectImage() }
 
 
 
         binding.tvremove.setOnClickListener {
             callDeletePic(data)
-            binding.saveAndUpdate.text="Save and Update"
+            binding.saveAndUpdate.text = "Save and Update"
         }
         binding.saveAndUpdate.setOnClickListener {
             binding.saveAndUpdate.text = "Save and Update"
@@ -683,7 +776,7 @@ class EditProfileFragment : BaseFragment() {
         binding.profileImage.setImageBitmap(thumbnail)
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
             callingUploadPicApi(cameraFile)
-            binding.saveAndUpdate.text="Save and Update"
+            binding.saveAndUpdate.text = "Save and Update"
 
         } else {
             (requireActivity() as BaseActivity).showError(
@@ -708,7 +801,7 @@ class EditProfileFragment : BaseFragment() {
                 if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
                     destinationFile = File(filePath)
                     callingUploadPicApi(destinationFile)
-                    binding.saveAndUpdate.text="Save and Update"
+                    binding.saveAndUpdate.text = "Save and Update"
 
                 } else {
                     (requireActivity() as BaseActivity).showError(

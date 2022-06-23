@@ -34,18 +34,16 @@ class AccountsDocumentLabelListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(accountsDocumentList[position].documentCategory!="KYC"&& !(accountsDocumentList[position].documentCategory.isNullOrEmpty())){
             holder.tvDocName.text = accountsDocumentList[position].documentType.toString()
-        }
+
 
         holder.tvViewDoc.setOnClickListener {
             mListener.onAccountsDocumentLabelItemClick(accountsDocumentList, it, position)
         }
-
     }
 
     override fun getItemCount(): Int {
-        return accountsDocumentList.size
+        return 2
     }
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
