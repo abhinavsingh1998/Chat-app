@@ -323,9 +323,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
     }
 
     private fun openDocumentScreen(name: String, path: String) {
-        if(!name.isNullOrEmpty()){
-
-            val strings = name.split(".")
+        val strings = name.split(".")
             if(strings.size > 0){
                 if (strings[1] == "png" || strings[1] == "jpg") {
                     //open image loading screen
@@ -336,7 +334,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
 
                 }
             }
-        }
+
 
 
     }
