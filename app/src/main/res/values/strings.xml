@@ -231,6 +231,7 @@
     <string name="documents">Documents</string>
     <string name="continue_txt">Continue</string>
     <string name="confirmation_msg">Your query has been submitted successfully.</string>
+    <string name="feedBack_submitted">Your feedBack has been submitted successfully.</string>
     <string name="help_centre_about_us">Help Centre - About Us</string>
     <string name="Description">We are building a platform that will bring anyone who wants to create wealth to join the New Generation LandTM revolution. Now is your time. You can buy, maintain and liquidate land with amazing ease, conﬁdence and trust. Whether you’re a ﬁrst time buyer or a seasoned investor, we’ve got you covered. We ensure a completely secure experience for our members by keeping track of every single nuance of the ownership journey to</string>
     <string name="Selling_land_Text">WE ARE NOT SELLING LAND</string>
@@ -326,11 +327,11 @@
     <string name="about_hoabl">About HoABL</string>
     <string name="description_about_us">We are building a platform that will bring anyone who wants to create wealth to join the New Generation LandTM revolution. Now is your time. You can buy, maintain and liquidate land with amazing ease, conﬁdence and trust.</string>
     <string name="explore_growth">Explore Growth</string>
+    <string name="stats_overview">Stats Overview</string>
     <string name="about_us_discription">For HoABL, it is not just a piece of land, we believe in the Peace of Land.It is our aim to give back to land more than we take from it.</string>
     <string name="product_text_about">Product Category</string>
     <string name="lifestyle_text_about_us">Lifestyle</string>
     <string name="complete_description_about_us">For HoABL, it is not just a piece of land, we believe in the Peace of Land.It is our aim to give back to land more than we take from it.</string>
-    <string name="stats_overview">Stats Overview</string>
     <string name="stats_desc">Neque porro quisquam estp qui dolorem ipsu porro quisqua m estp qui ipsu.Neque porro quisquam estp qui dolorem ip</string>
     <string name="invest_with_us_today">Invest with us today</string>
     <string name="query">Have any questions reach out to us</string>

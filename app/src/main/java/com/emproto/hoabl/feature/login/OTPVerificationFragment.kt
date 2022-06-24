@@ -8,11 +8,13 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.Paint
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
+import android.text.SpannableStringBuilder
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
@@ -21,6 +23,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.text.color
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -132,7 +135,6 @@ class OTPVerificationFragment : BaseFragment() {
         mBinding.tvMobileNumber.text = "$countryCode-$mobileno"
         mBinding.tvMobileNumber.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         mBinding.loginEdittext.hint = hint_txt
-        mBinding.resend.text=" Resend OTP in"
 
         startSmsUserConsent()
 
@@ -152,7 +154,7 @@ class OTPVerificationFragment : BaseFragment() {
             @SuppressLint("ResourceType")
             override fun afterTextChanged(s: Editable?) {
                 if (s?.length == 6) {
-                    if (isNetworkAvailable(mBinding.root)) {
+                    if (isNetworkAvailable()) {
                         hideSoftKeyboard()
                         val otpVerifyRequest =
                             OtpVerifyRequest(
@@ -393,22 +395,32 @@ class OTPVerificationFragment : BaseFragment() {
                 when (millisUntilFinished / 1000) {
                     0L -> {
                         mBinding.resentOtp.isVisible = true
-                        mBinding.resend.isVisible = false
+//                        mBinding.resend.isVisible = false
                         mBinding.timerTxt.isVisible = false
                         mBinding.tryAgainTxt.isVisible = false
                     }
                     else -> {
 
-                        mBinding.resend.isVisible = true
+//                        mBinding.resend.isVisible = true
                         mBinding.timerTxt.visibility = View.VISIBLE
                         if ((millisUntilFinished / 1000) % 60 < 10) {
                             mBinding.resentOtp.isVisible = true
                             mBinding.timerTxt.text =
-                                "0" + (millisUntilFinished / 1000) / 60 + ":" + "0" + (millisUntilFinished / 1000) % 60 + " sec"
+                                    SpannableStringBuilder()
 
+                                        .color(Color.GRAY){
+                                            append("RESEND OTP in ")
+                                        }
+                                        .append("0${(millisUntilFinished / 1000) / 60}:0${(millisUntilFinished / 1000) % 60} sec")
                         } else {
                             mBinding.timerTxt.text =
-                                 "0" + (millisUntilFinished / 1000) / 60 + ":" + (millisUntilFinished / 1000) % 60 + " sec"
+
+                                SpannableStringBuilder()
+                                    .color(Color.GRAY){
+                                        append("RESEND OTP in  ")
+                                    }
+//
+                                    .append("0${(millisUntilFinished / 1000) / 60}:0${(millisUntilFinished / 1000) % 60} sec")
                         }
                     }
                 }

@@ -25,12 +25,13 @@ class ProfileViewModel(
     private var profileRepository: ProfileRepository = mprofileRepository
 
     fun editUserNameProfile(editUserNameRequest: EditUserNameRequest): LiveData<BaseResponse<EditProfileResponse>> {
-        return profileRepository.editUserNameProfile(editUserNameRequest)
-    }
+        return profileRepository.editUserNameProfile(editUserNameRequest) }
 
     fun uploadProfilePicture(file:File,fileName:String): LiveData<BaseResponse<ProfilePictureResponse>> {
         return profileRepository.uploadProfilePicture(file,fileName)
     }
+
+
     fun presignedUrl(type: String, destinationFile: File): LiveData<BaseResponse<PresignedUrlResponse>> {
         return profileRepository.presignedUrl(type,destinationFile)
     }
@@ -84,6 +85,9 @@ class ProfileViewModel(
 
     fun getGeneralFaqs(categoryType: Int): LiveData<BaseResponse<FaqDetailResponse>> {
         return profileRepository.getGeneralFaqs(categoryType)
+    }
+    fun getAllProjects(refresh: Boolean): LiveData<BaseResponse<AllProjectsResponse>>{
+        return profileRepository.getAllProjects(refresh)
     }
 }
 

@@ -6,8 +6,10 @@ import com.emproto.networklayer.di.DaggerDataComponent
 import com.emproto.networklayer.di.DataAppModule
 import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
+import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
+import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
@@ -70,5 +72,9 @@ class PortfolioDataSource(val application: Application) : BaseDataSource(applica
 
     suspend fun getBookingJourney(investedId: Int): Response<BookingJourneyResponse> {
         return apiService.getBookingJourney(investedId)
+    }
+
+    suspend fun submitTroubleCase(troubleSigningRequest: TroubleSigningRequest): Response<TroubleSigningResponse> {
+        return apiService.submitTroubleCase(troubleSigningRequest)
     }
 }

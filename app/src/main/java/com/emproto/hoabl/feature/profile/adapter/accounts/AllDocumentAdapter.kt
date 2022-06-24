@@ -7,14 +7,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.ItemAccountsKycDocBinding
 import com.emproto.hoabl.databinding.ItemPortfolioDocumentsBinding
 import com.emproto.networklayer.response.profile.AccountsResponse
 
 class AllDocumentAdapter(
-        private var mContext: Context?,
-        private var accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
-        private var mListener: OnDocumentLabelClickListener
+    private var mContext: Context?,
+    private var accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
+    private var mListener: OnAllDocumentLabelClickListener
 
 ) : RecyclerView.Adapter<AllDocumentAdapter.ViewHolder>() {
 
@@ -26,11 +25,13 @@ class AllDocumentAdapter(
         return ViewHolder(binding.root)
     }
 
-    interface OnDocumentLabelClickListener {
-        fun onAccountsDocumentLabelClick(
+    interface OnAllDocumentLabelClickListener {
+        fun onAllDocumentLabelClick(
             accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
             view: View,
-            position: Int
+            position: Int,
+            name: String,
+            path: String?
         )
     }
 
@@ -40,7 +41,8 @@ class AllDocumentAdapter(
         }
 
         holder.tvViewDoc.setOnClickListener {
-            mListener.onAccountsDocumentLabelClick(accountsDocumentList, it, position)
+         
+            mListener.onAllDocumentLabelClick(accountsDocumentList, it, position,accountsDocumentList[position].name,accountsDocumentList[position].path)
         }
 
     }

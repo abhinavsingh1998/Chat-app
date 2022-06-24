@@ -29,16 +29,18 @@ class AccountsDocumentLabelListAdapter(
         fun onAccountsDocumentLabelItemClick(
             accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
             view: View,
-            position: Int
+            position: Int,
+            name: String,
+            path: String?
         )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.tvDocName.text = accountsDocumentList[position].documentType.toString()
+            holder.tvDocName.text = accountsDocumentList[position].name
 
 
         holder.tvViewDoc.setOnClickListener {
-            mListener.onAccountsDocumentLabelItemClick(accountsDocumentList, it, position)
+            mListener.onAccountsDocumentLabelItemClick(accountsDocumentList, it, position,accountsDocumentList[position].name,accountsDocumentList[position].path)
         }
     }
 

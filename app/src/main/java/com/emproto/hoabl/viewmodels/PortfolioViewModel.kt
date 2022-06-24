@@ -5,11 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.emproto.hoabl.repository.PortfolioRepository
+import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
 import com.emproto.networklayer.response.bookingjourney.PaymentHistory
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
+import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.portfolio.dashboard.Address
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
@@ -99,5 +101,9 @@ class PortfolioViewModel(
 
     fun getBookingJourney(id: Int): LiveData<BaseResponse<BookingJourneyResponse>> {
         return portfolioRepository.getBookingJourney(id)
+    }
+
+    fun submitTroubleCase(signingRequest: TroubleSigningRequest): LiveData<BaseResponse<TroubleSigningResponse>> {
+        return portfolioRepository.submitTroubleCase(signingRequest)
     }
 }
