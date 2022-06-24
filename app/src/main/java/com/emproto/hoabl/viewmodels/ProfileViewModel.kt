@@ -30,6 +30,9 @@ class ProfileViewModel(
     fun uploadProfilePicture(file:File,fileName:String): LiveData<BaseResponse<ProfilePictureResponse>> {
         return profileRepository.uploadProfilePicture(file,fileName)
     }
+    fun uploadKycDocument(extension: String,file: File,  selectedDoc: String): LiveData<BaseResponse<UploadDocumentResponse>> {
+        return profileRepository.uploadKycDocument(extension,file,selectedDoc)
+    }
 
 
     fun presignedUrl(type: String, destinationFile: File): LiveData<BaseResponse<PresignedUrlResponse>> {

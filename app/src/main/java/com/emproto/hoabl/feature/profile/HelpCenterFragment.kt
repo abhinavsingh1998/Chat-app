@@ -1,16 +1,18 @@
 package com.emproto.hoabl.feature.profile
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentHelpCenterBinding
-import com.emproto.hoabl.feature.chat.views.fragments.ChatsDetailFragment
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.views.FaqDetailFragment
@@ -143,6 +145,24 @@ class HelpCenterFragment : BaseFragment() {
                         ChatsFragment(),
                         false
                     )
+                }
+
+                override fun onPhoneNumberClick(position: Int) {
+                    val u = Uri.parse("tel:" + "+911231231231")
+                    val intent = Intent(Intent.ACTION_DIAL,u)
+                    try {
+                        startActivity(intent)
+                    } catch (s: SecurityException) {
+                        Toast.makeText(context, "An error occurred", Toast.LENGTH_LONG).show()
+                    }
+                }
+
+                override fun onEmailClick(position: Int) {
+
+                    val intent = Intent(Intent.ACTION_SENDTO)
+                    val uri = Uri.parse("mailto:mandvi@emproto.com")
+                    intent.data = uri
+                    startActivity(intent)
                 }
 
             }

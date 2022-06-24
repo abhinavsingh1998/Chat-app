@@ -69,9 +69,12 @@ class HelpCenterAdapter(
                 val listHolder = holder as HelpCenterAdapter.HoablHealthFooterHolder
                 listHolder.binding.actionChat.setOnClickListener {
                     footerInterface.onChatClick(holder.layoutPosition)
-
-
-
+                }
+                listHolder.binding.info.setOnClickListener {
+                    footerInterface.onPhoneNumberClick(holder.layoutPosition)
+                }
+                listHolder.binding.email.setOnClickListener {
+                    footerInterface.onEmailClick(holder.layoutPosition)
                 }
 
             }
@@ -90,5 +93,9 @@ class HelpCenterAdapter(
     }
     interface FooterInterface {
         fun onChatClick(position: Int)
+        fun onPhoneNumberClick(position: Int)
+        fun onEmailClick(position: Int)
+
     }
+
 }

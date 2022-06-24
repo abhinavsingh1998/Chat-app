@@ -75,7 +75,7 @@
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="27dp"
                 android:fontFamily="@font/jost_regular"
-                android:text="Privacy Policy"
+                android:text="Terms &amp; Conditions"
                 android:textColor="#17171c"
                 android:textSize="@dimen/text_size_22"
                 app:layout_constraintStart_toStartOf="parent"
@@ -111,48 +111,6 @@
                 app:layout_constraintStart_toStartOf="@id/tv_heading"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/tv_privacy_discription"-->
-<!--                style="@style/text_style_reg_black_color_14"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="@dimen/margin_size_10"-->
-<!--                android:layout_marginEnd="28dp"-->
-<!--                android:fontFamily="@font/jost_light"-->
-<!--                android:lineSpacingExtra="2sp"-->
-<!--                android:text="@string/privacy_information"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="@id/tv_heading"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/tv_description" />-->
-
-<!--            <TextView-->
-
-<!--                android:id="@+id/tv_privacy_title"-->
-<!--                style="@style/text_style_color_18"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="@dimen/margin_size_28"-->
-<!--                android:layout_marginTop="@dimen/margin_size_30"-->
-<!--                android:layout_marginEnd="28dp"-->
-<!--                android:fontFamily="@font/jost_regular"-->
-<!--                android:lineSpacingExtra="0sp"-->
-<!--                android:text="Title goes here"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/tv_privacy_discription" />-->
-
-<!--            <TextView-->
-<!--                android:id="@id/desc"-->
-<!--                style="@style/text_style_reg_black_color_14"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="@dimen/margin_size_14"-->
-<!--                android:layout_marginEnd="28dp"-->
-<!--                android:fontFamily="@font/jost_light"-->
-<!--                android:lineSpacingExtra="2sp"-->
-<!--                android:text="@string/privacy_information"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="@id/tv_heading"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/tv_privacy_title" />-->
         </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
