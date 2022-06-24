@@ -40,7 +40,7 @@ class AccountsKycListAdapter(
         holder.tvDocName.text = accountsKycList[position].documentType
 
         holder.tvViewDoc.setOnClickListener {
-            if (accountsKycList[position].toString().isNullOrEmpty()) {
+            if (accountsKycList[position]==null) {
                 Toast.makeText(mContext, "No Document available", Toast.LENGTH_SHORT).show()
 
             } else {
