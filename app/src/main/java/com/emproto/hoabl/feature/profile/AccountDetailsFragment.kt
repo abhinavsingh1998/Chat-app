@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -49,7 +50,7 @@ import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.AccountsResponse
-import com.emproto.networklayer.response.profile.ProfilePictureResponse
+import com.emproto.networklayer.response.profile.UploadDocumentResponse
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -157,7 +158,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                         if (kycLists.isNullOrEmpty()) {
                             val newList = ArrayList<String>()
                             newList.add("Address Proof")
-                            newList.add("Pan Card")
+                            newList.add("PAN Card")
 
                             binding.rvKyc.layoutManager =
                                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
@@ -461,26 +462,28 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
     }
 
     private fun callingUploadPicApi(destinationFile: File, extension: String) {
-//        profileViewModel.uploadKycDocument(destinationFile, extension,selectedDoc)
-//            .observe(
-//                viewLifecycleOwner,
-//                object : Observer<BaseResponse<ProfilePictureResponse>> {
-//                    override fun onChanged(it: BaseResponse<ProfilePictureResponse>?) {
-//                        when (it?.status) {
-//                            Status.LOADING -> {
-//                                binding.progressBar.show()
-//                            }
-//                            Status.SUCCESS -> {
-//                                binding.progressBar.hide()
-//                            }
-//                            Status.ERROR -> {
-//                                binding.progressBar.hide()
-//                            }
-//                        }
-//                    }
-//
-//
-//                })
+        profileViewModel.uploadKycDocument( extension,destinationFile, selectedDoc)
+            .observe(
+                viewLifecycleOwner,
+                object : Observer<BaseResponse<UploadDocumentResponse>> {
+                    override fun onChanged(it: BaseResponse<UploadDocumentResponse>?) {
+                        when (it?.status) {
+                            Status.LOADING -> {
+                                binding.progressBar.show()
+                            }
+                            Status.SUCCESS -> {
+                                binding.progressBar.hide()
+                            }
+                            Status.ERROR -> {
+                                binding.progressBar.hide()
+                               Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_LONG).show()
+
+                            }
+                        }
+                    }
+
+
+                })
     }
 
 
@@ -507,9 +510,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                 val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
                 if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
                     destinationFile = File(filePath)
-                    val extension: String =
-                        destinationFile.name.substring(destinationFile.name.lastIndexOf("."))
-
+                    val extension: String = destinationFile.name.substring(destinationFile.name.lastIndexOf("."))
                     callingUploadPicApi(destinationFile, extension)
 
                 } else {

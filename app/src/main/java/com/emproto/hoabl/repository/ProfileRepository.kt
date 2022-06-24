@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
-import com.emproto.networklayer.feature.HomeDataSource
 import com.emproto.networklayer.feature.ProfileDataSource
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
@@ -13,7 +12,6 @@ import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
-import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.resourceManagment.ProflieResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 
@@ -78,6 +76,30 @@ class ProfileRepository @Inject constructor(application: Application) :
         }
         return mUploadProfilePicture
     }
+
+    fun uploadKycDocument(extension: String,file: File,  selectedDoc: String): LiveData<BaseResponse<UploadDocumentResponse>> {
+        val mUploadKycDocument = MutableLiveData<BaseResponse<UploadDocumentResponse>>()
+        mUploadKycDocument.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+
+                val request =
+                    ProfileDataSource(application).uploadKycDocument(extension,file,selectedDoc)
+                if (request.isSuccessful) {
+                    mUploadKycDocument.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    mUploadKycDocument.postValue(BaseResponse.Companion.error(request.message()))
+                }
+
+
+            } catch (e: Exception) {
+                mUploadKycDocument.postValue(BaseResponse.Companion.error(e.message!!))
+
+            }
+        }
+        return mUploadKycDocument
+    }
+
     fun presignedUrl(type: String, destinationFile: File): LiveData<BaseResponse<PresignedUrlResponse>> {
         val presignedUrlResponse = MutableLiveData<BaseResponse<PresignedUrlResponse>>()
         presignedUrlResponse.postValue(BaseResponse.loading())

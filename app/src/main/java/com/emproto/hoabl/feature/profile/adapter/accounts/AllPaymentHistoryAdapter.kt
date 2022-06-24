@@ -54,7 +54,7 @@ class AllPaymentHistoryAdapter(
             holder.tvLandId.text = "Land id:" + "" + accountsPaymentList[position].investment.crmInventory.id.toString()
         }
         holder.tvSeeReceipt.setOnClickListener {
-            if (accountsPaymentList[position].document == null) {
+            if (accountsPaymentList[position].document.toString().isNullOrEmpty()) {
                 Toast.makeText(mContext, "No Receipt", Toast.LENGTH_SHORT).show()
             } else {
                 mListener.onAccountsAllPaymentItemClick(

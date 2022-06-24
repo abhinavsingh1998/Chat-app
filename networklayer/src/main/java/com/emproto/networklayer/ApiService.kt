@@ -103,7 +103,11 @@ public interface ApiService {
 
     @Multipart
     @POST(ApiConstants.UPLOAD_DOC)
-    suspend fun getUploadDoc(): Response<AccountsResponse.Data.Document>
+    suspend fun uploadKycDocument(
+        @Part extension: MultipartBody.Part,
+        @Part file: MultipartBody.Part,
+        @Part selectedDoc: MultipartBody.Part
+    ): Response<UploadDocumentResponse>
 
     @PUT(ApiConstants.PRESIGNEDURL)
     suspend fun presignedUrl(
@@ -208,7 +212,8 @@ public interface ApiService {
     suspend fun getSearchDocResults(): Response<DocumentsResponse>
 
     @GET(ApiConstants.SEARCH_DOCS)
-    suspend fun getSearchDocResultsQuery(@Query("searchKey") searchWord: String):Response<DocumentsResponse>
+    suspend fun getSearchDocResultsQuery(@Query("searchKey") searchWord: String): Response<DocumentsResponse>
+
     @POST(ApiConstants.FEEDBACK)
     suspend fun submitFeedback(@Body feedBackResponse: FeedBackRequest): Response<FeedBackResponse>
 
@@ -216,11 +221,11 @@ public interface ApiService {
     suspend fun getAboutHobal(@Query("pageType") pageType: Int): Response<ProflieResponse>
 
     @GET(ApiConstants.GET_ALL_PROJECTS)
-    suspend fun getAllProjects():Response<AllProjectsResponse>
+    suspend fun getAllProjects(): Response<AllProjectsResponse>
 
     @PUT(ApiConstants.WHATSAPP_CONSENT)
     suspend fun putWhatsappConsent(@Body whatsappConsentBody: WhatsappConsentBody): Response<WhatsappConsentResponse>
 
     @GET(ApiConstants.TERMS_CONDITION)
-    suspend fun getSecurityTips(@Query("pageType") pageType: Int):Response<SecurityTipsResponse>
+    suspend fun getSecurityTips(@Query("pageType") pageType: Int): Response<SecurityTipsResponse>
 }
