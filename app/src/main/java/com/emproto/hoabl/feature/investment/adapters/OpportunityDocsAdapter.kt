@@ -84,7 +84,8 @@ class OpportunityDocsAdapter(
 
     private inner class OppDocsTopViewHolder(private val binding: OppDocsTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvOppDocProjectTitle.text = title
+            binding.tvOppDocProjectTitle.text =  data[0].sectionHeading.heading
+            binding.tvOppDocProjectThemeTitle.text = data[0].sectionHeading.subHeading
             Glide
                 .with(context)
                 .load(data[0].bannerImage.value.url)
@@ -94,6 +95,7 @@ class OpportunityDocsAdapter(
 
     private inner class OppDocsExpGrowthViewHolder(private val binding: OppDocExpectedGrowthLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
+            binding.tvExpectedGrowth.text = data[0].escalationGraph.title
             binding.tvXAxisLabel.text = data[0].escalationGraph.yAxisDisplayName
             binding.tvYAxisLabel.text = data[0].escalationGraph.xAxisDisplayName
             val graphData = data[0].escalationGraph.dataPoints.points
@@ -229,6 +231,8 @@ class OpportunityDocsAdapter(
 
     private inner class OppDocsTourismViewHolder(private val binding: OppDocsDestinationLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
+            Log.d("RRRRR",data[0].tourismAround.heading)
+            binding.tvTourismAround.text = data[0].tourismAround.heading
             val list = arrayListOf<Story>()
             for(i in 0..3){
                 list.add(data[0].tourismAround.stories[i])

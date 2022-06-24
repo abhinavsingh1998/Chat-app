@@ -60,7 +60,7 @@ class SecurityFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
         val dataList: ArrayList<RecyclerViewItem> = ArrayList<RecyclerViewItem>()
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_REPORT))
-        dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_AUTHENTICATE))
+//        dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_AUTHENTICATE))
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_WHATSAPP_COMMUNICATION))
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_LOCATION))
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SETTINGS_ALL_OPTIONS))

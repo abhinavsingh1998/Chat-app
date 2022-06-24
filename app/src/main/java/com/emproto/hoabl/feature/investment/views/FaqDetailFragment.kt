@@ -23,9 +23,6 @@ import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.investment.CgData
-import com.emproto.networklayer.response.investment.Faq
-import com.emproto.networklayer.response.investment.FaqAnswer
-import com.emproto.networklayer.response.investment.FaqQuestion
 import javax.inject.Inject
 
 class FaqDetailFragment : BaseFragment() {
@@ -44,6 +41,7 @@ class FaqDetailFragment : BaseFragment() {
     var faqId  = 0
     private lateinit var allFaqList : List<CgData>
     private var isFromInvestment = true
+    private var projectName = "FAQs"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,6 +53,7 @@ class FaqDetailFragment : BaseFragment() {
             projectId = it.getInt("ProjectId")
             faqId = it.getInt("FaqId")
             isFromInvestment = it.getBoolean("isFromInvestment")
+            projectName = it.getString("ProjectName").toString()
         }
         return binding.root
     }
@@ -137,7 +136,7 @@ class FaqDetailFragment : BaseFragment() {
 
     private fun setUpRecyclerView(data: List<CgData>, faqId: Int) {
         val list = ArrayList<RecyclerViewFaqItem>()
-        list.add(RecyclerViewFaqItem(1, data[0]))
+        list.add(RecyclerViewFaqItem(1, data[0]),)
         for (item in data) {
             list.add(RecyclerViewFaqItem(2, item))
         }
@@ -147,7 +146,8 @@ class FaqDetailFragment : BaseFragment() {
             list,
             data,
             faqId,
-            itemClickListener
+            itemClickListener,
+            projectName = projectName
         )
         binding.rvFaq.adapter = adapter
     }
@@ -210,7 +210,7 @@ class FaqDetailFragment : BaseFragment() {
 
             }
         }
-        adapter = FaqDetailAdapter(requireActivity(),requireContext(), list, this.allFaqList, faqId,itemClickListener,item)
+        adapter = FaqDetailAdapter(requireActivity(),requireContext(), list, this.allFaqList, faqId,itemClickListener,item,projectName)
         binding.rvFaq.adapter = adapter
     }
 }

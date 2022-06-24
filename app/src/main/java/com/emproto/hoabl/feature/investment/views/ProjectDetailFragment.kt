@@ -111,6 +111,7 @@ class ProjectDetailFragment : BaseFragment() {
                     val bundle = Bundle()
                     bundle.putInt("ProjectId", projectId)
                     bundle.putBoolean("isFromInvestment",true)
+                    bundle.putString("ProjectName",allData.launchName)
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
@@ -422,14 +423,24 @@ class ProjectDetailFragment : BaseFragment() {
     val similarInvItemClickListener = object:SimilarInvItemClickListener{
         override fun onItemClicked(view: View, position: Int, item: String) {
             when(view.id){
-                R.id.cv_top_view -> refreshingPage(item.toInt())
-                R.id.tv_item_location_info -> refreshingPage(item.toInt())
-                R.id.iv_bottom_arrow -> refreshingPage(item.toInt())
+                R.id.cv_top_view -> navigateToDetailScreen(item.toInt())
+                R.id.tv_item_location_info -> navigateToDetailScreen(item.toInt())
+                R.id.iv_bottom_arrow -> navigateToDetailScreen(item.toInt())
                 R.id.tv_apply_now -> navigateToSkuScreen()
-                R.id.cl_item_info -> refreshingPage(item.toInt())
+                R.id.cl_item_info -> navigateToDetailScreen(item.toInt())
 
             }
         }
+    }
+
+    private fun navigateToDetailScreen(item:Int){
+        val bundle = Bundle()
+        bundle.putInt("ProjectId", item)
+        val fragment = ProjectDetailFragment()
+        fragment.arguments = bundle
+        (requireActivity() as HomeActivity).addFragment(
+            fragment, false
+        )
     }
 
     private val itemClickListener = object : ItemClickListener {
@@ -460,6 +471,7 @@ class ProjectDetailFragment : BaseFragment() {
                     bundle.putInt("ProjectId", projectId)
                     bundle.putInt("FaqId",item.toInt())
                     bundle.putBoolean("isFromInvestment",true)
+                    bundle.putString("ProjectName",allData.launchName)
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }

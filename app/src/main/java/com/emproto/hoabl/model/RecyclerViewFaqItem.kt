@@ -4,5 +4,6 @@ import com.emproto.networklayer.response.investment.CgData
 
 data class RecyclerViewFaqItem(
     val viewType:Int,
-    val data:CgData
+    val data:CgData,
+    val title:String = ""
 )
