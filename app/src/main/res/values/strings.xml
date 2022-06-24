@@ -289,7 +289,7 @@
     <string name="payment_pending">Payment is due on 29th April, 2022</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="share_your_friend_txt">Share HOABL APP with your friends</string>
+    <string name="share_your_friend_txt">Share the HOABL APP with your friends</string>
     <string name="share_text">SHARE</string>
     <string name="blockchain">BlockChain</string>
     <string name="amount_paid">Paid</string>

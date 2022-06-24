@@ -319,7 +319,7 @@ class ExistingUsersPortfolioAdapter(
             binding.btnReferNow.setOnClickListener {
                 onItemClickListener.referNow()
             }
-            binding.appShareBtn.setOnClickListener {
+            binding.appShareView.setOnClickListener {
                 onItemClickListener.onClickShare()
             }
         }

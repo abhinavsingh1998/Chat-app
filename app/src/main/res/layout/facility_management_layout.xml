@@ -46,7 +46,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_facility_management_description"
-                    style="@style/text_light_ash_16"
+                    style="@style/text_light_ash_13"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_size_6"
@@ -75,16 +75,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_4"
-                    android:src="@drawable/arrow_right_"
+                    android:src="@drawable/ic_final_arrow"
                     app:layout_constraintBottom_toBottomOf="@id/tv_manage_now"
                     app:layout_constraintStart_toEndOf="@id/tv_manage_now"
-                    app:layout_constraintTop_toTopOf="@id/tv_manage_now" />
+                    app:layout_constraintTop_toTopOf="@id/tv_manage_now"
+                    app:tint="@color/white" />
 
                 <ImageView
                     android:id="@+id/iv_banner_image"
-                    android:layout_width="76dp"
-                    android:layout_height="76dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginEnd="40dp"
                     android:src="@drawable/fmcard_image"
                     app:layout_constraintBottom_toBottomOf="@id/tv_manage_now"
                     app:layout_constraintEnd_toEndOf="parent"
