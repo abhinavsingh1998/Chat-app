@@ -26,7 +26,7 @@ class ProfileFaqFragment : Fragment() {
     @Inject
     lateinit var homeFactory: HomeFactory
     private lateinit var profileViewModel: ProfileViewModel
-    lateinit var faqCategory: ArrayList<ProfileFaqResponse.ProfileFaqData>
+    var faqCategory = ArrayList<ProfileFaqResponse.ProfileFaqData>()
     lateinit var binding: FragmentFaqBinding
     lateinit var profileFaqCategoryAdapter: ProfileFaqCategoryAdapter
     val bundle = Bundle()
@@ -44,7 +44,6 @@ class ProfileFaqFragment : Fragment() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             true
         initClickListener()
-        (requireActivity())
         (requireActivity() as HomeActivity).hideBottomNavigation()
 
         return binding.root
@@ -53,11 +52,6 @@ class ProfileFaqFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getProfileFaqData()
-
-
-//        binding.rvHelpCenterCategory.layoutManager = LinearLayoutManager(requireContext())
-//        val detailAdapter = ProfileFaqAdapter(requireContext(), initData())
-//        binding.rvHelpCenterCategory.adapter = detailAdapter
 
     }
 
@@ -71,10 +65,9 @@ class ProfileFaqFragment : Fragment() {
                 Status.SUCCESS -> {
                     binding.loader.hide()
                     if (it.data?.data != null) {
-                        faqCategory=it.data!!.data
+//                        faqCategory=it.data!!.data
                         setAdapter()
                         profileFaqCategoryAdapter.notifyDataSetChanged()
-
                     }
                 }
                 Status.ERROR -> {
@@ -95,7 +88,6 @@ class ProfileFaqFragment : Fragment() {
 
 
     private fun initClickListener() {
-
         binding.backAction.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
                 requireActivity().supportFragmentManager.popBackStack()

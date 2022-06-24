@@ -15,11 +15,17 @@ import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.FaqDetailAdapter
 import com.emproto.hoabl.model.RecyclerViewFaqItem
+import com.emproto.hoabl.utils.Extensions.hideKeyboard
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
+import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
+import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.investment.CgData
+import com.emproto.networklayer.response.investment.Faq
+import com.emproto.networklayer.response.investment.FaqAnswer
+import com.emproto.networklayer.response.investment.FaqQuestion
 import javax.inject.Inject
 
 class FaqDetailFragment : BaseFragment() {
@@ -29,9 +35,15 @@ class FaqDetailFragment : BaseFragment() {
     lateinit var investmentViewModel: InvestmentViewModel
     lateinit var binding: FaqDetailFragmentBinding
 
+    @Inject
+    lateinit var factory: ProfileFactory
+    lateinit var profileViewModel: ProfileViewModel
+
     private lateinit var adapter: FaqDetailAdapter
     var projectId = 0
     var faqId  = 0
+    private lateinit var allFaqList : List<CgData>
+    private var isFromInvestment = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +54,7 @@ class FaqDetailFragment : BaseFragment() {
         arguments?.let {
             projectId = it.getInt("ProjectId")
             faqId = it.getInt("FaqId")
+            isFromInvestment = it.getBoolean("isFromInvestment")
         }
         return binding.root
     }
@@ -59,15 +72,46 @@ class FaqDetailFragment : BaseFragment() {
                 requireActivity(),
                 investmentFactory
             ).get(InvestmentViewModel::class.java)
+        profileViewModel =
+            ViewModelProvider(requireActivity(), factory)[ProfileViewModel::class.java]
+        (requireActivity() as HomeActivity).showHeader()
         (requireActivity() as HomeActivity).hideBottomNavigation()
     }
 
     private fun callApi() {
-        callFaqApi()
-
+        when(isFromInvestment){
+            true -> {
+                callProjectFaqApi()
+            }
+            false -> {
+                callProfileFaqApi()
+            }
+        }
     }
 
-    private fun callFaqApi() {
+    private fun callProfileFaqApi() {
+        profileViewModel.getGeneralFaqs(2001).observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.LOADING -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                }
+                Status.SUCCESS -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    it.data?.data?.let {  data ->
+                        Log.d("generalfaq",data.toString())
+                        allFaqList = data
+                        setUpRecyclerView(data,faqId)
+                    }
+                }
+                Status.ERROR -> {
+                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                }
+            }
+        })
+    }
+
+    private fun callProjectFaqApi() {
         investmentViewModel.getInvestmentsFaq(projectId).observe(viewLifecycleOwner, Observer {
             Log.d("Faq", it.data.toString())
             when (it.status) {
@@ -77,6 +121,7 @@ class FaqDetailFragment : BaseFragment() {
                 Status.SUCCESS -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                     it.data?.data?.let { data ->
+                        allFaqList = data
                         setUpRecyclerView(data,faqId)
                     }
                 }
@@ -96,7 +141,14 @@ class FaqDetailFragment : BaseFragment() {
         for (item in data) {
             list.add(RecyclerViewFaqItem(2, item))
         }
-        adapter = FaqDetailAdapter(this.requireContext(), list, data, faqId,itemClickListener)
+        adapter = FaqDetailAdapter(
+            requireActivity(),
+            this.requireContext(),
+            list,
+            data,
+            faqId,
+            itemClickListener
+        )
         binding.rvFaq.adapter = adapter
     }
 
@@ -106,7 +158,59 @@ class FaqDetailFragment : BaseFragment() {
                 R.id.cv_category_name -> {
                     binding.rvFaq.smoothScrollToPosition(position+1)
                 }
+                R.id.et_search -> {
+                    sendFilteredData(item)
+                }
+//                R.id.iv_faq_card_drop_down -> {
+//                    binding.rvFaq.smoothScrollToPosition(position+2)
+//                }
             }
         }
+    }
+
+    private fun sendFilteredData(item: String) {
+        when{
+            item.isEmpty() -> {
+                hideKeyboard()
+                setUpRecyclerView(allFaqList,faqId)
+            }
+            else -> {
+                val list = ArrayList<RecyclerViewFaqItem>()
+                list.add(RecyclerViewFaqItem(1, allFaqList[0]))
+                val searchString = item.toString()
+                for (item in allFaqList) {
+                    for(element in item.faqs){
+                        if(element.faqQuestion.question.contains(searchString.trim(),true) || item.name.contains(searchString.trim(),true)){
+                            list.add(RecyclerViewFaqItem(2, item))
+                        }
+                    }
+                }
+                setAdapter(list,allFaqList,item)
+            }
+        }
+    }
+
+    private fun setAdapter(
+        list: ArrayList<RecyclerViewFaqItem>,
+        allFaqList: List<CgData>,
+        item: String
+    ) {
+        var isItemsPresent = false
+        for(item in list){
+            if(item.viewType == 2){
+                isItemsPresent = true
+            }
+        }
+        when(isItemsPresent){
+            false -> {
+                Toast.makeText(requireContext(), "No faqs to show", Toast.LENGTH_SHORT).show()
+                hideKeyboard()
+            }
+            else -> {
+
+            }
+        }
+        adapter = FaqDetailAdapter(requireActivity(),requireContext(), list, this.allFaqList, faqId,itemClickListener,item)
+        binding.rvFaq.adapter = adapter
     }
 }

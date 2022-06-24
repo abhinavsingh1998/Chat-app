@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
 import android.os.Build
+import android.os.CountDownTimer
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
@@ -273,6 +274,17 @@ class ProjectDetailAdapter(
                 binding.cvWhyInvestCard.setOnClickListener(onItemClickListener)
                 binding.tvApplyNow.setOnClickListener(onItemClickListener)
                 binding.tvRating.text = "${String.format("%.0f",data.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
+
+                val timeCounter = object:CountDownTimer(5000,1000){
+                    override fun onTick(millisUntilFinished: Long) {
+
+                    }
+
+                    override fun onFinish() {
+
+                    }
+
+                }
             }
         }
     }

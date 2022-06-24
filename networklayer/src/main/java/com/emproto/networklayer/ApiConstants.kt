@@ -70,5 +70,6 @@ object ApiConstants {
     const val SEARCH_DOCS = "hoabl-customer/doc-filter"
 
     const val WHATSAPP_CONSENT = "hoabl-customer/profile/user-settings"
+    const val GENERAL_FAQ = "hoabl-admin/categories"
     const val GET_ALL_PROJECTS= "hoabl-admin/project-contents"
 }
