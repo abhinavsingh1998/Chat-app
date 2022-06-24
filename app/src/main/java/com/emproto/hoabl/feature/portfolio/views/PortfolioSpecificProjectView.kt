@@ -49,6 +49,7 @@ import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
+import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
 
 
@@ -97,7 +98,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         binding = FragmentPortfolioSpecificViewBinding.inflate(layoutInflater)
 
-        portfolioviewmodel = ViewModelProvider(requireActivity(), portfolioFactory)[PortfolioViewModel::class.java]
+        portfolioviewmodel =
+            ViewModelProvider(requireActivity(), portfolioFactory)[PortfolioViewModel::class.java]
         //getting data from arguments
         arguments?.let {
             crmId = it.getInt("IVID")
@@ -388,6 +390,15 @@ class PortfolioSpecificProjectView : BaseFragment() {
                     }
 
                     override fun moreAboutPromises() {
+                        val troubleSigningRequest = TroubleSigningRequest(
+                            "1002",
+                            "91",
+                            "I want to know more about - promises",
+                            "",
+                            "",
+                            appPreference.getMobilenum()
+                        )
+                        portfolioviewmodel.submitTroubleCase(troubleSigningRequest)
                         val applicationSubmitDialog = ApplicationSubmitDialog(
                             "Request Sent.",
                             "A relationship manager will get back to you to discuss more about it.",

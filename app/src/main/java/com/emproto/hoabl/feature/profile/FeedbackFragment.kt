@@ -1,8 +1,10 @@
 package com.emproto.hoabl.feature.profile
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.fragment.app.Fragment
@@ -21,6 +23,7 @@ import com.emproto.hoabl.databinding.FragmentAboutUsBinding
 import com.emproto.hoabl.databinding.FragmentFeedbackBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.login.IssueSubmittedConfirmationFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
@@ -348,10 +351,15 @@ class FeedbackFragment : BaseFragment() {
                         }
 
                         Status.SUCCESS ->{
-
                             binding.progressBar.isVisible= false
                             binding.shareYourFeedback.isVisible= true
-                            binding.shareYourFeedback.text= "Submitted"
+                            binding.shareYourFeedback.isClickable= false
+
+                            val dialog = FeedBackSubmittedPopup()
+                            dialog.isCancelable = false
+                            dialog.show(childFragmentManager, "submitted")
+                     //       requireActivity().supportFragmentManager.popBackStack()
+
                     }
 
                         Status.LOADING ->{
