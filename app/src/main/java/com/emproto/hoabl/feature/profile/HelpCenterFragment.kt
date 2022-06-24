@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentHelpCenterBinding
-import com.emproto.hoabl.feature.chat.views.fragments.ChatsDetailFragment
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.profile.adapter.HelpCenterAdapter
@@ -155,14 +154,11 @@ class HelpCenterFragment : BaseFragment() {
                 }
 
                 override fun onEmailClick(position: Int) {
+
                     val intent = Intent(Intent.ACTION_SENDTO)
-                    intent.putExtra(Intent.EXTRA_EMAIL,"mandvi@emproto.com")
-                    intent.putExtra(Intent.EXTRA_SUBJECT,"Hoabl")
-                    intent.type = "text/html"
-                    intent.setPackage("com.google.android.gm")
-                    startActivity(Intent.createChooser(intent,"Send mail"))
-
-
+                    val uri = Uri.parse("mailto:mandvi@emproto.com")
+                    intent.data = uri
+                    startActivity(intent)
                 }
 
             }
