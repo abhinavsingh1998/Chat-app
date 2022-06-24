@@ -20,6 +20,7 @@ import com.emproto.hoabl.databinding.FragmentProfileMainBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.login.AuthActivity
+import com.emproto.hoabl.feature.portfolio.views.FmFragment
 import com.emproto.hoabl.feature.profile.adapter.ProfileOptionsAdapter
 import com.emproto.hoabl.feature.profile.data.ProfileModel
 import com.emproto.hoabl.feature.profile.data.ProfileOptionsData
@@ -27,6 +28,7 @@ import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.profile.Data
 import com.example.portfolioui.databinding.LogoutConfirmationBinding
 
@@ -42,6 +44,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
     lateinit var profileFactory: ProfileFactory
     private lateinit var profileViewModel: ProfileViewModel
     lateinit var profileData: Data
+    var fmData: FMResponse? = null
 
     @Inject
     lateinit var appPreference: AppPreference
@@ -223,10 +226,28 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
             }
             3 -> {
                 val facilityManagerPopViewFragment = FacilityManagerPopViewFragment()
-                (requireActivity() as HomeActivity).addFragment(
-                    facilityManagerPopViewFragment,
-                    false
-                )
+
+                if(appPreference.isFacilityCard()==true){
+                    if (fmData != null) {
+                        (requireActivity() as HomeActivity).addFragment(
+                            FmFragment.newInstance(
+                                fmData!!.data.web_url,
+                                ""
+                            ), false
+                        )
+
+                    } else {
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            "Something Went Wrong"
+                        )
+                    }
+                }else{
+                    (requireActivity() as HomeActivity).addFragment(
+                        facilityManagerPopViewFragment,
+                        false
+                    )
+
+                }
 
             }
 
