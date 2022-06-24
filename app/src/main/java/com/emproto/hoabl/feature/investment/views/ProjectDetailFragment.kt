@@ -110,6 +110,7 @@ class ProjectDetailFragment : BaseFragment() {
                     val fragment = FaqDetailFragment()
                     val bundle = Bundle()
                     bundle.putInt("ProjectId", projectId)
+                    bundle.putBoolean("isFromInvestment",true)
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
@@ -458,6 +459,7 @@ class ProjectDetailFragment : BaseFragment() {
                     val bundle = Bundle()
                     bundle.putInt("ProjectId", projectId)
                     bundle.putInt("FaqId",item.toInt())
+                    bundle.putBoolean("isFromInvestment",true)
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }

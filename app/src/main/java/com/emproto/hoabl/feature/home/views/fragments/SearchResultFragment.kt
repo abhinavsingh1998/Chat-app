@@ -214,7 +214,7 @@ class SearchResultFragment : BaseFragment() {
                             }
                         }
 
-                        callDocsApi(searchWord, data.projectContentData, data.faqData)
+//                        callDocsApi(searchWord, data.projectContentData, data.faqData)
 
                         if (data.projectContentData.isEmpty() && data.faqData.isEmpty()) {
                             fragmentSearchResultBinding.tvNoData.visibility = View.VISIBLE

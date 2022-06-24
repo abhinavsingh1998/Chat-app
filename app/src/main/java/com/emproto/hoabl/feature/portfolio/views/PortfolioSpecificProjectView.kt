@@ -367,6 +367,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                             bundle.putInt("SelectedPosition", position)
                             bundle.putInt("FaqId", faqId)
                         }
+                        bundle.putBoolean("isFromInvestment",true)
                         fragment.arguments = bundle
                         (requireActivity() as HomeActivity).addFragment(
                             fragment,

@@ -188,7 +188,7 @@ public interface ApiService {
     suspend fun chatInitiate(@Body chatInitiateRequest: ChatInitiateRequest): Response<ChatDetailResponse>
 
     @GET(ApiConstants.PROFILE_FAQ)
-    suspend fun getFaqList(@Query("typeOfFAQ") typeOfFAQ: String): Response<ProfileFaqResponse>
+    suspend fun getFaqList(@Query("typeOfFAQ") typeOfFAQ: String): Response<GeneralFaqResponse>
 
     @GET(ApiConstants.BOOKING_JOURNEY)
     suspend fun getBookingJourney(@Query("investmentId") investmentId: Int): Response<BookingJourneyResponse>
@@ -215,4 +215,7 @@ public interface ApiService {
 
     @GET(ApiConstants.TERMS_CONDITION)
     suspend fun getSecurityTips(@Query("pageType") pageType: Int):Response<SecurityTipsResponse>
+
+    @GET(ApiConstants.GENERAL_FAQ)
+    suspend fun getGeneralFaqs(@Query("categoryType") categoryType: Int):Response<FaqDetailResponse>
 }

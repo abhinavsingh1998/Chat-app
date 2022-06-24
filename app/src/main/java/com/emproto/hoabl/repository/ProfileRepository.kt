@@ -10,6 +10,7 @@ import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.investment.FaqDetailResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.resourceManagment.ProflieResponse
@@ -330,14 +331,14 @@ class ProfileRepository @Inject constructor(application: Application) :
         return aboutusResponse
     }
 
-    fun getFaqList(typeOfFAQ: String): LiveData<BaseResponse<ProfileFaqResponse>> {
-        val faqResponse = MutableLiveData<BaseResponse<ProfileFaqResponse>>()
+    fun getFaqList(typeOfFAQ: String): LiveData<BaseResponse<GeneralFaqResponse>> {
+        val faqResponse = MutableLiveData<BaseResponse<GeneralFaqResponse>>()
         faqResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
                 val request = ProfileDataSource(application).getFaqList(typeOfFAQ)
                 if (request.isSuccessful) {
-                    if (request.body() != null && request.body() is ProfileFaqResponse) {
+                    if (request.body() != null && request.body() is GeneralFaqResponse) {
                         faqResponse.postValue(BaseResponse.success(request.body()!!))
 
                     } else {
@@ -391,6 +392,31 @@ class ProfileRepository @Inject constructor(application: Application) :
         coroutineScope.launch {
             try {
                 val request = ProfileDataSource(application).getSecurityTips(pageType)
+                if (request.isSuccessful) {
+                    stResponse.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    stResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+
+            } catch (e: Exception) {
+                stResponse.postValue(BaseResponse.Companion.error(e.message!!))
+            }
+        }
+        return stResponse
+    }
+
+    fun getGeneralFaqs(categoryType: Int): LiveData<BaseResponse<FaqDetailResponse>> {
+        val stResponse = MutableLiveData<BaseResponse<FaqDetailResponse>>()
+        stResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).getGeneralFaqs(categoryType)
                 if (request.isSuccessful) {
                     stResponse.postValue(BaseResponse.success(request.body()!!))
                 } else {

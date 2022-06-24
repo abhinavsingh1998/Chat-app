@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -111,6 +112,7 @@ class CategoryListAdapter(
                     }
                     binding.apply {
                         tvProjectName.text = element.launchName
+                        Log.d("dessrt", element.priceStartingFrom.toString())
                         val amount = element.priceStartingFrom.toDouble() / 100000
                         val convertedAmount = amount.toString().replace(".0","")
                         tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
