@@ -15,6 +15,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentHelpCenterBinding
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.investment.views.FaqDetailFragment
 import com.emproto.hoabl.feature.profile.adapter.HelpCenterAdapter
 import com.emproto.hoabl.feature.profile.data.DataHealthCenter
 import com.emproto.hoabl.feature.profile.data.HelpModel
@@ -106,9 +107,12 @@ class HelpCenterFragment : BaseFragment() {
                 override fun onClickItem(position: Int) {
                     when (position) {
                         0 -> {
-
+                            val fragment = FaqDetailFragment()
+                            val bundle = Bundle()
+                            bundle.putBoolean("isFromInvestment",false)
+                            fragment.arguments = bundle
                             (requireActivity() as HomeActivity).addFragment(
-                                ProfileFaqFragment(),
+                                fragment,
                                 false
                             )
                         }

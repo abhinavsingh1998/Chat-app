@@ -78,7 +78,7 @@ class ProjectTimelineFragment : BaseFragment() {
                         val timelineList = ArrayList<TimelineModel>()
                         val timelineHeaderData = TimelineHeaderData(
                             it.data.launchName,
-                            it.data.address.city + " " + it.data.address.state,
+                            it.data.address.city + " , " + it.data.address.state,
                             ""
                         )
                         timelineList.add(

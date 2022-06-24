@@ -8,6 +8,7 @@ import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.investment.FaqDetailResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.resourceManagment.ProflieResponse
@@ -73,7 +74,7 @@ class ProfileViewModel(
         return mprofileRepository.getAboutHoaBl(pageType)
     }
 
-    fun getFaqList(typeOfFAQ: String): LiveData<BaseResponse<ProfileFaqResponse>> {
+    fun getFaqList(typeOfFAQ: String): LiveData<BaseResponse<GeneralFaqResponse>> {
         return profileRepository.getFaqList(typeOfFAQ)
     }
 
@@ -83,6 +84,10 @@ class ProfileViewModel(
 
     fun getSecurityTips(pageType: Int): LiveData<BaseResponse<SecurityTipsResponse>> {
         return profileRepository.getSecurityTips(pageType)
+    }
+
+    fun getGeneralFaqs(categoryType: Int): LiveData<BaseResponse<FaqDetailResponse>> {
+        return profileRepository.getGeneralFaqs(categoryType)
     }
     fun getAllProjects(refresh: Boolean): LiveData<BaseResponse<AllProjectsResponse>>{
         return profileRepository.getAllProjects(refresh)

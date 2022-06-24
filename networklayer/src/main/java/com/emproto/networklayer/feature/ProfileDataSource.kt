@@ -8,6 +8,7 @@ import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
+import com.emproto.networklayer.response.investment.FaqDetailResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.resourceManagment.ProflieResponse
@@ -122,7 +123,7 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
         return apiService.getAboutHobal(pageType)
     }
 
-    suspend fun getFaqList(typeOfFAQ: String): Response<ProfileFaqResponse> {
+    suspend fun getFaqList(typeOfFAQ: String): Response<GeneralFaqResponse> {
         return apiService.getFaqList(typeOfFAQ)
     }
 
@@ -132,5 +133,9 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
 
     suspend fun getSecurityTips(pageType: Int): Response<SecurityTipsResponse> {
         return apiService.getSecurityTips(pageType)
+    }
+
+    suspend fun getGeneralFaqs(categoryType: Int): Response<FaqDetailResponse> {
+        return apiService.getGeneralFaqs(categoryType)
     }
 }

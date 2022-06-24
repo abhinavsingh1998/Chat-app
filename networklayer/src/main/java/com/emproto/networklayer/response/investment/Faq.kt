@@ -12,5 +12,5 @@ data class Faq(
     val status: Boolean,
     val typeOfFAQ: String,
     val updatedAt: String,
-    val updatedBy: Int
+    val updatedBy: String
 )
