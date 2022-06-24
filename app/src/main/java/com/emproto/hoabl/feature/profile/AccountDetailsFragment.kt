@@ -290,6 +290,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
         name: String,
         path: String
     ) {
+        Log.d("Fff","${name.toString()}")
         openDocumentScreen(name, path)
     }
 
@@ -322,15 +323,22 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
     }
 
     private fun openDocumentScreen(name: String, path: String) {
-        val strings = name.split(".")
-        if (strings[1] == "png" || strings[1] == "jpg") {
-            //open image loading screen
-            openDocument(name, path)
-        } else if (strings[1] == "pdf") {
-            getDocumentData(path)
-        } else {
+        if(!name.isNullOrEmpty()){
 
+            val strings = name.split(".")
+            if(strings.size > 0){
+                if (strings[1] == "png" || strings[1] == "jpg") {
+                    //open image loading screen
+                    openDocument(name, path)
+                } else if (strings[1] == "pdf") {
+                    getDocumentData(path)
+                } else {
+
+                }
+            }
         }
+
+
     }
 
     fun getDocumentData(path: String) {
