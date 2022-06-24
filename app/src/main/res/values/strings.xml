@@ -207,7 +207,7 @@
     <string name="control_location_access_here">Control location access here</string>
     <string name="wants_to_connect">Wants to Connect?</string>
     <string name="chat_with_us">Chat with us</string>
-    <string name="information">Or \nCall us: +91 123 123 1231 \nEmail us: help@hoabl.in</string>
+    <string name="information">+91 123 123 1231 </string>
     <string name="contact_about_us_privacy_policy_chat">Contact, About Us , Privacy Policy,Chat</string>
     <string name="logout_text">Logout</string>
     <string name="personal_details_string">Personal Details</string>

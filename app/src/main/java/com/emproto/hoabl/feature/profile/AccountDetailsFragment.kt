@@ -450,7 +450,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
         val selectedImage = cameraFile.path
         destinationFile = cameraFile
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-            val extension: String = cameraFile.name.substring(cameraFile.name.lastIndexOf("."))
+            val extension: String = cameraFile.name.substring(cameraFile.name.lastIndexOf(".")+1)
             callingUploadPicApi(cameraFile, extension)
         } else {
             (requireActivity() as BaseActivity).showError(
@@ -473,6 +473,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                             }
                             Status.SUCCESS -> {
                                 binding.progressBar.hide()
+                                Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_LONG).show()
                             }
                             Status.ERROR -> {
                                 binding.progressBar.hide()
@@ -510,7 +511,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                 val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
                 if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
                     destinationFile = File(filePath)
-                    val extension: String = destinationFile.name.substring(destinationFile.name.lastIndexOf("."))
+                    val extension: String = destinationFile.name.substring(destinationFile.name.lastIndexOf(".")+1)
                     callingUploadPicApi(destinationFile, extension)
 
                 } else {
