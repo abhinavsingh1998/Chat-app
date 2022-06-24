@@ -101,6 +101,10 @@ public interface ApiService {
         @Part fileName: MultipartBody.Part
     ): Response<ProfilePictureResponse>
 
+    @Multipart
+    @POST(ApiConstants.UPLOAD_DOC)
+    suspend fun getUploadDoc(): Response<AccountsResponse.Data.Document>
+
     @PUT(ApiConstants.PRESIGNEDURL)
     suspend fun presignedUrl(
         @Query("type") type: String, @Query("key") destinationFile: File

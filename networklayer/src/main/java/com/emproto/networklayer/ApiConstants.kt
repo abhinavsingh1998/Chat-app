@@ -64,6 +64,7 @@ object ApiConstants {
     const val DELETE_PROFILE = "hoabl-customer/profile/picture/{key}"
 
     const val PROFILE_FAQ = "hoabl-admin/faqs"
+    const val UPLOAD_DOC = "hoabl-customer/doc_upload"
 
     const val SEARCH = "hoabl-admin/search"
     const val SEARCH_DOCS = "hoabl-customer/doc-filter"

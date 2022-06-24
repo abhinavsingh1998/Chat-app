@@ -70,6 +70,7 @@ interface HomeComponent {
     fun inject(fragment:PrivacyFragment)
     fun inject(fragment: SearchResultFragment)
     fun inject(fragment: AccountDetailsFragment)
+    fun inject(fragment: AllPaymentHistoryFragment)
     fun inject(fragment:AboutUsFragment)
     fun inject(fragment: ProfileFaqFragment)
     fun inject(fragment: ReceiptFragment)

@@ -97,10 +97,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         binding = FragmentPortfolioSpecificViewBinding.inflate(layoutInflater)
 
-        portfolioviewmodel = ViewModelProvider(
-            requireActivity(),
-            portfolioFactory
-        )[PortfolioViewModel::class.java]
+        portfolioviewmodel = ViewModelProvider(requireActivity(), portfolioFactory)[PortfolioViewModel::class.java]
         //getting data from arguments
         arguments?.let {
             crmId = it.getInt("IVID")

@@ -29,7 +29,9 @@ class AccountsKycListAdapter(
         fun onAccountsKycItemClick(
             accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
             view: View,
-            position: Int
+            position: Int,
+            name: String,
+            path: String?
         )
     }
 
@@ -37,7 +39,7 @@ class AccountsKycListAdapter(
             holder.tvDocName.text = accountsKycList[position].documentType
 
         holder.tvViewDoc.setOnClickListener {
-            mListener.onAccountsKycItemClick(accountsKycList, it, position)
+            mListener.onAccountsKycItemClick(accountsKycList, it, position,accountsKycList[position].name,accountsKycList[position].path)
         }
     }
 

@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvViewDoc"
+            android:id="@+id/tvUploadDoc"
             style="@style/text_style_blue_12"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -47,10 +47,10 @@
             android:layout_width="0dp"
             android:layout_height="0.75dp"
             android:background="@color/app_color"
-            app:layout_constraintEnd_toEndOf="@+id/tvViewDoc"
+            app:layout_constraintEnd_toEndOf="@+id/tvUploadDoc"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/tvViewDoc"
-            app:layout_constraintTop_toBottomOf="@+id/tvViewDoc" />
+            app:layout_constraintStart_toStartOf="@+id/tvUploadDoc"
+            app:layout_constraintTop_toBottomOf="@+id/tvUploadDoc" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
