@@ -722,8 +722,6 @@ class EditProfileFragment : BaseFragment() {
                 val validState = binding.autoState.text
                 val validCity = binding.autoCity.text
 
-
-
                 sendProfileDetail(
                     validEmail,
                     validHouse,
