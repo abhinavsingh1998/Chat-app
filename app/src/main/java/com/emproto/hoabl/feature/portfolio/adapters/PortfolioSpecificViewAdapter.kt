@@ -637,7 +637,7 @@ class PortfolioSpecificViewAdapter(
             binding.btnReferNow.setOnClickListener {
                 ivInterface.referNow()
             }
-            binding.appShareBtn.setOnClickListener {
+            binding.shareTxtCard.setOnClickListener {
                 ivInterface.shareApp()
             }
         }

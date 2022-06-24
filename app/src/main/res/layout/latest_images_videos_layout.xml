@@ -33,7 +33,7 @@
         style="@style/text_dark_blue_color_13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_size_4"
+        android:layout_marginStart="6dp"
         android:layout_marginTop="@dimen/margin_size_6"
         android:fontFamily="@font/jost_medium"
         android:text="Last Updated on fdfs"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_size_17"
         android:src="@drawable/rightarrow"
-        app:layout_constraintBottom_toBottomOf="@id/tv_latest_images_videos"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_last_updated"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_latest_images_videos" />
 
@@ -61,14 +61,14 @@
         android:fontFamily="@font/jost_regular"
         android:padding="@dimen/margin_size_5"
         android:text="@string/see_all"
-        app:layout_constraintBottom_toBottomOf="@id/tv_latest_images_videos"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_last_updated"
         app:layout_constraintEnd_toStartOf="@id/iv_see_all_arrow"
         app:layout_constraintTop_toTopOf="@id/tv_latest_images_videos" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_latest_images_videos"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_size_12"
         android:layout_marginTop="@dimen/margin_size_14"
         android:layout_marginBottom="@dimen/margin_size_6"

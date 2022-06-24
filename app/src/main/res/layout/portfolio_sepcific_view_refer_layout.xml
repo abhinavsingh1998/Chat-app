@@ -45,7 +45,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="@dimen/margin_size_21"
             android:background="@drawable/all_corner_radius_black_bg"
-            android:drawableEnd="@drawable/arrow_right_"
+            android:drawableRight="@drawable/ic_final_arrow"
             android:fontFamily="@font/jost_medium"
             android:lines="1"
             android:paddingVertical="@dimen/margin_size_10"
@@ -54,6 +54,7 @@
             android:text="@string/refer_now"
             android:textAlignment="center"
             android:textAllCaps="false"
+            app:drawableTint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_share_with_joy"
             app:layout_constraintTop_toBottomOf="@id/tv_share_with_joy" />

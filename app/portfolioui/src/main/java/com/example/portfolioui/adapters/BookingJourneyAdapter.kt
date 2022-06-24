@@ -116,7 +116,7 @@ class BookingJourneyAdapter(
                 header_holder.binding.tvId.text = "Hoabl/${data.inventoryId}"
                 header_holder.binding.tvProjectName.text = data.launchName
                 header_holder.binding.tvLocation.text =
-                    data.address.city + "," + data.address.state
+                    data.address.city + " , " + data.address.state
                 header_holder.binding.tvProgress.text = data.bookingStatus
 
 
