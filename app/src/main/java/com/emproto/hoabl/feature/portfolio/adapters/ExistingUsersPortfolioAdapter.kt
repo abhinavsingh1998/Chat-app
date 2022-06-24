@@ -200,7 +200,7 @@ class ExistingUsersPortfolioAdapter(
             binding.cardName1.text = "No. of Products"
             binding.cardName2.text = "Area in Sqft"
             binding.cardName3.text = "Amount Invested"
-            binding.cardName4.text = "Avg Estimated Appreciation"
+            binding.cardName4.text = "Avg Est. Appreciation"
 
             binding.ivAmount.visibility = View.VISIBLE
             binding.ivAmountPending.visibility = View.GONE

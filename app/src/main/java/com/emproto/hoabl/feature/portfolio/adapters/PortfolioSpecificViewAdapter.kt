@@ -239,7 +239,8 @@ class PortfolioSpecificViewAdapter(
                         binding.tvPaidAmount.text =
                             Utility.formatAmount(data?.investmentInformation?.bookingJourney?.paidAmount)
                     }
-                    binding.tvAreaUnit.text = "" + data?.investmentInformation?.areaSqFt + " sqft"
+                    binding.tvAreaUnit.text =
+                        "${Utility.convertTo(data?.investmentInformation?.areaSqFt)} sqft"
                     binding.tvProjectInfo.text = data.projectInformation.shortDescription
                     var reraNumber = ""
                     val mSize = data.projectInformation.reraDetails.reraNumbers.size
@@ -415,8 +416,8 @@ class PortfolioSpecificViewAdapter(
             if (list[position].data != null) {
                 val docList = list[position].data as List<Data>
                 documentsAdapter = DocumentsAdapter(docList, false, object : DocumentInterface {
-                    override fun onclickDocument(name: String,path:String) {
-                        ivInterface.onDocumentView(name,path)
+                    override fun onclickDocument(name: String, path: String) {
+                        ivInterface.onDocumentView(name, path)
                     }
 
                 })
