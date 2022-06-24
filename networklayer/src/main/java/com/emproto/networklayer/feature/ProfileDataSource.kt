@@ -91,7 +91,7 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
 
     ): Response<UploadDocumentResponse> {
         return apiService.uploadKycDocument(
-            MultipartBody.Part.createFormData("extension", extension!!), MultipartBody.Part.createFormData("file", file.name, RequestBody.create("image/*".toMediaTypeOrNull(), file)), MultipartBody.Part.createFormData("documentCategory", selectedDoc!!)
+            MultipartBody.Part.createFormData("extension", extension!!), MultipartBody.Part.createFormData("file", file.name, RequestBody.create("image/*".toMediaTypeOrNull(), file)), MultipartBody.Part.createFormData("documentType", selectedDoc!!)
         )
     }
 
