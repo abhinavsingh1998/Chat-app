@@ -76,7 +76,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#f7f7f7">
+                android:background="#f7f7f7"
+                android:id="@+id/app_share_view">
 
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/share_app_text"

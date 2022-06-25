@@ -116,7 +116,7 @@ class BookingJourneyAdapter(
                 header_holder.binding.tvId.text = "Hoabl/${data.inventoryId}"
                 header_holder.binding.tvProjectName.text = data.launchName
                 header_holder.binding.tvLocation.text =
-                    data.address.city + "," + data.address.state
+                    data.address.city + " , " + data.address.state
                 header_holder.binding.tvProgress.text = data.bookingStatus
 
 
@@ -132,6 +132,8 @@ class BookingJourneyAdapter(
                 if (list.second) {
                     listHolder.binding.headerIndicator.background =
                         context.getDrawable(R.drawable.ic_in_progress)
+                    listHolder.binding.container.background =
+                        context.getDrawable(R.drawable.bg_outline_app_color)
                 }
             }
             DOCUMENTATION -> {
@@ -145,6 +147,8 @@ class BookingJourneyAdapter(
                 if (list.second) {
                     listHolder.binding.headerIndicator.background =
                         context.getDrawable(R.drawable.ic_in_progress)
+                    listHolder.binding.container.background =
+                        context.getDrawable(R.drawable.bg_outline_app_color)
                 }
             }
             PAYMENTS -> {
@@ -173,10 +177,13 @@ class BookingJourneyAdapter(
                     listHolder.binding.tvViewall.setOnClickListener {
                         itemInterface.onClickAllReceipt()
                     }
+                    listHolder.binding.container.background =
+                        context.getDrawable(R.drawable.bg_outline_app_color)
 
                 }
             }
             OWNERSHIP -> {
+                var anyInProgress = false
                 val listHolder = holder as OwnershipHolder
                 val list = dataList[listHolder.adapterPosition].data as Ownership
                 listHolder.binding.textHeader.text = "OWNERSHIP"
@@ -196,6 +203,7 @@ class BookingJourneyAdapter(
                 )
 
                 if (list.documents.DOC != null) {
+                    anyInProgress = true
                     listHolder.binding.headerIndicator.background =
                         context.getDrawable(R.drawable.ic_in_progress)
                     listHolder.binding.headerIndicator2.background =
@@ -218,6 +226,7 @@ class BookingJourneyAdapter(
 
                 }
                 if (list.documents.SEVEN != null) {
+                    anyInProgress = true
                     listHolder.binding.headerIndicator.background =
                         context.getDrawable(R.drawable.ic_in_progress)
                     listHolder.binding.headerIndicator2.background =
@@ -239,10 +248,15 @@ class BookingJourneyAdapter(
 
 
                 }
+                if (anyInProgress) {
+                    listHolder.binding.container.background =
+                        context.getDrawable(R.drawable.bg_outline_app_color)
+                }
 
 
             }
             POSSESSION -> {
+                var anyInProgress = false
                 val listHolder = holder as OwnershipHolder
                 val list = dataList[listHolder.adapterPosition].data as Possession
                 listHolder.binding.textHeader.text = "Possession"
@@ -263,6 +277,7 @@ class BookingJourneyAdapter(
                 )
 
                 if (list.handover.handoverDate != null && Utility.compareDates(list.handover.handoverDate)) {
+                    anyInProgress = true
                     listHolder.binding.headerIndicator.background =
                         context.getDrawable(R.drawable.ic_in_progress)
                     listHolder.binding.headerIndicator2.background =
@@ -283,6 +298,7 @@ class BookingJourneyAdapter(
 
                 }
                 if (list.handover.guidelines != null) {
+                    anyInProgress = true
                     listHolder.binding.headerIndicator.background =
                         context.getDrawable(R.drawable.ic_in_progress)
                     listHolder.binding.headerIndicator2.background =
@@ -303,16 +319,21 @@ class BookingJourneyAdapter(
                         }
                     }
 
-
+                }
+                if (anyInProgress) {
+                    listHolder.binding.container.background =
+                        context.getDrawable(R.drawable.bg_outline_app_color)
                 }
 
             }
             FACILITY -> {
+                var anyInProgress = false
                 val listHolder = holder as FacilityHolder
                 val list = dataList[listHolder.adapterPosition].data as Facility
                 listHolder.binding.textHeader.text = "Land Management"
 
                 if (list.isFacilityVisible) {
+                    anyInProgress = true
                     listHolder.binding.headerIndicator.background =
                         context.getDrawable(R.drawable.ic_in_progress)
                     listHolder.binding.ivFirst.setImageDrawable(context.getDrawable(R.drawable.ic_in_progress))
@@ -328,6 +349,10 @@ class BookingJourneyAdapter(
 
                 } else {
 
+                }
+                if (anyInProgress) {
+                    listHolder.binding.container.background =
+                        context.getDrawable(R.drawable.bg_outline_app_color)
                 }
 
 

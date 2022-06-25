@@ -17,11 +17,12 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_attention_text"
-        style="@style/text_style_white_14"
+        style="@style/text_style_white_12"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_size_11"
         android:fontFamily="@font/jost_medium"
+        android:lines="1"
         android:text="@string/attention_text"
         android:textAlignment="textStart"
         app:layout_constraintBottom_toBottomOf="@id/iv_hand"
@@ -35,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_size_16"
-        android:drawableEnd="@drawable/arrow_right_"
+        android:drawableEnd="@drawable/ic_final_arrow"
         android:drawablePadding="@dimen/_2sdp"
         android:fontFamily="@font/jost_regular"
         android:text="@string/see_all"
@@ -56,7 +57,7 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_dot_layout"
-        android:layout_width="@dimen/margin_size_90"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_size_6"
         android:backgroundTint="@color/text_blue_color"

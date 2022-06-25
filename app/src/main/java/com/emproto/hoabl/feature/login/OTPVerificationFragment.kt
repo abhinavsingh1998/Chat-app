@@ -13,6 +13,7 @@ import android.graphics.Paint
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
 import android.text.Editable
 import android.text.SpannableStringBuilder
 import android.text.TextWatcher
@@ -214,29 +215,36 @@ class OTPVerificationFragment : BaseFragment() {
                                     Status.SUCCESS -> {
                                         //save token to preference
                                         mBinding.loader.visibility = View.INVISIBLE
-                                        it.data?.let {
-                                            appPreference.setToken(it.token)
-                                            if (it.user.contactType == "prelead" &&
-                                                it.user.firstName.isNullOrBlank()
-                                            ) {
-                                                requireActivity().supportFragmentManager.popBackStack()
-                                                (requireActivity() as AuthActivity).replaceFragment(
-                                                    NameInputFragment.newInstance(
-                                                        if (it.user.firstName != null) it.user.firstName else "",
-                                                        if (it.user.lastName != null) it.user.lastName else ""
-                                                    ), true
-                                                )
-                                            } else {
-                                                appPreference.saveLogin(true)
-                                                startActivity(
-                                                    Intent(
-                                                        requireContext(),
-                                                        HomeActivity::class.java
+                                        (requireActivity() as AuthActivity).showSuccessToast(
+                                            "OTP Verified Successfully!"
+                                        )
+
+                                        Handler().postDelayed({
+                                            it.data?.let {
+                                                appPreference.setToken(it.token)
+                                                if (it.user.contactType == "prelead" &&
+                                                    it.user.firstName.isNullOrBlank()
+                                                ) {
+                                                    requireActivity().supportFragmentManager.popBackStack()
+                                                    (requireActivity() as AuthActivity).replaceFragment(
+                                                        NameInputFragment.newInstance(
+                                                            if (it.user.firstName != null) it.user.firstName else "",
+                                                            if (it.user.lastName != null) it.user.lastName else ""
+                                                        ), true
                                                     )
-                                                )
-                                                requireActivity().finish()
+                                                } else {
+                                                    appPreference.saveLogin(true)
+                                                    startActivity(
+                                                        Intent(
+                                                            requireContext(),
+                                                            HomeActivity::class.java
+                                                        )
+                                                    )
+                                                    requireActivity().finish()
+                                                }
                                             }
-                                        }
+                                        }, 2000)
+
 
                                     }
                                 }
@@ -395,16 +403,15 @@ class OTPVerificationFragment : BaseFragment() {
                 when (millisUntilFinished / 1000) {
                     0L -> {
                         mBinding.resentOtp.isVisible = true
-//                        mBinding.resend.isVisible = false
                         mBinding.timerTxt.isVisible = false
                         mBinding.tryAgainTxt.isVisible = false
                     }
                     else -> {
 
-//                        mBinding.resend.isVisible = true
+                        mBinding.resentOtp.isVisible = false
                         mBinding.timerTxt.visibility = View.VISIBLE
                         if ((millisUntilFinished / 1000) % 60 < 10) {
-                            mBinding.resentOtp.isVisible = true
+                            mBinding.resentOtp.isVisible = false
                             mBinding.timerTxt.text =
                                     SpannableStringBuilder()
 
@@ -420,7 +427,7 @@ class OTPVerificationFragment : BaseFragment() {
                                         append("RESEND OTP in  ")
                                     }
 //
-                                    .append("0${(millisUntilFinished / 1000) / 60}:0${(millisUntilFinished / 1000) % 60} sec")
+                                    .append("0${(millisUntilFinished / 1000) / 60}:${(millisUntilFinished / 1000) % 60} sec")
                         }
                     }
                 }

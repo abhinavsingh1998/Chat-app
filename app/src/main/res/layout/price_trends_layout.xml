@@ -6,8 +6,8 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.textview.MaterialTextView
-        style="@style/text_style_text_light_black_color_18"
         android:id="@+id/tv_price_trends_title"
+        style="@style/text_style_text_light_black_color_18"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_size_13"
@@ -37,11 +37,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_size_5"
+        android:layout_marginEnd="@dimen/margin_size_2"
         android:fontFamily="@font/jost_bold"
         android:text="5%"
         android:textColor="@color/green"
         android:textSize="@dimen/text_size_14"
-        android:layout_marginEnd="@dimen/margin_size_2"
         app:layout_constraintBottom_toBottomOf="@id/iv_rating"
         app:layout_constraintEnd_toStartOf="@id/iv_rating"
         app:layout_constraintTop_toTopOf="@id/iv_rating" />
@@ -60,10 +60,11 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_size_13"
         android:layout_marginTop="@dimen/margin_size_16"
         android:layout_marginBottom="@dimen/margin_size_4"
-        android:layout_marginHorizontal="@dimen/margin_size_13"
-        app:cardElevation="@dimen/margin_size_2"
+        android:outlineSpotShadowColor="#ababab"
+        app:cardElevation="@dimen/margin_size_8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemPortfolioDocumentsBinding
@@ -21,7 +22,11 @@ class AllDocumentAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding =
-            ItemPortfolioDocumentsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemPortfolioDocumentsBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         return ViewHolder(binding.root)
     }
 
@@ -41,8 +46,20 @@ class AllDocumentAdapter(
         }
 
         holder.tvViewDoc.setOnClickListener {
-         
-            mListener.onAllDocumentLabelClick(accountsDocumentList, it, position,accountsDocumentList[position].name,accountsDocumentList[position].path)
+            if (accountsDocumentList[position].toString().isNullOrEmpty()) {
+                Toast.makeText(mContext, "No Document available", Toast.LENGTH_SHORT).show()
+
+            } else {
+                mListener.onAllDocumentLabelClick(
+                    accountsDocumentList,
+                    it,
+                    position,
+                    accountsDocumentList[position].name,
+                    accountsDocumentList[position].path
+                )
+
+            }
+
         }
 
     }

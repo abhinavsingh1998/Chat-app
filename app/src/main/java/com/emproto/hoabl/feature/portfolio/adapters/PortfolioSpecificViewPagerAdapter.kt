@@ -22,12 +22,12 @@ class PortfolioSpecificViewPagerAdapter(private val imageList: List<PaymentSched
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val item = imageList[position]
-        holder.binding.pendingKyc.text = item.paymentMilestone
-        holder.binding.uploadKycStatement.text =
-            "Your payment is due. Please pay on time to maintain healthy relation."
+//        val item = imageList[position]
+//        holder.binding.pendingKyc.text = item.paymentMilestone
+//        holder.binding.uploadKycStatement.text =
+//            "Your payment is due. Please pay on time to maintain healthy relation."
     }
 
-    override fun getItemCount(): Int = imageList.size
+    override fun getItemCount(): Int = 5
 
 }

@@ -42,6 +42,7 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
     suspend fun deleteProfilePic(): Response<EditProfileResponse> {
         return apiService.deleteProfilePic()
     }
+
     suspend fun deleteProfileImage(destinationFileName: String): Response<EditProfileResponse> {
         return apiService.deleteProfileImage(destinationFileName)
     }
@@ -54,7 +55,7 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
         return apiService.putWhatsappConsent(whatsappConsentBody)
     }
 
-//        fun uploadDocument(
+    //        fun uploadDocument(
 //        token: String?,
 //        document: File,
 //        documentType: String?
@@ -83,9 +84,21 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
         )
     }
 
+    suspend fun uploadKycDocument(
+        extension: String,
+        file: File,
+        selectedDoc: String
+
+    ): Response<UploadDocumentResponse> {
+        return apiService.uploadKycDocument(
+            MultipartBody.Part.createFormData("extension", extension!!), MultipartBody.Part.createFormData("file", file.name, RequestBody.create("image/*".toMediaTypeOrNull(), file)), MultipartBody.Part.createFormData("documentCategory", selectedDoc!!)
+        )
+    }
+
     suspend fun presignedUrl(type: String, destinationFile: File): Response<PresignedUrlResponse> {
         return apiService.presignedUrl(type, destinationFile)
     }
+
     suspend fun getCountry(pageType: Int): Response<ProfileCountriesResponse> {
         return apiService.getCountryList(pageType)
     }
@@ -98,7 +111,7 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
         return apiService.getCities(stateIsoCode, countryIsoCode)
     }
 
-    suspend fun shareFeedBack(feedBackRequest: FeedBackRequest): Response<FeedBackResponse>{
+    suspend fun shareFeedBack(feedBackRequest: FeedBackRequest): Response<FeedBackResponse> {
         return apiService.submitFeedback(feedBackRequest)
     }
 
@@ -106,7 +119,7 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
         return apiService.getTermscondition(pageType)
     }
 
-    suspend fun getAboutHobal(pageType: Int): Response<ProflieResponse>{
+    suspend fun getAboutHobal(pageType: Int): Response<ProflieResponse> {
         return apiService.getAboutHobal(pageType)
     }
 
@@ -114,11 +127,11 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
         return apiService.getFaqList(typeOfFAQ)
     }
 
-    suspend fun getAllProjects():Response<AllProjectsResponse>{
+    suspend fun getAllProjects(): Response<AllProjectsResponse> {
         return apiService.getAllProjects()
     }
 
-    suspend fun getSecurityTips(pageType: Int):Response<SecurityTipsResponse> {
+    suspend fun getSecurityTips(pageType: Int): Response<SecurityTipsResponse> {
         return apiService.getSecurityTips(pageType)
     }
 

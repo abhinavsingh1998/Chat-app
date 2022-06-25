@@ -209,8 +209,9 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
     override fun onClickItem(position: Int) {
         when (position) {
             0 -> {
-                val myAcccount = AccountDetailsFragment()
-                (requireActivity() as HomeActivity).addFragment(myAcccount, false)
+
+                val myAccount = AccountDetailsFragment()
+                (requireActivity() as HomeActivity).addFragment(myAccount, false)
             }
             1 -> {
                 val bundle = Bundle()
