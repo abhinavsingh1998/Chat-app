@@ -92,6 +92,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
     lateinit var bitmap: Bitmap
 
     lateinit var selectedDoc: String
+    
     private var isReadPermissonGranted: Boolean = false
     private var isWritePermissonGranted: Boolean = false
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
