@@ -331,7 +331,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                 } else if (strings[1] == "pdf") {
                     getDocumentData(path)
                 } else {
-
+                    Toast.makeText(context, "Invalid format", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -492,6 +492,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                             }
                             Status.SUCCESS -> {
                                 binding.progressBar.hide()
+
                                 Toast.makeText(
                                     requireContext(),
                                     it.message.toString(),
