@@ -88,8 +88,6 @@ class ProjectDetailFragment : BaseFragment() {
                     chatsFragment.arguments = bundle
                     (requireActivity() as HomeActivity).replaceFragment(chatsFragment.javaClass, "", true, bundle, null, 0, false
                     )
-
-
                 }
                 R.id.tv_similar_investment_see_all -> {
                     val list = CategoryListFragment()
@@ -204,7 +202,6 @@ class ProjectDetailFragment : BaseFragment() {
                 imagesList.add(MediaViewItem(item.mediaContentType, item.mediaContent.value.url,title = "Images", id = itemId, name = item.name))
             }
         }
-        Log.d("cscscs",imagesList.toString())
         val fragment = MediaGalleryFragment()
         val bundle = Bundle()
         bundle.putSerializable("Data", imagesList)

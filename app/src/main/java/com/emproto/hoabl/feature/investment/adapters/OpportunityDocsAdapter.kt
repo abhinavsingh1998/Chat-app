@@ -231,7 +231,6 @@ class OpportunityDocsAdapter(
 
     private inner class OppDocsTourismViewHolder(private val binding: OppDocsDestinationLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            Log.d("RRRRR",data[0].tourismAround.heading)
             binding.tvTourismAround.text = data[0].tourismAround.heading
             val list = arrayListOf<Story>()
             for(i in 0..3){

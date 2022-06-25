@@ -530,6 +530,13 @@
         <item name="singleLine">true</item>
     </style>
 
+    <style name="text_style_text_confirm_color_14">
+        <item name="android:gravity">center|left</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/confirm_dialog_text_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
     <style name="text_regular_text_color_14">
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/text_size_14</item>
@@ -630,6 +637,12 @@
         <item name="android:textSize">@dimen/text_size_16</item>
         <item name="android:textColor">@color/thick_blue</item>
         <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_text_light_black_color_dialog_16">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/text_black_color</item>
     </style>
 
     <style name="text_style_daiog_text_color_16">

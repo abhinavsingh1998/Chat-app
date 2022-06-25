@@ -55,11 +55,12 @@
 
             <ImageView
                 android:id="@+id/iv_faq_card_up_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/margin_size_14"
+                android:layout_height="@dimen/margin_size_14"
+                android:layout_marginTop="@dimen/margin_size_4"
                 android:layout_marginStart="@dimen/margin_size_20"
                 android:layout_marginEnd="@dimen/margin_size_17"
-                android:src="@drawable/ic_arrow_upward"
+                android:src="@drawable/path_10"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_faq_question"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,7 +9,7 @@
     android:layout_marginVertical="@dimen/margin_size_6"
     android:outlineSpotShadowColor="#ababab"
     app:cardCornerRadius="@dimen/margin_size_6"
-    app:cardElevation="@dimen/margin_size_4"
+    app:cardElevation="@dimen/margin_size_3"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -40,6 +41,7 @@
             android:layout_marginEnd="@dimen/margin_size_8"
             android:fontFamily="@font/jost_medium"
             android:text="2500 - 2650 Sqft"
+            android:gravity="center_vertical"
             android:textColor="@color/text_violet_dark_color"
             android:textSize="@dimen/text_size_14"
             app:layout_constraintEnd_toEndOf="@id/btn_apply_now"
@@ -85,7 +87,7 @@
             android:backgroundTint="@color/black"
             android:fontFamily="@font/jost_medium"
             android:paddingHorizontal="@dimen/margin_size_21"
-            android:paddingVertical="@dimen/margin_size_7"
+            android:paddingVertical="@dimen/margin_size_8"
             android:text="@string/apply_now"
             android:textAllCaps="false"
             android:textColor="@color/white"
