@@ -56,6 +56,7 @@ class AccountsPaymentListAdapter(
             if (accountsPaymentList[position].document==null) {
 
                 Toast.makeText(mContext, "No Receipt", Toast.LENGTH_SHORT).show()
+                
 
             } else {
                 mListener.onAccountsPaymentItemClick(
