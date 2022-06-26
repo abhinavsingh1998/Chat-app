@@ -38,6 +38,7 @@ class AccountsKycListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvDocName.text = accountsKycList[position].documentType
+        
 
         holder.tvViewDoc.setOnClickListener {
             if (accountsKycList[position]==null) {
