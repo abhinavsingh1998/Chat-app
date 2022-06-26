@@ -12,6 +12,13 @@ data class Investment(
     val areaSqFt: Double,
     val amountInvested: Double,
     val projectIea: String,
-    val allocationDate: String
+    val allocationDate: String,
+    val crmInventory: CrmInventory,
+    val pendingAmount: Double
 
+)
+
+data class CrmInventory(
+    val name: String,
+    val areaSqFt: Double
 )

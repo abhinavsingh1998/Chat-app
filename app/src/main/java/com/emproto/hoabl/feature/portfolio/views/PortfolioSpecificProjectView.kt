@@ -249,12 +249,12 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 it.data.projectInformation.latestMediaGalleryOrProjectContent[0]
             )
         )
-        list.add(
-            RecyclerViewItem(
-                PortfolioSpecificViewAdapter.PORTFOLIO_PROMISES,
-                it.data.projectPromises
-            )
-        )
+//        list.add(
+//            RecyclerViewItem(
+//                PortfolioSpecificViewAdapter.PORTFOLIO_PROMISES,
+//                it.data.projectPromises
+//            )
+//        )
         list.add(
             RecyclerViewItem(
                 PortfolioSpecificViewAdapter.PORTFOLIO_GRAPH,
@@ -386,8 +386,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
                                 requireActivity(),
                                 homeFactory
                             ).get(HomeViewModel::class.java)
-                        val details = it.data.projectPromises.data[position]
-                        homeViewModel.setSelectedPromise(details)
+                        //val details = it.data.projectPromises.data[position]
+                        //homeViewModel.setSelectedPromise(details)
                         (requireActivity() as HomeActivity).addFragment(
                             PromisesDetailsFragment(),
                             false
@@ -491,7 +491,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
         binding.rvPortfolioSpecificView.setHasFixedSize(true)
         binding.rvPortfolioSpecificView.setItemViewCacheSize(10)
 
-        fetchDocuments(it.data.investmentInformation.crmProjectId)
+        fetchDocuments(it.data.investmentInformation.crmLaunchPhaseId)
         //for document bottom sheet
         if (it.data.documentList != null) {
             val adapter =

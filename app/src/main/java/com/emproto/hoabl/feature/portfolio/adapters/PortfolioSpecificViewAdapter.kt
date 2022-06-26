@@ -230,12 +230,12 @@ class PortfolioSpecificViewAdapter(
                 binding.tvProjectLocation.text =
                     data.projectExtraDetails.address.city + "," + data.projectExtraDetails.address.state
                 if (data.investmentInformation != null) {
-                    if (data.investmentInformation.bookingJourney != null) {
+                    if (data.investmentInformation != null) {
                         binding.tvPaidAmount.text =
-                            Utility.formatAmount(data?.investmentInformation?.bookingJourney?.paidAmount)
+                            Utility.formatAmount(data?.investmentInformation.paidAmount)
                     }
                     binding.tvAreaUnit.text =
-                        "${Utility.convertTo(data?.investmentInformation?.areaSqFt)} sqft"
+                        "${Utility.convertTo(data?.investmentInformation.crmInventory.areaSqFt)} sqft"
                     binding.tvProjectInfo.text = data.projectInformation.shortDescription
                     var reraNumber = ""
                     val mSize = data.projectInformation.reraDetails.reraNumbers.size
@@ -258,22 +258,22 @@ class PortfolioSpecificViewAdapter(
                                 null
                             )
                     //view more
-                    binding.tvLandId.text = "Hoabl/" + data.investmentInformation.inventoryId
+                    binding.tvLandId.text = "Hoabl/" + data.investmentInformation.crmInventory.name
                     binding.tvSkuType.text = data.investmentInformation.inventoryBucket
 
-                    if (data.investmentInformation.bookingJourney != null) {
+                    if (data.investmentInformation != null) {
 
                     }
                     binding.tvInvestmentAmount.text =
                         Utility.formatAmount(data.investmentInformation.amountInvested)
 
-                    if (data.investmentInformation.bookingJourney != null) {
+                    if (data.investmentInformation != null) {
                         binding.tvAmountPending.text =
-                            Utility.formatAmount(data.investmentInformation.bookingJourney.amountPending)
+                            Utility.formatAmount(data.projectExtraDetails.amountPending)
                     }
 
                     binding.tvRegistryAmount.text =
-                        Utility.formatAmount(data.investmentInformation.registryAmount)
+                        Utility.formatAmount(data.investmentInformation.registrationCharges)
                     binding.tvOtherExpenses.text =
                         Utility.formatAmount(data.investmentInformation.otherExpenses)
 
@@ -283,7 +283,7 @@ class PortfolioSpecificViewAdapter(
                         )
                     }
                     binding.ivAmountPending.setOnClickListener {
-                        getToolTip("₹${data.investmentInformation.registryAmount}").showAlignTop(
+                        getToolTip("₹${data.investmentInformation.registrationCharges}").showAlignTop(
                             binding.ivAmountPending
                         )
                     }
@@ -329,16 +329,16 @@ class PortfolioSpecificViewAdapter(
                         binding.tvAmountPendingTitle.visibility = View.GONE
                     } else {
                         binding.tvPendingAmount.text =
-                            Utility.formatAmount(data.investmentInformation.bookingJourney?.amountPending)
+                            Utility.formatAmount(data.projectExtraDetails.amountPending)
                         binding.tvAmountPaid.text =
-                            Utility.formatAmount(data.investmentInformation.bookingJourney?.paidAmount)
+                            Utility.formatAmount(data.investmentInformation.paidAmount)
                         binding.tvPaid.setOnClickListener {
-                            getToolTip("₹${data.investmentInformation.bookingJourney?.paidAmount}").showAlignTop(
+                            getToolTip("₹${data.investmentInformation.paidAmount}").showAlignTop(
                                 binding.tvPaid
                             )
                         }
                         binding.tvPending.setOnClickListener {
-                            getToolTip("₹${data.investmentInformation.bookingJourney?.amountPending}").showAlignTop(
+                            getToolTip("₹${data.projectExtraDetails.amountPending}").showAlignTop(
                                 binding.tvPending
                             )
                         }

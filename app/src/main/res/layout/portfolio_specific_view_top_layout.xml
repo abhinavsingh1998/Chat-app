@@ -282,22 +282,23 @@
                 style="@style/text_style_view_more_brown_color_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
                 android:fontFamily="@font/jost_medium"
                 android:text="@string/view_more"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@id/tv_possession_date_linear"
-                app:layout_constraintStart_toStartOf="@id/area_linear"
+                app:layout_constraintEnd_toStartOf="@+id/iv_view_more_drop_down"
                 app:layout_constraintTop_toTopOf="@id/tv_possession_date_linear" />
 
             <ImageView
                 android:id="@+id/iv_view_more_drop_down"
                 android:layout_width="@dimen/margin_size_18"
                 android:layout_height="@dimen/margin_size_18"
-                android:layout_marginStart="@dimen/margin_size_4"
+                android:layout_marginEnd="8dp"
                 android:src="@drawable/ic_drop_down"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@id/tv_view_more"
-                app:layout_constraintStart_toEndOf="@id/tv_view_more"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_view_more" />
 
             <TextView
