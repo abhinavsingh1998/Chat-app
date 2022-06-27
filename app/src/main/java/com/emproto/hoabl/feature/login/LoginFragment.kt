@@ -8,6 +8,7 @@ import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.method.ScrollingMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +50,8 @@ class LoginFragment : BaseFragment() {
     val four_attempts= "Please enter the OTP sent to your mobile number. You have 1 attempt remaining to verify your OTP."
     val five_attempts= R.string.five_attempts_remaining
     val try_one_hour= R.string.try_after_one_hour
-     var hint_text= ""
+    var hint_text= ""
+    var isCheck = false
 
 
     @Inject
@@ -155,11 +157,12 @@ class LoginFragment : BaseFragment() {
                 val face = ResourcesCompat.getFont(requireContext(), R.font.jost_medium)
                 mBinding.tvSwitch.typeface = face
                 mBinding.tvSwitch.setTextColor(resources.getColor(R.color.black))
+                isCheck = true
             } else {
                 val regular = ResourcesCompat.getFont(requireContext(), R.font.jost_regular)
                 mBinding.tvSwitch.typeface = regular
                 mBinding.tvSwitch.setTextColor(resources.getColor(R.color.text_lightgrey_color))
-
+                isCheck = false
             }
         }
 
@@ -192,10 +195,11 @@ class LoginFragment : BaseFragment() {
                             hint_text= "Enter OTP"
                         }
 
+                        Log.d("rrrr",isCheck.toString())
                         (requireActivity() as AuthActivity).replaceFragment(
                             OTPVerificationFragment.newInstance(
                                 hMobileNo, "+91",
-                            hint_text), true
+                            hint_text,isCheck), true
                         )
                     }
                     Status.ERROR -> {

@@ -223,7 +223,7 @@ object Utility {
 
                 // Past the maximum number of lines we want to display.
                 if (textView.lineCount > maxLines) {
-                    val lastCharShown = textView.layout.getLineVisibleEnd(maxLines - 1) + 5
+                    val lastCharShown = textView.layout.getLineVisibleEnd(maxLines - 1) - 5
                     Log.d("SSS", lastCharShown.toString())
                     textView.maxLines = maxLines
                     val moreString = "READ MORE"

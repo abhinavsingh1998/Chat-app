@@ -290,7 +290,7 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                             linedataset.fillColor = resources.getColor(R.color.green)
                                         }
-                                        linedataset.mode = LineDataSet.Mode.LINEAR;
+                                        linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
                                         linedataset.setDrawCircles(false)
                                         linedataset.setDrawValues(false)
                                         val data = LineData(linedataset)
@@ -388,7 +388,7 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             linedataset.fillColor = resources.getColor(R.color.green)
                         }
-                        linedataset.mode = LineDataSet.Mode.LINEAR;
+                        linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
                         linedataset.setDrawCircles(false)
                         linedataset.setDrawValues(false)
                         val data = LineData(linedataset)

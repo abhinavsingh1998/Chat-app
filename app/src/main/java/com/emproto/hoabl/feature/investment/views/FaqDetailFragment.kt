@@ -74,6 +74,7 @@ class FaqDetailFragment : BaseFragment() {
         profileViewModel =
             ViewModelProvider(requireActivity(), factory)[ProfileViewModel::class.java]
         (requireActivity() as HomeActivity).showHeader()
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.VISIBLE
         (requireActivity() as HomeActivity).hideBottomNavigation()
     }
 
