@@ -16,12 +16,16 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentSecurityBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
+import com.emproto.hoabl.feature.investment.dialogs.ConfirmationDialog
 import com.emproto.hoabl.feature.profile.adapter.SecurityAdapter
 import com.emproto.hoabl.feature.profile.adapter.SettingsAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
+import com.emproto.networklayer.request.login.TroubleSigningRequest
+import com.emproto.networklayer.request.profile.ReportSecurityRequest
 import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.enums.Status
 import javax.inject.Inject
@@ -65,7 +69,6 @@ class SecurityFragment : Fragment(){
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_LOCATION))
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SETTINGS_ALL_OPTIONS))
 
-        Log.d("tststs",isWhatsappEnabled.toString())
         val adapter = SecurityAdapter(this.requireContext(), dataList, itemClickListener, isWhatsappEnabled, showPushNotifications)
         binding.rvHelpCenter.adapter = adapter
 
@@ -93,14 +96,43 @@ class SecurityFragment : Fragment(){
                     val securityTipsFragment = SecurityTipsFragment()
                     (requireActivity() as HomeActivity).addFragment(securityTipsFragment,false)
                 }
-                R.id.button_View -> {
-                    val u = Uri.parse("tel:" + "8939122576")
-                    val intent = Intent(Intent.ACTION_DIAL,u)
-                    try {
-                        startActivity(intent)
-                    } catch (s: SecurityException) {
-                        Toast.makeText(context, "An error occurred", Toast.LENGTH_LONG).show()
-                    }
+                R.id.button_view -> {
+//                    val u = Uri.parse("tel:" + "8939122576")
+//                    val intent = Intent(Intent.ACTION_DIAL,u)
+//                    try {
+//                        startActivity(intent)
+//                    } catch (s: SecurityException) {
+//                        Toast.makeText(context, "An error occurred", Toast.LENGTH_LONG).show()
+//                    }
+                    profileViewModel.submitTroubleCase(ReportSecurityRequest(
+                        caseType = "1005",
+                        description = "I want to raise a security emergency")).observe(viewLifecycleOwner, Observer {
+                            when(it.status){
+                                Status.LOADING -> {
+                                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                                }
+                                Status.SUCCESS -> {
+                                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                                    if (it.data != null) {
+                                        it.data?.let {
+                                            val applicationSubmitDialog = ApplicationSubmitDialog(
+                                                "Request Sent",
+                                                "A relationship manager will get back to you to discuss more about it.",
+                                                false
+                                            )
+                                            applicationSubmitDialog.show(parentFragmentManager, "ApplicationSubmitDialog")
+                                        }
+                                    }
+                                }
+                                Status.ERROR -> {
+                                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                                    it.data
+                                    (requireActivity() as HomeActivity).showErrorToast(
+                                        it.message!!
+                                    )
+                                }
+                            }
+                    })
                 }
                 R.id.setting_switch -> {
                     when(item){

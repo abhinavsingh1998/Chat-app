@@ -4,11 +4,14 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.emproto.hoabl.repository.ProfileRepository
+import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
+import com.emproto.networklayer.request.profile.ReportSecurityRequest
 import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.investment.FaqDetailResponse
+import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.resourceManagment.ProflieResponse
@@ -89,8 +92,13 @@ class ProfileViewModel(
     fun getGeneralFaqs(categoryType: Int): LiveData<BaseResponse<FaqDetailResponse>> {
         return profileRepository.getGeneralFaqs(categoryType)
     }
+
     fun getAllProjects(refresh: Boolean): LiveData<BaseResponse<AllProjectsResponse>>{
         return profileRepository.getAllProjects(refresh)
+    }
+
+    fun submitTroubleCase(signingRequest: ReportSecurityRequest): LiveData<BaseResponse<TroubleSigningResponse>> {
+        return profileRepository.submitTroubleCase(signingRequest)
     }
 }
 

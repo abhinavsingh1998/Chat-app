@@ -80,7 +80,9 @@ class NewInvestmentAdapter(
                 .append( " saw this in ${data.pageManagementsOrNewInvestments[0].fomoContent.days} days" )
 
             val listViews = ArrayList<String>()
-            listViews.add(data.pageManagementsOrNewInvestments[0].projectCoverImages.newInvestmentPageMedia.value.url)
+            for(item in mediaGalleries.coverImage){
+                listViews.add(item.mediaContent.value.url)
+            }
             for(item in mediaGalleries.images){
                 listViews.add(item.mediaContent.value.url)
             }

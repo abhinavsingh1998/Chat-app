@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import android.os.CountDownTimer
 import android.text.SpannableStringBuilder
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +37,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.textview.MaterialTextView
 import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.createBalloon
+import java.text.DecimalFormat
+import java.util.concurrent.TimeUnit
 
 
 class ProjectDetailAdapter(
@@ -174,10 +177,9 @@ class ProjectDetailAdapter(
 
             binding.apply {
                 tvProjectName.text = data.launchName
-
                 tvProjectLocation.text = "${data.address.city}, ${data.address.state}"
                 tvViewCount.text = Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)
-                tvDuration.text = "${data.fomoContent.targetTime.hours}:${data.fomoContent.targetTime.minutes}:${data.fomoContent.targetTime.seconds} Hrs Left"
+//                tvDuration.text = "${data.fomoContent.targetTime.hours}:${data.fomoContent.targetTime.minutes}:${data.fomoContent.targetTime.seconds} Hrs Left"
                 val amount = data.priceStartingFrom.toDouble() / 100000
                 val convertedAmount = amount.toString().replace(".0","")
                 tvPriceRange.text = "₹${convertedAmount} L"
@@ -276,9 +278,19 @@ class ProjectDetailAdapter(
                 binding.tvApplyNow.setOnClickListener(onItemClickListener)
                 binding.tvRating.text = "${String.format("%.0f",data.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
 
-                val timeCounter = object:CountDownTimer(5000,1000){
-                    override fun onTick(millisUntilFinished: Long) {
+                val hoursInMillis = TimeUnit.HOURS.toMillis(data.fomoContent.targetTime.hours.toLong())
+                val minsInMillis = TimeUnit.MINUTES.toMillis(data.fomoContent.targetTime.minutes.toLong())
+                val secsInMillis = TimeUnit.SECONDS.toMillis(data.fomoContent.targetTime.seconds.toLong())
+                val totalTimeInMillis = hoursInMillis + minsInMillis + secsInMillis
 
+                val timeCounter = object:CountDownTimer(totalTimeInMillis,1000){
+                    override fun onTick(millisUntilFinished: Long) {
+                        val f = DecimalFormat("00")
+                        val fh = DecimalFormat("0")
+                        val hour = millisUntilFinished / 3600000 % 24
+                        val min = millisUntilFinished / 60000 % 60
+                        val sec = millisUntilFinished / 1000 % 60
+                        binding.tvDuration.text = "${fh.format(hour).toString() + ":" + f.format(min) + ":" + f.format(sec)} Hrs Left"
                     }
 
                     override fun onFinish() {
@@ -286,6 +298,7 @@ class ProjectDetailAdapter(
                     }
 
                 }
+                timeCounter.start()
             }
         }
     }

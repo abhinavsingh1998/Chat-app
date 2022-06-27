@@ -134,28 +134,12 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/jost_regular"
                             android:singleLine="true"
-                            android:maxLines="1"
-                            android:ellipsize="end"
-                            android:text="THe great land festival"
+                            android:text="Tomorrow land festival"
                             android:textStyle="bold"
                             android:layout_marginHorizontal="@dimen/margin_size_8"
                             app:layout_constraintStart_toEndOf="@id/cv_small_image"
                             app:layout_constraintTop_toTopOf="@id/cv_small_image"
                             app:layout_constraintEnd_toStartOf="@id/rating_linear"/>
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/tv_investment_project_location"
-                            style="@style/text_style_light_black_color_14"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/jost_regular"
-                            android:text="Anjarle, Maharashtra"
-                            android:textSize="@dimen/text_size_14"
-                            android:textStyle="normal"
-                            android:layout_marginHorizontal="@dimen/margin_size_8"
-                            app:layout_constraintStart_toEndOf="@id/cv_small_image"
-                            app:layout_constraintTop_toBottomOf="@id/tv_investment_project_name"
-                            app:layout_constraintEnd_toStartOf="@id/tv_area" />
 
                         <LinearLayout
                             android:id="@+id/rating_linear"
@@ -184,6 +168,20 @@
                                 android:fontFamily="@font/jost_bold"
                                 android:text="5%" />
                         </LinearLayout>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_investment_project_location"
+                            style="@style/text_style_light_black_color_14"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/jost_regular"
+                            android:text="Anjarle, Maharashtra"
+                            android:textSize="@dimen/text_size_14"
+                            android:textStyle="normal"
+                            android:layout_marginHorizontal="@dimen/margin_size_8"
+                            app:layout_constraintStart_toEndOf="@id/cv_small_image"
+                            app:layout_constraintTop_toBottomOf="@id/tv_investment_project_name"
+                            app:layout_constraintEnd_toStartOf="@id/tv_area" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_amount"

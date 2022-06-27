@@ -93,8 +93,8 @@ class YoutubeActivity : YouTubeBaseActivity() {
                 p1: YouTubePlayer?,
                 p2: Boolean
             ) {
-                p1?.cueVideo(youtubeId)
-                p1?.play()
+                p1?.loadVideo(youtubeId)
+//                p1?.play()
             }
 
             override fun onInitializationFailure(
