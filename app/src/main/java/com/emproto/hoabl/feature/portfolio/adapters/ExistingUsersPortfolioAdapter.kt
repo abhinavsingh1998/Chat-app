@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
@@ -233,7 +234,7 @@ class ExistingUsersPortfolioAdapter(
             if (list[position].data != null) {
                 val ongoing = list[position].data as Ongoing
                 binding.contentTxt1.text = "" + ongoing.count
-                binding.contentTxt2.text = "" + ongoing.areaSqFt
+                binding.contentTxt2.text = Utility.convertTo(ongoing.areaSqFt)
                 binding.contentTxt3.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
                     .format(ongoing.amountPaid)
                 binding.contentTxt4.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))

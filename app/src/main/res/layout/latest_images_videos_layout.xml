@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_size_16"
         android:layout_marginTop="@dimen/margin_size_24"
-        android:fontFamily="@font/jost_regular"
+        android:fontFamily="@font/jost_medium"
         android:text="@string/latest_videos_images"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

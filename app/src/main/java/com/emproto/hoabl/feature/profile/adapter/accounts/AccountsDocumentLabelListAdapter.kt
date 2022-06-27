@@ -41,7 +41,7 @@ class AccountsDocumentLabelListAdapter(
 
 
         holder.tvViewDoc.setOnClickListener {
-            if (accountsDocumentList[position].toString().isNullOrEmpty()) {
+            if (accountsDocumentList[position]==null) {
                 Toast.makeText(mContext, "No Document available", Toast.LENGTH_SHORT).show()
             } else {
                 mListener.onAccountsDocumentLabelItemClick(
@@ -56,7 +56,12 @@ class AccountsDocumentLabelListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 2
+        if(accountsDocumentList.size<2){
+            return accountsDocumentList.size
+        }
+        else{
+            return 2
+        }
     }
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {

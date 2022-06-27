@@ -87,6 +87,7 @@
                         android:layout_height="95dp"
                         android:layout_gravity="center"
                         android:elevation="@dimen/margin_size_8"
+                        android:rotation="0"
                         android:src="@drawable/img"
                         android:visibility="gone"
                         app:civ_border_color="@color/app_color"

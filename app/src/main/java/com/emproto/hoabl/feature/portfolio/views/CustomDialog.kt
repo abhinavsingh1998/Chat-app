@@ -15,7 +15,7 @@ class CustomDialog(context: Context) : Dialog(context) {
         this.show()
         val window = this.getWindow()
         window!!.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
         window.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND)

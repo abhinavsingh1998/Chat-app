@@ -232,6 +232,8 @@
     <string name="continue_txt">Continue</string>
     <string name="confirmation_msg">Your query has been submitted successfully.</string>
     <string name="feedBack_submitted">Your feedBack has been submitted successfully.</string>
+    <string name="profile_updated">Your profile has been updated successfully.</string>
+
     <string name="help_centre_about_us">Help Centre - About Us</string>
     <string name="Description">We are building a platform that will bring anyone who wants to create wealth to join the New Generation LandTM revolution. Now is your time. You can buy, maintain and liquidate land with amazing ease, conﬁdence and trust. Whether you’re a ﬁrst time buyer or a seasoned investor, we’ve got you covered. We ensure a completely secure experience for our members by keeping track of every single nuance of the ownership journey to</string>
     <string name="Selling_land_Text">WE ARE NOT SELLING LAND</string>
@@ -392,4 +394,5 @@
     <string name="read_security_tips">Read Security Tips</string>
     <string name="resendotp">Resend OTP</string>
     <string name="no_faqs_to_show">No faqs to show</string>
+    <string name="investments">Investments</string>
 </resources>

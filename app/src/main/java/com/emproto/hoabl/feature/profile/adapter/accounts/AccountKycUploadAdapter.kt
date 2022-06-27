@@ -8,10 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemAccountsKycDocUploadBinding
+import com.emproto.networklayer.response.profile.KycUpload
 
 class AccountKycUploadAdapter(
     private var mContext: Context?,
-    private var newList: ArrayList<String>,
+    private var newList: ArrayList<KycUpload>,
     private var mListener: OnKycItemUploadClickListener
 
 ) : RecyclerView.Adapter<AccountKycUploadAdapter.ViewHolder>() {
@@ -26,13 +27,20 @@ class AccountKycUploadAdapter(
 
     interface OnKycItemUploadClickListener {
         fun onUploadClick(
-            newList: ArrayList<String>,
+            newList: ArrayList<KycUpload>,
             view: View,
             position: Int
         )
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvDocName.text = newList[position]
+        holder.tvDocName.text = newList[position].documentName
+
+        if(newList[position].status == "UPLOAD"){
+            holder.tvUploadDoc.text = "Upload"
+        }else{
+            holder.tvUploadDoc.text = "Verification Pending"
+            holder.tvUploadDoc.isEnabled = false
+        }
         holder.tvUploadDoc.setOnClickListener {
             mListener.onUploadClick(newList, it, position)
         }
