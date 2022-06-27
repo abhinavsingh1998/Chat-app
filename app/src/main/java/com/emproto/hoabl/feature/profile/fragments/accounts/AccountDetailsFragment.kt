@@ -41,6 +41,7 @@ import com.emproto.hoabl.databinding.FragmentAccountDetailsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.portfolio.views.DocViewerFragment
 import com.emproto.hoabl.feature.profile.adapter.accounts.*
+import com.emproto.hoabl.feature.profile.fragments.edit_profile.EditProfileUpdatedPopUpFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.ProfileViewModel
@@ -503,6 +504,9 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                                     }
                                 }
                                 kycUploadAdapter.notifyDataSetChanged()
+                                val dialog = AccountKycStatusPopUpFragment()
+                                dialog.isCancelable = false
+                                dialog.show(childFragmentManager, "submitted")
 
                                 Toast.makeText(
                                     requireContext(),

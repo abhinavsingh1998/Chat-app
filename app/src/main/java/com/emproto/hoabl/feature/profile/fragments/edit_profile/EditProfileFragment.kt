@@ -42,22 +42,17 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentEditProfileBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.feature.login.AuthActivity
-import com.emproto.hoabl.feature.profile.fragments.feedback.FeedBackSubmittedPopup
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
-import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.Data
 import com.emproto.networklayer.response.profile.ProfilePictureResponse
 import com.emproto.networklayer.response.profile.States
-import com.example.portfolioui.databinding.LogoutConfirmationBinding
 import com.example.portfolioui.databinding.RemoveConfirmationBinding
 
-import okhttp3.MultipartBody
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -68,9 +63,6 @@ import kotlin.let as let1
 
 class EditProfileFragment : BaseFragment() {
     val bundle = Bundle()
-    var charSequence1: Editable? = null
-    var charSequence2: Editable? = null
-    lateinit var filePart: MultipartBody.Part
 
     @Inject
     lateinit var profileFactory: ProfileFactory
@@ -89,17 +81,13 @@ class EditProfileFragment : BaseFragment() {
     var citySelected = ""
 
     val pinCodePattern = Pattern.compile("([1-9]{1}[0-9]{5}|[1-9]{1}[0-9]{3}\\\\s[0-9]{3})")
-    var hMobileNo = ""
-    var hCountryCode = ""
 
     private val PICK_GALLERY_IMAGE = 1
-    private val PICK_CAMERA_IMAGE = 2
     lateinit var bitmap: Bitmap
     lateinit var destinationFile: File
 
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private var isReadStorageGranted = false
-    private var isCameraPermissionGranted = false
     private var isWriteStorageGranted = false
     lateinit var removePictureDialog:Dialog
 
@@ -114,15 +102,11 @@ class EditProfileFragment : BaseFragment() {
     lateinit var stateIso: String
     lateinit var city: String
     lateinit var gender: String
-    lateinit var uploadProfilePictureRequest: UploadProfilePictureRequest
-
     lateinit var cameraFile: File
 
     @Inject
     lateinit var appPreference: AppPreference
     lateinit var data: Data
-
-    private var isWhatsappConsentEnabled: Boolean = false
 
     companion object {
         fun newInstance():
