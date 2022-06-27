@@ -16,25 +16,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/ivBack"
-        android:layout_width="8dp"
-        android:layout_height="14dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/viewBack"
+        android:layout_width="28dp"
+        android:layout_height="29dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
-        android:src="@drawable/img_back"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/complete_view" />
+        app:layout_constraintTop_toTopOf="@id/complete_view">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="8dp"
+            android:layout_height="14dp"
+            android:src="@drawable/img_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvImage"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="2dp"
         app:cardCornerRadius="2dp"
-        app:layout_constraintBottom_toBottomOf="@id/ivBack"
-        app:layout_constraintStart_toEndOf="@+id/ivBack"
-        app:layout_constraintTop_toTopOf="@id/ivBack">
+        app:layout_constraintBottom_toBottomOf="@+id/viewBack"
+        app:layout_constraintStart_toEndOf="@+id/viewBack"
+        app:layout_constraintTop_toTopOf="@+id/viewBack">
 
         <ImageView
             android:id="@+id/ivThumb"
@@ -65,12 +76,14 @@
         android:id="@+id/clSearch"
         android:layout_width="0dp"
         android:layout_height="30dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="18dp"
         android:layout_marginEnd="12dp"
+
         android:background="@drawable/search_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/ivBack"
-        app:layout_constraintTop_toBottomOf="@id/ivBack">
+        app:layout_constraintStart_toStartOf="@id/viewBack"
+        app:layout_constraintTop_toBottomOf="@id/viewBack">
 
         <ImageView
             android:id="@+id/ivSearch"
