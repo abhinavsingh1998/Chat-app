@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.profile
+package com.emproto.hoabl.feature.profile.fragments.accounts
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -50,6 +50,7 @@ import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.AccountsResponse
+import com.emproto.networklayer.response.profile.KycUpload
 import com.emproto.networklayer.response.profile.UploadDocumentResponse
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.io.ByteArrayOutputStream
@@ -64,6 +65,8 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
     AccountKycUploadAdapter.OnKycItemUploadClickListener,
     AllDocumentAdapter.OnAllDocumentLabelClickListener,
     AccountsDocumentLabelListAdapter.OnDocumentLabelItemClickListener {
+
+    lateinit var kycUploadAdapter: AccountKycUploadAdapter
 
     @Inject
     lateinit var homeFactory: HomeFactory
@@ -92,6 +95,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
     lateinit var bitmap: Bitmap
 
     lateinit var selectedDoc: String
+    val kycUploadList = ArrayList<KycUpload>()
     private var isReadPermissonGranted: Boolean = false
     private var isWritePermissonGranted: Boolean = false
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
@@ -118,6 +122,19 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
         (requireActivity() as HomeActivity).hideBottomNavigation()
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             false
+        permissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+                isReadPermissonGranted =
+                    permissions[Manifest.permission.READ_EXTERNAL_STORAGE]
+                        ?: isReadPermissonGranted
+                isWritePermissonGranted = permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE]
+                    ?: isWritePermissonGranted
+
+                if (isReadPermissonGranted && isWritePermissonGranted) {
+                    openPdf(base64Data)
+                }
+            }
+
         return binding.root
     }
 
@@ -156,16 +173,17 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                             }
                         }
                         if (kycLists.isNullOrEmpty()) {
-                            val newList = ArrayList<String>()
-                            newList.add("Address Proof")
-                            newList.add("PAN Card")
 
+                            kycUploadList.add(KycUpload("Address Proof", "UPLOAD"))
+                            kycUploadList.add(KycUpload("PAN Card", "UPLOAD"))
+
+                            kycUploadAdapter = AccountKycUploadAdapter(
+                                context,
+                                kycUploadList, this
+                            )
                             binding.rvKyc.layoutManager =
                                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-                            binding.rvKyc.adapter = AccountKycUploadAdapter(
-                                context,
-                                newList, this
-                            )
+                            binding.rvKyc.adapter = kycUploadAdapter
                         } else {
                             binding.rvKyc.layoutManager =
                                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
@@ -277,6 +295,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
         name: String,
         path: String
     ) {
+        Log.d("Fff","${name.toString()}")
         openDocumentScreen(name, path)
     }
 
@@ -310,14 +329,19 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
 
     private fun openDocumentScreen(name: String, path: String) {
         val strings = name.split(".")
-        if (strings[1] == "png" || strings[1] == "jpg") {
-            //open image loading screen
-            openDocument(name, path)
-        } else if (strings[1] == "pdf") {
-            getDocumentData(path)
-        } else {
+            if(strings.size > 0){
+                if (strings[1] == "png" || strings[1] == "jpg") {
+                    //open image loading screen
+                    openDocument(name, path)
+                } else if (strings[1] == "pdf") {
+                    getDocumentData(path)
+                } else {
+                    Toast.makeText(context, "Invalid format", Toast.LENGTH_SHORT).show()
+                }
+            }
 
-        }
+
+
     }
 
     fun getDocumentData(path: String) {
@@ -389,9 +413,9 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
 
     }
 
-    override fun onUploadClick(newList: ArrayList<String>, view: View, position: Int) {
+    override fun onUploadClick(kycUploadList: ArrayList<KycUpload>, view: View, position: Int) {
         selectImage()
-        selectedDoc = newList[position]
+        selectedDoc = kycUploadList[position].documentName
     }
 
     private fun selectImage() {
@@ -450,7 +474,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
         val selectedImage = cameraFile.path
         destinationFile = cameraFile
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-            val extension: String = cameraFile.name.substring(cameraFile.name.lastIndexOf(".")+1)
+            val extension: String = cameraFile.name.substring(cameraFile.name.lastIndexOf(".") + 1)
             callingUploadPicApi(cameraFile, extension)
         } else {
             (requireActivity() as BaseActivity).showError(
@@ -462,7 +486,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
     }
 
     private fun callingUploadPicApi(destinationFile: File, extension: String) {
-        profileViewModel.uploadKycDocument( extension,destinationFile, selectedDoc)
+        profileViewModel.uploadKycDocument(extension, destinationFile, selectedDoc)
             .observe(
                 viewLifecycleOwner,
                 object : Observer<BaseResponse<UploadDocumentResponse>> {
@@ -473,11 +497,26 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                             }
                             Status.SUCCESS -> {
                                 binding.progressBar.hide()
-                                Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_LONG).show()
+                                kycUploadList.forEach {
+                                    if(it.documentName == selectedDoc){
+                                        it.status = "VERIFICATION"
+                                    }
+                                }
+                                kycUploadAdapter.notifyDataSetChanged()
+
+                                Toast.makeText(
+                                    requireContext(),
+                                    it.message.toString(),
+                                    Toast.LENGTH_LONG
+                                ).show()
                             }
                             Status.ERROR -> {
                                 binding.progressBar.hide()
-                               Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_LONG).show()
+                                Toast.makeText(
+                                    requireContext(),
+                                    it.message.toString(),
+                                    Toast.LENGTH_LONG
+                                ).show()
 
                             }
                         }
@@ -511,7 +550,8 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                 val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
                 if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
                     destinationFile = File(filePath)
-                    val extension: String = destinationFile.name.substring(destinationFile.name.lastIndexOf(".")+1)
+                    val extension: String =
+                        destinationFile.name.substring(destinationFile.name.lastIndexOf(".") + 1)
                     callingUploadPicApi(destinationFile, extension)
 
                 } else {

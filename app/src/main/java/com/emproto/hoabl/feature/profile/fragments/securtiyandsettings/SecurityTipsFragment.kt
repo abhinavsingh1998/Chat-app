@@ -1,15 +1,12 @@
-package com.emproto.hoabl.feature.profile
+package com.emproto.hoabl.feature.profile.fragments.securtiyandsettings
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.databinding.FragmentProfileMainBinding
 import com.emproto.hoabl.databinding.FragmentSecurityTipsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity

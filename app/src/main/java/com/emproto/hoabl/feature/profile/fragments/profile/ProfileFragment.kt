@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.profile
+package com.emproto.hoabl.feature.profile.fragments.profile
 
 import android.app.Dialog
 import android.content.Intent
@@ -21,9 +21,14 @@ import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.hoabl.feature.portfolio.views.FmFragment
+import com.emproto.hoabl.feature.profile.fragments.edit_profile.EditProfileFragment
+import com.emproto.hoabl.feature.profile.fragments.feedback.FacilityManagerPopViewFragment
+import com.emproto.hoabl.feature.profile.fragments.help_center.HelpCenterFragment
+import com.emproto.hoabl.feature.profile.fragments.securtiyandsettings.SecurityFragment
 import com.emproto.hoabl.feature.profile.adapter.ProfileOptionsAdapter
 import com.emproto.hoabl.feature.profile.data.ProfileModel
 import com.emproto.hoabl.feature.profile.data.ProfileOptionsData
+import com.emproto.hoabl.feature.profile.fragments.accounts.AccountDetailsFragment
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference

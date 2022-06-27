@@ -19,13 +19,15 @@ data class AccountsResponse(
     ) {
         data class Document(
             @SerializedName("bookingId")
-            val bookingId: String?,
+            val bookingId: String? =null,
             @SerializedName("documentCategory")
             val documentCategory: String,
             @SerializedName("documentType")
             val documentType: String,
             @SerializedName("id")
             val id: Int,
+            @SerializedName("status")
+            val status: String? = null,
             @SerializedName("itemInternalId")
             val itemInternalId: Any?,
             @SerializedName("name")

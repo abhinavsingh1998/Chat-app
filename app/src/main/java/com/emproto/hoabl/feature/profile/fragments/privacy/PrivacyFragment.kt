@@ -1,20 +1,15 @@
-package com.emproto.hoabl.feature.profile
+package com.emproto.hoabl.feature.profile.fragments.privacy
 
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.databinding.FragmentAboutUsBinding
 import com.emproto.hoabl.databinding.FragmentPrivacyBinding
-import com.emproto.hoabl.databinding.FragmentProfileMainBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory

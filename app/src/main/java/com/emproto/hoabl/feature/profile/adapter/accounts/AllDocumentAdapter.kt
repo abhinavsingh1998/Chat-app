@@ -46,7 +46,7 @@ class AllDocumentAdapter(
         }
 
         holder.tvViewDoc.setOnClickListener {
-            if (accountsDocumentList[position].toString().isNullOrEmpty()) {
+            if (accountsDocumentList[position]==null) {
                 Toast.makeText(mContext, "No Document available", Toast.LENGTH_SHORT).show()
 
             } else {

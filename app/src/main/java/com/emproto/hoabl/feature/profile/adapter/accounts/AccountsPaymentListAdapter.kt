@@ -53,15 +53,18 @@ class AccountsPaymentListAdapter(
         }
 
         holder.tvSeeReceipt.setOnClickListener {
-            if (accountsPaymentList[position].document.toString().isNullOrEmpty()) {
+            if (accountsPaymentList[position].document==null) {
+
                 Toast.makeText(mContext, "No Receipt", Toast.LENGTH_SHORT).show()
+
+
             } else {
                 mListener.onAccountsPaymentItemClick(
                     accountsPaymentList,
                     it,
                     position,
-                    accountsPaymentList[position].document.name,
-                    accountsPaymentList[position].document.path
+                    accountsPaymentList[position].document?.name.toString(),
+                    accountsPaymentList[position].document?.path.toString()
                 )
 
             }

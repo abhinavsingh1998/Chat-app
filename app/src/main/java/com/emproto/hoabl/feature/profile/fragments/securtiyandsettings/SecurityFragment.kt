@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.profile
+package com.emproto.hoabl.feature.profile.fragments.securtiyandsettings
 
 import android.content.Intent
 import android.net.Uri
