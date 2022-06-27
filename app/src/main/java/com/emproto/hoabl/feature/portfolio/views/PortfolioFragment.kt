@@ -92,6 +92,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     val permissionRequest: MutableList<String> = ArrayList()
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     var isReadPermissonGranted: Boolean = false
+    var investmentId = 0
 
 
     override fun onCreateView(
@@ -396,10 +397,14 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                     it.data.projects.filter { it.investment.isBookingComplete }
                 )
             )
+            val onGoingProjects = it.data.projects.filter { !it.investment.isBookingComplete }
+            if (onGoingProjects.isNotEmpty()) {
+                investmentId = onGoingProjects[0].investment.id
+            }
             list.add(
                 PortfolioModel(
                     ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
-                    it.data.projects.filter { !it.investment.isBookingComplete }
+                    onGoingProjects
                 )
             )
             if (appPreference.getOfferUrl() != null && appPreference.getOfferUrl().isNotEmpty()) {
@@ -506,7 +511,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     override fun onGoingDetails() {
         (requireActivity() as HomeActivity).addFragment(
             BookingjourneyFragment.newInstance(
-                23,
+                investmentId,
                 ""
             ), false
         )

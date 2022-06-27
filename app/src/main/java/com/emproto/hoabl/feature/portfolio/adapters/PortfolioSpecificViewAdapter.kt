@@ -215,17 +215,11 @@ class PortfolioSpecificViewAdapter(
             //binding.btnApplyNow.setOnClickListener(onItemClickListener)
             binding.tvViewMore.setOnClickListener {
 
-                if (binding.cvMoreInfoCard.visibility == View.VISIBLE) {
-                    binding.cvMoreInfoCard.visibility = View.GONE
-                    binding.tvViewMore.text = "View More"
-                    binding.ivViewMoreDropDown.setImageDrawable(context.getDrawable(R.drawable.ic_drop_down))
+                showHideSubSection()
 
-                } else {
-                    binding.cvMoreInfoCard.visibility = View.VISIBLE
-                    binding.tvViewMore.text = "View Less"
-                    binding.ivViewMoreDropDown.setImageDrawable(context.getDrawable(R.drawable.ic_arrow_upward))
-                }
-
+            }
+            binding.ivViewMoreDropDown.setOnClickListener {
+                showHideSubSection()
             }
             //set data to view
             val data =
@@ -364,6 +358,19 @@ class PortfolioSpecificViewAdapter(
             }
             binding.tvSeeOnMap.setOnClickListener {
                 ivInterface.seeOnMap("23.640699", "85.282204")
+            }
+        }
+
+        private fun showHideSubSection() {
+            if (binding.cvMoreInfoCard.visibility == View.VISIBLE) {
+                binding.cvMoreInfoCard.visibility = View.GONE
+                binding.tvViewMore.text = "View More"
+                binding.ivViewMoreDropDown.setImageDrawable(context.getDrawable(R.drawable.ic_drop_down))
+
+            } else {
+                binding.cvMoreInfoCard.visibility = View.VISIBLE
+                binding.tvViewMore.text = "View Less"
+                binding.ivViewMoreDropDown.setImageDrawable(context.getDrawable(R.drawable.ic_arrow_upward))
             }
         }
     }

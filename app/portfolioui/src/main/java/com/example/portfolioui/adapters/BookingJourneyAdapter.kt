@@ -111,13 +111,15 @@ class BookingJourneyAdapter(
         when (dataList[position].viewType) {
             TYPE_HEADER -> {
                 val header_holder = holder as HeaderHolder
-                val data = dataList[header_holder.layoutPosition].data as InvestmentInformation
-                header_holder.binding.tvOwner.text = data.owners
-                header_holder.binding.tvId.text = "Hoabl/${data.inventoryId}"
-                header_holder.binding.tvProjectName.text = data.launchName
-                header_holder.binding.tvLocation.text =
-                    data.address.city + " , " + data.address.state
-                header_holder.binding.tvProgress.text = data.bookingStatus
+                if (dataList[header_holder.layoutPosition].data != null) {
+                    val data = dataList[header_holder.layoutPosition].data as InvestmentInformation
+                    header_holder.binding.tvOwner.text = data.owners
+                    header_holder.binding.tvId.text = "Hoabl/${data.inventoryId}"
+                    header_holder.binding.tvProjectName.text = data.launchName
+                    header_holder.binding.tvLocation.text =
+                        data.address.city + " , " + data.address.state
+                    header_holder.binding.tvProgress.text = data.bookingStatus
+                }
 
 
             }

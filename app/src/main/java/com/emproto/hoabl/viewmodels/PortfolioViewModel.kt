@@ -29,7 +29,7 @@ class PortfolioViewModel(
 
     private var portfolioData = MutableLiveData<PortfolioData>()
     private lateinit var projectDetails: ProjectExtraDetails
-    private lateinit var investmentInfo: InvestmentInformation
+    private var investmentInfo: InvestmentInformation? = null
     private lateinit var paymentHistory: List<PaymentHistory>
 
     fun getPortfolioDashboard(refresh: Boolean): LiveData<BaseResponse<PortfolioData>> {
@@ -56,7 +56,7 @@ class PortfolioViewModel(
         this.investmentInfo = investementInfo
     }
 
-    fun getInvestmentInfo(): InvestmentInformation {
+    fun getInvestmentInfo(): InvestmentInformation? {
         return this.investmentInfo
     }
 
