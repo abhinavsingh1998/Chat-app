@@ -161,7 +161,7 @@ class OpportunityDocsAdapter(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 linedataset.fillColor = context.getColor(R.color.green)
             }
-            linedataset.mode = LineDataSet.Mode.LINEAR;
+            linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
             linedataset.setDrawCircles(false)
             linedataset.setDrawValues(false)
             val data = LineData(linedataset)

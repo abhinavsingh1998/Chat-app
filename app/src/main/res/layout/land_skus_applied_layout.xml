@@ -16,7 +16,7 @@
             android:id="@+id/rv_land_skus_items_applied"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_size_15"
+            android:layout_marginHorizontal="@dimen/margin_size_8"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
