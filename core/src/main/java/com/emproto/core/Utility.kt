@@ -286,5 +286,13 @@ object Utility {
 
     }
 
+    fun getBookingStatus(bookingNumber: Int): String {
+        return if (bookingNumber == 225360010) {
+            "Booking Done"
+        } else {
+            "Booking in Progress"
+        }
+    }
+
 
 }

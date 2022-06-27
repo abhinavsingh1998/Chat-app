@@ -288,7 +288,8 @@
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@id/tv_possession_date_linear"
                 app:layout_constraintEnd_toStartOf="@+id/iv_view_more_drop_down"
-                app:layout_constraintTop_toTopOf="@id/tv_possession_date_linear" />
+                app:layout_constraintTop_toTopOf="@id/tv_possession_date_linear"
+                app:layout_constraintVertical_bias="0.458" />
 
             <ImageView
                 android:id="@+id/iv_view_more_drop_down"

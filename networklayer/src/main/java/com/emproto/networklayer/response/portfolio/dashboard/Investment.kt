@@ -14,7 +14,7 @@ data class Investment(
     val projectIea: String,
     val allocationDate: String,
     val crmInventory: CrmInventory,
-    val pendingAmount: Double
+    val pendingAmount: Double,
 
 )
 
