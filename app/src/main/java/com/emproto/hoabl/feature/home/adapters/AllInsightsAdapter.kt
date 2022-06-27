@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.InsightsListItemBinding
 import com.emproto.networklayer.response.home.PageManagementOrInsight
 import com.emproto.networklayer.response.insights.Data
@@ -51,7 +52,9 @@ class AllInsightsAdapter(
 
         }else{
             holder.binding.deatils.text= showHTMLText(item.insightsMedia[0].description)
-            holder.binding.btnReadMore.isVisible= true
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                Utility.convertString(holder.binding.deatils,context,showHTMLText(item.insightsMedia[0].description).toString(),2)
+            }
         }
 
 

@@ -7,7 +7,7 @@
 
 
     <corners
-        android:radius="@dimen/margin_size_4"/>
+        android:radius="@dimen/margin_size_2"/>
 
 
 </shape>

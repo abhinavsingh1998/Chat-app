@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ProjectUpdatesItemBinding
 import com.emproto.networklayer.response.marketingUpdates.Data
 
@@ -46,8 +47,11 @@ class AllLatestUpdatesAdapter(
 
 
             if (!item.detailedInfo[0].description.isNullOrEmpty()){
-                holder.binding.btnReadMore.isVisible= true
-                holder.binding.deatils.text= showHTMLText(item.detailedInfo[0].description)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    Utility.convertString(holder.binding.deatils,context,showHTMLText(item.detailedInfo[0].description).toString(),2)
+                }
+
+
             } else{
                 holder.binding.btnReadMore.isVisible= false
 

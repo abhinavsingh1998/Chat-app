@@ -101,6 +101,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:fontFamily="@font/jost_medium"
+                android:visibility="gone"
                 android:paddingHorizontal="4dp"
                 android:text="READ MORE."
                 app:layout_constraintBottom_toBottomOf="@+id/deatils"
