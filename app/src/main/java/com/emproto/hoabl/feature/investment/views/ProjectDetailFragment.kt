@@ -322,7 +322,7 @@ class ProjectDetailFragment : BaseFragment() {
                             faqData = data.projectContentsAndFaqs
                             mapLocationData = data.locationInfrastructure
                             for(item in watchList){
-                                if(item.watchlist.projectId.toInt() == projectId){
+                                if(item.watchlist.projectContentId.toInt() == projectId){
                                     isBookmarked = true
                                     watchListId = item.watchlist.id
                                     investmentViewModel.setWatchListId(item.watchlist.id)

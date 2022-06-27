@@ -34,7 +34,7 @@ class SkuAdapter(
             tvStartingAt.text = SpannableStringBuilder()
                 .append("Starting at")
                 .bold { append(" ₹${convertedAmount} L") }
-            tvAreaSkus.text = "${element.areaRange.from} Sqft - ${element.areaRange.to} Sqft"
+            tvAreaSkus.text = "${element.areaRange.from} - ${element.areaRange.to} Sqft"
             //Changing UI corresponding to application
             when (element.isApplied) {
                 true -> {
