@@ -169,6 +169,7 @@ class PortfolioSpecificViewAdapter(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (list[position].viewType) {
             PORTFOLIO_TOP_SECTION -> {
@@ -302,13 +303,14 @@ class PortfolioSpecificViewAdapter(
                     //project status based configuration
                     if (data.investmentInformation.isBookingComplete) {
                         binding.tvPending.text = "IEA"
-                        binding.tvPendingAmount.text = list[position].iea + "%"
-                        binding.tvPending.setCompoundDrawablesWithIntrinsicBounds(
-                            null,
-                            null,
-                            null,
-                            null
+                        binding.tvPendingAmount.text = "${list[position].iea}%"
+                        binding.tvPendingAmount.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_trending,
+                            0,
+                            0,
+                            0
                         )
+                        binding.tvPending.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
                         binding.tvPendingAmount.setTextColor(context.getColor(R.color.app_color))
                         binding.tvPaid.text = "Invested"
                         binding.tvPaidAmount.text =
@@ -375,21 +377,21 @@ class PortfolioSpecificViewAdapter(
         }
     }
 
-    fun slideToBottom(view: View) {
-        val animate = TranslateAnimation(0f, 0f, 0f, view.height.toFloat() * 0.95f)
-        animate.duration = 500
-        animate.fillAfter = false
-        view.startAnimation(animate)
-        view.visibility = View.VISIBLE
-    }
-
-    fun moveBottom(view: View) {
-        val moveAnim: ObjectAnimator = ObjectAnimator.ofFloat(view, "Y", 1000f)
-        moveAnim.duration = 2000
-        moveAnim.interpolator = BounceInterpolator()
-        moveAnim.start()
-        view.visibility = View.VISIBLE
-    }
+//    fun slideToBottom(view: View) {
+//        val animate = TranslateAnimation(0f, 0f, 0f, view.height.toFloat() * 0.95f)
+//        animate.duration = 500
+//        animate.fillAfter = false
+//        view.startAnimation(animate)
+//        view.visibility = View.VISIBLE
+//    }
+//
+//    fun moveBottom(view: View) {
+//        val moveAnim: ObjectAnimator = ObjectAnimator.ofFloat(view, "Y", 1000f)
+//        moveAnim.duration = 2000
+//        moveAnim.interpolator = BounceInterpolator()
+//        moveAnim.start()
+//        view.visibility = View.VISIBLE
+//    }
 
 
     private inner class PendingViewHolder(private val binding: PendingItemsLayoutBinding) :
@@ -399,7 +401,13 @@ class PortfolioSpecificViewAdapter(
             val allPayments = list[position].data as List<PaymentSchedulesItem>
             val investmentid = list[position].iid
 
-            specificViewPagerAdapter = PortfolioSpecificViewPagerAdapter(allPayments)
+            specificViewPagerAdapter = PortfolioSpecificViewPagerAdapter(allPayments,
+                object : PortfolioSpecificViewPagerAdapter.PendingCardInterface {
+                    override fun onclickCard() {
+                        ivInterface.seeBookingJourney(investmentid)
+                    }
+
+                })
             binding.vpAttention.adapter = specificViewPagerAdapter
             binding.tvSeeallAttention.setOnClickListener {
                 ivInterface.seeBookingJourney(investmentid)
@@ -537,7 +545,7 @@ class PortfolioSpecificViewAdapter(
     private inner class PriceTrendsViewHolder(private val binding: PriceTrendsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            binding.tvRating.text = list[position].iea + "%"
+            binding.tvRating.text = "${list[position].ea} %"
             val graphData = list[position].data as GeneralInfoEscalationGraph
             binding.tvXAxisLabel.text = graphData.yAxisDisplayName
             binding.tvYAxisLabel.text = graphData.xAxisDisplayName

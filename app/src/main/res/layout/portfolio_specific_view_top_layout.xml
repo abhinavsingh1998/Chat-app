@@ -728,10 +728,8 @@
             android:layout_marginHorizontal="@dimen/margin_size_12"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/jost_light"
-            android:text="The Isle of Bliss is phase 2 of Codename Bliss Dapoli, a seaside lifestyle plotting development from The House of Abhinandan"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_investment_details"
-            app:trimCollapsedText="...Read More"
             app:trimLines="2"
             app:trimMode="trimModeLine" />
 

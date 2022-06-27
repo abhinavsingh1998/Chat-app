@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.Color
 import android.os.Build
+import android.text.Html
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.TextPaint
@@ -212,5 +213,13 @@ class ReadMoreTextView(context: Context, attrs: AttributeSet?) : AppCompatTextVi
         viewMoreSpan = ReadMoreClickableSpan()
         onGlobalLayoutLineEndIndex()
         setText()
+    }
+
+    fun showHTMLText(message: String?): Spanned {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            Html.fromHtml(message)
+        }
     }
 }

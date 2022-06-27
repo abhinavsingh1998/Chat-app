@@ -11,6 +11,7 @@ data class Investment(
     val inventoryId: String,
     val areaSqFt: Double,
     val amountInvested: Double,
-    val projectIea: String
+    val projectIea: String,
+    val allocationDate: String
 
 )

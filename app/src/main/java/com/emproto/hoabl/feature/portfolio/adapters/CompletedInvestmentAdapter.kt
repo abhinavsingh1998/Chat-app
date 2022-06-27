@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.portfolio.adapters
 
 import android.content.Context
 import android.os.Build
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import java.text.SimpleDateFormat
 
 class CompletedInvestmentAdapter(
     val context: Context,
@@ -70,7 +72,8 @@ class CompletedInvestmentAdapter(
                 project.investment.id,
                 project.project.id,
                 projectExtraDetails,
-                project.investment.projectIea
+                project.investment.projectIea,
+                project.project.generalInfoEscalationGraph.estimatedAppreciation
             )
         }
         if (project.project != null) {
@@ -114,7 +117,8 @@ class CompletedInvestmentAdapter(
             setDropDownGraph(
                 holder.binding.ivCompletedInvestmentGraph,
                 project.project.generalInfoEscalationGraph.dataPoints.points,
-                project.project.generalInfoEscalationGraph.dataPoints.dataPointType
+                project.project.generalInfoEscalationGraph.dataPoints.dataPointType,
+                project.investment.allocationDate
             )
 
             if (type == ONGOING) {
@@ -141,8 +145,13 @@ class CompletedInvestmentAdapter(
     private fun setDropDownGraph(
         ivCompletedInvestmentGraph: LineChart,
         points: List<Point>,
-        dataPointType: String
+        dataPointType: String,
+        ownershipDate: String
     ) {
+//        if (ownershipDate != null) {
+//            val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").parse(ownershipDate)
+//            val year = DateFormat.format("yyyy", date)
+//        }
         val linevalues = ArrayList<Entry>()
 //        for (item in points) {
 //            linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
@@ -216,7 +225,7 @@ class CompletedInvestmentAdapter(
         //We connect our data to the UI Screen
         val data1 = LineData(linedataset1)
         if (type == COMPLETED) {
-            val limitLine = LimitLine(2018F, "My Investment")
+            val limitLine = LimitLine(linevalues[(linevalues.size / 2)].x, "My Investment")
             limitLine.lineColor = context.getColor(R.color.app_color)
             limitLine.lineWidth = 1F
             limitLine.enableDashedLine(10F, 10F, 10F)
