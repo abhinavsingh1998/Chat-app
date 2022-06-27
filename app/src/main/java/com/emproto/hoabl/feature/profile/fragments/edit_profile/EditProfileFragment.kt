@@ -736,14 +736,12 @@ class EditProfileFragment : BaseFragment() {
                 changeFontOnSave()
 
                 binding.saveAndUpdate.isVisible= true
-
                 val dialog = EditProfileUpdatedPopUp()
                 dialog.isCancelable = false
                 dialog.show(childFragmentManager, "submitted")
             }
 
         }
-
     }
 
     private fun changeFontOnSave() {
