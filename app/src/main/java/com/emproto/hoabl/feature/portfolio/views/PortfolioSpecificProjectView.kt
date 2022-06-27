@@ -78,6 +78,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
     var crmId: Int = 0
     var projectId: Int = 0
     var iea: String = ""
+    var ea: Double = 0.0
     var allMediaList = ArrayList<MediaViewItem>()
 
     @Inject
@@ -106,6 +107,9 @@ class PortfolioSpecificProjectView : BaseFragment() {
             projectId = it.getInt("PID")
             it.getString("IEA")?.let {
                 iea = it
+            }
+            it.getDouble("EA")?.let {
+                ea = it
             }
         }
         return binding.root
@@ -224,7 +228,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 list.add(
                     RecyclerViewItem(
                         PortfolioSpecificViewAdapter.PORTFOLIO_PENDINGCARD,
-                        filteredpayments, "", it.data.investmentInformation.id
+                        filteredpayments, iea, 0.0, it.data.investmentInformation.id
                     )
                 )
             }
@@ -245,17 +249,17 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 it.data.projectInformation.latestMediaGalleryOrProjectContent[0]
             )
         )
-        list.add(
-            RecyclerViewItem(
-                PortfolioSpecificViewAdapter.PORTFOLIO_PROMISES,
-                it.data.projectPromises
-            )
-        )
+//        list.add(
+//            RecyclerViewItem(
+//                PortfolioSpecificViewAdapter.PORTFOLIO_PROMISES,
+//                it.data.projectPromises
+//            )
+//        )
         list.add(
             RecyclerViewItem(
                 PortfolioSpecificViewAdapter.PORTFOLIO_GRAPH,
-                it.data.projectExtraDetails.graphData,
-                iea
+                it.data.projectExtraDetails.graphData, "", ea
+
             )
         )
         list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_REFERNOW))
@@ -366,8 +370,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
                             bundle.putInt("SelectedPosition", position)
                             bundle.putInt("FaqId", faqId)
                         }
-                        bundle.putBoolean("isFromInvestment",true)
-                        bundle.putString("ProjectName","")
+                        bundle.putBoolean("isFromInvestment", true)
+                        bundle.putString("ProjectName", "")
                         fragment.arguments = bundle
                         (requireActivity() as HomeActivity).addFragment(
                             fragment,
@@ -382,8 +386,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
                                 requireActivity(),
                                 homeFactory
                             ).get(HomeViewModel::class.java)
-                        val details = it.data.projectPromises.data[position]
-                        homeViewModel.setSelectedPromise(details)
+                        //val details = it.data.projectPromises.data[position]
+                        //homeViewModel.setSelectedPromise(details)
                         (requireActivity() as HomeActivity).addFragment(
                             PromisesDetailsFragment(),
                             false
@@ -487,7 +491,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
         binding.rvPortfolioSpecificView.setHasFixedSize(true)
         binding.rvPortfolioSpecificView.setItemViewCacheSize(10)
 
-        fetchDocuments(it.data.investmentInformation.crmProjectId)
+        fetchDocuments(it.data.investmentInformation.crmLaunchPhaseId)
         //for document bottom sheet
         if (it.data.documentList != null) {
             val adapter =

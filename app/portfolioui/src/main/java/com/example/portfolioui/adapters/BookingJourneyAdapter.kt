@@ -346,7 +346,7 @@ class BookingJourneyAdapter(
                         context.getDrawable(R.drawable.button_bg)
 
                     listHolder.binding.getOtpButton.setOnClickListener {
-                        itemInterface.facilityManagment(list.plotNumber, list.crmProjectId)
+                        itemInterface.facilityManagment(list.plotNumber, list.crmLaunchPhaseId)
                     }
 
                 } else {

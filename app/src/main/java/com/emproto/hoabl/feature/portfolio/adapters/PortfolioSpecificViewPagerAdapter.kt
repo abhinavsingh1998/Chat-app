@@ -10,7 +10,10 @@ import com.emproto.hoabl.feature.investment.adapters.ProjectDetailViewPagerAdapt
 import com.emproto.hoabl.model.ViewItem
 import com.emproto.networklayer.response.portfolio.ivdetails.PaymentSchedulesItem
 
-class PortfolioSpecificViewPagerAdapter(private val imageList: List<PaymentSchedulesItem>) :
+class PortfolioSpecificViewPagerAdapter(
+    private val imageList: List<PaymentSchedulesItem>,
+    val cardInterface: PendingCardInterface
+) :
     RecyclerView.Adapter<PortfolioSpecificViewPagerAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: ItemAttentionBinding) :
@@ -29,5 +32,9 @@ class PortfolioSpecificViewPagerAdapter(private val imageList: List<PaymentSched
     }
 
     override fun getItemCount(): Int = imageList.size
+
+    interface PendingCardInterface {
+        fun onclickCard()
+    }
 
 }

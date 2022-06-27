@@ -169,6 +169,7 @@ class PortfolioSpecificViewAdapter(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (list[position].viewType) {
             PORTFOLIO_TOP_SECTION -> {
@@ -229,12 +230,12 @@ class PortfolioSpecificViewAdapter(
                 binding.tvProjectLocation.text =
                     data.projectExtraDetails.address.city + "," + data.projectExtraDetails.address.state
                 if (data.investmentInformation != null) {
-                    if (data.investmentInformation.bookingJourney != null) {
+                    if (data.investmentInformation != null) {
                         binding.tvPaidAmount.text =
-                            Utility.formatAmount(data?.investmentInformation?.bookingJourney?.paidAmount)
+                            Utility.formatAmount(data?.investmentInformation.paidAmount)
                     }
                     binding.tvAreaUnit.text =
-                        "${Utility.convertTo(data?.investmentInformation?.areaSqFt)} sqft"
+                        "${Utility.convertTo(data?.investmentInformation.crmInventory.areaSqFt)} sqft"
                     binding.tvProjectInfo.text = data.projectInformation.shortDescription
                     var reraNumber = ""
                     val mSize = data.projectInformation.reraDetails.reraNumbers.size
@@ -257,22 +258,22 @@ class PortfolioSpecificViewAdapter(
                                 null
                             )
                     //view more
-                    binding.tvLandId.text = "Hoabl/" + data.investmentInformation.inventoryId
+                    binding.tvLandId.text = "Hoabl/" + data.investmentInformation.crmInventory.name
                     binding.tvSkuType.text = data.investmentInformation.inventoryBucket
 
-                    if (data.investmentInformation.bookingJourney != null) {
+                    if (data.investmentInformation != null) {
 
                     }
                     binding.tvInvestmentAmount.text =
                         Utility.formatAmount(data.investmentInformation.amountInvested)
 
-                    if (data.investmentInformation.bookingJourney != null) {
+                    if (data.investmentInformation != null) {
                         binding.tvAmountPending.text =
-                            Utility.formatAmount(data.investmentInformation.bookingJourney.amountPending)
+                            Utility.formatAmount(data.projectExtraDetails.amountPending)
                     }
 
                     binding.tvRegistryAmount.text =
-                        Utility.formatAmount(data.investmentInformation.registryAmount)
+                        Utility.formatAmount(data.investmentInformation.registrationCharges)
                     binding.tvOtherExpenses.text =
                         Utility.formatAmount(data.investmentInformation.otherExpenses)
 
@@ -282,7 +283,7 @@ class PortfolioSpecificViewAdapter(
                         )
                     }
                     binding.ivAmountPending.setOnClickListener {
-                        getToolTip("₹${data.investmentInformation.registryAmount}").showAlignTop(
+                        getToolTip("₹${data.investmentInformation.registrationCharges}").showAlignTop(
                             binding.ivAmountPending
                         )
                     }
@@ -300,15 +301,16 @@ class PortfolioSpecificViewAdapter(
                     Glide.with(context).load(data.projectExtraDetails.projectIco.value.url)
                         .into(binding.ivProjectImage)
                     //project status based configuration
-                    if (data.investmentInformation.isBookingComplete) {
+                    if (data.projectExtraDetails.isBookingComplete) {
                         binding.tvPending.text = "IEA"
-                        binding.tvPendingAmount.text = list[position].iea + "%"
-                        binding.tvPending.setCompoundDrawablesWithIntrinsicBounds(
-                            null,
-                            null,
-                            null,
-                            null
+                        binding.tvPendingAmount.text = "${list[position].iea}%"
+                        binding.tvPendingAmount.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_trending,
+                            0,
+                            0,
+                            0
                         )
+                        binding.tvPending.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
                         binding.tvPendingAmount.setTextColor(context.getColor(R.color.app_color))
                         binding.tvPaid.text = "Invested"
                         binding.tvPaidAmount.text =
@@ -327,16 +329,16 @@ class PortfolioSpecificViewAdapter(
                         binding.tvAmountPendingTitle.visibility = View.GONE
                     } else {
                         binding.tvPendingAmount.text =
-                            Utility.formatAmount(data.investmentInformation.bookingJourney?.amountPending)
+                            Utility.formatAmount(data.projectExtraDetails.amountPending)
                         binding.tvAmountPaid.text =
-                            Utility.formatAmount(data.investmentInformation.bookingJourney?.paidAmount)
+                            Utility.formatAmount(data.investmentInformation.paidAmount)
                         binding.tvPaid.setOnClickListener {
-                            getToolTip("₹${data.investmentInformation.bookingJourney?.paidAmount}").showAlignTop(
+                            getToolTip("₹${data.investmentInformation.paidAmount}").showAlignTop(
                                 binding.tvPaid
                             )
                         }
                         binding.tvPending.setOnClickListener {
-                            getToolTip("₹${data.investmentInformation.bookingJourney?.amountPending}").showAlignTop(
+                            getToolTip("₹${data.projectExtraDetails.amountPending}").showAlignTop(
                                 binding.tvPending
                             )
                         }
@@ -375,21 +377,21 @@ class PortfolioSpecificViewAdapter(
         }
     }
 
-    fun slideToBottom(view: View) {
-        val animate = TranslateAnimation(0f, 0f, 0f, view.height.toFloat() * 0.95f)
-        animate.duration = 500
-        animate.fillAfter = false
-        view.startAnimation(animate)
-        view.visibility = View.VISIBLE
-    }
-
-    fun moveBottom(view: View) {
-        val moveAnim: ObjectAnimator = ObjectAnimator.ofFloat(view, "Y", 1000f)
-        moveAnim.duration = 2000
-        moveAnim.interpolator = BounceInterpolator()
-        moveAnim.start()
-        view.visibility = View.VISIBLE
-    }
+//    fun slideToBottom(view: View) {
+//        val animate = TranslateAnimation(0f, 0f, 0f, view.height.toFloat() * 0.95f)
+//        animate.duration = 500
+//        animate.fillAfter = false
+//        view.startAnimation(animate)
+//        view.visibility = View.VISIBLE
+//    }
+//
+//    fun moveBottom(view: View) {
+//        val moveAnim: ObjectAnimator = ObjectAnimator.ofFloat(view, "Y", 1000f)
+//        moveAnim.duration = 2000
+//        moveAnim.interpolator = BounceInterpolator()
+//        moveAnim.start()
+//        view.visibility = View.VISIBLE
+//    }
 
 
     private inner class PendingViewHolder(private val binding: PendingItemsLayoutBinding) :
@@ -399,7 +401,13 @@ class PortfolioSpecificViewAdapter(
             val allPayments = list[position].data as List<PaymentSchedulesItem>
             val investmentid = list[position].iid
 
-            specificViewPagerAdapter = PortfolioSpecificViewPagerAdapter(allPayments)
+            specificViewPagerAdapter = PortfolioSpecificViewPagerAdapter(allPayments,
+                object : PortfolioSpecificViewPagerAdapter.PendingCardInterface {
+                    override fun onclickCard() {
+                        ivInterface.seeBookingJourney(investmentid)
+                    }
+
+                })
             binding.vpAttention.adapter = specificViewPagerAdapter
             binding.tvSeeallAttention.setOnClickListener {
                 ivInterface.seeBookingJourney(investmentid)
@@ -537,7 +545,7 @@ class PortfolioSpecificViewAdapter(
     private inner class PriceTrendsViewHolder(private val binding: PriceTrendsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            binding.tvRating.text = list[position].iea + "%"
+            binding.tvRating.text = "${list[position].ea} %"
             val graphData = list[position].data as GeneralInfoEscalationGraph
             binding.tvXAxisLabel.text = graphData.yAxisDisplayName
             binding.tvYAxisLabel.text = graphData.xAxisDisplayName
