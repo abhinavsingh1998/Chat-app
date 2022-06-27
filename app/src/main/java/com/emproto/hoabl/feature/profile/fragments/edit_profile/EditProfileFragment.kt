@@ -597,7 +597,6 @@ class EditProfileFragment : BaseFragment() {
             binding.saveAndUpdate.text = "Save and Update"
             email = binding.emailTv.text.toString()
             if (!email.isNullOrEmpty() && email.isValidEmail()) {
-                var validEmail=email
 
                 binding.tvEmail.isErrorEnabled = false
                 email = binding.emailTv.text.toString()
@@ -652,7 +651,6 @@ class EditProfileFragment : BaseFragment() {
             }
             pinCode = binding.pincodeEditText.text.toString()
             if (pinCode.isValidPinCode()) {
-                var validPinCode=pinCode
                 binding.pincode.isErrorEnabled = false
             } else if (pinCode.isEmpty()) {
                 binding.pincode.error = "Field cannot be empty"
@@ -774,13 +772,13 @@ class EditProfileFragment : BaseFragment() {
         val editUserNameRequest = EditUserNameRequest(
             data.firstName,
             data.lastName,
-            binding.emailTv.text.toString(),
+            validEmail.toString(),
             binding.tvDatePicker.text.toString(),
             binding.autoGender.text.toString(),
-            binding.houseNo.text.toString(),
-            binding.completeAddress.text.toString(),
-            binding.locality.text.toString(),
-            binding.pincodeEditText.text.toString(),
+            validHouse.toString(),
+            validAdd.toString(),
+            validLocality.toString(),
+            validPinCode.toString(),
             validCity.toString(),
             validState.toString(),
             "India"

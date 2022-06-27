@@ -73,7 +73,12 @@ class AccountsPaymentListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 4
+        if(accountsPaymentList.size<4){
+            return accountsPaymentList.size
+        }
+        else{
+            return 4
+        }
     }
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
