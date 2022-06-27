@@ -20,7 +20,7 @@ android {
 
         debug {
             debuggable true
-            buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-qa-1093935714.ap-south-1.elb.amazonaws.com\"")
+            buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-dev-306342355.ap-south-1.elb.amazonaws.com\"")
         }
 
         qa {
