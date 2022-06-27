@@ -26,9 +26,11 @@ class SimilarInvestmentAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val element = list[position]
         holder.binding.apply {
-            Glide.with(context)
-                .load(element.projectIcon.value.url)
-                .into(holder.binding.ivItemImage)
+            if (element.projectIcon != null) {
+                Glide.with(context)
+                    .load(element.projectIcon.value.url)
+                    .into(holder.binding.ivItemImage)
+            }
             tvItemLocationName.text = element.launchName
             tvItemLocation.text = "${element.address.city},${element.address.state}"
 

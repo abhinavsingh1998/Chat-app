@@ -113,12 +113,14 @@ class BookingJourneyAdapter(
                 val header_holder = holder as HeaderHolder
                 if (dataList[header_holder.layoutPosition].data != null) {
                     val data = dataList[header_holder.layoutPosition].data as InvestmentInformation
-                    header_holder.binding.tvOwner.text = data.owners
-                    header_holder.binding.tvId.text = "Hoabl/${data.inventoryId}"
+                    header_holder.binding.tvOwner.text = data.owners[0]
+                    header_holder.binding.tvId.text = "Hoabl/${data.crmInventory.name}"
                     header_holder.binding.tvProjectName.text = data.launchName
                     header_holder.binding.tvLocation.text =
                         data.address.city + " , " + data.address.state
-                    header_holder.binding.tvProgress.text = data.bookingStatus
+
+                    header_holder.binding.tvProgress.text =
+                        Utility.getBookingStatus(data.bookingStatus)
                 }
 
 
