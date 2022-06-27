@@ -91,7 +91,7 @@ class HelpCenterFragment : BaseFragment() {
             "Let us know your love for us! Rate us on the store",
             R.drawable.ic_rating_2,
             R.drawable.rightarrow,
-            "Or Call us: +91 123 123 1231 Email us: help@hoabl.in"
+            "Or Call us: +91 123 123 1231 Email us: care@hoabl.in"
 
         )
         val listHolder = ArrayList<HelpModel>()
@@ -164,7 +164,7 @@ class HelpCenterFragment : BaseFragment() {
                 override fun onEmailClick(position: Int) {
 
                     val intent = Intent(Intent.ACTION_SENDTO)
-                    val uri = Uri.parse("mailto:mandvi@emproto.com")
+                    val uri = Uri.parse("mailto:care@hoabl.in")
                     intent.data = uri
                     startActivity(intent)
                 }
