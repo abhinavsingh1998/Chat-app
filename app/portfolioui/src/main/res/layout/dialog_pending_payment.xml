@@ -11,12 +11,13 @@
 
         <TextView
             android:id="@+id/textView11"
-            style="@style/text_medium_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
+            android:fontFamily="@font/jost_regular"
             android:text="Pending Amount"
-            android:textColor="@color/text_color"
+            android:textColor="#7b7878"
+            android:textSize="@dimen/text_size_14"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -53,6 +54,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/jost_light"
                 android:text="Milestone: Booking Amount Payment 2"
+                android:textColor="#61592b"
                 android:textSize="@dimen/text_size_12"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -89,6 +91,7 @@
             style="@style/text_regular_pcolor1_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:fontFamily="@font/jost_semibold"
             android:text="$10000"
             app:layout_constraintBottom_toBottomOf="@+id/textView14"
