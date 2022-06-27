@@ -178,10 +178,20 @@ class EditProfileFragment : BaseFragment() {
             }
         }
         initView()
+        setCountrySpinnerData()
         setGenderSpinnersData()
         getStates()
 
         return binding.root
+    }
+
+    private fun setCountrySpinnerData() {
+        val countryList = ArrayList<String>()
+        countryList.add("India")
+        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_text, countryList)
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+
+        binding.autoCountry.setAdapter(adapter)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

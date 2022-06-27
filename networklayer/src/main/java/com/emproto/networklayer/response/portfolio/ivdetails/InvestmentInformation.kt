@@ -16,7 +16,7 @@ data class InvestmentInformation(
     val isBookingComplete: Boolean,
     val otherExpenses: Double,
     val ownedSince: String,
-    val owners: String,
+    val owners: List<String>,
     val registrationCharges: Double,
     val updatedAt: String,
     val userId: String,
@@ -24,11 +24,16 @@ data class InvestmentInformation(
     val possesionDate: String,
     val allocationDate: String,
     val ownershipDate: String,
-    val bookingStatus: String,
-    var launchName:String,
+    val bookingStatus: Int,
+    var launchName: String,
     var address: Address,
     val bookingId: String,
     val documentLinks: List<Any>,
     val paidAmount: Double,
-    val crmInventory: CrmInventory
+    val crmInventory: CrmInventory,
+    val crmInventoryBucket: CrmInventoryBucket,
+    val sdrCharges:Double
+
 )
+
+data class CrmInventoryBucket(val name: String, val crmId: String, val id: Int)

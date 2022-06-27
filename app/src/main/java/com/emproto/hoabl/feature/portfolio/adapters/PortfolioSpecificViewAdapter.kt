@@ -259,7 +259,7 @@ class PortfolioSpecificViewAdapter(
                             )
                     //view more
                     binding.tvLandId.text = "Hoabl/" + data.investmentInformation.crmInventory.name
-                    binding.tvSkuType.text = data.investmentInformation.inventoryBucket
+                    binding.tvSkuType.text = data.investmentInformation.crmInventoryBucket.name
 
                     if (data.investmentInformation != null) {
 
@@ -273,7 +273,7 @@ class PortfolioSpecificViewAdapter(
                     }
 
                     binding.tvRegistryAmount.text =
-                        Utility.formatAmount(data.investmentInformation.registrationCharges)
+                        Utility.formatAmount(data.investmentInformation.sdrCharges)
                     binding.tvOtherExpenses.text =
                         Utility.formatAmount(data.investmentInformation.otherExpenses)
 
@@ -297,7 +297,7 @@ class PortfolioSpecificViewAdapter(
                     binding.tvLatitude.text = data.projectInformation.crmProject.lattitude
                     binding.tvLongitude.text = data.projectInformation.crmProject.longitude
                     binding.tvAltitude.text = data.projectInformation.crmProject.altitude
-                    binding.ownersName.text = data.investmentInformation.owners
+                    binding.ownersName.text = data.investmentInformation.owners[0]
                     Glide.with(context).load(data.projectExtraDetails.projectIco.value.url)
                         .into(binding.ivProjectImage)
                     //project status based configuration

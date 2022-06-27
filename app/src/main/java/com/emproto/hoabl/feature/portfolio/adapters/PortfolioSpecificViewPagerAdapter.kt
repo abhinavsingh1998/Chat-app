@@ -29,6 +29,9 @@ class PortfolioSpecificViewPagerAdapter(
         holder.binding.pendingKyc.text = item.paymentMilestone
         holder.binding.uploadKycStatement.text =
             "Your payment is due. Please pay on time to maintain healthy relation."
+        holder.binding.actionNavigate.setOnClickListener {
+            cardInterface.onclickCard()
+        }
     }
 
     override fun getItemCount(): Int = imageList.size
