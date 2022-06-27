@@ -157,8 +157,8 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
 
 
         val item1 = ProfileOptionsData(
-            requireContext().resources.getString(R.string.my_accounts),
-            requireContext().resources.getString(R.string.payment_history_kyc),
+            "My Account",
+            "Payment History & KYC",
             R.drawable.ic_profile,
             R.drawable.rightarrow
         )
@@ -166,21 +166,21 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
         val item2 =
             ProfileOptionsData(
                 requireContext().resources.getString(R.string.securityandsetting),
-                requireContext().resources.getString(R.string.report_emergency_control_authentication_etc),
+                "Report emergency, Location Prompt etc",
                 R.drawable.shield,
                 R.drawable.rightarrow
             )
 
         val item3 = ProfileOptionsData(
             requireContext().resources.getString(R.string.help_center),
-            requireContext().resources.getString(R.string.contact_about_us_privacy_policy_chat),
+            "Contact, About Us , Privacy Policy,Chat",
             R.drawable.helpmesg,
             R.drawable.rightarrow
         )
 
         val item4 = ProfileOptionsData(
             requireContext().resources.getString(R.string.facility_management),
-            requireContext().resources.getString(R.string.manage_your_land_book),
+            "Manage your land, book, etc",
             R.drawable.management_image,
             R.drawable.rightarrow
         )

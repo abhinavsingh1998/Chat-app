@@ -47,9 +47,9 @@
             <View
                 android:id="@+id/divider_line_about_us"
                 android:layout_width="wrap_content"
-                android:layout_height="2dp"
+                android:layout_height="1dp"
                 android:layout_marginTop="@dimen/margin_size_16"
-                android:background="#E3E2E2"
+                android:background="#eeee"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tile_txt" />
 
@@ -58,7 +58,7 @@
                 style="@style/text_style_text_black_color_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_size_11"
+                android:layout_marginHorizontal="@dimen/margin_size_11"
                 android:layout_marginTop="@dimen/margin_size_11"
                 android:fontFamily="@font/jost_light"
                 android:layout_marginBottom="@dimen/margin_size_12"

@@ -314,7 +314,7 @@ class FeedbackFragment : BaseFragment() {
             binding.goodTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.goodTxt.typeface= lightface
 
-            binding.ivRating5.background= resources.getDrawable(R.drawable.emoji_love)
+            binding.ivRating5.background= resources.getDrawable(R.drawable.group_16)
             binding.excelentTxt.setTextColor(resources.getColor(R.color.black))
             binding.excelentTxt.typeface= boldface
 

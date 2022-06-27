@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/app_color">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,65 +17,73 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/back_action"
+        <ImageView
+            android:id="@+id/imgArrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/margin_size_14"
             android:layout_marginTop="@dimen/margin_size_19"
+            android:src="@drawable/group_8"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/imgArrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:src="@drawable/group_8"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_Account"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                android:fontFamily="@font/jost_medium"
-                android:text="@string/security_tips"
-                android:textColor="@color/app_color"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/imgArrow"
-                app:layout_constraintTop_toTopOf="@id/imgArrow"
-                app:layout_constraintBottom_toBottomOf="@id/imgArrow"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_page_heading"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_Account"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_size_26"
+            android:layout_marginStart="7dp"
             android:fontFamily="@font/jost_medium"
-            style="@style/text_style_text_black_color_16"
-            android:text=""
-            android:layout_marginHorizontal="@dimen/margin_size_18"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/back_action"
-            />
+            android:text="@string/security_tips"
+            android:textColor="@color/app_color"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/imgArrow"
+            app:layout_constraintStart_toEndOf="@+id/imgArrow"
+            app:layout_constraintTop_toTopOf="@id/imgArrow" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_security_tips"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/item_security_tips"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/tv_page_heading"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:layout_marginTop="@dimen/margin_size_8"
+            app:layout_constraintTop_toBottomOf="@id/tv_Account">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_page_heading"
+                    style="@style/text_style_text_black_color_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_size_18"
+                    android:layout_marginTop="@dimen/margin_size_18"
+                    android:fontFamily="@font/jost_medium"
+                    android:text=""
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_security_tips"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:clipToPadding="false"
+                    android:paddingBottom="@dimen/margin_size_55"
+                    android:nestedScrollingEnabled="false"
+                    tools:itemCount="2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_page_heading"
+                    tools:listitem="@layout/item_security_tips" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
