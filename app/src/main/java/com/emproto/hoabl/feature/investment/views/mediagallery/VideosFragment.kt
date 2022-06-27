@@ -79,12 +79,12 @@ class VideosFragment:BaseFragment() {
         override fun onItemClicked(view: View, position: Int, url: String, title: String) {
             when(isYoutubeVideo){
                 true -> {
-//                    val intent = Intent(this@VideosFragment.requireActivity(),YoutubeActivity::class.java)
-//                    intent.putExtra("YoutubeVideoId",url)
-//                    intent.putExtra("VideoTitle",title)
-//                    startActivity(intent)
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=${url}"))
+                    val intent = Intent(this@VideosFragment.requireActivity(),YoutubeActivity::class.java)
+                    intent.putExtra("YoutubeVideoId",url)
+                    intent.putExtra("VideoTitle",title)
                     startActivity(intent)
+//                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=${url}"))
+//                    startActivity(intent)
                 }
             }
         }

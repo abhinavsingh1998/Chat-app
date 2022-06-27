@@ -184,7 +184,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                             binding.rvKyc.adapter = kycUploadAdapter
                         }
                         else if(kycLists.size==1){
-                            
+
                         }
                         else {
                             binding.rvKyc.layoutManager =

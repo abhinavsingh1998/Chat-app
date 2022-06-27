@@ -6,11 +6,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.ProfileDataSource
+import com.emproto.networklayer.feature.RegistrationDataSource
+import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
+import com.emproto.networklayer.request.profile.ReportSecurityRequest
 import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.investment.FaqDetailResponse
+import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.resourceManagment.ProflieResponse
@@ -487,6 +491,26 @@ class ProfileRepository @Inject constructor(application: Application) :
             }
         }
         return stResponse
+    }
+
+    fun submitTroubleCase(signingRequest: ReportSecurityRequest): LiveData<BaseResponse<TroubleSigningResponse>> {
+        val mCaseResponse = MutableLiveData<BaseResponse<TroubleSigningResponse>>()
+
+        mCaseResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).submitTroubleCase(signingRequest)
+                if (request.isSuccessful) {
+                    mCaseResponse.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    mCaseResponse.postValue(BaseResponse.Companion.error(request.message()))
+                }
+
+            } catch (e: Exception) {
+                mCaseResponse.postValue(BaseResponse.Companion.error(e.message!!))
+            }
+        }
+        return mCaseResponse
     }
 }
 
