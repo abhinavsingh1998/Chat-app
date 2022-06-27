@@ -394,4 +394,5 @@
     <string name="read_security_tips">Read Security Tips</string>
     <string name="resendotp">Resend OTP</string>
     <string name="no_faqs_to_show">No faqs to show</string>
+    <string name="investments">Investments</string>
 </resources>
