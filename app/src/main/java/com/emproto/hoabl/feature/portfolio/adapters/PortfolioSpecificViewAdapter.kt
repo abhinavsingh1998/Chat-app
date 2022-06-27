@@ -301,7 +301,7 @@ class PortfolioSpecificViewAdapter(
                     Glide.with(context).load(data.projectExtraDetails.projectIco.value.url)
                         .into(binding.ivProjectImage)
                     //project status based configuration
-                    if (data.investmentInformation.isBookingComplete) {
+                    if (data.projectExtraDetails.isBookingComplete) {
                         binding.tvPending.text = "IEA"
                         binding.tvPendingAmount.text = "${list[position].iea}%"
                         binding.tvPendingAmount.setCompoundDrawablesWithIntrinsicBounds(

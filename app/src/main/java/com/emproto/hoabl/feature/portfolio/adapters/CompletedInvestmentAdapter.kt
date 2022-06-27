@@ -67,7 +67,8 @@ class CompletedInvestmentAdapter(
                     project.project.projectIcon,
                     project.project.generalInfoEscalationGraph,
                     project.project.launchName,
-                    project.investment.pendingAmount
+                    project.investment.pendingAmount,
+                    project.investment.isBookingComplete
                 )
             onCLickInterface.manageProject(
                 project.investment.id,

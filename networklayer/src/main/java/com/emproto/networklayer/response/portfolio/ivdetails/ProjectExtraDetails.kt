@@ -12,5 +12,6 @@ data class ProjectExtraDetails(
 //    val altitude: String?,
     val graphData: GeneralInfoEscalationGraph,
     val launchName: String,
-    val amountPending: Double
+    val amountPending: Double,
+    val isBookingComplete:Boolean
 )
