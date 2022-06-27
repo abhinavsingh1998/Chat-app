@@ -417,7 +417,7 @@ class HomeFragment : BaseFragment() {
             (requireActivity() as HomeActivity).navigate(R.id.navigation_investment)
         })
 
-        binding.referralLayout.appShareBtn.setOnClickListener {
+        binding.referralLayout.shareTxtCard.setOnClickListener {
             share_app()
         }
 

@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="CEO, Futurecorp Inc."
-                app:fontName="@string/jost_regular" />
+                app:fontName="@string/jost_medium"/>
 
         </LinearLayout>
 
@@ -54,22 +54,24 @@
         style="@style/text_style_text_color_14"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/margin_size_12"
         android:layout_marginLeft="@dimen/margin_size_25"
+        android:layout_marginTop="@dimen/margin_size_12"
         android:layout_marginRight="@dimen/margin_size_25"
+        android:gravity="center"
+        android:maxLines="3"
+        android:minLines="3"
         android:text="Neque porro quisquam estp qui dolorem ipsu porro \nquisquam estp qui ipsu."
-        android:fontFamily="@font/jost_light"
-        android:layout_marginBottom="@dimen/margin_size_9"
+        app:fontName="@string/jost_regular"
+        android:layout_marginBottom="@dimen/margin_size_10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_layout"/>
+        app:layout_constraintTop_toBottomOf="@id/profile_layout" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#E3DDDD"
+        android:background="#EEEEEE"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
