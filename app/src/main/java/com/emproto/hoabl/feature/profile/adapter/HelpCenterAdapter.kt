@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.*
-import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.feature.profile.ProfileFaqFragment
 import com.emproto.hoabl.feature.profile.data.HelpModel
 
 

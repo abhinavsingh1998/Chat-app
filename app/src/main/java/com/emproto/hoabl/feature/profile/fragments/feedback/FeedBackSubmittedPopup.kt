@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.profile
+package com.emproto.hoabl.feature.profile.fragments.feedback
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -55,7 +55,6 @@ class AccountsKycListAdapter(
             }
         }
     }
-
     override fun getItemCount(): Int {
         return accountsKycList.size
     }

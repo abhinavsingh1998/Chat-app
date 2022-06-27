@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemAccountsPaymentBinding
-import com.emproto.hoabl.feature.profile.AllPaymentHistoryFragment
 import com.emproto.networklayer.response.profile.AccountsResponse
 
 class AllPaymentHistoryAdapter(

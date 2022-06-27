@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.profile
+package com.emproto.hoabl.feature.profile.fragments.help_center
 
 import android.content.Intent
 import android.net.Uri
@@ -19,6 +19,9 @@ import com.emproto.hoabl.feature.investment.views.FaqDetailFragment
 import com.emproto.hoabl.feature.profile.adapter.HelpCenterAdapter
 import com.emproto.hoabl.feature.profile.data.DataHealthCenter
 import com.emproto.hoabl.feature.profile.data.HelpModel
+import com.emproto.hoabl.feature.profile.fragments.about_us.AboutUsFragment
+import com.emproto.hoabl.feature.profile.fragments.feedback.FeedbackFragment
+import com.emproto.hoabl.feature.profile.fragments.privacy.PrivacyFragment
 import javax.inject.Inject
 
 

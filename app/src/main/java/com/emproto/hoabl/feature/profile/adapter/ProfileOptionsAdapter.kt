@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ProfileOptionViewBinding
-import com.emproto.hoabl.feature.profile.ProfileFragment
+import com.emproto.hoabl.feature.profile.fragments.profile.ProfileFragment
 import com.emproto.hoabl.feature.profile.data.ProfileModel
 
 class ProfileOptionsAdapter(

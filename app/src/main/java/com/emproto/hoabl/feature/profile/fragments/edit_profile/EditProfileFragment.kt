@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.profile
+package com.emproto.hoabl.feature.profile.fragments.edit_profile
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -41,6 +41,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentEditProfileBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.profile.fragments.feedback.FeedBackSubmittedPopup
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
@@ -734,7 +735,11 @@ class EditProfileFragment : BaseFragment() {
                 )
                 changeFontOnSave()
 
-                binding.saveAndUpdate.text = "Updated"
+                binding.saveAndUpdate.isVisible= true
+
+                val dialog = EditProfileUpdatedPopUp()
+                dialog.isCancelable = false
+                dialog.show(childFragmentManager, "submitted")
             }
 
         }

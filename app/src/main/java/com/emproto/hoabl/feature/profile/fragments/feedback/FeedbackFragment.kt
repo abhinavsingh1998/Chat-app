@@ -1,42 +1,29 @@
-package com.emproto.hoabl.feature.profile
+package com.emproto.hoabl.feature.profile.fragments.feedback
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.FragmentAboutUsBinding
 import com.emproto.hoabl.databinding.FragmentFeedbackBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.feature.login.IssueSubmittedConfirmationFragment
-import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.ProfileViewModel
-import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.FeedBackResponse
-import com.google.android.youtube.player.internal.v
-import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
-import kotlin.properties.Delegates
 
 class FeedbackFragment : BaseFragment() {
 
