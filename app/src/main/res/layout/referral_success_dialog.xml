@@ -33,8 +33,9 @@
                 android:id="@+id/succecss_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                style="@style/text_light_black_14"
+                style="@style/text_style__text_color_15"
                 android:layout_marginTop="@dimen/margin_size_25"
+                android:fontFamily="@font/jost_medium"
                 android:text="Referral sent successfully!"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,8 +44,8 @@
             <View
                 android:id="@+id/border_line"
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/text_grey_color"
+                android:layout_height="0.5dp"
+                android:background="#b6b3d0"
                 app:layout_constraintTop_toBottomOf="@id/succecss_txt"
                 android:layout_marginTop="@dimen/margin_size_25"/>
 

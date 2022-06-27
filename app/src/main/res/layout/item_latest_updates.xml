@@ -28,21 +28,21 @@
             android:layout_marginTop="@dimen/margin_size_10"
             android:layout_marginEnd="@dimen/margin_size_17"
             android:maxLines="1"
+            android:ellipsize="end"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
-        <com.emproto.core.textviews.CustomTextView
+        <TextView
             android:id="@+id/tv_name"
             style="@style/text_style_grey_13"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Parikrama"
-            app:fontName="@string/jost_regular"
+            android:fontFamily="@font/jost_italic"
             android:maxLines="1"
             android:ellipsize="end"
             android:layout_marginEnd="@dimen/margin_size_17"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/title"
             app:layout_constraintTop_toBottomOf="@id/title" />
 
@@ -77,8 +77,8 @@
             android:layout_marginTop="@dimen/margin_size_6"
             android:layout_marginRight="@dimen/margin_size_6"
             android:layout_marginBottom="@dimen/margin_size_6"
+            android:lines="3"
             android:maxLines="3"
-            android:minLines="3"
             android:gravity="start|center"
             android:text="Coming Soon… Stay tuned for more updates"
             app:fontName="@string/jost_regular"

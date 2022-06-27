@@ -233,7 +233,7 @@ object Utility {
                     val actionDisplayText =
                         text.substring(
                             0,
-                            lastCharShown - suffix.length - 3
+                            lastCharShown - suffix.length - 2
                         ) + "..." + suffix
                     val truncatedSpannableString = SpannableString(actionDisplayText)
                     val startIndex = actionDisplayText.indexOf(moreString)
