@@ -44,31 +44,33 @@ class PortfolioRepository @Inject constructor(application: Application) :
     fun getPortfolioDashboard(refresh: Boolean = false): LiveData<BaseResponse<PortfolioData>> {
         if (mPromisesResponse.value == null || refresh) {
             mPromisesResponse.postValue(BaseResponse.loading())
-            coroutineScope.launch(exceptionHandler) {
+            coroutineScope.launch {
                 try {
-                    val watchlist = async { PortfolioDataSource(application).getMyWatchlist() }
-                    val dashboard =
-                        async { PortfolioDataSource(application).getPortfolioDashboard() }
-                    //val request = PortfolioDataSource(application).getPortfolioDashboard()
-                    val watchlistResponse = watchlist.await()
-                    val dashboardResponse = dashboard.await()
-                    if (dashboardResponse.isSuccessful) {
-                        if (dashboardResponse.body()!!.data != null) {
-                            if (watchlistResponse.isSuccessful) {
-                                dashboardResponse.body()!!.data.watchlist =
-                                    watchlistResponse.body()!!.data
-                            }
-                            mPromisesResponse.postValue(BaseResponse.success(dashboardResponse.body()!!))
-                        } else
-                            mPromisesResponse.postValue(BaseResponse.Companion.error("No data found"))
-                    } else {
-                        mPromisesResponse.postValue(
-                            BaseResponse.Companion.error(
-                                getErrorMessage(
-                                    dashboardResponse.errorBody()!!.string()
+                    coroutineScope {
+                        val watchlist = async { PortfolioDataSource(application).getMyWatchlist() }
+                        val dashboard =
+                            async { PortfolioDataSource(application).getPortfolioDashboard() }
+                        //val request = PortfolioDataSource(application).getPortfolioDashboard()
+                        val watchlistResponse = watchlist.await()
+                        val dashboardResponse = dashboard.await()
+                        if (dashboardResponse.isSuccessful) {
+                            if (dashboardResponse.body()!!.data != null) {
+                                if (watchlistResponse.isSuccessful) {
+                                    dashboardResponse.body()!!.data.watchlist =
+                                        watchlistResponse.body()!!.data
+                                }
+                                mPromisesResponse.postValue(BaseResponse.success(dashboardResponse.body()!!))
+                            } else
+                                mPromisesResponse.postValue(BaseResponse.Companion.error("No data found"))
+                        } else {
+                            mPromisesResponse.postValue(
+                                BaseResponse.Companion.error(
+                                    getErrorMessage(
+                                        dashboardResponse.errorBody()!!.string()
+                                    )
                                 )
                             )
-                        )
+                        }
                     }
                 } catch (e: Exception) {
                     mPromisesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
@@ -90,7 +92,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                     PortfolioDataSource(application).getInvestmentDetails(ivID, projectId)
                 if (topResponse.isSuccessful) {
                     if (topResponse.body()!!.data != null) {
-                        val crmId = topResponse.body()!!.data.investmentInformation.crmProjectId
+                        val crmId = topResponse.body()!!.data.investmentInformation.crmLaunchPhaseId
                         val documentResponse =
                             PortfolioDataSource(application).getDocumentsListing(crmId)
                         if (documentResponse.isSuccessful && documentResponse.body()!!.data.isNotEmpty()) {

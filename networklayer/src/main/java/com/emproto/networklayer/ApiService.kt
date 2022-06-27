@@ -129,7 +129,7 @@ public interface ApiService {
 
     @GET(ApiConstants.DOC_FILTER)
     suspend fun documentsList(
-        @Query("projectId") projectId: String,
+        @Query("crmLaunchPhaseId") projectId: String,
         @Query("documentCategory") category: String = "PROJECT"
     ): Response<DocumentsResponse>
 

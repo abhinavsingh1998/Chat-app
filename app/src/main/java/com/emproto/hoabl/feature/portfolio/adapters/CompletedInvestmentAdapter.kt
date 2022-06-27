@@ -66,7 +66,9 @@ class CompletedInvestmentAdapter(
                     project.project.address,
                     project.project.projectIcon,
                     project.project.generalInfoEscalationGraph,
-                    project.project.launchName
+                    project.project.launchName,
+                    project.investment.pendingAmount,
+                    project.investment.isBookingComplete
                 )
             onCLickInterface.manageProject(
                 project.investment.id,
@@ -90,7 +92,7 @@ class CompletedInvestmentAdapter(
             holder.binding.tvCompletedInvestmentPrice.text =
                 "₹${Utility.convertToDecimal(project.investment.amountInvested)}"
             holder.binding.tvCompletedInvestmentArea.text =
-                Utility.convertTo(project.investment.areaSqFt)
+                Utility.convertTo(project.investment.crmInventory.areaSqFt)
 
             holder.binding.viewDarkBg.setOnClickListener {
                 if (holder.binding.ivCompletedInvestmentDropArrow.visibility == View.VISIBLE) {
@@ -104,7 +106,7 @@ class CompletedInvestmentAdapter(
                 }
             }
 
-            holder.binding.tvInventoryId.text = "Hoabl/${project.investment.inventoryId}"
+            holder.binding.tvInventoryId.text = "Hoabl/${project.investment.crmInventory.name}"
             holder.binding.tvEstimatedAppreciationRating.text =
                 "" + project.project.generalInfoEscalationGraph.estimatedAppreciation + "%"
 
