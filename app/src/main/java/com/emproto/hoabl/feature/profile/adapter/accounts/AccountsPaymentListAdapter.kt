@@ -53,7 +53,7 @@ class AccountsPaymentListAdapter(
         }
 
         holder.tvSeeReceipt.setOnClickListener {
-            if (accountsPaymentList[position].document==null) {
+            if (accountsPaymentList[position].document == null) {
 
                 Toast.makeText(mContext, "No Receipt", Toast.LENGTH_SHORT).show()
 
@@ -73,7 +73,12 @@ class AccountsPaymentListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 4
+        return if (accountsPaymentList.size > 4) {
+            accountsPaymentList.size
+        } else {
+            return 4
+
+        }
     }
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {

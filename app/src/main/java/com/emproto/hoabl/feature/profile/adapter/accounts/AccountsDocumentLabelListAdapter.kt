@@ -56,7 +56,12 @@ class AccountsDocumentLabelListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 2
+        return if (accountsDocumentList.size > 2) {
+            accountsDocumentList.size
+        } else {
+            return 2
+
+        }
     }
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {

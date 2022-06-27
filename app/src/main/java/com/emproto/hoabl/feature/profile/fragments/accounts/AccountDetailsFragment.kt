@@ -153,7 +153,6 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         homeViewModel.getAccountsList().observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
@@ -174,10 +173,8 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                             }
                         }
                         if (kycLists.isNullOrEmpty()) {
-
                             kycUploadList.add(KycUpload("Address Proof", "UPLOAD"))
                             kycUploadList.add(KycUpload("PAN Card", "UPLOAD"))
-
                             kycUploadAdapter = AccountKycUploadAdapter(
                                 context,
                                 kycUploadList, this
@@ -185,7 +182,11 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                             binding.rvKyc.layoutManager =
                                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
                             binding.rvKyc.adapter = kycUploadAdapter
-                        } else {
+                        }
+                        else if(kycLists.size==1){
+                            
+                        }
+                        else {
                             binding.rvKyc.layoutManager =
                                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
                             binding.rvKyc.adapter = AccountsKycListAdapter(
@@ -485,7 +486,6 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
             )
         }
     }
-
     private fun callingUploadPicApi(destinationFile: File, extension: String) {
         profileViewModel.uploadKycDocument(extension, destinationFile, selectedDoc)
             .observe(
