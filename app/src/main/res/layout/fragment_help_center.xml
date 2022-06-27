@@ -51,7 +51,7 @@
             android:id="@+id/divideView"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="34dp"
             android:background="#E3E1E1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,14 +63,12 @@
             android:layout_height="0dp"
             android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divideView"
+            tools:itemCount="4"
             tools:listitem="@layout/item_help_center" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/loader"
         style="?android:attr/progressBarStyleLarge"
@@ -81,6 +79,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
