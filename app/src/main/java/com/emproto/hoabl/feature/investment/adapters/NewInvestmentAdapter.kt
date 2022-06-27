@@ -20,6 +20,8 @@ import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.Data
 import com.emproto.networklayer.response.investment.MediaGalleries
+import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
+import com.emproto.networklayer.response.investment.PageManagementsOrCollectionTwoModel
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlin.math.roundToInt
 
@@ -63,8 +65,8 @@ class NewInvestmentAdapter(
 
     private inner class NewLaunchViewHolder(private val binding: NewInvestmentTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvNewLaunch.text = context.getString(R.string.new_launch)
-            binding.tvComingSoon.text = context.getString(R.string.coming_soon)
+            binding.tvNewLaunch.text = data.page.newInvestments.displayName
+            binding.tvComingSoon.text = data.page.newInvestments.subHeading
             binding.tvInvestmentProjectName.text = data.pageManagementsOrNewInvestments[0].launchName
             val amount = data.pageManagementsOrNewInvestments[0].priceStartingFrom.toDouble() / 100000.0
             val convertedAmount = amount.toString().replace(".0","")
@@ -93,6 +95,18 @@ class NewInvestmentAdapter(
                 .load(data.pageManagementsOrNewInvestments[0].projectCoverImages.newInvestmentPageMedia.value.url)
                 .into(binding.ivSmallImage)
 
+            when(data.page.isPromotionAndOfferActive){
+                true -> {
+                    Glide.with(context)
+                        .load(data.page.promotionAndOffersMedia.value.url)
+                        .into(binding.ivDontMissImage)
+                    binding.cvDontMissImage.visibility = View.VISIBLE
+                }
+                false -> {
+                    binding.cvDontMissImage.visibility = View.GONE
+                }
+            }
+
             binding.tvNewLaunchSeeAll.setOnClickListener(onItemClickListener)
             binding.clPlaceInfo.setOnClickListener(onItemClickListener)
             binding.tvApplyNow.setOnClickListener(onItemClickListener)
@@ -103,13 +117,16 @@ class NewInvestmentAdapter(
 
     private inner class LastFewPlotsViewHolder(private val binding: LastFewPlotsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvSmartDealsTitle.text = context.getString(R.string.last_few_plots)
+            binding.tvSmartDealsTitle.text = data.page.collectionOne.heading
             binding.tvSmartDealsSubtitle.text = data.page.collectionOne.subHeading
-
             val list = data.pageManagementsOrCollectionOneModels
-            lastFewPlotsAdapter = LastFewPlotsAdapter(context, list,itemClickListener)
+            val itemsCount = data.page.collectionOne.totalProjectContentsToDisplay
+            val showList = ArrayList<PageManagementsOrCollectionOneModel>()
+            for(i in 0..itemsCount-1){
+                showList.add(list[i])
+            }
+            lastFewPlotsAdapter = LastFewPlotsAdapter(context, showList,itemClickListener)
             binding.rvSmartDealsNv.adapter = lastFewPlotsAdapter
-
             binding.tvSmartDealsSeeAll.setOnClickListener(onItemClickListener)
         }
     }
@@ -130,11 +147,16 @@ class NewInvestmentAdapter(
 
     private inner class TrendingProjectsViewHolder(private val binding: TrendingProjectsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvTrendingProjectsTitle.text = context.getString(R.string.trending_projects)
+            binding.tvTrendingProjectsTitle.text = data.page.collectionTwo.heading
             binding.tvTrendingProjectsSubtitle.text = data.page.collectionTwo.subHeading
 
             val list = data.pageManagementsOrCollectionTwoModels
-            trendingProjectsAdapter = TrendingProjectsAdapter(context, list,itemClickListener)
+            val itemsCount = data.page.collectionTwo.totalProjectContentsToDisplay
+            val showList = ArrayList<PageManagementsOrCollectionTwoModel>()
+            for(i in 0..itemsCount-1){
+                showList.add(list[i])
+            }
+            trendingProjectsAdapter = TrendingProjectsAdapter(context, showList,itemClickListener)
             binding.rvTrendingProjects.adapter= trendingProjectsAdapter
             binding.tvTrendingProjectsSeeAll.setOnClickListener(onItemClickListener)
         }

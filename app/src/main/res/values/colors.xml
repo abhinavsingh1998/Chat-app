@@ -105,4 +105,5 @@
     <color name="bottom_bg_color">#F2565454</color>
     <color name="dark_blue">#17171c</color>
     <color name="green">#47b35f</color>
+    <color name="confirm_dialog_text_color">#7b7878</color>
 </resources>

@@ -376,10 +376,10 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_registration_number"
-            style="@style/text_style_reg_black_color_14"
+            style="@style/text_style_reg_black_color_13"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_size_30"
+            android:layout_marginStart="@dimen/margin_size_13"
             android:layout_marginTop="@dimen/margin_size_14"
             android:fontFamily="@font/jost_light"
             android:lineSpacingMultiplier="1.1"

@@ -1,6 +1,7 @@
 package com.emproto.networklayer.response.investment
 
 data class OpprotunityDoc(
+    val sectionHeading: SectionHeading,
     val aboutProjects: AboutProjects,
     val bannerImage: BannerImage,
     val createdAt: String,

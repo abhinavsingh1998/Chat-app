@@ -18,13 +18,13 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_trending_projects_title"
-            style="@style/text_style_text_light_black_color_18"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_size_12"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/jost_regular"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/jost_medium"
             android:text="Trending Projects"
+            style="@style/text_style_text_light_black_color_18"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_size_16"
             android:background="?android:selectableItemBackground"
-            android:drawableEnd="@drawable/ic_black_long_rightarrow"
+            android:drawableEnd="@drawable/combined_shape"
             android:drawablePadding="@dimen/margin_size_8"
             android:maxLines="1"
             android:minLines="1"
@@ -63,8 +63,7 @@
             android:id="@+id/rv_trending_projects"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_size_6"
-            android:layout_marginTop="@dimen/margin_size_6"
+            android:layout_marginStart="@dimen/margin_size_3"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"

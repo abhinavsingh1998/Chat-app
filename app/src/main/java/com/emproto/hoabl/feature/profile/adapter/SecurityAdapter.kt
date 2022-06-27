@@ -101,8 +101,8 @@ class SecurityAdapter(
 
     private fun initData(): ArrayList<SettingsData> {
         val newsList: ArrayList<SettingsData> = ArrayList<SettingsData>()
-        newsList.add(SettingsData("Location", "Control location access here"))
-        newsList.add(SettingsData("Read SMS", "Control location access here"))
+//        newsList.add(SettingsData("Location", "Control location access here"))
+//        newsList.add(SettingsData("Read SMS", "Control location access here"))
         newsList.add(SettingsData("Send Push Notifications", "Control location access here"))
         newsList.add(SettingsData("Assistance Access", "Control location access here"))
 

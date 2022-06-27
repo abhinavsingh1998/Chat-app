@@ -22,7 +22,7 @@
             android:layout_marginHorizontal="@dimen/margin_size_12"
             android:layout_marginTop="@dimen/margin_size_27"
             android:fontFamily="@font/jost_medium"
-            android:text="Isle of Bliss - FAQs"
+            android:text="FAQs"
             android:textAlignment="textStart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,6 +41,7 @@
             android:singleLine="true"
             android:fontFamily="@font/jost_medium"
             android:hint="@string/search_faqs"
+            android:textColorHint="#85869f"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_faq_title" />

@@ -27,7 +27,8 @@ class FaqDetailAdapter(
     private val faqData: List<CgData>,
     private val faqId: Int = 0,
     private val itemClickListener: ItemClickListener,
-    private val searchText: String = ""
+    private val searchText: String = "",
+    private val projectName: String
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -77,8 +78,14 @@ class FaqDetailAdapter(
         val rvPopCategory = itemView.findViewById<RecyclerView>(R.id.rv_pop_category)
         val search = itemView.findViewById<EditText>(R.id.et_search)
         val close = itemView.findViewById<ImageView>(R.id.iv_close_image)
+        val title = itemView.findViewById<MaterialTextView>(R.id.tv_faq_title)
         fun bind(position: Int) {
             //Binding data
+            when(projectName){
+                "" -> title.text ="FAQs"
+                else -> title.text ="${projectName.toString()} - FAQs"
+            }
+
             val list = arrayListOf<String>()
             for (item in faqData) { list.add(item.name) }
             categoryAdapter = PopularCategoryAdapter(context, list, itemClickListener)
@@ -137,7 +144,8 @@ class FaqDetailAdapter(
         val rvFaq = itemView.findViewById<RecyclerView>(R.id.rv_faq)
         fun bind(position: Int, data: CgData) {
             tvCategoryTitle.text = data.name
-            faqAdapter = FaqAdapter(data.faqs, context, faqId,itemClickListener)
+            val sortedList = data.faqs.sortedBy { it.priority }
+            faqAdapter = FaqAdapter(sortedList, context, faqId,itemClickListener)
             rvFaq.adapter = faqAdapter
         }
     }
