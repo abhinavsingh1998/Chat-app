@@ -101,6 +101,7 @@ class EditProfileFragment : BaseFragment() {
     private var isReadStorageGranted = false
     private var isCameraPermissionGranted = false
     private var isWriteStorageGranted = false
+    lateinit var removePictureDialog:Dialog
 
     val permissionRequest: MutableList<String> = ArrayList()
     private lateinit var statesData: List<States>
@@ -724,14 +725,16 @@ class EditProfileFragment : BaseFragment() {
 
     private fun removePictureDialog() {
         val removeDialogLayout = RemoveConfirmationBinding.inflate(layoutInflater)
-        val removePictureDialog = Dialog(requireContext())
+        removePictureDialog = Dialog(requireContext())
         removePictureDialog.setCancelable(false)
         removePictureDialog.setContentView(removeDialogLayout.root)
 
         removeDialogLayout.actionYes.setOnClickListener {
             callDeletePic(data)
-            binding.saveAndUpdate.text = "Save and Update"
-            removePictureDialog.dismiss()
+            binding.profileImage.visibility = View.GONE
+            binding.profileUserLetters.visibility = View.VISIBLE
+            setUserNamePIC(data)
+            binding.saveAndUpdate.text = "Updated"
         }
         removeDialogLayout.tcClose.setOnClickListener {
             removePictureDialog.dismiss()
@@ -936,6 +939,7 @@ class EditProfileFragment : BaseFragment() {
                     }
                     Status.SUCCESS -> {
                         binding.progressBaar.hide()
+                        removePictureDialog.dismiss()
                         if (data.profilePictureUrl == null) {
                             binding.profileImage.visibility = View.GONE
                             binding.profileUserLetters.visibility = View.VISIBLE
