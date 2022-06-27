@@ -10,6 +10,7 @@ import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
+import com.emproto.networklayer.request.profile.ReportSecurityRequest
 import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
@@ -59,6 +60,9 @@ public interface ApiService {
 
     @POST(ApiConstants.TROUBLE_SIGNING)
     suspend fun submitTroubleCase(@Body troubleSigningRequest: TroubleSigningRequest): Response<TroubleSigningResponse>
+
+    @POST(ApiConstants.TROUBLE_SIGNING)
+    suspend fun reportSecurityEmergency(@Body reportSecurityRequest: ReportSecurityRequest): Response<TroubleSigningResponse>
 
     @GET(ApiConstants.PROMISES)
     suspend fun getPromises(@Query("pageType") pageType: Int): Response<PromisesResponse>

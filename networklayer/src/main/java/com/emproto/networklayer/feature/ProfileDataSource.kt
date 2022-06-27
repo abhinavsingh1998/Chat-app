@@ -6,9 +6,12 @@ import com.emproto.networklayer.di.DaggerDataComponent
 import com.emproto.networklayer.di.DataAppModule
 import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
+import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
+import com.emproto.networklayer.request.profile.ReportSecurityRequest
 import com.emproto.networklayer.response.investment.FaqDetailResponse
+import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.resourceManagment.ProflieResponse
@@ -137,5 +140,9 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
 
     suspend fun getGeneralFaqs(categoryType: Int): Response<FaqDetailResponse> {
         return apiService.getGeneralFaqs(categoryType)
+    }
+
+    suspend fun submitTroubleCase(troubleSigningRequest: ReportSecurityRequest): Response<TroubleSigningResponse> {
+        return apiService.reportSecurityEmergency(troubleSigningRequest)
     }
 }
