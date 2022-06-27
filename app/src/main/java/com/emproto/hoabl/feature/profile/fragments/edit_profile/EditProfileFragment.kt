@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.app.Dialog
 import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
@@ -41,6 +42,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentEditProfileBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.hoabl.feature.profile.fragments.feedback.FeedBackSubmittedPopup
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
@@ -52,6 +54,8 @@ import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.Data
 import com.emproto.networklayer.response.profile.ProfilePictureResponse
 import com.emproto.networklayer.response.profile.States
+import com.example.portfolioui.databinding.LogoutConfirmationBinding
+import com.example.portfolioui.databinding.RemoveConfirmationBinding
 
 import okhttp3.MultipartBody
 import java.io.*
@@ -59,6 +63,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
 import javax.inject.Inject
+import kotlin.let as let1
 
 
 class EditProfileFragment : BaseFragment() {
@@ -116,7 +121,7 @@ class EditProfileFragment : BaseFragment() {
     lateinit var appPreference: AppPreference
     lateinit var data: Data
 
-    private var isWhatsappConsentEnabled : Boolean = false
+    private var isWhatsappConsentEnabled: Boolean = false
 
     companion object {
         fun newInstance():
@@ -161,7 +166,7 @@ class EditProfileFragment : BaseFragment() {
         binding.tvDatePicker.onFocusChangeListener =
             View.OnFocusChangeListener { p0, p1 ->
                 if (p1) {
-                    context?.let {
+                    context?.let1 {
                         DatePickerDialog(
                             it,
                             datePicker,
@@ -173,7 +178,7 @@ class EditProfileFragment : BaseFragment() {
                 }
             }
         binding.tvDatePicker.setOnClickListener {
-            context?.let { it1 ->
+            context?.let1 { it1 ->
                 DatePickerDialog(
                     it1,
                     datePicker,
@@ -194,6 +199,7 @@ class EditProfileFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         initClickListener()
     }
+
     private fun getStates() {
         profileViewModel.getStates(countryIsoCode).observe(viewLifecycleOwner) {
             when (it.status) {
@@ -202,7 +208,7 @@ class EditProfileFragment : BaseFragment() {
                 }
                 Status.SUCCESS -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
-                    it.data?.data?.let { data ->
+                    it.data?.data?.let1 { data ->
                         statesData = data
                     }
 
@@ -227,7 +233,7 @@ class EditProfileFragment : BaseFragment() {
                 }
                 Status.SUCCESS -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
-                    it.data?.data.let { data ->
+                    it.data?.data.let1 { data ->
                         cityData = data!!
                     }
                     for (i in cityData.indices) {
@@ -251,17 +257,11 @@ class EditProfileFragment : BaseFragment() {
 
         binding.autoGender.setAdapter(adapter)
 
-        binding.autoGender.onItemClickListener = object : AdapterView.OnItemClickListener {
-            override fun onItemClick(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
+        binding.autoGender.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, view, position, id ->
                 gender = parent?.adapter?.getItem(position).toString().substring(0, 1)
                 enableGenderEdit()
             }
-        }
     }
 
     private fun setStateSpinnersData() {
@@ -479,7 +479,6 @@ class EditProfileFragment : BaseFragment() {
 
 
     private fun setUserNamePIC(data: Data) {
-
         if (this.data.lastName.isNullOrEmpty()) {
             val firstLetter: String = this.data.firstName.substring(0, 2)
 
@@ -509,14 +508,12 @@ class EditProfileFragment : BaseFragment() {
             override fun afterTextChanged(s: Editable) {
 
             }
-
             override fun beforeTextChanged(
                 s: CharSequence, start: Int,
                 count: Int, after: Int
             ) {
 
             }
-
             override fun onTextChanged(
                 s: CharSequence, start: Int,
                 before: Int, count: Int
@@ -606,15 +603,7 @@ class EditProfileFragment : BaseFragment() {
 
         binding.uploadNewPicture.setOnClickListener { selectImage() }
 
-
-
-        binding.tvremove.setOnClickListener {
-            callDeletePic(data)
-//            binding.profileImage.visibility = View.GONE
-//            binding.profileUserLetters.visibility = View.VISIBLE
-//            setUserNamePIC(data)
-            binding.saveAndUpdate.text = "Save and Update"
-        }
+        removePictureDialog()
         binding.saveAndUpdate.setOnClickListener {
             binding.saveAndUpdate.text = "Save and Update"
             email = binding.emailTv.text.toString()
@@ -674,11 +663,10 @@ class EditProfileFragment : BaseFragment() {
             pinCode = binding.pincodeEditText.text.toString()
             if (pinCode.isValidPinCode()) {
                 binding.pincode.isErrorEnabled = false
-            } else if(pinCode.isEmpty()){
+            } else if (pinCode.isEmpty()) {
                 binding.pincode.error = "Field cannot be empty"
 
-            }
-            else {
+            } else {
                 binding.pincode.error = "Please enter valid pincode"
                 pinCode = binding.pincodeEditText.text.toString()
                 if (pinCode.length > 6) {
@@ -723,20 +711,10 @@ class EditProfileFragment : BaseFragment() {
                 val validState = binding.autoState.text
                 val validCity = binding.autoCity.text
 
-                sendProfileDetail(
-                    validEmail,
-                    validHouse,
-                    validAdd,
-                    validLocality,
-                    validPinCode,
-                    validCountry,
-                    validState,
-                    validCity
-                )
+                sendProfileDetail(validEmail, validHouse, validAdd, validLocality, validPinCode, validCountry, validState, validCity)
                 changeFontOnSave()
-
-                binding.saveAndUpdate.isVisible= true
-                val dialog = EditProfileUpdatedPopUp()
+                binding.saveAndUpdate.isVisible = true
+                val dialog = EditProfileUpdatedPopUpFragment()
                 dialog.isCancelable = false
                 dialog.show(childFragmentManager, "submitted")
             }
@@ -744,27 +722,50 @@ class EditProfileFragment : BaseFragment() {
         }
     }
 
+    private fun removePictureDialog() {
+        val removeDialogLayout = RemoveConfirmationBinding.inflate(layoutInflater)
+        val removePictureDialog = Dialog(requireContext())
+        removePictureDialog.setCancelable(false)
+        removePictureDialog.setContentView(removeDialogLayout.root)
+
+        removeDialogLayout.actionYes.setOnClickListener {
+            callDeletePic(data)
+            binding.saveAndUpdate.text = "Save and Update"
+            removePictureDialog.dismiss()
+        }
+        removeDialogLayout.tcClose.setOnClickListener {
+            removePictureDialog.dismiss()
+        }
+
+        removeDialogLayout.actionNo.setOnClickListener {
+            removePictureDialog.dismiss()
+        }
+        binding.tvremove.setOnClickListener {
+            removePictureDialog.show()
+        }
+    }
+
     private fun changeFontOnSave() {
-        val typeface1 = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.emailTv.setTypeface(typeface1)
-        val typeface2= context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.houseNo.setTypeface(typeface2)
-        val typeface3 = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.completeAddress.setTypeface(typeface3)
-        val typeface4 = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.locality.setTypeface(typeface4)
-        val typeface5 = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.autoCountry.setTypeface(typeface5)
-        val typeface6 = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.autoState.setTypeface(typeface6)
-        val typeface7 = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.autoCity.setTypeface(typeface7)
-        val typeface8 = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.pincodeEditText.setTypeface(typeface8)
-        val typeface9 = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.spinnerGender.setTypeface(typeface9)
-        val typeface10= context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.tvDatePicker.setTypeface(typeface10)
+        val typeface1 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
+        binding.emailTv.typeface = typeface1
+        val typeface2 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
+        binding.houseNo.typeface = typeface2
+        val typeface3 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
+        binding.completeAddress.typeface = typeface3
+        val typeface4 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
+        binding.locality.typeface = typeface4
+        val typeface5 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
+        binding.autoCountry.typeface = typeface5
+        val typeface6 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
+        binding.autoState.typeface = typeface6
+        val typeface7 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
+        binding.autoCity.typeface = typeface7
+        val typeface8 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
+        binding.pincodeEditText.typeface = typeface8
+        val typeface9 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
+        binding.autoGender.typeface = typeface9
+        val typeface10 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
+        binding.tvDatePicker.typeface = typeface10
     }
 
 
@@ -924,7 +925,8 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun callDeletePic(data: Data) {
-        val fileName :String=  data.profilePictureUrl.toString().substring( data.profilePictureUrl.toString().lastIndexOf('/') + 1)
+        val fileName: String = data.profilePictureUrl.toString()
+            .substring(data.profilePictureUrl.toString().lastIndexOf('/') + 1)
         Log.i("profileUrl", fileName)
         profileViewModel.deleteProfileImage(fileName)
             .observe(viewLifecycleOwner, Observer {

@@ -7,10 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.FeedbackSubmittedPopupBinding
 import com.emproto.hoabl.databinding.FragmentEditProfileUpdatedPopUpBinding
 
-class EditProfileUpdatedPopUp : DialogFragment(), View.OnClickListener {
+class EditProfileUpdatedPopUpFragment : DialogFragment(), View.OnClickListener {
 
     lateinit var binding: FragmentEditProfileUpdatedPopUpBinding
     override fun onCreateView(
@@ -18,9 +17,8 @@ class EditProfileUpdatedPopUp : DialogFragment(), View.OnClickListener {
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentEditProfileUpdatedPopUpBinding.inflate(inflater, container, false)
-        binding.tcClose.setOnClickListener {
-            dismiss()
-        }
+        binding.tcClose.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
+
 
         return binding.root
     }
