@@ -331,7 +331,8 @@ class ExistingUsersPortfolioAdapter(
             crmId: Int,
             projectId: Int,
             otherDetails: ProjectExtraDetails,
-            iea: String?
+            iea: String?,
+            ea: Double
         )
 
         fun referNow()
