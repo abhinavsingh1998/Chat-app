@@ -722,7 +722,6 @@ class EditProfileFragment : BaseFragment() {
 
         }
     }
-
     private fun removePictureDialog() {
         val removeDialogLayout = RemoveConfirmationBinding.inflate(layoutInflater)
         removePictureDialog = Dialog(requireContext())
