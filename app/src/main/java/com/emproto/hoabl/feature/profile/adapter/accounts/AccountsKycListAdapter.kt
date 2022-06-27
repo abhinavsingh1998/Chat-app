@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemAccountsKycDocBinding
@@ -29,17 +30,39 @@ class AccountsKycListAdapter(
         fun onAccountsKycItemClick(
             accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
             view: View,
-            position: Int
+            position: Int,
+            name: String,
+            path: String?
         )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(accountsKycList[position].documentCategory=="KYC" && !(accountsKycList[position].documentCategory.isNullOrBlank())){
-            holder.tvDocName.text = accountsKycList[position].documentType
+        holder.tvDocName.text = accountsKycList[position].documentType
+
+        if (accountsKycList[position].documentType == "Unverified Address Proof") {
+            binding.tvViewDoc.text = "Verification Pending"
+        } else if (accountsKycList[position].documentType == "Unverified PAN Card") {
+            binding.tvViewDoc.text = "Verification Pending"
+        } else {
+            binding.tvViewDoc.text = "View"
+            holder.tvViewDoc.setOnClickListener {
+                if (accountsKycList[position] == null) {
+                    Toast.makeText(mContext, "No Document available", Toast.LENGTH_SHORT).show()
+                } else {
+                    mListener.onAccountsKycItemClick(
+                        accountsKycList,
+                        it,
+                        position,
+                        accountsKycList[position].name,
+                        accountsKycList[position].path
+                    )
+
+                }
+            }
+
         }
-        holder.tvViewDoc.setOnClickListener {
-            mListener.onAccountsKycItemClick(accountsKycList, it, position)
-        }
+
+
     }
 
     override fun getItemCount(): Int {

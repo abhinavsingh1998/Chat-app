@@ -75,7 +75,7 @@
                     android:id="@+id/tv_heading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_size_20"
+                    android:layout_marginStart="@dimen/margin_size_16"
                     android:fontFamily="@font/jost_regular"
                     android:text="Help us serve you better."
                     android:textColor="#16161c"
@@ -100,10 +100,10 @@
                     style="@style/text_style_reg_black_color_14"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_140"
                     android:layout_marginEnd="10dp"
                     android:fontFamily="@font/jost_light"
                     android:lineSpacingExtra="9sp"
-                    android:layout_marginTop="@dimen/margin_size_140"
                     android:text="@string/select_category"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_heading"
@@ -116,6 +116,7 @@
                     android:layout_marginTop="@dimen/margin_size_14"
                     android:singleLine="true"
                     android:text="@string/home_checkbox"
+                    android:buttonTint="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
@@ -123,9 +124,10 @@
                     android:id="@+id/checkbox_invest"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_size_8"
+                    android:layout_marginTop="@dimen/margin_size_4"
                     android:singleLine="true"
                     android:text="@string/invest_checkbox"
+                    android:buttonTint="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@+id/home_checkbox" />
 
@@ -133,8 +135,9 @@
                     android:id="@+id/checkbox_promises"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_size_8"
+                    android:layout_marginTop="@dimen/margin_size_4"
                     android:text="@string/promises"
+                    android:buttonTint="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@+id/checkbox_invest" />
 
@@ -142,9 +145,10 @@
                     android:id="@+id/checkbox_portfolio"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_size_8"
+                    android:layout_marginTop="@dimen/margin_size_4"
                     android:layout_marginEnd="@dimen/margin_size_272"
                     android:text="@string/portfolio"
+                    android:buttonTint="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@+id/checkbox_promises" />
 
@@ -152,9 +156,10 @@
                     android:id="@+id/checkbox_profile"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_size_8"
+                    android:layout_marginTop="@dimen/margin_size_4"
                     android:singleLine="true"
                     android:text="@string/profile"
+                    android:buttonTint="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@+id/checkbox_portfolio" />
 
@@ -162,9 +167,10 @@
                     android:id="@+id/checkbox_other"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_size_8"
+                    android:layout_marginTop="@dimen/margin_size_4"
                     android:singleLine="true"
                     android:text="@string/other"
+                    android:buttonTint="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@+id/checkbox_profile" />
 
@@ -175,8 +181,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_35"
                     android:layout_marginTop="@dimen/margin_size_14"
-                    android:clickable="true"
                     android:background="@drawable/sad_2"
+                    android:clickable="true"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/checkbox_desc" />
 
@@ -197,10 +203,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_size_14"
-                    android:clickable="true"
                     android:background="@drawable/bad"
-                    app:layout_constraintStart_toEndOf="@+id/iv_rating_1"
+                    android:clickable="true"
                     app:layout_constraintEnd_toStartOf="@id/iv_rating_3"
+                    app:layout_constraintStart_toEndOf="@+id/iv_rating_1"
                     app:layout_constraintTop_toBottomOf="@+id/checkbox_desc" />
 
                 <TextView
@@ -222,8 +228,8 @@
                     android:layout_marginTop="@dimen/margin_size_14"
                     android:background="@drawable/confused"
                     android:clickable="true"
-                    app:layout_constraintRight_toLeftOf="@id/iv_rating_4"
                     app:layout_constraintLeft_toRightOf="@id/iv_rating_2"
+                    app:layout_constraintRight_toLeftOf="@id/iv_rating_4"
                     app:layout_constraintTop_toBottomOf="@+id/checkbox_desc" />
 
                 <TextView
@@ -245,7 +251,7 @@
                     android:layout_marginTop="@dimen/margin_size_14"
                     android:background="@drawable/happy"
                     android:clickable="true"
-                   app:layout_constraintLeft_toRightOf="@id/iv_rating_3"
+                    app:layout_constraintLeft_toRightOf="@id/iv_rating_3"
                     app:layout_constraintRight_toLeftOf="@id/iv_rating_5"
                     app:layout_constraintTop_toBottomOf="@+id/checkbox_desc" />
 
@@ -299,21 +305,35 @@
 
                 <EditText
                     android:id="@+id/experience_tv"
-                    style="@style/text_style_light_grey_14"
+                    style="@style/text_style_text_light_black_color_14"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/margin_size_120"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="@dimen/margin_size_22"
                     android:layout_marginEnd="@dimen/margin_size_12"
                     android:background="@drawable/search_bar"
-                    android:fontFamily="@font/jostregular"
+                    android:fontFamily="@font/jost_medium"
                     android:gravity="top|start"
                     android:hint="Describe your experience here"
                     android:inputType="textMultiLine"
                     android:padding="10dp"
+                    android:maxLength="250"
+                    android:digits="abcdefghijklmnopqrst,ABCDEFGHIJKLMNOPQRSTUVWXYZ,0123456789,@,#,%,&amp;,*,(,),_,{,},[,],',:,;,/,\,|,-"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@id/checkbox_other" />
+
+                <TextView
+                    android:id="@+id/max_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/text_style_light_grey_12"
+                    android:text="0/250 Characters"
+                    android:fontFamily="@font/jost_regular"
+                    android:layout_marginTop="@dimen/margin_size_4"
+                    app:layout_constraintEnd_toEndOf="@+id/experience_tv"
+                    app:layout_constraintTop_toBottomOf="@id/experience_tv" />
+
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/share_your_feedback"
@@ -332,7 +352,6 @@
                     android:paddingTop="@dimen/margin_size_12"
                     android:paddingEnd="@dimen/margin_size_80"
                     android:paddingBottom="@dimen/margin_size_12"
-
                     android:text="@string/share_your_feedback"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
@@ -341,6 +360,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/experience_tv" />
 
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_size_60"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/share_your_feedback"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/share_your_feedback" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 

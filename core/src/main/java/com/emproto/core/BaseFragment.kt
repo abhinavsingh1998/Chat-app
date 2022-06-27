@@ -53,7 +53,7 @@ abstract class BaseFragment : Fragment() {
          }
      }*/
 
-    fun isNetworkAvailable(view: View?): Boolean {
+    fun isNetworkAvailable(): Boolean {
         val connectivityManager =
             requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -115,6 +115,16 @@ abstract class BaseFragment : Fragment() {
         // add the custom snack bar layout to snackbar layout
         snackbarLayout.addView(customSnackView, 0)
 
+        snackbar.show()
+    }
+
+
+    fun showSnackBarSuccess(view: View?) {
+        val snackbar = Snackbar.make(requireView(), "", Snackbar.LENGTH_INDEFINITE)
+        val View: View = layoutInflater.inflate(R.layout.custom_snackbar_view, null)
+        val snackbarLayout = snackbar.view as Snackbar.SnackbarLayout
+        snackbarLayout.setPadding(0, 5, 0, 5)
+        snackbarLayout.addView(View, 0)
         snackbar.show()
     }
 

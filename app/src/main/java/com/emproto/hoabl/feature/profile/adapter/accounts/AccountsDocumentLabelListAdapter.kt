@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemAccountsKycDocBinding
@@ -29,23 +30,33 @@ class AccountsDocumentLabelListAdapter(
         fun onAccountsDocumentLabelItemClick(
             accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
             view: View,
-            position: Int
+            position: Int,
+            name: String,
+            path: String?
         )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(accountsDocumentList[position].documentCategory!="KYC"&& !(accountsDocumentList[position].documentCategory.isNullOrEmpty())){
-            holder.tvDocName.text = accountsDocumentList[position].documentType.toString()
-        }
+        holder.tvDocName.text = accountsDocumentList[position].name
+
 
         holder.tvViewDoc.setOnClickListener {
-            mListener.onAccountsDocumentLabelItemClick(accountsDocumentList, it, position)
+            if (accountsDocumentList[position]==null) {
+                Toast.makeText(mContext, "No Document available", Toast.LENGTH_SHORT).show()
+            } else {
+                mListener.onAccountsDocumentLabelItemClick(
+                    accountsDocumentList,
+                    it,
+                    position,
+                    accountsDocumentList[position].name,
+                    accountsDocumentList[position].path
+                )
+            }
         }
-
     }
 
     override fun getItemCount(): Int {
-        return accountsDocumentList.size
+        return 2
     }
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {

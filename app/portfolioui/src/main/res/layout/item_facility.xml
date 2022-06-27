@@ -11,6 +11,7 @@
     app:cardElevation="@dimen/margin_size_8">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -66,6 +67,25 @@
             app:layout_constraintBottom_toBottomOf="@+id/iv_first"
             app:layout_constraintStart_toEndOf="@+id/iv_first"
             app:layout_constraintTop_toTopOf="@+id/iv_first" />
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/getOtp_button"
+            style="@style/text_style_white_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/unselect_button_bg"
+            android:drawableRight="@drawable/ic_final_arrow"
+            android:drawablePadding="@dimen/_2sdp"
+            android:paddingHorizontal="@dimen/margin_size_10"
+            android:paddingVertical="@dimen/margin_size_8"
+            android:text="Click here"
+            android:textAlignment="center"
+            app:drawableTint="@color/white"
+            app:fontName="@string/jost_medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,17 +10,19 @@ import com.emproto.hoabl.feature.investment.views.*
 import com.emproto.hoabl.feature.investment.views.mediagallery.*
 import com.emproto.hoabl.feature.login.*
 import com.emproto.hoabl.feature.portfolio.views.*
-import com.emproto.hoabl.feature.profile.*
-import com.emproto.hoabl.feature.profile.AccountDetailsFragment
-import com.emproto.hoabl.feature.profile.EditProfileFragment
-import com.emproto.hoabl.feature.profile.FeedbackFragment
-import com.emproto.hoabl.feature.profile.PrivacyFragment
-import com.emproto.hoabl.feature.profile.ProfileFaqFragment
-import com.emproto.hoabl.feature.profile.ProfileFragment
+import com.emproto.hoabl.feature.profile.fragments.accounts.AccountDetailsFragment
+import com.emproto.hoabl.feature.profile.fragments.edit_profile.EditProfileFragment
+import com.emproto.hoabl.feature.profile.fragments.feedback.FeedbackFragment
+import com.emproto.hoabl.feature.profile.fragments.privacy.PrivacyFragment
+import com.emproto.hoabl.feature.profile.fragments.about_us.AboutUsFragment
+import com.emproto.hoabl.feature.profile.fragments.faq.ProfileFaqFragment
+import com.emproto.hoabl.feature.profile.fragments.profile.ProfileFragment
+import com.emproto.hoabl.feature.profile.fragments.accounts.AllPaymentHistoryFragment
+import com.emproto.hoabl.feature.profile.fragments.securtiyandsettings.SecurityFragment
+import com.emproto.hoabl.feature.profile.fragments.securtiyandsettings.SecurityTipsFragment
 import com.emproto.hoabl.feature.promises.HoablPromises
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.notification.MyFirebasemessagingService
-import com.emproto.networklayer.response.home.LatestUpdates
 import dagger.Component
 import javax.inject.Singleton
 
@@ -66,13 +68,14 @@ interface HomeComponent {
     fun inject(fragment: ChatsFragment)
     fun inject(fragment: ChatsDetailFragment)
     fun inject(fragment: BookingjourneyFragment)
-    fun inject(fragment:FeedbackFragment)
-    fun inject(fragment:PrivacyFragment)
+    fun inject(fragment: FeedbackFragment)
+    fun inject(fragment: PrivacyFragment)
     fun inject(fragment: SearchResultFragment)
     fun inject(fragment: AccountDetailsFragment)
-    fun inject(fragment:AboutUsFragment)
+    fun inject(fragment: AllPaymentHistoryFragment)
+    fun inject(fragment: AboutUsFragment)
     fun inject(fragment: ProfileFaqFragment)
     fun inject(fragment: ReceiptFragment)
-
-
+    fun inject(fragment: SecurityFragment)
+    fun inject(fragment: SecurityTipsFragment)
 }

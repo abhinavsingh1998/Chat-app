@@ -11,7 +11,9 @@ import android.view.View
 import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.view.isEmpty
 import androidx.core.view.isNotEmpty
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -65,7 +67,6 @@ class AuthActivity : BaseActivity() {
 //            var window:Window = this.getWindow()
 //            window.setStatusBarColor(this.resources.getColor(R.color.black))
 //        }
-
     }
 
     private fun initClickListener() {
@@ -121,7 +122,7 @@ class AuthActivity : BaseActivity() {
 
     fun launch_bottom_sheet() {
         signingInIssueBiding.inputMobile.setValue(appPreference.getMobilenum())
-        if(signingInIssueBiding.inputMobile.isNotEmpty()){
+        if(!appPreference.getMobilenum().isNullOrEmpty()){
             signingInIssueBiding.submitBtn.isEnabled = true
             signingInIssueBiding.submitBtn.isClickable = true
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -152,6 +153,11 @@ class AuthActivity : BaseActivity() {
     fun showErrorToast(message: String) {
         showErrorView(activityAuthBinding.root, message)
     }
+
+    fun showSuccessToast(message: String){
+        showSuccessView(activityAuthBinding.root, message)
+    }
+
 
     @SuppressLint("ResourceAsColor")
     private fun initClickListner() {
@@ -191,14 +197,19 @@ class AuthActivity : BaseActivity() {
 
             }
 
+            @SuppressLint("UseCompatLoadingForColorStateLists")
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 issueDetail=p0.toString()
                 if( p0.toString().length==250){
-                    signingInIssueBiding.editIssues.error = "You have reached the max characters limit"
-                    Toast.makeText(this@AuthActivity, "You have reached the max characters limit", Toast.LENGTH_SHORT).show()
+                signingInIssueBiding.editIssuesLayout.setBoxStrokeColor(resources.getColor(R.color.text_red_color))
+                signingInIssueBiding.txtcount.isVisible= true
+                signingInIssueBiding.editIssues.setTextColor(resources.getColorStateList(R.color.text_red_color))
+
                 }
                 else{
-                    signingInIssueBiding.editIssuesLayout.isErrorEnabled= false
+                    signingInIssueBiding.editIssuesLayout.setBoxStrokeColor(resources.getColor(R.color.app_color))
+                    signingInIssueBiding.txtcount.isVisible= false
+                    signingInIssueBiding.editIssues.setTextColor(resources.getColorStateList(R.color.text_color))
                 }
             }
 
@@ -214,7 +225,7 @@ class AuthActivity : BaseActivity() {
 
         signingInIssueBiding.emailInput.addTextChangedListener(object: TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    signingInIssueBiding.emailLayout.isErrorEnabled= false
+                signingInIssueBiding.emailLayout.isErrorEnabled= false
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -226,18 +237,6 @@ class AuthActivity : BaseActivity() {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         signingInIssueBiding.submitBtn.background =
                             resources.getDrawable(R.drawable.button_bg)
-                    }
-                } else{
-                    signingInIssueBiding.emailLayout.error = "Please enter valid email"
-                    signingInIssueBiding.submitBtn.isEnabled = false
-                    signingInIssueBiding.submitBtn.isClickable = false
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        signingInIssueBiding.submitBtn.background =
-                            resources.getDrawable(R.drawable.unselect_button_bg)
-                    }
-                    if (p0.length == 150 ){
-                        signingInIssueBiding.emailLayout.error = "You have reached the max characters limit"
-                       Toast.makeText(this@AuthActivity, "You have reached the max characters limit", Toast.LENGTH_LONG).show()
                     }
                 }
             }
@@ -269,6 +268,11 @@ class AuthActivity : BaseActivity() {
 //                    Toast.makeText(this, "Please Describe in more words", Toast.LENGTH_SHORT).show()
 //                    return@OnClickListener
 //                }
+            }
+
+            if(!email.isValidEmail()){
+                signingInIssueBiding.emailLayout.error = "Please enter valid email"
+                return@OnClickListener
             }
 
 
@@ -372,8 +376,8 @@ class AuthActivity : BaseActivity() {
                         AppCompatResources.getDrawable(
                             this@AuthActivity,
                             R.drawable.unselect_button_bg)
-            }
-        }}
+                }
+            }}
 
     }
 

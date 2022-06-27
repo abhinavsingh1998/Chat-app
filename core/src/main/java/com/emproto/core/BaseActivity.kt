@@ -87,6 +87,21 @@ abstract class BaseActivity : AppCompatActivity() {
 
         snackbar.show()
     }
+    fun showSuccessView(view: View?, text: String) {
+        val snackbar = Snackbar.make(view!!, "", Snackbar.LENGTH_LONG)
+        val customSnackView: View = layoutInflater.inflate(R.layout.error_layout, null)
+        val message = customSnackView.findViewById<TextView>(R.id.error_text)
+        val viewColor= customSnackView.findViewById<View>(R.id.view)
+        viewColor.setBackgroundColor(resources.getColor(R.color.green))
+        message.text = text
+        val snackbarLayout = snackbar.view as Snackbar.SnackbarLayout
+        snackbarLayout.setPadding(0, 0, 0, 0)
+        // add the custom snack bar layout to snackbar layout
+        snackbarLayout.addView(customSnackView, 0)
+
+        snackbar.show()
+    }
+
 
 
     fun showSnackBar(view: View?) {

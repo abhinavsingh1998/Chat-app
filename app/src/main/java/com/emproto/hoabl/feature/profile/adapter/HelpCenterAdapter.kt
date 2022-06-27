@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.*
-import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.feature.profile.ProfileFaqFragment
 import com.emproto.hoabl.feature.profile.data.HelpModel
 
 
@@ -69,9 +67,12 @@ class HelpCenterAdapter(
                 val listHolder = holder as HelpCenterAdapter.HoablHealthFooterHolder
                 listHolder.binding.actionChat.setOnClickListener {
                     footerInterface.onChatClick(holder.layoutPosition)
-
-
-
+                }
+                listHolder.binding.info.setOnClickListener {
+                    footerInterface.onPhoneNumberClick(holder.layoutPosition)
+                }
+                listHolder.binding.email.setOnClickListener {
+                    footerInterface.onEmailClick(holder.layoutPosition)
                 }
 
             }
@@ -90,5 +91,9 @@ class HelpCenterAdapter(
     }
     interface FooterInterface {
         fun onChatClick(position: Int)
+        fun onPhoneNumberClick(position: Int)
+        fun onEmailClick(position: Int)
+
     }
+
 }

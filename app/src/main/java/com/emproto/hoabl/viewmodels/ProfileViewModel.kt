@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.emproto.hoabl.repository.ProfileRepository
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
+import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.investment.FaqDetailResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.resourceManagment.ProflieResponse
@@ -23,12 +25,16 @@ class ProfileViewModel(
     private var profileRepository: ProfileRepository = mprofileRepository
 
     fun editUserNameProfile(editUserNameRequest: EditUserNameRequest): LiveData<BaseResponse<EditProfileResponse>> {
-        return profileRepository.editUserNameProfile(editUserNameRequest)
-    }
+        return profileRepository.editUserNameProfile(editUserNameRequest) }
 
     fun uploadProfilePicture(file:File,fileName:String): LiveData<BaseResponse<ProfilePictureResponse>> {
         return profileRepository.uploadProfilePicture(file,fileName)
     }
+    fun uploadKycDocument(extension: String,file: File,  selectedDoc: String): LiveData<BaseResponse<UploadDocumentResponse>> {
+        return profileRepository.uploadKycDocument(extension,file,selectedDoc)
+    }
+
+
     fun presignedUrl(type: String, destinationFile: File): LiveData<BaseResponse<PresignedUrlResponse>> {
         return profileRepository.presignedUrl(type,destinationFile)
     }
@@ -67,10 +73,25 @@ class ProfileViewModel(
     fun getAboutHoabl(pageType: Int): LiveData<BaseResponse<ProflieResponse>>{
         return mprofileRepository.getAboutHoaBl(pageType)
     }
-    fun getFaqList(typeOfFAQ: String): LiveData<BaseResponse<ProfileFaqResponse>> {
+
+    fun getFaqList(typeOfFAQ: String): LiveData<BaseResponse<GeneralFaqResponse>> {
         return profileRepository.getFaqList(typeOfFAQ)
     }
 
+    fun putWhatsappconsent(whatsappConsentBody: WhatsappConsentBody): LiveData<BaseResponse<WhatsappConsentResponse>> {
+        return profileRepository.putWhatsappConsent(whatsappConsentBody)
+    }
+
+    fun getSecurityTips(pageType: Int): LiveData<BaseResponse<SecurityTipsResponse>> {
+        return profileRepository.getSecurityTips(pageType)
+    }
+
+    fun getGeneralFaqs(categoryType: Int): LiveData<BaseResponse<FaqDetailResponse>> {
+        return profileRepository.getGeneralFaqs(categoryType)
+    }
+    fun getAllProjects(refresh: Boolean): LiveData<BaseResponse<AllProjectsResponse>>{
+        return profileRepository.getAllProjects(refresh)
+    }
 }
 
 

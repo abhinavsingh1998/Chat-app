@@ -32,6 +32,7 @@ class LastFewPlotsAdapter(val context: Context, val list: List<PageManagementsOr
                 .bold { append("₹${convertedAmount} L") }
                 .append(" Onwards")
 //            tvItemAmount.text = "₹${convertedAmount} L" + " Onwards"
+            tvRating.text = "${String.format(" % .0f",element.generalInfoEscalationGraph.estimatedAppreciation)}%"
             tvNoViews.text = Utility.coolFormat(element.fomoContent.noOfViews.toDouble(),0)
             tvItemArea.text = SpannableStringBuilder()
                 .bold { append("${element.areaStartingFrom} Sqft") }

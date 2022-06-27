@@ -3,15 +3,19 @@ package com.emproto.hoabl.feature.login
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.Paint
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
 import android.text.Editable
+import android.text.SpannableStringBuilder
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
@@ -20,6 +24,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.text.color
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -76,7 +81,6 @@ class OTPVerificationFragment : BaseFragment() {
     val fourth_attempt =
         "You have incorrectly typed the OTP 4 times. Click on Resend OTP to receive OTP again"
 
-
     companion object {
         const val TAG = "SMS_USER_CONSENT"
         const val REQ_USER_CONSENT = 100
@@ -132,6 +136,7 @@ class OTPVerificationFragment : BaseFragment() {
         mBinding.tvMobileNumber.text = "$countryCode-$mobileno"
         mBinding.tvMobileNumber.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         mBinding.loginEdittext.hint = hint_txt
+
         startSmsUserConsent()
 
     }
@@ -150,7 +155,7 @@ class OTPVerificationFragment : BaseFragment() {
             @SuppressLint("ResourceType")
             override fun afterTextChanged(s: Editable?) {
                 if (s?.length == 6) {
-                    if (isNetworkAvailable(mBinding.root)) {
+                    if (isNetworkAvailable()) {
                         hideSoftKeyboard()
                         val otpVerifyRequest =
                             OtpVerifyRequest(
@@ -210,29 +215,36 @@ class OTPVerificationFragment : BaseFragment() {
                                     Status.SUCCESS -> {
                                         //save token to preference
                                         mBinding.loader.visibility = View.INVISIBLE
-                                        it.data?.let {
-                                            appPreference.setToken(it.token)
-                                            if (it.user.contactType == "prelead" &&
-                                                it.user.firstName.isNullOrBlank()
-                                            ) {
-                                                requireActivity().supportFragmentManager.popBackStack()
-                                                (requireActivity() as AuthActivity).replaceFragment(
-                                                    NameInputFragment.newInstance(
-                                                        if (it.user.firstName != null) it.user.firstName else "",
-                                                        if (it.user.lastName != null) it.user.lastName else ""
-                                                    ), true
-                                                )
-                                            } else {
-                                                appPreference.saveLogin(true)
-                                                startActivity(
-                                                    Intent(
-                                                        requireContext(),
-                                                        HomeActivity::class.java
+                                        (requireActivity() as AuthActivity).showSuccessToast(
+                                            "OTP Verified Successfully!"
+                                        )
+
+                                        Handler().postDelayed({
+                                            it.data?.let {
+                                                appPreference.setToken(it.token)
+                                                if (it.user.contactType == "prelead" &&
+                                                    it.user.firstName.isNullOrBlank()
+                                                ) {
+                                                    requireActivity().supportFragmentManager.popBackStack()
+                                                    (requireActivity() as AuthActivity).replaceFragment(
+                                                        NameInputFragment.newInstance(
+                                                            if (it.user.firstName != null) it.user.firstName else "",
+                                                            if (it.user.lastName != null) it.user.lastName else ""
+                                                        ), true
                                                     )
-                                                )
-                                                requireActivity().finish()
+                                                } else {
+                                                    appPreference.saveLogin(true)
+                                                    startActivity(
+                                                        Intent(
+                                                            requireContext(),
+                                                            HomeActivity::class.java
+                                                        )
+                                                    )
+                                                    requireActivity().finish()
+                                                }
                                             }
-                                        }
+                                        }, 2000)
+
 
                                     }
                                 }
@@ -399,12 +411,23 @@ class OTPVerificationFragment : BaseFragment() {
                         mBinding.resentOtp.isVisible = false
                         mBinding.timerTxt.visibility = View.VISIBLE
                         if ((millisUntilFinished / 1000) % 60 < 10) {
+                            mBinding.resentOtp.isVisible = false
                             mBinding.timerTxt.text =
-                                "Resend OTP in " + "0" + (millisUntilFinished / 1000) / 60 + ":" + "0" + (millisUntilFinished / 1000) % 60 + " sec"
+                                    SpannableStringBuilder()
 
+                                        .color(Color.GRAY){
+                                            append("RESEND OTP in ")
+                                        }
+                                        .append("0${(millisUntilFinished / 1000) / 60}:0${(millisUntilFinished / 1000) % 60} sec")
                         } else {
                             mBinding.timerTxt.text =
-                                "Resend OTP in " + "0" + (millisUntilFinished / 1000) / 60 + ":" + (millisUntilFinished / 1000) % 60 + " sec"
+
+                                SpannableStringBuilder()
+                                    .color(Color.GRAY){
+                                        append("RESEND OTP in  ")
+                                    }
+//
+                                    .append("0${(millisUntilFinished / 1000) / 60}:${(millisUntilFinished / 1000) % 60} sec")
                         }
                     }
                 }

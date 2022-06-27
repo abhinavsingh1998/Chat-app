@@ -144,7 +144,7 @@ class SearchResultFragment : BaseFragment() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if(p0.toString().isEmpty() || p0.toString().isBlank()){
+                if (p0.toString().isEmpty() || p0.toString().isBlank()) {
                     fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.GONE
 //                    callSearchApi("")
                 }
@@ -156,7 +156,7 @@ class SearchResultFragment : BaseFragment() {
                     Handler().postDelayed({
                         callSearchApi(p0.toString())
                     }, 2000)
-                } else if(p0.toString().isEmpty()) {
+                } else if (p0.toString().isEmpty()) {
                     Handler().postDelayed({
                         callSearchApi("")
                     }, 2000)
@@ -214,11 +214,11 @@ class SearchResultFragment : BaseFragment() {
                             }
                         }
 
-                        callDocsApi(searchWord,data.projectContentData,data.faqData)
+//                        callDocsApi(searchWord, data.projectContentData, data.faqData)
 
-                        if(data.projectContentData.isEmpty() && data.faqData.isEmpty()){
+                        if (data.projectContentData.isEmpty() && data.faqData.isEmpty()) {
                             fragmentSearchResultBinding.tvNoData.visibility = View.VISIBLE
-                        }else{
+                        } else {
                             fragmentSearchResultBinding.tvNoData.visibility = View.GONE
                         }
                     }
@@ -237,9 +237,9 @@ class SearchResultFragment : BaseFragment() {
         searchWord: String,
         projectContentData: List<ApData>,
         faqData: List<FrequentlyAskedQuestion>
-    ){
-        homeViewModel.getSearchDocResult(searchWord).observe(viewLifecycleOwner,Observer{
-            when(it.status){
+    ) {
+        homeViewModel.getSearchDocResult(searchWord).observe(viewLifecycleOwner, Observer {
+            when (it.status) {
                 Status.LOADING -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
                 }
@@ -253,27 +253,29 @@ class SearchResultFragment : BaseFragment() {
                                     fragmentSearchResultBinding.documentsList.visibility = View.GONE
                                 }
                                 else -> {
-                                    Log.d("getget",data.toString())
+                                    Log.d("getget", data.toString())
                                     for (item in data) {
                                         docList.add(item)
                                     }
                                     documentAdapter = DocumentsAdapter(docList, false, ivinterface)
                                     fragmentSearchResultBinding.documentsList.adapter =
                                         documentAdapter
-                                    when(docList.size){
+                                    when (docList.size) {
                                         0 -> {
-                                            fragmentSearchResultBinding.tvDocuments.visibility = View.GONE
-                                            fragmentSearchResultBinding.documentsList.visibility = View.GONE
+                                            fragmentSearchResultBinding.tvDocuments.visibility =
+                                                View.GONE
+                                            fragmentSearchResultBinding.documentsList.visibility =
+                                                View.GONE
                                         }
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             fragmentSearchResultBinding.tvDocuments.visibility = View.GONE
                             fragmentSearchResultBinding.documentsList.visibility = View.GONE
-                            if(projectContentData.isEmpty() && faqData.isEmpty()){
+                            if (projectContentData.isEmpty() && faqData.isEmpty()) {
                                 fragmentSearchResultBinding.tvNoData.visibility = View.VISIBLE
-                            }else{
+                            } else {
                                 fragmentSearchResultBinding.tvNoData.visibility = View.GONE
                             }
                         }
@@ -304,7 +306,7 @@ class SearchResultFragment : BaseFragment() {
 
     val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
-            when(position){
+            when (position) {
                 0 -> {
                     val bundle = Bundle()
                     bundle.putInt("ProjectId", item.toInt())
@@ -326,14 +328,14 @@ class SearchResultFragment : BaseFragment() {
     }
 
     val ivinterface = object : DocumentInterface {
-        override fun onclickDocument(position: Int) {
-            openDocument(position)
+        override fun onclickDocument(name: String, path: String) {
+            openDocument(0)
         }
     }
 
     private fun openDocument(position: Int) {
         (requireActivity() as HomeActivity).addFragment(
-            DocViewerFragment.newInstance(false,"Doc Name", ""),
+            DocViewerFragment.newInstance(false, "Doc Name", ""),
             false
         )
     }
@@ -394,7 +396,7 @@ class SearchResultFragment : BaseFragment() {
             override fun onClickAsk() {
             }
 
-            override fun onDocumentView(position: Int) {
+            override fun onDocumentView(name: String, path: String) {
             }
         }
 

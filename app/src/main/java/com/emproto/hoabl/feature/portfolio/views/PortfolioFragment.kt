@@ -38,6 +38,7 @@ import com.emproto.hoabl.feature.portfolio.adapters.ExistingUsersPortfolioAdapte
 import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
+import com.emproto.networklayer.ApiConstants
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
@@ -91,6 +92,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     val permissionRequest: MutableList<String> = ArrayList()
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     var isReadPermissonGranted: Boolean = false
+    var investmentId = 0
 
 
     override fun onCreateView(
@@ -306,42 +308,61 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     }
 
     private fun fetchUserPortfolio(refresh: Boolean) {
-        portfolioviewmodel.getPortfolioDashboard(refresh)
-            .observe(viewLifecycleOwner, Observer { it ->
-                when (it.status) {
-                    Status.LOADING -> {
-                        binding.progressBaar.show()
-                    }
-                    Status.SUCCESS -> {
-                        binding.refreshLayout.isRefreshing = false
-                        binding.progressBaar.hide()
-                        it.data?.let {
-                            //load data in listview
-                            binding.financialRecycler.show()
-                            observePortFolioData(it)
+        if (isNetworkAvailable()) {
+            portfolioviewmodel.getPortfolioDashboard(refresh)
+                .observe(viewLifecycleOwner, Observer { it ->
+                    when (it.status) {
+                        Status.LOADING -> {
+                            binding.progressBaar.show()
+                            binding.noInternetView.mainContainer.hide()
                         }
+                        Status.SUCCESS -> {
+                            binding.noInternetView.mainContainer.hide()
+                            binding.refreshLayout.isRefreshing = false
+                            binding.progressBaar.hide()
+                            it.data?.let {
+                                //load data in listview
+                                binding.financialRecycler.show()
+                                observePortFolioData(it)
+                            }
 
 
-                    }
-                    Status.ERROR -> {
-                        binding.refreshLayout.isRefreshing = false
-                        binding.progressBaar.hide()
-                        //show error dialog
-                        if (it.message == "The current user is not an investor") {
-                            binding.noUserView.show()
-                            binding.portfolioTopImg.visibility = View.VISIBLE
-                            binding.addYouProject.visibility = View.VISIBLE
-                            binding.instriction.visibility = View.VISIBLE
-                            binding.btnExploreNewInvestmentProject.visibility = View.VISIBLE
-                        } else {
-                            (requireActivity() as HomeActivity).showErrorToast(
-                                it.message!!
-                            )
                         }
+                        Status.ERROR -> {
+                            binding.refreshLayout.isRefreshing = false
+                            binding.progressBaar.hide()
+                            //show error dialog
+                            if (it.message == "The current user is not an investor") {
+                                binding.noUserView.show()
+                                binding.portfolioTopImg.visibility = View.VISIBLE
+                                binding.addYouProject.visibility = View.VISIBLE
+                                binding.instriction.visibility = View.VISIBLE
+                                binding.btnExploreNewInvestmentProject.visibility = View.VISIBLE
+                            }
+//                        else if (it.message == ApiConstants.NO_INTERNET) {
+//                            binding.noInternetView.mainContainer.show()
+//                            binding.noInternetView.textView6.setOnClickListener {
+//                                fetchUserPortfolio(true)
+//                            }
+//                        }
+                            else {
+                                (requireActivity() as HomeActivity).showErrorToast(
+                                    it.message!!
+                                )
+                            }
 
+                        }
                     }
-                }
-            })
+                })
+        } else {
+            binding.refreshLayout.isRefreshing = false
+            binding.progressBaar.hide()
+            binding.financialRecycler.hide()
+            binding.noInternetView.mainContainer.show()
+            binding.noInternetView.textView6.setOnClickListener {
+                fetchUserPortfolio(true)
+            }
+        }
     }
 
     private fun observePortFolioData(portfolioData: PortfolioData) {
@@ -376,17 +397,23 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                     it.data.projects.filter { it.investment.isBookingComplete }
                 )
             )
+            val onGoingProjects = it.data.projects.filter { !it.investment.isBookingComplete }
+            if (onGoingProjects.isNotEmpty()) {
+                investmentId = onGoingProjects[0].investment.id
+            }
             list.add(
                 PortfolioModel(
                     ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
-                    it.data.projects.filter { !it.investment.isBookingComplete }
+                    onGoingProjects
                 )
             )
-            list.add(
-                PortfolioModel(
-                    ExistingUsersPortfolioAdapter.TYPE_NUDGE_CARD
+            if (appPreference.getOfferUrl() != null && appPreference.getOfferUrl().isNotEmpty()) {
+                list.add(
+                    PortfolioModel(
+                        ExistingUsersPortfolioAdapter.TYPE_NUDGE_CARD, appPreference.getOfferUrl()
+                    )
                 )
-            )
+            }
 
             if (it.data.watchlist != null && it.data.watchlist.isNotEmpty()) {
                 watchList.clear()
@@ -484,7 +511,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     override fun onGoingDetails() {
         (requireActivity() as HomeActivity).addFragment(
             BookingjourneyFragment.newInstance(
-                23,
+                investmentId,
                 ""
             ), false
         )
@@ -515,7 +542,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
     override fun dontMissoutCard() {
         val bundle = Bundle()
-        bundle.putInt("ProjectId", 9)
+        bundle.putInt("ProjectId", appPreference.getOfferId())
         val fragment = ProjectDetailFragment()
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(

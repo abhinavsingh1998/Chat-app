@@ -13,6 +13,8 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
         val PIN_AUTH = "pin_auth"
         val FACILITY_CARD = "facility_card"
         val NOTIFICATION_TOKEN = "notification_token"
+        val OFFER_ID = "offer_id"
+        val OFFER_CARD_URL = "offer_url"
     }
 
     private var preference = context.getSharedPreferences("hoabl-pref", Context.MODE_PRIVATE)
@@ -39,6 +41,14 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
 
     private fun getString(key: String, defaultValue: String = ""): String {
         return preference.getString(key, defaultValue) ?: defaultValue
+    }
+
+    private fun saveInt(key: String, value: Int) {
+        editor.putInt(key, value).apply()
+    }
+
+    private fun getInt(key: String, defaultValue: Int = 0): Int {
+        return preference.getInt(key, defaultValue) ?: defaultValue
     }
 
     private fun saveBoolean(key: String, value: Boolean) {
@@ -87,6 +97,22 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
 
     override fun isFacilityCard(): Boolean {
         return getBoolean(FACILITY_CARD, false)
+    }
+
+    override fun saveOfferId(project: Int) {
+        saveInt(OFFER_ID, project)
+    }
+
+    override fun getOfferId(): Int {
+        return getInt(OFFER_ID, 0)
+    }
+
+    override fun saveOfferUrl(url: String) {
+        saveString(OFFER_CARD_URL, url)
+    }
+
+    override fun getOfferUrl(): String {
+        return getString(OFFER_CARD_URL, "")
     }
 
 

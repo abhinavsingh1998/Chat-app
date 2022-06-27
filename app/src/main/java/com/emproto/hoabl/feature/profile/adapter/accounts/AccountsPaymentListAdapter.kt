@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemAccountsPaymentBinding
@@ -19,6 +20,7 @@ class AccountsPaymentListAdapter(
 
     lateinit var binding: ItemAccountsPaymentBinding
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding =
             ItemAccountsPaymentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -29,31 +31,49 @@ class AccountsPaymentListAdapter(
         fun onAccountsPaymentItemClick(
             accountsPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>,
             view: View,
-            position: Int
+            position: Int,
+            name: String,
+            path: String,
         )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(!accountsPaymentList[position].paidAmount.toString().isNullOrEmpty()){
+        if (!accountsPaymentList[position].paidAmount.toString().isNullOrEmpty()) {
             holder.tvPaidAmount.text = "₹" + accountsPaymentList[position].paidAmount.toString()
         }
-        if(!accountsPaymentList[position].projectName.isNullOrEmpty()){
+        if (!accountsPaymentList[position].projectName.isNullOrEmpty()) {
             holder.tvProjectName.text = accountsPaymentList[position].projectName
         }
-        if(!accountsPaymentList[position].paymentDate.substring(0, 10).isNullOrEmpty()) {
+        if (!accountsPaymentList[position].paymentDate.substring(0, 10).isNullOrEmpty()) {
             holder.tvPaymentDate.text = accountsPaymentList[position].paymentDate.substring(0, 10)
         }
-        if (accountsPaymentList[position].investment.crmInventory!=null) {
-            holder.tvLandId.text = "Land id:" + "" + accountsPaymentList[position].investment.crmInventory.id.toString()
+        if (accountsPaymentList[position].investment.crmInventory != null) {
+            holder.tvLandId.text =
+                "Land id:" + "" + accountsPaymentList[position].investment.crmInventory.id.toString()
         }
 
         holder.tvSeeReceipt.setOnClickListener {
-            mListener.onAccountsPaymentItemClick(accountsPaymentList, it, position)
+            if (accountsPaymentList[position].document==null) {
+
+                Toast.makeText(mContext, "No Receipt", Toast.LENGTH_SHORT).show()
+
+
+            } else {
+                mListener.onAccountsPaymentItemClick(
+                    accountsPaymentList,
+                    it,
+                    position,
+                    accountsPaymentList[position].document?.name.toString(),
+                    accountsPaymentList[position].document?.path.toString()
+                )
+
+            }
+
         }
     }
 
     override fun getItemCount(): Int {
-        return accountsPaymentList.size
+        return 4
     }
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {

@@ -6,10 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.PortfolioDataSource
 import com.emproto.networklayer.feature.RegistrationDataSource
+import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
+import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
@@ -225,12 +227,12 @@ class PortfolioRepository @Inject constructor(application: Application) :
         return mDocumentsResponse
     }
 
-    fun getFacilitymanagment(): LiveData<BaseResponse<FMResponse>> {
+    fun getFacilitymanagment(plotId: String, crmId: String): LiveData<BaseResponse<FMResponse>> {
         val mDocumentsResponse = MutableLiveData<BaseResponse<FMResponse>>()
         mDocumentsResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val request = PortfolioDataSource(application).getFacilityManagment()
+                val request = PortfolioDataSource(application).getFacilityManagment(plotId, crmId)
                 if (request.isSuccessful) {
                     if (request.body()!!.data != null)
                         mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
@@ -304,6 +306,26 @@ class PortfolioRepository @Inject constructor(application: Application) :
             }
         }
         return mDocumentsResponse
+    }
+
+    fun submitTroubleCase(signingRequest: TroubleSigningRequest): LiveData<BaseResponse<TroubleSigningResponse>> {
+        val mCaseResponse = MutableLiveData<BaseResponse<TroubleSigningResponse>>()
+
+        mCaseResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = RegistrationDataSource(application).submitTroubleCase(signingRequest)
+                if (request.isSuccessful) {
+                    mCaseResponse.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    mCaseResponse.postValue(BaseResponse.Companion.error(request.message()))
+                }
+
+            } catch (e: Exception) {
+                mCaseResponse.postValue(BaseResponse.Companion.error(e.message!!))
+            }
+        }
+        return mCaseResponse
     }
 
 

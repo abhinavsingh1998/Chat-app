@@ -2,7 +2,6 @@ package com.emproto.networklayer.response.profile
 
 
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
 
 data class AccountsResponse(
     @SerializedName("code")
@@ -11,22 +10,24 @@ data class AccountsResponse(
     val `data`: Data,
     @SerializedName("message")
     val message: String
-):Serializable {
+) {
     data class Data(
         @SerializedName("documents")
         val documents: List<Document>,
         @SerializedName("paymentHistory")
         val paymentHistory: List<PaymentHistory>
-    ):Serializable {
+    ) {
         data class Document(
             @SerializedName("bookingId")
-            val bookingId: Any?,
+            val bookingId: String? =null,
             @SerializedName("documentCategory")
-            val documentCategory: String?,
+            val documentCategory: String,
             @SerializedName("documentType")
             val documentType: String,
             @SerializedName("id")
             val id: Int,
+            @SerializedName("status")
+            val status: String? = null,
             @SerializedName("itemInternalId")
             val itemInternalId: Any?,
             @SerializedName("name")
@@ -39,13 +40,15 @@ data class AccountsResponse(
             val projectId: String,
             @SerializedName("userId")
             val userId: Any?
-        ):Serializable
+        )
 
         data class PaymentHistory(
             @SerializedName("crmBookingId")
             val crmBookingId: String,
             @SerializedName("crmId")
-            val crmId: Any?,
+            val crmId: String,
+            @SerializedName("document")
+            val document: PaymentReceipt,
             @SerializedName("id")
             val id: Int,
             @SerializedName("investment")
@@ -58,13 +61,40 @@ data class AccountsResponse(
             val projectName: String,
             @SerializedName("userId")
             val userId: String
-        ):Serializable {
+        ) {
+            data class PaymentReceipt(
+                @SerializedName("id")
+                val id: Int,
+                @SerializedName("userId")
+                val userId: String,
+                @SerializedName("projectId")
+                val projectId: String,
+                @SerializedName("paymentId")
+                val paymentId: String,
+                @SerializedName("bookingId")
+                val bookingId: String,
+                @SerializedName("documentCategory")
+                val documentCategory: String,
+                @SerializedName("documentType")
+                val documentType: String,
+                @SerializedName("path")
+                val path: String,
+                @SerializedName("name")
+                val name: String,
+                @SerializedName("itemInternalId")
+                val itemInternalId: String,
+                @SerializedName("createdat")
+                val createdAt: String,
+                @SerializedName("updateAt")
+                val updateAt: String
+            )
+
             data class Investment(
                 @SerializedName("crmBookingId")
                 val crmBookingId: String,
                 @SerializedName("crmInventory")
                 val crmInventory: CrmInventory
-            ):Serializable {
+            ) {
                 data class CrmInventory(
                     @SerializedName("createdAt")
                     val createdAt: String,
@@ -84,8 +114,13 @@ data class AccountsResponse(
                     val name: String,
                     @SerializedName("updatedAt")
                     val updatedAt: String
-                ):Serializable
+                )
             }
         }
+
+
     }
 }
+
+
+

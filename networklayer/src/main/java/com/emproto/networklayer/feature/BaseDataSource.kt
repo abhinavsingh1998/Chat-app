@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.util.Log
+import com.emproto.networklayer.ApiConstants
 import com.emproto.networklayer.di.DataAppModule
 import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
@@ -37,7 +38,7 @@ public abstract class BaseDataSource(val baseApplication: Application) {
     init {
         dataComponent.inject(this)
         if (!isNetworkAvailable()) {
-            throw Exception("No Network Available")
+            throw Exception(ApiConstants.NO_INTERNET)
         }
     }
 

@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
@@ -199,7 +201,7 @@ class ExistingUsersPortfolioAdapter(
             binding.cardName1.text = "No. of Products"
             binding.cardName2.text = "Area in Sqft"
             binding.cardName3.text = "Amount Invested"
-            binding.cardName4.text = "Avg Estimated Appreciation"
+            binding.cardName4.text = "Avg Est. Appreciation"
 
             binding.ivAmount.visibility = View.VISIBLE
             binding.ivAmountPending.visibility = View.GONE
@@ -232,7 +234,7 @@ class ExistingUsersPortfolioAdapter(
             if (list[position].data != null) {
                 val ongoing = list[position].data as Ongoing
                 binding.contentTxt1.text = "" + ongoing.count
-                binding.contentTxt2.text = "" + ongoing.areaSqFt
+                binding.contentTxt2.text = Utility.convertTo(ongoing.areaSqFt)
                 binding.contentTxt3.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
                     .format(ongoing.amountPaid)
                 binding.contentTxt4.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
@@ -286,6 +288,9 @@ class ExistingUsersPortfolioAdapter(
     private inner class BlockchainViewHolder(private val binding: BlockchainLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
+            val url = list[position].data as String
+            Glide.with(context).load(url).placeholder(R.drawable.dont_miss_new)
+                .into(binding.ivDontMissImage)
             binding.ivDontMissImage.setOnClickListener {
                 onItemClickListener.dontMissoutCard()
             }
@@ -315,7 +320,7 @@ class ExistingUsersPortfolioAdapter(
             binding.btnReferNow.setOnClickListener {
                 onItemClickListener.referNow()
             }
-            binding.appShareBtn.setOnClickListener {
+            binding.appShareView.setOnClickListener {
                 onItemClickListener.onClickShare()
             }
         }

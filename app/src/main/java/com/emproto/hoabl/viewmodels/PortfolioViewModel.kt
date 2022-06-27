@@ -5,11 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.emproto.hoabl.repository.PortfolioRepository
+import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
 import com.emproto.networklayer.response.bookingjourney.PaymentHistory
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
+import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.portfolio.dashboard.Address
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
@@ -27,7 +29,7 @@ class PortfolioViewModel(
 
     private var portfolioData = MutableLiveData<PortfolioData>()
     private lateinit var projectDetails: ProjectExtraDetails
-    private lateinit var investmentInfo: InvestmentInformation
+    private var investmentInfo: InvestmentInformation? = null
     private lateinit var paymentHistory: List<PaymentHistory>
 
     fun getPortfolioDashboard(refresh: Boolean): LiveData<BaseResponse<PortfolioData>> {
@@ -54,7 +56,7 @@ class PortfolioViewModel(
         this.investmentInfo = investementInfo
     }
 
-    fun getInvestmentInfo(): InvestmentInformation {
+    fun getInvestmentInfo(): InvestmentInformation? {
         return this.investmentInfo
     }
 
@@ -89,8 +91,8 @@ class PortfolioViewModel(
         return portfolioRepository.getProjectTimeline(id)
     }
 
-    fun getFacilityManagment(): LiveData<BaseResponse<FMResponse>> {
-        return portfolioRepository.getFacilitymanagment()
+    fun getFacilityManagment(plotId: String, crmId: String): LiveData<BaseResponse<FMResponse>> {
+        return portfolioRepository.getFacilitymanagment(plotId, crmId)
     }
 
     fun downloadDocument(path: String): LiveData<BaseResponse<DDocumentResponse>> {
@@ -99,5 +101,9 @@ class PortfolioViewModel(
 
     fun getBookingJourney(id: Int): LiveData<BaseResponse<BookingJourneyResponse>> {
         return portfolioRepository.getBookingJourney(id)
+    }
+
+    fun submitTroubleCase(signingRequest: TroubleSigningRequest): LiveData<BaseResponse<TroubleSigningResponse>> {
+        return portfolioRepository.submitTroubleCase(signingRequest)
     }
 }

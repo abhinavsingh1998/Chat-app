@@ -6,375 +6,434 @@
     android:layout_height="match_parent"
     android:background="@color/app_color">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/margin_size_55"
         android:layout_marginBottom="50dp"
-        android:background="@drawable/shape2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@color/app_color">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/back_action"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_size_14"
-            android:layout_marginTop="@dimen/margin_size_24"
+            android:id="@+id/root_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape2"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/imgArrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_path"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_Account"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:fontFamily="@font/jost_medium"
-                android:text="About Us"
-                android:textColor="@color/app_color"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/imgArrow"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/back_action">
-
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:id="@+id/back_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_14"
+                android:layout_marginTop="@dimen/margin_size_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/tv_heading"
+                <ImageView
+                    android:id="@+id/imgArrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_size_15"
-                    android:layout_marginTop="@dimen/margin_size_27"
-                    android:fontFamily="@font/jost_regular"
-                    android:lineSpacingExtra="0sp"
-                    android:text="@string/founder_vision"
-                    android:textColor="#16161c"
-                    android:textSize="16sp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_path"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/aboutus_view"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/margin_size_140"
-                    android:layout_marginStart="@dimen/margin_size_19"
-                    android:layout_marginTop="@dimen/margin_size_30"
-                    android:layout_marginEnd="@dimen/margin_size_21"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/aboutus_curve"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_heading" />
-
                 <TextView
-                    android:id="@+id/name_tv"
+                    android:id="@+id/tv_Account"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_size_118"
-                    android:layout_marginTop="@dimen/margin_size_14"
-                    android:layout_marginEnd="@dimen/margin_size_125"
-                    android:fontFamily="@font/jostmedium"
-                    android:lineSpacingExtra="0sp"
-                    android:singleLine="true"
-                    android:text="@string/abhinandan_lodha"
-                    android:textColor="#17171c"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/aboutus_view" />
-
-                <TextView
-                    android:id="@+id/full_description_tv"
-                    style="@style/text_style_light_grey_14"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:fontFamily="@font/jost_light"
-                    app:layout_constraintEnd_toEndOf="@id/aboutus_view"
-                    app:layout_constraintStart_toStartOf="@id/tv_heading"
-                    app:layout_constraintTop_toBottomOf="@+id/name_tv" />
-
-                <TextView
-                    android:id="@+id/tv_aboutHoabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_size_30"
-                    android:fontFamily="@font/jostregular"
-                    android:lineSpacingExtra="0sp"
-                    android:singleLine="true"
-                    android:text="@string/about_hoabl"
-                    android:textColor="#16161c"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@id/tv_heading"
-                    app:layout_constraintTop_toBottomOf="@+id/full_description_tv" />
-
-                <ImageView
-                    android:id="@+id/img_hoabl"
-                    android:layout_width="@dimen/margin_size_130"
-                    android:layout_height="@dimen/margin_size_130"
-                    android:src="@drawable/ic_logo_plain"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_aboutHoabel" />
-
-                <TextView
-                    android:id="@+id/ttv_aboutHoabel"
-                    style="@style/text_style_light_grey_14"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_size_14"
-                    android:layout_marginTop="@dimen/margin_size_14"
-                    android:layout_marginEnd="@dimen/margin_size_19"
-                    android:fontFamily="@font/jost_light"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/img_hoabl" />
-
-                <TextView
-                    android:id="@+id/corporate_phillosophy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_size_30"
-                    android:fontFamily="@font/jostregular"
-                    android:lineSpacingExtra="0sp"
-                    android:text="Corporate Philosophy"
-                    android:textColor="#16161c"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@id/tv_heading"
-                    app:layout_constraintTop_toBottomOf="@+id/ttv_aboutHoabel" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/aboutUs_rv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:background="@color/white"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/margin_size_4"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/corporate_phillosophy"
-                    tools:itemCount="2"
-                    tools:listitem="@layout/corporate_philosphy_about_us_view"/>
-
-<!--                <TextView-->
-<!--                    android:id="@+id/tv_product_category"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="@dimen/margin_size_30"-->
-<!--                    android:fontFamily="@font/jostregular"-->
-<!--                    android:lineSpacingExtra="0sp"-->
-<!--                    android:text="Corporate Philosophy"-->
-<!--                    android:textColor="#16161c"-->
-<!--                    android:textSize="16sp"-->
-<!--                    app:layout_constraintStart_toStartOf="@id/tv_heading"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/aboutUs_rv" />-->
-
-                <TextView
-                    android:id="@+id/tv_product_category"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_size_15"
-                    android:layout_marginTop="@dimen/margin_size_30"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:fontFamily="@font/jostregular"
-                    style="@style/text_style_color_18"
-                    android:lineSpacingExtra="0sp"
-                    android:text="@string/product_text_about"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/aboutUs_rv" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/productcategory_rv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:background="@color/white"
-                    android:orientation="vertical"
-                    android:paddingLeft="@dimen/margin_size_4"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_product_category"
-                    tools:itemCount="2"
-                    tools:listitem="@layout/product_category"/>
-
-                <TextView
-                    android:id="@+id/explore_text"
-                    android:textColor="#16161c"
-                    android:textSize="16sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_size_30"
-                    android:fontFamily="@font/jostregular"
-                    android:lineSpacingExtra="0sp"
-                    android:singleLine="true"
-                    android:text="@string/explore_growth"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/tv_heading"
-                    app:layout_constraintTop_toBottomOf="@+id/productcategory_rv" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/graph_layout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/tv_heading"
-                    app:layout_constraintTop_toBottomOf="@id/explore_text">
-
-<!--                    <com.github.mikephil.charting.charts.LineChart-->
-<!--                        android:id="@+id/iv_price_trends_graph"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="@dimen/margin_size_200"-->
-<!--                        android:layout_marginTop="@dimen/margin_size_12"-->
-<!--                        android:layout_marginEnd="@dimen/margin_size_12"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintStart_toEndOf="@+id/tv_yAxis_label"-->
-<!--                        app:layout_constraintTop_toTopOf="parent" />-->
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_xAxis_label"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/margin_size_20"
-                        android:layout_marginVertical="@dimen/margin_size_13"
-                        android:fontFamily="@font/jost_semibold"
-                        android:text="@string/months"
-                        android:textSize="10sp"
-                        android:textColor="#9192a0"
-                        android:textAlignment="center"
-                        android:textAllCaps="true"
-                        app:layout_constraintEnd_toEndOf="@id/iv_price_trends_graph"
-                        app:layout_constraintStart_toStartOf="@id/iv_price_trends_graph"
-                        app:layout_constraintTop_toBottomOf="@id/iv_price_trends_graph" />
-
-                    <com.emproto.core.textviews.VerticalTextView
-                        android:id="@+id/tv_yAxis_label"
-                        android:textSize="10sp"
-                        android:textColor="#9192a0"                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_marginHorizontal="@dimen/margin_size_13"
-                        android:layout_marginVertical="@dimen/margin_size_13"
-                        android:fontFamily="@font/jost_semibold"
-                        android:rotation="-180"
-                        android:text="@string/project_appreciation"
-                        android:textAlignment="center"
-                        android:textAllCaps="true"
-                        app:layout_constraintBottom_toBottomOf="@id/iv_price_trends_graph"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/iv_price_trends_graph" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerViewGraphOptions"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="14dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="16dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:listitem="@layout/item_graph_options"
-                        tools:itemCount="2"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_xAxis_label" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                <com.emproto.core.textviews.CustomTextView
-                    android:id="@+id/invest"
-                    style="@style/text_style_white_20"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_size_30"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginEnd="25dp"
-                    android:background="@drawable/portfolio_btn_shape"
-                    android:drawableLeft="@drawable/profit"
-                    android:drawableRight="@drawable/ic_combined_shape_copy_5"
-                    android:drawablePadding="@dimen/margin_size_8"
-                    android:paddingStart="@dimen/margin_size_80"
-                    android:paddingTop="@dimen/margin_size_12"
-                    android:paddingEnd="@dimen/margin_size_80"
-                    android:paddingBottom="@dimen/margin_size_12"
-                    android:singleLine="true"
-                    android:text="@string/invest_with_us_today"
-                    android:textAlignment="center"
-                    android:textAllCaps="false"
-                    app:fontName="@string/jost_medium"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/graph_layout" />
-
-                <View
-                    android:id="@+id/query_view"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="@dimen/margin_size_25"
-                    android:layout_marginTop="@dimen/margin_size_30"
-                    android:layout_marginEnd="@dimen/margin_size_25"
-                    android:layout_marginBottom="@dimen/margin_size_30"
-                    android:paddingStart="@dimen/margin_size_80"
-                    android:paddingTop="@dimen/margin_size_12"
-                    android:paddingEnd="@dimen/margin_size_80"
-                    android:paddingBottom="@dimen/margin_size_12"
-                    android:background="@drawable/feedback_curve"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/invest" />
-
-                <TextView
-                    android:id="@+id/tv_query"
-                    style="@style/text_light_black_14"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_size_50"
-                    android:layout_marginTop="@dimen/margin_size_10"
-                    android:layout_marginEnd="@dimen/margin_size_50"
-                    android:layout_marginBottom="@dimen/margin_size_10"
+                    android:layout_marginStart="10dp"
                     android:fontFamily="@font/jost_medium"
-                    android:singleLine="true"
-                    android:text="@string/query"
-                    app:layout_constraintBottom_toBottomOf="@+id/query_view"
-                    app:layout_constraintEnd_toEndOf="@+id/query_view"
-                    app:layout_constraintStart_toStartOf="@+id/query_view"
-                    app:layout_constraintTop_toTopOf="@+id/query_view" />
-
+                    android:text="About Us"
+                    android:textColor="@color/app_color"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toEndOf="@+id/imgArrow"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.core.widget.NestedScrollView>
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/back_action">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_heading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_15"
+                        android:layout_marginTop="@dimen/margin_size_27"
+                        android:fontFamily="@font/jost_regular"
+                        android:lineSpacingExtra="0sp"
+                        android:text="@string/founder_vision"
+                        android:textColor="#16161c"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/aboutus_view"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/margin_size_140"
+                        android:layout_marginStart="@dimen/margin_size_19"
+                        android:layout_marginTop="@dimen/margin_size_30"
+                        android:layout_marginEnd="@dimen/margin_size_21"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/aboutus_curve"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_heading" />
+
+                    <TextView
+                        android:id="@+id/name_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_118"
+                        android:layout_marginTop="@dimen/margin_size_14"
+                        android:layout_marginEnd="@dimen/margin_size_125"
+                        android:fontFamily="@font/jostmedium"
+                        android:lineSpacingExtra="0sp"
+                        android:singleLine="true"
+                        android:text="@string/abhinandan_lodha"
+                        android:textColor="#17171c"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/aboutus_view" />
+
+                    <TextView
+                        android:id="@+id/full_description_tv"
+                        style="@style/text_style_light_grey_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="@font/jost_light"
+                        app:layout_constraintEnd_toEndOf="@id/aboutus_view"
+                        app:layout_constraintStart_toStartOf="@id/tv_heading"
+                        app:layout_constraintTop_toBottomOf="@+id/name_tv" />
+
+                    <TextView
+                        android:id="@+id/tv_aboutHoabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_30"
+                        android:fontFamily="@font/jostregular"
+                        android:lineSpacingExtra="0sp"
+                        android:singleLine="true"
+                        android:text="@string/about_hoabl"
+                        android:textColor="#16161c"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="@id/tv_heading"
+                        app:layout_constraintTop_toBottomOf="@+id/full_description_tv" />
+
+                    <ImageView
+                        android:id="@+id/img_hoabl"
+                        android:layout_width="@dimen/margin_size_130"
+                        android:layout_height="@dimen/margin_size_130"
+                        android:src="@drawable/ic_logo_plain"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_aboutHoabel" />
+
+                    <TextView
+                        android:id="@+id/ttv_aboutHoabel"
+                        style="@style/text_style_light_grey_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_14"
+                        android:layout_marginTop="@dimen/margin_size_14"
+                        android:layout_marginEnd="@dimen/margin_size_19"
+                        android:fontFamily="@font/jost_light"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/img_hoabl" />
+
+                    <TextView
+                        android:id="@+id/corporate_phillosophy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_30"
+                        android:fontFamily="@font/jostregular"
+                        android:lineSpacingExtra="0sp"
+                        android:text="Corporate Philosophy"
+                        android:textColor="#16161c"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="@id/tv_heading"
+                        app:layout_constraintTop_toBottomOf="@+id/ttv_aboutHoabel" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/aboutUs_rv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/margin_size_4"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/corporate_phillosophy"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/corporate_philosphy_about_us_view"/>
+
+                    <!--                <TextView-->
+                    <!--                    android:id="@+id/tv_product_category"-->
+                    <!--                    android:layout_width="wrap_content"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:layout_marginTop="@dimen/margin_size_30"-->
+                    <!--                    android:fontFamily="@font/jostregular"-->
+                    <!--                    android:lineSpacingExtra="0sp"-->
+                    <!--                    android:text="Corporate Philosophy"-->
+                    <!--                    android:textColor="#16161c"-->
+                    <!--                    android:textSize="16sp"-->
+                    <!--                    app:layout_constraintStart_toStartOf="@id/tv_heading"-->
+                    <!--                    app:layout_constraintTop_toBottomOf="@+id/aboutUs_rv" />-->
+
+                    <TextView
+                        android:id="@+id/tv_product_category"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_15"
+                        android:layout_marginTop="@dimen/margin_size_30"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:fontFamily="@font/jost_regular"
+                        android:lineSpacingExtra="0sp"
+                        android:text="@string/product_text_about"
+                        android:textColor="#16161c"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/aboutUs_rv" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/productcategory_rv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/margin_size_4"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_product_category"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/product_category" />
+
+                    <TextView
+                        android:id="@+id/stats_header_txt"
+                        android:textColor="#16161c"
+                        android:textSize="16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_30"
+                        android:fontFamily="@font/jost_regular"
+                        android:lineSpacingExtra="0sp"
+                        android:singleLine="true"
+                        android:text="@string/stats_overview"
+                        app:layout_constraintStart_toStartOf="@id/tv_heading"
+                        app:layout_constraintTop_toBottomOf="@+id/productcategory_rv" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/stats_item"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginEnd="6dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/stats_header_txt"
+                        />
+
+                    <TextView
+                        android:id="@+id/explore_text"
+                        android:textColor="#16161c"
+                        android:textSize="16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_30"
+                        android:fontFamily="@font/jostregular"
+                        android:lineSpacingExtra="0sp"
+                        android:singleLine="true"
+                        android:text="@string/explore_growth"
+                        app:layout_constraintStart_toStartOf="@id/tv_heading"
+                        app:layout_constraintTop_toBottomOf="@+id/stats_item" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/graph_card"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintTop_toBottomOf="@id/explore_text"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:layout_marginHorizontal="@dimen/margin_size_12">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/graph_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/tv_heading"
+                            app:layout_constraintTop_toBottomOf="@id/explore_text">
+
+                            <com.github.mikephil.charting.charts.LineChart
+                                android:id="@+id/iv_price_trends_graph"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/margin_size_200"
+                                android:layout_marginTop="@dimen/margin_size_12"
+                                android:paddingEnd="@dimen/margin_size_10"
+                                android:paddingBottom="@dimen/margin_size_10"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/tv_yAxis_label"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_xAxis_label"
+                                style="@style/text_style_lightgrey_12"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_size_20"
+                                android:layout_marginVertical="@dimen/margin_size_13"
+                                android:fontFamily="@font/jost_semibold"
+                                android:text="@string/months"
+                                android:textAlignment="center"
+                                android:textAllCaps="true"
+                                app:layout_constraintBottom_toTopOf="@id/textView10"
+                                app:layout_constraintEnd_toEndOf="@id/iv_price_trends_graph"
+                                app:layout_constraintStart_toStartOf="@id/iv_price_trends_graph"
+                                app:layout_constraintTop_toBottomOf="@id/iv_price_trends_graph" />
+
+                            <com.emproto.core.textviews.VerticalTextView
+                                android:id="@+id/tv_yAxis_label"
+                                style="@style/text_style_lightgrey_12"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_marginHorizontal="@dimen/margin_size_4"
+                                android:layout_marginVertical="@dimen/margin_size_13"
+                                android:fontFamily="@font/jost_semibold"
+                                android:rotation="-180"
+                                android:text="Highest Price"
+                                android:textAlignment="center"
+                                android:textAllCaps="true"
+                                app:layout_constraintBottom_toBottomOf="@id/iv_price_trends_graph"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@id/iv_price_trends_graph" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerViewGraphOptions"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="14dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginBottom="16dp"
+                                android:orientation="horizontal"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                tools:listitem="@layout/project_tab_layout"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_xAxis_label" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
+
+                    <com.emproto.core.textviews.CustomTextView
+                        android:id="@+id/invest"
+                        style="@style/text_style_white_20"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_30"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginEnd="25dp"
+                        android:background="@drawable/portfolio_btn_shape"
+                        android:drawableLeft="@drawable/profit"
+                        android:drawableRight="@drawable/ic_combined_shape_copy_5"
+                        android:drawablePadding="@dimen/margin_size_8"
+                        android:paddingStart="@dimen/margin_size_80"
+                        android:paddingTop="@dimen/margin_size_12"
+                        android:paddingEnd="@dimen/margin_size_80"
+                        android:paddingBottom="@dimen/margin_size_12"
+                        android:singleLine="true"
+                        android:text="@string/invest_with_us_today"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        app:fontName="@string/jost_medium"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/graph_card" />
+
+                    <View
+                        android:id="@+id/query_view"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="@dimen/margin_size_25"
+                        android:layout_marginTop="@dimen/margin_size_30"
+                        android:layout_marginEnd="@dimen/margin_size_25"
+                        android:layout_marginBottom="@dimen/margin_size_30"
+                        android:paddingStart="@dimen/margin_size_80"
+                        android:paddingTop="@dimen/margin_size_12"
+                        android:paddingEnd="@dimen/margin_size_80"
+                        android:paddingBottom="@dimen/margin_size_12"
+                        android:background="@drawable/feedback_curve"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/invest" />
+
+                    <TextView
+                        android:id="@+id/tv_query"
+                        style="@style/text_light_black_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_50"
+                        android:layout_marginTop="@dimen/margin_size_10"
+                        android:layout_marginEnd="@dimen/margin_size_50"
+                        android:layout_marginBottom="@dimen/margin_size_10"
+                        android:fontFamily="@font/jost_medium"
+                        android:singleLine="true"
+                        android:text="@string/query"
+                        app:layout_constraintBottom_toBottomOf="@+id/query_view"
+                        app:layout_constraintEnd_toEndOf="@+id/query_view"
+                        app:layout_constraintStart_toStartOf="@+id/query_view"
+                        app:layout_constraintTop_toTopOf="@+id/query_view" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/loader"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

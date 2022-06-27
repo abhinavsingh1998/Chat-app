@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
 import android.os.Build
+import android.os.CountDownTimer
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
@@ -173,6 +174,7 @@ class ProjectDetailAdapter(
 
             binding.apply {
                 tvProjectName.text = data.launchName
+
                 tvProjectLocation.text = "${data.address.city}, ${data.address.state}"
                 tvViewCount.text = Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)
                 tvDuration.text = "${data.fomoContent.targetTime.hours}:${data.fomoContent.targetTime.minutes}:${data.fomoContent.targetTime.seconds} Hrs Left"
@@ -273,6 +275,17 @@ class ProjectDetailAdapter(
                 binding.cvWhyInvestCard.setOnClickListener(onItemClickListener)
                 binding.tvApplyNow.setOnClickListener(onItemClickListener)
                 binding.tvRating.text = "${String.format("%.0f",data.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
+
+                val timeCounter = object:CountDownTimer(5000,1000){
+                    override fun onTick(millisUntilFinished: Long) {
+
+                    }
+
+                    override fun onFinish() {
+
+                    }
+
+                }
             }
         }
     }
@@ -289,6 +302,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectPriceTrendsViewHolder(private val binding: PriceTrendsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
+            binding.tvPriceTrendsTitle.text = data.generalInfoEscalationGraph.title
             binding.tvRating.text = String.format("%.0f",data.generalInfoEscalationGraph.estimatedAppreciation)+"%"
             binding.tvXAxisLabel.text = data.generalInfoEscalationGraph.yAxisDisplayName
             binding.tvYAxisLabel.text = data.generalInfoEscalationGraph.xAxisDisplayName
@@ -409,6 +423,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectKeyPillarsViewHolder(private val binding: KeyPillarsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
+            binding.tvKeyPillarsTitle.text = data.keyPillars.heading
             keyPillarAdapter = KeyPillarAdapter(context,data.keyPillars.values)
             binding.rvKeyPillars.adapter = keyPillarAdapter
         }
@@ -447,6 +462,7 @@ class ProjectDetailAdapter(
 //                    false -> notAppliedList.add(item)
 //                }
 //            }
+//            binding.tvChooseSkusApplyTitle.text = data.inventory
             skuAdapter = SkuAdapter(data.inventoriesList.data,itemClickListener, investmentViewModel)
             binding.rvSkus.adapter = skuAdapter
             itemView.tag = this
@@ -476,6 +492,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectLocationInfrastructureViewHolder(private val binding: LocationInfrastructureLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
+            binding.tvLocationInfrastructureTitle.text = data.locationInfrastructure.heading
             locationInfrastructureAdapter = LocationInfrastructureAdapter(
                 context,
                 data.locationInfrastructure.values,

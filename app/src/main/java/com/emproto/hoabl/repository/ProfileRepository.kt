@@ -8,7 +8,9 @@ import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.ProfileDataSource
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
+import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.investment.FaqDetailResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.resourceManagment.ProflieResponse
@@ -27,6 +29,7 @@ class ProfileRepository @Inject constructor(application: Application) :
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + parentJob)
     val termsConditionResponse = MutableLiveData<BaseResponse<TermsConditionResponse>>()
+    val allprojects = MutableLiveData<BaseResponse<AllProjectsResponse>>()
 
     val aboutusResponse = MutableLiveData<BaseResponse<ProflieResponse>>()
 
@@ -74,6 +77,30 @@ class ProfileRepository @Inject constructor(application: Application) :
         }
         return mUploadProfilePicture
     }
+
+    fun uploadKycDocument(extension: String,file: File,  selectedDoc: String): LiveData<BaseResponse<UploadDocumentResponse>> {
+        val mUploadKycDocument = MutableLiveData<BaseResponse<UploadDocumentResponse>>()
+        mUploadKycDocument.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+
+                val request =
+                    ProfileDataSource(application).uploadKycDocument(extension,file,selectedDoc)
+                if (request.isSuccessful) {
+                    mUploadKycDocument.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    mUploadKycDocument.postValue(BaseResponse.Companion.error(request.message()))
+                }
+
+
+            } catch (e: Exception) {
+                mUploadKycDocument.postValue(BaseResponse.Companion.error(e.message!!))
+
+            }
+        }
+        return mUploadKycDocument
+    }
+
     fun presignedUrl(type: String, destinationFile: File): LiveData<BaseResponse<PresignedUrlResponse>> {
         val presignedUrlResponse = MutableLiveData<BaseResponse<PresignedUrlResponse>>()
         presignedUrlResponse.postValue(BaseResponse.loading())
@@ -328,14 +355,15 @@ class ProfileRepository @Inject constructor(application: Application) :
         }
         return aboutusResponse
     }
-    fun getFaqList(typeOfFAQ: String): LiveData<BaseResponse<ProfileFaqResponse>> {
-        val faqResponse = MutableLiveData<BaseResponse<ProfileFaqResponse>>()
+
+    fun getFaqList(typeOfFAQ: String): LiveData<BaseResponse<GeneralFaqResponse>> {
+        val faqResponse = MutableLiveData<BaseResponse<GeneralFaqResponse>>()
         faqResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
                 val request = ProfileDataSource(application).getFaqList(typeOfFAQ)
                 if (request.isSuccessful) {
-                    if (request.body() != null && request.body() is ProfileFaqResponse) {
+                    if (request.body() != null && request.body() is GeneralFaqResponse) {
                         faqResponse.postValue(BaseResponse.success(request.body()!!))
 
                     } else {
@@ -358,7 +386,108 @@ class ProfileRepository @Inject constructor(application: Application) :
         return faqResponse
     }
 
+    fun putWhatsappConsent(whatsappConsentBody: WhatsappConsentBody): LiveData<BaseResponse<WhatsappConsentResponse>> {
+        val wcResponse = MutableLiveData<BaseResponse<WhatsappConsentResponse>>()
+        wcResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).putWhatsappConsent(whatsappConsentBody)
+                if (request.isSuccessful) {
+                    wcResponse.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    wcResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
 
+            } catch (e: Exception) {
+                wcResponse.postValue(BaseResponse.Companion.error(e.message!!))
+            }
+        }
+        return wcResponse
+    }
+
+    // get All Projects
+    fun getAllProjects(refresh: Boolean): LiveData<BaseResponse<AllProjectsResponse>> {
+        if (allprojects.value == null || refresh) {
+            allprojects.postValue(BaseResponse.loading())
+            coroutineScope.launch {
+                try {
+                    val request = ProfileDataSource(application).getAllProjects()
+                    if (request.isSuccessful) {
+                        if (request.body()!!.data != null)
+                            allprojects.postValue(BaseResponse.success(request.body()!!))
+                        else
+                            allprojects.postValue(BaseResponse.Companion.error("No data found"))
+                    } else {
+                        allprojects.postValue(
+                            BaseResponse.Companion.error(
+                                getErrorMessage(
+                                    request.errorBody()!!.string()
+                                )
+                            )
+                        )
+                    }
+                } catch (e: Exception) {
+                    allprojects.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                }
+            }
+        }
+        return allprojects
+    }
+    fun getSecurityTips(pageType: Int): LiveData<BaseResponse<SecurityTipsResponse>> {
+        val stResponse = MutableLiveData<BaseResponse<SecurityTipsResponse>>()
+        stResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).getSecurityTips(pageType)
+                if (request.isSuccessful) {
+                    stResponse.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    stResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+
+            } catch (e: Exception) {
+                stResponse.postValue(BaseResponse.Companion.error(e.message!!))
+            }
+        }
+        return stResponse
+    }
+
+    fun getGeneralFaqs(categoryType: Int): LiveData<BaseResponse<FaqDetailResponse>> {
+        val stResponse = MutableLiveData<BaseResponse<FaqDetailResponse>>()
+        stResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).getGeneralFaqs(categoryType)
+                if (request.isSuccessful) {
+                    stResponse.postValue(BaseResponse.success(request.body()!!))
+                } else {
+                    stResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+
+            } catch (e: Exception) {
+                stResponse.postValue(BaseResponse.Companion.error(e.message!!))
+            }
+        }
+        return stResponse
+    }
 }
 
 

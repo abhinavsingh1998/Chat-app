@@ -149,8 +149,8 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="127dp"
-                    android:layout_marginLeft="@dimen/margin_size_28"
-                    android:layout_marginTop="@dimen/margin_size_16"
+                    android:layout_marginLeft="@dimen/margin_size_16"
+                    android:layout_marginTop="@dimen/margin_size_10"
                     android:layout_marginRight="@dimen/margin_size_28"
                     app:boxStrokeColor="@color/app_color"
                     app:boxStrokeWidthFocused="0.8dp"
@@ -161,17 +161,31 @@
 
                     <EditText
                         android:id="@+id/edit_issues"
-                        style="@style/text_style_text_color_16"
+                        style="@style/text_size_14"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/jost_medium"
+                        android:paddingTop="10dp"
+                        android:paddingHorizontal="@dimen/margin_size_16"
                         android:gravity="left"
                         android:hint="@string/describe_your_issue_in_few_words"
                         android:inputType="text|textMultiLine|textCapSentences"
-                        android:maxLength="150"
+                        android:maxLength="250"
                         android:textAlignment="viewStart" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                <com.emproto.core.textviews.CustomTextView
+                    android:id="@+id/txtcount"
+                    style="@style/text_style_red_color_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jost_medium"
+                    android:visibility="gone"
+                    android:text="You have reached maximum limit"
+                    android:textAlignment="textStart"
+                    app:layout_constraintRight_toRightOf="@id/edit_issues_layout"
+                    app:layout_constraintTop_toBottomOf="@id/edit_issues_layout" />
 
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/details_header"
@@ -192,8 +206,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_28"
-                    android:layout_marginTop="@dimen/margin_size_20"
+                    android:layout_marginTop="@dimen/margin_size_15"
                     android:layout_marginEnd="@dimen/margin_size_28"
+                    android:fontFamily="@font/jost_medium"
                     app:hintText="@string/enter_your_phonenumber"
                     app:layout_constraintEnd_toStartOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -277,32 +292,55 @@
                         android:textColor="@color/text_color" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+<!--                <com.emproto.core.textviews.CustomTextView-->
+<!--                    android:id="@+id/submit_btn"-->
+<!--                    style="@style/text_style_white_16"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_size_60"-->
+<!--                    android:drawablePadding="@dimen/_2sdp"-->
+<!--                    android:layout_marginLeft="@dimen/margin_size_87"-->
+<!--                    android:layout_marginRight="@dimen/margin_size_87"-->
+<!--                    android:layout_marginBottom="@dimen/margin_size_30"-->
+<!--                    android:background="@drawable/unselect_button_bg"-->
+<!--                    android:clickable="false"-->
+<!--                    android:drawableRight="@drawable/ic_baseline_arrow_right"-->
+<!--                    android:enabled="false"-->
+<!--                    android:paddingStart="@dimen/margin_size_45"-->
+<!--                    android:paddingTop="@dimen/margin_size_12"-->
+<!--                    android:paddingEnd="@dimen/margin_size_60"-->
+<!--                    android:paddingRight="@dimen/margin_size_60"-->
+<!--                    android:paddingBottom="@dimen/margin_size_12"-->
+<!--                    android:text="@string/submit_btn_txt"-->
+<!--                    android:textAlignment="center"-->
+<!--                    app:fontName="@font/jost_medium"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/email_Layout" />-->
+
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/submit_btn"
                     style="@style/text_style_white_16"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_size_60"
-                    android:drawablePadding="@dimen/_2sdp"
-                    android:layout_marginLeft="@dimen/margin_size_87"
-                    android:layout_marginRight="@dimen/margin_size_87"
-                    android:layout_marginBottom="@dimen/margin_size_30"
                     android:background="@drawable/unselect_button_bg"
                     android:clickable="false"
-                    android:drawableRight="@drawable/ic_baseline_arrow_right"
+                    android:drawableRight="@drawable/combinedarrow"
+                    android:drawablePadding="@dimen/_2sdp"
                     android:enabled="false"
                     android:paddingStart="@dimen/margin_size_45"
                     android:paddingTop="@dimen/margin_size_12"
-                    android:paddingEnd="@dimen/margin_size_60"
-                    android:paddingRight="@dimen/margin_size_60"
+                    android:paddingEnd="@dimen/margin_size_45"
                     android:paddingBottom="@dimen/margin_size_12"
                     android:text="@string/submit_btn_txt"
                     android:textAlignment="center"
-                    app:fontName="@font/jost_medium"
+                    app:fontName="@string/jost_medium"
+                    android:layout_margin="@dimen/margin_size_60"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/email_Layout" />
+                    app:layout_constraintTop_toBottomOf="@id/email_Layout"  />
 
                 <ProgressBar
                     android:id="@+id/progressBar"

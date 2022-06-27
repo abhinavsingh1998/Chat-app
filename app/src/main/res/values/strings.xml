@@ -21,7 +21,7 @@
     <string name="enter_mobile">Enter Mobile Number</string>
     <string name="whatsapp">Allow Whatsapp Communications</string>
     <string name="login_terms_text">By logging in, you agree to our \n Terms Of Services and Privacy Policy</string>
-    <string name="trouble_login"><u>Trouble Signing In?</u></string>
+    <string name="trouble_login"><u>Trouble Signing in?</u></string>
     <string name="get_otp">Get OTP</string>
     <string name="submit_and_continue">Submit and Continue</string>
     <string name="get_skip">Skip &amp; Get Started</string>
@@ -138,7 +138,7 @@
     <string name="DemoText">The Isle of Bliss is phase 2 of Codename Bliss Dapoli, a seaside lifestyle plotting development from The House of Abhinandan Lodha</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="And_your_name">Please enter your name.</string>
-    <string name="First_name_hint">First Name *</string>
+    <string name="First_name_hint">First Name*</string>
     <string name="Second_name_hint">Second Name </string>
     <string name="full_name_hint">Full Name </string>
     <string name="submit_and_con">Submit and Continue</string>
@@ -160,7 +160,7 @@
     <string name="details">Details</string>
     <string name="see_project_details">See Project Details</string>
     <string name="view_timeline">View Timeline</string>
-    <string name="facility_management">Manage My Land</string>
+    <string name="facility_management">Facility Management</string>
     <string name="now_manage_bookings">Now manage your bookings, complaints, visitors, vehicles, etc with ease</string>
     <string name="manage_now">Manage Now</string>
     <string name="view_upload_documents">VIEW&amp;UPLOAD DOCUMENTS></string>
@@ -207,7 +207,7 @@
     <string name="control_location_access_here">Control location access here</string>
     <string name="wants_to_connect">Wants to Connect?</string>
     <string name="chat_with_us">Chat with us</string>
-    <string name="information">Or \nCall us: +91 123 123 1231 \nEmail us: help@hoabl.in</string>
+    <string name="information">+91 123 123 1231 </string>
     <string name="contact_about_us_privacy_policy_chat">Contact, About Us , Privacy Policy,Chat</string>
     <string name="logout_text">Logout</string>
     <string name="personal_details_string">Personal Details</string>
@@ -231,6 +231,9 @@
     <string name="documents">Documents</string>
     <string name="continue_txt">Continue</string>
     <string name="confirmation_msg">Your query has been submitted successfully.</string>
+    <string name="feedBack_submitted">Your feedBack has been submitted successfully.</string>
+    <string name="profile_updated">Your profile has been updated successfully.</string>
+
     <string name="help_centre_about_us">Help Centre - About Us</string>
     <string name="Description">We are building a platform that will bring anyone who wants to create wealth to join the New Generation LandTM revolution. Now is your time. You can buy, maintain and liquidate land with amazing ease, conﬁdence and trust. Whether you’re a ﬁrst time buyer or a seasoned investor, we’ve got you covered. We ensure a completely secure experience for our members by keeping track of every single nuance of the ownership journey to</string>
     <string name="Selling_land_Text">WE ARE NOT SELLING LAND</string>
@@ -288,7 +291,7 @@
     <string name="payment_pending">Payment is due on 29th April, 2022</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="share_your_friend_txt">Share HOABL APP with your friends</string>
+    <string name="share_your_friend_txt">Share the HOABL APP with your friends</string>
     <string name="share_text">SHARE</string>
     <string name="blockchain">BlockChain</string>
     <string name="amount_paid">Paid</string>
@@ -326,11 +329,11 @@
     <string name="about_hoabl">About HoABL</string>
     <string name="description_about_us">We are building a platform that will bring anyone who wants to create wealth to join the New Generation LandTM revolution. Now is your time. You can buy, maintain and liquidate land with amazing ease, conﬁdence and trust.</string>
     <string name="explore_growth">Explore Growth</string>
+    <string name="stats_overview">Stats Overview</string>
     <string name="about_us_discription">For HoABL, it is not just a piece of land, we believe in the Peace of Land.It is our aim to give back to land more than we take from it.</string>
     <string name="product_text_about">Product Category</string>
     <string name="lifestyle_text_about_us">Lifestyle</string>
     <string name="complete_description_about_us">For HoABL, it is not just a piece of land, we believe in the Peace of Land.It is our aim to give back to land more than we take from it.</string>
-    <string name="stats_overview">Stats Overview</string>
     <string name="stats_desc">Neque porro quisquam estp qui dolorem ipsu porro quisqua m estp qui ipsu.Neque porro quisquam estp qui dolorem ip</string>
     <string name="invest_with_us_today">Invest with us today</string>
     <string name="query">Have any questions reach out to us</string>
@@ -386,4 +389,10 @@
     <string name="viewreceipt"><![CDATA[<U>View Receipt</U>]]></string>
     <string name="schedule_video_call_info">Schedule a video call with our Project Managers, to answer any further questions you may have.</string>
     <string name="myportfolio">Portfolio</string>
+    <string name="mobile_pin_authentication">Mobile Pin Authentication</string>
+    <string name="whatsapp_communication">Whatsapp Communication</string>
+    <string name="read_security_tips">Read Security Tips</string>
+    <string name="resendotp">Resend OTP</string>
+    <string name="no_faqs_to_show">No faqs to show</string>
+    <string name="investments">Investments</string>
 </resources>

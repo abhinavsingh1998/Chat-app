@@ -215,17 +215,11 @@ class PortfolioSpecificViewAdapter(
             //binding.btnApplyNow.setOnClickListener(onItemClickListener)
             binding.tvViewMore.setOnClickListener {
 
-                if (binding.cvMoreInfoCard.visibility == View.VISIBLE) {
-                    binding.cvMoreInfoCard.visibility = View.GONE
-                    binding.tvViewMore.text = "View More"
-                    binding.ivViewMoreDropDown.setImageDrawable(context.getDrawable(R.drawable.ic_drop_down))
+                showHideSubSection()
 
-                } else {
-                    binding.cvMoreInfoCard.visibility = View.VISIBLE
-                    binding.tvViewMore.text = "View Less"
-                    binding.ivViewMoreDropDown.setImageDrawable(context.getDrawable(R.drawable.ic_arrow_upward))
-                }
-
+            }
+            binding.ivViewMoreDropDown.setOnClickListener {
+                showHideSubSection()
             }
             //set data to view
             val data =
@@ -235,11 +229,12 @@ class PortfolioSpecificViewAdapter(
                 binding.tvProjectLocation.text =
                     data.projectExtraDetails.address.city + "," + data.projectExtraDetails.address.state
                 if (data.investmentInformation != null) {
-                    if (data.investmentInformation.bookingJourney != null){
+                    if (data.investmentInformation.bookingJourney != null) {
                         binding.tvPaidAmount.text =
                             Utility.formatAmount(data?.investmentInformation?.bookingJourney?.paidAmount)
                     }
-                    binding.tvAreaUnit.text = "" + data?.investmentInformation?.areaSqFt + " sqft"
+                    binding.tvAreaUnit.text =
+                        "${Utility.convertTo(data?.investmentInformation?.areaSqFt)} sqft"
                     binding.tvProjectInfo.text = data.projectInformation.shortDescription
                     var reraNumber = ""
                     val mSize = data.projectInformation.reraDetails.reraNumbers.size
@@ -265,13 +260,13 @@ class PortfolioSpecificViewAdapter(
                     binding.tvLandId.text = "Hoabl/" + data.investmentInformation.inventoryId
                     binding.tvSkuType.text = data.investmentInformation.inventoryBucket
 
-                    if(data.investmentInformation.bookingJourney != null){
+                    if (data.investmentInformation.bookingJourney != null) {
 
                     }
                     binding.tvInvestmentAmount.text =
                         Utility.formatAmount(data.investmentInformation.amountInvested)
 
-                    if(data.investmentInformation.bookingJourney!= null){
+                    if (data.investmentInformation.bookingJourney != null) {
                         binding.tvAmountPending.text =
                             Utility.formatAmount(data.investmentInformation.bookingJourney.amountPending)
                     }
@@ -365,6 +360,19 @@ class PortfolioSpecificViewAdapter(
                 ivInterface.seeOnMap("23.640699", "85.282204")
             }
         }
+
+        private fun showHideSubSection() {
+            if (binding.cvMoreInfoCard.visibility == View.VISIBLE) {
+                binding.cvMoreInfoCard.visibility = View.GONE
+                binding.tvViewMore.text = "View More"
+                binding.ivViewMoreDropDown.setImageDrawable(context.getDrawable(R.drawable.ic_drop_down))
+
+            } else {
+                binding.cvMoreInfoCard.visibility = View.VISIBLE
+                binding.tvViewMore.text = "View Less"
+                binding.ivViewMoreDropDown.setImageDrawable(context.getDrawable(R.drawable.ic_arrow_upward))
+            }
+        }
     }
 
     fun slideToBottom(view: View) {
@@ -415,8 +423,8 @@ class PortfolioSpecificViewAdapter(
             if (list[position].data != null) {
                 val docList = list[position].data as List<Data>
                 documentsAdapter = DocumentsAdapter(docList, false, object : DocumentInterface {
-                    override fun onclickDocument(position: Int) {
-                        ivInterface.onDocumentView(position)
+                    override fun onclickDocument(name: String, path: String) {
+                        ivInterface.onDocumentView(name, path)
                     }
 
                 })
@@ -637,7 +645,7 @@ class PortfolioSpecificViewAdapter(
             binding.btnReferNow.setOnClickListener {
                 ivInterface.referNow()
             }
-            binding.appShareBtn.setOnClickListener {
+            binding.shareTxtCard.setOnClickListener {
                 ivInterface.shareApp()
             }
         }
@@ -736,7 +744,7 @@ class PortfolioSpecificViewAdapter(
         fun seeAllImages(imagesList: ArrayList<MediaViewItem>)
         fun shareApp()
         fun onClickAsk()
-        fun onDocumentView(position: Int)
+        fun onDocumentView(name: String, path: String)
     }
 
 }

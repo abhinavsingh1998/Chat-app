@@ -13,11 +13,10 @@ android {
         applicationId "com.emproto.hoabl"
         minSdk 19
         targetSdk 32
-        versionCode 17
-        versionName "0.0.17"
+        versionCode 22
+        versionName "0.0.22"
         multiDexEnabled true
-        archivesBaseName = "Hoabl"
-
+        archivesBaseName = "Hoabl_22"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.debug
     }
@@ -29,6 +28,7 @@ android {
     buildTypes {
 
         qa {
+            debuggable true
             buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-qa-1093935714.ap-south-1.elb.amazonaws.com\"")
         }
 

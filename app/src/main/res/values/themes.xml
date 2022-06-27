@@ -53,6 +53,8 @@
         <item name="android:textColorHint">@color/text_grey_color</item>
         <item name="hintTextColor">@color/app_color</item>
         <item name="boxStrokeColor">@color/app_color</item>
+        <item name="font">@font/jost_medium</item>
+
     </style>
 
     <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
@@ -245,6 +247,12 @@
         <item name="singleLine">true</item>
     </style>
 
+    <style name="text_style_reg_black_color_12">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/reg_no_black_color</item>
+    </style>
+
     <style name="text_style_lightgrey_12">
         <item name="android:gravity">start|center</item>
         <item name="android:textSize">@dimen/text_size_12</item>
@@ -309,6 +317,12 @@
         <item name="android:gravity">start</item>
         <item name="android:textSize">@dimen/text_size_13</item>
         <item name="android:textColor">@color/rating_dark_green_color</item>
+    </style>
+
+    <style name="text_style_reg_black_color_13">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/reg_no_black_color</item>
     </style>
 
     <style name="text_style_white_13">
@@ -433,6 +447,12 @@
         <item name="android:textColor">@color/text_gold_colr</item>
     </style>
 
+    <style name="text_style_red_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/text_red_color</item>
+    </style>
+
     <style name="text_style_dark_green_color_14">
         <item name="android:gravity">start</item>
         <item name="android:textSize">@dimen/text_size_14</item>
@@ -516,6 +536,13 @@
         <item name="singleLine">true</item>
     </style>
 
+    <style name="text_style_text_confirm_color_14">
+        <item name="android:gravity">center|left</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/confirm_dialog_text_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
     <style name="text_regular_text_color_14">
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/text_size_14</item>
@@ -535,6 +562,13 @@
         <item name="android:gravity">center|left</item>
         <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@color/text_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_resend">
+        <item name="android:gravity">center|left</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/error_text_color</item>
         <item name="singleLine">true</item>
     </style>
 
@@ -591,10 +625,22 @@
         <item name="android:textColor">@color/unselected_button_color</item>
     </style>
 
+    <style name="text_light_ash_13">
+        <item name="android:gravity">center|start</item>
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/unselected_button_color</item>
+    </style>
+
     <style name="text_white_16">
         <item name="android:gravity">center|start</item>
         <item name="android:textSize">@dimen/text_size_16</item>
         <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="text_style_dark_black_color_16">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/portfolio_info_text</item>
     </style>
 
     <style name="text_style_ash_color_16">
@@ -609,6 +655,12 @@
         <item name="android:textSize">@dimen/text_size_16</item>
         <item name="android:textColor">@color/thick_blue</item>
         <item name="singleLine">true</item>
+    </style>
+
+    <style name="text_style_text_light_black_color_dialog_16">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/text_black_color</item>
     </style>
 
     <style name="text_style_daiog_text_color_16">
@@ -654,6 +706,12 @@
     <style name="text_style_text_color_16">
         <item name="android:gravity">center|left</item>
         <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="singleLine">true</item>
+    </style>
+    <style name="text_size_14">
+        <item name="android:gravity">center|left</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@color/text_color</item>
         <item name="singleLine">true</item>
     </style>
@@ -705,7 +763,7 @@
 
     <style name="text_style_color_18">
         <item name="android:gravity">center|left</item>
-        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
         <item name="android:textColor">@color/text_color</item>
         <item name="singleLine">true</item>
     </style>
@@ -747,6 +805,8 @@
         <item name="android:textSize">@dimen/text_size_18</item>
         <item name="android:textColor">@color/black</item>
     </style>
+
+
 
     //textSize_20
 
