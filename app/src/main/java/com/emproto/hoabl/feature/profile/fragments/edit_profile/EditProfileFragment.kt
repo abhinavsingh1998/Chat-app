@@ -1,10 +1,13 @@
 package com.emproto.hoabl.feature.profile.fragments.edit_profile
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.ContentUris
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
@@ -14,6 +17,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
@@ -24,16 +28,16 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.content.res.AppCompatResources
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.loader.content.CursorLoader
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseActivity
+import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentEditProfileBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -48,18 +52,9 @@ import com.emproto.networklayer.response.profile.Data
 import com.emproto.networklayer.response.profile.ProfilePictureResponse
 import com.emproto.networklayer.response.profile.States
 import com.example.portfolioui.databinding.RemoveConfirmationBinding
-
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
-import android.annotation.SuppressLint
-import android.content.Context
-import android.provider.DocumentsContract
-
-import android.content.ContentUris
-import android.text.InputFilter
-import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
-import com.emproto.core.BaseFragment
 import java.util.regex.Pattern
 import javax.inject.Inject
 import kotlin.let as let1
@@ -857,8 +852,7 @@ class EditProfileFragment : BaseFragment() {
         val selectedImage = cameraFile.path
         destinationFile = cameraFile
         val thumbnail = BitmapFactory.decodeFile(selectedImage)
-
-
+        
         binding.profileImage.visibility = View.VISIBLE
         binding.profileUserLetters.visibility = View.GONE
 
