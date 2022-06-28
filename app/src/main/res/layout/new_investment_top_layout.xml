@@ -130,44 +130,42 @@
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_investment_project_name"
                             style="@style/text_style_light_black_color_14"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/jost_regular"
-                            android:singleLine="true"
-                            android:text="Tomorrow land festival"
+                            android:text="THe great land festival ddddd"
                             android:textStyle="bold"
+                            android:singleLine="true"
                             android:layout_marginHorizontal="@dimen/margin_size_8"
                             app:layout_constraintStart_toEndOf="@id/cv_small_image"
                             app:layout_constraintTop_toTopOf="@id/cv_small_image"
-                            app:layout_constraintEnd_toStartOf="@id/rating_linear"/>
+                            app:layout_constraintEnd_toStartOf="@id/iv_rating"
+                            />
 
-                        <LinearLayout
-                            android:id="@+id/rating_linear"
+                        <ImageView
+                            android:id="@+id/iv_rating"
+                            android:layout_width="9dp"
+                            android:layout_height="9dp"
+                            android:layout_gravity="center|center_vertical"
+                            android:layout_marginEnd="@dimen/margin_size_5"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/shape_filled"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_amount"
+                            app:layout_constraintEnd_toStartOf="@id/tv_rating"
+                            app:layout_constraintHorizontal_bias="0.02"
+                            app:layout_constraintTop_toTopOf="@id/tv_amount" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_rating"
+                            style="@style/text_style_dark_greenp_color_13"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_size_8"
-                            android:orientation="horizontal"
-                            app:layout_constraintStart_toEndOf="@id/tv_investment_project_name"
-                            app:layout_constraintTop_toTopOf="@id/tv_investment_project_name"
-                            app:layout_constraintEnd_toStartOf="@id/tv_area">
-
-                            <ImageView
-                                android:id="@+id/iv_rating"
-                                android:layout_width="9dp"
-                                android:layout_height="9dp"
-                                android:scaleType="fitXY"
-                                android:layout_gravity="center|center_vertical"
-                                android:src="@drawable/shape_filled" />
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:id="@+id/tv_rating"
-                                style="@style/text_style_dark_greenp_color_13"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/margin_size_4"
-                                android:fontFamily="@font/jost_bold"
-                                android:text="5%" />
-                        </LinearLayout>
+                            android:layout_marginEnd="@dimen/margin_size_8"
+                            android:fontFamily="@font/jost_bold"
+                            android:text="5%"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_amount"
+                            app:layout_constraintEnd_toStartOf="@id/tv_area"
+                            app:layout_constraintTop_toTopOf="@id/tv_amount" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_investment_project_location"
