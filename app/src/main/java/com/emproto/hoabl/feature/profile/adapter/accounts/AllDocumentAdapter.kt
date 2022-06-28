@@ -57,11 +57,8 @@ class AllDocumentAdapter(
                     accountsDocumentList[position].name,
                     accountsDocumentList[position].path
                 )
-
             }
-
         }
-
     }
 
     override fun getItemCount(): Int {
