@@ -852,7 +852,7 @@ class EditProfileFragment : BaseFragment() {
         val selectedImage = cameraFile.path
         destinationFile = cameraFile
         val thumbnail = BitmapFactory.decodeFile(selectedImage)
-        
+
         binding.profileImage.visibility = View.VISIBLE
         binding.profileUserLetters.visibility = View.GONE
 
