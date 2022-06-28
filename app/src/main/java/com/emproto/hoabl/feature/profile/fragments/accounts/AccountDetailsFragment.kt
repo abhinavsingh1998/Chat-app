@@ -209,6 +209,8 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                                         )
                                     )
                                 }
+                                kycLists.add(document)
+
                                 if (document.documentType == "Unverified PAN Card") {
                                     kycLists.add(
                                         AccountsResponse.Data.Document(
@@ -226,6 +228,8 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                                         )
                                     )
                                 }
+                                kycLists.add(document)
+
                             }
 
                             binding.rvKyc.layoutManager =
@@ -251,7 +255,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
 
                             var layout:RecyclerView = requireActivity().findViewById(R.id.rvDocuments);
                             var params: ViewGroup.LayoutParams = layout.layoutParams;
-                            params.height = 250;
+                            params.height = 200;
                             params.width = 100;
                             layout.layoutParams = params
 

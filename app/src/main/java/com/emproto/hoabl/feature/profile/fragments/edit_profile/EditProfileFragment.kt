@@ -363,11 +363,19 @@ class EditProfileFragment : BaseFragment() {
 
         }
         if (!data.pincode.toString().isNullOrEmpty()) {
-            binding.pincodeEditText.setText(data.pincode.toString())
+            if(data.pincode.toString()=="null"){
+                binding.pincodeEditText.setText("")
+
+            }else{
+                binding.pincodeEditText.setText(data.pincode.toString())
+
+            }
+
         } else if (data.pincode.toString() == null) {
             binding.pincodeEditText.setText("")
 
-        } else {
+        }
+            else {
             binding.pincodeEditText.setText("")
         }
         if (data.profilePictureUrl.isNullOrEmpty()) {

@@ -2,6 +2,7 @@ package com.emproto.networklayer.response.profile
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class AccountsResponse(
     @SerializedName("code")
@@ -16,7 +17,7 @@ data class AccountsResponse(
         val documents: List<Document>,
         @SerializedName("paymentHistory")
         val paymentHistory: List<PaymentHistory>
-    ) {
+    ):Serializable {
         data class Document(
             @SerializedName("createdAt")
             val createdAt: String,
@@ -44,7 +45,7 @@ data class AccountsResponse(
             val updatedAt: String,
             @SerializedName("userId")
             val userId: String
-        )
+        ):Serializable
 
         data class PaymentHistory(
             @SerializedName("createdAt")
@@ -67,7 +68,7 @@ data class AccountsResponse(
             val paymentDate: String,
             @SerializedName("updatedAt")
             val updatedAt: String
-        ) {
+        ) :Serializable{
             data class Document(
                 @SerializedName("createdAt")
                 val createdAt: String,
@@ -93,7 +94,7 @@ data class AccountsResponse(
                 val updatedAt: String,
                 @SerializedName("userId")
                 val userId: String
-            )
+            ):Serializable
         }
     }
 }
