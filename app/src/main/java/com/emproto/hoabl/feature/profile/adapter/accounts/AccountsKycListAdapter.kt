@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemAccountsKycDocBinding
 import com.emproto.networklayer.response.profile.AccountsResponse
+import com.emproto.networklayer.response.profile.KycUpload
 
 class AccountsKycListAdapter(
     private var mContext: Context?,
@@ -17,8 +18,10 @@ class AccountsKycListAdapter(
     private var mListener: OnKycItemClickListener
 
 ) : RecyclerView.Adapter<AccountsKycListAdapter.ViewHolder>() {
+    val kycUploadList = ArrayList<KycUpload>()
 
     lateinit var binding: ItemAccountsKycDocBinding
+    lateinit var kycUploadAdapter: AccountKycUploadAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding =
@@ -34,21 +37,50 @@ class AccountsKycListAdapter(
             name: String,
             path: String?
         )
+
+        fun onUploadClickItem(
+            accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
+            view: View,
+            position: Int
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvDocName.text = accountsKycList[position].documentType
+        if(accountsKycList[position].documentType=="200100"){
+            holder.tvDocName.text="PAN Card"
+        }
+        else if(accountsKycList[position].documentType=="200101"){
+            holder.tvDocName.text="Address Proof"
+        }
+        if (accountsKycList[position].status == "Upload") {
+            binding.tvDocName.text == accountsKycList[position].documentType
+            holder.tvViewDoc.text = "Upload"
+        }
+        if (holder.tvViewDoc.text == "Upload") {
+            holder.tvViewDoc.setOnClickListener {
+                mListener.onUploadClickItem(
+                    accountsKycList,
+                    it,
+                    position,
+
+                    )
+            }
+
+        }
 
         when (accountsKycList[position].documentType) {
             "Unverified Address Proof" -> {
-                binding.tvDocName.text="Address Proof"
+                binding.tvDocName.text = "Address Proof"
                 binding.tvViewDoc.text = "Verification Pending"
+                holder.tvViewDoc.isEnabled = false
+            }
+            "Unverified PAN Card" -> {
+                binding.tvDocName.text = "PAN Card"
+                binding.tvViewDoc.text = "Verification Pending"
+                holder.tvViewDoc.isEnabled = false
             }
 
-            "Unverified PAN Card" -> {
-                binding.tvDocName.text="PAN Card"
-                binding.tvViewDoc.text = "Verification Pending"
-            }
+
             else -> {
                 binding.tvViewDoc.text = "View"
                 holder.tvViewDoc.setOnClickListener {

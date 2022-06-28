@@ -41,7 +41,6 @@ import com.emproto.hoabl.databinding.FragmentAccountDetailsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.portfolio.views.DocViewerFragment
 import com.emproto.hoabl.feature.profile.adapter.accounts.*
-import com.emproto.hoabl.feature.profile.fragments.edit_profile.EditProfileUpdatedPopUpFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.ProfileViewModel
@@ -86,6 +85,8 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
     lateinit var allPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>
 
     lateinit var allKycDocList: ArrayList<AccountsResponse.Data.Document>
+    lateinit var kycLists: ArrayList<AccountsResponse.Data.Document>
+
 
     lateinit var documentBinding: DocumentsBottomSheetBinding
     lateinit var docsBottomSheet: BottomSheetDialog
@@ -163,10 +164,10 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                     if (it.data?.data!!.documents != null && it.data!!.data.documents is List<AccountsResponse.Data.Document>) {
                         allKycDocList =
                             it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>
-                        val kycLists = ArrayList<AccountsResponse.Data.Document>()
+                        kycLists = ArrayList<AccountsResponse.Data.Document>()
                         val documentList = ArrayList<AccountsResponse.Data.Document>()
                         for (document in allKycDocList) {
-                            if (document.documentCategory == "KYC") {
+                            if (document.documentCategory == "100100") {
                                 kycLists.add(document)
                             } else {
                                 documentList.add(document)
@@ -182,11 +183,51 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                             binding.rvKyc.layoutManager =
                                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
                             binding.rvKyc.adapter = kycUploadAdapter
-                        }
-                        else if(kycLists.size==1){
+                        } else if (kycLists.size == 1) {
+                            for (document in kycLists) {
+                                if (document.documentCategory == "KYC" && document.documentType == "Unverified Address Proof") {
+                                    kycLists.add(
+                                        AccountsResponse.Data.Document(
+                                            "",
+                                            "KYC",
+                                            "PAN Card",
+                                            "",
+                                            "Upload",
+                                            "",id,
+                                            "",
+                                            "",
+                                            "",
+                                            "","",""
+                                        )
+                                    )
+                                }
+                                if (document.documentType == "Unverified PAN Card") {
+                                    kycLists.add(
+                                        AccountsResponse.Data.Document(
+                                            "",
+                                            "KYC",
+                                            "Address Proof",
+                                            "",
+                                            "Upload",
+                                            "",
+                                            id,
+                                            "",
+                                            "",
+                                            "",
+                                            "","",""
+                                        )
+                                    )
+                                }
+                            }
 
-                        }
-                        else {
+                            binding.rvKyc.layoutManager =
+                                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+                            binding.rvKyc.adapter = AccountsKycListAdapter(
+                                context,
+                                kycLists,
+                                this
+                            )
+                        } else {
                             binding.rvKyc.layoutManager =
                                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
                             binding.rvKyc.adapter = AccountsKycListAdapter(
@@ -196,7 +237,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                             )
                         }
                         if (documentList.isNullOrEmpty()) {
-                            binding.rvDocuments.visibility = View.GONE
+                            binding.rvDocuments.visibility = View.INVISIBLE
                             binding.tvSeeAllDocuments.visibility = View.VISIBLE
                             binding.cvNoDoc.visibility = View.VISIBLE
 
@@ -290,6 +331,16 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
         openDocumentScreen(name, path.toString())
     }
 
+    override fun onUploadClickItem(
+        accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
+        view: View,
+        position: Int
+    ) {
+        selectImage()
+        selectedDoc = kycLists[position].documentType
+    }
+
+
     override fun onAccountsPaymentItemClick(
         accountsPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>,
         view: View,
@@ -297,7 +348,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
         name: String,
         path: String
     ) {
-        Log.d("Fff","${name.toString()}")
+        Log.d("Fff", "${name.toString()}")
         openDocumentScreen(name, path)
     }
 
@@ -331,17 +382,16 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
 
     private fun openDocumentScreen(name: String, path: String) {
         val strings = name.split(".")
-            if(strings.size > 0){
-                if (strings[1] == "png" || strings[1] == "jpg") {
-                    //open image loading screen
-                    openDocument(name, path)
-                } else if (strings[1] == "pdf") {
-                    getDocumentData(path)
-                } else {
-                    Toast.makeText(context, "Invalid format", Toast.LENGTH_SHORT).show()
-                }
+        if (strings.size > 0) {
+            if (strings[1] == "png" || strings[1] == "jpg") {
+                //open image loading screen
+                openDocument(name, path)
+            } else if (strings[1] == "pdf") {
+                getDocumentData(path)
+            } else {
+                Toast.makeText(context, "Invalid format", Toast.LENGTH_SHORT).show()
             }
-
+        }
 
 
     }
@@ -486,6 +536,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
             )
         }
     }
+
     private fun callingUploadPicApi(destinationFile: File, extension: String) {
         profileViewModel.uploadKycDocument(extension, destinationFile, selectedDoc)
             .observe(
@@ -499,7 +550,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                             Status.SUCCESS -> {
                                 binding.progressBar.hide()
                                 kycUploadList.forEach {
-                                    if(it.documentName == selectedDoc){
+                                    if (it.documentName == selectedDoc) {
                                         it.status = "VERIFICATION"
                                     }
                                 }
