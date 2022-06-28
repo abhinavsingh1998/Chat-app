@@ -1,6 +1,8 @@
 package com.emproto.hoabl.feature.profile.fragments.accounts
 
 import android.Manifest
+import android.R.attr.left
+import android.R.attr.right
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
@@ -18,19 +20,24 @@ import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
+import androidx.core.view.marginTop
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseActivity
@@ -39,6 +46,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.DocumentsBottomSheetBinding
 import com.emproto.hoabl.databinding.FragmentAccountDetailsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.portfolio.views.DocViewerFragment
 import com.emproto.hoabl.feature.profile.adapter.accounts.*
 import com.emproto.hoabl.viewmodels.HomeViewModel
@@ -58,7 +66,7 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
+
 
 class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClickListener,
     AccountsPaymentListAdapter.OnPaymentItemClickListener,
@@ -238,8 +246,15 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                         }
                         if (documentList.isNullOrEmpty()) {
                             binding.rvDocuments.visibility = View.INVISIBLE
-                            binding.tvSeeAllDocuments.visibility = View.VISIBLE
+                            binding.tvSeeAllDocuments.visibility = View.GONE
                             binding.cvNoDoc.visibility = View.VISIBLE
+
+                            var layout:RecyclerView = requireActivity().findViewById(R.id.rvDocuments);
+                            var params: ViewGroup.LayoutParams = layout.layoutParams;
+                            params.height = 250;
+                            params.width = 100;
+                            layout.layoutParams = params
+
 
                         } else {
                             binding.rvDocuments.visibility = View.VISIBLE

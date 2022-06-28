@@ -379,6 +379,7 @@ class EditProfileFragment : BaseFragment() {
             binding.profileUserLetters.visibility = View.GONE
             Glide.with(requireContext())
                 .load(data.profilePictureUrl)
+                .dontTransform()
                 .into(binding.profileImage)
 
         }
@@ -848,9 +849,13 @@ class EditProfileFragment : BaseFragment() {
         val selectedImage = cameraFile.path
         destinationFile = cameraFile
         val thumbnail = BitmapFactory.decodeFile(selectedImage)
+
+
         binding.profileImage.visibility = View.VISIBLE
         binding.profileUserLetters.visibility = View.GONE
+
         binding.profileImage.setImageBitmap(thumbnail)
+
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
             callingUploadPicApi(cameraFile)
             binding.saveAndUpdate.text = "Save and Update"
@@ -899,7 +904,6 @@ class EditProfileFragment : BaseFragment() {
             e.printStackTrace()
         }
     }
-
 
     private fun callingUploadPicApi(destinationFile: File) {
         profileViewModel.uploadProfilePicture(destinationFile, destinationFile.name)
@@ -997,6 +1001,7 @@ class EditProfileFragment : BaseFragment() {
     ) { result ->
         if (result.resultCode === Activity.RESULT_OK) {
             onCaptureImageResult()
+
         }
     }
 

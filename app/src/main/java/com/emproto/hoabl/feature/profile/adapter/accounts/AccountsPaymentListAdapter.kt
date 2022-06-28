@@ -74,7 +74,7 @@ class AccountsPaymentListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return if (accountsPaymentList.size > 4) {
+        return if (accountsPaymentList.size < 4) {
             accountsPaymentList.size
         } else {
             return 4
@@ -88,7 +88,5 @@ class AccountsPaymentListAdapter(
         val tvPaymentDate: TextView = itemView.findViewById(R.id.tvPaymentDate)
         val tvSeeReceipt: TextView = itemView.findViewById(R.id.tvSeeReceipt)
         val tvLandId: TextView = itemView.findViewById(R.id.tvLandId)
-
-
     }
 }
