@@ -104,6 +104,18 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
 
             }
         })
+
+        profileViewModel.getFacilityManagment()
+            .observe(viewLifecycleOwner, Observer {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        it.data.let {
+                            fmData = it!!
+                        }
+                    }
+                }
+            })
+
     }
 
     private fun setUiData(profileData: Data) {
