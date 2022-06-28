@@ -10,7 +10,10 @@ import com.emproto.hoabl.feature.investment.adapters.ProjectDetailViewPagerAdapt
 import com.emproto.hoabl.model.ViewItem
 import com.emproto.networklayer.response.portfolio.ivdetails.PaymentSchedulesItem
 
-class PortfolioSpecificViewPagerAdapter(private val imageList: List<PaymentSchedulesItem>) :
+class PortfolioSpecificViewPagerAdapter(
+    private val imageList: List<PaymentSchedulesItem>,
+    val cardInterface: PendingCardInterface
+) :
     RecyclerView.Adapter<PortfolioSpecificViewPagerAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: ItemAttentionBinding) :
@@ -26,8 +29,15 @@ class PortfolioSpecificViewPagerAdapter(private val imageList: List<PaymentSched
         holder.binding.pendingKyc.text = item.paymentMilestone
         holder.binding.uploadKycStatement.text =
             "Your payment is due. Please pay on time to maintain healthy relation."
+        holder.binding.actionNavigate.setOnClickListener {
+            cardInterface.onclickCard()
+        }
     }
 
     override fun getItemCount(): Int = imageList.size
+
+    interface PendingCardInterface {
+        fun onclickCard()
+    }
 
 }

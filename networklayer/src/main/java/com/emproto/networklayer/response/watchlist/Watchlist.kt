@@ -4,6 +4,6 @@ import java.io.Serializable
 
 data class Watchlist(
     val id: Int,
-    val projectId: String,
+    val projectContentId: String,
     val userId: Int
 ):Serializable

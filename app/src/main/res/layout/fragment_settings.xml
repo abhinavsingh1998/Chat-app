@@ -11,7 +11,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_size_14"
-            android:layout_marginTop="@dimen/margin_size_27"
+            android:layout_marginTop="@dimen/margin_size_30"
             android:fontFamily="@font/jost_regular"
             android:text="@string/settings"
             app:layout_constraintStart_toStartOf="parent"

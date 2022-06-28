@@ -5,7 +5,7 @@ import com.emproto.networklayer.response.documents.Data
 data class Data(
     val investmentInformation: InvestmentInformation,
     val projectInformation: ProjectInformation,
-    val projectPromises: ProjectPromises,
+    //val projectPromises: ProjectPromises,
     var projectExtraDetails: ProjectExtraDetails,
     var documentList: List<Data>
 )

@@ -33,7 +33,6 @@ class InsightsAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = list.get(holder.adapterPosition)
         holder.binding.tvVideotitle.text = item.displayTitle
-        holder.binding.shortDesc.text = showHTMLText(item.insightsMedia[0].description)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Utility.convertStringIns(holder.binding.shortDesc,context,showHTMLText(item.insightsMedia[0].description).toString(),2)

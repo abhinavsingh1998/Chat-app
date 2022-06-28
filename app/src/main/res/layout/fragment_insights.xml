@@ -72,7 +72,7 @@
 
                     <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/customTextView"
-                        style="@style/text_light_black_14"
+                        style="@style/text_style_lightgrey14"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="50dp"
@@ -94,13 +94,12 @@
                         tools:listitem="@layout/insights_list_item"
                         app:layout_constraintTop_toBottomOf="@id/customTextView"/>
 
-
                     <androidx.cardview.widget.CardView
                         android:id="@+id/share_txt_card"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:layout_marginTop="@dimen/margin_size_15"
-                        app:cardCornerRadius="@dimen/margin_size_5"
+                        android:layout_marginTop="@dimen/margin_size_5"
+                        app:cardCornerRadius="@dimen/margin_size_10"
                         app:layout_constraintTop_toBottomOf="@id/recycler_insights"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -109,47 +108,62 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="#f7f7f7">
-
-
+                            android:background="#ffffff">
 
                             <com.emproto.core.textviews.CustomTextView
                                 android:id="@+id/share_app_text"
                                 style="@style/text_style_text_black_color_14"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/margin_size_25"
+                                android:layout_marginLeft="@dimen/margin_size_15"
                                 android:fontFamily="@font/jost_regular"
                                 android:text="@string/share_your_friend_txt"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintRight_toLeftOf="@id/app_share_btn"
                                 app:layout_constraintTop_toTopOf="parent" />
 
-                            <com.emproto.core.textviews.CustomTextView
+                            <RelativeLayout
                                 android:id="@+id/app_share_btn"
                                 style="@style/text_style_white_14"
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
-                                android:layout_marginLeft="@dimen/margin_size_30"
-                                android:layout_marginRight="@dimen/margin_size_7"
-                                android:layout_marginVertical="8dp"
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
                                 android:background="@drawable/blue_btn_bg"
-                                android:drawableStart="@drawable/ic_share"
-                                android:fontFamily="@font/jostmedium"
-                                android:paddingHorizontal="10dp"
+                                android:gravity="center_vertical|center_horizontal"
                                 android:text="@string/share_text"
                                 app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintLeft_toRightOf="@id/share_app_text"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                app:layout_constraintStart_toEndOf="@+id/share_app_text"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <ImageView
+                                    android:id="@+id/action_share"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_centerVertical="true"
+                                    android:src="@drawable/ic_share" />
+
+                                <TextView
+                                    style="@style/text_style_white_14"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginVertical="@dimen/margin_size_7"
+                                    android:layout_marginStart="@dimen/margin_size_5"
+                                    android:layout_toRightOf="@+id/action_share"
+                                    android:fontFamily="@font/jost_medium"
+                                    android:text="Share"
+                                    android:textAllCaps="true" />
+                            </RelativeLayout>
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </androidx.cardview.widget.CardView>
 
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

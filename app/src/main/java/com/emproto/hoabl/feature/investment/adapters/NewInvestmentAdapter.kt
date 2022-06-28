@@ -65,6 +65,7 @@ class NewInvestmentAdapter(
 
     private inner class NewLaunchViewHolder(private val binding: NewInvestmentTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
+            binding.tvRating.text = "${String.format(" % .0f",data.pageManagementsOrNewInvestments[0].generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
             binding.tvNewLaunch.text = data.page.newInvestments.displayName
             binding.tvComingSoon.text = data.page.newInvestments.subHeading
             binding.tvInvestmentProjectName.text = data.pageManagementsOrNewInvestments[0].launchName

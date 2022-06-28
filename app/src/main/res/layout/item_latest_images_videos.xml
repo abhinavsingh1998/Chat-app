@@ -9,7 +9,7 @@
         android:id="@+id/cv_latest_image"
         android:layout_width="@dimen/margin_size_200"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/margin_size_8"
+        app:cardCornerRadius="@dimen/margin_size_6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 

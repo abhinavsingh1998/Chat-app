@@ -10,6 +10,8 @@ data class ProjectExtraDetails(
 //    val latitude: String,
 //    val longitude: String,
 //    val altitude: String?,
-    val graphData:GeneralInfoEscalationGraph,
-    val launchName:String
+    val graphData: GeneralInfoEscalationGraph,
+    val launchName: String,
+    val amountPending: Double,
+    val isBookingComplete:Boolean
 )

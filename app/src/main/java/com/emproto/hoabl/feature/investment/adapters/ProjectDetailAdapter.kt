@@ -252,11 +252,11 @@ class ProjectDetailAdapter(
                 binding.ivShareIcon.setOnClickListener(onItemClickListener)
                 when(isBookmarked){
                     true -> {
-                        ivBookmarkIcon.setImageResource(R.drawable.ic_favourite_dark)
+                        ivBookmarkIcon.setImageResource(R.drawable.heart_5_filled)
                         isClicked = false
                     }
                     false -> {
-                        ivBookmarkIcon.setImageResource(R.drawable.ic_favourite)
+                        ivBookmarkIcon.setImageResource(R.drawable.heart_5)
                         isClicked = true
                     }
                 }
@@ -382,7 +382,7 @@ class ProjectDetailAdapter(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 linedataset.fillColor = context.getColor(R.color.green)
             }
-            linedataset.mode = LineDataSet.Mode.LINEAR;
+            linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
             linedataset.setDrawCircles(false)
             linedataset.setDrawValues(false)
             val data = LineData(linedataset)

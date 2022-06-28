@@ -95,13 +95,11 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
-                            <TextView
+                            <ImageView
                                 android:id="@+id/tm"
-                                style="@style/text_style_text_color_10"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/jost_regular"
-                                android:text="TM"
+                                android:background="@drawable/r_black_logo"
                                 app:layout_constraintLeft_toRightOf="@id/heading"
                                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -136,7 +134,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_size_20"
                         android:background="@drawable/button_bg"
-                        android:drawableEnd="@drawable/arrow_right_"
+                        android:drawableEnd="@drawable/combinedarrow"
                         android:drawablePadding="@dimen/margin_size_4"
                         android:gravity="center"
                         android:paddingHorizontal="@dimen/margin_size_35"
@@ -284,6 +282,7 @@
                             android:singleLine="true"
                             android:text="@string/see_all"
                             app:fontName="@string/jost_regular"
+                            app:layout_constraintBottom_toTopOf="@+id/lates_updates_recyclerview"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -406,6 +405,7 @@
                             android:singleLine="true"
                             android:text="@string/see_all"
                             app:fontName="@string/jost_regular"
+                            app:layout_constraintBottom_toBottomOf="@+id/textview5"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@id/textview5" />
 
@@ -414,10 +414,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_size_3"
-                            android:paddingLeft="@dimen/margin_size_8"
+                            android:paddingLeft="@dimen/margin_size_10"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/textview5"
                             app:layout_constraintTop_toBottomOf="@id/textview5" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -426,7 +426,7 @@
                         android:id="@+id/testimonials_layout"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_marginTop="@dimen/margin_size_30"
+                        android:layout_marginTop="@dimen/margin_size_25"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/insights_layout">
@@ -454,6 +454,7 @@
                             android:singleLine="true"
                             android:text="@string/see_all"
                             app:fontName="@string/jost_regular"
+                            app:layout_constraintBottom_toBottomOf="@+id/textview6"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 

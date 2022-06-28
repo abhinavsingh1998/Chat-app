@@ -45,7 +45,10 @@ class LatestUpdateAdapter(
                 holder.binding.imageCard.isVisible= false
             }
 
-            holder.binding.description.text=showHTMLText(item.detailedInfo[0].description)
+//            holder.binding.description.text=showHTMLText(item.detailedInfo[0].description)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                Utility.convertString(holder.binding.description,context,showHTMLText(item.detailedInfo[0].description).toString(),3)
+            }
         }
 
         holder.binding.rootView.setOnClickListener {

@@ -39,7 +39,7 @@
             android:drawableStart="@drawable/ic_shape_search"
             android:drawablePadding="@dimen/margin_size_8"
             android:singleLine="true"
-            android:fontFamily="@font/jost_medium"
+            android:fontFamily="@font/jost_regular"
             android:hint="@string/search_faqs"
             android:textColorHint="#85869f"
             app:layout_constraintEnd_toEndOf="parent"

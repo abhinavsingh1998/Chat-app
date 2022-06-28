@@ -2,9 +2,12 @@ package com.emproto.hoabl.feature.profile.adapter
 
 import android.content.Context
 import android.os.Build
+import android.text.Html
+import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.profile.data.HelpModel
 
@@ -21,6 +24,7 @@ class HelpCenterAdapter(
         const val VIEW_ITEM = 0
         const val VIEW_FOOTER = 1
     }
+
     override fun getItemViewType(position: Int): Int {
         return dataList[position].viewType
     }
@@ -74,6 +78,8 @@ class HelpCenterAdapter(
                 listHolder.binding.email.setOnClickListener {
                     footerInterface.onEmailClick(holder.layoutPosition)
                 }
+                listHolder.binding.email.text = showHTMLText(context.getString(R.string.emailsid))
+                listHolder.binding.info.text = showHTMLText(context.getString(R.string.phonenos))
 
             }
         }
@@ -89,11 +95,20 @@ class HelpCenterAdapter(
     interface HelpItemInterface {
         fun onClickItem(position: Int)
     }
+
     interface FooterInterface {
         fun onChatClick(position: Int)
         fun onPhoneNumberClick(position: Int)
         fun onEmailClick(position: Int)
 
+    }
+
+    fun showHTMLText(message: String?): Spanned {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            Html.fromHtml(message)
+        }
     }
 
 }

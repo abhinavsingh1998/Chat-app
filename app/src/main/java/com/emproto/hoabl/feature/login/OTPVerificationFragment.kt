@@ -87,17 +87,20 @@ class OTPVerificationFragment : BaseFragment() {
         var mobileno: String = ""
         var countryCode: String = ""
         var hint_txt: String = ""
+        var iswhatsappenabled = false
 
         fun newInstance(
             mobileNumber: String,
             cCode: String,
-            hintText: String
+            hintText: String,
+            whatsappConsent: Boolean
         ): OTPVerificationFragment {
             val fragment = OTPVerificationFragment()
             val bundle = Bundle()
             mobileno = bundle.getString("mobilenumber", mobileNumber)
             countryCode = bundle.getString("countrycode", cCode)
             hint_txt = bundle.getString("hint_txt", hintText)
+            iswhatsappenabled = bundle.getBoolean("whatsappConsent",whatsappConsent)
             fragment.arguments = bundle
             return fragment
         }
@@ -161,7 +164,7 @@ class OTPVerificationFragment : BaseFragment() {
                             OtpVerifyRequest(
                                 s.toString(),
                                 mobileno,
-                                false,
+                                iswhatsappenabled,
                                 "+91",
                                 appPreference.getNotificationToken()
                             )

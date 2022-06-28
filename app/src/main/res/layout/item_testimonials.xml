@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="CEO, Futurecorp Inc."
-                app:fontName="@string/jost_regular" />
+                app:fontName="@string/jost_medium" />
 
         </LinearLayout>
 

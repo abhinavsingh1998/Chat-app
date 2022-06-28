@@ -474,13 +474,15 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         crmId: Int,
         projectId: Int,
         otherDetails: ProjectExtraDetails,
-        iea: String?
+        iea: String?,
+        ea: Double
     ) {
         val portfolioSpecificProjectView = PortfolioSpecificProjectView()
         val arguments = Bundle()
         arguments.putInt("IVID", crmId)
         arguments.putInt("PID", projectId)
         arguments.putString("IEA", iea)
+        arguments.putDouble("EA", ea)
         portfolioSpecificProjectView.arguments = arguments
         portfolioviewmodel.setprojectAddress(otherDetails)
         (requireActivity() as HomeActivity).addFragment(portfolioSpecificProjectView, false)
