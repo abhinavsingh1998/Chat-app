@@ -47,25 +47,11 @@ class SearchResultFragment : BaseFragment() {
     lateinit var homeFactory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
 
-    lateinit var searchResultAdapter: SearchResultAdapter
-    lateinit var gridLayoutManager: GridLayoutManager
-
-    //    lateinit var faqAdapter: SearchFaqAdapter
-//    lateinit var projectListAdapter: CategoryListAdapter
     lateinit var documentAdapter: DocumentsAdapter
 
     private var topText = ""
     val faqList = ArrayList<ProjectContentsAndFaq>()
     val docList = ArrayList<Data>()
-
-    companion object {
-        fun newInstance(): SearchResultFragment {
-            val fragment = SearchResultFragment()
-            /*val bundle = Bundle()
-            fragment.arguments = bundle*/
-            return fragment
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,7 +60,7 @@ class SearchResultFragment : BaseFragment() {
     ): View? {
         fragmentSearchResultBinding = FragmentSearchResultBinding.inflate(layoutInflater)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
-        homeViewModel = ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
+        homeViewModel = ViewModelProvider(this, homeFactory)[HomeViewModel::class.java]
 
         arguments.let {
             if (it != null) {
@@ -134,6 +120,9 @@ class SearchResultFragment : BaseFragment() {
                 fragmentSearchResultBinding.searchLayout.rotateText.text = showHTMLText(
                     "$totalAmtLandSold    $totalLandsold    $grossWeight    $num_User"
                 )
+
+                fragmentSearchResultBinding.searchLayout.rotateText.text = topText
+
             }
         }
 
@@ -166,7 +155,7 @@ class SearchResultFragment : BaseFragment() {
     }
 
     private fun callSearchApi(searchWord: String) {
-        homeViewModel.getSearchResult(searchWord).observe(viewLifecycleOwner, Observer {
+        homeViewModel.getSearchResult(searchWord.trim()).observe(this, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
@@ -214,7 +203,7 @@ class SearchResultFragment : BaseFragment() {
                             }
                         }
 
-//                        callDocsApi(searchWord, data.projectContentData, data.faqData)
+                        callDocsApi(searchWord, data.projectContentData, data.faqData)
 
                         if (data.projectContentData.isEmpty() && data.faqData.isEmpty()) {
                             fragmentSearchResultBinding.tvNoData.visibility = View.VISIBLE
@@ -238,7 +227,7 @@ class SearchResultFragment : BaseFragment() {
         projectContentData: List<ApData>,
         faqData: List<FrequentlyAskedQuestion>
     ) {
-        homeViewModel.getSearchDocResult(searchWord).observe(viewLifecycleOwner, Observer {
+        homeViewModel.getSearchDocResult(searchWord.trim()).observe(this, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
