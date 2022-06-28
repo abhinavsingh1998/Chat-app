@@ -162,7 +162,6 @@ class HelpCenterFragment : BaseFragment() {
                 }
 
                 override fun onEmailClick(position: Int) {
-
                     val intent = Intent(Intent.ACTION_SENDTO)
                     val uri = Uri.parse("mailto:care@hoabl.in")
                     intent.data = uri

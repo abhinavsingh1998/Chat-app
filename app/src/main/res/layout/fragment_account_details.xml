@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_color">
@@ -95,6 +96,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/rvKyc" />
 
 
+
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/tvSeeAllDocuments"
                     style="@style/text_style_blue_12"
@@ -132,48 +134,44 @@
                     android:layout_height="100dp"
                     android:layout_marginTop="14dp"
                     android:layout_marginEnd="16dp"
-                    android:paddingBottom="10dp"
                     android:layout_marginBottom="10dp"
+                    android:paddingBottom="10dp"
                     android:visibility="gone"
-                    tools:visibility="visible"
                     app:cardCornerRadius="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tvPaymentHistory"
-                    app:layout_constraintTop_toBottomOf="@+id/tvPaymentHistory">
+                    app:layout_constraintTop_toBottomOf="@+id/tvPaymentHistory"
+                    tools:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:textSize="18sp"
-                        android:textColor="@color/app_color"
                         android:fontFamily="@font/jost_bold"
-                        android:text="No Payment to show" />
+                        android:text="No Payment to show"
+                        android:textColor="@color/app_color"
+                        android:textSize="18sp" />
                 </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cvNoDoc"
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginEnd="16dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:visibility="gone"
-                    tools:visibility="visible"
-                    app:cardCornerRadius="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/tv_Doc"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_Doc">
+
+
 
                     <TextView
+                        android:id="@+id/cvNoDoc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:textSize="18sp"
-                        android:textColor="@color/app_color"
                         android:fontFamily="@font/jost_bold"
-                        android:text="No Document to show" />
-                </androidx.cardview.widget.CardView>
+                        android:text="No Document to show"
+                        android:textColor="@color/app_color"
+                        android:textSize="18sp"
+                        android:visibility="gone"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="10dp"
+                        tools:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/tv_Doc"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_Doc"/>
 
 
                 <TextView
@@ -199,7 +197,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_16"
-                    android:layout_marginTop="40dp"
                     android:layout_marginEnd="@dimen/margin_size_16"
                     android:drawableEnd="@drawable/ic_black_long_rightarrow"
                     android:drawablePadding="@dimen/margin_size_4"
@@ -209,7 +206,8 @@
                     android:text="@string/see_all"
                     app:fontName="@string/jost_regular"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rvDocuments" />
+                    app:layout_constraintTop_toTopOf="@id/tvPaymentHistory"
+                    app:layout_constraintBottom_toBottomOf="@id/tvPaymentHistory"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvPaymentHistory"

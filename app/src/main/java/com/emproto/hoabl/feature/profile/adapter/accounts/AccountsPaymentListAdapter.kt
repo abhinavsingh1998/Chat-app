@@ -41,19 +41,20 @@ class AccountsPaymentListAdapter(
         if (!accountsPaymentList[position].paidAmount.toString().isNullOrEmpty()) {
             holder.tvPaidAmount.text = "₹" + accountsPaymentList[position].paidAmount.toString()
         }
-        if (!accountsPaymentList[position].projectName.isNullOrEmpty()) {
-            holder.tvProjectName.text = accountsPaymentList[position].projectName
+        if (!accountsPaymentList[position].launchName.isNullOrEmpty()) {
+            holder.tvProjectName.text = accountsPaymentList[position].launchName
         }
         if (!accountsPaymentList[position].paymentDate.substring(0, 10).isNullOrEmpty()) {
             holder.tvPaymentDate.text = accountsPaymentList[position].paymentDate.substring(0, 10)
         }
-//        if (accountsPaymentList[position].investment.crmInventory != null) {
-//            holder.tvLandId.text =
-//                "Land id:" + "" + accountsPaymentList[position].investment.crmInventory.id.toString()
-//        }
+        if(accountsPaymentList[position].crmInventory!=null){
+            holder.tvLandId.text =
+                "Land id:" + "" + accountsPaymentList[position].crmInventory
+
+        }
 
         holder.tvSeeReceipt.setOnClickListener {
-            if (accountsPaymentList[position].document==null) {
+            if (accountsPaymentList[position].document == null) {
 
                 Toast.makeText(mContext, "No Receipt", Toast.LENGTH_SHORT).show()
 
@@ -73,11 +74,11 @@ class AccountsPaymentListAdapter(
     }
 
     override fun getItemCount(): Int {
-        if(accountsPaymentList.size<4){
-            return accountsPaymentList.size
-        }
-        else{
+        return if (accountsPaymentList.size < 4) {
+            accountsPaymentList.size
+        } else {
             return 4
+
         }
     }
 
@@ -87,7 +88,5 @@ class AccountsPaymentListAdapter(
         val tvPaymentDate: TextView = itemView.findViewById(R.id.tvPaymentDate)
         val tvSeeReceipt: TextView = itemView.findViewById(R.id.tvSeeReceipt)
         val tvLandId: TextView = itemView.findViewById(R.id.tvLandId)
-
-
     }
 }
