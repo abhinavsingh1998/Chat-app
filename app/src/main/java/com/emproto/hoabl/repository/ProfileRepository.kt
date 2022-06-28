@@ -15,6 +15,7 @@ import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.investment.FaqDetailResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
+import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.resourceManagment.ProflieResponse
@@ -511,6 +512,33 @@ class ProfileRepository @Inject constructor(application: Application) :
             }
         }
         return mCaseResponse
+    }
+
+    fun getFacilitymanagment(): LiveData<BaseResponse<FMResponse>> {
+        val mDocumentsResponse = MutableLiveData<BaseResponse<FMResponse>>()
+        mDocumentsResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).getFacilityManagment()
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mDocumentsResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mDocumentsResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mDocumentsResponse
     }
 }
 

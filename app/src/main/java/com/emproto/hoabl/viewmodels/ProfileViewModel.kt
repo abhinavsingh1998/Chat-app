@@ -12,6 +12,7 @@ import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.investment.FaqDetailResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
+import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.resourceManagment.ProflieResponse
@@ -99,6 +100,10 @@ class ProfileViewModel(
 
     fun submitTroubleCase(signingRequest: ReportSecurityRequest): LiveData<BaseResponse<TroubleSigningResponse>> {
         return profileRepository.submitTroubleCase(signingRequest)
+    }
+
+    fun getFacilityManagment(): LiveData<BaseResponse<FMResponse>> {
+        return profileRepository.getFacilitymanagment()
     }
 }
 
