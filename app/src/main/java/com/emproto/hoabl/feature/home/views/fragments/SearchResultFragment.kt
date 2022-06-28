@@ -65,6 +65,7 @@ class SearchResultFragment : BaseFragment() {
         arguments.let {
             if (it != null) {
                 topText = it.getString("TopText").toString()
+                Log.d("ext","text = ${topText}")
             }
         }
         return fragmentSearchResultBinding.root
@@ -86,6 +87,7 @@ class SearchResultFragment : BaseFragment() {
         fragmentSearchResultBinding.searchLayout.ivCloseImage.setOnClickListener {
             fragmentSearchResultBinding.searchLayout.search.setText("")
         }
+        fragmentSearchResultBinding.searchLayout.rotateText.text = topText
     }
 
     private fun initObserver() {
@@ -117,11 +119,9 @@ class SearchResultFragment : BaseFragment() {
                     it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
                 )
                 //it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName + " " + it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
-                fragmentSearchResultBinding.searchLayout.rotateText.text = showHTMLText(
-                    "$totalAmtLandSold    $totalLandsold    $grossWeight    $num_User"
-                )
-
-                fragmentSearchResultBinding.searchLayout.rotateText.text = topText
+//                fragmentSearchResultBinding.searchLayout.rotateText.text = showHTMLText(
+//                    "$totalAmtLandSold    $totalLandsold    $grossWeight    $num_User"
+//                )
 
             }
         }
@@ -283,7 +283,7 @@ class SearchResultFragment : BaseFragment() {
     private fun initView() {
         (requireActivity() as HomeActivity).hideBottomNavigation()
         (requireActivity() as HomeActivity).hideHeader()
-        fragmentSearchResultBinding.searchLayout.rotateText.text = " "
+//        fragmentSearchResultBinding.searchLayout.rotateText.text = " "
         fragmentSearchResultBinding.searchLayout.rotateText.isSelected = true
         val inputMethodManager =
             (requireActivity() as HomeActivity).getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
