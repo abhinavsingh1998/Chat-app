@@ -19,6 +19,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityHomeBinding
 import com.emproto.hoabl.databinding.FragmentNotificationBottomSheetBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.notification.HoabelNotifiaction
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.home.views.fragments.SearchResultFragment
@@ -91,15 +92,15 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     private fun initClickListener() {
 
-        activityHomeActivity.searchLayout.headset.setOnClickListener {
+        activityHomeActivity.searchLayout.headsetView.setOnClickListener {
 
-            Toast.makeText(this, "Chat is Under Development", Toast.LENGTH_LONG).show()
-//            val bundle = Bundle()
-//            val chatsFragment = ChatsFragment()
-//            chatsFragment.arguments = bundle
-//            replaceFragment(
-//                chatsFragment.javaClass, "", true, bundle, null, 0, false
-//            )
+//            Toast.makeText(this, "Chat is Under Development", Toast.LENGTH_LONG).show()
+            val bundle = Bundle()
+            val chatsFragment = ChatsFragment()
+            chatsFragment.arguments = bundle
+            replaceFragment(
+                chatsFragment.javaClass, "", true, bundle, null, 0, false
+            )
         }
 
         activityHomeActivity.searchLayout.search.setOnClickListener {
@@ -110,7 +111,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             addFragment(fragment, false)
         }
 
-        activityHomeActivity.searchLayout.notification.setOnClickListener(View.OnClickListener {
+        activityHomeActivity.searchLayout.notificationView.setOnClickListener(View.OnClickListener {
 //            bottomSheetDialog = BottomSheetDialog(this)
 //            bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
 //            fragmentNotificationBottomSheetBinding =

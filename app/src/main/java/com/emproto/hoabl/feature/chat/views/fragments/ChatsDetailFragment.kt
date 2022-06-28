@@ -77,6 +77,10 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         if (newChatMessageList.isNotEmpty()) {
             binding.clButtonStart.visibility = View.GONE
         }
+        binding.viewBack.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
+
         binding.clButtonStart.setOnClickListener {
             binding.clButtonStart.visibility = View.GONE
             binding.tvDay.visibility = View.VISIBLE

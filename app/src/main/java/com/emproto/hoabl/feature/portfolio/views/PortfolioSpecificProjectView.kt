@@ -427,11 +427,16 @@ class PortfolioSpecificProjectView : BaseFragment() {
                     }
 
                     override fun seeOnMap(latitude: String, longitude: String) {
-                        val mapUri: Uri =
-                            Uri.parse("geo:0,0?q=$latitude,$longitude(Hoabl)")
-                        val mapIntent = Intent(Intent.ACTION_VIEW, mapUri)
-                        mapIntent.setPackage("com.google.android.apps.maps")
-                        startActivity(mapIntent)
+                        try {
+                            val mapUri: Uri =
+                                Uri.parse("geo:0,0?q=$latitude,$longitude(Hoabl)")
+                            val mapIntent = Intent(Intent.ACTION_VIEW, mapUri)
+                            mapIntent.setPackage("com.google.android.apps.maps")
+                            startActivity(mapIntent)
+                        } catch (e: Exception) {
+
+                        }
+
                     }
 
                     override fun onClickImage(mediaViewItem: MediaViewItem, position: Int) {

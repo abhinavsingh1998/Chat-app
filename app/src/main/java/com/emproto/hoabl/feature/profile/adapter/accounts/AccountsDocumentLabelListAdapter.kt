@@ -56,10 +56,9 @@ class AccountsDocumentLabelListAdapter(
     }
 
     override fun getItemCount(): Int {
-        if(accountsDocumentList.size<2){
-            return accountsDocumentList.size
-        }
-        else{
+        return if (accountsDocumentList.size < 2) {
+            accountsDocumentList.size
+        } else {
             return 2
         }
     }

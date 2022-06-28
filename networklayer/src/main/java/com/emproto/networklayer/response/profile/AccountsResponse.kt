@@ -2,6 +2,7 @@ package com.emproto.networklayer.response.profile
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class AccountsResponse(
     @SerializedName("code")
@@ -16,10 +17,16 @@ data class AccountsResponse(
         val documents: List<Document>,
         @SerializedName("paymentHistory")
         val paymentHistory: List<PaymentHistory>
-    ) {
+    ):Serializable {
         data class Document(
-            @SerializedName("bookingId")
-            val bookingId: String? =null,
+            @SerializedName("createdAt")
+            val createdAt: String,
+            @SerializedName("crmBookingId")
+            val crmBookingId: String,
+            @SerializedName("crmCustomerPaymentId")
+            val crmCustomerPaymentId: String,
+            @SerializedName("crmLaunchPhaseId")
+            val crmLaunchPhaseId: String,
             @SerializedName("documentCategory")
             val documentCategory: String,
             @SerializedName("documentType")
@@ -27,100 +34,67 @@ data class AccountsResponse(
             @SerializedName("id")
             val id: Int,
             @SerializedName("status")
-            val status: String? = null,
+            val status: String?=null,
             @SerializedName("itemInternalId")
             val itemInternalId: Any?,
             @SerializedName("name")
             val name: String,
             @SerializedName("path")
-            val path: String?,
-            @SerializedName("paymentId")
-            val paymentId: Any?,
-            @SerializedName("projectId")
-            val projectId: String,
+            val path: String,
+            @SerializedName("updatedAt")
+            val updatedAt: String,
             @SerializedName("userId")
-            val userId: Any?
-        )
+            val userId: String
+        ):Serializable
 
         data class PaymentHistory(
+            @SerializedName("createdAt")
+            val createdAt: String,
             @SerializedName("crmBookingId")
             val crmBookingId: String,
             @SerializedName("crmId")
             val crmId: String,
+            @SerializedName("crmInventory")
+            val crmInventory: String?=null,
             @SerializedName("document")
-            val document: PaymentReceipt,
+            val document: Document,
             @SerializedName("id")
             val id: Int,
-            @SerializedName("investment")
-            val investment: Investment,
+            @SerializedName("launchName")
+            val launchName: String,
             @SerializedName("paidAmount")
             val paidAmount: Int,
             @SerializedName("paymentDate")
             val paymentDate: String,
-            @SerializedName("projectName")
-            val projectName: String,
-            @SerializedName("userId")
-            val userId: String
-        ) {
-            data class PaymentReceipt(
-                @SerializedName("id")
-                val id: Int,
-                @SerializedName("userId")
-                val userId: String,
-                @SerializedName("projectId")
-                val projectId: String,
-                @SerializedName("paymentId")
-                val paymentId: String,
-                @SerializedName("bookingId")
-                val bookingId: String,
+            @SerializedName("updatedAt")
+            val updatedAt: String
+        ) :Serializable{
+            data class Document(
+                @SerializedName("createdAt")
+                val createdAt: String,
+                @SerializedName("crmBookingId")
+                val crmBookingId: String,
+                @SerializedName("crmCustomerPaymentId")
+                val crmCustomerPaymentId: String,
+                @SerializedName("crmLaunchPhaseId")
+                val crmLaunchPhaseId: String,
                 @SerializedName("documentCategory")
                 val documentCategory: String,
                 @SerializedName("documentType")
                 val documentType: String,
-                @SerializedName("path")
-                val path: String,
+                @SerializedName("id")
+                val id: Int,
+                @SerializedName("itemInternalId")
+                val itemInternalId: Any?,
                 @SerializedName("name")
                 val name: String,
-                @SerializedName("itemInternalId")
-                val itemInternalId: String,
-                @SerializedName("createdat")
-                val createdAt: String,
-                @SerializedName("updateAt")
-                val updateAt: String
-            )
-
-            data class Investment(
-                @SerializedName("crmBookingId")
-                val crmBookingId: String,
-                @SerializedName("crmInventory")
-                val crmInventory: CrmInventory
-            ) {
-                data class CrmInventory(
-                    @SerializedName("createdAt")
-                    val createdAt: String,
-                    @SerializedName("crmId")
-                    val crmId: String,
-                    @SerializedName("crmInventoryBucketId")
-                    val crmInventoryBucketId: String?,
-                    @SerializedName("crmLaunchPhaseId")
-                    val crmLaunchPhaseId: String,
-                    @SerializedName("crmProjectId")
-                    val crmProjectId: String,
-                    @SerializedName("crmReraPhaseId")
-                    val crmReraPhaseId: String?,
-                    @SerializedName("id")
-                    val id: Int,
-                    @SerializedName("name")
-                    val name: String,
-                    @SerializedName("updatedAt")
-                    val updatedAt: String
-                )
-            }
+                @SerializedName("path")
+                val path: String,
+                @SerializedName("updatedAt")
+                val updatedAt: String,
+                @SerializedName("userId")
+                val userId: String
+            ):Serializable
         }
-
-
     }
 }
-
-
-

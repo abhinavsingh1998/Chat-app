@@ -1,6 +1,8 @@
 package com.emproto.hoabl.feature.profile.fragments.accounts
 
 import android.Manifest
+import android.R.attr.left
+import android.R.attr.right
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
@@ -18,19 +20,24 @@ import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
+import androidx.core.view.marginTop
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseActivity
@@ -39,9 +46,9 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.DocumentsBottomSheetBinding
 import com.emproto.hoabl.databinding.FragmentAccountDetailsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.portfolio.views.DocViewerFragment
 import com.emproto.hoabl.feature.profile.adapter.accounts.*
-import com.emproto.hoabl.feature.profile.fragments.edit_profile.EditProfileUpdatedPopUpFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.ProfileViewModel
@@ -59,7 +66,7 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
+
 
 class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClickListener,
     AccountsPaymentListAdapter.OnPaymentItemClickListener,
@@ -86,6 +93,8 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
     lateinit var allPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>
 
     lateinit var allKycDocList: ArrayList<AccountsResponse.Data.Document>
+    lateinit var kycLists: ArrayList<AccountsResponse.Data.Document>
+
 
     lateinit var documentBinding: DocumentsBottomSheetBinding
     lateinit var docsBottomSheet: BottomSheetDialog
@@ -153,7 +162,6 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         homeViewModel.getAccountsList().observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
@@ -164,20 +172,18 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                     if (it.data?.data!!.documents != null && it.data!!.data.documents is List<AccountsResponse.Data.Document>) {
                         allKycDocList =
                             it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>
-                        val kycLists = ArrayList<AccountsResponse.Data.Document>()
+                        kycLists = ArrayList<AccountsResponse.Data.Document>()
                         val documentList = ArrayList<AccountsResponse.Data.Document>()
                         for (document in allKycDocList) {
-                            if (document.documentCategory == "KYC") {
+                            if (document.documentCategory == "100100") {
                                 kycLists.add(document)
                             } else {
                                 documentList.add(document)
                             }
                         }
                         if (kycLists.isNullOrEmpty()) {
-
                             kycUploadList.add(KycUpload("Address Proof", "UPLOAD"))
                             kycUploadList.add(KycUpload("PAN Card", "UPLOAD"))
-
                             kycUploadAdapter = AccountKycUploadAdapter(
                                 context,
                                 kycUploadList, this
@@ -185,6 +191,54 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                             binding.rvKyc.layoutManager =
                                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
                             binding.rvKyc.adapter = kycUploadAdapter
+                        } else if (kycLists.size == 1) {
+                            for (document in kycLists) {
+                                if (document.documentCategory == "KYC" && document.documentType == "Unverified Address Proof") {
+                                    kycLists.add(
+                                        AccountsResponse.Data.Document(
+                                            "",
+                                            "KYC",
+                                            "PAN Card",
+                                            "",
+                                            "",
+                                            "",id,
+                                            "Upload",
+                                            "",
+                                            "",
+                                            "","",""
+                                        )
+                                    )
+                                }
+                                kycLists.add(document)
+
+                                if (document.documentType == "Unverified PAN Card") {
+                                    kycLists.add(
+                                        AccountsResponse.Data.Document(
+                                            "",
+                                            "KYC",
+                                            "Address Proof",
+                                            "",
+                                            "",
+                                            "",
+                                            id,
+                                            "Upload",
+                                            "",
+                                            "",
+                                            "","",""
+                                        )
+                                    )
+                                }
+                                kycLists.add(document)
+
+                            }
+
+                            binding.rvKyc.layoutManager =
+                                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+                            binding.rvKyc.adapter = AccountsKycListAdapter(
+                                context,
+                                kycLists,
+                                this
+                            )
                         } else {
                             binding.rvKyc.layoutManager =
                                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
@@ -195,9 +249,16 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                             )
                         }
                         if (documentList.isNullOrEmpty()) {
-                            binding.rvDocuments.visibility = View.GONE
-                            binding.tvSeeAllDocuments.visibility = View.VISIBLE
+                            binding.rvDocuments.visibility = View.INVISIBLE
+                            binding.tvSeeAllDocuments.visibility = View.GONE
                             binding.cvNoDoc.visibility = View.VISIBLE
+
+                            var layout:RecyclerView = requireActivity().findViewById(R.id.rvDocuments);
+                            var params: ViewGroup.LayoutParams = layout.layoutParams;
+                            params.height = 200;
+                            params.width = 100;
+                            layout.layoutParams = params
+
 
                         } else {
                             binding.rvDocuments.visibility = View.VISIBLE
@@ -289,6 +350,16 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
         openDocumentScreen(name, path.toString())
     }
 
+    override fun onUploadClickItem(
+        accountsDocumentList: ArrayList<AccountsResponse.Data.Document>,
+        view: View,
+        position: Int
+    ) {
+        selectImage()
+        selectedDoc = kycLists[position].documentType
+    }
+
+
     override fun onAccountsPaymentItemClick(
         accountsPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>,
         view: View,
@@ -296,7 +367,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
         name: String,
         path: String
     ) {
-        Log.d("Fff","${name.toString()}")
+        Log.d("Fff", "${name.toString()}")
         openDocumentScreen(name, path)
     }
 
@@ -330,17 +401,16 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
 
     private fun openDocumentScreen(name: String, path: String) {
         val strings = name.split(".")
-            if(strings.size > 0){
-                if (strings[1] == "png" || strings[1] == "jpg") {
-                    //open image loading screen
-                    openDocument(name, path)
-                } else if (strings[1] == "pdf") {
-                    getDocumentData(path)
-                } else {
-                    Toast.makeText(context, "Invalid format", Toast.LENGTH_SHORT).show()
-                }
+        if (strings.size > 0) {
+            if (strings[1] == "png" || strings[1] == "jpg") {
+                //open image loading screen
+                openDocument(name, path)
+            } else if (strings[1] == "pdf") {
+                getDocumentData(path)
+            } else {
+                Toast.makeText(context, "Invalid format", Toast.LENGTH_SHORT).show()
             }
-
+        }
 
 
     }
@@ -499,7 +569,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                             Status.SUCCESS -> {
                                 binding.progressBar.hide()
                                 kycUploadList.forEach {
-                                    if(it.documentName == selectedDoc){
+                                    if (it.documentName == selectedDoc) {
                                         it.status = "VERIFICATION"
                                     }
                                 }
