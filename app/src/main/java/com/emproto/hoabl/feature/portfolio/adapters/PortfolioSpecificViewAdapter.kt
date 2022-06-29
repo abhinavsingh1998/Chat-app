@@ -666,7 +666,6 @@ class PortfolioSpecificViewAdapter(
             faqAdapter = ProjectFaqAdapter(context, faqList, ivInterface)
             binding.rvFaq.adapter = faqAdapter
             binding.tvFaqReadAll.visibility = View.VISIBLE
-            binding.ivSeeAllArrow.visibility = View.VISIBLE
             binding.tvFaqReadAll.setOnClickListener {
                 ivInterface.readAllFaq(-1, 0)
             }

@@ -62,13 +62,13 @@ class BookingjourneyFragment : BaseFragment() {
     var base64Data: String = ""
 
     lateinit var dialogRegistrationDetailsBinding: DialogRegistrationDetailsBinding
-    lateinit var registrationDialog: Dialog
+    lateinit var registrationDialog: CustomDialog
 
     lateinit var dialogPendingPayment: DialogPendingPaymentBinding
     lateinit var pendingPaymentDialog: CustomDialog
 
     lateinit var dialogHandoverDetailsBinding: DialogHandoverDetailsBinding
-    lateinit var handoverDialog: Dialog
+    lateinit var handoverDialog: CustomDialog
 
     lateinit var allReceiptDialog: FragmentReceiptBinding
     lateinit var bottomSheetDialog: BottomSheetDialog
@@ -122,7 +122,7 @@ class BookingjourneyFragment : BaseFragment() {
             }
 
         dialogRegistrationDetailsBinding = DialogRegistrationDetailsBinding.inflate(layoutInflater)
-        registrationDialog = Dialog(requireContext())
+        registrationDialog = CustomDialog(requireContext())
         registrationDialog.setContentView(dialogRegistrationDetailsBinding.root)
 
         dialogPendingPayment = DialogPendingPaymentBinding.inflate(layoutInflater)
@@ -130,7 +130,7 @@ class BookingjourneyFragment : BaseFragment() {
         pendingPaymentDialog.setContentView(dialogPendingPayment.root)
 
         dialogHandoverDetailsBinding = DialogHandoverDetailsBinding.inflate(layoutInflater)
-        handoverDialog = Dialog(requireContext())
+        handoverDialog = CustomDialog(requireContext())
         handoverDialog.setContentView(dialogHandoverDetailsBinding.root)
 
         dialogPendingPayment.actionOkay.setOnClickListener {
@@ -231,7 +231,7 @@ class BookingjourneyFragment : BaseFragment() {
                         dialogPendingPayment.tvMilestoneName.text = payment.paymentMilestone
                         dialogPendingPayment.tvDueDate.text =
                             "Due date: ${Utility.parseDateFromUtc(payment.targetDate)}"
-                        pendingPaymentDialog.showDialog()
+                        pendingPaymentDialog.show()
 
                     }
 

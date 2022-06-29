@@ -81,11 +81,11 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     lateinit var dialogSecurePinBinding: DialogSecurePinBinding
     lateinit var dialogSecurePinConfirmationBinding: DailogSecurePinConfirmationBinding
 
-    lateinit var securePinDialog: Dialog
-    lateinit var securePinConfirmationDialog: Dialog
+    lateinit var securePinDialog: CustomDialog
+    lateinit var securePinConfirmationDialog: CustomDialog
 
-    lateinit var pinDialog: Dialog
-    lateinit var pinAllowD: Dialog
+    lateinit var pinDialog: CustomDialog
+    lateinit var pinAllowD: CustomDialog
     var watchList = ArrayList<Data>()
 
     private lateinit var adapter: ExistingUsersPortfolioAdapter
@@ -160,10 +160,10 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             pinDialog.show()
         }
 
-        pinDialog = Dialog(requireContext())
-        pinAllowD = Dialog(requireContext())
-        securePinDialog = Dialog(requireContext())
-        securePinConfirmationDialog = Dialog(requireContext())
+        pinDialog = CustomDialog(requireContext())
+        pinAllowD = CustomDialog(requireContext())
+        securePinDialog = CustomDialog(requireContext())
+        securePinConfirmationDialog = CustomDialog(requireContext())
 
         pinDialog.setContentView(pinPermissonDialog.root)
         pinDialog.setCancelable(false)
