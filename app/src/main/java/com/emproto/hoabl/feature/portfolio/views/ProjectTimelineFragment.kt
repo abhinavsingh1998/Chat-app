@@ -77,8 +77,8 @@ class ProjectTimelineFragment : BaseFragment() {
                     it.data?.let {
                         val timelineList = ArrayList<TimelineModel>()
                         val timelineHeaderData = TimelineHeaderData(
-                            it.data.launchName,
-                            it.data.address.city + " , " + it.data.address.state,
+                            it.data.projectContent.launchName,
+                            it.data.projectContent.address.city + " , " + it.data.projectContent.address.state,
                             ""
                         )
                         timelineList.add(
@@ -87,9 +87,9 @@ class ProjectTimelineFragment : BaseFragment() {
                                 timelineHeaderData
                             )
                         )
-                        for (item in it.data.projectTimelines) {
+                        for (item in it.data.projectContent.projectTimelines) {
                             if (item.timeLineSectionHeading == "Project Registration") {
-                                item.reraDetails = it.data.reraDetails
+                                item.reraDetails = it.data.projectContent.reraDetails
                                 timelineList.add(TimelineModel(TimelineAdapter.TYPE_RERA, item))
                             } else
                                 timelineList.add(TimelineModel(TimelineAdapter.TYPE_LIST, item))

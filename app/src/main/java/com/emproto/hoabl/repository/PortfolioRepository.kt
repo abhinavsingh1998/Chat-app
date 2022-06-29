@@ -202,7 +202,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
 
     fun getProjectTimeline(id: Int): LiveData<BaseResponse<ProjectTimelineResponse>> {
 
-        if (mDocumentsResponse.value == null || mDocumentsResponse.value!!.data!!.data.id != id) {
+        if (mDocumentsResponse.value == null || mDocumentsResponse.value!!.data!!.data.projectContent.id != id) {
             mDocumentsResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
