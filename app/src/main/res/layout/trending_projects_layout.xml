@@ -45,19 +45,26 @@
             style="@style/text_style_blue_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_size_16"
-            android:background="?android:selectableItemBackground"
-            android:drawableEnd="@drawable/combined_shape"
-            android:drawablePadding="@dimen/margin_size_8"
+            android:text="@string/see_all"
             android:maxLines="1"
             android:minLines="1"
-            android:padding="@dimen/margin_size_5"
             android:singleLine="true"
-            android:text="@string/see_all"
             app:fontName="@string/jost_regular"
-            app:layout_constraintBottom_toBottomOf="@id/tv_trending_projects_title"
+            android:layout_marginEnd="@dimen/margin_size_9"
+            app:layout_constraintEnd_toStartOf="@id/iv_trending_projects_see_all"
+            app:layout_constraintTop_toTopOf="@id/tv_trending_projects_title"
+            app:layout_constraintBottom_toBottomOf="@id/tv_trending_projects_title"/>
+
+        <ImageView
+            android:id="@+id/iv_trending_projects_see_all"
+            android:layout_width="@dimen/margin_size_16"
+            android:layout_height="@dimen/margin_size_9"
+            android:src="@drawable/combined_shape"
+            android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_trending_projects_title" />
+            android:layout_marginEnd="@dimen/margin_size_11"
+            app:layout_constraintTop_toTopOf="@id/tv_trending_projects_see_all"
+            app:layout_constraintBottom_toBottomOf="@id/tv_trending_projects_see_all"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_trending_projects"
