@@ -8,8 +8,7 @@
     android:layout_marginTop="@dimen/margin_size_10">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/item_card"
-        android:layout_width="match_parent"
+        android:id="@+id/home_promises_item"        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

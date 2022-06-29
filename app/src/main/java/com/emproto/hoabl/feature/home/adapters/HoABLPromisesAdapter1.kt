@@ -9,13 +9,16 @@ import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ItemHoablPromisesBinding
 import com.emproto.hoabl.databinding.ItemPromisesBinding
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
+import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.networklayer.response.home.Data
 import com.emproto.networklayer.response.home.HomePagesOrPromise
 import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
 
 class HoABLPromisesAdapter1(
     val context: Context,
+    val itemCount: Data,
     val list: List<HomePagesOrPromise>,
-    val itemInterface:PromisesItemInterface
+    val itemIntrface: ItemClickListener
 ) : RecyclerView.Adapter<HoABLPromisesAdapter1.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -33,14 +36,14 @@ class HoABLPromisesAdapter1(
             .dontAnimate()
             .into(holder.binding.image)
 
-        holder.binding.itemCard.setOnClickListener(View.OnClickListener {
-            itemInterface.onClickItem(position)
+        holder.binding.homePromisesItem.setOnClickListener(View.OnClickListener {
+            itemIntrface.onItemClicked(it, position, item.id.toString())
         })
 
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return itemCount.page.totalPromisesOnHomeScreen
     }
 
     inner class MyViewHolder(val binding: ItemHoablPromisesBinding) :

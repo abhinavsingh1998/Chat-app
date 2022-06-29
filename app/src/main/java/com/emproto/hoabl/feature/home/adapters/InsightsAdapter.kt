@@ -16,12 +16,15 @@ import com.emproto.core.Utility
 import com.emproto.core.textviews.CustomTextView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemInsightsBinding
+import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.networklayer.response.home.Data
 import com.emproto.networklayer.response.home.PageManagementOrInsight
 
 class InsightsAdapter(
     val context: Context,
+    val itemcount:Data,
     val list: List<PageManagementOrInsight>,
-    val itemIntrface: InsightsItemInterface
+    val itemIntrface: ItemClickListener
 ) : RecyclerView.Adapter<InsightsAdapter.MyViewHolder>() {
 
 
@@ -63,13 +66,13 @@ class InsightsAdapter(
         }
         holder.binding.tvVideotitle.text= item.displayTitle
 
-        holder.binding.rootView.setOnClickListener {
-            itemIntrface.onClickItem(holder.adapterPosition)
+        holder.binding.homeInsightsCard.setOnClickListener {
+            itemIntrface.onItemClicked(it, position, item.id.toString())
         }
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return itemcount.page.totalInsightsOnHomeScreen
     }
 
     inner class MyViewHolder(val binding: ItemInsightsBinding) :
