@@ -392,7 +392,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
         position: Int
     ) {
         selectImage()
-        selectedDoc = kycLists[position].documentType
+//        selectedDoc = kycLists[position].documentType
     }
 
 
@@ -523,7 +523,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
 
     override fun onUploadClick(kycUploadList: ArrayList<KycUpload>, view: View, position: Int) {
         selectImage()
-        selectedDoc = kycUploadList[position].documentType
+        selectedDoc = position
     }
 
     private fun selectImage() {
@@ -615,11 +615,11 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                                 dialog.isCancelable = false
                                 dialog.show(childFragmentManager, "submitted")
 
-                                Toast.makeText(
-                                    requireContext(),
-                                    it.message.toString(),
-                                    Toast.LENGTH_LONG
-                                ).show()
+//                                Toast.makeText(
+//                                    requireContext(),
+//                                    it.message.toString(),
+//                                    Toast.LENGTH_LONG
+//                                ).show()
                             }
                             Status.ERROR -> {
                                 binding.progressBar.hide()

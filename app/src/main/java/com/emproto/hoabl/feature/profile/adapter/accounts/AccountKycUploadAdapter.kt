@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.profile.adapter.accounts
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,9 +60,14 @@ class AccountKycUploadAdapter(
             holder.tvUploadDoc.isEnabled = false
         }
         holder.tvUploadDoc.setOnClickListener {
+            Log.d("RRRR",newList[position].name.toString())
             when{
                 newList[position].status == "UPLOAD" -> {
-                    mListener.onUploadClick(newList, it, position)
+                    if(newList[position].documentName == "Address Proof"){
+                        mListener.onUploadClick(newList, it, 200110)
+                    }else if(newList[position].documentName == "PAN Card"){
+                        mListener.onUploadClick(newList, it, 200109)
+                    }
                 }
                 newList[position].status == "View" -> {
 
