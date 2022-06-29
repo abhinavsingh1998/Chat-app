@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
@@ -19,6 +20,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ReferralDialogBinding
 import com.emproto.hoabl.databinding.ReferralSuccessDialogBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.portfolio.views.CustomDialog
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.request.refernow.ReferalRequest
@@ -36,7 +38,7 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
     var name = ""
     var hCountryCode = ""
 
-    val num_patterns  = Pattern.compile("^(0|[1-9][0-9]*)\$")
+    val num_patterns = Pattern.compile("^(0|[1-9][0-9]*)\$")
 
 
     @Inject
@@ -51,12 +53,19 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
 
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
+        val window = dialog!!.getWindow()
+        window!!.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+        window.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND)
+        window.setDimAmount(0.9F)
 
         initClickListner()
 
-
         return mBinding.root
     }
+
 
     override fun onClick(p0: View?) {
 
@@ -80,7 +89,6 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
                 }
 
 
-
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -99,7 +107,7 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
                 } else {
                     selected_state()
                 }
-                mBinding.errorTxt.isVisible= false
+                mBinding.errorTxt.isVisible = false
 
             }
 
@@ -117,9 +125,9 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
 
             val referRequest = ReferalRequest(name, mobileNo)
 
-            if (mobileNo.length!=10 || !mobileNo.ValidNO()) {
+            if (mobileNo.length != 10 || !mobileNo.ValidNO()) {
                 mBinding.inputMobile.showError()
-                mBinding.errorTxt.isVisible= true
+                mBinding.errorTxt.isVisible = true
                 return@setOnClickListener
             }
 
@@ -127,8 +135,9 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
                 when (it.status) {
                     Status.SUCCESS -> {
 
-                        val referralDialoglayout = ReferralSuccessDialogBinding.inflate(layoutInflater)
-                        val referralDialog = Dialog(requireContext())
+                        val referralDialoglayout =
+                            ReferralSuccessDialogBinding.inflate(layoutInflater)
+                        val referralDialog = CustomDialog(requireContext())
                         referralDialog.setCancelable(false)
                         referralDialog.setContentView(referralDialoglayout.root)
 
@@ -142,7 +151,7 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
                 }
             })
         }
-        }
+    }
 
     fun CharSequence?.ValidNO() =
         num_patterns.matcher(this).matches()
@@ -157,5 +166,13 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
         mBinding.referBtn.isClickable = true
         mBinding.referBtn.isEnabled = true
         mBinding.referBtn.background = resources.getDrawable(R.drawable.button_bg)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        dialog!!.window!!.attributes = params as WindowManager.LayoutParams
     }
 }

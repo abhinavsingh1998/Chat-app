@@ -348,9 +348,8 @@ class ExistingUsersPortfolioAdapter(
     fun getToolTip(text: String): Balloon {
         val balloon = createBalloon(context) {
             setArrowSize(6)
-            setWidth(200)
+            setWidth(BalloonSizeSpec.WRAP)
             setTextSize(12F)
-            setArrowPosition(0.5f)
             setCornerRadius(4f)
             setAlpha(0.9f)
             setText(text)
