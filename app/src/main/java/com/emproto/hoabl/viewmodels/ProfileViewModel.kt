@@ -27,26 +27,40 @@ class ProfileViewModel(
 
     private var application: Application = mapplication
     private var profileRepository: ProfileRepository = mprofileRepository
+    private var paymentHistory = ArrayList<AccountsResponse.Data.PaymentHistory>()
 
     fun editUserNameProfile(editUserNameRequest: EditUserNameRequest): LiveData<BaseResponse<EditProfileResponse>> {
-        return profileRepository.editUserNameProfile(editUserNameRequest) }
-
-    fun uploadProfilePicture(file:File,fileName:String): LiveData<BaseResponse<ProfilePictureResponse>> {
-        return profileRepository.uploadProfilePicture(file,fileName)
-    }
-    fun uploadKycDocument(extension: String,file: File,  selectedDoc: String): LiveData<BaseResponse<UploadDocumentResponse>> {
-        return profileRepository.uploadKycDocument(extension,file,selectedDoc)
+        return profileRepository.editUserNameProfile(editUserNameRequest)
     }
 
-
-    fun presignedUrl(type: String, destinationFile: File): LiveData<BaseResponse<PresignedUrlResponse>> {
-        return profileRepository.presignedUrl(type,destinationFile)
+    fun uploadProfilePicture(
+        file: File,
+        fileName: String
+    ): LiveData<BaseResponse<ProfilePictureResponse>> {
+        return profileRepository.uploadProfilePicture(file, fileName)
     }
 
-    fun deleteProfilePicture():LiveData<BaseResponse<EditProfileResponse>>{
+    fun uploadKycDocument(
+        extension: String,
+        file: File,
+        selectedDoc: String
+    ): LiveData<BaseResponse<UploadDocumentResponse>> {
+        return profileRepository.uploadKycDocument(extension, file, selectedDoc)
+    }
+
+
+    fun presignedUrl(
+        type: String,
+        destinationFile: File
+    ): LiveData<BaseResponse<PresignedUrlResponse>> {
+        return profileRepository.presignedUrl(type, destinationFile)
+    }
+
+    fun deleteProfilePicture(): LiveData<BaseResponse<EditProfileResponse>> {
         return profileRepository.deleteProfilePicture()
     }
-    fun deleteProfileImage(destinationFileName: String):LiveData<BaseResponse<EditProfileResponse>>{
+
+    fun deleteProfileImage(destinationFileName: String): LiveData<BaseResponse<EditProfileResponse>> {
         return profileRepository.deleteProfileImage(destinationFileName)
     }
 
@@ -58,15 +72,18 @@ class ProfileViewModel(
         return profileRepository.getUserProfile()
     }
 
-    fun getStates(countryIsoCode:String):LiveData<BaseResponse<StatesResponse>>{
+    fun getStates(countryIsoCode: String): LiveData<BaseResponse<StatesResponse>> {
         return profileRepository.getStates(countryIsoCode)
     }
 
-    fun getCities(stateIsoCode:String,countryIsoCode: String):LiveData<BaseResponse<CitiesResponse>>{
-        return profileRepository.getCities(stateIsoCode,countryIsoCode)
+    fun getCities(
+        stateIsoCode: String,
+        countryIsoCode: String
+    ): LiveData<BaseResponse<CitiesResponse>> {
+        return profileRepository.getCities(stateIsoCode, countryIsoCode)
     }
 
-    fun getPrivacyAndPolicy(pageType: Int):LiveData<BaseResponse<TermsConditionResponse>>{
+    fun getPrivacyAndPolicy(pageType: Int): LiveData<BaseResponse<TermsConditionResponse>> {
         return mprofileRepository.getPrivacyAndPolicy(pageType)
     }
 
@@ -74,7 +91,7 @@ class ProfileViewModel(
         return mprofileRepository.submitFeedback(feedBackRequest)
     }
 
-    fun getAboutHoabl(pageType: Int): LiveData<BaseResponse<ProflieResponse>>{
+    fun getAboutHoabl(pageType: Int): LiveData<BaseResponse<ProflieResponse>> {
         return mprofileRepository.getAboutHoaBl(pageType)
     }
 
@@ -94,7 +111,7 @@ class ProfileViewModel(
         return profileRepository.getGeneralFaqs(categoryType)
     }
 
-    fun getAllProjects(refresh: Boolean): LiveData<BaseResponse<AllProjectsResponse>>{
+    fun getAllProjects(refresh: Boolean): LiveData<BaseResponse<AllProjectsResponse>> {
         return profileRepository.getAllProjects(refresh)
     }
 
@@ -104,6 +121,14 @@ class ProfileViewModel(
 
     fun getFacilityManagment(): LiveData<BaseResponse<FMResponse>> {
         return profileRepository.getFacilitymanagment()
+    }
+
+    fun savePaymentHistory(payment: List<AccountsResponse.Data.PaymentHistory>) {
+        paymentHistory.addAll(payment)
+    }
+
+    fun getAllPayment(): ArrayList<AccountsResponse.Data.PaymentHistory> {
+        return paymentHistory
     }
 }
 

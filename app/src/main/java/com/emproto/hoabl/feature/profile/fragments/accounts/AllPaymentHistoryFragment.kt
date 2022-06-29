@@ -23,7 +23,9 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.portfolio.views.DocViewerFragment
 import com.emproto.hoabl.feature.profile.adapter.accounts.AllPaymentHistoryAdapter
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
+import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
+import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.AccountsResponse
 import java.util.*
@@ -35,6 +37,11 @@ class AllPaymentHistoryFragment : Fragment(),
     @Inject
     lateinit var portfolioFactory: PortfolioFactory
     lateinit var portfolioviewmodel: PortfolioViewModel
+    lateinit var profileViewModel: ProfileViewModel
+
+    @Inject
+    lateinit var profileFactory: ProfileFactory
+
 
     lateinit var binding: FragmentPaymentHistoryBinding
     private var isReadPermissonGranted: Boolean = false
@@ -51,8 +58,12 @@ class AllPaymentHistoryFragment : Fragment(),
         binding = FragmentPaymentHistoryBinding.inflate(inflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
 
-        portfolioviewmodel = ViewModelProvider(requireActivity(), portfolioFactory)[PortfolioViewModel::class.java]
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible = true
+        portfolioviewmodel =
+            ViewModelProvider(requireActivity(), portfolioFactory)[PortfolioViewModel::class.java]
+        profileViewModel =
+            ViewModelProvider(requireActivity(), profileFactory)[ProfileViewModel::class.java]
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
+            true
         initClickListener()
         (requireActivity() as HomeActivity).hideBottomNavigation()
         return binding.root
@@ -60,11 +71,13 @@ class AllPaymentHistoryFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var allPaymentList = arguments?.getSerializable("accountResponse") as ArrayList<AccountsResponse.Data.PaymentHistory>
+        var allPaymentList = profileViewModel.getAllPayment()
         binding.rvAllPaymentHistory.layoutManager =
             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-        binding.rvAllPaymentHistory.adapter = AllPaymentHistoryAdapter(context,
-            allPaymentList,this)
+        binding.rvAllPaymentHistory.adapter = AllPaymentHistoryAdapter(
+            context,
+            allPaymentList, this
+        )
     }
 
     private fun initClickListener() {
@@ -169,7 +182,6 @@ class AllPaymentHistoryFragment : Fragment(),
 
 
     }
-
 
 
 }
