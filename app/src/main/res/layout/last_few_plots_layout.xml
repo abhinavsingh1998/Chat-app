@@ -49,12 +49,12 @@
             android:singleLine="true"
             app:fontName="@string/jost_regular"
             android:layout_marginEnd="@dimen/margin_size_9"
-            app:layout_constraintEnd_toStartOf="@id/iv_new_launch_see_all"
+            app:layout_constraintEnd_toStartOf="@id/iv_smart_deals_see_all"
             app:layout_constraintTop_toTopOf="@id/tv_smart_deals_title"
             app:layout_constraintBottom_toBottomOf="@id/tv_smart_deals_title"/>
 
         <ImageView
-            android:id="@+id/iv_new_launch_see_all"
+            android:id="@+id/iv_smart_deals_see_all"
             android:layout_width="@dimen/margin_size_16"
             android:layout_height="@dimen/margin_size_9"
             android:src="@drawable/combined_shape"
