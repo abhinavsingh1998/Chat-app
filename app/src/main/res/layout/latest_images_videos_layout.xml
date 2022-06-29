@@ -47,6 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_size_17"
         android:src="@drawable/rightarrow"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/tv_last_updated"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_latest_images_videos" />
@@ -58,6 +59,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_size_8"
         android:background="?android:selectableItemBackground"
+        android:drawableRight="@drawable/rightarrow"
+        android:drawablePadding="@dimen/margin_size_8"
         android:fontFamily="@font/jost_regular"
         android:padding="@dimen/margin_size_5"
         android:text="@string/see_all"

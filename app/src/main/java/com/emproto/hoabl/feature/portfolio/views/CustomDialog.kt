@@ -11,8 +11,8 @@ class CustomDialog(context: Context) : Dialog(context) {
 
     }
 
-    fun showDialog(){
-        this.show()
+    override fun show() {
+        super.show()
         val window = this.getWindow()
         window!!.setLayout(
             ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -20,5 +20,6 @@ class CustomDialog(context: Context) : Dialog(context) {
         )
         window.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND)
         window.setDimAmount(0.9F)
+
     }
 }

@@ -12,9 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_size_13"
         android:layout_marginTop="@dimen/margin_size_24"
-        android:textSize="@dimen/text_size_18"
         android:fontFamily="@font/jost_medium"
         android:text="@string/faq_text"
+        android:textSize="@dimen/text_size_18"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +25,7 @@
         android:layout_height="9dp"
         android:layout_marginEnd="@dimen/margin_size_11"
         android:src="@drawable/combined_shape"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/tv_faq_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_faq_title" />
@@ -37,6 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_size_8"
         android:background="?android:selectableItemBackground"
+        android:drawableRight="@drawable/rightarrow"
+        android:drawablePadding="@dimen/margin_size_8"
         android:fontFamily="@font/jost_regular"
         android:padding="@dimen/margin_size_5"
         android:text="@string/read_all"
