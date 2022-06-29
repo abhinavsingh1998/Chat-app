@@ -249,12 +249,12 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 it.data.projectInformation.latestMediaGalleryOrProjectContent[0]
             )
         )
-//        list.add(
-//            RecyclerViewItem(
-//                PortfolioSpecificViewAdapter.PORTFOLIO_PROMISES,
-//                it.data.projectPromises
-//            )
-//        )
+        list.add(
+            RecyclerViewItem(
+                PortfolioSpecificViewAdapter.PORTFOLIO_PROMISES,
+                it.data.projectPromises
+            )
+        )
         list.add(
             RecyclerViewItem(
                 PortfolioSpecificViewAdapter.PORTFOLIO_GRAPH,

@@ -201,11 +201,11 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                                             "PAN Card",
                                             "",
                                             "",
-                                            "",id,
+                                            "", id,
                                             "Upload",
                                             "",
                                             "",
-                                            "","",""
+                                            "", "", ""
                                         )
                                     )
                                 }
@@ -224,7 +224,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                                             "Upload",
                                             "",
                                             "",
-                                            "","",""
+                                            "", "", ""
                                         )
                                     )
                                 }
@@ -253,7 +253,8 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                             binding.tvSeeAllDocuments.visibility = View.GONE
                             binding.cvNoDoc.visibility = View.VISIBLE
 
-                            var layout:RecyclerView = requireActivity().findViewById(R.id.rvDocuments);
+                            var layout: RecyclerView =
+                                requireActivity().findViewById(R.id.rvDocuments);
                             var params: ViewGroup.LayoutParams = layout.layoutParams;
                             params.height = 200;
                             params.width = 100;
@@ -314,22 +315,9 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
         binding.backAction.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
 
         binding.tvSeeAllPayment.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putSerializable(
-                "accountResponse",
-                allPaymentList
-            )
+            profileViewModel.savePaymentHistory(allPaymentList)
             val allPaymentHistoryFragment = AllPaymentHistoryFragment()
-            allPaymentHistoryFragment.arguments = bundle
-            (requireActivity() as HomeActivity).replaceFragment(
-                allPaymentHistoryFragment.javaClass,
-                "",
-                true,
-                bundle,
-                null,
-                0,
-                false
-            )
+            (requireActivity() as HomeActivity).addFragment(allPaymentHistoryFragment, false)
         }
         binding.tvSeeAllDocuments.setOnClickListener {
             docsBottomSheet.show()
