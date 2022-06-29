@@ -40,6 +40,10 @@ class InvestmentViewModel(
     private var mediaPos = MutableLiveData<Int>()
     private var watchListId = MutableLiveData<Int>()
     private var faqPosition = MutableLiveData<Int>()
+    private var isImageActive = MutableLiveData<Boolean>()
+    private var isVideoActive = MutableLiveData<Boolean>()
+    private var isDroneActive = MutableLiveData<Boolean>()
+    private var isThreeSixtyActive = MutableLiveData<Boolean>()
 
     fun getInvestments(pageType: Int): LiveData<BaseResponse<InvestmentResponse>> {
         return investmentRepository.getInvestments(pageType)
@@ -251,6 +255,38 @@ class InvestmentViewModel(
 
     fun getFaqPosition(): LiveData<Int> {
         return faqPosition
+    }
+
+    fun setImageActive(isImageActive:Boolean) {
+        this.isImageActive.postValue(isImageActive)
+    }
+
+    fun getImageActive(): LiveData<Boolean> {
+        return isImageActive
+    }
+
+    fun setVideoActive(isVideoActive:Boolean) {
+        this.isVideoActive.postValue(isVideoActive)
+    }
+
+    fun getVideoActive(): LiveData<Boolean> {
+        return isVideoActive
+    }
+
+    fun setDroneActive(isDroneActive:Boolean) {
+        this.isDroneActive.postValue(isDroneActive)
+    }
+
+    fun getDroneActive(): LiveData<Boolean> {
+        return isDroneActive
+    }
+
+    fun setThreeSixtyActive(isThreeSixtyActive:Boolean) {
+        this.isThreeSixtyActive.postValue(isThreeSixtyActive)
+    }
+
+    fun getThreeSixtyActive(): LiveData<Boolean> {
+        return isThreeSixtyActive
     }
 
 }

@@ -10,6 +10,7 @@ import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.request.profile.ReportSecurityRequest
 import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.investment.FaqDetailResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
@@ -43,7 +44,7 @@ class ProfileViewModel(
     fun uploadKycDocument(
         extension: String,
         file: File,
-        selectedDoc: String
+        selectedDoc: Int
     ): LiveData<BaseResponse<UploadDocumentResponse>> {
         return profileRepository.uploadKycDocument(extension, file, selectedDoc)
     }
@@ -129,6 +130,14 @@ class ProfileViewModel(
 
     fun getAllPayment(): ArrayList<AccountsResponse.Data.PaymentHistory> {
         return paymentHistory
+    }
+
+    fun getAccountsList(): LiveData<BaseResponse<AccountsResponse>> {
+        return profileRepository.getAccountsList()
+    }
+
+    fun downloadDocument(path: String): LiveData<BaseResponse<DDocumentResponse>> {
+        return profileRepository.downloadDocument(path)
     }
 }
 

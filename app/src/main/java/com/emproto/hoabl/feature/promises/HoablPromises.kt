@@ -96,7 +96,7 @@ class HoablPromises : BaseFragment() {
             PromisesData(
                 HoabelPromiseAdapter.TYPE_LIST,
                 "",
-                null,
+                promisesData.page.promiseSection,
                 promisesData.homePagesOrPromises
             )
         )

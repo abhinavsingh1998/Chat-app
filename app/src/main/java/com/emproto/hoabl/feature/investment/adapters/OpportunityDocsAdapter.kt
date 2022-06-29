@@ -266,6 +266,34 @@ class OpportunityDocsAdapter(
                 }
 
             }
+            binding.ivViewMoreArrow.setOnClickListener {
+                when(isClicked){
+                    true -> {
+                        Glide
+                            .with(context)
+                            .load(R.drawable.ic_arrow_upward)
+                            .into(binding.ivViewMoreArrow)
+                        binding.tvViewMore.text = context.getString(R.string.view_less_caps)
+                        destinationAdapter = DestinationAdapter(context,data[0].tourismAround.stories)
+                        binding.rvDestination.adapter = destinationAdapter
+                        destinationAdapter.notifyDataSetChanged()
+                        isClicked = false
+                    }
+                    false -> {
+                        binding.ivViewMoreArrow.setImageResource(R.drawable.ic_drop_down)
+                        binding.tvViewMore.text = context.getString(R.string.view_more_caps)
+                        list.clear()
+                        for(i in 0..3){
+                            list.add(data[0].tourismAround.stories[i])
+                        }
+                        destinationAdapter = DestinationAdapter(context,list)
+                        binding.rvDestination.adapter = destinationAdapter
+                        destinationAdapter.notifyDataSetChanged()
+                        isClicked = true
+                    }
+                }
+
+            }
         }
     }
 

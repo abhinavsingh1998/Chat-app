@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentPhotosBinding
@@ -83,6 +84,20 @@ class ThreeSixtyFragment:BaseFragment() {
         for(item in list1){
             allImageList.add(item)
         }
+
+        investmentViewModel.getThreeSixtyActive().observe(viewLifecycleOwner,Observer{
+            when(it){
+                true -> {
+                    binding.tvNoData.visibility = View.GONE
+                    binding.rvMainPhotos.visibility = View.VISIBLE
+                }
+                false -> {
+                    binding.tvNoData.visibility = View.VISIBLE
+                    binding.rvMainPhotos.visibility = View.GONE
+                }
+            }
+        })
+
         mediaPhotosAdapter =
             MediaPhotosAdapter(
                 this.requireContext(),

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
@@ -64,28 +65,29 @@ class PhotosFragment : BaseFragment() {
     private fun initObserver() {
         val list1 = investmentViewModel.getMediaContent().filter { it.title == "Images" }
         setUpRecyclerView(list1)
-//        investmentViewModel.getMedia().observe(viewLifecycleOwner, Observer {
-//            setUpRecyclerView(it)
-//        })
     }
 
     private fun setUpRecyclerView(list1: List<MediaViewItem>) {
         val list = ArrayList<MediaGalleryItem>()
-//        list.add(MediaGalleryItem(1, "Photos"))
         list.add(MediaGalleryItem(2, "Photos"))
 
-        val listImage = ArrayList<MediaViewItem>()
-        listImage.add(MediaViewItem("image", "https://www.gstatic.com/webp/gallery/1.jpg", id=10, title = "Images"))
-        listImage.add(MediaViewItem("image", "https://www.gstatic.com/webp/gallery/2.jpg",id=11, title = "Images"))
-        listImage.add(MediaViewItem("image", "https://www.gstatic.com/webp/gallery/1.jpg",id=12, title = "Images"))
-        listImage.add(MediaViewItem("image", "https://www.gstatic.com/webp/gallery/2.jpg",id=13, title = "Images"))
-        listImage.add(MediaViewItem("image", "https://www.gstatic.com/webp/gallery/1.jpg",id=14, title = "Images"))
-        listImage.add(MediaViewItem("image", "https://www.gstatic.com/webp/gallery/2.jpg",id=15, title = "Images"))
         allImageList.clear()
         for(item in list1){
             allImageList.add(item)
         }
-        Log.d("jshdjshds",allImageList.toString())
+        investmentViewModel.getImageActive().observe(viewLifecycleOwner,Observer{
+            when(it){
+                true -> {
+                    binding.tvNoData.visibility = View.GONE
+                    binding.rvMainPhotos.visibility = View.VISIBLE
+                }
+                false -> {
+                    binding.tvNoData.visibility = View.VISIBLE
+                    binding.rvMainPhotos.visibility = View.GONE
+                }
+            }
+        })
+
         mediaPhotosAdapter =
             MediaPhotosAdapter(
                 this.requireContext(),
@@ -106,10 +108,7 @@ class PhotosFragment : BaseFragment() {
 
     private val itemClickListener = object : MediaItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: MediaViewItem) {
-            Log.d("jdjisjd",allImageList.toString())
-//            investmentViewModel.setMediaItem(item)
             investmentViewModel.setMediaListItem(allImageList)
-//            investmentViewModel.setMediaListPosition(position)
             val mediaViewFragment = MediaViewFragment()
             val bundle = Bundle()
             bundle.putSerializable("Data", item)

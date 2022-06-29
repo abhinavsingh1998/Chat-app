@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentVideosBinding
@@ -51,6 +52,18 @@ class DroneFragment:BaseFragment() {
         for(item in medialist){
             videoList.add(item.media)
         }
+        investmentViewModel.getDroneActive().observe(viewLifecycleOwner,Observer{
+            when(it){
+                true -> {
+                    binding.tvNoData.visibility = View.GONE
+                    binding.rvMainVideos.visibility = View.VISIBLE
+                }
+                false -> {
+                    binding.tvNoData.visibility = View.VISIBLE
+                    binding.rvMainVideos.visibility = View.GONE
+                }
+            }
+        })
         mediaPhotosAdapter =
             MediaPhotosAdapter(
                 this.requireContext(),
