@@ -336,6 +336,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_btn_discover"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/all_corner_radius_black_bg"

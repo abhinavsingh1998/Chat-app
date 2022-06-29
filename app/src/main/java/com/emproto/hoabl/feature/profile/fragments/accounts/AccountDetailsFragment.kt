@@ -66,6 +66,7 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 
 class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClickListener,
@@ -77,16 +78,8 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
     lateinit var kycUploadAdapter: AccountKycUploadAdapter
 
     @Inject
-    lateinit var homeFactory: HomeFactory
-    lateinit var homeViewModel: HomeViewModel
-
-    @Inject
     lateinit var profileFactory: ProfileFactory
     lateinit var profileViewModel: ProfileViewModel
-
-    @Inject
-    lateinit var portfolioFactory: PortfolioFactory
-    lateinit var portfolioviewmodel: PortfolioViewModel
 
     lateinit var binding: FragmentAccountDetailsBinding
     val bundle = Bundle()
@@ -104,13 +97,14 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
     private val PICK_GALLERY_IMAGE = 1
     lateinit var bitmap: Bitmap
 
-    lateinit var selectedDoc: String
+    var selectedDoc = 0
     val kycUploadList = ArrayList<KycUpload>()
     private var isReadPermissonGranted: Boolean = false
     private var isWritePermissonGranted: Boolean = false
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private val permissionRequest: MutableList<String> = ArrayList()
     var base64Data: String = ""
+    var status = ""
 
 
     override fun onCreateView(
@@ -119,11 +113,6 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
         binding = FragmentAccountDetailsBinding.inflate(inflater, container, false)
 
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
-        homeViewModel =
-            ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
-
-        portfolioviewmodel =
-            ViewModelProvider(requireActivity(), portfolioFactory)[PortfolioViewModel::class.java]
 
         profileViewModel =
             ViewModelProvider(requireActivity(), profileFactory)[ProfileViewModel::class.java]
@@ -162,92 +151,139 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        homeViewModel.getAccountsList().observe(viewLifecycleOwner, Observer {
+        profileViewModel.getAccountsList().observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
                 }
                 Status.SUCCESS -> {
                     binding.progressBar.hide()
+
                     if (it.data?.data!!.documents != null && it.data!!.data.documents is List<AccountsResponse.Data.Document>) {
-                        allKycDocList =
-                            it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>
+                        allKycDocList = it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>
                         kycLists = ArrayList<AccountsResponse.Data.Document>()
                         val documentList = ArrayList<AccountsResponse.Data.Document>()
                         for (document in allKycDocList) {
-                            if (document.documentCategory == "100100") {
+                            if (document.documentCategory == 100100) {
                                 kycLists.add(document)
                             } else {
                                 documentList.add(document)
                             }
                         }
-                        if (kycLists.isNullOrEmpty()) {
-                            kycUploadList.add(KycUpload("Address Proof", "UPLOAD"))
-                            kycUploadList.add(KycUpload("PAN Card", "UPLOAD"))
-                            kycUploadAdapter = AccountKycUploadAdapter(
-                                context,
-                                kycUploadList, this
-                            )
-                            binding.rvKyc.layoutManager =
-                                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-                            binding.rvKyc.adapter = kycUploadAdapter
-                        } else if (kycLists.size == 1) {
-                            for (document in kycLists) {
-                                if (document.documentCategory == "KYC" && document.documentType == "Unverified Address Proof") {
-                                    kycLists.add(
-                                        AccountsResponse.Data.Document(
-                                            "",
-                                            "KYC",
-                                            "PAN Card",
-                                            "",
-                                            "",
-                                            "", id,
-                                            "Upload",
-                                            "",
-                                            "",
-                                            "", "", ""
-                                        )
-                                    )
-                                }
-                                kycLists.add(document)
-
-                                if (document.documentType == "Unverified PAN Card") {
-                                    kycLists.add(
-                                        AccountsResponse.Data.Document(
-                                            "",
-                                            "KYC",
-                                            "Address Proof",
-                                            "",
-                                            "",
-                                            "",
-                                            id,
-                                            "Upload",
-                                            "",
-                                            "",
-                                            "", "", ""
-                                        )
-                                    )
-                                }
-                                kycLists.add(document)
-
+                        when  {
+                            kycLists.isNullOrEmpty() -> {
+                                kycUploadList.add(KycUpload("Address Proof", documentCategory = 100100, documentType = 200101,"UPLOAD"))
+                                kycUploadList.add(KycUpload("PAN Card", documentCategory = 100100, documentType = 200100, "UPLOAD"))
+                                kycUploadAdapter = AccountKycUploadAdapter(
+                                    context,
+                                    kycUploadList, this,viewListener
+                                )
+                                binding.rvKyc.adapter = kycUploadAdapter
                             }
-
-                            binding.rvKyc.layoutManager =
-                                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-                            binding.rvKyc.adapter = AccountsKycListAdapter(
-                                context,
-                                kycLists,
-                                this
-                            )
-                        } else {
-                            binding.rvKyc.layoutManager =
-                                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-                            binding.rvKyc.adapter = AccountsKycListAdapter(
-                                context,
-                                kycLists,
-                                this
-                            )
+                            else -> {
+                                kycUploadList.clear()
+                                for(item in kycLists){
+                                    val name = when(item.documentType){
+                                        200101 -> {
+                                            "Address Proof"
+                                        }
+                                        else -> {
+                                            "PAN Card"
+                                        }
+                                    }
+                                    when(name){
+                                        "Address Proof" -> {
+                                            if(item.documentType == 200101){
+                                                status = "View"
+                                            }else if(item.documentType == 200110){
+                                                status = "Verification Pending"
+                                            }
+                                        }
+                                        "PAN Card" -> {
+                                            if(item.documentType == 200100){
+                                                status = "View"
+                                            }else if(item.documentType == 200109){
+                                                status = "Verification Pending"
+                                            }
+                                        }
+                                    }
+                                    kycUploadList.add(KycUpload(name, documentCategory = item.documentCategory, documentType = item.documentType, status = status, path = item.path,name = item.name ))
+                                }
+                                when(kycLists.size){
+                                    1 -> {
+                                        if(kycLists[0].documentType == 200101){
+                                            val kycItem = KycUpload("PAN Card", documentCategory = 100100, documentType = 200100, status = "UPLOAD" )
+                                            kycUploadList.add(kycItem)
+                                        }else{
+                                            val kycItem = KycUpload("Address Proof", documentCategory = 100100, documentType = 200101, status = "UPLOAD" )
+                                            kycUploadList.add(kycItem)
+                                        }
+                                    }
+                                }
+                                kycUploadAdapter = AccountKycUploadAdapter(
+                                    context,
+                                    kycUploadList, this,viewListener
+                                )
+                                binding.rvKyc.adapter = kycUploadAdapter
+                            }
                         }
+//                        else if (kycLists.size == 1) {
+//                            for (document in kycLists) {
+//                                if (document.documentCategory == "KYC" && document.documentType == "Unverified Address Proof") {
+//                                    kycLists.add(
+//                                        AccountsResponse.Data.Document(
+//                                            "",
+//                                            "KYC",
+//                                            "PAN Card",
+//                                            "",
+//                                            "",
+//                                            "", id,
+//                                            "Upload",
+//                                            "",
+//                                            "",
+//                                            "", "", ""
+//                                        )
+//                                    )
+//                                }
+//                                kycLists.add(document)
+//
+//                                if (document.documentType == "Unverified PAN Card") {
+//                                    kycLists.add(
+//                                        AccountsResponse.Data.Document(
+//                                            "",
+//                                            "KYC",
+//                                            "Address Proof",
+//                                            "",
+//                                            "",
+//                                            "",
+//                                            id,
+//                                            "Upload",
+//                                            "",
+//                                            "",
+//                                            "", "", ""
+//                                        )
+//                                    )
+//                                }
+//                                kycLists.add(document)
+//
+//                            }
+//
+//                            binding.rvKyc.layoutManager =
+//                                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+//                            binding.rvKyc.adapter = AccountsKycListAdapter(
+//                                context,
+//                                kycLists,
+//                                this
+//                            )
+//                        } else {
+//                            binding.rvKyc.layoutManager =
+//                                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+//                            binding.rvKyc.adapter = AccountsKycListAdapter(
+//                                context,
+//                                kycLists,
+//                                this
+//                            )
+//                        }
                         if (documentList.isNullOrEmpty()) {
                             binding.rvDocuments.visibility = View.INVISIBLE
                             binding.tvSeeAllDocuments.visibility = View.GONE
@@ -310,6 +346,18 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
 
     }
 
+    val viewListener = object:AccountKycUploadAdapter.OnKycItemClickListener{
+        override fun onAccountsKycItemClick(
+            accountsDocumentList: ArrayList<KycUpload>,
+            view: View,
+            position: Int,
+            name: String,
+            path: String?
+        ) {
+            openDocumentScreen(name, path.toString())
+        }
+
+    }
 
     private fun initClickListener() {
         binding.backAction.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
@@ -335,7 +383,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
         name: String,
         path: String?
     ) {
-        openDocumentScreen(name, path.toString())
+//        openDocumentScreen(name, path.toString())
     }
 
     override fun onUploadClickItem(
@@ -382,14 +430,15 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
 
     private fun openDocument(name: String, path: String) {
         (requireActivity() as HomeActivity).addFragment(
-            DocViewerFragment.newInstance(true, "Test.ong"),
+            DocViewerFragment.newInstance(true, name,path),
             false
         )
     }
 
     private fun openDocumentScreen(name: String, path: String) {
+        Log.d("rtyy","name= ${name},path= ${path}")
         val strings = name.split(".")
-        if (strings.size > 0) {
+        if (strings.size > 1) {
             if (strings[1] == "png" || strings[1] == "jpg") {
                 //open image loading screen
                 openDocument(name, path)
@@ -404,7 +453,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
     }
 
     fun getDocumentData(path: String) {
-        portfolioviewmodel.downloadDocument(path)
+        profileViewModel.downloadDocument(path)
             .observe(viewLifecycleOwner,
                 androidx.lifecycle.Observer {
                     when (it.status) {
@@ -474,7 +523,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
 
     override fun onUploadClick(kycUploadList: ArrayList<KycUpload>, view: View, position: Int) {
         selectImage()
-        selectedDoc = kycUploadList[position].documentName
+        selectedDoc = kycUploadList[position].documentType
     }
 
     private fun selectImage() {
@@ -557,7 +606,7 @@ class AccountDetailsFragment : Fragment(), AccountsKycListAdapter.OnKycItemClick
                             Status.SUCCESS -> {
                                 binding.progressBar.hide()
                                 kycUploadList.forEach {
-                                    if (it.documentName == selectedDoc) {
+                                    if (it.documentType == selectedDoc) {
                                         it.status = "VERIFICATION"
                                     }
                                 }

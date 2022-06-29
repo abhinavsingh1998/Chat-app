@@ -73,7 +73,7 @@ class InvestmentFragment : BaseFragment() {
                     investmentViewModel.setProjectId(newInvestmentsList[0].id)
                     navigateToSkuScreen(newInvestmentsList[0].id)
                 }
-                R.id.btn_discover -> {
+                R.id.cl_btn_discover -> {
                     callProjectContentAPi()
                 }
                 R.id.iv_dont_miss_image -> {

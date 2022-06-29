@@ -161,15 +161,15 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         })
 
         Handler().postDelayed({
-            binding.cvSearch.visibility = View.VISIBLE
+            binding.cvBackButton.visibility = View.VISIBLE
             binding.mapLocationBottomSheet.clMapBottomSheet.visibility = View.VISIBLE
             val anim = AnimationUtils.loadAnimation(this.requireContext(),R.anim.balloon_fade_in)
             anim.duration = 3000
             binding.mapLocationBottomSheet.clMapBottomSheet.startAnimation(anim)
-            binding.cvSearch.startAnimation(anim)
+//            binding.cvBackButton.startAnimation(anim)
                               }, 2000)
 
-        binding.ivBackImage.setOnClickListener {
+        binding.cvBackButton.setOnClickListener {
             (requireActivity() as HomeActivity).onBackPressed()
         }
     }

@@ -46,14 +46,13 @@ class AccountsKycListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(accountsKycList[position].documentType=="200100"){
+        if(accountsKycList[position].documentType==200100){
             holder.tvDocName.text="PAN Card"
         }
-        else if(accountsKycList[position].documentType=="200101"){
+        else if(accountsKycList[position].documentType==200101){
             holder.tvDocName.text="Address Proof"
         }
         if (accountsKycList[position].status == "Upload") {
-            binding.tvDocName.text == accountsKycList[position].documentType
             holder.tvViewDoc.text = "Upload"
         }
         if (holder.tvViewDoc.text == "Upload") {
@@ -68,38 +67,38 @@ class AccountsKycListAdapter(
 
         }
 
-        when (accountsKycList[position].documentType) {
-            "Unverified Address Proof" -> {
-                binding.tvDocName.text = "Address Proof"
-                binding.tvViewDoc.text = "Verification Pending"
-                holder.tvViewDoc.isEnabled = false
-            }
-            "Unverified PAN Card" -> {
-                binding.tvDocName.text = "PAN Card"
-                binding.tvViewDoc.text = "Verification Pending"
-                holder.tvViewDoc.isEnabled = false
-            }
-
-
-            else -> {
-                binding.tvViewDoc.text = "View"
-                holder.tvViewDoc.setOnClickListener {
-                    if (accountsKycList[position] == null) {
-                        Toast.makeText(mContext, "No Document available", Toast.LENGTH_SHORT).show()
-                    } else {
-                        mListener.onAccountsKycItemClick(
-                            accountsKycList,
-                            it,
-                            position,
-                            accountsKycList[position].name,
-                            accountsKycList[position].path
-                        )
-
-                    }
-                }
-
-            }
-        }
+//        when (accountsKycList[position].documentType) {
+//            "Unverified Address Proof" -> {
+//                binding.tvDocName.text = "Address Proof"
+//                binding.tvViewDoc.text = "Verification Pending"
+//                holder.tvViewDoc.isEnabled = false
+//            }
+//            "Unverified PAN Card" -> {
+//                binding.tvDocName.text = "PAN Card"
+//                binding.tvViewDoc.text = "Verification Pending"
+//                holder.tvViewDoc.isEnabled = false
+//            }
+//
+//
+//            else -> {
+//                binding.tvViewDoc.text = "View"
+//                holder.tvViewDoc.setOnClickListener {
+//                    if (accountsKycList[position] == null) {
+//                        Toast.makeText(mContext, "No Document available", Toast.LENGTH_SHORT).show()
+//                    } else {
+//                        mListener.onAccountsKycItemClick(
+//                            accountsKycList,
+//                            it,
+//                            position,
+//                            accountsKycList[position].name,
+//                            accountsKycList[position].path
+//                        )
+//
+//                    }
+//                }
+//
+//            }
+//        }
 
 
     }

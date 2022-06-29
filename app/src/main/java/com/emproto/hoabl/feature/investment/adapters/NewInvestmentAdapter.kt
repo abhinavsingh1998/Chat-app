@@ -115,7 +115,7 @@ class NewInvestmentAdapter(
             binding.clPlaceInfo.setOnClickListener(onItemClickListener)
             binding.tvApplyNow.setOnClickListener(onItemClickListener)
             binding.ivDontMissImage.setOnClickListener(onItemClickListener)
-            binding.btnDiscover.setOnClickListener(onItemClickListener)
+            binding.clBtnDiscover.setOnClickListener(onItemClickListener)
         }
     }
 

@@ -28,9 +28,9 @@ data class AccountsResponse(
             @SerializedName("crmLaunchPhaseId")
             val crmLaunchPhaseId: String,
             @SerializedName("documentCategory")
-            val documentCategory: String,
+            val documentCategory: Int,
             @SerializedName("documentType")
-            val documentType: String,
+            val documentType: Int,
             @SerializedName("id")
             val id: Int,
             @SerializedName("status")

@@ -47,6 +47,9 @@ class CategoryListAdapter(
                     binding.tvApplyNowCategory.setOnClickListener {
                         clickListener.onItemClicked(view, 1, element.id.toString())
                     }
+                    binding.ivApplyNowCategory.setOnClickListener {
+                        clickListener.onItemClicked(view, 1, element.id.toString())
+                    }
                     binding.apply {
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom.toDouble() / 100000
@@ -66,6 +69,9 @@ class CategoryListAdapter(
                         clickListener.onItemClicked(view, 0, element.id.toString())
                     }
                     binding.tvApplyNowCategory.setOnClickListener {
+                        clickListener.onItemClicked(view, 1, element.id.toString())
+                    }
+                    binding.ivApplyNowCategory.setOnClickListener {
                         clickListener.onItemClicked(view, 1, element.id.toString())
                     }
                     binding.apply {
@@ -89,6 +95,9 @@ class CategoryListAdapter(
                     binding.tvApplyNowCategory.setOnClickListener {
                         clickListener.onItemClicked(view, 1, element.id.toString())
                     }
+                    binding.ivApplyNowCategory.setOnClickListener {
+                        clickListener.onItemClicked(view, 1, element.id.toString())
+                    }
                     binding.apply {
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom.toDouble() / 100000
@@ -108,6 +117,9 @@ class CategoryListAdapter(
                         clickListener.onItemClicked(view, 0, element.id.toString())
                     }
                     binding.tvApplyNowCategory.setOnClickListener {
+                        clickListener.onItemClicked(view, 1, element.id.toString())
+                    }
+                    binding.ivApplyNowCategory.setOnClickListener {
                         clickListener.onItemClicked(view, 1, element.id.toString())
                     }
                     binding.apply {
@@ -132,6 +144,9 @@ class CategoryListAdapter(
                     binding.tvApplyNowCategory.setOnClickListener {
                         clickListener.onItemClicked(view, 1, element.id.toString())
                     }
+                    binding.ivApplyNowCategory.setOnClickListener {
+                        clickListener.onItemClicked(view, 1, element.id.toString())
+                    }
                     binding.apply {
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom.toDouble() / 100000
@@ -151,6 +166,9 @@ class CategoryListAdapter(
                         clickListener.onItemClicked(view, 0, element.project.id.toString())
                     }
                     binding.tvApplyNowCategory.setOnClickListener {
+                        clickListener.onItemClicked(view, 1, element.project.id.toString())
+                    }
+                    binding.ivApplyNowCategory.setOnClickListener {
                         clickListener.onItemClicked(view, 1, element.project.id.toString())
                     }
                     binding.apply {
@@ -174,26 +192,7 @@ class CategoryListAdapter(
                     binding.tvApplyNowCategory.setOnClickListener {
                         clickListener.onItemClicked(view, 1, element.id.toString())
                     }
-                    binding.apply {
-                        tvProjectName.text = element.launchName
-                        val amount = element.priceStartingFrom.toDouble() / 100000
-                        val convertedAmount = amount.toString().replace(".0","")
-                        tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
-                        tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
-                        tvCategoryItemInfo.text = element.shortDescription
-                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
-                        Glide.with(context)
-                            .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
-                            .into(ivCategoryImage)
-                    }
-                }
-
-                SIMILAR_INVESTMENT_NI -> {
-                    val element = list[position] as com.emproto.networklayer.response.investment.SimilarInvestment
-                    binding.cvCategoryOuterCard.setOnClickListener {
-                        clickListener.onItemClicked(view, 0, element.id.toString())
-                    }
-                    binding.tvApplyNowCategory.setOnClickListener {
+                    binding.ivApplyNowCategory.setOnClickListener {
                         clickListener.onItemClicked(view, 1, element.id.toString())
                     }
                     binding.apply {
@@ -216,6 +215,34 @@ class CategoryListAdapter(
                         clickListener.onItemClicked(view, 0, element.id.toString())
                     }
                     binding.tvApplyNowCategory.setOnClickListener {
+                        clickListener.onItemClicked(view, 1, element.id.toString())
+                    }
+                    binding.ivApplyNowCategory.setOnClickListener {
+                        clickListener.onItemClicked(view, 1, element.id.toString())
+                    }
+                    binding.apply {
+                        tvProjectName.text = element.launchName
+                        val amount = element.priceStartingFrom.toDouble() / 100000
+                        val convertedAmount = amount.toString().replace(".0","")
+                        tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
+                        tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
+                        tvCategoryItemInfo.text = element.shortDescription
+                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
+                        Glide.with(context)
+                            .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                            .into(ivCategoryImage)
+                    }
+                }
+
+                SIMILAR_INVESTMENT_NI -> {
+                    val element = list[position] as com.emproto.networklayer.response.investment.SimilarInvestment
+                    binding.cvCategoryOuterCard.setOnClickListener {
+                        clickListener.onItemClicked(view, 0, element.id.toString())
+                    }
+                    binding.tvApplyNowCategory.setOnClickListener {
+                        clickListener.onItemClicked(view, 1, element.id.toString())
+                    }
+                    binding.ivApplyNowCategory.setOnClickListener {
                         clickListener.onItemClicked(view, 1, element.id.toString())
                     }
                     binding.apply {
@@ -236,6 +263,9 @@ class CategoryListAdapter(
                         clickListener.onItemClicked(view, 0, element.id.toString())
                     }
                     binding.tvApplyNowCategory.setOnClickListener {
+                        clickListener.onItemClicked(view, 1, element.id.toString())
+                    }
+                    binding.ivApplyNowCategory.setOnClickListener {
                         clickListener.onItemClicked(view, 1, element.id.toString())
                     }
                     binding.apply {

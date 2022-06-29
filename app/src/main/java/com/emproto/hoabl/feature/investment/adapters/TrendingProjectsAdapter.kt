@@ -57,6 +57,9 @@ class TrendingProjectsAdapter(val context: Context, val list: List<PageManagemen
         holder.binding.tvApplyNow.setOnClickListener {
             itemClickListener.onItemClicked(it, 3, element.id.toString())
         }
+        holder.binding.ivBottomOuterArrow.setOnClickListener {
+            itemClickListener.onItemClicked(it, 3, element.id.toString())
+        }
         holder.binding.clItemInfo.setOnClickListener {
             itemClickListener.onItemClicked(it, 4, element.id.toString())
         }

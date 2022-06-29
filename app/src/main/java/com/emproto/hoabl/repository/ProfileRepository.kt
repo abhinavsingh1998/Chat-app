@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
+import com.emproto.networklayer.feature.HomeDataSource
+import com.emproto.networklayer.feature.PortfolioDataSource
 import com.emproto.networklayer.feature.ProfileDataSource
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.request.login.TroubleSigningRequest
@@ -13,6 +15,7 @@ import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.request.profile.ReportSecurityRequest
 import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.investment.FaqDetailResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
@@ -83,7 +86,7 @@ class ProfileRepository @Inject constructor(application: Application) :
         return mUploadProfilePicture
     }
 
-    fun uploadKycDocument(extension: String,file: File,  selectedDoc: String): LiveData<BaseResponse<UploadDocumentResponse>> {
+    fun uploadKycDocument(extension: String,file: File,  selectedDoc: Int): LiveData<BaseResponse<UploadDocumentResponse>> {
         val mUploadKycDocument = MutableLiveData<BaseResponse<UploadDocumentResponse>>()
         mUploadKycDocument.postValue(BaseResponse.loading())
         coroutineScope.launch {
@@ -540,6 +543,63 @@ class ProfileRepository @Inject constructor(application: Application) :
         }
         return mDocumentsResponse
     }
+
+    fun getAccountsList(): LiveData<BaseResponse<AccountsResponse>> {
+        val mAccountsResponse = MutableLiveData<BaseResponse<AccountsResponse>>()
+        mAccountsResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = HomeDataSource(application).getAccountsList()
+                if (request.isSuccessful) {
+                    if (request.body() != null && request.body() is AccountsResponse) {
+                        mAccountsResponse.postValue(BaseResponse.success(request.body()!!))
+
+                    } else
+                        mAccountsResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mAccountsResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+
+                mAccountsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mAccountsResponse
+    }
+
+    fun downloadDocument(path: String): MutableLiveData<BaseResponse<DDocumentResponse>> {
+        val mDocumentsResponse = MutableLiveData<BaseResponse<DDocumentResponse>>()
+        mDocumentsResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = PortfolioDataSource(application).downloadDocument(path)
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mDocumentsResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mDocumentsResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mDocumentsResponse
+    }
+
 }
 
 

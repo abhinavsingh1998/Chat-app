@@ -78,6 +78,10 @@ class ProjectDetailFragment : BaseFragment() {
     private var APP_URL = "https://www.google.com/"
     private var isBookmarked = false
     private var watchListId = 0
+    private var isImagesActive = false
+    private var isVideosActive = false
+    private var isDroneActive = false
+    private var isThreeSixtyActive = false
 
     val onItemClickListener =
         View.OnClickListener { view ->
@@ -328,6 +332,10 @@ class ProjectDetailFragment : BaseFragment() {
                                     investmentViewModel.setWatchListId(item.watchlist.id)
                                 }
                             }
+                            investmentViewModel.setImageActive(data.mediaGalleryOrProjectContent[0].isImagesActive)
+                            investmentViewModel.setVideoActive(data.mediaGalleryOrProjectContent[0].isVideosActive)
+                            investmentViewModel.setDroneActive(data.mediaGalleryOrProjectContent[0].isDroneShootsActive)
+                            investmentViewModel.setThreeSixtyActive(data.mediaGalleryOrProjectContent[0].isThreeSixtyImagesActive)
                             similarInvestments = data.similarInvestments
                             inventoryList = data.inventoriesList.data
                             setUpRecyclerView(data, promiseData, inventoryList)
