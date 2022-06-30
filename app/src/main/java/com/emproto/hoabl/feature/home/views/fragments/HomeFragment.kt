@@ -57,7 +57,7 @@ class HomeFragment : BaseFragment() {
 
     private lateinit var homeAdapter: HomeAdapter
 
-    private lateinit var homeData:com.emproto.networklayer.response.home.Data
+    private lateinit var homeData: com.emproto.networklayer.response.home.Data
 
 
     val appURL = "https://hoabl.in/"
@@ -97,16 +97,16 @@ class HomeFragment : BaseFragment() {
                 override fun onChanged(it: BaseResponse<HomeResponse>?) {
                     when (it!!.status) {
                         Status.LOADING -> {
-                            binding.rootView.hide()
+                            binding.dashBoardRecyclerView.hide()
                             binding.loader.show()
 
                         }
                         Status.SUCCESS -> {
-                            binding.rootView.show()
+                            binding.dashBoardRecyclerView.show()
                             binding.loader.hide()
 
                             callfacilityManagement(it.data!!.data)
-                            homeData= it!!.data!!.data
+                            homeData = it!!.data!!.data
 
                             it.data.let {
                                 if (it != null) {
@@ -138,7 +138,7 @@ class HomeFragment : BaseFragment() {
                             (requireActivity() as HomeActivity).showErrorToast(
                                 it.message!!
                             )
-                            binding.rootView.show()
+                            binding.dashBoardRecyclerView.show()
                         }
                     }
                 }
@@ -146,7 +146,7 @@ class HomeFragment : BaseFragment() {
             })
     }
 
-    private fun callfacilityManagement(data:com.emproto.networklayer.response.home.Data){
+    private fun callfacilityManagement(data: com.emproto.networklayer.response.home.Data) {
         homeViewModel.getFacilityManagment()
             .observe(viewLifecycleOwner, Observer {
                 when (it.status) {
@@ -162,7 +162,7 @@ class HomeFragment : BaseFragment() {
 
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
-            when(view.id){
+            when (view.id) {
                 R.id.cv_top_view -> {
                     val fragment = ProjectDetailFragment()
                     val bundle = Bundle()
@@ -203,66 +203,66 @@ class HomeFragment : BaseFragment() {
                         false
                     )
                 }
-                R.id.home_latest_update_card->{
-                        val convertedData =
-                            homeData?.pageManagementOrLatestUpdates[position].toData()
-                        val list = ArrayList<Data>()
-                        for (item in homeData!!.pageManagementOrLatestUpdates) {
-                            list.add(item.toData())
-                        }
-                        homeViewModel.setLatestUpdatesData(list)
-                        homeViewModel.setSeLectedLatestUpdates(convertedData)
-                        homeViewModel.setSelectedPosition(
-                            LatesUpdatesPosition(
-                                position,
-                                homeData!!.pageManagementOrLatestUpdates.size
-                            )
-                        )
-                        (requireActivity() as HomeActivity).addFragment(
-                            LatestUpdatesDetailsFragment(),
-                            false
-                        )
+                R.id.home_latest_update_card -> {
+                    val convertedData =
+                        homeData?.pageManagementOrLatestUpdates[position].toData()
+                    val list = ArrayList<Data>()
+                    for (item in homeData!!.pageManagementOrLatestUpdates) {
+                        list.add(item.toData())
                     }
-                R.id.home_promises_item->{
-                           val data= homeData?.homePagesOrPromises[position].toHomePagesOrPromise()
-                        homeViewModel.setSelectedPromise(data)
-                        (requireActivity() as HomeActivity).addFragment(
-                            PromisesDetailsFragment(),
-                            false
+                    homeViewModel.setLatestUpdatesData(list)
+                    homeViewModel.setSeLectedLatestUpdates(convertedData)
+                    homeViewModel.setSelectedPosition(
+                        LatesUpdatesPosition(
+                            position,
+                            homeData!!.pageManagementOrLatestUpdates.size
                         )
-                    }
-                R.id.cv_facility_management_card->{
+                    )
+                    (requireActivity() as HomeActivity).addFragment(
+                        LatestUpdatesDetailsFragment(),
+                        false
+                    )
+                }
+                R.id.home_promises_item -> {
+                    val data = homeData?.homePagesOrPromises[position].toHomePagesOrPromise()
+                    homeViewModel.setSelectedPromise(data)
+                    (requireActivity() as HomeActivity).addFragment(
+                        PromisesDetailsFragment(),
+                        false
+                    )
+                }
+                R.id.cv_facility_management_card -> {
                     if (fmData != null) {
-                (requireActivity() as HomeActivity).addFragment(
-                    FmFragment.newInstance(
-                        fmData!!.data.web_url,
-                        ""
-                    ), false
-                )
-
-            } else {
-                (requireActivity() as HomeActivity).showErrorToast(
-                    "Something Went Wrong"
-                )
-            }
-        }
-                R.id.home_insights_card->{
-                        val convertedData =
-                            homeData?.pageManagementOrInsights[position].toData()
-                        val list =
-                            ArrayList<com.emproto.networklayer.response.insights.Data>()
-                        for (item in homeData?.pageManagementOrInsights) {
-                            list.add(item.toData())
-                        }
-                        homeViewModel.setInsightsData(list)
-                        homeViewModel.setSeLectedInsights(convertedData)
-
                         (requireActivity() as HomeActivity).addFragment(
-                            InsightsDetailsFragment(),
-                            false
+                            FmFragment.newInstance(
+                                fmData!!.data.web_url,
+                                ""
+                            ), false
+                        )
+
+                    } else {
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            "Something Went Wrong"
                         )
                     }
-                R.id.dont_miss_out_card->{
+                }
+                R.id.home_insights_card -> {
+                    val convertedData =
+                        homeData?.pageManagementOrInsights[position].toData()
+                    val list =
+                        ArrayList<com.emproto.networklayer.response.insights.Data>()
+                    for (item in homeData?.pageManagementOrInsights) {
+                        list.add(item.toData())
+                    }
+                    homeViewModel.setInsightsData(list)
+                    homeViewModel.setSeLectedInsights(convertedData)
+
+                    (requireActivity() as HomeActivity).addFragment(
+                        InsightsDetailsFragment(),
+                        false
+                    )
+                }
+                R.id.dont_miss_out_card -> {
                     val bundle = Bundle()
                     bundle.putInt("ProjectId", projectId)
                     val fragment = ProjectDetailFragment()
@@ -271,28 +271,28 @@ class HomeFragment : BaseFragment() {
                         fragment, false
                     )
                 }
-                R.id.tv_see_all_update->{
+                R.id.tv_see_all_update -> {
                     (requireActivity() as HomeActivity).addFragment(LatestUpdatesFragment(), false)
                 }
-                R.id.tv_seeall_insights->{
+                R.id.tv_seeall_insights -> {
                     (requireActivity() as HomeActivity).addFragment(InsightsFragment(), false)
                 }
-                R.id.tv_seeall_promise->{
+                R.id.tv_seeall_promise -> {
                     (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
 
                     Toast.makeText(requireContext(), "Hello", Toast.LENGTH_LONG).show()
 
                 }
-                R.id.tv_seeall_testimonial->{
+                R.id.tv_seeall_testimonial -> {
                     (requireActivity() as HomeActivity).addFragment(Testimonials(), false)
                 }
-                R.id.tv_viewall_investments->{
+                R.id.tv_viewall_investments -> {
                     (requireActivity() as HomeActivity).navigate(R.id.navigation_investment)
                 }
-                R.id.btn_refer_now->{
+                R.id.btn_refer_now -> {
                     referNow()
                 }
-                R.id.app_share_view->{
+                R.id.app_share_view -> {
                     share_app()
                 }
             }
@@ -300,18 +300,18 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun setParentRecycler(data:com.emproto.networklayer.response.home.Data, fmData:FMResponse){
+    private fun setParentRecycler(
+        data: com.emproto.networklayer.response.home.Data,
+        fmData: FMResponse
+    ) {
 
         val list = ArrayList<RecyclerViewItem>()
-
-        homeAdapter= HomeAdapter(requireContext(),data,list, itemClickListener )
-
+        homeAdapter = HomeAdapter(requireContext(), data, list, itemClickListener)
         linearLayoutManager = LinearLayoutManager(
             requireContext(),
             RecyclerView.VERTICAL,
             false
         )
-
         list.add(RecyclerViewItem(HomeAdapter.NEW_PROJECT))
         list.add(RecyclerViewItem(HomeAdapter.INCOMPLETED_KYC))
         list.add(RecyclerViewItem(HomeAdapter.LATEST_UPDATES))
@@ -320,15 +320,13 @@ class HomeFragment : BaseFragment() {
         list.add(RecyclerViewItem(HomeAdapter.TESTIMONIAS))
         list.add(RecyclerViewItem(HomeAdapter.SHARE_APP))
 
-        binding.dashBoardRecyclerView.adapter= homeAdapter
-        binding.dashBoardRecyclerView.layoutManager= linearLayoutManager
+        binding.dashBoardRecyclerView.adapter = homeAdapter
+        binding.dashBoardRecyclerView.layoutManager = linearLayoutManager
 
         binding.refressLayout.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
             binding.loader.show()
             initObserver(refresh = true)
-
             binding.refressLayout.isRefreshing = false
-
         })
 
     }
