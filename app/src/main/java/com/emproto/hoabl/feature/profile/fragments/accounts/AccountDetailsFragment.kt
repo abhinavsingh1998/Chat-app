@@ -550,6 +550,8 @@ class AccountDetailsFragment : Fragment(),
     }
 
     private fun onCaptureImageResult() {
+        val selectedImage = cameraFile.path
+
         destinationFile = cameraFile
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
             val extension: String = cameraFile.name.substring(cameraFile.name.lastIndexOf(".") + 1)
