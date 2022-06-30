@@ -83,7 +83,7 @@ class AccountDetailsFragment : Fragment(),
     private val PICK_GALLERY_IMAGE = 1
     lateinit var bitmap: Bitmap
 
-    var selectedDoc = 0
+    var selectedDocumentType = 0
     val kycUploadList = ArrayList<KycUpload>()
 
     private var isReadPermissonGranted: Boolean = false
@@ -183,86 +183,7 @@ class AccountDetailsFragment : Fragment(),
                             }
                             else -> {
                                 kycUploadList.clear()
-                                for (item in kycLists) {
-                                    val name = when (item.documentType) {
-                                        200101 -> {
-                                            "Address Proof"
-                                        }
-                                        200110 -> {
-                                            "Address Proof"
-                                        }
-                                        200100 -> {
-                                            "PAN Card"
-                                        }
-                                        else -> {
-                                            "PAN Card"
-                                        }
-                                    }
-                                    when (name) {
-                                        "Address Proof" -> {
-                                            if (item.documentType == 200101) {
-                                                status = "View"
-                                            } else if (item.documentType == 200110) {
-                                                status = "Verification Pending"
-                                            }
-                                        }
-                                        "PAN Card" -> {
-                                            if (item.documentType == 200100) {
-                                                status = "View"
-                                            } else if (item.documentType == 200109) {
-                                                status = "Verification Pending"
-                                            }
-                                        }
-                                    }
-                                    kycUploadList.add(
-                                        KycUpload(
-                                            name,
-                                            documentCategory = item.documentCategory,
-                                            documentType = item.documentType,
-                                            status = status,
-                                            path = item.path,
-                                            name = item.name
-                                        )
-                                    )
-                                }
-                                when (kycLists.size) {
-                                    1 -> {
-                                        if (kycLists[0].documentType == 200101) {
-                                            val kycItem = KycUpload(
-                                                "PAN Card",
-                                                documentCategory = 100100,
-                                                documentType = 200100,
-                                                status = "UPLOAD"
-                                            )
-                                            kycUploadList.add(kycItem)
-                                        } else if(kycLists[0].documentType == 200110){
-                                            val kycItem = KycUpload(
-                                                "PAN Card",
-                                                documentCategory = 100100,
-                                                documentType = 200100,
-                                                status = "UPLOAD"
-                                            )
-                                            kycUploadList.add(kycItem)
-                                        }else if(kycLists[0].documentType == 200100){
-                                            val kycItem = KycUpload(
-                                                "Address Proof",
-                                                documentCategory = 100100,
-                                                documentType = 200101,
-                                                status = "UPLOAD"
-                                            )
-                                            kycUploadList.add(kycItem)
-                                        }
-                                        else {
-                                            val kycItem = KycUpload(
-                                                "Address Proof",
-                                                documentCategory = 100100,
-                                                documentType = 200101,
-                                                status = "UPLOAD"
-                                            )
-                                            kycUploadList.add(kycItem)
-                                        }
-                                    }
-                                }
+                                kycUploadList.addAll(getKycList(kycLists))
                                 Log.i("kycupload",kycUploadList.toString())
                                 kycUploadAdapter = AccountKycUploadAdapter(
                                     context,
@@ -332,6 +253,91 @@ class AccountDetailsFragment : Fragment(),
             }
         })
 
+    }
+
+    private fun getKycList(kycLists: ArrayList<AccountsResponse.Data.Document>): Collection<KycUpload> {
+        val kycUploadList = ArrayList<KycUpload>()
+        for (item in kycLists) {
+            val name = when (item.documentType) {
+                200101 -> {
+                    "Address Proof"
+                }
+                200110 -> {
+                    "Address Proof"
+                }
+                200100 -> {
+                    "PAN Card"
+                }
+                else -> {
+                    "PAN Card"
+                }
+            }
+            when (name) {
+                "Address Proof" -> {
+                    if (item.documentType == 200101) {
+                        status = "View"
+                    } else if (item.documentType == 200110) {
+                        status = "Verification Pending"
+                    }
+                }
+                "PAN Card" -> {
+                    if (item.documentType == 200100) {
+                        status = "View"
+                    } else if (item.documentType == 200109) {
+                        status = "Verification Pending"
+                    }
+                }
+            }
+            kycUploadList.add(
+                KycUpload(
+                    name,
+                    documentCategory = item.documentCategory,
+                    documentType = item.documentType,
+                    status = status,
+                    path = item.path,
+                    name = item.name
+                )
+            )
+        }
+        when (kycLists.size) {
+            1 -> {
+                if (kycLists[0].documentType == 200101) {
+                    val kycItem = KycUpload(
+                        "PAN Card",
+                        documentCategory = 100100,
+                        documentType = 200100,
+                        status = "UPLOAD"
+                    )
+                    kycUploadList.add(kycItem)
+                } else if(kycLists[0].documentType == 200110){
+                    val kycItem = KycUpload(
+                        "PAN Card",
+                        documentCategory = 100100,
+                        documentType = 200100,
+                        status = "UPLOAD"
+                    )
+                    kycUploadList.add(kycItem)
+                }else if(kycLists[0].documentType == 200100){
+                    val kycItem = KycUpload(
+                        "Address Proof",
+                        documentCategory = 100100,
+                        documentType = 200101,
+                        status = "UPLOAD"
+                    )
+                    kycUploadList.add(kycItem)
+                }
+                else {
+                    val kycItem = KycUpload(
+                        "Address Proof",
+                        documentCategory = 100100,
+                        documentType = 200101,
+                        status = "UPLOAD"
+                    )
+                    kycUploadList.add(kycItem)
+                }
+            }
+        }
+        return kycUploadList
     }
 
     val viewListener = object : AccountKycUploadAdapter.OnKycItemClickListener {
@@ -490,10 +496,10 @@ class AccountDetailsFragment : Fragment(),
 
     }
 
-    override fun onUploadClick(kycUploadList: ArrayList<KycUpload>, view: View, position: Int) {
+    override fun onUploadClick(kycUploadList: ArrayList<KycUpload>, view: View, documentType: Int) {
         selectImage()
-        selectedDoc = position
-        Log.i("selected", selectedDoc.toString())
+        selectedDocumentType = documentType
+        Log.i("selected", selectedDocumentType.toString())
 
     }
 
@@ -566,7 +572,7 @@ class AccountDetailsFragment : Fragment(),
     }
 
     private fun callingUploadPicApi(destinationFile: File, extension: String) {
-        profileViewModel.uploadKycDocument(extension, destinationFile, selectedDoc)
+        profileViewModel.uploadKycDocument(extension, destinationFile, selectedDocumentType)
             .observe(
                 viewLifecycleOwner
             ) { it ->
@@ -577,58 +583,15 @@ class AccountDetailsFragment : Fragment(),
                     Status.SUCCESS -> {
                         binding.progressBar.hide()
                         it.data?.let {
-                            val doctype = it.data.response.data.documentType
-                            val kycNewList = ArrayList<KycUpload>()
-                            if(doctype=="200109"){
-                                val kycItem = KycUpload(
-                                    "PAN Card",
-                                    documentCategory = 100100,
-                                    documentType = doctype.toInt(),
-                                    status = "Verification Pending"
-                                )
-                                kycNewList.add(kycItem)
-                                kycUploadList.forEach {
-                                    if(it.documentName=="Address Proof"){
-                                        val kycItem = KycUpload(
-                                            it.documentName,
-                                            it.documentCategory,
-                                            it.documentType,
-                                            it.status
-                                        )
-                                        kycNewList.add(kycItem)
-                                    }
+                            kycUploadList.forEach { kycUpload ->
+                                if(kycUpload.documentType == selectedDocumentType){
+                                    kycUpload.name = it.data.response.data.name
+                                    kycUpload.path = it.data.response.data.path
+                                    kycUpload.status = "Verification Pending"
                                 }
-
                             }
+                            kycUploadAdapter.notifyDataSetChanged()
 
-                            if(doctype=="200110"){
-                                val kycItem = KycUpload(
-                                    "Address Proof",
-                                    documentCategory = 100100,
-                                    documentType = doctype.toInt(),
-                                    status = "Verification Pending"
-                                )
-                                kycNewList.add(kycItem)
-                                kycUploadList.forEach {
-                                    if(it.documentName=="PAN Card"){
-                                        val kycItem = KycUpload(
-                                            it.documentName,
-                                            it.documentCategory,
-                                            it.documentType,
-                                            it.status
-                                        )
-                                        kycNewList.add(kycItem)
-                                    }
-                                }
-
-                            }
-                            Log.i("kycNew",kycNewList.toString())
-
-                            kycUploadAdapter = AccountKycUploadAdapter(
-                                context,
-                                kycNewList, this, viewListener
-                            )
-                            binding.rvKyc.adapter = kycUploadAdapter
                             val dialog = AccountKycStatusPopUpFragment()
                             dialog.isCancelable = false
                             dialog.show(childFragmentManager, "submitted")

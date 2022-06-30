@@ -38,7 +38,7 @@ class AccountKycUploadAdapter(
         fun onUploadClick(
             newList: ArrayList<KycUpload>,
             view: View,
-            position: Int
+            documentType: Int
 
         )
     }
