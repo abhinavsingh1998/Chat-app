@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Build
 import android.os.CountDownTimer
 import android.text.SpannableStringBuilder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,7 +50,8 @@ class ProjectDetailAdapter(
     private val investmentViewModel: InvestmentViewModel,
     private val videoItemClickListener: YoutubeItemClickListener,
     private val similarInvItemClickListener: SimilarInvItemClickListener,
-    private val mapItemClickListener: MapItemClickListener
+    private val mapItemClickListener: MapItemClickListener,
+    private val projectContentsAndFaqs: List<ProjectContentsAndFaq>
 ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -195,7 +195,7 @@ class ProjectDetailAdapter(
                     }
                 }
                 Glide.with(context)
-                    .load(data.opportunityDocs[0].whyToInvestMedia.value.url)
+                    .load(data.opportunityDoc.whyToInvestMedia.value.url)
                     .into(binding.whyInvestCard)
                 tvRegistrationNumber.text = regString
                 Glide.with(context)
@@ -487,12 +487,12 @@ class ProjectDetailAdapter(
         fun bind(position: Int){
             binding.apply {
                 val list = ArrayList<ProjectAminity>()
-                if(data.opportunityDocs[0].projectAminities.size > 4){
+                if(data.opportunityDoc.projectAminities.size > 4){
                     for(i in 0..3){
-                        list.add(data.opportunityDocs[0].projectAminities[i])
+                        list.add(data.opportunityDoc.projectAminities[i])
                     }
                 }else{
-                    for(item in data.opportunityDocs[0].projectAminities){
+                    for(item in data.opportunityDoc.projectAminities){
                         list.add(item)
                     }
                 }
@@ -529,12 +529,12 @@ class ProjectDetailAdapter(
 
     private inner class ProjectFaqViewHolder(private val binding: FaqLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            val itemList = data.projectContentsAndFaqs
+            val itemList = projectContentsAndFaqs
             val list = ArrayList<ProjectContentsAndFaq>()
             when{
                 itemList.size > 2 -> {
                     for(i in 0..1){
-                        list.add(data.projectContentsAndFaqs[i])
+                        list.add(projectContentsAndFaqs[i])
                         faqAdapter = FaqQuestionAdapter(list,itemClickListener)
                     }
                 }
