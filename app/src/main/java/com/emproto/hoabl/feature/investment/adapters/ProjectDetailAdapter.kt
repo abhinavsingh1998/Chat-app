@@ -571,14 +571,14 @@ class ProjectDetailAdapter(
                         )
                     )
                 }
-//                val adapter = TestimonialAdapter(context,list)
-//                binding.vpTestimonials.adapter = adapter
-//                TabLayoutMediator(
-//                    binding.tabDotLayout,
-//                    binding.vpTestimonials
-//                ) { _, _ ->
-//                }.attach()
-//                tvHearSpeakSeeAll.setOnClickListener(onItemClickListener)
+                val adapter = TestimonialInvAdapter(context,list)
+                binding.vpTestimonials.adapter = adapter
+                TabLayoutMediator(
+                    binding.tabDotLayout,
+                    binding.vpTestimonials
+                ) { _, _ ->
+                }.attach()
+                tvHearSpeakSeeAll.setOnClickListener(onItemClickListener)
             }
         }
     }
