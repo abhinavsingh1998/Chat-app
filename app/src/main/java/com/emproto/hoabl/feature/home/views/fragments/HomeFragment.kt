@@ -279,9 +279,6 @@ class HomeFragment : BaseFragment() {
                 }
                 R.id.tv_seeall_promise -> {
                     (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
-
-                    Toast.makeText(requireContext(), "Hello", Toast.LENGTH_LONG).show()
-
                 }
                 R.id.tv_seeall_testimonial -> {
                     (requireActivity() as HomeActivity).addFragment(Testimonials(), false)
