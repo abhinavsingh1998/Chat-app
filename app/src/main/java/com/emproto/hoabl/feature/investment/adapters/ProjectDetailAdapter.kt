@@ -25,6 +25,7 @@ import com.emproto.hoabl.utils.MapItemClickListener
 import com.emproto.hoabl.utils.SimilarInvItemClickListener
 import com.emproto.hoabl.utils.YoutubeItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
+import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.home.PageManagementsOrTestimonial
 import com.emproto.networklayer.response.investment.*
 import com.github.mikephil.charting.components.AxisBase
@@ -570,14 +571,14 @@ class ProjectDetailAdapter(
                         )
                     )
                 }
-                val adapter = TestimonialAdapter(context,list)
-                binding.vpTestimonials.adapter = adapter
-                TabLayoutMediator(
-                    binding.tabDotLayout,
-                    binding.vpTestimonials
-                ) { _, _ ->
-                }.attach()
-                tvHearSpeakSeeAll.setOnClickListener(onItemClickListener)
+//                val adapter = TestimonialAdapter(context,list)
+//                binding.vpTestimonials.adapter = adapter
+//                TabLayoutMediator(
+//                    binding.tabDotLayout,
+//                    binding.vpTestimonials
+//                ) { _, _ ->
+//                }.attach()
+//                tvHearSpeakSeeAll.setOnClickListener(onItemClickListener)
             }
         }
     }

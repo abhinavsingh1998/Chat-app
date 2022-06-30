@@ -5,9 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.*
+import com.emproto.networklayer.response.home.Data
 import com.emproto.networklayer.response.home.PageManagementsOrTestimonial
 
-class TestimonialAdapter(val context: Context, val list: List<PageManagementsOrTestimonial>) : RecyclerView.Adapter<TestimonialAdapter.MyViewHolder>() {
+class TestimonialAdapter(
+    val context: Context,
+    val itemCount:Data,
+    val list: List<PageManagementsOrTestimonial>) : RecyclerView.Adapter<TestimonialAdapter.MyViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -25,7 +29,7 @@ class TestimonialAdapter(val context: Context, val list: List<PageManagementsOrT
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return itemCount.page.totalTestimonialsOnHomeScreen
     }
 
     inner class MyViewHolder(val binding: ItemTestimonialsBinding) :
