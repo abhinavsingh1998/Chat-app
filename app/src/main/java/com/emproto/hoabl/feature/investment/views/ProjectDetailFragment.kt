@@ -1,18 +1,14 @@
 package com.emproto.hoabl.feature.investment.views
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
-import androidx.annotation.BoolRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
@@ -20,13 +16,11 @@ import com.emproto.hoabl.databinding.ProjectDetailLayoutBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.fragments.Testimonials
-import com.emproto.hoabl.feature.investment.adapters.ProjectAmenitiesAdapter
 import com.emproto.hoabl.feature.investment.adapters.ProjectDetailAdapter
 import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
 import com.emproto.hoabl.feature.investment.dialogs.ConfirmationDialog
 import com.emproto.hoabl.feature.investment.views.mediagallery.MediaGalleryFragment
 import com.emproto.hoabl.feature.investment.views.mediagallery.YoutubeActivity
-import com.emproto.hoabl.feature.promises.HoablPromises
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.model.MapLocationModel
 import com.emproto.hoabl.model.MediaViewItem
@@ -45,9 +39,7 @@ import com.emproto.networklayer.request.investment.VideoCallBody
 import com.emproto.networklayer.request.investment.WatchListBody
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.investment.*
-import com.emproto.networklayer.response.portfolio.ivdetails.LatestMediaGalleryOrProjectContent
 import com.emproto.networklayer.response.watchlist.Data
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.io.Serializable
 import javax.inject.Inject
 
@@ -64,7 +56,7 @@ class ProjectDetailFragment : BaseFragment() {
     private lateinit var binding: ProjectDetailLayoutBinding
 
     private var projectId = 0
-    private lateinit var oppDocData: List<OpprotunityDoc>
+    private lateinit var oppDocData: OpprotunityDoc
     private lateinit var mediaData: List<MediaGalleryOrProjectContent>
     private lateinit var promisesData: List<PmData>
     private lateinit var landSkusData: List<InventoryBucketContent>
@@ -316,15 +308,15 @@ class ProjectDetailFragment : BaseFragment() {
                         (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
                         it.data?.data?.let {  data ->
                             binding.slSwipeRefresh.isRefreshing = false
-                            allData = data
+                            allData = data.projectContent
                             if(watchList != null){
-                                watchList = data.watchlist.toMutableList()
+                                watchList = data.projectContent.watchlist.toMutableList()
                             }
-                            oppDocData = data.opportunityDocs
-                            mediaData= data.mediaGalleryOrProjectContent
-                            landSkusData = data.inventoryBucketContents
+                            oppDocData = data.projectContent.opportunityDoc
+                            mediaData= data.projectContent.mediaGalleryOrProjectContent
+                            landSkusData = data.projectContent.inventoryBucketContents
                             faqData = data.projectContentsAndFaqs
-                            mapLocationData = data.locationInfrastructure
+                            mapLocationData = data.projectContent.locationInfrastructure
                             for(item in watchList){
                                 if(item.watchlist.projectContentId.toInt() == projectId){
                                     isBookmarked = true
@@ -332,13 +324,13 @@ class ProjectDetailFragment : BaseFragment() {
                                     investmentViewModel.setWatchListId(item.watchlist.id)
                                 }
                             }
-                            investmentViewModel.setImageActive(data.mediaGalleryOrProjectContent[0].isImagesActive)
-                            investmentViewModel.setVideoActive(data.mediaGalleryOrProjectContent[0].isVideosActive)
-                            investmentViewModel.setDroneActive(data.mediaGalleryOrProjectContent[0].isDroneShootsActive)
-                            investmentViewModel.setThreeSixtyActive(data.mediaGalleryOrProjectContent[0].isThreeSixtyImagesActive)
-                            similarInvestments = data.similarInvestments
-                            inventoryList = data.inventoriesList.data
-                            setUpRecyclerView(data, promiseData, inventoryList)
+                            investmentViewModel.setImageActive(data.projectContent.mediaGalleryOrProjectContent[0].isImagesActive)
+                            investmentViewModel.setVideoActive(data.projectContent.mediaGalleryOrProjectContent[0].isVideosActive)
+                            investmentViewModel.setDroneActive(data.projectContent.mediaGalleryOrProjectContent[0].isDroneShootsActive)
+                            investmentViewModel.setThreeSixtyActive(data.projectContent.mediaGalleryOrProjectContent[0].isThreeSixtyImagesActive)
+                            similarInvestments = data.projectContent.similarInvestments
+                            inventoryList = data.projectContent.inventoriesList.data
+                            setUpRecyclerView(data.projectContent, promiseData, inventoryList,data.projectContentsAndFaqs)
                         }
                     }
                     Status.ERROR -> {
@@ -376,7 +368,8 @@ class ProjectDetailFragment : BaseFragment() {
     private fun setUpRecyclerView(
         data: PdData,
         promisesData: List<PmData>,
-        inventoryList: List<Inventory>
+        inventoryList: List<Inventory>,
+        projectContentsAndFaqs: List<ProjectContentsAndFaq>
     ) {
         val list = ArrayList<RecyclerViewItem>()
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_ONE))
@@ -390,7 +383,7 @@ class ProjectDetailFragment : BaseFragment() {
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_NINE))
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_TEN))
         when{
-            data.projectContentsAndFaqs.isNotEmpty() -> {
+            projectContentsAndFaqs.isNotEmpty() -> {
                 list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_ELEVEN))
             }
         }
@@ -401,7 +394,7 @@ class ProjectDetailFragment : BaseFragment() {
             }
         }
         val adapter =
-            ProjectDetailAdapter(this.requireContext(), list, data, promisesData, itemClickListener,isBookmarked,investmentViewModel,videoItemClickListener,similarInvItemClickListener,mapItemClickListener)
+            ProjectDetailAdapter(this.requireContext(), list, data, promisesData, itemClickListener,isBookmarked,investmentViewModel,videoItemClickListener,similarInvItemClickListener,mapItemClickListener,projectContentsAndFaqs)
         binding.rvProjectDetail.adapter = adapter
         adapter.setItemClickListener(onItemClickListener)
     }
