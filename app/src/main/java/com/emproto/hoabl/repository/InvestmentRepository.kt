@@ -95,15 +95,15 @@ class InvestmentRepository @Inject constructor(application: Application) : BaseR
                 if (investmentDetailResponse.isSuccessful) {
                     if (investmentDetailResponse.body()!!.data != null){
                         if(watchlistResponse.isSuccessful){
-                            investmentDetailResponse.body()!!.data.watchlist =
+                            investmentDetailResponse.body()!!.data.projectContent.watchlist =
                                 watchlistResponse.body()!!.data
                         }
                         if(inventoriesResponse.isSuccessful){
-                            investmentDetailResponse.body()!!.data.inventoriesList =
+                            investmentDetailResponse.body()!!.data.projectContent.inventoriesList =
                                 inventoriesResponse.body()!!.data
                         }
                         if(testimonialsResponse.isSuccessful){
-                            investmentDetailResponse.body()!!.data.testimonials =
+                            investmentDetailResponse.body()!!.data.projectContent.testimonials =
                                 testimonialsResponse.body()!!.data
                         }
                         mInvestmentDetailResponse.postValue(BaseResponse.success(investmentDetailResponse.body()!!))

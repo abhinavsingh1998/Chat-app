@@ -27,7 +27,7 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter
 class OpportunityDocsAdapter(
     private val context: Context,
     private val itemList: List<RecyclerViewItem>,
-    private val data: List<OpprotunityDoc>,
+    private val data: OpprotunityDoc,
     private val title: String,
     private val isFromProjectAmenities: Boolean
 ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -84,23 +84,23 @@ class OpportunityDocsAdapter(
 
     private inner class OppDocsTopViewHolder(private val binding: OppDocsTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvOppDocProjectTitle.text =  data[0].sectionHeading.heading
-            binding.tvOppDocProjectThemeTitle.text = data[0].sectionHeading.subHeading
+            binding.tvOppDocProjectTitle.text =  data.sectionHeading.heading
+            binding.tvOppDocProjectThemeTitle.text = data.sectionHeading.subHeading
             Glide
                 .with(context)
-                .load(data[0].bannerImage.value.url)
+                .load(data.bannerImage.value.url)
                 .into(binding.ivOppDocTopImage)
         }
     }
 
     private inner class OppDocsExpGrowthViewHolder(private val binding: OppDocExpectedGrowthLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvExpectedGrowth.text = data[0].escalationGraph.title
-            binding.tvXAxisLabel.text = data[0].escalationGraph.yAxisDisplayName
-            binding.tvYAxisLabel.text = data[0].escalationGraph.xAxisDisplayName
-            val graphData = data[0].escalationGraph.dataPoints.points
+            binding.tvExpectedGrowth.text = data.escalationGraph.title
+            binding.tvXAxisLabel.text = data.escalationGraph.yAxisDisplayName
+            binding.tvYAxisLabel.text = data.escalationGraph.xAxisDisplayName
+            val graphData = data.escalationGraph.dataPoints.points
             val linevalues = ArrayList<Entry>()
-            when(data[0].escalationGraph.dataPoints.dataPointType){
+            when(data.escalationGraph.dataPoints.dataPointType){
                 "Yearly" -> {
                     graphType = "Yearly"
                     for(item in graphData){
@@ -109,9 +109,9 @@ class OpportunityDocsAdapter(
                 }
                 "Half Yearly" -> {
                     graphType = "Half Yearly"
-                    for(i in 0..data[0].escalationGraph.dataPoints.points.size-1){
-                        val fmString = data[0].escalationGraph.dataPoints.points[i].halfYear.substring(0,3)
-                        val yearString = data[0].escalationGraph.dataPoints.points[i].year.substring(2,4)
+                    for(i in 0..data.escalationGraph.dataPoints.points.size-1){
+                        val fmString = data.escalationGraph.dataPoints.points[i].halfYear.substring(0,3)
+                        val yearString = data.escalationGraph.dataPoints.points[i].year.substring(2,4)
                         val str = "$fmString-$yearString"
                         xaxisList.add(str)
                     }
@@ -123,9 +123,9 @@ class OpportunityDocsAdapter(
                 }
                 "Quaterly" -> {
                     graphType = "Quaterly"
-                    for(i in 0..data[0].escalationGraph.dataPoints.points.size-1){
-                        val fmString = data[0].escalationGraph.dataPoints.points[i].quater.substring(0,2)
-                        val yearString = data[0].escalationGraph.dataPoints.points[i].year.substring(2,4)
+                    for(i in 0..data.escalationGraph.dataPoints.points.size-1){
+                        val fmString = data.escalationGraph.dataPoints.points[i].quater.substring(0,2)
+                        val yearString = data.escalationGraph.dataPoints.points[i].year.substring(2,4)
                         val str = "$fmString-$yearString"
                         xaxisList.add(str)
                     }
@@ -137,9 +137,9 @@ class OpportunityDocsAdapter(
                 }
                 "Monthly" -> {
                     graphType = "Monthly"
-                    for(i in 0..data[0].escalationGraph.dataPoints.points.size-1){
-                        val fmString = data[0].escalationGraph.dataPoints.points[i].month.substring(0,3)
-                        val yearString = data[0].escalationGraph.dataPoints.points[i].year.substring(2,4)
+                    for(i in 0..data.escalationGraph.dataPoints.points.size-1){
+                        val fmString = data.escalationGraph.dataPoints.points[i].month.substring(0,3)
+                        val yearString = data.escalationGraph.dataPoints.points[i].year.substring(2,4)
                         val str = "$fmString-$yearString"
                         xaxisList.add(str)
                     }
@@ -215,26 +215,26 @@ class OpportunityDocsAdapter(
 
     private inner class CurrentInfraStoryViewHolder(private val binding: CurrentInfraStoryLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvCurrentInfraStory.text = data[0].currentInfraStory.heading
-            currentInfraStoryAdapter = CurrentInfraStoryAdapter(context,data[0].currentInfraStory.stories)
+            binding.tvCurrentInfraStory.text = data.currentInfraStory.heading
+            currentInfraStoryAdapter = CurrentInfraStoryAdapter(context,data.currentInfraStory.stories)
             binding.rvCurrentInfraRecycler.adapter = currentInfraStoryAdapter
         }
     }
 
     private inner class UpcomingInfraStoryViewHolder(private val binding: UpcomingInfraStoryLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvUpcomingInfraStory.text = data[0].upcomingInfraStory.heading
-            upcomingInfraStoryAdapter = UpcomingInfraStoryAdapter(context,data[0].upcomingInfraStory.stories)
+            binding.tvUpcomingInfraStory.text = data.upcomingInfraStory.heading
+            upcomingInfraStoryAdapter = UpcomingInfraStoryAdapter(context,data.upcomingInfraStory.stories)
             binding.rvUpcomingInfraRecycler.adapter = upcomingInfraStoryAdapter
         }
     }
 
     private inner class OppDocsTourismViewHolder(private val binding: OppDocsDestinationLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvTourismAround.text = data[0].tourismAround.heading
+            binding.tvTourismAround.text = data.tourismAround.heading
             val list = arrayListOf<Story>()
             for(i in 0..3){
-                list.add(data[0].tourismAround.stories[i])
+                list.add(data.tourismAround.stories[i])
             }
             destinationAdapter = DestinationAdapter(context,list)
             binding.rvDestination.adapter = destinationAdapter
@@ -246,7 +246,7 @@ class OpportunityDocsAdapter(
                             .load(R.drawable.ic_arrow_upward)
                             .into(binding.ivViewMoreArrow)
                         binding.tvViewMore.text = context.getString(R.string.view_less_caps)
-                        destinationAdapter = DestinationAdapter(context,data[0].tourismAround.stories)
+                        destinationAdapter = DestinationAdapter(context,data.tourismAround.stories)
                         binding.rvDestination.adapter = destinationAdapter
                         destinationAdapter.notifyDataSetChanged()
                         isClicked = false
@@ -256,7 +256,7 @@ class OpportunityDocsAdapter(
                         binding.tvViewMore.text = context.getString(R.string.view_more_caps)
                         list.clear()
                         for(i in 0..3){
-                            list.add(data[0].tourismAround.stories[i])
+                            list.add(data.tourismAround.stories[i])
                         }
                         destinationAdapter = DestinationAdapter(context,list)
                         binding.rvDestination.adapter = destinationAdapter
@@ -274,7 +274,7 @@ class OpportunityDocsAdapter(
                             .load(R.drawable.ic_arrow_upward)
                             .into(binding.ivViewMoreArrow)
                         binding.tvViewMore.text = context.getString(R.string.view_less_caps)
-                        destinationAdapter = DestinationAdapter(context,data[0].tourismAround.stories)
+                        destinationAdapter = DestinationAdapter(context,data.tourismAround.stories)
                         binding.rvDestination.adapter = destinationAdapter
                         destinationAdapter.notifyDataSetChanged()
                         isClicked = false
@@ -284,7 +284,7 @@ class OpportunityDocsAdapter(
                         binding.tvViewMore.text = context.getString(R.string.view_more_caps)
                         list.clear()
                         for(i in 0..3){
-                            list.add(data[0].tourismAround.stories[i])
+                            list.add(data.tourismAround.stories[i])
                         }
                         destinationAdapter = DestinationAdapter(context,list)
                         binding.rvDestination.adapter = destinationAdapter
@@ -300,10 +300,10 @@ class OpportunityDocsAdapter(
     private inner class AboutProjectViewHolder(private val binding: AboutProjectLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             binding.apply {
-                tvAboutProjectTitle.text = data[0].aboutProjects.heading
-                tvAbtProjectInfo.text = data[0].aboutProjects.description
+                tvAboutProjectTitle.text = data.aboutProjects.heading
+                tvAbtProjectInfo.text = data.aboutProjects.description
                 Glide.with(context)
-                    .load(data[0].aboutProjects.media.value.url)
+                    .load(data.aboutProjects.media.value.url)
                     .into(ivAbtProjectImage)
             }
         }
@@ -320,7 +320,7 @@ class OpportunityDocsAdapter(
                 val list = arrayListOf<ProjectAminity>()
                 when(isFromProjectAmenities){
                     true -> {
-                        for(item in data[0].projectAminities){
+                        for(item in data.projectAminities){
                             list.add(item)
                         }
                         binding.ivViewMoreArrow.setImageResource(R.drawable.ic_arrow_upward)
@@ -329,7 +329,7 @@ class OpportunityDocsAdapter(
                     }
                     false -> {
                         for(i in 0..3){
-                            list.add(data[0].projectAminities[i])
+                            list.add(data.projectAminities[i])
                         }
                     }
                 }
@@ -343,7 +343,7 @@ class OpportunityDocsAdapter(
                                 .load(R.drawable.ic_arrow_upward)
                                 .into(binding.ivViewMoreArrow)
                             binding.tvViewMore.text = context.getString(R.string.view_less_caps)
-                            projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,data[0].projectAminities)
+                            projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,data.projectAminities)
                             rvProjectAmenitiesItemRecycler.adapter = projectAmenitiesAdapter
                             projectAmenitiesAdapter.notifyDataSetChanged()
                             isClicked = false
@@ -353,7 +353,7 @@ class OpportunityDocsAdapter(
                             binding.tvViewMore.text = context.getString(R.string.view_all_caps)
                             list.clear()
                             for(i in 0..3){
-                                list.add(data[0].projectAminities[i])
+                                list.add(data.projectAminities[i])
                             }
                             projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,list)
                             rvProjectAmenitiesItemRecycler.adapter = projectAmenitiesAdapter
@@ -368,7 +368,7 @@ class OpportunityDocsAdapter(
 
     private inner class ApplyViewHolder(private val binding: ApplyLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvBookingStarts.text = data[0].pageFooter
+            binding.tvBookingStarts.text = data.pageFooter
             binding.tvApplyNow.setOnClickListener(onItemClickListener)
         }
     }

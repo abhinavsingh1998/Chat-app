@@ -38,7 +38,7 @@ class HoABLPromisesAdapter(
             .load(item.displayMedia.value.url)
             .into(holder.binding.image)
 
-        holder.binding.itemCard.setOnClickListener {
+        holder.binding.homePromisesItem.setOnClickListener {
             ivInterface.seePromisesDetails(position)
         }
     }

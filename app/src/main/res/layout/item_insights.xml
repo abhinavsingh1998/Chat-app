@@ -15,7 +15,7 @@
     android:layout_marginEnd="@dimen/margin_size_10">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/root_view"
+        android:id="@+id/home_insights_card"
         android:layout_width="@dimen/margin_size_180"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_size_5"

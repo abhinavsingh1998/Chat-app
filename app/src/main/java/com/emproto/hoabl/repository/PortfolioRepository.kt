@@ -28,6 +28,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
     private val coroutineScope = CoroutineScope(Dispatchers.IO + parentJob)
     val mPromisesResponse = MutableLiveData<BaseResponse<PortfolioData>>()
     val mDocumentsResponse = MutableLiveData<BaseResponse<ProjectTimelineResponse>>()
+    val investmentResponseList = ArrayList<InvestmentDetailsResponse>()
 
 
     private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
@@ -86,34 +87,44 @@ class PortfolioRepository @Inject constructor(application: Application) :
     ): LiveData<BaseResponse<InvestmentDetailsResponse>> {
         val mPromisesResponse = MutableLiveData<BaseResponse<InvestmentDetailsResponse>>()
         mPromisesResponse.postValue(BaseResponse.loading())
-        coroutineScope.launch {
-            try {
-                val topResponse =
-                    PortfolioDataSource(application).getInvestmentDetails(ivID, projectId)
-                if (topResponse.isSuccessful) {
-                    if (topResponse.body()!!.data != null) {
-                        val crmId = topResponse.body()!!.data.investmentInformation.crmLaunchPhaseId
-                        val documentResponse =
-                            PortfolioDataSource(application).getDocumentsListing(crmId)
-                        if (documentResponse.isSuccessful && documentResponse.body()!!.data.isNotEmpty()) {
-                            topResponse.body()!!.data.documentList = documentResponse.body()!!.data
-                            mPromisesResponse.postValue(BaseResponse.success(topResponse.body()!!))
-                        } else {
-                            mPromisesResponse.postValue(BaseResponse.success(topResponse.body()!!))
-                        }
-                    } else
-                        mPromisesResponse.postValue(BaseResponse.Companion.error("No data found"))
-                } else {
-                    mPromisesResponse.postValue(
-                        BaseResponse.Companion.error(
-                            getErrorMessage(
-                                topResponse.errorBody()!!.string()
+        val serchResult = investmentResponseList.filter { it.data.investmentInformation.id == ivID }
+        if (serchResult.isNotEmpty()) {
+            mPromisesResponse.postValue(BaseResponse.success(serchResult[0]))
+        } else {
+            coroutineScope.launch {
+                try {
+                    val topResponse =
+                        PortfolioDataSource(application).getInvestmentDetails(ivID, projectId)
+                    if (topResponse.isSuccessful) {
+                        if (topResponse.body()!!.data != null) {
+                            val crmId =
+                                topResponse.body()!!.data.investmentInformation.crmLaunchPhaseId
+                            val documentResponse =
+                                PortfolioDataSource(application).getDocumentsListing(crmId)
+                            if (documentResponse.isSuccessful && documentResponse.body()!!.data.isNotEmpty()) {
+                                topResponse.body()!!.data.documentList =
+                                    documentResponse.body()!!.data
+                                mPromisesResponse.postValue(BaseResponse.success(topResponse.body()!!))
+                                //local caching
+                                investmentResponseList.add(topResponse.body()!!)
+                            } else {
+                                mPromisesResponse.postValue(BaseResponse.success(topResponse.body()!!))
+                                investmentResponseList.add(topResponse.body()!!)
+                            }
+                        } else
+                            mPromisesResponse.postValue(BaseResponse.Companion.error("No data found"))
+                    } else {
+                        mPromisesResponse.postValue(
+                            BaseResponse.Companion.error(
+                                getErrorMessage(
+                                    topResponse.errorBody()!!.string()
+                                )
                             )
                         )
-                    )
+                    }
+                } catch (e: Exception) {
+                    mPromisesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
                 }
-            } catch (e: Exception) {
-                mPromisesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
             }
         }
         return mPromisesResponse
