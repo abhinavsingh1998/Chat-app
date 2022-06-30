@@ -1,5 +1,6 @@
 package com.emproto.hoabl.feature.portfolio.views
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,6 +13,10 @@ import android.widget.ProgressBar
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentFmBinding
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import android.content.Intent
+import android.net.Uri
+import androidx.core.content.ContextCompat.startActivity
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,7 +51,7 @@ class FmFragment : BaseFragment() {
         // Inflate the layout for this fragment
         binding = FragmentFmBinding.inflate(layoutInflater)
         (requireActivity() as HomeActivity).hideHeader()
-        binding.webView.webViewClient = MyWebViewclient(binding.progressBaar)
+        binding.webView.webViewClient = MyWebViewclient(binding.progressBaar, requireContext())
         binding.webView.getSettings().setJavaScriptEnabled(true);
         binding.webView.getSettings().setBuiltInZoomControls(true);
         binding.webView.getSettings().setDisplayZoomControls(false);
@@ -78,9 +83,18 @@ class FmFragment : BaseFragment() {
             }
     }
 
-    public open class MyWebViewclient(val progressBaar: ProgressBar) : WebViewClient() {
+    public open class MyWebViewclient(val progressBaar: ProgressBar, val requireContext: Context) :
+        WebViewClient() {
         override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-            view!!.loadUrl(url!!)
+            if (url!!.startsWith("tel:")) {
+                val intent = Intent(
+                    Intent.ACTION_DIAL,
+                    Uri.parse(url)
+                )
+                requireContext.startActivity(intent)
+            } else if (url!!.startsWith("http:") || url!!.startsWith("https:")) {
+                view!!.loadUrl(url!!)
+            }
             return true
         }
 

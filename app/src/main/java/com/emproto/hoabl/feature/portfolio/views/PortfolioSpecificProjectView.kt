@@ -263,21 +263,25 @@ class PortfolioSpecificProjectView : BaseFragment() {
             )
         )
         list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_REFERNOW))
-        if (it.data.projectInformation.projectContentsAndFaqs.isNotEmpty()) {
-            list.add(
-                RecyclerViewItem(
-                    PortfolioSpecificViewAdapter.PORTFOLIO_FAQ,
-                    it.data.projectInformation.projectContentsAndFaqs
+        if (it.data.projectInformation.projectContentsAndFaqs != null) {
+            if (it.data.projectInformation.projectContentsAndFaqs.isNotEmpty()) {
+                list.add(
+                    RecyclerViewItem(
+                        PortfolioSpecificViewAdapter.PORTFOLIO_FAQ,
+                        it.data.projectInformation.projectContentsAndFaqs
+                    )
                 )
-            )
+            }
         }
-        if (it.data.projectInformation.similarInvestments.isNotEmpty()) {
-            list.add(
-                RecyclerViewItem(
-                    PortfolioSpecificViewAdapter.PORTFOLIO_SIMILER_INVESTMENT,
-                    it.data.projectInformation.similarInvestments
+        if (it.data.projectInformation.similarInvestments != null) {
+            if (it.data.projectInformation.similarInvestments.isNotEmpty()) {
+                list.add(
+                    RecyclerViewItem(
+                        PortfolioSpecificViewAdapter.PORTFOLIO_SIMILER_INVESTMENT,
+                        it.data.projectInformation.similarInvestments
+                    )
                 )
-            )
+            }
         }
         portfolioSpecificViewAdapter =
             PortfolioSpecificViewAdapter(

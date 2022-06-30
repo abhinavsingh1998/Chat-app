@@ -41,6 +41,7 @@
             android:singleLine="true"
             android:text="@string/see_all"
             app:fontName="@string/jost_regular"
+            app:layout_constraintBottom_toTopOf="@+id/lates_updates_recyclerview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
