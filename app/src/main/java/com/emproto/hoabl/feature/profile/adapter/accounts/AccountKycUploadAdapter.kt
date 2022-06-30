@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemAccountsKycDocUploadBinding
@@ -61,8 +62,30 @@ class AccountKycUploadAdapter(
             holder.tvUploadDoc.text = "View"
             holder.tvUploadDoc.isEnabled = true
         } else {
-            holder.tvUploadDoc.text = "Verification Pending"
             holder.tvUploadDoc.isEnabled = false
+            holder.tvUploadDoc.visibility=View.GONE
+            holder.viewUnderLine.visibility=View.GONE
+            holder.clStatus.visibility=View.VISIBLE
+            holder.textStatus.visibility=View.VISIBLE
+            holder.tvPreview.setOnClickListener {
+                viewListener.onAccountsKycItemClick(
+                    newList,
+                    it,
+                    position,
+                    newList[position].name,
+                    newList[position].path
+                )
+            }
+            holder.tvReupload.setOnClickListener {
+                if (newList[position].documentName == "Address Proof") {
+                    mListener.onUploadClick(newList, it, 200110)
+                } else if (newList[position].documentName == "PAN Card") {
+                    mListener.onUploadClick(newList, it, 200109)
+                }
+            }
+
+
+
         }
         holder.tvUploadDoc.setOnClickListener {
             Log.d("RRRR", newList[position].name.toString())
@@ -96,5 +119,19 @@ class AccountKycUploadAdapter(
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val tvDocName: TextView = itemView.findViewById(R.id.tvDocName)
         val tvUploadDoc: TextView = itemView.findViewById(R.id.tvUploadDoc)
+        val viewUnderLine: View = itemView.findViewById(R.id.viewUnderLine)
+        val textStatus: TextView = itemView.findViewById(R.id.textStatus)
+        val tvVerificationPending: TextView = itemView.findViewById(R.id.tvVerificationPending)
+        val tvPreview: TextView = itemView.findViewById(R.id.tvPreview)
+        val viewPreview: View = itemView.findViewById(R.id.previewLine)
+        val tvReupload: TextView = itemView.findViewById(R.id.tvReupload)
+        val reuploadLine: View = itemView.findViewById(R.id.reuploadLine)
+        val clStatus: ConstraintLayout = itemView.findViewById(R.id.clStatus)
+
+
+
+
+
+
     }
 }
