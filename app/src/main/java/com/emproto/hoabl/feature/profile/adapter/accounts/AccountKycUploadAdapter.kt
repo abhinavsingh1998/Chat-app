@@ -24,7 +24,11 @@ class AccountKycUploadAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding =
-            ItemAccountsKycDocUploadBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemAccountsKycDocUploadBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         return ViewHolder(binding.root)
     }
 
@@ -33,6 +37,7 @@ class AccountKycUploadAdapter(
             newList: ArrayList<KycUpload>,
             view: View,
             position: Int
+
         )
     }
 
@@ -49,23 +54,23 @@ class AccountKycUploadAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvDocName.text = newList[position].documentName
 
-        if(newList[position].status == "UPLOAD"){
+        if (newList[position].status == "UPLOAD") {
             holder.tvUploadDoc.text = "Upload"
             holder.tvUploadDoc.isEnabled = true
-        }else if(newList[position].status == "View"){
+        } else if (newList[position].status == "View") {
             holder.tvUploadDoc.text = "View"
             holder.tvUploadDoc.isEnabled = true
-        }else{
+        } else {
             holder.tvUploadDoc.text = "Verification Pending"
             holder.tvUploadDoc.isEnabled = false
         }
         holder.tvUploadDoc.setOnClickListener {
-            Log.d("RRRR",newList[position].name.toString())
-            when{
+            Log.d("RRRR", newList[position].name.toString())
+            when {
                 newList[position].status == "UPLOAD" -> {
-                    if(newList[position].documentName == "Address Proof"){
+                    if (newList[position].documentName == "Address Proof") {
                         mListener.onUploadClick(newList, it, 200110)
-                    }else if(newList[position].documentName == "PAN Card"){
+                    } else if (newList[position].documentName == "PAN Card") {
                         mListener.onUploadClick(newList, it, 200109)
                     }
                 }

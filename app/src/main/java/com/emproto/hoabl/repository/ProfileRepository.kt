@@ -86,8 +86,8 @@ class ProfileRepository @Inject constructor(application: Application) :
         return mUploadProfilePicture
     }
 
-    fun uploadKycDocument(extension: String,file: File,  selectedDoc: Int): LiveData<BaseResponse<UploadDocumentResponse>> {
-        val mUploadKycDocument = MutableLiveData<BaseResponse<UploadDocumentResponse>>()
+    fun uploadKycDocument(extension: String,file: File,  selectedDoc: Int): LiveData<BaseResponse<UploadKycResponse>> {
+        val mUploadKycDocument = MutableLiveData<BaseResponse<UploadKycResponse>>()
         mUploadKycDocument.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
