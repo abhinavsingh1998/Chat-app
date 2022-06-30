@@ -492,8 +492,6 @@ class AccountDetailsFragment : Fragment(),
         } else {
             (requireActivity() as HomeActivity).showErrorToast("Something Went Wrong")
         }
-
-
     }
 
     override fun onUploadClick(kycUploadList: ArrayList<KycUpload>, view: View, documentType: Int) {
@@ -557,7 +555,6 @@ class AccountDetailsFragment : Fragment(),
 
     private fun onCaptureImageResult() {
         val selectedImage = cameraFile.path
-
         destinationFile = cameraFile
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
             val extension: String = cameraFile.name.substring(cameraFile.name.lastIndexOf(".") + 1)
