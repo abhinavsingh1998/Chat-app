@@ -362,6 +362,33 @@ class OpportunityDocsAdapter(
                         }
                     }
                 }
+                binding.ivViewMoreArrow.setOnClickListener {
+                    when(isClicked){
+                        true -> {
+                            Glide
+                                .with(context)
+                                .load(R.drawable.ic_arrow_upward)
+                                .into(binding.ivViewMoreArrow)
+                            binding.tvViewMore.text = context.getString(R.string.view_less_caps)
+                            projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,data.projectAminities)
+                            rvProjectAmenitiesItemRecycler.adapter = projectAmenitiesAdapter
+                            projectAmenitiesAdapter.notifyDataSetChanged()
+                            isClicked = false
+                        }
+                        false -> {
+                            binding.ivViewMoreArrow.setImageResource(R.drawable.ic_drop_down)
+                            binding.tvViewMore.text = context.getString(R.string.view_all_caps)
+                            list.clear()
+                            for(i in 0..3){
+                                list.add(data.projectAminities[i])
+                            }
+                            projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,list)
+                            rvProjectAmenitiesItemRecycler.adapter = projectAmenitiesAdapter
+                            projectAmenitiesAdapter.notifyDataSetChanged()
+                            isClicked = true
+                        }
+                    }
+                }
             }
         }
     }

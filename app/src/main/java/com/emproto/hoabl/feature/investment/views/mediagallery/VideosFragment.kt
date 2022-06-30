@@ -53,10 +53,12 @@ class VideosFragment:BaseFragment() {
             when(it){
                 true -> {
                     binding.tvNoData.visibility = View.GONE
+                    binding.ivNoData.visibility = View.GONE
                     binding.rvMainVideos.visibility = View.VISIBLE
                 }
                 false -> {
                     binding.tvNoData.visibility = View.VISIBLE
+                    binding.ivNoData.visibility = View.VISIBLE
                     binding.rvMainVideos.visibility = View.GONE
                 }
             }
