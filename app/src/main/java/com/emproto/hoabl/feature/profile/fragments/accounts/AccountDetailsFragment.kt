@@ -623,7 +623,6 @@ class AccountDetailsFragment : Fragment(),
                                 }
                             }
                             kycUploadAdapter.notifyDataSetChanged()
-
                             val dialog = AccountKycStatusPopUpFragment()
                             dialog.isCancelable = false
                             dialog.show(childFragmentManager, "submitted")
