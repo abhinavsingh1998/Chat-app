@@ -111,7 +111,7 @@ public interface ApiService {
         @Part extension: MultipartBody.Part,
         @Part file: MultipartBody.Part,
         @Part selectedDoc: MultipartBody.Part
-    ): Response<UploadDocumentResponse>
+    ): Response<UploadKycResponse>
 
     @PUT(ApiConstants.PRESIGNEDURL)
     suspend fun presignedUrl(
