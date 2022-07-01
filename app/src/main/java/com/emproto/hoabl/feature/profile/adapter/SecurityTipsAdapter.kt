@@ -2,6 +2,8 @@ package com.emproto.hoabl.feature.profile.adapter
 
 import android.content.Context
 import android.os.Build
+import android.text.Html
+import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,9 +42,17 @@ class SecurityTipsAdapter(
                     Locale.ROOT
                 ) else it.toString()
             }
-            tvFullDescription.text = element.description
+            tvFullDescription.text = showHTMLText(element.description)
         }
     }
 
     override fun getItemCount(): Int = list.size
+
+    fun showHTMLText(message: String?): Spanned {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            Html.fromHtml(message)
+        }
+    }
 }

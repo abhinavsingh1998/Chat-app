@@ -76,6 +76,10 @@ class FaqDetailFragment : BaseFragment() {
         (requireActivity() as HomeActivity).showHeader()
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.VISIBLE
         (requireActivity() as HomeActivity).hideBottomNavigation()
+        binding.slSwipeRefresh.setOnRefreshListener {
+            binding.slSwipeRefresh.isRefreshing = true
+            callApi()
+        }
     }
 
     private fun callApi() {
@@ -93,10 +97,12 @@ class FaqDetailFragment : BaseFragment() {
         profileViewModel.getGeneralFaqs(2001).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                    binding.progressBar.show()
                 }
                 Status.SUCCESS -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
+                    binding.slSwipeRefresh.visibility = View.VISIBLE
+                    binding.slSwipeRefresh.isRefreshing = false
                     it.data?.data?.let {  data ->
                         Log.d("generalfaq",data.toString())
                         allFaqList = data
@@ -104,7 +110,7 @@ class FaqDetailFragment : BaseFragment() {
                     }
                 }
                 Status.ERROR -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
                     (requireActivity() as HomeActivity).showErrorToast(it.message!!)
                 }
             }
@@ -116,17 +122,19 @@ class FaqDetailFragment : BaseFragment() {
             Log.d("Faq", it.data.toString())
             when (it.status) {
                 Status.LOADING -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                    binding.progressBar.show()
                 }
                 Status.SUCCESS -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
+                    binding.slSwipeRefresh.visibility = View.VISIBLE
+                    binding.slSwipeRefresh.isRefreshing = false
                     it.data?.data?.let { data ->
                         allFaqList = data
                         setUpRecyclerView(data,faqId)
                     }
                 }
                 Status.ERROR -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
                     (requireActivity() as HomeActivity).showErrorToast(
                         it.message!!
                     )

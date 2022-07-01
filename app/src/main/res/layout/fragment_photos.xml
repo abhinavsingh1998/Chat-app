@@ -16,18 +16,30 @@
         android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
+    <ImageView
+        android:id="@+id/iv_no_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/undraw_time_management_re_tk_5_w"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/margin_size_70"/>
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_no_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="No photos available"
+        android:text="@string/no_media_text"
         android:textAlignment="center"
         android:textSize="@dimen/text_size_14"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:fontFamily="@font/jost_regular"
+        android:textColor="#b8b8b8"
+        android:layout_marginTop="@dimen/margin_size_30"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_no_data"
         app:layout_constraintVertical_bias="0.38" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

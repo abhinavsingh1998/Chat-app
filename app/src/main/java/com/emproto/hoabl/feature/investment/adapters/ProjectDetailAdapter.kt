@@ -445,6 +445,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectVideosDroneViewHolder(private val binding: VideoDroneLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
+            binding.tvVideoTitle.text = data.otherSectionHeadings.droneVideos.sectionHeading
             val itemList = ArrayList<YoutubeModel>()
             for(item in data.mediaGalleryOrProjectContent[0].videos){
                 itemList.add(YoutubeModel(title = item.name, url = item.mediaContent.value.url))
@@ -455,6 +456,7 @@ class ProjectDetailAdapter(
             videoDroneAdapter = VideoDroneAdapter(itemList,videoItemClickListener)
             binding.rvVideoDrone.adapter = videoDroneAdapter
             binding.tvVideoDroneSeeAll.setOnClickListener(onItemClickListener)
+            binding.ivVideoDroneArrow.setOnClickListener(onItemClickListener)
         }
     }
 
@@ -481,6 +483,7 @@ class ProjectDetailAdapter(
             binding.rvSkus.adapter = skuAdapter
             itemView.tag = this
             binding.tvSkusSeeAll.setOnClickListener(onItemClickListener)
+            binding.ivSkusArrow.setOnClickListener(onItemClickListener)
         }
     }
 
@@ -500,6 +503,7 @@ class ProjectDetailAdapter(
                 val adapter = ProjectAmenitiesAdapter(context,list)
                 rvProjectAmenitiesItemRecycler.adapter = adapter
                 tvProjectAmenitiesAll.setOnClickListener(onItemClickListener)
+                ivProjectAmenitiesArrow.setOnClickListener(onItemClickListener)
             }
         }
     }
@@ -515,16 +519,19 @@ class ProjectDetailAdapter(
             )
             binding.rvLocationInfrastructure.adapter = locationInfrastructureAdapter
             binding.tvLocationInfrastructureAll.setOnClickListener(onItemClickListener)
+            binding.ivLocationInfrastructureArrow.setOnClickListener(onItemClickListener)
         }
     }
 
     private inner class ProjectPromisesViewHolder(private val binding: PromisesLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
+            binding.tvPromisesTitle.text = data.otherSectionHeadings.promises.sectionHeading
             val itemList = promisesData
             promisesAdapter = PromisesAdapter(itemList,itemClickListener,context)
             binding.rvPromises.adapter = promisesAdapter
             binding.clNotConvincedPromises.setOnClickListener(onItemClickListener)
             binding.tvPromisesSeeAll.setOnClickListener(onItemClickListener)
+            binding.ivPromisesArrow.setOnClickListener(onItemClickListener)
         }
     }
 
@@ -546,12 +553,14 @@ class ProjectDetailAdapter(
             binding.rvFaq.adapter = faqAdapter
             binding.tvFaqReadAll.setOnClickListener(onItemClickListener)
             binding.bnAskHere.setOnClickListener(onItemClickListener)
+            binding.ivSeeAllArrow.setOnClickListener(onItemClickListener)
         }
     }
 
     private inner class ProjectTestimonialsViewHolder(private val binding: NewInvestmentTestimonialsCardBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             binding.apply {
+                tvVideoTitle.text = data.otherSectionHeadings.testimonials.sectionHeading
                 val list = ArrayList<PageManagementsOrTestimonial>()
                 for(item in data.testimonials){
                     list.add(
@@ -579,6 +588,7 @@ class ProjectDetailAdapter(
                 ) { _, _ ->
                 }.attach()
                 tvHearSpeakSeeAll.setOnClickListener(onItemClickListener)
+                ivTestimonialsArrow.setOnClickListener(onItemClickListener)
             }
         }
     }
@@ -595,6 +605,7 @@ class ProjectDetailAdapter(
             similarInvestmentsAdapter = InvestmentAdapter(context, itemList, similarInvItemClickListener)
             binding.rvSimilarInvestment.adapter = similarInvestmentsAdapter
             binding.tvSimilarInvestmentSeeAll.setOnClickListener(onItemClickListener)
+            binding.ivSimilarInvArrow.setOnClickListener(onItemClickListener)
         }
     }
 

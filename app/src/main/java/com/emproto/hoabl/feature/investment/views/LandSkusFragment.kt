@@ -72,10 +72,10 @@ class LandSkusFragment:BaseFragment() {
         investmentViewModel.getAllInventories(projectId).observe(viewLifecycleOwner,Observer{
             when (it.status) {
                 Status.LOADING -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                    binding.progressBar.show()
                 }
                 Status.SUCCESS -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
                     binding.clOuterLayout.visibility = View.VISIBLE
                     it.data?.data?.let { data ->
                         binding.slSwipeRefresh.isRefreshing = false
@@ -91,7 +91,7 @@ class LandSkusFragment:BaseFragment() {
                     }
                 }
                 Status.ERROR -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
                     (requireActivity() as HomeActivity).showErrorToast(
                         it.message!!
                     )
@@ -138,10 +138,10 @@ class LandSkusFragment:BaseFragment() {
                     )).observe(viewLifecycleOwner,Observer{
                         when(it.status){
                             Status.LOADING -> {
-                                (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                                binding.progressBar.show()
                             }
                             Status.SUCCESS -> {
-                                (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                                binding.progressBar.hide()
                                 it.data?.let { data ->
                                     val applicationSubmitDialog = ApplicationSubmitDialog("Thank you for your interest!","Our Project Manager will reach out to you in 24 hours!")
                                     applicationSubmitDialog.show(parentFragmentManager,"ApplicationSubmitDialog")
@@ -149,7 +149,7 @@ class LandSkusFragment:BaseFragment() {
                                 }
                             }
                             Status.ERROR -> {
-                                (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                                binding.progressBar.hide()
                                 (requireActivity() as HomeActivity).showErrorToast(
                                     it.message!!
                                 )
@@ -180,10 +180,10 @@ class LandSkusFragment:BaseFragment() {
         ).observe(viewLifecycleOwner,Observer{
             when (it.status) {
                 Status.LOADING -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                    binding.progressBar.show()
                 }
                 Status.SUCCESS -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
                     it.data?.data?.let { data ->
                         val applicationSubmitDialog = ApplicationSubmitDialog(
                             "Video Call request sent successfully.",
@@ -194,7 +194,7 @@ class LandSkusFragment:BaseFragment() {
                     }
                 }
                 Status.ERROR -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
                     (requireActivity() as HomeActivity).showErrorToast(
                         it.message!!
                     )

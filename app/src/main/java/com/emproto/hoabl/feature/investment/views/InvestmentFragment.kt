@@ -115,6 +115,7 @@ class InvestmentFragment : BaseFragment() {
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.GONE
         binding.slSwipeRefresh.setOnRefreshListener {
             binding.slSwipeRefresh.isRefreshing = true
+            binding.slSwipeRefresh.visibility = View.GONE
             callApi()
         }
     }
@@ -123,10 +124,11 @@ class InvestmentFragment : BaseFragment() {
         investmentViewModel.getInvestments(5002).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                    binding.progressBar.show()
                 }
                 Status.SUCCESS -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
+                    binding.slSwipeRefresh.visibility = View.VISIBLE
                     it.data?.data?.let { data ->
                         binding.slSwipeRefresh.isRefreshing = false
                         newInvestmentsList = data.pageManagementsOrNewInvestments
@@ -137,7 +139,7 @@ class InvestmentFragment : BaseFragment() {
                     }
                 }
                 Status.ERROR -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
                     (requireActivity() as HomeActivity).showErrorToast(
                         it.message!!
                     )
@@ -150,10 +152,10 @@ class InvestmentFragment : BaseFragment() {
         investmentViewModel.getInvestmentsMediaGallery(newInvestmentsList[0].id).observe(viewLifecycleOwner,Observer{
             when (it.status) {
                 Status.LOADING -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                    binding.progressBar.show()
                 }
                 Status.SUCCESS -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
                     it.data?.data?.let { data ->
                         if(data!=null){
                             setUpRecyclerView(invData,data.mediaGalleries)
@@ -161,7 +163,7 @@ class InvestmentFragment : BaseFragment() {
                     }
                 }
                 Status.ERROR -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
                     (requireActivity() as HomeActivity).showErrorToast(
                         it.message!!
                     )
@@ -195,10 +197,10 @@ class InvestmentFragment : BaseFragment() {
         investmentViewModel.getAllInvestmentsProjects().observe(viewLifecycleOwner, Observer {
             when(it.status){
                 Status.LOADING -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                    binding.progressBar.show()
                 }
                 Status.SUCCESS -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
                     it.data?.data?.let {  data ->
                         investmentViewModel.setAp(true)
                         investmentViewModel.setAllInvestments(data)
@@ -206,7 +208,7 @@ class InvestmentFragment : BaseFragment() {
                     }
                 }
                 Status.ERROR -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
                     (requireActivity() as HomeActivity).showErrorToast(
                         it.message!!
                     )
