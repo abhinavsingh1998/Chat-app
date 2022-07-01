@@ -73,7 +73,7 @@
                         app:layout_constraintRight_toRightOf="parent"/>
 
                     <com.emproto.core.textviews.CustomTextView
-                        android:id="@+id/customTextView"
+                        android:id="@+id/sub_header_txt"
                         style="@style/text_style_lightgrey14"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         tools:listitem="@layout/project_updates_item"
-                        app:layout_constraintTop_toBottomOf="@id/customTextView"/>
+                        app:layout_constraintTop_toBottomOf="@id/sub_header_txt"/>
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/share_txt_card"

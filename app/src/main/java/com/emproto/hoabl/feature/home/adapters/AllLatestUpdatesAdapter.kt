@@ -16,6 +16,7 @@ import com.emproto.networklayer.response.marketingUpdates.Data
 class AllLatestUpdatesAdapter(
     val context: Context,
     val list: List<Data>,
+    val listCount:Int,
     val itemInterface: UpdatesItemsInterface)
     : RecyclerView.Adapter<AllLatestUpdatesAdapter.MyViewHolder>() {
 
@@ -65,7 +66,7 @@ class AllLatestUpdatesAdapter(
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return listCount
     }
 
     inner class MyViewHolder(val binding: ProjectUpdatesItemBinding) :

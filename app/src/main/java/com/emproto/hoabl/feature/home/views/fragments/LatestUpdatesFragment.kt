@@ -30,6 +30,9 @@ class LatestUpdatesFragment : BaseFragment() {
     lateinit var latestUpatesAdapter: AllLatestUpdatesAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
     val appURL= "https://hoabl.in/"
+    var updatesListCount= 0
+    lateinit var latestHeading:String
+    lateinit var latestSubHeading:String
 
     @Inject
     lateinit var factory: HomeFactory
@@ -41,6 +44,17 @@ class LatestUpdatesFragment : BaseFragment() {
         savedInstanceState: Bundle?,
     ): View? {
         mBinding = FragmentLatestUpdatesBinding.inflate(inflater, container, false)
+        arguments?.let {
+            updatesListCount = it.getInt("UpdateList", 0)
+        }
+
+        arguments?.let {
+            latestHeading= it.getString("heading", "")
+        }
+        arguments?.let {
+            latestSubHeading= it.getString("subheading", "")
+        }
+
 
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
             View.GONE
@@ -53,7 +67,7 @@ class LatestUpdatesFragment : BaseFragment() {
 
         (requireActivity() as HomeActivity).showBackArrow()
         initClickListner()
-        initObserver(false)
+        initObserver(refresh = false)
         return mBinding.root
     }
 
@@ -69,20 +83,33 @@ class LatestUpdatesFragment : BaseFragment() {
                     Status.SUCCESS ->{
                         mBinding.rootView.show()
                         mBinding.loader.hide()
+
+                        mBinding.headerText.text= latestHeading
+                        mBinding.subHeaderTxt.text= latestSubHeading
                         it.data.let {
                             if(it != null){
                                 homeViewModel.setLatestUpdatesData(it.data)
+
                             }
 
                             //loading List
                             it?.data!!.size
                             latestUpatesAdapter = AllLatestUpdatesAdapter(requireActivity(),
                                 it.data,
+                                updatesListCount,
                                 object : AllLatestUpdatesAdapter.UpdatesItemsInterface {
                                     override fun onClickItem( position: Int) {
                                         homeViewModel.setSeLectedLatestUpdates(it.data[position])
                                         homeViewModel.setSelectedPosition(LatesUpdatesPosition(position,
                                             it.data.size))
+
+                                        val fragment = LatestUpdatesFragment()
+                                        val bundle = Bundle()
+                                        bundle.putInt("UpdateList", updatesListCount)
+                                        fragment.arguments = bundle
+                                        (requireActivity() as HomeActivity).addFragment(fragment, false)
+
+
                                         (requireActivity() as HomeActivity).addFragment(LatestUpdatesDetailsFragment(),
                                             false)
                                     }

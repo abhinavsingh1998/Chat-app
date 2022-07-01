@@ -20,6 +20,7 @@ import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.insights.InsightsResponse
+import com.skydoves.balloon.balloon
 import javax.inject.Inject
 
 class InsightsFragment : BaseFragment() {
@@ -28,6 +29,9 @@ class InsightsFragment : BaseFragment() {
     lateinit var insightsAdapter: AllInsightsAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
     val appURL= "https://hoabl.in/"
+    var insightsListCount= 0
+    lateinit var insightsHeading:String
+    lateinit var insightsSubHeading:String
 
 
     @Inject
@@ -46,6 +50,17 @@ class InsightsFragment : BaseFragment() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
             View.GONE
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
+
+        arguments?.let {
+            insightsListCount = it.getInt("insightsCounts", 0)
+        }
+
+        arguments?.let {
+            insightsHeading= it.getString("insightsHeading", "")
+        }
+        arguments?.let {
+            insightsSubHeading= it.getString("insightsSubHeading", "")
+        }
 
         (requireActivity() as HomeActivity).showBackArrow()
 
@@ -68,6 +83,9 @@ class InsightsFragment : BaseFragment() {
                         mBinding.rootView.show()
                         mBinding.loader.hide()
 
+                        mBinding.headerText.text= insightsHeading
+                        mBinding.subHeaderTxt.text= insightsSubHeading
+
                         it.data.let {
                             if (it != null){
                                 homeViewModel.setInsightsData(it.data)
@@ -75,6 +93,7 @@ class InsightsFragment : BaseFragment() {
 
                             it?.data!!.size
                             insightsAdapter = AllInsightsAdapter(requireActivity(),
+                                insightsListCount,
                                 it.data,
                                 object : AllInsightsAdapter.InsightsItemsInterface {
                                     override fun onClickItem(position: Int) {

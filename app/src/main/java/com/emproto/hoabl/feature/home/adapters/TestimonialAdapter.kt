@@ -25,11 +25,16 @@ class TestimonialAdapter(
         holder.binding.tvName.text= item.firstName + " " + item.lastName
         holder.binding.tvCompanyName.text= item.designation + " " + item.companyName
         holder.binding.details.text= item.testimonialContent
-
     }
 
     override fun getItemCount(): Int {
-        return itemCount.page.totalTestimonialsOnHomeScreen
+        var itemList= 0
+        if (itemCount.page.totalTestimonialsOnHomeScreen<list.size){
+            itemList = itemCount.page.totalTestimonialsOnHomeScreen
+        } else{
+            itemList= list.size
+        }
+        return itemList
     }
 
     inner class MyViewHolder(val binding: ItemTestimonialsBinding) :

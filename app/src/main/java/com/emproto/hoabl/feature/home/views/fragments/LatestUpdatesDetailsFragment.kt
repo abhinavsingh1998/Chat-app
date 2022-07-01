@@ -39,7 +39,7 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
     var position:Int =0
     var listLength:Int=0
     lateinit var it: Data
-
+    var updatesListCount= 0
     lateinit var data: LiveData<LatesUpdatesPosition>
 
     override fun onCreateView(

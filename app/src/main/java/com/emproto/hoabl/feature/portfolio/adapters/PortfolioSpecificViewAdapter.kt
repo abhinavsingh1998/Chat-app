@@ -296,7 +296,7 @@ class PortfolioSpecificViewAdapter(
                     binding.registrationNo.text = reraNumber
                     binding.tvLatitude.text = data.projectInformation.crmProject.lattitude
                     binding.tvLongitude.text = data.projectInformation.crmProject.longitude
-                    binding.tvAltitude.text = data.projectInformation.crmProject.altitude
+                    binding.tvAltitude.text = data.projectInformation.crmProject.altitude + "m"
                     binding.ownersName.text = data.investmentInformation.owners[0]
                     Glide.with(context).load(data.projectExtraDetails.projectIco.value.url)
                         .into(binding.ivProjectImage)

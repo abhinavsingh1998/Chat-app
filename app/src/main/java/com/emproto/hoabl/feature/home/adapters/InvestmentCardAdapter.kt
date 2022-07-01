@@ -61,6 +61,14 @@ class InvestmentCardAdapter(
     }
 
     override fun getItemCount(): Int {
+
+        var itemList= 0
+        if (itemCount.page.totalProjectsOnHomeScreen<list.size){
+            itemList = itemCount.page.totalProjectsOnHomeScreen
+        } else{
+            itemList= list.size
+        }
+        return itemList
         return itemCount.page.totalProjectsOnHomeScreen
     }
 

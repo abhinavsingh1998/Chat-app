@@ -11,5 +11,6 @@ data class Data(
     val pageManagementsOrTestimonials: List<PageManagementsOrTestimonial>,
     val isKycComplete : Boolean,
     val isProfileComplete : Boolean,
+    val contactType: String,
     val isFacilityVisible : Boolean
 ):Serializable

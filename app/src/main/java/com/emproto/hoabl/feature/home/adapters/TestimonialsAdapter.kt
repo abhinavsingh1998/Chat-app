@@ -11,7 +11,7 @@ import com.emproto.networklayer.response.home.PageManagementOrInsight
 import com.emproto.networklayer.response.home.PageManagementsOrTestimonial
 import com.emproto.networklayer.response.testimonials.Data
 
-class TestimonialsAdapter(val context: Context, val list: List<Data>) : RecyclerView.Adapter<TestimonialsAdapter.MyViewHolder>() {
+class TestimonialsAdapter(val context: Context, val list: List<Data>, val itemList:Int) : RecyclerView.Adapter<TestimonialsAdapter.MyViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -30,7 +30,7 @@ class TestimonialsAdapter(val context: Context, val list: List<Data>) : Recycler
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return itemList
     }
 
     inner class MyViewHolder(val binding: TestimonalsListViewBinding) :
