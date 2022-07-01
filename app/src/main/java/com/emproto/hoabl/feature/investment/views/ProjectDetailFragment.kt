@@ -85,13 +85,11 @@ class ProjectDetailFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).replaceFragment(chatsFragment.javaClass, "", true, bundle, null, 0, false
                     )
                 }
+                R.id.iv_similar_inv_arrow -> {
+                    navigateToCategory()
+                }
                 R.id.tv_similar_investment_see_all -> {
-                    val list = CategoryListFragment()
-                    val bundle = Bundle()
-                    bundle.putString("Category", "SimilarInvestments")
-                    bundle.putSerializable("SimilarInvestmentsData", similarInvestments as Serializable)
-                    list.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(list, false)
+                    navigateToCategory()
                 }
                 R.id.btn_view_on_map -> {
                     investmentViewModel.setMapLocationInfrastructure(mapLocationData)
@@ -100,14 +98,11 @@ class ProjectDetailFragment : BaseFragment() {
                 R.id.cl_not_convinced_promises -> {
                     callVideoCallApi()
                 }
+                R.id.iv_see_all_arrow -> {
+                    navigateToFaqDetail()
+                }
                 R.id.tv_faq_read_all -> {
-                    val fragment = FaqDetailFragment()
-                    val bundle = Bundle()
-                    bundle.putInt("ProjectId", projectId)
-                    bundle.putBoolean("isFromInvestment",true)
-                    bundle.putString("ProjectName",allData.launchName)
-                    fragment.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(fragment, false)
+                    navigateToFaqDetail()
                 }
                 R.id.cv_why_invest_card -> {
                     investmentViewModel.setOpportunityDoc(oppDocData)
@@ -122,25 +117,23 @@ class ProjectDetailFragment : BaseFragment() {
                         false
                     )
                 }
+                R.id.iv_skus_arrow -> {
+                    navigateToSkuScreen()
+                }
                 R.id.tv_skus_see_all -> {
                     navigateToSkuScreen()
+                }
+                R.id.iv_video_drone_arrow -> {
+                    navigateToMediaGallery(true)
                 }
                 R.id.tv_video_drone_see_all -> {
                     navigateToMediaGallery(true)
                 }
+                R.id.iv_project_amenities_arrow -> {
+                    navigateToOppDoc()
+                }
                 R.id.tv_project_amenities_all -> {
-                    investmentViewModel.setOpportunityDoc(oppDocData)
-                    investmentViewModel.setSkus(landSkusData)
-                    val fragment = OpportunityDocsFragment()
-                    val bundle = Bundle()
-                    bundle.putInt("ProjectId", projectId)
-                    bundle.putString("ProjectName",allData.launchName)
-                    bundle.putBoolean("isProjectAmenitiesClicked",true)
-                    fragment.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(
-                        fragment,
-                        false
-                    )
+                    navigateToOppDoc()
                 }
                 R.id.iv_share_icon -> {
                     val shareIntent = Intent(Intent.ACTION_SEND)
@@ -152,10 +145,16 @@ class ProjectDetailFragment : BaseFragment() {
                     )
                     startActivity(shareIntent)
                 }
+                R.id.iv_testimonials_arrow -> {
+                    (requireActivity() as HomeActivity).addFragment(Testimonials(), false)
+                }
                 R.id.tv_hear_speak_see_all -> {
                     (requireActivity() as HomeActivity).addFragment(Testimonials(), false)
                 }
                 R.id.tv_promises_see_all -> {
+                    (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
+                }
+                R.id.iv_promises_arrow -> {
                     (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
                 }
                 R.id.tv_apply_now -> {
@@ -165,12 +164,50 @@ class ProjectDetailFragment : BaseFragment() {
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
+                R.id.iv_location_infrastructure_arrow -> {
+                    investmentViewModel.setMapLocationInfrastructure(mapLocationData)
+                    (requireActivity() as HomeActivity).addFragment(MapFragment(), false)
+                }
                 R.id.tv_location_infrastructure_all -> {
                     investmentViewModel.setMapLocationInfrastructure(mapLocationData)
                     (requireActivity() as HomeActivity).addFragment(MapFragment(), false)
                 }
             }
         }
+
+    private fun navigateToCategory() {
+        val list = CategoryListFragment()
+        val bundle = Bundle()
+        bundle.putString("Category", "SimilarInvestments")
+        bundle.putSerializable("SimilarInvestmentsData", similarInvestments as Serializable)
+        list.arguments = bundle
+        (requireActivity() as HomeActivity).addFragment(list, false)
+    }
+
+    private fun navigateToFaqDetail() {
+        val fragment = FaqDetailFragment()
+        val bundle = Bundle()
+        bundle.putInt("ProjectId", projectId)
+        bundle.putBoolean("isFromInvestment",true)
+        bundle.putString("ProjectName",allData.launchName)
+        fragment.arguments = bundle
+        (requireActivity() as HomeActivity).addFragment(fragment, false)
+    }
+
+    private fun navigateToOppDoc(){
+        investmentViewModel.setOpportunityDoc(oppDocData)
+        investmentViewModel.setSkus(landSkusData)
+        val fragment = OpportunityDocsFragment()
+        val bundle = Bundle()
+        bundle.putInt("ProjectId", projectId)
+        bundle.putString("ProjectName",allData.launchName)
+        bundle.putBoolean("isProjectAmenitiesClicked",true)
+        fragment.arguments = bundle
+        (requireActivity() as HomeActivity).addFragment(
+            fragment,
+            false
+        )
+    }
 
     private fun navigateToMediaGallery(isVideoAllCLicked:Boolean) {
         val imagesList = ArrayList<MediaViewItem>()
@@ -213,10 +250,10 @@ class ProjectDetailFragment : BaseFragment() {
         projectId= projectId)).observe(viewLifecycleOwner,Observer{
             when (it.status) {
                 Status.LOADING -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                    binding.progressBar.show()
                 }
                 Status.SUCCESS -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
                     it.data?.data?.let { data ->
                         val applicationSubmitDialog = ApplicationSubmitDialog(
                             "Video Call request sent successfully.",
@@ -227,7 +264,7 @@ class ProjectDetailFragment : BaseFragment() {
                     }
                 }
                 Status.ERROR -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
                     (requireActivity() as HomeActivity).showErrorToast(
                         it.message!!
                     )
@@ -271,6 +308,7 @@ class ProjectDetailFragment : BaseFragment() {
         (requireActivity() as HomeActivity).hideBottomNavigation()
         binding.slSwipeRefresh.setOnRefreshListener {
             binding.slSwipeRefresh.isRefreshing = true
+            binding.slSwipeRefresh.visibility = View.GONE
             callApi()
         }
     }
@@ -279,7 +317,7 @@ class ProjectDetailFragment : BaseFragment() {
         investmentViewModel.getInvestmentsPromises().observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                    binding.progressBar.show()
                 }
                 Status.SUCCESS -> {
                     it.data?.data?.let { data ->
@@ -288,7 +326,7 @@ class ProjectDetailFragment : BaseFragment() {
                     }
                 }
                 Status.ERROR -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
                     (requireActivity() as HomeActivity).showErrorToast(
                         it.message!!
                     )
@@ -302,10 +340,11 @@ class ProjectDetailFragment : BaseFragment() {
             investmentViewModel.getInvestmentsDetail(projectId).observe(viewLifecycleOwner, Observer {
                 when(it.status){
                     Status.LOADING -> {
-                        (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                        binding.progressBar.show()
                     }
                     Status.SUCCESS -> {
-                        (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                        binding.progressBar.hide()
+                        binding.slSwipeRefresh.visibility = View.VISIBLE
                         it.data?.data?.let {  data ->
                             binding.slSwipeRefresh.isRefreshing = false
                             allData = data.projectContent
@@ -334,7 +373,7 @@ class ProjectDetailFragment : BaseFragment() {
                         }
                     }
                     Status.ERROR -> {
-                        (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                        binding.progressBar.hide()
                         (requireActivity() as HomeActivity).showErrorToast(
                             it.message!!
                         )
@@ -347,16 +386,16 @@ class ProjectDetailFragment : BaseFragment() {
         investmentViewModel.addWatchList(WatchListBody(projectId)).observe(viewLifecycleOwner,Observer{
             when(it.status){
                 Status.LOADING -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                    binding.progressBar.show()
                 }
                 Status.SUCCESS -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
                     it.data?.let { data ->
                         Toast.makeText(this.requireContext(), "Project added to watchlist successfully", Toast.LENGTH_SHORT).show()
                     }
                 }
                 Status.ERROR -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
                     (requireActivity() as HomeActivity).showErrorToast(
                         it.message!!
                     )
@@ -487,10 +526,10 @@ class ProjectDetailFragment : BaseFragment() {
                     ).observe(viewLifecycleOwner,Observer{
                         when(it.status){
                             Status.LOADING -> {
-                                (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                                binding.progressBar.show()
                             }
                             Status.SUCCESS -> {
-                                (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                                binding.progressBar.hide()
                                 it.data?.let { data ->
                                     val applicationSubmitDialog = ApplicationSubmitDialog("Thank you for your interest!","Our Project Manager will reach out to you in 24 hours!")
                                     applicationSubmitDialog.show(parentFragmentManager,"ApplicationSubmitDialog")
@@ -498,7 +537,7 @@ class ProjectDetailFragment : BaseFragment() {
                                 }
                             }
                             Status.ERROR -> {
-                                (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                                binding.progressBar.hide()
                                 (requireActivity() as HomeActivity).showErrorToast(
                                     it.message!!
                                 )
@@ -549,16 +588,16 @@ class ProjectDetailFragment : BaseFragment() {
             investmentViewModel.deleteWatchList(id).observe(viewLifecycleOwner,Observer{
                 when(it.status){
                     Status.LOADING -> {
-                        (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                        binding.progressBar.show()
                     }
                     Status.SUCCESS -> {
-                        (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                        binding.progressBar.hide()
                         it.data?.let { data ->
                             Toast.makeText(this.requireContext(), "Project removed from watchlist successfully", Toast.LENGTH_SHORT).show()
                         }
                     }
                     Status.ERROR -> {
-                        (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                        binding.progressBar.hide()
                         (requireActivity() as HomeActivity).showErrorToast(
                             it.message!!
                         )

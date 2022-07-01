@@ -79,10 +79,12 @@ class PhotosFragment : BaseFragment() {
             when(it){
                 true -> {
                     binding.tvNoData.visibility = View.GONE
+                    binding.ivNoData.visibility = View.GONE
                     binding.rvMainPhotos.visibility = View.VISIBLE
                 }
                 false -> {
                     binding.tvNoData.visibility = View.VISIBLE
+                    binding.ivNoData.visibility = View.VISIBLE
                     binding.rvMainPhotos.visibility = View.GONE
                 }
             }

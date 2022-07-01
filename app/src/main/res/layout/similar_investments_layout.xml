@@ -47,11 +47,11 @@
                 android:textSize="@dimen/text_size_14"
                 android:layout_marginEnd="@dimen/margin_size_8"
                 app:layout_constraintBottom_toBottomOf="@id/tv_similar_investment_title"
-                app:layout_constraintEnd_toStartOf="@+id/iv_video_drone_arrow"
+                app:layout_constraintEnd_toStartOf="@+id/iv_similar_inv_arrow"
                 app:layout_constraintTop_toTopOf="@id/tv_similar_investment_title" />
 
             <ImageView
-                android:id="@+id/iv_video_drone_arrow"
+                android:id="@+id/iv_similar_inv_arrow"
                 android:layout_width="15dp"
                 android:layout_height="9dp"
                 android:layout_marginEnd="@dimen/margin_size_11"

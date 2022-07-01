@@ -9,7 +9,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_key_pillar_card"
-        android:layout_width="@dimen/margin_size_125"
+        android:layout_width="@dimen/margin_size_130"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_size_4"
         app:cardCornerRadius="@dimen/margin_size_8"
@@ -58,10 +58,10 @@
                 android:id="@+id/tv_area_skus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_size_15"
+                android:layout_marginHorizontal="@dimen/margin_size_8"
                 android:layout_marginVertical="@dimen/margin_size_6"
                 android:fontFamily="@font/jost_regular"
-                android:text="1000-2000 sqft"
+                android:text="1000 - 2000 sqft"
                 android:textAlignment="center"
                 android:textColor="@color/text_lightgrey_color"
                 android:textSize="@dimen/text_size_13"

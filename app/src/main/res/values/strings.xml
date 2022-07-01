@@ -395,4 +395,5 @@
     <string name="resendotp">Resend OTP</string>
     <string name="no_faqs_to_show">No faqs to show</string>
     <string name="investments">Investments</string>
+    <string name="no_media_text">It’s stunning, but just not uploaded yet.\nPlease wait.</string>
 </resources>
