@@ -114,9 +114,7 @@ class FaqDetailAdapter(
                     if (s.toString().length > 1 && s.toString() != "") {
                         close.visibility = View.VISIBLE
                     }
-                    (activity as HomeActivity).activityHomeActivity.loader.show()
                     Handler().postDelayed({
-                        (activity as HomeActivity).activityHomeActivity.loader.hide()
                         itemClickListener.onItemClicked(search, position, s.toString())
                     }, 2000)
                 }

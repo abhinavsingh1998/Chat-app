@@ -158,12 +158,13 @@ class SearchResultFragment : BaseFragment() {
         homeViewModel.getSearchResult(searchWord.trim()).observe(this, Observer {
             when (it.status) {
                 Status.LOADING -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                    fragmentSearchResultBinding.progressBar.show()
                 }
                 Status.SUCCESS -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    fragmentSearchResultBinding.progressBar.hide()
                     it.data?.data?.let { data ->
                         fragmentSearchResultBinding.nsvSearchInfo.visibility = View.VISIBLE
+                        fragmentSearchResultBinding.clOuterLayout.visibility = View.VISIBLE
                         when (data.faqData.size) {
                             0 -> {
                                 fragmentSearchResultBinding.tvFaq.visibility = View.GONE
@@ -213,7 +214,7 @@ class SearchResultFragment : BaseFragment() {
                     }
                 }
                 Status.ERROR -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    fragmentSearchResultBinding.progressBar.hide()
                     (requireActivity() as HomeActivity).showErrorToast(
                         it.message!!
                     )
@@ -230,10 +231,10 @@ class SearchResultFragment : BaseFragment() {
         homeViewModel.getSearchDocResult(searchWord.trim()).observe(this, Observer {
             when (it.status) {
                 Status.LOADING -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                    fragmentSearchResultBinding.progressBar.show()
                 }
                 Status.SUCCESS -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    fragmentSearchResultBinding.progressBar.hide()
                     it.data?.data?.let { data ->
                         if (!data.isNullOrEmpty()) {
                             when (data.size) {
@@ -271,7 +272,7 @@ class SearchResultFragment : BaseFragment() {
                     }
                 }
                 Status.ERROR -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    fragmentSearchResultBinding.progressBar.hide()
                     (requireActivity() as HomeActivity).showErrorToast(
                         it.message!!
                     )

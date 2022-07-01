@@ -17,7 +17,7 @@
         android:background="@drawable/card_bg"
         android:outlineSpotShadowColor="#ababab"
         app:cardCornerRadius="@dimen/margin_size_6"
-        app:cardElevation="@dimen/margin_size_8"
+        app:cardElevation="@dimen/margin_size_4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -8,9 +8,11 @@
     android:background="@color/app_color">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_outer_security_tips"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="55dp"
+        android:visibility="visible"
         android:layout_marginBottom="50dp"
         android:background="@drawable/shape2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,9 +44,11 @@
             app:layout_constraintTop_toTopOf="@id/imgArrow" />
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_size_8"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/tv_Account">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -83,7 +87,16 @@
 
         </androidx.core.widget.NestedScrollView>
 
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/app_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

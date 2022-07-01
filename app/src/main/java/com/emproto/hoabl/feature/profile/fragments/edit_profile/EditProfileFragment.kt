@@ -200,10 +200,10 @@ class EditProfileFragment : BaseFragment() {
         profileViewModel.getStates(countryIsoCode).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                    binding.progressBaar.show()
                 }
                 Status.SUCCESS -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBaar.hide()
                     it.data?.data?.let1 { data ->
                         statesData = data
                     }
@@ -215,7 +215,7 @@ class EditProfileFragment : BaseFragment() {
                     setStateSpinnersData()
                 }
                 Status.ERROR -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBaar.hide()
                 }
             }
         }
@@ -225,10 +225,10 @@ class EditProfileFragment : BaseFragment() {
         profileViewModel.getCities(value1, isoCode).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                    binding.progressBaar.show()
                 }
                 Status.SUCCESS -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBaar.hide()
                     it.data?.data.let1 { data ->
                         cityData = data!!
                     }
@@ -238,7 +238,7 @@ class EditProfileFragment : BaseFragment() {
                     setCitiesSpinner()
                 }
                 Status.ERROR -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBaar.hide()
                 }
             }
         }

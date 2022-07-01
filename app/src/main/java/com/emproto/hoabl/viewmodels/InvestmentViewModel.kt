@@ -45,6 +45,8 @@ class InvestmentViewModel(
     private var isDroneActive = MutableLiveData<Boolean>()
     private var isThreeSixtyActive = MutableLiveData<Boolean>()
 
+    var isVideoSeeAllClicked = false
+
     fun getInvestments(pageType: Int): LiveData<BaseResponse<InvestmentResponse>> {
         return investmentRepository.getInvestments(pageType)
     }

@@ -26,7 +26,6 @@ class MediaGalleryFragment : BaseFragment() {
     lateinit var binding: FragmentMediaGalleryBinding
     lateinit var mediaViewPagerAdapter: MediaViewPagerAdapter
     val list = ArrayList<MediaViewItem>()
-    var isVideoSeeAllClicked = false
 
     private val tabList = arrayListOf<String>("Photos", "Videos", "Drone Shoots", "360 photos")
 
@@ -39,7 +38,7 @@ class MediaGalleryFragment : BaseFragment() {
         list.clear()
         arguments?.let {
             list.addAll(it.getSerializable("Data") as List<MediaViewItem>)
-            isVideoSeeAllClicked = it.getBoolean("isVideoSeeAllClicked")
+//            investmentViewModel.isVideoSeeAllClicked = it.getBoolean("isVideoSeeAllClicked")
         }
         return binding.root
     }
@@ -69,11 +68,12 @@ class MediaGalleryFragment : BaseFragment() {
             tab.text = tabList[position]
         }.attach()
 
-        when(isVideoSeeAllClicked){
+        when(investmentViewModel.isVideoSeeAllClicked){
             true -> {
                 binding.vpMediaGallery.setCurrentItem(1,false)
                 mediaViewPagerAdapter = MediaViewPagerAdapter(childFragmentManager, lifecycle)
                 mediaViewPagerAdapter.notifyDataSetChanged()
+                investmentViewModel.isVideoSeeAllClicked = false
             }
         }
     }
