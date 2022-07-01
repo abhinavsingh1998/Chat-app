@@ -203,7 +203,7 @@ class AccountDetailsFragment : Fragment(),
                             val layout: RecyclerView =
                                 requireActivity().findViewById(R.id.rvDocuments)
                             val params: ViewGroup.LayoutParams = layout.layoutParams
-                            params.height = 200
+                            params.height = 100
                             params.width = 100
                             layout.layoutParams = params
 
@@ -611,7 +611,12 @@ class AccountDetailsFragment : Fragment(),
                         binding.progressBar.hide()
                         it.data?.let {
                             kycUploadList.forEach { kycUpload ->
-                                if(kycUpload.documentType == selectedDocumentType){
+                                if(selectedDocumentType==200110){
+                                    kycUpload.name = it.data.response.data.name
+                                    kycUpload.path = it.data.response.data.path
+                                    kycUpload.status = "Verification Pending"
+                                }
+                                if(selectedDocumentType==200109){
                                     kycUpload.name = it.data.response.data.name
                                     kycUpload.path = it.data.response.data.path
                                     kycUpload.status = "Verification Pending"
