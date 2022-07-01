@@ -139,6 +139,7 @@ class HomeFragment : BaseFragment() {
                                     appPreference.saveOfferId(projectId)
                                     appPreference.saveOfferUrl(it.data.page.promotionAndOffersMedia.value.url)
                                     homeViewModel.setDashBoardData(it)
+                                    appPreference.setFacilityCard(it.data.isFacilityVisible)
                                 }
                             }
 
