@@ -11,6 +11,8 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -556,6 +558,27 @@ class AccountDetailsFragment : Fragment(),
     private fun onCaptureImageResult() {
         val selectedImage = cameraFile.path
         destinationFile = cameraFile
+        val thumbnail = BitmapFactory.decodeFile(selectedImage)
+        val ei = ExifInterface(cameraFile.path)
+        val orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
+
+   when(orientation){
+            ExifInterface.ORIENTATION_ROTATE_90 -> {
+                rotateImage(thumbnail, 90f)
+            }
+            ExifInterface.ORIENTATION_ROTATE_180 -> {
+                rotateImage(thumbnail, 180f)
+            }
+            ExifInterface.ORIENTATION_ROTATE_270 -> {
+                rotateImage(thumbnail, 270f)
+            }
+            ExifInterface.ORIENTATION_NORMAL -> {
+                thumbnail
+            }
+            else -> {
+                thumbnail
+            }
+        }
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
             val extension: String = cameraFile.name.substring(cameraFile.name.lastIndexOf(".") + 1)
             callingUploadPicApi(cameraFile, extension)
@@ -567,7 +590,14 @@ class AccountDetailsFragment : Fragment(),
             )
         }
     }
-
+    fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
+        val matrix = Matrix()
+        matrix.postRotate(angle)
+        return Bitmap.createBitmap(
+            source, 0, 0, source.width, source.height,
+            matrix, true
+        )
+    }
     private fun callingUploadPicApi(destinationFile: File, extension: String) {
         profileViewModel.uploadKycDocument(extension, destinationFile, selectedDocumentType)
             .observe(

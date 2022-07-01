@@ -1,5 +1,9 @@
 package com.emproto.hoabl.feature.portfolio.views
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.media.ExifInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -104,6 +108,15 @@ class DocViewerFragment : BaseFragment() {
                         }
                     }
                 })
+    }
+
+    fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
+        val matrix = Matrix()
+        matrix.postRotate(angle)
+        return Bitmap.createBitmap(
+            source, 0, 0, source.width, source.height,
+            matrix, true
+        )
     }
 
     companion object {
