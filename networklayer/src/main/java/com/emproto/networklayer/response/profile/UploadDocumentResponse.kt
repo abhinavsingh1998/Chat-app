@@ -2,6 +2,7 @@ package com.emproto.networklayer.response.profile
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class UploadDocumentResponse(
     @SerializedName("code")
@@ -12,188 +13,88 @@ data class UploadDocumentResponse(
     val message: String
 ) {
     data class Data(
-        @SerializedName("response")
-        val response: Response
-    ) {
-        data class Response(
-            @SerializedName("d")
-            val d: D
-        ) {
-            data class D(
-                @SerializedName("Author")
-                val author: Author,
-                @SerializedName("CheckInComment")
-                val checkInComment: String,
-                @SerializedName("CheckOutType")
-                val checkOutType: Int,
-                @SerializedName("CheckedOutByUser")
-                val checkedOutByUser: CheckedOutByUser,
-                @SerializedName("ContentTag")
-                val contentTag: String,
-                @SerializedName("CustomizedPageStatus")
-                val customizedPageStatus: Int,
-                @SerializedName("ETag")
-                val eTag: String,
-                @SerializedName("EffectiveInformationRightsManagementSettings")
-                val effectiveInformationRightsManagementSettings: EffectiveInformationRightsManagementSettings,
-                @SerializedName("Exists")
-                val exists: Boolean,
-                @SerializedName("InformationRightsManagementSettings")
-                val informationRightsManagementSettings: InformationRightsManagementSettings,
-                @SerializedName("IrmEnabled")
-                val irmEnabled: Boolean,
-                @SerializedName("Length")
-                val length: String,
-                @SerializedName("Level")
-                val level: Int,
-                @SerializedName("LinkingUri")
-                val linkingUri: Any?,
-                @SerializedName("LinkingUrl")
-                val linkingUrl: String,
-                @SerializedName("ListItemAllFields")
-                val listItemAllFields: ListItemAllFields,
-                @SerializedName("LockedByUser")
-                val lockedByUser: LockedByUser,
-                @SerializedName("MajorVersion")
-                val majorVersion: Int,
-                @SerializedName("__metadata")
-                val metadata: Metadata,
-                @SerializedName("MinorVersion")
-                val minorVersion: Int,
-                @SerializedName("ModifiedBy")
-                val modifiedBy: ModifiedBy,
-                @SerializedName("Name")
+        @SerializedName("documents")
+        val documents: List<Document>,
+        @SerializedName("paymentHistory")
+        val paymentHistory: List<PaymentHistory>
+    ): Serializable {
+        data class Document(
+            @SerializedName("createdAt")
+            val createdAt: String,
+            @SerializedName("crmBookingId")
+            val crmBookingId: String,
+            @SerializedName("crmCustomerPaymentId")
+            val crmCustomerPaymentId: String,
+            @SerializedName("crmLaunchPhaseId")
+            val crmLaunchPhaseId: String,
+            @SerializedName("documentCategory")
+            val documentCategory: Int,
+            @SerializedName("documentType")
+            val documentType: Int,
+            @SerializedName("id")
+            val id: Int,
+            @SerializedName("status")
+            val status: String?=null,
+            @SerializedName("itemInternalId")
+            val itemInternalId: Any?,
+            @SerializedName("name")
+            val name: String,
+            @SerializedName("path")
+            val path: String,
+            @SerializedName("updatedAt")
+            val updatedAt: String,
+            @SerializedName("userId")
+            val userId: String
+        ): Serializable
+
+        data class PaymentHistory(
+            @SerializedName("createdAt")
+            val createdAt: String,
+            @SerializedName("crmBookingId")
+            val crmBookingId: String,
+            @SerializedName("crmId")
+            val crmId: String,
+            @SerializedName("crmInventory")
+            val crmInventory: String?=null,
+            @SerializedName("document")
+            val document: Document,
+            @SerializedName("id")
+            val id: Int,
+            @SerializedName("launchName")
+            val launchName: String,
+            @SerializedName("paidAmount")
+            val paidAmount: Int,
+            @SerializedName("paymentDate")
+            val paymentDate: String,
+            @SerializedName("updatedAt")
+            val updatedAt: String
+        ) : Serializable {
+            data class Document(
+                @SerializedName("createdAt")
+                val createdAt: String,
+                @SerializedName("crmBookingId")
+                val crmBookingId: String,
+                @SerializedName("crmCustomerPaymentId")
+                val crmCustomerPaymentId: String,
+                @SerializedName("crmLaunchPhaseId")
+                val crmLaunchPhaseId: String,
+                @SerializedName("documentCategory")
+                val documentCategory: String,
+                @SerializedName("documentType")
+                val documentType: String,
+                @SerializedName("id")
+                val id: Int,
+                @SerializedName("itemInternalId")
+                val itemInternalId: Any?,
+                @SerializedName("name")
                 val name: String,
-                @SerializedName("Properties")
-                val properties: Properties,
-                @SerializedName("ServerRelativeUrl")
-                val serverRelativeUrl: String,
-                @SerializedName("TimeCreated")
-                val timeCreated: String,
-                @SerializedName("TimeLastModified")
-                val timeLastModified: String,
-                @SerializedName("Title")
-                val title: Any?,
-                @SerializedName("UIVersion")
-                val uIVersion: Int,
-                @SerializedName("UIVersionLabel")
-                val uIVersionLabel: String,
-                @SerializedName("UniqueId")
-                val uniqueId: String,
-                @SerializedName("VersionEvents")
-                val versionEvents: VersionEvents,
-                @SerializedName("Versions")
-                val versions: Versions
-            ) {
-                data class Author(
-                    @SerializedName("__deferred")
-                    val deferred: Deferred
-                ) {
-                    data class Deferred(
-                        @SerializedName("uri")
-                        val uri: String
-                    )
-                }
-
-                data class CheckedOutByUser(
-                    @SerializedName("__deferred")
-                    val deferred: Deferred
-                ) {
-                    data class Deferred(
-                        @SerializedName("uri")
-                        val uri: String
-                    )
-                }
-
-                data class EffectiveInformationRightsManagementSettings(
-                    @SerializedName("__deferred")
-                    val deferred: Deferred
-                ) {
-                    data class Deferred(
-                        @SerializedName("uri")
-                        val uri: String
-                    )
-                }
-
-                data class InformationRightsManagementSettings(
-                    @SerializedName("__deferred")
-                    val deferred: Deferred
-                ) {
-                    data class Deferred(
-                        @SerializedName("uri")
-                        val uri: String
-                    )
-                }
-
-                data class ListItemAllFields(
-                    @SerializedName("__deferred")
-                    val deferred: Deferred
-                ) {
-                    data class Deferred(
-                        @SerializedName("uri")
-                        val uri: String
-                    )
-                }
-
-                data class LockedByUser(
-                    @SerializedName("__deferred")
-                    val deferred: Deferred
-                ) {
-                    data class Deferred(
-                        @SerializedName("uri")
-                        val uri: String
-                    )
-                }
-
-                data class Metadata(
-                    @SerializedName("id")
-                    val id: String,
-                    @SerializedName("type")
-                    val type: String,
-                    @SerializedName("uri")
-                    val uri: String
-                )
-
-                data class ModifiedBy(
-                    @SerializedName("__deferred")
-                    val deferred: Deferred
-                ) {
-                    data class Deferred(
-                        @SerializedName("uri")
-                        val uri: String
-                    )
-                }
-
-                data class Properties(
-                    @SerializedName("__deferred")
-                    val deferred: Deferred
-                ) {
-                    data class Deferred(
-                        @SerializedName("uri")
-                        val uri: String
-                    )
-                }
-
-                data class VersionEvents(
-                    @SerializedName("__deferred")
-                    val deferred: Deferred
-                ) {
-                    data class Deferred(
-                        @SerializedName("uri")
-                        val uri: String
-                    )
-                }
-
-                data class Versions(
-                    @SerializedName("__deferred")
-                    val deferred: Deferred
-                ) {
-                    data class Deferred(
-                        @SerializedName("uri")
-                        val uri: String
-                    )
-                }
-            }
+                @SerializedName("path")
+                val path: String,
+                @SerializedName("updatedAt")
+                val updatedAt: String,
+                @SerializedName("userId")
+                val userId: String
+            ): Serializable
         }
     }
 }

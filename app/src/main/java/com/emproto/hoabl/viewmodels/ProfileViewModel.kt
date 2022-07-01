@@ -45,7 +45,7 @@ class ProfileViewModel(
         extension: String,
         file: File,
         selectedDoc: Int
-    ): LiveData<BaseResponse<UploadDocumentResponse>> {
+    ): LiveData<BaseResponse<UploadKycResponse>> {
         return profileRepository.uploadKycDocument(extension, file, selectedDoc)
     }
 

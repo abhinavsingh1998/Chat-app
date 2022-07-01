@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,44 +15,150 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/margin_size_40">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvDocName"
-            style="@style/text_style_text_color_14"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clKycView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:fontFamily="@font/jost_regular"
-            tools:text="Aadhar Card"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tvUploadDoc"
-            style="@style/text_style_blue_12"
-            android:layout_width="0dp"
+            <TextView
+                android:id="@+id/tvDocName"
+                style="@style/text_style_text_color_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:fontFamily="@font/jost_regular"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Aadhar Card" />
+
+            <TextView
+                android:id="@+id/tvUploadDoc"
+                style="@style/text_style_blue_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="14dp"
+                android:fontFamily="@font/jostregular"
+                android:text="Upload"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/viewUnderLine"
+                android:layout_width="0dp"
+                android:layout_height="0.75dp"
+                android:background="@color/app_color"
+                app:layout_constraintEnd_toEndOf="@+id/tvUploadDoc"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/tvUploadDoc"
+                app:layout_constraintTop_toBottomOf="@+id/tvUploadDoc"
+                tools:visibility="visible" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clStatus"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="14dp"
-            android:fontFamily="@font/jostregular"
-            android:text="Upload"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/clKycView">
+
+            <View
+                android:id="@+id/viewLine"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="4dp"
+                android:background="#e8eaff"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:fontFamily="@font/jost_regular"
+                android:text="Status:"
+                android:textColor="#bcbcbc"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/viewLine" />
+
+            <TextView
+                android:id="@+id/tvVerificationPending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:fontFamily="@font/jost_regular"
+                android:text="Verification Pending"
+                android:textColor="#ffab0b"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/textStatus"
+                app:layout_constraintTop_toBottomOf="@id/viewLine" />
+
+            <TextView
+                android:id="@+id/tvReupload"
+                style="@style/text_style_blue_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="14dp"
+                android:fontFamily="@font/jostregular"
+                android:text="Re-upload"
+                app:layout_constraintBottom_toBottomOf="@id/textStatus"
+                app:layout_constraintEnd_toEndOf="parent" />
 
 
-        <View
-            android:id="@+id/viewUnderLine"
-            android:layout_width="0dp"
-            android:layout_height="0.75dp"
-            android:background="@color/app_color"
-            app:layout_constraintEnd_toEndOf="@+id/tvUploadDoc"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/tvUploadDoc"
-            app:layout_constraintTop_toBottomOf="@+id/tvUploadDoc" />
+            <View
+                android:id="@+id/reuploadLine"
+                android:layout_width="0dp"
+                android:layout_height="0.75dp"
+                android:background="@color/app_color"
+                app:layout_constraintEnd_toEndOf="@+id/tvReupload"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/tvReupload"
+                app:layout_constraintTop_toBottomOf="@+id/tvReupload"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tvPreview"
+                style="@style/text_style_blue_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="14dp"
+                android:fontFamily="@font/jostregular"
+                android:text="Preview"
+                app:layout_constraintTop_toTopOf="@id/tvReupload"
+                app:layout_constraintBottom_toBottomOf="@id/tvReupload"
+                app:layout_constraintEnd_toStartOf="@id/tvReupload" />
 
 
+            <View
+                android:id="@+id/previewLine"
+                android:layout_width="0dp"
+                android:layout_height="0.75dp"
+                android:background="@color/app_color"
+                app:layout_constraintEnd_toEndOf="@+id/tvPreview"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/tvPreview"
+                app:layout_constraintTop_toBottomOf="@+id/tvPreview"
+                tools:visibility="visible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.cardview.widget.CardView>
