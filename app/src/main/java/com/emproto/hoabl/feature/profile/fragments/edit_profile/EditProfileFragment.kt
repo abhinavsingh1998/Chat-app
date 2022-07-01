@@ -881,7 +881,6 @@ class EditProfileFragment : BaseFragment() {
         }catch (e:Exception){
             e.message
         }
-
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
             callingUploadPicApi(cameraFile)
             binding.saveAndUpdate.text = "Save and Update"
