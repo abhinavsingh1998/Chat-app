@@ -59,7 +59,6 @@ class DocViewerFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
 
         binding = FragmentSingledocBinding.inflate(layoutInflater)
