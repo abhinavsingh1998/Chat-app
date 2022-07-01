@@ -98,10 +98,7 @@ class HomeViewModel(
         return mhomeRepository.getTermsCondition(pageType)
     }
 
-    fun getLatestUpdatesData(
-        refresh: Boolean,
-        byPrority: Boolean
-    ): LiveData<BaseResponse<LatestUpdatesResponse>> {
+    fun getLatestUpdatesData(refresh: Boolean, byPrority: Boolean): LiveData<BaseResponse<LatestUpdatesResponse>> {
         return homeRepository.getlatestUpdatesData(refresh, byPrority)
     }
 

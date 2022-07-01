@@ -33,6 +33,9 @@ class Testimonials : BaseFragment() {
     lateinit var testimonialsAdapter: TestimonialsAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
     val appURL= "https://hoabl.in/"
+    var testimonialsItem= 0
+    lateinit var testimonilalsHeading:String
+    lateinit var testimonilalsSubHeading:String
 
 
     @Inject
@@ -49,6 +52,16 @@ class Testimonials : BaseFragment() {
             View.GONE
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
         (requireActivity() as HomeActivity).showBackArrow()
+        arguments?.let {
+            testimonialsItem = it.getInt("testimonials", 0)
+        }
+
+        arguments?.let {
+            testimonilalsHeading= it.getString("testimonialsHeading", "")
+        }
+        arguments?.let {
+            testimonilalsSubHeading= it.getString("testimonialsSubHeading", "")
+        }
 
         initObserver(false)
         initClickListner()
@@ -68,6 +81,9 @@ class Testimonials : BaseFragment() {
                         mBinding.rootView.show()
                         mBinding.loader.hide()
 
+                        mBinding.headerText.text= testimonilalsHeading
+                        mBinding.subHeaderTxt.text= testimonilalsSubHeading
+
                         it.data.let {
 
                             if (it!= null){
@@ -76,7 +92,8 @@ class Testimonials : BaseFragment() {
 
                                 //loading List
                                 testimonialsAdapter = TestimonialsAdapter(requireActivity(),
-                                    it.data
+                                    it.data,
+                                    testimonialsItem
                                 )
                                 linearLayoutManager = LinearLayoutManager(
                                     requireContext(),
