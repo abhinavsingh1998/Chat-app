@@ -2,10 +2,8 @@ package com.emproto.hoabl.feature.profile.fragments.securtiyandsettings
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.speech.RecognizerIntent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,14 +17,12 @@ import com.emproto.hoabl.databinding.FragmentSecurityBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
-import com.emproto.hoabl.feature.investment.dialogs.ConfirmationDialog
 import com.emproto.hoabl.feature.profile.adapter.SecurityAdapter
 import com.emproto.hoabl.feature.profile.adapter.SettingsAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
-import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.request.profile.ReportSecurityRequest
 import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.enums.Status
@@ -72,7 +68,7 @@ class SecurityFragment : Fragment(){
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_REPORT))
 //        dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_AUTHENTICATE))
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_WHATSAPP_COMMUNICATION))
-        dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_LOCATION))
+        dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_TIPS))
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SETTINGS_ALL_OPTIONS))
 
         val adapter = SecurityAdapter(this.requireContext(), dataList, itemClickListener, isWhatsappEnabled, showPushNotifications)
@@ -115,10 +111,10 @@ class SecurityFragment : Fragment(){
                         description = "I want to raise a security emergency")).observe(viewLifecycleOwner, Observer {
                             when(it.status){
                                 Status.LOADING -> {
-                                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                                    binding.progressBar.show()
                                 }
                                 Status.SUCCESS -> {
-                                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                                    binding.progressBar.hide()
                                     if (it.data != null) {
                                         it.data?.let {
                                             val applicationSubmitDialog = ApplicationSubmitDialog(
@@ -131,7 +127,7 @@ class SecurityFragment : Fragment(){
                                     }
                                 }
                                 Status.ERROR -> {
-                                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                                    binding.progressBar.hide()
                                     it.data
                                     (requireActivity() as HomeActivity).showErrorToast(
                                         it.message!!
@@ -171,10 +167,10 @@ class SecurityFragment : Fragment(){
         profileViewModel.putWhatsappconsent(WhatsappConsentBody(whatsappConsent = status,showPushNotifications=showPushNotifications)).observe(viewLifecycleOwner,Observer{
             when(it.status){
                 Status.LOADING -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                    binding.progressBar.show()
                 }
                 Status.SUCCESS -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
                     if (it.data != null) {
                         it.data?.let {
 
@@ -182,7 +178,7 @@ class SecurityFragment : Fragment(){
                     }
                 }
                 Status.ERROR -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
                     it.data
                     (requireActivity() as HomeActivity).showErrorToast(
                         it.message!!

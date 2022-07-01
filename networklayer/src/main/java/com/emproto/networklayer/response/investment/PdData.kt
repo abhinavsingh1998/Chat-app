@@ -22,6 +22,7 @@ data class PdData(
     val keyPillars: KeyPillars,
     val latestMediaGalleryHeading: String,
     val otherSectionHeadings: OtherSectionHeading,
+    val mediaGallerySectionHeading:String,
     val latestMediaGalleryOrProjectContent: List<LatestMediaGalleryOrProjectContent>,
     val launchName: String,
     val locationInfrastructure: LocationInfrastructure,

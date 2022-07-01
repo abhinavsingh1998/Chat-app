@@ -445,7 +445,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectVideosDroneViewHolder(private val binding: VideoDroneLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvVideoTitle.text = data.otherSectionHeadings.droneVideos.sectionHeading
+            binding.tvVideoTitle.text = data.mediaGallerySectionHeading
             val itemList = ArrayList<YoutubeModel>()
             for(item in data.mediaGalleryOrProjectContent[0].videos){
                 itemList.add(YoutubeModel(title = item.name, url = item.mediaContent.value.url))
