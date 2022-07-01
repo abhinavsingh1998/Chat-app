@@ -1,14 +1,19 @@
 package com.emproto.hoabl.feature.portfolio.views
 
+import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.media.ExifInterface
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.Environment
+import android.provider.MediaStore
+import android.provider.MediaStore.Images
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -20,7 +25,11 @@ import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.response.enums.Status
 import com.example.portfolioui.databinding.FragmentSingledocBinding
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 import javax.inject.Inject
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +68,7 @@ class DocViewerFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Inflate the layout for this fragment
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
 
         binding = FragmentSingledocBinding.inflate(layoutInflater)
@@ -102,11 +112,35 @@ class DocViewerFragment : BaseFragment() {
                             binding.tvMediaImageName.text = name
                             binding.progressBar.visibility = View.GONE
                             val bitmap = Utility.getBitmapFromBase64(it.data!!.data)
-                            binding.ivMediaPhoto.setImageBitmap(bitmap)
-
+                            val rotatedBitmap = bitmap?.let { it1 -> rotateImage(it1,90f) }
+                            binding.ivMediaPhoto.setImageBitmap(rotatedBitmap)
                         }
                     }
                 })
+    }
+
+    fun bitmapToFile(bitmap: Bitmap, fileNameToSave: String): File? { // File name like "image.png"
+        //create a file to write bitmap data
+        var file: File? = null
+        return try {
+            file = File(Environment.getExternalStorageDirectory().toString() + File.separator + fileNameToSave)
+            file.createNewFile()
+
+            //Convert bitmap to byte array
+            val bos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos) // YOU can also save it in JPEG
+            val bitmapdata = bos.toByteArray()
+
+            //write the bytes in file
+            val fos = FileOutputStream(file)
+            fos.write(bitmapdata)
+            fos.flush()
+            fos.close()
+            file
+        } catch (e: Exception) {
+            e.printStackTrace()
+            file // it will return null
+        }
     }
 
     fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
@@ -117,6 +151,21 @@ class DocViewerFragment : BaseFragment() {
             matrix, true
         )
     }
+
+    fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
+        val bytes = ByteArrayOutputStream()
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = Images.Media.insertImage(inContext.contentResolver, inImage, "Title", null)
+        return Uri.parse(path)
+    }
+
+    fun getRealPathFromURI(uri: Uri?): String? {
+        val cursor = uri?.let { context?.getContentResolver()?.query(it, null, null, null, null) }
+        cursor?.moveToFirst()
+        val idx: Int = cursor?.getColumnIndex(MediaStore.Images.ImageColumns.DATA)!!
+        return cursor.getString(idx)
+    }
+
 
     companion object {
         /**
