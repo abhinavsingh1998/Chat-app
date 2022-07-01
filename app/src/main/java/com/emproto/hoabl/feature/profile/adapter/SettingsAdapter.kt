@@ -29,7 +29,7 @@ class SettingsAdapter(
         val currentItem= settingsList[position]
         holder.tvHeading.text= currentItem.heading
         holder.desc.text= currentItem.desc
-        if (holder.absoluteAdapterPosition == 2) {
+        if (holder.absoluteAdapterPosition == 0) {
             when (showPushNotifications) {
                 true -> holder.switch.isChecked = true
                 false -> holder.switch.isChecked = false
@@ -49,6 +49,22 @@ class SettingsAdapter(
                             position,
                             isChecked.toString()
                         )
+                    }
+                }
+            }
+        }
+        if(holder.absoluteAdapterPosition == 1){
+            holder.switch.setOnCheckedChangeListener { buttonView, isChecked ->
+                when (isChecked) {
+                    true -> {
+                        itemClickListener.onItemClicked(
+                            holder.switch,
+                            position,
+                            "Voice Command"
+                        )
+                    }
+                    false -> {
+
                     }
                 }
             }

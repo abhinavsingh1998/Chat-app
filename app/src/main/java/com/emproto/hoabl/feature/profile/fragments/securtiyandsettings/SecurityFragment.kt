@@ -1,8 +1,10 @@
 package com.emproto.hoabl.feature.profile.fragments.securtiyandsettings
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -43,6 +45,10 @@ class SecurityFragment : Fragment(){
 
     private var isWhatsappEnabled = false
     private var showPushNotifications = false
+
+    companion object{
+        const val SPEECH_REQUEST_CODE = 1001
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -144,10 +150,21 @@ class SecurityFragment : Fragment(){
                             showPushNotifications = false
                             callWhatsAppConsentApi(isWhatsappEnabled,showPushNotifications)
                         }
+                        "Voice Command" -> {
+//                            displaySpeechRecognizer()
+                        }
                     }
                 }
             }
         }
+    }
+
+    private fun displaySpeechRecognizer() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+        }
+        // This starts the activity and populates the intent with the speech text.
+        startActivityForResult(intent, SPEECH_REQUEST_CODE)
     }
 
     private fun callWhatsAppConsentApi(status: Boolean,showPushNotifications:Boolean) {
@@ -173,6 +190,35 @@ class SecurityFragment : Fragment(){
                 }
             }
         })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SPEECH_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            val spokenText: String? =
+                data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).let { results ->
+                    results!![0]
+                }
+            // Do something with spokenText.
+            Toast.makeText(this.requireContext(), spokenText.toString(), Toast.LENGTH_SHORT).show()
+            when{
+                spokenText.toString().contains("Investment", ignoreCase = true) -> {
+                    (requireActivity() as HomeActivity).navigate(R.id.navigation_investment)
+                }
+                spokenText.toString().contains("Promise", ignoreCase = true) -> {
+                    (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
+                }
+                spokenText.toString().contains("Portfolio", ignoreCase = true) -> {
+                    (requireActivity() as HomeActivity).navigate(R.id.navigation_portfolio)
+                }
+                spokenText.toString().contains("Home", ignoreCase = true) -> {
+                    (requireActivity() as HomeActivity).navigate(R.id.navigation_hoabl)
+                }
+                spokenText.toString().contains("Profile", ignoreCase = true) -> {
+                    (requireActivity() as HomeActivity).navigate(R.id.navigation_profile)
+                }
+            }
+        }
     }
 
 }
