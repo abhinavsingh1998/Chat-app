@@ -44,6 +44,7 @@
         <activity
             android:name=".feature.login.IntroSliderActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.HOABL" />
         <activity
             android:name=".feature.login.AuthActivity"
@@ -66,6 +67,7 @@
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
             android:name=".feature.investment.views.mediagallery.YoutubeActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
 
         <service

@@ -581,6 +581,7 @@ class AccountDetailsFragment : Fragment(),
                         binding.progressBar.hide()
                         it.data?.let {
                             kycUploadList.forEach { kycUpload ->
+                                Log.d("Red","dctype= ${kycUpload.documentType} sel= ${selectedDocumentType}")
                                 if(kycUpload.documentType == selectedDocumentType){
                                     kycUpload.name = it.data.response.data.name
                                     kycUpload.path = it.data.response.data.path
