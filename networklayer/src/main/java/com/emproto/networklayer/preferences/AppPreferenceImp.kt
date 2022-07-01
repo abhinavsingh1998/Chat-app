@@ -15,6 +15,7 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
         val NOTIFICATION_TOKEN = "notification_token"
         val OFFER_ID = "offer_id"
         val OFFER_CARD_URL = "offer_url"
+        val CUSTOMER_TYPE= "customer_type"
     }
 
     private var preference = context.getSharedPreferences("hoabl-pref", Context.MODE_PRIVATE)
@@ -99,6 +100,11 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
         return getBoolean(FACILITY_CARD, false)
     }
 
+    override fun setCustomerType(customerType: String){
+         saveString(CUSTOMER_TYPE, "")
+    }
+
+
     override fun saveOfferId(project: Int) {
         saveInt(OFFER_ID, project)
     }
@@ -113,6 +119,10 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
 
     override fun getOfferUrl(): String {
         return getString(OFFER_CARD_URL, "")
+    }
+
+    override fun getCustomerType(): String {
+        return getString(CUSTOMER_TYPE, "")
     }
 
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.investment.adapters.InvestmentViewPagerAdapter
 import com.emproto.hoabl.feature.investment.adapters.NewInvestmentAdapter
@@ -16,6 +17,7 @@ import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.home.*
 import com.google.android.material.tabs.TabLayoutMediator
+import javax.inject.Inject
 
 class HomeAdapter(
     var context: Context,
@@ -29,7 +31,7 @@ class HomeAdapter(
         const val INCOMPLETED_KYC = 2
         const val LATEST_UPDATES = 3
         const val PROMISES = 4
-        const val  FACILITY_MANAGMENT= 5
+        const val FACILITY_MANAGMENT= 5
         const val INSIGHTS = 6
         const val TESTIMONIAS=7
         const val SHARE_APP = 8
@@ -43,6 +45,10 @@ class HomeAdapter(
     private lateinit var testimonialAdapter: TestimonialAdapter
     private lateinit var onItemClickListener : View.OnClickListener
     private lateinit var linearLayoutManager: LinearLayoutManager
+
+
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
        return when(viewType){
@@ -146,6 +152,8 @@ class HomeAdapter(
                 RecyclerView.HORIZONTAL,
                 false
             )
+
+            binding.textview2.text= data.page.latestUpdates.heading
             binding.latesUpdatesRecyclerview.layoutManager = linearLayoutManager
             binding.latesUpdatesRecyclerview.adapter = latestUpdateAdapter
             binding.latesUpdatesRecyclerview.setHasFixedSize(true)
@@ -162,6 +170,7 @@ class HomeAdapter(
                 itemClickListener
             )
 
+            binding.textview4.text= data.page.promisesHeading
             binding.tvSeeallPromise.setOnClickListener(View.OnClickListener {
                 itemClickListener.onItemClicked(it,position, "")
             })
@@ -179,20 +188,23 @@ class HomeAdapter(
     }
 
     private inner class FacilityManagementViewHolder(private val binding:HomeFmCardLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        lateinit var appPreference: AppPreference
 
         fun bind(position: Int){
 
-            appPreference.setFacilityCard(data?.isFacilityVisible)
-            if (data?.isFacilityVisible) {
-                binding.facilityManagementCardLayout.isVisible = true
-                binding.dontMissOutCard.isVisible = false
-            } else {
-                binding.facilityManagementCardLayout.isVisible = false
-                binding.dontMissOutCard.isVisible = false
-            }
 
-            binding.facilityManagementCard.tvFacilityManagementDescription.setOnClickListener(View.OnClickListener {
+            binding.facilityManagementCardLayout.isVisible = data.isFacilityVisible ==true
+
+            binding.dontMissOutCard.isVisible = data.contactType== "prelead"
+
+
+            Glide.with(context).load(data.page.facilityManagement.value.url)
+                .into(binding.facilityManagementCard)
+
+            binding.facilityManagementCard.setOnClickListener(View.OnClickListener {
+                itemClickListener.onItemClicked(it, position, "")
+            })
+
+            binding.dontMissOutCard.setOnClickListener(View.OnClickListener {
                 itemClickListener.onItemClicked(it, position, "")
             })
 
@@ -210,6 +222,7 @@ class HomeAdapter(
             binding.tvSeeallInsights.setOnClickListener(View.OnClickListener {
                 itemClickListener.onItemClicked(it,position, "")
             })
+            binding.textview5.text= data.page.insightsHeading
 
             linearLayoutManager = LinearLayoutManager(
                 context,
@@ -232,6 +245,7 @@ class HomeAdapter(
                 data,
                 data.pageManagementsOrTestimonials
             )
+            binding.textview6.text= data.page.testimonialsHeading
 
             binding.tvSeeallTestimonial.setOnClickListener(View.OnClickListener {
                 itemClickListener.onItemClicked(it,position, "")

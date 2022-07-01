@@ -32,6 +32,7 @@ class LatestUpdateAdapter(
         val item = list.get(holder.adapterPosition)
         holder.binding.title.text = item.displayTitle
 
+
         if (!item.subTitle.isNullOrEmpty()){
             holder.binding.tvName.text= item.subTitle
         } else{
@@ -63,7 +64,13 @@ class LatestUpdateAdapter(
     }
 
     override fun getItemCount(): Int {
-        return itemCount.page.totalUpdatesOnHomeScreen
+        var itemList= 0
+        if (itemCount.page.totalUpdatesOnHomeScreen<list.size){
+            itemList = itemCount.page.totalUpdatesOnHomeScreen
+        } else{
+            itemList= list.size
+        }
+        return itemList
     }
 
     inner class MyViewHolder(val binding: ItemLatestUpdatesBinding) :

@@ -72,7 +72,14 @@ class InsightsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return itemcount.page.totalInsightsOnHomeScreen
+
+        var itemList= 0
+        if (itemcount.page.totalInsightsOnHomeScreen<list.size){
+            itemList = itemcount.page.totalInsightsOnHomeScreen
+        } else{
+            itemList= list.size
+        }
+        return itemList
     }
 
     inner class MyViewHolder(val binding: ItemInsightsBinding) :

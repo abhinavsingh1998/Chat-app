@@ -43,14 +43,17 @@ class HoABLPromisesAdapter1(
     }
 
     override fun getItemCount(): Int {
-        return itemCount.page.totalPromisesOnHomeScreen
+        var itemList= 0
+        if (itemCount.page.totalPromisesOnHomeScreen<list.size){
+            itemList = itemCount.page.totalPromisesOnHomeScreen
+        } else{
+            itemList= list.size
+        }
+        return itemList
     }
 
     inner class MyViewHolder(val binding: ItemHoablPromisesBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    interface PromisesItemInterface {
-        fun onClickItem(position: Int)
-    }
 
 }

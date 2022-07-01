@@ -15,11 +15,13 @@ interface AppPreference {
     fun getPinActivationStatus(): Boolean
     fun setFacilityCard(status: Boolean)
     fun isFacilityCard(): Boolean
+    fun setCustomerType(customerType:String)
 
     //for dontmisout card
     fun saveOfferId(project: Int)
     fun getOfferId(): Int
     fun saveOfferUrl(url:String)
     fun getOfferUrl():String
+    fun getCustomerType():String
 
 }

@@ -16,6 +16,7 @@ import com.emproto.networklayer.response.insights.Data
 
 class AllInsightsAdapter(
     val context: Context,
+    val listCount:Int,
     val list: List<Data>,
     val itemInterface: InsightsItemsInterface
 ) : RecyclerView.Adapter<AllInsightsAdapter.MyViewHolder>() {
@@ -66,7 +67,7 @@ class AllInsightsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return listCount
     }
 
     inner class MyViewHolder(val binding: InsightsListItemBinding) :
