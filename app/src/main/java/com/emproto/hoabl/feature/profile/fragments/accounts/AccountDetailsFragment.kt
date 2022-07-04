@@ -615,8 +615,9 @@ class AccountDetailsFragment : Fragment(),
                         if (selectedDocumentType == 200110)
                             it.data?.let {
                                 kycUploadList.forEach { kycUpload ->
-                                    Log.i("docName",kycUpload.documentName.toString())
-                                    if(kycUpload.documentName=="Address Proof") {
+                                    Log.i("doctype1",kycUpload.documentType.toString())
+
+                                    if(kycUpload.documentType==200110) {
                                         kycUpload.name = it.data.response.data.name
                                         kycUpload.path = it.data.response.data.path
                                         kycUpload.status = "Verification Pending"
@@ -626,8 +627,8 @@ class AccountDetailsFragment : Fragment(),
                      else if (selectedDocumentType == 200109)
                             it.data?.let {
                                 kycUploadList.forEach { kycUpload ->
-                                    Log.i("docName",kycUpload.documentName)
-                                    if(kycUpload.documentName=="PAN Card"){
+                                    Log.i("doctype2",kycUpload.documentType.toString())
+                                    if(kycUpload.documentType==200109){
                                         kycUpload.name = it.data.response.data.name
                                         kycUpload.path = it.data.response.data.path
                                         kycUpload.status = "Verification Pending"
