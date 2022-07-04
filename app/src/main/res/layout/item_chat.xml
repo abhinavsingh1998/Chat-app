@@ -1,82 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_chat"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginBottom="10dp"
-    android:id="@+id/clChat"
     android:background="@drawable/card_bg">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cvImage"
+        android:id="@+id/cv_chat_image"
         android:layout_width="56dp"
         android:layout_height="57dp"
-        app:cardCornerRadius="6dp"
+        android:layout_marginVertical="@dimen/margin_size_8"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="@dimen/margin_size_0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/ivThumb"
+            android:id="@+id/iv_chat_thumb"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
             android:src="@drawable/img" />
     </androidx.cardview.widget.CardView>
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="2dp"
-        android:padding="2dp"
-        android:gravity="center"
-        app:layout_constraintStart_toEndOf="@id/cvImage"
-        app:layout_constraintTop_toTopOf="@id/cvImage"
-        android:textStyle="normal"
-        android:fontFamily="@font/jost_regular"
-        android:textSize="14sp"
-        android:textColor="@color/dark_blue"
-        android:lineSpacingExtra="3sp"
-        tools:text="HoABL Customer Chat Support"
-        />
 
     <TextView
-        android:id="@+id/tvTime"
+        android:id="@+id/tv_chat_title"
+        style="@style/text_time_chat_color_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="17dp"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/jost_regular"
+        android:lineSpacingExtra="3sp"
+        app:layout_constraintStart_toEndOf="@id/cv_chat_image"
+        app:layout_constraintTop_toTopOf="@id/cv_chat_image"
+        app:layout_constraintEnd_toStartOf="@id/tv_chat_time"
+        tools:text="HoABL Customer Chat Support" />
+
+    <TextView
+        android:id="@+id/tv_chat_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="7dp"
+        android:layout_marginEnd="12dp"
+        android:fontFamily="@font/jost_light"
+        android:lineSpacingExtra="5sp"
+        android:textColor="#17171c"
+        android:textSize="13sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_chat_time"
+        app:layout_constraintStart_toStartOf="@+id/tv_chat_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_chat_title"
+        tools:text="Welcome to HoABL. We are excited to.." />
+
+    <TextView
+        android:id="@+id/tv_chat_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:gravity="center"
-        android:textColor="#9192a0"
-        tools:text="1h"
-        android:fontFamily="@font/jost_medium"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginRight="11dp"
-        app:layout_constraintBottom_toBottomOf="@id/tvTitle"
-        app:layout_constraintTop_toTopOf="@id/tvTitle"
+        android:fontFamily="@font/jost_medium"
+        android:gravity="center"
+        style="@style/text_style_lightgrey_14"
+        app:layout_constraintBottom_toBottomOf="@id/tv_chat_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_chat_title"
+        tools:text="1h" />
 
-        />
-    <TextView
-        android:id="@+id/tvMsg"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_size_12"
-        android:layout_marginEnd="12dp"
-        android:layout_marginTop="7dp"
-        tools:text="Welcome to HoABL. We are excited to.."
-        app:layout_constraintEnd_toStartOf="@+id/tvTime"
-        app:layout_constraintStart_toStartOf="@+id/tvTitle"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:textStyle="normal"
-        android:fontFamily="@font/jost_light"
-        android:textSize="13sp"
-        android:textColor="#17171c"
-        android:lineSpacingExtra="5sp"
-        />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,6 +23,7 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.ChatsDetailAdapter
 import com.emproto.hoabl.feature.investment.adapters.OnOptionClickListener
 import com.emproto.hoabl.feature.profile.fragments.about_us.AboutUsFragment
+import com.emproto.hoabl.feature.promises.HoablPromises
 import com.emproto.hoabl.fragments.PromisesFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
@@ -97,11 +98,11 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
 
         chatsList = arguments?.getSerializable("chatModel") as? ChatResponse.ChatList
-        binding.tvTitle.text = chatsList?.project?.launchName
+        binding.tvChatTitle.text = chatsList?.project?.launchName
         context?.let {
             Glide.with(it)
                 .load(chatsList?.project?.projectCoverImages?.chatListViewPageMedia?.value?.url)
-                .placeholder(R.drawable.ic_baseline_image_24).into(binding.ivThumb)
+                .placeholder(R.drawable.ic_baseline_image_24).into(binding.ivChatThumb)
         }
         binding.ivBack.setOnClickListener { onBackPressed() }
     }
@@ -204,10 +205,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                     )
                 }
                 Action.NAVIGATE_PROMISES.name -> {
-                    (requireActivity() as HomeActivity).addFragment(
-                        PromisesFragment(),
-                        false
-                    )
+                    (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
                 }
             }
         } else if (option.actionType == ActionType.ALLOW_TYPING.name) {

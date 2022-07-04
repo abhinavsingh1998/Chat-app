@@ -5,14 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_color"
-
     tools:context=".feature.chat.views.fragments.ChatsFragment">
 
     <View
         android:id="@+id/complete_view"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/margin_size_14"
         android:background="@drawable/shape1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,13 +20,11 @@
         android:id="@+id/tvWelcome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_size_12"
+        style="@style/text_violet_color_14"
+        android:layout_marginHorizontal="@dimen/margin_size_12"
         android:layout_marginTop="@dimen/margin_size_23"
-        android:layout_marginRight="@dimen/margin_size_12"
         android:fontFamily="@font/jost_regular"
         android:text="@string/welcome_to_hoabl"
-        android:textColor="#494a67"
-        android:textSize="@dimen/text_size_14"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,12 +34,11 @@
         android:id="@+id/tvChats"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/margin_size_30"
         android:layout_marginEnd="@dimen/margin_size_12"
         android:fontFamily="@font/jost_medium"
-        android:textColor="@color/dark_blue"
-        android:textSize="@dimen/text_size_14"
         android:textStyle="normal"
+        style="@style/text_dark_blue_chat_color_14"
         app:layout_constraintStart_toStartOf="@id/tvWelcome"
         app:layout_constraintTop_toBottomOf="@+id/tvWelcome"
         android:text="Chats (5)" />
@@ -55,8 +50,7 @@
         android:layout_marginTop="@dimen/margin_size_14"
         android:fontFamily="@font/jost_light"
         android:text="@string/last_updated_on"
-        android:textColor="#707070"
-        android:textSize="@dimen/text_size_14"
+        style="@style/text_dark_grey_chat_color_14"
         android:textStyle="normal"
         app:layout_constraintStart_toStartOf="@id/tvChats"
         app:layout_constraintTop_toBottomOf="@id/tvChats" />
@@ -67,8 +61,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/jost_regular"
         android:text="11:32:44 AM"
-        android:textColor="#141615"
-        android:textSize="@dimen/text_size_14"
+        style="@style/text_time_chat_color_14"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@id/textLastUpdated"
         app:layout_constraintStart_toEndOf="@id/textLastUpdated"
@@ -82,8 +75,7 @@
         android:layout_marginStart="@dimen/margin_size_4"
         android:fontFamily="@font/jost_regular"
         android:text="11th March’22"
-        android:textColor="#141615"
-        android:textSize="@dimen/text_size_14"
+        style="@style/text_time_chat_color_14"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@id/tvLastUpdatedTime"
         app:layout_constraintStart_toEndOf="@id/tvLastUpdatedTime"
@@ -120,6 +112,8 @@
         app:layout_constraintStart_toStartOf="@+id/tvChats"
         app:layout_constraintTop_toBottomOf="@+id/clRefresh"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
         tools:listitem="@layout/item_chat" />
 
     <androidx.core.widget.ContentLoadingProgressBar
@@ -132,5 +126,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
