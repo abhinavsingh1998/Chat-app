@@ -2,40 +2,49 @@ package com.emproto.hoabl.feature.home.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.CompletePaymentCardBinding
+import com.emproto.hoabl.databinding.ItemLatestUpdatesBinding
+import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.networklayer.response.HomeActionItemResponse
+import com.emproto.networklayer.response.actionItem.Data
 
 
-class PendingPaymentsAdapter(context: Context, list: List<String>) : RecyclerView.Adapter<PendingPaymentsAdapter.MyViewHolder>() {
+class PendingPaymentsAdapter(
+    val context: Context,
+    val list: List<com.emproto.networklayer.response.Data>?,
+    val itemIntrface: ItemClickListener
+) : RecyclerView.Adapter<PendingPaymentsAdapter.MyViewHolder>() {
 
-    var list: List<String>
-    var mcontext: Context
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding:CompletePaymentCardBinding =
-            CompletePaymentCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MyViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PendingPaymentsAdapter.MyViewHolder {
+        val view = CompletePaymentCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MyViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val item = list!!.get(holder.adapterPosition)
+
+        holder.binding.apply{
+            actionRequired.text= item!!.cardTitle
+
+            pendingKyc.text= item!!.displayTitle
+            uploadKycStatement.text= item!!.displayText
+
+            seeAllPendingPayment.setOnClickListener(View.OnClickListener {
+                itemIntrface.onItemClicked(it,position,holder.itemId.toString())
+            })
+
+        }
 
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return list!!.size
     }
 
-    inner class MyViewHolder(binding: CompletePaymentCardBinding) : RecyclerView.ViewHolder(binding.root) {
-        var binding: CompletePaymentCardBinding
+    inner class MyViewHolder(val binding: CompletePaymentCardBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
-        init {
-            this.binding = binding
-        }
-    }
-
-    init {
-        this.list = list
-        this.mcontext=context
-    }
 }
