@@ -57,10 +57,11 @@ class SecurityTipsFragment : BaseFragment() {
         profileViewModel.getSecurityTips(5005).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.show()
+                    binding.progressBar.show()
                 }
                 Status.SUCCESS -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
+                    binding.nestedScrollView.visibility = View.VISIBLE
                     it.data?.let { data ->
                         binding.tvPageHeading.text = data.data.page.securityTips.sectionHeading.replaceFirstChar {
                             if (it.isLowerCase()) it.titlecase(
@@ -75,7 +76,7 @@ class SecurityTipsFragment : BaseFragment() {
                     }
                 }
                 Status.ERROR -> {
-                    (requireActivity() as HomeActivity).activityHomeActivity.loader.hide()
+                    binding.progressBar.hide()
                     (requireActivity() as HomeActivity).showErrorToast(
                         it.message!!
                     )

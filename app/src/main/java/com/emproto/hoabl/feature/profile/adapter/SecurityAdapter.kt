@@ -23,7 +23,7 @@ class SecurityAdapter(
         const val VIEW_REPORT = 0
         const val VIEW_SECURITY_AUTHENTICATE = 1
         const val VIEW_SECURITY_WHATSAPP_COMMUNICATION = 2
-        const val VIEW_SECURITY_LOCATION = 3
+        const val VIEW_SECURITY_TIPS = 3
         const val VIEW_SETTINGS_ALL_OPTIONS = 4
     }
 
@@ -57,7 +57,7 @@ class SecurityAdapter(
                     )
                 )
             }
-            VIEW_SECURITY_LOCATION -> {
+            VIEW_SECURITY_TIPS -> {
                 SecurityTipsViewHolder(
                     SecurityView3Binding.inflate(
                         LayoutInflater.from(parent.context),
@@ -89,7 +89,7 @@ class SecurityAdapter(
             VIEW_SECURITY_WHATSAPP_COMMUNICATION -> {
                 (holder as WhatsappCommunicationViewHolder).bind(position)
             }
-            VIEW_SECURITY_LOCATION -> {
+            VIEW_SECURITY_TIPS -> {
                 (holder as SecurityTipsViewHolder).bind(position)
             }
             VIEW_SETTINGS_ALL_OPTIONS -> {
