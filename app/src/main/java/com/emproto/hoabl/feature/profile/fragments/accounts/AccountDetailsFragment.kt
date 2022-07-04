@@ -390,6 +390,7 @@ class AccountDetailsFragment : Fragment(),
         name: String,
         path: String?
     ) {
+        docsBottomSheet.dismiss()
         openDocumentScreen(name, path.toString())
     }
 
