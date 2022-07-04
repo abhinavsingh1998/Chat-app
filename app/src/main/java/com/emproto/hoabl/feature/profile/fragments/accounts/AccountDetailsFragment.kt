@@ -185,7 +185,7 @@ class AccountDetailsFragment : Fragment(),
                             else -> {
                                 kycUploadList.clear()
                                 kycUploadList.addAll(getKycList(kycLists))
-                                Log.i("kycupload",kycUploadList.toString())
+                                Log.i("kycupload", kycUploadList.toString())
                                 kycUploadAdapter = AccountKycUploadAdapter(
                                     context,
                                     kycUploadList, this, viewListener
@@ -310,7 +310,7 @@ class AccountDetailsFragment : Fragment(),
                         status = "UPLOAD"
                     )
                     kycUploadList.add(kycItem)
-                } else if(kycLists[0].documentType == 200110){
+                } else if (kycLists[0].documentType == 200110) {
                     val kycItem = KycUpload(
                         "PAN Card",
                         documentCategory = 100100,
@@ -318,7 +318,7 @@ class AccountDetailsFragment : Fragment(),
                         status = "UPLOAD"
                     )
                     kycUploadList.add(kycItem)
-                }else if(kycLists[0].documentType == 200100){
+                } else if (kycLists[0].documentType == 200100) {
                     val kycItem = KycUpload(
                         "Address Proof",
                         documentCategory = 100100,
@@ -326,8 +326,7 @@ class AccountDetailsFragment : Fragment(),
                         status = "UPLOAD"
                     )
                     kycUploadList.add(kycItem)
-                }
-                else {
+                } else {
                     val kycItem = KycUpload(
                         "Address Proof",
                         documentCategory = 100100,
@@ -560,9 +559,10 @@ class AccountDetailsFragment : Fragment(),
         destinationFile = cameraFile
         val thumbnail = BitmapFactory.decodeFile(selectedImage)
         val ei = ExifInterface(cameraFile.path)
-        val orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
+        val orientation =
+            ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
 
-   when(orientation){
+        when (orientation) {
             ExifInterface.ORIENTATION_ROTATE_90 -> {
                 rotateImage(thumbnail, 90f)
             }
@@ -590,6 +590,7 @@ class AccountDetailsFragment : Fragment(),
             )
         }
     }
+
     fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
         val matrix = Matrix()
         matrix.postRotate(angle)
@@ -598,6 +599,7 @@ class AccountDetailsFragment : Fragment(),
             matrix, true
         )
     }
+
     private fun callingUploadPicApi(destinationFile: File, extension: String) {
         profileViewModel.uploadKycDocument(extension, destinationFile, selectedDocumentType)
             .observe(
@@ -609,27 +611,36 @@ class AccountDetailsFragment : Fragment(),
                     }
                     Status.SUCCESS -> {
                         binding.progressBar.hide()
-                        it.data?.let {
-                            kycUploadList.forEach { kycUpload ->
-                                if(selectedDocumentType==200110){
-                                    kycUpload.name = it.data.response.data.name
-                                    kycUpload.path = it.data.response.data.path
-                                    kycUpload.status = "Verification Pending"
-                                }
-                                if(selectedDocumentType==200109){
-                                    kycUpload.name = it.data.response.data.name
-                                    kycUpload.path = it.data.response.data.path
-                                    kycUpload.status = "Verification Pending"
+                        Log.i("selectedDoc",selectedDocumentType.toString())
+                        if (selectedDocumentType == 200110)
+                            it.data?.let {
+                                kycUploadList.forEach { kycUpload ->
+                                    Log.i("docName",kycUpload.documentName.toString())
+                                    if(kycUpload.documentName=="Address Proof") {
+                                        kycUpload.name = it.data.response.data.name
+                                        kycUpload.path = it.data.response.data.path
+                                        kycUpload.status = "Verification Pending"
+                                    }
                                 }
                             }
-                            kycUploadAdapter.notifyDataSetChanged()
-                            val dialog = AccountKycStatusPopUpFragment()
-                            dialog.isCancelable = false
-                            dialog.show(childFragmentManager, "submitted")
-                        }
+                     else if (selectedDocumentType == 200109)
+                            it.data?.let {
+                                kycUploadList.forEach { kycUpload ->
+                                    Log.i("docName",kycUpload.documentName)
+                                    if(kycUpload.documentName=="PAN Card"){
+                                        kycUpload.name = it.data.response.data.name
+                                        kycUpload.path = it.data.response.data.path
+                                        kycUpload.status = "Verification Pending"
+                                    }
+                                }
+                            }
 
-
+                        kycUploadAdapter.notifyDataSetChanged()
+                        val dialog = AccountKycStatusPopUpFragment()
+                        dialog.isCancelable = false
+                        dialog.show(childFragmentManager, "submitted")
                     }
+
                     Status.ERROR -> {
                         binding.progressBar.hide()
                         Toast.makeText(
