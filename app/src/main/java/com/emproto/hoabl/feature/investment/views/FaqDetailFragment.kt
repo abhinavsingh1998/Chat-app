@@ -130,6 +130,7 @@ class FaqDetailFragment : BaseFragment() {
                     binding.slSwipeRefresh.isRefreshing = false
                     it.data?.data?.let { data ->
                         allFaqList = data
+                        Log.d("faqfata","${data.toString()}")
                         setUpRecyclerView(data,faqId)
                     }
                 }

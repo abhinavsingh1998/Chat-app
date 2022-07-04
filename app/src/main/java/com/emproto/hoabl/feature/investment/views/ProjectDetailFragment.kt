@@ -145,12 +145,6 @@ class ProjectDetailFragment : BaseFragment() {
                     )
                     startActivity(shareIntent)
                 }
-                R.id.iv_testimonials_arrow -> {
-                    (requireActivity() as HomeActivity).addFragment(Testimonials(), false)
-                }
-                R.id.tv_hear_speak_see_all -> {
-                    (requireActivity() as HomeActivity).addFragment(Testimonials(), false)
-                }
                 R.id.tv_promises_see_all -> {
                     (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
                 }
@@ -309,7 +303,7 @@ class ProjectDetailFragment : BaseFragment() {
         (requireActivity() as HomeActivity).hideBottomNavigation()
         binding.slSwipeRefresh.setOnRefreshListener {
             binding.slSwipeRefresh.isRefreshing = true
-            binding.slSwipeRefresh.visibility = View.GONE
+            binding.rvProjectDetail.visibility = View.GONE
             callApi()
         }
     }
@@ -345,7 +339,7 @@ class ProjectDetailFragment : BaseFragment() {
                     }
                     Status.SUCCESS -> {
                         binding.progressBar.hide()
-                        binding.slSwipeRefresh.visibility = View.VISIBLE
+                        binding.rvProjectDetail.visibility = View.VISIBLE
                         it.data?.data?.let {  data ->
                             binding.slSwipeRefresh.isRefreshing = false
                             allData = data.projectContent
@@ -484,6 +478,24 @@ class ProjectDetailFragment : BaseFragment() {
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
             when(view.id) {
+                R.id.iv_testimonials_arrow -> {
+                    val fragment = Testimonials()
+                    val bundle = Bundle()
+                    bundle.putInt("testimonials",item.toInt())
+                    bundle.putString("testimonialsHeading", allData.otherSectionHeadings.testimonials.sectionHeading)
+                    bundle.putString("testimonialsSubHeading",  "Hello")
+                    fragment.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(fragment, false)
+                }
+                R.id.tv_hear_speak_see_all -> {
+                    val fragment = Testimonials()
+                    val bundle = Bundle()
+                    bundle.putInt("testimonials",item.toInt())
+                    bundle.putString("testimonialsHeading", allData.otherSectionHeadings.testimonials.sectionHeading)
+                    bundle.putString("testimonialsSubHeading",  "Hello")
+                    fragment.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(fragment, false)
+                }
                 R.id.tv_apply -> {
                     openDialog()
                 }

@@ -587,8 +587,12 @@ class ProjectDetailAdapter(
                     binding.vpTestimonials
                 ) { _, _ ->
                 }.attach()
-                tvHearSpeakSeeAll.setOnClickListener(onItemClickListener)
-                ivTestimonialsArrow.setOnClickListener(onItemClickListener)
+                tvHearSpeakSeeAll.setOnClickListener{
+                    itemClickListener.onItemClicked(it,position,list.size.toString())
+                }
+                ivTestimonialsArrow.setOnClickListener{
+                    itemClickListener.onItemClicked(it,position,list.size.toString())
+                }
             }
         }
     }
