@@ -55,7 +55,7 @@ class PrivacyFragment : BaseFragment() {
     }
 
     private fun initObserver() {
-        profileViewModel.getPrivacyAndPolicy(5004).observe(viewLifecycleOwner, Observer {
+        profileViewModel.getPrivacyAndPolicy(5005).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.SUCCESS -> {
                     binding.rootView.show()

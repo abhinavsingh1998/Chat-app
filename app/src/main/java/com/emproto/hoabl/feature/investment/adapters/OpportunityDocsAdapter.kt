@@ -395,7 +395,16 @@ class OpportunityDocsAdapter(
 
     private inner class ApplyViewHolder(private val binding: ApplyLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvBookingStarts.text = data.pageFooter
+            when(data.isPageFooterActive){
+                false -> {
+                    binding.tvBookingStarts.visibility = View.GONE
+                }
+                true -> {
+                    binding.tvBookingStarts.text = data.pageFooter
+                    binding.tvBookingStarts.visibility = View.VISIBLE
+                }
+            }
+
             binding.tvApplyNow.setOnClickListener(onItemClickListener)
         }
     }

@@ -106,4 +106,6 @@
     <color name="dark_blue">#17171c</color>
     <color name="green">#47b35f</color>
     <color name="confirm_dialog_text_color">#7b7878</color>
+    <color name="chat_grey_color">#707070</color>
+    <color name="chat_time_color">#141615</color>
 </resources>

@@ -31,8 +31,6 @@ class ChatsDetailAdapter(
 //    private var sdf: SimpleDateFormat? = null
 //    private var timeT: String? = null
 
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         if (viewType == R.layout.item_chat_detail) {
             binding =
@@ -47,7 +45,6 @@ class ChatsDetailAdapter(
                 )
             return SenderViewHolder(bindingSender.root)
         }
-
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -96,12 +93,8 @@ class ChatsDetailAdapter(
         } else if (holder is SenderViewHolder) {
             holder.tvSentMessage.text = chatDetailList[position].message
             holder.tvChatSendTime.text = chatDetailList[position].time
-
-
-
         }
     }
-
 }
 
 

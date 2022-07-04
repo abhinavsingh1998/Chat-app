@@ -9,6 +9,16 @@
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintEnd_toEndOf="parent">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@drawable/bottom_corner_radius_bg"
+        android:backgroundTint="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
     <ImageView
         android:id="@+id/iv_dont_miss_static_image"
         android:layout_width="match_parent"
