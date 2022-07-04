@@ -9,20 +9,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.*
-import com.emproto.hoabl.feature.investment.adapters.InvestmentViewPagerAdapter
-import com.emproto.hoabl.feature.investment.adapters.NewInvestmentAdapter
-import com.emproto.hoabl.feature.promises.data.PromisesData
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
-import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.home.*
 import com.google.android.material.tabs.TabLayoutMediator
-import javax.inject.Inject
 
 class HomeAdapter(
     var context: Context,
     val data: Data,
     val list: List<RecyclerViewItem>,
+    val actionItemData: List<com.emproto.networklayer.response.Data>?,
     val itemClickListener: ItemClickListener
     ) : RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
 
@@ -91,10 +87,10 @@ class HomeAdapter(
     private inner class NewInvestmentViewHolder(private val binding:HomepageHeaderLayoutBinding):RecyclerView.ViewHolder(binding.root){
 
         fun bind(position: Int){
-            val projectList = ArrayList<PageManagementsOrNewInvestment>()
-            projectList.clear()
-
-            projectList.addAll(data.pageManagementsOrNewInvestments)
+//            val projectList = ArrayList<PageManagementsOrNewInvestment>()
+//            projectList.clear()
+//
+//            projectList.addAll(data.pageManagementsOrNewInvestments)
 
             investmentAdapter = InvestmentCardAdapter(
                 context,
@@ -102,6 +98,11 @@ class HomeAdapter(
                 data.pageManagementsOrNewInvestments,
                 itemClickListener
             )
+
+            if(data.page.isNewInvestmentsActive== false){
+                binding.investmentList.isVisible= false
+                binding.tvViewallInvestments.isVisible= false
+            }
 
             binding.tvViewallInvestments.setOnClickListener(View.OnClickListener {
                 itemClickListener.onItemClicked(it,position, "")
@@ -114,6 +115,9 @@ class HomeAdapter(
             )
             binding.investmentList.layoutManager = linearLayoutManager
             binding.investmentList.adapter = investmentAdapter
+            binding.investmentList.setHasFixedSize(true)
+            binding.investmentList.setItemViewCacheSize(10)
+            binding.investmentList.setDrawingCacheEnabled(true)
         }
     }
 
@@ -122,14 +126,11 @@ class HomeAdapter(
 
         fun bind(position: Int){
             pendingPaymentsAdapter= PendingPaymentsAdapter(context,
-                pymentList
-            )
-
-            pendingPaymentsAdapter = PendingPaymentsAdapter(context, pymentList)
+                actionItemData,
+                itemClickListener)
             binding.kycLayoutCard.adapter = pendingPaymentsAdapter
             TabLayoutMediator(binding.tabDot, binding.kycLayoutCard) { _, _ ->
             }.attach()
-            binding.kycLayout.isVisible = false
         }
     }
 
@@ -153,6 +154,11 @@ class HomeAdapter(
                 false
             )
 
+            if(data.page.isLatestUpdatesActive==false){
+                binding.latestUpdatesLayout.isVisible= false
+
+            }
+
             binding.textview2.text= data.page.latestUpdates.heading
             binding.latesUpdatesRecyclerview.layoutManager = linearLayoutManager
             binding.latesUpdatesRecyclerview.adapter = latestUpdateAdapter
@@ -175,6 +181,11 @@ class HomeAdapter(
                 itemClickListener.onItemClicked(it,position, "")
             })
 
+            if(data.page.isPromisesActive==false){
+                binding.hoablPromisesLayout.isVisible= false
+
+            }
+
 
             linearLayoutManager = LinearLayoutManager(
                 context,
@@ -196,13 +207,23 @@ class HomeAdapter(
 
             binding.dontMissOutCard.isVisible = data.contactType== "prelead"
 
+            if(data.page.isFacilityManagementActive==false){
+                binding.facilityManagementCardLayout.isVisible= false
+            }
 
+//            if(data.page.is==false){
+//                binding.facilityManagementCardLayout.isVisible= false
+//            }
+//
             Glide.with(context).load(data.page.facilityManagement.value.url)
                 .into(binding.facilityManagementCard)
 
             binding.facilityManagementCard.setOnClickListener(View.OnClickListener {
                 itemClickListener.onItemClicked(it, position, "")
             })
+
+            Glide.with(context).load(data.page.promotionAndOffersMedia.value.url)
+                .into(binding.dontMissOutCard)
 
             binding.dontMissOutCard.setOnClickListener(View.OnClickListener {
                 itemClickListener.onItemClicked(it, position, "")
@@ -229,6 +250,10 @@ class HomeAdapter(
                 RecyclerView.HORIZONTAL,
                 false
             )
+
+            if(data.page.isInsightsActive==false){
+                binding.insightsLayout.isVisible= false
+            }
             binding.insightsRecyclerview.layoutManager = linearLayoutManager
             binding.insightsRecyclerview.adapter = insightsAdapter
             binding.insightsRecyclerview.setHasFixedSize(true)
@@ -251,6 +276,10 @@ class HomeAdapter(
                 itemClickListener.onItemClicked(it,position, "")
             })
 
+            if(data.page.isTestimonialsActive==false){
+                binding.testimonialsLayout.isVisible= false
+            }
+
             binding.testimonialsRecyclerview.adapter = testimonialAdapter
             TabLayoutMediator(
                 binding.tabDotLayout,
@@ -266,7 +295,6 @@ class HomeAdapter(
             binding.btnReferNow.setOnClickListener(View.OnClickListener {
                 itemClickListener.onItemClicked(it,position,"")
             })
-
             binding.appShareView.setOnClickListener(View.OnClickListener {
                 itemClickListener.onItemClicked(it,position,"")
             })
