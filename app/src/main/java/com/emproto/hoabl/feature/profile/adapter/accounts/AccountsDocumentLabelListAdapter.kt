@@ -41,7 +41,7 @@ class AccountsDocumentLabelListAdapter(
 
 
         holder.tvViewDoc.setOnClickListener {
-            if (accountsDocumentList[position]==null) {
+            if (accountsDocumentList[position].path==null) {
                 Toast.makeText(mContext, "No Document available", Toast.LENGTH_SHORT).show()
             } else {
                 mListener.onAccountsDocumentLabelItemClick(

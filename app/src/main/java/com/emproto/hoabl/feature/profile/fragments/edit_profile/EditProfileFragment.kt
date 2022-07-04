@@ -737,7 +737,6 @@ class EditProfileFragment : BaseFragment() {
             binding.profileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
             setUserNamePIC(data)
-            binding.saveAndUpdate.text = "Updated"
         }
         removeDialogLayout.tcClose.setOnClickListener {
             removePictureDialog.dismiss()
