@@ -324,7 +324,12 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                     .addToBackStack(fragment.javaClass.name).commit()
             }
             true -> {
-                fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit)
+                fragmentTransaction.setCustomAnimations(
+                    R.anim.enter,
+                    R.anim.exit,
+                    R.anim.enter_right,
+                    R.anim.exit_left
+                )
                     .replace(R.id.container, fragment, fragment.javaClass.name)
                     .addToBackStack(fragment.javaClass.name).commit()
             }
