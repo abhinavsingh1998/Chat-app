@@ -151,6 +151,13 @@ class ProjectDetailFragment : BaseFragment() {
                 R.id.iv_promises_arrow -> {
                     (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
                 }
+                R.id.tv_full_apply_now -> {
+                    val fragment = LandSkusFragment()
+                    val bundle = Bundle()
+                    bundle.putInt("ProjectId", projectId)
+                    fragment.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(fragment, false)
+                }
                 R.id.tv_apply_now -> {
                     val fragment = LandSkusFragment()
                     val bundle = Bundle()
@@ -406,27 +413,52 @@ class ProjectDetailFragment : BaseFragment() {
         projectContentsAndFaqs: List<ProjectContentsAndFaq>
     ) {
         val list = ArrayList<RecyclerViewItem>()
-        list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_ONE))
-        list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_TWO))
-        list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_THREE))
-        list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_FOUR))
-        list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_FIVE))
-        list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_SIX))
-        list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_SEVEN))
-        list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_EIGHT))
-        list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_NINE))
-        list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_TEN))
+        list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_PROJECT_DETAIL))
+        list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_MAP))
+        when(allData.isEscalationGraphActive){
+            true -> {
+                list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_PRICE_TRENDS))
+            }
+        }
+        when(allData.isKeyPillarsActive){
+            true -> {
+                list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_KEY_PILLARS))
+            }
+        }
+        list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_VIDEO_DRONE))
+        when(allData.isOffersAndPromotionsActive){
+            true -> {
+                list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_DONT_MISS))
+            }
+        }
+        when(allData.isInventoryBucketActive){
+            true -> {
+                list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_SKUS))
+            }
+        }
+        when(allData.opportunityDoc.isProjectAminitiesActive){
+            true -> {
+                list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_AMENITIES))
+            }
+        }
+        when(allData.isLocationInfrastructureActive){
+            true -> {
+                list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_LOCATION_INFRASTRUCTURE))
+            }
+        }
+        list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_PROMISES))
         when{
             projectContentsAndFaqs.isNotEmpty() -> {
-                list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_ELEVEN))
+                list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_FAQ))
             }
         }
-        list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_TWELVE))
-        when {
-            data.similarInvestments.isNotEmpty() -> {
-                list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_FOURTEEN))
+        list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_TESTIMONIALS))
+        when(allData.isSimilarInvestmentActive) {
+            true -> {
+                list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_SIMILAR_INVESTMENT))
             }
         }
+
         val adapter =
             ProjectDetailAdapter(this.requireContext(), list, data, promisesData, itemClickListener,isBookmarked,investmentViewModel,videoItemClickListener,similarInvItemClickListener,mapItemClickListener,projectContentsAndFaqs)
         binding.rvProjectDetail.adapter = adapter

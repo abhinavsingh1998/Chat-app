@@ -16,7 +16,6 @@ import com.bumptech.glide.Glide
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
-import com.emproto.hoabl.feature.home.adapters.TestimonialAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.model.YoutubeModel
 import com.emproto.hoabl.utils.ItemClickListener
@@ -24,7 +23,6 @@ import com.emproto.hoabl.utils.MapItemClickListener
 import com.emproto.hoabl.utils.SimilarInvItemClickListener
 import com.emproto.hoabl.utils.YoutubeItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
-import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.home.PageManagementsOrTestimonial
 import com.emproto.networklayer.response.investment.*
 import com.github.mikephil.charting.components.AxisBase
@@ -56,20 +54,20 @@ class ProjectDetailAdapter(
 ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-        const val VIEW_TYPE_ONE = 1
-        const val VIEW_TYPE_TWO = 2
-        const val VIEW_TYPE_THREE = 3
-        const val VIEW_TYPE_FOUR = 4
-        const val VIEW_TYPE_FIVE = 5
-        const val VIEW_TYPE_SIX = 6
-        const val VIEW_TYPE_SEVEN = 7
-        const val VIEW_TYPE_EIGHT = 8
-        const val VIEW_TYPE_NINE = 9
-        const val VIEW_TYPE_TEN = 10
-        const val VIEW_TYPE_ELEVEN = 11
-        const val VIEW_TYPE_TWELVE = 12
-        const val VIEW_TYPE_THIRTEEN = 13
-        const val VIEW_TYPE_FOURTEEN = 14
+        const val VIEW_TYPE_PROJECT_DETAIL = 1
+        const val VIEW_TYPE_MAP = 2
+        const val VIEW_TYPE_PRICE_TRENDS = 3
+        const val VIEW_TYPE_KEY_PILLARS = 4
+        const val VIEW_TYPE_VIDEO_DRONE = 5
+        const val VIEW_TYPE_DONT_MISS = 6
+        const val VIEW_TYPE_SKUS = 7
+        const val VIEW_TYPE_AMENITIES = 8
+        const val VIEW_TYPE_LOCATION_INFRASTRUCTURE = 9
+        const val VIEW_TYPE_PROMISES = 10
+        const val VIEW_TYPE_FAQ = 11
+        const val VIEW_TYPE_TESTIMONIALS = 12
+        const val VIEW_TYPE_NOT_CONVINCED = 13
+        const val VIEW_TYPE_SIMILAR_INVESTMENT = 14
         const val TWO_SPACES = " "
     }
 
@@ -91,39 +89,39 @@ class ProjectDetailAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
-            VIEW_TYPE_ONE -> { ProjectTopCardViewHolder(ProjectDetailTopLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false)) }
-            VIEW_TYPE_TWO -> { ProjectMapViewHolder(ViewMapLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
-            VIEW_TYPE_THREE -> { ProjectPriceTrendsViewHolder(PriceTrendsLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
-            VIEW_TYPE_FOUR -> { ProjectKeyPillarsViewHolder(KeyPillarsLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
-            VIEW_TYPE_FIVE -> { ProjectVideosDroneViewHolder(VideoDroneLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
-            VIEW_TYPE_SIX -> { ProjectDontMissViewHolder(DontMissLayoutPdBinding.inflate(LayoutInflater.from(parent.context),parent,false)) }
-            VIEW_TYPE_SEVEN -> { ProjectSkusViewHolder(SkusLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
-            VIEW_TYPE_EIGHT -> { ProjectAmenitiesViewHolder(ProjectAmenitiesLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
-            VIEW_TYPE_NINE -> { ProjectLocationInfrastructureViewHolder(LocationInfrastructureLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
-            VIEW_TYPE_TEN -> { ProjectPromisesViewHolder(PromisesLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
-            VIEW_TYPE_ELEVEN -> { ProjectFaqViewHolder(FaqLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
-            VIEW_TYPE_TWELVE -> { ProjectTestimonialsViewHolder(NewInvestmentTestimonialsCardBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
-            VIEW_TYPE_THIRTEEN -> { ProjectNotConvincedViewHolder(NotConvincedLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
+            VIEW_TYPE_PROJECT_DETAIL -> { ProjectTopCardViewHolder(ProjectDetailTopLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false)) }
+            VIEW_TYPE_MAP -> { ProjectMapViewHolder(ViewMapLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
+            VIEW_TYPE_PRICE_TRENDS -> { ProjectPriceTrendsViewHolder(PriceTrendsLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
+            VIEW_TYPE_KEY_PILLARS -> { ProjectKeyPillarsViewHolder(KeyPillarsLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
+            VIEW_TYPE_VIDEO_DRONE -> { ProjectVideosDroneViewHolder(VideoDroneLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
+            VIEW_TYPE_DONT_MISS -> { ProjectDontMissViewHolder(DontMissLayoutPdBinding.inflate(LayoutInflater.from(parent.context),parent,false)) }
+            VIEW_TYPE_SKUS -> { ProjectSkusViewHolder(SkusLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
+            VIEW_TYPE_AMENITIES -> { ProjectAmenitiesViewHolder(ProjectAmenitiesLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
+            VIEW_TYPE_LOCATION_INFRASTRUCTURE -> { ProjectLocationInfrastructureViewHolder(LocationInfrastructureLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
+            VIEW_TYPE_PROMISES -> { ProjectPromisesViewHolder(PromisesLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
+            VIEW_TYPE_FAQ -> { ProjectFaqViewHolder(FaqLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
+            VIEW_TYPE_TESTIMONIALS -> { ProjectTestimonialsViewHolder(NewInvestmentTestimonialsCardBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
+            VIEW_TYPE_NOT_CONVINCED -> { ProjectNotConvincedViewHolder(NotConvincedLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
             else -> { ProjectSimilarInvestmentsViewHolder(SimilarInvestmentsLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))}
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(list[position].viewType){
-            VIEW_TYPE_ONE -> { (holder as ProjectTopCardViewHolder).bind(position)}
-            VIEW_TYPE_TWO -> { (holder as ProjectMapViewHolder).bind(position)}
-            VIEW_TYPE_THREE -> { (holder as ProjectPriceTrendsViewHolder).bind(position)}
-            VIEW_TYPE_FOUR -> { (holder as ProjectKeyPillarsViewHolder).bind(position)}
-            VIEW_TYPE_FIVE -> { (holder as ProjectVideosDroneViewHolder).bind(position)}
-            VIEW_TYPE_SIX -> { (holder as ProjectDontMissViewHolder).bind(position)}
-            VIEW_TYPE_SEVEN -> { (holder as ProjectSkusViewHolder).bind(position)}
-            VIEW_TYPE_EIGHT -> { (holder as ProjectAmenitiesViewHolder).bind(position)}
-            VIEW_TYPE_NINE -> { (holder as ProjectLocationInfrastructureViewHolder).bind(position)}
-            VIEW_TYPE_TEN -> { (holder as ProjectPromisesViewHolder).bind(position)}
-            VIEW_TYPE_ELEVEN -> { (holder as ProjectFaqViewHolder).bind(position)}
-            VIEW_TYPE_TWELVE -> { (holder as ProjectTestimonialsViewHolder).bind(position)}
-            VIEW_TYPE_THIRTEEN -> { (holder as ProjectNotConvincedViewHolder).bind(position)}
-            VIEW_TYPE_FOURTEEN -> { (holder as ProjectSimilarInvestmentsViewHolder).bind(position)}
+            VIEW_TYPE_PROJECT_DETAIL -> { (holder as ProjectTopCardViewHolder).bind(position)}
+            VIEW_TYPE_MAP -> { (holder as ProjectMapViewHolder).bind(position)}
+            VIEW_TYPE_PRICE_TRENDS -> { (holder as ProjectPriceTrendsViewHolder).bind(position)}
+            VIEW_TYPE_KEY_PILLARS -> { (holder as ProjectKeyPillarsViewHolder).bind(position)}
+            VIEW_TYPE_VIDEO_DRONE -> { (holder as ProjectVideosDroneViewHolder).bind(position)}
+            VIEW_TYPE_DONT_MISS -> { (holder as ProjectDontMissViewHolder).bind(position)}
+            VIEW_TYPE_SKUS -> { (holder as ProjectSkusViewHolder).bind(position)}
+            VIEW_TYPE_AMENITIES -> { (holder as ProjectAmenitiesViewHolder).bind(position)}
+            VIEW_TYPE_LOCATION_INFRASTRUCTURE -> { (holder as ProjectLocationInfrastructureViewHolder).bind(position)}
+            VIEW_TYPE_PROMISES -> { (holder as ProjectPromisesViewHolder).bind(position)}
+            VIEW_TYPE_FAQ -> { (holder as ProjectFaqViewHolder).bind(position)}
+            VIEW_TYPE_TESTIMONIALS -> { (holder as ProjectTestimonialsViewHolder).bind(position)}
+            VIEW_TYPE_NOT_CONVINCED -> { (holder as ProjectNotConvincedViewHolder).bind(position)}
+            VIEW_TYPE_SIMILAR_INVESTMENT -> { (holder as ProjectSimilarInvestmentsViewHolder).bind(position)}
         }
     }
 
@@ -160,21 +158,6 @@ class ProjectDetailAdapter(
             TabLayoutMediator(binding.tabDotLayout,binding.projectDetailViewPager){ _, _ ->
             }.attach()
             itemView.tag = this
-
-//            binding.projectDetailViewPager.registerOnPageChangeCallback(object:ViewPager2.OnPageChangeCallback(){
-//                override fun onPageSelected(position: Int) {
-//                    super.onPageSelected(position)
-//                    when(position){
-//                        listViews.size-1 -> {
-//
-//                        }
-//                        else -> {
-//
-//                        }
-//                    }
-//                }
-//            })
-            binding.cvWhyInvestCard.setOnClickListener(onItemClickListener)
 
             binding.apply {
                 tvProjectName.text = data.launchName
@@ -277,6 +260,7 @@ class ProjectDetailAdapter(
                 }
                 binding.cvWhyInvestCard.setOnClickListener(onItemClickListener)
                 binding.tvApplyNow.setOnClickListener(onItemClickListener)
+                binding.tvFullApplyNow.setOnClickListener(onItemClickListener)
                 binding.tvRating.text = "${String.format("%.0f",data.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
 
                 val hoursInMillis = TimeUnit.HOURS.toMillis(data.fomoContent.targetTime.hours.toLong())
@@ -300,6 +284,35 @@ class ProjectDetailAdapter(
 
                 }
                 timeCounter.start()
+
+                when(data.fomoContent.isDaysActive){
+                    true -> {
+                        binding.tvProjectViewInfo.visibility = View.VISIBLE
+                        binding.tvApplyNow.visibility = View.VISIBLE
+                        binding.tvFullApplyNow.visibility = View.GONE
+                    }
+                    false -> {
+                        binding.tvProjectViewInfo.visibility = View.GONE
+                        binding.tvApplyNow.visibility = View.GONE
+                        binding.tvFullApplyNow.visibility = View.VISIBLE
+                    }
+                }
+                when(data.fomoContent.isNoOfViewsActive){
+                    true -> {
+                        binding.clView.visibility = View.VISIBLE
+                    }
+                    false -> {
+                        binding.clView.visibility = View.GONE
+                    }
+                }
+                when(data.fomoContent.isTargetTimeActive){
+                    true -> {
+                        binding.clDuration.visibility = View.VISIBLE
+                    }
+                    false -> {
+                        binding.clDuration.visibility = View.GONE
+                    }
+                }
             }
         }
     }
@@ -537,6 +550,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectFaqViewHolder(private val binding: FaqLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
+
             val itemList = projectContentsAndFaqs
             val list = ArrayList<ProjectContentsAndFaq>()
             when{
@@ -605,7 +619,11 @@ class ProjectDetailAdapter(
 
     private inner class ProjectSimilarInvestmentsViewHolder(private val binding: SimilarInvestmentsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            val itemList = data.similarInvestments
+            binding.tvSimilarInvestmentTitle.text = data.similarInvestmentSectionHeading
+            val itemList = ArrayList<SimilarInvestment>()
+            for(i in 0..data.numberOfSimilarInvestmentsToShow){
+                itemList.add(data.similarInvestments[i])
+            }
             similarInvestmentsAdapter = InvestmentAdapter(context, itemList, similarInvItemClickListener)
             binding.rvSimilarInvestment.adapter = similarInvestmentsAdapter
             binding.tvSimilarInvestmentSeeAll.setOnClickListener(onItemClickListener)

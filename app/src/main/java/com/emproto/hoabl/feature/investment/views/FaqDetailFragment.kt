@@ -38,8 +38,8 @@ class FaqDetailFragment : BaseFragment() {
 
     private lateinit var adapter: FaqDetailAdapter
     var projectId = 0
-    var faqId  = 0
-    private lateinit var allFaqList : List<CgData>
+    var faqId = 0
+    private lateinit var allFaqList: List<CgData>
     private var isFromInvestment = true
     private var projectName = "FAQs"
 
@@ -74,7 +74,8 @@ class FaqDetailFragment : BaseFragment() {
         profileViewModel =
             ViewModelProvider(requireActivity(), factory)[ProfileViewModel::class.java]
         (requireActivity() as HomeActivity).showHeader()
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.VISIBLE
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility =
+            View.VISIBLE
         (requireActivity() as HomeActivity).hideBottomNavigation()
         binding.slSwipeRefresh.setOnRefreshListener {
             binding.slSwipeRefresh.isRefreshing = true
@@ -83,7 +84,7 @@ class FaqDetailFragment : BaseFragment() {
     }
 
     private fun callApi() {
-        when(isFromInvestment){
+        when (isFromInvestment) {
             true -> {
                 callProjectFaqApi()
             }
@@ -103,10 +104,10 @@ class FaqDetailFragment : BaseFragment() {
                     binding.progressBar.hide()
                     binding.slSwipeRefresh.visibility = View.VISIBLE
                     binding.slSwipeRefresh.isRefreshing = false
-                    it.data?.data?.let {  data ->
-                        Log.d("generalfaq",data.toString())
+                    it.data?.data?.let { data ->
+                        Log.d("generalfaq", data.toString())
                         allFaqList = data
-                        setUpRecyclerView(data,faqId)
+                        setUpRecyclerView(data, faqId)
                     }
                 }
                 Status.ERROR -> {
@@ -130,8 +131,8 @@ class FaqDetailFragment : BaseFragment() {
                     binding.slSwipeRefresh.isRefreshing = false
                     it.data?.data?.let { data ->
                         allFaqList = data
-                        Log.d("faqfata","${data.toString()}")
-                        setUpRecyclerView(data,faqId)
+                        Log.d("faqfata", "${data.toString()}")
+                        setUpRecyclerView(data, faqId)
                     }
                 }
                 Status.ERROR -> {
@@ -146,7 +147,7 @@ class FaqDetailFragment : BaseFragment() {
 
     private fun setUpRecyclerView(data: List<CgData>, faqId: Int) {
         val list = ArrayList<RecyclerViewFaqItem>()
-        list.add(RecyclerViewFaqItem(1, data[0]),)
+        list.add(RecyclerViewFaqItem(1, data[0]))
         for (item in data) {
             list.add(RecyclerViewFaqItem(2, item))
         }
@@ -162,11 +163,11 @@ class FaqDetailFragment : BaseFragment() {
         binding.rvFaq.adapter = adapter
     }
 
-    val itemClickListener = object:ItemClickListener{
+    val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
-            when(view.id){
+            when (view.id) {
                 R.id.cv_category_name -> {
-                    binding.rvFaq.smoothScrollToPosition(position+1)
+                    binding.rvFaq.smoothScrollToPosition(position + 1)
                 }
                 R.id.et_search -> {
                     sendFilteredData(item)
@@ -179,23 +180,27 @@ class FaqDetailFragment : BaseFragment() {
     }
 
     private fun sendFilteredData(item: String) {
-        when{
+        when {
             item.isEmpty() -> {
                 hideKeyboard()
-                setUpRecyclerView(allFaqList,faqId)
+                setUpRecyclerView(allFaqList, faqId)
             }
             else -> {
                 val list = ArrayList<RecyclerViewFaqItem>()
                 list.add(RecyclerViewFaqItem(1, allFaqList[0]))
                 val searchString = item.toString()
                 for (item in allFaqList) {
-                    for(element in item.faqs){
-                        if(element.faqQuestion.question.contains(searchString.trim(),true) || item.name.contains(searchString.trim(),true)){
+                    for (element in item.faqs) {
+                        if (element.faqQuestion.question.contains(
+                                searchString.trim(),
+                                true
+                            ) || item.name.contains(searchString.trim(), true)
+                        ) {
                             list.add(RecyclerViewFaqItem(2, item))
                         }
                     }
                 }
-                setAdapter(list,allFaqList,item)
+                setAdapter(list, allFaqList, item)
             }
         }
     }
@@ -206,12 +211,12 @@ class FaqDetailFragment : BaseFragment() {
         item: String
     ) {
         var isItemsPresent = false
-        for(item in list){
-            if(item.viewType == 2){
+        for (item in list) {
+            if (item.viewType == 2) {
                 isItemsPresent = true
             }
         }
-        when(isItemsPresent){
+        when (isItemsPresent) {
             false -> {
                 Toast.makeText(requireContext(), "No faqs to show", Toast.LENGTH_SHORT).show()
                 hideKeyboard()
@@ -220,7 +225,16 @@ class FaqDetailFragment : BaseFragment() {
 
             }
         }
-        adapter = FaqDetailAdapter(requireActivity(),requireContext(), list, this.allFaqList, faqId,itemClickListener,item,projectName)
+        adapter = FaqDetailAdapter(
+            requireActivity(),
+            requireContext(),
+            list,
+            this.allFaqList,
+            faqId,
+            itemClickListener,
+            item,
+            projectName
+        )
         binding.rvFaq.adapter = adapter
     }
 }

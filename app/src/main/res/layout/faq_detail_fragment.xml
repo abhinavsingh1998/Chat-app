@@ -8,26 +8,17 @@
         android:id="@+id/sl_swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:background="@drawable/all_corner_radius_white_bg">
+        android:background="@drawable/all_corner_radius_white_bg"
+        android:visibility="gone">
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/portfolio_scroll"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_faq"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_faq"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:paddingBottom="@dimen/margin_size_10"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.core.widget.NestedScrollView>
+            android:paddingBottom="@dimen/margin_size_10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
