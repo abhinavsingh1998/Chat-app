@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
 import com.emproto.hoabl.utils.ItemClickListener
@@ -16,7 +17,8 @@ class InvestmentCardAdapter(
     val context: Context,
     val itemCount: Data,
     val list: List<PageManagementsOrNewInvestment>,
-    val itemIntrface:ItemClickListener) :
+    val itemIntrface: ItemClickListener
+) :
     RecyclerView.Adapter<InvestmentCardAdapter.MyViewHolder>() {
 
 
@@ -29,44 +31,45 @@ class InvestmentCardAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
 
+        val item = list.get(holder.adapterPosition)
 
+        holder.binding.tvItemLocationName.text = item.launchName
+        holder.binding.tvItemLocation.text = item.address.city + "," + item.address.state
+        holder.binding.tvRating.text =
+            item.generalInfoEscalationGraph.estimatedAppreciation.toString() + "%"
+        holder.binding.tvNoViews.text = Utility.coolFormat(item.fomoContent.noOfViews.toDouble(), 0)
 
-            val item = list.get(holder.adapterPosition)
+        val amount = item.priceStartingFrom.toDouble() / 100000
+        val convertedAmount = amount.toString().replace(".0", "")
+        holder.binding.tvItemAmount.text = "₹$convertedAmount L Onwards"
+        holder.binding.tvItemArea.text = item.areaStartingFrom + " Sqft Onwards"
+        holder.binding.tvItemLocationInfo.text = item.shortDescription
+        Glide.with(context)
+            .load(item.projectCoverImages.homePageMedia.value.url)
+            .into(holder.binding.ivItemImage)
 
-            holder.binding.tvItemLocationName.text = item.launchName
-            holder.binding.tvItemLocation.text = item.address.city +","+item.address.state
-
-            val amount = item.priceStartingFrom.toDouble()/100000
-            val convertedAmount = amount.toString().replace(".0","")
-            holder.binding.tvItemAmount.text = "₹$convertedAmount L Onwards"
-            holder.binding.tvItemArea.text = item.areaStartingFrom + " Sqft Onwards"
-            holder.binding.tvItemLocationInfo.text = item.shortDescription
-            Glide.with(context)
-                .load(item.projectCoverImages.homePageMedia.value.url)
-                .into(holder.binding.ivItemImage)
-
-            holder.binding.cvTopView.setOnClickListener {
-                itemIntrface.onItemClicked(it,position,item.id.toString())
-            }
-            holder.binding.tvApplyNow.setOnClickListener {
-                itemIntrface.onItemClicked(it,position,item.id.toString())
-            }
-            holder.binding.tvItemLocationInfo.setOnClickListener {
-                itemIntrface.onItemClicked(it,position,item.id.toString())
-            }
-            holder.binding.ivBottomArrow.setOnClickListener {
-                itemIntrface.onItemClicked(it,position,item.id.toString())
-            }
+        holder.binding.cvTopView.setOnClickListener {
+            itemIntrface.onItemClicked(it, position, item.id.toString())
+        }
+        holder.binding.tvApplyNow.setOnClickListener {
+            itemIntrface.onItemClicked(it, position, item.id.toString())
+        }
+        holder.binding.tvItemLocationInfo.setOnClickListener {
+            itemIntrface.onItemClicked(it, position, item.id.toString())
+        }
+        holder.binding.ivBottomArrow.setOnClickListener {
+            itemIntrface.onItemClicked(it, position, item.id.toString())
+        }
 
     }
 
     override fun getItemCount(): Int {
 
-        var itemList= 0
-        if (itemCount.page.totalProjectsOnHomeScreen<list.size){
+        var itemList = 0
+        if (itemCount.page.totalProjectsOnHomeScreen < list.size) {
             itemList = itemCount.page.totalProjectsOnHomeScreen
-        } else{
-            itemList= list.size
+        } else {
+            itemList = list.size
         }
         return itemList
         return itemCount.page.totalProjectsOnHomeScreen
