@@ -146,7 +146,6 @@ class AccountDetailsFragment : Fragment(),
                 }
                 Status.SUCCESS -> {
                     binding.progressBar.hide()
-
                     if (it.data?.data!!.documents != null && it.data!!.data.documents is List<AccountsResponse.Data.Document>) {
                         allKycDocList =
                             it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>
