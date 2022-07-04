@@ -48,7 +48,8 @@ class AuthActivity : BaseActivity() {
     var issuetype = ""
     var email= ""
     val phonepatterns  = Pattern.compile("[1-9][0-9]{9}")
-    val emailPattern= Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
+
+//    val emailPattern= Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,10 +64,10 @@ class AuthActivity : BaseActivity() {
         close_sheet()
         initClickListener()
         editIssuechecked()
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-//            var window:Window = this.getWindow()
-//            window.setStatusBarColor(this.resources.getColor(R.color.black))
-//        }
+/*        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            var window:Window = this.getWindow()
+            window.setStatusBarColor(this.resources.getColor(R.color.black))
+        }*/
     }
 
     private fun initClickListener() {
@@ -223,6 +224,7 @@ class AuthActivity : BaseActivity() {
 
         })
 
+/*
         signingInIssueBiding.emailInput.addTextChangedListener(object: TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 signingInIssueBiding.emailLayout.isErrorEnabled= false
@@ -245,6 +247,7 @@ class AuthActivity : BaseActivity() {
             }
 
         })
+*/
 
         signingInIssueBiding.submitBtn.setOnClickListener(View.OnClickListener {
 
@@ -263,17 +266,17 @@ class AuthActivity : BaseActivity() {
                 }
             }
             if (signingInIssueBiding.issueSeven.isChecked){
-//                if (issueDetail.length< 30){
-//                    signingInIssueBiding.editIssues.error = "Please Describe in more words"
-//                    Toast.makeText(this, "Please Describe in more words", Toast.LENGTH_SHORT).show()
-//                    return@OnClickListener
-//                }
+/*                if (issueDetail.length< 30){
+                    signingInIssueBiding.editIssues.error = "Please Describe in more words"
+                    Toast.makeText(this, "Please Describe in more words", Toast.LENGTH_SHORT).show()
+                    return@OnClickListener
+                }*/
             }
 
-            if(!email.isValidEmail()){
+/*            if(!email.isValidEmail()){
                 signingInIssueBiding.emailLayout.error = "Please enter valid email"
                 return@OnClickListener
-            }
+            }*/
 
 
             if (issueChecked().isNullOrEmpty()){
@@ -327,10 +330,10 @@ class AuthActivity : BaseActivity() {
     fun CharSequence?.ValidNO() =
         phonepatterns.matcher(this).matches()
 
-    fun CharSequence?.isValidEmail() =
+/*    fun CharSequence?.isValidEmail() =
         emailPattern.matcher(this).matches()
 
-//        !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
+        !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()*/
 
 
     private fun issueChecked(): String {
