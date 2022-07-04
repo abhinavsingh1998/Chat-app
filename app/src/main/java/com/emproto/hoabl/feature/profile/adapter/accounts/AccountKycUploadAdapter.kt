@@ -62,11 +62,11 @@ class AccountKycUploadAdapter(
         } else if (newList[position].status == "View") {
             holder.tvUploadDoc.text = "View"
             holder.tvUploadDoc.isEnabled = true
-        } else if(newList[position].status=="Verification Pending"){
+        } else {
             holder.tvUploadDoc.visibility=View.GONE
             holder.viewUnderLine.visibility=View.GONE
             holder.clStatus.visibility=View.VISIBLE
-            holder.textStatus.visibility=View.GONE
+            holder.textStatus.visibility=View.VISIBLE
             holder.tvPreview.setOnClickListener {
                 viewListener.onAccountsKycItemClick(
                     newList,
