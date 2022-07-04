@@ -200,7 +200,6 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/edit_issues_layout" />
-
                 <com.emproto.core.customedittext.CustomEdittext
                     android:id="@+id/input_mobile"
                     android:layout_width="match_parent"
