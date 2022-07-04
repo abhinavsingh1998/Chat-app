@@ -10,6 +10,7 @@ import com.emproto.networklayer.feature.HomeDataSource
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.HomeActionItemResponse
 import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.chats.ChatResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
@@ -38,6 +39,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
 
     val mInsights = MutableLiveData<BaseResponse<InsightsResponse>>()
     val mTestimonials = MutableLiveData<BaseResponse<TestimonialsResponse>>()
+    val mActionItem = MutableLiveData<BaseResponse<HomeActionItemResponse>>()
 
 
     /**
@@ -489,6 +491,37 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
 //        }
 //        return mAccountsResponse
 //    }
+
+
+    fun getActionItem(refresh: Boolean = false): LiveData<BaseResponse<HomeActionItemResponse>> {
+
+        if ( mActionItem .value == null || refresh) {
+            mActionItem.postValue(BaseResponse.loading())
+            coroutineScope.launch {
+                try {
+                    val request = HomeDataSource(application).getActionItem()
+                    if (request.isSuccessful) {
+                        if (request.body()!!.data != null)
+                            mActionItem.postValue(BaseResponse.success(request.body()!!))
+                        else
+                            mTestimonials.postValue(BaseResponse.Companion.error("No data found"))
+                    } else {
+                        mTestimonials.postValue(
+                            BaseResponse.Companion.error(
+                                getErrorMessage(
+                                    request.errorBody()!!.string()
+                                )
+                            )
+                        )
+                    }
+                } catch (e: Exception) {
+                    mActionItem .postValue(BaseResponse.Companion.error(e.localizedMessage))
+                }
+            }
+
+        }
+        return  mActionItem
+    }
 
 
 

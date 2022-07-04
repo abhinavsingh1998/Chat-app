@@ -13,6 +13,7 @@ import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.request.profile.ReportSecurityRequest
 import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.request.refernow.ReferalRequest
+import com.emproto.networklayer.response.HomeActionItemResponse
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyX
 import com.emproto.networklayer.response.chats.ChatDetailResponse
@@ -235,4 +236,7 @@ public interface ApiService {
 
     @GET(ApiConstants.GENERAL_FAQ)
     suspend fun getGeneralFaqs(@Query("categoryType") categoryType: Int):Response<FaqDetailResponse>
+
+    @GET(ApiConstants.ACTION_ITEM)
+    suspend fun getActionItem():Response<HomeActionItemResponse>
 }

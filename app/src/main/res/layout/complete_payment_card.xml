@@ -106,7 +106,6 @@
                 android:drawablePadding="@dimen/margin_size_6"
                 android:fontFamily="@font/jost_medium"
                 android:gravity="start|center"
-                android:text="@string/payment_pending"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/image_card"
                 app:layout_constraintTop_toBottomOf="@+id/image_card" />
