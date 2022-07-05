@@ -39,7 +39,7 @@ class SecurityFragment : Fragment(){
 
     val bundle = Bundle()
 
-    private var isWhatsappEnabled = false
+     private var isWhatsappEnabled = false
     private var showPushNotifications = false
     private var isSecurityTipsActive = false
 

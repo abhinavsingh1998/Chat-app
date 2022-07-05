@@ -110,7 +110,7 @@ class NewInvestmentAdapter(
                 }
             }
 
-            binding.ivNewLaunchSeeAll.setOnClickListener(onItemClickListener)
+//            binding.ivNewLaunchSeeAll.setOnClickListener(onItemClickListener)
             binding.tvNewLaunchSeeAll.setOnClickListener(onItemClickListener)
             binding.clPlaceInfo.setOnClickListener(onItemClickListener)
             binding.tvApplyNow.setOnClickListener(onItemClickListener)
@@ -132,7 +132,7 @@ class NewInvestmentAdapter(
             lastFewPlotsAdapter = LastFewPlotsAdapter(context, showList,itemClickListener)
             binding.rvSmartDealsNv.adapter = lastFewPlotsAdapter
             binding.tvSmartDealsSeeAll.setOnClickListener(onItemClickListener)
-            binding.ivSmartDealsSeeAll.setOnClickListener(onItemClickListener)
+//            binding.ivSmartDealsSeeAll.setOnClickListener(onItemClickListener)
         }
     }
 
@@ -164,7 +164,7 @@ class NewInvestmentAdapter(
             trendingProjectsAdapter = TrendingProjectsAdapter(context, showList,itemClickListener)
             binding.rvTrendingProjects.adapter= trendingProjectsAdapter
             binding.tvTrendingProjectsSeeAll.setOnClickListener(onItemClickListener)
-            binding.ivTrendingProjectsSeeAll.setOnClickListener(onItemClickListener)
+//            binding.ivTrendingProjectsSeeAll.setOnClickListener(onItemClickListener)
         }
     }
 

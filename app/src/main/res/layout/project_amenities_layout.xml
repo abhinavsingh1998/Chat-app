@@ -19,29 +19,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <com.emproto.core.textviews.CustomTextView
         android:id="@+id/tv_project_amenities_all"
+        style="@style/text_style_blue_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_size_14"
+        android:drawableRight="@drawable/ic_black_right_arrow"
+        android:drawablePadding="@dimen/margin_size_6"
+        android:singleLine="true"
         android:text="@string/see_all"
-        android:textColor="@color/text_blue_color"
-        android:textSize="@dimen/text_size_14"
-        android:visibility="visible"
-        android:layout_marginEnd="@dimen/margin_size_8"
-        app:layout_constraintBottom_toBottomOf="@id/tv_project_amenities_title"
-        app:layout_constraintEnd_toStartOf="@+id/iv_project_amenities_arrow"
-        app:layout_constraintTop_toTopOf="@id/tv_project_amenities_title" />
-
-    <ImageView
-        android:id="@+id/iv_project_amenities_arrow"
-        android:layout_width="15dp"
-        android:layout_height="9dp"
-        android:layout_marginEnd="@dimen/margin_size_11"
-        android:src="@drawable/combined_shape"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@id/tv_project_amenities_all"
+        app:fontName="@string/jost_regular"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_project_amenities_all" />
+        app:layout_constraintBottom_toBottomOf="@+id/tv_project_amenities_title"
+        app:layout_constraintTop_toTopOf="@+id/tv_project_amenities_title"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_project_amenities_item_recycler"
