@@ -11,7 +11,7 @@ import com.emproto.hoabl.databinding.ItemChatBinding
 import com.emproto.networklayer.response.chats.ChatResponse
 
 class ChatsAdapter(
-    private var mContext: Context?,
+    private var mContext: Context,
     private var chatList: ArrayList<ChatResponse.ChatList>,
     private var mListener: OnItemClickListener
 
@@ -29,20 +29,20 @@ class ChatsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        binding.tvTitle.text = chatList[position].project.launchName
+        binding.tvChatTitle.text = chatList[position].project.launchName
         if(chatList[position].lastMessage.toString()=="null"){
-            binding.tvMsg.text=""
+            binding.tvChatDesc.text=""
         }
         else {
-            binding.tvMsg.text = chatList[position].lastMessage.toString()
+            binding.tvChatDesc.text = chatList[position].lastMessage.toString()
         }
 //        binding.tvTime.text = chatRequest[position].data[position].project[position].
 
-        mContext?.let {
-            Glide.with(it)
-                .load(chatList[position].project.projectCoverImages.chatListViewPageMedia.value.url)
-                .placeholder(R.drawable.ic_baseline_image_24).into(binding.ivThumb)
-        }
+        Glide.with(mContext)
+            .load(chatList[position].project.projectCoverImages.chatListViewPageMedia.value.url)
+            .placeholder(R.drawable.ic_baseline_image_24)
+            .into(binding.ivChatThumb)
+
 
         binding.clChat.setOnClickListener {
             mListener.onChatItemClick(chatList, it, position)

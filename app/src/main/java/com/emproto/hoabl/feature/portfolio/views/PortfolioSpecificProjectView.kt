@@ -74,7 +74,6 @@ class PortfolioSpecificProjectView : BaseFragment() {
     lateinit var investmentViewModel: InvestmentViewModel
 
     val list = ArrayList<RecyclerViewItem>()
-    var fmData: FMResponse? = null
     var crmId: Int = 0
     var projectId: Int = 0
     var iea: String = ""
@@ -290,19 +289,29 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 object :
                     PortfolioSpecificViewAdapter.InvestmentScreenInterface {
                     override fun onClickFacilityCard() {
-                        if (fmData != null) {
-                            (requireActivity() as HomeActivity).addFragment(
-                                FmFragment.newInstance(
-                                    fmData!!.data.web_url,
-                                    ""
-                                ), false
-                            )
 
-                        } else {
-                            (requireActivity() as HomeActivity).showErrorToast(
-                                "Something Went Wrong"
-                            )
-                        }
+                        portfolioviewmodel.getFacilityManagment("", "")
+                            .observe(viewLifecycleOwner, Observer {
+                                when (it.status) {
+                                    Status.SUCCESS -> {
+                                        it.data.let {
+                                            if (it != null) {
+                                                (requireActivity() as HomeActivity).addFragment(
+                                                    FmFragment.newInstance(
+                                                        it.data.web_url,
+                                                        ""
+                                                    ), false
+                                                )
+                                            } else {
+                                                (requireActivity() as HomeActivity).showErrorToast(
+                                                    "Something Went Wrong"
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                            })
+
                     }
 
                     override fun seeAllCard() {
@@ -314,7 +323,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                             ProjectTimelineFragment.newInstance(
                                 id,
                                 ""
-                            ), false
+                            ), true
                         )
                     }
 
@@ -323,7 +332,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                             BookingjourneyFragment.newInstance(
                                 id,
                                 ""
-                            ), false
+                            ), true
                         )
                     }
 
@@ -390,8 +399,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
                                 requireActivity(),
                                 homeFactory
                             ).get(HomeViewModel::class.java)
-                        //val details = it.data.projectPromises.data[position]
-                        //homeViewModel.setSelectedPromise(details)
+                        val details = it.data.projectPromises.data[position]
+                        homeViewModel.setSelectedPromise(details)
                         (requireActivity() as HomeActivity).addFragment(
                             PromisesDetailsFragment(),
                             false
@@ -500,7 +509,6 @@ class PortfolioSpecificProjectView : BaseFragment() {
         binding.rvPortfolioSpecificView.setHasFixedSize(true)
         binding.rvPortfolioSpecificView.setItemViewCacheSize(10)
 
-        fetchDocuments(it.data.investmentInformation.crmLaunchPhaseId)
         //for document bottom sheet
         if (it.data.documentList != null) {
             val adapter =
@@ -525,18 +533,6 @@ class PortfolioSpecificProjectView : BaseFragment() {
         } else {
 
         }
-    }
-
-    private fun fetchDocuments(id: String) {
-        portfolioviewmodel.getFacilityManagment("", "").observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    it.data.let {
-                        fmData = it!!
-                    }
-                }
-            }
-        })
     }
 
     private fun setUpRecyclerView() {

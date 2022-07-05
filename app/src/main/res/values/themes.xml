@@ -365,6 +365,12 @@
         <item name="android:textColor">@color/rating_percent_green_color</item>
     </style>
 
+    <style name="text_light_ash_13">
+        <item name="android:gravity">center|start</item>
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/unselected_button_color</item>
+    </style>
+
     //textSize_14
 
     <style name="text_style_dark_black_color_14">
@@ -504,6 +510,13 @@
         <item name="android:textColor">@color/text_lightgrey_color</item>
     </style>
 
+    <style name="text_size_14">
+        <item name="android:gravity">center|left</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="singleLine">true</item>
+    </style>
+
     <style name="text_style_lightgrey14">
         <item name="android:gravity">center|left</item>
         <item name="android:textSize">@dimen/text_size_14</item>
@@ -603,6 +616,30 @@
         <item name="android:textColor">@color/latest_images_blue_color</item>
     </style>
 
+    <style name="text_dark_blue_chat_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/dark_blue</item>
+    </style>
+
+    <style name="text_dark_grey_chat_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/chat_grey_color</item>
+    </style>
+
+    <style name="text_time_chat_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/chat_time_color</item>
+    </style>
+
+    <style name="text_violet_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/text_violet_dark_color</item>
+    </style>
+
     //textSize_15
 
     <style name="text_style__text_color_15">
@@ -622,12 +659,6 @@
     <style name="text_light_ash_16">
         <item name="android:gravity">center|start</item>
         <item name="android:textSize">@dimen/text_size_16</item>
-        <item name="android:textColor">@color/unselected_button_color</item>
-    </style>
-
-    <style name="text_light_ash_13">
-        <item name="android:gravity">center|start</item>
-        <item name="android:textSize">@dimen/text_size_13</item>
         <item name="android:textColor">@color/unselected_button_color</item>
     </style>
 
@@ -677,12 +708,6 @@
         <item name="singleLine">true</item>
     </style>
 
-    <style name="text_style_white_18">
-        <item name="android:gravity">center</item>
-        <item name="android:textSize">@dimen/text_size_18</item>
-        <item name="android:textColor">@color/white</item>
-    </style>
-
     <style name="text_style_blue_16">
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/text_size_16</item>
@@ -706,12 +731,6 @@
     <style name="text_style_text_color_16">
         <item name="android:gravity">center|left</item>
         <item name="android:textSize">@dimen/text_size_16</item>
-        <item name="android:textColor">@color/text_color</item>
-        <item name="singleLine">true</item>
-    </style>
-    <style name="text_size_14">
-        <item name="android:gravity">center|left</item>
-        <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@color/text_color</item>
         <item name="singleLine">true</item>
     </style>
@@ -753,6 +772,12 @@
     </style>
 
     //textSize_18
+
+    <style name="text_style_white_18">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 
     <style name="text_style_ash_color_18">
         <item name="android:gravity">start</item>
@@ -805,8 +830,6 @@
         <item name="android:textSize">@dimen/text_size_18</item>
         <item name="android:textColor">@color/black</item>
     </style>
-
-
 
     //textSize_20
 
@@ -909,12 +932,16 @@
         <item name="singleLine">true</item>
     </style>
 
+    //textSize_40
+
     <style name="text_style_blue_40">
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/text_size_40</item>
         <item name="android:textColor">@color/app_color</item>
         <item name="singleLine">true</item>
     </style>
+
+    //Other styles
 
     <style name="CustomCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialCardView.Cut

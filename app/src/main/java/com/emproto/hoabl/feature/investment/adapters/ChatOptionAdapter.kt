@@ -29,23 +29,16 @@ class ChatOptionAdapter(
         return ViewHolder(binding.root)
     }
 
-
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvOption.text = option[position].text
 
         holder.tvOption.setOnClickListener {
             optionListener.onOptionClick(option[position], it, position)
-
-
         }
-
-
     }
 
     override fun getItemCount(): Int {
         return option.size
-
     }
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {

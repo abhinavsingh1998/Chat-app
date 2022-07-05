@@ -112,7 +112,8 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                 isReadPermissonGranted =
                     permissions[Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissonGranted
             }
-        //requestPermisson()
+
+        initViews()
 
         return binding.root
     }
@@ -122,7 +123,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible =
             true
 
-        initViews()
+        //initViews()
 
     }
 
@@ -135,6 +136,23 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         dialogSecurePinBinding = DialogSecurePinBinding.inflate(layoutInflater)
         dialogSecurePinConfirmationBinding =
             DailogSecurePinConfirmationBinding.inflate(layoutInflater)
+
+        pinDialog = CustomDialog(requireContext())
+        pinAllowD = CustomDialog(requireContext())
+        securePinDialog = CustomDialog(requireContext())
+        securePinConfirmationDialog = CustomDialog(requireContext())
+
+        pinDialog.setContentView(pinPermissonDialog.root)
+        pinDialog.setCancelable(false)
+
+        pinAllowD.setContentView(pinAllowDailog.root)
+        pinAllowD.setCancelable(false)
+
+        securePinDialog.setContentView(dialogSecurePinBinding.root)
+        securePinDialog.setCancelable(false)
+
+        securePinConfirmationDialog.setContentView(dialogSecurePinConfirmationBinding.root)
+        securePinConfirmationDialog.setCancelable(false)
 
         pinPermissonDialog.tvActivate.setOnClickListener {
             //activate pin
@@ -160,22 +178,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             pinDialog.show()
         }
 
-        pinDialog = CustomDialog(requireContext())
-        pinAllowD = CustomDialog(requireContext())
-        securePinDialog = CustomDialog(requireContext())
-        securePinConfirmationDialog = CustomDialog(requireContext())
 
-        pinDialog.setContentView(pinPermissonDialog.root)
-        pinDialog.setCancelable(false)
-
-        pinAllowD.setContentView(pinAllowDailog.root)
-        pinAllowD.setCancelable(false)
-
-        securePinDialog.setContentView(dialogSecurePinBinding.root)
-        securePinDialog.setCancelable(false)
-
-        securePinConfirmationDialog.setContentView(dialogSecurePinConfirmationBinding.root)
-        securePinConfirmationDialog.setCancelable(false)
 
         if (appPreference.isPinDialogShown()) {
             // if dialog is shown already and pin is activated show pin screen.
@@ -338,14 +341,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                                 binding.addYouProject.visibility = View.VISIBLE
                                 binding.instriction.visibility = View.VISIBLE
                                 binding.btnExploreNewInvestmentProject.visibility = View.VISIBLE
-                            }
-//                        else if (it.message == ApiConstants.NO_INTERNET) {
-//                            binding.noInternetView.mainContainer.show()
-//                            binding.noInternetView.textView6.setOnClickListener {
-//                                fetchUserPortfolio(true)
-//                            }
-//                        }
-                            else {
+                            } else {
                                 (requireActivity() as HomeActivity).showErrorToast(
                                     it.message!!
                                 )
@@ -485,7 +481,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         arguments.putDouble("EA", ea)
         portfolioSpecificProjectView.arguments = arguments
         portfolioviewmodel.setprojectAddress(otherDetails)
-        (requireActivity() as HomeActivity).addFragment(portfolioSpecificProjectView, false)
+        (requireActivity() as HomeActivity).addFragment(portfolioSpecificProjectView, true)
     }
 
     override fun referNow() {

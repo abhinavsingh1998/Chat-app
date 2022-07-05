@@ -75,13 +75,41 @@ class OpportunityDocsFragment:BaseFragment() {
         investmentViewModel.getOpportunityDoc().observe(viewLifecycleOwner, Observer {
             binding.progressBar.visibility = View.GONE
             val list = ArrayList<RecyclerViewItem>()
-            list.add(RecyclerViewItem(1))
-            list.add(RecyclerViewItem(2))
-            list.add(RecyclerViewItem(3))
-            list.add(RecyclerViewItem(4))
-            list.add(RecyclerViewItem(5))
-            list.add(RecyclerViewItem(6))
-            list.add(RecyclerViewItem(7))
+            when(it.isBannerImageActive){
+                true -> {
+                    list.add(RecyclerViewItem(1))
+                }
+            }
+            when(it.isEscalationGraphActive){
+                true -> {
+                    list.add(RecyclerViewItem(2))
+                }
+            }
+            when(it.isCurrentInfraStoryActive){
+                true -> {
+                    list.add(RecyclerViewItem(3))
+                }
+            }
+            when(it.isUpcomingInfraStoryActive){
+                true -> {
+                    list.add(RecyclerViewItem(4))
+                }
+            }
+            when(it.isTourismAroundActive){
+                true -> {
+                    list.add(RecyclerViewItem(5))
+                }
+            }
+            when(it.isAboutProjectsActive){
+                true -> {
+                    list.add(RecyclerViewItem(6))
+                }
+            }
+            when(it.isProjectAminitiesActive){
+                true -> {
+                    list.add(RecyclerViewItem(7))
+                }
+            }
             list.add(RecyclerViewItem(8))
 
             opportunityDocsAdapter = OpportunityDocsAdapter(this.requireContext(),list,it,title,isFromProjectAmenities)

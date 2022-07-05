@@ -34,8 +34,8 @@ class Testimonials : BaseFragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     val appURL= "https://hoabl.in/"
     var testimonialsItem= 0
-    lateinit var testimonilalsHeading:String
-    lateinit var testimonilalsSubHeading:String
+    var testimonilalsHeading:String = ""
+    var testimonilalsSubHeading:String = ""
 
 
     @Inject

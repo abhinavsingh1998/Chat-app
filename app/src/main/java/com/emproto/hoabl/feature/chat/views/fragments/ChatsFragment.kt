@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentChatsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.chat.adapter.ChatsAdapter
@@ -22,17 +23,29 @@ import com.emproto.networklayer.response.enums.Status
 import java.io.Serializable
 import javax.inject.Inject
 
-class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
+class ChatsFragment : BaseFragment(), ChatsAdapter.OnItemClickListener {
+
     @Inject
     lateinit var homeFactory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
+
     lateinit var binding: FragmentChatsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentChatsBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initDatas()
+        callChatListApi()
+    }
+
+    private fun initDatas() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel =
             ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
@@ -41,12 +54,9 @@ class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
             View.VISIBLE
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
             View.GONE
-
-        return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun callChatListApi() {
         homeViewModel.getChatsList().observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
@@ -56,14 +66,12 @@ class ChatsFragment : Fragment(), ChatsAdapter.OnItemClickListener {
                 Status.SUCCESS -> {
                     binding.loader.hide()
                     binding.rvChats.visibility = View.VISIBLE
-                    if (it.data?.chatList != null && it.data!!.chatList is List<ChatList>) {
-                        Log.i("LastMsg", it.data!!.chatList.toString())
-                        binding.rvChats.layoutManager =
-                            LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-                        binding.rvChats.adapter = ChatsAdapter(context, it.data!!.chatList, this)
-
-                        val chatListSize = it.data!!.chatList.size.toString()
-                        binding.tvChats.text = "Chat($chatListSize)"
+                    it.data.let {
+                        if (it?.chatList != null && it.chatList is List<ChatList>) {
+                            Log.i("LastMsg", it.chatList.toString())
+                            binding.rvChats.adapter = ChatsAdapter(requireContext(), it.chatList, this)
+                            binding.tvChats.text = "Chat (${it.chatList.size.toString()})"
+                        }
                     }
                 }
                 Status.ERROR -> {

@@ -35,8 +35,8 @@ class NotificationAdapter(  private var mContext: Context?,
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val imageView: ImageView = itemView.findViewById(R.id.ivImage)
         val topic: TextView = itemView.findViewById(R.id.tvTopic)
-        val desc: TextView = itemView.findViewById(R.id.tvMsg)
-        val time: TextView = itemView.findViewById(R.id.tvTime)
+        val desc: TextView = itemView.findViewById(R.id.tv_chat_desc)
+        val time: TextView = itemView.findViewById(R.id.tv_chat_time)
 
     }
     fun setItemClickListener(clickListener: View.OnClickListener) {
