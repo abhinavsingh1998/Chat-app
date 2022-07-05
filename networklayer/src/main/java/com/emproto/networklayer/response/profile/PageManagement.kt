@@ -1,9 +1,11 @@
 package com.emproto.networklayer.response.profile
 
+import java.io.Serializable
+
 data class PageManagement(
     val code: Int,
     val `data`: pData
-)
+):Serializable
 
 data class pData(
     val contactType: String,
@@ -12,10 +14,10 @@ data class pData(
     val isProfileComplete: Boolean,
     val page: ePage,
     val pageManagementsOrNewInvestments: List<Any>
-)
+):Serializable
 
 data class ePage(
-    val aboutUs: AboutUs,
+    val aboutUs: AboutUsX,
     val applicablePromiseSectionHeading: Any,
     val bookingJourney: Any,
     val collectionOne: Any,
@@ -60,12 +62,12 @@ data class ePage(
     val promotionAndOffersMedia: Any,
     val promotionAndOffersProjectContentId: Any,
     val sectionName: Any,
-    val securityTips: SecurityTips,
+    val securityTips: SecurityTipsX,
     val shortDescription: Any,
     val splashScreenImage: Any,
     val status: Any,
     val subHeading: Any,
-    val termsAndConditions: TermsAndConditions,
+    val termsAndConditions: TermsAndConditionsX,
     val testimonialsHeading: Any,
     val testimonialsSubHeading: Any,
     val totalInsightsOnHomeScreen: Any,
@@ -78,4 +80,59 @@ data class ePage(
     val totalUpdatesOnListView: Any,
     val updatedAt: String,
     val updatedBy: Int
-)
+):Serializable
+
+data class TermsAndConditionsX(
+    val description: String,
+    val displayName: String
+): Serializable
+
+data class SecurityTipsX(
+    val detailedInformation: List<DetailedInformationXXXE>,
+    val sectionHeading: String
+):Serializable
+
+data class AboutUsX(
+    val aboutHoabl: AboutHoablX,
+    val corporatePhilosophy: CorporatePhilosophyX,
+    val foundersVision: FoundersVisionX,
+    val isAboutHoablActive: Boolean,
+    val isCorporatePhilosophyActive: Boolean,
+    val isFoundersVisionActive: Boolean,
+    val isProductCategoryActive: Boolean,
+    val isStatsOverviewActive: Boolean,
+    val productCategory: ProductCategoryX,
+    val statsOverview: StatsOverviewX
+):Serializable
+
+data class DetailedInformationXXXE(
+    val description: String,
+    val media: MediaXXX
+):Serializable
+
+data class AboutHoablX(
+    val description: String,
+    val sectionHeading: String
+):Serializable
+
+data class CorporatePhilosophyX(
+    val detailedInformation: List<DetailedInformation>,
+    val sectionHeading: String
+):Serializable
+
+data class FoundersVisionX(
+    val description: String,
+    val founderName: String,
+    val media: MediaX,
+    val sectionHeading: String
+):Serializable
+
+data class ProductCategoryX(
+    val detailedInformation: List<DetailedInformationX>,
+    val sectionHeading: String
+):Serializable
+
+data class StatsOverviewX(
+    val detailedInformation: List<DetailedInformationXX>,
+    val sectionHeading: String
+):Serializable
