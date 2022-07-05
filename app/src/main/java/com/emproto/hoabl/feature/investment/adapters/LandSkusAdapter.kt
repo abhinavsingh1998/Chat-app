@@ -16,9 +16,11 @@ import kotlin.collections.ArrayList
 class LandSkusAdapter(
     private val fragment: LandSkusFragment,
     val list: ArrayList<RecyclerViewItem>,
-    val appliedList : List<Inventory>,
+    val appliedList: List<Inventory>,
     val notAppliedList: List<Inventory>,
-    val itemClickListener: ItemClickListener
+    val itemClickListener: ItemClickListener,
+    val title: String,
+    val subtitle: String
 ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -55,7 +57,8 @@ class LandSkusAdapter(
 
     private inner class LandSkusAvailableViewHolder(val binding: LandSkusTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvLandSkusTitle.text = "Land SKUs (${notAppliedList.size})"
+            binding.tvLandSkusTitle.text = "${title} (${notAppliedList.size})"
+            binding.tvLandSkusSubtitle.text = subtitle
             skusListAdapter = SkusListAdapter(fragment,notAppliedList,itemClickListener)
             binding.rvLandSkusItems.adapter = skusListAdapter
             skusListAdapter.setSkusListItemClickListener(fragment.onLandSkusItemClickListener)

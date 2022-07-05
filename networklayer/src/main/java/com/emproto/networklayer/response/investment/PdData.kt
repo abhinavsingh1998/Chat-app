@@ -16,6 +16,7 @@ data class PdData(
     val isEscalationGraphActive: Boolean,
     val isInventoryBucketActive: Boolean,
     val isKeyPillarsActive: Boolean,
+    val isMediaGalleryActive: Boolean,
     val isLatestMediaGalleryActive: Boolean,
     val isLocationInfrastructureActive: Boolean,
     val isOffersAndPromotionsActive: Boolean,

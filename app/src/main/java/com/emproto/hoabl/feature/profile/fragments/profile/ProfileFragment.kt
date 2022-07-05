@@ -50,6 +50,9 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
     private lateinit var profileViewModel: ProfileViewModel
     lateinit var profileData: Data
     var fmData: FMResponse? = null
+    var isTermsActive = false
+    var isAboutUsActive = false
+    var isSecurityTipsActive = false
 
     @Inject
     lateinit var appPreference: AppPreference
@@ -90,6 +93,9 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                             profileData = it.data
                             isWhatsappConsent = it.data.whatsappConsent
                             isPushNotificationSend = it.data.showPushNotifications
+                            isTermsActive= it.data.pageManagement.data.page.isTermsActive
+                            isAboutUsActive = it.data.pageManagement.data.page.isAboutUsActive
+                            isSecurityTipsActive = it.data.pageManagement.data.page.isSecurityTipsActive
                         }
                         setUiData(profileData)
                     }
@@ -234,12 +240,17 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                 val bundle = Bundle()
                 bundle.putBoolean("whatsappConsentEnabled",isWhatsappConsent)
                 bundle.putBoolean("showPushNotifications",isPushNotificationSend)
+                bundle.putBoolean("isSecurityTipsActive",isSecurityTipsActive)
                 val securityFragment = SecurityFragment()
                 securityFragment.arguments = bundle
                 (requireActivity() as HomeActivity).addFragment(securityFragment, false)
             }
             2 -> {
+                val bundle = Bundle()
+                bundle.putBoolean("isTermsActive",isTermsActive)
+                bundle.putBoolean("isAboutUsActive",isAboutUsActive)
                 val helpCenterFragment = HelpCenterFragment()
+                helpCenterFragment.arguments = bundle
                 (requireActivity() as HomeActivity).addFragment(helpCenterFragment, false)
             }
             3 -> {

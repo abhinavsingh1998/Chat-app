@@ -55,5 +55,7 @@ import java.io.Serializable
         @SerializedName("whatsappConsent")
         val whatsappConsent: Boolean,
         @SerializedName("showPushNotifications")
-        val showPushNotifications: Boolean
+        val showPushNotifications: Boolean,
+        @SerializedName("pageManagement")
+        val pageManagement:PageManagement
     ):Serializable

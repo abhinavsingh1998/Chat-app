@@ -485,14 +485,8 @@ class ProjectDetailAdapter(
 
     private inner class ProjectSkusViewHolder(private val binding: SkusLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-//            val notAppliedList = ArrayList<Inventory>()
-//            for(item in data.inventoriesList.data){
-//                when(item.isApplied){
-//                    false -> notAppliedList.add(item)
-//                }
-//            }
-//            binding.tvChooseSkusApplyTitle.text = data.inventory
-            skuAdapter = SkuAdapter(data.inventoriesList.data,itemClickListener, investmentViewModel)
+            binding.tvChooseSkusApplyTitle.text = data.otherSectionHeadings.inventoryBucketContents.sectionHeading
+            skuAdapter = SkuAdapter(data.inventoriesList.projectContent.inventoryBucketContents,itemClickListener, investmentViewModel)
             binding.rvSkus.adapter = skuAdapter
             itemView.tag = this
             binding.tvSkusSeeAll.setOnClickListener(onItemClickListener)
@@ -503,6 +497,7 @@ class ProjectDetailAdapter(
     private inner class ProjectAmenitiesViewHolder(private val binding: ProjectAmenitiesLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             binding.apply {
+                tvProjectAmenitiesTitle.text = data.opportunityDoc.projectAminitiesSectionHeading
                 val list = ArrayList<ProjectAminity>()
                 if(data.opportunityDoc.projectAminities.size > 4){
                     for(i in 0..3){
@@ -550,7 +545,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectFaqViewHolder(private val binding: FaqLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-
+            binding.tvFaqTitle.text = data.otherSectionHeadings.faqSections.sectionHeading
             val itemList = projectContentsAndFaqs
             val list = ArrayList<ProjectContentsAndFaq>()
             when{

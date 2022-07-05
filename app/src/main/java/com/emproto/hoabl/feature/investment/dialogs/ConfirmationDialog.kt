@@ -37,14 +37,14 @@ class ConfirmationDialog(private val investmentViewModel: InvestmentViewModel, p
         investmentViewModel.getSku().observe(viewLifecycleOwner, Observer {
             it.let { data ->
                 binding.apply {
-                    tvItemLandSkusName.text = data.inventoryBucketName
+                    tvItemLandSkusName.text = data.name
                     val amount = it.priceRange.from.toDouble() / 100000
                     val convertedFromAmount = String.format("%.0f",amount)
                     val amountTo = it.priceRange.to.toDouble() / 100000
                     val convertedToAmount = String.format("%.0f",amountTo)
                     tvItemLandSkusArea.text = "${data.areaRange.from} - ${data.areaRange.to} Sqft"
                     tvItemLandSkusPrice.text = "₹${convertedFromAmount}L - ${convertedToAmount}L"
-                    tvItemLandSkusDescription.text = data.inventoryBucketDescription
+                    tvItemLandSkusDescription.text = data.shortDescription
                 }
                 binding.tvYesText.setOnClickListener{ view ->
                     dialog?.dismiss()
