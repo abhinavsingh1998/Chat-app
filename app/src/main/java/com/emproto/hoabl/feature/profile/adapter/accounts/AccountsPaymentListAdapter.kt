@@ -19,14 +19,11 @@ class AccountsPaymentListAdapter(
 ) : RecyclerView.Adapter<AccountsPaymentListAdapter.ViewHolder>() {
 
     lateinit var binding: ItemAccountsPaymentBinding
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding =
             ItemAccountsPaymentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding.root)
     }
-
     interface OnPaymentItemClickListener {
         fun onAccountsPaymentItemClick(
             accountsPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>,
@@ -36,7 +33,6 @@ class AccountsPaymentListAdapter(
             path: String,
         )
     }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (!accountsPaymentList[position].paidAmount.toString().isNullOrEmpty()) {
             holder.tvPaidAmount.text = "₹" + accountsPaymentList[position].paidAmount.toString()
@@ -50,15 +46,11 @@ class AccountsPaymentListAdapter(
         if(accountsPaymentList[position].crmInventory!=null){
             holder.tvLandId.text =
                 "Land id:" + "" + accountsPaymentList[position].crmInventory
-
         }
 
         holder.tvSeeReceipt.setOnClickListener {
             if (accountsPaymentList[position].document == null) {
-
                 Toast.makeText(mContext, "No Receipt", Toast.LENGTH_SHORT).show()
-
-
             } else {
                 mListener.onAccountsPaymentItemClick(
                     accountsPaymentList,
