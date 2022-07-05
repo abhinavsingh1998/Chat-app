@@ -61,6 +61,7 @@ class PrivacyFragment : BaseFragment() {
                     binding.rootView.show()
                     binding.loader.hide()
                     it.data?.let {
+                        binding.tvHeading.text = showHTMLText(it.data.page.termsAndConditions.displayName)
                         binding.tvDescription.text =
                             showHTMLText(it.data.page.termsAndConditions.description)
                     }

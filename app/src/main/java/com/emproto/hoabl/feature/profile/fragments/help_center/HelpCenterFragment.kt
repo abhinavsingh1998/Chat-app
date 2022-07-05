@@ -34,12 +34,19 @@ class HelpCenterFragment : BaseFragment() {
     private var dataList = ArrayList<DataHealthCenter>()
     val bundle = Bundle()
 
+    private var isAboutUsActive = false
+    private var isTermsActive = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHelpCenterBinding.inflate(inflater, container, false)
+        arguments.let {
+            isAboutUsActive = it?.getBoolean("isAboutUsActive",false) as Boolean
+            isTermsActive = it.getBoolean("isTermsActive",false)
+        }
         initView()
         return binding.root
     }
@@ -96,8 +103,12 @@ class HelpCenterFragment : BaseFragment() {
         )
         val listHolder = ArrayList<HelpModel>()
         listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item1))
-        listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item2))
-        listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item3))
+        when(isTermsActive){
+            true -> listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item2))
+        }
+        when(isAboutUsActive){
+            true -> listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item3))
+        }
         listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item4))
         listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item5))
         listHolder.add(HelpModel(HelpCenterAdapter.VIEW_FOOTER, item1))

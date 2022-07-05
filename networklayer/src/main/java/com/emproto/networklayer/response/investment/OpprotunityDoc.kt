@@ -22,5 +22,6 @@ data class OpprotunityDoc(
     val tourismAround: TourismAround,
     val upcomingInfraStory: UpcomingInfraStory,
     val updatedAt: String,
-    val whyToInvestMedia: WhyToInvestMedia
+    val whyToInvestMedia: WhyToInvestMedia,
+    val projectAminitiesSectionHeading:String
 )
