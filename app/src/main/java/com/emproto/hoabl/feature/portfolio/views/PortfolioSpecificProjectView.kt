@@ -178,6 +178,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
     private fun loadInvestmentDetails(it: InvestmentDetailsResponse) {
         //saving project name and address for booking journey screen
+        val headingDetails = portfolioviewmodel.getHeadingDetails()
         portfolioviewmodel.setInvestmentInfo(it.data.investmentInformation)
         it.data.investmentInformation.launchName = it.data.projectInformation.launchName
         it.data.investmentInformation.address = portfolioviewmodel.getprojectAddress().address
@@ -211,6 +212,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
         }
         list.clear()
         it.data.projectExtraDetails = portfolioviewmodel.getprojectAddress()
+
+        //top section in investment details
         list.add(
             RecyclerViewItem(
                 PortfolioSpecificViewAdapter.PORTFOLIO_TOP_SECTION,
@@ -218,6 +221,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 iea
             )
         )
+
+        //adding pending cards
         if (!it.data.investmentInformation.isBookingComplete) {
 
             val filteredpayments = it.data.investmentInformation.paymentSchedules.filter {
@@ -232,8 +237,12 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 )
             }
         }
+
+        // facility card
         if (appPreference.isFacilityCard())
             list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_FACILITY_CARD))
+
+        //adding document
         if (it.data.documentList != null) {
             list.add(
                 RecyclerViewItem(
@@ -242,26 +251,40 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 )
             )
         }
-        list.add(
-            RecyclerViewItem(
-                PortfolioSpecificViewAdapter.PORTFOLIO_TRENDING_IMAGES,
-                it.data.projectInformation.latestMediaGalleryOrProjectContent[0]
+
+        //adding trending video and images
+        if (headingDetails.isLatestMediaGalleryActive) {
+            list.add(
+                RecyclerViewItem(
+                    PortfolioSpecificViewAdapter.PORTFOLIO_TRENDING_IMAGES,
+                    it.data.projectInformation.latestMediaGalleryOrProjectContent[0]
+                )
             )
-        )
+        }
+
+        //adding promises
         list.add(
             RecyclerViewItem(
                 PortfolioSpecificViewAdapter.PORTFOLIO_PROMISES,
                 it.data.projectPromises
             )
         )
-        list.add(
-            RecyclerViewItem(
-                PortfolioSpecificViewAdapter.PORTFOLIO_GRAPH,
-                it.data.projectExtraDetails.graphData, "", ea
 
+        //adding graph
+        if (headingDetails.isEscalationGraphActive) {
+            list.add(
+                RecyclerViewItem(
+                    PortfolioSpecificViewAdapter.PORTFOLIO_GRAPH,
+                    it.data.projectExtraDetails.graphData, "", ea
+
+                )
             )
-        )
+        }
+
+        //adding refer now
         list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_REFERNOW))
+
+        //adding faq section
         if (it.data.projectInformation.projectContentsAndFaqs != null) {
             if (it.data.projectInformation.projectContentsAndFaqs.isNotEmpty()) {
                 list.add(
@@ -272,7 +295,9 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 )
             }
         }
-        if (it.data.projectInformation.similarInvestments != null) {
+
+        //adding similar investment
+        if (headingDetails.isSimilarInvestmentActive && it.data.projectInformation.similarInvestments != null) {
             if (it.data.projectInformation.similarInvestments.isNotEmpty()) {
                 list.add(
                     RecyclerViewItem(
@@ -503,11 +528,11 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         openDocumentScreen(name, path)
                     }
 
-                }, allMediaList
+                }, allMediaList, headingDetails
             )
         binding.rvPortfolioSpecificView.adapter = portfolioSpecificViewAdapter
         binding.rvPortfolioSpecificView.setHasFixedSize(true)
-        binding.rvPortfolioSpecificView.setItemViewCacheSize(10)
+        binding.rvPortfolioSpecificView.setItemViewCacheSize(20)
 
         //for document bottom sheet
         if (it.data.documentList != null) {

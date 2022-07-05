@@ -5,6 +5,8 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -13,10 +15,7 @@ import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
-import com.emproto.networklayer.response.portfolio.dashboard.Completed
-import com.emproto.networklayer.response.portfolio.dashboard.Ongoing
-import com.emproto.networklayer.response.portfolio.dashboard.Project
-import com.emproto.networklayer.response.portfolio.dashboard.Summary
+import com.emproto.networklayer.response.portfolio.dashboard.*
 import com.emproto.networklayer.response.watchlist.Data
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
 import com.skydoves.balloon.Balloon
@@ -149,6 +148,11 @@ class ExistingUsersPortfolioAdapter(
     private inner class TitleViewHolder(private val binding: PortfolioTitleCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
+            if (list[position].data != null) {
+                val pageData = list[position].data as PageData
+                binding.tvPortfolio.text = pageData.data.page.pageName
+                binding.tvSubheading.text = pageData.data.page.subHeading
+            }
 
         }
     }
@@ -333,7 +337,7 @@ class ExistingUsersPortfolioAdapter(
             projectId: Int,
             otherDetails: ProjectExtraDetails,
             iea: String?,
-            ea: Double
+            ea: Double, headingDetails: InvestmentHeadingDetails
         )
 
         fun referNow()
@@ -362,6 +366,16 @@ class ExistingUsersPortfolioAdapter(
             setLifecycleOwner(lifecycleOwner)
         }
         return balloon
+    }
+
+    private fun setScaleAnimation(view: View) {
+        val anim = ScaleAnimation(
+            0.0f, 1.0f, 0.0f, 1.0f,
+            Animation.RELATIVE_TO_SELF, 0.5f,
+            Animation.RELATIVE_TO_SELF, 0.5f
+        )
+        anim.duration = 300
+        view.startAnimation(anim)
     }
 
 }

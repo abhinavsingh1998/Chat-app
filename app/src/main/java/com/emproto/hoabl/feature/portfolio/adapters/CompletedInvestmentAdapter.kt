@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemCompletedInvestmentsBinding
+import com.emproto.networklayer.response.portfolio.dashboard.InvestmentHeadingDetails
 import com.emproto.networklayer.response.portfolio.dashboard.Point
 import com.emproto.networklayer.response.portfolio.dashboard.Project
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
@@ -60,6 +61,7 @@ class CompletedInvestmentAdapter(
         //set data to view
 
         val project = list[position]
+
         holder.binding.tvManageProjects.setOnClickListener {
             val projectExtraDetails =
                 ProjectExtraDetails(
@@ -70,12 +72,21 @@ class CompletedInvestmentAdapter(
                     project.investment.pendingAmount,
                     project.investment.isBookingComplete
                 )
+            val headingDetails = InvestmentHeadingDetails(
+                project.project.isSimilarInvestmentActive,
+                project.project.numberOfSimilarInvestmentsToShow,
+                project.project.similarInvestmentSectionHeading,
+                project.project.isEscalationGraphActive,
+                project.project.isLatestMediaGalleryActive,
+                project.project.latestMediaGalleryHeading,
+                project.project.otherSectionHeadings
+            )
             onCLickInterface.manageProject(
                 project.investment.id,
                 project.project.id,
                 projectExtraDetails,
                 project.investment.projectIea,
-                project.project.generalInfoEscalationGraph.estimatedAppreciation
+                project.project.generalInfoEscalationGraph.estimatedAppreciation, headingDetails
             )
         }
         if (project.project != null) {
