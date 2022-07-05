@@ -7,16 +7,31 @@ data class GetInventoriesResponse(
 )
 
 data class IvData(
-    val `data`: List<Inventory>
+    val projectContent: ProjectContent
+)
+
+data class ProjectContent(
+    val id: Int,
+    val inventoryBucketContents: List<Inventory>,
+    val otherSectionHeadings: OtherSectionHeadings
 )
 
 data class Inventory(
-    val appliedInventoryId: Any,
     val areaRange: AreaRange,
+    val createdAt: String,
+    val crmInventoryBucketId: Int,
     val id: Int,
-    val inventoryBucketDescription: String,
-    val inventoryBucketName: String,
     val isApplied: Boolean,
+    val name: String,
     val priceRange: PriceRange,
-    val userId: Any
+    val projectContentId: Int,
+    val shortDescription: String,
+    val updatedAt: String
+)
+
+data class OtherSectionHeadings(
+    val droneVideos: DroneVideos,
+    val promises: Promises,
+    val testimonials: Testimonials,
+    val inventoryBucketContents: InventoryBucketContents
 )

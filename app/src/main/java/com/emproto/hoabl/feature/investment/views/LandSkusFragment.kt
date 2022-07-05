@@ -1,9 +1,6 @@
 package com.emproto.hoabl.feature.investment.views
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +36,8 @@ class LandSkusFragment:BaseFragment() {
     private var projectId = 0
     private var appliedList = ArrayList<Inventory>()
     private var notAppliedList = ArrayList<Inventory>()
+    private var title = ""
+    private var subtitle = ""
 
     val onLandSkusItemClickListener =
         View.OnClickListener { view ->
@@ -81,7 +80,9 @@ class LandSkusFragment:BaseFragment() {
                         binding.slSwipeRefresh.isRefreshing = false
                         appliedList.clear()
                         notAppliedList.clear()
-                        for(item in data.data){
+                        title = data.projectContent.otherSectionHeadings.inventoryBucketContents.sectionHeading
+                        subtitle = data.projectContent.otherSectionHeadings.inventoryBucketContents.subHeading
+                        for(item in data.projectContent.inventoryBucketContents){
                             when(item.isApplied){
                                 true -> appliedList.add(item)
                                 false -> notAppliedList.add(item)
@@ -123,7 +124,7 @@ class LandSkusFragment:BaseFragment() {
         }
         list.add(RecyclerViewItem(3))
         landSkusAdapter =
-            LandSkusAdapter(this, list, appliedList, notAppliedList, itemClickListener)
+            LandSkusAdapter(this, list, appliedList, notAppliedList, itemClickListener,title,subtitle)
         binding.rvLandSkus.adapter = landSkusAdapter
         landSkusAdapter.setItemClickListener(onLandSkusItemClickListener)
     }

@@ -28,7 +28,7 @@ class SkuAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val element = list[position]
         holder.binding.apply {
-            tvProjectName.text = element.inventoryBucketName
+            tvProjectName.text = element.name
             val amount = element.priceRange.from.toDouble() / 100000
             val convertedAmount = String.format("%.0f",amount)
             tvStartingAt.text = SpannableStringBuilder()

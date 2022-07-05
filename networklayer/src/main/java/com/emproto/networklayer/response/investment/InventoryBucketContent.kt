@@ -11,3 +11,4 @@ data class InventoryBucketContent(
     val shortDescription: String,
     val updatedAt: String
 )
+

@@ -370,7 +370,7 @@ class ProjectDetailFragment : BaseFragment() {
                             investmentViewModel.setDroneActive(data.projectContent.mediaGalleryOrProjectContent[0].isDroneShootsActive)
                             investmentViewModel.setThreeSixtyActive(data.projectContent.mediaGalleryOrProjectContent[0].isThreeSixtyImagesActive)
                             similarInvestments = data.projectContent.similarInvestments
-                            inventoryList = data.projectContent.inventoriesList.data
+                            inventoryList = data.projectContent.inventoriesList.projectContent.inventoryBucketContents
                             setUpRecyclerView(data.projectContent, promiseData, inventoryList,data.projectContentsAndFaqs)
                         }
                     }
@@ -425,7 +425,11 @@ class ProjectDetailFragment : BaseFragment() {
                 list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_KEY_PILLARS))
             }
         }
-        list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_VIDEO_DRONE))
+        when(allData.isMediaGalleryActive){
+            true -> {
+                list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_VIDEO_DRONE))
+            }
+        }
         when(allData.isOffersAndPromotionsActive){
             true -> {
                 list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_DONT_MISS))
@@ -515,7 +519,7 @@ class ProjectDetailFragment : BaseFragment() {
                     val bundle = Bundle()
                     bundle.putInt("testimonials",item.toInt())
                     bundle.putString("testimonialsHeading", allData.otherSectionHeadings.testimonials.sectionHeading)
-                    bundle.putString("testimonialsSubHeading",  "Hello")
+                    bundle.putString("testimonialsSubHeading", allData.otherSectionHeadings.testimonials.subHeading)
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
@@ -524,7 +528,7 @@ class ProjectDetailFragment : BaseFragment() {
                     val bundle = Bundle()
                     bundle.putInt("testimonials",item.toInt())
                     bundle.putString("testimonialsHeading", allData.otherSectionHeadings.testimonials.sectionHeading)
-                    bundle.putString("testimonialsSubHeading",  "Hello")
+                    bundle.putString("testimonialsSubHeading", allData.otherSectionHeadings.testimonials.subHeading)
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }

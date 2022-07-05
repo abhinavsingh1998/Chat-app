@@ -41,6 +41,7 @@ class SecurityFragment : Fragment(){
 
     private var isWhatsappEnabled = false
     private var showPushNotifications = false
+    private var isSecurityTipsActive = false
 
     companion object{
         const val SPEECH_REQUEST_CODE = 1001
@@ -57,6 +58,7 @@ class SecurityFragment : Fragment(){
         arguments.let {
             isWhatsappEnabled = it?.getBoolean("whatsappConsentEnabled") as Boolean
             showPushNotifications = it.getBoolean("showPushNotifications") as Boolean
+            isSecurityTipsActive = it.getBoolean("isSecurityTipsActive") as Boolean
         }
         return binding.root
 
@@ -68,7 +70,11 @@ class SecurityFragment : Fragment(){
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_REPORT))
 //        dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_AUTHENTICATE))
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_WHATSAPP_COMMUNICATION))
-        dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_TIPS))
+        when(isSecurityTipsActive){
+            true -> {
+                dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_TIPS))
+            }
+        }
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SETTINGS_ALL_OPTIONS))
 
         val adapter = SecurityAdapter(this.requireContext(), dataList, itemClickListener, isWhatsappEnabled, showPushNotifications)
