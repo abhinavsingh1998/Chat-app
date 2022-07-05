@@ -46,11 +46,11 @@ class InvestmentFragment : BaseFragment() {
                     investmentViewModel.setSmartDealsList(smartDealsList)
                     (requireActivity() as HomeActivity).addFragment(CategoryListFragment(), true)
                 }
-                R.id.iv_trending_projects_see_all -> {
+            /*    R.id.iv_trending_projects_see_all -> {
                     investmentViewModel.setTp(true)
                     investmentViewModel.setTrendingList(trendingProjectsList)
                     (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
-                }
+                }*/
                 R.id.tv_trending_projects_see_all -> {
                     investmentViewModel.setTp(true)
                     investmentViewModel.setTrendingList(trendingProjectsList)

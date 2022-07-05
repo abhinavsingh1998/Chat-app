@@ -313,7 +313,7 @@ class OpportunityDocsAdapter(
         fun bind(position: Int){
             binding.apply {
                 tvProjectAmenitiesAll.visibility = View.INVISIBLE
-                ivProjectAmenitiesArrow.visibility = View.INVISIBLE
+//                ivProjectAmenitiesArrow.visibility = View.INVISIBLE
                 tvViewMore.visibility = View.VISIBLE
                 ivViewMoreArrow.visibility = View.VISIBLE
                 var isClicked = true

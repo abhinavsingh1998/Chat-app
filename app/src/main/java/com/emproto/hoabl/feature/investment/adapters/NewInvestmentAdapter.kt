@@ -164,7 +164,7 @@ class NewInvestmentAdapter(
             trendingProjectsAdapter = TrendingProjectsAdapter(context, showList,itemClickListener)
             binding.rvTrendingProjects.adapter= trendingProjectsAdapter
             binding.tvTrendingProjectsSeeAll.setOnClickListener(onItemClickListener)
-            binding.ivTrendingProjectsSeeAll.setOnClickListener(onItemClickListener)
+//            binding.ivTrendingProjectsSeeAll.setOnClickListener(onItemClickListener)
         }
     }
 

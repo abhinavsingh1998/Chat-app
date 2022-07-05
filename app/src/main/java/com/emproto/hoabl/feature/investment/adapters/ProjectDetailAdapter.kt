@@ -469,7 +469,7 @@ class ProjectDetailAdapter(
             videoDroneAdapter = VideoDroneAdapter(itemList,videoItemClickListener)
             binding.rvVideoDrone.adapter = videoDroneAdapter
             binding.tvVideoDroneSeeAll.setOnClickListener(onItemClickListener)
-            binding.ivVideoDroneArrow.setOnClickListener(onItemClickListener)
+//            binding.ivVideoDroneArrow.setOnClickListener(onItemClickListener)
         }
     }
 
@@ -496,7 +496,7 @@ class ProjectDetailAdapter(
             binding.rvSkus.adapter = skuAdapter
             itemView.tag = this
             binding.tvSkusSeeAll.setOnClickListener(onItemClickListener)
-            binding.ivSkusArrow.setOnClickListener(onItemClickListener)
+//            binding.ivSkusArrow.setOnClickListener(onItemClickListener)
         }
     }
 
@@ -516,7 +516,7 @@ class ProjectDetailAdapter(
                 val adapter = ProjectAmenitiesAdapter(context,list)
                 rvProjectAmenitiesItemRecycler.adapter = adapter
                 tvProjectAmenitiesAll.setOnClickListener(onItemClickListener)
-                ivProjectAmenitiesArrow.setOnClickListener(onItemClickListener)
+//                ivProjectAmenitiesArrow.setOnClickListener(onItemClickListener)
             }
         }
     }
@@ -544,7 +544,7 @@ class ProjectDetailAdapter(
             binding.rvPromises.adapter = promisesAdapter
             binding.clNotConvincedPromises.setOnClickListener(onItemClickListener)
             binding.tvPromisesSeeAll.setOnClickListener(onItemClickListener)
-            binding.ivPromisesArrow.setOnClickListener(onItemClickListener)
+//            binding.ivPromisesArrow.setOnClickListener(onItemClickListener)
         }
     }
 
@@ -627,7 +627,7 @@ class ProjectDetailAdapter(
             similarInvestmentsAdapter = InvestmentAdapter(context, itemList, similarInvItemClickListener)
             binding.rvSimilarInvestment.adapter = similarInvestmentsAdapter
             binding.tvSimilarInvestmentSeeAll.setOnClickListener(onItemClickListener)
-            binding.ivSimilarInvArrow.setOnClickListener(onItemClickListener)
+//            binding.ivSimilarInvArrow.setOnClickListener(onItemClickListener)
         }
     }
 
