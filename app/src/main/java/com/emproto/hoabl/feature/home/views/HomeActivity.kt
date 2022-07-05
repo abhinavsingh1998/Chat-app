@@ -280,7 +280,12 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                     fragmentTransaction.replace(contentFrame, fragment, finalTag)
                     if (addToBackStack) fragmentTransaction.addToBackStack(finalTag)
                     supportFragmentManager.executePendingTransactions()
-                    fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit).commit()
+                    fragmentTransaction.setCustomAnimations( R.anim.enter,
+                    R.anim.exit,
+                    R.anim.enter_right,
+                    R.anim.exit_left).commit()
+
+
                 }
             }
         } catch (e: IllegalStateException) {
@@ -374,6 +379,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     @SuppressLint("SetTextI18n")
     fun initData() {
+
         homeViewModel.gethomeData().observe(this, Observer {
 
             it.let {

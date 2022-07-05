@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemProjectsUpdatesBinding
 
-class ProjectsUpdateAdapter(context: Context, list: List<String>) : RecyclerView.Adapter<ProjectsUpdateAdapter.MyViewHolder>() {
+class ProjectsUpdateAdapter(context: Context, list: List<String>) :
+    RecyclerView.Adapter<ProjectsUpdateAdapter.MyViewHolder>() {
 
     var list: List<String>
-    var mcontext:Context
+    var mcontext: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding: ItemProjectsUpdatesBinding =
@@ -36,6 +37,6 @@ class ProjectsUpdateAdapter(context: Context, list: List<String>) : RecyclerView
 
     init {
         this.list = list
-        this.mcontext=context
+        this.mcontext = context
     }
 }

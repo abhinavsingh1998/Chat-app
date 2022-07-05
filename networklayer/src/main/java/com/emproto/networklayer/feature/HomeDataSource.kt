@@ -8,6 +8,7 @@ import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.di.DaggerDataComponent
 import com.emproto.networklayer.ApiService
 import com.emproto.networklayer.response.HomeActionItemResponse
+import com.emproto.networklayer.response.actionItem.HomeActionItem
 import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.networklayer.response.documents.DocumentsResponse
@@ -106,7 +107,7 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
         return apiService.getAccountsList()
     }
 
-    suspend fun getActionItem():Response<HomeActionItemResponse>{
+    suspend fun getActionItem():Response<HomeActionItem>{
         return apiService.getActionItem()
     }
 }

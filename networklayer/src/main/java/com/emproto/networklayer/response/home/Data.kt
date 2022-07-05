@@ -1,5 +1,7 @@
 package com.emproto.networklayer.response.home
 
+import com.emproto.networklayer.response.Data
+import com.emproto.networklayer.response.HomeActionItemResponse
 import java.io.Serializable
 
 data class Data(
@@ -12,5 +14,6 @@ data class Data(
     val isKycComplete : Boolean,
     val isProfileComplete : Boolean,
     val contactType: String,
-    val isFacilityVisible : Boolean
+    val isFacilityVisible : Boolean,
+    var actionItem: List<com.emproto.networklayer.response.actionItem.Data>
 ):Serializable

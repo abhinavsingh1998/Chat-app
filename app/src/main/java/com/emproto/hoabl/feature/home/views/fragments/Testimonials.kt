@@ -34,8 +34,8 @@ class Testimonials : BaseFragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     val appURL= "https://hoabl.in/"
     var testimonialsItem= 0
-    var testimonilalsHeading:String = ""
-    var testimonilalsSubHeading:String = ""
+    var testimonilalsHeading:String= ""
+    var testimonilalsSubHeading:String= ""
 
 
     @Inject
@@ -148,7 +148,6 @@ class Testimonials : BaseFragment() {
     }
 
     private fun referNow() {
-
             val dialog = ReferralDialog()
             dialog.isCancelable = true
             dialog.show(parentFragmentManager, "Refrral card")

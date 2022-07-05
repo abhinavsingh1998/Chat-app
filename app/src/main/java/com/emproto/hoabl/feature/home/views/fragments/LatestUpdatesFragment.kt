@@ -29,10 +29,10 @@ class LatestUpdatesFragment : BaseFragment() {
     lateinit var mBinding: FragmentLatestUpdatesBinding
     lateinit var latestUpatesAdapter: AllLatestUpdatesAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
-    val appURL= "https://hoabl.in/"
-    var updatesListCount= 0
-    lateinit var latestHeading:String
-    lateinit var latestSubHeading:String
+    val appURL = "https://hoabl.in/"
+    var updatesListCount = 0
+    lateinit var latestHeading: String
+    lateinit var latestSubHeading: String
 
     @Inject
     lateinit var factory: HomeFactory
@@ -43,99 +43,105 @@ class LatestUpdatesFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        mBinding = FragmentLatestUpdatesBinding.inflate(inflater, container, false)
-        arguments?.let {
-            updatesListCount = it.getInt("UpdateList", 0)
-        }
+        mBinding = FragmentLatestUpdatesBinding.inflate(layoutInflater)
 
-        arguments?.let {
-            latestHeading= it.getString("heading", "")
-        }
-        arguments?.let {
-            latestSubHeading= it.getString("subheading", "")
-        }
-
+        (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
 
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
             View.GONE
 
-        (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
+
+        arguments?.let {
+
+            updatesListCount = it.getInt("UpdateList", 0)
+            latestHeading = it.getString("heading", "")
+            latestSubHeading = it.getString("subheading", "")
+        }
 
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible =
             true
 
         (requireActivity() as HomeActivity).showBackArrow()
+        initObserver(false)
         initClickListner()
-        initObserver(refresh = false)
         return mBinding.root
     }
 
     private fun initObserver(refresh: Boolean) {
-        homeViewModel.getLatestUpdatesData(refresh, true).observe(viewLifecycleOwner, object:Observer<BaseResponse<LatestUpdatesResponse>> {
+        homeViewModel.getLatestUpdatesData(refresh, true)
+            .observe(viewLifecycleOwner, object : Observer<BaseResponse<LatestUpdatesResponse>> {
 
-            override fun onChanged(it: BaseResponse<LatestUpdatesResponse>?) {
-                when(it?.status){
-                    Status.LOADING ->{
-                        mBinding.rootView.hide()
-                        mBinding.loader.show()
-                    }
-                    Status.SUCCESS ->{
-                        mBinding.rootView.show()
-                        mBinding.loader.hide()
+                override fun onChanged(it: BaseResponse<LatestUpdatesResponse>?) {
+                    when (it?.status) {
+                        Status.LOADING -> {
+                            mBinding.rootView.hide()
+                            mBinding.loader.show()
+                        }
+                        Status.SUCCESS -> {
+                            mBinding.rootView.show()
+                            mBinding.loader.hide()
 
-                        mBinding.headerText.text= latestHeading
-                        mBinding.subHeaderTxt.text= latestSubHeading
-                        it.data.let {
-                            if(it != null){
-                                homeViewModel.setLatestUpdatesData(it.data)
-
-                            }
-
-                            //loading List
-                            it?.data!!.size
-                            latestUpatesAdapter = AllLatestUpdatesAdapter(requireActivity(),
-                                it.data,
-                                updatesListCount,
-                                object : AllLatestUpdatesAdapter.UpdatesItemsInterface {
-                                    override fun onClickItem( position: Int) {
-                                        homeViewModel.setSeLectedLatestUpdates(it.data[position])
-                                        homeViewModel.setSelectedPosition(LatesUpdatesPosition(position,
-                                            it.data.size))
-
-                                        val fragment = LatestUpdatesFragment()
-                                        val bundle = Bundle()
-                                        bundle.putInt("UpdateList", updatesListCount)
-                                        fragment.arguments = bundle
-                                        (requireActivity() as HomeActivity).addFragment(fragment, false)
+                            mBinding.headerText.text = latestHeading
+                            mBinding.subHeaderTxt.text = latestSubHeading
 
 
-                                        (requireActivity() as HomeActivity).addFragment(LatestUpdatesDetailsFragment(),
-                                            false)
-                                    }
+                            it.data.let {
+                                if (it != null) {
+                                    homeViewModel.setLatestUpdatesData(it.data)
 
                                 }
-                            )
-                            linearLayoutManager = LinearLayoutManager(
-                                requireContext(),
-                                RecyclerView.VERTICAL,
-                                false
-                            )
-                            mBinding.recyclerLatestUpdates.layoutManager = linearLayoutManager
-                            mBinding.recyclerLatestUpdates.adapter = latestUpatesAdapter
-                        }
 
-                    }
-                    Status.ERROR -> {
-                        mBinding.loader.hide()
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            it.message!!
-                        )
-                        mBinding.rootView.show()
+                                //loading List
+                                it?.data!!.size
+                                latestUpatesAdapter = AllLatestUpdatesAdapter(requireActivity(),
+                                    it.data,
+                                    updatesListCount,
+                                    object : AllLatestUpdatesAdapter.UpdatesItemsInterface {
+                                        override fun onClickItem(position: Int) {
+                                            homeViewModel.setSeLectedLatestUpdates(it.data[position])
+                                            homeViewModel.setSelectedPosition(
+                                                LatesUpdatesPosition(
+                                                    position,
+                                                    it.data.size
+                                                )
+                                            )
+
+//                                        val fragment = LatestUpdatesFragment()
+//                                        val bundle = Bundle()
+//                                        bundle.putInt("UpdateList", updatesListCount)
+//                                        fragment.arguments = bundle
+//                                        (requireActivity() as HomeActivity).addFragment(fragment, false)
+
+
+                                            (requireActivity() as HomeActivity).addFragment(
+                                                LatestUpdatesDetailsFragment(),
+                                                false
+                                            )
+                                        }
+
+                                    }
+                                )
+                                linearLayoutManager = LinearLayoutManager(
+                                    requireContext(),
+                                    RecyclerView.VERTICAL,
+                                    false
+                                )
+                                mBinding.recyclerLatestUpdates.layoutManager = linearLayoutManager
+                                mBinding.recyclerLatestUpdates.adapter = latestUpatesAdapter
+                            }
+
+                        }
+                        Status.ERROR -> {
+                            mBinding.loader.hide()
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                it.message!!
+                            )
+                            mBinding.rootView.show()
+                        }
                     }
                 }
-            }
-        })
+            })
     }
 
     private fun initClickListner() {
@@ -146,9 +152,9 @@ class LatestUpdatesFragment : BaseFragment() {
 
         mBinding.refressLayout.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
             mBinding.loader.show()
-            initObserver(refresh = true)
+            initObserver(true)
 
-            mBinding.refressLayout.isRefreshing= false
+            mBinding.refressLayout.isRefreshing = false
 
         })
     }

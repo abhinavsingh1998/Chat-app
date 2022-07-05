@@ -24,7 +24,7 @@ class InsightsListAdapter(
     val itemClickListener: YoutubeItemClickListener
 ) : RecyclerView.Adapter<InsightsListAdapter.InsightsHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):InsightsHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InsightsHolder {
         val view =
             DetailViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return InsightsHolder(view)
@@ -32,26 +32,32 @@ class InsightsListAdapter(
 
     override fun onBindViewHolder(holder: InsightsHolder, position: Int) {
         val item = list[position]
-        holder.binding.firstDetails.text= showHTMLText(item.description)
+        holder.binding.firstDetails.text = showHTMLText(item.description)
 
-        if(item.media!=null){
-            holder.binding.imageDesc.text= item.media.mediaDescription
+        if (item.media != null) {
+            holder.binding.imageDesc.text = item.media.mediaDescription
 
-            if (!item.media.value.url.isNullOrEmpty()){
-                holder.binding.image1.isVisible= true
-            } else{
-                holder.binding.image1.isVisible= false
+            if (!item.media.value.url.isNullOrEmpty()) {
+                holder.binding.image1.isVisible = true
+            } else {
+                holder.binding.image1.isVisible = false
             }
-            when(item.media.value.mediaType){
+            when (item.media.value.mediaType) {
                 "VIDEO" -> {
-                    val url = item.media.value.url.replace("https://www.youtube.com/embed/","")
+
+                    val url = item.media.value.url.replace("https://www.youtube.com/embed/", "")
                     val youtubeUrl = "https://img.youtube.com/vi/${url}/hqdefault.jpg"
                     Glide.with(context)
                         .load(youtubeUrl)
                         .into(holder.binding.image1)
-                    holder.binding.playBtn.isVisible= true
-                    holder.binding.image1.setOnClickListener{
-                        itemClickListener.onItemClicked(it,position,url,item.media.mediaDescription)
+                    holder.binding.playBtn.isVisible = true
+                    holder.binding.image1.setOnClickListener {
+                        itemClickListener.onItemClicked(
+                            it,
+                            position,
+                            url,
+                            item.media.mediaDescription
+                        )
                     }
                 }
                 else -> {
@@ -59,9 +65,9 @@ class InsightsListAdapter(
                         .load(item.media.value.url)
                         .into(holder.binding.image1)
                 }
-            }}
+            }
+        }
     }
-
 
 
     override fun getItemCount(): Int {
