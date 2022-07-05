@@ -41,6 +41,7 @@ import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.ApiConstants
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.portfolio.dashboard.InvestmentHeadingDetails
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
 import com.emproto.networklayer.response.watchlist.Data
@@ -93,6 +94,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     var isReadPermissonGranted: Boolean = false
     var investmentId = 0
+    var dontMissoutId = 0
 
 
     override fun onCreateView(
@@ -368,7 +370,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             list.add(
                 PortfolioModel(
                     ExistingUsersPortfolioAdapter.TYPE_HEADER,
-                    null
+                    portfolioData.data.pageManagement
                 )
             )
             if (it.data.summary.completed.count > 0) {
@@ -403,10 +405,16 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                     onGoingProjects
                 )
             )
-            if (appPreference.getOfferUrl() != null && appPreference.getOfferUrl().isNotEmpty()) {
+            if (portfolioData.data.pageManagement != null &&
+                portfolioData.data.pageManagement.data != null &&
+                portfolioData.data.pageManagement.data.page.isPromotionAndOfferActive
+            ) {
+                dontMissoutId =
+                    portfolioData.data.pageManagement.data.page.promotionAndOffersProjectContentId
                 list.add(
                     PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_NUDGE_CARD, appPreference.getOfferUrl()
+                        ExistingUsersPortfolioAdapter.TYPE_NUDGE_CARD,
+                        portfolioData.data.pageManagement.data.page.promotionAndOffersMedia.value.url
                     )
                 )
             }
@@ -471,7 +479,8 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         projectId: Int,
         otherDetails: ProjectExtraDetails,
         iea: String?,
-        ea: Double
+        ea: Double,
+        headingDetails: InvestmentHeadingDetails
     ) {
         val portfolioSpecificProjectView = PortfolioSpecificProjectView()
         val arguments = Bundle()
@@ -481,6 +490,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         arguments.putDouble("EA", ea)
         portfolioSpecificProjectView.arguments = arguments
         portfolioviewmodel.setprojectAddress(otherDetails)
+        portfolioviewmodel.saveHeadingDetails(headingDetails)
         (requireActivity() as HomeActivity).addFragment(portfolioSpecificProjectView, true)
     }
 
@@ -540,7 +550,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
     override fun dontMissoutCard() {
         val bundle = Bundle()
-        bundle.putInt("ProjectId", appPreference.getOfferId())
+        bundle.putInt("ProjectId", dontMissoutId)
         val fragment = ProjectDetailFragment()
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(
