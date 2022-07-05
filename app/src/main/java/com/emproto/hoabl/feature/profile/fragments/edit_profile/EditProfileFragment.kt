@@ -103,7 +103,7 @@ class EditProfileFragment : BaseFragment() {
     lateinit var stateIso: String
     lateinit var city: String
     lateinit var gender: String
-    lateinit var cameraFile: File
+    var cameraFile: File?=null
 
     @Inject
     lateinit var appPreference: AppPreference
@@ -738,9 +738,9 @@ class EditProfileFragment : BaseFragment() {
             binding.profileUserLetters.visibility = View.VISIBLE
             setUserNamePIC(data)
         }
-        removeDialogLayout.tcClose.setOnClickListener {
-            removePictureDialog.dismiss()
-        }
+//        removeDialogLayout.tcClose.setOnClickListener {
+//            removePictureDialog.dismiss()
+//        }
 
         removeDialogLayout.actionNo.setOnClickListener {
             removePictureDialog.dismiss()
@@ -850,10 +850,10 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun onCaptureImageResult() {
-        val selectedImage = cameraFile.path
-        destinationFile = cameraFile
+        val selectedImage = cameraFile?.path
+        destinationFile = cameraFile!!
         val thumbnail = BitmapFactory.decodeFile(selectedImage)
-        val ei = ExifInterface(cameraFile.path)
+        val ei = ExifInterface(cameraFile!!.path)
         val orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,ExifInterface.ORIENTATION_UNDEFINED)
         val rotatedBitmap = when(orientation){
             ExifInterface.ORIENTATION_ROTATE_90 -> {
@@ -881,7 +881,7 @@ class EditProfileFragment : BaseFragment() {
             e.message
         }
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-            callingUploadPicApi(cameraFile)
+            callingUploadPicApi(cameraFile!!)
             binding.saveAndUpdate.text = "Save and Update"
 
         } else {
@@ -1176,7 +1176,7 @@ class EditProfileFragment : BaseFragment() {
         return FileProvider.getUriForFile(
             requireContext(),
             requireContext().applicationContext.packageName + ".provider",
-            cameraFile
+            cameraFile!!
         )
     }
 
