@@ -307,6 +307,7 @@ class ExistingUsersPortfolioAdapter(
             watchlistAdapter = WatchlistAdapter(context, watchList, onItemClickListener)
             binding.rvSmartDealsNv.adapter = watchlistAdapter
             binding.rvSmartDealsNv.setHasFixedSize(true)
+            binding.rvSmartDealsNv.setItemViewCacheSize(20)
             binding.tvSmartDealsSeeAll.setOnClickListener {
                 onItemClickListener.seeAllWatchlist()
             }

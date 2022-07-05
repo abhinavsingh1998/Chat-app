@@ -611,37 +611,27 @@ class AccountDetailsFragment : Fragment(),
                     }
                     Status.SUCCESS -> {
                         binding.progressBar.hide()
-                        Log.i("selectedDoc",selectedDocumentType.toString())
-                        if (selectedDocumentType == 200110)
-                            it.data?.let {
-                                kycUploadList.forEach { kycUpload ->
-                                    Log.i("doctype1",kycUpload.documentType.toString())
-
-                                    if(kycUpload.documentType==200110) {
-                                        kycUpload.name = it.data.response.data.name
-                                        kycUpload.path = it.data.response.data.path
-                                        kycUpload.status = "Verification Pending"
-                                    }
+                        it.data?.let {
+                            kycUploadList.forEach { kycUpload ->
+                                if(selectedDocumentType==200110){
+                                    kycUpload.name = it.data.response.data.name
+                                    kycUpload.path = it.data.response.data.path
+                                    kycUpload.status = "Verification Pending"
+                                }
+                                if(selectedDocumentType==200109){
+                                    kycUpload.name = it.data.response.data.name
+                                    kycUpload.path = it.data.response.data.path
+                                    kycUpload.status = "Verification Pending"
                                 }
                             }
-                     else if (selectedDocumentType == 200109)
-                            it.data?.let {
-                                kycUploadList.forEach { kycUpload ->
-                                    Log.i("doctype2",kycUpload.documentType.toString())
-                                    if(kycUpload.documentType==200109){
-                                        kycUpload.name = it.data.response.data.name
-                                        kycUpload.path = it.data.response.data.path
-                                        kycUpload.status = "Verification Pending"
-                                    }
-                                }
-                            }
+                            kycUploadAdapter.notifyDataSetChanged()
+                            val dialog = AccountKycStatusPopUpFragment()
+                            dialog.isCancelable = false
+                            dialog.show(childFragmentManager, "submitted")
+                        }
 
-                        kycUploadAdapter.notifyDataSetChanged()
-                        val dialog = AccountKycStatusPopUpFragment()
-                        dialog.isCancelable = false
-                        dialog.show(childFragmentManager, "submitted")
+
                     }
-
                     Status.ERROR -> {
                         binding.progressBar.hide()
                         Toast.makeText(
