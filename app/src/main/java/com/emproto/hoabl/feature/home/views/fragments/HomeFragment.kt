@@ -35,6 +35,7 @@ import com.emproto.networklayer.enum.ModuleEnum
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.HomeActionItemResponse
+import com.emproto.networklayer.response.actionItem.HomeActionItem
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
@@ -72,7 +73,7 @@ class HomeFragment : BaseFragment() {
 
     lateinit var testimonilalsHeading: String
     lateinit var testimonilalsSubHeading: String
-    lateinit var actionItemType: HomeActionItemResponse
+    lateinit var actionItemType: List<com.emproto.networklayer.response.actionItem.Data>
 
 
     var fmData: FMResponse? = null
@@ -110,7 +111,8 @@ class HomeFragment : BaseFragment() {
                             binding.dashBoardRecyclerView.show()
                             binding.loader.hide()
 
-                            getActionItem(it.data!!.data)
+                            setParentRecycler(it.data!!.data)
+
                             homeData = it!!.data!!.data
                             latestUptaesListCount = it!!.data!!.data.page.totalUpdatesOnListView
                             InsightsListCount = it!!.data!!.data.page.totalInsightsOnListView
@@ -126,6 +128,8 @@ class HomeFragment : BaseFragment() {
 
                             testimonilalsHeading = it!!.data!!.data.page.testimonialsHeading
                             testimonilalsSubHeading = it!!.data!!.data.page.testimonialsSubHeading
+
+                            actionItemType = it!!.data!!.data!!.actionItem
 
                             it.data.let {
                                 if (it != null) {
@@ -163,37 +167,6 @@ class HomeFragment : BaseFragment() {
                     }
                 }
 
-            })
-    }
-
-    private fun getActionItem(data: com.emproto.networklayer.response.home.Data) {
-
-        homeViewModel.getActionItem().observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    it.let {
-                        callfacilityManagement(data, it?.data?.data)
-                        actionItemType = it!!.data!!
-                    }
-                }
-            }
-        })
-    }
-
-    private fun callfacilityManagement(
-        data: com.emproto.networklayer.response.home.Data,
-        actionItem: List<com.emproto.networklayer.response.Data>?
-    ) {
-        homeViewModel.getFacilityManagment()
-            .observe(viewLifecycleOwner, Observer {
-                when (it.status) {
-                    Status.SUCCESS -> {
-                        it.data.let {
-                            fmData = it!!
-                            setParentRecycler(data, fmData!!, actionItem)
-                        }
-                    }
-                }
             })
     }
 
@@ -270,19 +243,29 @@ class HomeFragment : BaseFragment() {
                     )
                 }
                 R.id.facility_management_card -> {
-                    if (fmData != null) {
-                        (requireActivity() as HomeActivity).addFragment(
-                            FmFragment.newInstance(
-                                fmData!!.data.web_url,
-                                ""
-                            ), false
-                        )
 
-                    } else {
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            "Something Went Wrong"
-                        )
-                    }
+                    homeViewModel.getFacilityManagment()
+                        .observe(viewLifecycleOwner, Observer {
+                            when (it.status) {
+                                Status.SUCCESS -> {
+                                    it!!.data!!.let {
+                                        if (it != null) {
+                                            (requireActivity() as HomeActivity).addFragment(
+                                                FmFragment.newInstance(
+                                                    it.data.web_url,
+                                                    ""
+                                                ), false
+                                            )
+
+                                        } else {
+                                            (requireActivity() as HomeActivity).showErrorToast(
+                                                "Something Went Wrong"
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                        })
                 }
                 R.id.home_insights_card -> {
                     val convertedData =
@@ -358,17 +341,16 @@ class HomeFragment : BaseFragment() {
                 }
 
                 R.id.see_all_pending_payment -> {
-                    if (actionItemType!!.data[position].actionItemType == 50) {
+                    if (actionItemType[position].actionItemType == 50) {
 
                         (requireActivity() as HomeActivity).addFragment(
                             BookingjourneyFragment.newInstance(
-                                actionItemType.data[position].investmentId,
+                                actionItemType[position].investmentId,
                                 ""
                             ), false
                         )
 
                     } else {
-
                         (requireActivity() as HomeActivity).navigate(R.id.navigation_profile)
                     }
                 }
@@ -379,13 +361,11 @@ class HomeFragment : BaseFragment() {
 
     private fun setParentRecycler(
         data: com.emproto.networklayer.response.home.Data,
-        fmData: FMResponse,
-        actionItem: List<com.emproto.networklayer.response.Data>?
     ) {
 
         val list = ArrayList<RecyclerViewItem>()
 
-        homeAdapter = HomeAdapter(requireContext(), data, list, actionItem, itemClickListener)
+        homeAdapter = HomeAdapter(requireContext(), data, list, itemClickListener)
 
         linearLayoutManager = LinearLayoutManager(
             requireContext(),
@@ -417,9 +397,6 @@ class HomeFragment : BaseFragment() {
 
     private fun initView() {
 
-//        binding.facilityManagementCardLayout.isVisible = false
-//        binding.kycLayout.isVisible = false
-
         (requireActivity() as HomeActivity).hideBackArrow()
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
             View.VISIBLE
@@ -440,6 +417,8 @@ class HomeFragment : BaseFragment() {
         shareIntent.putExtra(Intent.EXTRA_TEXT, "The House Of Abhinandan Lodha $appURL")
         startActivity(shareIntent)
     }
+
+
 
     override fun onResume() {
         super.onResume()

@@ -185,7 +185,7 @@ class HomeViewModel(
         return homeRepository.getSearchDocResult(searchWord)
     }
 
-    fun getActionItem():LiveData<BaseResponse<HomeActionItemResponse>>{
-        return homeRepository.getActionItem()
-    }
+//    fun getActionItem():LiveData<BaseResponse<HomeActionItemResponse>>{
+//        return homeRepository.getActionItem()
+//    }
 }

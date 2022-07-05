@@ -43,31 +43,28 @@ class LatestUpdatesFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        mBinding = FragmentLatestUpdatesBinding.inflate(inflater, container, false)
-        arguments?.let {
-            updatesListCount = it.getInt("UpdateList", 0)
-        }
+        mBinding = FragmentLatestUpdatesBinding.inflate(layoutInflater)
 
-        arguments?.let {
-            latestHeading= it.getString("heading", "")
-        }
-        arguments?.let {
-            latestSubHeading= it.getString("subheading", "")
-        }
-
+        (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
 
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
             View.GONE
 
-        (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
+
+        arguments?.let {
+
+            updatesListCount = it.getInt("UpdateList", 0)
+            latestHeading= it.getString("heading", "")
+            latestSubHeading= it.getString("subheading", "")
+        }
 
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible =
             true
 
         (requireActivity() as HomeActivity).showBackArrow()
+        initObserver(false)
         initClickListner()
-        initObserver(refresh = false)
         return mBinding.root
     }
 
@@ -86,6 +83,8 @@ class LatestUpdatesFragment : BaseFragment() {
 
                         mBinding.headerText.text= latestHeading
                         mBinding.subHeaderTxt.text= latestSubHeading
+
+
                         it.data.let {
                             if(it != null){
                                 homeViewModel.setLatestUpdatesData(it.data)
@@ -103,11 +102,11 @@ class LatestUpdatesFragment : BaseFragment() {
                                         homeViewModel.setSelectedPosition(LatesUpdatesPosition(position,
                                             it.data.size))
 
-                                        val fragment = LatestUpdatesFragment()
-                                        val bundle = Bundle()
-                                        bundle.putInt("UpdateList", updatesListCount)
-                                        fragment.arguments = bundle
-                                        (requireActivity() as HomeActivity).addFragment(fragment, false)
+//                                        val fragment = LatestUpdatesFragment()
+//                                        val bundle = Bundle()
+//                                        bundle.putInt("UpdateList", updatesListCount)
+//                                        fragment.arguments = bundle
+//                                        (requireActivity() as HomeActivity).addFragment(fragment, false)
 
 
                                         (requireActivity() as HomeActivity).addFragment(LatestUpdatesDetailsFragment(),
@@ -146,7 +145,7 @@ class LatestUpdatesFragment : BaseFragment() {
 
         mBinding.refressLayout.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
             mBinding.loader.show()
-            initObserver(refresh = true)
+            initObserver(true)
 
             mBinding.refressLayout.isRefreshing= false
 

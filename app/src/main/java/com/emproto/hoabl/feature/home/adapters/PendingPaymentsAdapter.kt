@@ -14,7 +14,7 @@ import com.emproto.networklayer.response.actionItem.Data
 
 class PendingPaymentsAdapter(
     val context: Context,
-    val list: List<com.emproto.networklayer.response.Data>?,
+    val list: List<Data>?,
     val itemIntrface: ItemClickListener
 ) : RecyclerView.Adapter<PendingPaymentsAdapter.MyViewHolder>() {
 

@@ -18,7 +18,7 @@ class HomeAdapter(
     var context: Context,
     val data: Data,
     val list: List<RecyclerViewItem>,
-    val actionItemData: List<com.emproto.networklayer.response.Data>?,
+//    val actionItemData: List<com.emproto.networklayer.response.Data>?,
     val itemClickListener: ItemClickListener
     ) : RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
 
@@ -126,7 +126,7 @@ class HomeAdapter(
 
         fun bind(position: Int){
             pendingPaymentsAdapter= PendingPaymentsAdapter(context,
-                actionItemData,
+                data.actionItem,
                 itemClickListener)
             binding.kycLayoutCard.adapter = pendingPaymentsAdapter
             TabLayoutMediator(binding.tabDot, binding.kycLayoutCard) { _, _ ->
@@ -252,7 +252,7 @@ class HomeAdapter(
             )
 
             if(data.page.isInsightsActive==false){
-                binding.insightsLayout.isVisible= false
+                binding.insightsLayout.isVisible= true
             }
             binding.insightsRecyclerview.layoutManager = linearLayoutManager
             binding.insightsRecyclerview.adapter = insightsAdapter

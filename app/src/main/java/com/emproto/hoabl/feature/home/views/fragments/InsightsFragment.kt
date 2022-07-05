@@ -53,12 +53,7 @@ class InsightsFragment : BaseFragment() {
 
         arguments?.let {
             insightsListCount = it.getInt("insightsCounts", 0)
-        }
-
-        arguments?.let {
             insightsHeading= it.getString("insightsHeading", "")
-        }
-        arguments?.let {
             insightsSubHeading= it.getString("insightsSubHeading", "")
         }
 
