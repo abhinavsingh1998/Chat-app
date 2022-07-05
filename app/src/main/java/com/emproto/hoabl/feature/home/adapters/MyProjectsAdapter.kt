@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemsInvestmentBinding
 
-class MyProjectsAdapter(val context: Context, list: List<String>) : RecyclerView.Adapter<MyProjectsAdapter.MyViewHolder>() {
+class MyProjectsAdapter(val context: Context, list: List<String>) :
+    RecyclerView.Adapter<MyProjectsAdapter.MyViewHolder>() {
 
     var list: List<String>
-    var mcontext:Context
+    var mcontext: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding: ItemsInvestmentBinding =

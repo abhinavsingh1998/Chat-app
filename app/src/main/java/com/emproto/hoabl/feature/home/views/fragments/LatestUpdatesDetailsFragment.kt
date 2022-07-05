@@ -36,10 +36,10 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
     lateinit var homeViewModel: HomeViewModel
 
     lateinit var bundle: Bundle
-    var position:Int =0
-    var listLength:Int=0
+    var position: Int = 0
+    var listLength: Int = 0
     lateinit var it: Data
-    var updatesListCount= 0
+    var updatesListCount = 0
     lateinit var data: LiveData<LatesUpdatesPosition>
 
     override fun onCreateView(
@@ -56,9 +56,9 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible =
             false
 
-        data=  homeViewModel.getSelectedPosition()
-        position= data.value!!.position
-        listLength= data.value!!.lisLenght
+        data = homeViewModel.getSelectedPosition()
+        position = data.value!!.position
+        listLength = data.value!!.lisLenght
 
         initObserver()
         initView(position)
@@ -70,21 +70,23 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
 
     private fun initObserver() {
         homeViewModel.getSelectedLatestUpdates().observe(viewLifecycleOwner, Observer {
-            this.it= it
-            mBinding.title.text= it.displayTitle
-            mBinding.cityName.text= it.subTitle
+            this.it = it
+            mBinding.title.text = it.displayTitle
+            mBinding.cityName.text = it.subTitle
 
             mBinding.listInsights.layoutManager = LinearLayoutManager(requireContext())
-            mBinding.listInsights.adapter = LatestUpdateListAdapter(requireContext(),
-                it.detailedInfo)
+            mBinding.listInsights.adapter = LatestUpdateListAdapter(
+                requireContext(),
+                it.detailedInfo
+            )
         }
         )
 
     }
 
-    private fun backView(){
+    private fun backView() {
         mBinding.backView.setOnClickListener(View.OnClickListener {
-            if (position>0){
+            if (position > 0) {
                 --position
                 mBinding.storyView.removeAllViews()
                 initView(position)
@@ -98,10 +100,11 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
             }
         })
     }
-    private fun forwardView(){
+
+    private fun forwardView() {
         mBinding.fowardView.setOnClickListener(View.OnClickListener {
 
-            if (position+1!= listLength){
+            if (position + 1 != listLength) {
                 ++position
                 mBinding.storyView.removeAllViews()
                 initView(position)
@@ -118,7 +121,7 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
         })
     }
 
-    private fun initView(position: Int){
+    private fun initView(position: Int) {
         val totalPosition = listLength
         val filledPosition = position
         for (i in 0 until totalPosition!!) {

@@ -21,32 +21,36 @@ class LatestUpdateListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LatestUpdateHolder {
         val view =
-            LatestUpdateDetailItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            LatestUpdateDetailItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         return LatestUpdateHolder(view)
     }
 
     override fun onBindViewHolder(holder: LatestUpdateHolder, position: Int) {
         val item = list[position]
 
-        if(item.description!=null){
-            holder.binding.firstDetails.text= showHTMLText(item.description)
-        } else{
-            holder.binding.firstDetails.isVisible= false
+        if (item.description != null) {
+            holder.binding.firstDetails.text = showHTMLText(item.description)
+        } else {
+            holder.binding.firstDetails.isVisible = false
         }
 
-        holder.binding.imageDesc.isVisible= false
+        holder.binding.imageDesc.isVisible = false
 
 
-        if(item.media!=null){
+        if (item.media != null) {
             //holder.binding.imageDesc.text= showHTMLText(item.media.d)
-                if (!item.media.value.url.isNullOrEmpty()){
-                    holder.binding.landImage1.isVisible= true
-                    Glide.with(context)
-                        .load(item.media.value.url)
-                        .into(holder.binding.image1)
-                } else{
-                    holder.binding.landImage1.isVisible= false
-                }
+            if (!item.media.value.url.isNullOrEmpty()) {
+                holder.binding.landImage1.isVisible = true
+                Glide.with(context)
+                    .load(item.media.value.url)
+                    .into(holder.binding.image1)
+            } else {
+                holder.binding.landImage1.isVisible = false
+            }
 
         }
 

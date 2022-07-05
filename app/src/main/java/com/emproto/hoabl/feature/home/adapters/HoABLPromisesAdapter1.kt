@@ -22,15 +22,16 @@ class HoABLPromisesAdapter1(
 ) : RecyclerView.Adapter<HoABLPromisesAdapter1.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = ItemHoablPromisesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view =
+            ItemHoablPromisesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = list.get(holder.adapterPosition)
 
-        holder.binding.title.text= item.name
-        holder.binding.desc.text= item.shortDescription
+        holder.binding.title.text = item.name
+        holder.binding.desc.text = item.shortDescription
         Glide.with(context)
             .load(item.displayMedia.value.url)
             .dontAnimate()
@@ -43,11 +44,11 @@ class HoABLPromisesAdapter1(
     }
 
     override fun getItemCount(): Int {
-        var itemList= 0
-        if (itemCount.page.totalPromisesOnHomeScreen<list.size){
+        var itemList = 0
+        if (itemCount.page.totalPromisesOnHomeScreen < list.size) {
             itemList = itemCount.page.totalPromisesOnHomeScreen
-        } else{
-            itemList= list.size
+        } else {
+            itemList = list.size
         }
         return itemList
     }

@@ -7,9 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.Database.TableModel.SearchModel
 import com.emproto.hoabl.databinding.ItemSearchRecentBinding
 
-class SearchResultAdapter(mcontext: Context, mlist: List<SearchModel>) : RecyclerView.Adapter<SearchResultAdapter.MyViewHolder>() {
+class SearchResultAdapter(mcontext: Context, mlist: List<SearchModel>) :
+    RecyclerView.Adapter<SearchResultAdapter.MyViewHolder>() {
     var list: List<SearchModel>
-    var mcontext:Context
+    var mcontext: Context
     lateinit var monInsightsClickItem: OnInsightsClickItem
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -43,6 +44,6 @@ class SearchResultAdapter(mcontext: Context, mlist: List<SearchModel>) : Recycle
 
     init {
         this.list = mlist
-        this.mcontext=mcontext
+        this.mcontext = mcontext
     }
 }

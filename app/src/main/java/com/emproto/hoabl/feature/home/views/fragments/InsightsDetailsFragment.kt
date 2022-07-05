@@ -61,16 +61,18 @@ class InsightsDetailsFragment : BaseFragment() {
 
     val itemClickListener = object :YoutubeItemClickListener{
         override fun onItemClicked(view: View, position: Int, url: String,title:String) {
-//            val intent = Intent(requireActivity() as HomeActivity,YoutubeActivity::class.java)
-//            intent.putExtra("YoutubeVideoId",url)
-//            intent.putExtra("VideoTitle",title)
-//            startActivity(intent)
+            val intent = Intent(requireActivity() as HomeActivity,YoutubeActivity::class.java)
+            intent.putExtra("YoutubeVideoId",url)
+            intent.putExtra("VideoTitle",title)
+            startActivity(intent)
 
-            val builder = CustomTabsIntent.Builder()
-            val customTabsIntent= builder.build()
-            customTabsIntent.launchUrl(requireContext(), Uri.parse("http://www.youtube.com/watch?v=${url}"))
-//            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=${url}"))
-//            startActivity(intent)
+
+
+//            val builder = CustomTabsIntent.Builder()
+//            val customTabsIntent= builder.build()
+//            customTabsIntent.launchUrl(requireContext(), Uri.parse("http://www.youtube.com/watch?v=${url}"))
+////            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=${url}"))
+////            startActivity(intent)
         }
 
     }

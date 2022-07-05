@@ -66,7 +66,15 @@ class AllLatestUpdatesAdapter(
     }
 
     override fun getItemCount(): Int {
-        return listCount
+
+        var itemList= 0
+        if (list.size < listCount){
+            itemList = list.size
+        } else{
+            itemList= listCount
+        }
+        return itemList
+        return itemList
     }
 
     inner class MyViewHolder(val binding: ProjectUpdatesItemBinding) :

@@ -18,22 +18,26 @@ class PendingPaymentsAdapter(
     val itemIntrface: ItemClickListener
 ) : RecyclerView.Adapter<PendingPaymentsAdapter.MyViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PendingPaymentsAdapter.MyViewHolder {
-        val view = CompletePaymentCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): PendingPaymentsAdapter.MyViewHolder {
+        val view =
+            CompletePaymentCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = list!!.get(holder.adapterPosition)
 
-        holder.binding.apply{
-            actionRequired.text= item!!.cardTitle
+        holder.binding.apply {
+            actionRequired.text = item!!.cardTitle
 
-            pendingKyc.text= item!!.displayTitle
-            uploadKycStatement.text= item!!.displayText
+            pendingKyc.text = item!!.displayTitle
+            uploadKycStatement.text = item!!.displayText
 
             seeAllPendingPayment.setOnClickListener(View.OnClickListener {
-                itemIntrface.onItemClicked(it,position,holder.itemId.toString())
+                itemIntrface.onItemClicked(it, position, holder.itemId.toString())
             })
 
         }

@@ -20,11 +20,12 @@ class LatestUpdateAdapter(
     val context: Context,
     val itemCount: Data,
     val list: List<PageManagementOrLatestUpdate>,
-    val itemIntrface:ItemClickListener
+    val itemIntrface: ItemClickListener
 ) : RecyclerView.Adapter<LatestUpdateAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = ItemLatestUpdatesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view =
+            ItemLatestUpdatesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(view)
     }
 
@@ -33,42 +34,47 @@ class LatestUpdateAdapter(
         holder.binding.title.text = item.displayTitle
 
 
-        if (!item.subTitle.isNullOrEmpty()){
-            holder.binding.tvName.text= item.subTitle
-        } else{
-            holder.binding.tvName.isVisible= false
+        if (!item.subTitle.isNullOrEmpty()) {
+            holder.binding.tvName.text = item.subTitle
+        } else {
+            holder.binding.tvName.isVisible = false
         }
 
 
-        if (item.detailedInfo[0].media!= null){
+        if (item.detailedInfo[0].media != null) {
 
-            if (!item.detailedInfo[0].media.value.url.isNullOrEmpty()){
-                holder.binding.imageCard.isVisible= true
+            if (!item.detailedInfo[0].media.value.url.isNullOrEmpty()) {
+                holder.binding.imageCard.isVisible = true
                 Glide.with(context).load(item.detailedInfo[0]?.media?.value.url)
                     .into(holder.binding.image)
-            } else{
-                holder.binding.imageCard.isVisible= false
+            } else {
+                holder.binding.imageCard.isVisible = false
             }
 
 //            holder.binding.description.text=showHTMLText(item.detailedInfo[0].description)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                Utility.convertString(holder.binding.description,context,showHTMLText(item.detailedInfo[0].description).toString(),3)
+                Utility.convertString(
+                    holder.binding.description,
+                    context,
+                    showHTMLText(item.detailedInfo[0].description).toString(),
+                    3
+                )
             }
         }
 
         holder.binding.homeLatestUpdateCard.setOnClickListener {
-            itemIntrface.onItemClicked(it,position,holder.itemId.toString())
+            itemIntrface.onItemClicked(it, position, holder.itemId.toString())
         }
 
 
     }
 
     override fun getItemCount(): Int {
-        var itemList= 0
-        if (itemCount.page.totalUpdatesOnHomeScreen<list.size){
+        var itemList = 0
+        if (itemCount.page.totalUpdatesOnHomeScreen < list.size) {
             itemList = itemCount.page.totalUpdatesOnHomeScreen
-        } else{
-            itemList= list.size
+        } else {
+            itemList = list.size
         }
         return itemList
     }

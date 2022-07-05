@@ -99,7 +99,7 @@ class HomeFragment : BaseFragment() {
 
     private fun initObserver(refresh: Boolean) {
 
-        if(isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             homeViewModel.getDashBoardData(ModuleEnum.HOME.value, refresh)
                 .observe(viewLifecycleOwner, object : Observer<BaseResponse<HomeResponse>> {
                     override fun onChanged(it: BaseResponse<HomeResponse>?) {
@@ -133,7 +133,8 @@ class HomeFragment : BaseFragment() {
                                 insightsSubHeading = it!!.data!!.data.page.insightsSubHeading
 
                                 testimonilalsHeading = it!!.data!!.data.page.testimonialsHeading
-                                testimonilalsSubHeading = it!!.data!!.data.page.testimonialsSubHeading
+                                testimonilalsSubHeading =
+                                    it!!.data!!.data.page.testimonialsSubHeading
 
                                 actionItemType = it!!.data!!.data!!.actionItem
 
@@ -174,8 +175,8 @@ class HomeFragment : BaseFragment() {
                     }
 
                 })
-        } else{
-            binding.refressLayout.isRefreshing= false
+        } else {
+            binding.refressLayout.isRefreshing = false
             binding.loader.hide()
             binding.dashBoardRecyclerView.hide()
             binding.noInternetView.mainContainer.show()
@@ -335,8 +336,6 @@ class HomeFragment : BaseFragment() {
                 R.id.tv_seeall_promise -> {
                     (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
 
-                    Toast.makeText(requireContext(), "Hello", Toast.LENGTH_LONG).show()
-
                 }
                 R.id.tv_seeall_testimonial -> {
                     val fragment = Testimonials()
@@ -436,7 +435,6 @@ class HomeFragment : BaseFragment() {
         shareIntent.putExtra(Intent.EXTRA_TEXT, "The House Of Abhinandan Lodha $appURL")
         startActivity(shareIntent)
     }
-
 
 
     override fun onResume() {
