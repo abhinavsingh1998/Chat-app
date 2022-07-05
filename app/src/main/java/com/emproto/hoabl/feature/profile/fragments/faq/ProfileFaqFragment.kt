@@ -54,7 +54,6 @@ class ProfileFaqFragment : Fragment() {
         getProfileFaqData()
 
     }
-
     private fun getProfileFaqData() {
         val typeOfFAQ="3001"
         profileViewModel.getFaqList(typeOfFAQ).observe(viewLifecycleOwner, Observer {
@@ -78,7 +77,6 @@ class ProfileFaqFragment : Fragment() {
         })
 
     }
-
     private fun setAdapter() {
         binding.rvHelpCenterCategory.layoutManager =
             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
