@@ -165,10 +165,10 @@ class ProjectDetailFragment : BaseFragment() {
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
-                R.id.iv_location_infrastructure_arrow -> {
-                    investmentViewModel.setMapLocationInfrastructure(mapLocationData)
-                    (requireActivity() as HomeActivity).addFragment(MapFragment(), false)
-                }
+//                R.id.iv_location_infrastructure_arrow -> {
+//                    investmentViewModel.setMapLocationInfrastructure(mapLocationData)
+//                    (requireActivity() as HomeActivity).addFragment(MapFragment(), false)
+//                }
                 R.id.tv_location_infrastructure_all -> {
                     investmentViewModel.setMapLocationInfrastructure(mapLocationData)
                     (requireActivity() as HomeActivity).addFragment(MapFragment(), false)
@@ -510,15 +510,15 @@ class ProjectDetailFragment : BaseFragment() {
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
             when(view.id) {
-                R.id.iv_testimonials_arrow -> {
-                    val fragment = Testimonials()
-                    val bundle = Bundle()
-                    bundle.putInt("testimonials",item.toInt())
-                    bundle.putString("testimonialsHeading", allData.otherSectionHeadings.testimonials.sectionHeading)
-                    bundle.putString("testimonialsSubHeading",  "Hello")
-                    fragment.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(fragment, false)
-                }
+//                R.id.iv_testimonials_arrow -> {
+//                    val fragment = Testimonials()
+//                    val bundle = Bundle()
+//                    bundle.putInt("testimonials",item.toInt())
+//                    bundle.putString("testimonialsHeading", allData.otherSectionHeadings.testimonials.sectionHeading)
+//                    bundle.putString("testimonialsSubHeading",  "Hello")
+//                    fragment.arguments = bundle
+//                    (requireActivity() as HomeActivity).addFragment(fragment, false)
+//                }
                 R.id.tv_hear_speak_see_all -> {
                     val fragment = Testimonials()
                     val bundle = Bundle()

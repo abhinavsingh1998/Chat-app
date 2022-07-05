@@ -27,17 +27,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_documents" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <com.emproto.core.textviews.CustomTextView
         android:id="@+id/tv_documents_see_all"
-        style="@style/text_style_blue_14"
+        style="@style/text_style_thick_blue_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_size_8"
-        android:fontFamily="@font/jost_regular"
+        android:layout_marginTop="@dimen/margin_size_15"
+        android:layout_marginEnd="@dimen/margin_size_14"
+        android:drawableRight="@drawable/ic_blue_right_arrow"
+        android:drawablePadding="@dimen/margin_size_6"
+        android:singleLine="true"
         android:text="@string/see_all"
-        app:layout_constraintBottom_toBottomOf="@id/tv_documents"
-        app:layout_constraintEnd_toStartOf="@id/iv_see_all_arrow"
-        app:layout_constraintTop_toTopOf="@id/tv_documents" />
+        app:fontName="@string/jost_regular"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_documents"

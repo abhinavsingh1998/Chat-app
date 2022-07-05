@@ -532,7 +532,7 @@ class ProjectDetailAdapter(
             )
             binding.rvLocationInfrastructure.adapter = locationInfrastructureAdapter
             binding.tvLocationInfrastructureAll.setOnClickListener(onItemClickListener)
-            binding.ivLocationInfrastructureArrow.setOnClickListener(onItemClickListener)
+//            binding.ivLocationInfrastructureArrow.setOnClickListener(onItemClickListener)
         }
     }
 
@@ -604,9 +604,9 @@ class ProjectDetailAdapter(
                 tvHearSpeakSeeAll.setOnClickListener{
                     itemClickListener.onItemClicked(it,position,list.size.toString())
                 }
-                ivTestimonialsArrow.setOnClickListener{
-                    itemClickListener.onItemClicked(it,position,list.size.toString())
-                }
+//                ivTestimonialsArrow.setOnClickListener{
+//                    itemClickListener.onItemClicked(it,position,list.size.toString())
+//                }
             }
         }
     }
