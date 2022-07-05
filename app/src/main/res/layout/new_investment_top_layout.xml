@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/text_blue_color">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,12 +43,12 @@
             android:id="@+id/iv_new_launch_see_all"
             android:layout_width="@dimen/margin_size_16"
             android:layout_height="@dimen/margin_size_9"
-            android:src="@drawable/combined_shape"
-            android:scaleType="fitXY"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="@dimen/margin_size_11"
-            app:layout_constraintTop_toTopOf="@id/tv_new_launch"
-            app:layout_constraintBottom_toBottomOf="@id/tv_new_launch"/>
+            android:scaleType="fitXY"
+            android:src="@drawable/combined_shape"
+            app:layout_constraintBottom_toBottomOf="@id/tv_new_launch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_new_launch" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_coming_soon"
@@ -70,9 +70,9 @@
             android:layout_marginHorizontal="@dimen/_8sdp"
             android:layout_marginTop="@dimen/margin_size_14"
             android:layout_marginBottom="@dimen/_4sdp"
+            android:outlineSpotShadowColor="#ababab"
             app:cardCornerRadius="@dimen/margin_size_6"
             app:cardElevation="@dimen/margin_size_2"
-            android:outlineSpotShadowColor="#ababab"
             app:layout_constraintBottom_toTopOf="@id/iv_dont_miss_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -99,22 +99,22 @@
                             android:id="@+id/view_pager"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/margin_size_200"
+                            android:orientation="horizontal"
                             android:overScrollMode="always"
                             android:scaleType="fitXY"
-                            android:orientation="horizontal"
-                            tools:itemCount="2"
-                            tools:listitem="@layout/custom_image_layout"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintEnd_toEndOf="@id/parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:itemCount="2"
+                            tools:listitem="@layout/custom_image_layout" />
 
                         <com.google.android.material.card.MaterialCardView
                             android:id="@+id/cv_small_image"
                             android:layout_width="44dp"
                             android:layout_height="44dp"
-                            android:layout_marginTop="@dimen/margin_size_1"
                             android:layout_marginHorizontal="@dimen/margin_size_4.6"
+                            android:layout_marginTop="@dimen/margin_size_1"
                             app:cardCornerRadius="@dimen/margin_size_4"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/view_pager">
@@ -132,26 +132,24 @@
                             style="@style/text_style_light_black_color_14"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/margin_size_8"
                             android:fontFamily="@font/jost_regular"
+                            android:singleLine="true"
                             android:text="Great land festival"
                             android:textStyle="bold"
-                            android:singleLine="true"
-                            android:layout_marginHorizontal="@dimen/margin_size_8"
+                            app:layout_constraintEnd_toStartOf="@id/iv_rating"
                             app:layout_constraintStart_toEndOf="@id/cv_small_image"
-                            app:layout_constraintTop_toTopOf="@id/cv_small_image"
-                            />
+                            app:layout_constraintTop_toTopOf="@id/cv_small_image" />
 
                         <ImageView
                             android:id="@+id/iv_rating"
-                            android:layout_width="9dp"
-                            android:layout_height="9dp"
-                            android:layout_gravity="center|center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_size_8"
                             android:scaleType="fitXY"
                             android:src="@drawable/shape_filled"
                             app:layout_constraintBottom_toBottomOf="@id/tv_investment_project_name"
                             app:layout_constraintStart_toEndOf="@id/tv_investment_project_name"
-                            app:layout_constraintHorizontal_bias="0.02"
                             app:layout_constraintTop_toTopOf="@id/tv_investment_project_name" />
 
                         <com.google.android.material.textview.MaterialTextView
@@ -159,11 +157,11 @@
                             style="@style/text_style_dark_greenp_color_13"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_size_5"
+                            android:layout_marginStart="@dimen/margin_size_12"
                             android:fontFamily="@font/jost_bold"
                             android:text="5%"
                             app:layout_constraintBottom_toBottomOf="@id/iv_rating"
-                            app:layout_constraintStart_toEndOf="@id/iv_rating"
+                            app:layout_constraintStart_toEndOf="@id/tv_investment_project_name"
                             app:layout_constraintTop_toTopOf="@id/iv_rating" />
 
                         <com.google.android.material.textview.MaterialTextView
@@ -171,14 +169,14 @@
                             style="@style/text_style_light_black_color_14"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/margin_size_8"
                             android:fontFamily="@font/jost_regular"
                             android:text="Anjarle, Maharashtra"
                             android:textSize="@dimen/text_size_14"
                             android:textStyle="normal"
-                            android:layout_marginHorizontal="@dimen/margin_size_8"
+                            app:layout_constraintEnd_toStartOf="@id/tv_area"
                             app:layout_constraintStart_toEndOf="@id/cv_small_image"
-                            app:layout_constraintTop_toBottomOf="@id/tv_investment_project_name"
-                            app:layout_constraintEnd_toStartOf="@id/tv_area" />
+                            app:layout_constraintTop_toBottomOf="@id/tv_investment_project_name" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_amount"
@@ -189,8 +187,8 @@
                             android:fontFamily="@font/jost_medium"
                             android:text="$20 L"
                             android:textAlignment="textEnd"
-                            app:layout_constraintEnd_toStartOf="@id/tv_amount_onward"
                             app:layout_constraintBottom_toBottomOf="@id/tv_amount_onward"
+                            app:layout_constraintEnd_toStartOf="@id/tv_amount_onward"
                             app:layout_constraintTop_toTopOf="@id/tv_amount_onward" />
 
                         <com.google.android.material.textview.MaterialTextView
@@ -217,8 +215,8 @@
                             android:text="#2000 sqft"
                             android:textAlignment="textEnd"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="1.0"
                             app:layout_constraintEnd_toStartOf="@id/tv_area_onwards"
+                            app:layout_constraintHorizontal_bias="1.0"
                             app:layout_constraintTop_toBottomOf="@id/tv_amount" />
 
                         <com.google.android.material.textview.MaterialTextView
@@ -241,9 +239,9 @@
                             android:layout_marginTop="@dimen/margin_size_5"
                             android:background="@drawable/top_corner_radius_bg"
                             android:backgroundTint="@color/background_grey_color"
+                            android:paddingVertical="@dimen/margin_size_5"
                             android:paddingStart="@dimen/margin_size_12"
                             android:paddingEnd="@dimen/margin_size_15"
-                            android:paddingVertical="@dimen/margin_size_5"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/cv_small_image">
@@ -255,10 +253,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginVertical="@dimen/margin_size_5"
                                 android:layout_marginEnd="58dp"
+                                android:ellipsize="end"
                                 android:fontFamily="@font/jost_light"
                                 android:lineSpacingMultiplier="1"
                                 android:maxLines="2"
-                                android:ellipsize="end"
                                 android:text="A Biophilic themed luxury beachside estate with 35 world-class amenities"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toStartOf="@id/iv_place_info_arrow"
@@ -269,8 +267,8 @@
                                 android:id="@+id/iv_place_info_arrow"
                                 android:layout_width="@dimen/margin_size_16"
                                 android:layout_height="9dp"
-                                android:src="@drawable/combined_shape"
                                 android:scaleType="fitXY"
+                                android:src="@drawable/combined_shape"
                                 app:layout_constraintBottom_toBottomOf="@id/tv_background_grey"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toEndOf="@id/tv_background_grey"
@@ -286,12 +284,12 @@
                             android:fontFamily="@font/jost_regular"
                             android:paddingHorizontal="@dimen/margin_size_18"
                             android:paddingVertical="@dimen/margin_size_10"
-                            app:fontFamily="@font/jost_regular"
                             android:text="20 People saw this project in 7 days"
+                            app:fontFamily="@font/jost_regular"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/tv_apply_now"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/cl_place_info"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
+                            app:layout_constraintTop_toBottomOf="@id/cl_place_info" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_apply_now"
@@ -299,11 +297,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/black"
+                            android:fontFamily="@font/jost_medium"
                             android:gravity="center"
                             android:paddingHorizontal="@dimen/margin_size_18"
                             android:paddingVertical="@dimen/margin_size_10"
                             android:text="Apply now"
-                            android:fontFamily="@font/jost_medium"
                             android:textAlignment="center"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -330,20 +328,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                tools:src="@drawable/dont_miss_new"
-                />
+                tools:src="@drawable/dont_miss_new" />
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_btn_discover"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/all_corner_radius_black_bg"
-            android:layout_marginTop="25dp"
-            android:paddingHorizontal="@dimen/margin_size_16"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginHorizontal="@dimen/margin_size_20"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/all_corner_radius_black_bg"
+            android:paddingHorizontal="@dimen/margin_size_16"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cv_dont_miss_image">
 
             <com.google.android.material.textview.MaterialTextView
@@ -365,10 +362,10 @@
                 android:layout_height="@dimen/margin_size_10"
                 android:layout_marginStart="@dimen/margin_size_6"
                 android:src="@drawable/combined_shape_copy_5"
-                app:layout_constraintStart_toEndOf="@id/btn_discover"
+                app:layout_constraintBottom_toBottomOf="@id/btn_discover"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/btn_discover"
-                app:layout_constraintBottom_toBottomOf="@id/btn_discover"/>
+                app:layout_constraintStart_toEndOf="@id/btn_discover"
+                app:layout_constraintTop_toTopOf="@id/btn_discover" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
