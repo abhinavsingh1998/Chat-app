@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -98,76 +99,94 @@ class HomeFragment : BaseFragment() {
 
     private fun initObserver(refresh: Boolean) {
 
-        homeViewModel.getDashBoardData(ModuleEnum.HOME.value, refresh)
-            .observe(viewLifecycleOwner, object : Observer<BaseResponse<HomeResponse>> {
-                override fun onChanged(it: BaseResponse<HomeResponse>?) {
-                    when (it!!.status) {
-                        Status.LOADING -> {
-                            binding.dashBoardRecyclerView.hide()
-                            binding.loader.show()
+        if(isNetworkAvailable()){
+            homeViewModel.getDashBoardData(ModuleEnum.HOME.value, refresh)
+                .observe(viewLifecycleOwner, object : Observer<BaseResponse<HomeResponse>> {
+                    override fun onChanged(it: BaseResponse<HomeResponse>?) {
+                        when (it!!.status) {
+                            Status.LOADING -> {
+                                binding.dashBoardRecyclerView.hide()
+                                binding.noInternetView.mainContainer.hide()
+                                (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.hide()
+                                binding.loader.show()
 
-                        }
-                        Status.SUCCESS -> {
-                            binding.dashBoardRecyclerView.show()
-                            binding.loader.hide()
+                            }
+                            Status.SUCCESS -> {
+                                binding.dashBoardRecyclerView.show()
+                                binding.noInternetView.mainContainer.hide()
+                                (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.show()
+                                binding.loader.hide()
 
-                            setParentRecycler(it.data!!.data)
+                                setParentRecycler(it.data!!.data)
 
-                            homeData = it!!.data!!.data
-                            latestUptaesListCount = it!!.data!!.data.page.totalUpdatesOnListView
-                            InsightsListCount = it!!.data!!.data.page.totalInsightsOnListView
-                            testimonialsListCount =
-                                it!!.data!!.data.page.totalTestimonialsOnListView
+                                homeData = it!!.data!!.data
+                                latestUptaesListCount = it!!.data!!.data.page.totalUpdatesOnListView
+                                InsightsListCount = it!!.data!!.data.page.totalInsightsOnListView
+                                testimonialsListCount =
+                                    it!!.data!!.data.page.totalTestimonialsOnListView
 
 
-                            latestHeading = it!!.data!!.data.page.latestUpdates.heading
-                            latestSubHeading = it!!.data!!.data.page.latestUpdates.subHeading
+                                latestHeading = it!!.data!!.data.page.latestUpdates.heading
+                                latestSubHeading = it!!.data!!.data.page.latestUpdates.subHeading
 
-                            insightsHeading = it!!.data!!.data.page.insightsHeading
-                            insightsSubHeading = it!!.data!!.data.page.insightsSubHeading
+                                insightsHeading = it!!.data!!.data.page.insightsHeading
+                                insightsSubHeading = it!!.data!!.data.page.insightsSubHeading
 
-                            testimonilalsHeading = it!!.data!!.data.page.testimonialsHeading
-                            testimonilalsSubHeading = it!!.data!!.data.page.testimonialsSubHeading
+                                testimonilalsHeading = it!!.data!!.data.page.testimonialsHeading
+                                testimonilalsSubHeading = it!!.data!!.data.page.testimonialsSubHeading
 
-                            actionItemType = it!!.data!!.data!!.actionItem
+                                actionItemType = it!!.data!!.data!!.actionItem
 
-                            it.data.let {
-                                if (it != null) {
-                                    projectId = it.data.page.promotionAndOffersProjectContentId
-                                    appPreference.saveOfferId(projectId)
-                                    appPreference.saveOfferUrl(it.data.page.promotionAndOffersMedia.value.url)
-                                    homeViewModel.setDashBoardData(it)
-                                    appPreference.setFacilityCard(it.data.isFacilityVisible)
+                                it.data.let {
+                                    if (it != null) {
+                                        projectId = it.data.page.promotionAndOffersProjectContentId
+                                        appPreference.saveOfferId(projectId)
+                                        appPreference.saveOfferUrl(it.data.page.promotionAndOffersMedia.value.url)
+                                        homeViewModel.setDashBoardData(it)
+                                        appPreference.setFacilityCard(it.data.isFacilityVisible)
+                                    }
                                 }
-                            }
 
-                            (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.headset.setOnClickListener {
-                                val bundle = Bundle()
-                                val chatsFragment = ChatsFragment()
-                                chatsFragment.arguments = bundle
-                                (requireActivity() as HomeActivity).replaceFragment(
-                                    chatsFragment.javaClass,
-                                    "",
-                                    true,
-                                    bundle,
-                                    null,
-                                    0,
-                                    false
+                                (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.headset.setOnClickListener {
+                                    val bundle = Bundle()
+                                    val chatsFragment = ChatsFragment()
+                                    chatsFragment.arguments = bundle
+                                    (requireActivity() as HomeActivity).replaceFragment(
+                                        chatsFragment.javaClass,
+                                        "",
+                                        true,
+                                        bundle,
+                                        null,
+                                        0,
+                                        false
+                                    )
+                                }
+
+                            }
+                            Status.ERROR -> {
+                                binding.loader.hide()
+                                (requireActivity() as HomeActivity).showErrorToast(
+                                    it.message!!
                                 )
+                                binding.dashBoardRecyclerView.show()
                             }
-
-                        }
-                        Status.ERROR -> {
-                            binding.loader.hide()
-                            (requireActivity() as HomeActivity).showErrorToast(
-                                it.message!!
-                            )
-                            binding.dashBoardRecyclerView.show()
                         }
                     }
-                }
 
+                })
+        } else{
+            binding.refressLayout.isRefreshing= false
+            binding.loader.hide()
+            binding.dashBoardRecyclerView.hide()
+            binding.noInternetView.mainContainer.show()
+            binding.noInternetView.textView6.setOnClickListener(View.OnClickListener {
+                initObserver(true)
+                (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.hide()
             })
+
+
+        }
+
     }
 
 
@@ -181,7 +200,7 @@ class HomeFragment : BaseFragment() {
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(
                         fragment,
-                        false
+                        true
                     )
                 }
                 R.id.tv_apply_now -> {
@@ -191,7 +210,7 @@ class HomeFragment : BaseFragment() {
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(
                         fragment,
-                        false
+                        true
                     )
                 }
                 R.id.tv_item_location_info -> {
@@ -201,7 +220,7 @@ class HomeFragment : BaseFragment() {
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(
                         fragment,
-                        false
+                        true
                     )
                 }
                 R.id.iv_bottom_arrow -> {
@@ -211,7 +230,7 @@ class HomeFragment : BaseFragment() {
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(
                         fragment,
-                        false
+                        true
                     )
                 }
                 R.id.home_latest_update_card -> {
@@ -231,7 +250,7 @@ class HomeFragment : BaseFragment() {
                     )
                     (requireActivity() as HomeActivity).addFragment(
                         LatestUpdatesDetailsFragment(),
-                        false
+                        true
                     )
                 }
                 R.id.home_promises_item -> {
@@ -239,7 +258,7 @@ class HomeFragment : BaseFragment() {
                     homeViewModel.setSelectedPromise(data)
                     (requireActivity() as HomeActivity).addFragment(
                         PromisesDetailsFragment(),
-                        false
+                        true
                     )
                 }
                 R.id.facility_management_card -> {
@@ -280,7 +299,7 @@ class HomeFragment : BaseFragment() {
 
                     (requireActivity() as HomeActivity).addFragment(
                         InsightsDetailsFragment(),
-                        false
+                        true
                     )
                 }
                 R.id.dont_miss_out_card -> {
@@ -300,7 +319,7 @@ class HomeFragment : BaseFragment() {
 
                     bundle.putString("subheading", latestSubHeading)
                     fragment.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(fragment, false)
+                    (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
                 R.id.tv_seeall_insights -> {
                     val fragment = InsightsFragment()
@@ -310,7 +329,7 @@ class HomeFragment : BaseFragment() {
 
                     bundle.putString("insightsSubHeading", insightsSubHeading)
                     fragment.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(fragment, false)
+                    (requireActivity() as HomeActivity).addFragment(fragment, true)
 
                 }
                 R.id.tv_seeall_promise -> {
@@ -328,7 +347,7 @@ class HomeFragment : BaseFragment() {
 
                     bundle.putString("testimonialsSubHeading", testimonilalsSubHeading)
                     fragment.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(fragment, false)
+                    (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
                 R.id.tv_viewall_investments -> {
                     (requireActivity() as HomeActivity).navigate(R.id.navigation_investment)
@@ -347,7 +366,7 @@ class HomeFragment : BaseFragment() {
                             BookingjourneyFragment.newInstance(
                                 actionItemType[position].investmentId,
                                 ""
-                            ), false
+                            ), true
                         )
 
                     } else {
