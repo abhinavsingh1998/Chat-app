@@ -373,25 +373,21 @@
                     app:layout_constraintEnd_toStartOf="@id/tv_smart_deal_see_all"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_smart_deal" />
-
-                <TextView
+                <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/tv_smart_deal_see_all"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/see_all"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size_11"
-                    app:layout_constraintEnd_toStartOf="@+id/iv_smart_deal_arrow"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/iv_smart_deal_arrow"
-                    android:layout_width="@dimen/margin_size_14"
-                    android:layout_height="@dimen/margin_size_7"
-                    android:src="@drawable/ic_arrow_forward_black"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_smart_deal_see_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_15"
+                    android:layout_marginEnd="@dimen/margin_size_14"
+                    android:drawableRight="@drawable/ic_black_right_arrow"
+                    android:drawablePadding="@dimen/margin_size_6"
+                    android:singleLine="true"
+                    android:text="@string/see_all"
+                    app:fontName="@string/jost_regular"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tv_smart_deal_see_all" />
+                    app:layout_constraintTop_toTopOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -437,24 +433,21 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_trending_projects" />
 
-                <TextView
+                <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/tv_trending_projects_see_all"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/see_all"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size_11"
-                    app:layout_constraintEnd_toStartOf="@id/iv_trending_projects_arrow"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/iv_trending_projects_arrow"
-                    android:layout_width="@dimen/margin_size_14"
-                    android:layout_height="@dimen/margin_size_7"
-                    android:src="@drawable/ic_arrow_forward_black"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_trending_projects_see_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_15"
+                    android:layout_marginEnd="@dimen/margin_size_14"
+                    android:drawableRight="@drawable/ic_black_right_arrow"
+                    android:drawablePadding="@dimen/margin_size_6"
+                    android:singleLine="true"
+                    android:text="@string/see_all"
+                    app:fontName="@string/jost_regular"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tv_trending_projects_see_all" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

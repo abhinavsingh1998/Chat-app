@@ -629,8 +629,6 @@ class AccountDetailsFragment : Fragment(),
                             dialog.isCancelable = false
                             dialog.show(childFragmentManager, "submitted")
                         }
-
-
                     }
                     Status.ERROR -> {
                         binding.progressBar.hide()
@@ -639,7 +637,6 @@ class AccountDetailsFragment : Fragment(),
                             it.message.toString(),
                             Toast.LENGTH_LONG
                         ).show()
-
                     }
                 }
             }

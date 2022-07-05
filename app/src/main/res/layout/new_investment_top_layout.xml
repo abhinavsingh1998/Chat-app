@@ -23,32 +23,21 @@
             android:textAlignment="textStart"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.textview.MaterialTextView
+        <com.emproto.core.textviews.CustomTextView
             android:id="@+id/tv_new_launch_see_all"
             style="@style/text_style_blue_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_size_9"
-            android:maxLines="1"
-            android:minLines="1"
+            android:layout_marginEnd="@dimen/margin_size_14"
+            android:drawableRight="@drawable/ic_black_right_arrow"
+            android:drawablePadding="@dimen/margin_size_6"
             android:singleLine="true"
             android:text="@string/see_all"
             app:fontName="@string/jost_regular"
-            app:layout_constraintBottom_toBottomOf="@id/tv_new_launch"
-            app:layout_constraintEnd_toStartOf="@id/iv_new_launch_see_all"
-            app:layout_constraintTop_toTopOf="@id/tv_new_launch" />
-
-        <ImageView
-            android:id="@+id/iv_new_launch_see_all"
-            android:layout_width="@dimen/margin_size_16"
-            android:layout_height="@dimen/margin_size_9"
-            android:layout_marginEnd="@dimen/margin_size_11"
-            android:scaleType="fitXY"
-            android:src="@drawable/combined_shape"
-            app:layout_constraintBottom_toBottomOf="@id/tv_new_launch"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_new_launch" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_new_launch"
+            app:layout_constraintTop_toTopOf="@+id/tv_new_launch"/>
+
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_coming_soon"
@@ -113,8 +102,8 @@
                             android:id="@+id/cv_small_image"
                             android:layout_width="44dp"
                             android:layout_height="44dp"
-                            android:layout_marginHorizontal="@dimen/margin_size_4.6"
                             android:layout_marginTop="@dimen/margin_size_1"
+                            android:layout_marginHorizontal="@dimen/margin_size_4.6"
                             app:cardCornerRadius="@dimen/margin_size_4"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/view_pager">
@@ -150,6 +139,7 @@
                             android:src="@drawable/shape_filled"
                             app:layout_constraintBottom_toBottomOf="@id/tv_investment_project_name"
                             app:layout_constraintStart_toEndOf="@id/tv_investment_project_name"
+                            app:layout_constraintHorizontal_bias="0.02"
                             app:layout_constraintTop_toTopOf="@id/tv_investment_project_name" />
 
                         <com.google.android.material.textview.MaterialTextView
@@ -187,8 +177,8 @@
                             android:fontFamily="@font/jost_medium"
                             android:text="$20 L"
                             android:textAlignment="textEnd"
-                            app:layout_constraintBottom_toBottomOf="@id/tv_amount_onward"
                             app:layout_constraintEnd_toStartOf="@id/tv_amount_onward"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_amount_onward"
                             app:layout_constraintTop_toTopOf="@id/tv_amount_onward" />
 
                         <com.google.android.material.textview.MaterialTextView
@@ -215,8 +205,8 @@
                             android:text="#2000 sqft"
                             android:textAlignment="textEnd"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/tv_area_onwards"
                             app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintEnd_toStartOf="@id/tv_area_onwards"
                             app:layout_constraintTop_toBottomOf="@id/tv_amount" />
 
                         <com.google.android.material.textview.MaterialTextView
@@ -239,9 +229,9 @@
                             android:layout_marginTop="@dimen/margin_size_5"
                             android:background="@drawable/top_corner_radius_bg"
                             android:backgroundTint="@color/background_grey_color"
-                            android:paddingVertical="@dimen/margin_size_5"
                             android:paddingStart="@dimen/margin_size_12"
                             android:paddingEnd="@dimen/margin_size_15"
+                            android:paddingVertical="@dimen/margin_size_5"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/cv_small_image">
@@ -267,8 +257,8 @@
                                 android:id="@+id/iv_place_info_arrow"
                                 android:layout_width="@dimen/margin_size_16"
                                 android:layout_height="9dp"
-                                android:scaleType="fitXY"
                                 android:src="@drawable/combined_shape"
+                                android:scaleType="fitXY"
                                 app:layout_constraintBottom_toBottomOf="@id/tv_background_grey"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toEndOf="@id/tv_background_grey"
@@ -284,8 +274,8 @@
                             android:fontFamily="@font/jost_regular"
                             android:paddingHorizontal="@dimen/margin_size_18"
                             android:paddingVertical="@dimen/margin_size_10"
-                            android:text="20 People saw this project in 7 days"
                             app:fontFamily="@font/jost_regular"
+                            android:text="20 People saw this project in 7 days"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/tv_apply_now"
                             app:layout_constraintStart_toStartOf="parent"
@@ -297,11 +287,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/black"
-                            android:fontFamily="@font/jost_medium"
                             android:gravity="center"
                             android:paddingHorizontal="@dimen/margin_size_18"
                             android:paddingVertical="@dimen/margin_size_10"
                             android:text="Apply now"
+                            android:fontFamily="@font/jost_medium"
                             android:textAlignment="center"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"

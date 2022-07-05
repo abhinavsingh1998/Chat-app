@@ -36,31 +36,31 @@ class InvestmentFragment : BaseFragment() {
     private val onInvestmentItemClickListener =
         View.OnClickListener { view ->
             when (view.id) {
-                R.id.iv_smart_deals_see_all -> {
-                    investmentViewModel.setSd(true)
-                    investmentViewModel.setSmartDealsList(smartDealsList)
-                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(), true)
-                }
+//                R.id.iv_smart_deals_see_all -> {
+//                    investmentViewModel.setSd(true)
+//                    investmentViewModel.setSmartDealsList(smartDealsList)
+//                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(), true)
+//                }
                 R.id.tv_smart_deals_see_all -> {
                     investmentViewModel.setSd(true)
                     investmentViewModel.setSmartDealsList(smartDealsList)
                     (requireActivity() as HomeActivity).addFragment(CategoryListFragment(), true)
                 }
-                R.id.iv_trending_projects_see_all -> {
+            /*    R.id.iv_trending_projects_see_all -> {
                     investmentViewModel.setTp(true)
                     investmentViewModel.setTrendingList(trendingProjectsList)
                     (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
-                }
+                }*/
                 R.id.tv_trending_projects_see_all -> {
                     investmentViewModel.setTp(true)
                     investmentViewModel.setTrendingList(trendingProjectsList)
                     (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
                 }
-                R.id.iv_new_launch_see_all -> {
-                    investmentViewModel.setNl(true)
-                    investmentViewModel.setNewInvestments(newInvestmentsList)
-                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
-                }
+//                R.id.iv_new_launch_see_all -> {
+//                    investmentViewModel.setNl(true)
+//                    investmentViewModel.setNewInvestments(newInvestmentsList)
+//                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
+//                }
                 R.id.tv_new_launch_see_all -> {
                     investmentViewModel.setNl(true)
                     investmentViewModel.setNewInvestments(newInvestmentsList)

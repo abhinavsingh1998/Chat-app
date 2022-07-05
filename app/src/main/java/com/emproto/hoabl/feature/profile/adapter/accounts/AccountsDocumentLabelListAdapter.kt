@@ -19,7 +19,6 @@ class AccountsDocumentLabelListAdapter(
 ) : RecyclerView.Adapter<AccountsDocumentLabelListAdapter.ViewHolder>() {
 
     lateinit var binding: ItemAccountsKycDocBinding
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding =
             ItemAccountsKycDocBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -35,11 +34,8 @@ class AccountsDocumentLabelListAdapter(
             path: String?
         )
     }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvDocName.text = accountsDocumentList[position].name
-
-
         holder.tvViewDoc.setOnClickListener {
             if (accountsDocumentList[position].path==null) {
                 Toast.makeText(mContext, "No Document available", Toast.LENGTH_SHORT).show()
@@ -54,7 +50,6 @@ class AccountsDocumentLabelListAdapter(
             }
         }
     }
-
     override fun getItemCount(): Int {
         return if (accountsDocumentList.size < 2) {
             accountsDocumentList.size
@@ -62,8 +57,7 @@ class AccountsDocumentLabelListAdapter(
             return 2
         }
     }
-
-    class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
+     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val tvDocName: TextView = itemView.findViewById(R.id.tvDocName)
         val tvViewDoc: TextView = itemView.findViewById(R.id.tvViewDoc)
     }

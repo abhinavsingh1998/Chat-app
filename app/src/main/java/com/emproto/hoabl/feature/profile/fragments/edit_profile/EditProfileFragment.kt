@@ -738,9 +738,9 @@ class EditProfileFragment : BaseFragment() {
             binding.profileUserLetters.visibility = View.VISIBLE
             setUserNamePIC(data)
         }
-        removeDialogLayout.tcClose.setOnClickListener {
-            removePictureDialog.dismiss()
-        }
+//        removeDialogLayout.tcClose.setOnClickListener {
+//            removePictureDialog.dismiss()
+//        }
 
         removeDialogLayout.actionNo.setOnClickListener {
             removePictureDialog.dismiss()
