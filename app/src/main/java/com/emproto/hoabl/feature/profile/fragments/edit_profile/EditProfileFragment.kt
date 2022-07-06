@@ -72,7 +72,6 @@ class EditProfileFragment : BaseFragment() {
 
     var email = ""
     val emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
-
     var houseNo = ""
     var address = ""
     var locality = ""
@@ -139,9 +138,7 @@ class EditProfileFragment : BaseFragment() {
         binding = FragmentEditProfileBinding.inflate(layoutInflater)
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             false
-        changeFontOnSave()
 
-        binding.saveAndUpdate.text = "Save and Update"
         val myCalender = Calendar.getInstance()
         val datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayofMonth ->
             myCalender.set(Calendar.YEAR, year)
@@ -292,8 +289,6 @@ class EditProfileFragment : BaseFragment() {
         binding.completeAddress.setText("")
         binding.houseNo.setText("")
         binding.pincodeEditText.setText("")
-
-
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 isReadStorageGranted = permissions[Manifest.permission.READ_EXTERNAL_STORAGE]
@@ -481,8 +476,6 @@ class EditProfileFragment : BaseFragment() {
         binding.autoState.setTextIsSelectable(false)
         binding.autoState.isLongClickable = false
     }
-
-
     private fun setUserNamePIC(data: Data) {
         if (this.data.lastName.isNullOrEmpty()) {
             val firstLetter: String = this.data.firstName.substring(0, 2)
@@ -496,15 +489,12 @@ class EditProfileFragment : BaseFragment() {
 
         }
     }
-
     private fun updateLable(myCalendar: Calendar) {
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH)
         var dateSelected = sdf.format(myCalendar.time)
         binding.tvDatePicker.setText(dateSelected.substring(0, 10))
 
     }
-
-
     private fun initClickListener() {
         binding.backAction.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
@@ -613,7 +603,6 @@ class EditProfileFragment : BaseFragment() {
             binding.saveAndUpdate.text = "Save and Update"
             email = binding.emailTv.text.toString()
             if (!email.isNullOrEmpty() && email.isValidEmail()) {
-
                 binding.tvEmail.isErrorEnabled = false
                 email = binding.emailTv.text.toString()
             } else {
@@ -705,7 +694,6 @@ class EditProfileFragment : BaseFragment() {
                 binding.spinnerCity.error = "Select City"
                 citySelected = binding.autoCity.text.toString()
             }
-
             if (!email.isNullOrEmpty() && email.isValidEmail() && !houseNo.isNullOrEmpty() && !address.isNullOrEmpty() && !locality.isNullOrEmpty() && pinCode.isValidPinCode() && !countrySelected.isNullOrEmpty() && !stateSelected.isNullOrEmpty() && !citySelected.isNullOrEmpty()) {
                 val validEmail = binding.emailTv.text
                 val validHouse = binding.houseNo.text
@@ -715,15 +703,12 @@ class EditProfileFragment : BaseFragment() {
                 val validCountry = binding.autoCountry.text
                 val validState = binding.autoState.text
                 val validCity = binding.autoCity.text
-
                 sendProfileDetail(validEmail, validHouse, validAdd, validLocality, validPinCode, validCountry, validState, validCity)
-                changeFontOnSave()
-                binding.saveAndUpdate.isVisible = true
                 val dialog = EditProfileUpdatedPopUpFragment()
                 dialog.isCancelable = false
                 dialog.show(childFragmentManager, "submitted")
+                changeFontOnSave()
             }
-
         }
     }
     private fun removePictureDialog() {
@@ -738,9 +723,6 @@ class EditProfileFragment : BaseFragment() {
             binding.profileUserLetters.visibility = View.VISIBLE
             setUserNamePIC(data)
         }
-//        removeDialogLayout.tcClose.setOnClickListener {
-//            removePictureDialog.dismiss()
-//        }
 
         removeDialogLayout.actionNo.setOnClickListener {
             removePictureDialog.dismiss()
@@ -772,8 +754,6 @@ class EditProfileFragment : BaseFragment() {
         val typeface10 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
         binding.tvDatePicker.typeface = typeface10
     }
-
-
     private fun sendProfileDetail(
         validEmail: Editable,
         validHouse: Editable,
@@ -872,7 +852,6 @@ class EditProfileFragment : BaseFragment() {
                 thumbnail
             }
         }
-
         binding.profileImage.visibility = View.VISIBLE
         binding.profileUserLetters.visibility = View.GONE
         try{
@@ -882,7 +861,6 @@ class EditProfileFragment : BaseFragment() {
         }
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
             callingUploadPicApi(cameraFile!!)
-            binding.saveAndUpdate.text = "Save and Update"
 
         } else {
             (requireActivity() as BaseActivity).showError(
@@ -916,7 +894,6 @@ class EditProfileFragment : BaseFragment() {
                 if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
                     destinationFile = File(filePath)
                     callingUploadPicApi(destinationFile)
-                    binding.saveAndUpdate.text = "Save and Update"
 
                 } else {
                     (requireActivity() as BaseActivity).showError(
