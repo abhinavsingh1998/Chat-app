@@ -142,7 +142,7 @@ class EditProfileFragment : BaseFragment() {
         val myCalender = Calendar.getInstance()
         val datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayofMonth ->
             myCalender.set(Calendar.YEAR, year)
-            myCalender.set(Calendar.MONTH, month)
+            myCalender.set(Calendar.MONTH, month+1)
             myCalender.set(Calendar.DAY_OF_MONTH, dayofMonth)
             updateLable(myCalender)
         }
