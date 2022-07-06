@@ -13,7 +13,7 @@ import com.emproto.networklayer.response.investment.Inventory
 import com.emproto.networklayer.response.investment.InventoryBucketContent
 
 class SkuAdapter(
-    private val list: List<Inventory>,
+    private val list: List<Inventory>?,
     private val itemClickListener: ItemClickListener,
     private val investmentViewModel: InvestmentViewModel
 ):RecyclerView.Adapter<SkuAdapter.MyViewHolder>() {
@@ -26,15 +26,15 @@ class SkuAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val element = list[position]
+        val element = list!![position]
         holder.binding.apply {
             tvProjectName.text = element.name
-            val amount = element.priceRange.from.toDouble() / 100000
+            val amount = element.priceRange?.from!!.toDouble() / 100000
             val convertedAmount = String.format("%.0f",amount)
             tvStartingAt.text = SpannableStringBuilder()
                 .append("Starting at")
                 .bold { append(" ₹${convertedAmount} L") }
-            tvAreaSkus.text = "${element.areaRange.from} - ${element.areaRange.to} Sqft"
+            tvAreaSkus.text = "${element.areaRange?.from} - ${element.areaRange?.to} Sqft"
             //Changing UI corresponding to application
             when (element.isApplied) {
                 true -> {
@@ -56,6 +56,6 @@ class SkuAdapter(
         }
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = list!!.size
 
 }

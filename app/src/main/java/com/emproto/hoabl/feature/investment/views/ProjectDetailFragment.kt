@@ -419,7 +419,7 @@ class ProjectDetailFragment : BaseFragment() {
                         investmentViewModel.setDroneActive(data.projectContent.mediaGalleryOrProjectContent[0].isDroneShootsActive)
                         investmentViewModel.setThreeSixtyActive(data.projectContent.mediaGalleryOrProjectContent[0].isThreeSixtyImagesActive)
                         similarInvestments = data.projectContent.similarInvestments
-                        inventoryList = data.projectContent.inventoriesList.projectContent.inventoryBucketContents
+                        inventoryList = data.projectContent.inventoriesList.projectContent.inventoryBucketContents!!
                         setUpRecyclerView(
                             data.projectContent,
                             promiseData,
