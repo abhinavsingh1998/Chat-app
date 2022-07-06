@@ -80,9 +80,9 @@ class LandSkusFragment:BaseFragment() {
                         binding.slSwipeRefresh.isRefreshing = false
                         appliedList.clear()
                         notAppliedList.clear()
-                        title = data.projectContent.otherSectionHeadings.inventoryBucketContents.sectionHeading
-                        subtitle = data.projectContent.otherSectionHeadings.inventoryBucketContents.subHeading
-                        for(item in data.projectContent.inventoryBucketContents){
+                        title = data.projectContent.otherSectionHeadings?.inventoryBucketContents!!.sectionHeading
+                        subtitle = data.projectContent.otherSectionHeadings?.inventoryBucketContents!!.subHeading
+                        for(item in data.projectContent.inventoryBucketContents!!){
                             when(item.isApplied){
                                 true -> appliedList.add(item)
                                 false -> notAppliedList.add(item)

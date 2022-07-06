@@ -80,7 +80,7 @@ class AccountDetailsFragment : Fragment(),
     lateinit var documentBinding: DocumentsBottomSheetBinding
     lateinit var docsBottomSheet: BottomSheetDialog
 
-    lateinit var cameraFile: File
+     private var cameraFile: File?=null
     lateinit var destinationFile: File
     private val PICK_GALLERY_IMAGE = 1
     lateinit var bitmap: Bitmap
@@ -542,7 +542,7 @@ class AccountDetailsFragment : Fragment(),
         return FileProvider.getUriForFile(
             requireContext(),
             requireContext().applicationContext.packageName + ".provider",
-            cameraFile
+            cameraFile!!
         )
     }
 
@@ -555,10 +555,10 @@ class AccountDetailsFragment : Fragment(),
     }
 
     private fun onCaptureImageResult() {
-        val selectedImage = cameraFile.path
-        destinationFile = cameraFile
+        val selectedImage = cameraFile?.path
+        destinationFile = cameraFile!!
         val thumbnail = BitmapFactory.decodeFile(selectedImage)
-        val ei = ExifInterface(cameraFile.path)
+        val ei = ExifInterface(cameraFile!!.path)
         val orientation =
             ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
 
@@ -580,8 +580,8 @@ class AccountDetailsFragment : Fragment(),
             }
         }
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-            val extension: String = cameraFile.name.substring(cameraFile.name.lastIndexOf(".") + 1)
-            callingUploadPicApi(cameraFile, extension)
+            val extension: String = cameraFile?.name!!.substring(cameraFile?.name!!.lastIndexOf(".") + 1)
+            callingUploadPicApi(cameraFile!!, extension)
         } else {
             (requireActivity() as BaseActivity).showError(
                 "Please check Internet Connections to upload image",

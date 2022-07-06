@@ -33,10 +33,10 @@ class SkusListAdapter(
                 itemClickListener.onItemClicked(it,position,element.id.toString())
             }
             tvItemLandSkusName.text = element.name
-            tvItemLandSkusArea.text = "${element.areaRange.from} - ${element.areaRange.to} Sqft"
-            val amount = element.priceRange.from.toDouble() / 100000
+            tvItemLandSkusArea.text = "${element.areaRange?.from} - ${element.areaRange?.to} Sqft"
+            val amount = element.priceRange?.from!!.toDouble() / 100000
             val convertedFromAmount = String.format("%.0f",amount)
-            val amountTo = element.priceRange.to.toDouble() / 100000
+            val amountTo = element.priceRange!!.to.toDouble() / 100000
             val convertedToAmount = String.format("%.0f",amountTo)
             tvItemLandSkusPrice.text = "₹${convertedFromAmount}L - ₹${convertedToAmount}L"
             tvItemLandSkusDescription.text = element.shortDescription

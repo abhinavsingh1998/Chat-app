@@ -32,7 +32,7 @@ class PromisesAdapter(
             title.text = element.name
             Glide
                 .with(context)
-                .load(element.displayMedia.value.url)
+                .load(element.displayMedia?.value?.url)
                 .into(image)
 
         }

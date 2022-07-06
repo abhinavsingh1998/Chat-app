@@ -222,14 +222,14 @@ class CategoryListAdapter(
                     }
                     binding.apply {
                         tvProjectName.text = element.launchName
-                        val amount = element.priceStartingFrom.toDouble() / 100000
+                        val amount = element.priceStartingFrom!!.toDouble() / 100000
                         val convertedAmount = amount.toString().replace(".0","")
                         tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
                         tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
-                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
+                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph?.estimatedAppreciation!!.toDouble())}%"
                         Glide.with(context)
-                            .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                            .load(element.projectCoverImages?.newInvestmentPageMedia?.value?.url)
                             .into(ivCategoryImage)
                     }
                 }
@@ -250,9 +250,9 @@ class CategoryListAdapter(
                         tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
                         tvCategoryArea.text = element.areaStartingFrom + " Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
-                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
+                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph?.estimatedAppreciation!!.toDouble())}%"
                         Glide.with(context)
-                            .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                            .load(element.projectCoverImages?.newInvestmentPageMedia?.value?.url)
                             .into(ivCategoryImage)
                     }
                 }
