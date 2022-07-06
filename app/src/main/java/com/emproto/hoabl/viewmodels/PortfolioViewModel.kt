@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.emproto.hoabl.repository.PortfolioRepository
 import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.bookingjourney.BJHeader
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
 import com.emproto.networklayer.response.bookingjourney.PaymentHistory
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
@@ -33,6 +34,7 @@ class PortfolioViewModel(
     private var investmentInfo: InvestmentInformation? = null
     private lateinit var paymentHistory: List<PaymentHistory>
     private lateinit var investmentHeadingDetails: InvestmentHeadingDetails
+    private var bjHeader: BJHeader? = null
 
     fun getPortfolioDashboard(refresh: Boolean): LiveData<BaseResponse<PortfolioData>> {
         return portfolioRepository.getPortfolioDashboard(refresh)
@@ -116,4 +118,13 @@ class PortfolioViewModel(
     fun submitTroubleCase(signingRequest: TroubleSigningRequest): LiveData<BaseResponse<TroubleSigningResponse>> {
         return portfolioRepository.submitTroubleCase(signingRequest)
     }
+
+    fun saveBookingHeader(headerData: BJHeader) {
+        this.bjHeader = headerData
+    }
+
+    fun getBookingHeader(): BJHeader? {
+        return bjHeader
+    }
+
 }
