@@ -104,10 +104,10 @@ class NewInvestmentAdapter(
                     Glide.with(context)
                         .load(data.page.promotionAndOffersMedia.value.url)
                         .into(binding.ivDontMissImage)
-                    binding.cvDontMissImage.visibility = View.VISIBLE
+//                    binding.cvDontMissImage.visibility = View.VISIBLE
                 }
                 false -> {
-                    binding.cvDontMissImage.visibility = View.GONE
+//                    binding.cvDontMissImage.visibility = View.GONE
                 }
             }
 
