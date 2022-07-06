@@ -207,6 +207,7 @@
             android:fontFamily="@font/jost_regular"
             android:text="20 People saw this project in 7 days"
             android:textColor="@color/text_gold_colr"
+            android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@id/tv_apply_now"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cv_price_range" />
@@ -323,7 +324,7 @@
                     android:layout_marginTop="@dimen/margin_size_14"
                     android:fontFamily="@font/jost_semibold"
                     android:text="₹2L"
-                    style="@style/text_style_text_black_color_18"
+                    style="@style/text_style_text_black_color_16"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -337,7 +338,7 @@
                     android:fontFamily="@font/jost_mediumitalic"
                     android:text="Starting Price"
                     android:textColor="@color/text_lightgrey_color"
-                    android:textSize="@dimen/text_size_16"
+                    android:textSize="@dimen/text_size_14"
                     android:layout_marginTop="@dimen/margin_size_4"
                     android:textStyle="italic"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -358,7 +359,7 @@
             android:layout_marginTop="@dimen/margin_size_15"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/cv_price_range"
-            app:layout_constraintTop_toBottomOf="@id/tv_location_information_text">
+            app:layout_constraintTop_toBottomOf="@+id/tv_location_information_text">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -373,7 +374,7 @@
                     android:layout_marginTop="@dimen/margin_size_12"
                     android:fontFamily="@font/jost_bold"
                     android:text="2000 sqft"
-                    android:textSize="@dimen/text_size_18"
+                    android:textSize="@dimen/text_size_16"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -388,7 +389,7 @@
                     android:text="Starting Area"
                     android:layout_marginTop="@dimen/margin_size_4"
                     android:textColor="@color/text_lightgrey_color"
-                    android:textSize="@dimen/text_size_16"
+                    android:textSize="@dimen/text_size_14"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/tv_area_range"
                     app:layout_constraintStart_toStartOf="@id/tv_area_range"
@@ -433,6 +434,8 @@
             android:lineSpacingMultiplier="1.1"
             android:text="@string/reg_draft_text"
             android:textAlignment="center"
+            android:textSize="12sp"
+            android:textColor="#313131"
             app:layout_constraintEnd_toStartOf="@id/iv_reg_info"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cv_price_range" />
