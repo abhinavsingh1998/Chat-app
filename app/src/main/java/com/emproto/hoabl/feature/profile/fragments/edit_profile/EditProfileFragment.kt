@@ -146,20 +146,20 @@ class EditProfileFragment : BaseFragment() {
             myCalender.set(Calendar.DAY_OF_MONTH, dayofMonth)
             updateLable(myCalender)
         }
-        binding.tvDatePicker.onFocusChangeListener =
-            View.OnFocusChangeListener { p0, p1 ->
-                if (p1) {
-                    context?.let1 {
-                        DatePickerDialog(
-                            it,
-                            datePicker,
-                            myCalender.get(Calendar.YEAR),
-                            myCalender.get(Calendar.MONTH),
-                            myCalender.get(Calendar.DAY_OF_MONTH)
-                        ).show()
-                    }
-                }
-            }
+//        binding.tvDatePicker.onFocusChangeListener =
+//            View.OnFocusChangeListener { p0, p1 ->
+//                if (p1) {
+//                    context?.let1 {
+//                        DatePickerDialog(
+//                            it,
+//                            datePicker,
+//                            myCalender.get(Calendar.YEAR),
+//                            myCalender.get(Calendar.MONTH),
+//                            myCalender.get(Calendar.DAY_OF_MONTH)
+//                        ).show()
+//                    }
+//                }
+//            }
         binding.tvDatePicker.setOnClickListener {
             context?.let1 { it1 ->
                 DatePickerDialog(
