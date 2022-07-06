@@ -47,9 +47,7 @@ class CategoryListAdapter(
                     binding.tvApplyNowCategory.setOnClickListener {
                         clickListener.onItemClicked(view, 1, element.id.toString())
                     }
-                    binding.ivApplyNowCategory.setOnClickListener {
-                        clickListener.onItemClicked(view, 1, element.id.toString())
-                    }
+
                     binding.apply {
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom.toDouble() / 100000
@@ -71,9 +69,7 @@ class CategoryListAdapter(
                     binding.tvApplyNowCategory.setOnClickListener {
                         clickListener.onItemClicked(view, 1, element.id.toString())
                     }
-                    binding.ivApplyNowCategory.setOnClickListener {
-                        clickListener.onItemClicked(view, 1, element.id.toString())
-                    }
+
                     binding.apply {
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom.toDouble() / 100000
@@ -95,9 +91,7 @@ class CategoryListAdapter(
                     binding.tvApplyNowCategory.setOnClickListener {
                         clickListener.onItemClicked(view, 1, element.id.toString())
                     }
-                    binding.ivApplyNowCategory.setOnClickListener {
-                        clickListener.onItemClicked(view, 1, element.id.toString())
-                    }
+
                     binding.apply {
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom.toDouble() / 100000
@@ -119,9 +113,7 @@ class CategoryListAdapter(
                     binding.tvApplyNowCategory.setOnClickListener {
                         clickListener.onItemClicked(view, 1, element.id.toString())
                     }
-                    binding.ivApplyNowCategory.setOnClickListener {
-                        clickListener.onItemClicked(view, 1, element.id.toString())
-                    }
+
                     binding.apply {
                         tvProjectName.text = element.launchName
                         Log.d("dessrt", element.priceStartingFrom.toString())
@@ -144,9 +136,7 @@ class CategoryListAdapter(
                     binding.tvApplyNowCategory.setOnClickListener {
                         clickListener.onItemClicked(view, 1, element.id.toString())
                     }
-                    binding.ivApplyNowCategory.setOnClickListener {
-                        clickListener.onItemClicked(view, 1, element.id.toString())
-                    }
+
                     binding.apply {
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom.toDouble() / 100000
@@ -168,9 +158,7 @@ class CategoryListAdapter(
                     binding.tvApplyNowCategory.setOnClickListener {
                         clickListener.onItemClicked(view, 1, element.project.id.toString())
                     }
-                    binding.ivApplyNowCategory.setOnClickListener {
-                        clickListener.onItemClicked(view, 1, element.project.id.toString())
-                    }
+
                     binding.apply {
                         tvProjectName.text = element.project.launchName
                         val amount = element.project.priceStartingFrom.toDouble() / 100000
@@ -192,9 +180,7 @@ class CategoryListAdapter(
                     binding.tvApplyNowCategory.setOnClickListener {
                         clickListener.onItemClicked(view, 1, element.id.toString())
                     }
-                    binding.ivApplyNowCategory.setOnClickListener {
-                        clickListener.onItemClicked(view, 1, element.id.toString())
-                    }
+
                     binding.apply {
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom.toDouble() / 100000
@@ -217,9 +203,7 @@ class CategoryListAdapter(
                     binding.tvApplyNowCategory.setOnClickListener {
                         clickListener.onItemClicked(view, 1, element.id.toString())
                     }
-                    binding.ivApplyNowCategory.setOnClickListener {
-                        clickListener.onItemClicked(view, 1, element.id.toString())
-                    }
+
                     binding.apply {
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom.toDouble() / 100000
@@ -242,9 +226,7 @@ class CategoryListAdapter(
                     binding.tvApplyNowCategory.setOnClickListener {
                         clickListener.onItemClicked(view, 1, element.id.toString())
                     }
-                    binding.ivApplyNowCategory.setOnClickListener {
-                        clickListener.onItemClicked(view, 1, element.id.toString())
-                    }
+
                     binding.apply {
                         tvProjectName.text = element.launchName
                         tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
@@ -263,9 +245,6 @@ class CategoryListAdapter(
                         clickListener.onItemClicked(view, 0, element.id.toString())
                     }
                     binding.tvApplyNowCategory.setOnClickListener {
-                        clickListener.onItemClicked(view, 1, element.id.toString())
-                    }
-                    binding.ivApplyNowCategory.setOnClickListener {
                         clickListener.onItemClicked(view, 1, element.id.toString())
                     }
                     binding.apply {
