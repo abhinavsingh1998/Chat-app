@@ -31,7 +31,8 @@ class InvestmentAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val element = list[position]
         holder.binding.apply {
-            tvNoViews.text = Utility.coolFormat(element.fomoContent.noOfViews.toDouble(),0)
+//            tvNoViews.text = Utility.coolFormat(element.fomoContent.noOfViews.toDouble(),0)
+            tvNoViews.text = element.fomoContent.noOfViews.toString()
             tvItemLocationName.text = element.launchName
             tvItemLocation.text = "${element.address.city}, ${element.address.state}"
             val amount = element.priceStartingFrom.toDouble() / 100000
