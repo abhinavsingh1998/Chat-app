@@ -155,9 +155,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clType"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/_30sdp"
-        android:layout_marginRight="12dp"
+        android:layout_marginHorizontal="12dp"
         android:layout_marginBottom="18dp"
         android:background="@drawable/type_box"
         android:visibility="gone"
@@ -185,7 +185,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clSend"
-            android:layout_width="40dp"
+            android:layout_width="48dp"
             android:layout_height="match_parent"
             android:background="@drawable/send_button_bg"
             app:layout_constraintEnd_toEndOf="parent">

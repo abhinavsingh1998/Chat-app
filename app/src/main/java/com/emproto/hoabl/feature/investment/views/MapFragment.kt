@@ -169,9 +169,9 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         Handler().postDelayed({
             binding.cvBackButton.visibility = View.VISIBLE
             binding.mapLocationBottomSheet.clMapBottomSheet.visibility = View.VISIBLE
-            val anim = AnimationUtils.loadAnimation(this.requireContext(),R.anim.balloon_fade_in)
-            anim.duration = 3000
-            binding.mapLocationBottomSheet.clMapBottomSheet.startAnimation(anim)
+//            val anim = AnimationUtils.loadAnimation(this.requireContext(),R.anim.balloon_fade_in)
+//            anim.duration = 3000
+//            binding.mapLocationBottomSheet.clMapBottomSheet.startAnimation(anim)
 //            binding.cvBackButton.startAnimation(anim)
                               }, 2000)
 
@@ -298,7 +298,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             for (i in result.indices){
                 lineoption.addAll(result[i])
                 lineoption.width(10f)
-                lineoption.color(resources.getColor(android.R.color.holo_blue_dark))
+                lineoption.color(ContextCompat.getColor(requireContext(),android.R.color.holo_blue_dark))
                 lineoption.geodesic(true)
             }
             mMap.addPolyline(lineoption)

@@ -27,7 +27,8 @@ class TrendingProjectsAdapter(val context: Context, val list: List<PageManagemen
             tvItemLocationName.text = element.launchName
 //            tvItemLocation.text = ""
             tvItemLocationInfo.text = element.shortDescription
-            tvNoViews.text = Utility.coolFormat(element.fomoContent.noOfViews.toDouble(),0)
+//            tvNoViews.text = Utility.coolFormat(element.fomoContent.noOfViews.toDouble(),0)
+            tvNoViews.text = element.fomoContent.noOfViews.toString()
             val amount = element.priceStartingFrom.toDouble() / 100000
             val convertedAmount = amount.toString().replace(".0","")
             tvItemAmount.text = SpannableStringBuilder()
