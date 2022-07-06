@@ -22,7 +22,7 @@ import com.emproto.networklayer.response.home.PageManagementOrInsight
 
 class InsightsAdapter(
     val context: Context,
-    val itemcount:Data,
+    val itemcount: Data,
     val list: List<PageManagementOrInsight>,
     val itemIntrface: ItemClickListener
 ) : RecyclerView.Adapter<InsightsAdapter.MyViewHolder>() {
@@ -38,33 +38,42 @@ class InsightsAdapter(
         holder.binding.tvVideotitle.text = item.displayTitle
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Utility.convertStringIns(holder.binding.shortDesc,context,showHTMLText(item.insightsMedia[0].description).toString(),2)
+            Utility.convertStringIns(
+                holder.binding.shortDesc,
+                context,
+                showHTMLText(item.insightsMedia[0].description).toString(),
+                2
+            )
         }
 
-        if(item.insightsMedia[0].media!=null){
-                when(item.insightsMedia[0].media.value.mediaType){
-                    "VIDEO" -> {
-                        val url = item.insightsMedia[0].media.value.url.replace("https://www.youtube.com/embed/","")
-                        val youtubeUrl = "https://img.youtube.com/vi/${url}/hqdefault.jpg"
+        if (item.insightsMedia[0].media != null) {
+            when (item.insightsMedia[0].media.value.mediaType) {
+                "VIDEO" -> {
+                    val url = item.insightsMedia[0].media.value.url.replace(
+                        "https://www.youtube.com/embed/",
+                        ""
+                    )
+                    val youtubeUrl = "https://img.youtube.com/vi/${url}/hqdefault.jpg"
 
-                        holder.binding.playBtn.isVisible= true
-                        Glide.with(context)
-                            .load(youtubeUrl)
-                            .into(holder.binding.image)
-                    }
-                    else -> {
-                        Glide.with(context)
-                            .load(item.insightsMedia[0].media.value.url)
-                            .into(holder.binding.image)
-                    }
-                }}
+                    holder.binding.playBtn.isVisible = true
+                    Glide.with(context)
+                        .load(youtubeUrl)
+                        .into(holder.binding.image)
+                }
+                else -> {
+                    Glide.with(context)
+                        .load(item.insightsMedia[0].media.value.url)
+                        .into(holder.binding.image)
+                }
+            }
+        }
 
-        when{
+        when {
             item.insightsMedia[0].description.isNullOrEmpty() -> {
                 holder.binding.btnReadMore.visibility = View.GONE
             }
         }
-        holder.binding.tvVideotitle.text= item.displayTitle
+        holder.binding.tvVideotitle.text = item.displayTitle
 
         holder.binding.homeInsightsCard.setOnClickListener {
             itemIntrface.onItemClicked(it, position, item.id.toString())
@@ -73,11 +82,11 @@ class InsightsAdapter(
 
     override fun getItemCount(): Int {
 
-        var itemList= 0
-        if (itemcount.page.totalInsightsOnHomeScreen<list.size){
+        var itemList = 0
+        if (itemcount.page.totalInsightsOnHomeScreen < list.size) {
             itemList = itemcount.page.totalInsightsOnHomeScreen
-        } else{
-            itemList= list.size
+        } else {
+            itemList = list.size
         }
         return itemList
     }

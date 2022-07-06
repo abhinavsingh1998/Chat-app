@@ -6,7 +6,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/investment_layout"
+        android:id="@+id/top_header_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,34 +89,46 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/investment_list"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/investment_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/margin_size_12"
-        android:layout_marginLeft="@dimen/margin_size_12"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/investment_layout" />
+        app:layout_constraintTop_toBottomOf="@id/top_header_layout">
 
-    <com.emproto.core.textviews.CustomTextView
-        android:id="@+id/tv_viewall_investments"
-        style="@style/text_style_white_14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_size_20"
-        android:background="@drawable/button_bg"
-        android:drawableEnd="@drawable/combinedarrow"
-        android:drawablePadding="@dimen/margin_size_4"
-        android:gravity="center"
-        android:paddingHorizontal="@dimen/margin_size_35"
-        android:paddingTop="@dimen/margin_size_7"
-        android:paddingBottom="@dimen/margin_size_7"
-        android:singleLine="true"
-        android:text="@string/discover_our_investment"
-        app:fontName="@string/jost_medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/investment_list" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/investment_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/margin_size_12"
+            android:layout_marginLeft="@dimen/margin_size_12"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/tv_viewall_investments"
+            style="@style/text_style_white_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_size_20"
+            android:background="@drawable/button_bg"
+            android:drawableEnd="@drawable/combinedarrow"
+            android:drawablePadding="@dimen/margin_size_4"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/margin_size_35"
+            android:paddingTop="@dimen/margin_size_7"
+            android:paddingBottom="@dimen/margin_size_7"
+            android:singleLine="true"
+            android:text="@string/discover_our_investment"
+            app:fontName="@string/jost_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/investment_list" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

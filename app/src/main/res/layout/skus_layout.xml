@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/top_corner_radius_bg">
+        android:background="@color/white">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_choose_skus_apply_title"

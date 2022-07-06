@@ -1,7 +1,9 @@
 package com.emproto.hoabl.feature.investment.views
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.AsyncTask
@@ -11,6 +13,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -51,6 +55,10 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
     private var selectedPosition = -1
 
+    companion object{
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+    }
+
     private val mapItemClickListener = object : MapItemClickListener {
         override fun onItemClicked(view: View, position: Int, latitude: Double, longitude: Double) {
             when(view.id){
@@ -76,9 +84,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             data = it.getSerializable("Location") as MapLocationModel
             selectedPosition = it.getInt("ItemPosition")
         }
-        initMap()
         setUpUI()
-        setDataFromPrevious()
+        enableMyLocation()
     }
 
     private fun setDataFromPrevious() {
@@ -138,17 +145,16 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             .icon(BitmapFromVector(this.requireContext(), R.drawable.ic_baseline_location_on_24_red)))
         val urll = getDirectionURL(originLocation, destinationLocation, resources.getString(R.string.map_api_key))
         GetDirection(urll).execute()
-        val bounds = LatLngBounds.builder()
-            .include(originLocation)
-            .include(destinationLocation)
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 15F))
     }
 
-    private fun setUpUI() {
+    private fun setUpUI(){
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility = View.GONE
+    }
 
+    private fun initObserver() {
         investmentViewModel.getMapLocationInfrastructure().observe(viewLifecycleOwner, Observer {
             for(i in 0..it.values.size-1){
                 if(data?.destinationLatitude == it.values[i].latitude && data?.destinationLongitude == it.values[i].longitude){
@@ -173,6 +179,46 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             (requireActivity() as HomeActivity).onBackPressed()
         }
     }
+
+    private fun enableMyLocation() {
+        when {
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                initMap()
+                initObserver()
+                setDataFromPrevious()
+            }
+            else -> {
+                // You can directly ask for the permission.
+                // The registered ActivityResultCallback gets the result of this request.
+                requestPermissionLauncher.launch(
+                    Manifest.permission.ACCESS_COARSE_LOCATION)
+            }
+        }
+    }
+
+    val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                // Permission is granted. Continue the action or workflow in your
+                // app.
+                initMap()
+                initObserver()
+                setDataFromPrevious()
+            } else {
+                // Explain to the user that the feature is unavailable because the
+                // features requires a permission that the user has denied. At the
+                // same time, respect the user's decision. Don't link to system
+                // settings in an effort to convince the user to change their
+                // decision.
+                Toast.makeText(requireContext(), "Location permission required", Toast.LENGTH_SHORT).show()
+            }
+        }
+
 
     private fun addMarkers(googleMap: GoogleMap) {
         val bounds = LatLngBounds.builder()

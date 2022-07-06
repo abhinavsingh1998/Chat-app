@@ -281,7 +281,7 @@ class ProjectDetailFragment : BaseFragment() {
         val bundle = Bundle()
         bundle.putSerializable("Data", imagesList)
 //        bundle.putBoolean("isVideoSeeAllClicked",isVideoAllCLicked)
-        investmentViewModel.isVideoSeeAllClicked = true
+        investmentViewModel.isVideoSeeAllClicked = isVideoAllCLicked
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(fragment, false)
     }

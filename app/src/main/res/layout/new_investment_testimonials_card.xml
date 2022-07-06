@@ -29,7 +29,7 @@
         <com.emproto.core.textviews.CustomTextView
             android:id="@+id/tv_hear_speak_see_all"
             android:textColor="@color/text_blue_color"
-            android:textSize="@dimen/text_size_11"
+            android:textSize="@dimen/text_size_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_size_14"

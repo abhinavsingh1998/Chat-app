@@ -48,27 +48,33 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
      * @param pageType for promises it #5003
      * @return
      */
-    fun getPromises(pageType: Int, refresh: Boolean): LiveData<BaseResponse<PromisesResponse>> {
+    fun getPromises(pageType: Int, refresh: Boolean= false): LiveData<BaseResponse<PromisesResponse>> {
         if (mPromisesResponse.value == null || refresh) {
             mPromisesResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
-                    val request = HomeDataSource(application).getPromisesData(pageType)
-                    if (request.isSuccessful) {
-                        if (request.body()!!.data != null)
-                            mPromisesResponse.postValue(BaseResponse.success(request.body()!!))
-                        else
-                            mPromisesResponse.postValue(BaseResponse.Companion.error("No data found"))
-                    } else {
-                        mPromisesResponse.postValue(
-                            BaseResponse.Companion.error(
-                                getErrorMessage(
-                                    request.errorBody()!!.string()
+                    coroutineScope{
+                        val request = async { HomeDataSource(application).getPromisesData(pageType)}
+                        val promisesResponse= request.await()
+                        if (promisesResponse.isSuccessful) {
+                            if (promisesResponse.body()!!.data != null)
+                                mPromisesResponse.postValue(BaseResponse.success(promisesResponse.body()!!))
+                            else
+                                mPromisesResponse.postValue(BaseResponse.Companion.error("No data found"))
+                        } else {
+                            mPromisesResponse.postValue(
+                                BaseResponse.Companion.error(
+                                    getErrorMessage(
+                                        promisesResponse.errorBody()!!.string()
+                                    )
                                 )
                             )
-                        )
+                        }
+
                     }
-                } catch (e: Exception) {
+
+                }
+                catch (e: Exception) {
                     mPromisesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
                 }
             }
@@ -92,21 +98,33 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
             mHomeResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
-                    val request = HomeDataSource(application).getDashboardData(pageType)
-                    if (request.isSuccessful) {
-                        if (request.body()!!.data != null)
-                            mHomeResponse.postValue(BaseResponse.success(request.body()!!))
-                        else
-                            mHomeResponse.postValue(BaseResponse.Companion.error("No data found"))
-                    } else {
-                        mHomeResponse.postValue(
-                            BaseResponse.Companion.error(
-                                getErrorMessage(
-                                    request.errorBody()!!.string()
+
+                    coroutineScope{
+
+                        val dasboard = async { HomeDataSource(application).getDashboardData(pageType)}
+                        val actionItem= async { HomeDataSource(application).getActionItem() }
+
+                        val dashBoardResponse= dasboard.await()
+                        val actionItemResponse= actionItem.await()
+                        if (dashBoardResponse.isSuccessful) {
+                            if (dashBoardResponse.body()!!.data != null){
+                                if(actionItemResponse.isSuccessful){
+                                    dashBoardResponse.body()!!.data.actionItem = actionItemResponse.body()!!.data
+                                }
+                                mHomeResponse.postValue(BaseResponse.success(dashBoardResponse.body()!!))
+                            } else
+                                mHomeResponse.postValue(BaseResponse.Companion.error("No data found"))
+                        } else {
+                            mHomeResponse.postValue(
+                                BaseResponse.Companion.error(
+                                    getErrorMessage(
+                                        dashBoardResponse.errorBody()!!.string()
+                                    )
                                 )
                             )
-                        )
+                        }
                     }
+
                 } catch (e: Exception) {
                     mHomeResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
                 }
@@ -116,8 +134,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         return mHomeResponse
     }
 
-    fun getlatestUpdatesData(
-        refresh: Boolean = false,
+    fun getlatestUpdatesData(refresh: Boolean = false,
         byPrority: Boolean
     ): LiveData<BaseResponse<LatestUpdatesResponse>> {
 
@@ -493,35 +510,35 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
 //    }
 
 
-    fun getActionItem(refresh: Boolean = false): LiveData<BaseResponse<HomeActionItemResponse>> {
-
-        if ( mActionItem .value == null || refresh) {
-            mActionItem.postValue(BaseResponse.loading())
-            coroutineScope.launch {
-                try {
-                    val request = HomeDataSource(application).getActionItem()
-                    if (request.isSuccessful) {
-                        if (request.body()!!.data != null)
-                            mActionItem.postValue(BaseResponse.success(request.body()!!))
-                        else
-                            mTestimonials.postValue(BaseResponse.Companion.error("No data found"))
-                    } else {
-                        mTestimonials.postValue(
-                            BaseResponse.Companion.error(
-                                getErrorMessage(
-                                    request.errorBody()!!.string()
-                                )
-                            )
-                        )
-                    }
-                } catch (e: Exception) {
-                    mActionItem .postValue(BaseResponse.Companion.error(e.localizedMessage))
-                }
-            }
-
-        }
-        return  mActionItem
-    }
+//    fun getActionItem(refresh: Boolean = false): LiveData<BaseResponse<HomeActionItemResponse>> {
+//
+//        if ( mActionItem .value == null || refresh) {
+//            mActionItem.postValue(BaseResponse.loading())
+//            coroutineScope.launch {
+//                try {
+//                    val request = HomeDataSource(application).getActionItem()
+//                    if (request.isSuccessful) {
+//                        if (request.body()!!.data != null)
+//                            mActionItem.postValue(BaseResponse.success(request.body()!!))
+//                        else
+//                            mTestimonials.postValue(BaseResponse.Companion.error("No data found"))
+//                    } else {
+//                        mTestimonials.postValue(
+//                            BaseResponse.Companion.error(
+//                                getErrorMessage(
+//                                    request.errorBody()!!.string()
+//                                )
+//                            )
+//                        )
+//                    }
+//                } catch (e: Exception) {
+//                    mActionItem .postValue(BaseResponse.Companion.error(e.localizedMessage))
+//                }
+//            }
+//
+//        }
+//        return  mActionItem
+//    }
 
 
 

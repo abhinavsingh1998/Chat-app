@@ -7,7 +7,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
 import android.view.animation.BounceInterpolator
+import android.view.animation.ScaleAnimation
 import android.view.animation.TranslateAnimation
 import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
@@ -22,6 +24,7 @@ import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.networklayer.response.documents.Data
 import com.emproto.networklayer.response.portfolio.dashboard.GeneralInfoEscalationGraph
+import com.emproto.networklayer.response.portfolio.dashboard.InvestmentHeadingDetails
 import com.emproto.networklayer.response.portfolio.ivdetails.*
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
@@ -45,7 +48,8 @@ class PortfolioSpecificViewAdapter(
     private val context: Context,
     private val list: List<RecyclerViewItem>,
     private val ivInterface: InvestmentScreenInterface,
-    private val allMediaList: ArrayList<MediaViewItem>
+    private val allMediaList: ArrayList<MediaViewItem>,
+    private val headingDetails: InvestmentHeadingDetails
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -377,23 +381,6 @@ class PortfolioSpecificViewAdapter(
         }
     }
 
-//    fun slideToBottom(view: View) {
-//        val animate = TranslateAnimation(0f, 0f, 0f, view.height.toFloat() * 0.95f)
-//        animate.duration = 500
-//        animate.fillAfter = false
-//        view.startAnimation(animate)
-//        view.visibility = View.VISIBLE
-//    }
-//
-//    fun moveBottom(view: View) {
-//        val moveAnim: ObjectAnimator = ObjectAnimator.ofFloat(view, "Y", 1000f)
-//        moveAnim.duration = 2000
-//        moveAnim.interpolator = BounceInterpolator()
-//        moveAnim.start()
-//        view.visibility = View.VISIBLE
-//    }
-
-
     private inner class PendingViewHolder(private val binding: PendingItemsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
@@ -447,6 +434,7 @@ class PortfolioSpecificViewAdapter(
     private inner class LatestImagesVideosViewHolder(private val binding: LatestImagesVideosLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
+            binding.tvLatestImagesVideos.text = headingDetails.latestMediaGalleryHeading
             val imagesList = ArrayList<MediaViewItem>()
             var itemId = 0
             val allMediasList = ArrayList<MediaViewItem>()
@@ -533,6 +521,8 @@ class PortfolioSpecificViewAdapter(
     private inner class ApplicablePromisesViewHolder(private val binding: PortfolioApplicablePromisesBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
+            binding.tvApplicablePromises.text =
+                headingDetails.otherSectionHeadings.promises.sectionHeading
             val promisesData = list[position].data as ProjectPromises
             promisesAdapter = HoABLPromisesAdapter(context, promisesData.data, ivInterface)
             binding.rvApplicablePromises.adapter = promisesAdapter
@@ -547,6 +537,7 @@ class PortfolioSpecificViewAdapter(
         fun bind(position: Int) {
             binding.tvRating.text = "${list[position].ea} %"
             val graphData = list[position].data as GeneralInfoEscalationGraph
+            binding.tvPriceTrendsTitle.text = graphData.title
             binding.tvXAxisLabel.text = graphData.yAxisDisplayName
             binding.tvYAxisLabel.text = graphData.xAxisDisplayName
             val linevalues = ArrayList<Entry>()
@@ -662,6 +653,7 @@ class PortfolioSpecificViewAdapter(
     private inner class FaqViewHolder(private val binding: FaqLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
+            binding.tvFaqTitle.text = headingDetails.otherSectionHeadings.faqSections.subHeading
             val faqList = list[position].data as List<ProjectContentsAndFaq>
             faqAdapter = ProjectFaqAdapter(context, faqList, ivInterface)
             binding.rvFaq.adapter = faqAdapter
@@ -678,6 +670,7 @@ class PortfolioSpecificViewAdapter(
     private inner class SimilarInvestmentsViewHolder(private val binding: TrendingProjectsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
+            binding.tvTrendingProjectsTitle.text = headingDetails.similarInvestmentSectionHeading
             if (list[position].data != null) {
                 val itemList = list[position].data as List<SimilarInvestment>
                 similarInvestmentsAdapter =
@@ -752,6 +745,16 @@ class PortfolioSpecificViewAdapter(
         fun shareApp()
         fun onClickAsk()
         fun onDocumentView(name: String, path: String)
+    }
+
+    private fun setScaleAnimation(view: View) {
+        val anim = ScaleAnimation(
+            0.0f, 1.0f, 0.0f, 1.0f,
+            Animation.RELATIVE_TO_SELF, 0.5f,
+            Animation.RELATIVE_TO_SELF, 0.5f
+        )
+        anim.duration = 300
+        view.startAnimation(anim)
     }
 
 }

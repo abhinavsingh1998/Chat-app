@@ -13,6 +13,7 @@ import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.portfolio.dashboard.Address
+import com.emproto.networklayer.response.portfolio.dashboard.InvestmentHeadingDetails
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
@@ -31,6 +32,7 @@ class PortfolioViewModel(
     private lateinit var projectDetails: ProjectExtraDetails
     private var investmentInfo: InvestmentInformation? = null
     private lateinit var paymentHistory: List<PaymentHistory>
+    private lateinit var investmentHeadingDetails: InvestmentHeadingDetails
 
     fun getPortfolioDashboard(refresh: Boolean): LiveData<BaseResponse<PortfolioData>> {
         return portfolioRepository.getPortfolioDashboard(refresh)
@@ -46,6 +48,14 @@ class PortfolioViewModel(
 
     fun setprojectAddress(address: ProjectExtraDetails) {
         this.projectDetails = address
+    }
+
+    fun saveHeadingDetails(headingDetails: InvestmentHeadingDetails) {
+        this.investmentHeadingDetails = headingDetails
+    }
+
+    fun getHeadingDetails(): InvestmentHeadingDetails {
+        return this.investmentHeadingDetails
     }
 
     fun getprojectAddress(): ProjectExtraDetails {
