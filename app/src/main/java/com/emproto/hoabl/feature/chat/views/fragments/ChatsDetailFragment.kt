@@ -1,6 +1,8 @@
 package com.emproto.hoabl.feature.chat.views.fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -95,8 +97,6 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         chatsDetailAdapter = ChatsDetailAdapter(context, newChatMessageList, this)
         binding.rvChat.adapter = chatsDetailAdapter
 
-
-
         chatsList = arguments?.getSerializable("chatModel") as? ChatResponse.ChatList
         binding.tvChatTitle.text = chatsList?.project?.launchName
         context?.let {
@@ -105,6 +105,21 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                 .placeholder(R.drawable.ic_baseline_image_24).into(binding.ivChatThumb)
         }
         binding.ivBack.setOnClickListener { onBackPressed() }
+
+        binding.etType.addTextChangedListener(object:TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                when{
+
+                }
+            }
+
+        })
     }
 
     private fun getDay() {
@@ -130,7 +145,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                         addMessages(it.data!!.chatDetailList)
                         Log.i("newChat", newChatMessageList.toString())
                         chatsDetailAdapter.notifyDataSetChanged()
-
+                        binding.rvChat.smoothScrollToPosition(newChatMessageList.size-1)
                     }
                 }
                 Status.ERROR -> {
@@ -191,6 +206,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
 
                     chatsDetailAdapter.notifyDataSetChanged()
+                    binding.rvChat.smoothScrollToPosition(newChatMessageList.size-1)
                     break
                 }
             }
@@ -210,6 +226,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
             }
         } else if (option.actionType == ActionType.ALLOW_TYPING.name) {
             binding.clType.visibility = View.VISIBLE
+            binding.rvChat.smoothScrollToPosition(newChatMessageList.size-1)
             binding.ivSend.setOnClickListener {
                 if (binding.etType.text.isNotEmpty()) {
                     getTime()
@@ -227,6 +244,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                         )
                     )
                     chatsDetailAdapter.notifyDataSetChanged()
+                    binding.rvChat.smoothScrollToPosition(newChatMessageList.size-1)
                     binding.etType.text.clear();
 
 
@@ -246,6 +264,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                 )
             )
             chatsDetailAdapter.notifyDataSetChanged()
+            binding.rvChat.smoothScrollToPosition(newChatMessageList.size-1)
 
         }
     }

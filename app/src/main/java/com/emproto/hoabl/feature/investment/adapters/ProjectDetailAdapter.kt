@@ -162,14 +162,16 @@ class ProjectDetailAdapter(
             binding.apply {
                 tvProjectName.text = data.launchName
                 tvProjectLocation.text = "${data.address.city}, ${data.address.state}"
-                tvViewCount.text = Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)
+//                tvViewCount.text = Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)
+                tvViewCount.text = data.fomoContent.noOfViews.toString()
 //                tvDuration.text = "${data.fomoContent.targetTime.hours}:${data.fomoContent.targetTime.minutes}:${data.fomoContent.targetTime.seconds} Hrs Left"
                 val amount = data.priceStartingFrom.toDouble() / 100000
                 val convertedAmount = amount.toString().replace(".0","")
                 tvPriceRange.text = "₹${convertedAmount} L"
                 tvAreaRange.text = "${data.areaStartingFrom} Sqft"
                 tvProjectViewInfo.text = SpannableStringBuilder()
-                    .bold { append("${Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)} People") }
+//                    .bold { append("${Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)} People") }
+                    .bold { append("${data.fomoContent.noOfViews} People") }
                     .append( " saw this in ${data.fomoContent.days} days" )
                 var regString = ""
                 for(item in data.reraDetails.reraNumbers){
