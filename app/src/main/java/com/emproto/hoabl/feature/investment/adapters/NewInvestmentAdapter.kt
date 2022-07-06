@@ -77,7 +77,8 @@ class NewInvestmentAdapter(
                 .append("${data.pageManagementsOrNewInvestments[0].areaStartingFrom} Sqft")
             binding.tvBackgroundGrey.text = data.pageManagementsOrNewInvestments[0].shortDescription
             binding.tvViewInfo.text = SpannableStringBuilder()
-                .bold { append("${Utility.coolFormat(data.pageManagementsOrNewInvestments[0].fomoContent.noOfViews.toDouble(),0)} People") }
+//                .bold { append("${Utility.coolFormat(data.pageManagementsOrNewInvestments[0].fomoContent.noOfViews.toDouble(),0)} People") }
+                .bold { append("${data.pageManagementsOrNewInvestments[0].fomoContent.noOfViews} People") }
                 .append( " saw this in ${data.pageManagementsOrNewInvestments[0].fomoContent.days} days" )
 
             val listViews = ArrayList<String>()

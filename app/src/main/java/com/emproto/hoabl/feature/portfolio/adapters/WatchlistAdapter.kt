@@ -40,8 +40,8 @@ class WatchlistAdapter(
             tvItemArea.text = SpannableStringBuilder()
                 .bold { append("${element.project.areaStartingFrom} Sqft") }
                 .append(" Onwards")
-            tvNoViews.text =
-                Utility.coolFormat(element.project.fomoContent.noOfViews.toDouble(), 0)
+            tvNoViews.text = element.project.fomoContent.noOfViews.toString()
+//                Utility.coolFormat(element.project.fomoContent.noOfViews.toDouble(), 0)
             tvItemLocationInfo.text = element.project.shortDescription
             tvRating.text = "${element.project.estimatedAppreciation}%"
         }

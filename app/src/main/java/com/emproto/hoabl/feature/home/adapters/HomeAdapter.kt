@@ -206,14 +206,28 @@ class HomeAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(position: Int) {
-            pendingPaymentsAdapter = PendingPaymentsAdapter(
-                context,
-                data.actionItem,
-                itemClickListener
-            )
-            binding.kycLayoutCard.adapter = pendingPaymentsAdapter
-            TabLayoutMediator(binding.tabDot, binding.kycLayoutCard) { _, _ ->
-            }.attach()
+
+            if(data.actionItem== null){
+                binding.kycLayout.isVisible= false
+                pendingPaymentsAdapter = PendingPaymentsAdapter(
+                    context,
+                    data.actionItem,
+                    itemClickListener
+                )
+
+            } else {
+                pendingPaymentsAdapter = PendingPaymentsAdapter(
+                    context,
+                    data.actionItem,
+                    itemClickListener
+                )
+
+                binding.kycLayoutCard.adapter = pendingPaymentsAdapter
+                TabLayoutMediator(binding.tabDot, binding.kycLayoutCard) { _, _ ->
+                }.attach()
+            }
+
+
         }
     }
 

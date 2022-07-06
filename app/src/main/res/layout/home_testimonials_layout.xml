@@ -39,7 +39,7 @@
             app:fontName="@string/jost_regular"
             app:layout_constraintBottom_toBottomOf="@+id/textview6"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/textview6" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/testimonials_recyclerview"

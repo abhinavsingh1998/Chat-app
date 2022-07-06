@@ -340,7 +340,6 @@ class FeedbackFragment : BaseFragment() {
                         Status.SUCCESS ->{
                             binding.progressBar.isVisible= false
                             binding.shareYourFeedback.isVisible= true
-                            binding.shareYourFeedback.isClickable= false
 
                             val dialog = FeedBackSubmittedPopup()
                             dialog.isCancelable = false

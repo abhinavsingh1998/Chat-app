@@ -74,7 +74,7 @@ class HomeFragment : BaseFragment() {
 
     lateinit var testimonilalsHeading: String
     lateinit var testimonilalsSubHeading: String
-    lateinit var actionItemType: List<com.emproto.networklayer.response.actionItem.Data>
+    private var actionItemType= ArrayList<com.emproto.networklayer.response.actionItem.Data>()
 
 
     var fmData: FMResponse? = null
@@ -136,7 +136,13 @@ class HomeFragment : BaseFragment() {
                                 testimonilalsSubHeading =
                                     it!!.data!!.data.page.testimonialsSubHeading
 
-                                actionItemType = it!!.data!!.data!!.actionItem
+                                if(it!!.data!!.data.actionItem != null){
+                                    for(item in it!!.data!!.data!!.actionItem ){
+                                        actionItemType.add(item)
+                                    }
+
+                                }
+
 
                                 it.data.let {
                                     if (it != null) {

@@ -97,6 +97,7 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
                     }
                 })
                 initObserver()
+                mBinding.listInsights.layoutManager?.scrollToPosition(0)
             }
         })
     }
@@ -116,6 +117,7 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
                     }
                 })
                 initObserver()
+                mBinding.listInsights.layoutManager?.scrollToPosition(0)
             }
 
         })

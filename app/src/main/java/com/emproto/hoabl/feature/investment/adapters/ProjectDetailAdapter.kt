@@ -136,7 +136,7 @@ class ProjectDetailAdapter(
             val list = ArrayList<RecyclerViewItem>()
             val listViews = ArrayList<String>()
             listViews.add(data.projectCoverImages.newInvestmentPageMedia.value.url)
-            for(item in data.mediaGalleryOrProjectContent[0].images){
+            for(item in data.mediaGalleryOrProjectContent[0].images!!){
                 listViews.add(item.mediaContent.value.url)
                 list.add(RecyclerViewItem(1))
             }
@@ -162,14 +162,16 @@ class ProjectDetailAdapter(
             binding.apply {
                 tvProjectName.text = data.launchName
                 tvProjectLocation.text = "${data.address.city}, ${data.address.state}"
-                tvViewCount.text = Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)
+//                tvViewCount.text = Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)
+                tvViewCount.text = data.fomoContent.noOfViews.toString()
 //                tvDuration.text = "${data.fomoContent.targetTime.hours}:${data.fomoContent.targetTime.minutes}:${data.fomoContent.targetTime.seconds} Hrs Left"
                 val amount = data.priceStartingFrom.toDouble() / 100000
                 val convertedAmount = amount.toString().replace(".0","")
                 tvPriceRange.text = "₹${convertedAmount} L"
                 tvAreaRange.text = "${data.areaStartingFrom} Sqft"
                 tvProjectViewInfo.text = SpannableStringBuilder()
-                    .bold { append("${Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)} People") }
+//                    .bold { append("${Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)} People") }
+                    .bold { append("${data.fomoContent.noOfViews} People") }
                     .append( " saw this in ${data.fomoContent.days} days" )
                 var regString = ""
                 for(item in data.reraDetails.reraNumbers){
@@ -460,10 +462,10 @@ class ProjectDetailAdapter(
         fun bind(position: Int){
             binding.tvVideoTitle.text = data.mediaGallerySectionHeading
             val itemList = ArrayList<YoutubeModel>()
-            for(item in data.mediaGalleryOrProjectContent[0].videos){
+            for(item in data.mediaGalleryOrProjectContent[0].videos!!){
                 itemList.add(YoutubeModel(title = item.name, url = item.mediaContent.value.url))
             }
-            for(item in data.mediaGalleryOrProjectContent[0].droneShoots){
+            for(item in data.mediaGalleryOrProjectContent[0].droneShoots!!){
                 itemList.add(YoutubeModel(title = item.name, url = item.mediaContent.value.url))
             }
             videoDroneAdapter = VideoDroneAdapter(itemList,videoItemClickListener)
