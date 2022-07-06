@@ -37,7 +37,8 @@ class InvestmentCardAdapter(
         holder.binding.tvItemLocation.text = item.address.city + "," + item.address.state
         holder.binding.tvRating.text =
             item.generalInfoEscalationGraph.estimatedAppreciation.toString() + "%"
-        holder.binding.tvNoViews.text = Utility.coolFormat(item.fomoContent.noOfViews.toDouble(), 0)
+        holder.binding.tvNoViews.text= item.fomoContent.noOfViews.toString()
+//        holder.binding.tvNoViews.text = Utility.coolFormat(item.fomoContent.noOfViews.toDouble(), 0)
 
         val amount = item.priceStartingFrom.toDouble() / 100000
         val convertedAmount = amount.toString().replace(".0", "")
