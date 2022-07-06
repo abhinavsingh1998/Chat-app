@@ -45,7 +45,7 @@ class InvestmentAdapter(
             tvItemLocationInfo.text = element.shortDescription
             Glide
                 .with(context)
-                .load(element.projectCoverImages?.newInvestmentPageMedia?.value?.url)
+                .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
                 .into(ivItemImage)
 
             cvTopView.setOnClickListener {
