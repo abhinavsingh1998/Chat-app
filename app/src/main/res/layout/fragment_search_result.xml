@@ -53,7 +53,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/search_layout">
+                >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_search_info"
@@ -116,7 +116,7 @@
                         style="@style/text_style_text_color_16"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_size_10"
+                        android:layout_marginStart="@dimen/margin_size_10"
                         android:layout_marginTop="@dimen/margin_size_30"
                         android:gravity="start|center"
                         android:text="FAQs"
@@ -128,7 +128,6 @@
                         android:id="@+id/faqs_list"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:clipToPadding="true"
                         android:orientation="vertical"
                         android:paddingBottom="@dimen/margin_size_10"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

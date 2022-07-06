@@ -1,8 +1,10 @@
 package com.emproto.hoabl.feature.home.views.fragments
 
 
+import android.Manifest
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -12,6 +14,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -52,9 +58,13 @@ class SearchResultFragment : BaseFragment() {
 
     lateinit var documentAdapter: DocumentsAdapter
 
+    private var isReadPermissonGranted: Boolean = false
+    private var isWritePermissonGranted: Boolean = false
     private var topText = ""
     val faqList = ArrayList<ProjectContentsAndFaq>()
     val docList = ArrayList<Data>()
+    private var base64Data = ""
+    private val permissionRequest: MutableList<String> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -250,6 +260,7 @@ class SearchResultFragment : BaseFragment() {
                                     fragmentSearchResultBinding.tvDocuments.visibility = View.VISIBLE
                                     fragmentSearchResultBinding.documentsList.visibility = View.VISIBLE
                                     fragmentSearchResultBinding.tvNoData.visibility = View.GONE
+                                    docList.clear()
                                     for (item in data) {
                                         docList.add(item)
                                     }
@@ -325,8 +336,53 @@ class SearchResultFragment : BaseFragment() {
 
     val ivinterface = object : DocumentInterface {
         override fun onclickDocument(name: String, path: String) {
-            openDocument(name,path)
+            when(path){
+                "" -> {
+                    Toast.makeText(requireContext(), "No data available", Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+                    when {
+                        name.contains("jpg",true) ->  {
+                            //open image loading screen
+                            openDocument(name, path)
+                        }
+                        name.contains("png",true) ->  {
+                            //open image loading screen
+                            openDocument(name, path)
+                        }
+                        name.contains("pdf",false) -> {
+                            getDocumentData(path)
+                        }
+                        else -> {
+                            Toast.makeText(context, "Invalid format", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+
         }
+    }
+
+    fun getDocumentData(path: String) {
+        homeViewModel.downloadDocument(path)
+            .observe(viewLifecycleOwner,
+                androidx.lifecycle.Observer {
+                    when (it.status) {
+                        Status.LOADING -> {
+                            fragmentSearchResultBinding.progressBar.show()
+                        }
+                        Status.SUCCESS -> {
+                            fragmentSearchResultBinding.progressBar.hide()
+                            requestPermisson(it.data!!.data)
+                        }
+                        Status.ERROR -> {
+                            fragmentSearchResultBinding.progressBar.hide()
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                it.message!!
+                            )
+                        }
+                    }
+                })
     }
 
     private fun openDocument(name: String, path: String) {
@@ -334,7 +390,65 @@ class SearchResultFragment : BaseFragment() {
             DocViewerFragment.newInstance(true, name, path),
             false
         )
+    }
 
+    private fun requestPermisson(base64: String) {
+        isReadPermissonGranted = ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+
+        isWritePermissonGranted = ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if (!isReadPermissonGranted || !isWritePermissonGranted) {
+            permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
+            permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        } else {
+            openPdf(base64)
+        }
+        if (permissionRequest.isNotEmpty()) {
+            base64Data = base64
+            permissionLauncher.launch(permissionRequest.toTypedArray())
+        }
+
+    }
+
+    val permissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            isReadPermissonGranted =
+                permissions[Manifest.permission.READ_EXTERNAL_STORAGE]
+                    ?: isReadPermissonGranted
+            isWritePermissonGranted = permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE]
+                ?: isWritePermissonGranted
+
+            if (isReadPermissonGranted && isWritePermissonGranted) {
+                openPdf(base64Data)
+            }
+        }
+
+    private fun openPdf(stringBase64: String) {
+        val file = Utility.writeResponseBodyToDisk(stringBase64)
+        if (file != null) {
+            val path = FileProvider.getUriForFile(
+                requireContext(),
+                requireContext().applicationContext.packageName + ".provider",
+                file
+            )
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            intent.setDataAndType(path, "application/pdf")
+            try {
+                startActivity(intent)
+            } catch (e: Exception) {
+                Log.e("Error:openPdf: ", e.localizedMessage)
+            }
+        } else {
+            (requireActivity() as HomeActivity).showErrorToast("Something Went Wrong")
+        }
     }
 
     val investmentScreenInterface =
