@@ -51,6 +51,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin_size_5"
             android:paddingLeft="@dimen/margin_size_8"
+            android:saveEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textview2" />

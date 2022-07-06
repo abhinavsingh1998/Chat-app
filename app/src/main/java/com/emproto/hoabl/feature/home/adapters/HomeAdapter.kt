@@ -246,6 +246,8 @@ class HomeAdapter(
                 itemClickListener.onItemClicked(it, position, "")
             })
 
+//          binding.latesUpdatesRecyclerview.getLayoutManager()!!.onRestoreInstanceState()
+
             linearLayoutManager = LinearLayoutManager(
                 context,
                 RecyclerView.HORIZONTAL,

@@ -32,10 +32,10 @@ class InvestmentAdapter(
         val element = list[position]
         holder.binding.apply {
 //            tvNoViews.text = Utility.coolFormat(element.fomoContent.noOfViews.toDouble(),0)
-            tvNoViews.text = element.fomoContent.noOfViews.toString()
+            tvNoViews.text = element.fomoContent?.noOfViews.toString()
             tvItemLocationName.text = element.launchName
-            tvItemLocation.text = "${element.address.city}, ${element.address.state}"
-            val amount = element.priceStartingFrom.toDouble() / 100000
+            tvItemLocation.text = "${element.address!!.city}, ${element.address!!.state}"
+            val amount = element.priceStartingFrom!!.toDouble() / 100000
             val convertedAmount = amount.toString().replace(".0","")
             tvItemAmount.text = SpannableStringBuilder()
                 .bold { append("₹${convertedAmount} L") }
@@ -46,7 +46,7 @@ class InvestmentAdapter(
             tvItemLocationInfo.text = element.shortDescription
             Glide
                 .with(context)
-                .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                .load(element.projectCoverImages!!.newInvestmentPageMedia.value.url)
                 .into(ivItemImage)
 
             cvTopView.setOnClickListener {
