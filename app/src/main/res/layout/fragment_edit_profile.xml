@@ -628,6 +628,7 @@
                         android:fontFamily="@font/jost_regular"
                         android:gravity="center|left"
                         android:inputType="number"
+                        android:maxLength="6"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
