@@ -136,7 +136,7 @@ class ProjectDetailAdapter(
             val list = ArrayList<RecyclerViewItem>()
             val listViews = ArrayList<String>()
             listViews.add(data.projectCoverImages.newInvestmentPageMedia.value.url)
-            for(item in data.mediaGalleryOrProjectContent[0].images){
+            for(item in data.mediaGalleryOrProjectContent[0].images!!){
                 listViews.add(item.mediaContent.value.url)
                 list.add(RecyclerViewItem(1))
             }
@@ -460,10 +460,10 @@ class ProjectDetailAdapter(
         fun bind(position: Int){
             binding.tvVideoTitle.text = data.mediaGallerySectionHeading
             val itemList = ArrayList<YoutubeModel>()
-            for(item in data.mediaGalleryOrProjectContent[0].videos){
+            for(item in data.mediaGalleryOrProjectContent[0].videos!!){
                 itemList.add(YoutubeModel(title = item.name, url = item.mediaContent.value.url))
             }
-            for(item in data.mediaGalleryOrProjectContent[0].droneShoots){
+            for(item in data.mediaGalleryOrProjectContent[0].droneShoots!!){
                 itemList.add(YoutubeModel(title = item.name, url = item.mediaContent.value.url))
             }
             videoDroneAdapter = VideoDroneAdapter(itemList,videoItemClickListener)

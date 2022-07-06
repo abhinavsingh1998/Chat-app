@@ -216,7 +216,7 @@ class ProjectDetailFragment : BaseFragment() {
         Log.d("cscscs", mediaData.toString())
         var itemId = 0
         for (i in 0..mediaData.size - 1) {
-            for (item in mediaData[i].droneShoots) {
+            for (item in mediaData[i].droneShoots!!) {
                 itemId++
                 imagesList.add(
                     MediaViewItem(
@@ -228,7 +228,7 @@ class ProjectDetailFragment : BaseFragment() {
                     )
                 )
             }
-            for (item in mediaData[i].images) {
+            for (item in mediaData[i].images!!) {
                 itemId++
                 imagesList.add(
                     MediaViewItem(
@@ -240,7 +240,7 @@ class ProjectDetailFragment : BaseFragment() {
                     )
                 )
             }
-            for (item in mediaData[i].videos) {
+            for (item in mediaData[i].videos!!) {
                 itemId++
                 imagesList.add(
                     MediaViewItem(
@@ -252,7 +252,7 @@ class ProjectDetailFragment : BaseFragment() {
                     )
                 )
             }
-            for (item in mediaData[i].threeSixtyImages) {
+            for (item in mediaData[i].threeSixtyImages!!) {
                 itemId++
                 imagesList.add(
                     MediaViewItem(
@@ -264,7 +264,7 @@ class ProjectDetailFragment : BaseFragment() {
                     )
                 )
             }
-            for (item in mediaData[i].coverImage) {
+            for (item in mediaData[i].coverImage!!) {
                 itemId++
                 imagesList.add(
                     MediaViewItem(
@@ -414,10 +414,10 @@ class ProjectDetailFragment : BaseFragment() {
                                 investmentViewModel.setWatchListId(item.watchlist.id)
                             }
                         }
-                        investmentViewModel.setImageActive(data.projectContent.mediaGalleryOrProjectContent[0].isImagesActive)
-                        investmentViewModel.setVideoActive(data.projectContent.mediaGalleryOrProjectContent[0].isVideosActive)
-                        investmentViewModel.setDroneActive(data.projectContent.mediaGalleryOrProjectContent[0].isDroneShootsActive)
-                        investmentViewModel.setThreeSixtyActive(data.projectContent.mediaGalleryOrProjectContent[0].isThreeSixtyImagesActive)
+                        investmentViewModel.setImageActive(data.projectContent.mediaGalleryOrProjectContent[0].isImagesActive!!)
+                        investmentViewModel.setVideoActive(data.projectContent.mediaGalleryOrProjectContent[0].isVideosActive!!)
+                        investmentViewModel.setDroneActive(data.projectContent.mediaGalleryOrProjectContent[0].isDroneShootsActive!!)
+                        investmentViewModel.setThreeSixtyActive(data.projectContent.mediaGalleryOrProjectContent[0].isThreeSixtyImagesActive!!)
                         similarInvestments = data.projectContent.similarInvestments
                         inventoryList = data.projectContent.inventoriesList.projectContent.inventoryBucketContents!!
                         setUpRecyclerView(

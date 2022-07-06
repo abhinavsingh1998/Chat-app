@@ -1,19 +1,19 @@
 package com.emproto.networklayer.response.investment
 
 data class MediaGalleryOrProjectContent(
-    val coverImage: List<CoverImage>,
-    val createdAt: String,
-    val droneShoots: List<DroneShoot>,
-    val id: Int,
-    val images: List<Image>,
-    val isCoverImageActive: Boolean,
-    val isDroneShootsActive: Boolean,
-    val isImagesActive: Boolean,
-    val isThreeSixtyImagesActive: Boolean,
-    val isVideosActive: Boolean,
-    val latestMedaiGalleryProjectContentId: Any,
-    val medaiGalleryProjectContentId: Int,
-    val threeSixtyImages: List<ThreeSixtyImage>,
-    val updatedAt: String,
-    val videos: List<Video>
+    val coverImage: List<CoverImage>?=null,
+    val createdAt: String?=null,
+    val droneShoots: List<DroneShoot>?=null,
+    val id: Int?=null,
+    val images: List<Image>?=null,
+    val isCoverImageActive: Boolean?=null,
+    val isDroneShootsActive: Boolean?=null,
+    val isImagesActive: Boolean?=null,
+    val isThreeSixtyImagesActive: Boolean?=null,
+    val isVideosActive: Boolean?=null,
+    val latestMedaiGalleryProjectContentId: Any?=null,
+    val medaiGalleryProjectContentId: Int?=null,
+    val threeSixtyImages: List<ThreeSixtyImage>?=null,
+    val updatedAt: String?=null,
+    val videos: List<Video>?=null
 )
