@@ -30,13 +30,16 @@ import com.emproto.hoabl.utils.Extensions.toData
 import com.emproto.hoabl.utils.Extensions.toHomePagesOrPromise
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.HomeViewModel
+import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
+import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.enum.ModuleEnum
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.HomeActionItemResponse
 import com.emproto.networklayer.response.actionItem.HomeActionItem
+import com.emproto.networklayer.response.bookingjourney.BJHeader
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
@@ -78,6 +81,10 @@ class HomeFragment : BaseFragment() {
 
 
     var fmData: FMResponse? = null
+
+    @Inject
+    lateinit var portfolioFactory: PortfolioFactory
+    lateinit var portfolioViewModel: PortfolioViewModel
 
     @Inject
     lateinit var appPreference: AppPreference
@@ -360,10 +367,25 @@ class HomeFragment : BaseFragment() {
 
                 R.id.see_all_pending_payment -> {
                     if (actionItemType[position].actionItemType == 50) {
+                        val actionItemData = actionItemType[position]
+                        portfolioViewModel =
+                            ViewModelProvider(
+                                requireActivity(),
+                                portfolioFactory
+                            )[PortfolioViewModel::class.java]
+
+                        val bjHeader = BJHeader(
+                            actionItemData.launchName,
+                            actionItemData.address?.let { it.city } + " , " + actionItemData.address?.let { it.state },
+                            actionItemData.bookingStatus,
+                            actionItemData.primaryOwner,
+                            actionItemData.inventoryId
+                        )
+                        portfolioViewModel.saveBookingHeader(bjHeader)
 
                         (requireActivity() as HomeActivity).addFragment(
                             BookingjourneyFragment.newInstance(
-                                actionItemType[position].investmentId,
+                                actionItemData.investmentId,
                                 ""
                             ), true
                         )
