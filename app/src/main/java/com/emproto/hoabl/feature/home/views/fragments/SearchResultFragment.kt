@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.home.views.fragments
 
 
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -11,10 +12,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.emproto.core.BaseFragment
+import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentSearchResultBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -244,20 +247,23 @@ class SearchResultFragment : BaseFragment() {
                                 }
                                 else -> {
                                     Log.d("getget", data.toString())
+                                    fragmentSearchResultBinding.tvDocuments.visibility = View.VISIBLE
+                                    fragmentSearchResultBinding.documentsList.visibility = View.VISIBLE
+                                    fragmentSearchResultBinding.tvNoData.visibility = View.GONE
                                     for (item in data) {
                                         docList.add(item)
                                     }
                                     documentAdapter = DocumentsAdapter(docList, false, ivinterface)
                                     fragmentSearchResultBinding.documentsList.adapter =
                                         documentAdapter
-                                    when (docList.size) {
-                                        0 -> {
-                                            fragmentSearchResultBinding.tvDocuments.visibility =
-                                                View.GONE
-                                            fragmentSearchResultBinding.documentsList.visibility =
-                                                View.GONE
-                                        }
-                                    }
+//                                    when (docList.size) {
+//                                        0 -> {
+//                                            fragmentSearchResultBinding.tvDocuments.visibility =
+//                                                View.GONE
+//                                            fragmentSearchResultBinding.documentsList.visibility =
+//                                                View.GONE
+//                                        }
+//                                    }
                                 }
                             }
                         } else {
@@ -319,15 +325,16 @@ class SearchResultFragment : BaseFragment() {
 
     val ivinterface = object : DocumentInterface {
         override fun onclickDocument(name: String, path: String) {
-            openDocument(0)
+            openDocument(name,path)
         }
     }
 
-    private fun openDocument(position: Int) {
+    private fun openDocument(name: String, path: String) {
         (requireActivity() as HomeActivity).addFragment(
-            DocViewerFragment.newInstance(false, "Doc Name", ""),
+            DocViewerFragment.newInstance(true, name, path),
             false
         )
+
     }
 
     val investmentScreenInterface =

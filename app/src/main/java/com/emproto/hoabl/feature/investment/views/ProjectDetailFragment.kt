@@ -384,7 +384,6 @@ class ProjectDetailFragment : BaseFragment() {
                 }
             }
         })
-
     }
 
     private fun callProjectIdApi(promiseData: List<PmData>) {

@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.portfolio.views
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.media.ExifInterface
@@ -13,6 +14,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -80,6 +82,7 @@ class DocViewerFragment : BaseFragment() {
         (requireActivity() as HomeActivity).hideHeader()
         (requireActivity() as HomeActivity).hideBottomNavigation()
         initView()
+        Log.d("tete",imageUrl.toString())
         if (fromPath) {
             initObserver()
         } else {
@@ -111,12 +114,49 @@ class DocViewerFragment : BaseFragment() {
                         Status.SUCCESS -> {
                             binding.tvMediaImageName.text = name
                             binding.progressBar.visibility = View.GONE
-                            val bitmap = Utility.getBitmapFromBase64(it.data!!.data)
-                            val rotatedBitmap = bitmap?.let { it1 -> rotateImage(it1,90f) }
-                            binding.ivMediaPhoto.setImageBitmap(rotatedBitmap)
+                            Log.d("EEe",it.data?.data.toString())
+                            when{
+                                name!!.contains("pdf", ignoreCase = true) -> {
+                                    openPdf(it.data!!.data)
+                                }
+                                name!!.contains("jpg", ignoreCase = true) -> {
+                                    openImage(it.data!!.data)
+                                }
+                            }
                         }
                     }
                 })
+    }
+
+    private fun openImage(data: String) {
+        val bitmap = Utility.getBitmapFromBase64(data)
+        val rotatedBitmap = bitmap?.let { it1 -> rotateImage(it1,90f) }
+        binding.ivMediaPhoto.setImageBitmap(rotatedBitmap)
+    }
+
+    private fun openPdf(stringBase64: String) {
+        Log.d("Base",stringBase64.toString())
+        val file = Utility.writeResponseBodyToDisk(stringBase64)
+        if (file != null) {
+            val path = FileProvider.getUriForFile(
+                requireContext(),
+                requireContext().applicationContext.packageName + ".provider",
+                file!!
+            )
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(path, "application/pdf")
+            try {
+                startActivity(intent)
+            } catch (e: Exception) {
+                Log.e("Error:openPdf: ", e.localizedMessage)
+            }
+        } else {
+            (requireActivity() as HomeActivity).showErrorToast("Something Went Wrong")
+        }
+
+
     }
 
     fun bitmapToFile(bitmap: Bitmap, fileNameToSave: String): File? { // File name like "image.png"
