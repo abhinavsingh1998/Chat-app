@@ -27,9 +27,7 @@ class SucessDialogFragment : DialogFragment(), View.OnClickListener {
             val firstName = it.getString("FirstName")
             sucessLayoutBinding.nameTag.text = "Dear $firstName ,"
         }
-
         clickListner()
-        showDialog()
         return sucessLayoutBinding.root
     }
 
@@ -39,16 +37,23 @@ class SucessDialogFragment : DialogFragment(), View.OnClickListener {
 
     fun clickListner(){
         sucessLayoutBinding.continueBtn.setOnClickListener(View.OnClickListener {
-            startActivity(Intent(requireContext(), HomeActivity::class.java))
-            requireActivity().finish()
+           startHome(true)
         })
     }
 
-     fun showDialog (){
-         Handler().postDelayed({
-             startActivity(Intent(this.requireContext(), HomeActivity::class.java))
-             requireActivity().finish()
-         }, 5000)
-     }
+//     fun showDialog (){
+//         Handler().postDelayed({
+//             startHome(false)
+//             startActivity(Intent(requireContext(), HomeActivity::class.java))
+//             requireActivity().finish()
+//         }, 5000)
+//     }
+
+    fun startHome(clickedCheck:Boolean){
+        if(clickedCheck==true){
+            startActivity(Intent(requireContext(), HomeActivity::class.java))
+            requireActivity().finish()
+        }
+    }
 
 }

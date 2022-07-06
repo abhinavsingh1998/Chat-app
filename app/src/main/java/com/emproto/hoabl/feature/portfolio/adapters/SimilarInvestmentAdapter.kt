@@ -43,8 +43,8 @@ class SimilarInvestmentAdapter(
                 .bold { append("${element.areaStartingFrom} Sqft") }
                 .append(" Onwards")
 
-            tvNoViews.text =
-                Utility.coolFormat(element.fomoContent.noOfViews.toDouble(), 0)
+            tvNoViews.text = element.fomoContent.noOfViews.toString()
+//                Utility.coolFormat(element.fomoContent.noOfViews.toDouble(), 0)
             tvItemLocationInfo.text = element.shortDescription
             tvRating.text = "${element.estimatedAppreciation}%"
 
