@@ -52,6 +52,7 @@ class HomeViewModel(
     private var insights = MutableLiveData<List<com.emproto.networklayer.response.insights.Data>>()
 
     private var position = MutableLiveData<LatesUpdatesPosition>()
+    private var latUpdPosition = MutableLiveData<LatesUpdatesPosition>()
 
     @Inject
     lateinit var homeSearchDao: HomeSearchDao
@@ -126,6 +127,14 @@ class HomeViewModel(
 
     fun getSelectedPosition(): LiveData<LatesUpdatesPosition> {
         return position
+    }
+
+    fun setSearchLuPosition(position: LatesUpdatesPosition) {
+        this.latUpdPosition.postValue(position)
+    }
+
+    fun getSearchLuPosition(): LiveData<LatesUpdatesPosition> {
+        return latUpdPosition
     }
 
     fun getInsightsData(

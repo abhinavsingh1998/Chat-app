@@ -15,19 +15,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import com.emproto.core.BaseFragment
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentSearchResultBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.home.adapters.SearchResultAdapter
+import com.emproto.hoabl.feature.home.adapters.AllInsightsAdapter
+import com.emproto.hoabl.feature.home.adapters.AllLatestUpdatesAdapter
+import com.emproto.hoabl.feature.home.data.LatesUpdatesPosition
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.CategoryListAdapter
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
@@ -37,6 +37,7 @@ import com.emproto.hoabl.feature.portfolio.adapters.DocumentsAdapter
 import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
 import com.emproto.hoabl.feature.portfolio.views.DocViewerFragment
 import com.emproto.hoabl.model.MediaViewItem
+import com.emproto.hoabl.utils.Extensions.hideKeyboard
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
@@ -73,7 +74,7 @@ class SearchResultFragment : BaseFragment() {
     ): View? {
         fragmentSearchResultBinding = FragmentSearchResultBinding.inflate(layoutInflater)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
-        homeViewModel = ViewModelProvider(this, homeFactory)[HomeViewModel::class.java]
+        homeViewModel = ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
 
         arguments.let {
             if (it != null) {
@@ -89,7 +90,7 @@ class SearchResultFragment : BaseFragment() {
         initObserver()
         initView()
         initClickListeners()
-        callSearchApi("")
+        callSearchApi("",false)
     }
 
     private fun initClickListeners() {
@@ -156,18 +157,18 @@ class SearchResultFragment : BaseFragment() {
                 if (p0.toString() != "" && p0.toString().length > 1) {
                     fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.VISIBLE
                     Handler().postDelayed({
-                        callSearchApi(p0.toString())
+                        callSearchApi(p0.toString(),true)
                     }, 2000)
                 } else if (p0.toString().isEmpty()) {
                     Handler().postDelayed({
-                        callSearchApi("")
+                        callSearchApi("",false)
                     }, 2000)
                 }
             }
         })
     }
 
-    private fun callSearchApi(searchWord: String) {
+    private fun callSearchApi(searchWord: String,searchStringPresent:Boolean) {
         homeViewModel.getSearchResult(searchWord.trim()).observe(this, Observer {
             when (it.status) {
                 Status.LOADING -> {
@@ -178,6 +179,105 @@ class SearchResultFragment : BaseFragment() {
                     it.data?.data?.let { data ->
                         fragmentSearchResultBinding.nsvSearchInfo.visibility = View.VISIBLE
                         fragmentSearchResultBinding.clOuterLayout.visibility = View.VISIBLE
+
+                        //Projects
+                        when (data.projectContentData.size) {
+                            0 -> {
+                                fragmentSearchResultBinding.tvProject.visibility = View.GONE
+                                fragmentSearchResultBinding.projectList.visibility = View.GONE
+                            }
+                            else -> {
+                                fragmentSearchResultBinding.tvProject.visibility = View.VISIBLE
+                                fragmentSearchResultBinding.projectList.visibility = View.VISIBLE
+                                val allProjectList = data.projectContentData
+                                when{
+                                    allProjectList.size > 3 -> {
+                                        when(searchStringPresent){
+                                            true -> {
+                                                setUpProjectAdapter(data.projectContentData)
+                                            }
+                                            false -> {
+                                                val projectShowList = ArrayList<ApData>()
+                                                for(i in 0..2){
+                                                    projectShowList.add(allProjectList[i])
+                                                }
+                                                setUpProjectAdapter(projectShowList)
+                                            }
+                                        }
+                                    }
+                                    else -> {
+                                        setUpProjectAdapter(data.projectContentData)
+                                    }
+                                }
+                            }
+                        }
+
+                        //Latest Updates
+                        homeViewModel.setLatestUpdatesData(data.marketingUpdateData)
+                        val allLatestUpdateList = data.marketingUpdateData
+                        when(allLatestUpdateList.size){
+                            0 -> {
+                                fragmentSearchResultBinding.tvLatestUpdates.visibility = View.GONE
+                                fragmentSearchResultBinding.latestUpdatesList.visibility = View.GONE
+                            }
+                            else -> {
+                                fragmentSearchResultBinding.tvLatestUpdates.visibility = View.VISIBLE
+                                fragmentSearchResultBinding.latestUpdatesList.visibility = View.VISIBLE
+                                when{
+                                    allLatestUpdateList.size > 3 -> {
+                                        when(searchStringPresent){
+                                            true -> {
+                                                setUpLatestUpdateAdapter(allLatestUpdateList)
+                                            }
+                                            false -> {
+                                                val luShowList = ArrayList<com.emproto.networklayer.response.marketingUpdates.Data>()
+                                                for(i in 0..2){
+                                                    luShowList.add(allLatestUpdateList[i])
+                                                }
+                                                setUpLatestUpdateAdapter(luShowList)
+                                            }
+                                        }
+                                    }
+                                    else -> {
+                                        setUpLatestUpdateAdapter(allLatestUpdateList)
+                                    }
+                                }
+                            }
+                        }
+
+                        //Insights
+                        val allInsightsList = data.insightsData
+                        when(allInsightsList.size){
+                            0 -> {
+                                fragmentSearchResultBinding.tvInsights.visibility = View.GONE
+                                fragmentSearchResultBinding.insightsList.visibility = View.GONE
+                            }
+                            else -> {
+                                fragmentSearchResultBinding.tvInsights.visibility = View.VISIBLE
+                                fragmentSearchResultBinding.insightsList.visibility = View.VISIBLE
+                                when{
+                                    allInsightsList.size > 3 -> {
+                                        when(searchStringPresent){
+                                            true -> {
+                                                setUpInsightsAdapter(allInsightsList)
+                                            }
+                                            false -> {
+                                                val showInsightsList = ArrayList<com.emproto.networklayer.response.insights.Data>()
+                                                for(i in 0..2){
+                                                    showInsightsList.add(allInsightsList[i])
+                                                }
+                                                setUpInsightsAdapter(showInsightsList)
+                                            }
+                                        }
+                                    }
+                                    else -> {
+                                        setUpInsightsAdapter(allInsightsList)
+                                    }
+                                }
+                            }
+                        }
+
+                        //Faq
                         when (data.faqData.size) {
                             0 -> {
                                 fragmentSearchResultBinding.tvFaq.visibility = View.GONE
@@ -191,39 +291,51 @@ class SearchResultFragment : BaseFragment() {
                                     val pjd = ProjectContentsAndFaq("", 0, item, 0, 0, 0, "")
                                     faqList.add(pjd)
                                 }
-                                val faqAdapter = SearchFaqAdapter(
-                                    requireContext(),
-                                    faqList,
-                                    investmentScreenInterface
-                                )
-                                fragmentSearchResultBinding.faqsList.adapter = faqAdapter
-                            }
-                        }
-                        when (data.projectContentData.size) {
-                            0 -> {
-                                fragmentSearchResultBinding.tvProject.visibility = View.GONE
-                                fragmentSearchResultBinding.projectList.visibility = View.GONE
-                            }
-                            else -> {
-                                fragmentSearchResultBinding.tvProject.visibility = View.VISIBLE
-                                fragmentSearchResultBinding.projectList.visibility = View.VISIBLE
-                                val projectListAdapter = CategoryListAdapter(
-                                    requireContext(),
-                                    data.projectContentData,
-                                    itemClickListener,
-                                    3
-                                )
-                                fragmentSearchResultBinding.projectList.adapter = projectListAdapter
+                                when{
+                                    faqList.size > 3 -> {
+                                        when(searchStringPresent){
+                                            true -> {
+                                                setUpFaqAdapter(faqList)
+                                            }
+                                            false -> {
+                                                val filteredFaqList = faqList.filter {
+                                                    it.frequentlyAskedQuestion.typeOfFAQ == "3001" //General faq
+                                                }
+                                                Log.d("DDDD",filteredFaqList.toString())
+                                                val showFaqList = ArrayList<ProjectContentsAndFaq>()
+                                                when{
+                                                    filteredFaqList.size > 3 -> {
+                                                        for(i in 0..2){
+                                                            showFaqList.add(filteredFaqList[i])
+                                                        }
+                                                        setUpFaqAdapter(showFaqList)
+                                                    }
+                                                    else -> {
+                                                       setUpFaqAdapter(filteredFaqList)
+                                                    }
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                    else -> {
+                                        val filteredFaqList = faqList.filter {
+                                            it.frequentlyAskedQuestion.typeOfFAQ == "3001"
+                                        }
+                                        setUpFaqAdapter(filteredFaqList)
+                                    }
+                                }
                             }
                         }
 
-                        callDocsApi(searchWord, data.projectContentData, data.faqData)
+                        //Documents
+                        callDocsApi(searchWord, data.projectContentData, data.faqData,data.marketingUpdateData,data.insightsData,searchStringPresent)
 
-                        if (data.projectContentData.isEmpty() && data.faqData.isEmpty()) {
-                            fragmentSearchResultBinding.tvNoData.visibility = View.VISIBLE
-                        } else {
-                            fragmentSearchResultBinding.tvNoData.visibility = View.GONE
-                        }
+//                        if (data.projectContentData.isEmpty() && data.faqData.isEmpty() && data.marketingUpdateData.isEmpty() && data.insightsData.isEmpty()) {
+//                            fragmentSearchResultBinding.tvNoData.visibility = View.VISIBLE
+//                        } else {
+//                            fragmentSearchResultBinding.tvNoData.visibility = View.GONE
+//                        }
                     }
                 }
                 Status.ERROR -> {
@@ -236,10 +348,71 @@ class SearchResultFragment : BaseFragment() {
         })
     }
 
+    private fun setUpProjectAdapter(projectContentData: List<ApData>) {
+        val projectListAdapter = CategoryListAdapter(
+            requireContext(),
+            projectContentData,
+            itemClickListener,
+            3
+        )
+        fragmentSearchResultBinding.projectList.adapter = projectListAdapter
+    }
+
+    private fun setUpFaqAdapter(showFaqList: List<ProjectContentsAndFaq>) {
+        val faqAdapter = SearchFaqAdapter(
+            requireContext(),
+            showFaqList,
+            investmentScreenInterface
+        )
+        fragmentSearchResultBinding.faqsList.adapter = faqAdapter
+    }
+
+    private fun setUpInsightsAdapter(showInsightsList: List<com.emproto.networklayer.response.insights.Data>) {
+        val insightsAdapter = AllInsightsAdapter(requireActivity(),
+            showInsightsList.size,
+            showInsightsList,
+            object : AllInsightsAdapter.InsightsItemsInterface {
+                override fun onClickItem(position: Int) {
+                    homeViewModel.setSeLectedInsights(showInsightsList[position])
+                    (requireActivity() as HomeActivity).addFragment(
+                        InsightsDetailsFragment(),
+                        false
+                    )
+                }
+            }
+        )
+        fragmentSearchResultBinding.insightsList.adapter = insightsAdapter
+    }
+
+    private fun setUpLatestUpdateAdapter(luList: List<com.emproto.networklayer.response.marketingUpdates.Data>) {
+        val allLatestUpdatesAdapter = AllLatestUpdatesAdapter(requireContext(),luList,luList.size,
+            object : AllLatestUpdatesAdapter.UpdatesItemsInterface{
+                override fun onClickItem(position: Int) {
+                    Log.d("eee",position.toString())
+                    homeViewModel.setSeLectedLatestUpdates(luList[position])
+                    homeViewModel.setSelectedPosition(
+                        LatesUpdatesPosition(
+                            position,
+                            luList.size
+                        )
+                    )
+                    (requireActivity() as HomeActivity).addFragment(
+                        LatestUpdatesDetailsFragment(),
+                        false
+                    )
+                }
+
+            })
+        fragmentSearchResultBinding.latestUpdatesList.adapter = allLatestUpdatesAdapter
+    }
+
     private fun callDocsApi(
         searchWord: String,
         projectContentData: List<ApData>,
-        faqData: List<FrequentlyAskedQuestion>
+        faqData: List<FrequentlyAskedQuestion>,
+        marketingUpdateData: List<com.emproto.networklayer.response.marketingUpdates.Data>,
+        insightsData: List<com.emproto.networklayer.response.insights.Data>,
+        searchStringPresent: Boolean
     ) {
         homeViewModel.getSearchDocResult(searchWord.trim()).observe(this, Observer {
             when (it.status) {
@@ -264,28 +437,38 @@ class SearchResultFragment : BaseFragment() {
                                     for (item in data) {
                                         docList.add(item)
                                     }
-                                    documentAdapter = DocumentsAdapter(docList, false, ivinterface)
-                                    fragmentSearchResultBinding.documentsList.adapter =
-                                        documentAdapter
-//                                    when (docList.size) {
-//                                        0 -> {
-//                                            fragmentSearchResultBinding.tvDocuments.visibility =
-//                                                View.GONE
-//                                            fragmentSearchResultBinding.documentsList.visibility =
-//                                                View.GONE
-//                                        }
-//                                    }
+                                    when{
+                                        docList.size > 3 -> {
+                                            when(searchStringPresent){
+                                                true -> {
+                                                    setupDocAdapter(docList)
+                                                }
+                                                false -> {
+                                                    val showDocList = ArrayList<Data>()
+                                                    for(i in 0..2){
+                                                        showDocList.add(docList[i])
+                                                    }
+                                                    setupDocAdapter(showDocList)
+                                                }
+                                            }
+                                        }
+                                        else -> {
+                                            setupDocAdapter(docList)
+                                        }
+                                    }
                                 }
                             }
                         } else {
                             fragmentSearchResultBinding.tvDocuments.visibility = View.GONE
                             fragmentSearchResultBinding.documentsList.visibility = View.GONE
-                            if (projectContentData.isEmpty() && faqData.isEmpty()) {
-                                fragmentSearchResultBinding.tvNoData.visibility = View.VISIBLE
+                            if (projectContentData.isEmpty() && faqData.isEmpty() && marketingUpdateData.isEmpty() && insightsData.isEmpty() ) {
+                                hideKeyboard()
+                                (requireActivity() as HomeActivity).navigate(R.id.navigation_investment)
                             } else {
                                 fragmentSearchResultBinding.tvNoData.visibility = View.GONE
                             }
                         }
+
                     }
                 }
                 Status.ERROR -> {
@@ -296,6 +479,12 @@ class SearchResultFragment : BaseFragment() {
                 }
             }
         })
+    }
+
+    private fun setupDocAdapter(showDocList: List<Data>) {
+        documentAdapter = DocumentsAdapter(showDocList, false, ivinterface)
+        fragmentSearchResultBinding.documentsList.adapter =
+            documentAdapter
     }
 
     private fun initView() {

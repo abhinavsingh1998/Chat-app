@@ -32,11 +32,13 @@ class SearchFaqAdapter(
             holder.binding.ivArrowDown.visibility = View.INVISIBLE
             holder.binding.tvFaqAnswer.visibility = View.VISIBLE
             holder.binding.ivArrowUp.visibility = View.VISIBLE
+            holder.binding.viewLine.visibility = View.VISIBLE
         }
         holder.binding.ivArrowUp.setOnClickListener {
             holder.binding.ivArrowDown.visibility = View.VISIBLE
             holder.binding.tvFaqAnswer.visibility = View.GONE
             holder.binding.ivArrowUp.visibility = View.GONE
+            holder.binding.viewLine.visibility = View.GONE
         }
         holder.binding.tvFaqQuestion.text = faqItem.frequentlyAskedQuestion.faqQuestion.question
         holder.binding.tvFaqAnswer.text = faqItem.frequentlyAskedQuestion.faqAnswer.answer
