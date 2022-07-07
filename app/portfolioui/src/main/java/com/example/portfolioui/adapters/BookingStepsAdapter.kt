@@ -98,8 +98,8 @@ class BookingStepsAdapter(
                         if (data.text == "Registration") {
                             val rData = data.data as Registration
                             itemInterface.onClickRegistrationDetails(
-                                "",
-                                ""
+                                rData.registrationDate,
+                                rData.registrationNumber
                             )
 
                         } else {

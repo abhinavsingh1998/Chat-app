@@ -50,6 +50,7 @@ import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.request.login.TroubleSigningRequest
+import com.emproto.networklayer.response.bookingjourney.BJHeader
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
 
 
@@ -184,6 +185,15 @@ class PortfolioSpecificProjectView : BaseFragment() {
         portfolioviewmodel.setInvestmentInfo(it.data.investmentInformation)
         it.data.investmentInformation.launchName = it.data.projectInformation.launchName
         it.data.investmentInformation.address = portfolioviewmodel.getprojectAddress().address
+
+        val bjHeader = BJHeader(
+            it.data.investmentInformation.launchName,
+            it.data.investmentInformation.address?.let { it.city } + " , " + it.data.investmentInformation.address?.let { it.state },
+            it.data.investmentInformation.bookingStatus,
+            it.data.investmentInformation.owners[0],
+            "Hoabl/${it.data.investmentInformation.crmInventory.name}"
+        )
+        portfolioviewmodel.saveBookingHeader(bjHeader)
         var itemId = 0
 
         allMediaList.clear()

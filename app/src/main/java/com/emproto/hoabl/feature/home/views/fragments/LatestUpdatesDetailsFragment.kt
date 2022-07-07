@@ -42,6 +42,7 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
     lateinit var it: Data
     var updatesListCount = 0
     lateinit var data: LiveData<LatesUpdatesPosition>
+    lateinit var layoutManager: LinearLayoutManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -103,7 +104,7 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
                     }
                 })
                 initObserver()
-                mBinding.listInsights.layoutManager?.scrollToPosition(0)
+                mBinding.parentScrollView.scrollTo(0,0)
             }
         })
     }
@@ -123,7 +124,7 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
                     }
                 })
                 initObserver()
-                mBinding.listInsights.layoutManager?.scrollToPosition(0)
+                mBinding.parentScrollView.scrollTo(0,0)
             }
 
         })
