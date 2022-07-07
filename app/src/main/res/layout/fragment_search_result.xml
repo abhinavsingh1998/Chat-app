@@ -47,10 +47,10 @@
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/nsv_search_info"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
+                android:visibility="visible"
                 android:fillViewport="true"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 >
@@ -58,83 +58,151 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_search_info"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/margin_size_150">
 
                     <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/tv_project"
-                        style="@style/text_style_text_color_16"
+                        style="@style/text_style_text_color_18"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_size_10"
+                        android:layout_marginStart="@dimen/margin_size_10"
                         android:layout_marginTop="@dimen/margin_size_20"
                         android:gravity="start|center"
                         android:text="Projects"
-                        app:fontName="@string/jost_regular"
+                        app:fontName="@string/jost_medium"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/project_list"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:nestedScrollingEnabled="false"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_project"
-                        tools:itemCount="3"
+                        tools:itemCount="1"
                         tools:listitem="@layout/item_category_list" />
 
                     <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/tv_documents"
-                        style="@style/text_style_text_color_16"
+                        style="@style/text_style_text_color_18"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_size_10"
+                        android:layout_marginStart="@dimen/margin_size_10"
                         android:layout_marginTop="@dimen/margin_size_30"
                         android:gravity="start|center"
                         android:text="Documents"
                         android:visibility="visible"
-                        app:fontName="@string/jost_regular"
+                        app:fontName="@string/jost_medium"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/project_list" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/documents_list"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
+                        android:layout_marginTop="@dimen/margin_size_10"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:nestedScrollingEnabled="false"
+                        android:clipToPadding="false"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_documents"
-                        tools:itemCount="3"
+                        tools:itemCount="1"
                         tools:listitem="@layout/item_portfolio_documents" />
 
                     <com.emproto.core.textviews.CustomTextView
-                        android:id="@+id/tv_faq"
-                        style="@style/text_style_text_color_16"
+                        android:id="@+id/tv_latest_updates"
+                        style="@style/text_style_text_color_18"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_size_10"
                         android:layout_marginTop="@dimen/margin_size_30"
                         android:gravity="start|center"
-                        android:text="FAQs"
-                        app:fontName="@string/jost_regular"
+                        android:text="Latest Updates"
+                        app:fontName="@string/jost_medium"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/documents_list" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/faqs_list"
+                        android:id="@+id/latest_updates_list"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:paddingBottom="@dimen/margin_size_10"
+                        android:layout_marginTop="@dimen/margin_size_10"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:nestedScrollingEnabled="false"
+                        android:clipToPadding="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_latest_updates"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/project_updates_item"
+                        />
+
+                    <com.emproto.core.textviews.CustomTextView
+                        android:id="@+id/tv_insights"
+                        style="@style/text_style_text_color_18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_10"
+                        android:layout_marginTop="@dimen/margin_size_20"
+                        android:gravity="start|center"
+                        android:text="Insights"
+                        app:fontName="@string/jost_medium"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/latest_updates_list" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/insights_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/margin_size_10"
+                        android:layout_marginTop="@dimen/margin_size_12"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:nestedScrollingEnabled="false"
+                        android:clipToPadding="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_insights"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/project_updates_item"
+                        />
+
+                    <com.emproto.core.textviews.CustomTextView
+                        android:id="@+id/tv_faq"
+                        style="@style/text_style_text_color_18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_10"
+                        android:layout_marginTop="@dimen/margin_size_25"
+                        android:gravity="start|center"
+                        android:text="FAQs"
+                        app:fontName="@string/jost_medium"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/insights_list" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/faqs_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/margin_size_10"
+                        android:layout_marginTop="@dimen/margin_size_10"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:nestedScrollingEnabled="false"
+                        android:clipToPadding="false"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_faq"
-                        tools:itemCount="3"
+                        tools:itemCount="1"
                         tools:listitem="@layout/item_faq" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
