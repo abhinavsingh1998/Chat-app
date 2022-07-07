@@ -31,7 +31,6 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.res.ResourcesCompat
@@ -55,8 +54,6 @@ import com.emproto.networklayer.response.profile.*
 import com.example.portfolioui.databinding.RemoveConfirmationBinding
 import java.io.*
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.regex.Pattern
 import javax.inject.Inject
@@ -100,7 +97,9 @@ class EditProfileFragment : BaseFragment() {
     private lateinit var cityData: List<String>
 
     private val listCountries = ArrayList<String>()
-//    private val countryIsoCode = ArrayList<String>()
+    private val listCountryISO = ArrayList<String>()
+
+    //    private val countryIsoCode = ArrayList<String>()
     private val listStates = ArrayList<String>()
     private val listStatesISO = ArrayList<String>()
     private val listCities = ArrayList<String>()
@@ -108,6 +107,8 @@ class EditProfileFragment : BaseFragment() {
     private val countryIsoCode = "IN"
     lateinit var state: String
     lateinit var stateIso: String
+    lateinit var country: String
+    lateinit var countryIso: String
     lateinit var city: String
 
     lateinit var gender: String
@@ -173,21 +174,18 @@ class EditProfileFragment : BaseFragment() {
             }
         }
         initView()
-        setCountrySpinnerData()
         setGenderSpinnersData()
         getCountries()
-        getStates()
-
         return binding.root
     }
 
-    private fun setCountrySpinnerData() {
-        val countryList = ArrayList<String>()
-        countryList.add("India")
-        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_text, countryList)
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
-        binding.autoCountry.setAdapter(adapter)
-    }
+//    private fun setCountrySpinnerData() {
+//        val countryList = ArrayList<String>()
+//        countryList.add("India")
+//        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_text, countryList)
+//        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+//        binding.autoCountry.setAdapter(adapter)
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -206,9 +204,9 @@ class EditProfileFragment : BaseFragment() {
                     }
                     for (i in countriesData.indices) {
                         listCountries.add(countriesData[i].name)
-//                        countryIsoCode.add(countriesData[i].isoCode)
+                        listCountryISO.add(countriesData[i].isoCode)
                     }
-//                    setCountrySpinnersData()
+                    setCountrySpinnersData()
                 }
                 Status.ERROR -> {
                     binding.progressBaar.hide()
@@ -216,8 +214,9 @@ class EditProfileFragment : BaseFragment() {
             }
         }
     }
-    private fun getStates() {
-        profileViewModel.getStates(countryIsoCode).observe(viewLifecycleOwner) {
+    private fun getStates(countryIso: String) {
+        Log.i("countryISO",countryIso)
+        profileViewModel.getStates(countryIso).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBaar.show()
@@ -230,6 +229,7 @@ class EditProfileFragment : BaseFragment() {
                     for (i in statesData.indices) {
                         listStates.add(statesData[i].name)
                         listStatesISO.add(statesData[i].isoCode)
+
                     }
                     setStateSpinnersData()
                 }
@@ -279,7 +279,21 @@ class EditProfileFragment : BaseFragment() {
             }
     }
 
-
+    private fun setCountrySpinnersData() {
+        val countryArrayAdapter =
+            ArrayAdapter(requireContext(), R.layout.spinner_text, listCountries)
+        countryArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+        binding.autoCountry.setAdapter(countryArrayAdapter)
+        binding.autoCountry.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, view, position, id ->
+                binding.autoState.setText("")
+                binding.autoCity.setText("")
+                country = listCountries[position]
+                countryIso = listCountryISO[position]
+                listStates.clear()
+                getStates(countryIso)
+            }
+    }
     private fun setStateSpinnersData() {
         val stateArrayAdapter =
             ArrayAdapter(requireContext(), R.layout.spinner_text, listStates)
@@ -291,7 +305,7 @@ class EditProfileFragment : BaseFragment() {
                 state = listStates[position]
                 stateIso = listStatesISO[position]
                 listCities.clear()
-                getCities(stateIso, countryIsoCode)
+                getCities(stateIso, countryIso)
             }
         enableStateEdit()
     }
@@ -824,7 +838,7 @@ class EditProfileFragment : BaseFragment() {
             validPinCode.toString(),
             validCity.toString(),
             validState.toString(),
-            "India"
+            validCountry.toString()
         )
         profileViewModel.editUserNameProfile(editUserNameRequest)
             .observe(
