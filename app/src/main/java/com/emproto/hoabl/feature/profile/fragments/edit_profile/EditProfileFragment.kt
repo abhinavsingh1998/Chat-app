@@ -595,7 +595,7 @@ class EditProfileFragment : BaseFragment() {
         binding.saveAndUpdate.setOnClickListener {
             binding.saveAndUpdate.text = "Save and Update"
             email = binding.emailTv.text.toString()
-            if (!email.isNullOrEmpty() && email.isValidEmail()) {
+            if (!email.isNullOrEmpty() && email.isValidEmail()&& !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 binding.tvEmail.isErrorEnabled = false
                 email = binding.emailTv.text.toString()
             } else {
