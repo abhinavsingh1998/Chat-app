@@ -63,6 +63,9 @@ import kotlin.let as let1
 
 
 class EditProfileFragment : BaseFragment() {
+    private var filePath: String?=null
+    private var selectedImage: Uri?=null
+    lateinit var type:String
     lateinit var datePicker: DatePickerDialog.OnDateSetListener
     val bundle = Bundle()
 
@@ -593,9 +596,24 @@ class EditProfileFragment : BaseFragment() {
 
         removePictureDialog()
         binding.saveAndUpdate.setOnClickListener {
+            if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
+                if(type=="CAMERA_CLICK")
+                callingUploadPicApi(cameraFile!!)
+                else{
+                    destinationFile = File(filePath)
+                    callingUploadPicApi(destinationFile)
+                }
+            } else {
+                (requireActivity() as BaseActivity).showError(
+                    "Please check Internet Connections to upload image",
+                    binding.root
+
+                )
+            }
+
             binding.saveAndUpdate.text = "Save and Update"
             email = binding.emailTv.text.toString()
-            if (!email.isNullOrEmpty() && email.isValidEmail()&& !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            if (!email.isNullOrEmpty() && email.isValidEmail()&& android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 binding.tvEmail.isErrorEnabled = false
                 email = binding.emailTv.text.toString()
             } else {
@@ -852,7 +870,8 @@ class EditProfileFragment : BaseFragment() {
         }catch (e:Exception){
             e.message
         }
-        if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
+        type="CAMERA_CLICK"
+    /*    if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
             callingUploadPicApi(cameraFile!!)
 
         } else {
@@ -861,7 +880,7 @@ class EditProfileFragment : BaseFragment() {
                 binding.root
 
             )
-        }
+        }*/
     }
 
     fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
@@ -874,7 +893,7 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun onSelectFromGalleryResult(data: Intent) {
-        val selectedImage = data.data
+         selectedImage = data.data
         var inputStream =
             requireContext().contentResolver.openInputStream(selectedImage!!)
         try {
@@ -883,17 +902,18 @@ class EditProfileFragment : BaseFragment() {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
 
             try {
-                val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
-                if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
+                 filePath = getRealPathFromURI_API19(requireContext(), selectedImage!!)
+                type="GALLERY_CLICK"
+             /*   if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
                     destinationFile = File(filePath)
                     callingUploadPicApi(destinationFile)
-
-                } else {
+                }
+                else {
                     (requireActivity() as BaseActivity).showError(
                         "Please check Internet Connections to upload image",
                         binding.root
                     )
-                }
+                }*/
             } catch (e: Exception) {
                 Log.e("Error", "onSelectFromGalleryResult: " + e.localizedMessage)
             }
