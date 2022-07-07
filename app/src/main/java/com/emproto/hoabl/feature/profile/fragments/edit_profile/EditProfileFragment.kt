@@ -63,6 +63,7 @@ import kotlin.let as let1
 
 
 class EditProfileFragment : BaseFragment() {
+    lateinit var datePicker: DatePickerDialog.OnDateSetListener
     val bundle = Bundle()
 
     @Inject
@@ -108,6 +109,8 @@ class EditProfileFragment : BaseFragment() {
     lateinit var appPreference: AppPreference
     lateinit var data: Data
 
+
+
     companion object {
         fun newInstance():
                 EditProfileFragment {
@@ -140,35 +143,25 @@ class EditProfileFragment : BaseFragment() {
             false
 
         val myCalender = Calendar.getInstance()
-        val datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayofMonth ->
+         datePicker = DatePickerDialog.OnDateSetListener { view,year, month,dayofMonth  ->
             myCalender.set(Calendar.YEAR, year)
-            myCalender.set(Calendar.MONTH, month+1)
+            myCalender.set(Calendar.MONTH, month)
             myCalender.set(Calendar.DAY_OF_MONTH, dayofMonth)
+
             updateLable(myCalender)
         }
-//        binding.tvDatePicker.onFocusChangeListener =
-//            View.OnFocusChangeListener { p0, p1 ->
-//                if (p1) {
-//                    context?.let1 {
-//                        DatePickerDialog(
-//                            it,
-//                            datePicker,
-//                            myCalender.get(Calendar.YEAR),
-//                            myCalender.get(Calendar.MONTH),
-//                            myCalender.get(Calendar.DAY_OF_MONTH)
-//                        ).show()
-//                    }
-//                }
-//            }
         binding.tvDatePicker.setOnClickListener {
             context?.let1 { it1 ->
-                DatePickerDialog(
+                val dialog= DatePickerDialog(
                     it1,
                     datePicker,
                     myCalender.get(Calendar.YEAR),
                     myCalender.get(Calendar.MONTH),
                     myCalender.get(Calendar.DAY_OF_MONTH)
-                ).show()
+                )
+                dialog.datePicker.maxDate=System.currentTimeMillis()
+                dialog.show()
+
             }
         }
         initView()
@@ -490,7 +483,7 @@ class EditProfileFragment : BaseFragment() {
         }
     }
     private fun updateLable(myCalendar: Calendar) {
-        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH)
+        val sdf = SimpleDateFormat("dd-MM-yyyy'T'HH:mm:ssZ", Locale.ENGLISH)
         var dateSelected = sdf.format(myCalendar.time)
         binding.tvDatePicker.setText(dateSelected.substring(0, 10))
 
