@@ -11,3 +11,7 @@ data class States(
     val isoCode:String,
     val name:String
 )
+data class Cities(
+    val isoCode:String,
+    val name:String
+)
