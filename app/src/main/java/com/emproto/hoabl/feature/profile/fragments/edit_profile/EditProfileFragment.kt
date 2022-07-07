@@ -102,10 +102,14 @@ class EditProfileFragment : BaseFragment() {
     private val listStates = ArrayList<String>()
     private val listStatesISO = ArrayList<String>()
     private val listCities = ArrayList<String>()
+    private val listCitiesISO = ArrayList<String>()
+
     private val countryIsoCode = "IN"
     lateinit var state: String
     lateinit var stateIso: String
     lateinit var city: String
+    lateinit var cityIso: String
+
     lateinit var gender: String
     private var cameraFile: File?=null
 
@@ -181,7 +185,6 @@ class EditProfileFragment : BaseFragment() {
         countryList.add("India")
         val adapter = ArrayAdapter(requireContext(), R.layout.spinner_text, countryList)
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
-
         binding.autoCountry.setAdapter(adapter)
     }
 
@@ -201,7 +204,6 @@ class EditProfileFragment : BaseFragment() {
                     it.data?.data?.let1 { data ->
                         statesData = data
                     }
-
                     for (i in statesData.indices) {
                         listStates.add(statesData[i].name)
                         listStatesISO.add(statesData[i].isoCode)
@@ -227,7 +229,6 @@ class EditProfileFragment : BaseFragment() {
                         cityData = data!!
                     }
                     for (i in cityData.indices) {
-                        listCities.clear()
                         listCities.add(cityData[i])
                     }
                     setCitiesSpinner()
@@ -266,6 +267,7 @@ class EditProfileFragment : BaseFragment() {
                 binding.autoCity.setText("")
                 state = listStates[position]
                 stateIso = listStatesISO[position]
+                listCities.clear()
                 getCities(stateIso, countryIsoCode)
             }
         enableStateEdit()
