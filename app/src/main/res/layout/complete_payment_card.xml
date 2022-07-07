@@ -28,7 +28,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_size_12"
-                android:elevation="1dp"
                 app:cardBackgroundColor="#fff4bc"
                 app:cardCornerRadius="12dp"
                 android:layout_marginStart="@dimen/margin_size_18"
