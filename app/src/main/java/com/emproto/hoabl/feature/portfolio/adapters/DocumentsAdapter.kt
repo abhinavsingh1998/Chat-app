@@ -31,7 +31,14 @@ class DocumentsAdapter(
             true -> holder.binding.ivDocsImage.visibility = View.VISIBLE
         }
         holder.binding.tvView.setOnClickListener {
-            ivInterface.onclickDocument(list[position].name,list[position].path)
+            when{
+                list[position].path.isNullOrEmpty() -> {
+                    ivInterface.onclickDocument("No name","")
+                }
+                else -> {
+                    ivInterface.onclickDocument(list[position].name,list[position].path)
+                }
+            }
         }
     }
 

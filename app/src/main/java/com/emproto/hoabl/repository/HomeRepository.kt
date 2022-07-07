@@ -7,12 +7,14 @@ import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
 import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.networklayer.feature.HomeDataSource
+import com.emproto.networklayer.feature.PortfolioDataSource
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.HomeActionItemResponse
 import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.chats.ChatResponse
+import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.insights.InsightsResponse
@@ -479,6 +481,33 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
             }
         }
         return mSearchDocResponse
+    }
+
+    fun downloadDocument(path: String): MutableLiveData<BaseResponse<DDocumentResponse>> {
+        val mDocumentsResponse = MutableLiveData<BaseResponse<DDocumentResponse>>()
+        mDocumentsResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = HomeDataSource(application).downloadDocument(path)
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mDocumentsResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mDocumentsResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mDocumentsResponse
     }
 //    fun getAccountsList(): LiveData<BaseResponse<AccountsResponse>> {
 //        val mAccountsResponse = MutableLiveData<BaseResponse<AccountsResponse>>()
