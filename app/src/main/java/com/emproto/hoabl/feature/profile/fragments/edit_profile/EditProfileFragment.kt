@@ -293,6 +293,7 @@ class EditProfileFragment : BaseFragment() {
                 listStates.clear()
                 getStates(countryIso)
             }
+
     }
     private fun setStateSpinnersData() {
         val stateArrayAdapter =
@@ -316,7 +317,8 @@ class EditProfileFragment : BaseFragment() {
         binding.autoCity.setAdapter(cityAdapter)
         binding.autoCity.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
-                city = listCities[position]
+                    city = listCities[position]
+
             }
         enableCityEdit()
     }
