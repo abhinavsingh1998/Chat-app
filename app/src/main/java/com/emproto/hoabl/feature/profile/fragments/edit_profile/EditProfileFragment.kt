@@ -739,7 +739,12 @@ class EditProfileFragment : BaseFragment() {
             removePictureDialog.dismiss()
         }
         binding.tvremove.setOnClickListener {
-            removePictureDialog.show()
+            if(!data.profilePictureUrl.isNullOrEmpty()){
+                removePictureDialog.show()
+            }
+            else{
+                removePictureDialog.dismiss()
+            }
         }
     }
 
