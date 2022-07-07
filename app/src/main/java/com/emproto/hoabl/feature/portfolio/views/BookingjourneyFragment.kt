@@ -232,14 +232,14 @@ class BookingjourneyFragment : BaseFragment() {
 
                     override fun onClickHandoverDetails(date: String) {
                         dialogHandoverDetailsBinding.tvHandoverDate.text =
-                            Utility.parseDateFromUtc(date)
+                            Utility.parseDateFromUtcToMMYYYY(date)
                         handoverDialog.show()
                     }
 
                     override fun onClickRegistrationDetails(date: String, number: String) {
-//                        dialogRegistrationDetailsBinding.tvRegistrationDate.text =
-//                            Utility.parseDateFromUtc(date)
-//                        dialogRegistrationDetailsBinding.tvRegistrationNo.text = number
+                        dialogRegistrationDetailsBinding.tvRegistrationDate.text =
+                            Utility.parseDateFromUtc(date)
+                        dialogRegistrationDetailsBinding.tvRegistrationNo.text = number
                         registrationDialog.show()
                     }
 

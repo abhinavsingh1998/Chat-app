@@ -258,8 +258,9 @@ class HomeAdapter(
                 data.page.totalUpdatesOnHomeScreen == 0
             ) {
                 binding.latestUpdatesLayout.isVisible = false
-
             }
+
+//            binding.latesUpdatesRecyclerview.onScrollStateChanged(RecyclerView.OnScrollListener)
 
             binding.textview2.text = data.page.latestUpdates.heading
             binding.latesUpdatesRecyclerview.layoutManager = linearLayoutManager
