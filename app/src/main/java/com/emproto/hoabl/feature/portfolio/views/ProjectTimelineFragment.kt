@@ -91,6 +91,8 @@ class ProjectTimelineFragment : BaseFragment() {
                             if (item.timeLineSectionHeading == "Project Registration") {
                                 item.reraDetails = it.data.projectContent.reraDetails
                                 timelineList.add(TimelineModel(TimelineAdapter.TYPE_RERA, item))
+                            } else if (item.timeLineSectionHeading == "Land Management") {
+                                timelineList.add(TimelineModel(TimelineAdapter.TYPE_LAND, item))
                             } else
                                 timelineList.add(TimelineModel(TimelineAdapter.TYPE_LIST, item))
                         }

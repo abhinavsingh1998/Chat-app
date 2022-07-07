@@ -84,6 +84,7 @@ class IntroSliderActivity : BaseActivity(), StoriesProgressView.StoriesListener 
 
         image.setImageResource(resources[counter])
         textview!!.setText(txtResource[counter])
+        btn_txt_chnage()
         activityIntrosliderBinding.buttonSkip.setOnButtonClickListener(object :
             OnButtonClickListener {
             override fun OnButtonClicked(view: View?) {
@@ -122,6 +123,7 @@ class IntroSliderActivity : BaseActivity(), StoriesProgressView.StoriesListener 
             activityIntrosliderBinding.tmTxt.isVisible=false
             activityIntrosliderBinding.buttonSkip.setText("Skip & Get Started")
         } else {
+            activityIntrosliderBinding.buttonSkip.setText("Skip & Get Started")
             activityIntrosliderBinding.tmTxt.isVisible=true
         }
     }

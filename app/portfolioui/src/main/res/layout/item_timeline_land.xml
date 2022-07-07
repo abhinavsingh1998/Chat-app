@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/margin_size_16"
+    android:layout_marginTop="@dimen/margin_size_7"
+    android:layout_marginBottom="@dimen/margin_size_20"
+    android:outlineSpotShadowColor="#ababab"
+    app:cardElevation="@dimen/margin_size_8">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/header_indicator"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ic_inprogress_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/step_view"
+            android:layout_width="2dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_steps_four"
+            app:layout_constraintEnd_toEndOf="@+id/header_indicator"
+            app:layout_constraintStart_toStartOf="@+id/header_indicator"
+            app:layout_constraintTop_toBottomOf="@+id/header_indicator"
+            app:tint="@color/grey_color" />
+
+        <TextView
+            android:id="@+id/text_header"
+            style="@style/text_medium_black_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:lines="1"
+            android:text="Land Management"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toBottomOf="@+id/header_indicator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/header_indicator"
+            app:layout_constraintTop_toTopOf="@+id/header_indicator" />
+
+
+        <ImageView
+            android:id="@+id/iv_first"
+            android:layout_width="@dimen/margin_size_12"
+            android:layout_height="@dimen/margin_size_12"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/ic_inprogress_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/header_indicator"
+            app:layout_constraintStart_toStartOf="@+id/header_indicator"
+            app:layout_constraintTop_toBottomOf="@+id/step_view" />
+
+        <TextView
+            android:id="@+id/tv_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/jost_regular"
+            android:text="Manage My Land"
+            android:textColor="@color/disable_text"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_first"
+            app:layout_constraintStart_toEndOf="@+id/iv_first"
+            app:layout_constraintTop_toTopOf="@+id/iv_first" />
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/getOtp_button"
+            style="@style/text_style_white_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/unselect_button_bg"
+            android:drawableRight="@drawable/ic_final_arrow"
+            android:drawablePadding="@dimen/_2sdp"
+            android:paddingHorizontal="@dimen/margin_size_10"
+            android:paddingVertical="@dimen/margin_size_8"
+            android:text="Click here"
+            android:textAlignment="center"
+            app:drawableTint="@color/white"
+            app:fontName="@string/jost_medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
