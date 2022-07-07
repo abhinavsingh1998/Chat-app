@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.portfolio.adapters
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.core.Utility
@@ -222,9 +224,30 @@ class ExistingUsersPortfolioAdapter(
 
 
 
+            binding.contentTxt4.setOnClickListener {
+                getToolTip("Investor Estimated Appreciation").showAlignBottom(binding.ivAmount)
+            }
+            binding.cardName4.setOnClickListener {
+                getToolTip("Investor Estimated Appreciation").showAlignBottom(binding.ivAmount)
+            }
             binding.ivAmount.setOnClickListener {
                 getToolTip("Investor Estimated Appreciation").showAlignBottom(binding.ivAmount)
             }
+
+            binding.cardName3.setOnClickListener {
+                getToolTip("Amount Invested").showAlignBottom(binding.ivAmountpaid)
+            }
+            binding.ivAmountpaid.setOnClickListener {
+                getToolTip("Amount Invested").showAlignBottom(binding.ivAmountpaid)
+            }
+            binding.contentTxt3.setOnClickListener {
+                getToolTip("Amount Invested").showAlignBottom(binding.ivAmountpaid)
+            }
+            ImageViewCompat.setImageTintList(
+                binding.ivAmountpaid,
+                ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white))
+            )
+
 
         }
     }
@@ -248,6 +271,23 @@ class ExistingUsersPortfolioAdapter(
 
             binding.ivAmountPending.setOnClickListener {
                 getToolTip("Excluding taxes & other charges").showAlignTop(binding.ivAmountPending)
+            }
+            binding.contentTxt4.setOnClickListener {
+                getToolTip("Excluding taxes & other charges").showAlignTop(binding.ivAmountPending)
+            }
+            binding.cardName4.setOnClickListener {
+                getToolTip("Excluding taxes & other charges").showAlignTop(binding.ivAmountPending)
+            }
+
+
+            binding.cardName3.setOnClickListener {
+                getToolTip("Amount Paid").showAlignBottom(binding.ivAmountpaid)
+            }
+            binding.ivAmountpaid.setOnClickListener {
+                getToolTip("Amount Paid").showAlignBottom(binding.ivAmountpaid)
+            }
+            binding.contentTxt3.setOnClickListener {
+                getToolTip("Amount Invested").showAlignBottom(binding.ivAmountpaid)
             }
         }
     }

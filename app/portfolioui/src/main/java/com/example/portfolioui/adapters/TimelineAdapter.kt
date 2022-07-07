@@ -1,18 +1,22 @@
 package com.example.portfolioui.adapters
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimeline
 import com.example.portfolioui.R
 import com.example.portfolioui.databinding.ItemTimelineDataBinding
 import com.example.portfolioui.databinding.ItemTimelineHeaderBinding
+import com.example.portfolioui.databinding.ItemTimelineLandBinding
 import com.example.portfolioui.databinding.ItemTimelineStepReraBinding
 import com.example.portfolioui.models.StepsModel
 import com.example.portfolioui.models.TimelineHeaderData
@@ -33,6 +37,7 @@ class TimelineAdapter(
         const val TYPE_HEADER = 0
         const val TYPE_LIST = 1
         const val TYPE_RERA = 3
+        const val TYPE_LAND = 4
         const val TYPE_DISCLAIMER = 2
     }
 
@@ -59,6 +64,14 @@ class TimelineAdapter(
                 return StepsReraViewHolder(view)
 
             }
+            TYPE_LAND -> {
+                val view = ItemTimelineLandBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                return StepsLandViewHolder(view)
+            }
 
             else -> {
                 val view =
@@ -81,6 +94,25 @@ class TimelineAdapter(
                 val headerData = dataList[position].data as TimelineHeaderData
                 header_holder.binding.projectName.text = headerData.projectName
                 header_holder.binding.tvAddress.text = headerData.address
+            }
+            TYPE_LAND -> {
+                val listData = dataList[position].data as ProjectTimeline
+                val langHolder = holder as StepsLandViewHolder
+                if (listData.timeLines[0].sections[0].values.percentage == 100.0) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        langHolder.binding.headerIndicator.background =
+                            context.getDrawable(R.drawable.ic_progress_complete)
+                        langHolder.binding.ivFirst.background =
+                            context.getDrawable(R.drawable.ic_progress_complete)
+                        langHolder.binding.getOtpButton.background =
+                            context.getDrawable(R.drawable.button_bg)
+                        ImageViewCompat.setImageTintList(
+                            langHolder.binding.stepView,
+                            ColorStateList.valueOf(ContextCompat.getColor(context, R.color.green))
+                        );
+                    }
+
+                }
             }
             TYPE_RERA -> {
                 val listData = dataList[position].data as ProjectTimeline
@@ -143,13 +175,15 @@ class TimelineAdapter(
                         }
                     }
                 }
-                if (isOneProgress) {
-                    listHolder.binding.headerIndicator.background =
-                        context.getDrawable(R.drawable.ic_in_progress)
-                }
-                if (isAllDisable) {
-                    listHolder.binding.headerIndicator.background =
-                        context.getDrawable(R.drawable.ic_inprogress_bg)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    if (isOneProgress) {
+                        listHolder.binding.headerIndicator.background =
+                            context.getDrawable(R.drawable.ic_in_progress)
+                    }
+                    if (isAllDisable) {
+                        listHolder.binding.headerIndicator.background =
+                            context.getDrawable(R.drawable.ic_inprogress_bg)
+                    }
                 }
 
                 listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
@@ -171,6 +205,9 @@ class TimelineAdapter(
         RecyclerView.ViewHolder(binding.root)
 
     inner class StepsReraViewHolder(var binding: ItemTimelineStepReraBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    inner class StepsLandViewHolder(var binding: ItemTimelineLandBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     interface TimelineInterface {

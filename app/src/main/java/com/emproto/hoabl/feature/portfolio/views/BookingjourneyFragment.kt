@@ -177,23 +177,14 @@ class BookingjourneyFragment : BaseFragment() {
         val data = data1.bookingJourney
         val bookingList = ArrayList<BookingModel>()
 
-        if (portfolioviewmodel.getInvestmentInfo() != null) {
-            data1.investmentInformation = portfolioviewmodel.getInvestmentInfo()!!
-            bookingList.add(
-                BookingModel(
-                    BookingJourneyAdapter.TYPE_HEADER,
-                    data1.investmentInformation
-                )
-            )
-        } else {
-            bookingList.add(
-                BookingModel(
-                    BookingJourneyAdapter.TYPE_HEADER,
-                    null
-                )
-            )
 
-        }
+        val headerData = portfolioviewmodel.getBookingHeader()
+        bookingList.add(
+            BookingModel(
+                BookingJourneyAdapter.TYPE_HEADER,
+                headerData
+            )
+        )
 
         bookingList.add(BookingModel(BookingJourneyAdapter.TRANSACTION, data.transaction))
         bookingList.add(BookingModel(BookingJourneyAdapter.DOCUMENTATION, data.documentation))
@@ -241,14 +232,14 @@ class BookingjourneyFragment : BaseFragment() {
 
                     override fun onClickHandoverDetails(date: String) {
                         dialogHandoverDetailsBinding.tvHandoverDate.text =
-                            Utility.parseDateFromUtc(date)
+                            Utility.parseDateFromUtcToMMYYYY(date)
                         handoverDialog.show()
                     }
 
                     override fun onClickRegistrationDetails(date: String, number: String) {
-//                        dialogRegistrationDetailsBinding.tvRegistrationDate.text =
-//                            Utility.parseDateFromUtc(date)
-//                        dialogRegistrationDetailsBinding.tvRegistrationNo.text = number
+                        dialogRegistrationDetailsBinding.tvRegistrationDate.text =
+                            Utility.parseDateFromUtc(date)
+                        dialogRegistrationDetailsBinding.tvRegistrationNo.text = number
                         registrationDialog.show()
                     }
 

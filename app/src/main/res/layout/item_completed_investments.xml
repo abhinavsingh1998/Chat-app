@@ -141,82 +141,96 @@
                 app:layout_constraintTop_toTopOf="@id/view_light_bg"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_completed_investment_price"
-                style="@style/text_style_text_black_color_12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_size_8"
-                android:fontFamily="@font/jost_medium"
-                android:text="₹32.34"
-                app:layout_constraintEnd_toStartOf="@id/tv_completed_investment_area"
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                app:layout_constraintEnd_toStartOf="@+id/view_dark_bg"
                 app:layout_constraintStart_toStartOf="@id/view_light_bg"
-                app:layout_constraintTop_toBottomOf="@id/iv_completed_investment_graph_image" />
+                app:layout_constraintTop_toBottomOf="@id/iv_completed_investment_graph_image">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_completed_investment_price_unit"
-                style="@style/text_style_text_black_color_12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_size_2"
-                android:layout_marginBottom="@dimen/margin_size_10"
-                android:fontFamily="@font/jost_light"
-                android:text="Lakhs"
-                app:layout_constraintBottom_toBottomOf="@id/view_light_bg"
-                app:layout_constraintEnd_toEndOf="@id/tv_completed_investment_price"
-                app:layout_constraintStart_toStartOf="@id/tv_completed_investment_price"
-                app:layout_constraintTop_toBottomOf="@id/tv_completed_investment_price" />
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_completed_investment_area"
-                style="@style/text_style_text_black_color_12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/jost_medium"
-                android:text="2000"
-                app:layout_constraintEnd_toStartOf="@id/tv_completed_investment_rating"
-                app:layout_constraintStart_toEndOf="@id/tv_completed_investment_price"
-                app:layout_constraintTop_toTopOf="@id/tv_completed_investment_price" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_completed_investment_price"
+                        style="@style/text_style_text_black_color_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="₹32.34" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_completed_investment_area_unit"
-                style="@style/text_style_text_black_color_12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_size_2"
-                android:layout_marginBottom="@dimen/margin_size_10"
-                android:fontFamily="@font/jost_light"
-                android:text="Sqft"
-                app:layout_constraintBottom_toBottomOf="@id/view_light_bg"
-                app:layout_constraintEnd_toEndOf="@id/tv_completed_investment_area"
-                app:layout_constraintStart_toStartOf="@id/tv_completed_investment_area"
-                app:layout_constraintTop_toBottomOf="@id/tv_completed_investment_area" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_completed_investment_price_unit"
+                        style="@style/text_style_text_black_color_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_2"
+                        android:fontFamily="@font/jost_light"
+                        android:text="Lakhs" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_completed_investment_rating"
-                style="@style/text_style_text_black_color_12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/jost_medium"
-                android:text="+5%"
-                android:textColor="@color/app_color"
-                app:layout_constraintEnd_toEndOf="@id/view_light_bg"
-                app:layout_constraintStart_toEndOf="@id/tv_completed_investment_area"
-                app:layout_constraintTop_toTopOf="@id/tv_completed_investment_area" />
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_completed_investment_rating_unit"
-                style="@style/text_style_text_black_color_12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_size_2"
-                android:layout_marginBottom="@dimen/margin_size_10"
-                android:fontFamily="@font/jost_light"
-                android:text="IEA"
-                app:layout_constraintBottom_toBottomOf="@id/view_light_bg"
-                app:layout_constraintEnd_toEndOf="@id/tv_completed_investment_rating"
-                app:layout_constraintStart_toStartOf="@id/tv_completed_investment_rating"
-                app:layout_constraintTop_toBottomOf="@id/tv_completed_investment_rating" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_completed_investment_area"
+                        style="@style/text_style_text_black_color_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="2000" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_completed_investment_area_unit"
+                        style="@style/text_style_text_black_color_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_2"
+                        android:fontFamily="@font/jost_light"
+                        android:text="Sqft" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_completed_investment_rating"
+                        style="@style/text_style_text_black_color_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="+5%"
+                        android:textColor="@color/app_color" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_completed_investment_rating_unit"
+                        style="@style/text_style_text_black_color_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_2"
+                        android:fontFamily="@font/jost_light"
+                        android:text="IEA" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
@@ -408,9 +422,11 @@
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/margin_size_8"
         android:layout_marginEnd="@dimen/margin_size_12"
+        android:background="?android:selectableItemBackground"
         android:drawableEnd="@drawable/rightarrow"
         android:drawablePadding="@dimen/_4sdp"
         android:fontFamily="@font/jost_medium"
+        android:padding="@dimen/margin_size_4"
         android:text="Manage Investment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cv_completed_investment_graph_card" />
@@ -418,7 +434,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_size_1"
-        android:layout_marginTop="@dimen/margin_size_14"
+        android:layout_marginTop="@dimen/margin_size_10"
         android:background="@color/category_bottom_ash_line_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

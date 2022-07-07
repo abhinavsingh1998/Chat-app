@@ -112,13 +112,11 @@ class BookingJourneyAdapter(
             TYPE_HEADER -> {
                 val header_holder = holder as HeaderHolder
                 if (dataList[header_holder.layoutPosition].data != null) {
-                    val data = dataList[header_holder.layoutPosition].data as InvestmentInformation
-                    header_holder.binding.tvOwner.text = data.owners[0]
-                    header_holder.binding.tvId.text = "Hoabl/${data.crmInventory.name}"
+                    val data = dataList[header_holder.layoutPosition].data as BJHeader
+                    header_holder.binding.tvOwner.text = data.ownerName
+                    header_holder.binding.tvId.text = data.inventoryData
                     header_holder.binding.tvProjectName.text = data.launchName
-                    header_holder.binding.tvLocation.text =
-                        data.address.city + " , " + data.address.state
-
+                    header_holder.binding.tvLocation.text = data.address
                     header_holder.binding.tvProgress.text =
                         Utility.getBookingStatus(data.bookingStatus)
                 }
@@ -416,7 +414,7 @@ class BookingJourneyAdapter(
                 )
             )
         }
-        if (Utility.compareDates(data.allotment.allotmentDate)) {
+        if (data.allotment.allotmentDate != null && Utility.compareDates(data.allotment.allotmentDate)) {
             anyInProgress = true
             list.add(
                 BookingStepsModel(
