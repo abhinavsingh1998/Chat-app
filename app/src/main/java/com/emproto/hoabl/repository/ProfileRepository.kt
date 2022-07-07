@@ -158,6 +158,32 @@ class ProfileRepository @Inject constructor(application: Application) :
         }
         return mCountriesResponse
     }
+    fun getCountries(): LiveData<BaseResponse<CountryResponse>> {
+        val mStatesResponse = MutableLiveData<BaseResponse<CountryResponse>>()
+        mStatesResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).getCountries()
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mStatesResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mStatesResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mStatesResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mStatesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mStatesResponse
+    }
 
     fun getStates(countryIsoCode: String): LiveData<BaseResponse<StatesResponse>> {
         val mStatesResponse = MutableLiveData<BaseResponse<StatesResponse>>()

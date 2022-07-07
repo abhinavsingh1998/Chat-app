@@ -106,7 +106,9 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
     suspend fun getCountry(pageType: Int): Response<ProfileCountriesResponse> {
         return apiService.getCountryList(pageType)
     }
-
+    suspend fun getCountries(): Response<CountryResponse> {
+        return apiService.getCountries()
+    }
     suspend fun getStates(countryIsoCode: String): Response<StatesResponse> {
         return apiService.getStates(countryIsoCode)
     }
