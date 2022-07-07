@@ -172,6 +172,9 @@ public interface ApiService {
     @POST(ApiConstants.REFER_NOW)
     suspend fun referNow(@Body referBody: ReferalRequest): Response<ReferalResponse>
 
+    @GET(ApiConstants.COUNTRIES)
+    suspend fun getCountries(): Response<CountryResponse>
+
     @GET(ApiConstants.STATES)
     suspend fun getStates(@Path("countryIsoCode") countryIsoCode: String): Response<StatesResponse>
 

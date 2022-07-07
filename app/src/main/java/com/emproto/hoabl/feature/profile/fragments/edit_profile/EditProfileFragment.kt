@@ -50,9 +50,7 @@ import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
-import com.emproto.networklayer.response.profile.Data
-import com.emproto.networklayer.response.profile.ProfilePictureResponse
-import com.emproto.networklayer.response.profile.States
+import com.emproto.networklayer.response.profile.*
 import com.example.portfolioui.databinding.RemoveConfirmationBinding
 import java.io.*
 import java.text.SimpleDateFormat
@@ -63,6 +61,8 @@ import kotlin.let as let1
 
 
 class EditProfileFragment : BaseFragment() {
+    private var type: String?=null
+    lateinit var datePicker: DatePickerDialog.OnDateSetListener
     val bundle = Bundle()
 
     @Inject
@@ -72,7 +72,6 @@ class EditProfileFragment : BaseFragment() {
 
     var email = ""
     val emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
-
     var houseNo = ""
     var address = ""
     var locality = ""
@@ -85,7 +84,7 @@ class EditProfileFragment : BaseFragment() {
 
     private val PICK_GALLERY_IMAGE = 1
     lateinit var bitmap: Bitmap
-    lateinit var destinationFile: File
+    var destinationFile= File("")
 
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private var isReadStorageGranted = false
@@ -93,21 +92,33 @@ class EditProfileFragment : BaseFragment() {
     lateinit var removePictureDialog:Dialog
 
     val permissionRequest: MutableList<String> = ArrayList()
+    private lateinit var countriesData: List<Countries>
     private lateinit var statesData: List<States>
     private lateinit var cityData: List<String>
+
+    private val listCountries = ArrayList<String>()
+    private val listCountryISO = ArrayList<String>()
+
+    //    private val countryIsoCode = ArrayList<String>()
     private val listStates = ArrayList<String>()
     private val listStatesISO = ArrayList<String>()
     private val listCities = ArrayList<String>()
+
     private val countryIsoCode = "IN"
     lateinit var state: String
     lateinit var stateIso: String
+    lateinit var country: String
+    lateinit var countryIso: String
     lateinit var city: String
+
     lateinit var gender: String
     private var cameraFile: File?=null
 
     @Inject
     lateinit var appPreference: AppPreference
     lateinit var data: Data
+
+
 
     companion object {
         fun newInstance():
@@ -139,65 +150,73 @@ class EditProfileFragment : BaseFragment() {
         binding = FragmentEditProfileBinding.inflate(layoutInflater)
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             false
-        changeFontOnSave()
 
-        binding.saveAndUpdate.text = "Save and Update"
         val myCalender = Calendar.getInstance()
-        val datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayofMonth ->
+         datePicker = DatePickerDialog.OnDateSetListener { view,year, month,dayofMonth  ->
             myCalender.set(Calendar.YEAR, year)
             myCalender.set(Calendar.MONTH, month)
             myCalender.set(Calendar.DAY_OF_MONTH, dayofMonth)
+
             updateLable(myCalender)
         }
-        binding.tvDatePicker.onFocusChangeListener =
-            View.OnFocusChangeListener { p0, p1 ->
-                if (p1) {
-                    context?.let1 {
-                        DatePickerDialog(
-                            it,
-                            datePicker,
-                            myCalender.get(Calendar.YEAR),
-                            myCalender.get(Calendar.MONTH),
-                            myCalender.get(Calendar.DAY_OF_MONTH)
-                        ).show()
-                    }
-                }
-            }
         binding.tvDatePicker.setOnClickListener {
             context?.let1 { it1 ->
-                DatePickerDialog(
+                val dialog= DatePickerDialog(
                     it1,
                     datePicker,
                     myCalender.get(Calendar.YEAR),
                     myCalender.get(Calendar.MONTH),
                     myCalender.get(Calendar.DAY_OF_MONTH)
-                ).show()
+                )
+                dialog.datePicker.maxDate=System.currentTimeMillis()
+                dialog.show()
+
             }
         }
         initView()
-        setCountrySpinnerData()
         setGenderSpinnersData()
-        getStates()
-
+        getCountries()
         return binding.root
     }
 
-    private fun setCountrySpinnerData() {
-        val countryList = ArrayList<String>()
-        countryList.add("India")
-        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_text, countryList)
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
-
-        binding.autoCountry.setAdapter(adapter)
-    }
+//    private fun setCountrySpinnerData() {
+//        val countryList = ArrayList<String>()
+//        countryList.add("India")
+//        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_text, countryList)
+//        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+//        binding.autoCountry.setAdapter(adapter)
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initClickListener()
     }
-
-    private fun getStates() {
-        profileViewModel.getStates(countryIsoCode).observe(viewLifecycleOwner) {
+    private fun getCountries() {
+        profileViewModel.getCountries().observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.LOADING -> {
+                    binding.progressBaar.show()
+                }
+                Status.SUCCESS -> {
+                    binding.progressBaar.hide()
+                    it.data?.data?.let1 { data ->
+                        countriesData = data
+                    }
+                    for (i in countriesData.indices) {
+                        listCountries.add(countriesData[i].name)
+                        listCountryISO.add(countriesData[i].isoCode)
+                    }
+                    setCountrySpinnersData()
+                }
+                Status.ERROR -> {
+                    binding.progressBaar.hide()
+                }
+            }
+        }
+    }
+    private fun getStates(countryIso: String) {
+        Log.i("countryISO",countryIso)
+        profileViewModel.getStates(countryIso).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBaar.show()
@@ -207,10 +226,10 @@ class EditProfileFragment : BaseFragment() {
                     it.data?.data?.let1 { data ->
                         statesData = data
                     }
-
                     for (i in statesData.indices) {
                         listStates.add(statesData[i].name)
                         listStatesISO.add(statesData[i].isoCode)
+
                     }
                     setStateSpinnersData()
                 }
@@ -260,18 +279,34 @@ class EditProfileFragment : BaseFragment() {
             }
     }
 
+    private fun setCountrySpinnersData() {
+        val countryArrayAdapter =
+            ArrayAdapter(requireContext(), R.layout.spinner_text, listCountries)
+        countryArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+        binding.autoCountry.setAdapter(countryArrayAdapter)
+        binding.autoCountry.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, view, position, id ->
+                binding.autoState.setText("")
+                binding.autoCity.setText("")
+                country = listCountries[position]
+                countryIso = listCountryISO[position]
+                listStates.clear()
+                getStates(countryIso)
+            }
+
+    }
     private fun setStateSpinnersData() {
         val stateArrayAdapter =
             ArrayAdapter(requireContext(), R.layout.spinner_text, listStates)
         stateArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         binding.autoState.setAdapter(stateArrayAdapter)
-
         binding.autoState.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 binding.autoCity.setText("")
                 state = listStates[position]
                 stateIso = listStatesISO[position]
-                getCities(stateIso, countryIsoCode)
+                listCities.clear()
+                getCities(stateIso, countryIso)
             }
         enableStateEdit()
     }
@@ -282,7 +317,8 @@ class EditProfileFragment : BaseFragment() {
         binding.autoCity.setAdapter(cityAdapter)
         binding.autoCity.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
-                city = listCities[position]
+                    city = listCities[position]
+
             }
         enableCityEdit()
     }
@@ -292,8 +328,6 @@ class EditProfileFragment : BaseFragment() {
         binding.completeAddress.setText("")
         binding.houseNo.setText("")
         binding.pincodeEditText.setText("")
-
-
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 isReadStorageGranted = permissions[Manifest.permission.READ_EXTERNAL_STORAGE]
@@ -313,7 +347,12 @@ class EditProfileFragment : BaseFragment() {
             binding.emailTv.setText("")
         }
         if (!data.dateOfBirth.isNullOrEmpty()) {
-            binding.tvDatePicker.setText(data.dateOfBirth.substring(0, 10))
+            val inputFormat:SimpleDateFormat =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+            val outputFormat :SimpleDateFormat=  SimpleDateFormat("dd-MM-yyyy")
+            val date:Date = inputFormat.parse(data.dateOfBirth)
+            val formattedDate:String = outputFormat.format(date)
+            System.out.println(formattedDate)
+            binding.tvDatePicker.setText(formattedDate)
         } else {
             binding.tvDatePicker.setText("")
         }
@@ -481,8 +520,6 @@ class EditProfileFragment : BaseFragment() {
         binding.autoState.setTextIsSelectable(false)
         binding.autoState.isLongClickable = false
     }
-
-
     private fun setUserNamePIC(data: Data) {
         if (this.data.lastName.isNullOrEmpty()) {
             val firstLetter: String = this.data.firstName.substring(0, 2)
@@ -496,15 +533,12 @@ class EditProfileFragment : BaseFragment() {
 
         }
     }
-
     private fun updateLable(myCalendar: Calendar) {
-        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH)
+        val sdf = SimpleDateFormat("dd-MM-yyyy'T'HH:mm:ssZ", Locale.ENGLISH)
         var dateSelected = sdf.format(myCalendar.time)
         binding.tvDatePicker.setText(dateSelected.substring(0, 10))
 
     }
-
-
     private fun initClickListener() {
         binding.backAction.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
@@ -610,10 +644,25 @@ class EditProfileFragment : BaseFragment() {
 
         removePictureDialog()
         binding.saveAndUpdate.setOnClickListener {
+            if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
+                if(type=="CAMERA_CLICK")
+                callingUploadPicApi(cameraFile!!)
+                else if(type=="GALLERY_CLICK"){
+                        callingUploadPicApi(destinationFile)
+                }
+                else{
+
+                }
+            } else {
+                (requireActivity() as BaseActivity).showError(
+                    "Please check Internet Connections to upload image",
+                    binding.root
+                )
+            }
+
             binding.saveAndUpdate.text = "Save and Update"
             email = binding.emailTv.text.toString()
-            if (!email.isNullOrEmpty() && email.isValidEmail()) {
-
+            if (!email.isNullOrEmpty() && email.isValidEmail()&& android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 binding.tvEmail.isErrorEnabled = false
                 email = binding.emailTv.text.toString()
             } else {
@@ -683,7 +732,6 @@ class EditProfileFragment : BaseFragment() {
                     ).show()
                 }
             }
-
             countrySelected = binding.autoCountry.text.toString()
             if (!countrySelected.isNullOrEmpty()) {
                 binding.spinnerCountry.isErrorEnabled = false
@@ -705,7 +753,6 @@ class EditProfileFragment : BaseFragment() {
                 binding.spinnerCity.error = "Select City"
                 citySelected = binding.autoCity.text.toString()
             }
-
             if (!email.isNullOrEmpty() && email.isValidEmail() && !houseNo.isNullOrEmpty() && !address.isNullOrEmpty() && !locality.isNullOrEmpty() && pinCode.isValidPinCode() && !countrySelected.isNullOrEmpty() && !stateSelected.isNullOrEmpty() && !citySelected.isNullOrEmpty()) {
                 val validEmail = binding.emailTv.text
                 val validHouse = binding.houseNo.text
@@ -715,15 +762,12 @@ class EditProfileFragment : BaseFragment() {
                 val validCountry = binding.autoCountry.text
                 val validState = binding.autoState.text
                 val validCity = binding.autoCity.text
-
                 sendProfileDetail(validEmail, validHouse, validAdd, validLocality, validPinCode, validCountry, validState, validCity)
-                changeFontOnSave()
-                binding.saveAndUpdate.isVisible = true
                 val dialog = EditProfileUpdatedPopUpFragment()
                 dialog.isCancelable = false
                 dialog.show(childFragmentManager, "submitted")
+                changeFontOnSave()
             }
-
         }
     }
     private fun removePictureDialog() {
@@ -738,15 +782,17 @@ class EditProfileFragment : BaseFragment() {
             binding.profileUserLetters.visibility = View.VISIBLE
             setUserNamePIC(data)
         }
-//        removeDialogLayout.tcClose.setOnClickListener {
-//            removePictureDialog.dismiss()
-//        }
 
         removeDialogLayout.actionNo.setOnClickListener {
             removePictureDialog.dismiss()
         }
         binding.tvremove.setOnClickListener {
-            removePictureDialog.show()
+            if(!data.profilePictureUrl.isNullOrEmpty()){
+                removePictureDialog.show()
+            }
+            else{
+                removePictureDialog.dismiss()
+            }
         }
     }
 
@@ -772,8 +818,6 @@ class EditProfileFragment : BaseFragment() {
         val typeface10 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
         binding.tvDatePicker.typeface = typeface10
     }
-
-
     private fun sendProfileDetail(
         validEmail: Editable,
         validHouse: Editable,
@@ -796,7 +840,7 @@ class EditProfileFragment : BaseFragment() {
             validPinCode.toString(),
             validCity.toString(),
             validState.toString(),
-            "India"
+            validCountry.toString()
         )
         profileViewModel.editUserNameProfile(editUserNameRequest)
             .observe(
@@ -872,7 +916,6 @@ class EditProfileFragment : BaseFragment() {
                 thumbnail
             }
         }
-
         binding.profileImage.visibility = View.VISIBLE
         binding.profileUserLetters.visibility = View.GONE
         try{
@@ -880,9 +923,9 @@ class EditProfileFragment : BaseFragment() {
         }catch (e:Exception){
             e.message
         }
-        if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
+        type="CAMERA_CLICK"
+    /*    if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
             callingUploadPicApi(cameraFile!!)
-            binding.saveAndUpdate.text = "Save and Update"
 
         } else {
             (requireActivity() as BaseActivity).showError(
@@ -890,7 +933,7 @@ class EditProfileFragment : BaseFragment() {
                 binding.root
 
             )
-        }
+        }*/
     }
 
     fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
@@ -912,18 +955,19 @@ class EditProfileFragment : BaseFragment() {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
 
             try {
-                val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
-                if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
+              val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
+                destinationFile = File(filePath)
+                type="GALLERY_CLICK"
+             /*   if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
                     destinationFile = File(filePath)
                     callingUploadPicApi(destinationFile)
-                    binding.saveAndUpdate.text = "Save and Update"
-
-                } else {
+                }
+                else {
                     (requireActivity() as BaseActivity).showError(
                         "Please check Internet Connections to upload image",
                         binding.root
                     )
-                }
+                }*/
             } catch (e: Exception) {
                 Log.e("Error", "onSelectFromGalleryResult: " + e.localizedMessage)
             }
