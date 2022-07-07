@@ -28,6 +28,7 @@ import com.emproto.hoabl.viewmodels.factory.AuthFactory
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.response.enums.Status
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.regex.Pattern
 import javax.inject.Inject
@@ -159,7 +160,7 @@ class AuthActivity : BaseActivity() {
     }
 
 
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint("ResourceAsColor", "WrongConstant")
     private fun initClickListner() {
         hMobileNo= appPreference.getMobilenum()
         issuetype= issueChecked()
@@ -305,6 +306,7 @@ class AuthActivity : BaseActivity() {
                         dialog.isCancelable = true
                         dialog.show(supportFragmentManager, "Submit Card")
                         signingInIssueBiding.editIssues.text=null
+                        signingInIssueBiding.issueList.clearCheck()
 
                     }
                     Status.ERROR -> {
