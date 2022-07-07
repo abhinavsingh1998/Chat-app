@@ -257,7 +257,7 @@ class PortfolioSpecificViewAdapter(
                             )
                     if (data.investmentInformation.possesionDate != null)
                         binding.tvPossessionDate.text =
-                            Utility.parseDateFromUtc(
+                            Utility.parseDateFromUtcToMMYYYY(
                                 data.investmentInformation.possesionDate,
                                 null
                             )
@@ -281,14 +281,30 @@ class PortfolioSpecificViewAdapter(
                     binding.tvOtherExpenses.text =
                         Utility.formatAmount(data.investmentInformation.otherExpenses)
 
+                    binding.tvInvestmentAmountTitle.setOnClickListener {
+                        getToolTip("₹${data.investmentInformation.amountInvested}").showAlignTop(
+                            binding.ivInvestedAmount
+                        )
+                    }
                     binding.ivInvestedAmount.setOnClickListener {
                         getToolTip("₹${data.investmentInformation.amountInvested}").showAlignTop(
                             binding.ivInvestedAmount
                         )
                     }
+
                     binding.ivAmountPending.setOnClickListener {
-                        getToolTip("₹${data.investmentInformation.registrationCharges}").showAlignTop(
+                        getToolTip("₹${data.investmentInformation.sdrCharges}").showAlignTop(
                             binding.ivAmountPending
+                        )
+                    }
+                    binding.tvRegistryAmountTitle.setOnClickListener {
+                        getToolTip("₹${data.investmentInformation.sdrCharges}").showAlignTop(
+                            binding.ivAmountPending
+                        )
+                    }
+                    binding.tvOtherExpensesTitle.setOnClickListener {
+                        getToolTip("₹${data.investmentInformation.otherExpenses}").showAlignTop(
+                            binding.ivAmountPending1
                         )
                     }
                     binding.ivAmountPending1.setOnClickListener {
@@ -653,7 +669,7 @@ class PortfolioSpecificViewAdapter(
     private inner class FaqViewHolder(private val binding: FaqLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            binding.tvFaqTitle.text = headingDetails.otherSectionHeadings.faqSections.subHeading
+            binding.tvFaqTitle.text = headingDetails.otherSectionHeadings.faqSections.sectionHeading
             val faqList = list[position].data as List<ProjectContentsAndFaq>
             faqAdapter = ProjectFaqAdapter(context, faqList, ivInterface)
             binding.rvFaq.adapter = faqAdapter
