@@ -1,5 +1,7 @@
 package com.emproto.networklayer.response.search
 
+import com.emproto.networklayer.response.insights.InsightsCreatedAdmin
+import com.emproto.networklayer.response.insights.InsightsModifiedAdmin
 import com.emproto.networklayer.response.investment.ApData
 import com.emproto.networklayer.response.portfolio.ivdetails.FrequentlyAskedQuestion
 
@@ -11,8 +13,8 @@ data class SearchResponse(
 
 data class Data(
     val faqData: List<FrequentlyAskedQuestion>,
-    val insightsData: List<InsightsData>,
-    val marketingUpdateData: List<MarketingUpdateData>,
+    val insightsData: List<com.emproto.networklayer.response.insights.Data>,
+    val marketingUpdateData: List<com.emproto.networklayer.response.marketingUpdates.Data>,
     val projectContentData: List<ApData>,
     var docsData: List<com.emproto.networklayer.response.documents.Data>
 )

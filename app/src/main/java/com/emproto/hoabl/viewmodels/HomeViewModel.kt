@@ -14,6 +14,7 @@ import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.HomeActionItemResponse
 import com.emproto.networklayer.response.chats.ChatDetailResponse
+import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.insights.InsightsResponse
@@ -51,6 +52,7 @@ class HomeViewModel(
     private var insights = MutableLiveData<List<com.emproto.networklayer.response.insights.Data>>()
 
     private var position = MutableLiveData<LatesUpdatesPosition>()
+    private var latUpdPosition = MutableLiveData<LatesUpdatesPosition>()
 
     @Inject
     lateinit var homeSearchDao: HomeSearchDao
@@ -127,6 +129,14 @@ class HomeViewModel(
         return position
     }
 
+    fun setSearchLuPosition(position: LatesUpdatesPosition) {
+        this.latUpdPosition.postValue(position)
+    }
+
+    fun getSearchLuPosition(): LiveData<LatesUpdatesPosition> {
+        return latUpdPosition
+    }
+
     fun getInsightsData(
         refresh: Boolean,
         byPrority: Boolean
@@ -183,6 +193,10 @@ class HomeViewModel(
 
     fun getSearchDocResult(searchWord: String): LiveData<BaseResponse<DocumentsResponse>> {
         return homeRepository.getSearchDocResult(searchWord)
+    }
+
+    fun downloadDocument(path: String): LiveData<BaseResponse<DDocumentResponse>> {
+        return homeRepository.downloadDocument(path)
     }
 
 //    fun getActionItem():LiveData<BaseResponse<HomeActionItemResponse>>{

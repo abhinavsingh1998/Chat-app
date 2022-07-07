@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.portfolio.views
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.media.ExifInterface
@@ -13,6 +14,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -80,6 +82,7 @@ class DocViewerFragment : BaseFragment() {
         (requireActivity() as HomeActivity).hideHeader()
         (requireActivity() as HomeActivity).hideBottomNavigation()
         initView()
+        Log.d("tete",imageUrl.toString())
         if (fromPath) {
             initObserver()
         } else {
