@@ -224,7 +224,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
             editProfile.arguments = bundle
             (requireActivity() as HomeActivity).addFragment(editProfile, false)
         }
-        binding.version.text = "App version:" + BuildConfig.VERSION_NAME
+        binding.version.text = "App Version:" + BuildConfig.VERSION_NAME
 
 
     }
