@@ -31,6 +31,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.res.ResourcesCompat
@@ -56,6 +57,8 @@ import com.emproto.networklayer.response.profile.States
 import com.example.portfolioui.databinding.RemoveConfirmationBinding
 import java.io.*
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.regex.Pattern
 import javax.inject.Inject
@@ -63,9 +66,7 @@ import kotlin.let as let1
 
 
 class EditProfileFragment : BaseFragment() {
-    private var filePath: String?=null
-    private var selectedImage: Uri?=null
-    lateinit var type:String
+    private var type: String?=null
     lateinit var datePicker: DatePickerDialog.OnDateSetListener
     val bundle = Bundle()
 
@@ -88,7 +89,7 @@ class EditProfileFragment : BaseFragment() {
 
     private val PICK_GALLERY_IMAGE = 1
     lateinit var bitmap: Bitmap
-    lateinit var destinationFile: File
+    var destinationFile= File("")
 
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private var isReadStorageGranted = false
@@ -226,6 +227,7 @@ class EditProfileFragment : BaseFragment() {
                         cityData = data!!
                     }
                     for (i in cityData.indices) {
+                        listCities.clear()
                         listCities.add(cityData[i])
                     }
                     setCitiesSpinner()
@@ -304,7 +306,12 @@ class EditProfileFragment : BaseFragment() {
             binding.emailTv.setText("")
         }
         if (!data.dateOfBirth.isNullOrEmpty()) {
-            binding.tvDatePicker.setText(data.dateOfBirth.substring(0, 10))
+            val inputFormat:SimpleDateFormat =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+            val outputFormat :SimpleDateFormat=  SimpleDateFormat("dd-MM-yyyy")
+            val date:Date = inputFormat.parse(data.dateOfBirth)
+            val formattedDate:String = outputFormat.format(date)
+            System.out.println(formattedDate)
+            binding.tvDatePicker.setText(formattedDate)
         } else {
             binding.tvDatePicker.setText("")
         }
@@ -599,15 +606,16 @@ class EditProfileFragment : BaseFragment() {
             if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
                 if(type=="CAMERA_CLICK")
                 callingUploadPicApi(cameraFile!!)
+                else if(type=="GALLERY_CLICK"){
+                        callingUploadPicApi(destinationFile)
+                }
                 else{
-                    destinationFile = File(filePath)
-                    callingUploadPicApi(destinationFile)
+
                 }
             } else {
                 (requireActivity() as BaseActivity).showError(
                     "Please check Internet Connections to upload image",
                     binding.root
-
                 )
             }
 
@@ -683,7 +691,6 @@ class EditProfileFragment : BaseFragment() {
                     ).show()
                 }
             }
-
             countrySelected = binding.autoCountry.text.toString()
             if (!countrySelected.isNullOrEmpty()) {
                 binding.spinnerCountry.isErrorEnabled = false
@@ -898,7 +905,7 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun onSelectFromGalleryResult(data: Intent) {
-         selectedImage = data.data
+        val selectedImage = data.data
         var inputStream =
             requireContext().contentResolver.openInputStream(selectedImage!!)
         try {
@@ -907,7 +914,8 @@ class EditProfileFragment : BaseFragment() {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
 
             try {
-                 filePath = getRealPathFromURI_API19(requireContext(), selectedImage!!)
+              val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
+                destinationFile = File(filePath)
                 type="GALLERY_CLICK"
              /*   if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
                     destinationFile = File(filePath)
