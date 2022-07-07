@@ -51,9 +51,7 @@ import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
-import com.emproto.networklayer.response.profile.Data
-import com.emproto.networklayer.response.profile.ProfilePictureResponse
-import com.emproto.networklayer.response.profile.States
+import com.emproto.networklayer.response.profile.*
 import com.example.portfolioui.databinding.RemoveConfirmationBinding
 import java.io.*
 import java.text.SimpleDateFormat
@@ -97,18 +95,20 @@ class EditProfileFragment : BaseFragment() {
     lateinit var removePictureDialog:Dialog
 
     val permissionRequest: MutableList<String> = ArrayList()
+    private lateinit var countriesData: List<Countries>
     private lateinit var statesData: List<States>
     private lateinit var cityData: List<String>
+
+    private val listCountries = ArrayList<String>()
+//    private val countryIsoCode = ArrayList<String>()
     private val listStates = ArrayList<String>()
     private val listStatesISO = ArrayList<String>()
     private val listCities = ArrayList<String>()
-    private val listCitiesISO = ArrayList<String>()
 
     private val countryIsoCode = "IN"
     lateinit var state: String
     lateinit var stateIso: String
     lateinit var city: String
-    lateinit var cityIso: String
 
     lateinit var gender: String
     private var cameraFile: File?=null
@@ -175,6 +175,7 @@ class EditProfileFragment : BaseFragment() {
         initView()
         setCountrySpinnerData()
         setGenderSpinnersData()
+        getCountries()
         getStates()
 
         return binding.root
@@ -192,7 +193,29 @@ class EditProfileFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         initClickListener()
     }
-
+    private fun getCountries() {
+        profileViewModel.getCountries().observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.LOADING -> {
+                    binding.progressBaar.show()
+                }
+                Status.SUCCESS -> {
+                    binding.progressBaar.hide()
+                    it.data?.data?.let1 { data ->
+                        countriesData = data
+                    }
+                    for (i in countriesData.indices) {
+                        listCountries.add(countriesData[i].name)
+//                        countryIsoCode.add(countriesData[i].isoCode)
+                    }
+//                    setCountrySpinnersData()
+                }
+                Status.ERROR -> {
+                    binding.progressBaar.hide()
+                }
+            }
+        }
+    }
     private fun getStates() {
         profileViewModel.getStates(countryIsoCode).observe(viewLifecycleOwner) {
             when (it.status) {
@@ -256,12 +279,12 @@ class EditProfileFragment : BaseFragment() {
             }
     }
 
+
     private fun setStateSpinnersData() {
         val stateArrayAdapter =
             ArrayAdapter(requireContext(), R.layout.spinner_text, listStates)
         stateArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         binding.autoState.setAdapter(stateArrayAdapter)
-
         binding.autoState.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 binding.autoCity.setText("")
