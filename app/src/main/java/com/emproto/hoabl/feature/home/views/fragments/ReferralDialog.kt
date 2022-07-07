@@ -135,6 +135,8 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
                 when (it.status) {
                     Status.SUCCESS -> {
 
+                        mBinding.referBtn.isVisible= true
+                        mBinding.progressBar.isVisible= false
                         val referralDialoglayout =
                             ReferralSuccessDialogBinding.inflate(layoutInflater)
                         val referralDialog = CustomDialog(requireContext())
@@ -147,6 +149,10 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
 
                         })
                         dismiss()
+                    }
+                    Status.LOADING ->{
+                        mBinding.referBtn.isVisible= false
+                        mBinding.progressBar.isVisible= true
                     }
                 }
             })
