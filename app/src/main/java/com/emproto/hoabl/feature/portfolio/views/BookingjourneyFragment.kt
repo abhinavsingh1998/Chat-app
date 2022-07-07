@@ -237,9 +237,9 @@ class BookingjourneyFragment : BaseFragment() {
                     }
 
                     override fun onClickRegistrationDetails(date: String, number: String) {
-//                        dialogRegistrationDetailsBinding.tvRegistrationDate.text =
-//                            Utility.parseDateFromUtc(date)
-//                        dialogRegistrationDetailsBinding.tvRegistrationNo.text = number
+                        dialogRegistrationDetailsBinding.tvRegistrationDate.text =
+                            Utility.parseDateFromUtc(date)
+                        dialogRegistrationDetailsBinding.tvRegistrationNo.text = number
                         registrationDialog.show()
                     }
 
