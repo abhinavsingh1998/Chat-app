@@ -289,7 +289,7 @@ class ProjectDetailFragment : BaseFragment() {
     private fun callVideoCallApi() {
         investmentViewModel.scheduleVideoCall(
             VideoCallBody(
-                caseType = "1004",
+                caseType = "1003",
                 description = "I want to know more about ${allData.launchName}",
                 issueType = "Schedule a video call",
                 projectId = projectId
@@ -384,7 +384,6 @@ class ProjectDetailFragment : BaseFragment() {
                 }
             }
         })
-
     }
 
     private fun callProjectIdApi(promiseData: List<PmData>) {
