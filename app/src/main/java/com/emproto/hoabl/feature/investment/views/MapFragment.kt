@@ -298,7 +298,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             for (i in result.indices){
                 lineoption.addAll(result[i])
                 lineoption.width(10f)
-                lineoption.color(ContextCompat.getColor(requireContext(),android.R.color.holo_blue_dark))
+                lineoption.color(ContextCompat.getColor(requireContext(),R.color.text_blue_color))
                 lineoption.geodesic(true)
             }
             mMap.addPolyline(lineoption)

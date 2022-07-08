@@ -164,7 +164,7 @@ class CategoryListFragment() : BaseFragment() {
                     val fragment = ProjectDetailFragment()
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(
-                        fragment, false
+                        fragment, true
                     )
                 }
                 1 -> {
@@ -172,7 +172,7 @@ class CategoryListFragment() : BaseFragment() {
                     val bundle = Bundle()
                     bundle.putInt("ProjectId", item.toInt())
                     fragment.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(fragment, false)
+                    (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
             }
 

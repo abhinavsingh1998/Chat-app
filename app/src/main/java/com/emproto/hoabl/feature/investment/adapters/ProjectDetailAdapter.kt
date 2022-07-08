@@ -294,8 +294,8 @@ class ProjectDetailAdapter(
                         binding.tvFullApplyNow.visibility = View.GONE
                     }
                     false -> {
-                        binding.tvProjectViewInfo.visibility = View.GONE
-                        binding.tvApplyNow.visibility = View.GONE
+                        binding.tvProjectViewInfo.visibility = View.INVISIBLE
+                        binding.tvApplyNow.visibility = View.INVISIBLE
                         binding.tvFullApplyNow.visibility = View.VISIBLE
                     }
                 }
