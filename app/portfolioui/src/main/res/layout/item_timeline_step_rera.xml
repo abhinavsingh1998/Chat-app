@@ -64,11 +64,10 @@
             style="@style/text_regular_normal_12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="29dp"
             android:text="RERA Registration"
             android:textColor="#17171c"
             app:layout_constraintBottom_toBottomOf="@+id/steps_type"
-            app:layout_constraintStart_toEndOf="@+id/steps_type"
+            app:layout_constraintStart_toStartOf="@+id/text_header"
             app:layout_constraintTop_toTopOf="@+id/steps_type" />
 
         <ImageView
