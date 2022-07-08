@@ -189,6 +189,7 @@ class FaqDetailFragment : BaseFragment() {
                 val list = ArrayList<RecyclerViewFaqItem>()
                 list.add(RecyclerViewFaqItem(1, allFaqList[0]))
                 val searchString = item.toString()
+                var isFaqPresent = false
                 for (item in allFaqList) {
                     for (element in item.faqs) {
                         if (element.faqQuestion.question.contains(
@@ -196,7 +197,13 @@ class FaqDetailFragment : BaseFragment() {
                                 true
                             ) || item.name.contains(searchString.trim(), true)
                         ) {
+                            isFaqPresent = true
+                        }
+                    }
+                    when(isFaqPresent){
+                        true -> {
                             list.add(RecyclerViewFaqItem(2, item))
+                            isFaqPresent = false
                         }
                     }
                 }
@@ -218,7 +225,6 @@ class FaqDetailFragment : BaseFragment() {
         }
         when (isItemsPresent) {
             false -> {
-                Toast.makeText(requireContext(), "No faqs to show", Toast.LENGTH_SHORT).show()
                 hideKeyboard()
             }
             else -> {
