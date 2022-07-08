@@ -61,7 +61,7 @@ class ProjectDetailFragment : BaseFragment() {
     private lateinit var promisesData: List<PmData>
     private lateinit var landSkusData: List<InventoryBucketContent>
     private lateinit var mapLocationData: LocationInfrastructure
-    private var watchList: MutableList<Data> = mutableListOf()
+    private var watchList= ArrayList<Data>()
     private lateinit var inventoryList: List<Inventory>
     private lateinit var similarInvestments: List<SimilarInvestment>
     private lateinit var allData: PdData
@@ -398,8 +398,10 @@ class ProjectDetailFragment : BaseFragment() {
                     it.data?.data?.let { data ->
                         binding.slSwipeRefresh.isRefreshing = false
                         allData = data.projectContent
-                        if (watchList != null) {
-                            watchList = data.projectContent.watchlist.toMutableList()
+                        if (data.projectContent.watchlist != null) {
+                            for(item in data.projectContent.watchlist){
+                                watchList.add(item)
+                            }
                         }
                         oppDocData = data.projectContent.opportunityDoc
                         mediaData = data.projectContent.mediaGalleryOrProjectContent

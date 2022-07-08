@@ -207,7 +207,7 @@
             android:fontFamily="@font/jost_regular"
             android:text="20 People saw this project in 7 days"
             android:textColor="@color/text_gold_colr"
-            android:textSize="12sp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@id/tv_apply_now"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cv_price_range" />
@@ -434,8 +434,6 @@
             android:lineSpacingMultiplier="1.1"
             android:text="@string/reg_draft_text"
             android:textAlignment="center"
-            android:textSize="12sp"
-            android:textColor="#313131"
             app:layout_constraintEnd_toStartOf="@id/iv_reg_info"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_project_view_info" />
