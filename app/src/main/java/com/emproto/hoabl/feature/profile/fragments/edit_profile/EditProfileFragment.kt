@@ -910,7 +910,6 @@ class EditProfileFragment : BaseFragment() {
             permissionLauncher.launch(permissionRequest.toTypedArray())
         }
     }
-
     private fun onCaptureImageResult() {
         val selectedImage = cameraFile?.path
         destinationFile = cameraFile!!
@@ -943,16 +942,6 @@ class EditProfileFragment : BaseFragment() {
             e.message
         }
         type = "CAMERA_CLICK"
-        /*    if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-                callingUploadPicApi(cameraFile!!)
-
-            } else {
-                (requireActivity() as BaseActivity).showError(
-                    "Please check Internet Connections to upload image",
-                    binding.root
-
-                )
-            }*/
     }
 
     fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
@@ -977,16 +966,6 @@ class EditProfileFragment : BaseFragment() {
                 val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
                 destinationFile = File(filePath)
                 type = "GALLERY_CLICK"
-                /*   if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-                       destinationFile = File(filePath)
-                       callingUploadPicApi(destinationFile)
-                   }
-                   else {
-                       (requireActivity() as BaseActivity).showError(
-                           "Please check Internet Connections to upload image",
-                           binding.root
-                       )
-                   }*/
             } catch (e: Exception) {
                 Log.e("Error", "onSelectFromGalleryResult: " + e.localizedMessage)
             }
@@ -1044,7 +1023,6 @@ class EditProfileFragment : BaseFragment() {
                         }
 
                     }
-
                     Status.ERROR -> {
                         binding.progressBaar.hide()
                         Toast.makeText(
