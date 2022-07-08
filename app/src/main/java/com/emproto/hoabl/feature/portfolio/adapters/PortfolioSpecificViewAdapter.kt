@@ -347,6 +347,7 @@ class PortfolioSpecificViewAdapter(
                         binding.tvAmountPaidTitle.visibility = View.GONE
                         binding.tvAmountPending.visibility = View.GONE
                         binding.tvAmountPendingTitle.visibility = View.GONE
+                        binding.tvAllocationDateText.text = "Owned Since"
                     } else {
                         binding.tvPendingAmount.text =
                             Utility.formatAmount(data.projectExtraDetails.amountPending)
