@@ -139,6 +139,7 @@
                 android:layout_marginTop="@dimen/margin_size_12"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toStartOf="@id/pending_linear"
+                app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="@id/tv_investment_details"
                 app:layout_constraintTop_toBottomOf="@id/view_line">
 
@@ -168,7 +169,7 @@
                 android:id="@+id/pending_linear"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_size_10"
+                android:layout_marginStart="@dimen/margin_size_4"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toStartOf="@id/area_linear"
                 app:layout_constraintStart_toEndOf="@id/paid_linear"
@@ -197,9 +198,9 @@
 
             <LinearLayout
                 android:id="@+id/area_linear"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_size_20"
+                android:layout_marginStart="@dimen/margin_size_4"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="@id/tv_view_booking_journey"
                 app:layout_constraintStart_toEndOf="@id/pending_linear"
@@ -226,11 +227,12 @@
 
             <LinearLayout
                 android:id="@+id/allocation_date_linear"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_size_14"
                 android:orientation="vertical"
-                app:layout_constraintStart_toStartOf="@id/paid_linear"
+                app:layout_constraintEnd_toStartOf="@+id/tv_possession_date_linear"
+                app:layout_constraintStart_toStartOf="@+id/paid_linear"
                 app:layout_constraintTop_toBottomOf="@id/paid_linear">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -254,10 +256,12 @@
 
             <LinearLayout
                 android:id="@+id/tv_possession_date_linear"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_4"
                 android:orientation="vertical"
-                app:layout_constraintStart_toStartOf="@id/pending_linear"
+                app:layout_constraintEnd_toStartOf="@+id/linearLayoutCompat"
+                app:layout_constraintStart_toEndOf="@+id/allocation_date_linear"
                 app:layout_constraintTop_toTopOf="@id/allocation_date_linear">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -279,30 +283,40 @@
 
             </LinearLayout>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_view_more"
-                style="@style/text_style_view_more_brown_color_14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:fontFamily="@font/jost_medium"
-                android:text="@string/view_more"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="@id/tv_possession_date_linear"
-                app:layout_constraintEnd_toStartOf="@+id/iv_view_more_drop_down"
-                app:layout_constraintTop_toTopOf="@id/tv_possession_date_linear"
-                app:layout_constraintVertical_bias="0.458" />
 
-            <ImageView
-                android:id="@+id/iv_view_more_drop_down"
-                android:layout_width="@dimen/margin_size_18"
-                android:layout_height="@dimen/margin_size_18"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/ic_drop_down"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="@id/tv_view_more"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_view_more" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+
+                android:id="@+id/linearLayoutCompat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@id/tv_possession_date_linear"
+                app:layout_constraintEnd_toEndOf="@+id/area_linear"
+                app:layout_constraintStart_toEndOf="@+id/tv_possession_date_linear"
+                app:layout_constraintTop_toTopOf="@id/tv_possession_date_linear">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_view_more"
+                    style="@style/text_style_view_more_brown_color_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:fontFamily="@font/jost_medium"
+                    android:text="@string/view_more"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/iv_view_more_drop_down"
+                    android:layout_width="@dimen/margin_size_18"
+                    android:layout_height="@dimen/margin_size_18"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_drop_down"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_view_more"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_view_more" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <TextView
                 android:id="@+id/textView12"
