@@ -22,7 +22,7 @@ import com.google.android.material.snackbar.Snackbar
 
 abstract class BaseFragment : Fragment() {
 
-    lateinit var snackBar:Snackbar
+   var snackBar: Snackbar? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -88,7 +88,7 @@ abstract class BaseFragment : Fragment() {
     fun showSnackBar(view: View?) {
         snackBar = Snackbar.make(requireView(), "", Snackbar.LENGTH_INDEFINITE)
         val customSnackView: View = layoutInflater.inflate(R.layout.custom_snackbar_view, null)
-        val snackbarLayout = snackBar.view as Snackbar.SnackbarLayout
+        val snackbarLayout = snackBar!!.view as Snackbar.SnackbarLayout
         snackbarLayout.setPadding(0, 5, 0, 5)
         val imageView: ImageView = customSnackView.findViewById(R.id.refresh)
 /*
@@ -118,11 +118,13 @@ abstract class BaseFragment : Fragment() {
         // add the custom snack bar layout to snackbar layout
         snackbarLayout.addView(customSnackView, 0)
 
-        snackBar.show()
+        snackBar!!.show()
     }
 
     fun dismissSnackBar(){
-        snackBar.dismiss()
+        if (snackBar!=null){
+            snackBar!!.dismiss()
+        }
 
     }
 
