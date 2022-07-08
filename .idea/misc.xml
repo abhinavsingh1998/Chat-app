@@ -366,7 +366,7 @@
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/drawable/login_edittext_bg.xml" value="0.142" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/activity_home.xml" value="0.10997267759562841" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/activity_introslider.xml" value="0.13043478260869565" />
-        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/custom_toolbar.xml" value="0.3635405690200211" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/custom_toolbar.xml" value="0.16666666666666666" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/detail_view_item.xml" value="0.16666666666666666" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/facility_management_layout.xml" value="0.33055555555555555" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/app/src/main/res/layout/fragment_category_list.xml" value="0.1" />
@@ -417,6 +417,7 @@
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/core/src/main/res/drawable/ic_info_outlined.xml" value="0.142" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/core/src/main/res/layout/custom_edittext.xml" value="0.13179347826086957" />
         <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/core/src/main/res/layout/pausable_progress.xml" value="0.1" />
+        <entry key="..\:/singhabhinav98/practice_workspace/android_workspace/hoabl_customer_app_android/core/src/main/res/layout/terms_condition_dialog.xml" value="0.1" />
         <entry key="app/portfolioui/src/main/res/drawable/bg_progress.xml" value="0.2552083333333333" />
         <entry key="app/portfolioui/src/main/res/drawable/bg_rightcorner.xml" value="0.2552083333333333" />
         <entry key="app/portfolioui/src/main/res/drawable/bg_shape.xml" value="0.2552083333333333" />

@@ -20,7 +20,7 @@
     <string name="mobile_number">Mobile Number</string>
     <string name="enter_mobile">Enter Mobile Number</string>
     <string name="whatsapp">Allow Whatsapp Communications</string>
-    <string name="login_terms_text">By logging in, you agree to our \n Terms Of Services and Privacy Policy</string>
+    <string name="login_terms_text">By logging in, you agree to our \n Terms and Conditions &amp; Privacy Policy</string>
     <string name="trouble_login"><u>Trouble Signing in?</u></string>
     <string name="get_otp">Get OTP</string>
     <string name="submit_and_continue">Submit and Continue</string>
@@ -33,7 +33,7 @@
     <string name="explore_investment">Explore New Investment</string>
     <string name="browse_deal">Browse deals with HoABL</string>
     <string name="get_exclusive">Get exclusive investment deal</string>
-    <string name="verify_otp">VERIFY OTP</string>
+    <string name="verify_otp">Verify OTP</string>
     <string name="enter_digits">Enter 6-digit OTP sent to</string>
     <string name="change_number"><u>EDIT</u></string>
     <string name="enter_otp">Enter OTP</string>
@@ -98,7 +98,7 @@
     <string name="smart_deals">Smart Deals</string>
     <string name="total_projects">Total Projects</string>
     <string name="completed">Completed</string>
-    <string name="intro1">New Generation Land \n is for everyone. Explore our latest offerings.</string>
+    <string name="intro1">New Generation Land  \n is for everyone. Explore our latest offerings.</string>
     <string name="intro2">When you buy land from us - Rest assured in our promises.</string>
     <string name="intro3">Just like a bank - Your land portfolio is safe and secure with us.</string>
     <string name="enter_your_phonenumber">Enter Your Phone Number*</string>
@@ -230,7 +230,7 @@
     <string name="save_and_update">Save and Update</string>
     <string name="documents">Documents</string>
     <string name="continue_txt">Continue</string>
-    <string name="confirmation_msg">Your query has been submitted successfully.</string>
+    <string name="confirmation_msg">Your query has been submitted \nsuccessfully.</string>
     <string name="feedBack_submitted">Your feedBack has been submitted successfully.</string>
     <string name="profile_updated">Your profile has been updated successfully.</string>
 
@@ -277,7 +277,7 @@
     <string name="sku_type">SKU Type</string>
     <string name="investment_amount">Investment amount</string>
     <string name="amount_pending">Pending</string>
-    <string name="registry_amount">Registry Amount</string>
+    <string name="registry_amount">Est. Registry Amount</string>
     <string name="other_expenses">Other Expenses</string>
     <string name="latitude">Latitude</string>
     <string name="Longitude">Longitude</string>

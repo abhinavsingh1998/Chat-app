@@ -514,7 +514,7 @@ class BookingJourneyAdapter(
         var anyInProgress = false
 
         for (item in data) {
-            if (item.targetDate != null && !item.isPaymentDone && Utility.compareDates(item.targetDate)) {
+            if (!item.isPaymentDone) {
                 list.add(
                     BookingStepsModel(
                         BookingStepsAdapter.TYPE_INPROGRESS,
@@ -523,8 +523,7 @@ class BookingJourneyAdapter(
                         "View Details", item
                     )
                 )
-
-            } else {
+            }  else {
                 anyInProgress = true
                 list.add(
                     BookingStepsModel(

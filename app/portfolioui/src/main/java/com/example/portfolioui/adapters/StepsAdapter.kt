@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.core.Utility
 import com.example.portfolioui.R
 import com.example.portfolioui.databinding.ItemTimelineInprogressBinding
 import com.example.portfolioui.databinding.ItemTimelineStepCompletedBinding
@@ -100,7 +101,10 @@ class StepsAdapter(
                     getToolTip(data.sections[0].values.toolTipDetails).showAlignBottom(type1Holder.binding.imageView)
                 }
                 type1Holder.binding.textView7.setOnClickListener {
-                    itemInterface.onClickVDetails(data.sections[0].values.medias.key,data.sections[0].values.medias.value.url)
+                    itemInterface.onClickVDetails(
+                        data.sections[0].values.medias.key,
+                        data.sections[0].values.medias.value.url
+                    )
 
                 }
             }
@@ -109,7 +113,7 @@ class StepsAdapter(
                 val data = dataList[position].timeline
                 type1Holder.binding.tvName.text = data.heading
                 type1Holder.binding.tvPercentage.text =
-                    "" + data.sections[0].values.percentage + "%"
+                    "${Utility.convertTo(data.sections[0].values.percentage)}%"
 
                 type1Holder.binding.textView7.text = showHTMLText(
                     String.format(
