@@ -41,7 +41,7 @@
                 android:layout_marginTop="@dimen/margin_size_55"
                 android:gravity="start|center"
                 android:text="@string/verify_otp"
-                app:fontName="@string/montserrat_regular"
+                app:fontName="@string/jost_regular"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"
                 android:text="@string/resend_otp"
-                app:fontName="@string/jost_medium"
+                app:fontName="@string/jost_bold"
                 app:layout_constraintBottom_toBottomOf="@+id/login_edittext"
                 app:layout_constraintRight_toRightOf="@+id/login_edittext"
                 app:layout_constraintTop_toTopOf="@+id/login_edittext"

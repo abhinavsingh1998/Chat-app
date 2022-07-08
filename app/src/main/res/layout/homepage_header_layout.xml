@@ -65,13 +65,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/tm"
                 style="@style/text_style_text_color_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/jost_regular"
-                android:text="TM"
+                android:src="@drawable/invalid_name"
                 app:layout_constraintLeft_toRightOf="@id/heading"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -120,7 +119,7 @@
             android:paddingTop="@dimen/margin_size_7"
             android:paddingBottom="@dimen/margin_size_7"
             android:singleLine="true"
-            android:text="@string/discover_our_investment"
+            android:text="@string/discover_all_investments_text"
             app:fontName="@string/jost_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
