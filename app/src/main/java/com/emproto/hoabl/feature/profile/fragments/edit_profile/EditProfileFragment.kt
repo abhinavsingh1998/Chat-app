@@ -73,7 +73,6 @@ class EditProfileFragment : BaseFragment() {
     lateinit var binding: FragmentEditProfileBinding
 
     var email = ""
-    val emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
     var houseNo = ""
     var address = ""
     var locality = ""
