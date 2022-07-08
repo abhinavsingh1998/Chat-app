@@ -218,7 +218,6 @@ class FaqDetailFragment : BaseFragment() {
         }
         when (isItemsPresent) {
             false -> {
-                Toast.makeText(requireContext(), "No faqs to show", Toast.LENGTH_SHORT).show()
                 hideKeyboard()
             }
             else -> {
