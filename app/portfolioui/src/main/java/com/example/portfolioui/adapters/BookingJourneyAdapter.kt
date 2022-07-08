@@ -514,7 +514,7 @@ class BookingJourneyAdapter(
         var anyInProgress = false
 
         for (item in data) {
-            if (!item.isPaymentDone && item.targetDate == null) {
+            if (!item.isPaymentDone) {
                 list.add(
                     BookingStepsModel(
                         BookingStepsAdapter.TYPE_INPROGRESS,
@@ -523,17 +523,7 @@ class BookingJourneyAdapter(
                         "View Details", item
                     )
                 )
-            } else if (item.targetDate != null && !item.isPaymentDone && Utility.compareDates(item.targetDate)) {
-                list.add(
-                    BookingStepsModel(
-                        BookingStepsAdapter.TYPE_INPROGRESS,
-                        item.paymentMilestone,
-                        "Payment Pending",
-                        "View Details", item
-                    )
-                )
-
-            } else {
+            }  else {
                 anyInProgress = true
                 list.add(
                     BookingStepsModel(
