@@ -124,6 +124,10 @@ class OTPVerificationFragment : BaseFragment() {
         return mBinding.root
     }
 
+    override fun onPause() {
+        super.onPause()
+        dismissSnackBar()
+    }
 //    private fun startUserConsent() {
 //        val client = SmsRetriever.getClient(requireContext())
 //        client.startSmsUserConsent(null)
