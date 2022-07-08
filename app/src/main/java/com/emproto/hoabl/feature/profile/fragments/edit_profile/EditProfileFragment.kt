@@ -63,7 +63,7 @@ import kotlin.let as let1
 
 
 class EditProfileFragment : BaseFragment() {
-    private var type: String?=null
+    private var type: String? = null
     lateinit var datePicker: DatePickerDialog.OnDateSetListener
     val bundle = Bundle()
 
@@ -73,6 +73,7 @@ class EditProfileFragment : BaseFragment() {
     lateinit var binding: FragmentEditProfileBinding
 
     var email = ""
+    val emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
     var houseNo = ""
     var address = ""
     var locality = ""
@@ -85,12 +86,12 @@ class EditProfileFragment : BaseFragment() {
 
     private val PICK_GALLERY_IMAGE = 1
     lateinit var bitmap: Bitmap
-    var destinationFile= File("")
+    var destinationFile = File("")
 
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private var isReadStorageGranted = false
     private var isWriteStorageGranted = false
-    lateinit var removePictureDialog:Dialog
+    lateinit var removePictureDialog: Dialog
 
     val permissionRequest: MutableList<String> = ArrayList()
     private lateinit var countriesData: List<Countries>
@@ -113,12 +114,11 @@ class EditProfileFragment : BaseFragment() {
     lateinit var city: String
 
     lateinit var gender: String
-    private var cameraFile: File?=null
+    private var cameraFile: File? = null
 
     @Inject
     lateinit var appPreference: AppPreference
     lateinit var data: Data
-
 
 
     companion object {
@@ -151,10 +151,9 @@ class EditProfileFragment : BaseFragment() {
         binding = FragmentEditProfileBinding.inflate(layoutInflater)
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             false
-        email=binding.tvEmail.toString()
 
         val myCalender = Calendar.getInstance()
-         datePicker = DatePickerDialog.OnDateSetListener { view,year, month,dayofMonth  ->
+        datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayofMonth ->
             myCalender.set(Calendar.YEAR, year)
             myCalender.set(Calendar.MONTH, month)
             myCalender.set(Calendar.DAY_OF_MONTH, dayofMonth)
@@ -163,14 +162,14 @@ class EditProfileFragment : BaseFragment() {
         }
         binding.tvDatePicker.setOnClickListener {
             context?.let1 { it1 ->
-                val dialog= DatePickerDialog(
+                val dialog = DatePickerDialog(
                     it1,
                     datePicker,
                     myCalender.get(Calendar.YEAR),
                     myCalender.get(Calendar.MONTH),
                     myCalender.get(Calendar.DAY_OF_MONTH)
                 )
-                dialog.datePicker.maxDate=System.currentTimeMillis()
+                dialog.datePicker.maxDate = System.currentTimeMillis()
                 dialog.show()
 
             }
@@ -193,6 +192,7 @@ class EditProfileFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         initClickListener()
     }
+
     private fun getCountries() {
         profileViewModel.getCountries().observe(viewLifecycleOwner) {
             when (it.status) {
@@ -216,8 +216,9 @@ class EditProfileFragment : BaseFragment() {
             }
         }
     }
+
     private fun getStates(countryIso: String) {
-        Log.i("countryISO",countryIso)
+        Log.i("countryISO", countryIso)
         profileViewModel.getStates(countryIso).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
@@ -297,6 +298,7 @@ class EditProfileFragment : BaseFragment() {
             }
 
     }
+
     private fun setStateSpinnersData() {
         val stateArrayAdapter =
             ArrayAdapter(requireContext(), R.layout.spinner_text, listStates)
@@ -319,7 +321,7 @@ class EditProfileFragment : BaseFragment() {
         binding.autoCity.setAdapter(cityAdapter)
         binding.autoCity.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
-                    city = listCities[position]
+                city = listCities[position]
 
             }
         enableCityEdit()
@@ -349,10 +351,10 @@ class EditProfileFragment : BaseFragment() {
             binding.emailTv.setText("")
         }
         if (!data.dateOfBirth.isNullOrEmpty()) {
-            val inputFormat:SimpleDateFormat =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-            val outputFormat :SimpleDateFormat=  SimpleDateFormat("dd-MM-yyyy")
-            val date:Date = inputFormat.parse(data.dateOfBirth)
-            val formattedDate:String = outputFormat.format(date)
+            val inputFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+            val outputFormat: SimpleDateFormat = SimpleDateFormat("dd-MM-yyyy")
+            val date: Date = inputFormat.parse(data.dateOfBirth)
+            val formattedDate: String = outputFormat.format(date)
             System.out.println(formattedDate)
             binding.tvDatePicker.setText(formattedDate)
         } else {
@@ -401,10 +403,10 @@ class EditProfileFragment : BaseFragment() {
 
         }
         if (!data.pincode.toString().isNullOrEmpty()) {
-            if(data.pincode.toString()=="null"){
+            if (data.pincode.toString() == "null") {
                 binding.pincodeEditText.setText("")
 
-            }else{
+            } else {
                 binding.pincodeEditText.setText(data.pincode.toString())
 
             }
@@ -412,8 +414,7 @@ class EditProfileFragment : BaseFragment() {
         } else if (data.pincode.toString() == null) {
             binding.pincodeEditText.setText("")
 
-        }
-            else {
+        } else {
             binding.pincodeEditText.setText("")
         }
         if (data.profilePictureUrl.isNullOrEmpty()) {
@@ -522,6 +523,7 @@ class EditProfileFragment : BaseFragment() {
         binding.autoState.setTextIsSelectable(false)
         binding.autoState.isLongClickable = false
     }
+
     private fun setUserNamePIC(data: Data) {
         if (this.data.lastName.isNullOrEmpty()) {
             val firstLetter: String = this.data.firstName.substring(0, 2)
@@ -535,12 +537,14 @@ class EditProfileFragment : BaseFragment() {
 
         }
     }
+
     private fun updateLable(myCalendar: Calendar) {
         val sdf = SimpleDateFormat("dd-MM-yyyy'T'HH:mm:ssZ", Locale.ENGLISH)
         var dateSelected = sdf.format(myCalendar.time)
         binding.tvDatePicker.setText(dateSelected.substring(0, 10))
 
     }
+
     private fun initClickListener() {
         binding.backAction.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
@@ -549,12 +553,14 @@ class EditProfileFragment : BaseFragment() {
             override fun afterTextChanged(s: Editable) {
 
             }
+
             override fun beforeTextChanged(
                 s: CharSequence, start: Int,
                 count: Int, after: Int
             ) {
 
             }
+
             override fun onTextChanged(
                 s: CharSequence, start: Int,
                 before: Int, count: Int
@@ -647,12 +653,11 @@ class EditProfileFragment : BaseFragment() {
         removePictureDialog()
         binding.saveAndUpdate.setOnClickListener {
             if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-                if(type=="CAMERA_CLICK")
-                callingUploadPicApi(cameraFile!!)
-                else if(type=="GALLERY_CLICK"){
-                        callingUploadPicApi(destinationFile)
-                }
-                else{
+                if (type == "CAMERA_CLICK")
+                    callingUploadPicApi(cameraFile!!)
+                else if (type == "GALLERY_CLICK") {
+                    callingUploadPicApi(destinationFile)
+                } else {
 
                 }
             } else {
@@ -661,13 +666,16 @@ class EditProfileFragment : BaseFragment() {
                     binding.root
                 )
             }
-            email=binding.tvEmail.toString()
-            if (!email.isNullOrEmpty() && isValidEmail(email)) {
+
+            binding.saveAndUpdate.text = "Save and Update"
+            email = binding.emailTv.text.toString()
+            Log.i("email", email)
+            if (!email.isNullOrEmpty() && email.isValidEmail()) {
                 binding.tvEmail.isErrorEnabled = false
+                email = binding.emailTv.text.toString()
             } else {
                 binding.tvEmail.error = "Please enter valid email"
-                binding.tvEmail.isErrorEnabled = true
-
+                email = binding.emailTv.text.toString()
                 if (email.length == 150) {
                     binding.tvEmail.error = "You have reached the max characters limit"
                     Toast.makeText(
@@ -753,7 +761,7 @@ class EditProfileFragment : BaseFragment() {
                 binding.spinnerCity.error = "Select City"
                 citySelected = binding.autoCity.text.toString()
             }
-            if (!email.isNullOrEmpty() && isValidEmail(email) && !houseNo.isNullOrEmpty() && !address.isNullOrEmpty() && !locality.isNullOrEmpty() && pinCode.isValidPinCode() && !countrySelected.isNullOrEmpty() && !stateSelected.isNullOrEmpty() && !citySelected.isNullOrEmpty()) {
+            if (!email.isNullOrEmpty() && email.isValidEmail() && !houseNo.isNullOrEmpty() && !address.isNullOrEmpty() && !locality.isNullOrEmpty() && pinCode.isValidPinCode() && !countrySelected.isNullOrEmpty() && !stateSelected.isNullOrEmpty() && !citySelected.isNullOrEmpty()) {
                 val validEmail = binding.emailTv.text
                 val validHouse = binding.houseNo.text
                 val validAdd = binding.completeAddress.text
@@ -762,7 +770,16 @@ class EditProfileFragment : BaseFragment() {
                 val validCountry = binding.autoCountry.text
                 val validState = binding.autoState.text
                 val validCity = binding.autoCity.text
-                sendProfileDetail(validEmail, validHouse, validAdd, validLocality, validPinCode, validCountry, validState, validCity)
+                sendProfileDetail(
+                    validEmail,
+                    validHouse,
+                    validAdd,
+                    validLocality,
+                    validPinCode,
+                    validCountry,
+                    validState,
+                    validCity
+                )
                 val dialog = EditProfileUpdatedPopUpFragment()
                 dialog.isCancelable = false
                 dialog.show(childFragmentManager, "submitted")
@@ -770,6 +787,7 @@ class EditProfileFragment : BaseFragment() {
             }
         }
     }
+
     private fun removePictureDialog() {
         val removeDialogLayout = RemoveConfirmationBinding.inflate(layoutInflater)
         removePictureDialog = Dialog(requireContext())
@@ -787,11 +805,10 @@ class EditProfileFragment : BaseFragment() {
             removePictureDialog.dismiss()
         }
         binding.tvremove.setOnClickListener {
-            if(!data.profilePictureUrl.isNullOrEmpty()){
+            if (!data.profilePictureUrl.isNullOrEmpty()) {
                 removePictureDialog.show()
-            }
-            else{
-                removePictureDialog.dismiss()
+            } else {
+                binding.tvremove.isClickable = false
             }
         }
     }
@@ -818,6 +835,7 @@ class EditProfileFragment : BaseFragment() {
         val typeface10 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
         binding.tvDatePicker.typeface = typeface10
     }
+
     private fun sendProfileDetail(
         validEmail: Editable,
         validHouse: Editable,
@@ -868,13 +886,9 @@ class EditProfileFragment : BaseFragment() {
 
     }
 
-    fun isValidEmail(target: CharSequence?): Boolean {
-        return if (TextUtils.isEmpty(target)) {
-            false
-        } else {
-            Patterns.EMAIL_ADDRESS.matcher(target).matches()
-        }
-    }
+
+    fun CharSequence?.isValidEmail() =
+        emailPattern.matcher(this).matches()
 
     fun CharSequence?.isValidPinCode() =
         pinCodePattern.matcher(this).matches()
@@ -902,8 +916,9 @@ class EditProfileFragment : BaseFragment() {
         destinationFile = cameraFile!!
         val thumbnail = BitmapFactory.decodeFile(selectedImage)
         val ei = ExifInterface(cameraFile!!.path)
-        val orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,ExifInterface.ORIENTATION_UNDEFINED)
-        val rotatedBitmap = when(orientation){
+        val orientation =
+            ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
+        val rotatedBitmap = when (orientation) {
             ExifInterface.ORIENTATION_ROTATE_90 -> {
                 rotateImage(thumbnail, 90f)
             }
@@ -922,22 +937,22 @@ class EditProfileFragment : BaseFragment() {
         }
         binding.profileImage.visibility = View.VISIBLE
         binding.profileUserLetters.visibility = View.GONE
-        try{
+        try {
             binding.profileImage.setImageBitmap(rotatedBitmap)
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.message
         }
-        type="CAMERA_CLICK"
-    /*    if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-            callingUploadPicApi(cameraFile!!)
+        type = "CAMERA_CLICK"
+        /*    if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
+                callingUploadPicApi(cameraFile!!)
 
-        } else {
-            (requireActivity() as BaseActivity).showError(
-                "Please check Internet Connections to upload image",
-                binding.root
+            } else {
+                (requireActivity() as BaseActivity).showError(
+                    "Please check Internet Connections to upload image",
+                    binding.root
 
-            )
-        }*/
+                )
+            }*/
     }
 
     fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
@@ -959,19 +974,19 @@ class EditProfileFragment : BaseFragment() {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
 
             try {
-              val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
+                val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
                 destinationFile = File(filePath)
-                type="GALLERY_CLICK"
-             /*   if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-                    destinationFile = File(filePath)
-                    callingUploadPicApi(destinationFile)
-                }
-                else {
-                    (requireActivity() as BaseActivity).showError(
-                        "Please check Internet Connections to upload image",
-                        binding.root
-                    )
-                }*/
+                type = "GALLERY_CLICK"
+                /*   if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
+                       destinationFile = File(filePath)
+                       callingUploadPicApi(destinationFile)
+                   }
+                   else {
+                       (requireActivity() as BaseActivity).showError(
+                           "Please check Internet Connections to upload image",
+                           binding.root
+                       )
+                   }*/
             } catch (e: Exception) {
                 Log.e("Error", "onSelectFromGalleryResult: " + e.localizedMessage)
             }
