@@ -94,7 +94,7 @@ class ProjectDetailFragment : BaseFragment() {
                 }
                 R.id.btn_view_on_map -> {
                     investmentViewModel.setMapLocationInfrastructure(mapLocationData)
-                    (requireActivity() as HomeActivity).addFragment(MapFragment(), false)
+                    (requireActivity() as HomeActivity).addFragment(MapFragment(), true)
                 }
                 R.id.cl_not_convinced_promises -> {
                     callVideoCallApi()
@@ -115,7 +115,7 @@ class ProjectDetailFragment : BaseFragment() {
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(
                         fragment,
-                        false
+                        true
                     )
                 }
                 /*R.id.iv_skus_arrow -> {
@@ -157,14 +157,14 @@ class ProjectDetailFragment : BaseFragment() {
                     val bundle = Bundle()
                     bundle.putInt("ProjectId", projectId)
                     fragment.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(fragment, false)
+                    (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
                 R.id.tv_apply_now -> {
                     val fragment = LandSkusFragment()
                     val bundle = Bundle()
                     bundle.putInt("ProjectId", projectId)
                     fragment.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(fragment, false)
+                    (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
                 /*R.id.iv_location_infrastructure_arrow -> {
                     investmentViewModel.setMapLocationInfrastructure(mapLocationData)
@@ -172,7 +172,7 @@ class ProjectDetailFragment : BaseFragment() {
                 }*/
                 R.id.tv_location_infrastructure_all -> {
                     investmentViewModel.setMapLocationInfrastructure(mapLocationData)
-                    (requireActivity() as HomeActivity).addFragment(MapFragment(), false)
+                    (requireActivity() as HomeActivity).addFragment(MapFragment(), true)
                 }
             }
         }
@@ -183,7 +183,7 @@ class ProjectDetailFragment : BaseFragment() {
         bundle.putString("Category", "SimilarInvestments")
         bundle.putSerializable("SimilarInvestmentsData", similarInvestments as Serializable)
         list.arguments = bundle
-        (requireActivity() as HomeActivity).addFragment(list, false)
+        (requireActivity() as HomeActivity).addFragment(list, true)
     }
 
     private fun navigateToFaqDetail() {
@@ -193,7 +193,7 @@ class ProjectDetailFragment : BaseFragment() {
         bundle.putBoolean("isFromInvestment", true)
         bundle.putString("ProjectName", allData.launchName)
         fragment.arguments = bundle
-        (requireActivity() as HomeActivity).addFragment(fragment, false)
+        (requireActivity() as HomeActivity).addFragment(fragment, true)
     }
 
     private fun navigateToOppDoc() {
@@ -207,7 +207,7 @@ class ProjectDetailFragment : BaseFragment() {
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(
             fragment,
-            false
+            true
         )
     }
 
@@ -283,7 +283,7 @@ class ProjectDetailFragment : BaseFragment() {
 //        bundle.putBoolean("isVideoSeeAllClicked",isVideoAllCLicked)
         investmentViewModel.isVideoSeeAllClicked = isVideoAllCLicked
         fragment.arguments = bundle
-        (requireActivity() as HomeActivity).addFragment(fragment, false)
+        (requireActivity() as HomeActivity).addFragment(fragment, true)
     }
 
     private fun callVideoCallApi() {
@@ -556,7 +556,7 @@ class ProjectDetailFragment : BaseFragment() {
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(
                         fragment,
-                        false
+                        true
                     )
                 }
             }
@@ -582,7 +582,7 @@ class ProjectDetailFragment : BaseFragment() {
         val fragment = ProjectDetailFragment()
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(
-            fragment, false
+            fragment, true
         )
     }
 
@@ -608,7 +608,7 @@ class ProjectDetailFragment : BaseFragment() {
                     )
                     bundle.putString("testimonialsSubHeading", allData.otherSectionHeadings.testimonials.subHeading)
                     fragment.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(fragment, false)
+                    (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
                 R.id.tv_apply -> {
                     openDialog()
@@ -619,7 +619,7 @@ class ProjectDetailFragment : BaseFragment() {
                         homeViewModel.setSelectedPromise(promiseData)
                         (requireActivity() as HomeActivity).addFragment(
                             PromisesDetailsFragment(),
-                            false
+                            true
                         )
                     }
                 }
@@ -637,7 +637,7 @@ class ProjectDetailFragment : BaseFragment() {
                     bundle.putBoolean("isFromInvestment", true)
                     bundle.putString("ProjectName", allData.launchName)
                     fragment.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(fragment, false)
+                    (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
                 R.id.cl_see_all -> {
                     navigateToMediaGallery(false)
@@ -705,7 +705,7 @@ class ProjectDetailFragment : BaseFragment() {
         val bundle = Bundle()
         bundle.putInt("ProjectId", projectId)
         fragment.arguments = bundle
-        (requireActivity() as HomeActivity).addFragment(fragment, false)
+        (requireActivity() as HomeActivity).addFragment(fragment, true)
     }
 
     private fun refreshingPage(id: Int) {

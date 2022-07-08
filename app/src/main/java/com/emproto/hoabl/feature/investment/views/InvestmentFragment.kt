@@ -236,7 +236,7 @@ class InvestmentFragment : BaseFragment() {
         val fragment = ProjectDetailFragment()
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(
-            fragment, false
+            fragment, true
         )
     }
 
@@ -245,7 +245,7 @@ class InvestmentFragment : BaseFragment() {
         val bundle = Bundle()
         bundle.putInt("ProjectId", id)
         fragment.arguments = bundle
-        (requireActivity() as HomeActivity).addFragment(fragment,false)
+        (requireActivity() as HomeActivity).addFragment(fragment,true)
     }
 
 }
