@@ -27,7 +27,7 @@
             android:lineSpacingMultiplier="1.3"
             android:paddingVertical="@dimen/margin_size_4"
             android:paddingHorizontal="@dimen/margin_size_8"
-            android:textAlignment="center"/>
+            android:textAlignment="textStart"/>
 
     </com.google.android.material.card.MaterialCardView>
 

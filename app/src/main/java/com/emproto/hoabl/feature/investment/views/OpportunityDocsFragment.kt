@@ -36,7 +36,7 @@ class OpportunityDocsFragment:BaseFragment() {
                     val bundle = Bundle()
                     bundle.putInt("ProjectId", projectId)
                     fragment.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(fragment, false)
+                    (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
             }
         }
