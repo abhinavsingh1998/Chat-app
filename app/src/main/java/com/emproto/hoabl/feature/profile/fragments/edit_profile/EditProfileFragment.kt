@@ -809,6 +809,8 @@ class EditProfileFragment : BaseFragment() {
                 removePictureDialog.show()
             } else {
                 binding.tvremove.isClickable = false
+                binding.tvremove.isEnabled = false
+
             }
         }
     }
