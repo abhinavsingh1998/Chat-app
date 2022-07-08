@@ -56,6 +56,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_login">
 
                 <com.emproto.core.textviews.CustomTextView
+                    android:id="@+id/enter_6_digit"
                     style="@style/text_style_text_color_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

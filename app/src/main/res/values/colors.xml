@@ -39,6 +39,7 @@
     <color name="trouble_back">#c42b2c38</color>
     <color name="normal_text_color">#d3d3d9</color>
     <color name="background_grey_color">#f7f7f7</color>
+    <color name="text_fade_color">#a7a7a7</color>
     <color name="background_yellow_color">#fff2b2</color>
     <color name="text_brown_color">#7b6c1c</color>
     <color name="text_red_color">#fa6c6c</color>

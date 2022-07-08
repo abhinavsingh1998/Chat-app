@@ -73,7 +73,7 @@ class LoginFragment : BaseFragment() {
 
 
     private fun initObserver() {
-        authViewModel.getTermsCondition(5004).observe(viewLifecycleOwner, Observer {
+        authViewModel.getTermsCondition(5005).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let {
@@ -99,14 +99,14 @@ class LoginFragment : BaseFragment() {
         bottomSheetDialog.setContentView(termsConditionDialogBinding.root)
 
         mBinding.textTerms.makeLinks(
-            Pair("Terms Of Services", View.OnClickListener {
+            Pair("Terms and Conditions & Privacy Policy", View.OnClickListener {
                 termsConditionDialogBinding.tvHeading.text = getString(R.string.termscondition)
                 bottomSheetDialog.show()
             }),
-            Pair("Privacy Policy", View.OnClickListener {
-                termsConditionDialogBinding.tvHeading.text = getString(R.string.privacypolicy)
-                bottomSheetDialog.show()
-            })
+//            Pair("Privacy Policy", View.OnClickListener {
+//                termsConditionDialogBinding.tvHeading.text = getString(R.string.privacypolicy)
+//                bottomSheetDialog.show()
+//            })
         )
 
         termsConditionDialogBinding.acitonClose.setOnClickListener {
