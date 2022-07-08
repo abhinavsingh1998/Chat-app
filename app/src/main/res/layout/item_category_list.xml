@@ -96,8 +96,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_size_40"
-                        android:alpha="0.74"
-                        android:background="@color/black"
+                        android:background="#80000000"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -159,7 +158,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_project_name"
-                    style="@style/text_style_text_color_16"
+                    style="@style/text_style_text_color_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/jost_regular"
@@ -169,7 +168,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_project_location"
-                    style="@style/text_style_medium_grey_14"
+                    style="@style/text_style_medium_grey_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/jost_regular"
@@ -276,27 +275,20 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <ImageView
-        android:id="@+id/iv_apply_now_category"
-        android:layout_width="@dimen/margin_size_15"
-        android:layout_height="8dp"
-        android:layout_marginTop="@dimen/margin_size_14"
-        android:layout_marginEnd="@dimen/margin_size_12"
-        android:src="@drawable/combined_shape"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cv_category_outer_card" />
-
-    <com.google.android.material.textview.MaterialTextView
+    <com.emproto.core.textviews.CustomTextView
         android:id="@+id/tv_apply_now_category"
-        style="@style/text_style_text_black_color_14"
         android:layout_width="wrap_content"
+        style="@style/text_style_text_black_color_12"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_size_10"
+        android:drawableRight="@drawable/ic_black_right_arrow"
+        android:drawablePadding="@dimen/margin_size_6"
+        android:singleLine="true"
         android:fontFamily="@font/jost_medium"
-        android:text="@string/apply_now"
-        android:layout_marginEnd="@dimen/margin_size_8"
-        app:layout_constraintBottom_toBottomOf="@id/iv_apply_now_category"
-        app:layout_constraintEnd_toStartOf="@id/iv_apply_now_category"
-        app:layout_constraintTop_toTopOf="@id/iv_apply_now_category" />
+        android:text="Apply"
+        app:fontName="@string/jost_regular"
+        app:layout_constraintEnd_toEndOf="@+id/cv_category_outer_card"
+        app:layout_constraintTop_toBottomOf="@+id/cv_category_outer_card"/>
 
     <View
         android:layout_width="match_parent"

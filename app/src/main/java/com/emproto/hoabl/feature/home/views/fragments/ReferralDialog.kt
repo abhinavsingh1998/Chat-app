@@ -39,6 +39,8 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
     var hCountryCode = ""
 
     val num_patterns = Pattern.compile("^(0|[1-9][0-9]*)\$")
+    val list = ArrayList<String>()
+
 
 
     @Inject
@@ -60,6 +62,8 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
         )
         window.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND)
         window.setDimAmount(0.9F)
+        list.add("+91")
+        mBinding.inputMobile.addDropDownValues(list)
 
         initClickListner()
 

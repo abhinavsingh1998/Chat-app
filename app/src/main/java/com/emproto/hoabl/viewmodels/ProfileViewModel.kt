@@ -76,6 +76,9 @@ class ProfileViewModel(
     fun getStates(countryIsoCode: String): LiveData<BaseResponse<StatesResponse>> {
         return profileRepository.getStates(countryIsoCode)
     }
+    fun getCountries(): LiveData<BaseResponse<CountryResponse>> {
+        return profileRepository.getCountries()
+    }
 
     fun getCities(
         stateIsoCode: String,

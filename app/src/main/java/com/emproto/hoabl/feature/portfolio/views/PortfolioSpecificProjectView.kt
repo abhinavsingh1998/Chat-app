@@ -101,6 +101,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
         portfolioviewmodel =
             ViewModelProvider(requireActivity(), portfolioFactory)[PortfolioViewModel::class.java]
+        investmentViewModel =
+            ViewModelProvider(requireActivity(), investmentFactory)[InvestmentViewModel::class.java]
         //getting data from arguments
         arguments?.let {
             crmId = it.getInt("IVID")
@@ -271,6 +273,12 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 )
             )
         }
+
+        //setting media visibility
+        investmentViewModel.setImageActive(it.data.projectInformation.latestMediaGalleryOrProjectContent[0].isImagesActive)
+        investmentViewModel.setVideoActive(it.data.projectInformation.latestMediaGalleryOrProjectContent[0].isVideosActive)
+        investmentViewModel.setDroneActive(it.data.projectInformation.latestMediaGalleryOrProjectContent[0].isDroneShootsActive)
+        investmentViewModel.setThreeSixtyActive(it.data.projectInformation.latestMediaGalleryOrProjectContent[0].isThreeSixtyImagesActive)
 
         //adding promises
         list.add(

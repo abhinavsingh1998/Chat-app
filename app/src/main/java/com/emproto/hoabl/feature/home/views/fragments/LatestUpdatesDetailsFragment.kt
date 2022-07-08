@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.home.views.fragments
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,17 +57,22 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible =
             false
-
         data = homeViewModel.getSelectedPosition()
-        position = data.value!!.position
-        listLength = data.value!!.lisLenght
-
-        initObserver()
-        initView(position)
-        backView()
-        forwardView()
-        initClickListener()
         return mBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        homeViewModel.getSelectedPosition().observe(viewLifecycleOwner,Observer{
+            position = it.position
+            listLength = it.lisLenght
+            Log.d("RRR","${position},${listLength}")
+            initObserver()
+            initView(position)
+            backView()
+            forwardView()
+            initClickListener()
+        })
     }
 
     private fun initObserver() {
