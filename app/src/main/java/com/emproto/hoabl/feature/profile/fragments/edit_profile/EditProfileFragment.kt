@@ -1075,7 +1075,6 @@ class EditProfileFragment : BaseFragment() {
     ) { result ->
         if (result.resultCode === Activity.RESULT_OK) {
             onCaptureImageResult()
-
         }
     }
 
