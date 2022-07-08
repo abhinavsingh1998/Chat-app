@@ -22,8 +22,10 @@ import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
+import android.util.Patterns
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -150,6 +152,7 @@ class EditProfileFragment : BaseFragment() {
         binding = FragmentEditProfileBinding.inflate(layoutInflater)
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             false
+        email=binding.tvEmail.toString()
 
         val myCalender = Calendar.getInstance()
          datePicker = DatePickerDialog.OnDateSetListener { view,year, month,dayofMonth  ->
@@ -659,15 +662,13 @@ class EditProfileFragment : BaseFragment() {
                     binding.root
                 )
             }
-
-            binding.saveAndUpdate.text = "Save and Update"
-            email = binding.emailTv.text.toString()
-            if (!email.isNullOrEmpty() && email.isValidEmail()&& android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            email=binding.tvEmail.toString()
+            if (!email.isNullOrEmpty() && isValidEmail(email)) {
                 binding.tvEmail.isErrorEnabled = false
-                email = binding.emailTv.text.toString()
             } else {
                 binding.tvEmail.error = "Please enter valid email"
-                email = binding.emailTv.text.toString()
+                binding.tvEmail.isErrorEnabled = true
+
                 if (email.length == 150) {
                     binding.tvEmail.error = "You have reached the max characters limit"
                     Toast.makeText(
@@ -753,7 +754,7 @@ class EditProfileFragment : BaseFragment() {
                 binding.spinnerCity.error = "Select City"
                 citySelected = binding.autoCity.text.toString()
             }
-            if (!email.isNullOrEmpty() && email.isValidEmail() && !houseNo.isNullOrEmpty() && !address.isNullOrEmpty() && !locality.isNullOrEmpty() && pinCode.isValidPinCode() && !countrySelected.isNullOrEmpty() && !stateSelected.isNullOrEmpty() && !citySelected.isNullOrEmpty()) {
+            if (!email.isNullOrEmpty() && isValidEmail(email) && !houseNo.isNullOrEmpty() && !address.isNullOrEmpty() && !locality.isNullOrEmpty() && pinCode.isValidPinCode() && !countrySelected.isNullOrEmpty() && !stateSelected.isNullOrEmpty() && !citySelected.isNullOrEmpty()) {
                 val validEmail = binding.emailTv.text
                 val validHouse = binding.houseNo.text
                 val validAdd = binding.completeAddress.text
@@ -868,9 +869,13 @@ class EditProfileFragment : BaseFragment() {
 
     }
 
-
-    fun CharSequence?.isValidEmail() =
-        emailPattern.matcher(this).matches()
+    fun isValidEmail(target: CharSequence?): Boolean {
+        return if (TextUtils.isEmpty(target)) {
+            false
+        } else {
+            Patterns.EMAIL_ADDRESS.matcher(target).matches()
+        }
+    }
 
     fun CharSequence?.isValidPinCode() =
         pinCodePattern.matcher(this).matches()
