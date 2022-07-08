@@ -159,6 +159,7 @@ class OTPVerificationFragment : BaseFragment() {
             override fun afterTextChanged(s: Editable?) {
                 if (s?.length == 6) {
                     if (isNetworkAvailable()) {
+                        internetState(true)
                         hideSoftKeyboard()
                         val otpVerifyRequest =
                             OtpVerifyRequest(
@@ -246,21 +247,56 @@ class OTPVerificationFragment : BaseFragment() {
                                                     requireActivity().finish()
                                                 }
                                             }
-                                        }, 2000)
+                                        }, 1500)
 
 
                                     }
                                 }
                             })
                     } else {
-                        mBinding.layout1.setBackgroundColor(resources.getColor(R.color.background_grey))
-                        showSnackBar(mBinding.root)
+                        internetState(false)
                     }
                 }
             }
 
         })
 
+    }
+
+    @SuppressLint("ResourceType")
+    private fun internetState(state:Boolean){
+
+        if (state==true){
+            mBinding.layout1.setBackgroundColor(resources.getColor(R.color.app_color))
+            mBinding.tvLogin.setTextColor(resources.getColor(R.color.app_color))
+            mBinding.enter6Digit.setTextColor(resources.getColor(R.color.text_color))
+            mBinding.tvMobileNumber.setTextColor(resources.getColor(R.color.app_color))
+            mBinding.etEdit.setTextColor(resources.getColor(R.color.app_color))
+            mBinding.etOtp.setTextColor(resources.getColor(R.color.app_color))
+            mBinding.loginEdittext.setHintTextColor(resources.getColorStateList(R.color.app_color))
+            mBinding.resentOtp.setTextColor(resources.getColor(R.color.app_color))
+            mBinding.loginEdittext.boxStrokeColor= resources.getColor(R.color.app_color)
+            mBinding.resentOtp.isClickable= true
+            countDownTimer.start()
+            dismissSnackBar()
+
+
+        } else{
+            mBinding.layout1.setBackgroundColor(resources.getColor(R.color.background_grey))
+            mBinding.tvLogin.setTextColor(resources.getColor(R.color.text_fade_color))
+            mBinding.enter6Digit.setTextColor(resources.getColor(R.color.text_fade_color))
+            mBinding.tvMobileNumber.setTextColor(resources.getColor(R.color.text_fade_color))
+            mBinding.etEdit.setTextColor(resources.getColor(R.color.text_fade_color))
+            mBinding.etOtp.setTextColor(resources.getColor(R.color.text_fade_color))
+            mBinding.loginEdittext.setHintTextColor(resources.getColorStateList(R.color.text_fade_color))
+            mBinding.resentOtp.setTextColor(resources.getColor(R.color.text_fade_color))
+            mBinding.resentOtp.isClickable= false
+            mBinding.loginEdittext.boxStrokeColor= resources.getColor(R.color.text_fade_color)
+            countDownTimer.cancel()
+            mBinding.timerTxt.text = ""
+            showSnackBar(mBinding.root)
+            hideSoftKeyboard()
+        }
     }
 
     private fun resentOtp() {
