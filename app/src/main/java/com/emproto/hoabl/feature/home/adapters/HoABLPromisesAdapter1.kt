@@ -32,10 +32,12 @@ class HoABLPromisesAdapter1(
 
         holder.binding.title.text = item.name
         holder.binding.desc.text = item.shortDescription
-        Glide.with(context)
-            .load(item.displayMedia.value.url)
-            .dontAnimate()
-            .into(holder.binding.image)
+        if (item.displayMedia!=null){
+            Glide.with(context)
+                .load(item.displayMedia.value.url)
+                .dontAnimate()
+                .into(holder.binding.image)
+        }
 
         holder.binding.homePromisesItem.setOnClickListener(View.OnClickListener {
             itemIntrface.onItemClicked(it, position, item.id.toString())

@@ -26,6 +26,7 @@
 
 
             <androidx.core.widget.NestedScrollView
+                android:id="@+id/parent_scroll"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:fillViewport="true"
@@ -170,6 +171,10 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <include
+        android:id="@+id/no_internet_view"
+        layout="@layout/no_internet_layout"
+        android:visibility="gone" />
 
 
     <androidx.core.widget.ContentLoadingProgressBar
