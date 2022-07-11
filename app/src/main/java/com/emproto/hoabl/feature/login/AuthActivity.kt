@@ -389,7 +389,6 @@ class AuthActivity : BaseActivity() {
     private fun close_sheet() {
         appPreference.setMobilenum("")
         signingInIssueBiding.sheetCloseBtn.setOnClickListener {
-
             bottomSheetDialog.dismiss()
 
         }

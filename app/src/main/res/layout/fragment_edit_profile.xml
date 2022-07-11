@@ -168,6 +168,8 @@
                     android:layout_marginStart="@dimen/margin_size_20"
                     android:background="@drawable/ic_remove_4"
                     android:fontFamily="@font/jostmedium"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@+id/tvremove"
                     app:layout_constraintStart_toEndOf="@+id/profilePicLayout"
                     app:layout_constraintTop_toTopOf="@+id/tvremove" />
@@ -182,6 +184,8 @@
                     android:layout_marginTop="@dimen/margin_size_19"
                     android:fontFamily="@font/jostregular"
                     android:text="@string/remove_picture"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     app:layout_constraintStart_toEndOf="@+id/remove_image"
                     app:layout_constraintTop_toBottomOf="@+id/upload_new_picture" />
 
