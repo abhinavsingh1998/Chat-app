@@ -222,7 +222,8 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
             val editProfile = EditProfileFragment()
             bundle.putSerializable("profileData", profileData)
             editProfile.arguments = bundle
-            (requireActivity() as HomeActivity).addFragment(editProfile, false)
+            (requireActivity() as HomeActivity).supportFragmentManager.beginTransaction().add(R.id.container, editProfile, editProfile.javaClass.name)
+                .addToBackStack(editProfile.javaClass.name).commit()
         }
         binding.version.text = "App Version:" + BuildConfig.VERSION_NAME
 

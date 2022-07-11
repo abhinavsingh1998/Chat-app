@@ -359,7 +359,8 @@ class AccountDetailsFragment : Fragment(),
         binding.tvSeeAllPayment.setOnClickListener {
             profileViewModel.savePaymentHistory(allPaymentList)
             val allPaymentHistoryFragment = AllPaymentHistoryFragment()
-            (requireActivity() as HomeActivity).addFragment(allPaymentHistoryFragment, false)
+            (requireActivity() as HomeActivity).supportFragmentManager.beginTransaction().add(R.id.container, allPaymentHistoryFragment, allPaymentHistoryFragment.javaClass.name)
+                .addToBackStack(allPaymentHistoryFragment.javaClass.name).commit()
         }
         binding.tvSeeAllDocuments.setOnClickListener {
             docsBottomSheet.show()
@@ -369,7 +370,6 @@ class AccountDetailsFragment : Fragment(),
                 AllDocumentAdapter(context, allKycDocList, this)
         }
     }
-
 
     override fun onAccountsPaymentItemClick(
         accountsPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>,

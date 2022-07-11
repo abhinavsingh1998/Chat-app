@@ -2,10 +2,7 @@ package com.emproto.hoabl.feature.profile.fragments.edit_profile
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.AlertDialog
-import android.app.DatePickerDialog
-import android.app.Dialog
+import android.app.*
 import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
@@ -22,10 +19,8 @@ import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.text.Editable
-import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
-import android.util.Patterns
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -151,6 +146,9 @@ class EditProfileFragment : BaseFragment() {
         binding = FragmentEditProfileBinding.inflate(layoutInflater)
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             false
+        
+
+
 
         val myCalender = Calendar.getInstance()
         datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayofMonth ->
@@ -191,6 +189,14 @@ class EditProfileFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initClickListener()
+        if (!data.profilePictureUrl.isNullOrEmpty()) {
+          binding.tvremove.visibility=View.VISIBLE
+            binding.removeImage.visibility=View.VISIBLE
+        }
+        else{
+            binding.tvremove.visibility=View.GONE
+            binding.removeImage.visibility=View.GONE
+        }
     }
 
     private fun getCountries() {
@@ -799,19 +805,14 @@ class EditProfileFragment : BaseFragment() {
             binding.profileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
             setUserNamePIC(data)
+
         }
 
         removeDialogLayout.actionNo.setOnClickListener {
             removePictureDialog.dismiss()
         }
         binding.tvremove.setOnClickListener {
-            if (!data.profilePictureUrl.isNullOrEmpty()) {
-                removePictureDialog.show()
-            } else {
-                binding.tvremove.isClickable = false
-                binding.tvremove.isEnabled = false
-
-            }
+            removePictureDialog.show()
         }
     }
 
@@ -994,14 +995,13 @@ class EditProfileFragment : BaseFragment() {
                             }
                             Status.SUCCESS -> {
                                 binding.progressBaar.hide()
+
                             }
                             Status.ERROR -> {
                                 binding.progressBaar.hide()
                             }
                         }
                     }
-
-
                 })
     }
 
