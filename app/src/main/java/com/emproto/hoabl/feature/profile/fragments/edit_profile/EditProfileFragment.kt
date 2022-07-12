@@ -10,6 +10,7 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.graphics.Matrix
 import android.media.ExifInterface
 import android.net.Uri
@@ -146,9 +147,6 @@ class EditProfileFragment : BaseFragment() {
         binding = FragmentEditProfileBinding.inflate(layoutInflater)
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             false
-        
-
-
 
         val myCalender = Calendar.getInstance()
         datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayofMonth ->
@@ -177,26 +175,19 @@ class EditProfileFragment : BaseFragment() {
         getCountries()
         return binding.root
     }
-
-//    private fun setCountrySpinnerData() {
-//        val countryList = ArrayList<String>()
-//        countryList.add("India")
-//        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_text, countryList)
-//        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
-//        binding.autoCountry.setAdapter(adapter)
-//    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initClickListener()
-        if (!data.profilePictureUrl.isNullOrEmpty()) {
-          binding.tvremove.visibility=View.VISIBLE
-            binding.removeImage.visibility=View.VISIBLE
+        if(data.profilePictureUrl.isNullOrEmpty()){
+            binding.tvremove.isClickable=false
+            binding.tvRemove1.setTextColor(Color.parseColor("#9d9eb1"))
+            binding.tvRemove2.setTextColor(Color.parseColor("#9d9eb1"))
         }
         else{
-            binding.tvremove.visibility=View.GONE
-            binding.removeImage.visibility=View.GONE
+            binding.tvremove.isClickable=true
+            binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
+            binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
         }
+        initClickListener()
     }
 
     private fun getCountries() {
@@ -426,10 +417,15 @@ class EditProfileFragment : BaseFragment() {
         if (data.profilePictureUrl.isNullOrEmpty()) {
             binding.profileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
+            binding.tvremove.isClickable=false
+            binding.tvRemove1.setTextColor(Color.parseColor("#9d9eb1"))
+            binding.tvRemove2.setTextColor(Color.parseColor("#9d9eb1"))
             setUserNamePIC(data)
         } else {
             binding.profileImage.visibility = View.VISIBLE
             binding.profileUserLetters.visibility = View.GONE
+            binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
+            binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
             Glide.with(requireContext())
                 .load(data.profilePictureUrl)
                 .dontTransform()
@@ -793,7 +789,29 @@ class EditProfileFragment : BaseFragment() {
             }
         }
     }
+    private fun removeSemiPictureDialog() {
+        val removeDialogLayout = RemoveConfirmationBinding.inflate(layoutInflater)
+        removePictureDialog = Dialog(requireContext())
+        removePictureDialog.setCancelable(false)
+        removePictureDialog.setContentView(removeDialogLayout.root)
 
+        removeDialogLayout.actionYes.setOnClickListener {
+            binding.profileImage.visibility = View.GONE
+            binding.profileUserLetters.visibility = View.VISIBLE
+            setUserNamePIC(data)
+            removePictureDialog.dismiss()
+            binding.textremove.visibility=View.GONE
+            binding.tvremove.visibility=View.VISIBLE
+
+        }
+        removeDialogLayout.actionNo.setOnClickListener {
+            removePictureDialog.dismiss()
+        }
+        binding.textremove.setOnClickListener {
+            removePictureDialog.show()
+
+        }
+    }
     private fun removePictureDialog() {
         val removeDialogLayout = RemoveConfirmationBinding.inflate(layoutInflater)
         removePictureDialog = Dialog(requireContext())
@@ -805,14 +823,16 @@ class EditProfileFragment : BaseFragment() {
             binding.profileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
             setUserNamePIC(data)
-
         }
-
         removeDialogLayout.actionNo.setOnClickListener {
             removePictureDialog.dismiss()
         }
         binding.tvremove.setOnClickListener {
-            removePictureDialog.show()
+            if(data.profilePictureUrl.isNullOrEmpty()){
+                Toast.makeText(context, "Picture already removed", Toast.LENGTH_SHORT).show()
+            }else{
+                removePictureDialog.show()
+            }
         }
     }
 
@@ -941,6 +961,13 @@ class EditProfileFragment : BaseFragment() {
         binding.profileUserLetters.visibility = View.GONE
         try {
             binding.profileImage.setImageBitmap(rotatedBitmap)
+            binding.tvremove.visibility=View.GONE
+            binding.textremove.visibility=View.VISIBLE
+            binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
+
+            removeSemiPictureDialog()
+//            binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
+
         } catch (e: Exception) {
             e.message
         }
@@ -976,6 +1003,12 @@ class EditProfileFragment : BaseFragment() {
             binding.profileImage.visibility = View.VISIBLE
             binding.profileUserLetters.visibility = View.GONE
             binding.profileImage.setImageBitmap(bitmap)
+            binding.tvremove.visibility=View.GONE
+            binding.textremove.visibility=View.VISIBLE
+            binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
+
+            removeSemiPictureDialog()
+//            binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
 
 
         } catch (e: java.lang.Exception) {
@@ -994,8 +1027,9 @@ class EditProfileFragment : BaseFragment() {
                                 binding.progressBaar.show()
                             }
                             Status.SUCCESS -> {
+                                binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
+                                binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
                                 binding.progressBaar.hide()
-
                             }
                             Status.ERROR -> {
                                 binding.progressBaar.hide()
@@ -1017,6 +1051,9 @@ class EditProfileFragment : BaseFragment() {
                     }
                     Status.SUCCESS -> {
                         binding.progressBaar.hide()
+                        binding.tvremove.isClickable=false
+                        binding.tvRemove1.setTextColor(Color.parseColor("#9d9eb1"))
+                        binding.tvRemove2.setTextColor(Color.parseColor("#9d9eb1"))
                         removePictureDialog.dismiss()
                         if (data.profilePictureUrl == null) {
                             binding.profileImage.visibility = View.GONE
