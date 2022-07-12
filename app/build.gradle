@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
+    id 'com.google.firebase.firebase-perf'
 }
 
 android {
@@ -98,9 +99,12 @@ dependencies {
 
     //Biometric
     implementation("androidx.biometric:biometric:1.2.0-alpha04")
-    implementation platform('com.google.firebase:firebase-bom:29.3.1')
+    //firebase crashlytics
+    implementation platform('com.google.firebase:firebase-bom:30.2.0')
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    // Declare the dependency for the Performance Monitoring library
+    implementation 'com.google.firebase:firebase-perf-ktx'
 
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
     implementation 'com.google.android.gms:play-services-auth-api-phone:18.0.1'
