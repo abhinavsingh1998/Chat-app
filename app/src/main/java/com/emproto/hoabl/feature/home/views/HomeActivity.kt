@@ -152,7 +152,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 //
 //
 //            launch_bottom_sheet()
-            Toast.makeText(this, "Notification is Under Development", Toast.LENGTH_LONG).show()
+//            Toast.makeText(this, "Notification is Under Development", Toast.LENGTH_LONG).show()
 
         })
 

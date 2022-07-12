@@ -70,13 +70,11 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
         binding = FragmentProfileMainBinding.inflate(inflater, container, false)
         profileViewModel =
             ViewModelProvider(requireActivity(), profileFactory)[ProfileViewModel::class.java]
-
         initView()
         initObserver()
         initClickListener()
         return binding.root
     }
-
     private fun initObserver() {
         profileViewModel.getUserProfile().observe(viewLifecycleOwner, Observer {
             when (it.status) {
@@ -85,7 +83,6 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                 }
                 Status.SUCCESS -> {
                     Log.i("Data Check", it.data.toString())
-
                     binding.progressBaar.hide()
                     if (it.data != null) {
                         Log.i("Data", it.data.toString())
@@ -93,9 +90,10 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                             profileData = it.data
                             isWhatsappConsent = it.data.whatsappConsent
                             isPushNotificationSend = it.data.showPushNotifications
-                            isTermsActive= it.data.pageManagement.data.page.isTermsActive
+                            isTermsActive = it.data.pageManagement.data.page.isTermsActive
                             isAboutUsActive = it.data.pageManagement.data.page.isAboutUsActive
-                            isSecurityTipsActive = it.data.pageManagement.data.page.isSecurityTipsActive
+                            isSecurityTipsActive =
+                                it.data.pageManagement.data.page.isSecurityTipsActive
                         }
                         setUiData(profileData)
                     }
@@ -143,11 +141,13 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
 
     private fun setUserNamePIC(profileData: Data) {
         val firstLetter: String = profileData.firstName.substring(0, 1)
-        val lastLetter = when{
+        val lastLetter = when {
             profileData.lastName.isNotEmpty() -> {
-                 profileData.lastName.substring(0, 1)
+                profileData.lastName.substring(0, 1)
             }
-            else -> { "" }
+            else -> {
+                ""
+            }
         }
         binding.tvUserName.text = firstLetter + "" + lastLetter
 
@@ -222,7 +222,8 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
             val editProfile = EditProfileFragment()
             bundle.putSerializable("profileData", profileData)
             editProfile.arguments = bundle
-            (requireActivity() as HomeActivity).supportFragmentManager.beginTransaction().add(R.id.container, editProfile, editProfile.javaClass.name)
+            (requireActivity() as HomeActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.container, editProfile, editProfile.javaClass.name)
                 .addToBackStack(editProfile.javaClass.name).commit()
         }
         binding.version.text = "App Version:" + BuildConfig.VERSION_NAME
@@ -239,17 +240,17 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
             }
             1 -> {
                 val bundle = Bundle()
-                bundle.putBoolean("whatsappConsentEnabled",isWhatsappConsent)
-                bundle.putBoolean("showPushNotifications",isPushNotificationSend)
-                bundle.putBoolean("isSecurityTipsActive",isSecurityTipsActive)
+                bundle.putBoolean("whatsappConsentEnabled", isWhatsappConsent)
+                bundle.putBoolean("showPushNotifications", isPushNotificationSend)
+                bundle.putBoolean("isSecurityTipsActive", isSecurityTipsActive)
                 val securityFragment = SecurityFragment()
                 securityFragment.arguments = bundle
                 (requireActivity() as HomeActivity).addFragment(securityFragment, false)
             }
             2 -> {
                 val bundle = Bundle()
-                bundle.putBoolean("isTermsActive",isTermsActive)
-                bundle.putBoolean("isAboutUsActive",isAboutUsActive)
+                bundle.putBoolean("isTermsActive", isTermsActive)
+                bundle.putBoolean("isAboutUsActive", isAboutUsActive)
                 val helpCenterFragment = HelpCenterFragment()
                 helpCenterFragment.arguments = bundle
                 (requireActivity() as HomeActivity).addFragment(helpCenterFragment, false)
@@ -257,7 +258,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
             3 -> {
                 val facilityManagerPopViewFragment = FacilityManagerPopViewFragment()
 
-                if(appPreference.isFacilityCard()==true){
+                if (appPreference.isFacilityCard() == true) {
                     if (fmData != null) {
                         (requireActivity() as HomeActivity).addFragment(
                             FmFragment.newInstance(
@@ -271,7 +272,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                             "Something Went Wrong"
                         )
                     }
-                }else{
+                } else {
                     (requireActivity() as HomeActivity).addFragment(
                         facilityManagerPopViewFragment,
                         false
