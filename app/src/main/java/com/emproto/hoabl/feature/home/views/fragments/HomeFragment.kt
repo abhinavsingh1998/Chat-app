@@ -123,6 +123,7 @@ class HomeFragment : BaseFragment() {
                                 binding.noInternetView.mainContainer.hide()
                                 (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.show()
                                 binding.loader.hide()
+                                binding.refressLayout.isRefreshing= false
 
                                 setParentRecycler(it.data!!.data)
 

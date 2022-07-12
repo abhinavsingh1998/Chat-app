@@ -1,5 +1,7 @@
 package com.emproto.networklayer.response.investment
 
+import java.io.Serializable
+
 data class MediaGalleryOrProjectContent(
     val coverImage: List<CoverImage>?=null,
     val createdAt: String?=null,
@@ -16,4 +18,4 @@ data class MediaGalleryOrProjectContent(
     val threeSixtyImages: List<ThreeSixtyImage>?=null,
     val updatedAt: String?=null,
     val videos: List<Video>?=null
-)
+): Serializable

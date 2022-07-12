@@ -342,27 +342,28 @@ class AuthActivity : BaseActivity() {
 
         return when {
             signingInIssueBiding.issueOne.isChecked -> {
-                "2001"
+                "Unable to enter phhone number"
             }
             signingInIssueBiding.issueTwo.isChecked -> {
-                "2002"
+                "Unable to change country code"
             }
             signingInIssueBiding.issueThree.isChecked -> {
-                "2003"
+                "Did not get OTP"
             }
 
             signingInIssueBiding.issueFour.isChecked -> {
-                "2004"
+                "OTP Expired"
             }
 
             signingInIssueBiding.issueFive.isChecked -> {
-                "2005"
+                "Number Blocked"
+
             }
             signingInIssueBiding.issueSix.isChecked -> {
-                "2006"
+                "My issue is not listed"
             }
             signingInIssueBiding.issueSeven.isChecked -> {
-                "2007"
+                "Others"
             }
 
             else -> {

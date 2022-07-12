@@ -309,12 +309,9 @@ class HomeAdapter(
 
         fun bind(position: Int) {
 
-
-            binding.facilityManagementCardLayout.isVisible = data.isFacilityVisible == true
-
             binding.dontMissOutCard.isVisible = data.contactType == "prelead"
 
-            if (data.page.isFacilityManagementActive == false) {
+            if (data.page.isFacilityManagementActive == false || data.isFacilityVisible==false) {
                 binding.facilityManagementCardLayout.isVisible = false
             }
 
