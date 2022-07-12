@@ -284,9 +284,8 @@
         android:drawableRight="@drawable/ic_black_right_arrow"
         android:drawablePadding="@dimen/margin_size_6"
         android:singleLine="true"
-        android:fontFamily="@font/jost_medium"
-        android:text="Apply"
-        app:fontName="@string/jost_regular"
+        android:fontFamily="@string/jost_bold"
+        android:text="Apply Now"
         app:layout_constraintEnd_toEndOf="@+id/cv_category_outer_card"
         app:layout_constraintTop_toBottomOf="@+id/cv_category_outer_card"/>
 

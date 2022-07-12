@@ -1,5 +1,7 @@
 package com.emproto.networklayer.response.investment
 
+import java.io.Serializable
+
 data class Address(
     val city: String,
     val country: String,
@@ -7,4 +9,4 @@ data class Address(
     val mapMedia: MapMedia,
     val pinCode: String,
     val state: String
-)
+):Serializable

@@ -1,5 +1,7 @@
 package com.emproto.networklayer.response.investment
 
+import java.io.Serializable
+
 data class PageManagementsOrCollectionOneModel(
     val address: Address,
     val areaStartingFrom: String,
@@ -26,4 +28,4 @@ data class PageManagementsOrCollectionOneModel(
     val shortDescription: String,
     val status: String,
     val updatedAt: String
-)
+):Serializable

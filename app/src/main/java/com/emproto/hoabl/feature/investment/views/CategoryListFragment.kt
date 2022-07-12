@@ -63,40 +63,31 @@ class CategoryListFragment() : BaseFragment() {
     }
 
     private fun initObserver() {
-        investmentViewModel.getSmartDealsList().observe(viewLifecycleOwner, Observer {
-            when (investmentViewModel.getSd().value) {
-                true -> {
-                    binding.tvCategoryHeading.text = resources.getString(R.string.last_few_plots)
-                    setUpAdapter("LastPlots", it)
-                }
-            }
-        })
-        investmentViewModel.getTrendingList().observe(viewLifecycleOwner, Observer {
-            when (investmentViewModel.getTp().value) {
-                true -> {
-                    binding.tvCategoryHeading.text = resources.getString(R.string.trending_projects)
-                    setUpAdapter("TrendingProjects", it)
-                }
-            }
-        })
-        investmentViewModel.getNewInvestments().observe(viewLifecycleOwner, Observer {
-            when (investmentViewModel.getNl().value) {
-                true -> {
-                    binding.tvCategoryHeading.text = resources.getString(R.string.new_launches)
-                    setUpAdapter("NewLaunches", it)
-                }
-            }
-        })
-        investmentViewModel.getAllInvestments().observe(viewLifecycleOwner, Observer {
-            when (investmentViewModel.getAp().value) {
-                true -> {
-                    binding.tvCategoryHeading.text = resources.getString(R.string.all_investments)
-                    setUpAdapter("AllInvestments", it)
-                }
-            }
-        })
-        // for watchlist and similar investment from portfolio
         when (type) {
+            "LastFewPLots" -> {
+                binding.tvCategoryHeading.text = resources.getString(R.string.last_few_plots)
+                val data =
+                    arguments?.getSerializable("LastFewPLotsData") as List<PageManagementsOrCollectionOneModel>
+                setUpCategoryAdapter(data, 1)
+            }
+            "TrendingProjects" -> {
+                binding.tvCategoryHeading.text = resources.getString(R.string.trending_projects)
+                val data =
+                    arguments?.getSerializable("TrendingProjectsData") as List<PageManagementsOrCollectionTwoModel>
+                setUpCategoryAdapter(data, 2)
+            }
+            "NewLaunches" -> {
+                binding.tvCategoryHeading.text = resources.getString(R.string.new_launches)
+                val data =
+                    arguments?.getSerializable("NewLaunchesData") as List<PageManagementsOrNewInvestment>
+                setUpCategoryAdapter(data, 0)
+            }
+            "AllInvestments" -> {
+                binding.tvCategoryHeading.text = resources.getString(R.string.all_investments)
+                val data =
+                    arguments?.getSerializable("AllInvestmentsData") as List<ApData>
+                setUpCategoryAdapter(data, 3)
+            }
             "Watchlist" -> {
                 binding.tvCategoryHeading.text = "Watchlist"
                 val data =
@@ -119,30 +110,7 @@ class CategoryListFragment() : BaseFragment() {
                 binding.tvCategoryHeading.text = "Similar Investments"
                 val data =
                     arguments?.getSerializable("SimilarInvestmentsData") as List<com.emproto.networklayer.response.investment.SimilarInvestment>
-                setUpAdapter("SimilarInvestments", data)
-            }
-        }
-    }
-
-    private fun setUpAdapter(type: String, list: List<Any>) {
-        when (type) {
-            "NewLaunches" -> {
-                setUpCategoryAdapter(list, 0)
-            }
-            "LastPlots" -> {
-                setUpCategoryAdapter(list, 1)
-            }
-            "TrendingProjects" -> {
-                setUpCategoryAdapter(list, 2)
-            }
-            "AllInvestments" -> {
-                setUpCategoryAdapter(list, 3)
-            }
-            "SimilarInvestments" -> {
-                setUpCategoryAdapter(list, 6)
-            }
-            else -> {
-                setUpCategoryAdapter(list, 4)
+                setUpCategoryAdapter(data,6)
             }
         }
     }
@@ -155,8 +123,6 @@ class CategoryListFragment() : BaseFragment() {
 
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
-            //investmentViewModel.setProjectId(item.toInt())
-            //(requireActivity() as HomeActivity).addFragment(ProjectDetailFragment(),false)
             when(position){
                 0 -> {
                     val bundle = Bundle()
@@ -178,14 +144,4 @@ class CategoryListFragment() : BaseFragment() {
 
         }
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        investmentViewModel.setSd(false)
-        investmentViewModel.setTp(false)
-        investmentViewModel.setNl(false)
-        investmentViewModel.setAp(false)
-    }
-
-
 }

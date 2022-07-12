@@ -52,8 +52,8 @@
             android:text="@string/see_all"
             app:fontName="@string/jost_regular"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_trending_projects_subtitle"
-            app:layout_constraintTop_toTopOf="@+id/tv_trending_projects_subtitle"/>
+            app:layout_constraintBottom_toBottomOf="@+id/tv_trending_projects_title"
+            app:layout_constraintTop_toTopOf="@+id/tv_trending_projects_title"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_trending_projects"
             android:layout_width="match_parent"

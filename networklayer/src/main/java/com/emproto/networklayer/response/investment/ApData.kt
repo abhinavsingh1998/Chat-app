@@ -1,5 +1,7 @@
 package com.emproto.networklayer.response.investment
 
+import java.io.Serializable
+
 data class ApData(
     val address: Address,
     val areaStartingFrom: String,
@@ -27,4 +29,4 @@ data class ApData(
     val shortDescription: String,
     val status: String,
     val updatedAt: String
-)
+):Serializable
