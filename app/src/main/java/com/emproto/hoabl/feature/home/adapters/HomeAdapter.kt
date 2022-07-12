@@ -311,14 +311,10 @@ class HomeAdapter(
 
             binding.dontMissOutCard.isVisible = data.contactType == "prelead"
 
-            if (data.page.isFacilityManagementActive == false || data.isFacilityVisible==false) {
+            if (data.isFacilityVisible==true) {
                 binding.facilityManagementCardLayout.isVisible = false
             }
 
-//            if(data.page.is==false){
-//                binding.facilityManagementCardLayout.isVisible= false
-//            }
-//
             Glide.with(context).load(data.page.facilityManagement.value.url)
                 .into(binding.facilityManagementCard)
 

@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemAccountsPaymentBinding
 import com.emproto.networklayer.response.profile.AccountsResponse
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AllPaymentHistoryAdapter(
     private var mContext: Context?,
@@ -46,8 +49,12 @@ class AllPaymentHistoryAdapter(
         if(!accountsPaymentList[position].launchName.isNullOrEmpty()){
             holder.tvProjectName.text = accountsPaymentList[position].launchName
         }
-        if(!accountsPaymentList[position].paymentDate.substring(0, 10).isNullOrEmpty()) {
-            holder.tvPaymentDate.text = accountsPaymentList[position].paymentDate.substring(0, 10)
+        if (!accountsPaymentList[position].paymentDate.isNullOrEmpty()) {
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+            val outputFormat = SimpleDateFormat("dd-MM-yyyy")
+            val date: Date = inputFormat.parse(accountsPaymentList[position].paymentDate)
+            val formattedDate: String = outputFormat.format(date)
+            holder.tvPaymentDate.text = formattedDate
         }
         if (accountsPaymentList[position].crmInventory!=null) {
             holder.tvLandId.text = "Land id:" + "" + accountsPaymentList[position].crmInventory

@@ -30,6 +30,7 @@
                 android:layout_marginTop="@dimen/margin_size_12"
                 app:cardBackgroundColor="#fff4bc"
                 app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
                 android:layout_marginStart="@dimen/margin_size_18"
                 android:layout_marginEnd="177dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +79,19 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+
             </androidx.cardview.widget.CardView>
+
+            <View
+                android:id="@+id/view_line"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/dashed_line_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_card" />
 
             <com.emproto.core.textviews.CustomTextView
                 android:id="@+id/see_all_pending_payment"
@@ -97,10 +110,10 @@
 
             <TextView
                 android:id="@+id/pending_kyc"
-                style="@style/text_style_text_black_color_16"
+                style="@style/text_style_text_black_color_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_size_15"
+                android:layout_marginTop="@dimen/margin_size_8"
                 android:layout_marginEnd="@dimen/margin_size_80"
                 android:drawablePadding="@dimen/margin_size_6"
                 android:fontFamily="@font/jost_medium"
@@ -109,11 +122,11 @@
                 android:gravity="start|center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/image_card"
-                app:layout_constraintTop_toBottomOf="@+id/image_card" />
+                app:layout_constraintTop_toBottomOf="@+id/view_line" />
 
             <com.emproto.core.textviews.CustomTextView
                 android:id="@+id/upload_kyc_statement"
-                style="text_style_text_black_color_14"
+                style="@style/text_regular_pcolor5_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_size_8"
