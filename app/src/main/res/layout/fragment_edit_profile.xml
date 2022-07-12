@@ -153,9 +153,10 @@
                     android:id="@+id/upload_new_picture"
                     style="@style/text_style_lightgrey_14"
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_8"
                     android:layout_marginTop="20dp"
+                    android:fontFamily="@string/jost_regular"
                     android:text="@string/upload_new_picture"
                     app:layout_constraintStart_toEndOf="@+id/upload_image"
                     app:layout_constraintTop_toTopOf="@+id/profilePicLayout" />
@@ -183,7 +184,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_size_8"
-                        android:fontFamily="@font/jostregular"
+                        android:fontFamily="@font/jost_regular"
                         android:text="@string/remove_picture"
                         />
                 </LinearLayout>
@@ -211,7 +212,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_size_8"
-                        android:fontFamily="@font/jostregular"
+                        android:fontFamily="@font/jost_regular"
                         android:text="@string/remove_picture"
                         />
                 </LinearLayout>

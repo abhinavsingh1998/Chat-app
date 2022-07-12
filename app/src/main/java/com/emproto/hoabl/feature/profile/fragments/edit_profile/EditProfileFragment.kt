@@ -808,8 +808,7 @@ class EditProfileFragment : BaseFragment() {
             removePictureDialog.dismiss()
         }
         binding.textremove.setOnClickListener {
-
-                removePictureDialog.show()
+            removePictureDialog.show()
 
         }
     }
@@ -830,9 +829,7 @@ class EditProfileFragment : BaseFragment() {
         }
         binding.tvremove.setOnClickListener {
             if(data.profilePictureUrl.isNullOrEmpty()){
-                binding.tvremove.isClickable=false
-                Toast.makeText(context, "Picure already removed", Toast.LENGTH_SHORT).show()
-
+                Toast.makeText(context, "Picture already removed", Toast.LENGTH_SHORT).show()
             }else{
                 removePictureDialog.show()
             }
@@ -966,7 +963,10 @@ class EditProfileFragment : BaseFragment() {
             binding.profileImage.setImageBitmap(rotatedBitmap)
             binding.tvremove.visibility=View.GONE
             binding.textremove.visibility=View.VISIBLE
+            binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
+
             removeSemiPictureDialog()
+//            binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
 
         } catch (e: Exception) {
             e.message
@@ -1005,7 +1005,10 @@ class EditProfileFragment : BaseFragment() {
             binding.profileImage.setImageBitmap(bitmap)
             binding.tvremove.visibility=View.GONE
             binding.textremove.visibility=View.VISIBLE
+            binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
+
             removeSemiPictureDialog()
+//            binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
 
 
         } catch (e: java.lang.Exception) {
@@ -1024,6 +1027,8 @@ class EditProfileFragment : BaseFragment() {
                                 binding.progressBaar.show()
                             }
                             Status.SUCCESS -> {
+                                binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
+                                binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
                                 binding.progressBaar.hide()
                             }
                             Status.ERROR -> {
