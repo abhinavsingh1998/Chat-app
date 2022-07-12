@@ -95,7 +95,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
-            <com.emproto.core.textviews.CustomTextView
+            <TextView
                 android:id="@+id/pending_kyc"
                 style="@style/text_style_text_black_color_16"
                 android:layout_width="0dp"
