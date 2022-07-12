@@ -252,7 +252,12 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
         // facility card
         if (appPreference.isFacilityCard())
-            list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_FACILITY_CARD))
+            list.add(
+                RecyclerViewItem(
+                    PortfolioSpecificViewAdapter.PORTFOLIO_FACILITY_CARD,
+                    appPreference.getOfferUrl()
+                ),
+            )
 
         //adding document
         if (it.data.documentList != null) {

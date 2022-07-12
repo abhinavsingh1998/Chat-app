@@ -425,6 +425,10 @@ class PortfolioSpecificViewAdapter(
     private inner class FacilityManagementViewHolder(private val binding: FacilityManagementLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
+            val fmCardUrl = list[position].data as String
+            Glide.with(context)
+                .load(fmCardUrl)
+                .into(binding.cvFacilityManagementCard)
             binding.cvFacilityManagementCard.setOnClickListener { ivInterface.onClickFacilityCard() }
         }
     }

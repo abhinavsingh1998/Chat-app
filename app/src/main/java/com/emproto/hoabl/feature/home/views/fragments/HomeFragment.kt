@@ -156,7 +156,7 @@ class HomeFragment : BaseFragment() {
                                     if (it != null) {
                                         projectId = it.data.page.promotionAndOffersProjectContentId
                                         appPreference.saveOfferId(projectId)
-                                        appPreference.saveOfferUrl(it.data.page.promotionAndOffersMedia.value.url)
+                                        //appPreference.saveOfferUrl(it.data.page.promotionAndOffersMedia.value.url)
                                         homeViewModel.setDashBoardData(it)
                                         appPreference.setFacilityCard(it.data.isFacilityVisible)
                                     }
