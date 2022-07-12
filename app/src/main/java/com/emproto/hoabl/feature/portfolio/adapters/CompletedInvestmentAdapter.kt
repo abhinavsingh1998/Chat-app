@@ -241,7 +241,7 @@ class CompletedInvestmentAdapter(
             val limitLine = LimitLine(linevalues[(linevalues.size / 2)].x, "My Investment")
             limitLine.lineColor = context.getColor(R.color.app_color)
             limitLine.lineWidth = 1F
-            limitLine.enableDashedLine(10F, 10F, 10F)
+            limitLine.enableDashedLine( 10F, 10F, 10F)
             limitLine.textSize = 14F
             //binding.ivPriceTrendsGraph.setDrawBorders(false);
             //binding.ivPriceTrendsGraph.setDrawGridBackground(false);

@@ -31,11 +31,14 @@ class PromisesListAdapter(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.binding.image.setImageResource(R.drawable.securitylock)
         }
-        if (item.displayMedia.value.url != null) {
-            Glide.with(context)
-                .load(item.displayMedia.value.url)
-                .into(holder.binding.image)
+        if (item.displayMedia!=null){
+            if (item.displayMedia.value.url != null) {
+                Glide.with(context)
+                    .load(item.displayMedia.value.url)
+                    .into(holder.binding.image)
+            }
         }
+
 
         //holder.binding.arrowImage.setImageResource(item.arrowImage)
         holder.binding.itemCard.setOnClickListener {
