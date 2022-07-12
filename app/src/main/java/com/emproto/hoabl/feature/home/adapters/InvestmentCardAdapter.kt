@@ -33,33 +33,35 @@ class InvestmentCardAdapter(
 
         val item = list.get(holder.adapterPosition)
 
-        holder.binding.tvItemLocationName.text = item.launchName
-        holder.binding.tvItemLocation.text = item.address.city + "," + item.address.state
-        holder.binding.tvRating.text =
-            item.generalInfoEscalationGraph.estimatedAppreciation.toString() + "%"
-        holder.binding.tvNoViews.text= item.fomoContent.noOfViews.toString()
+        if(item!=null){
+            holder.binding!!.tvItemLocationName.text = item.launchName
+            holder.binding.tvItemLocation.text = item.address.city + "," + item.address.state
+            holder.binding.tvRating.text =
+                item.generalInfoEscalationGraph.estimatedAppreciation.toString() + "%"
+            holder.binding.tvNoViews.text= item.fomoContent.noOfViews.toString()
 //        holder.binding.tvNoViews.text = Utility.coolFormat(item.fomoContent.noOfViews.toDouble(), 0)
 
-        val amount = item.priceStartingFrom.toDouble() / 100000
-        val convertedAmount = amount.toString().replace(".0", "")
-        holder.binding.tvItemAmount.text = "₹$convertedAmount L Onwards"
-        holder.binding.tvItemArea.text = item.areaStartingFrom + " Sqft Onwards"
-        holder.binding.tvItemLocationInfo.text = item.shortDescription
-        Glide.with(context)
-            .load(item.projectCoverImages.homePageMedia.value.url)
-            .into(holder.binding.ivItemImage)
+            val amount = item.priceStartingFrom.toDouble() / 100000
+            val convertedAmount = amount.toString().replace(".0", "")
+            holder.binding.tvItemAmount.text = "₹$convertedAmount L Onwards"
+            holder.binding.tvItemArea.text = item.areaStartingFrom + " Sqft Onwards"
+            holder.binding.tvItemLocationInfo.text = item.shortDescription
+            Glide.with(context)
+                .load(item.projectCoverImages.homePageMedia.value.url)
+                .into(holder.binding.ivItemImage)
 
-        holder.binding.cvTopView.setOnClickListener {
-            itemIntrface.onItemClicked(it, position, item.id.toString())
-        }
-        holder.binding.tvApplyNow.setOnClickListener {
-            itemIntrface.onItemClicked(it, position, item.id.toString())
-        }
-        holder.binding.tvItemLocationInfo.setOnClickListener {
-            itemIntrface.onItemClicked(it, position, item.id.toString())
-        }
-        holder.binding.ivBottomArrow.setOnClickListener {
-            itemIntrface.onItemClicked(it, position, item.id.toString())
+            holder.binding.cvTopView.setOnClickListener {
+                itemIntrface.onItemClicked(it, position, item.id.toString())
+            }
+            holder.binding.tvApplyNow.setOnClickListener {
+                itemIntrface.onItemClicked(it, position, item.id.toString())
+            }
+            holder.binding.tvItemLocationInfo.setOnClickListener {
+                itemIntrface.onItemClicked(it, position, item.id.toString())
+            }
+            holder.binding.ivBottomArrow.setOnClickListener {
+                itemIntrface.onItemClicked(it, position, item.id.toString())
+            }
         }
 
     }

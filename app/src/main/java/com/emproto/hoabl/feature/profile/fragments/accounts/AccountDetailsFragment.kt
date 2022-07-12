@@ -26,6 +26,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
@@ -54,7 +55,6 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 
 class AccountDetailsFragment : Fragment(),
@@ -62,6 +62,14 @@ class AccountDetailsFragment : Fragment(),
     AccountKycUploadAdapter.OnKycItemUploadClickListener,
     AllDocumentAdapter.OnAllDocumentLabelClickListener,
     AccountsDocumentLabelListAdapter.OnDocumentLabelItemClickListener {
+
+    companion object {
+        const val DOC_CATEGORY_KYC = 100100
+        const val DOC_TYPE_PAN_CARD = 200100
+        const val DOC_TYPE_ADDRESS_PROOF = 200101
+        const val DOC_TYPE_UNVERIFIED_PAN_CARD = 200109
+        const val DOC_TYPE_UNVERIFIED_ADDRESS_PROOF = 200110
+    }
 
     lateinit var kycUploadAdapter: AccountKycUploadAdapter
 
@@ -80,7 +88,7 @@ class AccountDetailsFragment : Fragment(),
     lateinit var documentBinding: DocumentsBottomSheetBinding
     lateinit var docsBottomSheet: BottomSheetDialog
 
-     private var cameraFile: File?=null
+    private var cameraFile: File? = null
     lateinit var destinationFile: File
     private val PICK_GALLERY_IMAGE = 1
     lateinit var bitmap: Bitmap
@@ -152,7 +160,7 @@ class AccountDetailsFragment : Fragment(),
                         kycLists = ArrayList<AccountsResponse.Data.Document>()
                         val documentList = ArrayList<AccountsResponse.Data.Document>()
                         for (document in allKycDocList) {
-                            if (document.documentCategory == 100100) {
+                            if (document.documentCategory == DOC_CATEGORY_KYC) {
                                 kycLists.add(document)
                             } else {
                                 documentList.add(document)
@@ -163,16 +171,16 @@ class AccountDetailsFragment : Fragment(),
                                 kycUploadList.add(
                                     KycUpload(
                                         "Address Proof",
-                                        documentCategory = 100100,
-                                        documentType = 200101,
+                                        documentCategory = DOC_CATEGORY_KYC,
+                                        documentType = DOC_TYPE_ADDRESS_PROOF,
                                         "UPLOAD"
                                     )
                                 )
                                 kycUploadList.add(
                                     KycUpload(
                                         "PAN Card",
-                                        documentCategory = 100100,
-                                        documentType = 200100,
+                                        documentCategory = DOC_CATEGORY_KYC,
+                                        documentType = DOC_TYPE_PAN_CARD,
                                         "UPLOAD"
                                     )
                                 )
@@ -185,7 +193,6 @@ class AccountDetailsFragment : Fragment(),
                             else -> {
                                 kycUploadList.clear()
                                 kycUploadList.addAll(getKycList(kycLists))
-                                Log.i("kycupload", kycUploadList.toString())
                                 kycUploadAdapter = AccountKycUploadAdapter(
                                     context,
                                     kycUploadList, this, viewListener
@@ -224,7 +231,6 @@ class AccountDetailsFragment : Fragment(),
                     if (it.data?.data!!.paymentHistory != null && it.data!!.data.paymentHistory is List<AccountsResponse.Data.PaymentHistory>) {
                         allPaymentList =
                             it.data!!.data.paymentHistory as ArrayList<AccountsResponse.Data.PaymentHistory>
-                        Log.i("paymentList", allPaymentList.toString())
                         if (allPaymentList.isNullOrEmpty()) {
                             binding.tvPaymentHistory.visibility = View.VISIBLE
                             binding.cvNoPayment.visibility = View.VISIBLE
@@ -260,13 +266,13 @@ class AccountDetailsFragment : Fragment(),
         val kycUploadList = ArrayList<KycUpload>()
         for (item in kycLists) {
             val name = when (item.documentType) {
-                200101 -> {
+                DOC_TYPE_ADDRESS_PROOF -> {
                     "Address Proof"
                 }
-                200110 -> {
+                DOC_TYPE_UNVERIFIED_ADDRESS_PROOF -> {
                     "Address Proof"
                 }
-                200100 -> {
+                DOC_TYPE_PAN_CARD -> {
                     "PAN Card"
                 }
                 else -> {
@@ -275,16 +281,16 @@ class AccountDetailsFragment : Fragment(),
             }
             when (name) {
                 "Address Proof" -> {
-                    if (item.documentType == 200101) {
+                    if (item.documentType == DOC_TYPE_ADDRESS_PROOF) {
                         status = "View"
-                    } else if (item.documentType == 200110) {
+                    } else if (item.documentType == DOC_TYPE_UNVERIFIED_ADDRESS_PROOF) {
                         status = "Verification Pending"
                     }
                 }
                 "PAN Card" -> {
-                    if (item.documentType == 200100) {
+                    if (item.documentType == DOC_TYPE_PAN_CARD) {
                         status = "View"
-                    } else if (item.documentType == 200109) {
+                    } else if (item.documentType == DOC_TYPE_UNVERIFIED_PAN_CARD) {
                         status = "Verification Pending"
                     }
                 }
@@ -302,35 +308,35 @@ class AccountDetailsFragment : Fragment(),
         }
         when (kycLists.size) {
             1 -> {
-                if (kycLists[0].documentType == 200101) {
+                if (kycLists[0].documentType == DOC_TYPE_ADDRESS_PROOF) {
                     val kycItem = KycUpload(
                         "PAN Card",
-                        documentCategory = 100100,
-                        documentType = 200100,
+                        documentCategory = DOC_CATEGORY_KYC,
+                        documentType = DOC_TYPE_PAN_CARD,
                         status = "UPLOAD"
                     )
                     kycUploadList.add(kycItem)
-                } else if (kycLists[0].documentType == 200110) {
+                } else if (kycLists[0].documentType == DOC_TYPE_UNVERIFIED_ADDRESS_PROOF) {
                     val kycItem = KycUpload(
                         "PAN Card",
-                        documentCategory = 100100,
-                        documentType = 200100,
+                        documentCategory = DOC_CATEGORY_KYC,
+                        documentType = DOC_TYPE_PAN_CARD,
                         status = "UPLOAD"
                     )
                     kycUploadList.add(kycItem)
-                } else if (kycLists[0].documentType == 200100) {
+                } else if (kycLists[0].documentType == DOC_TYPE_PAN_CARD) {
                     val kycItem = KycUpload(
                         "Address Proof",
-                        documentCategory = 100100,
-                        documentType = 200101,
+                        documentCategory = DOC_CATEGORY_KYC,
+                        documentType = DOC_TYPE_ADDRESS_PROOF,
                         status = "UPLOAD"
                     )
                     kycUploadList.add(kycItem)
                 } else {
                     val kycItem = KycUpload(
                         "Address Proof",
-                        documentCategory = 100100,
-                        documentType = 200101,
+                        documentCategory = DOC_CATEGORY_KYC,
+                        documentType = DOC_TYPE_ADDRESS_PROOF,
                         status = "UPLOAD"
                     )
                     kycUploadList.add(kycItem)
@@ -359,7 +365,11 @@ class AccountDetailsFragment : Fragment(),
         binding.tvSeeAllPayment.setOnClickListener {
             profileViewModel.savePaymentHistory(allPaymentList)
             val allPaymentHistoryFragment = AllPaymentHistoryFragment()
-            (requireActivity() as HomeActivity).supportFragmentManager.beginTransaction().add(R.id.container, allPaymentHistoryFragment, allPaymentHistoryFragment.javaClass.name)
+            (requireActivity() as HomeActivity).supportFragmentManager.beginTransaction().add(
+                R.id.container,
+                allPaymentHistoryFragment,
+                allPaymentHistoryFragment.javaClass.name
+            )
                 .addToBackStack(allPaymentHistoryFragment.javaClass.name).commit()
         }
         binding.tvSeeAllDocuments.setOnClickListener {
@@ -378,7 +388,6 @@ class AccountDetailsFragment : Fragment(),
         name: String,
         path: String
     ) {
-        Log.d("Fff", "${name}")
         openDocumentScreen(name, path)
     }
 
@@ -412,7 +421,6 @@ class AccountDetailsFragment : Fragment(),
     }
 
     private fun openDocumentScreen(name: String, path: String) {
-        Log.d("rtyy", "name= ${name},path= ${path}")
         val strings = name.split(".")
         if (strings.size > 1) {
             if (strings[1] == "png" || strings[1] == "jpg") {
@@ -438,7 +446,7 @@ class AccountDetailsFragment : Fragment(),
                         }
                         Status.SUCCESS -> {
                             binding.progressBar.hide()
-                            requestPermisson(it.data!!.data)
+                            requestPermission(it.data!!.data)
                         }
                         Status.ERROR -> {
                             (requireActivity() as HomeActivity).showErrorToast(
@@ -449,7 +457,7 @@ class AccountDetailsFragment : Fragment(),
                 })
     }
 
-    private fun requestPermisson(base64: String) {
+    private fun requestPermission(base64: String) {
         isReadPermissonGranted = ContextCompat.checkSelfPermission(
             requireContext(),
             Manifest.permission.READ_EXTERNAL_STORAGE
@@ -498,8 +506,6 @@ class AccountDetailsFragment : Fragment(),
     override fun onUploadClick(kycUploadList: ArrayList<KycUpload>, view: View, documentType: Int) {
         selectImage()
         selectedDocumentType = documentType
-        Log.i("selected", selectedDocumentType.toString())
-
     }
 
     private fun selectImage() {
@@ -534,6 +540,25 @@ class AccountDetailsFragment : Fragment(),
             }
         }
         builder.show()
+    }
+
+    fun isStoragePermissionGranted(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED
+            ) {
+                true
+            } else {
+                ActivityCompat.requestPermissions(
+                    this.requireActivity(),
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    1
+                )
+                false
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
+            true
+        }
     }
 
     fun getPhotoFile(context: Context): Uri? {
@@ -580,7 +605,8 @@ class AccountDetailsFragment : Fragment(),
             }
         }
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-            val extension: String = cameraFile?.name!!.substring(cameraFile?.name!!.lastIndexOf(".") + 1)
+            val extension: String =
+                cameraFile?.name!!.substring(cameraFile?.name!!.lastIndexOf(".") + 1)
             callingUploadPicApi(cameraFile!!, extension)
         } else {
             (requireActivity() as BaseActivity).showError(
@@ -612,16 +638,15 @@ class AccountDetailsFragment : Fragment(),
                     Status.SUCCESS -> {
                         binding.progressBar.hide()
                         it.data?.let {
-                            kycUploadList.forEach { kycUpload ->
-                                if(selectedDocumentType==200110){
-                                    kycUpload.name = it.data.response.data.name
-                                    kycUpload.path = it.data.response.data.path
-                                    kycUpload.status = "Verification Pending"
-                                }
-                                if(selectedDocumentType==200109){
-                                    kycUpload.name = it.data.response.data.name
-                                    kycUpload.path = it.data.response.data.path
-                                    kycUpload.status = "Verification Pending"
+                            for (item in kycUploadList) {
+                                if (selectedDocumentType == DOC_TYPE_UNVERIFIED_ADDRESS_PROOF && item.documentName == "Address Proof") {
+                                    item.name = it.data.response.data.name
+                                    item.path = it.data.response.data.path
+                                    item.status = "Verification Pending"
+                                } else if (selectedDocumentType == DOC_TYPE_UNVERIFIED_PAN_CARD && item.documentName == "PAN Card") {
+                                    item.name = it.data.response.data.name
+                                    item.path = it.data.response.data.path
+                                    item.status = "Verification Pending"
                                 }
                             }
                             kycUploadAdapter.notifyDataSetChanged()

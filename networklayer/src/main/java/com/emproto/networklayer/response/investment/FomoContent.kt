@@ -1,5 +1,7 @@
 package com.emproto.networklayer.response.investment
 
+import java.io.Serializable
+
 data class FomoContent(
     val days: Int,
     val isDaysActive: Boolean,
@@ -7,4 +9,4 @@ data class FomoContent(
     val isTargetTimeActive: Boolean,
     val noOfViews: Int,
     val targetTime: TargetTime
-)
+): Serializable
