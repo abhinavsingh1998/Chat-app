@@ -161,33 +161,60 @@
                     app:layout_constraintTop_toTopOf="@+id/profilePicLayout" />
 
 
-                <ImageView
-                    android:id="@+id/remove_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_size_20"
-                    android:background="@drawable/ic_remove_4"
-                    android:fontFamily="@font/jostmedium"
-                    android:visibility="gone"
-                    tools:visibility="visible"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvremove"
-                    app:layout_constraintStart_toEndOf="@+id/profilePicLayout"
-                    app:layout_constraintTop_toTopOf="@+id/tvremove" />
-
-
-                <TextView
+                <LinearLayout
                     android:id="@+id/tvremove"
-                    style="@style/text_style_lightgrey_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="@dimen/margin_size_8"
-                    android:layout_marginTop="@dimen/margin_size_19"
-                    android:fontFamily="@font/jostregular"
-                    android:text="@string/remove_picture"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="19dp"
+                    app:layout_constraintEnd_toEndOf="@id/upload_new_picture"
+                    app:layout_constraintStart_toStartOf="@id/upload_image"
+                    app:layout_constraintTop_toBottomOf="@id/upload_image">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/ic_remove_4" />
+
+                    <TextView
+                        android:id="@+id/tvRemove1"
+                        style="@style/text_style_lightgrey_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_8"
+                        android:fontFamily="@font/jostregular"
+                        android:text="@string/remove_picture"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/textremove"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="19dp"
                     android:visibility="gone"
-                    tools:visibility="visible"
-                    app:layout_constraintStart_toEndOf="@+id/remove_image"
-                    app:layout_constraintTop_toBottomOf="@+id/upload_new_picture" />
+                    app:layout_constraintEnd_toEndOf="@id/upload_new_picture"
+                    app:layout_constraintStart_toStartOf="@id/upload_image"
+                    app:layout_constraintTop_toBottomOf="@id/upload_image">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/ic_remove_4" />
+
+                    <TextView
+                        android:id="@+id/tvRemove2"
+                        style="@style/text_style_lightgrey_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_8"
+                        android:fontFamily="@font/jostregular"
+                        android:text="@string/remove_picture"
+                        />
+                </LinearLayout>
 
 
                 <TextView
@@ -423,11 +450,11 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
-                        app:boxStrokeWidthFocused="0.7dp"
-                        app:hintTextColor="@color/app_color"
                         android:textColor="@color/text_color"
                         android:textColorHint="@color/text_grey_color"
                         android:textSize="14sp"
+                        app:boxStrokeWidthFocused="0.7dp"
+                        app:hintTextColor="@color/app_color"
                         app:layout_constraintStart_toStartOf="parent"
                         tools:layout_editor_absoluteY="344dp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -441,9 +468,9 @@
                     android:layout_marginTop="@dimen/margin_size_20"
                     android:layout_marginEnd="@dimen/margin_size_16"
                     android:hint="@string/Enter_complete_Address"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:boxStrokeWidthFocused="0.7dp"
                     app:hintTextColor="@color/app_color"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/floor_house_num"
                     app:placeholderText="@string/type_here">
