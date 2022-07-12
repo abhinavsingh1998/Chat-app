@@ -1,3 +1,5 @@
 package com.emproto.networklayer.response.investment
 
-class PageManagementAndNewInvestments
+import java.io.Serializable
+
+class PageManagementAndNewInvestments: Serializable
