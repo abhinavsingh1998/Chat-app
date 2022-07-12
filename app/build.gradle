@@ -13,10 +13,10 @@ android {
         applicationId "com.emproto.hoabl"
         minSdk 19
         targetSdk 32
-        versionCode 37
-        versionName "0.0.37"
+        versionCode 38
+        versionName "0.0.38"
         multiDexEnabled true
-        archivesBaseName = "Hoabl_37"
+        archivesBaseName = "Hoabl_38"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.debug
     }
