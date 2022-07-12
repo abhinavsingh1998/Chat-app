@@ -63,40 +63,64 @@ class CategoryListFragment() : BaseFragment() {
     }
 
     private fun initObserver() {
-        investmentViewModel.getSmartDealsList().observe(viewLifecycleOwner, Observer {
-            when (investmentViewModel.getSd().value) {
-                true -> {
-                    binding.tvCategoryHeading.text = resources.getString(R.string.last_few_plots)
-                    setUpAdapter("LastPlots", it)
-                }
-            }
-        })
-        investmentViewModel.getTrendingList().observe(viewLifecycleOwner, Observer {
-            when (investmentViewModel.getTp().value) {
-                true -> {
-                    binding.tvCategoryHeading.text = resources.getString(R.string.trending_projects)
-                    setUpAdapter("TrendingProjects", it)
-                }
-            }
-        })
-        investmentViewModel.getNewInvestments().observe(viewLifecycleOwner, Observer {
-            when (investmentViewModel.getNl().value) {
-                true -> {
-                    binding.tvCategoryHeading.text = resources.getString(R.string.new_launches)
-                    setUpAdapter("NewLaunches", it)
-                }
-            }
-        })
-        investmentViewModel.getAllInvestments().observe(viewLifecycleOwner, Observer {
-            when (investmentViewModel.getAp().value) {
-                true -> {
-                    binding.tvCategoryHeading.text = resources.getString(R.string.all_investments)
-                    setUpAdapter("AllInvestments", it)
-                }
-            }
-        })
+//        investmentViewModel.getSmartDealsList().observe(viewLifecycleOwner, Observer {
+//            when (investmentViewModel.getSd().value) {
+//                true -> {
+//                    binding.tvCategoryHeading.text = resources.getString(R.string.last_few_plots)
+//                    setUpAdapter("LastPlots", it)
+//                }
+//            }
+//        })
+//        investmentViewModel.getTrendingList().observe(viewLifecycleOwner, Observer {
+//            when (investmentViewModel.getTp().value) {
+//                true -> {
+//                    binding.tvCategoryHeading.text = resources.getString(R.string.trending_projects)
+//                    setUpAdapter("TrendingProjects", it)
+//                }
+//            }
+//        })
+//        investmentViewModel.getNewInvestments().observe(viewLifecycleOwner, Observer {
+//            when (investmentViewModel.getNl().value) {
+//                true -> {
+//                    binding.tvCategoryHeading.text = resources.getString(R.string.new_launches)
+//                    setUpAdapter("NewLaunches", it)
+//                }
+//            }
+//        })
+//        investmentViewModel.getAllInvestments().observe(viewLifecycleOwner, Observer {
+//            when (investmentViewModel.getAp().value) {
+//                true -> {
+//                    binding.tvCategoryHeading.text = resources.getString(R.string.all_investments)
+//                    setUpAdapter("AllInvestments", it)
+//                }
+//            }
+//        })
         // for watchlist and similar investment from portfolio
         when (type) {
+            "LastFewPLots" -> {
+                binding.tvCategoryHeading.text = resources.getString(R.string.last_few_plots)
+                val data =
+                    arguments?.getSerializable("LastFewPLotsData") as List<PageManagementsOrCollectionOneModel>
+                setUpCategoryAdapter(data, 1)
+            }
+            "TrendingProjects" -> {
+                binding.tvCategoryHeading.text = resources.getString(R.string.trending_projects)
+                val data =
+                    arguments?.getSerializable("TrendingProjectsData") as List<PageManagementsOrCollectionTwoModel>
+                setUpCategoryAdapter(data, 2)
+            }
+            "NewLaunches" -> {
+                binding.tvCategoryHeading.text = resources.getString(R.string.new_launches)
+                val data =
+                    arguments?.getSerializable("NewLaunchesData") as List<PageManagementsOrNewInvestment>
+                setUpCategoryAdapter(data, 0)
+            }
+            "AllInvestments" -> {
+                binding.tvCategoryHeading.text = resources.getString(R.string.all_investments)
+                val data =
+                    arguments?.getSerializable("AllInvestmentsData") as List<ApData>
+                setUpCategoryAdapter(data, 3)
+            }
             "Watchlist" -> {
                 binding.tvCategoryHeading.text = "Watchlist"
                 val data =
@@ -119,7 +143,8 @@ class CategoryListFragment() : BaseFragment() {
                 binding.tvCategoryHeading.text = "Similar Investments"
                 val data =
                     arguments?.getSerializable("SimilarInvestmentsData") as List<com.emproto.networklayer.response.investment.SimilarInvestment>
-                setUpAdapter("SimilarInvestments", data)
+//                setUpAdapter("SimilarInvestments", data)
+                setUpCategoryAdapter(data,6)
             }
         }
     }

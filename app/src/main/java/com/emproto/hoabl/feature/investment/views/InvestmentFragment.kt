@@ -19,6 +19,7 @@ import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.investment.*
+import java.io.Serializable
 import javax.inject.Inject
 
 class InvestmentFragment : BaseFragment() {
@@ -42,9 +43,16 @@ class InvestmentFragment : BaseFragment() {
 //                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(), true)
 //                }
                 R.id.tv_smart_deals_see_all -> {
-                    investmentViewModel.setSd(true)
-                    investmentViewModel.setSmartDealsList(smartDealsList)
-                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(), true)
+//                    investmentViewModel.setSd(true)
+//                    investmentViewModel.setSmartDealsList(smartDealsList)
+//                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(), true)
+
+                    val list = CategoryListFragment()
+                    val bundle = Bundle()
+                    bundle.putString("Category", "LastFewPLots")
+                    bundle.putSerializable("LastFewPLotsData", smartDealsList as Serializable)
+                    list.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(list, true)
                 }
             /*    R.id.iv_trending_projects_see_all -> {
                     investmentViewModel.setTp(true)
@@ -52,9 +60,16 @@ class InvestmentFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
                 }*/
                 R.id.tv_trending_projects_see_all -> {
-                    investmentViewModel.setTp(true)
-                    investmentViewModel.setTrendingList(trendingProjectsList)
-                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
+//                    investmentViewModel.setTp(true)
+//                    investmentViewModel.setTrendingList(trendingProjectsList)
+//                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
+
+                    val list = CategoryListFragment()
+                    val bundle = Bundle()
+                    bundle.putString("Category", "TrendingProjects")
+                    bundle.putSerializable("TrendingProjectsData", trendingProjectsList as Serializable)
+                    list.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(list, true)
                 }
 //                R.id.iv_new_launch_see_all -> {
 //                    investmentViewModel.setNl(true)
@@ -62,9 +77,16 @@ class InvestmentFragment : BaseFragment() {
 //                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
 //                }
                 R.id.tv_new_launch_see_all -> {
-                    investmentViewModel.setNl(true)
-                    investmentViewModel.setNewInvestments(newInvestmentsList)
-                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
+//                    investmentViewModel.setNl(true)
+//                    investmentViewModel.setNewInvestments(newInvestmentsList)
+//                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
+
+                    val list = CategoryListFragment()
+                    val bundle = Bundle()
+                    bundle.putString("Category", "NewLaunches")
+                    bundle.putSerializable("NewLaunchesData", newInvestmentsList as Serializable)
+                    list.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(list, true)
                 }
                 R.id.cl_place_info -> {
                     navigateToDetailScreen(newInvestmentsList[0].id)
@@ -202,9 +224,16 @@ class InvestmentFragment : BaseFragment() {
                 Status.SUCCESS -> {
                     binding.progressBar.hide()
                     it.data?.data?.let {  data ->
-                        investmentViewModel.setAp(true)
-                        investmentViewModel.setAllInvestments(data)
-                        (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
+//                        investmentViewModel.setAp(true)
+//                        investmentViewModel.setAllInvestments(data)
+//                        (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
+
+                        val list = CategoryListFragment()
+                        val bundle = Bundle()
+                        bundle.putString("Category", "AllInvestments")
+                        bundle.putSerializable("AllInvestmentsData", data as Serializable)
+                        list.arguments = bundle
+                        (requireActivity() as HomeActivity).addFragment(list, true)
                     }
                 }
                 Status.ERROR -> {
