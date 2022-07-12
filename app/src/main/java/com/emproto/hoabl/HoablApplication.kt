@@ -8,8 +8,8 @@ class HoablApplication : Application(), HomeComponentProvider {
 
     override fun onCreate() {
         super.onCreate()
-        val mixPanel = MixpanelAPI.getInstance(this, "b6e5cdf30ddcdfb3886bdaa58a1d0acc")
-        mixPanel.track("Login")
+        val mixPanel = MixpanelAPI.getInstance(this, getString(R.string.MIXPANEL_KEY))
+        mixPanel.track("Launch")
     }
 
     override fun homeComponent(): HomeComponent {
