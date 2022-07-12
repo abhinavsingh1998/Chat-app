@@ -147,9 +147,6 @@ class EditProfileFragment : BaseFragment() {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             false
         
-
-
-
         val myCalender = Calendar.getInstance()
         datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayofMonth ->
             myCalender.set(Calendar.YEAR, year)
