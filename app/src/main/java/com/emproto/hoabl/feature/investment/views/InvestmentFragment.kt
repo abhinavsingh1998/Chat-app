@@ -37,16 +37,7 @@ class InvestmentFragment : BaseFragment() {
     private val onInvestmentItemClickListener =
         View.OnClickListener { view ->
             when (view.id) {
-//                R.id.iv_smart_deals_see_all -> {
-//                    investmentViewModel.setSd(true)
-//                    investmentViewModel.setSmartDealsList(smartDealsList)
-//                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(), true)
-//                }
                 R.id.tv_smart_deals_see_all -> {
-//                    investmentViewModel.setSd(true)
-//                    investmentViewModel.setSmartDealsList(smartDealsList)
-//                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(), true)
-
                     val list = CategoryListFragment()
                     val bundle = Bundle()
                     bundle.putString("Category", "LastFewPLots")
@@ -54,16 +45,7 @@ class InvestmentFragment : BaseFragment() {
                     list.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(list, true)
                 }
-            /*    R.id.iv_trending_projects_see_all -> {
-                    investmentViewModel.setTp(true)
-                    investmentViewModel.setTrendingList(trendingProjectsList)
-                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
-                }*/
                 R.id.tv_trending_projects_see_all -> {
-//                    investmentViewModel.setTp(true)
-//                    investmentViewModel.setTrendingList(trendingProjectsList)
-//                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
-
                     val list = CategoryListFragment()
                     val bundle = Bundle()
                     bundle.putString("Category", "TrendingProjects")
@@ -71,16 +53,7 @@ class InvestmentFragment : BaseFragment() {
                     list.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(list, true)
                 }
-//                R.id.iv_new_launch_see_all -> {
-//                    investmentViewModel.setNl(true)
-//                    investmentViewModel.setNewInvestments(newInvestmentsList)
-//                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
-//                }
                 R.id.tv_new_launch_see_all -> {
-//                    investmentViewModel.setNl(true)
-//                    investmentViewModel.setNewInvestments(newInvestmentsList)
-//                    (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
-
                     val list = CategoryListFragment()
                     val bundle = Bundle()
                     bundle.putString("Category", "NewLaunches")
@@ -224,10 +197,6 @@ class InvestmentFragment : BaseFragment() {
                 Status.SUCCESS -> {
                     binding.progressBar.hide()
                     it.data?.data?.let {  data ->
-//                        investmentViewModel.setAp(true)
-//                        investmentViewModel.setAllInvestments(data)
-//                        (requireActivity() as HomeActivity).addFragment(CategoryListFragment(),true)
-
                         val list = CategoryListFragment()
                         val bundle = Bundle()
                         bundle.putString("Category", "AllInvestments")
