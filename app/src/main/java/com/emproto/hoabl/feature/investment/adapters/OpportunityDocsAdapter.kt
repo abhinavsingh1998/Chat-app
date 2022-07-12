@@ -243,7 +243,7 @@ class OpportunityDocsAdapter(
                     true -> {
                         Glide
                             .with(context)
-                            .load(R.drawable.ic_arrow_upward)
+                            .load(R.drawable.path_3)
                             .into(binding.ivViewMoreArrow)
                         binding.tvViewMore.text = context.getString(R.string.view_less_caps)
                         destinationAdapter = DestinationAdapter(context,data.tourismAround.stories)
@@ -252,7 +252,7 @@ class OpportunityDocsAdapter(
                         isClicked = false
                     }
                     false -> {
-                        binding.ivViewMoreArrow.setImageResource(R.drawable.ic_drop_down)
+                        binding.ivViewMoreArrow.setImageResource(R.drawable.path_3_1)
                         binding.tvViewMore.text = context.getString(R.string.view_more_caps)
                         list.clear()
                         for(i in 0..3){
@@ -271,7 +271,7 @@ class OpportunityDocsAdapter(
                     true -> {
                         Glide
                             .with(context)
-                            .load(R.drawable.ic_arrow_upward)
+                            .load(R.drawable.path_3)
                             .into(binding.ivViewMoreArrow)
                         binding.tvViewMore.text = context.getString(R.string.view_less_caps)
                         destinationAdapter = DestinationAdapter(context,data.tourismAround.stories)
@@ -280,7 +280,7 @@ class OpportunityDocsAdapter(
                         isClicked = false
                     }
                     false -> {
-                        binding.ivViewMoreArrow.setImageResource(R.drawable.ic_drop_down)
+                        binding.ivViewMoreArrow.setImageResource(R.drawable.path_3_1)
                         binding.tvViewMore.text = context.getString(R.string.view_more_caps)
                         list.clear()
                         for(i in 0..3){
@@ -323,7 +323,7 @@ class OpportunityDocsAdapter(
                         for(item in data.projectAminities){
                             list.add(item)
                         }
-                        binding.ivViewMoreArrow.setImageResource(R.drawable.ic_arrow_upward)
+                        binding.ivViewMoreArrow.setImageResource(R.drawable.path_3)
                         binding.tvViewMore.text = context.getString(R.string.view_less_caps)
                         isClicked = false
                     }
@@ -340,7 +340,7 @@ class OpportunityDocsAdapter(
                         true -> {
                             Glide
                                 .with(context)
-                                .load(R.drawable.ic_arrow_upward)
+                                .load(R.drawable.path_3)
                                 .into(binding.ivViewMoreArrow)
                             binding.tvViewMore.text = context.getString(R.string.view_less_caps)
                             projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,data.projectAminities)
@@ -349,7 +349,7 @@ class OpportunityDocsAdapter(
                             isClicked = false
                         }
                         false -> {
-                            binding.ivViewMoreArrow.setImageResource(R.drawable.ic_drop_down)
+                            binding.ivViewMoreArrow.setImageResource(R.drawable.path_3_1)
                             binding.tvViewMore.text = context.getString(R.string.view_all_caps)
                             list.clear()
                             for(i in 0..3){
@@ -367,7 +367,7 @@ class OpportunityDocsAdapter(
                         true -> {
                             Glide
                                 .with(context)
-                                .load(R.drawable.ic_arrow_upward)
+                                .load(R.drawable.path_3)
                                 .into(binding.ivViewMoreArrow)
                             binding.tvViewMore.text = context.getString(R.string.view_less_caps)
                             projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,data.projectAminities)
@@ -376,7 +376,7 @@ class OpportunityDocsAdapter(
                             isClicked = false
                         }
                         false -> {
-                            binding.ivViewMoreArrow.setImageResource(R.drawable.ic_drop_down)
+                            binding.ivViewMoreArrow.setImageResource(R.drawable.path_3_1)
                             binding.tvViewMore.text = context.getString(R.string.view_all_caps)
                             list.clear()
                             for(i in 0..3){

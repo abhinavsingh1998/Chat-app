@@ -172,9 +172,9 @@ class FaqDetailFragment : BaseFragment() {
                 R.id.et_search -> {
                     sendFilteredData(item)
                 }
-//                R.id.iv_faq_card_drop_down -> {
-//                    binding.rvFaq.smoothScrollToPosition(position+2)
-//                }
+                R.id.iv_faq_card_drop_down -> {
+                    binding.rvFaq.smoothScrollToPosition(position)
+                }
             }
         }
     }

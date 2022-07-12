@@ -700,32 +700,34 @@ class ProjectDetailFragment : BaseFragment() {
     }
 
     private fun deleteWatchList() {
-        val id = investmentViewModel.getWatchListId().value
-        if (id != null) {
-            investmentViewModel.deleteWatchList(id).observe(viewLifecycleOwner, Observer {
-                when (it.status) {
-                    Status.LOADING -> {
-                        binding.progressBar.show()
-                    }
-                    Status.SUCCESS -> {
-                        binding.progressBar.hide()
-                        it.data?.let { data ->
-                            Toast.makeText(
-                                this.requireContext(),
-                                "Project removed from watchlist successfully",
-                                Toast.LENGTH_SHORT
-                            ).show()
+        investmentViewModel.getWatchListId().observe(viewLifecycleOwner,Observer{
+            if (it != null) {
+                investmentViewModel.deleteWatchList(it).observe(viewLifecycleOwner, Observer {
+                    when (it.status) {
+                        Status.LOADING -> {
+                            binding.progressBar.show()
+                        }
+                        Status.SUCCESS -> {
+                            binding.progressBar.hide()
+                            it.data?.let { data ->
+                                Toast.makeText(
+                                    this.requireContext(),
+                                    "Project removed from watchlist successfully",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                        Status.ERROR -> {
+                            binding.progressBar.hide()
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                it.message!!
+                            )
                         }
                     }
-                    Status.ERROR -> {
-                        binding.progressBar.hide()
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            it.message!!
-                        )
-                    }
-                }
-            })
-        }
+                })
+            }
+        })
+
     }
 
 }
