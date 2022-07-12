@@ -301,8 +301,8 @@ class AccountDetailsFragment : Fragment(),
                     documentCategory = item.documentCategory,
                     documentType = item.documentType,
                     status = status,
-                    path = item.path,
-                    name = item.name
+                    path = item.path!!,
+                    name = item.name!!
                 )
             )
         }
@@ -640,12 +640,12 @@ class AccountDetailsFragment : Fragment(),
                         it.data?.let {
                             for (item in kycUploadList) {
                                 if (selectedDocumentType == DOC_TYPE_UNVERIFIED_ADDRESS_PROOF && item.documentName == "Address Proof") {
-                                    item.name = it.data.response.data.name
-                                    item.path = it.data.response.data.path
+                                    item.name = it.data.response.data.name.toString()
+                                    item.path = it.data.response.data.path.toString()
                                     item.status = "Verification Pending"
                                 } else if (selectedDocumentType == DOC_TYPE_UNVERIFIED_PAN_CARD && item.documentName == "PAN Card") {
-                                    item.name = it.data.response.data.name
-                                    item.path = it.data.response.data.path
+                                    item.name = it.data.response.data.name.toString()
+                                    item.path = it.data.response.data.path.toString()
                                     item.status = "Verification Pending"
                                 }
                             }

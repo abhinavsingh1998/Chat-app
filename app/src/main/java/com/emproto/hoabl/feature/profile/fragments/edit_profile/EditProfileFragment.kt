@@ -352,7 +352,6 @@ class EditProfileFragment : BaseFragment() {
             val outputFormat: SimpleDateFormat = SimpleDateFormat("dd-MM-yyyy")
             val date: Date = inputFormat.parse(data.dateOfBirth)
             val formattedDate: String = outputFormat.format(date)
-            System.out.println(formattedDate)
             binding.tvDatePicker.setText(formattedDate)
         } else {
             binding.tvDatePicker.setText("")

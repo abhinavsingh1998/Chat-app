@@ -51,7 +51,7 @@ class AllDocumentAdapter(
                     accountsDocumentList,
                     it,
                     position,
-                    accountsDocumentList[position].name,
+                    accountsDocumentList[position].name!!,
                     accountsDocumentList[position].path
                 )
             }
