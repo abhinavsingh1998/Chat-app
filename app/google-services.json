@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "214198870691",
-    "project_id": "hoablandroid",
-    "storage_bucket": "hoablandroid.appspot.com"
+    "project_number": "559031661975",
+    "project_id": "hoabl-app",
+    "storage_bucket": "hoabl-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:214198870691:android:4b03543092951afb3f1516",
+        "mobilesdk_app_id": "1:559031661975:android:8c77827d4fca29fc3880d2",
         "android_client_info": {
-          "package_name": "com.emproto.hoabl"
+          "package_name": "com.hoabl"
         }
       },
       "oauth_client": [
         {
-          "client_id": "214198870691-639kmjhc72a3pea457ubgg1c9e9jgnpf.apps.googleusercontent.com",
+          "client_id": "559031661975-8ovcma2mfvleu54b8csg6ci240omc28d.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDRudDu-BeA0N9WLdb5aJaAqqAKHaOU-Go"
+          "current_key": "AIzaSyDX_BqMcjA-a-mecofB8EcqkKsTzhdDRKU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "214198870691-639kmjhc72a3pea457ubgg1c9e9jgnpf.apps.googleusercontent.com",
+              "client_id": "559031661975-8ovcma2mfvleu54b8csg6ci240omc28d.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
