@@ -281,9 +281,7 @@ class OTPVerificationFragment : BaseFragment() {
             mBinding.resentOtp.setTextColor(resources.getColor(R.color.app_color))
             mBinding.loginEdittext.boxStrokeColor= resources.getColor(R.color.app_color)
             mBinding.resentOtp.isClickable= true
-            countDownTimer.start()
             dismissSnackBar()
-
 
         } else{
             mBinding.layout1.setBackgroundColor(resources.getColor(R.color.background_grey))
@@ -296,7 +294,6 @@ class OTPVerificationFragment : BaseFragment() {
             mBinding.resentOtp.setTextColor(resources.getColor(R.color.text_fade_color))
             mBinding.resentOtp.isClickable= false
             mBinding.loginEdittext.boxStrokeColor= resources.getColor(R.color.text_fade_color)
-            countDownTimer.cancel()
             mBinding.timerTxt.text = ""
             showSnackBar(mBinding.root)
             hideSoftKeyboard()
@@ -304,32 +301,39 @@ class OTPVerificationFragment : BaseFragment() {
     }
 
     private fun resentOtp() {
-        mBinding.resentOtp.setOnClickListener(View.OnClickListener {
-            val otpRequest = OtpRequest(mobileno, "+91", "IN")
-            authViewModel.getOtp(otpRequest).observe(viewLifecycleOwner, Observer {
-                when (it.status) {
-                    Status.SUCCESS -> {
-                        mBinding.loader.visibility = View.INVISIBLE
-                        // Toast.makeText(requireContext(), "resend OTP successfully", Toast.LENGTH_LONG).show()
-                    }
-                    Status.ERROR -> {
-                        mBinding.loader.visibility = View.INVISIBLE
-                        it.data
-                        (requireActivity() as AuthActivity).showErrorToast(
-                            it.message!!
-                        )
 
-                    }
-                    Status.LOADING -> {
-                        mBinding.loader.visibility = View.VISIBLE
-                    }
+            mBinding.resentOtp.setOnClickListener(View.OnClickListener {
+                if (isNetworkAvailable()){
+                    internetState(true)
+                    hideSoftKeyboard()
+                    val otpRequest = OtpRequest(mobileno, "+91", "IN")
+                    authViewModel.getOtp(otpRequest).observe(viewLifecycleOwner, Observer {
+                        when (it.status) {
+                            Status.SUCCESS -> {
+                                mBinding.loader.visibility = View.INVISIBLE
+                                // Toast.makeText(requireContext(), "resend OTP successfully", Toast.LENGTH_LONG).show()
+                            }
+                            Status.ERROR -> {
+                                mBinding.loader.visibility = View.INVISIBLE
+                                it.data
+                                (requireActivity() as AuthActivity).showErrorToast(
+                                    it.message!!
+                                )
+
+                            }
+                            Status.LOADING -> {
+                                mBinding.loader.visibility = View.VISIBLE
+                            }
+                        }
+                    })
+
+                    otpTimerCount()
+                    startSmsUserConsent()
+                } else{
+                    internetState(false)
                 }
+
             })
-
-            otpTimerCount()
-            startSmsUserConsent()
-        })
-
     }
 
     private fun startSMSRetrieverClient() {
@@ -339,25 +343,6 @@ class OTPVerificationFragment : BaseFragment() {
         task.addOnFailureListener { e -> }
     }
 
-/*    private fun getTimerCount() {
-        activityOtpVerifyBinding.timerLayout.isVisible = true
-        activityOtpVerifyBinding.resendLayout.isVisible = false
-        activityOtpVerifyBinding.otpLeft.isVisible = false
-        object : CountDownTimer(30000,1000){
-            override fun onTick(millisUntilFinished: Long) {
-                val time:String= (millisUntilFinished/1000).toString()
-                activityOtpVerifyBinding.timerText.text=time+" sec"
-            }
-
-            override fun onFinish() {
-                activityOtpVerifyBinding.timerLayout.isVisible=false
-                activityOtpVerifyBinding.resendLayout.isVisible=true
-                activityOtpVerifyBinding.otpLeft.isVisible = true
-                activityOtpVerifyBinding.otpLeft.text = "[" + count_otp.toString() + " more attempts left]"
-            }
-
-        }.start()
-    }*/
 
     private fun edit_number() {
         mBinding.etEdit.setOnClickListener(View.OnClickListener {
