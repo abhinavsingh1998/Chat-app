@@ -50,20 +50,22 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     lateinit var binding: FragmentMapBinding
 
     private lateinit var mMap: GoogleMap
-    private var data:MapLocationModel? = null
-    private lateinit var adapter:LocationInfrastructureAdapter
+    private var data: MapLocationModel? = null
+    private lateinit var adapter: LocationInfrastructureAdapter
 
     private var selectedPosition = -1
+    val dummyLatitude = 17.7667503
+    val dummyLongitude = 73.1711629
 
-    companion object{
+    companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
 
     private val mapItemClickListener = object : MapItemClickListener {
         override fun onItemClicked(view: View, position: Int, latitude: Double, longitude: Double) {
-            when(view.id){
+            when (view.id) {
                 R.id.cv_location_infrastructure_card -> {
-                    initMarkerLocation(12.9274,77.586387,latitude,longitude)
+                    initMarkerLocation(dummyLatitude, dummyLongitude, latitude, longitude)
                 }
             }
         }
@@ -89,7 +91,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     }
 
     private fun setDataFromPrevious() {
-        if(data!= null){
+        if (data != null) {
             initMapData()
         }
     }
@@ -102,11 +104,16 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             googleMap.setOnMapLoadedCallback {
 //                addMarkers(googleMap)
                 mMap = googleMap
-                val originLocation = LatLng(12.9274,77.586387)
+                val originLocation = LatLng(dummyLatitude, dummyLongitude)
                 mMap.clear()
                 mMap.addMarker(MarkerOptions().position(originLocation))
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
-                initMarkerLocation(data?.originLatitude!!,data?.originLongitude!!,data?.destinationLatitude!!,data?.destinationLongitude!!)
+                initMarkerLocation(
+                    data?.originLatitude!!,
+                    data?.originLongitude!!,
+                    data?.destinationLatitude!!,
+                    data?.destinationLongitude!!
+                )
             }
         }
     }
@@ -124,8 +131,10 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         mapFragment?.getMapAsync { googleMap ->
             googleMap.setOnMapLoadedCallback {
 //                addMarkers(googleMap)
+                //Lat = 17.8612263
+                //long = 73.0749419
                 mMap = googleMap
-                val originLocation = LatLng(12.9274,77.586387)
+                val originLocation = LatLng(dummyLatitude, dummyLongitude)
                 mMap.clear()
                 mMap.addMarker(MarkerOptions().position(originLocation))
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
@@ -133,37 +142,69 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         }
     }
 
-    private fun initMarkerLocation(originLatitude:Double,originLongitude:Double,destinationLatitude:Double,destinationLongitude:Double) {
+    private fun initMarkerLocation(
+        originLatitude: Double,
+        originLongitude: Double,
+        destinationLatitude: Double,
+        destinationLongitude: Double
+    ) {
         mMap.clear()
         val originLocation = LatLng(originLatitude, originLongitude)
-        mMap.addMarker(MarkerOptions()
-            .position(originLocation)
-            .icon(BitmapFromVector(this.requireContext(), R.drawable.ic_baseline_location_on_24)))
+        mMap.addMarker(
+            MarkerOptions()
+                .position(originLocation)
+                .icon(
+                    BitmapFromVector(
+                        this.requireContext(),
+                        R.drawable.ic_baseline_location_on_24
+                    )
+                )
+        )
         val destinationLocation = LatLng(destinationLatitude, destinationLongitude)
-        mMap.addMarker(MarkerOptions()
-            .position(destinationLocation)
-            .icon(BitmapFromVector(this.requireContext(), R.drawable.ic_baseline_location_on_24_red)))
-        val urll = getDirectionURL(originLocation, destinationLocation, resources.getString(R.string.map_api_key))
+        mMap.addMarker(
+            MarkerOptions()
+                .position(destinationLocation)
+                .icon(
+                    BitmapFromVector(
+                        this.requireContext(),
+                        R.drawable.ic_baseline_location_on_24_red
+                    )
+                )
+        )
+        val urll = getDirectionURL(
+            originLocation,
+            destinationLocation,
+            resources.getString(R.string.map_api_key)
+        )
         GetDirection(urll).execute()
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 15F))
     }
 
-    private fun setUpUI(){
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility = View.GONE
+    private fun setUpUI() {
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
+            View.GONE
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
+            View.GONE
     }
 
     private fun initObserver() {
         investmentViewModel.getMapLocationInfrastructure().observe(viewLifecycleOwner, Observer {
-            for(i in 0..it.values.size-1){
-                if(data?.destinationLatitude == it.values[i].latitude && data?.destinationLongitude == it.values[i].longitude){
+            for (i in 0..it.values.size - 1) {
+                if (data?.destinationLatitude == it.values[i].latitude && data?.destinationLongitude == it.values[i].longitude) {
                     selectedPosition = i
                 }
             }
-            adapter = LocationInfrastructureAdapter(this.requireContext(),it.values,mapItemClickListener,true,selectedPosition)
+            adapter = LocationInfrastructureAdapter(
+                this.requireContext(),
+                it.values,
+                mapItemClickListener,
+                true,
+                selectedPosition
+            )
             binding.mapLocationBottomSheet.rvMapLocationItemRecycler.adapter = adapter
-            (binding.mapLocationBottomSheet.rvMapLocationItemRecycler.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+            (binding.mapLocationBottomSheet.rvMapLocationItemRecycler.itemAnimator as SimpleItemAnimator).supportsChangeAnimations =
+                false
         })
 
         Handler().postDelayed({
@@ -173,7 +214,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 //            anim.duration = 3000
 //            binding.mapLocationBottomSheet.clMapBottomSheet.startAnimation(anim)
 //            binding.cvBackButton.startAnimation(anim)
-                              }, 2000)
+        }, 2000)
 
         binding.cvBackButton.setOnClickListener {
             (requireActivity() as HomeActivity).onBackPressed()
@@ -194,7 +235,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 // You can directly ask for the permission.
                 // The registered ActivityResultCallback gets the result of this request.
                 requestPermissionLauncher.launch(
-                    Manifest.permission.ACCESS_COARSE_LOCATION)
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
             }
         }
     }
@@ -215,7 +257,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 // same time, respect the user's decision. Don't link to system
                 // settings in an effort to convince the user to change their
                 // decision.
-                Toast.makeText(requireContext(), "Location permission required", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Location permission required", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
@@ -225,15 +268,15 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         val marker = googleMap.addMarker(
             MarkerOptions()
                 .title("Isle of Bliss")
-                .position(LatLng(12.8987201, 77.5897014))
+                .position(LatLng(dummyLatitude, dummyLongitude))
                 .icon(BitmapFromVector(this.requireContext(), R.drawable.location_image_red))
         )
-        bounds.include(LatLng(12.8987201, 77.5897014))
+        bounds.include(LatLng(dummyLatitude, dummyLongitude))
         marker?.tag = "Isle of Bliss"
 //        googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(),50))
         googleMap.animateCamera(
             CameraUpdateFactory.newLatLngZoom(
-                LatLng(12.8987201, 77.5897014),
+                LatLng(dummyLatitude, dummyLongitude),
                 16.0f
             )
         )
@@ -259,11 +302,13 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.VISIBLE
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility = View.VISIBLE
+        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
+            View.VISIBLE
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
+            View.VISIBLE
     }
 
-    private fun getDirectionURL(origin:LatLng, dest:LatLng, secret: String) : String{
+    private fun getDirectionURL(origin: LatLng, dest: LatLng, secret: String): String {
         return "https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}" +
                 "&destination=${dest.latitude},${dest.longitude}" +
                 "&sensor=false" +
@@ -272,22 +317,23 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private inner class GetDirection(val url : String) : AsyncTask<Void, Void, List<List<LatLng>>>(){
+    private inner class GetDirection(val url: String) :
+        AsyncTask<Void, Void, List<List<LatLng>>>() {
         override fun doInBackground(vararg params: Void?): List<List<LatLng>> {
             val client = OkHttpClient()
             val request = Request.Builder().url(url).build()
             val response = client.newCall(request).execute()
             val data = response.body!!.string()
 
-            val result =  ArrayList<List<LatLng>>()
-            try{
+            val result = ArrayList<List<LatLng>>()
+            try {
                 val respObj = Gson().fromJson(data, MapData::class.java)
-                val path =  ArrayList<LatLng>()
-                for (i in 0 until respObj.routes[0].legs[0].steps.size){
+                val path = ArrayList<LatLng>()
+                for (i in 0 until respObj.routes[0].legs[0].steps.size) {
                     path.addAll(decodePolyline(respObj.routes[0].legs[0].steps[i].polyline.points))
                 }
                 result.add(path)
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
             return result
@@ -295,10 +341,10 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
         override fun onPostExecute(result: List<List<LatLng>>) {
             val lineoption = PolylineOptions()
-            for (i in result.indices){
+            for (i in result.indices) {
                 lineoption.addAll(result[i])
                 lineoption.width(10f)
-                lineoption.color(ContextCompat.getColor(requireContext(),R.color.text_blue_color))
+                lineoption.color(ContextCompat.getColor(requireContext(), R.color.text_blue_color))
                 lineoption.geodesic(true)
             }
             mMap.addPolyline(lineoption)
@@ -331,7 +377,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             } while (b >= 0x20)
             val dlng = if (result and 1 != 0) (result shr 1).inv() else result shr 1
             lng += dlng
-            val latLng = LatLng((lat.toDouble() / 1E5),(lng.toDouble() / 1E5))
+            val latLng = LatLng((lat.toDouble() / 1E5), (lng.toDouble() / 1E5))
             poly.add(latLng)
         }
         return poly
@@ -339,7 +385,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0!!
-        val originLocation = LatLng(12.927546,77.5855983)
+        val originLocation = LatLng(dummyLatitude, dummyLongitude)
         mMap.clear()
         mMap.addMarker(MarkerOptions().position(originLocation))
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
