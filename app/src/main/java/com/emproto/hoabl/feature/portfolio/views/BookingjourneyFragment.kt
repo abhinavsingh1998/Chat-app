@@ -220,8 +220,9 @@ class BookingjourneyFragment : BaseFragment() {
                                 "₹ ${Utility.convertTo(payment.paidAmount)}"
                         }
                         dialogPendingPayment.tvMilestoneName.text = payment.paymentMilestone
-                        dialogPendingPayment.tvDueDate.text =
-                            "Due date: ${Utility.parseDateFromUtc(payment.targetDate)}"
+                        if (payment.targetDate != null)
+                            dialogPendingPayment.tvDueDate.text =
+                                "Due date: ${Utility.parseDateFromUtc(payment.targetDate)}"
                         pendingPaymentDialog.show()
 
                     }

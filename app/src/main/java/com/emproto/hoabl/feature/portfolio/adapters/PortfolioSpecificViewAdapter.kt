@@ -234,9 +234,9 @@ class PortfolioSpecificViewAdapter(
                 binding.tvProjectLocation.text =
                     data.projectExtraDetails.address.city + "," + data.projectExtraDetails.address.state
                 if (data.investmentInformation != null) {
-                    if (data.investmentInformation != null) {
+                    if (data.projectExtraDetails != null) {
                         binding.tvPaidAmount.text =
-                            Utility.formatAmount(data?.investmentInformation.paidAmount)
+                            Utility.formatAmount(data?.projectExtraDetails.paidAmount)
                     }
                     binding.tvAreaUnit.text =
                         "${Utility.convertTo(data?.investmentInformation.crmInventory.areaSqFt)} sqft"
@@ -352,9 +352,9 @@ class PortfolioSpecificViewAdapter(
                         binding.tvPendingAmount.text =
                             Utility.formatAmount(data.projectExtraDetails.amountPending)
                         binding.tvAmountPaid.text =
-                            Utility.formatAmount(data.investmentInformation.paidAmount)
+                            Utility.formatAmount(data.projectExtraDetails.paidAmount)
                         binding.tvPaid.setOnClickListener {
-                            getToolTip("₹${data.investmentInformation.paidAmount}").showAlignTop(
+                            getToolTip("₹${data.projectExtraDetails.paidAmount}").showAlignTop(
                                 binding.tvPaid
                             )
                         }
