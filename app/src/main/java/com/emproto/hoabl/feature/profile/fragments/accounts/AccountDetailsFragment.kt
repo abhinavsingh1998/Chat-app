@@ -638,21 +638,24 @@ class AccountDetailsFragment : Fragment(),
                     Status.SUCCESS -> {
                         binding.progressBar.hide()
                         it.data?.let {
-                            for (item in kycUploadList) {
-                                if (selectedDocumentType == DOC_TYPE_UNVERIFIED_ADDRESS_PROOF && item.documentName == "Address Proof") {
-                                    item.name = it.data.response.data.name.toString()
-                                    item.path = it.data.response.data.path.toString()
-                                    item.status = "Verification Pending"
-                                } else if (selectedDocumentType == DOC_TYPE_UNVERIFIED_PAN_CARD && item.documentName == "PAN Card") {
-                                    item.name = it.data.response.data.name.toString()
-                                    item.path = it.data.response.data.path.toString()
-                                    item.status = "Verification Pending"
+                            if(it.data.response.data.name!=null && it.data.response.data.name!=null){
+                                for (item in kycUploadList) {
+                                    if (selectedDocumentType == DOC_TYPE_UNVERIFIED_ADDRESS_PROOF && item.documentName == "Address Proof") {
+                                        item.name = it.data.response.data.name
+                                        item.path = it.data.response.data.path
+                                        item.status = "Verification Pending"
+                                    } else if (selectedDocumentType == DOC_TYPE_UNVERIFIED_PAN_CARD && item.documentName == "PAN Card") {
+                                        item.name = it.data.response.data.name
+                                        item.path = it.data.response.data.path
+                                        item.status = "Verification Pending"
+                                    }
                                 }
+                                kycUploadAdapter.notifyDataSetChanged()
+                                val dialog = AccountKycStatusPopUpFragment()
+                                dialog.isCancelable = false
+                                dialog.show(childFragmentManager, "submitted")
                             }
-                            kycUploadAdapter.notifyDataSetChanged()
-                            val dialog = AccountKycStatusPopUpFragment()
-                            dialog.isCancelable = false
-                            dialog.show(childFragmentManager, "submitted")
+
                         }
                     }
                     Status.ERROR -> {
