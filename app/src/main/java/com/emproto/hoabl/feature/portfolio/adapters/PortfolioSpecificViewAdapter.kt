@@ -380,7 +380,10 @@ class PortfolioSpecificViewAdapter(
                 ivInterface.seeProjectDetails(data.projectInformation.id)
             }
             binding.tvSeeOnMap.setOnClickListener {
-                ivInterface.seeOnMap("23.640699", "85.282204")
+                ivInterface.seeOnMap(
+                    data.projectInformation.crmProject.lattitude,
+                    data.projectInformation.crmProject.longitude
+                )
             }
         }
 
