@@ -38,9 +38,9 @@ data class AccountsResponse(
             @SerializedName("itemInternalId")
             val itemInternalId: Any?,
             @SerializedName("name")
-            val name: String?=null,
+            val name: String,
             @SerializedName("path")
-            val path: String?=null,
+            val path: String,
             @SerializedName("updatedAt")
             val updatedAt: String,
             @SerializedName("userId")

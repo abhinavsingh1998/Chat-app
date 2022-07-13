@@ -28,7 +28,7 @@
     <string name="view_all_caps">VIEW ALL</string>
     <string name="view_less_caps">VIEW LESS</string>
     <string name="emailsid"><![CDATA[Email us: <U>care@hoabl.in</U>]]></string>
-    <string name="phonenos"><![CDATA[Or \nCall us:   <U>+91 123 123 1231</U>]]></string>
+    <string name="phonenos"><![CDATA[Call us:   <U>+91 123 123 1231</U>]]></string>
 
 
 </resources>

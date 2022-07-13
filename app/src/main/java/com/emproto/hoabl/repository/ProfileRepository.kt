@@ -8,8 +8,6 @@ import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.HomeDataSource
 import com.emproto.networklayer.feature.PortfolioDataSource
 import com.emproto.networklayer.feature.ProfileDataSource
-import com.emproto.networklayer.feature.RegistrationDataSource
-import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.request.profile.ReportSecurityRequest
@@ -21,13 +19,11 @@ import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
+import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.resourceManagment.ProflieResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
+import kotlinx.coroutines.*
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
 
@@ -38,7 +34,6 @@ class ProfileRepository @Inject constructor(application: Application) :
     private val coroutineScope = CoroutineScope(Dispatchers.IO + parentJob)
     val termsConditionResponse = MutableLiveData<BaseResponse<TermsConditionResponse>>()
     val allprojects = MutableLiveData<BaseResponse<AllProjectsResponse>>()
-
     val aboutusResponse = MutableLiveData<BaseResponse<ProflieResponse>>()
 
     fun editUserNameProfile(editUserNameRequest: EditUserNameRequest): LiveData<BaseResponse<EditProfileResponse>> {
@@ -63,14 +58,17 @@ class ProfileRepository @Inject constructor(application: Application) :
         return mEditProfileResponse
     }
 
-    fun uploadProfilePicture(file: File, fileName: String): LiveData<BaseResponse<ProfilePictureResponse>> {
+    fun uploadProfilePicture(
+        file: File,
+        fileName: String
+    ): LiveData<BaseResponse<ProfilePictureResponse>> {
         val mUploadProfilePicture = MutableLiveData<BaseResponse<ProfilePictureResponse>>()
         mUploadProfilePicture.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
 
                 val request =
-                    ProfileDataSource(application).uploadPictureProfile(file,fileName)
+                    ProfileDataSource(application).uploadPictureProfile(file, fileName)
                 if (request.isSuccessful) {
                     mUploadProfilePicture.postValue(BaseResponse.success(request.body()!!))
                 } else {
@@ -86,14 +84,18 @@ class ProfileRepository @Inject constructor(application: Application) :
         return mUploadProfilePicture
     }
 
-    fun uploadKycDocument(extension: String,file: File,  selectedDoc: Int): LiveData<BaseResponse<UploadKycResponse>> {
+    fun uploadKycDocument(
+        extension: String,
+        file: File,
+        selectedDoc: Int
+    ): LiveData<BaseResponse<UploadKycResponse>> {
         val mUploadKycDocument = MutableLiveData<BaseResponse<UploadKycResponse>>()
         mUploadKycDocument.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
 
                 val request =
-                    ProfileDataSource(application).uploadKycDocument(extension,file,selectedDoc)
+                    ProfileDataSource(application).uploadKycDocument(extension, file, selectedDoc)
                 if (request.isSuccessful) {
                     mUploadKycDocument.postValue(BaseResponse.success(request.body()!!))
                 } else {
@@ -109,14 +111,17 @@ class ProfileRepository @Inject constructor(application: Application) :
         return mUploadKycDocument
     }
 
-    fun presignedUrl(type: String, destinationFile: File): LiveData<BaseResponse<PresignedUrlResponse>> {
+    fun presignedUrl(
+        type: String,
+        destinationFile: File
+    ): LiveData<BaseResponse<PresignedUrlResponse>> {
         val presignedUrlResponse = MutableLiveData<BaseResponse<PresignedUrlResponse>>()
         presignedUrlResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
 
                 val request =
-                    ProfileDataSource(application).presignedUrl(type,destinationFile)
+                    ProfileDataSource(application).presignedUrl(type, destinationFile)
                 if (request.isSuccessful) {
                     presignedUrlResponse.postValue(BaseResponse.success(request.body()!!))
                 } else {
@@ -158,84 +163,104 @@ class ProfileRepository @Inject constructor(application: Application) :
         }
         return mCountriesResponse
     }
-    fun getCountries(): LiveData<BaseResponse<CountryResponse>> {
-        val mStatesResponse = MutableLiveData<BaseResponse<CountryResponse>>()
-        mStatesResponse.postValue(BaseResponse.loading())
-        coroutineScope.launch {
-            try {
-                val request = ProfileDataSource(application).getCountries()
-                if (request.isSuccessful) {
-                    if (request.body()!!.data != null)
-                        mStatesResponse.postValue(BaseResponse.success(request.body()!!))
-                    else
-                        mStatesResponse.postValue(BaseResponse.Companion.error("No data found"))
-                } else {
-                    mStatesResponse.postValue(
-                        BaseResponse.Companion.error(
-                            getErrorMessage(
-                                request.errorBody()!!.string()
+    fun getCountries(refresh: Boolean = false): LiveData<BaseResponse<CountryResponse>> {
+        val mCountryResponse = MutableLiveData<BaseResponse<CountryResponse>>()
+        if (mCountryResponse.value == null || refresh) {
+            mCountryResponse.postValue(BaseResponse.loading())
+            coroutineScope.launch {
+                try {
+                    val request = async { ProfileDataSource(application).getCountries()}
+                    val countryResponse= request.await()
+                    if (countryResponse.isSuccessful) {
+                        if (countryResponse.body()!!.data != null)
+                            mCountryResponse.postValue(BaseResponse.success(countryResponse.body()!!))
+                        else
+                            mCountryResponse.postValue(BaseResponse.Companion.error("No data found"))
+                    } else {
+                        mCountryResponse.postValue(
+                            BaseResponse.Companion.error(
+                                getErrorMessage(
+                                    countryResponse.errorBody()!!.string()
+                                )
                             )
                         )
-                    )
+                    }
+                } catch (e: Exception) {
+                    mCountryResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
                 }
-            } catch (e: Exception) {
-                mStatesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
             }
         }
-        return mStatesResponse
+        return mCountryResponse
     }
 
-    fun getStates(countryIsoCode: String): LiveData<BaseResponse<StatesResponse>> {
+
+    fun getStates(countryIsoCode: String, refresh: Boolean): LiveData<BaseResponse<StatesResponse>> {
         val mStatesResponse = MutableLiveData<BaseResponse<StatesResponse>>()
-        mStatesResponse.postValue(BaseResponse.loading())
-        coroutineScope.launch {
-            try {
-                val request = ProfileDataSource(application).getStates(countryIsoCode)
-                if (request.isSuccessful) {
-                    if (request.body()!!.data != null)
-                        mStatesResponse.postValue(BaseResponse.success(request.body()!!))
-                    else
-                        mStatesResponse.postValue(BaseResponse.Companion.error("No data found"))
-                } else {
-                    mStatesResponse.postValue(
-                        BaseResponse.Companion.error(
-                            getErrorMessage(
-                                request.errorBody()!!.string()
+        if (mStatesResponse.value == null || refresh==true) {
+            mStatesResponse.postValue(BaseResponse.loading())
+            coroutineScope.launch {
+                try {
+                    val request =async { ProfileDataSource(application).getStates(countryIsoCode)}
+                    val stateResponse= request.await()
+                    if (stateResponse.isSuccessful) {
+                        if (stateResponse.body()!!.data != null)
+                            mStatesResponse.postValue(BaseResponse.success(stateResponse.body()!!))
+                        else
+                            mStatesResponse.postValue(BaseResponse.Companion.error("No data found"))
+                    } else {
+                        mStatesResponse.postValue(
+                            BaseResponse.Companion.error(
+                                getErrorMessage(
+                                    stateResponse.errorBody()!!.string()
+                                )
                             )
                         )
-                    )
+                    }
+                } catch (e: Exception) {
+                    mStatesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
                 }
-            } catch (e: Exception) {
-                mStatesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
             }
         }
+
         return mStatesResponse
     }
 
-    fun getCities(stateIsoCode:String,countryIsoCode: String):LiveData<BaseResponse<CitiesResponse>>{
+    fun getCities(
+        stateIsoCode: String,
+        countryIsoCode: String,refresh: Boolean): LiveData<BaseResponse<CitiesResponse>> {
         val mCitiesResponse = MutableLiveData<BaseResponse<CitiesResponse>>()
-        mCitiesResponse.postValue(BaseResponse.loading())
-        coroutineScope.launch {
-            try {
-                val request = ProfileDataSource(application).getCities(stateIsoCode,countryIsoCode)
-                if (request.isSuccessful) {
-                    if (request.body()!!.data != null)
-                        mCitiesResponse.postValue(BaseResponse.success(request.body()!!))
-                    else
-                        mCitiesResponse.postValue(BaseResponse.Companion.error("No data found"))
-                } else {
-                    mCitiesResponse.postValue(
-                        BaseResponse.Companion.error(
-                            getErrorMessage(
-                                request.errorBody()!!.string()
+        if (mCitiesResponse.value == null || refresh==true) {
+            mCitiesResponse.postValue(BaseResponse.loading())
+            coroutineScope.launch {
+                try {
+                    val request = async {
+                        ProfileDataSource(application).getCities(
+                            stateIsoCode,
+                            countryIsoCode
+                        )
+                    }
+                    val cityResponse = request.await()
+
+                    if (cityResponse.isSuccessful) {
+                        if (cityResponse.body()!!.data != null)
+                            mCitiesResponse.postValue(BaseResponse.success(cityResponse.body()!!))
+                        else
+                            mCitiesResponse.postValue(BaseResponse.Companion.error("No data found"))
+                    } else {
+                        mCitiesResponse.postValue(
+                            BaseResponse.Companion.error(
+                                getErrorMessage(
+                                    cityResponse.errorBody()!!.string()
+                                )
                             )
                         )
-                    )
+                    }
+                } catch (e: Exception) {
+                    mCitiesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
                 }
-            } catch (e: Exception) {
-                mCitiesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
             }
         }
+
         return mCitiesResponse
     }
 
@@ -246,7 +271,7 @@ class ProfileRepository @Inject constructor(application: Application) :
             try {
                 val request = ProfileDataSource(application).getUserProfile()
                 if (request.isSuccessful) {
-                    Log.i("Request",request.message())
+                    Log.i("Request", request.message())
                     mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
                 } else {
                     mDocumentsResponse.postValue(
@@ -292,6 +317,7 @@ class ProfileRepository @Inject constructor(application: Application) :
         }
         return deleteResponse
     }
+
     fun deleteProfileImage(destinationFileName: String): LiveData<BaseResponse<EditProfileResponse>> {
         val deleteResponse = MutableLiveData<BaseResponse<EditProfileResponse>>()
         deleteResponse.postValue(BaseResponse.loading())
@@ -473,6 +499,7 @@ class ProfileRepository @Inject constructor(application: Application) :
         }
         return allprojects
     }
+
     fun getSecurityTips(pageType: Int): LiveData<BaseResponse<SecurityTipsResponse>> {
         val stResponse = MutableLiveData<BaseResponse<SecurityTipsResponse>>()
         stResponse.postValue(BaseResponse.loading())

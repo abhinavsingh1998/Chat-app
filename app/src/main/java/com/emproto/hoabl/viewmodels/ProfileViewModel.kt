@@ -73,18 +73,19 @@ class ProfileViewModel(
         return profileRepository.getUserProfile()
     }
 
-    fun getStates(countryIsoCode: String): LiveData<BaseResponse<StatesResponse>> {
-        return profileRepository.getStates(countryIsoCode)
+    fun getStates(countryIsoCode: String, refresh: Boolean): LiveData<BaseResponse<StatesResponse>> {
+        return profileRepository.getStates(countryIsoCode, refresh)
     }
-    fun getCountries(): LiveData<BaseResponse<CountryResponse>> {
-        return profileRepository.getCountries()
+    fun getCountries(refresh: Boolean = false): LiveData<BaseResponse<CountryResponse>> {
+        return profileRepository.getCountries(refresh)
     }
 
     fun getCities(
         stateIsoCode: String,
-        countryIsoCode: String
+        countryIsoCode: String,
+        refresh: Boolean=false
     ): LiveData<BaseResponse<CitiesResponse>> {
-        return profileRepository.getCities(stateIsoCode, countryIsoCode)
+        return profileRepository.getCities(stateIsoCode, countryIsoCode,refresh)
     }
 
     fun getPrivacyAndPolicy(pageType: Int): LiveData<BaseResponse<TermsConditionResponse>> {

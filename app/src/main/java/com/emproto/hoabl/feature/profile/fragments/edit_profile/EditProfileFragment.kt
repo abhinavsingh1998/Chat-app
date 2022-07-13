@@ -109,6 +109,8 @@ class EditProfileFragment : BaseFragment() {
     lateinit var countryIso: String
     lateinit var city: String
 
+    lateinit var preSelectedCountryIso: String
+
     lateinit var gender: String
     private var cameraFile: File? = null
 
@@ -172,38 +174,49 @@ class EditProfileFragment : BaseFragment() {
         }
         initView()
         setGenderSpinnersData()
-        getCountries()
+        getCountries(false)
         return binding.root
     }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(data.profilePictureUrl.isNullOrEmpty()){
-            binding.tvremove.isClickable=false
+        if (data.profilePictureUrl.isNullOrEmpty()) {
+            binding.tvremove.isClickable = false
             binding.tvRemove1.setTextColor(Color.parseColor("#9d9eb1"))
             binding.tvRemove2.setTextColor(Color.parseColor("#9d9eb1"))
-        }
-        else{
-            binding.tvremove.isClickable=true
+        } else {
+            binding.tvremove.isClickable = true
             binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
             binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
         }
         initClickListener()
     }
 
-    private fun getCountries() {
-        profileViewModel.getCountries().observe(viewLifecycleOwner) {
+    private fun getCountries(refresh: Boolean) {
+        profileViewModel.getCountries(refresh).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBaar.show()
                 }
                 Status.SUCCESS -> {
                     binding.progressBaar.hide()
-                    it.data?.data?.let1 { data ->
-                        countriesData = data
+                    it.data?.data?.let1 { it ->
+                        countriesData = it
                     }
-                    for (i in countriesData.indices) {
-                        listCountries.add(countriesData[i].name)
-                        listCountryISO.add(countriesData[i].isoCode)
+                    if (data.country != null) {
+                        for (i in countriesData) {
+                            if (data.country == i.name) {
+                                countryIso = i.isoCode
+                            }
+                            listCountries.add(i.name)
+                            listCountryISO.add(i.isoCode)
+                        }
+                    } else {
+                        for (i in countriesData.indices) {
+                            listCountries.add(countriesData[i].name)
+                            listCountryISO.add(countriesData[i].isoCode)
+                        }
                     }
                     setCountrySpinnersData()
                 }
@@ -214,9 +227,8 @@ class EditProfileFragment : BaseFragment() {
         }
     }
 
-    private fun getStates(countryIso: String) {
-        Log.i("countryISO", countryIso)
-        profileViewModel.getStates(countryIso).observe(viewLifecycleOwner) {
+    private fun getStates(countryIso: String, refresh: Boolean) {
+        profileViewModel.getStates(countryIso, refresh).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBaar.show()
@@ -226,11 +238,22 @@ class EditProfileFragment : BaseFragment() {
                     it.data?.data?.let1 { data ->
                         statesData = data
                     }
-                    for (i in statesData.indices) {
-                        listStates.add(statesData[i].name)
-                        listStatesISO.add(statesData[i].isoCode)
-
+                    if (data.country != null&&data.state!=null) {
+                        this@EditProfileFragment.countryIso =data.countryCode
+                        for (i in statesData) {
+                            if (data.state == i.name) {
+                                stateIso = i.isoCode
+                            }
+                            listStates.add(i.name)
+                            listStatesISO.add(i.isoCode)
+                        }
+                    }else{
+                        for (i in statesData.indices) {
+                            listStates.add(statesData[i].name)
+                            listStatesISO.add(statesData[i].isoCode)
+                        }
                     }
+
                     setStateSpinnersData()
                 }
                 Status.ERROR -> {
@@ -240,8 +263,8 @@ class EditProfileFragment : BaseFragment() {
         }
     }
 
-    private fun getCities(value1: String, isoCode: String) {
-        profileViewModel.getCities(value1, isoCode).observe(viewLifecycleOwner) {
+    private fun getCities(value1: String, isoCode: String,refresh: Boolean) {
+        profileViewModel.getCities(value1, isoCode,refresh).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBaar.show()
@@ -291,8 +314,12 @@ class EditProfileFragment : BaseFragment() {
                 country = listCountries[position]
                 countryIso = listCountryISO[position]
                 listStates.clear()
-                getStates(countryIso)
+                getStates(countryIso, true)
             }
+        if (data.country != null) {
+            listStates.clear()
+            getStates(countryIso, false)
+        }
 
     }
 
@@ -306,9 +333,12 @@ class EditProfileFragment : BaseFragment() {
                 binding.autoCity.setText("")
                 state = listStates[position]
                 stateIso = listStatesISO[position]
-                listCities.clear()
-                getCities(stateIso, countryIso)
+                getCities(stateIso, countryIso,true)
             }
+        if (data.state != null) {
+            listCities.clear()
+            getCities(stateIso,countryIso,false)
+        }
         enableStateEdit()
     }
 
@@ -319,7 +349,6 @@ class EditProfileFragment : BaseFragment() {
         binding.autoCity.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 city = listCities[position]
-
             }
         enableCityEdit()
     }
@@ -348,8 +377,8 @@ class EditProfileFragment : BaseFragment() {
             binding.emailTv.setText("")
         }
         if (!data.dateOfBirth.isNullOrEmpty()) {
-            val inputFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-            val outputFormat: SimpleDateFormat = SimpleDateFormat("dd-MM-yyyy")
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+            val outputFormat = SimpleDateFormat("dd-MM-yyyy")
             val date: Date = inputFormat.parse(data.dateOfBirth)
             val formattedDate: String = outputFormat.format(date)
             binding.tvDatePicker.setText(formattedDate)
@@ -416,7 +445,7 @@ class EditProfileFragment : BaseFragment() {
         if (data.profilePictureUrl.isNullOrEmpty()) {
             binding.profileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
-            binding.tvremove.isClickable=false
+            binding.tvremove.isClickable = false
             binding.tvRemove1.setTextColor(Color.parseColor("#9d9eb1"))
             binding.tvRemove2.setTextColor(Color.parseColor("#9d9eb1"))
             setUserNamePIC(data)
@@ -668,7 +697,6 @@ class EditProfileFragment : BaseFragment() {
                 )
             }
 
-            binding.saveAndUpdate.text = "Save and Update"
             email = binding.emailTv.text.toString()
             Log.i("email", email)
             if (!email.isNullOrEmpty() && email.isValidEmail()) {
@@ -788,6 +816,7 @@ class EditProfileFragment : BaseFragment() {
             }
         }
     }
+
     private fun removeSemiPictureDialog() {
         val removeDialogLayout = RemoveConfirmationBinding.inflate(layoutInflater)
         removePictureDialog = Dialog(requireContext())
@@ -799,8 +828,8 @@ class EditProfileFragment : BaseFragment() {
             binding.profileUserLetters.visibility = View.VISIBLE
             setUserNamePIC(data)
             removePictureDialog.dismiss()
-            binding.textremove.visibility=View.GONE
-            binding.tvremove.visibility=View.VISIBLE
+            binding.textremove.visibility = View.GONE
+            binding.tvremove.visibility = View.VISIBLE
 
         }
         removeDialogLayout.actionNo.setOnClickListener {
@@ -811,6 +840,7 @@ class EditProfileFragment : BaseFragment() {
 
         }
     }
+
     private fun removePictureDialog() {
         val removeDialogLayout = RemoveConfirmationBinding.inflate(layoutInflater)
         removePictureDialog = Dialog(requireContext())
@@ -827,9 +857,9 @@ class EditProfileFragment : BaseFragment() {
             removePictureDialog.dismiss()
         }
         binding.tvremove.setOnClickListener {
-            if(data.profilePictureUrl.isNullOrEmpty()){
+            if (data.profilePictureUrl.isNullOrEmpty()) {
                 Toast.makeText(context, "Picture already removed", Toast.LENGTH_SHORT).show()
-            }else{
+            } else {
                 removePictureDialog.show()
             }
         }
@@ -932,6 +962,7 @@ class EditProfileFragment : BaseFragment() {
             permissionLauncher.launch(permissionRequest.toTypedArray())
         }
     }
+
     private fun onCaptureImageResult() {
         val selectedImage = cameraFile?.path
         destinationFile = cameraFile!!
@@ -960,8 +991,8 @@ class EditProfileFragment : BaseFragment() {
         binding.profileUserLetters.visibility = View.GONE
         try {
             binding.profileImage.setImageBitmap(rotatedBitmap)
-            binding.tvremove.visibility=View.GONE
-            binding.textremove.visibility=View.VISIBLE
+            binding.tvremove.visibility = View.GONE
+            binding.textremove.visibility = View.VISIBLE
             binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
 
             removeSemiPictureDialog()
@@ -1002,8 +1033,8 @@ class EditProfileFragment : BaseFragment() {
             binding.profileImage.visibility = View.VISIBLE
             binding.profileUserLetters.visibility = View.GONE
             binding.profileImage.setImageBitmap(bitmap)
-            binding.tvremove.visibility=View.GONE
-            binding.textremove.visibility=View.VISIBLE
+            binding.tvremove.visibility = View.GONE
+            binding.textremove.visibility = View.VISIBLE
             binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
 
             removeSemiPictureDialog()
@@ -1050,7 +1081,7 @@ class EditProfileFragment : BaseFragment() {
                     }
                     Status.SUCCESS -> {
                         binding.progressBaar.hide()
-                        binding.tvremove.isClickable=false
+                        binding.tvremove.isClickable = false
                         binding.tvRemove1.setTextColor(Color.parseColor("#9d9eb1"))
                         binding.tvRemove2.setTextColor(Color.parseColor("#9d9eb1"))
                         removePictureDialog.dismiss()
