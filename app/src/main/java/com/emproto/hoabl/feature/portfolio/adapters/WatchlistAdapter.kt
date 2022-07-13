@@ -26,24 +26,26 @@ class WatchlistAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val element = list[position]
         holder.binding.apply {
-            Glide.with(context)
-                .load(element.project.projectIcon.value.url)
-                .into(ivItemImage)
-            tvItemLocationName.text = element.project.launchName
-            tvItemLocation.text =
-                element.project.address.city + " " + element.project.address.state
-            val amount = element.project.priceStartingFrom.toDouble() / 100000
-            val convertedAmount = amount.toString().replace(".0", "")
-            tvItemAmount.text = SpannableStringBuilder()
-                .bold { append("₹${convertedAmount} L") }
-                .append(" Onwards")
-            tvItemArea.text = SpannableStringBuilder()
-                .bold { append("${element.project.areaStartingFrom} Sqft") }
-                .append(" Onwards")
-            tvNoViews.text = element.project.fomoContent.noOfViews.toString()
+            if (element.project != null) {
+                Glide.with(context)
+                    .load(element.project.projectIcon.value.url)
+                    .into(ivItemImage)
+                tvItemLocationName.text = element.project.launchName
+                tvItemLocation.text =
+                    element.project.address.city + " " + element.project.address.state
+                val amount = element.project.priceStartingFrom.toDouble() / 100000
+                val convertedAmount = amount.toString().replace(".0", "")
+                tvItemAmount.text = SpannableStringBuilder()
+                    .bold { append("₹${convertedAmount} L") }
+                    .append(" Onwards")
+                tvItemArea.text = SpannableStringBuilder()
+                    .bold { append("${element.project.areaStartingFrom} Sqft") }
+                    .append(" Onwards")
+                tvNoViews.text = element.project.fomoContent.noOfViews.toString()
 //                Utility.coolFormat(element.project.fomoContent.noOfViews.toDouble(), 0)
-            tvItemLocationInfo.text = element.project.shortDescription
-            tvRating.text = "${element.project.estimatedAppreciation}%"
+                tvItemLocationInfo.text = element.project.shortDescription
+                tvRating.text = "${element.project.estimatedAppreciation}%"
+            }
         }
         holder.binding.cvMainOuterCard.setOnClickListener {
             onItemClickListener.onClickofWatchlist(element.project.id)

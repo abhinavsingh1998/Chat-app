@@ -67,6 +67,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/jost_medium"
+                android:text="---"
                 android:textColor="#61592b"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

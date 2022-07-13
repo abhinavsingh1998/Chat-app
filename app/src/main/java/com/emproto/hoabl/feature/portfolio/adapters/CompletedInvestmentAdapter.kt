@@ -147,7 +147,8 @@ class CompletedInvestmentAdapter(
                 project.project.generalInfoEscalationGraph,
                 project.project.launchName,
                 project.investment.pendingAmount,
-                project.investment.isBookingComplete
+                project.investment.isBookingComplete,
+                project.investment.paidAmount
             )
         val headingDetails = InvestmentHeadingDetails(
             project.project.isSimilarInvestmentActive,
