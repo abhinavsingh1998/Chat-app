@@ -8,7 +8,7 @@
     android:layout_marginHorizontal="@dimen/margin_size_4"
     android:layout_marginVertical="@dimen/margin_size_6"
     app:cardCornerRadius="@dimen/margin_size_6"
-    app:cardElevation="@dimen/margin_size_2"
+    app:cardElevation="@dimen/margin_size_1"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"

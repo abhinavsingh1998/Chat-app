@@ -10,7 +10,6 @@ import com.emproto.hoabl.utils.ItemClickListener
 
 
 class PopularCategoryAdapter(
-    val context: Context,
     private val list: List<String>,
     private val itemClickListener: ItemClickListener
 ):

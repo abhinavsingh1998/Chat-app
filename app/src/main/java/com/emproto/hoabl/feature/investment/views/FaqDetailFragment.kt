@@ -95,7 +95,7 @@ class FaqDetailFragment : BaseFragment() {
     }
 
     private fun callProfileFaqApi() {
-        profileViewModel.getGeneralFaqs(2001).observe(viewLifecycleOwner, Observer {
+        profileViewModel.getGeneralFaqs(2001).observe(this, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
@@ -119,7 +119,7 @@ class FaqDetailFragment : BaseFragment() {
     }
 
     private fun callProjectFaqApi() {
-        investmentViewModel.getInvestmentsFaq(projectId).observe(viewLifecycleOwner, Observer {
+        investmentViewModel.getInvestmentsFaq(projectId).observe(this, Observer {
             Log.d("Faq", it.data.toString())
             when (it.status) {
                 Status.LOADING -> {
@@ -152,8 +152,7 @@ class FaqDetailFragment : BaseFragment() {
             list.add(RecyclerViewFaqItem(2, item))
         }
         adapter = FaqDetailAdapter(
-            requireActivity(),
-            this.requireContext(),
+            this,
             list,
             data,
             faqId,
@@ -172,9 +171,9 @@ class FaqDetailFragment : BaseFragment() {
                 R.id.et_search -> {
                     sendFilteredData(item)
                 }
-//                R.id.iv_faq_card_drop_down -> {
-//                    binding.rvFaq.smoothScrollToPosition(position+2)
-//                }
+                R.id.iv_faq_card_drop_down -> {
+                    binding.rvFaq.smoothScrollToPosition(position)
+                }
             }
         }
     }
@@ -232,8 +231,7 @@ class FaqDetailFragment : BaseFragment() {
             }
         }
         adapter = FaqDetailAdapter(
-            requireActivity(),
-            requireContext(),
+            this,
             list,
             this.allFaqList,
             faqId,

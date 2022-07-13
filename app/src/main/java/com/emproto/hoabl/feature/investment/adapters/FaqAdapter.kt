@@ -16,7 +16,6 @@ import com.emproto.networklayer.response.investment.Faq
 
 class FaqAdapter(
     private val list: List<Faq>,
-    private val context: Context,
     private val faqId: Int?,
     private val itemClickListener: ItemClickListener
 ):RecyclerView.Adapter<FaqAdapter.FaqViewHolder>() {
