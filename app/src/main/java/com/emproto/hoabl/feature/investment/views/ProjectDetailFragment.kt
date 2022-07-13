@@ -25,6 +25,7 @@ import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.model.MapLocationModel
 import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.model.RecyclerViewItem
+import com.emproto.hoabl.utils.Extensions.hideKeyboard
 import com.emproto.hoabl.utils.Extensions.toHomePagesOrPromise
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.utils.MapItemClickListener
@@ -338,6 +339,7 @@ class ProjectDetailFragment : BaseFragment() {
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility =
             View.VISIBLE
         (requireActivity() as HomeActivity).hideBottomNavigation()
+        hideKeyboard()
         binding.slSwipeRefresh.setOnRefreshListener {
             binding.slSwipeRefresh.isRefreshing = true
             binding.rvProjectDetail.visibility = View.GONE
