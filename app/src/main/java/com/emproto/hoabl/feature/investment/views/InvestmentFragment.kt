@@ -153,6 +153,7 @@ class InvestmentFragment : BaseFragment() {
                     binding.progressBar.hide()
                     it.data?.data?.let { data ->
                         if(data!=null){
+                            Log.d("rrr",data.mediaGalleries.toString())
                             setUpRecyclerView(invData,data.mediaGalleries)
                         }
                     }
