@@ -691,9 +691,7 @@ class EditProfileFragment : BaseFragment() {
                     binding.root
                 )
             }
-
             email = binding.emailTv.text.toString()
-            Log.i("email", email)
             if (!email.isNullOrEmpty() && email.isValidEmail()) {
                 binding.tvEmail.isErrorEnabled = false
                 email = binding.emailTv.text.toString()
