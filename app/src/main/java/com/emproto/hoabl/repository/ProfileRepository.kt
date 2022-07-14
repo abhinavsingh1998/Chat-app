@@ -97,7 +97,6 @@ class ProfileRepository @Inject constructor(application: Application) :
         }
         return mUploadKycDocument
     }
-
     fun presignedUrl(
         type: String,
         destinationFile: File
@@ -179,8 +178,6 @@ class ProfileRepository @Inject constructor(application: Application) :
         }
         return mCountryResponse
     }
-
-
     fun getStates(countryIsoCode: String, refresh: Boolean): LiveData<BaseResponse<StatesResponse>> {
         val mStatesResponse = MutableLiveData<BaseResponse<StatesResponse>>()
         if (mStatesResponse.value == null || refresh) {
@@ -211,7 +208,6 @@ class ProfileRepository @Inject constructor(application: Application) :
 
         return mStatesResponse
     }
-
     fun getCities(
         stateIsoCode: String,
         countryIsoCode: String,refresh: Boolean): LiveData<BaseResponse<CitiesResponse>> {
@@ -227,7 +223,6 @@ class ProfileRepository @Inject constructor(application: Application) :
                         )
                     }
                     val cityResponse = request.await()
-
                     if (cityResponse.isSuccessful) {
                         if (cityResponse.body()!!.data != null)
                             mCitiesResponse.postValue(BaseResponse.success(cityResponse.body()!!))
