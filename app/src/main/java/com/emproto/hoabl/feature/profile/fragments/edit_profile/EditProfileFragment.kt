@@ -224,7 +224,6 @@ class EditProfileFragment : BaseFragment() {
             }
         }
     }
-
     private fun getStates(countryIso: String, refresh: Boolean) {
         profileViewModel.getStates(countryIso, refresh).observe(viewLifecycleOwner) {
             when (it.status) {
@@ -248,7 +247,6 @@ class EditProfileFragment : BaseFragment() {
                         for (i in statesData.indices) {
                             listStates.add(statesData[i].name)
                             listStatesISO.add(statesData[i].isoCode)
-
                         }
                     }
                     setStateSpinnersData()
