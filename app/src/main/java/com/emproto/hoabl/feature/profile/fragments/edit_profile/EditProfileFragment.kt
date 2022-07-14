@@ -329,11 +329,12 @@ class EditProfileFragment : BaseFragment() {
                 binding.autoCity.setText("")
                 state = listStates[position]
                 stateIso = listStatesISO[position]
+                listCities.clear()
                 getCities(stateIso, countryIso, true)
             }
         if (data.state != null) {
-            listStates.clear()
-            getCities(stateIso, countryIso, true)
+            listCities.clear()
+            getCities(stateIso, countryIso, false)
         }
         enableStateEdit()
     }
@@ -345,13 +346,7 @@ class EditProfileFragment : BaseFragment() {
         binding.autoCity.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 city = listCities[position]
-                getCities(stateIso,countryIso, false)
-
             }
-        if (data.country != null) {
-            listCities.clear()
-            getCities(stateIso,countryIso, false)
-        }
         enableCityEdit()
     }
 

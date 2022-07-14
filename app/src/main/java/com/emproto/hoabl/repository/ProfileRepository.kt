@@ -26,8 +26,6 @@ import kotlinx.coroutines.*
 
 import java.io.File
 import javax.inject.Inject
-
-
 class ProfileRepository @Inject constructor(application: Application) :
     BaseRepository(application) {
     private val parentJob = Job()
@@ -41,23 +39,18 @@ class ProfileRepository @Inject constructor(application: Application) :
         mEditProfileResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-
                 val request = ProfileDataSource(application).editProfile(editUserNameRequest)
                 if (request.isSuccessful) {
                     mEditProfileResponse.postValue(BaseResponse.success(request.body()!!))
                 } else {
                     mEditProfileResponse.postValue(BaseResponse.Companion.error(request.message()))
                 }
-
-
             } catch (e: Exception) {
                 mEditProfileResponse.postValue(BaseResponse.Companion.error(e.message!!))
-
             }
         }
         return mEditProfileResponse
     }
-
     fun uploadProfilePicture(
         file: File,
         fileName: String
@@ -66,7 +59,6 @@ class ProfileRepository @Inject constructor(application: Application) :
         mUploadProfilePicture.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-
                 val request =
                     ProfileDataSource(application).uploadPictureProfile(file, fileName)
                 if (request.isSuccessful) {
@@ -74,16 +66,12 @@ class ProfileRepository @Inject constructor(application: Application) :
                 } else {
                     mUploadProfilePicture.postValue(BaseResponse.Companion.error(request.message()))
                 }
-
-
             } catch (e: Exception) {
                 mUploadProfilePicture.postValue(BaseResponse.Companion.error(e.message!!))
-
             }
         }
         return mUploadProfilePicture
     }
-
     fun uploadKycDocument(
         extension: String,
         file: File,
@@ -93,7 +81,6 @@ class ProfileRepository @Inject constructor(application: Application) :
         mUploadKycDocument.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-
                 val request =
                     ProfileDataSource(application).uploadKycDocument(extension, file, selectedDoc)
                 if (request.isSuccessful) {
@@ -196,7 +183,7 @@ class ProfileRepository @Inject constructor(application: Application) :
 
     fun getStates(countryIsoCode: String, refresh: Boolean): LiveData<BaseResponse<StatesResponse>> {
         val mStatesResponse = MutableLiveData<BaseResponse<StatesResponse>>()
-        if (mStatesResponse.value == null || refresh==true) {
+        if (mStatesResponse.value == null || refresh) {
             mStatesResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
@@ -229,7 +216,7 @@ class ProfileRepository @Inject constructor(application: Application) :
         stateIsoCode: String,
         countryIsoCode: String,refresh: Boolean): LiveData<BaseResponse<CitiesResponse>> {
         val mCitiesResponse = MutableLiveData<BaseResponse<CitiesResponse>>()
-        if (mCitiesResponse.value == null || refresh==true) {
+        if (mCitiesResponse.value == null || refresh) {
             mCitiesResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
