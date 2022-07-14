@@ -25,6 +25,7 @@ import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.model.MapLocationModel
 import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.model.RecyclerViewItem
+import com.emproto.hoabl.utils.Extensions.hideKeyboard
 import com.emproto.hoabl.utils.Extensions.toHomePagesOrPromise
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.utils.MapItemClickListener
@@ -338,6 +339,7 @@ class ProjectDetailFragment : BaseFragment() {
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility =
             View.VISIBLE
         (requireActivity() as HomeActivity).hideBottomNavigation()
+        hideKeyboard()
         binding.slSwipeRefresh.setOnRefreshListener {
             binding.slSwipeRefresh.isRefreshing = true
             binding.rvProjectDetail.visibility = View.GONE
@@ -700,32 +702,34 @@ class ProjectDetailFragment : BaseFragment() {
     }
 
     private fun deleteWatchList() {
-        val id = investmentViewModel.getWatchListId().value
-        if (id != null) {
-            investmentViewModel.deleteWatchList(id).observe(viewLifecycleOwner, Observer {
-                when (it.status) {
-                    Status.LOADING -> {
-                        binding.progressBar.show()
-                    }
-                    Status.SUCCESS -> {
-                        binding.progressBar.hide()
-                        it.data?.let { data ->
-                            Toast.makeText(
-                                this.requireContext(),
-                                "Project removed from watchlist successfully",
-                                Toast.LENGTH_SHORT
-                            ).show()
+        investmentViewModel.getWatchListId().observe(viewLifecycleOwner,Observer{
+            if (it != null) {
+                investmentViewModel.deleteWatchList(it).observe(viewLifecycleOwner, Observer {
+                    when (it.status) {
+                        Status.LOADING -> {
+                            binding.progressBar.show()
+                        }
+                        Status.SUCCESS -> {
+                            binding.progressBar.hide()
+                            it.data?.let { data ->
+                                Toast.makeText(
+                                    this.requireContext(),
+                                    "Project removed from watchlist successfully",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                        Status.ERROR -> {
+                            binding.progressBar.hide()
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                it.message!!
+                            )
                         }
                     }
-                    Status.ERROR -> {
-                        binding.progressBar.hide()
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            it.message!!
-                        )
-                    }
-                }
-            })
-        }
+                })
+            }
+        })
+
     }
 
 }

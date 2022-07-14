@@ -234,9 +234,9 @@ class PortfolioSpecificViewAdapter(
                 binding.tvProjectLocation.text =
                     data.projectExtraDetails.address.city + "," + data.projectExtraDetails.address.state
                 if (data.investmentInformation != null) {
-                    if (data.investmentInformation != null) {
+                    if (data.projectExtraDetails != null) {
                         binding.tvPaidAmount.text =
-                            Utility.formatAmount(data?.investmentInformation.paidAmount)
+                            Utility.formatAmount(data?.projectExtraDetails.paidAmount)
                     }
                     binding.tvAreaUnit.text =
                         "${Utility.convertTo(data?.investmentInformation.crmInventory.areaSqFt)} sqft"
@@ -352,9 +352,9 @@ class PortfolioSpecificViewAdapter(
                         binding.tvPendingAmount.text =
                             Utility.formatAmount(data.projectExtraDetails.amountPending)
                         binding.tvAmountPaid.text =
-                            Utility.formatAmount(data.investmentInformation.paidAmount)
+                            Utility.formatAmount(data.projectExtraDetails.paidAmount)
                         binding.tvPaid.setOnClickListener {
-                            getToolTip("₹${data.investmentInformation.paidAmount}").showAlignTop(
+                            getToolTip("₹${data.projectExtraDetails.paidAmount}").showAlignTop(
                                 binding.tvPaid
                             )
                         }
@@ -380,7 +380,10 @@ class PortfolioSpecificViewAdapter(
                 ivInterface.seeProjectDetails(data.projectInformation.id)
             }
             binding.tvSeeOnMap.setOnClickListener {
-                ivInterface.seeOnMap("23.640699", "85.282204")
+                ivInterface.seeOnMap(
+                    data.projectInformation.crmProject.lattitude,
+                    data.projectInformation.crmProject.longitude
+                )
             }
         }
 
@@ -674,7 +677,10 @@ class PortfolioSpecificViewAdapter(
     private inner class FaqViewHolder(private val binding: FaqLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            binding.tvFaqTitle.text = headingDetails.otherSectionHeadings.faqSections.sectionHeading
+            if (headingDetails.otherSectionHeadings != null && headingDetails.otherSectionHeadings.faqSections != null)
+                binding.tvFaqTitle.text =
+                    headingDetails.otherSectionHeadings.faqSections.sectionHeading
+
             val faqList = list[position].data as List<ProjectContentsAndFaq>
             faqAdapter = ProjectFaqAdapter(context, faqList, ivInterface)
             binding.rvFaq.adapter = faqAdapter

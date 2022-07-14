@@ -8,7 +8,7 @@
     <ImageView
         android:id="@+id/project_detail_map"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/margin_size_153"
+        android:layout_height="@dimen/margin_size_166"
         android:scaleType="centerCrop"
         android:layout_marginHorizontal="@dimen/margin_size_7"
         android:layout_marginTop="@dimen/margin_size_28"

@@ -25,7 +25,7 @@ data class ProjectX(
 data class InvestmentHeadingDetails(
     val isSimilarInvestmentActive: Boolean,
     val numberOfSimilarInvestmentsToShow: Int,
-    val similarInvestmentSectionHeading: String,
+    val similarInvestmentSectionHeading: String?,
     val isEscalationGraphActive: Boolean,
     val isLatestMediaGalleryActive: Boolean,
     val latestMediaGalleryHeading: String,
