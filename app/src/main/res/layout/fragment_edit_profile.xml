@@ -338,6 +338,8 @@
                         android:layout_height="match_parent"
                         android:drawableEnd="@drawable/ic_baseline_calendar_month_24"
                         android:editable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:fontFamily="@font/jost_regular"
                         android:gravity="center|left"
                         android:paddingLeft="10dp"

@@ -134,7 +134,6 @@ class EditProfileFragment : BaseFragment() {
         if (arguments != null) {
             data = requireArguments().getSerializable("profileData") as Data
         }
-
     }
 
     override fun onCreateView(
@@ -177,7 +176,6 @@ class EditProfileFragment : BaseFragment() {
         getCountries(false)
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -238,8 +236,7 @@ class EditProfileFragment : BaseFragment() {
                     it.data?.data?.let1 { data ->
                         statesData = data
                     }
-                    if (data.country != null&&data.state!=null) {
-                        this@EditProfileFragment.countryIso =data.countryCode
+                    if (data.state != null) {
                         for (i in statesData) {
                             if (data.state == i.name) {
                                 stateIso = i.isoCode
@@ -247,13 +244,13 @@ class EditProfileFragment : BaseFragment() {
                             listStates.add(i.name)
                             listStatesISO.add(i.isoCode)
                         }
-                    }else{
+                    } else {
                         for (i in statesData.indices) {
                             listStates.add(statesData[i].name)
                             listStatesISO.add(statesData[i].isoCode)
+
                         }
                     }
-
                     setStateSpinnersData()
                 }
                 Status.ERROR -> {
@@ -263,8 +260,8 @@ class EditProfileFragment : BaseFragment() {
         }
     }
 
-    private fun getCities(value1: String, isoCode: String,refresh: Boolean) {
-        profileViewModel.getCities(value1, isoCode,refresh).observe(viewLifecycleOwner) {
+    private fun getCities(value1: String, isoCode: String, refresh: Boolean) {
+        profileViewModel.getCities(value1, isoCode, refresh).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBaar.show()
@@ -322,7 +319,6 @@ class EditProfileFragment : BaseFragment() {
         }
 
     }
-
     private fun setStateSpinnersData() {
         val stateArrayAdapter =
             ArrayAdapter(requireContext(), R.layout.spinner_text, listStates)
@@ -333,11 +329,11 @@ class EditProfileFragment : BaseFragment() {
                 binding.autoCity.setText("")
                 state = listStates[position]
                 stateIso = listStatesISO[position]
-                getCities(stateIso, countryIso,true)
+                getCities(stateIso, countryIso, true)
             }
         if (data.state != null) {
-            listCities.clear()
-            getCities(stateIso,countryIso,false)
+            listStates.clear()
+            getCities(stateIso, countryIso, true)
         }
         enableStateEdit()
     }
@@ -349,7 +345,13 @@ class EditProfileFragment : BaseFragment() {
         binding.autoCity.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 city = listCities[position]
+                getCities(stateIso,countryIso, false)
+
             }
+        if (data.country != null) {
+            listCities.clear()
+            getCities(stateIso,countryIso, false)
+        }
         enableCityEdit()
     }
 
