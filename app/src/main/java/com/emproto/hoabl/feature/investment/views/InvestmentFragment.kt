@@ -172,7 +172,9 @@ class InvestmentFragment : BaseFragment() {
         val list = ArrayList<RecyclerViewItem>()
         list.add(RecyclerViewItem(NewInvestmentAdapter.TYPE_NEW_LAUNCH))
         when(data.page.isCollectionOneActive){
-            true -> list.add(RecyclerViewItem(NewInvestmentAdapter.TYPE_LAST_PLOTS))
+            true -> {
+                list.add(RecyclerViewItem(NewInvestmentAdapter.TYPE_LAST_PLOTS))
+            }
         }
         when(data.page.isCollectionTwoActive){
             true -> list.add(RecyclerViewItem(NewInvestmentAdapter.TYPE_TRENDING_PROJECTS))

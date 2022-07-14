@@ -32,9 +32,9 @@ class PromisesListAdapter(
             holder.binding.image.setImageResource(R.drawable.securitylock)
         }
         if (item.displayMedia!=null){
-            if (item.displayMedia.value.url != null) {
+            if (item.displayMedia?.value?.url != null) {
                 Glide.with(context)
-                    .load(item.displayMedia.value.url)
+                    .load(item.displayMedia?.value?.url)
                     .into(holder.binding.image)
             }
         }

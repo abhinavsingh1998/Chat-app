@@ -102,17 +102,17 @@ class PromisesDetailsFragment : BaseFragment() {
 
             }
             Glide.with(requireContext())
-                .load(it.displayMedia.value.url)
+                .load(it.displayMedia?.value?.url)
                 .into(binding.imageSecurity)
             //termsAndConditions
             termsConditionDialogBinding.tvTitle.text =
-                showHTMLText(it.termsAndConditions.description)
+                showHTMLText(it.termsAndConditions?.description.toString())
             termsConditionDialogBinding.tvTitle.setMovementMethod(
                 ScrollingMovementMethod()
             )
-            binding.textViewTAndC.text = it.termsAndConditions.displayName
+            binding.textViewTAndC.text = it.termsAndConditions?.displayName.toString()
             //apply
-            binding.textviewApply.text = it.howToApply.title
+            binding.textviewApply.text = it.howToApply?.title.toString()
         })
 
 //        homeViewModel.getTermsCondition(5004).observe(viewLifecycleOwner, Observer {

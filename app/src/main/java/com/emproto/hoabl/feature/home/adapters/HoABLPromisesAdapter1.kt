@@ -34,7 +34,7 @@ class HoABLPromisesAdapter1(
         holder.binding.desc.text = item.shortDescription
         if (item.displayMedia!=null){
             Glide.with(context)
-                .load(item.displayMedia.value.url)
+                .load(item.displayMedia!!.value.url)
                 .dontAnimate()
                 .into(holder.binding.image)
         }

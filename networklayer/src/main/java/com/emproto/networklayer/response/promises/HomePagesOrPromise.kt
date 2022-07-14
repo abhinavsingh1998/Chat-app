@@ -5,8 +5,8 @@ data class HomePagesOrPromise(
     val createdBy: String,
     val crmPromiseId: String,
     val description: List<String>,
-    val displayMedia: DisplayMedia,
-    val howToApply: HowToApply,
+    val displayMedia: DisplayMedia?,
+    val howToApply: HowToApply?,
     val id: Int,
     val isHowToApplyActive: Boolean,
     val isTermsAndConditionsActive: Boolean,
@@ -17,7 +17,7 @@ data class HomePagesOrPromise(
     val promiseType: String,
     val shortDescription: String,
     val status: String,
-    val termsAndConditions: TermsAndConditions,
+    val termsAndConditions: TermsAndConditions?,
     val updatedAt: String,
     val updatedBy: Any
 )

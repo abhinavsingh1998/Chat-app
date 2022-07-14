@@ -35,7 +35,7 @@ class HoABLPromisesAdapter(
             holder.binding.image.setImageResource(R.drawable.securitylock)
         }
         Glide.with(context)
-            .load(item.displayMedia.value.url)
+            .load(item.displayMedia?.value?.url)
             .into(holder.binding.image)
 
         holder.binding.homePromisesItem.setOnClickListener {

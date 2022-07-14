@@ -9,6 +9,7 @@ import android.graphics.Canvas
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,7 @@ import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.LocationInfrastructureAdapter
 import com.emproto.hoabl.model.MapLocationModel
+import com.emproto.hoabl.model.ProjectLocation
 import com.emproto.hoabl.utils.MapItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
@@ -54,8 +56,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     private lateinit var adapter: LocationInfrastructureAdapter
 
     private var selectedPosition = -1
-    val dummyLatitude = 17.7667503
-    val dummyLongitude = 73.1711629
+    var dummyLatitude = 17.7667503
+    var dummyLongitude = 73.1711629
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -65,6 +67,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         override fun onItemClicked(view: View, position: Int, latitude: Double, longitude: Double) {
             when (view.id) {
                 R.id.cv_location_infrastructure_card -> {
+                    Log.d("latlon","${dummyLatitude},${dummyLongitude},${latitude},${longitude}")
                     initMarkerLocation(dummyLatitude, dummyLongitude, latitude, longitude)
                 }
             }
@@ -83,8 +86,11 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-            data = it.getSerializable("Location") as MapLocationModel
+            data = it.getSerializable("Location") as MapLocationModel?
             selectedPosition = it.getInt("ItemPosition")
+            val projectLocation = it.getSerializable("ProjectLocation") as ProjectLocation
+            dummyLatitude = projectLocation.latitude.toDouble()
+            dummyLongitude = projectLocation.longitude.toDouble()
         }
         setUpUI()
         enableMyLocation()
