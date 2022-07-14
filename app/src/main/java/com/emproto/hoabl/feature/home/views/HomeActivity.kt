@@ -31,8 +31,10 @@ import com.emproto.hoabl.feature.profile.fragments.profile.ProfileFragment
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.mixpanel.android.mpmetrics.MixpanelAPI
 import javax.inject.Inject
 
 class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -61,6 +63,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private var oneTimeValidation = false
 
     var topText = ""
+    @Inject
+    lateinit var appPreference: AppPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,6 +92,12 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         activityHomeActivity.searchLayout.imageBack.setOnClickListener { onBackPressed() }
         initData()
         initClickListener()
+        trackEvent()
+    }
+
+    private fun trackEvent() {
+        val mixpanelAPI = MixpanelAPI.getInstance(this,getString(R.string.MIXPANEL_KEY))
+        mixpanelAPI.identify(appPreference.getMobilenum())
     }
 
     private fun initClickListener() {
