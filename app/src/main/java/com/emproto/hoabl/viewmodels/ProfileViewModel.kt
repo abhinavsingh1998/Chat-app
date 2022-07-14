@@ -83,7 +83,7 @@ class ProfileViewModel(
     fun getCities(
         stateIsoCode: String,
         countryIsoCode: String,
-        refresh: Boolean
+        refresh: Boolean=false
     ): LiveData<BaseResponse<CitiesResponse>> {
         return profileRepository.getCities(stateIsoCode, countryIsoCode,refresh)
     }
