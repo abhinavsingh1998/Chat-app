@@ -34,9 +34,10 @@ class HoABLPromisesAdapter(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.binding.image.setImageResource(R.drawable.securitylock)
         }
-        Glide.with(context)
-            .load(item.displayMedia.value.url)
-            .into(holder.binding.image)
+        if (item.displayMedia != null)
+            Glide.with(context)
+                .load(item.displayMedia.value.url)
+                .into(holder.binding.image)
 
         holder.binding.homePromisesItem.setOnClickListener {
             ivInterface.seePromisesDetails(position)
