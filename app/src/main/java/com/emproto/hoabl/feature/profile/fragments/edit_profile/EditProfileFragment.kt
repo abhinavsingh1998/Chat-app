@@ -693,22 +693,24 @@ class EditProfileFragment : BaseFragment() {
             }
 
             email = binding.emailTv.text.toString()
-            Log.i("email", email)
-            if (!email.isNullOrEmpty() && email.isValidEmail()) {
-                binding.tvEmail.isErrorEnabled = false
-                email = binding.emailTv.text.toString()
-            } else {
-                binding.tvEmail.error = "Please enter valid email"
-                email = binding.emailTv.text.toString()
-                if (email.length == 150) {
-                    binding.tvEmail.error = "You have reached the max characters limit"
-                    Toast.makeText(
-                        context,
-                        "You have reached the max characters limit",
-                        Toast.LENGTH_LONG
-                    ).show()
+            if(!email.isNullOrEmpty()){
+                if (email.isValidEmail()) {
+                    binding.tvEmail.isErrorEnabled = false
+                    email = binding.emailTv.text.toString()
+                } else {
+                    binding.tvEmail.error = "Please enter valid email"
+                    email = binding.emailTv.text.toString()
+                    if (email.length == 150) {
+                        binding.tvEmail.error = "You have reached the max characters limit"
+                        Toast.makeText(
+                            context,
+                            "You have reached the max characters limit",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
             }
+
             houseNo = binding.houseNo.text.toString()
             when {
                 houseNo.length == 150 -> {
