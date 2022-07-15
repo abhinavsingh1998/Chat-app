@@ -129,13 +129,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_size_30"
+                        android:layout_marginStart="@dimen/margin_size_15"
                         android:fontFamily="@font/jostregular"
                         android:lineSpacingExtra="0sp"
                         android:singleLine="true"
                         android:text="@string/about_hoabl"
                         android:textColor="#16161c"
                         android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="@id/tv_heading"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/full_description_tv" />
 
                     <ImageView
@@ -166,12 +167,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_size_30"
+                        android:layout_marginStart="@dimen/margin_size_15"
                         android:fontFamily="@font/jostregular"
                         android:lineSpacingExtra="0sp"
                         android:text="Corporate Philosophy"
                         android:textColor="#16161c"
                         android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="@id/tv_heading"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/ttv_aboutHoabel" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -240,12 +242,13 @@
                         android:textSize="18sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_size_15"
                         android:layout_marginTop="@dimen/margin_size_20"
                         android:fontFamily="@font/jost_regular"
                         android:lineSpacingExtra="0sp"
                         android:singleLine="true"
                         android:text="@string/stats_overview"
-                        app:layout_constraintStart_toStartOf="@id/tv_heading"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/productcategory_rv" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -268,11 +271,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_size_30"
+                        android:layout_marginStart="@dimen/margin_size_15"
                         android:fontFamily="@font/jostregular"
                         android:lineSpacingExtra="0sp"
                         android:singleLine="true"
                         android:text="@string/explore_growth"
-                        app:layout_constraintStart_toStartOf="@id/tv_heading"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/stats_item" />
 
                     <androidx.cardview.widget.CardView

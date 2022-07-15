@@ -33,6 +33,7 @@ class CorporatePhilosphyAdapter(
     override fun onBindViewHolder(holder: CorporatePhilosphyAdapter.MyViewHolder, position: Int) {
         val currentItem= corporateList[position]
 
+        holder.binding.tvPieceOfLand.text= currentItem.displayName
         holder.binding.fullDescTv.text= showHTMLText(currentItem.description)
         Glide.with(context).load(currentItem.media.value.url)
             .into(holder.binding.ivImage)
