@@ -40,7 +40,9 @@ class ReceiptListAdapter(
 
             tvPaidAmount.text = "₹${Utility.convertTo(accountsPaymentList[position].paidAmount)}"
             //tvProjectName.text = accountsPaymentList[position].projectName
-            tvPaymentDate.text = Utility.parseDateFromUtc(accountsPaymentList[position].paymentDate)
+            if (accountsPaymentList[position].paymentDate != null)
+                tvPaymentDate.text =
+                    Utility.parseDateFromUtc(accountsPaymentList[position].paymentDate)
 
             tvSeeReceipt.text = showHTMLText(
                 String.format(
