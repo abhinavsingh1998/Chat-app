@@ -180,7 +180,6 @@ class LoginFragment : BaseFragment() {
             authViewModel.getOtp(otpRequest).observe(viewLifecycleOwner, Observer {
                 when (it.status) {
                     Status.SUCCESS -> {
-
                         if (it.data?.message.toString().equals("Please enter the OTP sent to your mobile number")){
                             hint_text="Enter OTP"
                         } else if (it.data?.message.toString().equals(four_attempts)){
