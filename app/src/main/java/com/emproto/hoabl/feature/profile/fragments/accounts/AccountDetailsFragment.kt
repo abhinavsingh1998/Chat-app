@@ -83,6 +83,7 @@ class AccountDetailsFragment : Fragment(),
 
     lateinit var allKycDocList: ArrayList<AccountsResponse.Data.Document>
     lateinit var kycLists: ArrayList<AccountsResponse.Data.Document>
+    lateinit var documentList: ArrayList<AccountsResponse.Data.Document>
 
 
     lateinit var documentBinding: DocumentsBottomSheetBinding
@@ -155,10 +156,9 @@ class AccountDetailsFragment : Fragment(),
                 Status.SUCCESS -> {
                     binding.progressBar.hide()
                     if (it.data?.data!!.documents != null && it.data!!.data.documents is List<AccountsResponse.Data.Document>) {
-                        allKycDocList =
-                            it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>
+                        allKycDocList = it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>
                         kycLists = ArrayList<AccountsResponse.Data.Document>()
-                        val documentList = ArrayList<AccountsResponse.Data.Document>()
+                        documentList = ArrayList<AccountsResponse.Data.Document>()
                         for (document in allKycDocList) {
                             if (document.documentCategory == DOC_CATEGORY_KYC) {
                                 kycLists.add(document)
@@ -377,7 +377,7 @@ class AccountDetailsFragment : Fragment(),
             documentBinding.rvDocsItemRecycler.layoutManager =
                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
             documentBinding.rvDocsItemRecycler.adapter =
-                AllDocumentAdapter(context, allKycDocList, this)
+                AllDocumentAdapter(context, documentList, this)
         }
     }
 
@@ -638,21 +638,24 @@ class AccountDetailsFragment : Fragment(),
                     Status.SUCCESS -> {
                         binding.progressBar.hide()
                         it.data?.let {
-                            for (item in kycUploadList) {
-                                if (selectedDocumentType == DOC_TYPE_UNVERIFIED_ADDRESS_PROOF && item.documentName == "Address Proof") {
-                                    item.name = it.data.response.data.name.toString()
-                                    item.path = it.data.response.data.path.toString()
-                                    item.status = "Verification Pending"
-                                } else if (selectedDocumentType == DOC_TYPE_UNVERIFIED_PAN_CARD && item.documentName == "PAN Card") {
-                                    item.name = it.data.response.data.name.toString()
-                                    item.path = it.data.response.data.path.toString()
-                                    item.status = "Verification Pending"
+                            if(it.data.response.data.name!=null && it.data.response.data.name!=null){
+                                for (item in kycUploadList) {
+                                    if (selectedDocumentType == DOC_TYPE_UNVERIFIED_ADDRESS_PROOF && item.documentName == "Address Proof") {
+                                        item.name = it.data.response.data.name
+                                        item.path = it.data.response.data.path
+                                        item.status = "Verification Pending"
+                                    } else if (selectedDocumentType == DOC_TYPE_UNVERIFIED_PAN_CARD && item.documentName == "PAN Card") {
+                                        item.name = it.data.response.data.name
+                                        item.path = it.data.response.data.path
+                                        item.status = "Verification Pending"
+                                    }
                                 }
+                                kycUploadAdapter.notifyDataSetChanged()
+                                val dialog = AccountKycStatusPopUpFragment()
+                                dialog.isCancelable = false
+                                dialog.show(childFragmentManager, "submitted")
                             }
-                            kycUploadAdapter.notifyDataSetChanged()
-                            val dialog = AccountKycStatusPopUpFragment()
-                            dialog.isCancelable = false
-                            dialog.show(childFragmentManager, "submitted")
+
                         }
                     }
                     Status.ERROR -> {

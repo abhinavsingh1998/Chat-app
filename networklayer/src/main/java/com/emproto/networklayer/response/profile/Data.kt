@@ -9,7 +9,7 @@ data class Data(
     @SerializedName("contactType")
     val contactType: String,
     @SerializedName("country")
-    val country: String,
+    var country: String,
     @SerializedName("countryCode")
     val countryCode: String,
     @SerializedName("createdAt")
