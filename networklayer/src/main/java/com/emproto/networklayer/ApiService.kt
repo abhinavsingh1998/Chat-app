@@ -30,6 +30,7 @@ import com.emproto.networklayer.response.login.OtpResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.login.VerifyOtpResponse
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
+import com.emproto.networklayer.response.notification.NotificationResponse
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
@@ -243,4 +244,7 @@ public interface ApiService {
 
     @GET(ApiConstants.ACTION_ITEM)
     suspend fun getActionItem():Response<HomeActionItem>
+
+    @GET(ApiConstants.NOTICATION_LIST)
+    suspend fun getNotificationList():Response<NotificationResponse>
 }

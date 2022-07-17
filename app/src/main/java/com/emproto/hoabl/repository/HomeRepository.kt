@@ -20,6 +20,7 @@ import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
+import com.emproto.networklayer.response.notification.NotificationResponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.profile.AccountsResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
@@ -568,6 +569,37 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
 //        }
 //        return  mActionItem
 //    }
+
+
+
+    fun getNotificationList(): LiveData<BaseResponse<NotificationResponse>> {
+        val mNotificationResponse = MutableLiveData<BaseResponse<NotificationResponse>>()
+        mNotificationResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = HomeDataSource(application).getNotificationList()
+                if (request.isSuccessful) {
+                    if (request.body() != null && request.body() is NotificationResponse) {
+                        mNotificationResponse.postValue(BaseResponse.success(request.body()!!))
+
+                    } else
+                        mNotificationResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mNotificationResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+
+                mNotificationResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mNotificationResponse
+    }
 
 
 

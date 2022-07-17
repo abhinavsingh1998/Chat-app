@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.home.notification.adapter
+package com.emproto.hoabl.feature.notification.adapter
 
 import android.content.Context
 import android.util.Log
@@ -9,10 +9,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
-import com.emproto.hoabl.feature.home.notification.data.NotificationDataModel
+import com.emproto.hoabl.feature.notification.data.NotificationDataModel
+import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.networklayer.response.notification.NotificationResponse
 
-class NotificationAdapter(  private var mContext: Context?,
-                      private var dataModel: ArrayList<NotificationDataModel>) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
+class NotificationAdapter(
+    val mContext: Context?,
+    val list: ArrayList<NotificationResponse>,
+    val itemClickListener: ItemClickListener
+) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
     private lateinit var onItemClickListener: View.OnClickListener
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)

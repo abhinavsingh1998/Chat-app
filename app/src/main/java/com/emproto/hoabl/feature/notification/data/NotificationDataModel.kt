@@ -1,4 +1,4 @@
-package com.emproto.hoabl.feature.home.notification.data
+package com.emproto.hoabl.feature.notification.data
 
 
     data class NotificationDataModel(

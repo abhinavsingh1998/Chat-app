@@ -74,4 +74,7 @@ object ApiConstants {
     const val GENERAL_FAQ = "hoabl-admin/categories"
     const val GET_ALL_PROJECTS= "hoabl-admin/project-contents"
     const val ACTION_ITEM= "hoabl-customer/user/action-items"
+
+    //Notification
+    const val NOTICATION_LIST= "hoabl-notifications/unread-notifications"
 }

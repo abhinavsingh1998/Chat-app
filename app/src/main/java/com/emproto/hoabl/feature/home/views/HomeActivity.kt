@@ -5,8 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.provider.ContactsContract
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewTreeObserver
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.get
@@ -14,16 +18,20 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityHomeBinding
 import com.emproto.hoabl.databinding.FragmentNotificationBottomSheetBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
-import com.emproto.hoabl.feature.home.notification.HoabelNotifiaction
+import com.emproto.hoabl.feature.notification.HoabelNotifiaction
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.home.views.fragments.SearchResultFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
+import com.emproto.hoabl.feature.notification.adapter.NotificationAdapter
+import com.emproto.hoabl.feature.notification.data.NotificationDataModel
 import com.emproto.hoabl.feature.portfolio.views.*
 import com.emproto.hoabl.feature.profile.fragments.about_us.AboutUsFragment
 import com.emproto.hoabl.feature.promises.HoablPromises
@@ -32,7 +40,12 @@ import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.preferences.AppPreference
+import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.home.HomeResponse
+import com.emproto.networklayer.response.notification.NotificationResponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 import javax.inject.Inject
@@ -122,47 +135,47 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         }
 
         activityHomeActivity.searchLayout.notificationView.setOnClickListener(View.OnClickListener {
-//            bottomSheetDialog = BottomSheetDialog(this)
-//            bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
-//            fragmentNotificationBottomSheetBinding =
-//                FragmentNotificationBottomSheetBinding.inflate(layoutInflater)
-//            bottomSheetDialog.setContentView(fragmentNotificationBottomSheetBinding.root)
-//
-//            view?.viewTreeObserver?.addOnGlobalLayoutListener(object :
-//                ViewTreeObserver.OnGlobalLayoutListener {
-//                override fun onGlobalLayout() {
-//                    val bottomSheetDialog =
-//                        (bottomSheetDialog as BottomSheetDialog).findViewById<View>(R.id.locUXView) as LinearLayout
-//                    BottomSheetBehavior.from<View>(bottomSheetDialog).apply {
-//                        peekHeight = 100
-//                    }
-//
-//                    view?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
-//                }
-//            })
-//
-//            var data = ArrayList<NotificationDataModel>()
-//            for (i in 1..20) {
-//                data.add(
-//                    NotificationDataModel(
-//                        R.drawable.img,
-//                        "Notification Topic 1",
-//                        "It is a long established fact that a reader will be distracted ",
-//                        "1h"
-//                    )
-//                )
-//                Log.i("msg", "data")
-//            }
-//            val customAdapter = NotificationAdapter(this, data)
-//
-//            bottomSheetDialog.findViewById<RecyclerView>(R.id.rv)?.apply {
-//                layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-//                adapter = customAdapter
-//            }
-//
-//
-//            launch_bottom_sheet()
-//            Toast.makeText(this, "Notification is Under Development", Toast.LENGTH_LONG).show()
+            bottomSheetDialog = BottomSheetDialog(this)
+            bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            fragmentNotificationBottomSheetBinding =
+                FragmentNotificationBottomSheetBinding.inflate(layoutInflater)
+            bottomSheetDialog.setContentView(fragmentNotificationBottomSheetBinding.root)
+
+            view?.viewTreeObserver?.addOnGlobalLayoutListener(object :
+                ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    val bottomSheetDialog =
+                        (bottomSheetDialog as BottomSheetDialog).findViewById<View>(R.id.locUXView) as LinearLayout
+                    BottomSheetBehavior.from<View>(bottomSheetDialog).apply {
+                        peekHeight = 100
+                    }
+
+                    view?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
+                }
+            })
+
+            var data = ArrayList<NotificationDataModel>()
+            for (i in 1..20) {
+                data.add(
+                    NotificationDataModel(
+                        R.drawable.img,
+                        "Notification Topic 1",
+                        "It is a long established fact that a reader will be distracted ",
+                        "1h"
+                    )
+                )
+                Log.i("msg", "data")
+            }
+            val customAdapter = NotificationAdapter(this, data)
+
+            bottomSheetDialog.findViewById<RecyclerView>(R.id.rv)?.apply {
+                layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                adapter = customAdapter
+            }
+
+
+            launch_bottom_sheet()
+            Toast.makeText(this, "Notification is Under Development", Toast.LENGTH_LONG).show()
 
         })
 
@@ -425,6 +438,22 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 topText = showHTMLText(
                     "$totalAmtLandSold    $totalLandsold    $grossWeight    $num_User"
                 ).toString()
+            }
+
+        })
+    }
+
+    fun callNotificationApi(){
+        homeViewModel.getNotification().observe(this, object : Observer<BaseResponse<NotificationResponse>>{
+            override fun onChanged(it: BaseResponse<NotificationResponse>?) {
+                when(it!!.status){
+                    Status.ERROR ->{
+
+                    }
+                    Status.SUCCESS ->{
+
+                    }
+                }
             }
 
         })
