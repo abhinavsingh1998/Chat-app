@@ -75,10 +75,10 @@ class NameInputFragment : BaseFragment() {
     }
 
     private fun initClickListener() {
-        if (firstName.isNotEmpty()) {
+        if (firstName!=null) {
             binding.firstName.setText(firstName)
         }
-        if (lastName.isNotEmpty()) {
+        if (lastName!=null) {
             binding.secondName.setText(lastName)
         }
 
