@@ -209,8 +209,8 @@ class AccountDetailsFragment : Fragment(),
                             val layout: RecyclerView =
                                 requireActivity().findViewById(R.id.rvDocuments)
                             val params: ViewGroup.LayoutParams = layout.layoutParams
-                            params.height = 200
-                            params.width = 200
+                            params.height = 250
+                            params.width = 250
                             layout.layoutParams = params
 
 
