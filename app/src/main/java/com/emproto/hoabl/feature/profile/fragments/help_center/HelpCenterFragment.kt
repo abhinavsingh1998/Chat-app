@@ -131,6 +131,7 @@ class HelpCenterFragment : BaseFragment() {
                                 false
                             )
                         }
+                        
                         2 -> {
                             (requireActivity() as HomeActivity).addFragment(
                                 AboutUsFragment(),
