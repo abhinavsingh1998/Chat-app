@@ -46,7 +46,7 @@ class SimilarInvestmentAdapter(
             tvNoViews.text = element.fomoContent.noOfViews.toString()
 //                Utility.coolFormat(element.fomoContent.noOfViews.toDouble(), 0)
             tvItemLocationInfo.text = element.shortDescription
-            tvRating.text = "${element.estimatedAppreciation}%"
+            tvRating.text = "${Utility.convertTo(element.estimatedAppreciation)}%"
 
             cvMainOuterCard.setOnClickListener {
                 ivInterface.onClickSimilarInvestment(element.id)
