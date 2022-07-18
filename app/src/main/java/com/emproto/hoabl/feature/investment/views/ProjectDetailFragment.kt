@@ -59,6 +59,7 @@ class ProjectDetailFragment : BaseFragment() {
     private var projectId = 0
     private lateinit var oppDocData: OpprotunityDoc
     private lateinit var mediaData: List<MediaGalleryOrProjectContent>
+    private lateinit var coverImages: ProjectCoverImages
     private lateinit var promisesData: List<PmData>
     private lateinit var landSkusData: List<InventoryBucketContent>
     private lateinit var mapLocationData: LocationInfrastructure
@@ -246,18 +247,18 @@ class ProjectDetailFragment : BaseFragment() {
                     )
                 )
             }
-            for (item in mediaData[i].coverImage!!) {
+//            for (item in mediaData[i].coverImage!!) {
                 itemId++
                 imagesList.add(
                     MediaViewItem(
-                        item.mediaContentType,
-                        item.mediaContent.value.url,
+                        coverImages.newInvestmentPageMedia.value.mediaType,
+                        coverImages.newInvestmentPageMedia.value.url,
                         title = "Images",
                         id = itemId,
-                        name = item.name
+                        name = coverImages.newInvestmentPageMedia.name
                     )
                 )
-            }
+//            }
         }
         val fragment = MediaGalleryFragment()
         val bundle = Bundle()
@@ -388,6 +389,7 @@ class ProjectDetailFragment : BaseFragment() {
                         }
                         oppDocData = data.projectContent.opportunityDoc
                         mediaData = data.projectContent.mediaGalleryOrProjectContent
+                        coverImages = data.projectContent.projectCoverImages
                         landSkusData = data.projectContent.inventoryBucketContents
                         faqData = data.projectContentsAndFaqs
                         mapLocationData = data.projectContent.locationInfrastructure
