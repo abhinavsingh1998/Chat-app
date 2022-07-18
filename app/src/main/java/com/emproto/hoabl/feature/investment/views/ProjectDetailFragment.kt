@@ -544,8 +544,10 @@ class ProjectDetailFragment : BaseFragment() {
                     bundle.putInt("ItemPosition", position)
                     bundle.putSerializable(
                         "Location",
-                        MapLocationModel(12.9274, 77.586387, latitude, longitude) as Serializable
+                        MapLocationModel(allData.crmProject.lattitude.toDouble(), allData.crmProject.longitude.toDouble(), latitude, longitude) as Serializable
                     )
+                    val projectLocation = ProjectLocation(allData.crmProject.lattitude,allData.crmProject.longitude)
+                    bundle.putSerializable("ProjectLocation",projectLocation as Serializable)
                     val fragment = MapFragment()
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(

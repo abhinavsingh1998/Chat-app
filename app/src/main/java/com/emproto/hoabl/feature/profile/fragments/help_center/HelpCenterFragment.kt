@@ -22,6 +22,7 @@ import com.emproto.hoabl.feature.profile.data.HelpModel
 import com.emproto.hoabl.feature.profile.fragments.about_us.AboutUsFragment
 import com.emproto.hoabl.feature.profile.fragments.feedback.FeedbackFragment
 import com.emproto.hoabl.feature.profile.fragments.privacy.PrivacyFragment
+import com.emproto.hoabl.utils.ItemClickListener
 import javax.inject.Inject
 
 
@@ -117,10 +118,10 @@ class HelpCenterFragment : BaseFragment() {
         binding.rvHelpCenter.adapter = HelpCenterAdapter(
             requireContext(),
             listHolder,
-            object : HelpCenterAdapter.HelpItemInterface {
-                override fun onClickItem(position: Int) {
-                    when (position) {
-                        0 -> {
+            object : ItemClickListener {
+                override fun onItemClicked(view: View, position:Int, item:String) {
+                    when (item) {
+                        "Frequently Asked Questions" -> {
                             val fragment = FaqDetailFragment()
                             val bundle = Bundle()
                             bundle.putBoolean("isFromInvestment",false)
@@ -131,19 +132,19 @@ class HelpCenterFragment : BaseFragment() {
                                 false
                             )
                         }
-                        2 -> {
+                        "About Us" -> {
                             (requireActivity() as HomeActivity).addFragment(
                                 AboutUsFragment(),
                                 false
                             )
                         }
-                        1 -> {
+                        "Privacy Policy" -> {
                             (requireActivity() as HomeActivity).addFragment(
                                 PrivacyFragment(),
                                 false
                             )
                         }
-                        3 -> {
+                        "Share your feedback" -> {
                             (requireActivity() as HomeActivity).addFragment(
                                 FeedbackFragment(),
                                 false

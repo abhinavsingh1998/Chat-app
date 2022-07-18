@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.profile.data.HelpModel
+import com.emproto.hoabl.utils.ItemClickListener
 
 
 class HelpCenterAdapter(
     var context: Context,
     val dataList: ArrayList<HelpModel>,
-    val itemInterface: HelpItemInterface,
+    val itemInterface: ItemClickListener,
     val footerInterface: FooterInterface
 
 ) :
@@ -63,7 +64,7 @@ class HelpCenterAdapter(
                 header_holder.binding.tvTitle.text = item.title
                 header_holder.binding.tvDescirption.text = item.description
                 header_holder.binding.hoabelView.setOnClickListener {
-                    itemInterface.onClickItem(holder.layoutPosition)
+                    itemInterface.onItemClicked(it,position,item.title)
                 }
 
             }

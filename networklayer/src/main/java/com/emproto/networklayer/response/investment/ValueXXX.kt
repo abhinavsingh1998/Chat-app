@@ -7,5 +7,7 @@ data class ValueXXX(
     val icon: IconX,
     val name: String,
     val latitude:Double,
-    val longitude:Double
+    val longitude:Double,
+    val hours:String,
+    val minutes:String
 ): Serializable
