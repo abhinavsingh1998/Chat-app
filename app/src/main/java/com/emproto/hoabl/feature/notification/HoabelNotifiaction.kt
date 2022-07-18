@@ -55,23 +55,13 @@ lateinit var binding:FragmentNotificationBottomSheetBinding
     }
 
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         for (i in 1..20) {
             data.add(NotificationDataModel(R.drawable.img, "Notification Topic 1","It is a long established fact that a reader will be distracted ","1h"))
             Log.i("msg","data")
         }
-
-        val customAdapter = NotificationAdapter(context, data)
-        val recyclerview = requireView().findViewById<RecyclerView>(R.id.rv)
-        recyclerview?.apply {
-            adapter = customAdapter
-            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        }
-
-
-
     }
+
+
 }

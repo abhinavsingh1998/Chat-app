@@ -7,44 +7,52 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
+import com.emproto.hoabl.databinding.InsightsListItemBinding
+import com.emproto.hoabl.databinding.NotificationItemBinding
+import com.emproto.hoabl.feature.home.adapters.AllInsightsAdapter
 import com.emproto.hoabl.feature.notification.data.NotificationDataModel
 import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.networklayer.response.notification.Data
 import com.emproto.networklayer.response.notification.NotificationResponse
 
 class NotificationAdapter(
-    val mContext: Context?,
-    val list: ArrayList<NotificationResponse>,
-    val itemClickListener: ItemClickListener
-) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
-    private lateinit var onItemClickListener: View.OnClickListener
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.notification_item, parent, false)
+    val mContext: Context,
+    val list: List<Data>) :
+    RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):  ViewHolder{
+        val view = NotificationItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
     }
-
      override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-         holder.imageView.setImageResource(dataModel[position].image)
-         holder.topic.text = dataModel[position].topic
-        holder.desc.text = dataModel[position].desc
-        holder.time.text = dataModel[position].time
+         val item = list.get(holder.adapterPosition)
+
+
+
+             if (item.notification.notificationDescription.media!=null){
+                 Glide.with(mContext)
+                     .load(item.notification.notificationDescription.media.value.url)
+                     .into(holder.binding.ivImage)
+             } else{
+                 holder.binding.ivImage.isVisible= false
+             }
+
+         holder.binding.tvChatDesc.text= item.notification.notificationDescription.body
+         holder.binding.tvTopic.text= item.notification.notificationDescription.title
+
+
      }
 
     override fun getItemCount(): Int {
-        return dataModel.size
-        Log.i("Size", dataModel.size.toString())
+        return list.size
     }
 
-    class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-        val imageView: ImageView = itemView.findViewById(R.id.ivImage)
-        val topic: TextView = itemView.findViewById(R.id.tvTopic)
-        val desc: TextView = itemView.findViewById(R.id.tv_chat_desc)
-        val time: TextView = itemView.findViewById(R.id.tv_chat_time)
+    inner class ViewHolder(val binding:NotificationItemBinding ) :
+        RecyclerView.ViewHolder(binding.root)
 
-    }
-    fun setItemClickListener(clickListener: View.OnClickListener) {
-        onItemClickListener = clickListener
-    }
+
 }

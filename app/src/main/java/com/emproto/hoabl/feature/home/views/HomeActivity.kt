@@ -154,26 +154,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 }
             })
 
-            var data = ArrayList<NotificationDataModel>()
-            for (i in 1..20) {
-                data.add(
-                    NotificationDataModel(
-                        R.drawable.img,
-                        "Notification Topic 1",
-                        "It is a long established fact that a reader will be distracted ",
-                        "1h"
-                    )
-                )
-                Log.i("msg", "data")
-            }
-            val customAdapter = NotificationAdapter(this, data)
-
-            bottomSheetDialog.findViewById<RecyclerView>(R.id.rv)?.apply {
-                layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-                adapter = customAdapter
-            }
-
-
+            callNotificationApi()
             launch_bottom_sheet()
             Toast.makeText(this, "Notification is Under Development", Toast.LENGTH_LONG).show()
 
@@ -451,6 +432,18 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
                     }
                     Status.SUCCESS ->{
+
+                        it?.data.let {
+                            it?.data
+                            bottomSheetDialog.findViewById<RecyclerView>(R.id.rv)?.apply {
+                                val customAdapter = NotificationAdapter(this@HomeActivity, it!!.data)
+                                layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                                adapter = customAdapter
+                            }
+
+
+                        }
+
 
                     }
                 }
