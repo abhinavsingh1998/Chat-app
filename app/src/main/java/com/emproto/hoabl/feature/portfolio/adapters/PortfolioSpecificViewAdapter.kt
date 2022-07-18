@@ -559,7 +559,7 @@ class PortfolioSpecificViewAdapter(
     private inner class PriceTrendsViewHolder(private val binding: PriceTrendsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            binding.tvRating.text = "${list[position].ea} %"
+            binding.tvRating.text = "${Utility.convertTo(list[position].ea)} %"
             val graphData = list[position].data as GeneralInfoEscalationGraph
             binding.tvPriceTrendsTitle.text = graphData.title
             binding.tvXAxisLabel.text = graphData.yAxisDisplayName

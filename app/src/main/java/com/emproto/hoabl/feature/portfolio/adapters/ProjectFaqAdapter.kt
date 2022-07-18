@@ -47,5 +47,9 @@ class ProjectFaqAdapter(
 
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int {
+        return if (list.size >= 2)
+            2
+        else list.size
+    }
 }

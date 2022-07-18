@@ -33,6 +33,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentVerifyOtpBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.model.ContactType
 import com.emproto.hoabl.viewmodels.AuthViewmodel
 import com.emproto.hoabl.viewmodels.factory.AuthFactory
 import com.emproto.networklayer.request.login.OtpRequest
@@ -228,18 +229,10 @@ class OTPVerificationFragment : BaseFragment() {
                                         )
 
                                         Handler().postDelayed({
-                                            it.data?.let {
-                                                appPreference.setToken(it.token)
-                                                if (it.user.contactType == "prelead" &&
-                                                    it.user.firstName.isNullOrBlank()
-                                                ) {
-                                                    requireActivity().supportFragmentManager.popBackStack()
-                                                    (requireActivity() as AuthActivity).replaceFragment(
-                                                        NameInputFragment.newInstance(
-                                                            if (it.user.firstName != null) it.user.firstName else "",
-                                                            if (it.user.lastName != null) it.user.lastName else ""
-                                                        ), true
-                                                    )
+                                            it.data?.let { verifyOtpResponse ->
+                                                appPreference.setToken(verifyOtpResponse.token)
+                                                if (verifyOtpResponse.user.contactType == ContactType.PRELEAD.value && verifyOtpResponse.user.firstName.isNullOrEmpty()) {
+                                                    (requireActivity() as AuthActivity).replaceFragment(NameInputFragment.newInstance("", ""), true)
                                                 } else {
                                                     appPreference.saveLogin(true)
                                                     startActivity(
