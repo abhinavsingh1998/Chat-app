@@ -44,7 +44,7 @@ class WatchlistAdapter(
                 tvNoViews.text = element.project.fomoContent.noOfViews.toString()
 //                Utility.coolFormat(element.project.fomoContent.noOfViews.toDouble(), 0)
                 tvItemLocationInfo.text = element.project.shortDescription
-                tvRating.text = "${element.project.estimatedAppreciation}%"
+                tvRating.text = "${Utility.convertTo(element.project.estimatedAppreciation)}%"
             }
         }
         holder.binding.cvMainOuterCard.setOnClickListener {
