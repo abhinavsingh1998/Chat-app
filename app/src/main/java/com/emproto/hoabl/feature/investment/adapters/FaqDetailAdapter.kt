@@ -14,6 +14,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.investment.views.FaqDetailFragment
 import com.emproto.hoabl.model.RecyclerViewFaqItem
 import com.emproto.hoabl.utils.Extensions.hideKeyboard
 import com.emproto.hoabl.utils.ItemClickListener
@@ -21,8 +22,7 @@ import com.emproto.networklayer.response.investment.CgData
 import com.google.android.material.textview.MaterialTextView
 
 class FaqDetailAdapter(
-    private val activity: Activity,
-    private val context: Context,
+    private val fragment: FaqDetailFragment,
     private val list: List<RecyclerViewFaqItem>,
     private val faqData: List<CgData>,
     private val faqId: Int = 0,
@@ -88,7 +88,7 @@ class FaqDetailAdapter(
 
             val list = arrayListOf<String>()
             for (item in faqData) { list.add(item.name) }
-            categoryAdapter = PopularCategoryAdapter(context, list, itemClickListener)
+            categoryAdapter = PopularCategoryAdapter( list, itemClickListener)
             rvPopCategory.adapter = categoryAdapter
 
             //setup search bar when coming to this page
@@ -114,16 +114,17 @@ class FaqDetailAdapter(
                     if (s.toString().length > 1 && s.toString() != "") {
                         close.visibility = View.VISIBLE
                     }
-                    Handler().postDelayed({
-                        itemClickListener.onItemClicked(search, position, s.toString())
-                    }, 2000)
+
                 }
             })
 
             //Tick button handled from keyboard
             search.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    activity.hideKeyboard()
+                    Handler().postDelayed({
+                        itemClickListener.onItemClicked(search, position, search.text.toString())
+                    }, 500)
+                    fragment.hideKeyboard()
                     true
                 }
                 false
@@ -143,7 +144,7 @@ class FaqDetailAdapter(
         fun bind(position: Int, data: CgData) {
             tvCategoryTitle.text = data.name
             val sortedList = data.faqs.sortedBy { it.priority }
-            faqAdapter = FaqAdapter(sortedList, context, faqId,itemClickListener)
+            faqAdapter = FaqAdapter(sortedList, faqId,itemClickListener)
             rvFaq.adapter = faqAdapter
         }
     }

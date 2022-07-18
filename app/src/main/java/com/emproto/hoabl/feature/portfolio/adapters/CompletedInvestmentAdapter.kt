@@ -63,31 +63,16 @@ class CompletedInvestmentAdapter(
         val project = list[position]
 
         holder.binding.tvManageProjects.setOnClickListener {
-            val projectExtraDetails =
-                ProjectExtraDetails(
-                    project.project.address,
-                    project.project.projectIcon,
-                    project.project.generalInfoEscalationGraph,
-                    project.project.launchName,
-                    project.investment.pendingAmount,
-                    project.investment.isBookingComplete
-                )
-            val headingDetails = InvestmentHeadingDetails(
-                project.project.isSimilarInvestmentActive,
-                project.project.numberOfSimilarInvestmentsToShow,
-                project.project.similarInvestmentSectionHeading,
-                project.project.isEscalationGraphActive,
-                project.project.isLatestMediaGalleryActive,
-                project.project.latestMediaGalleryHeading,
-                project.project.otherSectionHeadings
-            )
-            onCLickInterface.manageProject(
-                project.investment.id,
-                project.project.id,
-                projectExtraDetails,
-                project.investment.projectIea,
-                project.project.generalInfoEscalationGraph.estimatedAppreciation, headingDetails
-            )
+            manageInvestmentDetails(project)
+        }
+        holder.binding.tvCompletedInvestmentName.setOnClickListener {
+            manageInvestmentDetails(project)
+        }
+        holder.binding.tvCompletedInvestmentLocation.setOnClickListener {
+            manageInvestmentDetails(project)
+        }
+        holder.binding.ivCompletedInvestmentImage.setOnClickListener {
+            manageInvestmentDetails(project)
         }
         if (project.project != null) {
             Glide.with(context)
@@ -152,6 +137,35 @@ class CompletedInvestmentAdapter(
 
         }
 
+    }
+
+    private fun manageInvestmentDetails(project: Project) {
+        val projectExtraDetails =
+            ProjectExtraDetails(
+                project.project.address,
+                project.project.projectIcon,
+                project.project.generalInfoEscalationGraph,
+                project.project.launchName,
+                project.investment.pendingAmount,
+                project.investment.isBookingComplete,
+                project.investment.paidAmount
+            )
+        val headingDetails = InvestmentHeadingDetails(
+            project.project.isSimilarInvestmentActive,
+            project.project.numberOfSimilarInvestmentsToShow,
+            project.project.similarInvestmentSectionHeading,
+            project.project.isEscalationGraphActive,
+            project.project.isLatestMediaGalleryActive,
+            project.project.latestMediaGalleryHeading,
+            project.project.otherSectionHeadings
+        )
+        onCLickInterface.manageProject(
+            project.investment.id,
+            project.project.id,
+            projectExtraDetails,
+            project.investment.projectIea,
+            project.project.generalInfoEscalationGraph.estimatedAppreciation, headingDetails
+        )
     }
 
     @RequiresApi(Build.VERSION_CODES.M)

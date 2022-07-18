@@ -196,32 +196,6 @@ class PortfolioSpecificProjectView : BaseFragment() {
         portfolioviewmodel.saveBookingHeader(bjHeader)
         var itemId = 0
 
-        allMediaList.clear()
-        for (item in it.data.projectInformation.latestMediaGalleryOrProjectContent[0].images) {
-            itemId++
-            allMediaList.add(
-                MediaViewItem(
-                    item.mediaContentType,
-                    item.mediaContent.value.url,
-                    title = "Images",
-                    id = itemId,
-                    name = item.name
-                )
-            )
-        }
-
-        for (item in it.data.projectInformation.latestMediaGalleryOrProjectContent[0].threeSixtyImages) {
-            itemId++
-            allMediaList.add(
-                MediaViewItem(
-                    item.mediaContentType,
-                    item.mediaContent.value.url,
-                    title = "ThreeSixtyImages",
-                    id = itemId,
-                    name = item.name
-                )
-            )
-        }
         list.clear()
         it.data.projectExtraDetails = portfolioviewmodel.getprojectAddress()
 
@@ -252,7 +226,12 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
         // facility card
         if (appPreference.isFacilityCard())
-            list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_FACILITY_CARD))
+            list.add(
+                RecyclerViewItem(
+                    PortfolioSpecificViewAdapter.PORTFOLIO_FACILITY_CARD,
+                    appPreference.getOfferUrl()
+                ),
+            )
 
         //adding document
         if (it.data.documentList != null) {
@@ -266,20 +245,49 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
         //adding trending video and images
         if (headingDetails.isLatestMediaGalleryActive) {
-            list.add(
-                RecyclerViewItem(
-                    PortfolioSpecificViewAdapter.PORTFOLIO_TRENDING_IMAGES,
-                    it.data.projectInformation.latestMediaGalleryOrProjectContent[0]
+            allMediaList.clear()
+            if (it.data.projectInformation.latestMediaGalleryOrProjectContent != null
+                && it.data.projectInformation.latestMediaGalleryOrProjectContent.isNotEmpty()
+            ) {
+                for (item in it.data.projectInformation.latestMediaGalleryOrProjectContent[0].images) {
+                    itemId++
+                    allMediaList.add(
+                        MediaViewItem(
+                            item.mediaContentType,
+                            item.mediaContent.value.url,
+                            title = "Images",
+                            id = itemId,
+                            name = item.name
+                        )
+                    )
+                }
+
+                for (item in it.data.projectInformation.latestMediaGalleryOrProjectContent[0].threeSixtyImages) {
+                    itemId++
+                    allMediaList.add(
+                        MediaViewItem(
+                            item.mediaContentType,
+                            item.mediaContent.value.url,
+                            title = "ThreeSixtyImages",
+                            id = itemId,
+                            name = item.name
+                        )
+                    )
+                }
+                list.add(
+                    RecyclerViewItem(
+                        PortfolioSpecificViewAdapter.PORTFOLIO_TRENDING_IMAGES,
+                        it.data.projectInformation.latestMediaGalleryOrProjectContent[0]
+                    )
                 )
-            )
+
+                //setting media visibility
+                investmentViewModel.setImageActive(it.data.projectInformation.latestMediaGalleryOrProjectContent[0].isImagesActive)
+                investmentViewModel.setVideoActive(it.data.projectInformation.latestMediaGalleryOrProjectContent[0].isVideosActive)
+                investmentViewModel.setDroneActive(it.data.projectInformation.latestMediaGalleryOrProjectContent[0].isDroneShootsActive)
+                investmentViewModel.setThreeSixtyActive(it.data.projectInformation.latestMediaGalleryOrProjectContent[0].isThreeSixtyImagesActive)
+            }
         }
-
-        //setting media visibility
-        investmentViewModel.setImageActive(it.data.projectInformation.latestMediaGalleryOrProjectContent[0].isImagesActive)
-        investmentViewModel.setVideoActive(it.data.projectInformation.latestMediaGalleryOrProjectContent[0].isVideosActive)
-        investmentViewModel.setDroneActive(it.data.projectInformation.latestMediaGalleryOrProjectContent[0].isDroneShootsActive)
-        investmentViewModel.setThreeSixtyActive(it.data.projectInformation.latestMediaGalleryOrProjectContent[0].isThreeSixtyImagesActive)
-
         //adding promises
         list.add(
             RecyclerViewItem(

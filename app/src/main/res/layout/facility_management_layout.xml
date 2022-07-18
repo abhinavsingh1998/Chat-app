@@ -14,87 +14,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.card.MaterialCardView
+        <ImageView
             android:id="@+id/cv_facility_management_card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="140dp"
             android:layout_marginHorizontal="@dimen/margin_size_20"
             android:layout_marginTop="@dimen/margin_size_30"
             android:layout_marginBottom="@dimen/margin_size_8"
+            android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/facility_management_bg">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_facility_management"
-                    style="@style/text_style_ash_color_18"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_size_20"
-                    android:layout_marginTop="@dimen/margin_size_18"
-                    android:fontFamily="@font/jost_medium"
-                    android:text="@string/facility_management"
-                    app:layout_constraintEnd_toStartOf="@id/iv_banner_image"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_facility_management_description"
-                    style="@style/text_light_ash_13"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_size_6"
-                    android:layout_marginEnd="@dimen/margin_size_16"
-                    android:fontFamily="@font/jost_regular"
-                    android:text="@string/facility_management_desc"
-                    app:layout_constraintEnd_toStartOf="@id/iv_banner_image"
-                    app:layout_constraintStart_toStartOf="@id/tv_facility_management"
-                    app:layout_constraintTop_toBottomOf="@id/tv_facility_management" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_manage_now"
-                    style="@style/text_style_white_16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_size_12"
-                    android:layout_marginBottom="@dimen/margin_size_20"
-                    android:fontFamily="@font/jost_medium"
-                    android:text="@string/manage_now"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/tv_facility_management_description"
-                    app:layout_constraintTop_toBottomOf="@id/tv_facility_management_description" />
-
-                <ImageView
-                    android:id="@+id/iv_manage_now_arrow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_size_4"
-                    android:src="@drawable/ic_final_arrow"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_manage_now"
-                    app:layout_constraintStart_toEndOf="@id/tv_manage_now"
-                    app:layout_constraintTop_toTopOf="@id/tv_manage_now"
-                    app:tint="@color/white" />
-
-                <ImageView
-                    android:id="@+id/iv_banner_image"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginEnd="40dp"
-                    android:src="@drawable/fmcard_image"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_manage_now"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/tv_facility_management_description"
-                    app:layout_constraintTop_toTopOf="@id/tv_facility_management" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

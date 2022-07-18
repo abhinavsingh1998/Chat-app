@@ -10,10 +10,14 @@ import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -102,6 +106,24 @@ class SearchResultFragment : BaseFragment() {
             fragmentSearchResultBinding.searchLayout.search.setText("")
         }
         fragmentSearchResultBinding.searchLayout.rotateText.text = topText
+
+        fragmentSearchResultBinding.searchLayout.search.setOnEditorActionListener(object: TextView.OnEditorActionListener{
+            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    val p0 = fragmentSearchResultBinding.searchLayout.search.text.toString()
+                    if (p0.toString() != "" && p0.toString().length > 1) {
+                        fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility =
+                            View.VISIBLE
+                        Handler().postDelayed({
+                            callSearchApi(p0.toString(), true)
+                        }, 1000)
+                    } else
+                    return true
+                }
+                return false
+            }
+
+        })
     }
 
     private fun initObserver() {
@@ -149,17 +171,17 @@ class SearchResultFragment : BaseFragment() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (p0.toString().isEmpty() || p0.toString().isBlank()) {
                     fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.GONE
-//                    callSearchApi("")
                 }
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                if (p0.toString() != "" && p0.toString().length > 1) {
-                    fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.VISIBLE
-                    Handler().postDelayed({
-                        callSearchApi(p0.toString(),true)
-                    }, 2000)
-                } else if (p0.toString().isEmpty()) {
+//                if (p0.toString() != "" && p0.toString().length > 1) {
+//                    fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.VISIBLE
+//                    Handler().postDelayed({
+//                        callSearchApi(p0.toString(),true)
+//                    }, 2000)
+//                } else
+                    if (p0.toString().isEmpty()) {
                     Handler().postDelayed({
                         callSearchApi("",false)
                     }, 2000)

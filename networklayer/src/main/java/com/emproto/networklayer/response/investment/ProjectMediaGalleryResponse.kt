@@ -31,10 +31,12 @@ data class LatestMedaiGalleries(
 
 data class MediaGalleries(
     val coverImage: List<CoverImage>,
-    val createdAt: String,
-    val droneShoots: List<DroneShoot>,
-    val id: Int,
     val images: List<Image>,
+    val videos: List<Video>,
+    val droneShoots: List<DroneShoot>,
+
+    val createdAt: String,
+    val id: Int,
     val isCoverImageActive: Boolean,
     val isDroneShootsActive: Boolean,
     val isImagesActive: Boolean,
@@ -44,5 +46,4 @@ data class MediaGalleries(
     val medaiGalleryProjectContentId: Int,
     val threeSixtyImages: List<ThreeSixtyImage>,
     val updatedAt: String,
-    val videos: List<Video>
 )

@@ -41,11 +41,15 @@
     <TextView
         android:id="@+id/tv_location"
         style="@style/text_regular_primary3_12"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="Anjarle , Maharastra"
+        android:layout_marginEnd="10dp"
+        android:lines="1"
+        android:text="Anjarle , Maharastra bdasdbasfadsdasdasdasdas"
         app:layout_constraintBottom_toBottomOf="@+id/tv_project_name"
+        app:layout_constraintEnd_toStartOf="@+id/tv_owner"
+        app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintStart_toEndOf="@+id/tv_project_name"
         app:layout_constraintTop_toTopOf="@+id/tv_project_name" />
 
@@ -53,11 +57,12 @@
         android:id="@+id/tv_owner"
         style="@style/text_medium_black_14"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginEnd="15dp"
-        android:text="Anuj Singh"
+        android:text="Sebastian Vettel"
         app:layout_constraintBottom_toBottomOf="@+id/tv_project_name"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_location"
         app:layout_constraintTop_toTopOf="@+id/tv_project_name" />
 
     <TextView

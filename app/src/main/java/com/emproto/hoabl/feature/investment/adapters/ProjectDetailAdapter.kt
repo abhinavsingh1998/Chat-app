@@ -161,6 +161,7 @@ class ProjectDetailAdapter(
 
             binding.apply {
                 tvProjectName.text = data.launchName
+
                 tvProjectLocation.text = "${data.address.city}, ${data.address.state}"
 //                tvViewCount.text = Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)
                 tvViewCount.text = data.fomoContent.noOfViews.toString()

@@ -15,6 +15,7 @@ data class Investment(
     val allocationDate: String,
     val crmInventory: CrmInventory,
     val pendingAmount: Double,
+    val paidAmount: Double
 
 )
 

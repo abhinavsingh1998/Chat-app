@@ -278,8 +278,6 @@ class AuthActivity : BaseActivity() {
                 }
             }
 
-
-
             if (issueChecked().isNullOrEmpty()){
                 Toast.makeText(this, "Please select an issue", Toast.LENGTH_SHORT).show()
                 return@OnClickListener

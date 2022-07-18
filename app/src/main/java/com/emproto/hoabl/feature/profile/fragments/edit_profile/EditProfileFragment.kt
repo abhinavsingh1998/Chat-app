@@ -10,6 +10,7 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.graphics.Matrix
 import android.media.ExifInterface
 import android.net.Uri
@@ -68,6 +69,8 @@ class EditProfileFragment : BaseFragment() {
     lateinit var binding: FragmentEditProfileBinding
 
     var email = ""
+    var dob = ""
+
     val emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
     var houseNo = ""
     var address = ""
@@ -108,6 +111,8 @@ class EditProfileFragment : BaseFragment() {
     lateinit var countryIso: String
     lateinit var city: String
 
+    lateinit var preSelectedCountryIso: String
+
     lateinit var gender: String
     private var cameraFile: File? = null
 
@@ -131,7 +136,6 @@ class EditProfileFragment : BaseFragment() {
         if (arguments != null) {
             data = requireArguments().getSerializable("profileData") as Data
         }
-
     }
 
     override fun onCreateView(
@@ -146,9 +150,6 @@ class EditProfileFragment : BaseFragment() {
         binding = FragmentEditProfileBinding.inflate(layoutInflater)
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             false
-        
-
-
 
         val myCalender = Calendar.getInstance()
         datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayofMonth ->
@@ -174,45 +175,48 @@ class EditProfileFragment : BaseFragment() {
         }
         initView()
         setGenderSpinnersData()
-        getCountries()
+        getCountries(false)
         return binding.root
     }
 
-//    private fun setCountrySpinnerData() {
-//        val countryList = ArrayList<String>()
-//        countryList.add("India")
-//        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_text, countryList)
-//        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
-//        binding.autoCountry.setAdapter(adapter)
-//    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (data.profilePictureUrl.isNullOrEmpty()) {
+            binding.tvremove.isClickable = false
+            binding.tvRemove1.setTextColor(Color.parseColor("#9d9eb1"))
+            binding.tvRemove2.setTextColor(Color.parseColor("#9d9eb1"))
+        } else {
+            binding.tvremove.isClickable = true
+            binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
+            binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
+        }
         initClickListener()
-        if (!data.profilePictureUrl.isNullOrEmpty()) {
-          binding.tvremove.visibility=View.VISIBLE
-            binding.removeImage.visibility=View.VISIBLE
-        }
-        else{
-            binding.tvremove.visibility=View.GONE
-            binding.removeImage.visibility=View.GONE
-        }
     }
 
-    private fun getCountries() {
-        profileViewModel.getCountries().observe(viewLifecycleOwner) {
+    private fun getCountries(refresh: Boolean) {
+        profileViewModel.getCountries(refresh).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBaar.show()
                 }
                 Status.SUCCESS -> {
                     binding.progressBaar.hide()
-                    it.data?.data?.let1 { data ->
-                        countriesData = data
+                    it.data?.data?.let1 { it ->
+                        countriesData = it
                     }
-                    for (i in countriesData.indices) {
-                        listCountries.add(countriesData[i].name)
-                        listCountryISO.add(countriesData[i].isoCode)
+                    if (data.country != null) {
+                        for (i in countriesData) {
+                            if (data.country == i.name) {
+                                countryIso = i.isoCode
+                            }
+                            listCountries.add(i.name)
+                            listCountryISO.add(i.isoCode)
+                        }
+                    } else {
+                        for (i in countriesData.indices) {
+                            listCountries.add(countriesData[i].name)
+                            listCountryISO.add(countriesData[i].isoCode)
+                        }
                     }
                     setCountrySpinnersData()
                 }
@@ -223,9 +227,8 @@ class EditProfileFragment : BaseFragment() {
         }
     }
 
-    private fun getStates(countryIso: String) {
-        Log.i("countryISO", countryIso)
-        profileViewModel.getStates(countryIso).observe(viewLifecycleOwner) {
+    private fun getStates(countryIso: String, refresh: Boolean) {
+        profileViewModel.getStates(countryIso, refresh).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBaar.show()
@@ -235,10 +238,19 @@ class EditProfileFragment : BaseFragment() {
                     it.data?.data?.let1 { data ->
                         statesData = data
                     }
-                    for (i in statesData.indices) {
-                        listStates.add(statesData[i].name)
-                        listStatesISO.add(statesData[i].isoCode)
-
+                    if (data.state != null) {
+                        for (i in statesData) {
+                            if (data.state == i.name) {
+                                stateIso = i.isoCode
+                            }
+                            listStates.add(i.name)
+                            listStatesISO.add(i.isoCode)
+                        }
+                    } else {
+                        for (i in statesData.indices) {
+                            listStates.add(statesData[i].name)
+                            listStatesISO.add(statesData[i].isoCode)
+                        }
                     }
                     setStateSpinnersData()
                 }
@@ -249,8 +261,8 @@ class EditProfileFragment : BaseFragment() {
         }
     }
 
-    private fun getCities(value1: String, isoCode: String) {
-        profileViewModel.getCities(value1, isoCode).observe(viewLifecycleOwner) {
+    private fun getCities(value1: String, isoCode: String, refresh: Boolean) {
+        profileViewModel.getCities(value1, isoCode, refresh).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBaar.show()
@@ -300,8 +312,12 @@ class EditProfileFragment : BaseFragment() {
                 country = listCountries[position]
                 countryIso = listCountryISO[position]
                 listStates.clear()
-                getStates(countryIso)
+                getStates(countryIso, true)
             }
+        if (data.country != null) {
+            listStates.clear()
+            getStates(countryIso, false)
+        }
 
     }
 
@@ -316,8 +332,12 @@ class EditProfileFragment : BaseFragment() {
                 state = listStates[position]
                 stateIso = listStatesISO[position]
                 listCities.clear()
-                getCities(stateIso, countryIso)
+                getCities(stateIso, countryIso, true)
             }
+        if (data.state != null) {
+            listCities.clear()
+            getCities(stateIso, countryIso, false)
+        }
         enableStateEdit()
     }
 
@@ -328,7 +348,6 @@ class EditProfileFragment : BaseFragment() {
         binding.autoCity.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 city = listCities[position]
-
             }
         enableCityEdit()
     }
@@ -357,11 +376,10 @@ class EditProfileFragment : BaseFragment() {
             binding.emailTv.setText("")
         }
         if (!data.dateOfBirth.isNullOrEmpty()) {
-            val inputFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-            val outputFormat: SimpleDateFormat = SimpleDateFormat("dd-MM-yyyy")
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+            val outputFormat = SimpleDateFormat("dd-MM-yyyy")
             val date: Date = inputFormat.parse(data.dateOfBirth)
             val formattedDate: String = outputFormat.format(date)
-            System.out.println(formattedDate)
             binding.tvDatePicker.setText(formattedDate)
         } else {
             binding.tvDatePicker.setText("")
@@ -426,10 +444,15 @@ class EditProfileFragment : BaseFragment() {
         if (data.profilePictureUrl.isNullOrEmpty()) {
             binding.profileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
+            binding.tvremove.isClickable = false
+            binding.tvRemove1.setTextColor(Color.parseColor("#9d9eb1"))
+            binding.tvRemove2.setTextColor(Color.parseColor("#9d9eb1"))
             setUserNamePIC(data)
         } else {
             binding.profileImage.visibility = View.VISIBLE
             binding.profileUserLetters.visibility = View.GONE
+            binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
+            binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
             Glide.with(requireContext())
                 .load(data.profilePictureUrl)
                 .dontTransform()
@@ -672,125 +695,117 @@ class EditProfileFragment : BaseFragment() {
                     binding.root
                 )
             }
-
-            binding.saveAndUpdate.text = "Save and Update"
-            email = binding.emailTv.text.toString()
-            Log.i("email", email)
-            if (!email.isNullOrEmpty() && email.isValidEmail()) {
-                binding.tvEmail.isErrorEnabled = false
-                email = binding.emailTv.text.toString()
+            dob = binding.tvDatePicker.text.toString()
+            if (dob.isNotEmpty()) {
+                dob = binding.tvDatePicker.text.toString()
             } else {
-                binding.tvEmail.error = "Please enter valid email"
-                email = binding.emailTv.text.toString()
-                if (email.length == 150) {
-                    binding.tvEmail.error = "You have reached the max characters limit"
-                    Toast.makeText(
-                        context,
-                        "You have reached the max characters limit",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
+                dob = null.toString()
             }
+            email = binding.emailTv.text.toString()
+            if (email.isValidEmail()) {
+                    binding.tvEmail.isErrorEnabled = false
+            } else if(email.isNotEmpty()) {
+                binding.tvEmail.isErrorEnabled = true
+                binding.tvEmail.error = "Please enter valid email"
+            }
+
             houseNo = binding.houseNo.text.toString()
-            when {
-                houseNo.length == 150 -> {
+            if (houseNo.isNotEmpty()) {
+                if (houseNo.length == 150) {
                     binding.floorHouseNum.error = "You have reached the max characters limit"
-                }
-                houseNo.isEmpty() -> {
-                    binding.floorHouseNum.error = "Field cannot be empty"
-                }
-                else -> {
+                } else {
                     houseNo = binding.houseNo.text.toString()
                 }
             }
-
             address = binding.completeAddress.text.toString()
-            when {
-                address.length == 150 -> {
+            if (address.isNotEmpty()) {
+                if (address.length == 150) {
                     binding.comAdd.error = "You have reached the max characters limit"
-                }
-                address.isEmpty() -> {
-                    binding.comAdd.error = "Field cannot be empty"
-                }
-                else -> {
+                } else {
                     address = binding.completeAddress.text.toString()
                 }
             }
             locality = binding.locality.text.toString()
-            when {
-                locality.length == 150 -> {
+
+            if (locality.isNotEmpty()) {
+                if (locality.length == 150) {
                     binding.tvLocality.error = "You have reached the max characters limit"
-                }
-                locality.isEmpty() -> {
-                    binding.tvLocality.error = "Field cannot be empty"
-                }
-                else -> {
+                } else {
                     locality = binding.locality.text.toString()
                 }
             }
             pinCode = binding.pincodeEditText.text.toString()
-            if (pinCode.isValidPinCode()) {
-                binding.pincode.isErrorEnabled = false
-            } else if (pinCode.isEmpty()) {
-                binding.pincode.error = "Field cannot be empty"
-
+            if (pinCode.isNotEmpty()) {
+                    binding.pincode.isErrorEnabled = false
             } else {
+                binding.pincode.isErrorEnabled = true
                 binding.pincode.error = "Please enter valid pincode"
                 pinCode = binding.pincodeEditText.text.toString()
-                if (pinCode.length > 6) {
-                    binding.pincode.error = "Invalid Pincode"
-                    Toast.makeText(
-                        context,
-                        "You have reached the max characters limit",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
             }
+
             countrySelected = binding.autoCountry.text.toString()
-            if (!countrySelected.isNullOrEmpty()) {
+            if (countrySelected.isNotEmpty()) {
                 binding.spinnerCountry.isErrorEnabled = false
-            } else {
-                binding.spinnerCountry.error = "Select Country"
                 countrySelected = binding.autoCountry.text.toString()
+
             }
             stateSelected = binding.autoState.text.toString()
-            if (!stateSelected.isNullOrEmpty()) {
+            if (stateSelected.isNotEmpty()) {
                 binding.spinnerState.isErrorEnabled = false
-            } else {
-                binding.spinnerState.error = "Select State"
                 stateSelected = binding.autoState.text.toString()
+
             }
             citySelected = binding.autoCity.text.toString()
-            if (!citySelected.isNullOrEmpty()) {
+            if (citySelected.isNotEmpty()) {
                 binding.spinnerCity.isErrorEnabled = false
-            } else {
-                binding.spinnerCity.error = "Select City"
                 citySelected = binding.autoCity.text.toString()
             }
-            if (!email.isNullOrEmpty() && email.isValidEmail() && !houseNo.isNullOrEmpty() && !address.isNullOrEmpty() && !locality.isNullOrEmpty() && pinCode.isValidPinCode() && !countrySelected.isNullOrEmpty() && !stateSelected.isNullOrEmpty() && !citySelected.isNullOrEmpty()) {
-                val validEmail = binding.emailTv.text
-                val validHouse = binding.houseNo.text
-                val validAdd = binding.completeAddress.text
-                val validLocality = binding.locality.text
-                val validPinCode = binding.pincodeEditText.text
-                val validCountry = binding.autoCountry.text
-                val validState = binding.autoState.text
-                val validCity = binding.autoCity.text
+
+            if(email.isNotEmpty() && !email.isValidEmail()){
+                binding.tvEmail.error = "Please enter valid email"
+            }else{
                 sendProfileDetail(
-                    validEmail,
-                    validHouse,
-                    validAdd,
-                    validLocality,
-                    validPinCode,
-                    validCountry,
-                    validState,
-                    validCity
+                    dob,
+                    email,
+                    houseNo,
+                    address,
+                    locality,
+                    pinCode,
+                    countrySelected,
+                    stateSelected,
+                    citySelected
                 )
                 val dialog = EditProfileUpdatedPopUpFragment()
                 dialog.isCancelable = false
                 dialog.show(childFragmentManager, "submitted")
                 changeFontOnSave()
+
             }
+        }
+
+    }
+
+    private fun removeSemiPictureDialog() {
+        val removeDialogLayout = RemoveConfirmationBinding.inflate(layoutInflater)
+        removePictureDialog = Dialog(requireContext())
+        removePictureDialog.setCancelable(false)
+        removePictureDialog.setContentView(removeDialogLayout.root)
+
+        removeDialogLayout.actionYes.setOnClickListener {
+            binding.profileImage.visibility = View.GONE
+            binding.profileUserLetters.visibility = View.VISIBLE
+            setUserNamePIC(data)
+            removePictureDialog.dismiss()
+            binding.textremove.visibility = View.GONE
+            binding.tvremove.visibility = View.VISIBLE
+
+        }
+        removeDialogLayout.actionNo.setOnClickListener {
+            removePictureDialog.dismiss()
+        }
+        binding.textremove.setOnClickListener {
+            removePictureDialog.show()
+
         }
     }
 
@@ -805,14 +820,16 @@ class EditProfileFragment : BaseFragment() {
             binding.profileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
             setUserNamePIC(data)
-
         }
-
         removeDialogLayout.actionNo.setOnClickListener {
             removePictureDialog.dismiss()
         }
         binding.tvremove.setOnClickListener {
-            removePictureDialog.show()
+            if (data.profilePictureUrl.isNullOrEmpty()) {
+                Toast.makeText(context, "Picture already removed", Toast.LENGTH_SHORT).show()
+            } else {
+                removePictureDialog.show()
+            }
         }
     }
 
@@ -840,28 +857,29 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun sendProfileDetail(
-        validEmail: Editable,
-        validHouse: Editable,
-        validAdd: Editable,
-        validLocality: Editable,
-        validPinCode: Editable,
-        validCountry: Editable,
-        validState: Editable,
-        validCity: Editable
+        validDOB: String,
+        validEmail: String,
+        validHouse: String,
+        validAdd: String,
+        validLocality: String,
+        validPinCode: String,
+        validCountry: String,
+        validState: String,
+        validCity: String
     ) {
         val editUserNameRequest = EditUserNameRequest(
             data.firstName,
             data.lastName,
-            validEmail.toString(),
-            binding.tvDatePicker.text.toString(),
+            validEmail,
+            validDOB,
             binding.autoGender.text.toString(),
-            validHouse.toString(),
-            validAdd.toString(),
-            validLocality.toString(),
-            validPinCode.toString(),
-            validCity.toString(),
-            validState.toString(),
-            validCountry.toString()
+            validHouse,
+            validAdd,
+            validLocality,
+            validPinCode,
+            validCity,
+            validState,
+            validCountry
         )
         profileViewModel.editUserNameProfile(editUserNameRequest)
             .observe(
@@ -913,6 +931,7 @@ class EditProfileFragment : BaseFragment() {
             permissionLauncher.launch(permissionRequest.toTypedArray())
         }
     }
+
     private fun onCaptureImageResult() {
         val selectedImage = cameraFile?.path
         destinationFile = cameraFile!!
@@ -941,6 +960,13 @@ class EditProfileFragment : BaseFragment() {
         binding.profileUserLetters.visibility = View.GONE
         try {
             binding.profileImage.setImageBitmap(rotatedBitmap)
+            binding.tvremove.visibility = View.GONE
+            binding.textremove.visibility = View.VISIBLE
+            binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
+
+            removeSemiPictureDialog()
+//            binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
+
         } catch (e: Exception) {
             e.message
         }
@@ -976,6 +1002,12 @@ class EditProfileFragment : BaseFragment() {
             binding.profileImage.visibility = View.VISIBLE
             binding.profileUserLetters.visibility = View.GONE
             binding.profileImage.setImageBitmap(bitmap)
+            binding.tvremove.visibility = View.GONE
+            binding.textremove.visibility = View.VISIBLE
+            binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
+
+            removeSemiPictureDialog()
+//            binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
 
 
         } catch (e: java.lang.Exception) {
@@ -994,8 +1026,9 @@ class EditProfileFragment : BaseFragment() {
                                 binding.progressBaar.show()
                             }
                             Status.SUCCESS -> {
+                                binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
+                                binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
                                 binding.progressBaar.hide()
-
                             }
                             Status.ERROR -> {
                                 binding.progressBaar.hide()
@@ -1017,6 +1050,9 @@ class EditProfileFragment : BaseFragment() {
                     }
                     Status.SUCCESS -> {
                         binding.progressBaar.hide()
+                        binding.tvremove.isClickable = false
+                        binding.tvRemove1.setTextColor(Color.parseColor("#9d9eb1"))
+                        binding.tvRemove2.setTextColor(Color.parseColor("#9d9eb1"))
                         removePictureDialog.dismiss()
                         if (data.profilePictureUrl == null) {
                             binding.profileImage.visibility = View.GONE

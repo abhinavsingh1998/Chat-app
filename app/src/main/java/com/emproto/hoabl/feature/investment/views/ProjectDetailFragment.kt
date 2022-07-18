@@ -25,6 +25,7 @@ import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.model.MapLocationModel
 import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.model.RecyclerViewItem
+import com.emproto.hoabl.utils.Extensions.hideKeyboard
 import com.emproto.hoabl.utils.Extensions.toHomePagesOrPromise
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.utils.MapItemClickListener
@@ -86,9 +87,6 @@ class ProjectDetailFragment : BaseFragment() {
                         chatsFragment.javaClass, "", true, bundle, null, 0, false
                     )
                 }
-//                R.id.iv_similar_inv_arrow -> {
-//                    navigateToCategory()
-//                }
                 R.id.tv_similar_investment_see_all -> {
                     navigateToCategory()
                 }
@@ -118,21 +116,12 @@ class ProjectDetailFragment : BaseFragment() {
                         true
                     )
                 }
-                /*R.id.iv_skus_arrow -> {
-                    navigateToSkuScreen()
-                }*/
                 R.id.tv_skus_see_all -> {
                     navigateToSkuScreen()
                 }
-                /*   R.id.iv_video_drone_arrow -> {
-                       navigateToMediaGallery(true)
-                   }*/
                 R.id.tv_video_drone_see_all -> {
                     navigateToMediaGallery(true)
                 }
-               /* R.id.iv_project_amenities_arrow -> {
-                    navigateToOppDoc()
-                }*/
                 R.id.tv_project_amenities_all -> {
                     navigateToOppDoc()
                 }
@@ -149,9 +138,6 @@ class ProjectDetailFragment : BaseFragment() {
                 R.id.tv_promises_see_all -> {
                     (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
                 }
-               /* R.id.iv_promises_arrow -> {
-                    (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
-                }*/
                 R.id.tv_full_apply_now -> {
                     val fragment = LandSkusFragment()
                     val bundle = Bundle()
@@ -166,10 +152,6 @@ class ProjectDetailFragment : BaseFragment() {
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
-                /*R.id.iv_location_infrastructure_arrow -> {
-                    investmentViewModel.setMapLocationInfrastructure(mapLocationData)
-                    (requireActivity() as HomeActivity).addFragment(MapFragment(), false)
-                }*/
                 R.id.tv_location_infrastructure_all -> {
                     investmentViewModel.setMapLocationInfrastructure(mapLocationData)
                     (requireActivity() as HomeActivity).addFragment(MapFragment(), true)
@@ -357,6 +339,7 @@ class ProjectDetailFragment : BaseFragment() {
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility =
             View.VISIBLE
         (requireActivity() as HomeActivity).hideBottomNavigation()
+        hideKeyboard()
         binding.slSwipeRefresh.setOnRefreshListener {
             binding.slSwipeRefresh.isRefreshing = true
             binding.rvProjectDetail.visibility = View.GONE
@@ -719,32 +702,34 @@ class ProjectDetailFragment : BaseFragment() {
     }
 
     private fun deleteWatchList() {
-        val id = investmentViewModel.getWatchListId().value
-        if (id != null) {
-            investmentViewModel.deleteWatchList(id).observe(viewLifecycleOwner, Observer {
-                when (it.status) {
-                    Status.LOADING -> {
-                        binding.progressBar.show()
-                    }
-                    Status.SUCCESS -> {
-                        binding.progressBar.hide()
-                        it.data?.let { data ->
-                            Toast.makeText(
-                                this.requireContext(),
-                                "Project removed from watchlist successfully",
-                                Toast.LENGTH_SHORT
-                            ).show()
+        investmentViewModel.getWatchListId().observe(viewLifecycleOwner,Observer{
+            if (it != null) {
+                investmentViewModel.deleteWatchList(it).observe(viewLifecycleOwner, Observer {
+                    when (it.status) {
+                        Status.LOADING -> {
+                            binding.progressBar.show()
+                        }
+                        Status.SUCCESS -> {
+                            binding.progressBar.hide()
+                            it.data?.let { data ->
+                                Toast.makeText(
+                                    this.requireContext(),
+                                    "Project removed from watchlist successfully",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                        Status.ERROR -> {
+                            binding.progressBar.hide()
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                it.message!!
+                            )
                         }
                     }
-                    Status.ERROR -> {
-                        binding.progressBar.hide()
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            it.message!!
-                        )
-                    }
-                }
-            })
-        }
+                })
+            }
+        })
+
     }
 
 }
