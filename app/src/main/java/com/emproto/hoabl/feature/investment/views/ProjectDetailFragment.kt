@@ -24,6 +24,7 @@ import com.emproto.hoabl.feature.investment.views.mediagallery.YoutubeActivity
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.model.MapLocationModel
 import com.emproto.hoabl.model.MediaViewItem
+import com.emproto.hoabl.model.ProjectLocation
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.Extensions.hideKeyboard
 import com.emproto.hoabl.utils.Extensions.toHomePagesOrPromise
@@ -92,8 +93,13 @@ class ProjectDetailFragment : BaseFragment() {
                     navigateToCategory()
                 }
                 R.id.btn_view_on_map -> {
+                    val fragment = MapFragment()
+                    val bundle = Bundle()
+                    val projectLocation = ProjectLocation(allData.crmProject.lattitude,allData.crmProject.longitude)
+                    bundle.putSerializable("ProjectLocation",projectLocation as Serializable)
+                    fragment.arguments = bundle
                     investmentViewModel.setMapLocationInfrastructure(mapLocationData)
-                    (requireActivity() as HomeActivity).addFragment(MapFragment(), true)
+                    (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
                 R.id.cl_not_convinced_promises -> {
                     callVideoCallApi()
@@ -154,8 +160,13 @@ class ProjectDetailFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
                 R.id.tv_location_infrastructure_all -> {
+                    val fragment = MapFragment()
+                    val bundle = Bundle()
+                    val projectLocation = ProjectLocation(allData.crmProject.lattitude,allData.crmProject.longitude)
+                    bundle.putSerializable("ProjectLocation",projectLocation as Serializable)
+                    fragment.arguments = bundle
                     investmentViewModel.setMapLocationInfrastructure(mapLocationData)
-                    (requireActivity() as HomeActivity).addFragment(MapFragment(), true)
+                    (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
             }
         }
@@ -535,8 +546,10 @@ class ProjectDetailFragment : BaseFragment() {
                     bundle.putInt("ItemPosition", position)
                     bundle.putSerializable(
                         "Location",
-                        MapLocationModel(12.9274, 77.586387, latitude, longitude) as Serializable
+                        MapLocationModel(allData.crmProject.lattitude.toDouble(), allData.crmProject.longitude.toDouble(), latitude, longitude) as Serializable
                     )
+                    val projectLocation = ProjectLocation(allData.crmProject.lattitude,allData.crmProject.longitude)
+                    bundle.putSerializable("ProjectLocation",projectLocation as Serializable)
                     val fragment = MapFragment()
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(

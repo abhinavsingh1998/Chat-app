@@ -285,7 +285,7 @@
                             android:id="@+id/tv_apply_now"
                             style="@style/text_style_white_14"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="0dp"
                             android:background="@color/black"
                             android:gravity="center"
                             android:paddingHorizontal="@dimen/margin_size_18"
@@ -293,10 +293,10 @@
                             android:text="Apply now"
                             android:fontFamily="@font/jost_medium"
                             android:textAlignment="center"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_view_info    "
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/tv_view_info"
-                            app:layout_constraintTop_toBottomOf="@id/cl_place_info" />
+                            app:layout_constraintTop_toTopOf="@id/tv_view_info" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </FrameLayout>
