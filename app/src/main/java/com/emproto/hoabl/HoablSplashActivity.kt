@@ -31,6 +31,7 @@ class HoablSplashActivity : BaseActivity() {
 //            startActivity(Intent(this, HomeActivity::class.java))
 //            finish()
             if (appPreference.isUserLoggedIn()) {
+
                 startActivity(Intent(this, HomeActivity::class.java))
                 finish()
             } else {

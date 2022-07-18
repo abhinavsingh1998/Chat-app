@@ -69,6 +69,8 @@ class EditProfileFragment : BaseFragment() {
     lateinit var binding: FragmentEditProfileBinding
 
     var email = ""
+    var dob = ""
+
     val emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
     var houseNo = ""
     var address = ""
@@ -224,6 +226,7 @@ class EditProfileFragment : BaseFragment() {
             }
         }
     }
+
     private fun getStates(countryIso: String, refresh: Boolean) {
         profileViewModel.getStates(countryIso, refresh).observe(viewLifecycleOwner) {
             when (it.status) {
@@ -317,6 +320,7 @@ class EditProfileFragment : BaseFragment() {
         }
 
     }
+
     private fun setStateSpinnersData() {
         val stateArrayAdapter =
             ArrayAdapter(requireContext(), R.layout.spinner_text, listStates)
@@ -691,123 +695,94 @@ class EditProfileFragment : BaseFragment() {
                     binding.root
                 )
             }
-            email = binding.emailTv.text.toString()
-            if (!email.isNullOrEmpty() && email.isValidEmail()) {
-                binding.tvEmail.isErrorEnabled = false
-                email = binding.emailTv.text.toString()
+            dob = binding.tvDatePicker.text.toString()
+            if (dob.isNotEmpty()) {
+                dob = binding.tvDatePicker.text.toString()
             } else {
-                binding.tvEmail.error = "Please enter valid email"
-                email = binding.emailTv.text.toString()
-                if (email.length == 150) {
-                    binding.tvEmail.error = "You have reached the max characters limit"
-                    Toast.makeText(
-                        context,
-                        "You have reached the max characters limit",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
+                dob = null.toString()
             }
+            email = binding.emailTv.text.toString()
+            if (email.isValidEmail()) {
+                    binding.tvEmail.isErrorEnabled = false
+            } else if(email.isNotEmpty()) {
+                binding.tvEmail.isErrorEnabled = true
+                binding.tvEmail.error = "Please enter valid email"
+            }
+
             houseNo = binding.houseNo.text.toString()
-            when {
-                houseNo.length == 150 -> {
+            if (houseNo.isNotEmpty()) {
+                if (houseNo.length == 150) {
                     binding.floorHouseNum.error = "You have reached the max characters limit"
-                }
-                houseNo.isEmpty() -> {
-                    binding.floorHouseNum.error = "Field cannot be empty"
-                }
-                else -> {
+                } else {
                     houseNo = binding.houseNo.text.toString()
                 }
             }
-
             address = binding.completeAddress.text.toString()
-            when {
-                address.length == 150 -> {
+            if (address.isNotEmpty()) {
+                if (address.length == 150) {
                     binding.comAdd.error = "You have reached the max characters limit"
-                }
-                address.isEmpty() -> {
-                    binding.comAdd.error = "Field cannot be empty"
-                }
-                else -> {
+                } else {
                     address = binding.completeAddress.text.toString()
                 }
             }
             locality = binding.locality.text.toString()
-            when {
-                locality.length == 150 -> {
+
+            if (locality.isNotEmpty()) {
+                if (locality.length == 150) {
                     binding.tvLocality.error = "You have reached the max characters limit"
-                }
-                locality.isEmpty() -> {
-                    binding.tvLocality.error = "Field cannot be empty"
-                }
-                else -> {
+                } else {
                     locality = binding.locality.text.toString()
                 }
             }
             pinCode = binding.pincodeEditText.text.toString()
-            if (pinCode.isValidPinCode()) {
-                binding.pincode.isErrorEnabled = false
-            } else if (pinCode.isEmpty()) {
-                binding.pincode.error = "Field cannot be empty"
-
+            if (pinCode.isNotEmpty()) {
+                    binding.pincode.isErrorEnabled = false
             } else {
+                binding.pincode.isErrorEnabled = true
                 binding.pincode.error = "Please enter valid pincode"
                 pinCode = binding.pincodeEditText.text.toString()
-                if (pinCode.length > 6) {
-                    binding.pincode.error = "Invalid Pincode"
-                    Toast.makeText(
-                        context,
-                        "You have reached the max characters limit",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
             }
+
             countrySelected = binding.autoCountry.text.toString()
-            if (!countrySelected.isNullOrEmpty()) {
+            if (countrySelected.isNotEmpty()) {
                 binding.spinnerCountry.isErrorEnabled = false
-            } else {
-                binding.spinnerCountry.error = "Select Country"
                 countrySelected = binding.autoCountry.text.toString()
+
             }
             stateSelected = binding.autoState.text.toString()
-            if (!stateSelected.isNullOrEmpty()) {
+            if (stateSelected.isNotEmpty()) {
                 binding.spinnerState.isErrorEnabled = false
-            } else {
-                binding.spinnerState.error = "Select State"
                 stateSelected = binding.autoState.text.toString()
+
             }
             citySelected = binding.autoCity.text.toString()
-            if (!citySelected.isNullOrEmpty()) {
+            if (citySelected.isNotEmpty()) {
                 binding.spinnerCity.isErrorEnabled = false
-            } else {
-                binding.spinnerCity.error = "Select City"
                 citySelected = binding.autoCity.text.toString()
             }
-            if (!email.isNullOrEmpty() && email.isValidEmail() && !houseNo.isNullOrEmpty() && !address.isNullOrEmpty() && !locality.isNullOrEmpty() && pinCode.isValidPinCode() && !countrySelected.isNullOrEmpty() && !stateSelected.isNullOrEmpty() && !citySelected.isNullOrEmpty()) {
-                val validEmail = binding.emailTv.text
-                val validHouse = binding.houseNo.text
-                val validAdd = binding.completeAddress.text
-                val validLocality = binding.locality.text
-                val validPinCode = binding.pincodeEditText.text
-                val validCountry = binding.autoCountry.text
-                val validState = binding.autoState.text
-                val validCity = binding.autoCity.text
+
+            if(email.isNotEmpty() && !email.isValidEmail()){
+                binding.tvEmail.error = "Please enter valid email"
+            }else{
                 sendProfileDetail(
-                    validEmail,
-                    validHouse,
-                    validAdd,
-                    validLocality,
-                    validPinCode,
-                    validCountry,
-                    validState,
-                    validCity
+                    dob,
+                    email,
+                    houseNo,
+                    address,
+                    locality,
+                    pinCode,
+                    countrySelected,
+                    stateSelected,
+                    citySelected
                 )
                 val dialog = EditProfileUpdatedPopUpFragment()
                 dialog.isCancelable = false
                 dialog.show(childFragmentManager, "submitted")
                 changeFontOnSave()
+
             }
         }
+
     }
 
     private fun removeSemiPictureDialog() {
@@ -882,28 +857,29 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun sendProfileDetail(
-        validEmail: Editable,
-        validHouse: Editable,
-        validAdd: Editable,
-        validLocality: Editable,
-        validPinCode: Editable,
-        validCountry: Editable,
-        validState: Editable,
-        validCity: Editable
+        validDOB: String,
+        validEmail: String,
+        validHouse: String,
+        validAdd: String,
+        validLocality: String,
+        validPinCode: String,
+        validCountry: String,
+        validState: String,
+        validCity: String
     ) {
         val editUserNameRequest = EditUserNameRequest(
             data.firstName,
             data.lastName,
-            validEmail.toString(),
-            binding.tvDatePicker.text.toString(),
+            validEmail,
+            validDOB,
             binding.autoGender.text.toString(),
-            validHouse.toString(),
-            validAdd.toString(),
-            validLocality.toString(),
-            validPinCode.toString(),
-            validCity.toString(),
-            validState.toString(),
-            validCountry.toString()
+            validHouse,
+            validAdd,
+            validLocality,
+            validPinCode,
+            validCity,
+            validState,
+            validCountry
         )
         profileViewModel.editUserNameProfile(editUserNameRequest)
             .observe(
