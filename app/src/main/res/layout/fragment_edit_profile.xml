@@ -305,7 +305,6 @@
                         android:layout_height="match_parent"
                         android:fontFamily="@font/jost_regular"
                         android:gravity="center|left"
-                        android:inputType="textEmailAddress"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textAllCaps="false"
