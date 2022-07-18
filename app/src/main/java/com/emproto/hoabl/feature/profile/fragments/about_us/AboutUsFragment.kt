@@ -156,9 +156,37 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                             .into(binding.aboutusView)
 
                         binding.nameTv.text= commonData?.foundersVision?.founderName
+                        binding.tvHeading.text= commonData?.foundersVision?.sectionHeading
                         binding.fullDescriptionTv.text= showHTMLText(commonData?.foundersVision?.description)
 
+                        binding.tvAboutHoabel.text=commonData?.aboutHoabl?.sectionHeading
                         binding.ttvAboutHoabel.text= showHTMLText(commonData?.aboutHoabl?.description)
+                        binding.corporatePhillosophy.text= commonData?.corporatePhilosophy?.sectionHeading
+                        binding.statsHeaderTxt.text= commonData?.statsOverview?.sectionHeading
+
+                        if (commonData?.isAboutHoablActive==false){
+                            binding.ttvAboutHoabel.isVisible=false
+                            binding.tvAboutHoabel.isVisible= false
+                        }
+                        if(commonData?.isFoundersVisionActive==false){
+                            binding.tvHeading.isVisible= false
+                            binding.aboutusView.isVisible= false
+                            binding.nameTv.isVisible= false
+                            binding.fullDescriptionTv.isVisible=false
+                        }
+                        if (commonData?.isCorporatePhilosophyActive==false){
+                            binding.corporatePhillosophy.isVisible= false
+                            binding.aboutUsRv.isVisible= false
+                        }
+                        if(commonData?.isProductCategoryActive==false){
+                            binding.tvProductCategory.isVisible= false
+                            binding.productcategoryRv.isVisible= false
+                        }
+                        if(commonData?.isStatsOverviewActive==false){
+                            binding.statsHeaderTxt.isVisible=false
+                            binding.statsItem.isVisible= false
+                        }
+
 
 
                         //loading Philosphy list

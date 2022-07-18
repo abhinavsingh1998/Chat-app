@@ -33,7 +33,7 @@ class StatsOverViewAboutUsAdapter(
 
         holder.binding.statsRupeeTv.text= currentItem.value
         holder.binding.trnsactedTv.text= currentItem.title
-        holder.binding.descStats.text= currentItem.description
+        holder.binding.descStats.text= showHTMLText(currentItem.description)
     }
 
     override fun getItemCount(): Int {
