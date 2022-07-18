@@ -101,7 +101,8 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        >
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -117,7 +118,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/clIcon"
-                            tools:text="The Uploaded Documents will be shown here.You can view them after uploading." />
+                            android:text="The Uploaded Documents will be shown here.You can view them after uploading." />
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/clIcon"
                             android:layout_width="84dp"
@@ -234,7 +235,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/clPay"
-                            tools:text="No Payment is done yet,See your payment history after making your first payment." />
+                            android:text="No Payment is done yet,See your payment history after making your first payment." />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/clPay"

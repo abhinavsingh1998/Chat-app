@@ -203,8 +203,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                             MessageType.RECEIVER, time
                         )
                     )
-
-
+                    
                     chatsDetailAdapter.notifyDataSetChanged()
                     binding.rvChat.smoothScrollToPosition(newChatMessageList.size-1)
                     break
