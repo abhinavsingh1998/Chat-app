@@ -309,11 +309,18 @@ class HomeAdapter(
 
         fun bind(position: Int) {
 
-            binding.dontMissOutCard.isVisible = data.contactType == "prelead"
 
-            if (data.isFacilityVisible==true) {
-                binding.facilityManagementCardLayout.isVisible = false
+
+            if(data.page.isPromotionAndOfferActive==false){
+                binding.dontMissOutCard.isVisible= false
             }
+
+            if (data.contactType=="prelead" || data.page.isFacilityManagementActive== false ){
+                binding.facilityManagementCard.isVisible== false
+            }
+//            if (data.isFacilityVisible==true) {
+//                binding.facilityManagementCardLayout.isVisible = false
+//            }
 
             Glide.with(context).load(data.page.facilityManagement.value.url)
                 .into(binding.facilityManagementCard)
