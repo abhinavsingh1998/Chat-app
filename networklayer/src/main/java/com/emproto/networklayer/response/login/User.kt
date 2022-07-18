@@ -3,15 +3,7 @@ package com.emproto.networklayer.response.login
 
 import com.google.gson.annotations.SerializedName
 
-data class User(
-    @SerializedName("code")
-    val code: Int,
-    @SerializedName("data")
-    val `data`: Data,
-    @SerializedName("message")
-    val message: String
-) {
-    data class Data(
+data class User (
         @SerializedName("amountInvestedCompletedInvestments")
         val amountInvestedCompletedInvestments: Any?,
         @SerializedName("amountInvestedOngoingInvestments")
@@ -83,4 +75,3 @@ data class User(
         @SerializedName("whatsappConsent")
         val whatsappConsent: Boolean
     )
-}
