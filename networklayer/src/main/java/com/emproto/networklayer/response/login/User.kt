@@ -1,22 +1,86 @@
 package com.emproto.networklayer.response.login
 
+
+import com.google.gson.annotations.SerializedName
+
 data class User(
-    val address: String,
-    val contactType: Int,
-    val countryCode: String,
-    val createdAt: String,
-    val crmId: String,
-    val dateOfBirth: String,
-    val email: String,
-    val firstName: String?,
-    val gender: String,
-    val id: Int,
-    val lastName: String,
-    val otp: String,
-    val otpVerified: Boolean,
-    val phoneNumber: String,
-    val profilePictureUrl: String,
-    val status: String,
-    val updatedAt: String,
-    val whatsappConsent: Boolean
-)
+    @SerializedName("code")
+    val code: Int,
+    @SerializedName("data")
+    val `data`: Data,
+    @SerializedName("message")
+    val message: String
+) {
+    data class Data(
+        @SerializedName("amountInvestedCompletedInvestments")
+        val amountInvestedCompletedInvestments: Any?,
+        @SerializedName("amountInvestedOngoingInvestments")
+        val amountInvestedOngoingInvestments: Any?,
+        @SerializedName("amountPendingOngoingInvestments")
+        val amountPendingOngoingInvestments: Any?,
+        @SerializedName("areaSqftCompletedInvestments")
+        val areaSqftCompletedInvestments: Any?,
+        @SerializedName("areaSqftOngoingInvestments")
+        val areaSqftOngoingInvestments: Any?,
+        @SerializedName("city")
+        val city: String,
+        @SerializedName("contactType")
+        val contactType: Int,
+        @SerializedName("country")
+        val country: String,
+        @SerializedName("countryCode")
+        val countryCode: String,
+        @SerializedName("crmId")
+        val crmId: String,
+        @SerializedName("dateOfBirth")
+        val dateOfBirth: String,
+        @SerializedName("deviceTokens")
+        val deviceTokens: List<String>,
+        @SerializedName("email")
+        val email: String,
+        @SerializedName("firstName")
+        val firstName: String,
+        @SerializedName("gender")
+        val gender: String,
+        @SerializedName("houseNumber")
+        val houseNumber: String,
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("isFacilityVisible")
+        val isFacilityVisible: Boolean,
+        @SerializedName("isInvalidOtpCount")
+        val isInvalidOtpCount: Int,
+        @SerializedName("isKycComplete")
+        val isKycComplete: Boolean,
+        @SerializedName("isProfileComplete")
+        val isProfileComplete: Boolean,
+        @SerializedName("lastBlockedAt")
+        val lastBlockedAt: Any?,
+        @SerializedName("lastName")
+        val lastName: String,
+        @SerializedName("locality")
+        val locality: String,
+        @SerializedName("numberOfProductsCompletedInvestments")
+        val numberOfProductsCompletedInvestments: Any?,
+        @SerializedName("numberOfProductsOngoingInvestments")
+        val numberOfProductsOngoingInvestments: Any?,
+        @SerializedName("phoneNumber")
+        val phoneNumber: String,
+        @SerializedName("pincode")
+        val pincode: String,
+        @SerializedName("profilePictureUrl")
+        val profilePictureUrl: Any?,
+        @SerializedName("sendOtpCount")
+        val sendOtpCount: Int,
+        @SerializedName("showPushNotifications")
+        val showPushNotifications: Boolean,
+        @SerializedName("state")
+        val state: String,
+        @SerializedName("streetAddress")
+        val streetAddress: String,
+        @SerializedName("verificationStatus")
+        val verificationStatus: String,
+        @SerializedName("whatsappConsent")
+        val whatsappConsent: Boolean
+    )
+}

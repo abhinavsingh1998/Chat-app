@@ -231,9 +231,18 @@ class OTPVerificationFragment : BaseFragment() {
                                         Handler().postDelayed({
                                             it.data?.let { verifyOtpResponse ->
                                                 appPreference.setToken(verifyOtpResponse.token)
-                                                if (verifyOtpResponse.user.contactType == ContactType.PRELEAD.value && verifyOtpResponse.user.firstName.isNullOrEmpty()) {
+                                                if (verifyOtpResponse.user.data.contactType == ContactType.PRELEAD.value && verifyOtpResponse.user.data.verificationStatus=="Unverified" && verifyOtpResponse.user.data.firstName.isNullOrEmpty() && verifyOtpResponse.user.data.lastName.isNullOrEmpty()) {
                                                     (requireActivity() as AuthActivity).replaceFragment(NameInputFragment.newInstance("", ""), true)
-                                                } else {
+                                                }
+                                               else if (verifyOtpResponse.user.data.contactType == ContactType.PRELEAD.value &&verifyOtpResponse.user.data.verificationStatus=="Unverified" && !(verifyOtpResponse.user.data.firstName.isNullOrEmpty()) && !(verifyOtpResponse.user.data.lastName.isNullOrEmpty())) {
+                                                    (requireActivity() as AuthActivity).replaceFragment(NameInputFragment.newInstance(verifyOtpResponse.user.data.firstName , verifyOtpResponse.user.data.lastName), true)
+                                                }
+                                                else if (verifyOtpResponse.user.data.contactType == ContactType.PRELEAD.value &&verifyOtpResponse.user.data.verificationStatus=="Unverified" && !(verifyOtpResponse.user.data.firstName.isNullOrEmpty()) && verifyOtpResponse.user.data.lastName.isNullOrEmpty()) {
+                                                    (requireActivity() as AuthActivity).replaceFragment(NameInputFragment.newInstance(verifyOtpResponse.user.data.firstName , ""), true)
+                                                }
+                                                else if (verifyOtpResponse.user.data.contactType == ContactType.PRELEAD.value &&verifyOtpResponse.user.data.verificationStatus=="Unverified" && verifyOtpResponse.user.data.firstName.isNullOrEmpty() && !(verifyOtpResponse.user.data.lastName.isNullOrEmpty())) {
+                                                    (requireActivity() as AuthActivity).replaceFragment(NameInputFragment.newInstance("" , verifyOtpResponse.user.data.lastName), true)
+                                                }else {
                                                     appPreference.saveLogin(true)
                                                     startActivity(
                                                         Intent(
