@@ -682,7 +682,21 @@ class PortfolioSpecificViewAdapter(
                     headingDetails.otherSectionHeadings.faqSections.sectionHeading
 
             val faqList = list[position].data as List<ProjectContentsAndFaq>
-            faqAdapter = ProjectFaqAdapter(context, faqList, ivInterface)
+            val showList = ArrayList<ProjectContentsAndFaq>()
+            when{
+                faqList.size > 2 -> {
+                    for(i in 0..2){
+                        showList.add(faqList[i])
+                    }
+                }
+                else -> {
+                    for(item in faqList){
+                        showList.add(item)
+                    }
+                }
+            }
+
+            faqAdapter = ProjectFaqAdapter(context, showList, ivInterface)
             binding.rvFaq.adapter = faqAdapter
             binding.tvFaqReadAll.visibility = View.VISIBLE
             binding.tvFaqReadAll.setOnClickListener {

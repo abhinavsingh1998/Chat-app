@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.bumptech.glide.Glide
-import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.model.RecyclerViewItem
@@ -522,11 +521,13 @@ class ProjectDetailAdapter(
     private inner class ProjectLocationInfrastructureViewHolder(private val binding: LocationInfrastructureLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             binding.tvLocationInfrastructureTitle.text = data.locationInfrastructure.heading
+            val disList = ArrayList<String>()
             locationInfrastructureAdapter = LocationInfrastructureAdapter(
                 context,
                 data.locationInfrastructure.values,
                 mapItemClickListener,
-                false
+                false,
+                disList
             )
             binding.rvLocationInfrastructure.adapter = locationInfrastructureAdapter
             binding.tvLocationInfrastructureAll.setOnClickListener(onItemClickListener)

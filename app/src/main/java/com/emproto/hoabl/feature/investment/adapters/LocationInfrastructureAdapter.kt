@@ -19,6 +19,7 @@ class LocationInfrastructureAdapter(
     private val list: List<ValueXXX>,
     private val itemClickListener: MapItemClickListener,
     private var isDistanceAvl: Boolean = false,
+    private var distanceList: ArrayList<String>,
     private var selectedItemPos: Int = -1
 ):RecyclerView.Adapter<LocationInfrastructureAdapter.MyViewHolder>() {
 
@@ -33,8 +34,22 @@ class LocationInfrastructureAdapter(
             clickListener: MapItemClickListener
         ){
             val element = list[position]
+            when(distanceList.size){
+                0 -> {
+
+                }
+                else -> {
+                    val distanceItem = distanceList[position]
+                    binding.tvLocationDistance.text = distanceItem
+                }
+            }
+
             binding.apply {
                 tvLocationName.text  = element.name
+                when(element.hours){
+                    "0" -> tvLocationDuration.text = "${element.minutes}mins"
+                    else -> tvLocationDuration.text = "${element.hours}hr ${element.minutes}mins"
+                }
                 Glide
                     .with(context)
                     .load(element.icon.value.url)

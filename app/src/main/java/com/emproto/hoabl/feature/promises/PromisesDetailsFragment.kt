@@ -103,18 +103,18 @@ class PromisesDetailsFragment : BaseFragment() {
             }
             if (it.displayMedia != null)
                 Glide.with(requireContext())
-                    .load(it.displayMedia.value.url)
+                    .load(it.displayMedia?.value?.url)
                     .into(binding.imageSecurity)
             //termsAndConditions
             if (it.termsAndConditions != null) {
                 termsConditionDialogBinding.tvTitle.text =
-                    showHTMLText(it.termsAndConditions.description)
+                    showHTMLText(it.termsAndConditions?.description)
                 termsConditionDialogBinding.tvTitle.setMovementMethod(
                     ScrollingMovementMethod()
                 )
-                binding.textViewTAndC.text = it.termsAndConditions.displayName
+                binding.textViewTAndC.text = it.termsAndConditions?.displayName
                 //apply
-                binding.textviewApply.text = it.howToApply.title
+                binding.textviewApply.text = it.howToApply?.title
             }
         })
 

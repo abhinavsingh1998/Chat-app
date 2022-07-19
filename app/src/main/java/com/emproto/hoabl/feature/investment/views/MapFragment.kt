@@ -9,10 +9,10 @@ import android.graphics.Canvas
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -26,10 +26,12 @@ import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.LocationInfrastructureAdapter
 import com.emproto.hoabl.model.MapLocationModel
+import com.emproto.hoabl.model.ProjectLocation
 import com.emproto.hoabl.utils.MapItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.response.MapData
+import com.emproto.networklayer.response.investment.ValueXXX
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -54,8 +56,10 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     private lateinit var adapter: LocationInfrastructureAdapter
 
     private var selectedPosition = -1
-    val dummyLatitude = 17.7667503
-    val dummyLongitude = 73.1711629
+    var dummyLatitude = 17.7667503
+    var dummyLongitude = 73.1711629
+    private var distanceList = ArrayList<String>()
+    private var destinationList= ArrayList<ValueXXX>()
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -65,6 +69,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         override fun onItemClicked(view: View, position: Int, latitude: Double, longitude: Double) {
             when (view.id) {
                 R.id.cv_location_infrastructure_card -> {
+                    Log.d("latlon","${dummyLatitude},${dummyLongitude},${latitude},${longitude}")
                     initMarkerLocation(dummyLatitude, dummyLongitude, latitude, longitude)
                 }
             }
@@ -83,11 +88,27 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-            data = it.getSerializable("Location") as MapLocationModel
-            selectedPosition = it.getInt("ItemPosition")
+            data = it.getSerializable("Location") as MapLocationModel?
+            selectedPosition = it.getInt("ItemPosition",-1)
+            val projectLocation = it.getSerializable("ProjectLocation") as ProjectLocation
+            dummyLatitude = projectLocation.latitude.toDouble()
+            dummyLongitude = projectLocation.longitude.toDouble()
         }
         setUpUI()
         enableMyLocation()
+    }
+
+    private fun calculateDistance(originLat:Double,originLong:Double,destinationList: List<ValueXXX>) {
+        val originLocation = LatLng(originLat,originLong)
+        for(item in destinationList){
+            val destinationLocation = LatLng(item.latitude,item.longitude)
+            val url = getDirectionURL(
+                originLocation,
+                destinationLocation,
+                resources.getString(R.string.map_api_key)
+            )
+            GetDirectionForDistance(url).execute()
+        }
     }
 
     private fun setDataFromPrevious() {
@@ -194,22 +215,14 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 if (data?.destinationLatitude == it.values[i].latitude && data?.destinationLongitude == it.values[i].longitude) {
                     selectedPosition = i
                 }
+                destinationList.add(it.values[i])
             }
-            adapter = LocationInfrastructureAdapter(
-                this.requireContext(),
-                it.values,
-                mapItemClickListener,
-                true,
-                selectedPosition
-            )
-            binding.mapLocationBottomSheet.rvMapLocationItemRecycler.adapter = adapter
-            (binding.mapLocationBottomSheet.rvMapLocationItemRecycler.itemAnimator as SimpleItemAnimator).supportsChangeAnimations =
-                false
+            calculateDistance(dummyLatitude,dummyLongitude,it.values)
+
         })
 
         Handler().postDelayed({
             binding.cvBackButton.visibility = View.VISIBLE
-            binding.mapLocationBottomSheet.clMapBottomSheet.visibility = View.VISIBLE
 //            val anim = AnimationUtils.loadAnimation(this.requireContext(),R.anim.balloon_fade_in)
 //            anim.duration = 3000
 //            binding.mapLocationBottomSheet.clMapBottomSheet.startAnimation(anim)
@@ -389,6 +402,50 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         mMap.clear()
         mMap.addMarker(MarkerOptions().position(originLocation))
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private inner class GetDirectionForDistance(val url: String) :
+        AsyncTask<Void, Void, String>() {
+        override fun doInBackground(vararg params: Void?): String {
+            val client = OkHttpClient()
+            val request = Request.Builder().url(url).build()
+            val response = client.newCall(request).execute()
+            val data = response.body!!.string()
+
+            val result = ArrayList<List<LatLng>>()
+            var dis = ""
+            try {
+                val respObj = Gson().fromJson(data, MapData::class.java)
+                val path = ArrayList<LatLng>()
+                for (i in 0 until respObj.routes[0].legs[0].steps.size) {
+                    path.addAll(decodePolyline(respObj.routes[0].legs[0].steps[i].polyline.points))
+                }
+                dis = respObj.routes[0].legs[0].distance.text
+                result.add(path)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            return dis
+        }
+
+        override fun onPostExecute(result: String) {
+            distanceList.add(result)
+            if(distanceList.size == destinationList.size){
+                adapter = LocationInfrastructureAdapter(
+                    requireContext(),
+                    destinationList,
+                    mapItemClickListener,
+                    true,
+                    distanceList,
+                    selectedPosition
+                )
+                binding.mapLocationBottomSheet.rvMapLocationItemRecycler.adapter = adapter
+                (binding.mapLocationBottomSheet.rvMapLocationItemRecycler.itemAnimator as SimpleItemAnimator).supportsChangeAnimations =
+                    false
+                binding.mapLocationBottomSheet.clMapBottomSheet.visibility = View.VISIBLE
+            }
+        }
     }
 
 }

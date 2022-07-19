@@ -23,7 +23,6 @@ import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.login.AddNameResponse
 import javax.inject.Inject
-import kotlin.properties.Delegates
 
 
 class NameInputFragment : BaseFragment() {
@@ -70,16 +69,16 @@ class NameInputFragment : BaseFragment() {
         authViewModel = ViewModelProvider(requireActivity(), authFactory)[AuthViewmodel::class.java]
         binding = FragmentNameInputBinding.inflate(layoutInflater)
 
-        initClickListner()
+        initClickListener()
 
         return binding.root
     }
 
-    private fun initClickListner() {
-        if (firstName.isNotEmpty()) {
+    private fun initClickListener() {
+        if (firstName!=null) {
             binding.firstName.setText(firstName)
         }
-        if (lastName.isNotEmpty()) {
+        if (lastName!=null) {
             binding.secondName.setText(lastName)
         }
 

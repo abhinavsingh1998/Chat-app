@@ -11,7 +11,7 @@ data class HomePagesOrPromise(
     val createdBy: String?,
     val crmPromiseId: String?,
     val description: List<String>,
-    val displayMedia: DisplayMedia,
+    val displayMedia: DisplayMedia?,
     val howToApply: HowToApply,
     val id: Int,
     val isHowToApplyActive: Boolean,
@@ -25,5 +25,5 @@ data class HomePagesOrPromise(
     val status: String,
     val termsAndConditions: TermsAndConditions,
     val updatedAt: String,
-    val updatedBy: String
+    val updatedBy: String?
 ):Serializable

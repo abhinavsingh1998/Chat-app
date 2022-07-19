@@ -41,6 +41,7 @@ data class PdData(
     val reraDetails: ReraDetails,
     val shortDescription: String,
     val similarInvestments: List<SimilarInvestment>,
+    val crmProject: CrmProject,
     val status: String,
     val updatedAt: String,
     var watchlist:List<Data>,

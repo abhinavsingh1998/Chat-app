@@ -2,7 +2,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cv_location_infrastructure_card"
-    android:layout_width="165dp"
+    android:layout_width="190dp"
     android:layout_height="wrap_content"
     android:layout_marginVertical="@dimen/margin_size_7"
     android:layout_marginStart="@dimen/margin_size_6"
@@ -46,18 +46,17 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_location_duration"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_size_8"
             android:layout_marginTop="@dimen/margin_size_6"
             android:layout_marginEnd="@dimen/margin_size_8"
             android:layout_marginBottom="@dimen/margin_size_16"
             android:fontFamily="@font/jost_regular"
-            android:text="5 Min"
+            android:text="10 hr 50 Min"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_14"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/tv_location_distance"
             app:layout_constraintStart_toStartOf="@id/tv_location_name"
             app:layout_constraintTop_toBottomOf="@id/tv_location_name" />
 
