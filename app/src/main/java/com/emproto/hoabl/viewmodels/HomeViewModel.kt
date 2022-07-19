@@ -21,6 +21,7 @@ import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.Data
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
+import com.emproto.networklayer.response.notification.NotificationResponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.profile.AccountsResponse
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
@@ -197,6 +198,10 @@ class HomeViewModel(
 
     fun downloadDocument(path: String): LiveData<BaseResponse<DDocumentResponse>> {
         return homeRepository.downloadDocument(path)
+    }
+
+    fun getNotification():LiveData<BaseResponse<NotificationResponse>>{
+        return homeRepository.getNotificationList()
     }
 
 //    fun getActionItem():LiveData<BaseResponse<HomeActionItemResponse>>{
