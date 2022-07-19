@@ -735,13 +735,12 @@ class EditProfileFragment : BaseFragment() {
                 }
             }
             pinCode = binding.pincodeEditText.text.toString()
-            if (pinCode.isNotEmpty()) {
-                    binding.pincode.isErrorEnabled = false
-            } else {
-                binding.pincode.isErrorEnabled = true
-                binding.pincode.error = "Please enter valid pincode"
+            if (locality.isNotEmpty()) {
+                binding.pincode.isErrorEnabled = false
+            }else{
                 pinCode = binding.pincodeEditText.text.toString()
             }
+
 
             countrySelected = binding.autoCountry.text.toString()
             if (countrySelected.isNotEmpty()) {
@@ -763,6 +762,9 @@ class EditProfileFragment : BaseFragment() {
 
             if(email.isNotEmpty() && !email.isValidEmail()){
                 binding.tvEmail.error = "Please enter valid email"
+            }
+            else if(pinCode.isEmpty()){
+                binding.pincode.error = "Please enter pincode"
             }else{
                 sendProfileDetail(
                     dob,
