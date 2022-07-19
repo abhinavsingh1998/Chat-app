@@ -16,6 +16,7 @@ import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
+import com.emproto.networklayer.response.notification.NotificationResponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.profile.AccountsResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
@@ -109,5 +110,9 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
 
     suspend fun getActionItem():Response<HomeActionItem>{
         return apiService.getActionItem()
+    }
+
+    suspend fun getNotificationList():Response<NotificationResponse>{
+        return apiService.getNotificationList()
     }
 }
