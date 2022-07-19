@@ -87,14 +87,6 @@ class ChatsFragment : BaseFragment(), ChatsAdapter.OnItemClickListener {
         bundle.putSerializable("chatModel", chat[position])
         val chatsDetailFragment = ChatsDetailFragment()
         chatsDetailFragment.arguments = bundle
-        (requireActivity() as HomeActivity).replaceFragment(
-            chatsDetailFragment.javaClass,
-            "",
-            true,
-            bundle,
-            null,
-            0,
-            false
-        )
+        (requireActivity() as HomeActivity).addFragment(chatsDetailFragment,true)
     }
 }

@@ -30,12 +30,12 @@ class ChatsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         binding.tvChatTitle.text = chatList[position].project.launchName
-        if(chatList[position].lastMessage.toString()=="null"){
+        if(chatList[position].lastMessage!=null){
+            binding.tvChatDesc.text = chatList[position].lastMessage.message.toString()
+        }else{
             binding.tvChatDesc.text=""
         }
-        else {
-            binding.tvChatDesc.text = chatList[position].lastMessage.toString()
-        }
+
 //        binding.tvTime.text = chatRequest[position].data[position].project[position].
 
         Glide.with(mContext)

@@ -1,5 +1,6 @@
 package com.emproto.networklayer
 
+import com.emproto.networklayer.request.chat.SendMessageBody
 import com.emproto.networklayer.request.investment.AddInventoryBody
 import com.emproto.networklayer.request.investment.VideoCallBody
 import com.emproto.networklayer.request.investment.WatchListBody
@@ -17,9 +18,7 @@ import com.emproto.networklayer.response.HomeActionItemResponse
 import com.emproto.networklayer.response.actionItem.HomeActionItem
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyX
-import com.emproto.networklayer.response.chats.ChatDetailResponse
-import com.emproto.networklayer.response.chats.ChatInitiateRequest
-import com.emproto.networklayer.response.chats.ChatResponse
+import com.emproto.networklayer.response.chats.*
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
@@ -204,6 +203,12 @@ public interface ApiService {
 
     @PUT(ApiConstants.CHATS_INITIATE)
     suspend fun chatInitiate(@Body chatInitiateRequest: ChatInitiateRequest): Response<ChatDetailResponse>
+
+    @GET(ApiConstants.CHATS_HISTORY)
+    suspend fun getChatHistory(@Query("projectId") projectId: String, @Query("isInvested") isInvested:Boolean):Response<ChatHistoryResponse>
+
+    @POST(ApiConstants.SEND_MESSAGE)
+    suspend fun sendMessage(@Body sendMessageBody: SendMessageBody):Response<SendMessageResponse>
 
     @GET(ApiConstants.PROFILE_FAQ)
     suspend fun getFaqList(@Query("typeOfFAQ") typeOfFAQ: String): Response<GeneralFaqResponse>

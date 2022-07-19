@@ -25,14 +25,10 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.ChatsDetailAdapter
 import com.emproto.hoabl.feature.investment.adapters.OnOptionClickListener
 import com.emproto.hoabl.feature.profile.fragments.about_us.AboutUsFragment
-import com.emproto.hoabl.feature.promises.HoablPromises
-import com.emproto.hoabl.fragments.PromisesFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
-import com.emproto.networklayer.response.chats.ChatDetailResponse
-import com.emproto.networklayer.response.chats.ChatInitiateRequest
-import com.emproto.networklayer.response.chats.ChatResponse
-import com.emproto.networklayer.response.chats.Option
+import com.emproto.networklayer.request.chat.SendMessageBody
+import com.emproto.networklayer.response.chats.*
 import com.emproto.networklayer.response.enums.Status
 import java.text.SimpleDateFormat
 import java.util.*
@@ -57,9 +53,6 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        Log.i("onCreate", "onCreate")
-
         // Inflate the layout for this fragment
         binding = FragmentChatsDetailBinding.inflate(layoutInflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
@@ -70,13 +63,11 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
             View.GONE
 
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.i("onViewCreated", "onViewCreated")
         if (newChatMessageList.isNotEmpty()) {
             binding.clButtonStart.visibility = View.GONE
         }
@@ -84,20 +75,12 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
 
-        binding.clButtonStart.setOnClickListener {
-            binding.clButtonStart.visibility = View.GONE
-            binding.tvDay.visibility = View.VISIBLE
-            getData()
-            getDay()
-
-
-        }
         binding.rvChat.layoutManager =
             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
         chatsDetailAdapter = ChatsDetailAdapter(context, newChatMessageList, this)
         binding.rvChat.adapter = chatsDetailAdapter
 
-        chatsList = arguments?.getSerializable("chatModel") as? ChatResponse.ChatList
+        chatsList = arguments?.getSerializable("chatModel") as ChatResponse.ChatList
         binding.tvChatTitle.text = chatsList?.project?.launchName
         context?.let {
             Glide.with(it)
@@ -120,18 +103,50 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
             }
 
         })
+
+        callChatHistoryApi()
+
+        binding.clButtonStart.setOnClickListener {
+            binding.clButtonStart.visibility = View.GONE
+            binding.tvDay.visibility = View.VISIBLE
+            callChatInitiateApi()
+            getDay()
+        }
     }
 
-    private fun getDay() {
-        val sdf = SimpleDateFormat("EEEE")
-        val d = Date()
-        val dayOfTheWeek = sdf.format(d)
-        binding.tvDay.text = dayOfTheWeek
+    private fun callChatHistoryApi() {
+        homeViewModel.getChatHistory(chatsList?.project?.crmLaunchPhase?.crmId.toString(),
+            chatsList?.isInvested!!
+        ).observe(viewLifecycleOwner,Observer{
+            when(it.status){
+                Status.LOADING -> {
+                    binding.loader.show()
+                    binding.rvChat.visibility = View.INVISIBLE
+                }
+                Status.SUCCESS -> {
+                    binding.loader.hide()
+                    binding.rvChat.visibility = View.VISIBLE
+                    it.data?.let {
+                        Log.d("history",it.data.toString())
+                        if(it.data.messages.isNotEmpty()){
+                            binding.clButtonStart.visibility = View.GONE
+                            binding.tvDay.visibility = View.VISIBLE
+                            callChatInitiateForHistory(it.data)
+
+                        }
+
+                    }
+                }
+                Status.ERROR -> {
+                    binding.loader.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                }
+            }
+        })
     }
 
-
-    private fun getData() {
-        homeViewModel.chatInitiate(ChatInitiateRequest(true)).observe(viewLifecycleOwner, Observer {
+    private fun callChatInitiateApi() {
+        homeViewModel.chatInitiate(ChatInitiateRequest(chatsList?.isInvested,chatsList?.project?.crmLaunchPhase?.crmId.toString())).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     binding.loader.show()
@@ -154,6 +169,68 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                 }
             }
         })
+
+    }
+
+    private fun callChatInitiateForHistory(data: Data) {
+        homeViewModel.chatInitiate(ChatInitiateRequest(chatsList?.isInvested,chatsList?.project?.crmLaunchPhase?.crmId.toString())).observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.LOADING -> {
+                    binding.loader.show()
+                    binding.rvChat.visibility = View.INVISIBLE
+                }
+                Status.SUCCESS -> {
+                    binding.loader.hide()
+                    binding.rvChat.visibility = View.VISIBLE
+                    if (it.data?.chatDetailList != null) {
+                        chatDetailList = it.data!!.chatDetailList
+                        for(item in data.messages){
+                            when(item.origin){
+                                "cms" -> {
+                                    if(item.message == "Please choose whats up"){
+                                        chatDetailList?.let { chatDetail ->
+                                            newChatMessageList.add(
+                                                ChatDetailModel(
+                                                    chatDetail.autoChat.chatJSON.chatBody[0].message,
+                                                    chatDetail.autoChat.chatJSON.chatBody[0].options,
+                                                    MessageType.RECEIVER, time
+                                                )
+                                            )
+                                            chatsDetailAdapter.notifyDataSetChanged()
+                                        }
+                                    }
+                                }
+                                "user" -> {
+                                    newChatMessageList.add(
+                                        ChatDetailModel(
+                                            item.message,
+                                            null,
+                                            MessageType.SENDER, time
+                                        )
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+                Status.ERROR -> {
+                    binding.loader.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                }
+            }
+        })
+
+    }
+
+    private fun getDay() {
+        val sdf = SimpleDateFormat("EEEE")
+        val d = Date()
+        val dayOfTheWeek = sdf.format(d)
+        binding.tvDay.text = dayOfTheWeek
+    }
+
+
+    private fun getData() {
 
     }
 
@@ -191,6 +268,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
             )
         )
 
+        sendMessage(option.text,"customer")
+
         if (option.actionType == ActionType.MORE_OPTIONS.name) {
             for (i in chatDetailList!!.autoChat.chatJSON.chatBody.indices) {
 
@@ -204,6 +283,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                         )
                     )
 
+//                    sendMessage(chatDetailList!!.autoChat.chatJSON.chatBody[i].message,"cms")
 
                     chatsDetailAdapter.notifyDataSetChanged()
                     binding.rvChat.smoothScrollToPosition(newChatMessageList.size-1)
@@ -237,12 +317,14 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                             MessageType.SENDER, time
                         )
                     )
+//                    sendMessage(binding.etType.text.toString(),"customer")
                     newChatMessageList.add(
                         ChatDetailModel(
                             chatDetailList!!.autoChat.chatJSON.finalMessage,
                             null, MessageType.RECEIVER, time
                         )
                     )
+//                    sendMessage(chatDetailList!!.autoChat.chatJSON.finalMessage,"cms")
                     chatsDetailAdapter.notifyDataSetChanged()
                     binding.rvChat.smoothScrollToPosition(newChatMessageList.size-1)
                     binding.etType.text.clear();
@@ -263,10 +345,39 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                     null, MessageType.RECEIVER, time
                 )
             )
+//            sendMessage(chatDetailList!!.autoChat.chatJSON.finalMessage,"cms")
             chatsDetailAdapter.notifyDataSetChanged()
             binding.rvChat.smoothScrollToPosition(newChatMessageList.size-1)
 
         }
+    }
+
+    private fun sendMessage(text: String?,origin:String) {
+        homeViewModel.sendMessage(SendMessageBody(
+            conversationId = chatDetailList?.conversation?.id.toString(),
+            message =  text.toString(),
+            projectId = chatDetailList?.conversation?.projectId.toString(),
+            smartKey= chatDetailList?.conversation?.smartKey.toString(),
+            origin = origin
+        )).observe(viewLifecycleOwner,Observer{
+            when(it.status){
+                Status.LOADING -> {
+                    binding.loader.show()
+                    binding.rvChat.visibility = View.INVISIBLE
+                }
+                Status.SUCCESS -> {
+                    binding.loader.hide()
+                    binding.rvChat.visibility = View.VISIBLE
+                    it.data?.let {
+                        Log.d("SendMessage",it.data.toString())
+                    }
+                }
+                Status.ERROR -> {
+                    binding.loader.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                }
+            }
+        })
     }
 
     private fun getTime() {

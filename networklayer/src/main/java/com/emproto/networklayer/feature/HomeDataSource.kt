@@ -1,16 +1,15 @@
 package com.emproto.networklayer.feature
 
 import android.app.Application
-import com.emproto.networklayer.response.chats.ChatResponse
 import com.emproto.networklayer.di.DataAppModule
 import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.di.DaggerDataComponent
 import com.emproto.networklayer.ApiService
+import com.emproto.networklayer.request.chat.SendMessageBody
 import com.emproto.networklayer.response.HomeActionItemResponse
 import com.emproto.networklayer.response.actionItem.HomeActionItem
-import com.emproto.networklayer.response.chats.ChatDetailResponse
-import com.emproto.networklayer.response.chats.ChatInitiateRequest
+import com.emproto.networklayer.response.chats.*
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.insights.InsightsResponse
@@ -23,6 +22,7 @@ import com.emproto.networklayer.response.search.SearchResponse
 import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.Query
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -86,6 +86,16 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
     //chats initiate api
     suspend fun chatInitiate(@Body chatInitiateRequest: ChatInitiateRequest): Response<ChatDetailResponse> {
         return apiService.chatInitiate(chatInitiateRequest)
+    }
+
+    //chats history api
+    suspend fun getChatHistory(projectId: String, isInvested:Boolean): Response<ChatHistoryResponse> {
+        return apiService.getChatHistory(projectId, isInvested)
+    }
+
+    //send message api
+    suspend fun sendMessage(sendMessageBody: SendMessageBody): Response<SendMessageResponse> {
+        return apiService.sendMessage(sendMessageBody)
     }
 
     //search api

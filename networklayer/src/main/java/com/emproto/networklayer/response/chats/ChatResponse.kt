@@ -16,7 +16,7 @@ data class ChatResponse(
         @SerializedName("isInvested")
         val isInvested: Boolean,
         @SerializedName("lastMessage")
-        val lastMessage: Any?,
+        val lastMessage: LastMessage,
         @SerializedName("project")
         val project: Project,
         @SerializedName("unreadCount")
@@ -32,8 +32,17 @@ data class ChatResponse(
             @SerializedName("projectCoverImages")
             val projectCoverImages: ProjectCoverImages,
             @SerializedName("projectId")
-            val projectId: Int
+            val projectId: Int,
+            @SerializedName("crmLaunchPhase")
+            val crmLaunchPhase:CrmLaunchPhase,
+            @SerializedName("isInvested")
+            val isInvested:Boolean
         ):Serializable {
+            data class CrmLaunchPhase(
+                @SerializedName("crmId")
+                val crmId:String
+            ):Serializable
+
             data class Project(
                 @SerializedName("crmProjectId")
                 val crmProjectId: String
