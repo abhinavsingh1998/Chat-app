@@ -314,15 +314,11 @@ class FeedbackFragment : BaseFragment() {
             binding.goodTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.goodTxt.typeface= lightface
 
-            binding.ivRating5.background= resources.getDrawable(R.drawable.group_16)
+            binding.ivRating5.background= resources.getDrawable(R.drawable.ic_group_36)
             binding.excelentTxt.setTextColor(resources.getColor(R.color.black))
             binding.excelentTxt.typeface= boldface
-
         })
     }
-
-
-
     private fun initObserver(){
         feedBackRequest?.let {
             profileViewModel.submitFeedback(it).observe(viewLifecycleOwner, object : Observer<BaseResponse<FeedBackResponse>>{
