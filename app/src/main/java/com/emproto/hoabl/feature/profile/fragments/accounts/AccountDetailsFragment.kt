@@ -249,8 +249,6 @@ class AccountDetailsFragment : Fragment(),
                                 this
                             )
                         }
-
-
                     }
                 }
                 Status.ERROR -> {
@@ -259,9 +257,7 @@ class AccountDetailsFragment : Fragment(),
                 }
             }
         })
-
     }
-
     private fun getKycList(kycLists: ArrayList<AccountsResponse.Data.Document>): Collection<KycUpload> {
         val kycUploadList = ArrayList<KycUpload>()
         for (item in kycLists) {
@@ -358,7 +354,6 @@ class AccountDetailsFragment : Fragment(),
         }
 
     }
-
     private fun initClickListener() {
         binding.backAction.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
 
@@ -380,7 +375,6 @@ class AccountDetailsFragment : Fragment(),
                 AllDocumentAdapter(context, documentList, this)
         }
     }
-
     override fun onAccountsPaymentItemClick(
         accountsPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>,
         view: View,
@@ -419,7 +413,6 @@ class AccountDetailsFragment : Fragment(),
             false
         )
     }
-
     private fun openDocumentScreen(name: String, path: String) {
         val strings = name.split(".")
         if (strings.size > 1) {
@@ -432,8 +425,6 @@ class AccountDetailsFragment : Fragment(),
                 Toast.makeText(context, "Invalid format", Toast.LENGTH_SHORT).show()
             }
         }
-
-
     }
 
     fun getDocumentData(path: String) {
@@ -480,7 +471,6 @@ class AccountDetailsFragment : Fragment(),
         }
 
     }
-
     private fun openPdf(stringBase64: String) {
         val file = Utility.writeResponseBodyToDisk(stringBase64)
         if (file != null) {
@@ -507,7 +497,6 @@ class AccountDetailsFragment : Fragment(),
         selectImage()
         selectedDocumentType = documentType
     }
-
     private fun selectImage() {
         val options =
             arrayOf<CharSequence>("Take Photo", "Choose from Gallery", "Cancel")
