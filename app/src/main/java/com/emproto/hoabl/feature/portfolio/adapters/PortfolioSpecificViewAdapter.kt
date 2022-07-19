@@ -263,7 +263,9 @@ class PortfolioSpecificViewAdapter(
                             )
                     //view more
                     binding.tvLandId.text = "Hoabl/" + data.investmentInformation.crmInventory.name
-                    binding.tvSkuType.text = data.investmentInformation.crmInventoryBucket.name
+                    if(data.investmentInformation.crmInventoryBucket != null){
+                        binding.tvSkuType.text = data.investmentInformation.crmInventoryBucket.name
+                    }
 
                     if (data.investmentInformation != null) {
 
