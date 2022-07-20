@@ -43,6 +43,7 @@ import com.emproto.hoabl.databinding.FragmentAccountDetailsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.portfolio.views.DocViewerFragment
+import com.emproto.hoabl.feature.profile.adapter.NoData
 import com.emproto.hoabl.feature.profile.adapter.accounts.*
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
@@ -84,6 +85,8 @@ class AccountDetailsFragment : Fragment(),
     lateinit var allKycDocList: ArrayList<AccountsResponse.Data.Document>
     lateinit var kycLists: ArrayList<AccountsResponse.Data.Document>
     lateinit var documentList: ArrayList<AccountsResponse.Data.Document>
+
+
 
 
     lateinit var documentBinding: DocumentsBottomSheetBinding
@@ -203,28 +206,25 @@ class AccountDetailsFragment : Fragment(),
                         }
 
                         if (documentList.isNullOrEmpty()) {
-                            binding.rvDocuments.visibility = View.INVISIBLE
+                            binding.rvDocuments.visibility = View.VISIBLE
                             binding.tvSeeAllDocuments.visibility = View.GONE
-                            binding.cvNoDoc.visibility = View.VISIBLE
-
-                            val layout: RecyclerView =
-                                requireActivity().findViewById(R.id.rvDocuments)
-                            val params: ViewGroup.LayoutParams = layout.layoutParams
-                            params.height = 250
-                            params.width = 250
-                            layout.layoutParams = params
-
+                            documentList.add(AccountsResponse.Data.Document("1","2","3","4",5,6,7,"8","9","10","11","12","13"))
+                            binding.rvDocuments.layoutManager =
+                                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+                            binding.rvDocuments.adapter = AccountsDocumentLabelListAdapter(
+                                context, documentList,
+                                this,"empty"
+                            )
 
                         } else {
                             binding.rvDocuments.visibility = View.VISIBLE
                             binding.tvSeeAllDocuments.visibility = View.VISIBLE
-                            binding.cvNoDoc.visibility = View.GONE
                             binding.rvDocuments.layoutManager =
                                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
                             binding.rvDocuments.adapter = AccountsDocumentLabelListAdapter(
                                 context,
                                 documentList,
-                                this
+                                this,"not"
                             )
                         }
                     }

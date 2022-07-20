@@ -252,6 +252,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                 }else{
                     val myAccount = AccountDetailsFragment()
                     (requireActivity() as HomeActivity).addFragment(myAccount, false)
+
                 }
             }
             1 -> {
@@ -331,7 +332,9 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                         setUpKeyGuardManager()
                     } else {
                         val myAccount = AccountDetailsFragment()
-                        (requireActivity() as HomeActivity).addFragment(myAccount, false)                    }
+                        (requireActivity() as HomeActivity).addFragment(myAccount, false)
+                        (requireActivity() as HomeActivity).fingerprintValidation(true)
+                    }
                 }
 
                 override fun onAuthenticationSucceeded(
