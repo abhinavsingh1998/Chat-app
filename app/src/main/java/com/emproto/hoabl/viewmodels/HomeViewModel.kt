@@ -12,7 +12,6 @@ import com.emproto.networklayer.response.chats.ChatResponse
 import com.emproto.hoabl.repository.HomeRepository
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
-import com.emproto.networklayer.response.HomeActionItemResponse
 import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
@@ -21,7 +20,8 @@ import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.Data
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
-import com.emproto.networklayer.response.notification.NotificationResponse
+import com.emproto.networklayer.response.notification.dataResponse.NotificationResponse
+import com.emproto.networklayer.response.notification.readStatus.ReadNotificationReponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.profile.AccountsResponse
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
@@ -200,9 +200,14 @@ class HomeViewModel(
         return homeRepository.downloadDocument(path)
     }
 
-    fun getNotification():LiveData<BaseResponse<NotificationResponse>>{
-        return homeRepository.getNotificationList()
+    fun getNotification(size:Int, index:Int):LiveData<BaseResponse<NotificationResponse>>{
+        return homeRepository.getNotificationList( size, index)
     }
+
+    fun setReadStatus(ids:List<String>):LiveData<BaseResponse<ReadNotificationReponse>>{
+        return homeRepository.setReadStatus(ids)
+    }
+
 
 //    fun getActionItem():LiveData<BaseResponse<HomeActionItemResponse>>{
 //        return homeRepository.getActionItem()

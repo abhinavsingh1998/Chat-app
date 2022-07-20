@@ -36,8 +36,7 @@ class InvestmentCardAdapter(
         if(item!=null){
             holder.binding!!.tvItemLocationName.text = item.launchName
             holder.binding.tvItemLocation.text = item.address.city + "," + item.address.state
-            holder.binding.tvRating.text =
-                item.generalInfoEscalationGraph.estimatedAppreciation.toString() + "%"
+            holder.binding.tvRating.text = Utility.convertTo(item.generalInfoEscalationGraph.estimatedAppreciation) + "%"
             holder.binding.tvNoViews.text= item.fomoContent.noOfViews.toString()
 //        holder.binding.tvNoViews.text = Utility.coolFormat(item.fomoContent.noOfViews.toDouble(), 0)
 

@@ -7,7 +7,6 @@ import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.di.DaggerDataComponent
 import com.emproto.networklayer.ApiService
-import com.emproto.networklayer.response.HomeActionItemResponse
 import com.emproto.networklayer.response.actionItem.HomeActionItem
 import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.chats.ChatInitiateRequest
@@ -16,7 +15,8 @@ import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
-import com.emproto.networklayer.response.notification.NotificationResponse
+import com.emproto.networklayer.response.notification.dataResponse.NotificationResponse
+import com.emproto.networklayer.response.notification.readStatus.ReadNotificationReponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.profile.AccountsResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
@@ -112,7 +112,11 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
         return apiService.getActionItem()
     }
 
-    suspend fun getNotificationList():Response<NotificationResponse>{
-        return apiService.getNotificationList()
+    suspend fun getNotificationList(size:Int, index:Int):Response<NotificationResponse>{
+        return apiService.getNotificationList(size, index)
+    }
+
+    suspend fun setReadStatus(ids:List<String>):Response<ReadNotificationReponse>{
+        return apiService.setReadStatus(ids)
     }
 }

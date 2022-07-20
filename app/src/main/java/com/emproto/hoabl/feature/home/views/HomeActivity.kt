@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.provider.ContactsContract
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewTreeObserver
@@ -14,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.get
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
@@ -26,12 +25,14 @@ import com.emproto.hoabl.databinding.ActivityHomeBinding
 import com.emproto.hoabl.databinding.FragmentNotificationBottomSheetBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
+import com.emproto.hoabl.feature.home.adapters.LatestUpdateAdapter
 import com.emproto.hoabl.feature.notification.HoabelNotifiaction
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
+import com.emproto.hoabl.feature.home.views.fragments.InsightsFragment
+import com.emproto.hoabl.feature.home.views.fragments.LatestUpdatesFragment
 import com.emproto.hoabl.feature.home.views.fragments.SearchResultFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
 import com.emproto.hoabl.feature.notification.adapter.NotificationAdapter
-import com.emproto.hoabl.feature.notification.data.NotificationDataModel
 import com.emproto.hoabl.feature.portfolio.views.*
 import com.emproto.hoabl.feature.profile.fragments.about_us.AboutUsFragment
 import com.emproto.hoabl.feature.promises.HoablPromises
@@ -42,8 +43,8 @@ import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
-import com.emproto.networklayer.response.home.HomeResponse
-import com.emproto.networklayer.response.notification.NotificationResponse
+import com.emproto.networklayer.response.notification.dataResponse.NotificationResponse
+import com.emproto.networklayer.response.notification.readStatus.ReadNotificationReponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -76,6 +77,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private var oneTimeValidation = false
 
     var topText = ""
+
     @Inject
     lateinit var appPreference: AppPreference
 
@@ -109,7 +111,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     private fun trackEvent() {
-        val mixpanelAPI = MixpanelAPI.getInstance(this,getString(R.string.MIXPANEL_KEY))
+        val mixpanelAPI = MixpanelAPI.getInstance(this, getString(R.string.MIXPANEL_KEY))
         mixpanelAPI.identify(appPreference.getMobilenum())
     }
 
@@ -156,8 +158,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
             callNotificationApi()
             launch_bottom_sheet()
-            Toast.makeText(this, "Notification is Under Development", Toast.LENGTH_LONG).show()
-
         })
 
         activityHomeActivity.searchLayout.layout.setOnClickListener(View.OnClickListener {
@@ -284,10 +284,12 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                     fragmentTransaction.replace(contentFrame, fragment, finalTag)
                     if (addToBackStack) fragmentTransaction.addToBackStack(finalTag)
                     supportFragmentManager.executePendingTransactions()
-                    fragmentTransaction.setCustomAnimations( R.anim.enter,
-                    R.anim.exit,
-                    R.anim.enter_right,
-                    R.anim.exit_left).commit()
+                    fragmentTransaction.setCustomAnimations(
+                        R.anim.enter,
+                        R.anim.exit,
+                        R.anim.enter_right,
+                        R.anim.exit_left
+                    ).commit()
 
 
                 }
@@ -424,32 +426,186 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         })
     }
 
-    fun callNotificationApi(){
-        homeViewModel.getNotification().observe(this, object : Observer<BaseResponse<NotificationResponse>>{
-            override fun onChanged(it: BaseResponse<NotificationResponse>?) {
-                when(it!!.status){
-                    Status.ERROR ->{
+    fun callNotificationApi() {
+        homeViewModel.getNotification(5, 1)
+            .observe(this, object : Observer<BaseResponse<NotificationResponse>> {
+                override fun onChanged(it: BaseResponse<NotificationResponse>?) {
+                    when (it!!.status) {
 
-                    }
-                    Status.SUCCESS ->{
+                        Status.LOADING->{
+                            fragmentNotificationBottomSheetBinding.loader.isVisible= true
 
-                        it?.data.let {
-                            it?.data
-                            bottomSheetDialog.findViewById<RecyclerView>(R.id.rv)?.apply {
-                                val customAdapter = NotificationAdapter(this@HomeActivity, it!!.data)
-                                layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-                                adapter = customAdapter
+                        }
+                        Status.ERROR -> {
+                            fragmentNotificationBottomSheetBinding.loader.isVisible= false
+
+                        }
+                        Status.SUCCESS -> {
+                            fragmentNotificationBottomSheetBinding.loader.isVisible= false
+
+
+                            it?.data.let {
+                                it?.data
+                                bottomSheetDialog.findViewById<RecyclerView>(R.id.rv)?.apply {
+                                    val customAdapter = NotificationAdapter(
+                                        this@HomeActivity,
+                                        it!!.data,
+                                        object : NotificationAdapter.ItemsClickInterface {
+                                            override fun onClickItem(id: Int, posittion: Int) {
+                                                var list = ArrayList<String>()
+                                                list.add(id.toString())
+                                                homeViewModel.setReadStatus(list).observe(
+                                                    this@HomeActivity,
+                                                    object :
+                                                        Observer<BaseResponse<ReadNotificationReponse>> {
+                                                        override fun onChanged(it: BaseResponse<ReadNotificationReponse>?) {
+                                                            when (it!!.status) {
+                                                                Status.LOADING ->{
+                                                                }
+                                                                Status.SUCCESS -> {
+                                                                }
+                                                                Status.ERROR -> {
+
+                                                                }
+
+                                                            }
+                                                        }
+
+                                                    })
+
+                                                if (it.data[posittion]!!.notification.targetPage == null) {
+                                                    bottomSheetDialog.dismiss()
+
+                                                }
+                                                if (it!!.data[posittion]!!.notification.targetPage == 1) {
+                                                    val bundle = Bundle()
+                                                    val homeFragment = HomeFragment()
+                                                    homeFragment.arguments = bundle
+                                                    replaceFragment(
+                                                        homeFragment.javaClass,
+                                                        "",
+                                                        true,
+                                                        bundle,
+                                                        null,
+                                                        0,
+                                                        false
+                                                    )
+                                                    bottomSheetDialog.dismiss()
+                                                }
+                                                if (it!!.data[posittion]!!.notification.targetPage == 2) {
+                                                    val bundle = Bundle()
+                                                    val latestUpdatesFragment =
+                                                        LatestUpdatesFragment()
+                                                    latestUpdatesFragment.arguments = bundle
+                                                    replaceFragment(
+                                                        latestUpdatesFragment.javaClass,
+                                                        "",
+                                                        true,
+                                                        bundle,
+                                                        null,
+                                                        0,
+                                                        false
+                                                    )
+                                                    bottomSheetDialog.dismiss()
+
+                                                }
+                                                if (it!!.data[posittion]!!.notification.targetPage == 3) {
+                                                    val bundle = Bundle()
+                                                    val insightsFragment = InsightsFragment()
+                                                    insightsFragment.arguments = bundle
+                                                    replaceFragment(
+                                                        insightsFragment.javaClass,
+                                                        "",
+                                                        true,
+                                                        bundle,
+                                                        null,
+                                                        0,
+                                                        false
+                                                    )
+                                                    bottomSheetDialog.dismiss()
+
+                                                }
+                                                if (it!!.data[posittion]!!.notification.targetPage == 4) {
+                                                    val bundle = Bundle()
+                                                    val investmentFragment = InvestmentFragment()
+                                                    investmentFragment.arguments = bundle
+                                                    replaceFragment(
+                                                        investmentFragment.javaClass,
+                                                        "",
+                                                        true,
+                                                        bundle,
+                                                        null,
+                                                        0,
+                                                        false
+                                                    )
+                                                    bottomSheetDialog.dismiss()
+
+                                                }
+                                                if (it!!.data[posittion]!!.notification.targetPage == 5) {
+                                                    val bundle = Bundle()
+                                                    val portfolioFragment = PortfolioFragment()
+                                                    portfolioFragment.arguments = bundle
+                                                    replaceFragment(
+                                                        portfolioFragment.javaClass,
+                                                        "",
+                                                        true,
+                                                        bundle,
+                                                        null,
+                                                        0,
+                                                        false
+                                                    )
+                                                    bottomSheetDialog.dismiss()
+
+                                                }
+                                                if (it!!.data[posittion]!!.notification.targetPage == 6) {
+                                                    val bundle = Bundle()
+                                                    val promises= HoablPromises()
+                                                    promises.arguments = bundle
+                                                    replaceFragment(
+                                                        promises.javaClass,
+                                                        "",
+                                                        true,
+                                                        bundle,
+                                                        null,
+                                                        0,
+                                                        false
+                                                    )
+                                                    bottomSheetDialog.dismiss()
+
+                                                }
+                                                if (it!!.data[posittion]!!.notification.targetPage == 7) {
+                                                    val bundle = Bundle()
+                                                    val profileFragment = ProfileFragment()
+                                                    profileFragment.arguments = bundle
+                                                    replaceFragment(
+                                                        profileFragment.javaClass,
+                                                        "",
+                                                        true,
+                                                        bundle,
+                                                        null,
+                                                        0,
+                                                        false
+                                                    )
+                                                    bottomSheetDialog.dismiss()
+
+                                                }
+                                            }
+
+                                        })
+                                    layoutManager =
+                                        LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                                    adapter = customAdapter
+                                }
+
+
                             }
 
 
                         }
-
-
                     }
                 }
-            }
 
-        })
+            })
     }
 
     fun share_app() {

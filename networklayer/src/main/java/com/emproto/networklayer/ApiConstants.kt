@@ -77,4 +77,5 @@ object ApiConstants {
 
     //Notification
     const val NOTICATION_LIST= "hoabl-notifications/unread-notifications"
+    const val READ_NOTIFICATION= "hoabl-notifications/update-read-status"
 }

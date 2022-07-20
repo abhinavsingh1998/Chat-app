@@ -1,78 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginVertical="10dp"
-    android:layout_marginLeft="12dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginRight="12dp"
-    android:layout_marginBottom="10dp"
-    android:elevation="2dp"
-    android:background="@drawable/card_bg">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cv_chat_image"
-        android:layout_width="76dp"
-        android:layout_height="76dp"
-        app:cardCornerRadius="6dp"
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_size_12"
+        android:layout_marginBottom="@dimen/margin_size_7"
+        android:layout_marginTop="@dimen/margin_size_5"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:outlineSpotShadowColor="#ababab"
+        app:cardCornerRadius="@dimen/margin_size_10"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/ivImage"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@drawable/img" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvNew"
+                style="@style/text_style_light_black_color_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/groupimage"
+                android:fontFamily="@font/jostregular"
+                android:text="@string/new_text"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvTopic"
+                style="@style/text_style_blue_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_size_6"
+                android:layout_marginTop="@dimen/margin_size_7"
+                android:fontFamily="@font/jostmedium"
+                android:text="@string/notification_topic_text"
+                app:layout_constraintStart_toEndOf="@id/tvNew"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_chat_time"
+                style="@style/text_style_light_grey_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_10"
+                android:fontFamily="@font/jostmedium"
+                android:text="@string/_1h"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTopic"
+                app:layout_constraintStart_toEndOf="@+id/tvTopic"
+                app:layout_constraintTop_toTopOf="@+id/tvTopic" />
+
+            <TextView
+                android:id="@+id/tv_chat_desc"
+                style="@style/text_style_text_black_color_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_size_6"
+                android:layout_marginTop="@dimen/margin_size_30"
+                android:layout_marginRight="@dimen/margin_size_12"
+                android:layout_marginBottom="@dimen/margin_size_12"
+                android:fontFamily="@font/jostregular"
+                android:text="@string/notification_description"
+                app:layout_constraintEnd_toStartOf="@id/cv_chat_image"
+                app:layout_constraintStart_toStartOf="@id/tvNew"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_chat_image"
+                android:layout_width="76dp"
+                android:layout_height="76dp"
+                app:cardCornerRadius="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY" />
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.cardview.widget.CardView>
-    <TextView
-        android:id="@+id/tvNew"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/groupimage"
-        android:layout_marginLeft="11dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginRight="5dp"
-        android:fontFamily="@font/jostregular"
-        android:text="@string/new_text"
-        style="@style/text_style_light_black_color_14"
-        app:layout_constraintStart_toEndOf="@id/cv_chat_image"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-    <TextView
-        android:id="@+id/tvTopic"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-         style="@style/text_style_blue_14"
-        android:fontFamily="@font/jostmedium"
-        android:text="@string/notification_topic_text"
-        android:layout_marginTop="@dimen/margin_size_7"
-        app:layout_constraintStart_toEndOf="@id/tvNew"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="@dimen/margin_size_6"/>
-    <TextView
-        android:id="@+id/tv_chat_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       style="@style/text_style_light_grey_14"
-        android:text="@string/_1h"
-        android:fontFamily="@font/jostmedium"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="6dp"
-        app:layout_constraintTop_toTopOf="@id/tvNew"
-        />
-    <TextView
-        android:id="@+id/tv_chat_desc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/jostregular"
-        android:text="@string/notification_description"
-        style="@style/text_style_text_black_color_16"
-        android:layout_marginTop="@dimen/margin_size_30"
-        android:layout_marginRight="@dimen/margin_size_12"
-        android:layout_marginBottom="@dimen/margin_size_12"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tvNew"
-        app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
