@@ -144,6 +144,7 @@ class AccountDetailsFragment : Fragment(),
         documentBinding.ivDocsClose.setOnClickListener {
             docsBottomSheet.dismiss()
         }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -1,12 +1,17 @@
 package com.emproto.hoabl.feature.profile.fragments.profile
 
 import android.app.Dialog
+import android.app.KeyguardManager
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -20,7 +25,9 @@ import com.emproto.hoabl.databinding.FragmentProfileMainBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.login.AuthActivity
+import com.emproto.hoabl.feature.portfolio.views.CustomDialog
 import com.emproto.hoabl.feature.portfolio.views.FmFragment
+import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
 import com.emproto.hoabl.feature.profile.fragments.edit_profile.EditProfileFragment
 import com.emproto.hoabl.feature.profile.fragments.feedback.FacilityManagerPopViewFragment
 import com.emproto.hoabl.feature.profile.fragments.help_center.HelpCenterFragment
@@ -36,12 +43,18 @@ import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.profile.Data
 import com.example.portfolioui.databinding.LogoutConfirmationBinding
+import java.util.concurrent.Executor
 
 import javax.inject.Inject
 
 class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface {
 
     lateinit var binding: FragmentProfileMainBinding
+    lateinit var keyguardManager: KeyguardManager
+    private lateinit var executor: Executor
+    private lateinit var biometricPrompt: BiometricPrompt
+    private lateinit var promptInfo: BiometricPrompt.PromptInfo
+    lateinit var securePinDialog: CustomDialog
 
     val bundle = Bundle()
 
@@ -127,13 +140,13 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
 
         /*for user pic not available show username as pic label*/
         if (profileData.profilePictureUrl != null && profileData.profilePictureUrl!!.isNotEmpty()) {
-            binding.profileImage.visibility = View.VISIBLE
+            binding.cvProfileImage.visibility = View.VISIBLE
             binding.profileUserLetters.visibility = View.GONE
             Glide.with(requireContext())
                 .load(profileData.profilePictureUrl)
-                .into(binding.profileImage)
+                .into(binding.ivProfile)
         } else {
-            binding.profileImage.visibility = View.GONE
+            binding.cvProfileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
             setUserNamePIC(profileData)
         }
@@ -234,9 +247,12 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
     override fun onClickItem(position: Int) {
         when (position) {
             0 -> {
-
-                val myAccount = AccountDetailsFragment()
-                (requireActivity() as HomeActivity).addFragment(myAccount, false)
+                if (!(requireActivity() as HomeActivity).isFingerprintValidate()) {
+                    setUpAuthentication()
+                }else{
+                    val myAccount = AccountDetailsFragment()
+                    (requireActivity() as HomeActivity).addFragment(myAccount, false)
+                }
             }
             1 -> {
                 val bundle = Bundle()
@@ -287,6 +303,70 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
 
 
     }
+
+    private fun setUpAuthentication() {
+        executor = ContextCompat.getMainExecutor(this.requireContext())
+        //Biometric dialog
+        promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Hoabl")
+            .setSubtitle("Log in using your biometric credential")
+            .setNegativeButtonText("Use Pattern")
+            .build()
+
+        biometricPrompt = BiometricPrompt(this, executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    super.onAuthenticationError(errorCode, errString)
+                    if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
+                        setUpKeyGuardManager()
+                    } else if (errorCode == BiometricPrompt.ERROR_NO_BIOMETRICS) {
+                        securePinDialog.show()
+                    } else if (errorCode == BiometricPrompt.ERROR_USER_CANCELED) {
+                        (requireActivity() as HomeActivity).onBackPressed()
+                    } else if (errorCode == BiometricPrompt.ERROR_NO_DEVICE_CREDENTIAL) {
+                        //no enrollment
+
+                    } else if (errorCode == BiometricPrompt.ERROR_HW_NOT_PRESENT) {
+                        //setUpUI(true)
+                        setUpKeyGuardManager()
+                    } else {
+                        val myAccount = AccountDetailsFragment()
+                        (requireActivity() as HomeActivity).addFragment(myAccount, false)                    }
+                }
+
+                override fun onAuthenticationSucceeded(
+                    result: BiometricPrompt.AuthenticationResult
+                ) {
+                    super.onAuthenticationSucceeded(result)
+                    (requireActivity() as HomeActivity).fingerprintValidation(true)
+                    val myAccount = AccountDetailsFragment()
+                    (requireActivity() as HomeActivity).addFragment(myAccount, false)                }
+
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                }
+            })
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            setUpKeyGuardManager()
+        } else {
+            biometricPrompt.authenticate(promptInfo)
+        }
+    }
+
+    fun setUpKeyGuardManager() {
+        keyguardManager =
+            (activity as HomeActivity).getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val intent = keyguardManager.createConfirmDeviceCredentialIntent(
+                "Hi,User",
+                "Verify your security PIN/Pattern"
+            )
+        } else {
+
+        }
+    }
+
 
     private fun logOut() {
         val logoutDialoglayout = LogoutConfirmationBinding.inflate(layoutInflater)
