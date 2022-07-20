@@ -255,15 +255,18 @@ class PortfolioSpecificViewAdapter(
                                 data.investmentInformation.allocationDate,
                                 null
                             )
-                    if (data.investmentInformation.possesionDate != null)
+                    if (data.investmentInformation.possesionDate != null) {
                         binding.tvPossessionDate.text =
                             Utility.parseDateFromUtcToMMYYYY(
                                 data.investmentInformation.possesionDate,
                                 null
                             )
+                    } else {
+                        binding.tvPossessionDate.text = "-"
+                    }
                     //view more
                     binding.tvLandId.text = "Hoabl/" + data.investmentInformation.crmInventory.name
-                    if(data.investmentInformation.crmInventoryBucket != null){
+                    if (data.investmentInformation.crmInventoryBucket != null) {
                         binding.tvSkuType.text = data.investmentInformation.crmInventoryBucket.name
                     }
 
@@ -685,14 +688,14 @@ class PortfolioSpecificViewAdapter(
 
             val faqList = list[position].data as List<ProjectContentsAndFaq>
             val showList = ArrayList<ProjectContentsAndFaq>()
-            when{
+            when {
                 faqList.size > 2 -> {
-                    for(i in 0..2){
+                    for (i in 0..2) {
                         showList.add(faqList[i])
                     }
                 }
                 else -> {
-                    for(item in faqList){
+                    for (item in faqList) {
                         showList.add(item)
                     }
                 }
