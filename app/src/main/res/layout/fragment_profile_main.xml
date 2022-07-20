@@ -25,20 +25,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.mikhaellopez.circularimageview.CircularImageView
-            android:id="@+id/profile_image"
-            android:layout_width="86dp"
-            android:layout_height="86dp"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvProfileImage"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            app:cardBackgroundColor="@color/app_color"
+            app:cardCornerRadius="48dp"
             android:visibility="gone"
-            app:civ_border_color="@color/app_color"
-            app:civ_shadow="true"
-            app:civ_shadow_color="@color/text_blue_color"
-            app:civ_shadow_radius="@dimen/margin_size_1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingClass">
+            app:layout_constraintTop_toTopOf="parent">
 
-        </com.mikhaellopez.circularimageview.CircularImageView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:layout_gravity="center"
+                app:cardCornerRadius="43dp"
+                app:cardElevation="0dp"
+                app:cardMaxElevation="@dimen/margin_size_4">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="82dp"
+                    android:layout_height="82dp"
+                    android:layout_gravity="center"
+                    app:cardBackgroundColor="@color/app_color"
+                    app:cardCornerRadius="41dp"
+                    app:cardElevation="0dp"
+                    app:cardMaxElevation="@dimen/margin_size_4">
+
+                    <ImageView
+                        android:id="@+id/ivProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:elevation="@dimen/_8sdp"
+                        android:gravity="center"
+                        android:scaleType="fitXY"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/margin_size_40" />
+                </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+
 
         <androidx.cardview.widget.CardView
             android:id="@+id/profile_user_letters"
