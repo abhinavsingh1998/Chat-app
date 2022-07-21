@@ -442,21 +442,21 @@ class EditProfileFragment : BaseFragment() {
             binding.pincodeEditText.setText("")
         }
         if (data.profilePictureUrl.isNullOrEmpty()) {
-            binding.profileImage.visibility = View.GONE
+            binding.cvProfileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
             binding.tvremove.isClickable = false
             binding.tvRemove1.setTextColor(Color.parseColor("#9d9eb1"))
             binding.tvRemove2.setTextColor(Color.parseColor("#9d9eb1"))
             setUserNamePIC(data)
         } else {
-            binding.profileImage.visibility = View.VISIBLE
+            binding.cvProfileImage.visibility = View.VISIBLE
             binding.profileUserLetters.visibility = View.GONE
             binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
             binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
             Glide.with(requireContext())
                 .load(data.profilePictureUrl)
                 .dontTransform()
-                .into(binding.profileImage)
+                .into(binding.ivProfile)
 
         }
     }
@@ -696,11 +696,7 @@ class EditProfileFragment : BaseFragment() {
                 )
             }
             dob = binding.tvDatePicker.text.toString()
-            if (dob.isNotEmpty()) {
-                dob = binding.tvDatePicker.text.toString()
-            } else {
-                dob = null.toString()
-            }
+
             email = binding.emailTv.text.toString()
             if (email.isValidEmail()) {
                     binding.tvEmail.isErrorEnabled = false
@@ -735,13 +731,15 @@ class EditProfileFragment : BaseFragment() {
                 }
             }
             pinCode = binding.pincodeEditText.text.toString()
-            if (pinCode.isNotEmpty()) {
-                    binding.pincode.isErrorEnabled = false
-            } else {
-                binding.pincode.isErrorEnabled = true
-                binding.pincode.error = "Please enter valid pincode"
+            if (locality.isNotEmpty()) {
+                binding.pincode.isErrorEnabled = false
                 pinCode = binding.pincodeEditText.text.toString()
+
             }
+//            else{
+//                pinCode = binding.pincodeEditText.text.toString()
+//            }
+
 
             countrySelected = binding.autoCountry.text.toString()
             if (countrySelected.isNotEmpty()) {
@@ -763,7 +761,9 @@ class EditProfileFragment : BaseFragment() {
 
             if(email.isNotEmpty() && !email.isValidEmail()){
                 binding.tvEmail.error = "Please enter valid email"
-            }else{
+            }
+
+            else{
                 sendProfileDetail(
                     dob,
                     email,
@@ -792,7 +792,7 @@ class EditProfileFragment : BaseFragment() {
         removePictureDialog.setContentView(removeDialogLayout.root)
 
         removeDialogLayout.actionYes.setOnClickListener {
-            binding.profileImage.visibility = View.GONE
+            binding.cvProfileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
             setUserNamePIC(data)
             removePictureDialog.dismiss()
@@ -817,7 +817,7 @@ class EditProfileFragment : BaseFragment() {
 
         removeDialogLayout.actionYes.setOnClickListener {
             callDeletePic(data)
-            binding.profileImage.visibility = View.GONE
+            binding.cvProfileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
             setUserNamePIC(data)
         }
@@ -956,10 +956,10 @@ class EditProfileFragment : BaseFragment() {
                 thumbnail
             }
         }
-        binding.profileImage.visibility = View.VISIBLE
+        binding.cvProfileImage.visibility = View.VISIBLE
         binding.profileUserLetters.visibility = View.GONE
         try {
-            binding.profileImage.setImageBitmap(rotatedBitmap)
+            binding.ivProfile.setImageBitmap(rotatedBitmap)
             binding.tvremove.visibility = View.GONE
             binding.textremove.visibility = View.VISIBLE
             binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
@@ -999,9 +999,9 @@ class EditProfileFragment : BaseFragment() {
                 Log.e("Error", "onSelectFromGalleryResult: " + e.localizedMessage)
             }
 
-            binding.profileImage.visibility = View.VISIBLE
+            binding.cvProfileImage.visibility = View.VISIBLE
             binding.profileUserLetters.visibility = View.GONE
-            binding.profileImage.setImageBitmap(bitmap)
+            binding.ivProfile.setImageBitmap(bitmap)
             binding.tvremove.visibility = View.GONE
             binding.textremove.visibility = View.VISIBLE
             binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
@@ -1055,7 +1055,7 @@ class EditProfileFragment : BaseFragment() {
                         binding.tvRemove2.setTextColor(Color.parseColor("#9d9eb1"))
                         removePictureDialog.dismiss()
                         if (data.profilePictureUrl == null) {
-                            binding.profileImage.visibility = View.GONE
+                            binding.cvProfileImage.visibility = View.GONE
                             binding.profileUserLetters.visibility = View.VISIBLE
                             setUserNamePIC(data)
                         }
