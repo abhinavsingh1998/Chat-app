@@ -255,7 +255,7 @@ class CompletedInvestmentAdapter(
             val limitLine = LimitLine(linevalues[(linevalues.size / 2)].x, "My Investment")
             limitLine.lineColor = context.getColor(R.color.app_color)
             limitLine.lineWidth = 1F
-            limitLine.enableDashedLine( 10F, 10F, 10F)
+            limitLine.enableDashedLine(10F, 10F, 10F)
             limitLine.textSize = 14F
             //binding.ivPriceTrendsGraph.setDrawBorders(false);
             //binding.ivPriceTrendsGraph.setDrawGridBackground(false);
@@ -353,39 +353,41 @@ class CompletedInvestmentAdapter(
             }
         }
 
-        val linedataset = LineDataSet(linevalues, "First")
-        //We add features to our chart
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            linedataset.color = context.getColor(R.color.green)
-        }
+        if (linevalues.isNotEmpty()) {
+            val linedataset = LineDataSet(linevalues, "First")
+            //We add features to our chart
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                linedataset.color = context.getColor(R.color.green)
+            }
 
-        linedataset.valueTextSize = 0F
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            linedataset.fillColor = context.getColor(R.color.green)
+            linedataset.valueTextSize = 0F
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                linedataset.fillColor = context.getColor(R.color.green)
+            }
+            linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+            linedataset.setDrawCircles(false)
+            val data = LineData(linedataset)
+            ivCompletedInvestmentGraphImage.getDescription().setEnabled(false)
+            ivCompletedInvestmentGraphImage.getLegend().setEnabled(false)
+            ivCompletedInvestmentGraphImage.getAxisLeft().setDrawGridLines(false)
+            ivCompletedInvestmentGraphImage.setTouchEnabled(false)
+            ivCompletedInvestmentGraphImage.setPinchZoom(false)
+            ivCompletedInvestmentGraphImage.isDoubleTapToZoomEnabled = false
+            //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
+            //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
+            ivCompletedInvestmentGraphImage.getXAxis().setDrawGridLines(false)
+            ivCompletedInvestmentGraphImage.getXAxis().position =
+                XAxis.XAxisPosition.BOTTOM
+            ivCompletedInvestmentGraphImage.getXAxis().setDrawLabels(false)
+            ivCompletedInvestmentGraphImage.getAxisRight().setDrawGridLines(false)
+            ivCompletedInvestmentGraphImage.getAxisRight().setDrawLabels(false)
+            ivCompletedInvestmentGraphImage.getAxisRight().setDrawAxisLine(false)
+            //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
+            ivCompletedInvestmentGraphImage.axisLeft.setDrawLabels(false)
+            //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
+            ivCompletedInvestmentGraphImage.data = data
+            ivCompletedInvestmentGraphImage.animateXY(2000, 2000)
         }
-        linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
-        linedataset.setDrawCircles(false)
-        val data = LineData(linedataset)
-        ivCompletedInvestmentGraphImage.getDescription().setEnabled(false)
-        ivCompletedInvestmentGraphImage.getLegend().setEnabled(false)
-        ivCompletedInvestmentGraphImage.getAxisLeft().setDrawGridLines(false)
-        ivCompletedInvestmentGraphImage.setTouchEnabled(false)
-        ivCompletedInvestmentGraphImage.setPinchZoom(false)
-        ivCompletedInvestmentGraphImage.isDoubleTapToZoomEnabled = false
-        //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
-        //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
-        ivCompletedInvestmentGraphImage.getXAxis().setDrawGridLines(false)
-        ivCompletedInvestmentGraphImage.getXAxis().position =
-            XAxis.XAxisPosition.BOTTOM
-        ivCompletedInvestmentGraphImage.getXAxis().setDrawLabels(false)
-        ivCompletedInvestmentGraphImage.getAxisRight().setDrawGridLines(false)
-        ivCompletedInvestmentGraphImage.getAxisRight().setDrawLabels(false)
-        ivCompletedInvestmentGraphImage.getAxisRight().setDrawAxisLine(false)
-        //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
-        ivCompletedInvestmentGraphImage.axisLeft.setDrawLabels(false)
-        //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
-        ivCompletedInvestmentGraphImage.data = data
-        ivCompletedInvestmentGraphImage.animateXY(2000, 2000)
 
     }
 
