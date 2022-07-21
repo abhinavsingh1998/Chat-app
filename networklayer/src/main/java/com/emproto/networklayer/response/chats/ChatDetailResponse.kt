@@ -6,42 +6,18 @@ import com.google.gson.annotations.SerializedName
 data class ChatDetailResponse(
     @SerializedName("code")
     val code: Int,
-    @SerializedName("conversation")
-    val conversation: Conversation,
     @SerializedName("data")
     val chatDetailList: ChatDetailList,
     @SerializedName("message")
     val message: String
 ) {
-    data class Conversation(
-        @SerializedName("caseId")
-        val caseId: Any?,
-        @SerializedName("createdAt")
-        val createdAt: String,
-        @SerializedName("documents")
-        val documents: Any?,
-        @SerializedName("id")
-        val id: Int,
-        @SerializedName("messages")
-        val messages: List<Any>,
-        @SerializedName("option1")
-        val option1: Any?,
-        @SerializedName("option2")
-        val option2: Any?,
-        @SerializedName("projectId")
-        val projectId: String,
-        @SerializedName("smartKey")
-        val smartKey: String,
-        @SerializedName("updatedAt")
-        val updatedAt: String,
-        @SerializedName("userId")
-        val userId: Int
-    )
 
     data class ChatDetailList(
         @SerializedName("autoChat")
         val autoChat: AutoChat,
 
+        @SerializedName("conversation")
+        val conversation: Conversation
         ) {
         data class AutoChat(
 
@@ -69,6 +45,31 @@ data class ChatDetailResponse(
                 val chatBody: List<ChatBody>
             )
         }
+
+        data class Conversation(
+            @SerializedName("caseId")
+            val caseId: Any?,
+            @SerializedName("createdAt")
+            val createdAt: String,
+            @SerializedName("documents")
+            val documents: Any?,
+            @SerializedName("id")
+            val id: Int,
+            @SerializedName("messages")
+            val messages: List<Any>,
+            @SerializedName("option1")
+            val option1: Any?,
+            @SerializedName("option2")
+            val option2: Any?,
+            @SerializedName("projectId")
+            val projectId: String,
+            @SerializedName("smartKey")
+            val smartKey: String,
+            @SerializedName("updatedAt")
+            val updatedAt: String,
+            @SerializedName("userId")
+            val userId: Int
+        )
     }
 }
 

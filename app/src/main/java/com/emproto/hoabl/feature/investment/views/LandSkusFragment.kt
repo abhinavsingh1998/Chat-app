@@ -174,7 +174,7 @@ class LandSkusFragment:BaseFragment() {
 
     private fun callVideoCallApi() {
         investmentViewModel.scheduleVideoCall(
-            VideoCallBody(caseType = "1003",
+            VideoCallBody(caseType = "1004",
             description = "",
             issueType = "Schedule a video call",
             projectId= projectId)

@@ -12,6 +12,7 @@ data class PdData(
     val fomoContent: FomoContent,
     val generalInfoEscalationGraph: GeneralInfoEscalationGraph,
     val id: Int,
+    val fullDescription:String,
     val inventoryBucketContents: List<InventoryBucketContent>,
     val isEscalationGraphActive: Boolean,
     val isInventoryBucketActive: Boolean,

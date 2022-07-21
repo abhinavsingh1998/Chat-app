@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ItemOppDocDestinationBinding
+import com.emproto.hoabl.utils.Extensions.showHTMLText
 import com.emproto.networklayer.response.investment.Story
 
 class DestinationAdapter(private val context:Context,private val itemList: List<Story>):RecyclerView.Adapter<DestinationAdapter.DestinationViewHolder>() {
@@ -21,7 +22,7 @@ class DestinationAdapter(private val context:Context,private val itemList: List<
         val element = itemList[position]
         holder.binding.apply {
             tvItemDestName.text = element.title
-            tvItemDestDescription.text = element.description
+            tvItemDestDescription.text = context.showHTMLText(element.description)
             Glide.with(context)
                 .load(element.media.value.url)
                 .into(ivDestImage)

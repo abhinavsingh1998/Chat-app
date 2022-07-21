@@ -26,5 +26,6 @@ data class SimilarInvestment(
     val reraDetails: ReraDetails,
     val shortDescription: String,
     val status: String,
-    val updatedAt: String
+    val updatedAt: String,
+    val priority:Int
 )

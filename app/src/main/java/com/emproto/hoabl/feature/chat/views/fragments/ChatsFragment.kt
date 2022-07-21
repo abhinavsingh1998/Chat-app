@@ -18,6 +18,7 @@ import com.emproto.networklayer.response.chats.ChatResponse
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
+import com.emproto.networklayer.response.chats.CData
 import com.emproto.networklayer.response.chats.ChatResponse.*
 import com.emproto.networklayer.response.enums.Status
 import java.io.Serializable
@@ -54,6 +55,9 @@ class ChatsFragment : BaseFragment(), ChatsAdapter.OnItemClickListener {
             View.VISIBLE
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
             View.GONE
+        binding.clRefresh.setOnClickListener{
+            callChatListApi()
+        }
     }
 
     private fun callChatListApi() {
@@ -67,10 +71,9 @@ class ChatsFragment : BaseFragment(), ChatsAdapter.OnItemClickListener {
                     binding.loader.hide()
                     binding.rvChats.visibility = View.VISIBLE
                     it.data.let {
-                        if (it?.chatList != null && it.chatList is List<ChatList>) {
-                            Log.i("LastMsg", it.chatList.toString())
-                            binding.rvChats.adapter = ChatsAdapter(requireContext(), it.chatList, this)
-                            binding.tvChats.text = "Chat (${it.chatList.size.toString()})"
+                        if (it?.data != null && it.data is List<CData>) {
+                            binding.rvChats.adapter = ChatsAdapter(requireContext(), it.data, this)
+                            binding.tvChats.text = "Chat (${it.data.size.toString()})"
                         }
                     }
                 }
@@ -82,19 +85,11 @@ class ChatsFragment : BaseFragment(), ChatsAdapter.OnItemClickListener {
         })
     }
 
-    override fun onChatItemClick(chat: List<ChatList>, view: View, position: Int) {
+    override fun onChatItemClick(chat: List<CData>, view: View, position: Int) {
         val bundle = Bundle()
-        bundle.putSerializable("chatModel", chat[position])
+        bundle.putSerializable("chatModel", chat[position] as Serializable)
         val chatsDetailFragment = ChatsDetailFragment()
         chatsDetailFragment.arguments = bundle
-        (requireActivity() as HomeActivity).replaceFragment(
-            chatsDetailFragment.javaClass,
-            "",
-            true,
-            bundle,
-            null,
-            0,
-            false
-        )
+        (requireActivity() as HomeActivity).addFragment(chatsDetailFragment,true)
     }
 }

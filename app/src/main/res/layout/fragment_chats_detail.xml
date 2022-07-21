@@ -79,7 +79,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="18dp"
         android:layout_marginEnd="12dp"
-
+        android:visibility="gone"
         android:background="@drawable/search_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/viewBack"
@@ -146,7 +146,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/clType"
+        app:layout_constraintBottom_toTopOf="@+id/clButtonStart"
         app:layout_constraintEnd_toEndOf="@+id/clSearch"
         app:layout_constraintStart_toStartOf="@+id/clSearch"
         app:layout_constraintTop_toBottomOf="@+id/tvDay"
@@ -225,7 +225,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <TextView
             android:id="@+id/tvStartChat"

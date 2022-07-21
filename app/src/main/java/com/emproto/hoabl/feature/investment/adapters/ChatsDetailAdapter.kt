@@ -87,7 +87,7 @@ class ChatsDetailAdapter(
                 holder.rvOptions.layoutManager =
                     LinearLayoutManager(mContext, RecyclerView.VERTICAL, false)
                 holder.rvOptions.adapter =
-                    ChatOptionAdapter(mContext, chatDetailList[position].option!!, mListener)
+                    ChatOptionAdapter(mContext, chatDetailList[position].option!!,chatDetailList[position].conversationId, mListener)
 
             }
         } else if (holder is SenderViewHolder) {
@@ -102,6 +102,7 @@ interface OnOptionClickListener {
     fun onOptionClick(
         option: Option,
         view: View,
-        position: Int
+        position: Int,
+        conversationId:Int
     )
 }

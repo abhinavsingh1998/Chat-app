@@ -6,12 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.emproto.core.Database.Dao.HomeSearchDao
 import com.emproto.core.Database.TableModel.SearchModel
-import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.hoabl.feature.home.data.LatesUpdatesPosition
-import com.emproto.networklayer.response.chats.ChatResponse
 import com.emproto.hoabl.repository.HomeRepository
+import com.emproto.networklayer.request.chat.SendMessageBody
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.HomeActionItemResponse
+import com.emproto.networklayer.response.chats.*
 import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
@@ -55,6 +56,7 @@ class HomeViewModel(
     private var position = MutableLiveData<LatesUpdatesPosition>()
     private var latUpdPosition = MutableLiveData<LatesUpdatesPosition>()
     private var listData= MutableLiveData<Page>()
+    private var isFirstCallCOmpleted = MutableLiveData<Boolean>()
 
     @Inject
     lateinit var homeSearchDao: HomeSearchDao
@@ -182,6 +184,18 @@ class HomeViewModel(
         return homeRepository.chatInitiate(chatInitiateRequest)
     }
 
+    fun getChatHistory(projectId: String, isInvested: Boolean): LiveData<BaseResponse<ChatHistoryResponse>> {
+        return homeRepository.getChatHistory(projectId, isInvested)
+    }
+
+    fun sendMessage(sendMessageBody: SendMessageBody): LiveData<BaseResponse<SendMessageResponse>> {
+        return homeRepository.sendMessage(sendMessageBody)
+    }
+
+    fun getAccountsList(): LiveData<BaseResponse<AccountsResponse>> {
+        return homeRepository.getAccountsList()
+    }
+
     fun getReferNow(referalRequest: ReferalRequest): LiveData<BaseResponse<ReferalResponse>> {
         return homeRepository.addReferral(referalRequest)
     }
@@ -214,4 +228,12 @@ class HomeViewModel(
 //    fun getActionItem():LiveData<BaseResponse<HomeActionItemResponse>>{
 //        return homeRepository.getActionItem()
 //    }
+
+    fun setFirstCallCompleted(isFirstCallCompleted: Boolean) {
+        this.isFirstCallCOmpleted.postValue(isFirstCallCompleted)
+    }
+
+    fun getFirstCallCompleted(): LiveData<Boolean> {
+        return isFirstCallCOmpleted
+    }
 }

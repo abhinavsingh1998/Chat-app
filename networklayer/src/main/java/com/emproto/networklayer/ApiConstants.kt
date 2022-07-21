@@ -54,6 +54,8 @@ object ApiConstants {
     //CHAT APIS
     const val CHATS_LIST = "hoabl-customer/chats"
     const val CHATS_INITIATE = "hoabl-customer/chat/initiate"
+    const val CHATS_HISTORY = "hoabl-customer/chat/get"
+    const val SEND_MESSAGE = "hoabl-customer/chat/message"
     const val FEEDBACK = "hoabl-customer/profile/feedback"
     const val PROFILE_RESOURCE = "hoabl-admin/get-page"
     const val PROJECT_MEDIA_GALLERIES =

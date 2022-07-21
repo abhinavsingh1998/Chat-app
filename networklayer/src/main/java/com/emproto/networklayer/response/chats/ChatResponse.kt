@@ -1,190 +1,140 @@
 package com.emproto.networklayer.response.chats
 
-
-import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class ChatResponse(
-    @SerializedName("code")
     val code: Int,
-    @SerializedName("data")
-    val chatList: ArrayList<ChatList>,
-    @SerializedName("message")
+    val `data`: List<CData>,
     val message: String
-):Serializable {
-    data class ChatList(
-        @SerializedName("isInvested")
-        val isInvested: Boolean,
-        @SerializedName("lastMessage")
-        val lastMessage: Any?,
-        @SerializedName("project")
-        val project: Project,
-        @SerializedName("unreadCount")
-        val unreadCount: Any?
-    ) : Serializable {
-        data class Project(
-            @SerializedName("id")
-            val id: Int,
-            @SerializedName("launchName")
-            val launchName: String,
-            @SerializedName("project")
-            val project: Project,
-            @SerializedName("projectCoverImages")
-            val projectCoverImages: ProjectCoverImages,
-            @SerializedName("projectId")
-            val projectId: Int
-        ):Serializable {
-            data class Project(
-                @SerializedName("crmProjectId")
-                val crmProjectId: String
-            ):Serializable
+):Serializable
 
-            data class ProjectCoverImages(
-                @SerializedName("chatListViewPageMedia")
-                val chatListViewPageMedia: ChatListViewPageMedia,
-                @SerializedName("chatPageMedia")
-                val chatPageMedia: ChatPageMedia,
-                @SerializedName("collectionListViewPageMedia")
-                val collectionListViewPageMedia: CollectionListViewPageMedia,
-                @SerializedName("homePageMedia")
-                val homePageMedia: HomePageMedia,
-                @SerializedName("newInvestmentPageMedia")
-                val newInvestmentPageMedia: NewInvestmentPageMedia,
-                @SerializedName("portfolioPageMedia")
-                val portfolioPageMedia: PortfolioPageMedia
-            ) :Serializable{
-                data class ChatListViewPageMedia(
-                    @SerializedName("key")
-                    val key: String,
-                    @SerializedName("name")
-                    val name: String,
-                    @SerializedName("value")
-                    val value: Value
-                ) :Serializable{
-                    data class Value(
-                        @SerializedName("height")
-                        val height: Int,
-                        @SerializedName("mediaType")
-                        val mediaType: String,
-                        @SerializedName("size")
-                        val size: Double,
-                        @SerializedName("url")
-                        val url: String,
-                        @SerializedName("width")
-                        val width: Int
-                    ):Serializable
-                }
+data class CData(
+    val isInvested: Boolean,
+    val lastMessage: LastMsg,
+    val project: Project,
+    val unreadCount: Int
+):Serializable
 
-                data class ChatPageMedia(
-                    @SerializedName("key")
-                    val key: String,
-                    @SerializedName("name")
-                    val name: String,
-                    @SerializedName("value")
-                    val value: Value
-                ) :Serializable{
-                    data class Value(
-                        @SerializedName("height")
-                        val height: Int,
-                        @SerializedName("mediaType")
-                        val mediaType: String,
-                        @SerializedName("size")
-                        val size: Double,
-                        @SerializedName("url")
-                        val url: String,
-                        @SerializedName("width")
-                        val width: Int
-                    ):Serializable
-                }
+data class Project(
+    val areaStartingFrom: String,
+    val crmId: String,
+    val crmProjectId: String,
+    val id: Int,
+    val launchName: String,
+    val priceStartingFrom: String,
+    val projectContent: ProjectContent
+):Serializable
 
-                data class CollectionListViewPageMedia(
-                    @SerializedName("key")
-                    val key: String,
-                    @SerializedName("name")
-                    val name: String,
-                    @SerializedName("value")
-                    val value: Value
-                ) :Serializable{
-                    data class Value(
-                        @SerializedName("height")
-                        val height: Int,
-                        @SerializedName("mediaType")
-                        val mediaType: String,
-                        @SerializedName("size")
-                        val size: Double,
-                        @SerializedName("url")
-                        val url: String,
-                        @SerializedName("width")
-                        val width: Int
-                    ):Serializable
-                }
+data class ProjectContent(
+    val crmLaunchPhaseId: Int,
+    val id: Int,
+    val launchName: String,
+    val projectCoverImages: ProjectCoverImages
+):Serializable
 
-                data class HomePageMedia(
-                    @SerializedName("key")
-                    val key: String,
-                    @SerializedName("name")
-                    val name: String,
-                    @SerializedName("value")
-                    val value: Value
-                ) :Serializable{
-                    data class Value(
-                        @SerializedName("height")
-                        val height: Int,
-                        @SerializedName("mediaType")
-                        val mediaType: String,
-                        @SerializedName("size")
-                        val size: Double,
-                        @SerializedName("url")
-                        val url: String,
-                        @SerializedName("width")
-                        val width: Int
-                    ):Serializable
-                }
+data class ProjectCoverImages(
+    val chatListViewPageMedia: ChatListViewPageMedia,
+    val chatPageMedia: ChatPageMedia,
+    val collectionListViewPageMedia: CollectionListViewPageMedia,
+    val homePageMedia: HomePageMedia,
+    val newInvestmentPageMedia: NewInvestmentPageMedia,
+    val portfolioPageMedia: PortfolioPageMedia
+):Serializable
 
-                data class NewInvestmentPageMedia(
-                    @SerializedName("key")
-                    val key: String,
-                    @SerializedName("name")
-                    val name: String,
-                    @SerializedName("value")
-                    val value: Value
-                ):Serializable {
-                    data class Value(
-                        @SerializedName("height")
-                        val height: Int,
-                        @SerializedName("mediaType")
-                        val mediaType: String,
-                        @SerializedName("size")
-                        val size: Double,
-                        @SerializedName("url")
-                        val url: String,
-                        @SerializedName("width")
-                        val width: Int
-                    ):Serializable
-                }
+data class ChatListViewPageMedia(
+    val key: String,
+    val name: String,
+    val value: Value
+):Serializable
 
-                data class PortfolioPageMedia(
-                    @SerializedName("key")
-                    val key: String,
-                    @SerializedName("name")
-                    val name: String,
-                    @SerializedName("value")
-                    val value: Value
-                ) :Serializable{
-                    data class Value(
-                        @SerializedName("height")
-                        val height: Int,
-                        @SerializedName("mediaType")
-                        val mediaType: String,
-                        @SerializedName("size")
-                        val size: Double,
-                        @SerializedName("url")
-                        val url: String,
-                        @SerializedName("width")
-                        val width: Int
-                    ):Serializable
-                }
-            }
-        }
-    }
-}
+data class ChatPageMedia(
+    val key: String,
+    val name: String,
+    val value: ValueX
+):Serializable
+
+data class CollectionListViewPageMedia(
+    val key: String,
+    val name: String,
+    val value: ValueXX
+):Serializable
+
+data class HomePageMedia(
+    val key: String,
+    val name: String,
+    val value: ValueXXX
+):Serializable
+
+data class NewInvestmentPageMedia(
+    val key: String,
+    val name: String,
+    val value: ValueXXXX
+):Serializable
+
+data class PortfolioPageMedia(
+    val key: String,
+    val name: String,
+    val value: ValueXXXXX
+):Serializable
+
+data class Value(
+    val height: Int,
+    val mediaType: String,
+    val size: Double,
+    val url: String,
+    val width: Int
+):Serializable
+
+data class ValueX(
+    val height: Int,
+    val mediaType: String,
+    val size: Double,
+    val url: String,
+    val width: Int
+):Serializable
+
+data class ValueXX(
+    val height: Int,
+    val mediaType: String,
+    val size: Double,
+    val url: String,
+    val width: Int
+):Serializable
+
+data class ValueXXX(
+    val height: Int,
+    val mediaType: String,
+    val size: Double,
+    val url: String,
+    val width: Int
+):Serializable
+
+data class ValueXXXX(
+    val height: Int,
+    val mediaType: String,
+    val size: Double,
+    val url: String,
+    val width: Int
+):Serializable
+
+data class ValueXXXXX(
+    val height: Int,
+    val mediaType: String,
+    val size: Double,
+    val url: String,
+    val width: Int
+):Serializable
+
+data class LastMsg(
+    val conversationId: Any,
+    val createdAt: String,
+    val documents: Any,
+    val id: Int,
+    val message: String,
+    val options: Any,
+    val origin: String,
+    val projectId: String,
+    val replyTo: Any,
+    val updatedAt: String,
+    val userId: Int
+)

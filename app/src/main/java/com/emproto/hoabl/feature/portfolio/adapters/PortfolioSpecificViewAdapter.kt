@@ -686,9 +686,9 @@ class PortfolioSpecificViewAdapter(
     private inner class FaqViewHolder(private val binding: FaqLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            if (headingDetails.otherSectionHeadings != null && headingDetails.otherSectionHeadings.faqSections != null)
+            if (headingDetails.otherSectionHeadings != null && headingDetails.otherSectionHeadings.faqSection != null)
                 binding.tvFaqTitle.text =
-                    headingDetails.otherSectionHeadings.faqSections.sectionHeading
+                    headingDetails.otherSectionHeadings.faqSection.sectionHeading
 
             val faqList = list[position].data as List<ProjectContentsAndFaq>
             val showList = ArrayList<ProjectContentsAndFaq>()
