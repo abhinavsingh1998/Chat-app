@@ -52,6 +52,8 @@
         android:textColor="#17171c"
         android:textSize="13sp"
         android:textStyle="normal"
+        android:maxLines="1"
+        android:ellipsize="end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tv_chat_time"
         app:layout_constraintStart_toStartOf="@+id/tv_chat_title"

@@ -187,7 +187,7 @@ class ProjectDetailAdapter(
                 Glide.with(context)
                     .load(data.projectCoverImages.newInvestmentPageMedia.value.url)
                     .into(ivSmallTopImage)
-                tvLocationInformationText.text = data.shortDescription + data.shortDescription
+                tvLocationInformationText.text = data.fullDescription
                 btnReadMore.setOnClickListener {
                     when(isReadMoreClicked){
                         true -> {
@@ -477,7 +477,6 @@ class ProjectDetailAdapter(
 
     private inner class ProjectDontMissViewHolder(private val binding: DontMissLayoutPdBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            val image = data.offersAndPromotions.value.url
             Glide
                 .with(context)
                 .load(data.offersAndPromotions.value.url)
@@ -549,7 +548,9 @@ class ProjectDetailAdapter(
 
     private inner class ProjectFaqViewHolder(private val binding: FaqLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
-            binding.tvFaqTitle.text = data.otherSectionHeadings.faqSections.sectionHeading
+            if(data.otherSectionHeadings != null){
+                binding.tvFaqTitle.text = data.otherSectionHeadings.faqSection.sectionHeading
+            }
             val itemList = projectContentsAndFaqs
             val list = ArrayList<ProjectContentsAndFaq>()
             when{

@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.chat.views.fragments
 
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -33,19 +34,24 @@ import com.emproto.networklayer.response.enums.Status
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     @Inject
     lateinit var homeFactory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
-    var chatsList: ChatResponse.ChatList? = null
+    var chatsList: CData? = null
+    var chatHistoryList : Data? = null
     var chatDetailList: ChatDetailResponse.ChatDetailList? = null
     lateinit var chatsDetailAdapter: ChatsDetailAdapter
     var newChatMessageList = ArrayList<ChatDetailModel>()
     private var c: Calendar? = null
     private var sdf: SimpleDateFormat? = null
     private var time: String? = null
-
+    private var isMessagesEnabled = true
+    private var lastMsgOptions  = ArrayList<Option>()
+    private var latestConversationId = 0
+    private var isMyFirstCallCompleted = false
 
     lateinit var binding: FragmentChatsDetailBinding
 
@@ -80,11 +86,11 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         chatsDetailAdapter = ChatsDetailAdapter(context, newChatMessageList, this)
         binding.rvChat.adapter = chatsDetailAdapter
 
-        chatsList = arguments?.getSerializable("chatModel") as ChatResponse.ChatList
+        chatsList = arguments?.getSerializable("chatModel") as CData
         binding.tvChatTitle.text = chatsList?.project?.launchName
         context?.let {
             Glide.with(it)
-                .load(chatsList?.project?.projectCoverImages?.chatListViewPageMedia?.value?.url)
+                .load(chatsList?.project?.projectContent?.projectCoverImages?.chatPageMedia?.value?.url)
                 .placeholder(R.drawable.ic_baseline_image_24).into(binding.ivChatThumb)
         }
         binding.ivBack.setOnClickListener { onBackPressed() }
@@ -98,7 +104,9 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
             override fun afterTextChanged(s: Editable?) {
                 when{
-
+                    s.toString().length > 0 -> {
+                        binding.clSend.background = resources.getDrawable(R.drawable.send_button_blue_bg)
+                    }
                 }
             }
 
@@ -115,7 +123,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     }
 
     private fun callChatHistoryApi() {
-        homeViewModel.getChatHistory(chatsList?.project?.crmLaunchPhase?.crmId.toString(),
+        homeViewModel.getChatHistory(chatsList?.project?.crmId.toString(),
             chatsList?.isInvested!!
         ).observe(viewLifecycleOwner,Observer{
             when(it.status){
@@ -131,8 +139,84 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                         if(it.data.messages.isNotEmpty()){
                             binding.clButtonStart.visibility = View.GONE
                             binding.tvDay.visibility = View.VISIBLE
-                            callChatInitiateForHistory(it.data)
+                            chatHistoryList = it.data
+                            getTime()
+                            newChatMessageList.clear()
+                            if(it.data.conversation != null){
+                                when(it.data.conversation.isOpen){
+                                    true -> {
+                                        isMessagesEnabled = true
+                                    }
+                                }
+                            }else{
+                                binding.clButtonStart.visibility = View.VISIBLE
+                            }
 
+                            //Welcome message
+                            if(it.data.autoChat != null){
+                                newChatMessageList.add(
+                                    ChatDetailModel(
+                                        it.data.autoChat.chatJSON.welcomeMessage.toString(),
+                                        null, MessageType.RECEIVER, time
+                                    )
+                                )
+                            }else{
+                                newChatMessageList.add(
+                                    ChatDetailModel(
+                                        "Hi Welcome",
+                                        null, MessageType.RECEIVER, time
+                                    )
+                                )
+                            }
+                            //Old messages
+                            for(item in it.data.messages){
+                                if(item.message != null){
+                                    when{
+                                        item.origin == "2" -> {
+                                            newChatMessageList.add(
+                                                ChatDetailModel(
+                                                    item.message,
+                                                    item.options,
+                                                    MessageType.RECEIVER, time,
+                                                    item.conversationId
+                                                )
+                                            )
+
+                                        }
+                                        item.origin == "1" -> {
+                                            newChatMessageList.add(
+                                                ChatDetailModel(
+                                                    item.message,
+                                                    null,
+                                                    MessageType.SENDER, time,
+                                                    item.conversationId
+                                                )
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                            binding.rvChat.smoothScrollToPosition(it.data.messages.size)
+                            val messagesList = it.data.messages
+                            for(i in messagesList.size-1 downTo 0){
+                                if(messagesList[i].origin == "2" && messagesList[i].message == resources.getString(R.string.describe_issue)){
+                                    binding.clType.visibility = View.VISIBLE
+                                    binding.clButtonStart.visibility = View.INVISIBLE
+                                    sendTypedMessage()
+                                }
+                            }
+                            if(messagesList[messagesList.size-1].message == resources.getString(R.string.thank_you_text)){
+                                    isMessagesEnabled = false
+                            }
+                            latestConversationId = messagesList[messagesList.size-1].conversationId
+
+                            chatsDetailAdapter.notifyDataSetChanged()
+
+                            //Check the conversation is over or not
+//                            val lastMessage = messagesList[messagesList.size-1]
+//                            if(lastMessage.message == resources.getString(R.string.thank_you_text)){
+//                                binding.clButtonStart.visibility = View.VISIBLE
+//                            }
                         }
 
                     }
@@ -146,7 +230,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     }
 
     private fun callChatInitiateApi() {
-        homeViewModel.chatInitiate(ChatInitiateRequest(chatsList?.isInvested,chatsList?.project?.crmLaunchPhase?.crmId.toString())).observe(viewLifecycleOwner, Observer {
+        homeViewModel.chatInitiate(ChatInitiateRequest(chatsList?.isInvested,chatsList?.project?.crmId.toString())).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     binding.loader.show()
@@ -157,8 +241,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                     binding.rvChat.visibility = View.VISIBLE
                     if (it.data?.chatDetailList != null) {
                         chatDetailList = it.data!!.chatDetailList
+                        latestConversationId = it.data!!.chatDetailList.conversation.id
                         addMessages(it.data!!.chatDetailList)
-                        Log.i("newChat", newChatMessageList.toString())
                         chatsDetailAdapter.notifyDataSetChanged()
                         binding.rvChat.smoothScrollToPosition(newChatMessageList.size-1)
                     }
@@ -173,14 +257,14 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     }
 
     private fun callChatInitiateForHistory(data: Data) {
-        homeViewModel.chatInitiate(ChatInitiateRequest(chatsList?.isInvested,chatsList?.project?.crmLaunchPhase?.crmId.toString())).observe(viewLifecycleOwner, Observer {
+        homeViewModel.chatInitiate(ChatInitiateRequest(chatsList?.isInvested,chatsList?.project?.crmProjectId.toString())).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
-                    binding.loader.show()
+//                    binding.loader.show()
                     binding.rvChat.visibility = View.INVISIBLE
                 }
                 Status.SUCCESS -> {
-                    binding.loader.hide()
+//                    binding.loader.hide()
                     binding.rvChat.visibility = View.VISIBLE
                     if (it.data?.chatDetailList != null) {
                         chatDetailList = it.data!!.chatDetailList
@@ -214,7 +298,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                     }
                 }
                 Status.ERROR -> {
-                    binding.loader.hide()
+//                    binding.loader.hide()
                     (requireActivity() as HomeActivity).showErrorToast(it.message!!)
                 }
             }
@@ -240,17 +324,19 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         newChatMessageList.add(
             ChatDetailModel(
                 chatDetailList.autoChat.chatJSON.welcomeMessage,
-                null, MessageType.RECEIVER, time
+                null, MessageType.RECEIVER, time,
+                latestConversationId
             )
         )
         newChatMessageList.add(
             ChatDetailModel(
                 chatDetailList.autoChat.chatJSON.chatBody[0].message,
                 chatDetailList.autoChat.chatJSON.chatBody[0].options,
-                MessageType.RECEIVER, time
+                MessageType.RECEIVER, time,
+                latestConversationId
             )
         )
-
+        isMessagesEnabled = true
     }
 
 
@@ -258,133 +344,284 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
     }
 
-    override fun onOptionClick(option: Option, view: View, position: Int) {
-//        Toast.makeText(context, "$option isClicked", Toast.LENGTH_SHORT).show()
-        newChatMessageList.add(
-            ChatDetailModel(
-                option.text,
-                null,
-                MessageType.SENDER, time
-            )
-        )
-
-        sendMessage(option.text,"customer")
-
-        if (option.actionType == ActionType.MORE_OPTIONS.name) {
-            for (i in chatDetailList!!.autoChat.chatJSON.chatBody.indices) {
-
-                if (option.optionNumber == chatDetailList!!.autoChat.chatJSON.chatBody[i].linkedOption) {
-                    getTime()
+    override fun onOptionClick(option: Option, view: View, position: Int,conversationId:Int) {
+        if(conversationId == latestConversationId){
+            when (isMessagesEnabled) {
+                true -> {
                     newChatMessageList.add(
                         ChatDetailModel(
-                            chatDetailList!!.autoChat.chatJSON.chatBody[i].message,
-                            chatDetailList!!.autoChat.chatJSON.chatBody[i].options,
-                            MessageType.RECEIVER, time
-                        )
-                    )
-
-//                    sendMessage(chatDetailList!!.autoChat.chatJSON.chatBody[i].message,"cms")
-
-                    chatsDetailAdapter.notifyDataSetChanged()
-                    binding.rvChat.smoothScrollToPosition(newChatMessageList.size-1)
-                    break
-                }
-            }
-
-        } else if (option.actionType == ActionType.NAVIGATE.name) {
-            when (option.action) {
-
-                Action.NAVIGATE_ABOUT_HOABL.name -> {
-                    (requireActivity() as HomeActivity).addFragment(
-                        AboutUsFragment(),
-                        false
-                    )
-                }
-                Action.NAVIGATE_PROMISES.name -> {
-                    (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
-                }
-            }
-        } else if (option.actionType == ActionType.ALLOW_TYPING.name) {
-            binding.clType.visibility = View.VISIBLE
-            binding.rvChat.smoothScrollToPosition(newChatMessageList.size-1)
-            binding.ivSend.setOnClickListener {
-                if (binding.etType.text.isNotEmpty()) {
-                    getTime()
-                    newChatMessageList.add(
-                        ChatDetailModel(
-                            binding.etType.text.toString(),
+                            option.text,
                             null,
                             MessageType.SENDER, time
                         )
                     )
-//                    sendMessage(binding.etType.text.toString(),"customer")
-                    newChatMessageList.add(
-                        ChatDetailModel(
-                            chatDetailList!!.autoChat.chatJSON.finalMessage,
-                            null, MessageType.RECEIVER, time
-                        )
-                    )
-//                    sendMessage(chatDetailList!!.autoChat.chatJSON.finalMessage,"cms")
-                    chatsDetailAdapter.notifyDataSetChanged()
-                    binding.rvChat.smoothScrollToPosition(newChatMessageList.size-1)
-                    binding.etType.text.clear();
 
+                    sendMessage(option.text, 1, option.action.toString().toInt(), null)
 
-                } else {
-                    Toast.makeText(context, "Message cannot be empty", Toast.LENGTH_SHORT).show()
+                    if (option.actionType == ActionType.MORE_OPTIONS.name) {
+                        when {
+                            chatDetailList != null -> {
+                                for (i in chatDetailList!!.autoChat.chatJSON.chatBody.indices) {
+
+                                    if (option.optionNumber == chatDetailList!!.autoChat.chatJSON.chatBody[i].linkedOption) {
+                                        getTime()
+                                        newChatMessageList.add(
+                                            ChatDetailModel(
+                                                chatDetailList!!.autoChat.chatJSON.chatBody[i].message,
+                                                chatDetailList!!.autoChat.chatJSON.chatBody[i].options,
+                                                MessageType.RECEIVER, time,
+                                                latestConversationId
+                                            )
+                                        )
+                                        Handler().postDelayed({
+                                            sendMessage(
+                                                chatDetailList!!.autoChat.chatJSON.chatBody[i].message,
+                                                2,
+                                                null,
+                                                chatDetailList!!.autoChat.chatJSON.chatBody[i].options
+                                            )
+                                        },2000)
+
+                                        chatsDetailAdapter.notifyDataSetChanged()
+                                        binding.rvChat.smoothScrollToPosition(newChatMessageList.size - 1)
+                                        break
+                                    }
+                                }
+                            }
+                            else -> {
+                                for (i in chatHistoryList!!.autoChat.chatJSON.chatBody.indices) {
+
+                                    if (option.optionNumber == chatHistoryList!!.autoChat.chatJSON.chatBody[i].linkedOption) {
+                                        getTime()
+                                        newChatMessageList.add(
+                                            ChatDetailModel(
+                                                chatHistoryList!!.autoChat.chatJSON.chatBody[i].message,
+                                                chatHistoryList!!.autoChat.chatJSON.chatBody[i].options,
+                                                MessageType.RECEIVER, time,
+                                                latestConversationId
+                                            )
+                                        )
+                                        Handler().postDelayed({
+                                            sendMessage(
+                                                chatHistoryList!!.autoChat.chatJSON.chatBody[i].message,
+                                                2,
+                                                null,
+                                                chatHistoryList!!.autoChat.chatJSON.chatBody[i].options
+                                            )
+                                        },2000)
+
+                                        chatsDetailAdapter.notifyDataSetChanged()
+                                        binding.rvChat.smoothScrollToPosition(newChatMessageList.size - 1)
+                                        break
+                                    }
+                                }
+                            }
+                        }
+                    } else if (option.actionType == ActionType.NAVIGATE.name) {
+                        when (option.action) {
+                            "109" -> {
+                                (requireActivity() as HomeActivity).addFragment(
+                                    AboutUsFragment(),
+                                    true
+                                )
+                            }
+                            "113" -> {
+                                (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
+                            }
+                        }
+                    } else if (option.action == "108") {
+                        binding.clType.visibility = View.VISIBLE
+                        binding.clButtonStart.visibility = View.INVISIBLE
+                        isMessagesEnabled = false
+                        getTime()
+                        when {
+                            chatDetailList != null -> {
+                                newChatMessageList.add(
+                                    ChatDetailModel(
+                                        chatDetailList!!.autoChat.chatJSON.allowTypingMessage,
+                                        null, MessageType.RECEIVER, time,
+                                        latestConversationId
+                                    )
+                                )
+                                isMessagesEnabled = false
+                                Handler().postDelayed({
+                                    sendMessage(
+                                        chatDetailList!!.autoChat.chatJSON.allowTypingMessage,
+                                        2,
+                                        null,
+                                        null
+                                    )
+                                },2000)
+                            }
+                            else -> {
+                                newChatMessageList.add(
+                                    ChatDetailModel(
+                                        chatHistoryList!!.autoChat.chatJSON.allowTypingMessage,
+                                        null, MessageType.RECEIVER, time,
+                                        latestConversationId
+                                    )
+                                )
+                                isMessagesEnabled = false
+                                Handler().postDelayed({
+                                    sendMessage(
+                                        chatHistoryList!!.autoChat.chatJSON.allowTypingMessage,
+                                        2,
+                                        null,
+                                        null
+                                    )
+                                },2000)
+                            }
+                        }
+                        binding.rvChat.smoothScrollToPosition(newChatMessageList.size - 1)
+                        sendTypedMessage()
+
+                    } else if (option.action == "100") {
+                        binding.clType.visibility = View.GONE
+                        getTime()
+                        when {
+                            chatDetailList != null -> {
+                                newChatMessageList.add(
+                                    ChatDetailModel(
+                                        chatDetailList!!.autoChat.chatJSON.finalMessage,
+                                        null, MessageType.RECEIVER, time,
+                                        latestConversationId
+                                    )
+                                )
+                                isMessagesEnabled = false
+                                Handler().postDelayed({
+                                    sendMessage(
+                                        chatDetailList!!.autoChat.chatJSON.finalMessage,
+                                        2,
+                                        null,
+                                        null
+                                    )
+                                },2000)
+                            }
+                            else -> {
+                                newChatMessageList.add(
+                                    ChatDetailModel(
+                                        chatHistoryList!!.autoChat.chatJSON.finalMessage,
+                                        null, MessageType.RECEIVER, time,
+                                        latestConversationId
+                                    )
+                                )
+                                isMessagesEnabled = false
+                                Handler().postDelayed({
+                                    sendMessage(
+                                        chatHistoryList!!.autoChat.chatJSON.finalMessage,
+                                        2,
+                                        null,
+                                        null
+                                    )
+                                },2000)
+                            }
+                        }
+
+                        chatsDetailAdapter.notifyDataSetChanged()
+                        binding.rvChat.smoothScrollToPosition(newChatMessageList.size - 1)
+
+                    }
                 }
             }
-
-
-        } else if (option.actionType == ActionType.NOT_ALLOWED_TYPING.name) {
-            binding.clType.visibility = View.GONE
-            getTime()
-            newChatMessageList.add(
-                ChatDetailModel(
-                    chatDetailList!!.autoChat.chatJSON.finalMessage,
-                    null, MessageType.RECEIVER, time
-                )
-            )
-//            sendMessage(chatDetailList!!.autoChat.chatJSON.finalMessage,"cms")
-            chatsDetailAdapter.notifyDataSetChanged()
-            binding.rvChat.smoothScrollToPosition(newChatMessageList.size-1)
-
         }
     }
 
-    private fun sendMessage(text: String?,origin:String) {
-        homeViewModel.sendMessage(SendMessageBody(
-            conversationId = chatDetailList?.conversation?.id.toString(),
-            message =  text.toString(),
-            projectId = chatDetailList?.conversation?.projectId.toString(),
-            smartKey= chatDetailList?.conversation?.smartKey.toString(),
-            origin = origin
-        )).observe(viewLifecycleOwner,Observer{
-            when(it.status){
-                Status.LOADING -> {
-                    binding.loader.show()
-                    binding.rvChat.visibility = View.INVISIBLE
-                }
-                Status.SUCCESS -> {
-                    binding.loader.hide()
-                    binding.rvChat.visibility = View.VISIBLE
-                    it.data?.let {
-                        Log.d("SendMessage",it.data.toString())
-                    }
-                }
-                Status.ERROR -> {
-                    binding.loader.hide()
-                    (requireActivity() as HomeActivity).showErrorToast(it.message!!)
-                }
+    private fun sendTypedMessage() {
+        binding.ivSend.setOnClickListener {
+            if (binding.etType.text.isNotEmpty()) {
+                getTime()
+                newChatMessageList.add(
+                    ChatDetailModel(
+                        binding.etType.text.toString(),
+                        null,
+                        MessageType.SENDER, time,
+                        latestConversationId
+                    )
+                )
+                sendMessage(binding.etType.text.toString(),1,null,null)
+                chatsDetailAdapter.notifyDataSetChanged()
+                binding.rvChat.smoothScrollToPosition(newChatMessageList.size - 1)
+                binding.etType.text.clear();
+            } else {
+                Toast.makeText(context, "Message cannot be empty", Toast.LENGTH_SHORT)
+                    .show()
             }
-        })
+        }
+    }
+
+    private fun sendMessage(text: String?,origin:Int,selection:Int?,options:ArrayList<Option>?) {
+        when{
+            chatDetailList != null -> {
+                homeViewModel.sendMessage(SendMessageBody(
+                    conversationId = chatDetailList?.conversation?.id.toString(),
+                    message =  text.toString(),
+                    crmProjectId = chatsList?.project?.crmProjectId.toString(),
+                    origin = origin,
+                    selection = selection,
+                    crmLaunchPhaseId = chatsList?.project?.crmId.toString(),
+                    launchPhaseId = chatsList?.project?.projectContent?.id.toString(),
+                    options = options
+                )).observe(this,Observer{
+                    when(it.status){
+                        Status.LOADING -> {
+//                            binding.loader.show()
+//                            binding.rvChat.visibility = View.INVISIBLE
+                        }
+                        Status.SUCCESS -> {
+//                            binding.loader.hide()
+//                            binding.rvChat.visibility = View.VISIBLE
+                            it.data?.let {
+                                Log.d("SendMessage",it.data.toString())
+                            }
+                        }
+                        Status.ERROR -> {
+//                            binding.loader.hide()
+                            (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                        }
+                    }
+                })
+            }
+            else -> {
+                homeViewModel.sendMessage(SendMessageBody(
+                    conversationId = chatHistoryList?.conversation?.id.toString(),
+                    message =  text.toString(),
+                    crmProjectId = chatsList?.project?.crmProjectId.toString(),
+                    origin = origin,
+                    selection = selection,
+                    crmLaunchPhaseId = chatsList?.project?.crmId.toString(),
+                    launchPhaseId = chatsList?.project?.projectContent?.id.toString(),
+                    options = options
+                )).observe(this,Observer{
+                    when(it.status){
+                        Status.LOADING -> {
+//                            binding.loader.show()
+//                            binding.rvChat.visibility = View.INVISIBLE
+                        }
+                        Status.SUCCESS -> {
+//                            binding.loader.hide()
+//                            binding.rvChat.visibility = View.VISIBLE
+                            it.data?.let {
+                                if(it.data.message.origin == "1"){
+                                    isMyFirstCallCompleted = true
+                                }
+                                Log.d("SendMessage",it.data.toString())
+                            }
+                        }
+                        Status.ERROR -> {
+//                            binding.loader.hide()
+                            (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                        }
+                    }
+                })
+            }
+        }
+
     }
 
     private fun getTime() {
         c = Calendar.getInstance()
         sdf = SimpleDateFormat("h:mm a")
         time = sdf!!.format(c!!.time)
-
     }
 
 

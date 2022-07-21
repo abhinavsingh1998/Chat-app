@@ -5,7 +5,7 @@ data class OtherSectionHeading(
     val promises: Promises,
     val testimonials: Testimonials,
     val inventoryBucketContents: InventoryBucketContents,
-    val faqSections: FaqSections
+    val faqSection: FaqSections
 )
 
 data class DroneVideos(

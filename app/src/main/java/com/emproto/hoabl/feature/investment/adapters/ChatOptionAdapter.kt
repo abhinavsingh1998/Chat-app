@@ -10,11 +10,13 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemOptionBinding
+import com.emproto.networklayer.response.chats.Conversation
 import com.emproto.networklayer.response.chats.Option
 
 class ChatOptionAdapter(
     private var mContext: Context?,
     private var option: ArrayList<Option>,
+    private var conversationId: Int,
     private var optionListener: OnOptionClickListener
 ) : RecyclerView.Adapter<ChatOptionAdapter.ViewHolder>() {
 
@@ -33,7 +35,7 @@ class ChatOptionAdapter(
         holder.tvOption.text = option[position].text
 
         holder.tvOption.setOnClickListener {
-            optionListener.onOptionClick(option[position], it, position)
+            optionListener.onOptionClick(option[position], it, position,conversationId)
         }
     }
 

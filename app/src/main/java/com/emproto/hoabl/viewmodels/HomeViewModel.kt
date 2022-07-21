@@ -52,6 +52,7 @@ class HomeViewModel(
 
     private var position = MutableLiveData<LatesUpdatesPosition>()
     private var latUpdPosition = MutableLiveData<LatesUpdatesPosition>()
+    private var isFirstCallCOmpleted = MutableLiveData<Boolean>()
 
     @Inject
     lateinit var homeSearchDao: HomeSearchDao
@@ -210,4 +211,12 @@ class HomeViewModel(
 //    fun getActionItem():LiveData<BaseResponse<HomeActionItemResponse>>{
 //        return homeRepository.getActionItem()
 //    }
+
+    fun setFirstCallCompleted(isFirstCallCompleted: Boolean) {
+        this.isFirstCallCOmpleted.postValue(isFirstCallCompleted)
+    }
+
+    fun getFirstCallCompleted(): LiveData<Boolean> {
+        return isFirstCallCOmpleted
+    }
 }

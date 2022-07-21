@@ -8,11 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemChatBinding
+import com.emproto.networklayer.response.chats.CData
 import com.emproto.networklayer.response.chats.ChatResponse
 
 class ChatsAdapter(
     private var mContext: Context,
-    private var chatList: ArrayList<ChatResponse.ChatList>,
+    private var chatList: List<CData>,
     private var mListener: OnItemClickListener
 
 ) : RecyclerView.Adapter<ChatsAdapter.ViewHolder>() {
@@ -25,7 +26,7 @@ class ChatsAdapter(
     }
 
     interface OnItemClickListener {
-        fun onChatItemClick(chatList: List<ChatResponse.ChatList>, view: View, position: Int)
+        fun onChatItemClick(chatList: List<CData>, view: View, position: Int)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -37,9 +38,8 @@ class ChatsAdapter(
         }
 
 //        binding.tvTime.text = chatRequest[position].data[position].project[position].
-
         Glide.with(mContext)
-            .load(chatList[position].project.projectCoverImages.chatListViewPageMedia.value.url)
+            .load(chatList[position].project.projectContent.projectCoverImages.chatListViewPageMedia.value.url)
             .placeholder(R.drawable.ic_baseline_image_24)
             .into(binding.ivChatThumb)
 

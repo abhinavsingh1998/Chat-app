@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ItemCurrentInfraStoryLayoutBinding
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
+import com.emproto.hoabl.utils.Extensions.showHTMLText
 import com.emproto.networklayer.response.investment.Story
 
 class CurrentInfraStoryAdapter(val context: Context,val list: List<Story>) : RecyclerView.Adapter<CurrentInfraStoryAdapter.MyViewHolder>() {
@@ -21,7 +23,7 @@ class CurrentInfraStoryAdapter(val context: Context,val list: List<Story>) : Rec
         val element = list[position]
         holder.apply {
             binding.tvImageName.text = element.title
-            binding.tvImageInfo.text = element.description
+            binding.tvImageInfo.text = context.showHTMLText(element.description)
             Glide.with(context)
                 .load(element.media.value.url)
                 .into(binding.ivStoryImage)

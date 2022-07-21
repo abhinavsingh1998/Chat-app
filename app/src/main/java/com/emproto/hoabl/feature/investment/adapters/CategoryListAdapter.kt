@@ -56,7 +56,7 @@ class CategoryListAdapter(
                         tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
                         Glide.with(context)
-                            .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                            .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
                             .into(ivCategoryImage)
                         tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
                     }
@@ -79,7 +79,7 @@ class CategoryListAdapter(
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
                         Glide.with(context)
-                            .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                            .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
                             .into(ivCategoryImage)
                     }
                 }
@@ -101,7 +101,7 @@ class CategoryListAdapter(
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
                         Glide.with(context)
-                            .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                            .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
                             .into(ivCategoryImage)
                     }
                 }
@@ -124,7 +124,7 @@ class CategoryListAdapter(
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
                         Glide.with(context)
-                            .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                            .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
                             .into(ivCategoryImage)
                     }
                 }
@@ -146,7 +146,7 @@ class CategoryListAdapter(
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
                         Glide.with(context)
-                            .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                            .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
                             .into(ivCategoryImage)
                     }
                 }
@@ -190,7 +190,7 @@ class CategoryListAdapter(
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
                         Glide.with(context)
-                            .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                            .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
                             .into(ivCategoryImage)
                     }
                 }
@@ -213,7 +213,7 @@ class CategoryListAdapter(
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph?.estimatedAppreciation!!.toDouble())}%"
                         Glide.with(context)
-                            .load(element.projectCoverImages?.newInvestmentPageMedia?.value?.url)
+                            .load(element.projectCoverImages?.collectionListViewPageMedia?.value?.url)
                             .into(ivCategoryImage)
                     }
                 }
@@ -234,7 +234,7 @@ class CategoryListAdapter(
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph?.estimatedAppreciation!!.toDouble())}%"
                         Glide.with(context)
-                            .load(element.projectCoverImages?.newInvestmentPageMedia?.value?.url)
+                            .load(element.projectCoverImages?.collectionListViewPageMedia?.value?.url)
                             .into(ivCategoryImage)
                     }
                 }

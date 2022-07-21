@@ -174,8 +174,11 @@ class ProjectDetailFragment : BaseFragment() {
     private fun navigateToCategory() {
         val list = CategoryListFragment()
         val bundle = Bundle()
+        val priorityList = similarInvestments.sortedBy {
+            it.priority
+        }
         bundle.putString("Category", "SimilarInvestments")
-        bundle.putSerializable("SimilarInvestmentsData", similarInvestments as Serializable)
+        bundle.putSerializable("SimilarInvestmentsData", priorityList as Serializable)
         list.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(list, true)
     }
@@ -283,7 +286,7 @@ class ProjectDetailFragment : BaseFragment() {
     private fun callVideoCallApi() {
         investmentViewModel.scheduleVideoCall(
             VideoCallBody(
-                caseType = "1003",
+                caseType = "1004",
                 description = "I want to know more about ${allData.launchName}",
                 issueType = "Schedule a video call",
                 projectId = projectId

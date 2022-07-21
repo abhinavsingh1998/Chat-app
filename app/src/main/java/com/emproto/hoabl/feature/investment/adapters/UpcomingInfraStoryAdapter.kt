@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ItemCurrentInfraStoryLayoutBinding
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.hoabl.databinding.ItemUpcomingInfraStoryLayoutBinding
+import com.emproto.hoabl.utils.Extensions.showHTMLText
 import com.emproto.networklayer.response.investment.Story
 
 class UpcomingInfraStoryAdapter(val context: Context, val list: List<Story>) : RecyclerView.Adapter<UpcomingInfraStoryAdapter.MyViewHolder>() {
@@ -22,7 +23,7 @@ class UpcomingInfraStoryAdapter(val context: Context, val list: List<Story>) : R
         val element = list[position]
         holder.binding.apply {
             tvImageName.text = element.title
-            tvImageInfo.text = element.description
+            tvImageInfo.text = context.showHTMLText(element.description)
             Glide.with(context)
                 .load(element.media.value.url)
                 .into(ivStoryImage)

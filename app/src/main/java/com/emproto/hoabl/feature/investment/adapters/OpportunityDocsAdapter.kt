@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.model.RecyclerViewItem
+import com.emproto.hoabl.utils.Extensions.showHTMLText
 import com.emproto.networklayer.response.investment.OpprotunityDoc
 import com.emproto.networklayer.response.investment.ProjectAminity
 import com.emproto.networklayer.response.investment.Story
@@ -301,7 +302,7 @@ class OpportunityDocsAdapter(
         fun bind(position: Int){
             binding.apply {
                 tvAboutProjectTitle.text = data.aboutProjects.heading
-                tvAbtProjectInfo.text = data.aboutProjects.description
+                tvAbtProjectInfo.text = context.showHTMLText(data.aboutProjects.description)
                 Glide.with(context)
                     .load(data.aboutProjects.media.value.url)
                     .into(ivAbtProjectImage)
