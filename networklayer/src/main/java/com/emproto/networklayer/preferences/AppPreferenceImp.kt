@@ -23,6 +23,7 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
         const val PUSH_NOTIFICATION="push_notification"
         const val WHATSAPP= "whatsapp"
         const val MESSAGE_VISIBLE="message_visible"
+        val TOUR_GUIDE = "tour_guide"
     }
 
     private var preference = context.getSharedPreferences("hoabl-pref", Context.MODE_PRIVATE)
@@ -168,6 +169,14 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
 
     override fun getCustomerType(): String {
         return getString(CUSTOMER_TYPE, "")
+    }
+
+    override fun setTourGuide(status: Boolean) {
+        saveBoolean(TOUR_GUIDE, status)
+    }
+
+    override fun isTourGuideCompleted(): Boolean {
+        return getBoolean(TOUR_GUIDE, false)
     }
 
     override fun setFacilityManagementUrl(url: String) {

@@ -39,6 +39,10 @@ interface AppPreference {
     fun setFacilityManagementUrl(url:String)
     fun getFacility():String
 
+    //for tour guide in home
+    fun setTourGuide(status: Boolean)
+    fun isTourGuideCompleted(): Boolean
+
     //get promises count
     fun getPromisesCount(): Int
 
