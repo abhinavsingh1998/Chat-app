@@ -156,7 +156,7 @@ class CompletedInvestmentAdapter(
             project.project.similarInvestmentSectionHeading,
             project.project.isEscalationGraphActive,
             project.project.isLatestMediaGalleryActive,
-            project.project.latestMediaGalleryHeading,
+            project.project.latestMediaGallerySectionHeading ?: "",
             project.project.otherSectionHeadings
         )
         onCLickInterface.manageProject(
@@ -233,7 +233,7 @@ class CompletedInvestmentAdapter(
                 }
             }
         }
-        if(linevalues.isNotEmpty()) {
+        if (linevalues.isNotEmpty()) {
             val linedataset1 = LineDataSet(linevalues, "First")
             //We add features to our chart
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

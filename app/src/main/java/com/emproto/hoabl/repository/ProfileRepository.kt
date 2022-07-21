@@ -26,6 +26,7 @@ import kotlinx.coroutines.*
 
 import java.io.File
 import javax.inject.Inject
+
 class ProfileRepository @Inject constructor(application: Application) :
     BaseRepository(application) {
     private val parentJob = Job()
@@ -43,7 +44,13 @@ class ProfileRepository @Inject constructor(application: Application) :
                 if (request.isSuccessful) {
                     mEditProfileResponse.postValue(BaseResponse.success(request.body()!!))
                 } else {
-                    mEditProfileResponse.postValue(BaseResponse.Companion.error(request.message()))
+                    mEditProfileResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
                 }
             } catch (e: Exception) {
                 mEditProfileResponse.postValue(BaseResponse.Companion.error(e.message!!))
@@ -51,6 +58,7 @@ class ProfileRepository @Inject constructor(application: Application) :
         }
         return mEditProfileResponse
     }
+
     fun uploadProfilePicture(
         file: File,
         fileName: String
@@ -64,7 +72,13 @@ class ProfileRepository @Inject constructor(application: Application) :
                 if (request.isSuccessful) {
                     mUploadProfilePicture.postValue(BaseResponse.success(request.body()!!))
                 } else {
-                    mUploadProfilePicture.postValue(BaseResponse.Companion.error(request.message()))
+                    mUploadProfilePicture.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
                 }
             } catch (e: Exception) {
                 mUploadProfilePicture.postValue(BaseResponse.Companion.error(e.message!!))
@@ -72,6 +86,7 @@ class ProfileRepository @Inject constructor(application: Application) :
         }
         return mUploadProfilePicture
     }
+
     fun uploadKycDocument(
         extension: String,
         file: File,
@@ -86,7 +101,13 @@ class ProfileRepository @Inject constructor(application: Application) :
                 if (request.isSuccessful) {
                     mUploadKycDocument.postValue(BaseResponse.success(request.body()!!))
                 } else {
-                    mUploadKycDocument.postValue(BaseResponse.Companion.error(request.message()))
+                    mUploadKycDocument.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
                 }
 
 
@@ -97,6 +118,7 @@ class ProfileRepository @Inject constructor(application: Application) :
         }
         return mUploadKycDocument
     }
+
     fun presignedUrl(
         type: String,
         destinationFile: File
@@ -149,14 +171,15 @@ class ProfileRepository @Inject constructor(application: Application) :
         }
         return mCountriesResponse
     }
+
     fun getCountries(refresh: Boolean = false): LiveData<BaseResponse<CountryResponse>> {
         val mCountryResponse = MutableLiveData<BaseResponse<CountryResponse>>()
         if (mCountryResponse.value == null || refresh) {
             mCountryResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
-                    val request = async { ProfileDataSource(application).getCountries()}
-                    val countryResponse= request.await()
+                    val request = async { ProfileDataSource(application).getCountries() }
+                    val countryResponse = request.await()
                     if (countryResponse.isSuccessful) {
                         if (countryResponse.body()!!.data != null)
                             mCountryResponse.postValue(BaseResponse.success(countryResponse.body()!!))
@@ -178,14 +201,18 @@ class ProfileRepository @Inject constructor(application: Application) :
         }
         return mCountryResponse
     }
-    fun getStates(countryIsoCode: String, refresh: Boolean): LiveData<BaseResponse<StatesResponse>> {
+
+    fun getStates(
+        countryIsoCode: String,
+        refresh: Boolean
+    ): LiveData<BaseResponse<StatesResponse>> {
         val mStatesResponse = MutableLiveData<BaseResponse<StatesResponse>>()
         if (mStatesResponse.value == null || refresh) {
             mStatesResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
-                    val request =async { ProfileDataSource(application).getStates(countryIsoCode)}
-                    val stateResponse= request.await()
+                    val request = async { ProfileDataSource(application).getStates(countryIsoCode) }
+                    val stateResponse = request.await()
                     if (stateResponse.isSuccessful) {
                         if (stateResponse.body()!!.data != null)
                             mStatesResponse.postValue(BaseResponse.success(stateResponse.body()!!))
@@ -208,9 +235,11 @@ class ProfileRepository @Inject constructor(application: Application) :
 
         return mStatesResponse
     }
+
     fun getCities(
         stateIsoCode: String,
-        countryIsoCode: String,refresh: Boolean): LiveData<BaseResponse<CitiesResponse>> {
+        countryIsoCode: String, refresh: Boolean
+    ): LiveData<BaseResponse<CitiesResponse>> {
         val mCitiesResponse = MutableLiveData<BaseResponse<CitiesResponse>>()
         if (mCitiesResponse.value == null || refresh) {
             mCitiesResponse.postValue(BaseResponse.loading())
