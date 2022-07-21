@@ -8,9 +8,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
+import android.view.animation.AlphaAnimation
 import android.widget.AbsListView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -24,6 +26,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.emproto.core.BaseActivity
+import com.emproto.core.tourguide.Overlay
+import com.emproto.core.tourguide.Pointer
+import com.emproto.core.tourguide.TourGuide
 import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityHomeBinding
@@ -70,6 +75,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private var mContext: Context? = null
     private var closeApp = false
     lateinit var activityHomeActivity: ActivityHomeBinding
+    lateinit var tourGuide: TourGuide
     lateinit var manager: LinearLayoutManager
     var pageIndex = 1
     var pageSize = 20
@@ -133,8 +139,125 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         handler = Handler(Looper.getMainLooper())
 
         initData()
-        initClickListener()
         trackEvent()
+        appPreference.setTourGuide(false)
+        if (appPreference.isTourGuideCompleted()) {
+            initClickListener()
+        } else {
+            initTourGuide()
+        }
+
+    }
+
+    private fun initTourGuide() {
+        val enterAnimation = AlphaAnimation(0f, 1f)
+            .apply {
+                duration = 600
+                fillAfter = true
+            }
+
+
+        val exitAnimation = AlphaAnimation(1f, 0f)
+            .apply {
+                duration = 600
+                fillAfter = true
+            }
+        tourGuide = TourGuide.create(this) {
+            toolTip {
+                title { "Notification" }
+                description { "Click here to see notification" }
+                gravity { Gravity.BOTTOM }
+                backgroundColor { R.color.black }
+            }
+            pointer { Pointer() }
+            overlay {
+                setEnterAnimation(enterAnimation)
+                setExitAnimation(exitAnimation)
+                backgroundColor { R.color.text_light_grey_color }
+                style { Overlay.Style.CIRCLE }
+            }
+        }
+        tourGuide.playOn(activityHomeActivity.searchLayout.notificationView)
+
+        activityHomeActivity.searchLayout.notificationView.setOnClickListener {
+            tourGuide.apply {
+                tourGuide.cleanUp()
+                toolTip {
+                    title { "Chat Support" }
+                    description { "Click here to chat with us for any query" }
+                    gravity { Gravity.BOTTOM }
+                    backgroundColor { R.color.black }
+                }
+                pointer { Pointer() }
+                overlay {
+                    setEnterAnimation(enterAnimation)
+                    setExitAnimation(exitAnimation)
+                    backgroundColor { R.color.text_light_grey_color }
+                    style { Overlay.Style.CIRCLE }
+                }
+            }.playOn(activityHomeActivity.searchLayout.headsetView)
+        }
+        activityHomeActivity.searchLayout.headsetView.setOnClickListener {
+            tourGuide.apply {
+                tourGuide.cleanUp()
+                toolTip {
+                    title { "MastHead" }
+                    description { "Clicking on this will take you you to about us screen" }
+                    gravity { Gravity.BOTTOM }
+                    backgroundColor { R.color.black }
+                }
+                pointer { Pointer() }
+                overlay {
+                    setEnterAnimation(enterAnimation)
+                    setExitAnimation(exitAnimation)
+                    backgroundColor { R.color.text_light_grey_color }
+                    style { Overlay.Style.RECTANGLE }
+                }
+            }.playOn(activityHomeActivity.searchLayout.rotateText)
+        }
+        activityHomeActivity.searchLayout.rotateText.setOnClickListener {
+            tourGuide.apply {
+                tourGuide.cleanUp()
+                toolTip {
+                    title { "Search" }
+                    description { "Click here to search and find what you need." }
+                    gravity { Gravity.BOTTOM }
+                    backgroundColor { R.color.black }
+                }
+                pointer { Pointer() }
+                overlay {
+                    setEnterAnimation(enterAnimation)
+                    setExitAnimation(exitAnimation)
+                    backgroundColor { R.color.text_light_grey_color }
+                    style { Overlay.Style.RECTANGLE }
+                }
+            }.playOn(activityHomeActivity.searchLayout.search)
+        }
+        activityHomeActivity.searchLayout.search.setOnClickListener {
+
+//            tourGuide.apply {
+//                tourGuide.cleanUp()
+//                toolTip {
+//                    title { "Profile" }
+//                    description { "Click here to search and find what you need." }
+//                    gravity { Gravity.BOTTOM }
+//                    backgroundColor { R.color.black }
+//                }
+//                pointer { Pointer() }
+//                overlay {
+//                    setEnterAnimation(enterAnimation)
+//                    setExitAnimation(exitAnimation)
+//                    backgroundColor { R.color.text_light_grey_color }
+//                    style { Overlay.Style.RECTANGLE }
+//                }
+//            }.playOn( activityHomeActivity.includeNavigation.bottomNavigation.menu[4].actionView)
+            appPreference.setTourGuide(true)
+            tourGuide.cleanUp()
+            //cleartourguide
+            activityHomeActivity.searchLayout.rotateText.setOnClickListener(null)
+            activityHomeActivity.searchLayout.search.setOnClickListener(null)
+            initClickListener()
+        }
     }
 
     private fun trackEvent() {
