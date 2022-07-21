@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewTreeObserver
@@ -138,23 +139,9 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
         activityHomeActivity.searchLayout.notificationView.setOnClickListener(View.OnClickListener {
             bottomSheetDialog = BottomSheetDialog(this)
-            bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
             fragmentNotificationBottomSheetBinding =
                 FragmentNotificationBottomSheetBinding.inflate(layoutInflater)
             bottomSheetDialog.setContentView(fragmentNotificationBottomSheetBinding.root)
-
-            view?.viewTreeObserver?.addOnGlobalLayoutListener(object :
-                ViewTreeObserver.OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    val bottomSheetDialog =
-                        (bottomSheetDialog as BottomSheetDialog).findViewById<View>(R.id.locUXView) as LinearLayout
-                    BottomSheetBehavior.from<View>(bottomSheetDialog).apply {
-                        peekHeight = 100
-                    }
-
-                    view?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
-                }
-            })
 
             callNotificationApi()
             launch_bottom_sheet()
@@ -322,6 +309,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 getCurrentFragment() is PromisesDetailsFragment
             ) {
                 activityHomeActivity.includeNavigation.bottomNavigation.menu[3].isChecked = true
+            }else if (getCurrentFragment() is ProfileFragment) {
+                activityHomeActivity.includeNavigation.bottomNavigation.menu[4].isChecked = true
             }
         }
     }
@@ -427,7 +416,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     fun callNotificationApi() {
-        homeViewModel.getNotification(5, 1)
+        homeViewModel.getNotification(20, 1)
             .observe(this, object : Observer<BaseResponse<NotificationResponse>> {
                 override fun onChanged(it: BaseResponse<NotificationResponse>?) {
                     when (it!!.status) {
@@ -442,6 +431,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                         }
                         Status.SUCCESS -> {
                             fragmentNotificationBottomSheetBinding.loader.isVisible= false
+
+                            it?.data
 
 
                             it?.data.let {
@@ -463,8 +454,10 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                                                                 Status.LOADING ->{
                                                                 }
                                                                 Status.SUCCESS -> {
+                                                                    Log.i("sucess", "Sucess")
                                                                 }
                                                                 Status.ERROR -> {
+                                                                    Log.i("error", "error")
 
                                                                 }
 
@@ -472,11 +465,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                                                         }
 
                                                     })
-
-                                                if (it.data[posittion]!!.notification.targetPage == null) {
-                                                    bottomSheetDialog.dismiss()
-
-                                                }
                                                 if (it!!.data[posittion]!!.notification.targetPage == 1) {
                                                     val bundle = Bundle()
                                                     val homeFragment = HomeFragment()
@@ -492,7 +480,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                                                     )
                                                     bottomSheetDialog.dismiss()
                                                 }
-                                                if (it!!.data[posittion]!!.notification.targetPage == 2) {
+                                                else if  (it!!.data[posittion]!!.notification.targetPage == 2) {
                                                     val bundle = Bundle()
                                                     val latestUpdatesFragment =
                                                         LatestUpdatesFragment()
@@ -509,7 +497,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                                                     bottomSheetDialog.dismiss()
 
                                                 }
-                                                if (it!!.data[posittion]!!.notification.targetPage == 3) {
+                                                else if  (it!!.data[posittion]!!.notification.targetPage == 3) {
                                                     val bundle = Bundle()
                                                     val insightsFragment = InsightsFragment()
                                                     insightsFragment.arguments = bundle
@@ -525,69 +513,28 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                                                     bottomSheetDialog.dismiss()
 
                                                 }
-                                                if (it!!.data[posittion]!!.notification.targetPage == 4) {
-                                                    val bundle = Bundle()
-                                                    val investmentFragment = InvestmentFragment()
-                                                    investmentFragment.arguments = bundle
-                                                    replaceFragment(
-                                                        investmentFragment.javaClass,
-                                                        "",
-                                                        true,
-                                                        bundle,
-                                                        null,
-                                                        0,
-                                                        false
-                                                    )
+                                                else if  (it!!.data[posittion]!!.notification.targetPage == 4) {
+
+                                                    (this@HomeActivity).navigate(R.id.navigation_investment)
                                                     bottomSheetDialog.dismiss()
 
                                                 }
-                                                if (it!!.data[posittion]!!.notification.targetPage == 5) {
-                                                    val bundle = Bundle()
-                                                    val portfolioFragment = PortfolioFragment()
-                                                    portfolioFragment.arguments = bundle
-                                                    replaceFragment(
-                                                        portfolioFragment.javaClass,
-                                                        "",
-                                                        true,
-                                                        bundle,
-                                                        null,
-                                                        0,
-                                                        false
-                                                    )
+                                                else if (it!!.data[posittion]!!.notification.targetPage == 5) {
+                                                    (this@HomeActivity).navigate(R.id.navigation_portfolio)
                                                     bottomSheetDialog.dismiss()
 
                                                 }
-                                                if (it!!.data[posittion]!!.notification.targetPage == 6) {
-                                                    val bundle = Bundle()
-                                                    val promises= HoablPromises()
-                                                    promises.arguments = bundle
-                                                    replaceFragment(
-                                                        promises.javaClass,
-                                                        "",
-                                                        true,
-                                                        bundle,
-                                                        null,
-                                                        0,
-                                                        false
-                                                    )
+                                                else if  (it!!.data[posittion]!!.notification.targetPage == 6) {
+                                                    (this@HomeActivity).navigate(R.id.navigation_promises)
                                                     bottomSheetDialog.dismiss()
 
                                                 }
-                                                if (it!!.data[posittion]!!.notification.targetPage == 7) {
-                                                    val bundle = Bundle()
-                                                    val profileFragment = ProfileFragment()
-                                                    profileFragment.arguments = bundle
-                                                    replaceFragment(
-                                                        profileFragment.javaClass,
-                                                        "",
-                                                        true,
-                                                        bundle,
-                                                        null,
-                                                        0,
-                                                        false
-                                                    )
+                                                else if  (it!!.data[posittion]!!.notification.targetPage == 7) {
+                                                    (this@HomeActivity).navigate(R.id.navigation_profile)
                                                     bottomSheetDialog.dismiss()
-
+                                                }
+                                                else{
+                                                    bottomSheetDialog.dismiss()
                                                 }
                                             }
 

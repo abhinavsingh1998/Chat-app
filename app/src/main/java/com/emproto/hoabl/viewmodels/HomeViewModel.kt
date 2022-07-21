@@ -16,6 +16,7 @@ import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
+import com.emproto.networklayer.response.home.Page
 import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.Data
@@ -47,13 +48,13 @@ class HomeViewModel(
 
     private var testimonial = MutableLiveData<TestimonialsResponse>()
     private var selectedlatestUpdates = MutableLiveData<Data>()
-    private var selectedInsights =
-        MutableLiveData<com.emproto.networklayer.response.insights.Data>()
+    private var selectedInsights = MutableLiveData<com.emproto.networklayer.response.insights.Data>()
     private var latestUpdates = MutableLiveData<List<Data>>()
     private var insights = MutableLiveData<List<com.emproto.networklayer.response.insights.Data>>()
 
     private var position = MutableLiveData<LatesUpdatesPosition>()
     private var latUpdPosition = MutableLiveData<LatesUpdatesPosition>()
+    private var listData= MutableLiveData<Page>()
 
     @Inject
     lateinit var homeSearchDao: HomeSearchDao
@@ -118,6 +119,14 @@ class HomeViewModel(
         this.selectedlatestUpdates.postValue(selectedlatestUpdates)
     }
 
+    fun setHeaderAndList(listData:Page){
+        this.listData.postValue(listData)
+    }
+
+    fun getHeaderAndList() :LiveData<Page> {
+        return listData
+    }
+
     fun getSelectedLatestUpdates(): LiveData<Data> {
         return selectedlatestUpdates
     }
@@ -165,19 +174,12 @@ class HomeViewModel(
         testimonial.postValue(data)
     }
 
-    fun getAllInvestmentsProjects(): LiveData<BaseResponse<AllProjectsResponse>> {
-        return homeRepository.getAllInvestmentsProjects()
-    }
-
     fun getChatsList(): LiveData<BaseResponse<ChatResponse>> {
         return homeRepository.getChatsList()
     }
 
     fun chatInitiate(chatInitiateRequest: ChatInitiateRequest): LiveData<BaseResponse<ChatDetailResponse>> {
         return homeRepository.chatInitiate(chatInitiateRequest)
-    }
-    fun getAccountsList(): LiveData<BaseResponse<AccountsResponse>> {
-        return homeRepository.getAccountsList()
     }
 
     fun getReferNow(referalRequest: ReferalRequest): LiveData<BaseResponse<ReferalResponse>> {
