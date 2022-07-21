@@ -696,11 +696,7 @@ class EditProfileFragment : BaseFragment() {
                 )
             }
             dob = binding.tvDatePicker.text.toString()
-            if (dob.isNotEmpty()) {
-                dob = binding.tvDatePicker.text.toString()
-            } else {
-                dob = null.toString()
-            }
+
             email = binding.emailTv.text.toString()
             if (email.isValidEmail()) {
                     binding.tvEmail.isErrorEnabled = false
@@ -737,9 +733,12 @@ class EditProfileFragment : BaseFragment() {
             pinCode = binding.pincodeEditText.text.toString()
             if (locality.isNotEmpty()) {
                 binding.pincode.isErrorEnabled = false
-            }else{
                 pinCode = binding.pincodeEditText.text.toString()
+
             }
+//            else{
+//                pinCode = binding.pincodeEditText.text.toString()
+//            }
 
 
             countrySelected = binding.autoCountry.text.toString()
@@ -763,9 +762,8 @@ class EditProfileFragment : BaseFragment() {
             if(email.isNotEmpty() && !email.isValidEmail()){
                 binding.tvEmail.error = "Please enter valid email"
             }
-            else if(pinCode.isEmpty()){
-                binding.pincode.error = "Please enter pincode"
-            }else{
+
+            else{
                 sendProfileDetail(
                     dob,
                     email,
