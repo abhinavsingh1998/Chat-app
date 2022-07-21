@@ -5,25 +5,35 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewTreeObserver
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.get
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityHomeBinding
 import com.emproto.hoabl.databinding.FragmentNotificationBottomSheetBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
-import com.emproto.hoabl.feature.home.notification.HoabelNotifiaction
+import com.emproto.hoabl.feature.home.adapters.LatestUpdateAdapter
+import com.emproto.hoabl.feature.notification.HoabelNotifiaction
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
+import com.emproto.hoabl.feature.home.views.fragments.InsightsFragment
+import com.emproto.hoabl.feature.home.views.fragments.LatestUpdatesFragment
 import com.emproto.hoabl.feature.home.views.fragments.SearchResultFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
+import com.emproto.hoabl.feature.notification.adapter.NotificationAdapter
 import com.emproto.hoabl.feature.portfolio.views.*
 import com.emproto.hoabl.feature.profile.fragments.about_us.AboutUsFragment
 import com.emproto.hoabl.feature.promises.HoablPromises
@@ -32,7 +42,12 @@ import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.preferences.AppPreference
+import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.notification.dataResponse.NotificationResponse
+import com.emproto.networklayer.response.notification.readStatus.ReadNotificationReponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 import javax.inject.Inject
@@ -63,6 +78,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private var oneTimeValidation = false
 
     var topText = ""
+
     @Inject
     lateinit var appPreference: AppPreference
 
@@ -96,7 +112,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     private fun trackEvent() {
-        val mixpanelAPI = MixpanelAPI.getInstance(this,getString(R.string.MIXPANEL_KEY))
+        val mixpanelAPI = MixpanelAPI.getInstance(this, getString(R.string.MIXPANEL_KEY))
         mixpanelAPI.identify(appPreference.getMobilenum())
     }
 
@@ -122,48 +138,13 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         }
 
         activityHomeActivity.searchLayout.notificationView.setOnClickListener(View.OnClickListener {
-//            bottomSheetDialog = BottomSheetDialog(this)
-//            bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
-//            fragmentNotificationBottomSheetBinding =
-//                FragmentNotificationBottomSheetBinding.inflate(layoutInflater)
-//            bottomSheetDialog.setContentView(fragmentNotificationBottomSheetBinding.root)
-//
-//            view?.viewTreeObserver?.addOnGlobalLayoutListener(object :
-//                ViewTreeObserver.OnGlobalLayoutListener {
-//                override fun onGlobalLayout() {
-//                    val bottomSheetDialog =
-//                        (bottomSheetDialog as BottomSheetDialog).findViewById<View>(R.id.locUXView) as LinearLayout
-//                    BottomSheetBehavior.from<View>(bottomSheetDialog).apply {
-//                        peekHeight = 100
-//                    }
-//
-//                    view?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
-//                }
-//            })
-//
-//            var data = ArrayList<NotificationDataModel>()
-//            for (i in 1..20) {
-//                data.add(
-//                    NotificationDataModel(
-//                        R.drawable.img,
-//                        "Notification Topic 1",
-//                        "It is a long established fact that a reader will be distracted ",
-//                        "1h"
-//                    )
-//                )
-//                Log.i("msg", "data")
-//            }
-//            val customAdapter = NotificationAdapter(this, data)
-//
-//            bottomSheetDialog.findViewById<RecyclerView>(R.id.rv)?.apply {
-//                layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-//                adapter = customAdapter
-//            }
-//
-//
-//            launch_bottom_sheet()
-//            Toast.makeText(this, "Notification is Under Development", Toast.LENGTH_LONG).show()
+            bottomSheetDialog = BottomSheetDialog(this)
+            fragmentNotificationBottomSheetBinding =
+                FragmentNotificationBottomSheetBinding.inflate(layoutInflater)
+            bottomSheetDialog.setContentView(fragmentNotificationBottomSheetBinding.root)
 
+            callNotificationApi()
+            launch_bottom_sheet()
         })
 
         activityHomeActivity.searchLayout.layout.setOnClickListener(View.OnClickListener {
@@ -290,10 +271,12 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                     fragmentTransaction.replace(contentFrame, fragment, finalTag)
                     if (addToBackStack) fragmentTransaction.addToBackStack(finalTag)
                     supportFragmentManager.executePendingTransactions()
-                    fragmentTransaction.setCustomAnimations( R.anim.enter,
-                    R.anim.exit,
-                    R.anim.enter_right,
-                    R.anim.exit_left).commit()
+                    fragmentTransaction.setCustomAnimations(
+                        R.anim.enter,
+                        R.anim.exit,
+                        R.anim.enter_right,
+                        R.anim.exit_left
+                    ).commit()
 
 
                 }
@@ -326,6 +309,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 getCurrentFragment() is PromisesDetailsFragment
             ) {
                 activityHomeActivity.includeNavigation.bottomNavigation.menu[3].isChecked = true
+            }else if (getCurrentFragment() is ProfileFragment) {
+                activityHomeActivity.includeNavigation.bottomNavigation.menu[4].isChecked = true
             }
         }
     }
@@ -428,6 +413,146 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             }
 
         })
+    }
+
+    fun callNotificationApi() {
+        homeViewModel.getNotification(20, 1)
+            .observe(this, object : Observer<BaseResponse<NotificationResponse>> {
+                override fun onChanged(it: BaseResponse<NotificationResponse>?) {
+                    when (it!!.status) {
+
+                        Status.LOADING->{
+                            fragmentNotificationBottomSheetBinding.loader.isVisible= true
+
+                        }
+                        Status.ERROR -> {
+                            fragmentNotificationBottomSheetBinding.loader.isVisible= false
+
+                        }
+                        Status.SUCCESS -> {
+                            fragmentNotificationBottomSheetBinding.loader.isVisible= false
+
+                            it?.data
+
+
+                            it?.data.let {
+                                it?.data
+                                bottomSheetDialog.findViewById<RecyclerView>(R.id.rv)?.apply {
+                                    val customAdapter = NotificationAdapter(
+                                        this@HomeActivity,
+                                        it!!.data,
+                                        object : NotificationAdapter.ItemsClickInterface {
+                                            override fun onClickItem(id: Int, posittion: Int) {
+                                                var list = ArrayList<String>()
+                                                list.add(id.toString())
+                                                homeViewModel.setReadStatus(list).observe(
+                                                    this@HomeActivity,
+                                                    object :
+                                                        Observer<BaseResponse<ReadNotificationReponse>> {
+                                                        override fun onChanged(it: BaseResponse<ReadNotificationReponse>?) {
+                                                            when (it!!.status) {
+                                                                Status.LOADING ->{
+                                                                }
+                                                                Status.SUCCESS -> {
+                                                                    Log.i("sucess", "Sucess")
+                                                                }
+                                                                Status.ERROR -> {
+                                                                    Log.i("error", "error")
+
+                                                                }
+
+                                                            }
+                                                        }
+
+                                                    })
+                                                if (it!!.data[posittion]!!.notification.targetPage == 1) {
+                                                    val bundle = Bundle()
+                                                    val homeFragment = HomeFragment()
+                                                    homeFragment.arguments = bundle
+                                                    replaceFragment(
+                                                        homeFragment.javaClass,
+                                                        "",
+                                                        true,
+                                                        bundle,
+                                                        null,
+                                                        0,
+                                                        false
+                                                    )
+                                                    bottomSheetDialog.dismiss()
+                                                }
+                                                else if  (it!!.data[posittion]!!.notification.targetPage == 2) {
+                                                    val bundle = Bundle()
+                                                    val latestUpdatesFragment =
+                                                        LatestUpdatesFragment()
+                                                    latestUpdatesFragment.arguments = bundle
+                                                    replaceFragment(
+                                                        latestUpdatesFragment.javaClass,
+                                                        "",
+                                                        true,
+                                                        bundle,
+                                                        null,
+                                                        0,
+                                                        false
+                                                    )
+                                                    bottomSheetDialog.dismiss()
+
+                                                }
+                                                else if  (it!!.data[posittion]!!.notification.targetPage == 3) {
+                                                    val bundle = Bundle()
+                                                    val insightsFragment = InsightsFragment()
+                                                    insightsFragment.arguments = bundle
+                                                    replaceFragment(
+                                                        insightsFragment.javaClass,
+                                                        "",
+                                                        true,
+                                                        bundle,
+                                                        null,
+                                                        0,
+                                                        false
+                                                    )
+                                                    bottomSheetDialog.dismiss()
+
+                                                }
+                                                else if  (it!!.data[posittion]!!.notification.targetPage == 4) {
+
+                                                    (this@HomeActivity).navigate(R.id.navigation_investment)
+                                                    bottomSheetDialog.dismiss()
+
+                                                }
+                                                else if (it!!.data[posittion]!!.notification.targetPage == 5) {
+                                                    (this@HomeActivity).navigate(R.id.navigation_portfolio)
+                                                    bottomSheetDialog.dismiss()
+
+                                                }
+                                                else if  (it!!.data[posittion]!!.notification.targetPage == 6) {
+                                                    (this@HomeActivity).navigate(R.id.navigation_promises)
+                                                    bottomSheetDialog.dismiss()
+
+                                                }
+                                                else if  (it!!.data[posittion]!!.notification.targetPage == 7) {
+                                                    (this@HomeActivity).navigate(R.id.navigation_profile)
+                                                    bottomSheetDialog.dismiss()
+                                                }
+                                                else{
+                                                    bottomSheetDialog.dismiss()
+                                                }
+                                            }
+
+                                        })
+                                    layoutManager =
+                                        LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                                    adapter = customAdapter
+                                }
+
+
+                            }
+
+
+                        }
+                    }
+                }
+
+            })
     }
 
     fun share_app() {

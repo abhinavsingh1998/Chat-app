@@ -18,6 +18,8 @@ import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
+import com.emproto.networklayer.response.notification.dataResponse.NotificationResponse
+import com.emproto.networklayer.response.notification.readStatus.ReadNotificationReponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.profile.AccountsResponse
 import com.emproto.networklayer.response.promises.PromisesResponse
@@ -626,6 +628,66 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
 //        }
 //        return  mActionItem
 //    }
+
+
+
+    fun getNotificationList(size:Int, index:Int): LiveData<BaseResponse<NotificationResponse>> {
+        val mNotificationResponse = MutableLiveData<BaseResponse<NotificationResponse>>()
+        mNotificationResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = HomeDataSource(application).getNotificationList(size, index)
+                if (request.isSuccessful) {
+                    if (request.body() != null && request.body() is NotificationResponse) {
+                        mNotificationResponse.postValue(BaseResponse.success(request.body()!!))
+
+                    } else
+                        mNotificationResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mNotificationResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+
+                mNotificationResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mNotificationResponse
+    }
+
+    fun setReadStatus(ids:List<String>): LiveData<BaseResponse<ReadNotificationReponse>> {
+        val mNotificationResponse = MutableLiveData<BaseResponse<ReadNotificationReponse>>()
+        mNotificationResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = HomeDataSource(application).setReadStatus(ids)
+                if (request.isSuccessful) {
+                    if (request.body() != null && request.body() is ReadNotificationReponse) {
+                        mNotificationResponse.postValue(BaseResponse.success(request.body()!!))
+
+                    } else
+                        mNotificationResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mNotificationResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+
+                mNotificationResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mNotificationResponse
+    }
 
 
 

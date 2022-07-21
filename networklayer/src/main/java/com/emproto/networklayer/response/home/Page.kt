@@ -43,6 +43,7 @@ data class Page(
     val playTimeInSeconds: Any,
     val promiseSection: Any,
     val promisesHeading: String,
+    val isPromotionAndOfferActive:Boolean,
     val promotionAndOffersMedia: FacilityManagement,
     val promotionAndOffersProjectContentId: Int,
     val propositionScreens: Any,

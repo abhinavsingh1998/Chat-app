@@ -144,6 +144,7 @@ class AccountDetailsFragment : Fragment(),
         documentBinding.ivDocsClose.setOnClickListener {
             docsBottomSheet.dismiss()
         }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -156,7 +157,8 @@ class AccountDetailsFragment : Fragment(),
                 Status.SUCCESS -> {
                     binding.progressBar.hide()
                     if (it.data?.data!!.documents != null && it.data!!.data.documents is List<AccountsResponse.Data.Document>) {
-                        allKycDocList = it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>
+                        allKycDocList =
+                            it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>
                         kycLists = ArrayList<AccountsResponse.Data.Document>()
                         documentList = ArrayList<AccountsResponse.Data.Document>()
                         for (document in allKycDocList) {
@@ -200,42 +202,88 @@ class AccountDetailsFragment : Fragment(),
                                 binding.rvKyc.adapter = kycUploadAdapter
                             }
                         }
-
                         if (documentList.isNullOrEmpty()) {
-                            binding.rvDocuments.visibility = View.INVISIBLE
+                            binding.rvDocuments.visibility = View.VISIBLE
                             binding.tvSeeAllDocuments.visibility = View.GONE
-                            binding.cvNoDoc.visibility = View.VISIBLE
-
-                            val layout: RecyclerView =
-                                requireActivity().findViewById(R.id.rvDocuments)
-                            val params: ViewGroup.LayoutParams = layout.layoutParams
-                            params.height = 250
-                            params.width = 250
-                            layout.layoutParams = params
-
+                            documentList.add(
+                                AccountsResponse.Data.Document(
+                                    "1",
+                                    "2",
+                                    "3",
+                                    "4",
+                                    5,
+                                    6,
+                                    7,
+                                    "8",
+                                    "9",
+                                    "10",
+                                    "11",
+                                    "12",
+                                    "13"
+                                )
+                            )
+                            binding.rvDocuments.layoutManager =
+                                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+                            binding.rvDocuments.adapter = AccountsDocumentLabelListAdapter(
+                                context, documentList,
+                                this, "empty"
+                            )
 
                         } else {
                             binding.rvDocuments.visibility = View.VISIBLE
                             binding.tvSeeAllDocuments.visibility = View.VISIBLE
-                            binding.cvNoDoc.visibility = View.GONE
                             binding.rvDocuments.layoutManager =
                                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
                             binding.rvDocuments.adapter = AccountsDocumentLabelListAdapter(
                                 context,
                                 documentList,
-                                this
+                                this, "not"
                             )
                         }
                     }
-
                     if (it.data?.data!!.paymentHistory != null && it.data!!.data.paymentHistory is List<AccountsResponse.Data.PaymentHistory>) {
                         allPaymentList =
                             it.data!!.data.paymentHistory as ArrayList<AccountsResponse.Data.PaymentHistory>
+
                         if (allPaymentList.isNullOrEmpty()) {
                             binding.tvPaymentHistory.visibility = View.VISIBLE
                             binding.cvNoPayment.visibility = View.VISIBLE
                             binding.tvSeeAllPayment.visibility = View.GONE
-                            binding.rvPaymentHistory.visibility = View.GONE
+                            binding.rvPaymentHistory.visibility = View.VISIBLE
+                            allPaymentList.add(
+                                AccountsResponse.Data.PaymentHistory(
+                                    "1",
+                                    "2",
+                                    "3",
+                                    "4",
+                                    AccountsResponse.Data.PaymentHistory.Document(
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9",
+                                        "10",
+                                        11,
+                                        "12",
+                                        "13",
+                                        "14",
+                                        "15",
+                                        "16"
+                                    ),
+                                    17,
+                                    "18",
+                                    19,
+                                    "20",
+                                    "21"
+                                )
+                            )
+                            binding.rvPaymentHistory.layoutManager =
+                                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+                            binding.rvPaymentHistory.adapter = AccountsPaymentListAdapter(
+                                context,
+                                allPaymentList,
+                                this, "empty"
+                            )
                         } else {
                             binding.tvPaymentHistory.visibility = View.VISIBLE
                             binding.tvSeeAllPayment.visibility = View.VISIBLE
@@ -245,12 +293,10 @@ class AccountDetailsFragment : Fragment(),
                                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
                             binding.rvPaymentHistory.adapter = AccountsPaymentListAdapter(
                                 context,
-                                it.data!!.data.paymentHistory as ArrayList<AccountsResponse.Data.PaymentHistory>,
-                                this
+                                allPaymentList,
+                                this, "not"
                             )
                         }
-
-
                     }
                 }
                 Status.ERROR -> {
@@ -259,7 +305,6 @@ class AccountDetailsFragment : Fragment(),
                 }
             }
         })
-
     }
 
     private fun getKycList(kycLists: ArrayList<AccountsResponse.Data.Document>): Collection<KycUpload> {
@@ -432,8 +477,6 @@ class AccountDetailsFragment : Fragment(),
                 Toast.makeText(context, "Invalid format", Toast.LENGTH_SHORT).show()
             }
         }
-
-
     }
 
     fun getDocumentData(path: String) {
@@ -544,7 +587,10 @@ class AccountDetailsFragment : Fragment(),
 
     fun isStoragePermissionGranted(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
                 == PackageManager.PERMISSION_GRANTED
             ) {
                 true
@@ -638,7 +684,7 @@ class AccountDetailsFragment : Fragment(),
                     Status.SUCCESS -> {
                         binding.progressBar.hide()
                         it.data?.let {
-                            if(it.data.response.data.name!=null && it.data.response.data.name!=null){
+                            if (it.data.response.data.name != null && it.data.response.data.name != null) {
                                 for (item in kycUploadList) {
                                     if (selectedDocumentType == DOC_TYPE_UNVERIFIED_ADDRESS_PROOF && item.documentName == "Address Proof") {
                                         item.name = it.data.response.data.name

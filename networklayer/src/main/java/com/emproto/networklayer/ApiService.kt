@@ -5,7 +5,6 @@ import com.emproto.networklayer.request.investment.AddInventoryBody
 import com.emproto.networklayer.request.investment.VideoCallBody
 import com.emproto.networklayer.request.investment.WatchListBody
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
-import com.emproto.networklayer.request.login.profile.UploadProfilePictureRequest
 import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
@@ -14,11 +13,13 @@ import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.request.profile.ReportSecurityRequest
 import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.request.refernow.ReferalRequest
-import com.emproto.networklayer.response.HomeActionItemResponse
 import com.emproto.networklayer.response.actionItem.HomeActionItem
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyX
 import com.emproto.networklayer.response.chats.*
+import com.emproto.networklayer.response.chats.ChatDetailResponse
+import com.emproto.networklayer.response.chats.ChatInitiateRequest
+import com.emproto.networklayer.response.chats.ChatResponse
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
@@ -29,6 +30,8 @@ import com.emproto.networklayer.response.login.OtpResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.login.VerifyOtpResponse
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
+import com.emproto.networklayer.response.notification.dataResponse.NotificationResponse
+import com.emproto.networklayer.response.notification.readStatus.ReadNotificationReponse
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
@@ -248,4 +251,11 @@ public interface ApiService {
 
     @GET(ApiConstants.ACTION_ITEM)
     suspend fun getActionItem():Response<HomeActionItem>
+
+    @GET(ApiConstants.NOTICATION_LIST)
+    suspend fun getNotificationList(@Query("size") size:Int,
+                                    @Query("index") index:Int):Response<NotificationResponse>
+
+    @POST(ApiConstants.READ_NOTIFICATION)
+    suspend fun setReadStatus(@Query("ids") ids: List<String>):Response<ReadNotificationReponse>
 }
