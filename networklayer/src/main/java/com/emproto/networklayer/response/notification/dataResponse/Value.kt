@@ -1,4 +1,4 @@
-package com.emproto.networklayer.response.notification
+package com.emproto.networklayer.response.notification.dataResponse
 
 data class Value(
     val height: Int,

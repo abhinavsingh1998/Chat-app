@@ -51,18 +51,23 @@ class InsightsFragment : BaseFragment() {
             View.GONE
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
 
-        arguments?.let {
-            insightsListCount = it.getInt("insightsCounts", 0)
-            insightsHeading = it.getString("insightsHeading", "")
-            insightsSubHeading = it.getString("insightsSubHeading", "")
-        }
-
         (requireActivity() as HomeActivity).showBackArrow()
 
+        initView()
         initObserver(false)
         initClickListner()
         return mBinding.root
     }
+
+    private fun initView(){
+        homeViewModel.getHeaderAndList().observe(viewLifecycleOwner, Observer{
+            insightsListCount= it.totalInsightsOnListView
+            insightsHeading= it.insightsHeading
+           insightsSubHeading= it.insightsSubHeading
+
+        })
+    }
+
 
     private fun initObserver(refresh: Boolean) {
 

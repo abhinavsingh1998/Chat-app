@@ -52,20 +52,23 @@ class LatestUpdatesFragment : BaseFragment() {
 
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
 
-        arguments?.let {
-
-            updatesListCount = it.getInt("UpdateList", 0)
-            latestHeading = it.getString("heading", "")
-            latestSubHeading = it.getString("subheading", "")
-        }
-
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible =
             true
 
         (requireActivity() as HomeActivity).showBackArrow()
+        initView()
         initObserver(false)
         initClickListner()
         return mBinding.root
+    }
+
+    private fun initView(){
+        homeViewModel.getHeaderAndList().observe(viewLifecycleOwner, Observer{
+            updatesListCount= it.totalUpdatesOnListView
+            latestHeading= it.latestUpdates.heading
+            latestSubHeading= it.latestUpdates.subHeading
+
+        })
     }
 
     private fun initObserver(refresh: Boolean) {
@@ -105,7 +108,7 @@ class LatestUpdatesFragment : BaseFragment() {
                                                 homeViewModel.setSelectedPosition(
                                                     LatesUpdatesPosition(
                                                         position,
-                                                        it.data.size
+                                                        updatesListCount
                                                     )
                                                 )
 

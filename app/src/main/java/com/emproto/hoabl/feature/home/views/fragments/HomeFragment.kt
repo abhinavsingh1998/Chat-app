@@ -134,12 +134,7 @@ class HomeFragment : BaseFragment() {
                                     it!!.data!!.data.page.totalTestimonialsOnListView
 
 
-                                latestHeading = it!!.data!!.data.page.latestUpdates.heading
-                                latestSubHeading = it!!.data!!.data.page.latestUpdates.subHeading
-
-                                insightsHeading = it!!.data!!.data.page.insightsHeading
-                                insightsSubHeading = it!!.data!!.data.page.insightsSubHeading
-
+                                homeViewModel.setHeaderAndList(it!!.data!!.data.page)
                                 testimonilalsHeading = it!!.data!!.data.page.testimonialsHeading
                                 testimonilalsSubHeading =
                                     it!!.data!!.data.page.testimonialsSubHeading
@@ -328,22 +323,10 @@ class HomeFragment : BaseFragment() {
                 }
                 R.id.tv_see_all_update -> {
                     val fragment = LatestUpdatesFragment()
-                    val bundle = Bundle()
-                    bundle.putInt("UpdateList", latestUptaesListCount)
-                    bundle.putString("heading", latestHeading)
-
-                    bundle.putString("subheading", latestSubHeading)
-                    fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
                 R.id.tv_seeall_insights -> {
                     val fragment = InsightsFragment()
-                    val bundle = Bundle()
-                    bundle.putInt("insightsCounts", InsightsListCount)
-                    bundle.putString("insightsHeading", insightsHeading)
-
-                    bundle.putString("insightsSubHeading", insightsSubHeading)
-                    fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
 
                 }

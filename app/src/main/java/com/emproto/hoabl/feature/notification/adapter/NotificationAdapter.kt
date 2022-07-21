@@ -1,27 +1,19 @@
 package com.emproto.hoabl.feature.notification.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.InsightsListItemBinding
 import com.emproto.hoabl.databinding.NotificationItemBinding
-import com.emproto.hoabl.feature.home.adapters.AllInsightsAdapter
-import com.emproto.hoabl.feature.notification.data.NotificationDataModel
-import com.emproto.hoabl.utils.ItemClickListener
-import com.emproto.networklayer.response.notification.Data
-import com.emproto.networklayer.response.notification.NotificationResponse
+import com.emproto.hoabl.feature.home.adapters.AllLatestUpdatesAdapter
+import com.emproto.networklayer.response.notification.dataResponse.Data
 
 class NotificationAdapter(
     val mContext: Context,
-    val list: List<Data>) :
+    val list: List<Data>,
+    val itemInterface: ItemsClickInterface):
     RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):  ViewHolder{
@@ -34,15 +26,25 @@ class NotificationAdapter(
 
 
              if (item.notification.notificationDescription.media!=null){
+                 holder.binding.cvChatImage.isVisible= true
                  Glide.with(mContext)
                      .load(item.notification.notificationDescription.media.value.url)
                      .into(holder.binding.ivImage)
              } else{
-                 holder.binding.ivImage.isVisible= false
+                 holder.binding.cvChatImage.isVisible= false
              }
 
          holder.binding.tvChatDesc.text= item.notification.notificationDescription.body
          holder.binding.tvTopic.text= item.notification.notificationDescription.title
+
+         if (item.readStatus== true){
+             holder.binding.cardView.cardElevation= 0f
+
+         }
+
+         holder.binding.cardView.setOnClickListener {
+             itemInterface.onClickItem(item.id, position)
+         }
 
 
      }
@@ -54,5 +56,8 @@ class NotificationAdapter(
     inner class ViewHolder(val binding:NotificationItemBinding ) :
         RecyclerView.ViewHolder(binding.root)
 
+    interface ItemsClickInterface {
+        fun onClickItem(id: Int, position: Int)
+    }
 
 }
