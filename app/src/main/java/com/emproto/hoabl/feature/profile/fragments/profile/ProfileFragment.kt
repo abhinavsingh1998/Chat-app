@@ -54,7 +54,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
-    lateinit var securePinDialog: CustomDialog
+    //lateinit var securePinDialog: CustomDialog
 
     val bundle = Bundle()
 
@@ -88,6 +88,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
         initClickListener()
         return binding.root
     }
+
     private fun initObserver() {
         profileViewModel.getUserProfile().observe(viewLifecycleOwner, Observer {
             when (it.status) {
@@ -249,7 +250,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
             0 -> {
                 if (!(requireActivity() as HomeActivity).isFingerprintValidate()) {
                     setUpAuthentication()
-                }else{
+                } else {
                     val myAccount = AccountDetailsFragment()
                     (requireActivity() as HomeActivity).addFragment(myAccount, false)
 
@@ -275,7 +276,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
             3 -> {
                 val facilityManagerPopViewFragment = FacilityManagerPopViewFragment()
 
-                if (appPreference.isFacilityCard() == true) {
+                if (appPreference.isFacilityCard()) {
                     if (fmData != null) {
                         (requireActivity() as HomeActivity).addFragment(
                             FmFragment.newInstance(
@@ -321,18 +322,18 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                     if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
                         setUpKeyGuardManager()
                     } else if (errorCode == BiometricPrompt.ERROR_NO_BIOMETRICS) {
-                        securePinDialog.show()
+                        openMyAccount()
                     } else if (errorCode == BiometricPrompt.ERROR_USER_CANCELED) {
                         (requireActivity() as HomeActivity).onBackPressed()
                     } else if (errorCode == BiometricPrompt.ERROR_NO_DEVICE_CREDENTIAL) {
                         //no enrollment
+                        openMyAccount()
 
                     } else if (errorCode == BiometricPrompt.ERROR_HW_NOT_PRESENT) {
                         //setUpUI(true)
                         setUpKeyGuardManager()
                     } else {
-                        val myAccount = AccountDetailsFragment()
-                        (requireActivity() as HomeActivity).addFragment(myAccount, false)
+                        openMyAccount()
                         (requireActivity() as HomeActivity).fingerprintValidation(true)
                     }
                 }
@@ -342,8 +343,8 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                 ) {
                     super.onAuthenticationSucceeded(result)
                     (requireActivity() as HomeActivity).fingerprintValidation(true)
-                    val myAccount = AccountDetailsFragment()
-                    (requireActivity() as HomeActivity).addFragment(myAccount, false)                }
+                    openMyAccount()
+                }
 
                 override fun onAuthenticationFailed() {
                     super.onAuthenticationFailed()
@@ -391,5 +392,10 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
             logoutDialog.show()
         }
 
+    }
+
+    private fun openMyAccount() {
+        val myAccount = AccountDetailsFragment()
+        (requireActivity() as HomeActivity).addFragment(myAccount, false)
     }
 }
