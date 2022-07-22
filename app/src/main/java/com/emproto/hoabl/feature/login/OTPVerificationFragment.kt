@@ -236,14 +236,12 @@ class OTPVerificationFragment : BaseFragment() {
                                                     "prlead",
                                                     ContactType.PRELEAD.value.toString()
                                                 )
-                                               var verificationStatus=verifyOtpResponse.user.verificationStatus
-                                                verificationStatus="Unverified"
                                                 if (verifyOtpResponse.user.firstName.isNullOrEmpty()) {
                                                     (requireActivity() as AuthActivity).replaceFragment(
                                                         NameInputFragment.newInstance("", ""),
                                                         true
                                                     )
-                                                } else if (verifyOtpResponse.user.contactType == ContactType.PRELEAD.value && verificationStatus == "Unverified") {
+                                                } else if (verifyOtpResponse.user.contactType == ContactType.PRELEAD.value && verifyOtpResponse.user.verificationStatus == "Unverified") {
                                                     (requireActivity() as AuthActivity).replaceFragment(
                                                         NameInputFragment.newInstance(
                                                             verifyOtpResponse.user.firstName ?:"",
