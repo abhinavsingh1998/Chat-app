@@ -236,7 +236,6 @@ class OTPVerificationFragment : BaseFragment() {
                                                     "prlead",
                                                     ContactType.PRELEAD.value.toString()
                                                 )
-
                                                 if (verifyOtpResponse.user.firstName.isNullOrEmpty()) {
                                                     (requireActivity() as AuthActivity).replaceFragment(
                                                         NameInputFragment.newInstance("", ""),
