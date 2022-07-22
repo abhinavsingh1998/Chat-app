@@ -70,15 +70,6 @@ class NameInputFragment : BaseFragment() {
         authViewModel = ViewModelProvider(requireActivity(), authFactory)[AuthViewmodel::class.java]
         binding = FragmentNameInputBinding.inflate(layoutInflater)
 
-        if (firstName!=null) {
-            binding.firstName.setText(firstName)
-            binding.submitBtn.isEnabled = true
-            binding.submitBtn.isClickable = true
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                binding.submitBtn.background =
-                    getDrawable(requireContext(), R.drawable.button_bg)
-            }
-        }
         initClickListener()
 
         return binding.root
@@ -87,6 +78,12 @@ class NameInputFragment : BaseFragment() {
     private fun initClickListener() {
         if (firstName!=null) {
             binding.firstName.setText(firstName)
+            binding.submitBtn.isEnabled = true
+            binding.submitBtn.isClickable = true
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                binding.submitBtn.background =
+                    getDrawable(requireContext(), R.drawable.button_bg)
+            }
         }
         if (lastName!=null) {
             binding.secondName.setText(lastName)
