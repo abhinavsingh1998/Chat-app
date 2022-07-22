@@ -228,37 +228,46 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun getStates(countryIso: String, refresh: Boolean) {
-        profileViewModel.getStates(countryIso, refresh).observe(viewLifecycleOwner) {
-            when (it.status) {
-                Status.LOADING -> {
-                    binding.progressBaar.show()
-                }
-                Status.SUCCESS -> {
-                    binding.progressBaar.hide()
-                    it.data?.data?.let1 { data ->
-                        statesData = data
-                    }
-                    if (data.state != null) {
-                        for (i in statesData) {
-                            if (data.state == i.name) {
-                                stateIso = i.isoCode
+        profileViewModel.getStates(countryIso, refresh)
+            .observe(viewLifecycleOwner, object : Observer<BaseResponse<StatesResponse>> {
+                override fun onChanged(it: BaseResponse<StatesResponse>) {
+                    when (it!!.status) {
+                        Status.LOADING -> {
+                            binding.progressBaar.show()
+                        }
+                        Status.SUCCESS -> {
+                            binding.progressBaar.hide()
+                            it.data?.data?.let1 { data ->
+                                statesData = data
                             }
-                            listStates.add(i.name)
-                            listStatesISO.add(i.isoCode)
+                            if (data.state != null) {
+                                for (i in statesData) {
+                                    if (data.state == i.name) {
+                                        stateIso = i.isoCode
+                                    }
+                                    listStates.add(i.name)
+                                    listStatesISO.add(i.isoCode)
+                                }
+                            } else {
+                                for (i in statesData.indices) {
+                                    listStates.add(statesData[i].name)
+                                    listStatesISO.add(statesData[i].isoCode)
+                                }
+                            }
+                            setStateSpinnersData()
                         }
-                    } else {
-                        for (i in statesData.indices) {
-                            listStates.add(statesData[i].name)
-                            listStatesISO.add(statesData[i].isoCode)
+                        Status.ERROR -> {
+                            binding.progressBaar.hide()
                         }
                     }
-                    setStateSpinnersData()
                 }
-                Status.ERROR -> {
-                    binding.progressBaar.hide()
-                }
-            }
-        }
+
+            })
+//        profileViewModel.getStates(countryIso, refresh).observe(viewLifecycleOwner) {
+//            when (it.status) {
+//
+//            }
+//        }
     }
 
     private fun getCities(value1: String, isoCode: String, refresh: Boolean) {
@@ -312,11 +321,13 @@ class EditProfileFragment : BaseFragment() {
                 country = listCountries[position]
                 countryIso = listCountryISO[position]
                 listStates.clear()
-                getStates(countryIso, true)
+                if (::countryIso.isInitialized)
+                    getStates(countryIso, true)
             }
         if (data.country != null) {
             listStates.clear()
-            getStates(countryIso, false)
+            if (::countryIso.isInitialized)
+                getStates(countryIso, false)
         }
 
     }
@@ -332,11 +343,13 @@ class EditProfileFragment : BaseFragment() {
                 state = listStates[position]
                 stateIso = listStatesISO[position]
                 listCities.clear()
-                getCities(stateIso, countryIso, true)
+                if (::stateIso.isInitialized)
+                    getCities(stateIso, countryIso, true)
             }
         if (data.state != null) {
             listCities.clear()
-            getCities(stateIso, countryIso, false)
+            if (::stateIso.isInitialized)
+                getCities(stateIso, countryIso, false)
         }
         enableStateEdit()
     }
@@ -699,8 +712,8 @@ class EditProfileFragment : BaseFragment() {
 
             email = binding.emailTv.text.toString()
             if (email.isValidEmail()) {
-                    binding.tvEmail.isErrorEnabled = false
-            } else if(email.isNotEmpty()) {
+                binding.tvEmail.isErrorEnabled = false
+            } else if (email.isNotEmpty()) {
                 binding.tvEmail.isErrorEnabled = true
                 binding.tvEmail.error = "Please enter valid email"
             }
@@ -759,11 +772,9 @@ class EditProfileFragment : BaseFragment() {
                 citySelected = binding.autoCity.text.toString()
             }
 
-            if(email.isNotEmpty() && !email.isValidEmail()){
+            if (email.isNotEmpty() && !email.isValidEmail()) {
                 binding.tvEmail.error = "Please enter valid email"
-            }
-
-            else{
+            } else {
                 sendProfileDetail(
                     dob,
                     email,
@@ -775,9 +786,9 @@ class EditProfileFragment : BaseFragment() {
                     stateSelected,
                     citySelected
                 )
-                val dialog = EditProfileUpdatedPopUpFragment()
-                dialog.isCancelable = false
-                dialog.show(childFragmentManager, "submitted")
+                //val dialog = EditProfileUpdatedPopUpFragment()
+                //dialog.isCancelable = false
+                //dialog.show(childFragmentManager, "submitted")
                 changeFontOnSave()
 
             }
@@ -884,13 +895,16 @@ class EditProfileFragment : BaseFragment() {
         profileViewModel.editUserNameProfile(editUserNameRequest)
             .observe(
                 viewLifecycleOwner
-            ) { t ->
-                when (t!!.status) {
+            ) { it ->
+                when (it!!.status) {
                     Status.LOADING -> {
                         binding.saveAndUpdate.visibility = View.GONE
 
                     }
                     Status.SUCCESS -> {
+                        val dialog = EditProfileUpdatedPopUpFragment()
+                        dialog.isCancelable = false
+                        dialog.show(childFragmentManager, "submitted")
                         appPreference.saveLogin(true)
                         binding.saveAndUpdate.visibility = View.VISIBLE
                         binding.emailTv.clearFocus()
@@ -900,6 +914,9 @@ class EditProfileFragment : BaseFragment() {
                         binding.pincodeEditText.clearFocus()
                     }
                     Status.ERROR -> {
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            it.message!!
+                        )
                         binding.saveAndUpdate.visibility = View.VISIBLE
                     }
                 }
@@ -1020,7 +1037,7 @@ class EditProfileFragment : BaseFragment() {
             .observe(
                 viewLifecycleOwner,
                 object : Observer<BaseResponse<ProfilePictureResponse>> {
-                    override fun onChanged(it: BaseResponse<ProfilePictureResponse>?) {
+                    override fun onChanged(it: BaseResponse<ProfilePictureResponse>) {
                         when (it?.status) {
                             Status.LOADING -> {
                                 binding.progressBaar.show()
@@ -1032,6 +1049,9 @@ class EditProfileFragment : BaseFragment() {
                             }
                             Status.ERROR -> {
                                 binding.progressBaar.hide()
+                                (requireActivity() as HomeActivity).showErrorToast(
+                                    it.message!!
+                                )
                             }
                         }
                     }

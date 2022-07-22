@@ -15,7 +15,8 @@ data class ProjectX(
     val similarInvestmentSectionHeading: String,
     val isEscalationGraphActive: Boolean,
     val isLatestMediaGalleryActive: Boolean,
-    val latestMediaGalleryHeading: String,
+    val latestMediaGalleryHeading: String?,
+    val latestMediaGallerySectionHeading: String?,
     val otherSectionHeadings: OtherSectionHeading
 //    val latitude: String,
 //    val longitude: String,
@@ -28,6 +29,6 @@ data class InvestmentHeadingDetails(
     val similarInvestmentSectionHeading: String?,
     val isEscalationGraphActive: Boolean,
     val isLatestMediaGalleryActive: Boolean,
-    val latestMediaGalleryHeading: String,
+    val latestMediaGallerySectionHeading: String?,
     val otherSectionHeadings: OtherSectionHeading
 )

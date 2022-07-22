@@ -14,7 +14,8 @@ import com.emproto.networklayer.response.portfolio.ivdetails.SimilarInvestment
 class SimilarInvestmentAdapter(
     val context: Context,
     val list: List<SimilarInvestment>,
-    val ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface
+    val ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface,
+    val toShow: Int
 ) :
     RecyclerView.Adapter<SimilarInvestmentAdapter.MyViewHolder>() {
 
@@ -58,7 +59,10 @@ class SimilarInvestmentAdapter(
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return if (list.size < toShow)
+            list.size
+        else
+            toShow
     }
 
     inner class MyViewHolder(var binding: ItemSmartDealsBinding) :

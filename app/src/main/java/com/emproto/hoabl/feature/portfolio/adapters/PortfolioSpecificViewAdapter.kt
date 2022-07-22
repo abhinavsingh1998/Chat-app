@@ -240,7 +240,9 @@ class PortfolioSpecificViewAdapter(
                     }
                     binding.tvAreaUnit.text =
                         "${Utility.convertTo(data?.investmentInformation.crmInventory.areaSqFt)} sqft"
-                    binding.tvProjectInfo.text = data.projectInformation.shortDescription
+                    if (data.projectInformation.fullDescription != null)
+                        binding.tvProjectInfo.text = data.projectInformation.fullDescription
+                    else binding.tvProjectInfo.text = "-"
                     var reraNumber = ""
                     val mSize = data.projectInformation.reraDetails.reraNumbers.size
                     for ((index, item) in data.projectInformation.reraDetails.reraNumbers.withIndex()) {
@@ -463,7 +465,7 @@ class PortfolioSpecificViewAdapter(
     private inner class LatestImagesVideosViewHolder(private val binding: LatestImagesVideosLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            binding.tvLatestImagesVideos.text = headingDetails.latestMediaGalleryHeading
+            binding.tvLatestImagesVideos.text = headingDetails.latestMediaGallerySectionHeading
             val imagesList = ArrayList<MediaViewItem>()
             var itemId = 0
             val allMediasList = ArrayList<MediaViewItem>()
@@ -722,9 +724,14 @@ class PortfolioSpecificViewAdapter(
             if (list[position].data != null) {
                 val itemList = list[position].data as List<SimilarInvestment>
                 similarInvestmentsAdapter =
-                    SimilarInvestmentAdapter(context, itemList, ivInterface)
+                    SimilarInvestmentAdapter(
+                        context,
+                        itemList,
+                        ivInterface,
+                        headingDetails.numberOfSimilarInvestmentsToShow
+                    )
                 binding.rvTrendingProjects.adapter = similarInvestmentsAdapter
-                binding.tvTrendingProjectsTitle.text = "Similar Investments"
+                //binding.tvTrendingProjectsTitle.text = "Similar Investments"
                 binding.tvTrendingProjectsSubtitle.visibility = View.GONE
             }
             binding.tvTrendingProjectsSeeAll.setOnClickListener {

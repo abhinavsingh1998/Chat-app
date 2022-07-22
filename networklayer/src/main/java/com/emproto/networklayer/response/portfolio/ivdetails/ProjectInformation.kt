@@ -9,7 +9,8 @@ data class ProjectInformation(
     val reraDetails: ReraDetails,
     val shortDescription: String,
     val similarInvestments: List<SimilarInvestment>,
-    val crmProject: CrmDetails
+    val crmProject: CrmDetails,
+    val fullDescription: String
 )
 
 data class CrmDetails(
