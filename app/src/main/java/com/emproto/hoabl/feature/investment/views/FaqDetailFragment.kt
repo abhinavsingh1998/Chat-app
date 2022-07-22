@@ -95,6 +95,7 @@ class FaqDetailFragment : BaseFragment() {
     }
 
     private fun callProfileFaqApi() {
+        //Getting general faqs
         profileViewModel.getGeneralFaqs(2001).observe(this, Observer {
             when (it.status) {
                 Status.LOADING -> {
@@ -105,7 +106,6 @@ class FaqDetailFragment : BaseFragment() {
                     binding.slSwipeRefresh.visibility = View.VISIBLE
                     binding.slSwipeRefresh.isRefreshing = false
                     it.data?.data?.let { data ->
-                        Log.d("generalfaq", data.toString())
                         allFaqList = data
                         setUpRecyclerView(data, faqId)
                     }
@@ -119,8 +119,8 @@ class FaqDetailFragment : BaseFragment() {
     }
 
     private fun callProjectFaqApi() {
+        //Getting project faqs
         investmentViewModel.getInvestmentsFaq(projectId).observe(this, Observer {
-            Log.d("Faq", it.data.toString())
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
@@ -131,7 +131,6 @@ class FaqDetailFragment : BaseFragment() {
                     binding.slSwipeRefresh.isRefreshing = false
                     it.data?.data?.let { data ->
                         allFaqList = data
-                        Log.d("faqfata", "${data.toString()}")
                         setUpRecyclerView(data, faqId)
                     }
                 }
@@ -146,20 +145,24 @@ class FaqDetailFragment : BaseFragment() {
     }
 
     private fun setUpRecyclerView(data: List<CgData>, faqId: Int) {
-        val list = ArrayList<RecyclerViewFaqItem>()
-        list.add(RecyclerViewFaqItem(1, data[0]))
-        for (item in data) {
-            list.add(RecyclerViewFaqItem(2, item))
+        if(data.isNotEmpty()){  //If the api data is not empty
+            val list = ArrayList<RecyclerViewFaqItem>()
+            list.add(RecyclerViewFaqItem(1, data[0])) //Adding category
+            for (item in data) {
+                list.add(RecyclerViewFaqItem(2, item)) //Adding faq holder items
+            }
+            adapter = FaqDetailAdapter(
+                this,
+                list,
+                data,
+                faqId,
+                itemClickListener,
+                projectName = projectName
+            )
+            binding.rvFaq.adapter = adapter
+        }else{
+            Toast.makeText(requireContext(), "No Faqs exist", Toast.LENGTH_SHORT).show()
         }
-        adapter = FaqDetailAdapter(
-            this,
-            list,
-            data,
-            faqId,
-            itemClickListener,
-            projectName = projectName
-        )
-        binding.rvFaq.adapter = adapter
     }
 
     val itemClickListener = object : ItemClickListener {
@@ -189,7 +192,7 @@ class FaqDetailFragment : BaseFragment() {
                 list.add(RecyclerViewFaqItem(1, allFaqList[0]))
                 val searchString = item.toString()
                 var isFaqPresent = false
-                for (item in allFaqList) {
+                for (item in allFaqList) { //Comparing search text with api data
                     for (element in item.faqs) {
                         if (element.faqQuestion.question.contains(
                                 searchString.trim(),
@@ -217,7 +220,7 @@ class FaqDetailFragment : BaseFragment() {
         item: String
     ) {
         var isItemsPresent = false
-        for (item in list) {
+        for (item in list) { //Checking if the data is present or not
             if (item.viewType == 2) {
                 isItemsPresent = true
             }
