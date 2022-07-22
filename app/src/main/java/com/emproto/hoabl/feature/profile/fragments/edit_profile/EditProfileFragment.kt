@@ -38,6 +38,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseActivity
 import com.emproto.core.BaseFragment
+import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentEditProfileBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -69,7 +70,7 @@ class EditProfileFragment : BaseFragment() {
     lateinit var binding: FragmentEditProfileBinding
 
     var email = ""
-    var dob = ""
+    var dob: String? = null
 
     val emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
     var houseNo = ""
@@ -708,7 +709,9 @@ class EditProfileFragment : BaseFragment() {
                     binding.root
                 )
             }
-            dob = binding.tvDatePicker.text.toString()
+            if (binding.tvDatePicker.text.toString().isNotEmpty()) {
+                dob = Utility.convertDate(binding.tvDatePicker.text.toString())
+            }
 
             email = binding.emailTv.text.toString()
             if (email.isValidEmail()) {
@@ -776,7 +779,7 @@ class EditProfileFragment : BaseFragment() {
                 binding.tvEmail.error = "Please enter valid email"
             } else {
                 sendProfileDetail(
-                    dob,
+                    dob!!,
                     email,
                     houseNo,
                     address,
@@ -868,7 +871,7 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun sendProfileDetail(
-        validDOB: String,
+        validDOB: String?,
         validEmail: String,
         validHouse: String,
         validAdd: String,
@@ -882,7 +885,7 @@ class EditProfileFragment : BaseFragment() {
             data.firstName,
             data.lastName,
             validEmail,
-            validDOB,
+            validDOB!!,
             binding.autoGender.text.toString(),
             validHouse,
             validAdd,
@@ -898,15 +901,14 @@ class EditProfileFragment : BaseFragment() {
             ) { it ->
                 when (it!!.status) {
                     Status.LOADING -> {
-                        binding.saveAndUpdate.visibility = View.GONE
-
+                        binding.progressBaar.show()
                     }
                     Status.SUCCESS -> {
                         val dialog = EditProfileUpdatedPopUpFragment()
                         dialog.isCancelable = false
                         dialog.show(childFragmentManager, "submitted")
                         appPreference.saveLogin(true)
-                        binding.saveAndUpdate.visibility = View.VISIBLE
+                        binding.progressBaar.hide()
                         binding.emailTv.clearFocus()
                         binding.houseNo.clearFocus()
                         binding.completeAddress.clearFocus()
@@ -917,7 +919,8 @@ class EditProfileFragment : BaseFragment() {
                         (requireActivity() as HomeActivity).showErrorToast(
                             it.message!!
                         )
-                        binding.saveAndUpdate.visibility = View.VISIBLE
+                        binding.progressBaar.hide()
+
                     }
                 }
             }

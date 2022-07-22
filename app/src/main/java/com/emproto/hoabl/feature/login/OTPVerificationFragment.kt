@@ -101,7 +101,7 @@ class OTPVerificationFragment : BaseFragment() {
             mobileno = bundle.getString("mobilenumber", mobileNumber)
             countryCode = bundle.getString("countrycode", cCode)
             hint_txt = bundle.getString("hint_txt", hintText)
-            iswhatsappenabled = bundle.getBoolean("whatsappConsent",whatsappConsent)
+            iswhatsappenabled = bundle.getBoolean("whatsappConsent", whatsappConsent)
             fragment.arguments = bundle
             return fragment
         }
@@ -227,25 +227,29 @@ class OTPVerificationFragment : BaseFragment() {
                                         (requireActivity() as AuthActivity).showSuccessToast(
                                             "OTP Verified Successfully!"
                                         )
-                                        Log.d("contactType",it.data?.user?.contactType.toString())
+                                        Log.d("contactType", it.data?.user?.contactType.toString())
                                         Handler().postDelayed({
                                             it.data?.let { verifyOtpResponse ->
                                                 appPreference.setToken(verifyOtpResponse.token)
 
-                                                Log.i("prlead",ContactType.PRELEAD.value.toString())
-
-                                                if (verifyOtpResponse.user.contactType == ContactType.PRELEAD.value && verifyOtpResponse.user.verificationStatus=="Unverified" && verifyOtpResponse.user.firstName.isNullOrEmpty() && verifyOtpResponse.user.lastName.isNullOrEmpty()) {
-                                                    (requireActivity() as AuthActivity).replaceFragment(NameInputFragment.newInstance("", ""), true)
-                                                }
-                                               else if (verifyOtpResponse.user.contactType == ContactType.PRELEAD.value &&verifyOtpResponse.user.verificationStatus=="Unverified" && !(verifyOtpResponse.user.firstName.isNullOrEmpty()) && !(verifyOtpResponse.user.lastName.isNullOrEmpty())) {
-                                                    (requireActivity() as AuthActivity).replaceFragment(NameInputFragment.newInstance(verifyOtpResponse.user.firstName , verifyOtpResponse.user.lastName), true)
-                                                }
-                                                else if (verifyOtpResponse.user.contactType == ContactType.PRELEAD.value &&verifyOtpResponse.user.verificationStatus=="Unverified" && !(verifyOtpResponse.user.firstName.isNullOrEmpty()) && verifyOtpResponse.user.lastName.isNullOrEmpty()) {
-                                                    (requireActivity() as AuthActivity).replaceFragment(NameInputFragment.newInstance(verifyOtpResponse.user.firstName , ""), true)
-                                                }
-                                                else if (verifyOtpResponse.user.contactType == ContactType.PRELEAD.value &&verifyOtpResponse.user.verificationStatus=="Unverified" && verifyOtpResponse.user.firstName.isNullOrEmpty() && !(verifyOtpResponse.user.lastName.isNullOrEmpty())) {
-                                                    (requireActivity() as AuthActivity).replaceFragment(NameInputFragment.newInstance("" , verifyOtpResponse.user.lastName), true)
-                                                }else {
+                                                Log.i(
+                                                    "prlead",
+                                                    ContactType.PRELEAD.value.toString()
+                                                )
+                                                if (verifyOtpResponse.user.firstName.isNullOrEmpty()) {
+                                                    (requireActivity() as AuthActivity).replaceFragment(
+                                                        NameInputFragment.newInstance("", ""),
+                                                        true
+                                                    )
+                                                } else if (verifyOtpResponse.user.contactType == ContactType.PRELEAD.value && verifyOtpResponse.user.verificationStatus == "Unverified") {
+                                                    (requireActivity() as AuthActivity).replaceFragment(
+                                                        NameInputFragment.newInstance(
+                                                            verifyOtpResponse.user.firstName ?:"",
+                                                            verifyOtpResponse.user.lastName ?: ""
+                                                        ),
+                                                        true
+                                                    )
+                                                } else {
                                                     appPreference.saveLogin(true)
                                                     startActivity(
                                                         Intent(
@@ -273,9 +277,9 @@ class OTPVerificationFragment : BaseFragment() {
     }
 
     @SuppressLint("ResourceType")
-    private fun internetState(state:Boolean){
+    private fun internetState(state: Boolean) {
 
-        if (state==true){
+        if (state == true) {
             mBinding.layout1.setBackgroundColor(resources.getColor(R.color.app_color))
             mBinding.tvLogin.setTextColor(resources.getColor(R.color.app_color))
             mBinding.enter6Digit.setTextColor(resources.getColor(R.color.text_color))
@@ -284,11 +288,11 @@ class OTPVerificationFragment : BaseFragment() {
             mBinding.etOtp.setTextColor(resources.getColor(R.color.app_color))
             mBinding.loginEdittext.setHintTextColor(resources.getColorStateList(R.color.app_color))
             mBinding.resentOtp.setTextColor(resources.getColor(R.color.app_color))
-            mBinding.loginEdittext.boxStrokeColor= resources.getColor(R.color.app_color)
-            mBinding.resentOtp.isClickable= true
+            mBinding.loginEdittext.boxStrokeColor = resources.getColor(R.color.app_color)
+            mBinding.resentOtp.isClickable = true
             dismissSnackBar()
 
-        } else{
+        } else {
             mBinding.layout1.setBackgroundColor(resources.getColor(R.color.background_grey))
             mBinding.tvLogin.setTextColor(resources.getColor(R.color.text_fade_color))
             mBinding.enter6Digit.setTextColor(resources.getColor(R.color.text_fade_color))
@@ -297,8 +301,8 @@ class OTPVerificationFragment : BaseFragment() {
             mBinding.etOtp.setTextColor(resources.getColor(R.color.text_fade_color))
             mBinding.loginEdittext.setHintTextColor(resources.getColorStateList(R.color.text_fade_color))
             mBinding.resentOtp.setTextColor(resources.getColor(R.color.text_fade_color))
-            mBinding.resentOtp.isClickable= false
-            mBinding.loginEdittext.boxStrokeColor= resources.getColor(R.color.text_fade_color)
+            mBinding.resentOtp.isClickable = false
+            mBinding.loginEdittext.boxStrokeColor = resources.getColor(R.color.text_fade_color)
             mBinding.timerTxt.text = ""
             showSnackBar(mBinding.root)
             hideSoftKeyboard()
@@ -307,38 +311,38 @@ class OTPVerificationFragment : BaseFragment() {
 
     private fun resentOtp() {
 
-            mBinding.resentOtp.setOnClickListener(View.OnClickListener {
-                if (isNetworkAvailable()){
-                    internetState(true)
-                    hideSoftKeyboard()
-                    val otpRequest = OtpRequest(mobileno, "+91", "IN")
-                    authViewModel.getOtp(otpRequest).observe(viewLifecycleOwner, Observer {
-                        when (it.status) {
-                            Status.SUCCESS -> {
-                                mBinding.loader.visibility = View.INVISIBLE
-                                // Toast.makeText(requireContext(), "resend OTP successfully", Toast.LENGTH_LONG).show()
-                            }
-                            Status.ERROR -> {
-                                mBinding.loader.visibility = View.INVISIBLE
-                                it.data
-                                (requireActivity() as AuthActivity).showErrorToast(
-                                    it.message!!
-                                )
-
-                            }
-                            Status.LOADING -> {
-                                mBinding.loader.visibility = View.VISIBLE
-                            }
+        mBinding.resentOtp.setOnClickListener(View.OnClickListener {
+            if (isNetworkAvailable()) {
+                internetState(true)
+                hideSoftKeyboard()
+                val otpRequest = OtpRequest(mobileno, "+91", "IN")
+                authViewModel.getOtp(otpRequest).observe(viewLifecycleOwner, Observer {
+                    when (it.status) {
+                        Status.SUCCESS -> {
+                            mBinding.loader.visibility = View.INVISIBLE
+                            // Toast.makeText(requireContext(), "resend OTP successfully", Toast.LENGTH_LONG).show()
                         }
-                    })
+                        Status.ERROR -> {
+                            mBinding.loader.visibility = View.INVISIBLE
+                            it.data
+                            (requireActivity() as AuthActivity).showErrorToast(
+                                it.message!!
+                            )
 
-                    otpTimerCount()
-                    startSmsUserConsent()
-                } else{
-                    internetState(false)
-                }
+                        }
+                        Status.LOADING -> {
+                            mBinding.loader.visibility = View.VISIBLE
+                        }
+                    }
+                })
 
-            })
+                otpTimerCount()
+                startSmsUserConsent()
+            } else {
+                internetState(false)
+            }
+
+        })
     }
 
     private fun startSMSRetrieverClient() {
@@ -446,17 +450,17 @@ class OTPVerificationFragment : BaseFragment() {
                         if ((millisUntilFinished / 1000) % 60 < 10) {
                             mBinding.resentOtp.isVisible = false
                             mBinding.timerTxt.text =
-                                    SpannableStringBuilder()
+                                SpannableStringBuilder()
 
-                                        .color(Color.GRAY){
-                                            append("RESEND OTP in ")
-                                        }
-                                        .append("0${(millisUntilFinished / 1000) / 60}:0${(millisUntilFinished / 1000) % 60} sec")
+                                    .color(Color.GRAY) {
+                                        append("RESEND OTP in ")
+                                    }
+                                    .append("0${(millisUntilFinished / 1000) / 60}:0${(millisUntilFinished / 1000) % 60} sec")
                         } else {
                             mBinding.timerTxt.text =
 
                                 SpannableStringBuilder()
-                                    .color(Color.GRAY){
+                                    .color(Color.GRAY) {
                                         append("RESEND OTP in  ")
                                     }
 //
