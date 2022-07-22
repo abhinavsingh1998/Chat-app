@@ -901,15 +901,14 @@ class EditProfileFragment : BaseFragment() {
             ) { it ->
                 when (it!!.status) {
                     Status.LOADING -> {
-                        binding.saveAndUpdate.visibility = View.GONE
-
+                        binding.progressBaar.show()
                     }
                     Status.SUCCESS -> {
                         val dialog = EditProfileUpdatedPopUpFragment()
                         dialog.isCancelable = false
                         dialog.show(childFragmentManager, "submitted")
                         appPreference.saveLogin(true)
-                        binding.saveAndUpdate.visibility = View.VISIBLE
+                        binding.progressBaar.hide()
                         binding.emailTv.clearFocus()
                         binding.houseNo.clearFocus()
                         binding.completeAddress.clearFocus()
@@ -920,7 +919,8 @@ class EditProfileFragment : BaseFragment() {
                         (requireActivity() as HomeActivity).showErrorToast(
                             it.message!!
                         )
-                        binding.saveAndUpdate.visibility = View.VISIBLE
+                        binding.progressBaar.hide()
+
                     }
                 }
             }
