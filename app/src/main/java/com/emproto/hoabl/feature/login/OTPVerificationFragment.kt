@@ -238,14 +238,7 @@ class OTPVerificationFragment : BaseFragment() {
                                                 )
 
 
-
-                                                if (verifyOtpResponse.user.firstName.isNullOrEmpty()) {
-                                                    (requireActivity() as AuthActivity).replaceFragment(
-                                                        NameInputFragment.newInstance("", ""),
-                                                        true
-                                                    )
-                                                }
-                                              else if (verifyOtpResponse.user.contactType == ContactType.PRELEAD.value && verifyOtpResponse.user.verificationStatus == "Unverified" && verifyOtpResponse.user.firstName.isNullOrEmpty() && verifyOtpResponse.user.lastName.isNullOrEmpty()) {
+if (verifyOtpResponse.user.contactType == ContactType.PRELEAD.value && verifyOtpResponse.user.verificationStatus == "Unverified" && verifyOtpResponse.user.firstName.isNullOrEmpty() && verifyOtpResponse.user.lastName.isNullOrEmpty()) {
                                                     (requireActivity() as AuthActivity).replaceFragment(
                                                         NameInputFragment.newInstance("", ""),
                                                         true
