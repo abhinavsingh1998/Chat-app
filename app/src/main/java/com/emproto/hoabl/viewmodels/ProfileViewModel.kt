@@ -7,6 +7,7 @@ import com.emproto.hoabl.repository.ProfileRepository
 import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
+import com.emproto.networklayer.request.profile.LogOutFromCurrentBody
 import com.emproto.networklayer.request.profile.ReportSecurityRequest
 import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.BaseResponse
@@ -126,6 +127,14 @@ class ProfileViewModel(
 
     fun getFacilityManagment(): LiveData<BaseResponse<FMResponse>> {
         return profileRepository.getFacilitymanagment()
+    }
+
+    fun logOutFromCurrent(logOutFromCurrentBody: LogOutFromCurrentBody): LiveData<BaseResponse<LogOutFromCurrentResponse>> {
+        return profileRepository.logOutFromCurrent(logOutFromCurrentBody)
+    }
+
+    fun logOutFromAll(): LiveData<BaseResponse<LogOutFromCurrentResponse>> {
+        return profileRepository.logOutFromAllDevices()
     }
 
     fun savePaymentHistory(payment: List<AccountsResponse.Data.PaymentHistory>) {

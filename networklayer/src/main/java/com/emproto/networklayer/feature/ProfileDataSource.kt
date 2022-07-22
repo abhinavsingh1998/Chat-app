@@ -9,6 +9,7 @@ import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
+import com.emproto.networklayer.request.profile.LogOutFromCurrentBody
 import com.emproto.networklayer.request.profile.ReportSecurityRequest
 import com.emproto.networklayer.response.investment.FaqDetailResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
@@ -154,4 +155,13 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
         return apiService.getFacilityManagment("", "", true)
     }
 
+    //log out from current device
+    suspend fun logOutFromCurrent(logOutFromCurrentBody: LogOutFromCurrentBody): Response<LogOutFromCurrentResponse> {
+        return apiService.logOutFromCurrent(logOutFromCurrentBody)
+    }
+
+    //log out from all devices
+    suspend fun logOutFromAllDevices(): Response<LogOutFromCurrentResponse> {
+        return apiService.logOutFromAll()
+    }
 }

@@ -18,7 +18,7 @@ data class Data(
     val crmId: String,
     @SerializedName("dateOfBirth")
     val dateOfBirth: String,
-    @SerializedName("deviceToken")
+    @SerializedName("deviceTokens")
     val deviceToken: Any?,
     @SerializedName("email")
     val email: String?,

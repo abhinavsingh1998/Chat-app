@@ -76,6 +76,8 @@ object ApiConstants {
     const val GENERAL_FAQ = "hoabl-admin/categories"
     const val GET_ALL_PROJECTS= "hoabl-admin/project-contents"
     const val ACTION_ITEM= "hoabl-customer/user/action-items"
+    const val LOG_OUT = "hoabl-customer/profile/log-out-current"
+    const val LOG_OUT_ALL = "hoabl-customer/profile/log-out-all"
 
     //Notification
     const val NOTICATION_LIST= "hoabl-notifications/unread-notifications"

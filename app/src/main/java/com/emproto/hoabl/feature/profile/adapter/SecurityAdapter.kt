@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.profile.data.SettingsData
 import com.emproto.hoabl.model.RecyclerViewItem
@@ -24,7 +25,8 @@ class SecurityAdapter(
         const val VIEW_SECURITY_AUTHENTICATE = 1
         const val VIEW_SECURITY_WHATSAPP_COMMUNICATION = 2
         const val VIEW_SECURITY_TIPS = 3
-        const val VIEW_SETTINGS_ALL_OPTIONS = 4
+        const val VIEW_SIGN_OUT_ALL = 4
+        const val VIEW_SETTINGS_ALL_OPTIONS = 5
     }
 
     private lateinit var settingsAdapter: SettingsAdapter
@@ -66,6 +68,15 @@ class SecurityAdapter(
                     )
                 )
             }
+            VIEW_SIGN_OUT_ALL -> {
+                SignOutAllViewHolder(
+                    SecurityView3Binding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                )
+            }
             else -> {
                 SettingsViewHolder(
                     FragmentSettingsBinding.inflate(
@@ -91,6 +102,9 @@ class SecurityAdapter(
             }
             VIEW_SECURITY_TIPS -> {
                 (holder as SecurityTipsViewHolder).bind(position)
+            }
+            VIEW_SIGN_OUT_ALL -> {
+                (holder as SignOutAllViewHolder).bind(position)
             }
             VIEW_SETTINGS_ALL_OPTIONS -> {
                 (holder as SettingsViewHolder).bind(position)
@@ -152,7 +166,19 @@ class SecurityAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             binding.clSecurityTips.setOnClickListener {
-                itemClickListener.onItemClicked(binding.clSecurityTips,position,position.toString())
+                itemClickListener.onItemClicked(binding.clSecurityTips,position,"Security Tips")
+            }
+        }
+    }
+
+    private inner class SignOutAllViewHolder(private val binding: SecurityView3Binding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
+            binding.apply {
+                Security.text = context.getString(R.string.log_out_all_text)
+                clSecurityTips.setOnClickListener {
+                itemClickListener.onItemClicked(binding.clSecurityTips,position,"Sign out from all devices")
+                }
             }
         }
     }
