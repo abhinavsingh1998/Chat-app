@@ -316,5 +316,26 @@ object Utility {
         }
     }
 
+    fun convertDate(time: String?, inputDateFormat: String? = null): String? {
+        val inputPattern: String
+        inputPattern = inputDateFormat ?: "dd-MM-yyyy"
+        //yyyy-MM-dd HH:mm:ss.SSS
+        val outputPattern = "dd/MM/yyyy"
+        val inputFormat = SimpleDateFormat(inputPattern, Locale.US)
+        val outputFormat = SimpleDateFormat(outputPattern)
+        val date: Date?
+        var str: String? = null
+        return try {
+            date = inputFormat.parse(time)
+            if (date != null) {
+                str = outputFormat.format(date)
+            }
+            str ?: time
+        } catch (e: ParseException) {
+            e.printStackTrace()
+            time
+        }
+    }
+
 
 }
