@@ -55,6 +55,9 @@ import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.notification.dataResponse.Data
+import com.emproto.networklayer.response.notification.dataResponse.NotificationResponse
+import com.emproto.networklayer.response.notification.readStatus.ReadNotificationReponse
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import javax.inject.Inject
@@ -235,28 +238,27 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         }
         activityHomeActivity.searchLayout.search.setOnClickListener {
 
-//            tourGuide.apply {
-//                tourGuide.cleanUp()
-//                toolTip {
-//                    title { "Profile" }
-//                    description { "Click here to search and find what you need." }
-//                    gravity { Gravity.BOTTOM }
-//                    backgroundColor { R.color.black }
-//                }
-//                pointer { Pointer() }
-//                overlay {
-//                    setEnterAnimation(enterAnimation)
-//                    setExitAnimation(exitAnimation)
-//                    backgroundColor { R.color.text_light_grey_color }
-//                    style { Overlay.Style.RECTANGLE }
-//                }
-//            }.playOn( activityHomeActivity.includeNavigation.bottomNavigation.menu[4].actionView)
-            appPreference.setTourGuide(true)
-            tourGuide.cleanUp()
-            //cleartourguide
-            activityHomeActivity.searchLayout.rotateText.setOnClickListener(null)
-            activityHomeActivity.searchLayout.search.setOnClickListener(null)
-            initClickListener()
+            tourGuide.apply {
+                tourGuide.cleanUp()
+                toolTip {
+                    title { "Profile" }
+                    description { "Clicking on this will take you to profile." }
+                    gravity { Gravity.TOP }
+                    backgroundColor { R.color.black }
+                }
+                pointer { Pointer() }
+                overlay {
+                    setEnterAnimation(enterAnimation)
+                    setExitAnimation(exitAnimation)
+                    backgroundColor { R.color.text_light_grey_color }
+                    style { Overlay.Style.CIRCLE }
+                }
+            }.playOn(
+                (activityHomeActivity.includeNavigation.bottomNavigation.get(0) as BottomNavigationMenuView).get(
+                    4
+                )
+            )
+
         }
     }
 
@@ -307,14 +309,74 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 return true
             }
             R.id.navigation_investment -> {
-                openScreen(ScreenInvestment, "", false)
+                if (appPreference.isTourGuideCompleted()) {
+                    openScreen(ScreenInvestment, "", false)
+                } else {
+                    tourGuide.cleanUp()
+                    //for tour guide
+                    appPreference.setTourGuide(true)
+                    //cleartourguide
+                    activityHomeActivity.searchLayout.rotateText.setOnClickListener(null)
+                    activityHomeActivity.searchLayout.search.setOnClickListener(null)
+                    initClickListener()
+                    Handler().postDelayed({
+                        activityHomeActivity.includeNavigation.bottomNavigation.menu[0].isChecked =
+                            true
+                    }, 100)
+
+
+                }
                 return true
             }
             R.id.navigation_portfolio -> {
-                openScreen(ScreenPortfolio, "", false)
+                if (appPreference.isTourGuideCompleted()) {
+                    openScreen(ScreenPortfolio, "", false)
+                } else {
+                    tourGuide.apply {
+                        tourGuide.cleanUp()
+                        toolTip {
+                            title { "Investment" }
+                            description { "Clicking on this will take you to investment." }
+                            gravity { Gravity.TOP }
+                            backgroundColor { R.color.black }
+                        }
+                        pointer { Pointer() }
+                        overlay {
+                            backgroundColor { R.color.text_light_grey_color }
+                            style { Overlay.Style.CIRCLE }
+                        }
+                    }.playOn(
+                        (activityHomeActivity.includeNavigation.bottomNavigation.get(0) as BottomNavigationMenuView).get(
+                            1
+                        )
+                    )
+                }
                 return true
             }
             R.id.navigation_promises -> {
+                
+                if (appPreference.isTourGuideCompleted()) {
+                    openScreen(ScreenPromises, "", false)
+                } else {
+                    tourGuide.apply {
+                        tourGuide.cleanUp()
+                        toolTip {
+                            title { "Portfolio" }
+                            description { "Clicking on this will take you to portfolio." }
+                            gravity { Gravity.TOP }
+                            backgroundColor { R.color.black }
+                        }
+                        pointer { Pointer() }
+                        overlay {
+                            backgroundColor { R.color.text_light_grey_color }
+                            style { Overlay.Style.CIRCLE }
+                        }
+                    }.playOn(
+                        (activityHomeActivity.includeNavigation.bottomNavigation.get(0) as BottomNavigationMenuView).get(
+                            2
+                        )
+                    )
+                }
                 if (appPreference.isFacilityCard()) {
                     openScreen(ScreenFM, "", false)
                 } else {
@@ -323,7 +385,28 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 return true
             }
             R.id.navigation_profile -> {
-                openScreen(ScreenProfile, "", false)
+                if (appPreference.isTourGuideCompleted()) {
+                    openScreen(ScreenProfile, "", false)
+                } else {
+                    tourGuide.apply {
+                        tourGuide.cleanUp()
+                        toolTip {
+                            title { "Promises" }
+                            description { "Clicking on this will take you to promises." }
+                            gravity { Gravity.TOP }
+                            backgroundColor { R.color.black }
+                        }
+                        pointer { Pointer() }
+                        overlay {
+                            backgroundColor { R.color.text_light_grey_color }
+                            style { Overlay.Style.CIRCLE }
+                        }
+                    }.playOn(
+                        (activityHomeActivity.includeNavigation.bottomNavigation.get(0) as BottomNavigationMenuView).get(
+                            3
+                        )
+                    )
+                }
                 return true
             }
         }
