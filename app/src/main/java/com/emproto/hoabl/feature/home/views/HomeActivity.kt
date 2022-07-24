@@ -143,7 +143,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
         initData()
         trackEvent()
-        appPreference.setTourGuide(false)
+        //appPreference.setTourGuide(false)
         if (appPreference.isTourGuideCompleted()) {
             initClickListener()
         } else {
