@@ -10,6 +10,7 @@ import com.emproto.networklayer.feature.PortfolioDataSource
 import com.emproto.networklayer.feature.ProfileDataSource
 import com.emproto.networklayer.request.login.profile.EditUserNameRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
+import com.emproto.networklayer.request.profile.LogOutFromCurrentBody
 import com.emproto.networklayer.request.profile.ReportSecurityRequest
 import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.BaseResponse
@@ -19,7 +20,6 @@ import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
-import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.resourceManagment.ProflieResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 import kotlinx.coroutines.*
@@ -606,6 +606,60 @@ class ProfileRepository @Inject constructor(application: Application) :
             }
         }
         return mDocumentsResponse
+    }
+
+    fun logOutFromCurrent(logOutFromCurrentBody: LogOutFromCurrentBody): LiveData<BaseResponse<LogOutFromCurrentResponse>> {
+        val mLogoutFromCurrentResponse = MutableLiveData<BaseResponse<LogOutFromCurrentResponse>>()
+        mLogoutFromCurrentResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).logOutFromCurrent(logOutFromCurrentBody)
+                if (request.isSuccessful) {
+                    if (request.body() != null)
+                        mLogoutFromCurrentResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mLogoutFromCurrentResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mLogoutFromCurrentResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mLogoutFromCurrentResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mLogoutFromCurrentResponse
+    }
+
+    fun logOutFromAllDevices(): LiveData<BaseResponse<LogOutFromCurrentResponse>> {
+        val mLogOutFromAllResponse = MutableLiveData<BaseResponse<LogOutFromCurrentResponse>>()
+        mLogOutFromAllResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).logOutFromAllDevices()
+                if (request.isSuccessful) {
+                    if (request.body() != null)
+                        mLogOutFromAllResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mLogOutFromAllResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mLogOutFromAllResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mLogOutFromAllResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mLogOutFromAllResponse
     }
 
     fun getAccountsList(): LiveData<BaseResponse<AccountsResponse>> {

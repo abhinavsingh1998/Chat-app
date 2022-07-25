@@ -152,47 +152,48 @@ class OpportunityDocsAdapter(
                 }
             }
 
-            val linedataset = LineDataSet(linevalues, "")
-            //We add features to our chart
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset.color = context.getColor(R.color.green)
-            }
+            if(linevalues.isNotEmpty()) {
+                val linedataset = LineDataSet(linevalues, "")
+                //We add features to our chart
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    linedataset.color = context.getColor(R.color.green)
+                }
 
-            linedataset.valueTextSize = 12F
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                linedataset.fillColor = context.getColor(R.color.green)
-            }
-            linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
-            linedataset.setDrawCircles(false)
-            linedataset.setDrawValues(false)
-            val data = LineData(linedataset)
+                linedataset.valueTextSize = 12F
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    linedataset.fillColor = context.getColor(R.color.green)
+                }
+                linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+                linedataset.setDrawCircles(false)
+                linedataset.setDrawValues(false)
+                val data = LineData(linedataset)
 
-            binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
-            binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
-            binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false);
-            binding.ivPriceTrendsGraph.setTouchEnabled(false)
-            binding.ivPriceTrendsGraph.setPinchZoom(false)
-            binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
-            //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
-            //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
-            binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false);
-            binding.ivPriceTrendsGraph.getXAxis().position = XAxis.XAxisPosition.BOTTOM;
-            //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
-            binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false);
-            binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false);
-            binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false);
-            binding.ivPriceTrendsGraph.xAxis.granularity = 1f
-            binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
+                binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
+                binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
+                binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false);
+                binding.ivPriceTrendsGraph.setTouchEnabled(false)
+                binding.ivPriceTrendsGraph.setPinchZoom(false)
+                binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
+                //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
+                //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
+                binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false);
+                binding.ivPriceTrendsGraph.getXAxis().position = XAxis.XAxisPosition.BOTTOM;
+                //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
+                binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false);
+                binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false);
+                binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false);
+                binding.ivPriceTrendsGraph.xAxis.granularity = 1f
+                binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
 //            binding.ivPriceTrendsGraph.getXAxis().setAxisMaximum(data.getXMax() + 0.25f);
 //            binding.ivPriceTrendsGraph.getXAxis().setAxisMinimum(data.getXMin() - 0.25f);
-            //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
-            //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
-            binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter = Xaxisformatter()
-            binding.ivPriceTrendsGraph.xAxis.valueFormatter = Xaxisformatter()
-            binding.ivPriceTrendsGraph.data = data
-            binding.ivPriceTrendsGraph.animateXY(2000, 2000)
-            binding.textView10.visibility = View.GONE
-
+                //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
+                //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
+                binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter = Xaxisformatter()
+                binding.ivPriceTrendsGraph.xAxis.valueFormatter = Xaxisformatter()
+                binding.ivPriceTrendsGraph.data = data
+                binding.ivPriceTrendsGraph.animateXY(2000, 2000)
+                binding.textView10.visibility = View.GONE
+            }
         }
     }
 

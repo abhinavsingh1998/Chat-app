@@ -11,6 +11,7 @@ import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.request.notification.UnReadNotifications
 import com.emproto.networklayer.request.profile.FeedBackRequest
+import com.emproto.networklayer.request.profile.LogOutFromCurrentBody
 import com.emproto.networklayer.request.profile.ReportSecurityRequest
 import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.request.refernow.ReferalRequest
@@ -258,5 +259,12 @@ public interface ApiService {
                                     @Query("index") index:Int):Response<NotificationResponse>
 
     @POST(ApiConstants.READ_NOTIFICATION)
+    suspend fun setReadStatus(@Query("ids") ids: List<String>):Response<ReadNotificationReponse>
+
+    @POST(ApiConstants.LOG_OUT)
+    suspend fun logOutFromCurrent(@Body logOutFromCurrentBody: LogOutFromCurrentBody):Response<LogOutFromCurrentResponse>
+
+    @POST(ApiConstants.LOG_OUT_ALL)
+    suspend fun logOutFromAll(  ):Response<LogOutFromCurrentResponse>
     suspend fun setReadStatus(@Body ids: UnReadNotifications):Response<ReadNotificationReponse>
 }

@@ -39,6 +39,7 @@ import com.emproto.hoabl.feature.profile.fragments.accounts.AccountDetailsFragme
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
+import com.emproto.networklayer.request.profile.LogOutFromCurrentBody
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.profile.Data
@@ -379,9 +380,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
         logoutDialog.setContentView(logoutDialoglayout.root)
 
         logoutDialoglayout.actionYes.setOnClickListener {
-            appPreference.saveLogin(false)
-            startActivity(Intent(context, AuthActivity::class.java))
-            requireActivity().finish()
+            logOutFromCurrentDevice()
         }
 
         logoutDialoglayout.actionNo.setOnClickListener {
@@ -392,6 +391,30 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
             logoutDialog.show()
         }
 
+    }
+
+    private fun logOutFromCurrentDevice() {
+        profileViewModel.logOutFromCurrent(LogOutFromCurrentBody(deviceToken = appPreference.getNotificationToken())).observe(viewLifecycleOwner,Observer{
+            when(it.status){
+                Status.LOADING -> {
+                    binding.progressBaar.show()
+                }
+                Status.SUCCESS -> {
+                    binding.progressBaar.hide()
+                    if (it.data != null) {
+                        appPreference.saveLogin(false)
+                        startActivity(Intent(context, AuthActivity::class.java))
+                        requireActivity().finish()
+                    }
+                }
+                Status.ERROR -> {
+                    binding.progressBaar.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(
+                        it.message!!
+                    )
+                }
+            }
+        })
     }
 
     private fun openMyAccount() {

@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.profile.fragments.securtiyandsettings
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
@@ -17,15 +18,21 @@ import com.emproto.hoabl.databinding.FragmentSecurityBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
+import com.emproto.hoabl.feature.investment.dialogs.ConfirmationDialog
+import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.hoabl.feature.profile.adapter.SecurityAdapter
 import com.emproto.hoabl.feature.profile.adapter.SettingsAdapter
+import com.emproto.hoabl.feature.profile.fragments.profile.ConfirmationLogOutDialog
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.profile.ReportSecurityRequest
 import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.enums.Status
+import com.example.portfolioui.databinding.LogoutAllConfirmationBinding
+import com.example.portfolioui.databinding.LogoutConfirmationBinding
 import javax.inject.Inject
 
 
@@ -34,8 +41,12 @@ class SecurityFragment : Fragment(){
     lateinit var profileFactory: ProfileFactory
     private lateinit var profileViewModel: ProfileViewModel
 
+    @Inject
+    lateinit var appPreference: AppPreference
+
     lateinit var binding: FragmentSecurityBinding
     lateinit var adapter: SettingsAdapter
+    lateinit var logoutDialog: Dialog
 
     val bundle = Bundle()
 
@@ -75,7 +86,13 @@ class SecurityFragment : Fragment(){
                 dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_TIPS))
             }
         }
+        dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SIGN_OUT_ALL))
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SETTINGS_ALL_OPTIONS))
+
+        val logoutDialoglayout = LogoutAllConfirmationBinding.inflate(layoutInflater)
+        logoutDialog = Dialog(requireContext())
+        logoutDialog.setCancelable(false)
+        logoutDialog.setContentView(logoutDialoglayout.root)
 
         val adapter = SecurityAdapter(this.requireContext(), dataList, itemClickListener, isWhatsappEnabled, showPushNotifications)
         binding.rvHelpCenter.adapter = adapter
@@ -83,6 +100,15 @@ class SecurityFragment : Fragment(){
         binding.arrowimage.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
+
+        logoutDialoglayout.actionYes.setOnClickListener {
+            logOutFromAllDevices()
+        }
+
+        logoutDialoglayout.actionNo.setOnClickListener {
+            logoutDialog.dismiss()
+        }
+
     }
 
     val itemClickListener = object : ItemClickListener {
@@ -101,8 +127,16 @@ class SecurityFragment : Fragment(){
                     }
                 }
                 R.id.cl_security_tips -> {
-                    val securityTipsFragment = SecurityTipsFragment()
-                    (requireActivity() as HomeActivity).addFragment(securityTipsFragment,false)
+                    when(item){
+                        "Security Tips" -> {
+                            val securityTipsFragment = SecurityTipsFragment()
+                            (requireActivity() as HomeActivity).addFragment(securityTipsFragment,false)
+                        }
+                        "Sign out from all devices" -> {
+                            logoutDialog.show()
+                        }
+                    }
+
                 }
                 R.id.button_view -> {
 //                    val u = Uri.parse("tel:" + "8939122576")
@@ -159,6 +193,36 @@ class SecurityFragment : Fragment(){
                 }
             }
         }
+    }
+
+
+    private fun logOutFromAllDevices() {
+        profileViewModel.logOutFromAll().observe(viewLifecycleOwner,Observer{
+            when(it.status){
+                Status.LOADING -> {
+                    binding.progressBar.show()
+                }
+                Status.SUCCESS -> {
+                    binding.progressBar.hide()
+                    if (it.data != null) {
+                        it.data?.let {
+                            logoutDialog.dismiss()
+                            appPreference.saveLogin(false)
+                            startActivity(Intent(context, AuthActivity::class.java))
+                            requireActivity().finish()
+                        }
+                    }
+                }
+                Status.ERROR -> {
+                    logoutDialog.dismiss()
+                    binding.progressBar.hide()
+                    it.data
+                    (requireActivity() as HomeActivity).showErrorToast(
+                        it.message!!
+                    )
+                }
+            }
+        })
     }
 
     private fun displaySpeechRecognizer() {
