@@ -66,6 +66,16 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
         return apiService.getTestimonials()
     }
 
+    //chats history api
+    suspend fun getChatHistory(projectId: String, isInvested:Boolean): Response<ChatHistoryResponse> {
+        return apiService.getChatHistory(projectId, isInvested)
+    }
+
+    //send message api
+    suspend fun sendMessage(sendMessageBody: SendMessageBody): Response<SendMessageResponse> {
+        return apiService.sendMessage(sendMessageBody)
+    }
+
     //promises modules apis
     suspend fun getPromisesData(pageType: Int): Response<PromisesResponse> {
         return apiService.getPromises(pageType)
