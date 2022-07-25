@@ -36,7 +36,7 @@ class AllProjectsAdapter(
         holder.binding.projectName.text= currentItem?.launchName
 
 
-        Glide.with(context).load(currentItem.projectCoverImages.chatPageMedia.value.url)
+        Glide.with(context).load(currentItem.projectCoverImages.newInvestmentPageMedia.value.url)
             .into(holder.binding.projectImg)
 
         if(position == selectedItemPos) {
