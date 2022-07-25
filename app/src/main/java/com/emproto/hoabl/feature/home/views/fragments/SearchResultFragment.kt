@@ -94,7 +94,21 @@ class SearchResultFragment : BaseFragment() {
         initObserver()
         initView()
         initClickListeners()
+        checkSearchedtext()
         callSearchApi("",false)
+    }
+
+    private fun checkSearchedtext() {
+        homeViewModel.getSearchedText().observe(viewLifecycleOwner,Observer{
+            when(it.trim()){
+                "" -> {
+                    callSearchApi("",false)
+                }
+                else -> {
+                    callSearchApi(it,true)
+                }
+            }
+        })
     }
 
     private fun initClickListeners() {
@@ -181,9 +195,9 @@ class SearchResultFragment : BaseFragment() {
 //                        callSearchApi(p0.toString(),true)
 //                    }, 2000)
 //                } else
-                    if (p0.toString().isEmpty()) {
+                if (p0.toString().isEmpty()) {
                     Handler().postDelayed({
-                        callSearchApi("",false)
+                        callSearchApi("", false)
                     }, 2000)
                 }
             }
@@ -530,15 +544,15 @@ class SearchResultFragment : BaseFragment() {
                     bundle.putInt("ProjectId", item.toInt())
                     val fragment = ProjectDetailFragment()
                     fragment.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(
-                        fragment, false
-                    )
+                    homeViewModel.setSearchedText(fragmentSearchResultBinding.searchLayout.search.text.toString())
+                    (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
                 1 -> {
                     val fragment = LandSkusFragment()
                     val bundle = Bundle()
                     bundle.putInt("ProjectId", item.toInt())
                     fragment.arguments = bundle
+                    homeViewModel.setSearchedText(fragmentSearchResultBinding.searchLayout.search.text.toString())
                     (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
             }
