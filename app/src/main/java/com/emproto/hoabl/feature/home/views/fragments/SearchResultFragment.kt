@@ -83,9 +83,10 @@ class SearchResultFragment : BaseFragment() {
         arguments.let {
             if (it != null) {
                 topText = it.getString("TopText").toString()
-                Log.d("ext","text = ${topText}")
+                Log.d("ext", "text = ${topText}")
             }
         }
+        fragmentSearchResultBinding.searchLayout.search.setText("")
         return fragmentSearchResultBinding.root
     }
 
@@ -94,21 +95,22 @@ class SearchResultFragment : BaseFragment() {
         initObserver()
         initView()
         initClickListeners()
-        checkSearchedtext()
-        callSearchApi("",false)
+        callSearchApi("", false)
     }
 
-    private fun checkSearchedtext() {
-        homeViewModel.getSearchedText().observe(viewLifecycleOwner,Observer{
-            when(it.trim()){
-                "" -> {
-                    callSearchApi("",false)
-                }
-                else -> {
-                    callSearchApi(it,true)
-                }
+    private fun checkSearchedText() {
+        val searchString = homeViewModel.getSearchedText().value
+        when (searchString?.trim()) {
+            "" -> {
+                callSearchApi("", false)
             }
-        })
+            null -> {
+                callSearchApi("", false)
+            }
+            else -> {
+                callSearchApi(searchString.toString(), true)
+            }
+        }
     }
 
     private fun initClickListeners() {
@@ -121,9 +123,10 @@ class SearchResultFragment : BaseFragment() {
         }
         fragmentSearchResultBinding.searchLayout.rotateText.text = topText
 
-        fragmentSearchResultBinding.searchLayout.search.setOnEditorActionListener(object: TextView.OnEditorActionListener{
+        fragmentSearchResultBinding.searchLayout.search.setOnEditorActionListener(object :
+            TextView.OnEditorActionListener {
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-                if(actionId == EditorInfo.IME_ACTION_DONE){
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
                     val p0 = fragmentSearchResultBinding.searchLayout.search.text.toString()
                     if (p0.toString() != "" && p0.toString().length > 1) {
                         fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility =
@@ -132,7 +135,7 @@ class SearchResultFragment : BaseFragment() {
                             callSearchApi(p0.toString(), true)
                         }, 1000)
                     } else
-                    return true
+                        return true
                 }
                 return false
             }
@@ -183,28 +186,29 @@ class SearchResultFragment : BaseFragment() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (p0.toString().isEmpty() || p0.toString().isBlank()) {
+//                if (p0.toString().isEmpty() || p0.toString().isBlank()) {
+//                    fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.GONE
+//                }
+                if (p0.toString().isEmpty()) {
                     fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.GONE
+                    Handler().postDelayed({
+                        callSearchApi("", false)
+                    }, 2000)
+                }else if (p0.toString() != "" && p0.toString().length > 1){
+                    fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.VISIBLE
+                    Handler().postDelayed({
+                        callSearchApi(p0.toString().trim(), true)
+                    }, 2000)
                 }
             }
 
             override fun afterTextChanged(p0: Editable?) {
-//                if (p0.toString() != "" && p0.toString().length > 1) {
-//                    fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.VISIBLE
-//                    Handler().postDelayed({
-//                        callSearchApi(p0.toString(),true)
-//                    }, 2000)
-//                } else
-                if (p0.toString().isEmpty()) {
-                    Handler().postDelayed({
-                        callSearchApi("", false)
-                    }, 2000)
-                }
+
             }
         })
     }
 
-    private fun callSearchApi(searchWord: String,searchStringPresent:Boolean) {
+    private fun callSearchApi(searchWord: String, searchStringPresent: Boolean) {
         homeViewModel.getSearchResult(searchWord.trim()).observe(this, Observer {
             when (it.status) {
                 Status.LOADING -> {
@@ -226,15 +230,15 @@ class SearchResultFragment : BaseFragment() {
                                 fragmentSearchResultBinding.tvProject.visibility = View.VISIBLE
                                 fragmentSearchResultBinding.projectList.visibility = View.VISIBLE
                                 val allProjectList = data.projectContentData
-                                when{
+                                when {
                                     allProjectList.size > 3 -> {
-                                        when(searchStringPresent){
+                                        when (searchStringPresent) {
                                             true -> {
                                                 setUpProjectAdapter(data.projectContentData)
                                             }
                                             false -> {
                                                 val projectShowList = ArrayList<ApData>()
-                                                for(i in 0..2){
+                                                for (i in 0..2) {
                                                     projectShowList.add(allProjectList[i])
                                                 }
                                                 setUpProjectAdapter(projectShowList)
@@ -251,23 +255,26 @@ class SearchResultFragment : BaseFragment() {
                         //Latest Updates
                         homeViewModel.setLatestUpdatesData(data.marketingUpdateData)
                         val allLatestUpdateList = data.marketingUpdateData
-                        when(allLatestUpdateList.size){
+                        when (allLatestUpdateList.size) {
                             0 -> {
                                 fragmentSearchResultBinding.tvLatestUpdates.visibility = View.GONE
                                 fragmentSearchResultBinding.latestUpdatesList.visibility = View.GONE
                             }
                             else -> {
-                                fragmentSearchResultBinding.tvLatestUpdates.visibility = View.VISIBLE
-                                fragmentSearchResultBinding.latestUpdatesList.visibility = View.VISIBLE
-                                when{
+                                fragmentSearchResultBinding.tvLatestUpdates.visibility =
+                                    View.VISIBLE
+                                fragmentSearchResultBinding.latestUpdatesList.visibility =
+                                    View.VISIBLE
+                                when {
                                     allLatestUpdateList.size > 3 -> {
-                                        when(searchStringPresent){
+                                        when (searchStringPresent) {
                                             true -> {
                                                 setUpLatestUpdateAdapter(allLatestUpdateList)
                                             }
                                             false -> {
-                                                val luShowList = ArrayList<com.emproto.networklayer.response.marketingUpdates.Data>()
-                                                for(i in 0..2){
+                                                val luShowList =
+                                                    ArrayList<com.emproto.networklayer.response.marketingUpdates.Data>()
+                                                for (i in 0..2) {
                                                     luShowList.add(allLatestUpdateList[i])
                                                 }
                                                 setUpLatestUpdateAdapter(luShowList)
@@ -283,7 +290,7 @@ class SearchResultFragment : BaseFragment() {
 
                         //Insights
                         val allInsightsList = data.insightsData
-                        when(allInsightsList.size){
+                        when (allInsightsList.size) {
                             0 -> {
                                 fragmentSearchResultBinding.tvInsights.visibility = View.GONE
                                 fragmentSearchResultBinding.insightsList.visibility = View.GONE
@@ -291,15 +298,16 @@ class SearchResultFragment : BaseFragment() {
                             else -> {
                                 fragmentSearchResultBinding.tvInsights.visibility = View.VISIBLE
                                 fragmentSearchResultBinding.insightsList.visibility = View.VISIBLE
-                                when{
+                                when {
                                     allInsightsList.size > 3 -> {
-                                        when(searchStringPresent){
+                                        when (searchStringPresent) {
                                             true -> {
                                                 setUpInsightsAdapter(allInsightsList)
                                             }
                                             false -> {
-                                                val showInsightsList = ArrayList<com.emproto.networklayer.response.insights.Data>()
-                                                for(i in 0..2){
+                                                val showInsightsList =
+                                                    ArrayList<com.emproto.networklayer.response.insights.Data>()
+                                                for (i in 0..2) {
                                                     showInsightsList.add(allInsightsList[i])
                                                 }
                                                 setUpInsightsAdapter(showInsightsList)
@@ -327,9 +335,9 @@ class SearchResultFragment : BaseFragment() {
                                     val pjd = ProjectContentsAndFaq("", 0, item, 0, 0, 0, "")
                                     faqList.add(pjd)
                                 }
-                                when{
+                                when {
                                     faqList.size > 3 -> {
-                                        when(searchStringPresent){
+                                        when (searchStringPresent) {
                                             true -> {
                                                 setUpFaqAdapter(faqList)
                                             }
@@ -337,17 +345,17 @@ class SearchResultFragment : BaseFragment() {
                                                 val filteredFaqList = faqList.filter {
                                                     it.frequentlyAskedQuestion.typeOfFAQ == "3001" //General faq
                                                 }
-                                                Log.d("DDDD",filteredFaqList.toString())
+                                                Log.d("DDDD", filteredFaqList.toString())
                                                 val showFaqList = ArrayList<ProjectContentsAndFaq>()
-                                                when{
+                                                when {
                                                     filteredFaqList.size > 3 -> {
-                                                        for(i in 0..2){
+                                                        for (i in 0..2) {
                                                             showFaqList.add(filteredFaqList[i])
                                                         }
                                                         setUpFaqAdapter(showFaqList)
                                                     }
                                                     else -> {
-                                                       setUpFaqAdapter(filteredFaqList)
+                                                        setUpFaqAdapter(filteredFaqList)
                                                     }
                                                 }
 
@@ -358,6 +366,10 @@ class SearchResultFragment : BaseFragment() {
                                         val filteredFaqList = faqList.filter {
                                             it.frequentlyAskedQuestion.typeOfFAQ == "3001"
                                         }
+                                        if(filteredFaqList.isEmpty()){
+                                            fragmentSearchResultBinding.tvFaq.visibility = View.GONE
+                                            fragmentSearchResultBinding.faqsList.visibility = View.GONE
+                                        }
                                         setUpFaqAdapter(filteredFaqList)
                                     }
                                 }
@@ -365,7 +377,14 @@ class SearchResultFragment : BaseFragment() {
                         }
 
                         //Documents
-                        callDocsApi(searchWord, data.projectContentData, data.faqData,data.marketingUpdateData,data.insightsData,searchStringPresent)
+                        callDocsApi(
+                            searchWord,
+                            data.projectContentData,
+                            data.faqData,
+                            data.marketingUpdateData,
+                            data.insightsData,
+                            searchStringPresent
+                        )
 
 //                        if (data.projectContentData.isEmpty() && data.faqData.isEmpty() && data.marketingUpdateData.isEmpty() && data.insightsData.isEmpty()) {
 //                            fragmentSearchResultBinding.tvNoData.visibility = View.VISIBLE
@@ -410,6 +429,8 @@ class SearchResultFragment : BaseFragment() {
             object : AllInsightsAdapter.InsightsItemsInterface {
                 override fun onClickItem(position: Int) {
                     homeViewModel.setSeLectedInsights(showInsightsList[position])
+                    homeViewModel.setSearchedText(fragmentSearchResultBinding.searchLayout.search.text.toString())
+                    fragmentSearchResultBinding.searchLayout.search.setText("")
                     (requireActivity() as HomeActivity).addFragment(
                         InsightsDetailsFragment(),
                         false
@@ -421,10 +442,10 @@ class SearchResultFragment : BaseFragment() {
     }
 
     private fun setUpLatestUpdateAdapter(luList: List<com.emproto.networklayer.response.marketingUpdates.Data>) {
-        val allLatestUpdatesAdapter = AllLatestUpdatesAdapter(requireContext(),luList,luList.size,
-            object : AllLatestUpdatesAdapter.UpdatesItemsInterface{
+        val allLatestUpdatesAdapter = AllLatestUpdatesAdapter(requireContext(), luList, luList.size,
+            object : AllLatestUpdatesAdapter.UpdatesItemsInterface {
                 override fun onClickItem(position: Int) {
-                    Log.d("eee",position.toString())
+                    Log.d("eee", position.toString())
                     homeViewModel.setSeLectedLatestUpdates(luList[position])
                     homeViewModel.setSelectedPosition(
                         LatesUpdatesPosition(
@@ -432,6 +453,8 @@ class SearchResultFragment : BaseFragment() {
                             luList.size
                         )
                     )
+                    homeViewModel.setSearchedText(fragmentSearchResultBinding.searchLayout.search.text.toString())
+                    fragmentSearchResultBinding.searchLayout.search.setText("")
                     (requireActivity() as HomeActivity).addFragment(
                         LatestUpdatesDetailsFragment(),
                         false
@@ -466,22 +489,24 @@ class SearchResultFragment : BaseFragment() {
                                 }
                                 else -> {
                                     Log.d("getget", data.toString())
-                                    fragmentSearchResultBinding.tvDocuments.visibility = View.VISIBLE
-                                    fragmentSearchResultBinding.documentsList.visibility = View.VISIBLE
+                                    fragmentSearchResultBinding.tvDocuments.visibility =
+                                        View.VISIBLE
+                                    fragmentSearchResultBinding.documentsList.visibility =
+                                        View.VISIBLE
                                     fragmentSearchResultBinding.tvNoData.visibility = View.GONE
                                     docList.clear()
                                     for (item in data) {
                                         docList.add(item)
                                     }
-                                    when{
+                                    when {
                                         docList.size > 3 -> {
-                                            when(searchStringPresent){
+                                            when (searchStringPresent) {
                                                 true -> {
                                                     setupDocAdapter(docList)
                                                 }
                                                 false -> {
                                                     val showDocList = ArrayList<Data>()
-                                                    for(i in 0..2){
+                                                    for (i in 0..2) {
                                                         showDocList.add(docList[i])
                                                     }
                                                     setupDocAdapter(showDocList)
@@ -497,7 +522,7 @@ class SearchResultFragment : BaseFragment() {
                         } else {
                             fragmentSearchResultBinding.tvDocuments.visibility = View.GONE
                             fragmentSearchResultBinding.documentsList.visibility = View.GONE
-                            if (projectContentData.isEmpty() && faqData.isEmpty() && marketingUpdateData.isEmpty() && insightsData.isEmpty() ) {
+                            if (projectContentData.isEmpty() && faqData.isEmpty() && marketingUpdateData.isEmpty() && insightsData.isEmpty()) {
                                 hideKeyboard()
                                 (requireActivity() as HomeActivity).navigate(R.id.navigation_investment)
                             } else {
@@ -545,6 +570,7 @@ class SearchResultFragment : BaseFragment() {
                     val fragment = ProjectDetailFragment()
                     fragment.arguments = bundle
                     homeViewModel.setSearchedText(fragmentSearchResultBinding.searchLayout.search.text.toString())
+                    fragmentSearchResultBinding.searchLayout.search.setText("")
                     (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
                 1 -> {
@@ -553,6 +579,7 @@ class SearchResultFragment : BaseFragment() {
                     bundle.putInt("ProjectId", item.toInt())
                     fragment.arguments = bundle
                     homeViewModel.setSearchedText(fragmentSearchResultBinding.searchLayout.search.text.toString())
+                    fragmentSearchResultBinding.searchLayout.search.setText("")
                     (requireActivity() as HomeActivity).addFragment(fragment, false)
                 }
             }
@@ -561,21 +588,21 @@ class SearchResultFragment : BaseFragment() {
 
     val ivinterface = object : DocumentInterface {
         override fun onclickDocument(name: String, path: String) {
-            when(path){
+            when (path) {
                 "" -> {
                     Toast.makeText(requireContext(), "No data available", Toast.LENGTH_SHORT).show()
                 }
                 else -> {
                     when {
-                        name.contains("jpg",true) ->  {
+                        name.contains("jpg", true) -> {
                             //open image loading screen
                             openDocument(name, path)
                         }
-                        name.contains("png",true) ->  {
+                        name.contains("png", true) -> {
                             //open image loading screen
                             openDocument(name, path)
                         }
-                        name.contains("pdf",false) -> {
+                        name.contains("pdf", false) -> {
                             getDocumentData(path)
                         }
                         else -> {
@@ -611,6 +638,8 @@ class SearchResultFragment : BaseFragment() {
     }
 
     private fun openDocument(name: String, path: String) {
+        homeViewModel.setSearchedText(fragmentSearchResultBinding.searchLayout.search.text.toString())
+        fragmentSearchResultBinding.searchLayout.search.setText("")
         (requireActivity() as HomeActivity).addFragment(
             DocViewerFragment.newInstance(true, name, path),
             false

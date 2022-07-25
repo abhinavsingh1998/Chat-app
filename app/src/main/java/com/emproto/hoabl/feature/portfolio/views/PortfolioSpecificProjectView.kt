@@ -56,6 +56,11 @@ import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsRe
 
 class PortfolioSpecificProjectView : BaseFragment() {
 
+    companion object{
+        const val MEDIA_ACTIVE = "1001"
+        const val MEDIA_INACTIVE = "1002"
+    }
+
     lateinit var binding: FragmentPortfolioSpecificViewBinding
     lateinit var portfolioSpecificViewAdapter: PortfolioSpecificViewAdapter
     lateinit var documentBinding: DocumentsBottomSheetBinding
@@ -250,29 +255,33 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 && it.data.projectInformation.latestMediaGalleryOrProjectContent.isNotEmpty()
             ) {
                 for (item in it.data.projectInformation.latestMediaGalleryOrProjectContent[0].images) {
-                    itemId++
-                    allMediaList.add(
-                        MediaViewItem(
-                            item.mediaContentType,
-                            item.mediaContent.value.url,
-                            title = "Images",
-                            id = itemId,
-                            name = item.name
+                    if(item.status == MEDIA_ACTIVE) {
+                        itemId++
+                        allMediaList.add(
+                            MediaViewItem(
+                                item.mediaContentType,
+                                item.mediaContent.value.url,
+                                title = "Images",
+                                id = itemId,
+                                name = item.name
+                            )
                         )
-                    )
+                    }
                 }
 
                 for (item in it.data.projectInformation.latestMediaGalleryOrProjectContent[0].threeSixtyImages) {
-                    itemId++
-                    allMediaList.add(
-                        MediaViewItem(
-                            item.mediaContentType,
-                            item.mediaContent.value.url,
-                            title = "ThreeSixtyImages",
-                            id = itemId,
-                            name = item.name
+                    if(item.status == MEDIA_ACTIVE) {
+                        itemId++
+                        allMediaList.add(
+                            MediaViewItem(
+                                item.mediaContentType,
+                                item.mediaContent.value.url,
+                                title = "ThreeSixtyImages",
+                                id = itemId,
+                                name = item.name
+                            )
                         )
-                    )
+                    }
                 }
                 list.add(
                     RecyclerViewItem(

@@ -456,7 +456,7 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="@dimen/margin_size_8"
             android:layout_marginTop="@dimen/margin_size_17"
-            android:layout_marginHorizontal="@dimen/margin_size_20"
+            android:layout_marginHorizontal="@dimen/margin_size_13"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_registration_number"

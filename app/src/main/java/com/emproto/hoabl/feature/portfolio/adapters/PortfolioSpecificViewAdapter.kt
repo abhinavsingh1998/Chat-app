@@ -64,6 +64,8 @@ class PortfolioSpecificViewAdapter(
         const val PORTFOLIO_REFERNOW = 8
         const val PORTFOLIO_FAQ = 9
         const val PORTFOLIO_SIMILER_INVESTMENT = 10
+        const val MEDIA_ACTIVE = "1001"
+        const val MEDIA_INACTIVE = "1002"
     }
 
     private lateinit var specificViewPagerAdapter: PortfolioSpecificViewPagerAdapter
@@ -471,52 +473,60 @@ class PortfolioSpecificViewAdapter(
             val allMediasList = ArrayList<MediaViewItem>()
             val imagesData = list[position].data as LatestMediaGalleryOrProjectContent
             for (item in imagesData.droneShoots) {
-                itemId++
-                allMediasList.add(
-                    MediaViewItem(
-                        item.mediaContentType,
-                        item.mediaContent.value.url,
-                        title = "DroneShoots",
-                        id = itemId,
-                        name = item.name
+                if(item.status == MEDIA_ACTIVE) {
+                    itemId++
+                    allMediasList.add(
+                        MediaViewItem(
+                            item.mediaContentType,
+                            item.mediaContent.value.url,
+                            title = "DroneShoots",
+                            id = itemId,
+                            name = item.name
+                        )
                     )
-                )
+                }
             }
             for (item in imagesData.images) {
-                itemId++
-                allMediasList.add(
-                    MediaViewItem(
-                        item.mediaContentType,
-                        item.mediaContent.value.url,
-                        title = "Images",
-                        id = itemId,
-                        name = item.name
+                if(item.status == MEDIA_ACTIVE) {
+                    itemId++
+                    allMediasList.add(
+                        MediaViewItem(
+                            item.mediaContentType,
+                            item.mediaContent.value.url,
+                            title = "Images",
+                            id = itemId,
+                            name = item.name
+                        )
                     )
-                )
+                }
             }
             for (item in imagesData.videos) {
-                itemId++
-                allMediasList.add(
-                    MediaViewItem(
-                        item.mediaContentType,
-                        item.mediaContent.value.url,
-                        title = "Videos",
-                        id = itemId,
-                        name = item.name
+                if(item.status == MEDIA_ACTIVE) {
+                    itemId++
+                    allMediasList.add(
+                        MediaViewItem(
+                            item.mediaContentType,
+                            item.mediaContent.value.url,
+                            title = "Videos",
+                            id = itemId,
+                            name = item.name
+                        )
                     )
-                )
+                }
             }
             for (item in imagesData.threeSixtyImages) {
-                itemId++
-                allMediasList.add(
-                    MediaViewItem(
-                        item.mediaContentType,
-                        item.mediaContent.value.url,
-                        title = "ThreeSixtyImages",
-                        id = itemId,
-                        name = item.name
+                if(item.status == MEDIA_ACTIVE) {
+                    itemId++
+                    allMediasList.add(
+                        MediaViewItem(
+                            item.mediaContentType,
+                            item.mediaContent.value.url,
+                            title = "ThreeSixtyImages",
+                            id = itemId,
+                            name = item.name
+                        )
                     )
-                )
+                }
             }
             for (item in allMediasList) {
                 when (item.title) {

@@ -87,7 +87,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         binding.rvChat.adapter = chatsDetailAdapter
 
         chatsList = arguments?.getSerializable("chatModel") as CData
-        binding.tvChatTitle.text = chatsList?.project?.launchName
+        binding.tvChatTitle.text = chatsList?.project?.projectContent?.launchName.toString()
         context?.let {
             Glide.with(it)
                 .load(chatsList?.project?.projectContent?.projectCoverImages?.chatPageMedia?.value?.url)
