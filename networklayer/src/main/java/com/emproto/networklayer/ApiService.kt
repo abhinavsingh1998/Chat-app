@@ -9,6 +9,7 @@ import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
+import com.emproto.networklayer.request.notification.UnReadNotifications
 import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.request.profile.ReportSecurityRequest
 import com.emproto.networklayer.request.profile.WhatsappConsentBody
@@ -257,5 +258,5 @@ public interface ApiService {
                                     @Query("index") index:Int):Response<NotificationResponse>
 
     @POST(ApiConstants.READ_NOTIFICATION)
-    suspend fun setReadStatus(@Query("ids") ids: List<String>):Response<ReadNotificationReponse>
+    suspend fun setReadStatus(@Body ids: UnReadNotifications):Response<ReadNotificationReponse>
 }

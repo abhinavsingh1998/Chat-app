@@ -42,6 +42,7 @@ import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.preferences.AppPreference
+import com.emproto.networklayer.request.notification.UnReadNotifications
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.notification.dataResponse.NotificationResponse
@@ -69,6 +70,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private var closeApp = false
     private var toolbar: Toolbar? = null
     lateinit var activityHomeActivity: ActivityHomeBinding
+    lateinit var unReadNotifications:UnReadNotifications
+
 
     @Inject
     lateinit var factory: HomeFactory
@@ -423,6 +426,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
                         Status.LOADING->{
                             fragmentNotificationBottomSheetBinding.loader.isVisible= true
+                            fragmentNotificationBottomSheetBinding.markAllRead.isVisible= false
 
                         }
                         Status.ERROR -> {
@@ -431,9 +435,21 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                         }
                         Status.SUCCESS -> {
                             fragmentNotificationBottomSheetBinding.loader.isVisible= false
+                            fragmentNotificationBottomSheetBinding.markAllRead.isVisible= true
 
-                            it?.data
-
+                            var itemList= ArrayList<Int>()
+                            for (i in 0..it?.data?.data!!.size-1){
+                                if (it!!.data!!.data[i].readStatus==false){
+                                    itemList.add(it?.data?.data!![i].id)
+                                }else{
+                                    fragmentNotificationBottomSheetBinding.markAllRead.setTextColor(resources.getColor(R.color.text_fade_color))
+                                }
+                            }
+                            unReadNotifications= UnReadNotifications(itemList)
+                            fragmentNotificationBottomSheetBinding.markAllRead.setOnClickListener(View.OnClickListener {
+                                setReadStatus(unReadNotifications)
+                                        bottomSheetDialog.dismiss()
+                            })
 
                             it?.data.let {
                                 it?.data
@@ -443,41 +459,13 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                                         it!!.data,
                                         object : NotificationAdapter.ItemsClickInterface {
                                             override fun onClickItem(id: Int, posittion: Int) {
-                                                var list = ArrayList<String>()
-                                                list.add(id.toString())
-                                                homeViewModel.setReadStatus(list).observe(
-                                                    this@HomeActivity,
-                                                    object :
-                                                        Observer<BaseResponse<ReadNotificationReponse>> {
-                                                        override fun onChanged(it: BaseResponse<ReadNotificationReponse>?) {
-                                                            when (it!!.status) {
-                                                                Status.LOADING ->{
-                                                                }
-                                                                Status.SUCCESS -> {
-                                                                    Log.i("sucess", "Sucess")
-                                                                }
-                                                                Status.ERROR -> {
-                                                                    Log.i("error", "error")
+                                                var list = ArrayList<Int>()
+                                                list.add(id)
 
-                                                                }
-
-                                                            }
-                                                        }
-
-                                                    })
+                                                unReadNotifications= UnReadNotifications(list)
+                                                setReadStatus(unReadNotifications)
                                                 if (it!!.data[posittion]!!.notification.targetPage == 1) {
-                                                    val bundle = Bundle()
-                                                    val homeFragment = HomeFragment()
-                                                    homeFragment.arguments = bundle
-                                                    replaceFragment(
-                                                        homeFragment.javaClass,
-                                                        "",
-                                                        true,
-                                                        bundle,
-                                                        null,
-                                                        0,
-                                                        false
-                                                    )
+
                                                     bottomSheetDialog.dismiss()
                                                 }
                                                 else if  (it!!.data[posittion]!!.notification.targetPage == 2) {
@@ -546,9 +534,29 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
 
                             }
+                        }
+                    }
+                }
 
+            })
+    }
+
+    fun setReadStatus(ids: UnReadNotifications){
+        homeViewModel.setReadStatus(ids).observe(
+            this@HomeActivity,
+            object :
+                Observer<BaseResponse<ReadNotificationReponse>> {
+                override fun onChanged(it: BaseResponse<ReadNotificationReponse>?) {
+                    when (it!!.status) {
+                        Status.LOADING ->{
+                        }
+                        Status.SUCCESS -> {
+                            callNotificationApi()                        }
+                        Status.ERROR -> {
+                            Log.i("error", it.message.toString())
 
                         }
+
                     }
                 }
 

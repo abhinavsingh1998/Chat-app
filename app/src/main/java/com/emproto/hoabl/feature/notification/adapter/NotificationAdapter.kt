@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.NotificationItemBinding
 import com.emproto.hoabl.feature.home.adapters.AllLatestUpdatesAdapter
 import com.emproto.networklayer.response.notification.dataResponse.Data
@@ -24,7 +25,6 @@ class NotificationAdapter(
          val item = list.get(holder.adapterPosition)
 
 
-
              if (item.notification.notificationDescription.media!=null){
                  holder.binding.cvChatImage.isVisible= true
                  Glide.with(mContext)
@@ -39,7 +39,11 @@ class NotificationAdapter(
 
          if (item.readStatus== true){
              holder.binding.cardView.cardElevation= 0f
+             holder.binding.tvNew.isVisible= false
 
+         } else{
+             holder.binding.cardView.cardElevation= 25f
+             holder.binding.tvNew.isVisible= true
          }
 
          holder.binding.cardView.setOnClickListener {

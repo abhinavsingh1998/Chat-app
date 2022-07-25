@@ -8,6 +8,7 @@ import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.HomeDataSource
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.request.chat.SendMessageBody
+import com.emproto.networklayer.request.notification.UnReadNotifications
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.HomeActionItemResponse
@@ -660,7 +661,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         return mNotificationResponse
     }
 
-    fun setReadStatus(ids:List<String>): LiveData<BaseResponse<ReadNotificationReponse>> {
+    fun setReadStatus(ids: UnReadNotifications): LiveData<BaseResponse<ReadNotificationReponse>> {
         val mNotificationResponse = MutableLiveData<BaseResponse<ReadNotificationReponse>>()
         mNotificationResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
