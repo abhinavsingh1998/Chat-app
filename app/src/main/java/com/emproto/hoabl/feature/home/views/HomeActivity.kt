@@ -45,6 +45,7 @@ import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.notification.UnReadNotifications
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.notification.dataResponse.Data
 import com.emproto.networklayer.response.notification.dataResponse.NotificationResponse
 import com.emproto.networklayer.response.notification.readStatus.ReadNotificationReponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -378,33 +379,35 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     @SuppressLint("SetTextI18n")
     fun initData() {
 
+//        callNotificationApi()
+
         homeViewModel.gethomeData().observe(this, Observer {
 
             it.let {
                 val totalLandsold: String? = String.format(
                     getString(R.string.header),
-                    it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName,
-                    it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value
+                    it.data.page.mastheadSection.totalSqftOfLandTransacted.displayName,
+                    it.data.page.mastheadSection.totalSqftOfLandTransacted.value
                 )
                 //it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value
 
                 val totalAmtLandSold: String? = String.format(
                     getString(R.string.header),
-                    it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName,
-                    it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
+                    it.data.page.mastheadSection.totalAmoutOfLandTransacted.displayName,
+                    it.data.page.mastheadSection.totalAmoutOfLandTransacted.value
                 )
 
                 //it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
                 val grossWeight: String? = String.format(
                     getString(R.string.header),
-                    it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName,
-                    it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
+                    it.data.page.mastheadSection.grossWeightedAvgAppreciation.displayName,
+                    it.data.page.mastheadSection.grossWeightedAvgAppreciation.value
                 )
                 //it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName + " " + it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
                 val num_User: String? = String.format(
                     getString(R.string.header),
-                    it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName,
-                    it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
+                    it.data.page.mastheadSection.totalNumberOfUsersWhoBoughtTheLand.displayName,
+                    it.data.page.mastheadSection.totalNumberOfUsersWhoBoughtTheLand.value
                 )
                 //it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName + " " + it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
                 activityHomeActivity.searchLayout.rotateText.text = showHTMLText(
@@ -424,34 +427,60 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 override fun onChanged(it: BaseResponse<NotificationResponse>?) {
                     when (it!!.status) {
 
-                        Status.LOADING->{
-                            fragmentNotificationBottomSheetBinding.loader.isVisible= true
-                            fragmentNotificationBottomSheetBinding.markAllRead.isVisible= false
+                        Status.LOADING -> {
+                            fragmentNotificationBottomSheetBinding.loader.isVisible = true
+                            fragmentNotificationBottomSheetBinding.markAllRead.isVisible = false
 
                         }
                         Status.ERROR -> {
-                            fragmentNotificationBottomSheetBinding.loader.isVisible= false
+                            fragmentNotificationBottomSheetBinding.loader.isVisible = false
+
 
                         }
                         Status.SUCCESS -> {
-                            fragmentNotificationBottomSheetBinding.loader.isVisible= false
-                            fragmentNotificationBottomSheetBinding.markAllRead.isVisible= true
+                            fragmentNotificationBottomSheetBinding.loader.isVisible = false
+                            fragmentNotificationBottomSheetBinding.markAllRead.isVisible = true
 
-                            var itemList= ArrayList<Int>()
-                            for (i in 0..it?.data?.data!!.size-1){
-                                if (it!!.data!!.data[i].readStatus==false){
-                                    itemList.add(it?.data?.data!![i].id)
-                                }else{
-                                    fragmentNotificationBottomSheetBinding.markAllRead.setTextColor(resources.getColor(R.color.text_fade_color))
+
+                            var itemList = ArrayList<Int>()
+                            for (i in 0..it.data?.data!!.size - 1) {
+                                if (it.data!!.data[i].readStatus == false) {
+                                    itemList.add(it.data?.data!![i].id)
                                 }
                             }
-                            unReadNotifications= UnReadNotifications(itemList)
-                            fragmentNotificationBottomSheetBinding.markAllRead.setOnClickListener(View.OnClickListener {
-                                setReadStatus(unReadNotifications)
-                                        bottomSheetDialog.dismiss()
-                            })
 
-                            it?.data.let {
+
+                            unReadNotifications = UnReadNotifications(itemList)
+                            fragmentNotificationBottomSheetBinding.markAllRead.setOnClickListener(
+                                View.OnClickListener {
+                                    setReadStatus(unReadNotifications)
+                                    activityHomeActivity.searchLayout.notification.setImageDrawable(
+                                        resources.getDrawable(R.drawable.normal_notification)
+                                    )
+                                    fragmentNotificationBottomSheetBinding.markAllRead.setTextColor(
+                                        resources.getColor(R.color.color_text_normal)
+                                    )
+                                    bottomSheetDialog.dismiss()
+
+                                })
+                            if (itemList.isEmpty()) {
+                                activityHomeActivity.searchLayout.notification.setImageDrawable(
+                                    resources.getDrawable(R.drawable.normal_notification)
+                                )
+
+                                fragmentNotificationBottomSheetBinding.markAllRead.setTextColor(
+                                    resources.getColor(R.color.color_text_normal)
+                                )
+
+                                fragmentNotificationBottomSheetBinding.markAllRead.isClickable=false
+                            } else {
+                                activityHomeActivity.searchLayout.notification.setImageDrawable(
+                                    resources.getDrawable(R.drawable.ic_notification)
+                                )
+                                fragmentNotificationBottomSheetBinding.markAllRead.isClickable=true
+                            }
+
+                            it.data.let {
                                 it?.data
                                 bottomSheetDialog.findViewById<RecyclerView>(R.id.rv)?.apply {
                                     val customAdapter = NotificationAdapter(
@@ -462,13 +491,17 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                                                 var list = ArrayList<Int>()
                                                 list.add(id)
 
-                                                unReadNotifications= UnReadNotifications(list)
+                                                if(itemList.size==1){
+                                                    activityHomeActivity.searchLayout.notification.setImageDrawable(
+                                                        resources.getDrawable(R.drawable.normal_notification))
+                                                }
+
+                                                unReadNotifications = UnReadNotifications(list)
                                                 setReadStatus(unReadNotifications)
-                                                if (it!!.data[posittion]!!.notification.targetPage == 1) {
+                                                if (it.data[posittion].notification.targetPage == 1) {
 
                                                     bottomSheetDialog.dismiss()
-                                                }
-                                                else if  (it!!.data[posittion]!!.notification.targetPage == 2) {
+                                                } else if (it.data[posittion].notification.targetPage == 2) {
                                                     val bundle = Bundle()
                                                     val latestUpdatesFragment =
                                                         LatestUpdatesFragment()
@@ -484,8 +517,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                                                     )
                                                     bottomSheetDialog.dismiss()
 
-                                                }
-                                                else if  (it!!.data[posittion]!!.notification.targetPage == 3) {
+                                                } else if (it.data[posittion].notification.targetPage == 3) {
                                                     val bundle = Bundle()
                                                     val insightsFragment = InsightsFragment()
                                                     insightsFragment.arguments = bundle
@@ -500,28 +532,23 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                                                     )
                                                     bottomSheetDialog.dismiss()
 
-                                                }
-                                                else if  (it!!.data[posittion]!!.notification.targetPage == 4) {
+                                                } else if (it.data[posittion].notification.targetPage == 4) {
 
                                                     (this@HomeActivity).navigate(R.id.navigation_investment)
                                                     bottomSheetDialog.dismiss()
 
-                                                }
-                                                else if (it!!.data[posittion]!!.notification.targetPage == 5) {
+                                                } else if (it.data[posittion].notification.targetPage == 5) {
                                                     (this@HomeActivity).navigate(R.id.navigation_portfolio)
                                                     bottomSheetDialog.dismiss()
 
-                                                }
-                                                else if  (it!!.data[posittion]!!.notification.targetPage == 6) {
+                                                } else if (it.data[posittion].notification.targetPage == 6) {
                                                     (this@HomeActivity).navigate(R.id.navigation_promises)
                                                     bottomSheetDialog.dismiss()
 
-                                                }
-                                                else if  (it!!.data[posittion]!!.notification.targetPage == 7) {
+                                                } else if (it.data[posittion].notification.targetPage == 7) {
                                                     (this@HomeActivity).navigate(R.id.navigation_profile)
                                                     bottomSheetDialog.dismiss()
-                                                }
-                                                else{
+                                                } else {
                                                     bottomSheetDialog.dismiss()
                                                 }
                                             }
@@ -551,7 +578,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                         Status.LOADING ->{
                         }
                         Status.SUCCESS -> {
-                            callNotificationApi()                        }
+                            Log.i("success", it.message.toString())
+                        }
                         Status.ERROR -> {
                             Log.i("error", it.message.toString())
 

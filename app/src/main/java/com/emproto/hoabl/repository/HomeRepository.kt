@@ -94,7 +94,9 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
      */
     fun getDashboardData(
         pageType: Int,
-        refresh: Boolean = false
+        refresh: Boolean = false,
+        size:Int,
+        index:Int
     ): LiveData<BaseResponse<HomeResponse>> {
 
         if (mHomeResponse.value == null || refresh) {
@@ -106,13 +108,19 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
 
                         val dasboard = async { HomeDataSource(application).getDashboardData(pageType)}
                         val actionItem= async { HomeDataSource(application).getActionItem() }
+                        val notificationsItem= async { HomeDataSource(application).getNotificationList(size,index) }
 
                         val dashBoardResponse= dasboard.await()
                         val actionItemResponse= actionItem.await()
+                        val notificationReponse= notificationsItem.await()
                         if (dashBoardResponse.isSuccessful) {
                             if (dashBoardResponse.body()!!.data != null){
                                 if(actionItemResponse.isSuccessful){
                                     dashBoardResponse.body()!!.data.actionItem = actionItemResponse.body()!!.data
+                                }
+                                if (notificationReponse.isSuccessful){
+                                    dashBoardResponse.body()!!.data.notifications = notificationReponse.body()!!.data
+
                                 }
                                 mHomeResponse.postValue(BaseResponse.success(dashBoardResponse.body()!!))
                             } else
