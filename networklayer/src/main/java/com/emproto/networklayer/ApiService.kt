@@ -9,6 +9,7 @@ import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
+import com.emproto.networklayer.request.notification.UnReadNotifications
 import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.request.profile.LogOutFromCurrentBody
 import com.emproto.networklayer.request.profile.ReportSecurityRequest
@@ -265,4 +266,7 @@ public interface ApiService {
 
     @POST(ApiConstants.LOG_OUT_ALL)
     suspend fun logOutFromAll(  ):Response<LogOutFromCurrentResponse>
+
+    @POST(ApiConstants.READ_NOTIFICATION)
+    suspend fun setReadStatus(@Body ids: UnReadNotifications):Response<ReadNotificationReponse>
 }

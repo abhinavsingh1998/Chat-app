@@ -1,63 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/locUXView"
+    app:behavior_hideable="false"
+    android:background="@color/trouble_back"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/trouble_back"
-    app:behavior_hideable="false"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior.">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/homescreen_curve"
-        android:onClick="hide"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <View
-            android:id="@+id/bottom_line_view"
-            android:layout_width="29dp"
-            android:layout_height="3dp"
-            android:layout_marginStart="@dimen/margin_size_166"
-            android:layout_marginTop="@dimen/margin_size_12"
-            android:layout_marginEnd="@dimen/margin_size_166"
-            android:background="@drawable/bottom_sheet_line_shape"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <View
+        android:id="@+id/bottom_line_view"
+        android:layout_width="29dp"
+        android:layout_height="3dp"
+        android:background="@drawable/bottom_sheet_line_shape"
+        android:layout_marginTop="@dimen/margin_size_12"
+        android:layout_marginStart="@dimen/margin_size_166"
+        android:layout_marginEnd="@dimen/margin_size_166"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
+
+    <TextView
+        android:id="@+id/tv_notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_size_14"
+        android:layout_marginTop="@dimen/margin_size_21"
+        android:text="@string/notifications"
+        style="@style/text_style_text_black_color_16"
+        android:fontFamily="@font/jostmedium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottom_line_view" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_14"
+                android:layout_marginTop="@dimen/margin_size_24"
+                android:layout_marginEnd="@dimen/margin_size_14"
+                android:layout_marginBottom="@dimen/margin_size_10"
+                android:clipToPadding="false"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintTop_toBottomOf="@id/tv_notification"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:paddingBottom="@dimen/margin_size_10"/>
         <TextView
-            android:id="@+id/tv_notification"
-            style="@style/text_pcolor1_16"
+            android:id="@+id/mark_all_read"
+            style="@style/text_style_text_black_color_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_size_14"
-            android:layout_marginTop="@dimen/margin_size_21"
-            android:fontFamily="@font/jostmedium"
-            android:text="@string/notifications"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bottom_line_view" />
+            android:fontFamily="@font/jostregular"
+            android:text="Mark all as read"
+            android:layout_marginEnd="@dimen/margin_size_15"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_notification"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_notification" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_size_14"
-            android:layout_marginTop="@dimen/margin_size_24"
-            android:layout_marginEnd="@dimen/margin_size_14"
-            android:paddingBottom="@dimen/margin_size_20"
-            android:clipToPadding="false"
-            app:layout_constrainedHeight="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_notification" />
 
         <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/loader"
