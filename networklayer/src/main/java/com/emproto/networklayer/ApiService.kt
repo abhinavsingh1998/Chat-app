@@ -266,5 +266,7 @@ public interface ApiService {
 
     @POST(ApiConstants.LOG_OUT_ALL)
     suspend fun logOutFromAll(  ):Response<LogOutFromCurrentResponse>
+
+    @POST(ApiConstants.READ_NOTIFICATION)
     suspend fun setReadStatus(@Body ids: UnReadNotifications):Response<ReadNotificationReponse>
 }
