@@ -907,8 +907,8 @@ class EditProfileFragment : BaseFragment() {
                         val dialog = EditProfileUpdatedPopUpFragment()
                         dialog.isCancelable = false
                         dialog.show(childFragmentManager, "submitted")
-                        appPreference.saveLogin(true)
                         binding.progressBaar.hide()
+                        appPreference.saveLogin(true)
                         binding.emailTv.clearFocus()
                         binding.houseNo.clearFocus()
                         binding.completeAddress.clearFocus()
@@ -920,7 +920,6 @@ class EditProfileFragment : BaseFragment() {
                             it.message!!
                         )
                         binding.progressBaar.hide()
-
                     }
                 }
             }
