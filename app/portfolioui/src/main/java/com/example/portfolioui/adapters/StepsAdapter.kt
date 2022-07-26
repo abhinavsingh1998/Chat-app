@@ -79,18 +79,18 @@ class StepsAdapter(
 
                 val type1Holder = holder as InStartHolder
                 val data = dataList[position].timeline
-                type1Holder.binding.tvName.text = data.heading
+                type1Holder.binding.tvName.text = data.values.displayName
 
 
                 type1Holder.binding.imageView.setOnClickListener {
-                    getToolTip(data.sections[0].values.toolTipDetails).showAlignBottom(type1Holder.binding.imageView)
+                    getToolTip(data.values.toolTipDetails).showAlignBottom(type1Holder.binding.imageView)
                 }
 
             }
             TYPE_COMPLETED -> {
                 val type1Holder = holder as InCompletedHolder
                 val data = dataList[position].timeline
-                type1Holder.binding.tvName.text = data.heading
+                type1Holder.binding.tvName.text = data.values.displayName
                 type1Holder.binding.textView7.text = showHTMLText(
                     String.format(
                         context.getString(R.string.tv_receipt),
@@ -98,12 +98,12 @@ class StepsAdapter(
                     )
                 )
                 type1Holder.binding.imageView.setOnClickListener {
-                    getToolTip(data.sections[0].values.toolTipDetails).showAlignBottom(type1Holder.binding.imageView)
+                    getToolTip(data.values.toolTipDetails).showAlignBottom(type1Holder.binding.imageView)
                 }
                 type1Holder.binding.textView7.setOnClickListener {
                     itemInterface.onClickVDetails(
-                        data.sections[0].values.medias.key,
-                        data.sections[0].values.medias.value.url
+                        data.values.medias.key,
+                        data.values.medias.value.url
                     )
 
                 }
@@ -111,9 +111,9 @@ class StepsAdapter(
             TYPE_INPROGRESS -> {
                 val type1Holder = holder as InProgressHolder
                 val data = dataList[position].timeline
-                type1Holder.binding.tvName.text = data.heading
+                type1Holder.binding.tvName.text = data.values.displayName
                 type1Holder.binding.tvPercentage.text =
-                    "${Utility.convertTo(data.sections[0].values.percentage)}%"
+                    "${Utility.convertTo(data.values.percentage)}%"
 
                 type1Holder.binding.textView7.text = showHTMLText(
                     String.format(
@@ -123,7 +123,7 @@ class StepsAdapter(
                 )
 
                 type1Holder.binding.imageView.setOnClickListener {
-                    getToolTip(data.sections[0].values.toolTipDetails).showAlignBottom(type1Holder.binding.imageView)
+                    getToolTip(data.values.toolTipDetails).showAlignBottom(type1Holder.binding.imageView)
                 }
             }
         }

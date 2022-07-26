@@ -98,7 +98,7 @@ class TimelineAdapter(
             TYPE_LAND -> {
                 val listData = dataList[position].data as ProjectTimeline
                 val langHolder = holder as StepsLandViewHolder
-                if (listData.timeLines[0].sections[0].values.percentage == 100.0) {
+                if (listData.timeLines[0].values.percentage == 100.0) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         langHolder.binding.headerIndicator.background =
                             context.getDrawable(R.drawable.ic_progress_complete)
@@ -136,12 +136,12 @@ class TimelineAdapter(
                 listHolder.binding.textView10.text = reraNumber
                 listHolder.binding.textView7.setOnClickListener {
                     //navigate to weblink.
-                    itemInterface.onClickReraDetails(listData.timeLines[0].sections[0].values.webLink)
+                    itemInterface.onClickReraDetails(listData.timeLines[0].values.reraLink)
 
                 }
-                listHolder.binding.tvName.text = listData.timeLines[0].heading
+                listHolder.binding.tvName.text = listData.timeLines[0].values.displayName
                 listHolder.binding.imageView.setOnClickListener {
-                    getToolTip(listData.timeLines[0].sections[0].values.toolTipDetails).showAlignBottom(
+                    getToolTip(listData.timeLines[0].values.toolTipDetails).showAlignBottom(
                         listHolder.binding.imageView
                     )
                 }
@@ -155,7 +155,7 @@ class TimelineAdapter(
                 val listHolder = holder as StepsListHolder
 
                 val mDisableCount =
-                    listData.timeLines.filter { it.sections[0].values.percentage == 0.0 }
+                    listData.timeLines.filter { it.values.percentage == 0.0 }
 
                 if (mDisableCount.size == listData.timeLines.size) {
                     isAllDisable = true
@@ -164,7 +164,7 @@ class TimelineAdapter(
                 listHolder.binding.textHeader.text = listData.timeLineSectionHeading
                 val stepsList = ArrayList<StepsModel>()
                 for (item in listData.timeLines) {
-                    when (item.sections[0].values.percentage) {
+                    when (item.values.percentage) {
                         0.0 -> {
                             stepsList.add(StepsModel(StepsAdapter.TYPE_INSTART, item))
                         }
