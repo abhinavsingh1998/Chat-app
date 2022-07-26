@@ -9,5 +9,6 @@ data class ProjectTimeline(
     val timeLineSectionHeading: String,
     val timeLines: List<TimeLine>,
     val updatedAt: String,
-    var reraDetails: ReraDetails
+    val priority: Int,
+    var reraDetails: ReraDetails,
 )
