@@ -245,14 +245,18 @@ class PortfolioSpecificViewAdapter(
                     if (data.projectInformation.fullDescription != null)
                         binding.tvProjectInfo.text = data.projectInformation.fullDescription
                     else binding.tvProjectInfo.text = "-"
-                    var reraNumber = ""
-                    val mSize = data.projectInformation.reraDetails.reraNumbers.size
-                    for ((index, item) in data.projectInformation.reraDetails.reraNumbers.withIndex()) {
-                        reraNumber += item
-                        if (index + 1 != mSize) {
-                            reraNumber += "\n"
-                        }
+                    var reraNumber = "-"
+                    if (data.investmentInformation.crmInventory.crmReraPhase != null) {
+                        reraNumber = data.investmentInformation.crmInventory.crmReraPhase.reraNumber
                     }
+
+//                    val mSize = data.projectInformation.reraDetails.reraNumbers.size
+//                    for ((index, item) in data.projectInformation.reraDetails.reraNumbers.withIndex()) {
+//                        reraNumber += item
+//                        if (index + 1 != mSize) {
+//                            reraNumber += "\n"
+//                        }
+//                    }
                     if (data.investmentInformation.allocationDate != null)
                         binding.tvAllocationDate.text =
                             Utility.parseDateFromUtc(
