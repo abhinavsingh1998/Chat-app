@@ -107,7 +107,7 @@ class HomeFragment : BaseFragment() {
     private fun initObserver(refresh: Boolean) {
 
         if (isNetworkAvailable()) {
-            homeViewModel.getDashBoardData(ModuleEnum.HOME.value, refresh)
+            homeViewModel.getDashBoardData(ModuleEnum.HOME.value, refresh, 20, 1)
                 .observe(viewLifecycleOwner, object : Observer<BaseResponse<HomeResponse>> {
                     override fun onChanged(it: BaseResponse<HomeResponse>?) {
                         when (it!!.status) {
@@ -123,7 +123,7 @@ class HomeFragment : BaseFragment() {
                                 binding.noInternetView.mainContainer.hide()
                                 (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.show()
                                 binding.loader.hide()
-                                binding.refressLayout.isRefreshing= false
+                                binding.refressLayout.isRefreshing = false
 
                                 setParentRecycler(it.data!!.data)
 
@@ -139,13 +139,32 @@ class HomeFragment : BaseFragment() {
                                 testimonilalsSubHeading =
                                     it!!.data!!.data.page.testimonialsSubHeading
 
-                                if(it!!.data!!.data.actionItem != null){
-                                    for(item in it!!.data!!.data!!.actionItem ){
+                                if (it!!.data!!.data.actionItem != null) {
+                                    for (item in it!!.data!!.data!!.actionItem) {
                                         actionItemType.add(item)
                                     }
 
+
                                 }
 
+                                if (it!!.data!!.data.notifications != null) {
+                                    var itemList = ArrayList<Int>()
+                                    for (i in 0..it.data?.data!!.notifications.size - 1) {
+                                        if (!it!!.data!!.data.notifications[i].readStatus) {
+                                            itemList.add(it!!.data!!.data.notifications[i].id)
+                                        }
+                                    }
+
+                                    if(itemList.isEmpty()){
+                                        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.notification.setImageDrawable(
+                                            resources.getDrawable(R.drawable.normal_notification))
+                                    } else{
+                                        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.notification.setImageDrawable(
+                                            resources.getDrawable(R.drawable.ic_notification))
+
+                                    }
+
+                                }
 
                                 it.data.let {
                                     if (it != null) {
@@ -196,6 +215,8 @@ class HomeFragment : BaseFragment() {
 
 
         }
+
+
 
     }
 

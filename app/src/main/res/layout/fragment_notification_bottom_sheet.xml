@@ -68,6 +68,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/jostregular"
             android:text="Mark all as read"
+            android:clickable="false"
             android:layout_marginEnd="@dimen/margin_size_15"
             app:layout_constraintBottom_toBottomOf="@+id/tv_notification"
             app:layout_constraintRight_toRightOf="parent"
