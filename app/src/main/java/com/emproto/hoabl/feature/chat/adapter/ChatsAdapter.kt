@@ -30,7 +30,7 @@ class ChatsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        binding.tvChatTitle.text = chatList[position].project.launchName
+        binding.tvChatTitle.text = chatList[position].project.projectContent.launchName.toString()
         if(chatList[position].lastMessage!=null){
             binding.tvChatDesc.text = chatList[position].lastMessage.message.toString()
         }else{

@@ -137,4 +137,4 @@ data class LastMsg(
     val replyTo: Any,
     val updatedAt: String,
     val userId: Int
-)
+):Serializable

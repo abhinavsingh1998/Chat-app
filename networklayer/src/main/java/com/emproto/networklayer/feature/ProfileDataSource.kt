@@ -157,7 +157,7 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
 
     //log out from current device
     suspend fun logOutFromCurrent(logOutFromCurrentBody: LogOutFromCurrentBody): Response<LogOutFromCurrentResponse> {
-        return apiService.logOutFromCurrent(logOutFromCurrentBody)
+        return apiService.logOutFromCurrent()
     }
 
     //log out from all devices

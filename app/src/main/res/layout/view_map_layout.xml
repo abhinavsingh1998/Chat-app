@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_size_166"
         android:scaleType="centerCrop"
-        android:layout_marginHorizontal="@dimen/margin_size_7"
+        android:layout_marginHorizontal="@dimen/margin_size_13"
         android:layout_marginTop="@dimen/margin_size_28"
         android:src="@drawable/red"
         app:layout_constraintEnd_toEndOf="parent"

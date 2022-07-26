@@ -48,6 +48,11 @@ import javax.inject.Inject
 
 class ProjectDetailFragment : BaseFragment() {
 
+    companion object{
+        const val MEDIA_ACTIVE = "1001"
+        const val MEDIA_INACTIVE = "1002"
+    }
+
     @Inject
     lateinit var homeFactory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
@@ -214,65 +219,72 @@ class ProjectDetailFragment : BaseFragment() {
         var itemId = 0
         for (i in 0..mediaData.size - 1) {
             for (item in mediaData[i].droneShoots!!) {
-                itemId++
-                imagesList.add(
-                    MediaViewItem(
-                        item.mediaContentType,
-                        item.mediaContent.value.url,
-                        title = "DroneShoots",
-                        id = itemId,
-                        name = item.name
+                if(item.status == MEDIA_ACTIVE){
+                    itemId++
+                    imagesList.add(
+                        MediaViewItem(
+                            item.mediaContentType,
+                            item.mediaContent.value.url,
+                            title = "DroneShoots",
+                            id = itemId,
+                            name = item.name
+                        )
                     )
-                )
+                }
             }
             for (item in mediaData[i].images!!) {
-                itemId++
-                imagesList.add(
-                    MediaViewItem(
-                        item.mediaContentType,
-                        item.mediaContent.value.url,
-                        title = "Images",
-                        id = itemId,
-                        name = item.name
+                if(item.status == MEDIA_ACTIVE) {
+                    itemId++
+                    imagesList.add(
+                        MediaViewItem(
+                            item.mediaContentType,
+                            item.mediaContent.value.url,
+                            title = "Images",
+                            id = itemId,
+                            name = item.name
+                        )
                     )
-                )
+                }
             }
             for (item in mediaData[i].videos!!) {
-                itemId++
-                imagesList.add(
-                    MediaViewItem(
-                        item.mediaContentType,
-                        item.mediaContent.value.url,
-                        title = "Videos",
-                        id = itemId,
-                        name = item.name
+                if(item.status == MEDIA_ACTIVE) {
+                    itemId++
+                    imagesList.add(
+                        MediaViewItem(
+                            item.mediaContentType,
+                            item.mediaContent.value.url,
+                            title = "Videos",
+                            id = itemId,
+                            name = item.name
+                        )
                     )
-                )
+                }
             }
             for (item in mediaData[i].threeSixtyImages!!) {
-                itemId++
-                imagesList.add(
-                    MediaViewItem(
-                        item.mediaContentType,
-                        item.mediaContent.value.url,
-                        title = "ThreeSixtyImages",
-                        id = itemId,
-                        name = item.name
+                if(item.status == MEDIA_ACTIVE) {
+                    itemId++
+                    imagesList.add(
+                        MediaViewItem(
+                            item.mediaContentType,
+                            item.mediaContent.value.url,
+                            title = "ThreeSixtyImages",
+                            id = itemId,
+                            name = item.name
+                        )
                     )
-                )
+                }
             }
-//            for (item in mediaData[i].coverImage!!) {
-                itemId++
-                imagesList.add(
-                    MediaViewItem(
-                        coverImages.newInvestmentPageMedia.value.mediaType,
-                        coverImages.newInvestmentPageMedia.value.url,
-                        title = "Images",
-                        id = itemId,
-                        name = coverImages.newInvestmentPageMedia.name
-                    )
+            //Adding cover Images
+            itemId++
+            imagesList.add(
+                MediaViewItem(
+                    coverImages.newInvestmentPageMedia.value.mediaType,
+                    coverImages.newInvestmentPageMedia.value.url,
+                    title = "Images",
+                    id = itemId,
+                    name = allData.launchName.toString()
                 )
-//            }
+            )
         }
         val fragment = MediaGalleryFragment()
         val bundle = Bundle()

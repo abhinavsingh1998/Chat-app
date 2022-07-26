@@ -68,6 +68,8 @@ class ProjectDetailAdapter(
         const val VIEW_TYPE_NOT_CONVINCED = 13
         const val VIEW_TYPE_SIMILAR_INVESTMENT = 14
         const val TWO_SPACES = " "
+        const val MEDIA_ACTIVE = "1001"
+        const val MEDIA_INACTIVE = "1002"
     }
 
     private lateinit var projectDetailViewPagerAdapter: ProjectDetailViewPagerAdapter
@@ -188,12 +190,17 @@ class ProjectDetailAdapter(
                     .load(data.projectCoverImages.newInvestmentPageMedia.value.url)
                     .into(ivSmallTopImage)
                 tvLocationInformationText.text = data.fullDescription
+                when{
+                    data.fullDescription.isNullOrEmpty() -> {
+                        btnReadMore.visibility = View.GONE
+                    }
+                }
                 btnReadMore.setOnClickListener {
                     when(isReadMoreClicked){
                         true -> {
                             btnReadMore.visibility = View.GONE
                             tvLocationInformationText.text = SpannableStringBuilder()
-                                .append(data.shortDescription + data.shortDescription + " ")
+                                .append(data.fullDescription + " ")
                                 .bold { color(context.resources.getColor(R.color.app_color)) {
                                     append(
                                         " ${context.resources.getString(R.string.read_less_expand)}"
@@ -209,7 +216,7 @@ class ProjectDetailAdapter(
                     when(isReadMoreClicked){
                         false -> {
                             btnReadMore.visibility = View.VISIBLE
-                            tvLocationInformationText.text = data.shortDescription + data.shortDescription
+                            tvLocationInformationText.text = data.fullDescription
                             tvLocationInformationText.maxLines = 2
                             isReadMoreClicked = true
                         }
@@ -361,9 +368,9 @@ class ProjectDetailAdapter(
                 "Quaterly" -> {
                     graphType = "Quaterly"
                     for(i in 0..data.generalInfoEscalationGraph.dataPoints.points.size-1){
-                        val fmString = data.generalInfoEscalationGraph.dataPoints.points[i].quater.substring(0,2)
+                        val quarterString = data.generalInfoEscalationGraph.dataPoints.points[i].quater.substring(0,2)
                         val yearString = data.generalInfoEscalationGraph.dataPoints.points[i].year.substring(2,4)
-                        val str = "$fmString-$yearString"
+                        val str = "$quarterString-$yearString"
                         xaxisList.add(str)
                     }
                     var index = 0
@@ -464,10 +471,14 @@ class ProjectDetailAdapter(
             binding.tvVideoTitle.text = data.mediaGallerySectionHeading
             val itemList = ArrayList<YoutubeModel>()
             for(item in data.mediaGalleryOrProjectContent[0].videos!!){
-                itemList.add(YoutubeModel(title = item.name, url = item.mediaContent.value.url))
+                if(item.status == MEDIA_ACTIVE){
+                    itemList.add(YoutubeModel(title = item.name, url = item.mediaContent.value.url))
+                }
             }
             for(item in data.mediaGalleryOrProjectContent[0].droneShoots!!){
-                itemList.add(YoutubeModel(title = item.name, url = item.mediaContent.value.url))
+                if(item.status == MEDIA_ACTIVE) {
+                    itemList.add(YoutubeModel(title = item.name, url = item.mediaContent.value.url))
+                }
             }
             videoDroneAdapter = VideoDroneAdapter(itemList,videoItemClickListener)
             binding.rvVideoDrone.adapter = videoDroneAdapter
