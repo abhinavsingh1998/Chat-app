@@ -13,6 +13,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentSecurityBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -36,7 +37,7 @@ import com.example.portfolioui.databinding.LogoutConfirmationBinding
 import javax.inject.Inject
 
 
-class SecurityFragment : Fragment(){
+class SecurityFragment : BaseFragment(){
     @Inject
     lateinit var profileFactory: ProfileFactory
     private lateinit var profileViewModel: ProfileViewModel
@@ -216,7 +217,6 @@ class SecurityFragment : Fragment(){
                 Status.ERROR -> {
                     logoutDialog.dismiss()
                     binding.progressBar.hide()
-                    it.data
                     (requireActivity() as HomeActivity).showErrorToast(
                         it.message!!
                     )

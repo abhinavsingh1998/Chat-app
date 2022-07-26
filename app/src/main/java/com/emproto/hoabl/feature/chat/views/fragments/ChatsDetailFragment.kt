@@ -26,6 +26,7 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.ChatsDetailAdapter
 import com.emproto.hoabl.feature.investment.adapters.OnOptionClickListener
 import com.emproto.hoabl.feature.profile.fragments.about_us.AboutUsFragment
+import com.emproto.hoabl.utils.Extensions.hideKeyboard
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.request.chat.SendMessageBody
@@ -93,7 +94,10 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                 .load(chatsList?.project?.projectContent?.projectCoverImages?.chatPageMedia?.value?.url)
                 .placeholder(R.drawable.ic_baseline_image_24).into(binding.ivChatThumb)
         }
-        binding.ivBack.setOnClickListener { onBackPressed() }
+        binding.ivBack.setOnClickListener {
+            hideKeyboard()
+            onBackPressed()
+        }
 
         binding.etType.addTextChangedListener(object:TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
