@@ -88,10 +88,10 @@ class ProjectTimelineFragment : BaseFragment() {
                             )
                         )
                         for (item in it.data.projectContent.projectTimelines) {
-                            if (item.timeLineSectionHeading == "Project Registration") {
+                            if (item.priority == 1) {
                                 item.reraDetails = it.data.projectContent.reraDetails
                                 timelineList.add(TimelineModel(TimelineAdapter.TYPE_RERA, item))
-                            } else if (item.timeLineSectionHeading == "Facility Management" || item.timeLineSectionHeading == "Land Management") {
+                            } else if (item.timeLineSectionHeading == "Facility Management" || item.timeLineSectionHeading == "Land Management" || item.priority == 5) {
                                 timelineList.add(TimelineModel(TimelineAdapter.TYPE_LAND, item))
                             } else
                                 timelineList.add(TimelineModel(TimelineAdapter.TYPE_LIST, item))

@@ -118,6 +118,7 @@ class TimelineAdapter(
                 val listData = dataList[position].data as ProjectTimeline
                 val listHolder = holder as StepsReraViewHolder
 
+                listHolder.binding.textHeader.text = listData.timeLineSectionHeading
                 listHolder.binding.textView7.text = showHTMLText(
                     String.format(
                         context.getString(R.string.tv_receipt),
@@ -138,6 +139,7 @@ class TimelineAdapter(
                     itemInterface.onClickReraDetails(listData.timeLines[0].sections[0].values.webLink)
 
                 }
+                listHolder.binding.tvName.text = listData.timeLines[0].heading
                 listHolder.binding.imageView.setOnClickListener {
                     getToolTip(listData.timeLines[0].sections[0].values.toolTipDetails).showAlignBottom(
                         listHolder.binding.imageView

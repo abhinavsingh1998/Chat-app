@@ -21,5 +21,8 @@ data class Investment(
 
 data class CrmInventory(
     val name: String,
-    val areaSqFt: Double
+    val areaSqFt: Double,
+    val crmReraPhase: CRMReraPhase
 )
+
+data class CRMReraPhase(val reraNumber: String)
