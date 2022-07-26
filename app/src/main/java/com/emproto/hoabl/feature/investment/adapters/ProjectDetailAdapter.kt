@@ -49,7 +49,8 @@ class ProjectDetailAdapter(
     private val videoItemClickListener: YoutubeItemClickListener,
     private val similarInvItemClickListener: SimilarInvItemClickListener,
     private val mapItemClickListener: MapItemClickListener,
-    private val projectContentsAndFaqs: List<ProjectContentsAndFaq>
+    private val projectContentsAndFaqs: List<ProjectContentsAndFaq>,
+    private val pageManagementContent: PageManagementContent
 ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -549,8 +550,19 @@ class ProjectDetailAdapter(
     private inner class ProjectPromisesViewHolder(private val binding: PromisesLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             binding.tvPromisesTitle.text = data.otherSectionHeadings.promises.sectionHeading
-            val itemList = promisesData
-            promisesAdapter = PromisesAdapter(itemList,itemClickListener,context)
+            val promisesList = ArrayList<PmData>()
+            for(item in promisesData){
+                if(item.priority != null){
+                    promisesList.add(item)
+                }
+            }
+            val itemList = promisesList.sortedBy { it.priority }
+            val sortedByList = ArrayList<PmData>()
+            val listSize = pageManagementContent[0].totalPromisesOnHomeScreen
+            for(i in 0..listSize-1){
+                sortedByList.add(itemList[i])
+            }
+            promisesAdapter = PromisesAdapter(sortedByList,itemClickListener,context)
             binding.rvPromises.adapter = promisesAdapter
             binding.clNotConvincedPromises.setOnClickListener(onItemClickListener)
             binding.tvPromisesSeeAll.setOnClickListener(onItemClickListener)
@@ -606,7 +618,13 @@ class ProjectDetailAdapter(
                         )
                     )
                 }
-                val adapter = TestimonialInvAdapter(context,list)
+                val sortedList = list.sortedBy { it.priority }
+                val showList = ArrayList<PageManagementsOrTestimonial>()
+                val listSize = pageManagementContent[0].totalTestimonialsOnHomeScreen
+                for(i in 0..listSize-1){
+                    showList.add(sortedList[i])
+                }
+                val adapter = TestimonialInvAdapter(context,showList)
                 binding.vpTestimonials.adapter = adapter
                 TabLayoutMediator(
                     binding.tabDotLayout,

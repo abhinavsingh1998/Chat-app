@@ -55,6 +55,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
+    private lateinit var logoutDialog:Dialog
     //lateinit var securePinDialog: CustomDialog
 
     val bundle = Bundle()
@@ -375,7 +376,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
 
     private fun logOut() {
         val logoutDialoglayout = LogoutConfirmationBinding.inflate(layoutInflater)
-        val logoutDialog = Dialog(requireContext())
+        logoutDialog = Dialog(requireContext())
         logoutDialog.setCancelable(false)
         logoutDialog.setContentView(logoutDialoglayout.root)
 
@@ -394,7 +395,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
     }
 
     private fun logOutFromCurrentDevice() {
-        profileViewModel.logOutFromCurrent(LogOutFromCurrentBody(deviceToken = appPreference.getNotificationToken())).observe(viewLifecycleOwner,Observer{
+        profileViewModel.logOutFromCurrent().observe(viewLifecycleOwner,Observer{
             when(it.status){
                 Status.LOADING -> {
                     binding.progressBaar.show()
@@ -409,9 +410,20 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                 }
                 Status.ERROR -> {
                     binding.progressBaar.hide()
-                    (requireActivity() as HomeActivity).showErrorToast(
-                        it.message!!
-                    )
+                    logoutDialog.dismiss()
+                    Log.d("Code","message= ${it.message.toString()}")
+                    when(it.message){
+                        "Access denied" -> {
+                            appPreference.saveLogin(false)
+                            startActivity(Intent(context, AuthActivity::class.java))
+                            requireActivity().finish()
+                        }
+                        else -> {
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                it.message!!
+                            )
+                        }
+                    }
                 }
             }
         })

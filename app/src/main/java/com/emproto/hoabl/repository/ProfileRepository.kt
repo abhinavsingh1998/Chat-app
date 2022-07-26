@@ -608,12 +608,12 @@ class ProfileRepository @Inject constructor(application: Application) :
         return mDocumentsResponse
     }
 
-    fun logOutFromCurrent(logOutFromCurrentBody: LogOutFromCurrentBody): LiveData<BaseResponse<LogOutFromCurrentResponse>> {
+    fun logOutFromCurrent(): LiveData<BaseResponse<LogOutFromCurrentResponse>> {
         val mLogoutFromCurrentResponse = MutableLiveData<BaseResponse<LogOutFromCurrentResponse>>()
         mLogoutFromCurrentResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val request = ProfileDataSource(application).logOutFromCurrent(logOutFromCurrentBody)
+                val request = ProfileDataSource(application).logOutFromCurrent()
                 if (request.isSuccessful) {
                     if (request.body() != null)
                         mLogoutFromCurrentResponse.postValue(BaseResponse.success(request.body()!!))

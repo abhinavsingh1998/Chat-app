@@ -436,7 +436,8 @@ class ProjectDetailFragment : BaseFragment() {
                             data.projectContent,
                             promiseData,
                             inventoryList,
-                            data.projectContentsAndFaqs
+                            data.projectContentsAndFaqs,
+                            data.pageManagementContent
                         )
                     }
                 }
@@ -481,7 +482,8 @@ class ProjectDetailFragment : BaseFragment() {
         data: PdData,
         promisesData: List<PmData>,
         inventoryList: List<Inventory>,
-        projectContentsAndFaqs: List<ProjectContentsAndFaq>
+        projectContentsAndFaqs: List<ProjectContentsAndFaq>,
+        pageManagementContent: PageManagementContent
     ) {
         val list = ArrayList<RecyclerViewItem>()
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_PROJECT_DETAIL))
@@ -546,7 +548,8 @@ class ProjectDetailFragment : BaseFragment() {
                 videoItemClickListener,
                 similarInvItemClickListener,
                 mapItemClickListener,
-                projectContentsAndFaqs
+                projectContentsAndFaqs,
+                pageManagementContent
             )
         binding.rvProjectDetail.adapter = adapter
         adapter.setItemClickListener(onItemClickListener)

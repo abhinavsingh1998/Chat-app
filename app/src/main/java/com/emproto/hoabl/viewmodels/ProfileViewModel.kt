@@ -129,8 +129,8 @@ class ProfileViewModel(
         return profileRepository.getFacilitymanagment()
     }
 
-    fun logOutFromCurrent(logOutFromCurrentBody: LogOutFromCurrentBody): LiveData<BaseResponse<LogOutFromCurrentResponse>> {
-        return profileRepository.logOutFromCurrent(logOutFromCurrentBody)
+    fun logOutFromCurrent(): LiveData<BaseResponse<LogOutFromCurrentResponse>> {
+        return profileRepository.logOutFromCurrent()
     }
 
     fun logOutFromAll(): LiveData<BaseResponse<LogOutFromCurrentResponse>> {
