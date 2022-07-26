@@ -320,7 +320,7 @@ object Utility {
         val inputPattern: String
         inputPattern = inputDateFormat ?: "dd-MM-yyyy"
         //yyyy-MM-dd HH:mm:ss.SSS
-        val outputPattern = "dd/MM/yyyy"
+        val outputPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS"
         val inputFormat = SimpleDateFormat(inputPattern, Locale.US)
         val outputFormat = SimpleDateFormat(outputPattern)
         val date: Date?
