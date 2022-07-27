@@ -124,6 +124,10 @@ class ProjectTimelineFragment : BaseFragment() {
                                         }
                                     }
 
+                                    override fun onClickLand() {
+                                        getLandManagment()
+                                    }
+
                                 })
                         mBinding.timelineList.setHasFixedSize(true)
                         mBinding.timelineList.setItemViewCacheSize(10)
@@ -164,5 +168,39 @@ class ProjectTimelineFragment : BaseFragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    fun getLandManagment() {
+        portfolioviewmodel.getFacilityManagment()
+            .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                when (it.status) {
+                    Status.LOADING -> {
+                        mBinding.loader.show()
+                    }
+                    Status.SUCCESS -> {
+                        mBinding.loader.hide()
+                        if (it.data!!.data.web_url != null) {
+                            (requireActivity() as HomeActivity).addFragment(
+                                FmFragment.newInstance(
+                                    it.data!!.data.web_url!!,
+                                    ""
+                                ), false
+                            )
+
+                        } else {
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                "Something Went Wrong"
+                            )
+                        }
+
+                    }
+                    Status.ERROR -> {
+                        mBinding.loader.hide()
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            "Something Went Wrong"
+                        )
+                    }
+                }
+            })
     }
 }
