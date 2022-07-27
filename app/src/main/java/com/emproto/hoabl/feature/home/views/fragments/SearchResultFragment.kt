@@ -69,7 +69,6 @@ class SearchResultFragment : BaseFragment() {
     val docList = ArrayList<Data>()
     private var base64Data = ""
     private val permissionRequest: MutableList<String> = ArrayList()
-    val type:String?=null
 
     override fun onCreateView(
         inflater: LayoutInflater,

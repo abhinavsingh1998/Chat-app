@@ -84,9 +84,6 @@ class PortfolioSpecificProjectView : BaseFragment() {
     var iea: String = ""
     var ea: Double = 0.0
     var allMediaList = ArrayList<MediaViewItem>()
-
-    val type:String?=null
-
     @Inject
     lateinit var appPreference: AppPreference
 

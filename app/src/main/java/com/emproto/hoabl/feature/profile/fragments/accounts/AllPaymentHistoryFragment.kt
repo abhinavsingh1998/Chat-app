@@ -97,7 +97,7 @@ class AllPaymentHistoryFragment : Fragment(),
 
     private fun openDocument(name: String, path: String) {
         (requireActivity() as HomeActivity).addFragment(
-            DocViewerFragment.newInstance(true, "Test.ong",""),
+            DocViewerFragment.newInstance(true, "Test.ong"),
             false
         )
     }
