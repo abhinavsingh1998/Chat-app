@@ -18,8 +18,7 @@ class FeedBackSubmittedPopup : DialogFragment(), View.OnClickListener {
     ): View? {
         binding = FeedbackSubmittedPopupBinding.inflate(inflater, container, false)
         binding.tcClose.setOnClickListener {
-            dismiss()
-        }
+            requireActivity().supportFragmentManager.popBackStack()        }
 
         return binding.root
     }
