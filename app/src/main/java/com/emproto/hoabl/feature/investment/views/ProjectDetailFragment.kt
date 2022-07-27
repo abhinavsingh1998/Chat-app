@@ -70,7 +70,6 @@ class ProjectDetailFragment : BaseFragment() {
     private lateinit var landSkusData: List<InventoryBucketContent>
     private lateinit var mapLocationData: LocationInfrastructure
     private var watchList= ArrayList<Data>()
-    private lateinit var inventoryList: List<Inventory>
     private lateinit var similarInvestments: List<SimilarInvestment>
     private lateinit var allData: PdData
 
@@ -431,11 +430,9 @@ class ProjectDetailFragment : BaseFragment() {
                         investmentViewModel.setDroneActive(data.projectContent.mediaGalleryOrProjectContent[0].isDroneShootsActive!!)
                         investmentViewModel.setThreeSixtyActive(data.projectContent.mediaGalleryOrProjectContent[0].isThreeSixtyImagesActive!!)
                         similarInvestments = data.projectContent.similarInvestments
-                        inventoryList = data.projectContent.inventoriesList.projectContent.inventoryBucketContents!!
                         setUpRecyclerView(
                             data.projectContent,
                             promiseData,
-                            inventoryList,
                             data.projectContentsAndFaqs,
                             data.pageManagementContent
                         )
@@ -481,7 +478,6 @@ class ProjectDetailFragment : BaseFragment() {
     private fun setUpRecyclerView(
         data: PdData,
         promisesData: List<PmData>,
-        inventoryList: List<Inventory>,
         projectContentsAndFaqs: List<ProjectContentsAndFaq>,
         pageManagementContent: PageManagementContent
     ) {
