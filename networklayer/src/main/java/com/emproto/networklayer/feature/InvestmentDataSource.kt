@@ -47,7 +47,7 @@ class InvestmentDataSource(val application: Application) : BaseDataSource(applic
 
     //get investment detail
     suspend fun getInvestmentsDetailData(id: Int): Response<ProjectDetailResponse> {
-        return apiService.getInvestmentsProjectDetails(id)
+        return apiService.getInvestmentsProjectDetails(id,true)
     }
 
     //get all investments

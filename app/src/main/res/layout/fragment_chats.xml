@@ -63,6 +63,7 @@
         android:text="11:32:44 AM"
         style="@style/text_time_chat_color_14"
         android:textStyle="normal"
+        android:layout_marginStart="@dimen/margin_size_6"
         app:layout_constraintBottom_toBottomOf="@id/textLastUpdated"
         app:layout_constraintStart_toEndOf="@id/textLastUpdated"
         app:layout_constraintTop_toTopOf="@id/textLastUpdated" />
@@ -77,6 +78,7 @@
         android:text="11th March’22"
         style="@style/text_time_chat_color_14"
         android:textStyle="normal"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/tvLastUpdatedTime"
         app:layout_constraintStart_toEndOf="@id/tvLastUpdatedTime"
         app:layout_constraintTop_toTopOf="@id/tvLastUpdatedTime" />
