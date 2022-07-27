@@ -28,7 +28,7 @@ class WatchlistAdapter(
         holder.binding.apply {
             if (element.project != null) {
                 Glide.with(context)
-                    .load(element.project.projectIcon.value.url)
+                    .load(element.project.projectCoverImages.homePageMedia.value.url)
                     .into(ivItemImage)
                 tvItemLocationName.text = element.project.launchName
                 tvItemLocation.text =

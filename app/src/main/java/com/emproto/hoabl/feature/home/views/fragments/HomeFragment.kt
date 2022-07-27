@@ -132,7 +132,7 @@ class HomeFragment : BaseFragment() {
                                 InsightsListCount = it!!.data!!.data.page.totalInsightsOnListView
                                 testimonialsListCount =
                                     it!!.data!!.data.page.totalTestimonialsOnListView
-
+                                appPreference.setPromisesCount(it!!.data!!.data.page.totalPromisesOnHomeScreen)
 
                                 homeViewModel.setHeaderAndList(it!!.data!!.data.page)
                                 testimonilalsHeading = it!!.data!!.data.page.testimonialsHeading
