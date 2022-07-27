@@ -789,9 +789,6 @@ class EditProfileFragment : BaseFragment() {
                     stateSelected,
                     citySelected
                 )
-                //val dialog = EditProfileUpdatedPopUpFragment()
-                //dialog.isCancelable = false
-                //dialog.show(childFragmentManager, "submitted")
                 changeFontOnSave()
 
             }
@@ -923,7 +920,6 @@ class EditProfileFragment : BaseFragment() {
                     }
                 }
             }
-
     }
 
 

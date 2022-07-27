@@ -93,7 +93,6 @@ class AccountDetailsFragment : Fragment(),
     lateinit var destinationFile: File
     private val PICK_GALLERY_IMAGE = 1
     lateinit var bitmap: Bitmap
-
     var selectedDocumentType = 0
     val kycUploadList = ArrayList<KycUpload>()
 
@@ -715,8 +714,6 @@ class AccountDetailsFragment : Fragment(),
                 }
             }
     }
-
-
     var resultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
