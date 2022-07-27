@@ -110,6 +110,9 @@ class TimelineAdapter(
                             langHolder.binding.stepView,
                             ColorStateList.valueOf(ContextCompat.getColor(context, R.color.green))
                         );
+                        langHolder.binding.getOtpButton.setOnClickListener {
+                            itemInterface.onClickLand()
+                        }
                     }
 
                 }
@@ -215,6 +218,7 @@ class TimelineAdapter(
     interface TimelineInterface {
         fun onClickVDetails(name: String, url: String)
         fun onClickReraDetails(url: String)
+        fun onClickLand()
     }
 
     fun showHTMLText(message: String?): Spanned {

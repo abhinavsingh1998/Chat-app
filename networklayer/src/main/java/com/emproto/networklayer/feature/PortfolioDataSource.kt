@@ -66,7 +66,7 @@ class PortfolioDataSource(val application: Application) : BaseDataSource(applica
     }
 
     //get facility managment
-    suspend fun getFacilityManagment(plotId: String, crmId: String): Response<FMResponse> {
+    suspend fun getFacilityManagment(plotId: String?, crmId: String?): Response<FMResponse> {
         return apiService.getFacilityManagment(plotId, crmId)
     }
 

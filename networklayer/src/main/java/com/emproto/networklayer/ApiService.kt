@@ -162,8 +162,8 @@ public interface ApiService {
 
     @GET(ApiConstants.FACILITY_MANAGMENT)
     suspend fun getFacilityManagment(
-        @Query("plotNumber") plotNumber: String,
-        @Query("crmProjectId") projectId: String,
+        @Query("plotNumber") plotNumber: String?,
+        @Query("crmProjectId") projectId: String?,
         @Query("isTest") isTest: Boolean = true
     ): Response<FMResponse>
 
