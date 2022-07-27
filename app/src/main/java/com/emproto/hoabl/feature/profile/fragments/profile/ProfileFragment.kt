@@ -55,7 +55,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
-    private lateinit var logoutDialog:Dialog
+    private lateinit var logoutDialog: Dialog
     //lateinit var securePinDialog: CustomDialog
 
     val bundle = Bundle()
@@ -103,7 +103,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                     if (it.data != null) {
                         Log.i("Data", it.data.toString())
                         it.data?.let {
-                            profileData = it.data
+                           profileData = it.data
                             isWhatsappConsent = it.data.whatsappConsent
                             isPushNotificationSend = it.data.showPushNotifications
                             isTermsActive = it.data.pageManagement.data.page.isTermsActive
@@ -111,7 +111,9 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                             isSecurityTipsActive =
                                 it.data.pageManagement.data.page.isSecurityTipsActive
                         }
-                        setUiData(profileData)
+                        if (::profileData.isInitialized) {
+                            setUiData(profileData)
+                        }
                     }
                 }
                 Status.ERROR -> {
@@ -224,27 +226,24 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
         listHolder.add(ProfileModel(item2))
         listHolder.add(ProfileModel(item3))
         listHolder.add(ProfileModel(item4))
-
         binding.profileOptionsRecyclerview.layoutManager = LinearLayoutManager(requireActivity())
         binding.profileOptionsRecyclerview.adapter =
             ProfileOptionsAdapter(requireContext(), listHolder, this)
     }
 
-
     private fun initClickListener() {
         logOut()
-
         binding.editProfile.setOnClickListener {
-            val editProfile = EditProfileFragment()
-            bundle.putSerializable("profileData", profileData)
-            editProfile.arguments = bundle
-            (requireActivity() as HomeActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.container, editProfile, editProfile.javaClass.name)
-                .addToBackStack(editProfile.javaClass.name).commit()
+            if (::profileData.isInitialized) {
+                val editProfile = EditProfileFragment()
+                bundle.putSerializable("profileData", profileData)
+                editProfile.arguments = bundle
+                (requireActivity() as HomeActivity).supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, editProfile, editProfile.javaClass.name)
+                    .addToBackStack(editProfile.javaClass.name).commit()
+            }
         }
         binding.version.text = "App Version:" + BuildConfig.VERSION_NAME
-
-
     }
 
     override fun onClickItem(position: Int) {
@@ -395,8 +394,8 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
     }
 
     private fun logOutFromCurrentDevice() {
-        profileViewModel.logOutFromCurrent().observe(viewLifecycleOwner,Observer{
-            when(it.status){
+        profileViewModel.logOutFromCurrent().observe(viewLifecycleOwner, Observer {
+            when (it.status) {
                 Status.LOADING -> {
                     binding.progressBaar.show()
                 }
@@ -411,8 +410,8 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                 Status.ERROR -> {
                     binding.progressBaar.hide()
                     logoutDialog.dismiss()
-                    Log.d("Code","message= ${it.message.toString()}")
-                    when(it.message){
+                    Log.d("Code", "message= ${it.message.toString()}")
+                    when (it.message) {
                         "Access denied" -> {
                             appPreference.saveLogin(false)
                             startActivity(Intent(context, AuthActivity::class.java))

@@ -122,6 +122,5 @@ dependencies {
     implementation "androidx.media3:media3-exoplayer-dash:1.0.0-alpha03"
     //mix pannel integration
     implementation 'com.mixpanel.android:mixpanel-android:6.4.0'
-
-
+    
 }
