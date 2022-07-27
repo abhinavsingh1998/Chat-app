@@ -188,23 +188,23 @@ class FeedbackFragment : BaseFragment() {
 //                catagories(),
 //                description
 //            )
-            binding.ivRating1.background = resources.getDrawable(R.drawable.emoji_verysad)
+            binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.emoji_verysad))
             binding.veryPoorTxt.setTextColor(resources.getColor(R.color.black))
             binding.veryPoorTxt.typeface = boldface
 
-            binding.ivRating2.background = resources.getDrawable(R.drawable.bad)
+            binding.ivRating2.setImageDrawable( resources.getDrawable(R.drawable.bad))
             binding.badTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.badTxt.typeface = lightface
 
-            binding.ivRating3.background = resources.getDrawable(R.drawable.confused)
+            binding.ivRating3.setImageDrawable(resources.getDrawable(R.drawable.confused))
             binding.okTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.okTxt.typeface = lightface
 
-            binding.ivRating4.background = resources.getDrawable(R.drawable.happy)
+            binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.happy))
             binding.goodTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.goodTxt.typeface = lightface
 
-            binding.ivRating5.background = resources.getDrawable(R.drawable.in_love)
+            binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.in_love))
             binding.excelentTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.excelentTxt.typeface = lightface
         })
@@ -217,23 +217,23 @@ class FeedbackFragment : BaseFragment() {
 //                description
 //            )
 
-            binding.ivRating2.background = resources.getDrawable(R.drawable.emoji_sad)
+            binding.ivRating2.setImageDrawable(resources.getDrawable(R.drawable.emoji_sad))
             binding.badTxt.setTextColor(resources.getColor(R.color.black))
             binding.badTxt.typeface = boldface
 
-            binding.ivRating1.background = resources.getDrawable(R.drawable.sad_2)
+            binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.sad_2))
             binding.veryPoorTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.veryPoorTxt.typeface = lightface
 
-            binding.ivRating3.background = resources.getDrawable(R.drawable.confused)
+            binding.ivRating3.setImageDrawable(resources.getDrawable(R.drawable.confused))
             binding.okTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.okTxt.typeface = lightface
 
-            binding.ivRating4.background = resources.getDrawable(R.drawable.happy)
+            binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.happy))
             binding.goodTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.goodTxt.typeface = lightface
 
-            binding.ivRating5.background = resources.getDrawable(R.drawable.in_love)
+            binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.in_love))
             binding.excelentTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.excelentTxt.typeface = lightface
 
@@ -246,24 +246,24 @@ class FeedbackFragment : BaseFragment() {
 //                catagories(),
 //                description
 //            )
-            binding.ivRating3.background = resources.getDrawable(R.drawable.emoji_confused)
+            binding.ivRating3.setImageDrawable( resources.getDrawable(R.drawable.emoji_confused))
             binding.okTxt.setTextColor(resources.getColor(R.color.black))
             binding.okTxt.typeface = boldface
 
 
-            binding.ivRating1.background = resources.getDrawable(R.drawable.sad_2)
+            binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.sad_2))
             binding.veryPoorTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.veryPoorTxt.typeface = lightface
 
-            binding.ivRating2.background = resources.getDrawable(R.drawable.bad)
+            binding.ivRating2.setImageDrawable(resources.getDrawable(R.drawable.bad))
             binding.badTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.badTxt.typeface = lightface
 
-            binding.ivRating4.background = resources.getDrawable(R.drawable.happy)
+            binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.happy))
             binding.goodTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.goodTxt.typeface = lightface
 
-            binding.ivRating5.background = resources.getDrawable(R.drawable.in_love)
+            binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.in_love))
             binding.excelentTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.excelentTxt.typeface = lightface
         })
@@ -275,23 +275,23 @@ class FeedbackFragment : BaseFragment() {
 //                catagories(),
 //                description
 //            )
-            binding.ivRating4.background = resources.getDrawable(R.drawable.emoji_happy)
+            binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.emoji_happy))
             binding.goodTxt.setTextColor(resources.getColor(R.color.black))
             binding.goodTxt.typeface = boldface
 
-            binding.ivRating1.background = resources.getDrawable(R.drawable.sad_2)
+            binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.sad_2))
             binding.veryPoorTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.veryPoorTxt.typeface = lightface
 
-            binding.ivRating2.background = resources.getDrawable(R.drawable.bad)
+            binding.ivRating2.setImageDrawable(resources.getDrawable(R.drawable.bad))
             binding.badTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.badTxt.typeface = lightface
 
-            binding.ivRating3.background = resources.getDrawable(R.drawable.confused)
+            binding.ivRating3.setImageDrawable(resources.getDrawable(R.drawable.confused))
             binding.okTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.okTxt.typeface = lightface
 
-            binding.ivRating5.background = resources.getDrawable(R.drawable.in_love)
+            binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.in_love))
             binding.excelentTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.excelentTxt.typeface = lightface
 
@@ -305,23 +305,23 @@ class FeedbackFragment : BaseFragment() {
 //                description
 //            )
 
-            binding.ivRating1.background = resources.getDrawable(R.drawable.sad_2)
+            binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.sad_2))
             binding.veryPoorTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.veryPoorTxt.typeface = lightface
 
-            binding.ivRating2.background = resources.getDrawable(R.drawable.bad)
+            binding.ivRating2.setImageDrawable( resources.getDrawable(R.drawable.bad))
             binding.badTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.badTxt.typeface = lightface
 
-            binding.ivRating3.background = resources.getDrawable(R.drawable.confused)
+            binding.ivRating3.setImageDrawable(resources.getDrawable(R.drawable.confused))
             binding.okTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.okTxt.typeface = lightface
 
-            binding.ivRating4.background = resources.getDrawable(R.drawable.happy)
+            binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.happy))
             binding.goodTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.goodTxt.typeface = lightface
 
-            binding.ivRating5.background = resources.getDrawable(R.drawable.ic_group_36)
+            binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.in_love_copy))
             binding.excelentTxt.setTextColor(resources.getColor(R.color.black))
             binding.excelentTxt.typeface = boldface
         })
