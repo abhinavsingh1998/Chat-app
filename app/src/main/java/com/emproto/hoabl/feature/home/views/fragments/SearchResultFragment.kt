@@ -16,7 +16,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -70,6 +69,7 @@ class SearchResultFragment : BaseFragment() {
     val docList = ArrayList<Data>()
     private var base64Data = ""
     private val permissionRequest: MutableList<String> = ArrayList()
+    val type:String?=null
 
     override fun onCreateView(
         inflater: LayoutInflater,

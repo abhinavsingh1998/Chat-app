@@ -94,6 +94,8 @@ class AccountDetailsFragment : Fragment(),
     private val PICK_GALLERY_IMAGE = 1
     lateinit var bitmap: Bitmap
 
+    private var type: String? = null
+
     var selectedDocumentType = 0
     val kycUploadList = ArrayList<KycUpload>()
 
@@ -650,6 +652,7 @@ class AccountDetailsFragment : Fragment(),
                 thumbnail
             }
         }
+        type = "CAMERA_CLICK"
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
             val extension: String =
                 cameraFile?.name!!.substring(cameraFile?.name!!.lastIndexOf(".") + 1)
@@ -714,9 +717,8 @@ class AccountDetailsFragment : Fragment(),
                     }
                 }
             }
+        type = "GALLERY_CLICK"
     }
-
-
     var resultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->

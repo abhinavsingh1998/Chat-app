@@ -27,7 +27,6 @@ import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.response.enums.Status
-import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.io.Serializable
 import javax.inject.Inject
@@ -85,6 +84,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
     var iea: String = ""
     var ea: Double = 0.0
     var allMediaList = ArrayList<MediaViewItem>()
+
+    val type:String?=null
 
     @Inject
     lateinit var appPreference: AppPreference
