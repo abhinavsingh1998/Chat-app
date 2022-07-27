@@ -167,7 +167,7 @@ class CategoryListAdapter(
                         tvCategoryArea.text = element.project.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.project.shortDescription
                         Glide.with(context)
-                            .load(element.project.projectIcon.value.url)
+                            .load(element.project.projectCoverImages.collectionListViewPageMedia.value.url)
                             .into(ivCategoryImage)
                     }
                 }
@@ -256,7 +256,7 @@ class CategoryListAdapter(
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text = "${String.format("%.0f",element.estimatedAppreciation.toDouble())}%"
                         Glide.with(context)
-                            .load(element.projectIcon.value.url)
+                            .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
                             .into(ivCategoryImage)
                     }
                 }

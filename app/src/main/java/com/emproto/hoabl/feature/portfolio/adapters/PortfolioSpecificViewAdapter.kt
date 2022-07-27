@@ -1,6 +1,5 @@
 package com.emproto.hoabl.feature.portfolio.adapters
 
-import android.animation.ObjectAnimator
 import android.content.Context
 import android.os.Build
 import android.util.Log
@@ -8,9 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
-import android.view.animation.BounceInterpolator
 import android.view.animation.ScaleAnimation
-import android.view.animation.TranslateAnimation
 import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -32,15 +29,11 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
-import com.github.mikephil.charting.formatter.IValueFormatter
-import com.github.mikephil.charting.utils.ViewPortHandler
 import com.google.android.material.tabs.TabLayoutMediator
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.BalloonSizeSpec
 import com.skydoves.balloon.createBalloon
-import java.text.NumberFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -477,7 +470,7 @@ class PortfolioSpecificViewAdapter(
             val allMediasList = ArrayList<MediaViewItem>()
             val imagesData = list[position].data as LatestMediaGalleryOrProjectContent
             for (item in imagesData.droneShoots) {
-                if(item.status == MEDIA_ACTIVE) {
+                if (item.status == MEDIA_ACTIVE) {
                     itemId++
                     allMediasList.add(
                         MediaViewItem(
@@ -491,7 +484,7 @@ class PortfolioSpecificViewAdapter(
                 }
             }
             for (item in imagesData.images) {
-                if(item.status == MEDIA_ACTIVE) {
+                if (item.status == MEDIA_ACTIVE) {
                     itemId++
                     allMediasList.add(
                         MediaViewItem(
@@ -505,7 +498,7 @@ class PortfolioSpecificViewAdapter(
                 }
             }
             for (item in imagesData.videos) {
-                if(item.status == MEDIA_ACTIVE) {
+                if (item.status == MEDIA_ACTIVE) {
                     itemId++
                     allMediasList.add(
                         MediaViewItem(
@@ -519,7 +512,7 @@ class PortfolioSpecificViewAdapter(
                 }
             }
             for (item in imagesData.threeSixtyImages) {
-                if(item.status == MEDIA_ACTIVE) {
+                if (item.status == MEDIA_ACTIVE) {
                     itemId++
                     allMediasList.add(
                         MediaViewItem(
@@ -569,7 +562,8 @@ class PortfolioSpecificViewAdapter(
             binding.tvApplicablePromises.text =
                 headingDetails.otherSectionHeadings.promises.sectionHeading
             val promisesData = list[position].data as ProjectPromises
-            promisesAdapter = HoABLPromisesAdapter(context, promisesData.data, ivInterface)
+            promisesAdapter =
+                HoABLPromisesAdapter(context, promisesData.data, ivInterface, list[position].count)
             binding.rvApplicablePromises.adapter = promisesAdapter
             binding.btnMoreAboutPromises.setOnClickListener {
                 ivInterface.moreAboutPromises()
