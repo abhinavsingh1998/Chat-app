@@ -102,7 +102,6 @@ class FeedbackFragment : BaseFragment() {
 
         binding.shareYourFeedback.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-
                 if (ratings != 0 || description.isNotEmpty() || list.isNotEmpty()) {
                     feedBackRequest = FeedBackRequest(ratings, list, description)
                     initObserver()
@@ -111,12 +110,8 @@ class FeedbackFragment : BaseFragment() {
                         "Fill atleast one field"
                     )
                 }
-
-
             }
         })
-
-
     }
 
     private fun catagories() {
@@ -183,11 +178,6 @@ class FeedbackFragment : BaseFragment() {
 
         binding.ivRating1.setOnClickListener(View.OnClickListener {
             ratings = 1
-//            feedBackRequest= FeedBackRequest(
-//                ratings,
-//                catagories(),
-//                description
-//            )
             binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.emoji_verysad))
             binding.veryPoorTxt.setTextColor(resources.getColor(R.color.black))
             binding.veryPoorTxt.typeface = boldface
@@ -211,12 +201,6 @@ class FeedbackFragment : BaseFragment() {
 
         binding.ivRating2.setOnClickListener(View.OnClickListener {
             ratings = 2
-//            feedBackRequest= FeedBackRequest(
-//                ratings,
-//                catagories(),
-//                description
-//            )
-
             binding.ivRating2.setImageDrawable(resources.getDrawable(R.drawable.emoji_sad))
             binding.badTxt.setTextColor(resources.getColor(R.color.black))
             binding.badTxt.typeface = boldface
@@ -241,11 +225,6 @@ class FeedbackFragment : BaseFragment() {
 
         binding.ivRating3.setOnClickListener(View.OnClickListener {
             ratings = 3
-//            feedBackRequest= FeedBackRequest(
-//                ratings,
-//                catagories(),
-//                description
-//            )
             binding.ivRating3.setImageDrawable( resources.getDrawable(R.drawable.emoji_confused))
             binding.okTxt.setTextColor(resources.getColor(R.color.black))
             binding.okTxt.typeface = boldface
@@ -270,11 +249,6 @@ class FeedbackFragment : BaseFragment() {
 
         binding.ivRating4.setOnClickListener(View.OnClickListener {
             ratings = 4
-//            feedBackRequest= FeedBackRequest(
-//                ratings,
-//                catagories(),
-//                description
-//            )
             binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.emoji_happy))
             binding.goodTxt.setTextColor(resources.getColor(R.color.black))
             binding.goodTxt.typeface = boldface
@@ -299,12 +273,6 @@ class FeedbackFragment : BaseFragment() {
 
         binding.ivRating5.setOnClickListener(View.OnClickListener {
             ratings = 5
-//            feedBackRequest= FeedBackRequest(
-//                ratings,
-//                catagories(),
-//                description
-//            )
-
             binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.sad_2))
             binding.veryPoorTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.veryPoorTxt.typeface = lightface
