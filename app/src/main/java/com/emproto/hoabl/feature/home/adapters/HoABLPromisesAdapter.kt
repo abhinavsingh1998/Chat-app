@@ -9,13 +9,13 @@ import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemHoablPromisesBinding
 import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
-import com.emproto.networklayer.response.portfolio.ivdetails.DataX
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
 
 class HoABLPromisesAdapter(
     val context: Context,
     val list: List<HomePagesOrPromise>,
-    val ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface
+    val ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface,
+    val count: Int
 ) :
     RecyclerView.Adapter<HoABLPromisesAdapter.MyViewHolder>() {
 
@@ -45,7 +45,9 @@ class HoABLPromisesAdapter(
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return if (list.size <= count)
+            list.size
+        else count
     }
 
 

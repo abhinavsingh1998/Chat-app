@@ -55,7 +55,7 @@ import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsRe
 
 class PortfolioSpecificProjectView : BaseFragment() {
 
-    companion object{
+    companion object {
         const val MEDIA_ACTIVE = "1001"
         const val MEDIA_INACTIVE = "1002"
     }
@@ -84,6 +84,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
     var iea: String = ""
     var ea: Double = 0.0
     var allMediaList = ArrayList<MediaViewItem>()
+
     @Inject
     lateinit var appPreference: AppPreference
 
@@ -253,7 +254,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 && it.data.projectInformation.latestMediaGalleryOrProjectContent.isNotEmpty()
             ) {
                 for (item in it.data.projectInformation.latestMediaGalleryOrProjectContent[0].images) {
-                    if(item.status == MEDIA_ACTIVE) {
+                    if (item.status == MEDIA_ACTIVE) {
                         itemId++
                         allMediaList.add(
                             MediaViewItem(
@@ -268,7 +269,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 }
 
                 for (item in it.data.projectInformation.latestMediaGalleryOrProjectContent[0].threeSixtyImages) {
-                    if(item.status == MEDIA_ACTIVE) {
+                    if (item.status == MEDIA_ACTIVE) {
                         itemId++
                         allMediaList.add(
                             MediaViewItem(
@@ -299,7 +300,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
         list.add(
             RecyclerViewItem(
                 PortfolioSpecificViewAdapter.PORTFOLIO_PROMISES,
-                it.data.projectPromises
+                it.data.projectPromises, count = appPreference.getPromisesCount()
             )
         )
 

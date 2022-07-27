@@ -29,7 +29,7 @@ class SimilarInvestmentAdapter(
         holder.binding.apply {
             if (element.projectIcon != null) {
                 Glide.with(context)
-                    .load(element.projectIcon.value.url)
+                    .load(element.projectCoverImages.homePageMedia.value.url)
                     .into(holder.binding.ivItemImage)
             }
             tvItemLocationName.text = element.launchName
