@@ -106,9 +106,10 @@ class FeedbackFragment : BaseFragment() {
                 if (ratings != 0 || description.isNotEmpty() || list.isNotEmpty()) {
                     feedBackRequest = FeedBackRequest(ratings, list, description)
                     initObserver()
-                }
-                else{
-                    Toast.makeText(context, "Fill any one field", Toast.LENGTH_SHORT).show()
+                } else {
+                    (requireActivity() as HomeActivity).showErrorToast(
+                        "Fill atleast one field"
+                    )
                 }
 
 
