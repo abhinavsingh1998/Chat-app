@@ -697,7 +697,7 @@ class EditProfileFragment : BaseFragment() {
         binding.saveAndUpdate.setOnClickListener {
             if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
                 if (type == "CAMERA_CLICK")
-                    callingUploadPicApi(cameraFile!!)
+                    callingUploadPicApi(destinationFile!!)
                 else if (type == "GALLERY_CLICK") {
                     callingUploadPicApi(destinationFile)
                 } else {
@@ -948,39 +948,18 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun onCaptureImageResult() {
-        val selectedImage = cameraFile?.path
-        destinationFile = cameraFile!!
+        destinationFile = Utility.getCompressedImageFile(cameraFile!!, context)!!
+        val selectedImage = destinationFile?.path
         val thumbnail = BitmapFactory.decodeFile(selectedImage)
-        val ei = ExifInterface(cameraFile!!.path)
-        val orientation =
-            ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
-        val rotatedBitmap = when (orientation) {
-            ExifInterface.ORIENTATION_ROTATE_90 -> {
-                rotateImage(thumbnail, 90f)
-            }
-            ExifInterface.ORIENTATION_ROTATE_180 -> {
-                rotateImage(thumbnail, 180f)
-            }
-            ExifInterface.ORIENTATION_ROTATE_270 -> {
-                rotateImage(thumbnail, 270f)
-            }
-            ExifInterface.ORIENTATION_NORMAL -> {
-                thumbnail
-            }
-            else -> {
-                thumbnail
-            }
-        }
         binding.cvProfileImage.visibility = View.VISIBLE
         binding.profileUserLetters.visibility = View.GONE
         try {
-            binding.ivProfile.setImageBitmap(rotatedBitmap)
+            binding.ivProfile.setImageBitmap(thumbnail)
             binding.tvremove.visibility = View.GONE
             binding.textremove.visibility = View.VISIBLE
             binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
 
             removeSemiPictureDialog()
-//            binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
 
         } catch (e: Exception) {
             e.message
@@ -988,14 +967,6 @@ class EditProfileFragment : BaseFragment() {
         type = "CAMERA_CLICK"
     }
 
-    fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
-        val matrix = Matrix()
-        matrix.postRotate(angle)
-        return Bitmap.createBitmap(
-            source, 0, 0, source.width, source.height,
-            matrix, true
-        )
-    }
 
     private fun onSelectFromGalleryResult(data: Intent) {
         val selectedImage = data.data
@@ -1055,7 +1026,6 @@ class EditProfileFragment : BaseFragment() {
                     }
                 })
     }
-
     private fun callDeletePic(data: Data) {
         val fileName: String = data.profilePictureUrl.toString()
             .substring(data.profilePictureUrl.toString().lastIndexOf('/') + 1)

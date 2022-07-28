@@ -102,7 +102,6 @@ class FeedbackFragment : BaseFragment() {
 
         binding.shareYourFeedback.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-
                 if (ratings != 0 || description.isNotEmpty() || list.isNotEmpty()) {
                     feedBackRequest = FeedBackRequest(ratings, list, description)
                     initObserver()
@@ -111,12 +110,8 @@ class FeedbackFragment : BaseFragment() {
                         "Fill atleast one field"
                     )
                 }
-
-
             }
         })
-
-
     }
 
     private fun catagories() {
@@ -183,57 +178,46 @@ class FeedbackFragment : BaseFragment() {
 
         binding.ivRating1.setOnClickListener(View.OnClickListener {
             ratings = 1
-//            feedBackRequest= FeedBackRequest(
-//                ratings,
-//                catagories(),
-//                description
-//            )
-            binding.ivRating1.background = resources.getDrawable(R.drawable.emoji_verysad)
+            binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.emoji_verysad))
             binding.veryPoorTxt.setTextColor(resources.getColor(R.color.black))
             binding.veryPoorTxt.typeface = boldface
 
-            binding.ivRating2.background = resources.getDrawable(R.drawable.bad)
+            binding.ivRating2.setImageDrawable( resources.getDrawable(R.drawable.bad))
             binding.badTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.badTxt.typeface = lightface
 
-            binding.ivRating3.background = resources.getDrawable(R.drawable.confused)
+            binding.ivRating3.setImageDrawable(resources.getDrawable(R.drawable.confused))
             binding.okTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.okTxt.typeface = lightface
 
-            binding.ivRating4.background = resources.getDrawable(R.drawable.happy)
+            binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.happy))
             binding.goodTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.goodTxt.typeface = lightface
 
-            binding.ivRating5.background = resources.getDrawable(R.drawable.in_love)
+            binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.in_love))
             binding.excelentTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.excelentTxt.typeface = lightface
         })
 
         binding.ivRating2.setOnClickListener(View.OnClickListener {
             ratings = 2
-//            feedBackRequest= FeedBackRequest(
-//                ratings,
-//                catagories(),
-//                description
-//            )
-
-            binding.ivRating2.background = resources.getDrawable(R.drawable.emoji_sad)
+            binding.ivRating2.setImageDrawable(resources.getDrawable(R.drawable.emoji_sad))
             binding.badTxt.setTextColor(resources.getColor(R.color.black))
             binding.badTxt.typeface = boldface
 
-            binding.ivRating1.background = resources.getDrawable(R.drawable.sad_2)
+            binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.sad_2))
             binding.veryPoorTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.veryPoorTxt.typeface = lightface
 
-            binding.ivRating3.background = resources.getDrawable(R.drawable.confused)
+            binding.ivRating3.setImageDrawable(resources.getDrawable(R.drawable.confused))
             binding.okTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.okTxt.typeface = lightface
 
-            binding.ivRating4.background = resources.getDrawable(R.drawable.happy)
+            binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.happy))
             binding.goodTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.goodTxt.typeface = lightface
 
-            binding.ivRating5.background = resources.getDrawable(R.drawable.in_love)
+            binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.in_love))
             binding.excelentTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.excelentTxt.typeface = lightface
 
@@ -241,57 +225,47 @@ class FeedbackFragment : BaseFragment() {
 
         binding.ivRating3.setOnClickListener(View.OnClickListener {
             ratings = 3
-//            feedBackRequest= FeedBackRequest(
-//                ratings,
-//                catagories(),
-//                description
-//            )
-            binding.ivRating3.background = resources.getDrawable(R.drawable.emoji_confused)
+            binding.ivRating3.setImageDrawable( resources.getDrawable(R.drawable.emoji_confused))
             binding.okTxt.setTextColor(resources.getColor(R.color.black))
             binding.okTxt.typeface = boldface
 
 
-            binding.ivRating1.background = resources.getDrawable(R.drawable.sad_2)
+            binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.sad_2))
             binding.veryPoorTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.veryPoorTxt.typeface = lightface
 
-            binding.ivRating2.background = resources.getDrawable(R.drawable.bad)
+            binding.ivRating2.setImageDrawable(resources.getDrawable(R.drawable.bad))
             binding.badTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.badTxt.typeface = lightface
 
-            binding.ivRating4.background = resources.getDrawable(R.drawable.happy)
+            binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.happy))
             binding.goodTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.goodTxt.typeface = lightface
 
-            binding.ivRating5.background = resources.getDrawable(R.drawable.in_love)
+            binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.in_love))
             binding.excelentTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.excelentTxt.typeface = lightface
         })
 
         binding.ivRating4.setOnClickListener(View.OnClickListener {
             ratings = 4
-//            feedBackRequest= FeedBackRequest(
-//                ratings,
-//                catagories(),
-//                description
-//            )
-            binding.ivRating4.background = resources.getDrawable(R.drawable.emoji_happy)
+            binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.emoji_happy))
             binding.goodTxt.setTextColor(resources.getColor(R.color.black))
             binding.goodTxt.typeface = boldface
 
-            binding.ivRating1.background = resources.getDrawable(R.drawable.sad_2)
+            binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.sad_2))
             binding.veryPoorTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.veryPoorTxt.typeface = lightface
 
-            binding.ivRating2.background = resources.getDrawable(R.drawable.bad)
+            binding.ivRating2.setImageDrawable(resources.getDrawable(R.drawable.bad))
             binding.badTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.badTxt.typeface = lightface
 
-            binding.ivRating3.background = resources.getDrawable(R.drawable.confused)
+            binding.ivRating3.setImageDrawable(resources.getDrawable(R.drawable.confused))
             binding.okTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.okTxt.typeface = lightface
 
-            binding.ivRating5.background = resources.getDrawable(R.drawable.in_love)
+            binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.in_love))
             binding.excelentTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.excelentTxt.typeface = lightface
 
@@ -299,29 +273,23 @@ class FeedbackFragment : BaseFragment() {
 
         binding.ivRating5.setOnClickListener(View.OnClickListener {
             ratings = 5
-//            feedBackRequest= FeedBackRequest(
-//                ratings,
-//                catagories(),
-//                description
-//            )
-
-            binding.ivRating1.background = resources.getDrawable(R.drawable.sad_2)
+            binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.sad_2))
             binding.veryPoorTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.veryPoorTxt.typeface = lightface
 
-            binding.ivRating2.background = resources.getDrawable(R.drawable.bad)
+            binding.ivRating2.setImageDrawable( resources.getDrawable(R.drawable.bad))
             binding.badTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.badTxt.typeface = lightface
 
-            binding.ivRating3.background = resources.getDrawable(R.drawable.confused)
+            binding.ivRating3.setImageDrawable(resources.getDrawable(R.drawable.confused))
             binding.okTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.okTxt.typeface = lightface
 
-            binding.ivRating4.background = resources.getDrawable(R.drawable.happy)
+            binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.happy))
             binding.goodTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.goodTxt.typeface = lightface
 
-            binding.ivRating5.background = resources.getDrawable(R.drawable.ic_group_36)
+            binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.emoji_love))
             binding.excelentTxt.setTextColor(resources.getColor(R.color.black))
             binding.excelentTxt.typeface = boldface
         })
