@@ -45,6 +45,7 @@
         tools:text="9:11 PM"
         android:textColor="#17171c"
         android:textSize="12sp"
+        android:visibility="gone"
         android:textStyle="normal"
         android:fontFamily="@font/jost_regular"
         app:layout_constraintTop_toBottomOf="@id/tvSentMessage"

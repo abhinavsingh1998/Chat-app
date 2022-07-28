@@ -92,7 +92,7 @@ public interface ApiService {
     suspend fun getTestimonials(): Response<TestimonialsResponse>
 
     @GET(ApiConstants.INVESTMENT_PROJECT_DETAIL)
-    suspend fun getInvestmentsProjectDetails(@Path("id") id: Int): Response<ProjectDetailResponse>
+    suspend fun getInvestmentsProjectDetails(@Path("id") id: Int, @Query("shouldSortSimilarInvestments") shouldSortSimilarInvestments: Boolean): Response<ProjectDetailResponse>
 
     @GET(ApiConstants.INVESTMENT_ALL_PROJECT)
     suspend fun getAllInvestmentProjects(): Response<com.emproto.networklayer.response.investment.AllProjectsResponse>

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,6 @@ import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentChatsDetailBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.chat.model.Action
 import com.emproto.hoabl.feature.chat.model.ActionType
 import com.emproto.hoabl.feature.chat.model.ChatDetailModel
 import com.emproto.hoabl.feature.chat.model.MessageType
@@ -120,7 +118,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
         binding.clButtonStart.setOnClickListener {
             binding.clButtonStart.visibility = View.GONE
-            binding.tvDay.visibility = View.VISIBLE
+//            binding.tvDay.visibility = View.VISIBLE
             callChatInitiateApi()
             getDay()
         }
@@ -139,10 +137,9 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                     binding.loader.hide()
                     binding.rvChat.visibility = View.VISIBLE
                     it.data?.let {
-                        Log.d("history",it.data.toString())
                         if(it.data.messages.isNotEmpty()){
                             binding.clButtonStart.visibility = View.GONE
-                            binding.tvDay.visibility = View.VISIBLE
+//                            binding.tvDay.visibility = View.VISIBLE
                             chatHistoryList = it.data
                             getTime()
                             newChatMessageList.clear()
@@ -215,12 +212,6 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                             latestConversationId = messagesList[messagesList.size-1].conversationId
 
                             chatsDetailAdapter.notifyDataSetChanged()
-
-                            //Check the conversation is over or not
-//                            val lastMessage = messagesList[messagesList.size-1]
-//                            if(lastMessage.message == resources.getString(R.string.thank_you_text)){
-//                                binding.clButtonStart.visibility = View.VISIBLE
-//                            }
                         }
 
                     }
@@ -568,18 +559,13 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                 )).observe(this,Observer{
                     when(it.status){
                         Status.LOADING -> {
-//                            binding.loader.show()
-//                            binding.rvChat.visibility = View.INVISIBLE
                         }
                         Status.SUCCESS -> {
-//                            binding.loader.hide()
-//                            binding.rvChat.visibility = View.VISIBLE
                             it.data?.let {
-                                Log.d("SendMessage",it.data.toString())
+
                             }
                         }
                         Status.ERROR -> {
-//                            binding.loader.hide()
                             (requireActivity() as HomeActivity).showErrorToast(it.message!!)
                         }
                     }
@@ -598,21 +584,17 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                 )).observe(this,Observer{
                     when(it.status){
                         Status.LOADING -> {
-//                            binding.loader.show()
-//                            binding.rvChat.visibility = View.INVISIBLE
+
                         }
                         Status.SUCCESS -> {
-//                            binding.loader.hide()
-//                            binding.rvChat.visibility = View.VISIBLE
+
                             it.data?.let {
                                 if(it.data.message.origin == "1"){
                                     isMyFirstCallCompleted = true
                                 }
-                                Log.d("SendMessage",it.data.toString())
                             }
                         }
                         Status.ERROR -> {
-//                            binding.loader.hide()
                             (requireActivity() as HomeActivity).showErrorToast(it.message!!)
                         }
                     }

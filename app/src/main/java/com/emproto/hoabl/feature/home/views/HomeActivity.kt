@@ -33,6 +33,7 @@ import com.emproto.hoabl.feature.home.views.fragments.InsightsFragment
 import com.emproto.hoabl.feature.home.views.fragments.LatestUpdatesFragment
 import com.emproto.hoabl.feature.home.views.fragments.SearchResultFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
+import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.hoabl.feature.notification.adapter.NotificationAdapter
 import com.emproto.hoabl.feature.portfolio.views.*
 import com.emproto.hoabl.feature.profile.fragments.about_us.AboutUsFragment
@@ -40,7 +41,9 @@ import com.emproto.hoabl.feature.promises.HoablPromises
 import com.emproto.hoabl.feature.profile.fragments.profile.ProfileFragment
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
+import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
+import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.notification.UnReadNotifications
 import com.emproto.networklayer.response.BaseResponse
@@ -48,6 +51,8 @@ import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.notification.dataResponse.Data
 import com.emproto.networklayer.response.notification.dataResponse.NotificationResponse
 import com.emproto.networklayer.response.notification.readStatus.ReadNotificationReponse
+import com.emproto.networklayer.response.portfolio.fm.FMResponse
+import com.emproto.networklayer.response.profile.ProfileResponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -77,6 +82,11 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     @Inject
     lateinit var factory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
+
+    @Inject
+    lateinit var profileFactory: ProfileFactory
+    private lateinit var profileViewModel: ProfileViewModel
+
     var added = false
     val appURL = "https://hoabl.in/"
     private var oneTimeValidation = false
@@ -91,6 +101,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         activityHomeActivity = ActivityHomeBinding.inflate(layoutInflater)
         (application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+        profileViewModel =
+            ViewModelProvider(this, profileFactory)[ProfileViewModel::class.java]
         activityHomeActivity.searchLayout.rotateText.text = " "
 //        investmentViewModel =
 //            ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
@@ -602,6 +614,36 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     override fun onResume() {
         super.onResume()
         hideSoftKeyboard()
+        callApiForChecking()
+    }
+
+    private fun callApiForChecking() {
+        profileViewModel.getUserProfile().observe(
+            this@HomeActivity,
+            object : Observer<BaseResponse<ProfileResponse>> {
+                override fun onChanged(it: BaseResponse<ProfileResponse>?) {
+                    when (it!!.status) {
+                        Status.LOADING ->{
+                        }
+                        Status.SUCCESS -> {
+                            Log.i("success", it.message.toString())
+                        }
+                        Status.ERROR -> {
+                            Log.i("error", it.message.toString())
+                            Toast.makeText(mContext, "on resume called", Toast.LENGTH_SHORT).show()
+                            when(it.message){
+                                "Access denied" -> {
+                                    appPreference.saveLogin(false)
+                                    startActivity(Intent(mContext, AuthActivity::class.java))
+                                    this@HomeActivity.finish()
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+            })
     }
 
 }
