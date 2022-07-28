@@ -1,5 +1,6 @@
 package com.emproto.hoabl.feature.notification.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.NotificationItemBinding
 import com.emproto.hoabl.feature.home.adapters.AllLatestUpdatesAdapter
 import com.emproto.networklayer.response.notification.dataResponse.Data
+import java.text.SimpleDateFormat
 
 class NotificationAdapter(
     val mContext: Context,
@@ -21,6 +23,7 @@ class NotificationAdapter(
         val view = NotificationItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
     }
+     @SuppressLint("SetTextI18n")
      override fun onBindViewHolder(holder: ViewHolder, position: Int) {
          val item = list.get(holder.adapterPosition)
 
@@ -36,6 +39,7 @@ class NotificationAdapter(
 
          holder.binding.tvChatDesc.text= item.notification.notificationDescription.body
          holder.binding.tvTopic.text= item.notification.notificationDescription.title
+         holder.binding.tvChatTime.text= Utility.convertDateToTime(item.notification.updatedAt) + "h"
 
          if (item.readStatus== true){
              holder.binding.cardView.cardElevation= 0f

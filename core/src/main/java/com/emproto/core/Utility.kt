@@ -337,6 +337,12 @@ object Utility {
             e.printStackTrace()
             time
         }
+
+    }
+
+    fun convertDateToTime(date: String): String {
+        val df = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
+        return df.parse(date).hours.toString()
     }
     fun getCompressedImageFile(cameraFile: File, context: Context?): File? {
         try {
