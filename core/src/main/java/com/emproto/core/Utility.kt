@@ -5,6 +5,8 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -16,6 +18,7 @@ import android.util.Log
 import android.view.Window
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import java.io.*
 import java.text.DecimalFormat
 import java.text.ParseException
@@ -95,7 +98,6 @@ object Utility {
             time
         }
     }
-
 
 
     fun getEncryptedString(value: String): String {
@@ -336,6 +338,96 @@ object Utility {
             time
         }
     }
+    fun getCompressedImageFile(cameraFile: File, context: Context?): File? {
+        try {
+            val o = BitmapFactory.Options()
+            o.inJustDecodeBounds = true
+            if ((cameraFile!!.name).equals("jpg") || (cameraFile!!.name).equals("JPG") || (cameraFile!!.name).equals(
+                    "png"
+                ) || (cameraFile!!.name).equals("PNG") || (cameraFile!!.name).equals("jpeg") || (cameraFile!!.name).equals(
+                    "JPEG"
+                )
+            ) {
+                o.inSampleSize = 6
+            } else {
+                o.inSampleSize = 6
+            }
 
+            var inputStream = FileInputStream(cameraFile)
+            BitmapFactory.decodeStream(inputStream, null, o);
+            inputStream.close()
+            val REQUIRED_SIZE = 50
+            var scale = 1
+            while (o.outWidth / scale / 2 >= REQUIRED_SIZE &&
+                o.outHeight / scale / 2 >= REQUIRED_SIZE
+            ) {
+                scale *= 2
+            }
+            val o2 = BitmapFactory.Options()
+            o2.inSampleSize = scale
+            inputStream = FileInputStream(cameraFile)
+            var selectedBitmap = BitmapFactory.decodeStream(inputStream, null, o2)
+
+            val ei: ExifInterface = ExifInterface(cameraFile!!.path)
+            val orientation = ei.getAttributeInt(
+                ExifInterface.TAG_ORIENTATION,
+                ExifInterface.ORIENTATION_UNDEFINED
+            )
+            when (orientation) {
+                ExifInterface.ORIENTATION_ROTATE_90 -> selectedBitmap = rotateImage(
+                    selectedBitmap!!, 90F
+                )
+                ExifInterface.ORIENTATION_ROTATE_180 -> selectedBitmap = rotateImage(
+                    selectedBitmap!!, 180F
+                )
+                ExifInterface.ORIENTATION_ROTATE_270 -> selectedBitmap = rotateImage(
+                    selectedBitmap!!, 270F
+                )
+                ExifInterface.ORIENTATION_NORMAL -> {}
+                else -> {}
+            }
+            inputStream.close()
+            val folder = File("${context!!.getCacheDir()}/FolderName")
+            var success: Boolean = true
+            if (!folder.exists()) {
+                success = folder.mkdir()
+            }
+            if (success) {
+                val newFile: File = File(File(folder.getAbsolutePath()), cameraFile!!.name)
+                if (newFile.exists()) {
+                    newFile.delete();
+                }
+                val outputStream = FileOutputStream(newFile)
+
+                if ((cameraFile!!.name).equals("jpg") || (cameraFile!!.name).equals("JPG") || (cameraFile!!.name).equals(
+                        "png"
+                    ) || (cameraFile!!.name).equals("PNG") || (cameraFile!!.name).equals("jpeg") || (cameraFile!!.name).equals(
+                        "JPEG"
+                    )
+                ) {
+                    selectedBitmap!!.compress(Bitmap.CompressFormat.JPEG, 30, outputStream);
+                } else {
+                    selectedBitmap!!.compress(Bitmap.CompressFormat.PNG, 30, outputStream);
+                }
+                return newFile
+            } else {
+                return null
+            }
+        } catch (e: Exception) {
+            return null
+        }
+
+    }
+    fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
+        val matrix = Matrix()
+        matrix.postRotate(angle)
+        return Bitmap.createBitmap(
+            source, 0, 0, source.width, source.height,
+            matrix, true
+        )
+    }
 
 }
+
+
+
