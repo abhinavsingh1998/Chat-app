@@ -15,7 +15,12 @@ import com.emproto.hoabl.databinding.FragmentFmBinding
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import android.content.Intent
 import android.net.Uri
-import androidx.core.content.ContextCompat.startActivity
+import android.util.Log
+import android.webkit.JavascriptInterface
+import android.widget.Toast
+import androidx.core.content.contentValuesOf
+import com.emproto.networklayer.response.webview.ShareObjectModel
+import java.util.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -57,10 +62,29 @@ class FmFragment : BaseFragment() {
         binding.webView.getSettings().setDisplayZoomControls(false);
         binding.webView.getSettings().setDomStorageEnabled(true);
         binding.webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+        binding.webView.addJavascriptInterface(JSBridge(),"JSBridge")
         binding.webView.loadUrl(param1!!)
 
 
         return binding.root
+    }
+
+    inner class JSBridge() {
+        @JavascriptInterface
+        fun shareActionInNative(message:String){
+            //Received message from webview in native, process data
+            Log.d("Share","message from webview= ${message.toString()}")
+            val shareObjectModel = ShareObjectModel("","","","")
+
+            val shareIntent = Intent(Intent.ACTION_SEND)
+            shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            shareIntent.type = "text/plain"
+            shareIntent.putExtra(
+                Intent.EXTRA_TEXT,
+                "Date from webview= $message"
+            )
+            startActivity(shareIntent)
+        }
     }
 
     companion object {
@@ -86,6 +110,7 @@ class FmFragment : BaseFragment() {
     public open class MyWebViewclient(val progressBaar: ProgressBar, val requireContext: Context) :
         WebViewClient() {
         override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+            Log.d("Share",url.toString())
             if (url!!.startsWith("tel:")) {
                 val intent = Intent(
                     Intent.ACTION_DIAL,
