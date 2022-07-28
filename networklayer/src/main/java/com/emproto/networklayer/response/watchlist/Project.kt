@@ -11,5 +11,12 @@ data class Project(
     val priceStartingFrom: String,
     val projectIcon: ProjectIcon,
     val shortDescription: String,
-    val estimatedAppreciation: Double
+    val estimatedAppreciation: Double,
+    val projectCoverImages: ProjectCoverImages
 ) : Serializable
+
+data class ProjectCoverImages(
+    val homePageMedia: ProjectIcon,
+    val portfolioPageMedia: ProjectIcon,
+    val collectionListViewPageMedia: ProjectIcon
+)
