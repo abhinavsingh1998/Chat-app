@@ -629,8 +629,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                             Log.i("success", it.message.toString())
                         }
                         Status.ERROR -> {
-                            Log.i("error", it.message.toString())
-                            Toast.makeText(mContext, "on resume called", Toast.LENGTH_SHORT).show()
                             when(it.message){
                                 "Access denied" -> {
                                     appPreference.saveLogin(false)
