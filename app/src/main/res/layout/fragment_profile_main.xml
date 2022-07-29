@@ -188,8 +188,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider_line"
         tools:listitem="@layout/profile_option_view" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
