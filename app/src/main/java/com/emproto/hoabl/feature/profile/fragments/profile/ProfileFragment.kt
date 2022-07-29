@@ -80,7 +80,6 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         binding = FragmentProfileMainBinding.inflate(inflater, container, false)
         profileViewModel =
