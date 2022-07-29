@@ -54,10 +54,8 @@ class HelpCenterFragment : BaseFragment() {
 
     private fun initView() {
 
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
-            View.GONE
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
-            false
+        (requireActivity() as HomeActivity).hideHeader()
+        (requireActivity() as HomeActivity).hideBottomNavigation()
 
         val item1 = DataHealthCenter(
             "Frequently Asked Questions",
@@ -65,9 +63,7 @@ class HelpCenterFragment : BaseFragment() {
             R.drawable.ic_faq,
             R.drawable.rightarrow,
             "Or Call us: +91 123 123 1231 Email us: help@hoabl.in"
-
         )
-
         val item2 =
             DataHealthCenter(
                 "Privacy Policy",
@@ -75,9 +71,7 @@ class HelpCenterFragment : BaseFragment() {
                 R.drawable.ic_privacy_policy,
                 R.drawable.rightarrow,
                 "Or Call us: +91 123 123 1231 Email us: help@hoabl.in"
-
             )
-
         val item3 = DataHealthCenter(
             "About Us",
             "Read everything you want to know about us",
@@ -85,14 +79,12 @@ class HelpCenterFragment : BaseFragment() {
             R.drawable.rightarrow,
             "Or Call us: +91 123 123 1231 Email us: help@hoabl.in"
         )
-
         val item4 = DataHealthCenter(
             "Share your feedback",
             "This will help us improve the app for you",
             R.drawable.ic_feedback,
             R.drawable.rightarrow,
             "Or Call us: +91 123 123 1231 Email us: help@hoabl.in"
-
         )
         val item5 = DataHealthCenter(
             "Rate us!",
@@ -100,8 +92,8 @@ class HelpCenterFragment : BaseFragment() {
             R.drawable.ic_rating_2,
             R.drawable.rightarrow,
             "Or Call us: +91 123 123 1231 Email us: care@hoabl.in"
-
         )
+
         val listHolder = ArrayList<HelpModel>()
         listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item1))
         when(isTermsActive){

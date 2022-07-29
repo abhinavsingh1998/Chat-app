@@ -60,7 +60,7 @@ class ChatsFragment : BaseFragment(), ChatsAdapter.OnItemClickListener {
             View.VISIBLE
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
             View.GONE
-        binding.clRefresh.setOnClickListener{
+        binding.clRefresh.setOnClickListener {
             callChatListApi()
         }
     }
@@ -81,29 +81,29 @@ class ChatsFragment : BaseFragment(), ChatsAdapter.OnItemClickListener {
                             binding.tvChats.text = "Chat (${it.data.size.toString()})"
                             //setting last updated time
                             val dateListInMS = ArrayList<Long>()
-                            for(item in it.data){
-                                if(item.lastMessage!= null){
+                            for (item in it.data) {
+                                if (item.lastMessage != null) {
                                     val format = SimpleDateFormat(timePattern)
-                                    format.timeZone = TimeZone.getTimeZone("GMT")
+                                    format.timeZone =
+                                        TimeZone.getTimeZone("GMT") //setting timezone for avoiding minus 5hrs
                                     val date = format.parse(item.lastMessage.createdAt)
-                                    val createdTimeInMs = date?.time
-                                    dateListInMS.add(createdTimeInMs.toString().toLong())
+                                    val createdTimeInMs = date?.time // get time in milliseconds
+                                    dateListInMS.add(
+                                        createdTimeInMs.toString().toLong()
+                                    )  //adding time in arraylist
                                 }
                             }
-                            dateListInMS.sortDescending()
-                            Log.d("chat","datelist= ${dateListInMS.toString()}")
-                            var lastUpdateTimeInMs = 57577575757
-                            if(dateListInMS.isNotEmpty()){
-                                lastUpdateTimeInMs = dateListInMS[0]
+                            dateListInMS.sortDescending() //sorting in descending order to get max milliseconds
+                            if (dateListInMS.isNotEmpty()) {
+                                val lastUpdateTimeInMs =
+                                    dateListInMS[0] //picking first one in arraylist because more milliseconds means its the latest time
+                                val sdf =
+                                    SimpleDateFormat("dd/MM/yyyy  hh:mm:ss aa")  //creating pattern based on our requirement
+                                val calendar = Calendar.getInstance()
+                                calendar.timeInMillis = lastUpdateTimeInMs
+                                binding.tvLastUpdatedTime.text =
+                                    sdf.format(calendar.time) //formatting time with our pattern based on calendar
                             }
-                            Log.d("chat","lastupdatetime= ${lastUpdateTimeInMs.toString()}")
-                            val currentTimeInMs = System.currentTimeMillis()
-                            val differenceTimeInMs = currentTimeInMs - lastUpdateTimeInMs.toString().toLong()
-                            Log.d("chat","differenceTimeInMs= ${differenceTimeInMs.toString()}")
-                            val sdf = SimpleDateFormat("dd/MM/yyyy  hh:mm:ss aa")
-                            val calendar = Calendar.getInstance()
-                            calendar.timeInMillis = lastUpdateTimeInMs
-                            binding.tvLastUpdatedTime.text = sdf.format(calendar.time)
                         }
                     }
                 }
@@ -120,6 +120,6 @@ class ChatsFragment : BaseFragment(), ChatsAdapter.OnItemClickListener {
         bundle.putSerializable("chatModel", chat[position] as Serializable)
         val chatsDetailFragment = ChatsDetailFragment()
         chatsDetailFragment.arguments = bundle
-        (requireActivity() as HomeActivity).addFragment(chatsDetailFragment,true)
+        (requireActivity() as HomeActivity).addFragment(chatsDetailFragment, true)
     }
 }

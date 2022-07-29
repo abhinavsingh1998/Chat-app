@@ -11,8 +11,6 @@ import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.graphics.Matrix
-import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -25,6 +23,7 @@ import android.util.Log
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -32,7 +31,6 @@ import androidx.activity.result.contract.ActivityResultContracts.StartActivityFo
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -70,9 +68,6 @@ class EditProfileFragment : BaseFragment() {
     lateinit var binding: FragmentEditProfileBinding
 
     var email = ""
-    var dob: String? = null
-
-    val emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
     var houseNo = ""
     var address = ""
     var locality = ""
@@ -80,7 +75,9 @@ class EditProfileFragment : BaseFragment() {
     var countrySelected = ""
     var stateSelected = ""
     var citySelected = ""
+    var dob: String? = null
 
+    val emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
     val pinCodePattern = Pattern.compile("([1-9]{1}[0-9]{5}|[1-9]{1}[0-9]{3}\\\\s[0-9]{3})")
 
     private val PICK_GALLERY_IMAGE = 1
@@ -90,9 +87,10 @@ class EditProfileFragment : BaseFragment() {
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private var isReadStorageGranted = false
     private var isWriteStorageGranted = false
+    val permissionRequest: MutableList<String> = ArrayList()
+
     lateinit var removePictureDialog: Dialog
 
-    val permissionRequest: MutableList<String> = ArrayList()
     private lateinit var countriesData: List<Countries>
     private lateinit var statesData: List<States>
     private lateinit var cityData: List<String>
@@ -100,19 +98,15 @@ class EditProfileFragment : BaseFragment() {
     private val listCountries = ArrayList<String>()
     private val listCountryISO = ArrayList<String>()
 
-    //    private val countryIsoCode = ArrayList<String>()
     private val listStates = ArrayList<String>()
     private val listStatesISO = ArrayList<String>()
     private val listCities = ArrayList<String>()
 
-    private val countryIsoCode = "IN"
     lateinit var state: String
     lateinit var stateIso: String
     lateinit var country: String
     lateinit var countryIso: String
     lateinit var city: String
-
-    lateinit var preSelectedCountryIso: String
 
     lateinit var gender: String
     private var cameraFile: File? = null
@@ -149,8 +143,8 @@ class EditProfileFragment : BaseFragment() {
         profileViewModel =
             ViewModelProvider(requireActivity(), profileFactory)[ProfileViewModel::class.java]
         binding = FragmentEditProfileBinding.inflate(layoutInflater)
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
-            false
+
+        (requireActivity() as HomeActivity).hideBottomNavigation()
 
         val myCalender = Calendar.getInstance()
         datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayofMonth ->
@@ -264,11 +258,6 @@ class EditProfileFragment : BaseFragment() {
                 }
 
             })
-//        profileViewModel.getStates(countryIso, refresh).observe(viewLifecycleOwner) {
-//            when (it.status) {
-//
-//            }
-//        }
     }
 
     private fun getCities(value1: String, isoCode: String, refresh: Boolean) {
@@ -306,7 +295,7 @@ class EditProfileFragment : BaseFragment() {
         binding.autoGender.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 gender = parent?.adapter?.getItem(position).toString().substring(0, 1)
-                enableGenderEdit()
+                enableEdit(binding.autoGender)
             }
     }
 
@@ -352,7 +341,7 @@ class EditProfileFragment : BaseFragment() {
             if (::stateIso.isInitialized)
                 getCities(stateIso, countryIso, false)
         }
-        enableStateEdit()
+        enableEdit(binding.autoState)
     }
 
     private fun setCitiesSpinner() {
@@ -363,7 +352,7 @@ class EditProfileFragment : BaseFragment() {
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 city = listCities[position]
             }
-        enableCityEdit()
+        enableEdit(binding.autoCity)
     }
 
     private fun initView() {
@@ -400,7 +389,7 @@ class EditProfileFragment : BaseFragment() {
         }
         if (!data.gender.isNullOrEmpty()) {
             binding.autoGender.setText(data.gender)
-            enableGenderEdit()
+            enableEdit(binding.autoGender)
         } else {
             binding.autoGender.setText("")
         }
@@ -421,21 +410,21 @@ class EditProfileFragment : BaseFragment() {
         }
         if (!data.country.isNullOrEmpty()) {
             binding.autoCountry.setText(data.country)
-            enableCountryEdit()
+            enableEdit(binding.autoCountry)
         } else {
             binding.autoCountry.setText("")
 
         }
         if (!data.state.isNullOrEmpty()) {
             binding.autoState.setText(data.state)
-            enableStateEdit()
+            enableEdit(binding.autoState)
         } else {
             binding.autoState.setText("")
 
         }
         if (!data.city.isNullOrEmpty()) {
             binding.autoCity.setText(data.city)
-            enableCityEdit()
+            enableEdit(binding.autoCity)
         } else {
             binding.autoCity.setText("")
 
@@ -474,10 +463,9 @@ class EditProfileFragment : BaseFragment() {
 
         }
     }
-
-    private fun enableGenderEdit() {
-        binding.autoGender.isCursorVisible = false
-        binding.autoGender.customSelectionActionModeCallback = object : ActionMode.Callback {
+    private fun enableEdit(autoValue: AutoCompleteTextView) {
+        autoValue.isCursorVisible = false
+        autoValue.customSelectionActionModeCallback = object : ActionMode.Callback {
             override fun onCreateActionMode(p0: ActionMode?, p1: Menu?): Boolean {
                 return false
             }
@@ -494,77 +482,8 @@ class EditProfileFragment : BaseFragment() {
 
             }
         }
-        binding.autoGender.setTextIsSelectable(false)
-        binding.autoGender.isLongClickable = false
-    }
-
-    private fun enableCountryEdit() {
-        binding.autoCountry.isCursorVisible = false
-        binding.autoCountry.customSelectionActionModeCallback = object : ActionMode.Callback {
-            override fun onCreateActionMode(p0: ActionMode?, p1: Menu?): Boolean {
-                return false
-            }
-
-            override fun onPrepareActionMode(p0: ActionMode?, p1: Menu?): Boolean {
-                return false
-            }
-
-            override fun onActionItemClicked(p0: ActionMode?, p1: MenuItem?): Boolean {
-                return false
-            }
-
-            override fun onDestroyActionMode(p0: ActionMode?) {
-
-            }
-        }
-        binding.autoCountry.setTextIsSelectable(false)
-        binding.autoCountry.isLongClickable = false
-    }
-
-    private fun enableCityEdit() {
-        binding.autoCity.isCursorVisible = false
-        binding.autoCity.customSelectionActionModeCallback = object : ActionMode.Callback {
-            override fun onCreateActionMode(p0: ActionMode?, p1: Menu?): Boolean {
-                return false
-            }
-
-            override fun onPrepareActionMode(p0: ActionMode?, p1: Menu?): Boolean {
-                return false
-            }
-
-            override fun onActionItemClicked(p0: ActionMode?, p1: MenuItem?): Boolean {
-                return false
-            }
-
-            override fun onDestroyActionMode(p0: ActionMode?) {
-
-            }
-        }
-        binding.autoCity.setTextIsSelectable(false)
-        binding.autoCity.isLongClickable = false
-    }
-
-    private fun enableStateEdit() {
-        binding.autoState.isCursorVisible = false
-        binding.autoState.customSelectionActionModeCallback = object : ActionMode.Callback {
-            override fun onCreateActionMode(p0: ActionMode?, p1: Menu?): Boolean {
-                return false
-            }
-
-            override fun onPrepareActionMode(p0: ActionMode?, p1: Menu?): Boolean {
-                return false
-            }
-
-            override fun onActionItemClicked(p0: ActionMode?, p1: MenuItem?): Boolean {
-                return false
-            }
-
-            override fun onDestroyActionMode(p0: ActionMode?) {
-
-            }
-        }
-        binding.autoState.setTextIsSelectable(false)
-        binding.autoState.isLongClickable = false
+        autoValue.setTextIsSelectable(false)
+        autoValue.isLongClickable = false
     }
 
     private fun setUserNamePIC(data: Data) {
@@ -612,84 +531,7 @@ class EditProfileFragment : BaseFragment() {
                 binding.tvEmail.isErrorEnabled = false
             }
         })
-        binding.houseNo.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {
 
-            }
-
-            override fun beforeTextChanged(
-                s: CharSequence, start: Int,
-                count: Int, after: Int
-            ) {
-            }
-
-            override fun onTextChanged(
-                s: CharSequence, start: Int,
-                before: Int, count: Int
-            ) {
-
-
-                binding.floorHouseNum.isErrorEnabled = false
-            }
-        })
-        binding.completeAddress.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {
-
-            }
-
-            override fun beforeTextChanged(
-                s: CharSequence, start: Int,
-                count: Int, after: Int
-            ) {
-
-            }
-
-            override fun onTextChanged(
-                s: CharSequence, start: Int,
-                before: Int, count: Int
-            ) {
-
-                binding.comAdd.isErrorEnabled = false
-            }
-        })
-        binding.locality.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {
-
-            }
-
-            override fun beforeTextChanged(
-                s: CharSequence, start: Int,
-                count: Int, after: Int
-            ) {
-            }
-
-            override fun onTextChanged(
-                s: CharSequence, start: Int,
-                before: Int, count: Int
-            ) {
-
-                binding.tvLocality.isErrorEnabled = false
-            }
-        })
-        binding.pincodeEditText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {
-
-            }
-
-            override fun beforeTextChanged(
-                s: CharSequence, start: Int,
-                count: Int, after: Int
-            ) {
-            }
-
-            override fun onTextChanged(
-                s: CharSequence, start: Int,
-                before: Int, count: Int
-            ) {
-
-                binding.pincode.isErrorEnabled = false
-            }
-        })
 
         binding.uploadNewPicture.setOnClickListener { selectImage() }
 
@@ -697,7 +539,7 @@ class EditProfileFragment : BaseFragment() {
         binding.saveAndUpdate.setOnClickListener {
             if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
                 if (type == "CAMERA_CLICK")
-                    callingUploadPicApi(cameraFile!!)
+                    callingUploadPicApi(destinationFile!!)
                 else if (type == "GALLERY_CLICK") {
                     callingUploadPicApi(destinationFile)
                 } else {
@@ -948,39 +790,18 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun onCaptureImageResult() {
-        val selectedImage = cameraFile?.path
-        destinationFile = cameraFile!!
+        destinationFile = Utility.getCompressedImageFile(cameraFile!!, context)!!
+        val selectedImage = destinationFile?.path
         val thumbnail = BitmapFactory.decodeFile(selectedImage)
-        val ei = ExifInterface(cameraFile!!.path)
-        val orientation =
-            ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
-        val rotatedBitmap = when (orientation) {
-            ExifInterface.ORIENTATION_ROTATE_90 -> {
-                rotateImage(thumbnail, 90f)
-            }
-            ExifInterface.ORIENTATION_ROTATE_180 -> {
-                rotateImage(thumbnail, 180f)
-            }
-            ExifInterface.ORIENTATION_ROTATE_270 -> {
-                rotateImage(thumbnail, 270f)
-            }
-            ExifInterface.ORIENTATION_NORMAL -> {
-                thumbnail
-            }
-            else -> {
-                thumbnail
-            }
-        }
         binding.cvProfileImage.visibility = View.VISIBLE
         binding.profileUserLetters.visibility = View.GONE
         try {
-            binding.ivProfile.setImageBitmap(rotatedBitmap)
+            binding.ivProfile.setImageBitmap(thumbnail)
             binding.tvremove.visibility = View.GONE
             binding.textremove.visibility = View.VISIBLE
             binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
 
             removeSemiPictureDialog()
-//            binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
 
         } catch (e: Exception) {
             e.message
@@ -988,14 +809,6 @@ class EditProfileFragment : BaseFragment() {
         type = "CAMERA_CLICK"
     }
 
-    fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
-        val matrix = Matrix()
-        matrix.postRotate(angle)
-        return Bitmap.createBitmap(
-            source, 0, 0, source.width, source.height,
-            matrix, true
-        )
-    }
 
     private fun onSelectFromGalleryResult(data: Intent) {
         val selectedImage = data.data
@@ -1055,7 +868,6 @@ class EditProfileFragment : BaseFragment() {
                     }
                 })
     }
-
     private fun callDeletePic(data: Data) {
         val fileName: String = data.profilePictureUrl.toString()
             .substring(data.profilePictureUrl.toString().lastIndexOf('/') + 1)
