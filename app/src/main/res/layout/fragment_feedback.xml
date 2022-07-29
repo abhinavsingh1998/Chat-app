@@ -119,7 +119,7 @@
                     android:singleLine="true"
                     android:textColor="#9192a0"
                     android:fontFamily="@font/jost_regular"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:text="@string/home_checkbox"
                     android:buttonTint="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
@@ -133,7 +133,7 @@
                     android:text="@string/invest_checkbox"
                     android:textColor="#9192a0"
                     android:fontFamily="@font/jost_regular"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:buttonTint="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@+id/home_checkbox" />
@@ -145,7 +145,7 @@
                     android:text="@string/promises"
                     android:textColor="#9192a0"
                     android:fontFamily="@font/jost_regular"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:buttonTint="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@+id/checkbox_invest" />
@@ -159,7 +159,7 @@
                     android:buttonTint="@color/black"
                     android:textColor="#9192a0"
                     android:fontFamily="@font/jost_regular"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@+id/checkbox_promises" />
 
@@ -172,7 +172,7 @@
                     android:buttonTint="@color/black"
                     android:textColor="#9192a0"
                     android:fontFamily="@font/jost_regular"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@+id/checkbox_portfolio" />
 
@@ -185,7 +185,7 @@
                     android:buttonTint="@color/black"
                     android:textColor="#9192a0"
                     android:fontFamily="@font/jost_regular"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@+id/checkbox_profile" />
 
