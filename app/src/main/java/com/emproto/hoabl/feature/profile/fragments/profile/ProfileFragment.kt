@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,11 +22,11 @@ import com.emproto.hoabl.R
 
 import com.emproto.hoabl.databinding.FragmentProfileMainBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.login.AuthActivity
-import com.emproto.hoabl.feature.portfolio.views.CustomDialog
 import com.emproto.hoabl.feature.portfolio.views.FmFragment
-import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
+import com.emproto.hoabl.feature.profile.adapter.HelpCenterAdapter
 import com.emproto.hoabl.feature.profile.fragments.edit_profile.EditProfileFragment
 import com.emproto.hoabl.feature.profile.fragments.feedback.FacilityManagerPopViewFragment
 import com.emproto.hoabl.feature.profile.fragments.help_center.HelpCenterFragment
@@ -39,7 +38,6 @@ import com.emproto.hoabl.feature.profile.fragments.accounts.AccountDetailsFragme
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
-import com.emproto.networklayer.request.profile.LogOutFromCurrentBody
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.profile.Data
@@ -48,7 +46,7 @@ import java.util.concurrent.Executor
 
 import javax.inject.Inject
 
-class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface {
+class ProfileFragment : BaseFragment() {
 
     lateinit var binding: FragmentProfileMainBinding
     lateinit var keyguardManager: KeyguardManager
@@ -102,7 +100,7 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                     if (it.data != null) {
                         Log.i("Data", it.data.toString())
                         it.data?.let {
-                           profileData = it.data
+                            profileData = it.data
                             isWhatsappConsent = it.data.whatsappConsent
                             isPushNotificationSend = it.data.showPushNotifications
                             isTermsActive = it.data.pageManagement.data.page.isTermsActive
@@ -183,13 +181,8 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
 
 
     private fun initView() {
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
-            true
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible =
-            false
-
-//        binding.version.text = "App Version: v" + BuildConfig.VERSION_NAME
-
+        (requireActivity() as HomeActivity).showBottomNavigation()
+        (requireActivity() as HomeActivity).hideHeader()
 
         val item1 = ProfileOptionsData(
             "My Account",
@@ -197,7 +190,6 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
             R.drawable.ic_profile,
             R.drawable.rightarrow
         )
-
         val item2 =
             ProfileOptionsData(
                 requireContext().resources.getString(R.string.securityandsetting),
@@ -205,14 +197,12 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                 R.drawable.shield,
                 R.drawable.rightarrow
             )
-
         val item3 = ProfileOptionsData(
             requireContext().resources.getString(R.string.help_center),
             "Contact, About Us , Privacy Policy,Chat",
             R.drawable.helpmesg,
             R.drawable.rightarrow
         )
-
         val item4 = ProfileOptionsData(
             requireContext().resources.getString(R.string.facility_management),
             "Manage your land, book, etc",
@@ -221,13 +211,94 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
         )
 
         val listHolder = ArrayList<ProfileModel>()
-        listHolder.add(ProfileModel(item1))
-        listHolder.add(ProfileModel(item2))
-        listHolder.add(ProfileModel(item3))
-        listHolder.add(ProfileModel(item4))
+        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, item1))
+        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, item2))
+        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, item3))
+        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, item4))
+        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_FOOTER, item1))
+
         binding.profileOptionsRecyclerview.layoutManager = LinearLayoutManager(requireActivity())
         binding.profileOptionsRecyclerview.adapter =
-            ProfileOptionsAdapter(requireContext(), listHolder, this)
+            ProfileOptionsAdapter(requireContext(),
+                listHolder,
+                object : ProfileOptionsAdapter.ProfileItemInterface {
+                    override fun onClickItem(position: Int) {
+                        when (position) {
+                            0 -> {
+                                if (!(requireActivity() as HomeActivity).isFingerprintValidate()) {
+                                    setUpAuthentication()
+                                } else {
+                                    val myAccount = AccountDetailsFragment()
+                                    (requireActivity() as HomeActivity).addFragment(
+                                        myAccount,
+                                        false
+                                    )
+
+                                }
+                            }
+                            1 -> {
+                                val bundle = Bundle()
+                                bundle.putBoolean("whatsappConsentEnabled", isWhatsappConsent)
+                                bundle.putBoolean("showPushNotifications", isPushNotificationSend)
+                                bundle.putBoolean("isSecurityTipsActive", isSecurityTipsActive)
+                                val securityFragment = SecurityFragment()
+                                securityFragment.arguments = bundle
+                                (requireActivity() as HomeActivity).addFragment(
+                                    securityFragment,
+                                    false
+                                )
+                            }
+                            2 -> {
+                                val bundle = Bundle()
+                                bundle.putBoolean("isTermsActive", isTermsActive)
+                                bundle.putBoolean("isAboutUsActive", isAboutUsActive)
+                                val helpCenterFragment = HelpCenterFragment()
+                                helpCenterFragment.arguments = bundle
+                                (requireActivity() as HomeActivity).addFragment(
+                                    helpCenterFragment,
+                                    false
+                                )
+                            }
+                            3 -> {
+                                val facilityManagerPopViewFragment =
+                                    FacilityManagerPopViewFragment()
+
+                                if (appPreference.isFacilityCard()) {
+                                    if (fmData != null) {
+                                        (requireActivity() as HomeActivity).addFragment(
+                                            FmFragment.newInstance(
+                                                fmData!!.data.web_url,
+                                                ""
+                                            ), false
+                                        )
+
+                                    } else {
+                                        (requireActivity() as HomeActivity).showErrorToast(
+                                            "Something Went Wrong"
+                                        )
+                                    }
+                                } else {
+                                    (requireActivity() as HomeActivity).addFragment(
+                                        facilityManagerPopViewFragment,
+                                        false
+                                    )
+
+                                }
+
+                            }
+
+
+                        }
+
+
+                    }
+                },
+                object : ProfileOptionsAdapter.ProfileFooterInterface {
+                    override fun onLogoutClickItem(position: Int) {
+                        logoutDialog.show()
+                    }
+                }
+            )
     }
 
     private fun initClickListener() {
@@ -242,69 +313,8 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
                     .addToBackStack(editProfile.javaClass.name).commit()
             }
         }
-        binding.version.text = "App Version:" + BuildConfig.VERSION_NAME
     }
 
-    override fun onClickItem(position: Int) {
-        when (position) {
-            0 -> {
-                if (!(requireActivity() as HomeActivity).isFingerprintValidate()) {
-                    setUpAuthentication()
-                } else {
-                    val myAccount = AccountDetailsFragment()
-                    (requireActivity() as HomeActivity).addFragment(myAccount, false)
-
-                }
-            }
-            1 -> {
-                val bundle = Bundle()
-                bundle.putBoolean("whatsappConsentEnabled", isWhatsappConsent)
-                bundle.putBoolean("showPushNotifications", isPushNotificationSend)
-                bundle.putBoolean("isSecurityTipsActive", isSecurityTipsActive)
-                val securityFragment = SecurityFragment()
-                securityFragment.arguments = bundle
-                (requireActivity() as HomeActivity).addFragment(securityFragment, false)
-            }
-            2 -> {
-                val bundle = Bundle()
-                bundle.putBoolean("isTermsActive", isTermsActive)
-                bundle.putBoolean("isAboutUsActive", isAboutUsActive)
-                val helpCenterFragment = HelpCenterFragment()
-                helpCenterFragment.arguments = bundle
-                (requireActivity() as HomeActivity).addFragment(helpCenterFragment, false)
-            }
-            3 -> {
-                val facilityManagerPopViewFragment = FacilityManagerPopViewFragment()
-
-                if (appPreference.isFacilityCard()) {
-                    if (fmData != null) {
-                        (requireActivity() as HomeActivity).addFragment(
-                            FmFragment.newInstance(
-                                fmData!!.data.web_url,
-                                ""
-                            ), false
-                        )
-
-                    } else {
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            "Something Went Wrong"
-                        )
-                    }
-                } else {
-                    (requireActivity() as HomeActivity).addFragment(
-                        facilityManagerPopViewFragment,
-                        false
-                    )
-
-                }
-
-            }
-
-
-        }
-
-
-    }
 
     private fun setUpAuthentication() {
         executor = ContextCompat.getMainExecutor(this.requireContext())
@@ -386,10 +396,6 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
             logoutDialog.dismiss()
         }
 
-        binding.Logoutbtn.setOnClickListener {
-            logoutDialog.show()
-        }
-
     }
 
     private fun logOutFromCurrentDevice() {
@@ -431,4 +437,6 @@ class ProfileFragment : BaseFragment(), ProfileOptionsAdapter.HelpItemInterface 
         val myAccount = AccountDetailsFragment()
         (requireActivity() as HomeActivity).addFragment(myAccount, false)
     }
+
+
 }
