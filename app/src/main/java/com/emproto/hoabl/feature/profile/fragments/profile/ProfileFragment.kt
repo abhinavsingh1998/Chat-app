@@ -153,7 +153,6 @@ class ProfileFragment : BaseFragment() {
             setUserNamePIC(profileData)
         }
     }
-
     private fun setUserNamePIC(profileData: Data) {
         val firstLetter: String = profileData.firstName.substring(0, 1)
         val lastLetter = when {
