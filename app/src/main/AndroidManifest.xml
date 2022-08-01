@@ -12,12 +12,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    <queries>
-        <intent>
-            <action android:name="com.google.android.youtube.api.service.START" />
-        </intent>
-    </queries>
-
     <application
         android:name=".HoablApplication"
         android:allowBackup="true"
@@ -101,5 +95,11 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_api_key" />
     </application>
+
+    <queries>
+        <intent>
+            <action android:name="com.google.android.youtube.api.service.START" />
+        </intent>
+    </queries>
 
 </manifest>
