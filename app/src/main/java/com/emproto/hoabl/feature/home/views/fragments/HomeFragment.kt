@@ -217,12 +217,7 @@ class HomeFragment : BaseFragment() {
                 initObserver(true)
                 (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.hide()
             })
-
-
         }
-
-
-
     }
 
 
@@ -410,6 +405,10 @@ class HomeFragment : BaseFragment() {
                         (requireActivity() as HomeActivity).navigate(R.id.navigation_profile)
                     }
                 }
+
+                R.id.view_portfolio_btn->{
+                    (requireActivity() as HomeActivity).navigate(R.id.navigation_portfolio)
+                }
             }
 
         }
@@ -429,6 +428,7 @@ class HomeFragment : BaseFragment() {
             false
         )
 
+        list.add(RecyclerViewItem(HomeAdapter.HOME_PORTFOLIO))
         list.add(RecyclerViewItem(HomeAdapter.NEW_PROJECT))
         list.add(RecyclerViewItem(HomeAdapter.INCOMPLETED_KYC))
         list.add(RecyclerViewItem(HomeAdapter.LATEST_UPDATES))
