@@ -1,5 +1,6 @@
 package com.emproto.hoabl.feature.home.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +9,14 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.home.*
 import com.google.android.material.tabs.TabLayoutMediator
+import java.text.NumberFormat
+import java.util.*
 import kotlin.math.sign
 
 class HomeAdapter(
@@ -24,14 +28,15 @@ class HomeAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-        const val NEW_PROJECT = 1
-        const val INCOMPLETED_KYC = 2
-        const val LATEST_UPDATES = 3
-        const val PROMISES = 4
-        const val FACILITY_MANAGMENT = 5
-        const val INSIGHTS = 6
-        const val TESTIMONIAS = 7
-        const val SHARE_APP = 8
+        const val HOME_PORTFOLIO = 1
+        const val NEW_PROJECT = 2
+        const val INCOMPLETED_KYC = 3
+        const val LATEST_UPDATES = 4
+        const val PROMISES = 5
+        const val FACILITY_MANAGMENT = 6
+        const val INSIGHTS = 7
+        const val TESTIMONIAS = 8
+        const val SHARE_APP = 9
     }
 
     private lateinit var investmentAdapter: InvestmentCardAdapter
@@ -42,10 +47,22 @@ class HomeAdapter(
     private lateinit var testimonialAdapter: TestimonialAdapter
     private lateinit var onItemClickListener: View.OnClickListener
     private lateinit var linearLayoutManager: LinearLayoutManager
+    private var presenting: Boolean = true
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
+
+            HOME_PORTFOLIO -> {
+                PortfolioViewHolder(
+                    HomePortfolioCardBinding.inflate(
+                        LayoutInflater.from(
+                            parent.context
+                        ), parent, false
+                    )
+                )
+
+            }
             NEW_PROJECT -> {
                 NewInvestmentViewHolder(
                     HomepageHeaderLayoutBinding.inflate(
@@ -129,6 +146,9 @@ class HomeAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (list[position].viewType) {
+            HOME_PORTFOLIO -> {
+                (holder as PortfolioViewHolder).bind(position)
+            }
             NEW_PROJECT -> {
                 (holder as NewInvestmentViewHolder).bind(position)
             }
@@ -162,6 +182,34 @@ class HomeAdapter(
         return list[position].viewType
     }
 
+
+    private inner class PortfolioViewHolder(private val binding: HomePortfolioCardBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        @SuppressLint("SetTextI18n")
+        fun bind(position: Int) {
+
+            if (data.contactType == 225360002) {
+                if (data.portfolioData.investmentCount > 0) {
+                    binding.portfolioCard.isVisible == true
+                    presenting = false
+                } else {
+                    binding.portfolioCard.isVisible == false
+                    presenting = true
+                }
+            }
+            binding.contentTxt1.text = data?.portfolioData?.investmentCount?.toString()
+            binding.contentTxt2.text = data?.portfolioData?.totalAreaSqFt?.toString()
+            binding.contentTxt3.text = Utility.formatAmount(data?.portfolioData?.amountInvested)
+            binding.contentTxt4.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
+                .format(data?.portfolioData?.amountPending).toString()
+
+            binding.viewPortfolioBtn.setOnClickListener(View.OnClickListener {
+                itemClickListener.onItemClicked(it, position, "")
+            })
+        }
+    }
+
     private inner class NewInvestmentViewHolder(private val binding: HomepageHeaderLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -171,6 +219,9 @@ class HomeAdapter(
 //
 //            projectList.addAll(data.pageManagementsOrNewInvestments)
 
+            if (presenting == false) {
+                binding.present.isVisible = false
+            }
             investmentAdapter = InvestmentCardAdapter(
                 context,
                 data,
@@ -207,8 +258,8 @@ class HomeAdapter(
 
         fun bind(position: Int) {
 
-            if(data.actionItem== null){
-                binding.kycLayout.isVisible= false
+            if (data.actionItem == null) {
+                binding.kycLayout.isVisible = false
                 pendingPaymentsAdapter = PendingPaymentsAdapter(
                     context,
                     data.actionItem,
@@ -310,17 +361,16 @@ class HomeAdapter(
         fun bind(position: Int) {
 
 
-
-            if(data.contactType!="prelead" || data.contactType!= "Customer"){
-                if (data.page.isPromotionAndOfferActive==false){
-                    binding.dontMissOutCard.isVisible= false
+            if (data.contactType != 1 || data.contactType != 225360001) {
+                if (data.page.isPromotionAndOfferActive == false) {
+                    binding.dontMissOutCard.isVisible = false
                 }
-            } else{
-                binding.dontMissOutCard.isVisible= true
+            } else {
+                binding.dontMissOutCard.isVisible = true
             }
 
-            if ( data.isFacilityVisible== false ){
-                binding.facilityManagementCard.isVisible== false
+            if (data.isFacilityVisible == false) {
+                binding.facilityManagementCard.isVisible == false
             }
 
             Glide.with(context).load(data.page.facilityManagement.value.url)

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/portfolio_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/content_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_size_20"
+        android:fontFamily="@font/jost_regular"
+        android:text="Your Portfolio"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_18"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/header_line_1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/margin_size_10"
+        android:background="#b6b3d0"
+        app:layout_constraintTop_toTopOf="@id/content_header"
+        app:layout_constraintBottom_toBottomOf="@id/content_header"
+        app:layout_constraintLeft_toRightOf="@id/content_header"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <View
+        android:id="@+id/header_line_2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="@dimen/margin_size_10"
+        android:background="#b6b3d0"
+        app:layout_constraintBottom_toBottomOf="@id/content_header"
+        app:layout_constraintEnd_toStartOf="@+id/content_header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/content_header" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="@dimen/margin_size_25"
+        android:layout_marginBottom="@dimen/margin_size_20"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/content_header"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardCornerRadius="@dimen/margin_size_8">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardView_1"
+                android:layout_width="185dp"
+                android:layout_height="71dp"
+                android:background="@drawable/financial_suumary_dark_1"
+                app:layout_constraintEnd_toStartOf="@id/cardView_2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/card_name_1"
+                    style="@style/text_style_pink_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jost_medium"
+                    android:text="Total Investments"
+                    app:layout_constraintStart_toStartOf="@+id/content_txt_1"
+                    app:layout_constraintTop_toBottomOf="@+id/content_txt_1" />
+
+                <TextView
+                    android:id="@+id/content_txt_1"
+                    style="@style/text_style_white_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jost_medium"
+                    android:layout_marginStart="@dimen/margin_size_26"
+                    android:layout_marginTop="@dimen/margin_size_13"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardView_2"
+                android:layout_width="185dp"
+                android:layout_height="71dp"
+                android:background="@drawable/financial_summary_dark_card_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/cardView_1"
+                app:layout_constraintTop_toTopOf="@id/cardView_1">
+
+                <TextView
+                    android:id="@+id/card_name_2"
+                    style="@style/text_style_pink_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jost_medium"
+                    android:text="Total Sqft"
+                    app:layout_constraintStart_toStartOf="@+id/content_txt_2"
+                    app:layout_constraintTop_toBottomOf="@+id/content_txt_2" />
+
+                <TextView
+                    android:id="@+id/content_txt_2"
+                    style="@style/text_style_white_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jost_medium"
+                    android:layout_marginStart="@dimen/margin_size_26"
+                    android:layout_marginTop="@dimen/margin_size_13"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardView_3"
+                android:layout_width="185dp"
+                android:layout_height="71dp"
+                android:background="@drawable/financial_summary_dark_3"
+                app:layout_constraintStart_toStartOf="@+id/cardView_1"
+                app:layout_constraintTop_toBottomOf="@+id/cardView_1">
+
+                <TextView
+                    android:id="@+id/card_name_3"
+                    style="@style/text_style_pink_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jost_medium"
+                    android:text="Amount Invested"
+                    app:layout_constraintStart_toStartOf="@+id/content_txt_3"
+                    app:layout_constraintTop_toBottomOf="@+id/content_txt_3" />
+
+                <TextView
+                    android:id="@+id/content_txt_3"
+                    style="@style/text_style_white_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_size_26"
+                    android:layout_marginTop="@dimen/margin_size_13"
+                    android:fontFamily="@font/jost_medium"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/card_View_4"
+                android:layout_width="185dp"
+                android:layout_height="71dp"
+                android:background="@drawable/financial_suumary_dark_1"
+                app:layout_constraintEnd_toEndOf="@+id/cardView_2"
+                app:layout_constraintStart_toEndOf="@id/cardView_3"
+                app:layout_constraintTop_toTopOf="@+id/cardView_3">
+
+                <TextView
+                    android:id="@+id/card_name_4"
+                    style="@style/text_style_pink_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jost_medium"
+                    android:text="Amount Pending"
+                    app:layout_constraintStart_toStartOf="@+id/content_txt_4"
+                    app:layout_constraintTop_toBottomOf="@+id/content_txt_4" />
+
+                <TextView
+                    android:id="@+id/content_txt_4"
+                    style="@style/text_style_white_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jost_medium"
+                    android:layout_marginStart="@dimen/margin_size_26"
+                    android:layout_marginTop="@dimen/margin_size_13"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/view_portfolio_btn"
+                style="@style/text_style_white_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/home_portfolio_btn_background"
+                android:fontFamily="@font/jostregular"
+                android:paddingVertical="@dimen/margin_size_8"
+                android:text="View My Portfolio"
+                android:textAlignment="center"
+                android:clickable="true"
+                android:paddingHorizontal="110dp"
+                android:drawableEnd="@drawable/combined"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/cardView_3"
+                app:layout_constraintTop_toBottomOf="@id/cardView_3" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
