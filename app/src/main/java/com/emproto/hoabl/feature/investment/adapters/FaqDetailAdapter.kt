@@ -114,7 +114,11 @@ class FaqDetailAdapter(
                     if (s.toString().length > 1 && s.toString() != "") {
                         close.visibility = View.VISIBLE
                     }
-
+                    if(s.toString().isEmpty() || s.toString().trim() == ""){
+                        Handler().postDelayed({
+                            itemClickListener.onItemClicked(search, position, s.toString())
+                        }, 500)
+                    }
                 }
             })
 
