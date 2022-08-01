@@ -178,16 +178,24 @@ class EditProfileFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         if (data.profilePictureUrl.isNullOrEmpty()) {
             binding.tvremove.isClickable = false
-            binding.tvRemove1.setTextColor(Color.parseColor("#9d9eb1"))
-            binding.tvRemove2.setTextColor(Color.parseColor("#9d9eb1"))
+            setColor()
+
         } else {
             binding.tvremove.isClickable = true
-            binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
-            binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
+            setLightColor()
+
         }
         initClickListener()
     }
 
+    private fun setColor() {
+        binding.tvRemove1.setTextColor(Color.parseColor("#9d9eb1"))
+        binding.tvRemove2.setTextColor(Color.parseColor("#9d9eb1"))
+    }
+    private fun setLightColor() {
+        binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
+        binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
+    }
     private fun getCountries(refresh: Boolean) {
         profileViewModel.getCountries(refresh).observe(viewLifecycleOwner) {
             when (it.status) {
@@ -448,14 +456,12 @@ class EditProfileFragment : BaseFragment() {
             binding.cvProfileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
             binding.tvremove.isClickable = false
-            binding.tvRemove1.setTextColor(Color.parseColor("#9d9eb1"))
-            binding.tvRemove2.setTextColor(Color.parseColor("#9d9eb1"))
+           setColor()
             setUserNamePIC(data)
         } else {
             binding.cvProfileImage.visibility = View.VISIBLE
             binding.profileUserLetters.visibility = View.GONE
-            binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
-            binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
+        setLightColor()
             Glide.with(requireContext())
                 .load(data.profilePictureUrl)
                 .dontTransform()
@@ -835,8 +841,6 @@ class EditProfileFragment : BaseFragment() {
             binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
 
             removeSemiPictureDialog()
-//            binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
-
 
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
@@ -854,8 +858,7 @@ class EditProfileFragment : BaseFragment() {
                                 binding.progressBaar.show()
                             }
                             Status.SUCCESS -> {
-                                binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
-                                binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
+                             setLightColor()
                                 binding.progressBaar.hide()
                             }
                             Status.ERROR -> {
@@ -881,8 +884,7 @@ class EditProfileFragment : BaseFragment() {
                     Status.SUCCESS -> {
                         binding.progressBaar.hide()
                         binding.tvremove.isClickable = false
-                        binding.tvRemove1.setTextColor(Color.parseColor("#9d9eb1"))
-                        binding.tvRemove2.setTextColor(Color.parseColor("#9d9eb1"))
+                        setColor()
                         removePictureDialog.dismiss()
                         if (data.profilePictureUrl == null) {
                             binding.cvProfileImage.visibility = View.GONE
