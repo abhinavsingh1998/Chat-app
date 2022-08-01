@@ -118,5 +118,8 @@ dependencies {
 
     //mix pannel integration
     implementation 'com.mixpanel.android:mixpanel-android:6.4.0'
-    
+
+    //Shimmer effect
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
 }
