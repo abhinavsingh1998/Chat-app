@@ -5,14 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.media3.common.Player
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentVideoViewBinding
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 
-class MediaViewVideoFragment:BaseFragment(),Player.Listener {
+class MediaViewVideoFragment:BaseFragment() {
 
     lateinit var binding:FragmentVideoViewBinding
 
