@@ -28,10 +28,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HOABL"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".feature.home.views.MythBusterActivity"
-            android:exported="false" />
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
