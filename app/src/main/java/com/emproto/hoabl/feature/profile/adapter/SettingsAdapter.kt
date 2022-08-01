@@ -29,7 +29,7 @@ class SettingsAdapter(
         val currentItem= settingsList[position]
         holder.tvHeading.text= currentItem.heading
         holder.desc.text= currentItem.desc
-        if (holder.absoluteAdapterPosition == 0) {
+        if (holder.adapterPosition == 0) {
             when (showPushNotifications) {
                 true -> holder.switch.isChecked = true
                 false -> holder.switch.isChecked = false
@@ -53,7 +53,7 @@ class SettingsAdapter(
                 }
             }
         }
-        if(holder.absoluteAdapterPosition == 1){
+        if(holder.adapterPosition == 1){
             holder.switch.setOnCheckedChangeListener { buttonView, isChecked ->
                 when (isChecked) {
                     true -> {

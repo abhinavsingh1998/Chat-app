@@ -39,51 +39,12 @@ class YoutubeActivity : YouTubeBaseActivity() {
                 binding.ivMediaRightArrow.visibility = View.GONE
             }
         }
-
-        binding.ivMediaRightArrow.setOnClickListener {
-//            if(index < videoList.size-1){
-//                binding.ivMediaRightArrow.visibility = View.VISIBLE
-//                index++
-//                Toast.makeText(this, index.toString(), Toast.LENGTH_SHORT).show()
-//                val item = videoList[index]
-//                val youtubeUrl = item.media.replace("https://www.youtube.com/embed/","")
-//                playYoutubeVideo(youtubeUrl)
-//            }
-//            if(index == videoList.size-1){
-//                binding.ivMediaRightArrow.visibility = View.GONE
-//                binding.ivMediaLeftArrow.visibility = View.VISIBLE
-//            }
-        }
-
-        binding.ivMediaLeftArrow.setOnClickListener {
-//            if(index > 0){
-//                binding.ivMediaLeftArrow.visibility = View.VISIBLE
-//                index--
-//                Toast.makeText(this, index.toString(), Toast.LENGTH_SHORT).show()
-//                val item = videoList[index]
-//                val youtubeUrl = item.media.replace("https://www.youtube.com/embed/","")
-//                playYoutubeVideo(youtubeUrl)
-//            }
-//            if(index == 0){
-//                binding.ivMediaLeftArrow.visibility = View.GONE
-//                binding.ivMediaRightArrow.visibility = View.VISIBLE
-//            }
-        }
     }
 
     private fun initDatas() {
         videoId = intent.getStringExtra("YoutubeVideoId").toString()
         videoTitle = intent.getStringExtra("VideoTitle").toString()
         binding.tvMediaImageName.text = videoTitle
-//        val videoList = intent.getSerializableExtra("VideoList") as ArrayList<MediaViewItem>
-//        Log.d("jdjshdsh",videoList.toString())
-//
-//        for(i in 0..videoList.size-1){
-//            val youtubeUrl = videoList[i].media.replace("https://www.youtube.com/embed/","")
-//            if(youtubeUrl == videoId){
-//                index = i
-//            }
-//        }
     }
 
     private fun playYoutubeVideo(youtubeId:String){
