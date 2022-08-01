@@ -12,6 +12,12 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <queries>
+        <intent>
+            <action android:name="com.google.android.youtube.api.service.START" />
+        </intent>
+    </queries>
+
     <application
         android:name=".HoablApplication"
         android:allowBackup="true"
@@ -22,6 +28,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HOABL"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".feature.home.views.MythBusterActivity"
+            android:exported="false" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -96,9 +106,4 @@
             android:value="@string/map_api_key" />
     </application>
 
-    <queries>
-        <intent>
-            <action android:name="com.google.android.youtube.api.service.START" />
-        </intent>
-    </queries>
 </manifest>

@@ -115,16 +115,19 @@ class HomeFragment : BaseFragment() {
                                 binding.dashBoardRecyclerView.hide()
                                 binding.noInternetView.mainContainer.hide()
                                 (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.hide()
-                                binding.loader.show()
+                                (requireActivity() as HomeActivity).hideHeader()
+                                (requireActivity() as HomeActivity).hideBottomNavigation()
+                                binding.shimmerLayout.shimmerViewContainer.show()
 
                             }
                             Status.SUCCESS -> {
                                 binding.dashBoardRecyclerView.show()
                                 binding.noInternetView.mainContainer.hide()
                                 (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.show()
-                                binding.loader.hide()
+                                binding.shimmerLayout.shimmerViewContainer.hide()
+                                (requireActivity() as HomeActivity).showHeader()
+                                (requireActivity() as HomeActivity).showBottomNavigation()
                                 binding.refressLayout.isRefreshing = false
-
                                 setParentRecycler(it.data!!.data)
 
                                 homeData = it!!.data!!.data
@@ -193,7 +196,7 @@ class HomeFragment : BaseFragment() {
 
                             }
                             Status.ERROR -> {
-                                binding.loader.hide()
+                                binding.shimmerLayout.shimmerViewContainer.hide()
                                 (requireActivity() as HomeActivity).showErrorToast(
                                     it.message!!
                                 )
@@ -205,7 +208,9 @@ class HomeFragment : BaseFragment() {
                 })
         } else {
             binding.refressLayout.isRefreshing = false
-            binding.loader.hide()
+            binding.shimmerLayout.shimmerViewContainer.hide()
+            (requireActivity() as HomeActivity).showHeader()
+            (requireActivity() as HomeActivity).showBottomNavigation()
             binding.dashBoardRecyclerView.hide()
             binding.noInternetView.mainContainer.show()
             binding.noInternetView.textView6.setOnClickListener(View.OnClickListener {
@@ -437,9 +442,8 @@ class HomeFragment : BaseFragment() {
         binding.dashBoardRecyclerView.layoutManager = linearLayoutManager
 
         binding.refressLayout.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
-            binding.loader.show()
+            //binding.loader.show()
             initObserver(refresh = true)
-
             binding.refressLayout.isRefreshing = false
 
         })
