@@ -98,7 +98,7 @@ class AccountsDocumentLabelListAdapter(
                 }
             }
         }else if(holder is EmptyList){
-            holder.tvMsg.text="The Uploaded Documents will be shown here.\nYou can view them after uploading."
+            holder.tvMsg.text="The Uploaded Documents will be shown here.You can view them after uploading."
         }
     }
 }

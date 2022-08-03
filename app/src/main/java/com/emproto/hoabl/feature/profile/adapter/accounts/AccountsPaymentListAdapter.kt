@@ -110,7 +110,7 @@ class AccountsPaymentListAdapter(
 
             }
         }else if(holder is EmptyList){
-            holder.tvMsg.text="No Payment is done yet,\nSee your payment history after making your\nfirst payment."
+            holder.tvMsg.text="No Payment is done yet,See your payment history after making your first payment."
         }
     }
 
