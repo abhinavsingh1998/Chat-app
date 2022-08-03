@@ -122,6 +122,7 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
         binding.checkboxPromises.setOnClickListener(this)
         binding.checkboxProfile.setOnClickListener(this)
         binding.checkboxOther.setOnClickListener(this)
+
     }
 
 
