@@ -437,5 +437,8 @@ class ProfileFragment : BaseFragment() {
         (requireActivity() as HomeActivity).addFragment(myAccount, false)
     }
 
-
+    override fun onPause() {
+        super.onPause()
+       logoutDialog.dismiss()
+    }
 }

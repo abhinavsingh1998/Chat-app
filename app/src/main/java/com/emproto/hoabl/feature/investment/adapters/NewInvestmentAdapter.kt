@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.text.bold
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -77,23 +78,20 @@ class NewInvestmentAdapter(
                 .append("${data.pageManagementsOrNewInvestments[0].areaStartingFrom} Sqft")
             binding.tvBackgroundGrey.text = data.pageManagementsOrNewInvestments[0].shortDescription
             binding.tvViewInfo.text = SpannableStringBuilder()
-//                .bold { append("${Utility.coolFormat(data.pageManagementsOrNewInvestments[0].fomoContent.noOfViews.toDouble(),0)} People") }
                 .bold { append("${data.pageManagementsOrNewInvestments[0].fomoContent.noOfViews} People") }
                 .append( " saw this in ${data.pageManagementsOrNewInvestments[0].fomoContent.days} days" )
 
             val listViews = ArrayList<String>()
-//            for(item in mediaGalleries.coverImage){
-//                listViews.add(item.mediaContent.value.url)
-//            }
             for(item in mediaGalleries.images){
                 listViews.add(item.mediaContent.value.url)
             }
             for(item in mediaGalleries.threeSixtyImages){
                 listViews.add(item.mediaContent.value.url)
             }
-//            for(item in data.page.pageManagementsOrNewInvestments[0])
             adapter = InvestmentViewPagerAdapter(listViews)
             binding.viewPager.adapter = adapter
+            val snapHelper = LinearSnapHelper()
+            snapHelper.attachToRecyclerView(binding.viewPager)
 
             Glide.with(context)
                 .load(data.pageManagementsOrNewInvestments[0].projectCoverImages.newInvestmentPageMedia.value.url)
@@ -111,7 +109,6 @@ class NewInvestmentAdapter(
                 }
             }
 
-//            binding.ivNewLaunchSeeAll.setOnClickListener(onItemClickListener)
             binding.tvNewLaunchSeeAll.setOnClickListener(onItemClickListener)
             binding.clPlaceInfo.setOnClickListener(onItemClickListener)
             binding.tvApplyNow.setOnClickListener(onItemClickListener)
@@ -133,23 +130,8 @@ class NewInvestmentAdapter(
             lastFewPlotsAdapter = LastFewPlotsAdapter(context, showList,itemClickListener)
             binding.rvSmartDealsNv.adapter = lastFewPlotsAdapter
             binding.tvSmartDealsSeeAll.setOnClickListener(onItemClickListener)
-//            binding.ivSmartDealsSeeAll.setOnClickListener(onItemClickListener)
         }
     }
-
-//    private inner class SmartDealsViewHolder(private val binding: SmartDealsLayoutBinding):RecyclerView.ViewHolder(binding.root){
-//        fun bind(position: Int){
-//            binding.tvSmartDealsTitle.text = data.page.collectionOne.displayName
-//            binding.tvSmartDealsSubtitle.text = data.page.collectionOne.subHeading
-//            binding.tvSmartDealsSeeAll.setOnClickListener(onItemClickListener)
-//
-//            val list = data.pageManagementsOrCollectionOneModels
-//            smartDealsAdapter = LastFewPlotsAdapter(context, list)
-//            smartDealsLinearLayoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-//            binding.rvSmartDealsNv.layoutManager = smartDealsLinearLayoutManager
-//            binding.rvSmartDealsNv.adapter = smartDealsAdapter
-//        }
-//    }
 
     private inner class TrendingProjectsViewHolder(private val binding: TrendingProjectsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
@@ -165,7 +147,6 @@ class NewInvestmentAdapter(
             trendingProjectsAdapter = TrendingProjectsAdapter(context, showList,itemClickListener)
             binding.rvTrendingProjects.adapter= trendingProjectsAdapter
             binding.tvTrendingProjectsSeeAll.setOnClickListener(onItemClickListener)
-//            binding.ivTrendingProjectsSeeAll.setOnClickListener(onItemClickListener)
         }
     }
 
