@@ -7,7 +7,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -24,9 +24,9 @@ import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.FeedBackResponse
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
-class FeedbackFragment : BaseFragment() {
+
+class FeedbackFragment : BaseFragment(), View.OnClickListener {
 
     @Inject
     lateinit var factory: ProfileFactory
@@ -49,6 +49,7 @@ class FeedbackFragment : BaseFragment() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         profileViewModel =
             ViewModelProvider(requireActivity(), factory)[ProfileViewModel::class.java]
+
 
         initView()
 
@@ -115,109 +116,61 @@ class FeedbackFragment : BaseFragment() {
     }
 
     private fun catagories() {
-
-
-        binding.homeCheckbox.setOnClickListener(View.OnClickListener {
-            if (binding.homeCheckbox.isChecked) {
-                list.add("5001")
-            } else {
-                list.remove("5001")
-            }
-        })
-
-        binding.checkboxInvest.setOnClickListener(View.OnClickListener {
-            if (binding.checkboxInvest.isChecked) {
-                list.add("5002")
-            } else {
-                list.remove("5002")
-            }
-        })
-
-        binding.checkboxPortfolio.setOnClickListener(View.OnClickListener {
-            if (binding.checkboxPortfolio.isChecked) {
-                list.add("5003")
-            } else {
-                list.remove("5003")
-            }
-        })
-
-        binding.checkboxPromises.setOnClickListener(View.OnClickListener {
-            if (binding.checkboxPromises.isChecked) {
-                list.add("5004")
-            } else {
-                list.remove("5004")
-            }
-        })
-
-        binding.checkboxProfile.setOnClickListener(View.OnClickListener {
-            if (binding.checkboxProfile.isChecked) {
-                list.add("5005")
-
-            } else {
-                list.remove("5005")
-            }
-        })
-
-        binding.checkboxOther.setOnClickListener(View.OnClickListener {
-            if (binding.checkboxOther.isChecked) {
-                list.add("5006")
-            } else {
-                list.remove("5006")
-            }
-        })
+        binding.homeCheckbox.setOnClickListener(this)
+        binding.checkboxInvest.setOnClickListener(this)
+        binding.checkboxPortfolio.setOnClickListener(this)
+        binding.checkboxPromises.setOnClickListener(this)
+        binding.checkboxProfile.setOnClickListener(this)
+        binding.checkboxOther.setOnClickListener(this)
     }
 
 
     @SuppressLint("ResourceAsColor")
     private fun ratingsStars() {
-
         val boldface = ResourcesCompat.getFont(requireContext(), R.font.jost_medium)
         val lightface = ResourcesCompat.getFont(requireContext(), R.font.jost_light)
-
-
-
         binding.ivRating1.setOnClickListener(View.OnClickListener {
             ratings = 1
-            binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.emoji_verysad))
+            binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.selected1))
             binding.veryPoorTxt.setTextColor(resources.getColor(R.color.black))
             binding.veryPoorTxt.typeface = boldface
 
-            binding.ivRating2.setImageDrawable( resources.getDrawable(R.drawable.bad))
+            binding.ivRating2.setImageDrawable(resources.getDrawable(R.drawable.unselected2))
             binding.badTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.badTxt.typeface = lightface
 
-            binding.ivRating3.setImageDrawable(resources.getDrawable(R.drawable.confused))
+            binding.ivRating3.setImageDrawable(resources.getDrawable(R.drawable.unselected3))
             binding.okTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.okTxt.typeface = lightface
 
-            binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.happy))
+            binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.unselected4))
             binding.goodTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.goodTxt.typeface = lightface
 
-            binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.in_love))
+            binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.unselected5))
             binding.excelentTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.excelentTxt.typeface = lightface
         })
 
         binding.ivRating2.setOnClickListener(View.OnClickListener {
             ratings = 2
-            binding.ivRating2.setImageDrawable(resources.getDrawable(R.drawable.emoji_sad))
+            binding.ivRating2.setImageDrawable(resources.getDrawable(R.drawable.selected2))
             binding.badTxt.setTextColor(resources.getColor(R.color.black))
             binding.badTxt.typeface = boldface
 
-            binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.sad_2))
+            binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.unselected1))
             binding.veryPoorTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.veryPoorTxt.typeface = lightface
 
-            binding.ivRating3.setImageDrawable(resources.getDrawable(R.drawable.confused))
+            binding.ivRating3.setImageDrawable(resources.getDrawable(R.drawable.unselected3))
             binding.okTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.okTxt.typeface = lightface
 
-            binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.happy))
+            binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.unselected4))
             binding.goodTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.goodTxt.typeface = lightface
 
-            binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.in_love))
+            binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.unselected5))
             binding.excelentTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.excelentTxt.typeface = lightface
 
@@ -225,47 +178,47 @@ class FeedbackFragment : BaseFragment() {
 
         binding.ivRating3.setOnClickListener(View.OnClickListener {
             ratings = 3
-            binding.ivRating3.setImageDrawable( resources.getDrawable(R.drawable.emoji_confused))
+            binding.ivRating3.setImageDrawable(resources.getDrawable(R.drawable.selected3))
             binding.okTxt.setTextColor(resources.getColor(R.color.black))
             binding.okTxt.typeface = boldface
 
 
-            binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.sad_2))
+            binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.unselected1))
             binding.veryPoorTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.veryPoorTxt.typeface = lightface
 
-            binding.ivRating2.setImageDrawable(resources.getDrawable(R.drawable.bad))
+            binding.ivRating2.setImageDrawable(resources.getDrawable(R.drawable.unselected2))
             binding.badTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.badTxt.typeface = lightface
 
-            binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.happy))
+            binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.unselected4))
             binding.goodTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.goodTxt.typeface = lightface
 
-            binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.in_love))
+            binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.unselected5))
             binding.excelentTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.excelentTxt.typeface = lightface
         })
 
         binding.ivRating4.setOnClickListener(View.OnClickListener {
             ratings = 4
-            binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.emoji_happy))
+            binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.selected4))
             binding.goodTxt.setTextColor(resources.getColor(R.color.black))
             binding.goodTxt.typeface = boldface
 
-            binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.sad_2))
+            binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.unselected1))
             binding.veryPoorTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.veryPoorTxt.typeface = lightface
 
-            binding.ivRating2.setImageDrawable(resources.getDrawable(R.drawable.bad))
+            binding.ivRating2.setImageDrawable(resources.getDrawable(R.drawable.unselected2))
             binding.badTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.badTxt.typeface = lightface
 
-            binding.ivRating3.setImageDrawable(resources.getDrawable(R.drawable.confused))
+            binding.ivRating3.setImageDrawable(resources.getDrawable(R.drawable.unselected3))
             binding.okTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.okTxt.typeface = lightface
 
-            binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.in_love))
+            binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.unselected5))
             binding.excelentTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.excelentTxt.typeface = lightface
 
@@ -273,23 +226,23 @@ class FeedbackFragment : BaseFragment() {
 
         binding.ivRating5.setOnClickListener(View.OnClickListener {
             ratings = 5
-            binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.sad_2))
+            binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.unselected1))
             binding.veryPoorTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.veryPoorTxt.typeface = lightface
 
-            binding.ivRating2.setImageDrawable( resources.getDrawable(R.drawable.bad))
+            binding.ivRating2.setImageDrawable(resources.getDrawable(R.drawable.unselected2))
             binding.badTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.badTxt.typeface = lightface
 
-            binding.ivRating3.setImageDrawable(resources.getDrawable(R.drawable.confused))
+            binding.ivRating3.setImageDrawable(resources.getDrawable(R.drawable.unselected3))
             binding.okTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.okTxt.typeface = lightface
 
-            binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.happy))
+            binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.unselected4))
             binding.goodTxt.setTextColor(resources.getColor(R.color.category_location_ash_color))
             binding.goodTxt.typeface = lightface
 
-            binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.emoji_love))
+            binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.selected5))
             binding.excelentTxt.setTextColor(resources.getColor(R.color.black))
             binding.excelentTxt.typeface = boldface
         })
@@ -325,4 +278,55 @@ class FeedbackFragment : BaseFragment() {
             })
 
     }
+
+    override fun onClick(view: View?) {
+
+        when (view?.id) {
+            R.id.home_checkbox -> {
+                if (binding.homeCheckbox.isChecked) {
+                    list.add("5001")
+                } else {
+                    list.remove("5001")
+                }
+            }
+            R.id.checkbox_invest->{
+                if (binding.checkboxInvest.isChecked) {
+                    list.add("5002")
+                } else {
+                    list.remove("5002")
+                }
+            }
+            R.id.checkbox_portfolio->{
+                if (binding.checkboxPortfolio.isChecked) {
+                    list.add("5003")
+                } else {
+                    list.remove("5003")
+                }
+            }
+            R.id.checkbox_promises->{
+                if (binding.checkboxPromises.isChecked) {
+                    list.add("5004")
+                } else {
+                    list.remove("5004")
+                }
+            }
+            R.id.checkbox_profile->{
+                if (binding.checkboxProfile.isChecked) {
+                    list.add("5005")
+
+                } else {
+                    list.remove("5005")
+                }
+            }
+            R.id.checkbox_other->{
+                if (binding.checkboxOther.isChecked) {
+                    list.add("5006")
+                } else {
+                    list.remove("5006")
+                }
+            }
+        }
+    }
+
+
 }
