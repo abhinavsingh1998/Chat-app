@@ -16,6 +16,7 @@
         app:cardCornerRadius="4dp"
         android:visibility="visible"
         tools:visibility="visible"
+        app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_Doc"
         app:layout_constraintTop_toBottomOf="@id/tv_Doc">
@@ -31,7 +32,7 @@
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/jost_regular"
                 android:textColor="#878790"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:textStyle="normal"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="19dp"
@@ -43,8 +44,9 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clIcon"
                 android:layout_width="84dp"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:background="@drawable/nodoc"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
                 <ImageView
