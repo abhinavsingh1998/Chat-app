@@ -59,7 +59,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cardView_1"
-                android:layout_width="185dp"
+                android:layout_width="0dp"
                 android:layout_height="71dp"
                 android:background="@drawable/financial_suumary_dark_1"
                 app:layout_constraintEnd_toStartOf="@id/cardView_2"
@@ -91,7 +91,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cardView_2"
-                android:layout_width="185dp"
+                android:layout_width="0dp"
                 android:layout_height="71dp"
                 android:background="@drawable/financial_summary_dark_card_2"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -123,10 +123,12 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cardView_3"
-                android:layout_width="185dp"
+                android:layout_width="0dp"
                 android:layout_height="71dp"
                 android:background="@drawable/financial_summary_dark_3"
-                app:layout_constraintStart_toStartOf="@+id/cardView_1"
+                app:layout_constraintEnd_toEndOf="@+id/cardView_1"
+                app:layout_constraintLeft_toRightOf="@id/card_View_4"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView_1">
 
                 <TextView
@@ -154,10 +156,10 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/card_View_4"
-                android:layout_width="185dp"
+                android:layout_width="0dp"
                 android:layout_height="71dp"
                 android:background="@drawable/financial_suumary_dark_1"
-                app:layout_constraintEnd_toEndOf="@+id/cardView_2"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/cardView_3"
                 app:layout_constraintTop_toTopOf="@+id/cardView_3">
 
