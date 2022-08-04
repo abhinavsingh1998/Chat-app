@@ -11,6 +11,7 @@ import com.emproto.networklayer.request.investment.AddInventoryBody
 import com.emproto.networklayer.request.investment.VideoCallBody
 import com.emproto.networklayer.request.investment.WatchListBody
 import com.emproto.networklayer.response.BaseResponse
+import com.emproto.networklayer.response.MapData
 import com.emproto.networklayer.response.investment.*
 import com.emproto.networklayer.response.promises.HomePagesOrPromise
 
@@ -44,6 +45,7 @@ class InvestmentViewModel(
     private var isVideoActive = MutableLiveData<Boolean>()
     private var isDroneActive = MutableLiveData<Boolean>()
     private var isThreeSixtyActive = MutableLiveData<Boolean>()
+    private var mapData = MutableLiveData<MapData>()
 
     var isVideoSeeAllClicked = false
 
@@ -291,4 +293,7 @@ class InvestmentViewModel(
         return isThreeSixtyActive
     }
 
+    fun getMapData():LiveData<MapData>{
+        return mapData
+    }
 }
