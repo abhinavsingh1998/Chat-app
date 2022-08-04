@@ -63,10 +63,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     private val job = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
 
-    companion object {
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
-    }
-
     private val mapItemClickListener = object : MapItemClickListener {
         override fun onItemClicked(view: View, position: Int, latitude: Double, longitude: Double) {
             when (view.id) {
