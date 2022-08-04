@@ -190,7 +190,7 @@ class HomeFragment : BaseFragment() {
                                         bundle,
                                         null,
                                         0,
-                                        false
+                                        true
                                     )
                                 }
 
@@ -304,7 +304,7 @@ class HomeFragment : BaseFragment() {
                                                 FmFragment.newInstance(
                                                     it.data.web_url,
                                                     ""
-                                                ), false
+                                                ), true
                                             )
 
                                         } else {
@@ -339,7 +339,7 @@ class HomeFragment : BaseFragment() {
                     val fragment = ProjectDetailFragment()
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(
-                        fragment, false
+                        fragment, true
                     )
                 }
                 R.id.tv_see_all_update -> {

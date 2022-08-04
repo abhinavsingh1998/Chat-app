@@ -72,8 +72,8 @@ class VideosFragment:BaseFragment() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         investmentViewModel =
             ViewModelProvider(requireActivity(), investmentFactory)[InvestmentViewModel::class.java]
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.VISIBLE
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility = View.VISIBLE
+        (requireActivity() as HomeActivity).showBackArrow()
+        (requireActivity() as HomeActivity).showHeader()
 
     }
 

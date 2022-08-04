@@ -50,13 +50,11 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
     ): View? {
         mBinding = FragmentLatestUpdatesDetailsBinding.inflate(inflater, container, false)
 
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
-            View.GONE
+        (requireActivity() as HomeActivity).hideBottomNavigation()
 
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible =
-            false
+        (requireActivity() as HomeActivity).hideHeader()
         data = homeViewModel.getSelectedPosition()
         return mBinding.root
     }

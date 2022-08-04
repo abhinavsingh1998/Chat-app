@@ -101,7 +101,7 @@ class InsightsFragment : BaseFragment() {
                                             homeViewModel.setSeLectedInsights(it.data[position])
                                             (requireActivity() as HomeActivity).addFragment(
                                                 InsightsDetailsFragment(),
-                                                false
+                                                true
                                             )
                                         }
                                     }
