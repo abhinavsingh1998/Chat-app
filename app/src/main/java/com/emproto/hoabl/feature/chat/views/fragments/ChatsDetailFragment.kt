@@ -48,7 +48,6 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     private var sdf: SimpleDateFormat? = null
     private var time: String? = null
     private var isMessagesEnabled = true
-    private var lastMsgOptions  = ArrayList<Option>()
     private var latestConversationId = 0
     private var isMyFirstCallCompleted = false
 
@@ -251,68 +250,12 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
     }
 
-    private fun callChatInitiateForHistory(data: Data) {
-        homeViewModel.chatInitiate(ChatInitiateRequest(chatsList?.isInvested,chatsList?.project?.crmProjectId.toString())).observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Status.LOADING -> {
-//                    binding.loader.show()
-                    binding.rvChat.visibility = View.INVISIBLE
-                }
-                Status.SUCCESS -> {
-//                    binding.loader.hide()
-                    binding.rvChat.visibility = View.VISIBLE
-                    if (it.data?.chatDetailList != null) {
-                        chatDetailList = it.data!!.chatDetailList
-                        for(item in data.messages){
-                            when(item.origin){
-                                "cms" -> {
-                                    if(item.message == "Please choose whats up"){
-                                        chatDetailList?.let { chatDetail ->
-                                            newChatMessageList.add(
-                                                ChatDetailModel(
-                                                    chatDetail.autoChat.chatJSON.chatBody[0].message,
-                                                    chatDetail.autoChat.chatJSON.chatBody[0].options,
-                                                    MessageType.RECEIVER, time
-                                                )
-                                            )
-                                            chatsDetailAdapter.notifyDataSetChanged()
-                                        }
-                                    }
-                                }
-                                "user" -> {
-                                    newChatMessageList.add(
-                                        ChatDetailModel(
-                                            item.message,
-                                            null,
-                                            MessageType.SENDER, time
-                                        )
-                                    )
-                                }
-                            }
-                        }
-                    }
-                }
-                Status.ERROR -> {
-//                    binding.loader.hide()
-                    (requireActivity() as HomeActivity).showErrorToast(it.message!!)
-                }
-            }
-        })
-
-    }
-
     private fun getDay() {
         val sdf = SimpleDateFormat("EEEE")
         val d = Date()
         val dayOfTheWeek = sdf.format(d)
         binding.tvDay.text = dayOfTheWeek
     }
-
-
-    private fun getData() {
-
-    }
-
 
     private fun addMessages(chatDetailList: ChatDetailResponse.ChatDetailList) {
         getTime()

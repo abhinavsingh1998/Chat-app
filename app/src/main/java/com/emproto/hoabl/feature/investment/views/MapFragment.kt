@@ -1,12 +1,10 @@
 package com.emproto.hoabl.feature.investment.views
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -39,6 +37,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.google.android.libraries.places.api.Places
 import com.google.gson.Gson
+import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import javax.inject.Inject
@@ -61,9 +60,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     private var distanceList = ArrayList<String>()
     private var destinationList= ArrayList<ValueXXX>()
 
-    companion object {
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
-    }
+    private val job = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + job)
 
     private val mapItemClickListener = object : MapItemClickListener {
         override fun onItemClicked(view: View, position: Int, latitude: Double, longitude: Double) {
@@ -107,7 +105,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 destinationLocation,
                 resources.getString(R.string.map_api_key)
             )
-            GetDirectionForDistance(url).execute()
+            callDirectionsApiForDistance(url)
         }
     }
 
@@ -197,7 +195,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             destinationLocation,
             resources.getString(R.string.map_api_key)
         )
-        GetDirection(urll).execute()
+        callDirectionApi(urll)
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 15F))
     }
@@ -329,10 +327,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 "&key=$secret"
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private inner class GetDirection(val url: String) :
-        AsyncTask<Void, Void, List<List<LatLng>>>() {
-        override fun doInBackground(vararg params: Void?): List<List<LatLng>> {
+    private fun callDirectionApi(url:String){
+        uiScope.launch(Dispatchers.IO) {
             val client = OkHttpClient()
             val request = Request.Builder().url(url).build()
             val response = client.newCall(request).execute()
@@ -349,18 +345,17 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-            return result
-        }
 
-        override fun onPostExecute(result: List<List<LatLng>>) {
-            val lineoption = PolylineOptions()
-            for (i in result.indices) {
-                lineoption.addAll(result[i])
-                lineoption.width(10f)
-                lineoption.color(ContextCompat.getColor(requireContext(), R.color.text_blue_color))
-                lineoption.geodesic(true)
+            withContext(Dispatchers.Main){
+                val lineoption = PolylineOptions()
+                for (i in result.indices) {
+                    lineoption.addAll(result[i])
+                    lineoption.width(10f)
+                    lineoption.color(ContextCompat.getColor(requireContext(), R.color.text_blue_color))
+                    lineoption.geodesic(true)
+                }
+                mMap.addPolyline(lineoption)
             }
-            mMap.addPolyline(lineoption)
         }
     }
 
@@ -404,10 +399,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private inner class GetDirectionForDistance(val url: String) :
-        AsyncTask<Void, Void, String>() {
-        override fun doInBackground(vararg params: Void?): String {
+    private fun callDirectionsApiForDistance(url:String){
+        uiScope.launch(Dispatchers.IO) {
             val client = OkHttpClient()
             val request = Request.Builder().url(url).build()
             val response = client.newCall(request).execute()
@@ -426,26 +419,29 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-            return dis
-        }
-
-        override fun onPostExecute(result: String) {
-            distanceList.add(result)
-            if(distanceList.size == destinationList.size){
-                adapter = LocationInfrastructureAdapter(
-                    requireContext(),
-                    destinationList,
-                    mapItemClickListener,
-                    true,
-                    distanceList,
-                    selectedPosition
-                )
-                binding.mapLocationBottomSheet.rvMapLocationItemRecycler.adapter = adapter
-                (binding.mapLocationBottomSheet.rvMapLocationItemRecycler.itemAnimator as SimpleItemAnimator).supportsChangeAnimations =
-                    false
-                binding.mapLocationBottomSheet.clMapBottomSheet.visibility = View.VISIBLE
+            withContext(Dispatchers.Main) {
+                distanceList.add(dis)
+                if(distanceList.size == destinationList.size){
+                    adapter = LocationInfrastructureAdapter(
+                        requireContext(),
+                        destinationList,
+                        mapItemClickListener,
+                        true,
+                        distanceList,
+                        selectedPosition
+                    )
+                    binding.mapLocationBottomSheet.rvMapLocationItemRecycler.adapter = adapter
+                    (binding.mapLocationBottomSheet.rvMapLocationItemRecycler.itemAnimator as SimpleItemAnimator).supportsChangeAnimations =
+                        false
+                    binding.mapLocationBottomSheet.clMapBottomSheet.visibility = View.VISIBLE
+                }
             }
         }
+    }
+
+    override fun onDestroy() {
+        job.cancel()
+        super.onDestroy()
     }
 
 }

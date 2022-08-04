@@ -10,10 +10,15 @@ import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.hoabl.databinding.ProjectAmenitiesItemLayoutBinding
 import com.emproto.networklayer.response.investment.ProjectAminity
 
-class ProjectAmenitiesAdapter(val context: Context,val list: List<ProjectAminity>) : RecyclerView.Adapter<ProjectAmenitiesAdapter.MyViewHolder>() {
+class ProjectAmenitiesAdapter(val context: Context, val list: List<ProjectAminity>) :
+    RecyclerView.Adapter<ProjectAmenitiesAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = ProjectAmenitiesItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = ProjectAmenitiesItemLayoutBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return MyViewHolder(view)
     }
 
@@ -32,6 +37,7 @@ class ProjectAmenitiesAdapter(val context: Context,val list: List<ProjectAminity
         return list.size
     }
 
-    inner class MyViewHolder(var binding: ProjectAmenitiesItemLayoutBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class MyViewHolder(var binding: ProjectAmenitiesItemLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
 }

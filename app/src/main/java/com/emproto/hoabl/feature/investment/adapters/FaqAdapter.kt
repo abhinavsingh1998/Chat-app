@@ -18,23 +18,24 @@ class FaqAdapter(
     private val list: List<Faq>,
     private val faqId: Int?,
     private val itemClickListener: ItemClickListener
-):RecyclerView.Adapter<FaqAdapter.FaqViewHolder>() {
-    inner class FaqViewHolder(var binding: ItemInvFaqBinding) : RecyclerView.ViewHolder(binding.root)
+) : RecyclerView.Adapter<FaqAdapter.FaqViewHolder>() {
+    inner class FaqViewHolder(var binding: ItemInvFaqBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FaqViewHolder {
-        val view = ItemInvFaqBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val view = ItemInvFaqBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FaqViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: FaqViewHolder, position: Int) {
         val element = list[position]
-        holder.binding.ivFaqCardDropDown.setOnClickListener{
+        holder.binding.ivFaqCardDropDown.setOnClickListener {
             holder.binding.ivFaqCardDropDown.visibility = View.INVISIBLE
             holder.binding.tvFaqAnswer.visibility = View.VISIBLE
             holder.binding.ivFaqCardUpArrow.visibility = View.VISIBLE
             holder.binding.viewLine.visibility = View.VISIBLE
         }
-        holder.binding.ivFaqCardUpArrow.setOnClickListener{
+        holder.binding.ivFaqCardUpArrow.setOnClickListener {
             holder.binding.ivFaqCardDropDown.visibility = View.VISIBLE
             holder.binding.tvFaqAnswer.visibility = View.GONE
             holder.binding.ivFaqCardUpArrow.visibility = View.GONE
@@ -44,11 +45,15 @@ class FaqAdapter(
             tvFaqQuestion.text = element.faqQuestion.question
             tvFaqAnswer.text = element.faqAnswer.answer
         }
-        if(faqId != null){
-            when{
+        if (faqId != null) {
+            when {
                 faqId == element.id -> {
                     holder.binding.ivFaqCardDropDown.performClick()
-                    itemClickListener.onItemClicked(holder.binding.ivFaqCardDropDown,position,"Scroll to position")
+                    itemClickListener.onItemClicked(
+                        holder.binding.ivFaqCardDropDown,
+                        position,
+                        "Scroll to position"
+                    )
                 }
             }
         }

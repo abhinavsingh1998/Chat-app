@@ -37,11 +37,11 @@ class FaqDetailFragment : BaseFragment() {
     lateinit var profileViewModel: ProfileViewModel
 
     private lateinit var adapter: FaqDetailAdapter
-    var projectId = 0
-    var faqId = 0
     private lateinit var allFaqList: List<CgData>
     private var isFromInvestment = true
     private var projectName = "FAQs"
+    private var projectId = 0
+    private var faqId = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,

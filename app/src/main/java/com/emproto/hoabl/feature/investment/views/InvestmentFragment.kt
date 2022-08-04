@@ -1,7 +1,6 @@
 package com.emproto.hoabl.feature.investment.views
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,49 +33,6 @@ class InvestmentFragment : BaseFragment() {
     private lateinit var newInvestmentsList: List<PageManagementsOrNewInvestment>
     private var projectId = 0
 
-    private val onInvestmentItemClickListener =
-        View.OnClickListener { view ->
-            when (view.id) {
-                R.id.tv_smart_deals_see_all -> {
-                    val list = CategoryListFragment()
-                    val bundle = Bundle()
-                    bundle.putString("Category", "LastFewPLots")
-                    bundle.putSerializable("LastFewPLotsData", smartDealsList as Serializable)
-                    list.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(list, true)
-                }
-                R.id.tv_trending_projects_see_all -> {
-                    val list = CategoryListFragment()
-                    val bundle = Bundle()
-                    bundle.putString("Category", "TrendingProjects")
-                    bundle.putSerializable("TrendingProjectsData", trendingProjectsList as Serializable)
-                    list.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(list, true)
-                }
-                R.id.tv_new_launch_see_all -> {
-                    val list = CategoryListFragment()
-                    val bundle = Bundle()
-                    bundle.putString("Category", "NewLaunches")
-                    bundle.putSerializable("NewLaunchesData", newInvestmentsList as Serializable)
-                    list.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(list, true)
-                }
-                R.id.cl_place_info -> {
-                    navigateToDetailScreen(newInvestmentsList[0].id)
-                }
-                R.id.tv_apply_now -> {
-                    investmentViewModel.setProjectId(newInvestmentsList[0].id)
-                    navigateToSkuScreen(newInvestmentsList[0].id)
-                }
-                R.id.cl_btn_discover -> {
-                    callProjectContentAPi()
-                }
-                R.id.iv_dont_miss_image -> {
-                    navigateToDetailScreen(projectId)
-                }
-            }
-        }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -107,7 +63,8 @@ class InvestmentFragment : BaseFragment() {
             View.VISIBLE
         (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
             View.VISIBLE
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.GONE
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility =
+            View.GONE
         binding.slSwipeRefresh.setOnRefreshListener {
             binding.slSwipeRefresh.isRefreshing = true
             binding.slSwipeRefresh.visibility = View.GONE
@@ -143,39 +100,40 @@ class InvestmentFragment : BaseFragment() {
         })
     }
 
-    private fun mediaGalleryApi(invData:Data){
-        investmentViewModel.getInvestmentsMediaGallery(newInvestmentsList[0].id).observe(viewLifecycleOwner,Observer{
-            when (it.status) {
-                Status.LOADING -> {
-                    binding.progressBar.show()
-                }
-                Status.SUCCESS -> {
-                    binding.progressBar.hide()
-                    it.data?.data?.let { data ->
-                        if(data!=null){
-                            setUpRecyclerView(invData,data.mediaGalleries)
+    private fun mediaGalleryApi(invData: Data) {
+        investmentViewModel.getInvestmentsMediaGallery(newInvestmentsList[0].id)
+            .observe(viewLifecycleOwner, Observer {
+                when (it.status) {
+                    Status.LOADING -> {
+                        binding.progressBar.show()
+                    }
+                    Status.SUCCESS -> {
+                        binding.progressBar.hide()
+                        it.data?.data?.let { data ->
+                            if (data != null) {
+                                setUpRecyclerView(invData, data.mediaGalleries)
+                            }
                         }
                     }
+                    Status.ERROR -> {
+                        binding.progressBar.hide()
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            it.message!!
+                        )
+                    }
                 }
-                Status.ERROR -> {
-                    binding.progressBar.hide()
-                    (requireActivity() as HomeActivity).showErrorToast(
-                        it.message!!
-                    )
-                }
-            }
-        })
+            })
     }
 
-    private fun setUpRecyclerView(data: Data,mediaGalleries: MediaGalleries) {
+    private fun setUpRecyclerView(data: Data, mediaGalleries: MediaGalleries) {
         val list = ArrayList<RecyclerViewItem>()
         list.add(RecyclerViewItem(NewInvestmentAdapter.TYPE_NEW_LAUNCH))
-        when(data.page.isCollectionOneActive){
+        when (data.page.isCollectionOneActive) {
             true -> {
                 list.add(RecyclerViewItem(NewInvestmentAdapter.TYPE_LAST_PLOTS))
             }
         }
-        when(data.page.isCollectionTwoActive){
+        when (data.page.isCollectionTwoActive) {
             true -> list.add(RecyclerViewItem(NewInvestmentAdapter.TYPE_TRENDING_PROJECTS))
         }
         newInvestmentAdapter = NewInvestmentAdapter(
@@ -192,13 +150,13 @@ class InvestmentFragment : BaseFragment() {
 
     private fun callProjectContentAPi() {
         investmentViewModel.getAllInvestmentsProjects().observe(viewLifecycleOwner, Observer {
-            when(it.status){
+            when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
                 }
                 Status.SUCCESS -> {
                     binding.progressBar.hide()
-                    it.data?.data?.let {  data ->
+                    it.data?.data?.let { data ->
                         val list = CategoryListFragment()
                         val bundle = Bundle()
                         bundle.putString("Category", "AllInvestments")
@@ -219,8 +177,8 @@ class InvestmentFragment : BaseFragment() {
 
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
-            when(position){
-                0-> navigateToDetailScreen(item.toInt())
+            when (position) {
+                0 -> navigateToDetailScreen(item.toInt())
                 1 -> navigateToDetailScreen(item.toInt())
                 2 -> navigateToDetailScreen(item.toInt())
                 3 -> navigateToSkuScreen(item.toInt())
@@ -240,12 +198,58 @@ class InvestmentFragment : BaseFragment() {
         )
     }
 
-    private fun navigateToSkuScreen(id:Int){
+    private fun navigateToSkuScreen(id: Int) {
         val fragment = LandSkusFragment()
         val bundle = Bundle()
         bundle.putInt("ProjectId", id)
         fragment.arguments = bundle
-        (requireActivity() as HomeActivity).addFragment(fragment,true)
+        (requireActivity() as HomeActivity).addFragment(fragment, true)
     }
+
+    private val onInvestmentItemClickListener =
+        View.OnClickListener { view ->
+            when (view.id) {
+                R.id.tv_smart_deals_see_all -> {
+                    val list = CategoryListFragment()
+                    val bundle = Bundle()
+                    bundle.putString("Category", "LastFewPLots")
+                    bundle.putSerializable("LastFewPLotsData", smartDealsList as Serializable)
+                    list.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(list, true)
+                }
+                R.id.tv_trending_projects_see_all -> {
+                    val list = CategoryListFragment()
+                    val bundle = Bundle()
+                    bundle.putString("Category", "TrendingProjects")
+                    bundle.putSerializable(
+                        "TrendingProjectsData",
+                        trendingProjectsList as Serializable
+                    )
+                    list.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(list, true)
+                }
+                R.id.tv_new_launch_see_all -> {
+                    val list = CategoryListFragment()
+                    val bundle = Bundle()
+                    bundle.putString("Category", "NewLaunches")
+                    bundle.putSerializable("NewLaunchesData", newInvestmentsList as Serializable)
+                    list.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(list, true)
+                }
+                R.id.cl_place_info -> {
+                    navigateToDetailScreen(newInvestmentsList[0].id)
+                }
+                R.id.tv_apply_now -> {
+                    investmentViewModel.setProjectId(newInvestmentsList[0].id)
+                    navigateToSkuScreen(newInvestmentsList[0].id)
+                }
+                R.id.cl_btn_discover -> {
+                    callProjectContentAPi()
+                }
+                R.id.iv_dont_miss_image -> {
+                    navigateToDetailScreen(projectId)
+                }
+            }
+        }
 
 }

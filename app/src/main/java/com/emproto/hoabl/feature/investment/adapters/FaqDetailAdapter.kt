@@ -38,7 +38,6 @@ class FaqDetailAdapter(
 
     private lateinit var categoryAdapter: PopularCategoryAdapter
     private lateinit var faqAdapter: FaqAdapter
-    private var isItemsPresent = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -81,20 +80,26 @@ class FaqDetailAdapter(
         val title = itemView.findViewById<MaterialTextView>(R.id.tv_faq_title)
         fun bind(position: Int) {
             //Binding data
-            when(projectName){
-                "" -> title.text ="FAQs"
-                else -> title.text ="${projectName.toString()} - FAQs"
+            when (projectName) {
+                "" -> title.text = "FAQs"
+                else -> title.text = "${projectName.toString()} - FAQs"
             }
 
             val list = arrayListOf<String>()
-            for (item in faqData) { list.add(item.name) }
-            categoryAdapter = PopularCategoryAdapter( list, itemClickListener)
+            for (item in faqData) {
+                list.add(item.name)
+            }
+            categoryAdapter = PopularCategoryAdapter(list, itemClickListener)
             rvPopCategory.adapter = categoryAdapter
 
             //setup search bar when coming to this page
             search.setText(searchText)
-            if (searchText.isNotEmpty()) { close.visibility = View.VISIBLE }
-            if (searchText != "") { search.requestFocus() }
+            if (searchText.isNotEmpty()) {
+                close.visibility = View.VISIBLE
+            }
+            if (searchText != "") {
+                search.requestFocus()
+            }
 
             // textWatcher for search
             search.addTextChangedListener(object : TextWatcher {
@@ -114,7 +119,7 @@ class FaqDetailAdapter(
                     if (s.toString().length > 1 && s.toString() != "") {
                         close.visibility = View.VISIBLE
                     }
-                    if(s.toString().isEmpty() || s.toString().trim() == ""){
+                    if (s.toString().isEmpty() || s.toString().trim() == "") {
                         Handler().postDelayed({
                             itemClickListener.onItemClicked(search, position, s.toString())
                         }, 500)
@@ -148,7 +153,7 @@ class FaqDetailAdapter(
         fun bind(position: Int, data: CgData) {
             tvCategoryTitle.text = data.name
             val sortedList = data.faqs.sortedBy { it.priority }
-            faqAdapter = FaqAdapter(sortedList, faqId,itemClickListener)
+            faqAdapter = FaqAdapter(sortedList, faqId, itemClickListener)
             rvFaq.adapter = faqAdapter
         }
     }

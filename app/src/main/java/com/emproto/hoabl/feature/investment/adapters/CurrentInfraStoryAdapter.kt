@@ -12,10 +12,15 @@ import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.hoabl.utils.Extensions.showHTMLText
 import com.emproto.networklayer.response.investment.Story
 
-class CurrentInfraStoryAdapter(val context: Context,val list: List<Story>) : RecyclerView.Adapter<CurrentInfraStoryAdapter.MyViewHolder>() {
+class CurrentInfraStoryAdapter(val context: Context, val list: List<Story>) :
+    RecyclerView.Adapter<CurrentInfraStoryAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = ItemCurrentInfraStoryLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = ItemCurrentInfraStoryLayoutBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return MyViewHolder(view)
     }
 
@@ -34,6 +39,7 @@ class CurrentInfraStoryAdapter(val context: Context,val list: List<Story>) : Rec
         return list.size
     }
 
-    inner class MyViewHolder(var binding: ItemCurrentInfraStoryLayoutBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class MyViewHolder(var binding: ItemCurrentInfraStoryLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
 }

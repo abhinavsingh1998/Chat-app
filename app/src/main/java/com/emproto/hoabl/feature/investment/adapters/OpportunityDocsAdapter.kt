@@ -31,7 +31,7 @@ class OpportunityDocsAdapter(
     private val data: OpprotunityDoc,
     private val title: String,
     private val isFromProjectAmenities: Boolean
-):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val OPP_DOCS_VIEW_TYPE_ONE = 1
@@ -48,7 +48,7 @@ class OpportunityDocsAdapter(
     private lateinit var destinationAdapter: DestinationAdapter
     private lateinit var currentInfraStoryAdapter: CurrentInfraStoryAdapter
     private lateinit var upcomingInfraStoryAdapter: UpcomingInfraStoryAdapter
-    private lateinit var onItemClickListener : View.OnClickListener
+    private lateinit var onItemClickListener: View.OnClickListener
     private lateinit var projectAmenitiesAdapter: ProjectAmenitiesAdapter
 
     private var isClicked = true
@@ -56,20 +56,68 @@ class OpportunityDocsAdapter(
     private var xaxisList = ArrayList<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when(viewType){
-                OPP_DOCS_VIEW_TYPE_ONE -> OppDocsTopViewHolder(OppDocsTopLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
-                OPP_DOCS_VIEW_TYPE_TWO -> OppDocsExpGrowthViewHolder(OppDocExpectedGrowthLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
-                OPP_DOCS_VIEW_TYPE_THREE -> CurrentInfraStoryViewHolder(CurrentInfraStoryLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
-                OPP_DOCS_VIEW_TYPE_FOUR -> UpcomingInfraStoryViewHolder(UpcomingInfraStoryLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
-                OPP_DOCS_VIEW_TYPE_FIVE -> OppDocsTourismViewHolder(OppDocsDestinationLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
-                OPP_DOCS_VIEW_TYPE_SIX -> AboutProjectViewHolder(AboutProjectLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
-                OPP_DOCS_VIEW_TYPE_SEVEN -> ProjectAmenitiesViewHolder(ProjectAmenitiesLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
-                else -> ApplyViewHolder(ApplyLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return when (viewType) {
+            OPP_DOCS_VIEW_TYPE_ONE -> OppDocsTopViewHolder(
+                OppDocsTopLayoutBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            OPP_DOCS_VIEW_TYPE_TWO -> OppDocsExpGrowthViewHolder(
+                OppDocExpectedGrowthLayoutBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            OPP_DOCS_VIEW_TYPE_THREE -> CurrentInfraStoryViewHolder(
+                CurrentInfraStoryLayoutBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            OPP_DOCS_VIEW_TYPE_FOUR -> UpcomingInfraStoryViewHolder(
+                UpcomingInfraStoryLayoutBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            OPP_DOCS_VIEW_TYPE_FIVE -> OppDocsTourismViewHolder(
+                OppDocsDestinationLayoutBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            OPP_DOCS_VIEW_TYPE_SIX -> AboutProjectViewHolder(
+                AboutProjectLayoutBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            OPP_DOCS_VIEW_TYPE_SEVEN -> ProjectAmenitiesViewHolder(
+                ProjectAmenitiesLayoutBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            else -> ApplyViewHolder(
+                ApplyLayoutBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(itemList[position].viewType) {
+        when (itemList[position].viewType) {
             OPP_DOCS_VIEW_TYPE_ONE -> (holder as OppDocsTopViewHolder).bind(position)
             OPP_DOCS_VIEW_TYPE_TWO -> (holder as OppDocsExpGrowthViewHolder).bind(position)
             OPP_DOCS_VIEW_TYPE_THREE -> (holder as CurrentInfraStoryViewHolder).bind(position)
@@ -83,9 +131,10 @@ class OpportunityDocsAdapter(
 
     override fun getItemCount(): Int = itemList.size
 
-    private inner class OppDocsTopViewHolder(private val binding: OppDocsTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
-            binding.tvOppDocProjectTitle.text =  data.sectionHeading.heading
+    private inner class OppDocsTopViewHolder(private val binding: OppDocsTopLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
+            binding.tvOppDocProjectTitle.text = data.sectionHeading.heading
             binding.tvOppDocProjectThemeTitle.text = data.sectionHeading.subHeading
             Glide
                 .with(context)
@@ -94,65 +143,72 @@ class OpportunityDocsAdapter(
         }
     }
 
-    private inner class OppDocsExpGrowthViewHolder(private val binding: OppDocExpectedGrowthLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
+    private inner class OppDocsExpGrowthViewHolder(private val binding: OppDocExpectedGrowthLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
             binding.tvExpectedGrowth.text = data.escalationGraph.title
             binding.tvXAxisLabel.text = data.escalationGraph.yAxisDisplayName
             binding.tvYAxisLabel.text = data.escalationGraph.xAxisDisplayName
             val graphData = data.escalationGraph.dataPoints.points
             val linevalues = ArrayList<Entry>()
-            when(data.escalationGraph.dataPoints.dataPointType){
+            when (data.escalationGraph.dataPoints.dataPointType) {
                 "Yearly" -> {
                     graphType = "Yearly"
-                    for(item in graphData){
-                        linevalues.add(Entry(item.year.toFloat(),item.value.toFloat()))
+                    for (item in graphData) {
+                        linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
                     }
                 }
                 "Half Yearly" -> {
                     graphType = "Half Yearly"
-                    for(i in 0..data.escalationGraph.dataPoints.points.size-1){
-                        val fmString = data.escalationGraph.dataPoints.points[i].halfYear.substring(0,3)
-                        val yearString = data.escalationGraph.dataPoints.points[i].year.substring(2,4)
+                    for (i in 0..data.escalationGraph.dataPoints.points.size - 1) {
+                        val fmString =
+                            data.escalationGraph.dataPoints.points[i].halfYear.substring(0, 3)
+                        val yearString =
+                            data.escalationGraph.dataPoints.points[i].year.substring(2, 4)
                         val str = "$fmString-$yearString"
                         xaxisList.add(str)
                     }
                     var index = 0
-                    for(item in graphData){
-                        linevalues.add(Entry(index.toFloat(),item.value.toFloat()))
+                    for (item in graphData) {
+                        linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
                         index++
                     }
                 }
                 "Quaterly" -> {
                     graphType = "Quaterly"
-                    for(i in 0..data.escalationGraph.dataPoints.points.size-1){
-                        val fmString = data.escalationGraph.dataPoints.points[i].quater.substring(0,2)
-                        val yearString = data.escalationGraph.dataPoints.points[i].year.substring(2,4)
+                    for (i in 0..data.escalationGraph.dataPoints.points.size - 1) {
+                        val fmString =
+                            data.escalationGraph.dataPoints.points[i].quater.substring(0, 2)
+                        val yearString =
+                            data.escalationGraph.dataPoints.points[i].year.substring(2, 4)
                         val str = "$fmString-$yearString"
                         xaxisList.add(str)
                     }
                     var index = 0
-                    for(item in graphData){
-                        linevalues.add(Entry(index.toFloat(),item.value.toFloat()))
+                    for (item in graphData) {
+                        linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
                         index++
                     }
                 }
                 "Monthly" -> {
                     graphType = "Monthly"
-                    for(i in 0..data.escalationGraph.dataPoints.points.size-1){
-                        val fmString = data.escalationGraph.dataPoints.points[i].month.substring(0,3)
-                        val yearString = data.escalationGraph.dataPoints.points[i].year.substring(2,4)
+                    for (i in 0..data.escalationGraph.dataPoints.points.size - 1) {
+                        val fmString =
+                            data.escalationGraph.dataPoints.points[i].month.substring(0, 3)
+                        val yearString =
+                            data.escalationGraph.dataPoints.points[i].year.substring(2, 4)
                         val str = "$fmString-$yearString"
                         xaxisList.add(str)
                     }
                     var index = 0
-                    for(item in graphData){
-                        linevalues.add(Entry(index.toFloat(),item.value.toFloat()))
+                    for (item in graphData) {
+                        linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
                         index++
                     }
                 }
             }
 
-            if(linevalues.isNotEmpty()) {
+            if (linevalues.isNotEmpty()) {
                 val linedataset = LineDataSet(linevalues, "")
                 //We add features to our chart
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -197,58 +253,67 @@ class OpportunityDocsAdapter(
         }
     }
 
-    inner class Xaxisformatter :  IAxisValueFormatter {
+    inner class Xaxisformatter : IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
-            return when(graphType){
+            return when (graphType) {
                 "Quaterly" -> returnFormattedValue(p0)
                 "Monthly" -> returnFormattedValue(p0)
                 "Half Yearly" -> returnFormattedValue(p0)
-                else -> { String.format("%.0f", p0.toDouble()) }
+                else -> {
+                    String.format("%.0f", p0.toDouble())
+                }
             }
         }
     }
 
-    private fun returnFormattedValue(floatValue:Float):String{
+    private fun returnFormattedValue(floatValue: Float): String {
         return when {
             floatValue.toInt() < 10 -> xaxisList[floatValue.toInt()]
-            else -> { String.format("%.0f", floatValue.toDouble()) }
+            else -> {
+                String.format("%.0f", floatValue.toDouble())
+            }
         }
     }
 
-    private inner class CurrentInfraStoryViewHolder(private val binding: CurrentInfraStoryLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
+    private inner class CurrentInfraStoryViewHolder(private val binding: CurrentInfraStoryLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
             binding.tvCurrentInfraStory.text = data.currentInfraStory.heading
-            currentInfraStoryAdapter = CurrentInfraStoryAdapter(context,data.currentInfraStory.stories)
+            currentInfraStoryAdapter =
+                CurrentInfraStoryAdapter(context, data.currentInfraStory.stories)
             binding.rvCurrentInfraRecycler.adapter = currentInfraStoryAdapter
         }
     }
 
-    private inner class UpcomingInfraStoryViewHolder(private val binding: UpcomingInfraStoryLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
+    private inner class UpcomingInfraStoryViewHolder(private val binding: UpcomingInfraStoryLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
             binding.tvUpcomingInfraStory.text = data.upcomingInfraStory.heading
-            upcomingInfraStoryAdapter = UpcomingInfraStoryAdapter(context,data.upcomingInfraStory.stories)
+            upcomingInfraStoryAdapter =
+                UpcomingInfraStoryAdapter(context, data.upcomingInfraStory.stories)
             binding.rvUpcomingInfraRecycler.adapter = upcomingInfraStoryAdapter
         }
     }
 
-    private inner class OppDocsTourismViewHolder(private val binding: OppDocsDestinationLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
+    private inner class OppDocsTourismViewHolder(private val binding: OppDocsDestinationLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
             binding.tvTourismAround.text = data.tourismAround.heading
             val list = arrayListOf<Story>()
-            for(i in 0..3){
+            for (i in 0..3) {
                 list.add(data.tourismAround.stories[i])
             }
-            destinationAdapter = DestinationAdapter(context,list)
+            destinationAdapter = DestinationAdapter(context, list)
             binding.rvDestination.adapter = destinationAdapter
             binding.tvViewMore.setOnClickListener {
-                when(isClicked){
+                when (isClicked) {
                     true -> {
                         Glide
                             .with(context)
                             .load(R.drawable.path_3)
                             .into(binding.ivViewMoreArrow)
                         binding.tvViewMore.text = context.getString(R.string.view_less_caps)
-                        destinationAdapter = DestinationAdapter(context,data.tourismAround.stories)
+                        destinationAdapter = DestinationAdapter(context, data.tourismAround.stories)
                         binding.rvDestination.adapter = destinationAdapter
                         destinationAdapter.notifyDataSetChanged()
                         isClicked = false
@@ -257,10 +322,10 @@ class OpportunityDocsAdapter(
                         binding.ivViewMoreArrow.setImageResource(R.drawable.path_3_1)
                         binding.tvViewMore.text = context.getString(R.string.view_more_caps)
                         list.clear()
-                        for(i in 0..3){
+                        for (i in 0..3) {
                             list.add(data.tourismAround.stories[i])
                         }
-                        destinationAdapter = DestinationAdapter(context,list)
+                        destinationAdapter = DestinationAdapter(context, list)
                         binding.rvDestination.adapter = destinationAdapter
                         destinationAdapter.notifyDataSetChanged()
                         isClicked = true
@@ -269,14 +334,14 @@ class OpportunityDocsAdapter(
 
             }
             binding.ivViewMoreArrow.setOnClickListener {
-                when(isClicked){
+                when (isClicked) {
                     true -> {
                         Glide
                             .with(context)
                             .load(R.drawable.path_3)
                             .into(binding.ivViewMoreArrow)
                         binding.tvViewMore.text = context.getString(R.string.view_less_caps)
-                        destinationAdapter = DestinationAdapter(context,data.tourismAround.stories)
+                        destinationAdapter = DestinationAdapter(context, data.tourismAround.stories)
                         binding.rvDestination.adapter = destinationAdapter
                         destinationAdapter.notifyDataSetChanged()
                         isClicked = false
@@ -285,10 +350,10 @@ class OpportunityDocsAdapter(
                         binding.ivViewMoreArrow.setImageResource(R.drawable.path_3_1)
                         binding.tvViewMore.text = context.getString(R.string.view_more_caps)
                         list.clear()
-                        for(i in 0..3){
+                        for (i in 0..3) {
                             list.add(data.tourismAround.stories[i])
                         }
-                        destinationAdapter = DestinationAdapter(context,list)
+                        destinationAdapter = DestinationAdapter(context, list)
                         binding.rvDestination.adapter = destinationAdapter
                         destinationAdapter.notifyDataSetChanged()
                         isClicked = true
@@ -299,8 +364,9 @@ class OpportunityDocsAdapter(
         }
     }
 
-    private inner class AboutProjectViewHolder(private val binding: AboutProjectLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
+    private inner class AboutProjectViewHolder(private val binding: AboutProjectLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
             binding.apply {
                 tvAboutProjectTitle.text = data.aboutProjects.heading
                 tvAbtProjectInfo.text = context.showHTMLText(data.aboutProjects.description)
@@ -311,18 +377,18 @@ class OpportunityDocsAdapter(
         }
     }
 
-    private inner class ProjectAmenitiesViewHolder(private val binding: ProjectAmenitiesLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
+    private inner class ProjectAmenitiesViewHolder(private val binding: ProjectAmenitiesLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
             binding.apply {
                 tvProjectAmenitiesAll.visibility = View.INVISIBLE
-//                ivProjectAmenitiesArrow.visibility = View.INVISIBLE
                 tvViewMore.visibility = View.VISIBLE
                 ivViewMoreArrow.visibility = View.VISIBLE
                 var isClicked = true
                 val list = arrayListOf<ProjectAminity>()
-                when(isFromProjectAmenities){
+                when (isFromProjectAmenities) {
                     true -> {
-                        for(item in data.projectAminities){
+                        for (item in data.projectAminities) {
                             list.add(item)
                         }
                         binding.ivViewMoreArrow.setImageResource(R.drawable.path_3)
@@ -330,22 +396,23 @@ class OpportunityDocsAdapter(
                         isClicked = false
                     }
                     false -> {
-                        for(i in 0..3){
+                        for (i in 0..3) {
                             list.add(data.projectAminities[i])
                         }
                     }
                 }
-                projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,list)
+                projectAmenitiesAdapter = ProjectAmenitiesAdapter(context, list)
                 rvProjectAmenitiesItemRecycler.adapter = projectAmenitiesAdapter
                 binding.tvViewMore.setOnClickListener {
-                    when(isClicked){
+                    when (isClicked) {
                         true -> {
                             Glide
                                 .with(context)
                                 .load(R.drawable.path_3)
                                 .into(binding.ivViewMoreArrow)
                             binding.tvViewMore.text = context.getString(R.string.view_less_caps)
-                            projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,data.projectAminities)
+                            projectAmenitiesAdapter =
+                                ProjectAmenitiesAdapter(context, data.projectAminities)
                             rvProjectAmenitiesItemRecycler.adapter = projectAmenitiesAdapter
                             projectAmenitiesAdapter.notifyDataSetChanged()
                             isClicked = false
@@ -354,10 +421,10 @@ class OpportunityDocsAdapter(
                             binding.ivViewMoreArrow.setImageResource(R.drawable.path_3_1)
                             binding.tvViewMore.text = context.getString(R.string.view_all_caps)
                             list.clear()
-                            for(i in 0..3){
+                            for (i in 0..3) {
                                 list.add(data.projectAminities[i])
                             }
-                            projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,list)
+                            projectAmenitiesAdapter = ProjectAmenitiesAdapter(context, list)
                             rvProjectAmenitiesItemRecycler.adapter = projectAmenitiesAdapter
                             projectAmenitiesAdapter.notifyDataSetChanged()
                             isClicked = true
@@ -365,14 +432,15 @@ class OpportunityDocsAdapter(
                     }
                 }
                 binding.ivViewMoreArrow.setOnClickListener {
-                    when(isClicked){
+                    when (isClicked) {
                         true -> {
                             Glide
                                 .with(context)
                                 .load(R.drawable.path_3)
                                 .into(binding.ivViewMoreArrow)
                             binding.tvViewMore.text = context.getString(R.string.view_less_caps)
-                            projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,data.projectAminities)
+                            projectAmenitiesAdapter =
+                                ProjectAmenitiesAdapter(context, data.projectAminities)
                             rvProjectAmenitiesItemRecycler.adapter = projectAmenitiesAdapter
                             projectAmenitiesAdapter.notifyDataSetChanged()
                             isClicked = false
@@ -381,10 +449,10 @@ class OpportunityDocsAdapter(
                             binding.ivViewMoreArrow.setImageResource(R.drawable.path_3_1)
                             binding.tvViewMore.text = context.getString(R.string.view_all_caps)
                             list.clear()
-                            for(i in 0..3){
+                            for (i in 0..3) {
                                 list.add(data.projectAminities[i])
                             }
-                            projectAmenitiesAdapter = ProjectAmenitiesAdapter(context,list)
+                            projectAmenitiesAdapter = ProjectAmenitiesAdapter(context, list)
                             rvProjectAmenitiesItemRecycler.adapter = projectAmenitiesAdapter
                             projectAmenitiesAdapter.notifyDataSetChanged()
                             isClicked = true
@@ -395,9 +463,10 @@ class OpportunityDocsAdapter(
         }
     }
 
-    private inner class ApplyViewHolder(private val binding: ApplyLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
-            when(data.isPageFooterActive){
+    private inner class ApplyViewHolder(private val binding: ApplyLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
+            when (data.isPageFooterActive) {
                 false -> {
                     binding.tvBookingStarts.visibility = View.GONE
                 }
@@ -411,9 +480,10 @@ class OpportunityDocsAdapter(
         }
     }
 
-    private inner class OppDocsKeyAttractionsViewHolder(private val binding: OppDocKeyAttractionsLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
-            val list = arrayListOf<String>("1","2","3","4","5","6")
+    private inner class OppDocsKeyAttractionsViewHolder(private val binding: OppDocKeyAttractionsLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
+            val list = arrayListOf<String>("1", "2", "3", "4", "5", "6")
             keyAttractionsAdapter = KeyAttractionsAdapter(list)
             binding.rvKeyAttractions.adapter = keyAttractionsAdapter
         }

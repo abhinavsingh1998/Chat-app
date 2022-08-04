@@ -12,13 +12,15 @@ import com.emproto.hoabl.utils.ItemClickListener
 class PopularCategoryAdapter(
     private val list: List<String>,
     private val itemClickListener: ItemClickListener
-):
+) :
     RecyclerView.Adapter<PopularCategoryAdapter.MyViewHolder>() {
 
-    inner class MyViewHolder(var binding: ItemPopularCategoryBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class MyViewHolder(var binding: ItemPopularCategoryBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = ItemPopularCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view =
+            ItemPopularCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(view)
     }
 
@@ -27,7 +29,7 @@ class PopularCategoryAdapter(
         holder.binding.apply {
             tvCategoryName.text = element
             cvCategoryName.setOnClickListener {
-                itemClickListener.onItemClicked(it,position,element)
+                itemClickListener.onItemClicked(it, position, element)
             }
         }
     }

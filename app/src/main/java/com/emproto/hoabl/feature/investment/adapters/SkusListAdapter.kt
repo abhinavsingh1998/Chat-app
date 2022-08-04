@@ -14,14 +14,15 @@ class SkusListAdapter(
     private val fragment: LandSkusFragment,
     private val list: List<Inventory>,
     val itemClickListener: ItemClickListener
-):RecyclerView.Adapter<SkusListAdapter.SkusListViewHolder>() {
+) : RecyclerView.Adapter<SkusListAdapter.SkusListViewHolder>() {
 
-    private lateinit var onItemClickListener : View.OnClickListener
+    private lateinit var onItemClickListener: View.OnClickListener
 
-    inner class SkusListViewHolder(var binding: ItemLandSkusBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class SkusListViewHolder(var binding: ItemLandSkusBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SkusListViewHolder {
-        val view = ItemLandSkusBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val view = ItemLandSkusBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return SkusListViewHolder(view)
     }
 
@@ -30,14 +31,14 @@ class SkusListAdapter(
         holder.binding.apply {
             btnApplyNow.setOnClickListener {
                 fragment.investmentViewModel.setSku(element)
-                itemClickListener.onItemClicked(it,position,element.id.toString())
+                itemClickListener.onItemClicked(it, position, element.id.toString())
             }
             tvItemLandSkusName.text = element.name
             tvItemLandSkusArea.text = "${element.areaRange?.from} - ${element.areaRange?.to} Sqft"
             val amount = element.priceRange?.from!!.toDouble() / 100000
-            val convertedFromAmount = String.format("%.0f",amount)
+            val convertedFromAmount = String.format("%.0f", amount)
             val amountTo = element.priceRange!!.to.toDouble() / 100000
-            val convertedToAmount = String.format("%.0f",amountTo)
+            val convertedToAmount = String.format("%.0f", amountTo)
             tvItemLandSkusPrice.text = "₹${convertedFromAmount}L - ${convertedToAmount}L"
             tvItemLandSkusDescription.text = element.shortDescription
         }

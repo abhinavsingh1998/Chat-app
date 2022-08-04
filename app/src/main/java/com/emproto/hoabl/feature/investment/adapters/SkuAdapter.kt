@@ -16,7 +16,7 @@ class SkuAdapter(
     private val list: List<Inventory>?,
     private val itemClickListener: ItemClickListener,
     private val investmentViewModel: InvestmentViewModel
-):RecyclerView.Adapter<SkuAdapter.MyViewHolder>() {
+) : RecyclerView.Adapter<SkuAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: ItemSkusBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -30,7 +30,7 @@ class SkuAdapter(
         holder.binding.apply {
             tvProjectName.text = element.name
             val amount = element.priceRange?.from!!.toDouble() / 100000
-            val convertedAmount = String.format("%.0f",amount)
+            val convertedAmount = String.format("%.0f", amount)
             tvStartingAt.text = SpannableStringBuilder()
                 .append("Starting at")
                 .bold { append(" ₹${convertedAmount} L") }
@@ -52,7 +52,7 @@ class SkuAdapter(
 
         holder.binding.tvApply.setOnClickListener {
             investmentViewModel.setSku(element)
-            itemClickListener.onItemClicked(it,position,element.id.toString())
+            itemClickListener.onItemClicked(it, position, element.id.toString())
         }
     }
 

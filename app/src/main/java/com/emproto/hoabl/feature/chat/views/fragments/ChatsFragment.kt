@@ -1,25 +1,19 @@
 package com.emproto.hoabl.feature.chat.views.fragments
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentChatsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.chat.adapter.ChatsAdapter
-import com.emproto.networklayer.response.chats.ChatResponse
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.response.chats.CData
-import com.emproto.networklayer.response.chats.ChatResponse.*
 import com.emproto.networklayer.response.enums.Status
 import java.io.Serializable
 import java.text.SimpleDateFormat

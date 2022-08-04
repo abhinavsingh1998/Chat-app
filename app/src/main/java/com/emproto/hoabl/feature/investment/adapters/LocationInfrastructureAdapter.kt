@@ -21,20 +21,20 @@ class LocationInfrastructureAdapter(
     private var isDistanceAvl: Boolean = false,
     private var distanceList: ArrayList<String>,
     private var selectedItemPos: Int = -1
-):RecyclerView.Adapter<LocationInfrastructureAdapter.MyViewHolder>() {
+) : RecyclerView.Adapter<LocationInfrastructureAdapter.MyViewHolder>() {
 
-//    var selectedItemPos = -1
     var lastItemSelectedPos = -1
 
-    inner class MyViewHolder(var binding: ItemLocationInfrastructureBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class MyViewHolder(var binding: ItemLocationInfrastructureBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(
             view: View,
             position: Int,
             item: Any,
             clickListener: MapItemClickListener
-        ){
+        ) {
             val element = list[position]
-            when(distanceList.size){
+            when (distanceList.size) {
                 0 -> {
 
                 }
@@ -45,8 +45,8 @@ class LocationInfrastructureAdapter(
             }
 
             binding.apply {
-                tvLocationName.text  = element.name
-                when(element.hours){
+                tvLocationName.text = element.name
+                when (element.hours) {
                     "0" -> tvLocationDuration.text = "${element.minutes}mins"
                     else -> tvLocationDuration.text = "${element.hours}hr ${element.minutes}mins"
                 }
@@ -54,47 +54,44 @@ class LocationInfrastructureAdapter(
                     .with(context)
                     .load(element.icon.value.url)
                     .into(ivLocationImage)
-                when(isDistanceAvl){
-                    true ->  tvLocationDistance.visibility = View.VISIBLE
+                when (isDistanceAvl) {
+                    true -> tvLocationDistance.visibility = View.VISIBLE
                 }
             }
-            binding.cvLocationInfrastructureCard.setOnClickListener{
+            binding.cvLocationInfrastructureCard.setOnClickListener {
                 lastItemSelectedPos = selectedItemPos
                 selectedItemPos = adapterPosition
-                if(lastItemSelectedPos == -1)
+                if (lastItemSelectedPos == -1)
                     lastItemSelectedPos = selectedItemPos
                 else {
                     notifyItemChanged(lastItemSelectedPos)
                     lastItemSelectedPos = selectedItemPos
                 }
                 notifyItemChanged(selectedItemPos)
-                itemClickListener.onItemClicked(it,position,element.latitude,element.longitude)
+                itemClickListener.onItemClicked(it, position, element.latitude, element.longitude)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = ItemLocationInfrastructureBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = ItemLocationInfrastructureBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return MyViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        if(position == selectedItemPos) {
+        if (position == selectedItemPos) {
             holder.binding.cvLocationInfrastructureCard.strokeWidth = 2
-            holder.binding.cvLocationInfrastructureCard.strokeColor = ContextCompat.getColor(context,R.color.text_blue_color)
-        }
-        else {
+            holder.binding.cvLocationInfrastructureCard.strokeColor =
+                ContextCompat.getColor(context, R.color.text_blue_color)
+        } else {
             holder.binding.cvLocationInfrastructureCard.strokeWidth = 0
-            holder.binding.cvLocationInfrastructureCard.strokeColor = ContextCompat.getColor(context,R.color.white)
+            holder.binding.cvLocationInfrastructureCard.strokeColor =
+                ContextCompat.getColor(context, R.color.white)
         }
-//        when(isSelectedFromDetail){
-//            true -> {
-//                if(position == selectedItemPos){
-//                    holder.binding.cvLocationInfrastructureCard.strokeWidth = 2
-//                    holder.binding.cvLocationInfrastructureCard.strokeColor = ContextCompat.getColor(context,R.color.text_blue_color)
-//                }
-//            }
-//        }
         holder.bind(holder.itemView, position, list, itemClickListener)
     }
 

@@ -7,12 +7,15 @@ import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.CustomImageLayoutBinding
 import com.emproto.hoabl.model.ViewItem
 
-class InvestmentViewPagerAdapter( private var imageList: List<String>) :  RecyclerView.Adapter<InvestmentViewPagerAdapter.InvestmentViewHolder>() {
+class InvestmentViewPagerAdapter(private var imageList: List<String>) :
+    RecyclerView.Adapter<InvestmentViewPagerAdapter.InvestmentViewHolder>() {
 
-    inner class InvestmentViewHolder(var binding: CustomImageLayoutBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class InvestmentViewHolder(var binding: CustomImageLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InvestmentViewHolder {
-        val view = CustomImageLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view =
+            CustomImageLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return InvestmentViewHolder(view)
     }
 

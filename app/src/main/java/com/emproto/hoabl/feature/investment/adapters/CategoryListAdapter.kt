@@ -51,14 +51,19 @@ class CategoryListAdapter(
                     binding.apply {
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom.toDouble() / 100000
-                        val convertedAmount = amount.toString().replace(".0","")
+                        val convertedAmount = amount.toString().replace(".0", "")
                         tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
                         tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
                         Glide.with(context)
                             .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
                             .into(ivCategoryImage)
-                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
+                        tvRating.text = "${
+                            String.format(
+                                "%.0f",
+                                element.generalInfoEscalationGraph.estimatedAppreciation.toDouble()
+                            )
+                        }%"
                     }
                 }
                 TYPE_FEW_PLOTS -> {
@@ -73,11 +78,16 @@ class CategoryListAdapter(
                     binding.apply {
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom.toDouble() / 100000
-                        val convertedAmount = amount.toString().replace(".0","")
+                        val convertedAmount = amount.toString().replace(".0", "")
                         tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
                         tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
-                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
+                        tvRating.text = "${
+                            String.format(
+                                "%.0f",
+                                element.generalInfoEscalationGraph.estimatedAppreciation.toDouble()
+                            )
+                        }%"
                         Glide.with(context)
                             .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
                             .into(ivCategoryImage)
@@ -95,11 +105,16 @@ class CategoryListAdapter(
                     binding.apply {
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom.toDouble() / 100000
-                        val convertedAmount = amount.toString().replace(".0","")
+                        val convertedAmount = amount.toString().replace(".0", "")
                         tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
                         tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
-                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
+                        tvRating.text = "${
+                            String.format(
+                                "%.0f",
+                                element.generalInfoEscalationGraph.estimatedAppreciation.toDouble()
+                            )
+                        }%"
                         Glide.with(context)
                             .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
                             .into(ivCategoryImage)
@@ -118,11 +133,16 @@ class CategoryListAdapter(
                         tvProjectName.text = element.launchName
                         Log.d("dessrt", element.priceStartingFrom.toString())
                         val amount = element.priceStartingFrom.toDouble() / 100000
-                        val convertedAmount = amount.toString().replace(".0","")
+                        val convertedAmount = amount.toString().replace(".0", "")
                         tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
                         tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
-                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
+                        tvRating.text = "${
+                            String.format(
+                                "%.0f",
+                                element.generalInfoEscalationGraph.estimatedAppreciation.toDouble()
+                            )
+                        }%"
                         Glide.with(context)
                             .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
                             .into(ivCategoryImage)
@@ -140,11 +160,16 @@ class CategoryListAdapter(
                     binding.apply {
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom.toDouble() / 100000
-                        val convertedAmount = amount.toString().replace(".0","")
+                        val convertedAmount = amount.toString().replace(".0", "")
                         tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
                         tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
-                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
+                        tvRating.text = "${
+                            String.format(
+                                "%.0f",
+                                element.generalInfoEscalationGraph.estimatedAppreciation.toDouble()
+                            )
+                        }%"
                         Glide.with(context)
                             .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
                             .into(ivCategoryImage)
@@ -162,7 +187,7 @@ class CategoryListAdapter(
                     binding.apply {
                         tvProjectName.text = element.project.launchName
                         val amount = element.project.priceStartingFrom.toDouble() / 100000
-                        val convertedAmount = amount.toString().replace(".0","")
+                        val convertedAmount = amount.toString().replace(".0", "")
                         tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
                         tvCategoryArea.text = element.project.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.project.shortDescription
@@ -184,11 +209,16 @@ class CategoryListAdapter(
                     binding.apply {
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom.toDouble() / 100000
-                        val convertedAmount = amount.toString().replace(".0","")
+                        val convertedAmount = amount.toString().replace(".0", "")
                         tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
                         tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
-                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
+                        tvRating.text = "${
+                            String.format(
+                                "%.0f",
+                                element.generalInfoEscalationGraph.estimatedAppreciation.toDouble()
+                            )
+                        }%"
                         Glide.with(context)
                             .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
                             .into(ivCategoryImage)
@@ -196,7 +226,8 @@ class CategoryListAdapter(
                 }
 
                 SIMILAR_INVESTMENT_NI -> {
-                    val element = list[position] as com.emproto.networklayer.response.investment.SimilarInvestment
+                    val element =
+                        list[position] as com.emproto.networklayer.response.investment.SimilarInvestment
                     binding.cvCategoryOuterCard.setOnClickListener {
                         clickListener.onItemClicked(view, 0, element.id.toString())
                     }
@@ -207,11 +238,16 @@ class CategoryListAdapter(
                     binding.apply {
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom!!.toDouble() / 100000
-                        val convertedAmount = amount.toString().replace(".0","")
+                        val convertedAmount = amount.toString().replace(".0", "")
                         tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
                         tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
-                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph?.estimatedAppreciation!!.toDouble())}%"
+                        tvRating.text = "${
+                            String.format(
+                                "%.0f",
+                                element.generalInfoEscalationGraph?.estimatedAppreciation!!.toDouble()
+                            )
+                        }%"
                         Glide.with(context)
                             .load(element.projectCoverImages?.collectionListViewPageMedia?.value?.url)
                             .into(ivCategoryImage)
@@ -219,7 +255,8 @@ class CategoryListAdapter(
                 }
 
                 SIMILAR_INVESTMENT_NI -> {
-                    val element = list[position] as com.emproto.networklayer.response.investment.SimilarInvestment
+                    val element =
+                        list[position] as com.emproto.networklayer.response.investment.SimilarInvestment
                     binding.cvCategoryOuterCard.setOnClickListener {
                         clickListener.onItemClicked(view, 0, element.id.toString())
                     }
@@ -232,7 +269,12 @@ class CategoryListAdapter(
                         tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
                         tvCategoryArea.text = element.areaStartingFrom + " Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
-                        tvRating.text = "${String.format("%.0f",element.generalInfoEscalationGraph?.estimatedAppreciation!!.toDouble())}%"
+                        tvRating.text = "${
+                            String.format(
+                                "%.0f",
+                                element.generalInfoEscalationGraph?.estimatedAppreciation!!.toDouble()
+                            )
+                        }%"
                         Glide.with(context)
                             .load(element.projectCoverImages?.collectionListViewPageMedia?.value?.url)
                             .into(ivCategoryImage)
@@ -250,11 +292,12 @@ class CategoryListAdapter(
                     binding.apply {
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom.toDouble() / 100000
-                        val convertedAmount = amount.toString().replace(".0","")
+                        val convertedAmount = amount.toString().replace(".0", "")
                         tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
                         tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
-                        tvRating.text = "${String.format("%.0f",element.estimatedAppreciation.toDouble())}%"
+                        tvRating.text =
+                            "${String.format("%.0f", element.estimatedAppreciation.toDouble())}%"
                         Glide.with(context)
                             .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
                             .into(ivCategoryImage)

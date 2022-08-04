@@ -10,16 +10,19 @@ import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.Inventory
 
-class SkusListAppliedAdapter(private val fragment: LandSkusFragment, private val list: List<Inventory>,
-                             val itemClickListener: ItemClickListener
-):RecyclerView.Adapter<SkusListAppliedAdapter.SkusListAppliedViewHolder>() {
+class SkusListAppliedAdapter(
+    private val fragment: LandSkusFragment, private val list: List<Inventory>,
+    val itemClickListener: ItemClickListener
+) : RecyclerView.Adapter<SkusListAppliedAdapter.SkusListAppliedViewHolder>() {
 
-    private lateinit var onItemClickListener : View.OnClickListener
+    private lateinit var onItemClickListener: View.OnClickListener
 
-    inner class SkusListAppliedViewHolder(var binding: ItemLandSkusAppliedBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class SkusListAppliedViewHolder(var binding: ItemLandSkusAppliedBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SkusListAppliedViewHolder {
-        val view = ItemLandSkusAppliedBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val view =
+            ItemLandSkusAppliedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return SkusListAppliedViewHolder(view)
     }
 
@@ -29,9 +32,9 @@ class SkusListAppliedAdapter(private val fragment: LandSkusFragment, private val
             tvItemLandSkusName.text = element.name
             tvItemLandSkusArea.text = "${element.areaRange?.from} - ${element.areaRange?.to} Sqft"
             val amount = element.priceRange?.from!!.toDouble() / 100000
-            val convertedFromAmount = String.format("%.0f",amount)
+            val convertedFromAmount = String.format("%.0f", amount)
             val amountTo = element.priceRange?.to!!.toDouble() / 100000
-            val convertedToAmount = String.format("%.0f",amountTo)
+            val convertedToAmount = String.format("%.0f", amountTo)
             tvItemLandSkusPrice.text = "₹${convertedFromAmount}L - ${convertedToAmount}L"
             tvItemLandSkusDescription.text = element.shortDescription
         }

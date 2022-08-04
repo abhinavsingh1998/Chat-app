@@ -18,11 +18,18 @@ import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.google.android.material.textview.MaterialTextView
 
-class ConfirmationDialog(private val investmentViewModel: InvestmentViewModel, private val itemClickListener: ItemClickListener,) :DialogFragment(),View.OnClickListener {
+class ConfirmationDialog(
+    private val investmentViewModel: InvestmentViewModel,
+    private val itemClickListener: ItemClickListener,
+) : DialogFragment(), View.OnClickListener {
 
     lateinit var binding: ApplyConfirmationDialogBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = ApplyConfirmationDialogBinding.inflate(layoutInflater)
         dialog?.window?.setBackgroundDrawableResource(R.drawable.all_corner_radius_white_bg)
         return binding.root
@@ -39,16 +46,16 @@ class ConfirmationDialog(private val investmentViewModel: InvestmentViewModel, p
                 binding.apply {
                     tvItemLandSkusName.text = data.name
                     val amount = it.priceRange?.from!!.toDouble() / 100000
-                    val convertedFromAmount = String.format("%.0f",amount)
+                    val convertedFromAmount = String.format("%.0f", amount)
                     val amountTo = it.priceRange?.to!!.toDouble() / 100000
-                    val convertedToAmount = String.format("%.0f",amountTo)
+                    val convertedToAmount = String.format("%.0f", amountTo)
                     tvItemLandSkusArea.text = "${data.areaRange?.from} - ${data.areaRange?.to} Sqft"
                     tvItemLandSkusPrice.text = "₹${convertedFromAmount}L - ${convertedToAmount}L"
                     tvItemLandSkusDescription.text = data.shortDescription
                 }
-                binding.tvYesText.setOnClickListener{ view ->
+                binding.tvYesText.setOnClickListener { view ->
                     dialog?.dismiss()
-                    data.id?.let { it1 -> itemClickListener.onItemClicked(view, it1,"Yes") }
+                    data.id?.let { it1 -> itemClickListener.onItemClicked(view, it1, "Yes") }
                 }
                 binding.tvNoText.setOnClickListener(this)
             }
@@ -62,13 +69,8 @@ class ConfirmationDialog(private val investmentViewModel: InvestmentViewModel, p
         dialog!!.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
-    override fun onClick(v:View) {
-        when(v.id){
-//            R.id.tv_yes_text -> {
-//                dialog?.dismiss()
-//                val applicationSubmitDialog = ApplicationSubmitDialog("Thank you for your interest!","Our Project Manager will reach out to you in 24 hours!")
-//                applicationSubmitDialog.show(parentFragmentManager,"ApplicationSubmitDialog")
-//            }
+    override fun onClick(v: View) {
+        when (v.id) {
             R.id.tv_no_text -> {
                 dialog?.dismiss()
             }
