@@ -9,8 +9,8 @@ import com.emproto.hoabl.feature.investment.views.mediagallery.PhotosFragment
 import com.emproto.hoabl.feature.investment.views.mediagallery.ThreeSixtyFragment
 import com.emproto.hoabl.feature.investment.views.mediagallery.VideosFragment
 
-class MediaViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle)
-    :FragmentStateAdapter(fragmentManager,lifecycle) {
+class MediaViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
+    FragmentStateAdapter(fragmentManager, lifecycle) {
 
     companion object {
         const val NUM_TABS = 4
@@ -21,14 +21,11 @@ class MediaViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecyc
     }
 
     override fun createFragment(position: Int): Fragment {
-        return when(position){
+        return when (position) {
             0 -> PhotosFragment()
             1 -> VideosFragment()
             2 -> DroneFragment()
             else -> ThreeSixtyFragment()
         }
     }
-
-
-
 }

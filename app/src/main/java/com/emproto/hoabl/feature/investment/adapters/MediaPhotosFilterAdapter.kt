@@ -6,12 +6,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemPhotosFilterBinding
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 
-class MediaPhotosFilterAdapter(private val itemList:List<String>):RecyclerView.Adapter<MediaPhotosFilterAdapter.MyViewHolder>() {
+class MediaPhotosFilterAdapter(private val itemList: List<String>) :
+    RecyclerView.Adapter<MediaPhotosFilterAdapter.MyViewHolder>() {
 
-    inner class MyViewHolder(var binding: ItemPhotosFilterBinding) : RecyclerView.ViewHolder(binding.getRoot())
+    inner class MyViewHolder(var binding: ItemPhotosFilterBinding) :
+        RecyclerView.ViewHolder(binding.getRoot())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = ItemPhotosFilterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view =
+            ItemPhotosFilterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(view)
     }
 

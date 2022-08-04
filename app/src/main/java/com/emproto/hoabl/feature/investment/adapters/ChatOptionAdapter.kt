@@ -35,7 +35,7 @@ class ChatOptionAdapter(
         holder.tvOption.text = option[position].text
 
         holder.tvOption.setOnClickListener {
-            optionListener.onOptionClick(option[position], it, position,conversationId)
+            optionListener.onOptionClick(option[position], it, position, conversationId)
         }
     }
 
@@ -44,10 +44,7 @@ class ChatOptionAdapter(
     }
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-
         var tvOption = itemView.findViewById<TextView>(R.id.tvOption)
-//        var clOption = itemView.findViewById<ConstraintLayout>(R.id.clOption)
-
     }
 
 }

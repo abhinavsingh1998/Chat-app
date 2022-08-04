@@ -16,9 +16,10 @@ class PromisesAdapter(
     private val list: List<PmData>,
     private val itemClickListener: ItemClickListener,
     private val context: Context
-):RecyclerView.Adapter<PromisesAdapter.MyViewHolder>() {
+) : RecyclerView.Adapter<PromisesAdapter.MyViewHolder>() {
 
-    inner class MyViewHolder(var binding: ItemPromisesBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class MyViewHolder(var binding: ItemPromisesBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = ItemPromisesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -37,7 +38,7 @@ class PromisesAdapter(
 
         }
         holder.binding.itemCard.setOnClickListener {
-            itemClickListener.onItemClicked(it,position,element.id.toString())
+            itemClickListener.onItemClicked(it, position, element.id.toString())
         }
     }
 

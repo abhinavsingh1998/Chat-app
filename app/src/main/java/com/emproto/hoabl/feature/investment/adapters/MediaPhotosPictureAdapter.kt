@@ -15,19 +15,33 @@ import com.emproto.hoabl.utils.MediaItemClickListener
 import com.emproto.hoabl.utils.OnRecyclerViewItemClickListener
 import com.emproto.networklayer.response.investment.Image
 
-class MediaPhotosPictureAdapter(private val context: Context, private val itemClickListener: MediaItemClickListener, private val itemList: List<MediaViewItem>):RecyclerView.Adapter<MediaPhotosPictureAdapter.ViewHolder>() {
+class MediaPhotosPictureAdapter(
+    private val context: Context,
+    private val itemClickListener: MediaItemClickListener,
+    private val itemList: List<MediaViewItem>
+) : RecyclerView.Adapter<MediaPhotosPictureAdapter.ViewHolder>() {
 
-    inner class ViewHolder(var binding: ItemPhotosMediaLayoutBinding) : RecyclerView.ViewHolder(binding.root){
-        val image:ImageView = itemView.findViewById(R.id.iv_media_photo)
-        fun bind(view:View,position:Int,item:MediaViewItem,clickListener: MediaItemClickListener){
-            itemView.setOnClickListener{
-                clickListener.onItemClicked(view,position,item)
+    inner class ViewHolder(var binding: ItemPhotosMediaLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val image: ImageView = itemView.findViewById(R.id.iv_media_photo)
+        fun bind(
+            view: View,
+            position: Int,
+            item: MediaViewItem,
+            clickListener: MediaItemClickListener
+        ) {
+            itemView.setOnClickListener {
+                clickListener.onItemClicked(view, position, item)
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MediaPhotosPictureAdapter.ViewHolder {
-        val view = ItemPhotosMediaLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): MediaPhotosPictureAdapter.ViewHolder {
+        val view =
+            ItemPhotosMediaLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
     }
 
@@ -37,14 +51,9 @@ class MediaPhotosPictureAdapter(private val context: Context, private val itemCl
             .load(element.media)
             .into(holder.image)
         holder.binding.tvImageName.text = element.name
-        holder.bind(holder.itemView,position,element,itemClickListener)
+        holder.bind(holder.itemView, position, element, itemClickListener)
     }
 
     override fun getItemCount(): Int = itemList.size
-
-//    fun setMediaPhotoItemClickListener(clickListener: View.OnClickListener) {
-//        onItemClickListener = clickListener
-//    }
-
 
 }

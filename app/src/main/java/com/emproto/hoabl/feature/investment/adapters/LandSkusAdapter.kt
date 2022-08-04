@@ -21,7 +21,7 @@ class LandSkusAdapter(
     val itemClickListener: ItemClickListener,
     val title: String,
     val subtitle: String
-):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val LAND_SKUS_VIEW_TYPE_ONE = 1
@@ -31,21 +31,45 @@ class LandSkusAdapter(
 
     private lateinit var skusListAdapter: SkusListAdapter
     private lateinit var skusListAppliedAdapter: SkusListAppliedAdapter
-    private lateinit var onItemClickListener : View.OnClickListener
+    private lateinit var onItemClickListener: View.OnClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when(viewType){
-            LAND_SKUS_VIEW_TYPE_ONE -> LandSkusAvailableViewHolder(LandSkusTopLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
-            LAND_SKUS_VIEW_TYPE_TWO -> LandSkusAppliedViewHolder(LandSkusAppliedLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
-            else -> LandSkusNotConvincedViewHolder(NotConvincedLayoutBlackBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return when (viewType) {
+            LAND_SKUS_VIEW_TYPE_ONE -> LandSkusAvailableViewHolder(
+                LandSkusTopLayoutBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            LAND_SKUS_VIEW_TYPE_TWO -> LandSkusAppliedViewHolder(
+                LandSkusAppliedLayoutBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            else -> LandSkusNotConvincedViewHolder(
+                NotConvincedLayoutBlackBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(list[position].viewType){
-            LAND_SKUS_VIEW_TYPE_ONE -> { (holder as LandSkusAvailableViewHolder).bind(position)}
-            LAND_SKUS_VIEW_TYPE_TWO -> { (holder as LandSkusAppliedViewHolder).bind(position)}
-            LAND_SKUS_VIEW_TYPE_THREE -> { (holder as LandSkusNotConvincedViewHolder).bind(position)}
+        when (list[position].viewType) {
+            LAND_SKUS_VIEW_TYPE_ONE -> {
+                (holder as LandSkusAvailableViewHolder).bind(position)
+            }
+            LAND_SKUS_VIEW_TYPE_TWO -> {
+                (holder as LandSkusAppliedViewHolder).bind(position)
+            }
+            LAND_SKUS_VIEW_TYPE_THREE -> {
+                (holder as LandSkusNotConvincedViewHolder).bind(position)
+            }
         }
     }
 
@@ -55,26 +79,30 @@ class LandSkusAdapter(
         return list[position].viewType
     }
 
-    private inner class LandSkusAvailableViewHolder(val binding: LandSkusTopLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
+    private inner class LandSkusAvailableViewHolder(val binding: LandSkusTopLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
             binding.tvLandSkusTitle.text = "${title} (${notAppliedList.size})"
             binding.tvLandSkusSubtitle.text = subtitle
-            skusListAdapter = SkusListAdapter(fragment,notAppliedList,itemClickListener)
+            skusListAdapter = SkusListAdapter(fragment, notAppliedList, itemClickListener)
             binding.rvLandSkusItems.adapter = skusListAdapter
             skusListAdapter.setSkusListItemClickListener(fragment.onLandSkusItemClickListener)
         }
     }
 
-    private inner class LandSkusAppliedViewHolder(val binding: LandSkusAppliedLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
-            val list = arrayListOf<String>("1","2")
-            skusListAppliedAdapter = SkusListAppliedAdapter(fragment,appliedList,itemClickListener)
+    private inner class LandSkusAppliedViewHolder(val binding: LandSkusAppliedLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
+            val list = arrayListOf<String>("1", "2")
+            skusListAppliedAdapter =
+                SkusListAppliedAdapter(fragment, appliedList, itemClickListener)
             binding.rvLandSkusItemsApplied.adapter = skusListAppliedAdapter
         }
     }
 
-    private inner class LandSkusNotConvincedViewHolder(val binding: NotConvincedLayoutBlackBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
+    private inner class LandSkusNotConvincedViewHolder(val binding: NotConvincedLayoutBlackBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
             binding.clNotConvinced.setOnClickListener(onItemClickListener)
         }
     }

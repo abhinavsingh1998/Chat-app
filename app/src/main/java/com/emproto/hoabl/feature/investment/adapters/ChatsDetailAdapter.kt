@@ -27,10 +27,6 @@ class ChatsDetailAdapter(
     lateinit var binding: ItemChatDetailBinding
     lateinit var bindingSender: ItemChatSenderMessageBinding
 
-//    private var c: Calendar? = null
-//    private var sdf: SimpleDateFormat? = null
-//    private var timeT: String? = null
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         if (viewType == R.layout.item_chat_detail) {
             binding =
@@ -67,19 +63,15 @@ class ChatsDetailAdapter(
 
     class SenderViewHolder(ItemView: View) : BaseViewHolder(ItemView) {
         var tvSentMessage = itemView.findViewById<TextView>(R.id.tvSentMessage)
-        var tvChatSendTime=itemView.findViewById<TextView>(R.id.tvChatSendTime)
+        var tvChatSendTime = itemView.findViewById<TextView>(R.id.tvChatSendTime)
     }
 
     abstract class BaseViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {}
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         if (holder is ReceiverViewHolder) {
-//            c = Calendar.getInstance()
-//            sdf = SimpleDateFormat("h:mm a")
-//            timeT= sdf!!.format(c!!.time)
             holder.tvMessage.text = chatDetailList[position].message
             holder.tvTime.text = chatDetailList[position].time
-            Log.i("time", chatDetailList[position].time.toString())
             if (chatDetailList[position].option.isNullOrEmpty()) {
                 holder.rvOptions.visibility = View.GONE
             } else {
@@ -87,7 +79,12 @@ class ChatsDetailAdapter(
                 holder.rvOptions.layoutManager =
                     LinearLayoutManager(mContext, RecyclerView.VERTICAL, false)
                 holder.rvOptions.adapter =
-                    ChatOptionAdapter(mContext, chatDetailList[position].option!!,chatDetailList[position].conversationId, mListener)
+                    ChatOptionAdapter(
+                        mContext,
+                        chatDetailList[position].option!!,
+                        chatDetailList[position].conversationId,
+                        mListener
+                    )
 
             }
         } else if (holder is SenderViewHolder) {
@@ -103,6 +100,6 @@ interface OnOptionClickListener {
         option: Option,
         view: View,
         position: Int,
-        conversationId:Int
+        conversationId: Int
     )
 }

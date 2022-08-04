@@ -19,9 +19,9 @@ class MediaPhotosAdapter(
     private val clickListener: MediaItemClickListener,
     private val mediaData: List<MediaViewItem>,
     private val youtubeItemClickListener: YoutubeItemClickListener
-):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    companion object{
+    companion object {
         const val PHOTOS_VIEW_TYPE_ONE = 1
         const val PHOTOS_VIEW_TYPE_TWO = 2
     }
@@ -31,14 +31,26 @@ class MediaPhotosAdapter(
     private lateinit var mediaItemVideosAdapter: MediaItemVideosAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when(viewType){
-            PHOTOS_VIEW_TYPE_ONE -> FilterViewHolder(MediaPhotosFilterLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
-            else -> PhotoViewHolder(MediaPhotosPictureLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return when (viewType) {
+            PHOTOS_VIEW_TYPE_ONE -> FilterViewHolder(
+                MediaPhotosFilterLayoutBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            else -> PhotoViewHolder(
+                MediaPhotosPictureLayoutBinding.inflate(
+                    LayoutInflater.from(
+                        parent.context
+                    ), parent, false
+                )
+            )
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(itemList[position].viewType){
+        when (itemList[position].viewType) {
             PHOTOS_VIEW_TYPE_ONE -> (holder as FilterViewHolder).bind(position)
             PHOTOS_VIEW_TYPE_TWO -> (holder as PhotoViewHolder).bind(position)
         }
@@ -46,27 +58,40 @@ class MediaPhotosAdapter(
 
     override fun getItemCount(): Int = itemList.size
 
-    private inner class FilterViewHolder(val binding: MediaPhotosFilterLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
-            val list = arrayListOf<String>("All Photos","Plots","Roads","Amenities","Hospitals","Swimming pools","Transport","HeliPad")
+    private inner class FilterViewHolder(val binding: MediaPhotosFilterLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
+            val list = arrayListOf<String>(
+                "All Photos",
+                "Plots",
+                "Roads",
+                "Amenities",
+                "Hospitals",
+                "Swimming pools",
+                "Transport",
+                "HeliPad"
+            )
             mediaPhotosFilterAdapter = MediaPhotosFilterAdapter(list)
             binding.rvFilterPhotos.adapter = mediaPhotosFilterAdapter
         }
     }
 
-    private inner class PhotoViewHolder(val binding:MediaPhotosPictureLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int){
-            when(itemList[position].type){
+    private inner class PhotoViewHolder(val binding: MediaPhotosPictureLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
+            when (itemList[position].type) {
                 "Photos" -> {
                     val imageList = mediaData
-                    mediaPhotosPictureAdapter = MediaPhotosPictureAdapter(context,clickListener,imageList)
-                    val gridLayoutManager = GridLayoutManager(context,2)
+                    mediaPhotosPictureAdapter =
+                        MediaPhotosPictureAdapter(context, clickListener, imageList)
+                    val gridLayoutManager = GridLayoutManager(context, 2)
                     binding.rvPhotos.layoutManager = gridLayoutManager
                     binding.rvPhotos.adapter = mediaPhotosPictureAdapter
                 }
                 "Videos" -> {
                     val videoList = mediaData
-                    mediaItemVideosAdapter = MediaItemVideosAdapter(context,youtubeItemClickListener,videoList)
+                    mediaItemVideosAdapter =
+                        MediaItemVideosAdapter(context, youtubeItemClickListener, videoList)
                     val linearLayoutManager = LinearLayoutManager(context)
                     binding.rvPhotos.layoutManager = linearLayoutManager
                     binding.rvPhotos.adapter = mediaItemVideosAdapter

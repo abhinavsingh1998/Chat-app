@@ -28,19 +28,6 @@ class OpportunityDocsFragment:BaseFragment() {
     private var projectId = 0
     private var isFromProjectAmenities = false
 
-    val onItemClickListener =
-        View.OnClickListener { view ->
-            when(view.id){
-                R.id.tv_apply_now -> {
-                    val fragment = LandSkusFragment()
-                    val bundle = Bundle()
-                    bundle.putInt("ProjectId", projectId)
-                    fragment.arguments = bundle
-                    (requireActivity() as HomeActivity).addFragment(fragment, true)
-                }
-            }
-        }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentOpportunityDocsBinding.inflate(layoutInflater)
         arguments.let {
@@ -123,5 +110,17 @@ class OpportunityDocsFragment:BaseFragment() {
         })
     }
 
+    val onItemClickListener =
+        View.OnClickListener { view ->
+            when(view.id){
+                R.id.tv_apply_now -> {
+                    val fragment = LandSkusFragment()
+                    val bundle = Bundle()
+                    bundle.putInt("ProjectId", projectId)
+                    fragment.arguments = bundle
+                    (requireActivity() as HomeActivity).addFragment(fragment, true)
+                }
+            }
+        }
 
 }

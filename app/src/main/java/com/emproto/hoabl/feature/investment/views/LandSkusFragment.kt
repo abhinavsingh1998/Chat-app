@@ -39,19 +39,6 @@ class LandSkusFragment:BaseFragment() {
     private var title = ""
     private var subtitle = ""
 
-    val onLandSkusItemClickListener =
-        View.OnClickListener { view ->
-            when (view.id) {
-                R.id.btn_apply_now -> {
-                    val confirmationDialog = ConfirmationDialog(investmentViewModel,itemClickListener)
-                    confirmationDialog.show(this.parentFragmentManager,"ConfirmationDialog")
-                }
-                R.id.cl_not_convinced -> {
-                    callVideoCallApi()
-                }
-            }
-        }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View{
         binding = FragmentLandSkusBinding.inflate(layoutInflater)
         arguments?.let {
@@ -203,4 +190,17 @@ class LandSkusFragment:BaseFragment() {
             }
         })
     }
+
+    val onLandSkusItemClickListener =
+        View.OnClickListener { view ->
+            when (view.id) {
+                R.id.btn_apply_now -> {
+                    val confirmationDialog = ConfirmationDialog(investmentViewModel,itemClickListener)
+                    confirmationDialog.show(this.parentFragmentManager,"ConfirmationDialog")
+                }
+                R.id.cl_not_convinced -> {
+                    callVideoCallApi()
+                }
+            }
+        }
 }

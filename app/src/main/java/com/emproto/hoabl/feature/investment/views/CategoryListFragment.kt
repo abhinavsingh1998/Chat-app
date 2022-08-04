@@ -26,12 +26,7 @@ class CategoryListFragment() : BaseFragment() {
     lateinit var investmentViewModel: InvestmentViewModel
     private lateinit var binding: FragmentCategoryListBinding
     private lateinit var categoryListAdapter: CategoryListAdapter
-    private lateinit var sDList: List<PageManagementsOrCollectionOneModel>
-    private lateinit var tPList: List<PageManagementsOrCollectionTwoModel>
-    private lateinit var nLList: List<PageManagementsOrNewInvestment>
-    private lateinit var aPList: List<ApData>
     private var type: String? = ""
-    private lateinit var allList:ArrayList<com.emproto.networklayer.response.home.PageManagementsOrNewInvestment>
 
 
     override fun onCreateView(

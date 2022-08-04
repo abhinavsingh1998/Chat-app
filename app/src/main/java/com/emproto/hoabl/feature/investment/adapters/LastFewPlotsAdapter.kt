@@ -13,7 +13,11 @@ import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
 
-class LastFewPlotsAdapter(val context: Context, val list: List<PageManagementsOrCollectionOneModel>,private val itemClickListener: ItemClickListener) : RecyclerView.Adapter<LastFewPlotsAdapter.MyViewHolder>() {
+class LastFewPlotsAdapter(
+    val context: Context,
+    val list: List<PageManagementsOrCollectionOneModel>,
+    private val itemClickListener: ItemClickListener
+) : RecyclerView.Adapter<LastFewPlotsAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = ItemSmartDealsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -27,18 +31,15 @@ class LastFewPlotsAdapter(val context: Context, val list: List<PageManagementsOr
             tvItemLocation.text = "${element.address.city}, ${element.address.state}"
             tvItemLocationInfo.text = element.shortDescription
             val amount = element.priceStartingFrom.toDouble() / 100000
-            val convertedAmount = amount.toString().replace(".0","")
+            val convertedAmount = amount.toString().replace(".0", "")
             tvItemAmount.text = SpannableStringBuilder()
                 .bold { append("₹${convertedAmount} L") }
                 .append(" Onwards")
-//            tvItemAmount.text = "₹${convertedAmount} L" + " Onwards"
-            tvRating.text = "${String.format(" % .0f",element.generalInfoEscalationGraph.estimatedAppreciation)}%"
-//            tvNoViews.text = Utility.coolFormat(element.fomoContent.noOfViews.toDouble(),0)
+            tvRating.text = "${String.format(" % .0f", element.generalInfoEscalationGraph.estimatedAppreciation)}%"
             tvNoViews.text = element.fomoContent.noOfViews.toString()
             tvItemArea.text = SpannableStringBuilder()
                 .bold { append("${element.areaStartingFrom} Sqft") }
                 .append(" Onwards")
-//            tvItemArea.text = "${element.areaStartingFrom} Sqft" + " Onwards"
             Glide.with(context)
                 .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
                 .into(holder.binding.ivItemImage)
@@ -61,18 +62,13 @@ class LastFewPlotsAdapter(val context: Context, val list: List<PageManagementsOr
         holder.binding.clItemInfo.setOnClickListener {
             itemClickListener.onItemClicked(it, 4, element.id.toString())
         }
-//        when(holder.absoluteAdapterPosition){
-//            1 -> {
-//                holder.binding.cvDurationView.visibility = View.VISIBLE
-//                holder.binding.tvDuration.text = "${element.fomoContent.targetTime.hours}:${element.fomoContent.targetTime.minutes}:${element.fomoContent.targetTime.seconds} Hrs Left"
-//            }
-//        }
     }
 
     override fun getItemCount(): Int {
         return list.size
     }
 
-    inner class MyViewHolder(var binding: ItemSmartDealsBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class MyViewHolder(var binding: ItemSmartDealsBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
 }

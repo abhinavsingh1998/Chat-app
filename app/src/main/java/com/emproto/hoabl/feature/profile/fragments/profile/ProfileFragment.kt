@@ -54,7 +54,6 @@ class ProfileFragment : BaseFragment() {
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
     private lateinit var logoutDialog: Dialog
-    //lateinit var securePinDialog: CustomDialog
 
     val bundle = Bundle()
 
@@ -95,10 +94,8 @@ class ProfileFragment : BaseFragment() {
                     binding.progressBaar.show()
                 }
                 Status.SUCCESS -> {
-                    Log.i("Data Check", it.data.toString())
                     binding.progressBaar.hide()
                     if (it.data != null) {
-                        Log.i("Data", it.data.toString())
                         it.data?.let {
                             profileData = it.data
                             isWhatsappConsent = it.data.whatsappConsent

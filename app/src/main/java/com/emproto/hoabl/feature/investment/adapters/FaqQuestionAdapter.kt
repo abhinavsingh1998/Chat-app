@@ -12,11 +12,13 @@ import com.emproto.networklayer.response.investment.ProjectContentsAndFaq
 class FaqQuestionAdapter(
     private val list: List<ProjectContentsAndFaq>,
     private val itemClickListener: ItemClickListener
-):RecyclerView.Adapter<FaqQuestionAdapter.FaqViewHolder>() {
-    inner class FaqViewHolder(var binding: ItemFaqQuestionBinding) : RecyclerView.ViewHolder(binding.root)
+) : RecyclerView.Adapter<FaqQuestionAdapter.FaqViewHolder>() {
+    inner class FaqViewHolder(var binding: ItemFaqQuestionBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FaqViewHolder {
-        val view = ItemFaqQuestionBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val view =
+            ItemFaqQuestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FaqViewHolder(view)
     }
 
@@ -24,8 +26,8 @@ class FaqQuestionAdapter(
         val element = list[position]
         holder.binding.apply {
             tvFaqQuestion.text = element.frequentlyAskedQuestion.faqQuestion.question
-            cvFaqCard.setOnClickListener{
-                itemClickListener.onItemClicked(it,position,element.faqId.toString())
+            cvFaqCard.setOnClickListener {
+                itemClickListener.onItemClicked(it, position, element.faqId.toString())
             }
         }
     }

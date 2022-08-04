@@ -31,12 +31,11 @@ class InvestmentAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val element = list[position]
         holder.binding.apply {
-//            tvNoViews.text = Utility.coolFormat(element.fomoContent.noOfViews.toDouble(),0)
             tvNoViews.text = element.fomoContent.noOfViews.toString()
             tvItemLocationName.text = element.launchName
             tvItemLocation.text = "${element.address?.city}, ${element.address?.state}"
             val amount = element.priceStartingFrom!!.toDouble() / 100000
-            val convertedAmount = amount.toString().replace(".0","")
+            val convertedAmount = amount.toString().replace(".0", "")
             tvItemAmount.text = SpannableStringBuilder()
                 .bold { append("₹${convertedAmount} L") }
                 .append(" Onwards")
@@ -71,6 +70,7 @@ class InvestmentAdapter(
         return list.size
     }
 
-    inner class MyViewHolder(var binding: ItemSmartDealsBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class MyViewHolder(var binding: ItemSmartDealsBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
 }
