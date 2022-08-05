@@ -189,14 +189,12 @@ class HomeAdapter(
         @SuppressLint("SetTextI18n")
         fun bind(position: Int) {
 
-            if (data.contactType == 225360002) {
-                if (data.portfolioData.investmentCount > 0) {
-                    binding.portfolioCard.isVisible == true
-                    presenting = false
-                } else {
-                    binding.portfolioCard.isVisible == false
-                    presenting = true
-                }
+            if (data.contactType == 225360002 && data.portfolioData.investmentCount > 0) {
+                binding.nestedCard?.isVisible= true
+                presenting = false
+            } else {
+                binding.nestedCard?.isVisible= false
+                presenting = true
             }
             binding.contentTxt1.text = data?.portfolioData?.investmentCount?.toString()
             binding.contentTxt2.text = data?.portfolioData?.totalAreaSqFt?.toString()

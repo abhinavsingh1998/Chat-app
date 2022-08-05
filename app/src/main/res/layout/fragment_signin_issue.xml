@@ -83,7 +83,7 @@
                         android:id="@+id/issue_one"
                         style="@style/text_style_lightgrey_14"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:fontFamily="@font/jost_regular"
                         android:text="Unable to enter phone number"
                         android:textColor="@drawable/text_color_selector" />
@@ -92,7 +92,7 @@
                         android:id="@+id/issue_two"
                         style="@style/text_style_lightgrey_14"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:fontFamily="@font/jost_regular"
                         android:text="Unable to change country code"
                         android:textColor="@drawable/text_color_selector" />
@@ -101,7 +101,7 @@
                         android:id="@+id/issue_three"
                         style="@style/text_style_lightgrey_14"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:fontFamily="@font/jost_regular"
                         android:text="Did not get OTP"
                         android:textColor="@drawable/text_color_selector" />
@@ -110,7 +110,7 @@
                         android:id="@+id/issue_four"
                         style="@style/text_style_lightgrey_14"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:fontFamily="@font/jost_regular"
                         android:text="OTP Expired"
                         android:textColor="@drawable/text_color_selector" />
@@ -119,7 +119,7 @@
                         android:id="@+id/issue_five"
                         style="@style/text_style_lightgrey_14"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:fontFamily="@font/jost_regular"
                         android:text="Number Blocked"
                         android:textColor="@drawable/text_color_selector" />
@@ -128,7 +128,7 @@
                         android:id="@+id/issue_six"
                         style="@style/text_style_lightgrey_14"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:fontFamily="@font/jost_regular"
                         android:text="My issue is not listed"
                         android:textColor="@drawable/text_color_selector" />
@@ -137,7 +137,7 @@
                         android:id="@+id/issue_seven"
                         style="@style/text_style_lightgrey_14"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:fontFamily="@font/jost_regular"
                         android:text="Others"
                         android:textColor="@drawable/text_color_selector" />
@@ -149,9 +149,8 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="127dp"
-                    android:layout_marginLeft="@dimen/margin_size_16"
-                    android:layout_marginTop="@dimen/margin_size_10"
-                    android:layout_marginRight="@dimen/margin_size_28"
+                    android:layout_marginTop="@dimen/margin_size_15"
+                    android:layout_marginHorizontal="@dimen/margin_size_28"
                     app:boxStrokeColor="@color/app_color"
                     app:boxStrokeWidthFocused="0.8dp"
                     app:hintEnabled="false"
