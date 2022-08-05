@@ -300,7 +300,6 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                         when {
                             chatDetailList != null -> {
                                 for (i in chatDetailList!!.autoChat.chatJSON.chatBody.indices) {
-
                                     if (option.optionNumber == chatDetailList!!.autoChat.chatJSON.chatBody[i].linkedOption) {
                                         getTime()
                                         newChatMessageList.add(
@@ -328,7 +327,6 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                             }
                             else -> {
                                 for (i in chatHistoryList!!.autoChat.chatJSON.chatBody.indices) {
-
                                     if (option.optionNumber == chatHistoryList!!.autoChat.chatJSON.chatBody[i].linkedOption) {
                                         getTime()
                                         newChatMessageList.add(

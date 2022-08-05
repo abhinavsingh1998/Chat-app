@@ -24,6 +24,7 @@ import java.text.DecimalFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.Exception
 
 
@@ -431,6 +432,29 @@ object Utility {
             source, 0, 0, source.width, source.height,
             matrix, true
         )
+    }
+
+    fun convertUTCtoTime(createdAt:String,timePattern:String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"):String{
+        val format = SimpleDateFormat(timePattern)
+        format.timeZone = TimeZone.getTimeZone("GMT")
+        val date = format.parse(createdAt)
+        val createdTimeInMs = date?.time
+        val currentTimeInMs = System.currentTimeMillis()
+        val differenceTimeInMs = currentTimeInMs - createdTimeInMs.toString().toLong()
+        val hours = TimeUnit.MILLISECONDS.toHours(differenceTimeInMs)
+        val minutes = TimeUnit.MILLISECONDS.toMinutes(differenceTimeInMs)
+        val seconds = TimeUnit.MILLISECONDS.toSeconds(differenceTimeInMs)
+        val days = TimeUnit.MILLISECONDS.toDays(differenceTimeInMs)
+
+        if(seconds < 60){
+            return seconds.toString() + "s"
+        }else if(minutes < 60){
+            return minutes.toString() + "m"
+        }else if(hours<24){
+            return hours.toString() + "h"
+        }else {
+            return days.toString() + "d"
+        }
     }
 
 }

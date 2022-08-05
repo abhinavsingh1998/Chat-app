@@ -28,7 +28,8 @@ class FaqDetailAdapter(
     private val faqId: Int = 0,
     private val itemClickListener: ItemClickListener,
     private val searchText: String = "",
-    private val projectName: String
+    private val projectName: String,
+    private val fromInvestment: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -78,11 +79,17 @@ class FaqDetailAdapter(
         val search = itemView.findViewById<EditText>(R.id.et_search)
         val close = itemView.findViewById<ImageView>(R.id.iv_close_image)
         val title = itemView.findViewById<MaterialTextView>(R.id.tv_faq_title)
+        val imageArrow = itemView.findViewById<ImageView>(R.id.imgArrow)
         fun bind(position: Int) {
             //Binding data
             when (projectName) {
                 "" -> title.text = "FAQs"
                 else -> title.text = "${projectName.toString()} - FAQs"
+            }
+
+            when(fromInvestment){
+                true -> { imageArrow.visibility = View.GONE }
+                false -> { imageArrow.visibility = View.VISIBLE }
             }
 
             val list = arrayListOf<String>()
@@ -126,6 +133,11 @@ class FaqDetailAdapter(
                     }
                 }
             })
+
+            //BackButton handled
+            imageArrow.setOnClickListener {
+                itemClickListener.onItemClicked(imageArrow,position,"")
+            }
 
             //Tick button handled from keyboard
             search.setOnEditorActionListener { _, actionId, _ ->

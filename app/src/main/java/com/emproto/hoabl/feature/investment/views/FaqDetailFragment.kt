@@ -95,6 +95,9 @@ class FaqDetailFragment : BaseFragment() {
     }
 
     private fun callProfileFaqApi() {
+        //UI setup
+        (activity as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility = View.GONE
+        binding.blueHeader.visibility = View.VISIBLE
         //Getting general faqs
         profileViewModel.getGeneralFaqs(2001).observe(this, Observer {
             when (it.status) {
@@ -119,6 +122,9 @@ class FaqDetailFragment : BaseFragment() {
     }
 
     private fun callProjectFaqApi() {
+        //UI setup
+        (activity as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility = View.VISIBLE
+        binding.blueHeader.visibility = View.GONE
         //Getting project faqs
         investmentViewModel.getInvestmentsFaq(projectId).observe(this, Observer {
             when (it.status) {
@@ -157,7 +163,8 @@ class FaqDetailFragment : BaseFragment() {
                 data,
                 faqId,
                 itemClickListener,
-                projectName = projectName
+                projectName = projectName,
+                fromInvestment = isFromInvestment
             )
             binding.rvFaq.adapter = adapter
         }else{
@@ -176,6 +183,9 @@ class FaqDetailFragment : BaseFragment() {
                 }
                 R.id.iv_faq_card_drop_down -> {
                     binding.rvFaq.smoothScrollToPosition(position)
+                }
+                R.id.imgArrow -> {
+                    (activity as HomeActivity).onBackPressed()
                 }
             }
         }
@@ -240,7 +250,8 @@ class FaqDetailFragment : BaseFragment() {
             faqId,
             itemClickListener,
             item,
-            projectName
+            projectName,
+            isFromInvestment
         )
         binding.rvFaq.adapter = adapter
     }

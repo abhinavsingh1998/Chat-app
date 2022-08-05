@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemChatBinding
 import com.emproto.networklayer.response.chats.CData
@@ -39,25 +40,7 @@ class ChatsAdapter(
         binding.tvChatTitle.text = chatList[position].project.projectContent.launchName.toString()
         if(chatList[position].lastMessage!=null){
             binding.tvChatDesc.text = chatList[position].lastMessage.message.toString()
-            val format = SimpleDateFormat(timePattern)
-            format.timeZone = TimeZone.getTimeZone("GMT")
-            val date = format.parse(chatList[position].lastMessage.createdAt)
-            val createdTimeInMs = date?.time
-            val currentTimeInMs = System.currentTimeMillis()
-            val differenceTimeInMs = currentTimeInMs - createdTimeInMs.toString().toLong()
-            val hours = TimeUnit.MILLISECONDS.toHours(differenceTimeInMs)
-            val minutes = TimeUnit.MILLISECONDS.toMinutes(differenceTimeInMs)
-            val seconds = TimeUnit.MILLISECONDS.toSeconds(differenceTimeInMs)
-            val days = TimeUnit.MILLISECONDS.toDays(differenceTimeInMs)
-            if(seconds < 60){
-                binding.tvChatTime.text = seconds.toString() + "s"
-            }else if(minutes < 60){
-                binding.tvChatTime.text = minutes.toString() + "m"
-            }else if(hours<24){
-                binding.tvChatTime.text = hours.toString() + "h"
-            }else {
-                binding.tvChatTime.text = days.toString() + "days ago"
-            }
+            binding.tvChatTime.text = Utility.convertUTCtoTime(chatList[position].lastMessage.createdAt)
         }else{
             binding.tvChatDesc.text=""
             binding.tvChatTime.text = ""
