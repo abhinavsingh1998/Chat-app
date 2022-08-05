@@ -95,6 +95,7 @@ class FaqDetailFragment : BaseFragment() {
     }
 
     private fun callProfileFaqApi() {
+        (activity as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility = View.GONE
         //Getting general faqs
         profileViewModel.getGeneralFaqs(2001).observe(this, Observer {
             when (it.status) {
@@ -119,6 +120,7 @@ class FaqDetailFragment : BaseFragment() {
     }
 
     private fun callProjectFaqApi() {
+        (activity as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility = View.VISIBLE
         //Getting project faqs
         investmentViewModel.getInvestmentsFaq(projectId).observe(this, Observer {
             when (it.status) {
@@ -157,7 +159,8 @@ class FaqDetailFragment : BaseFragment() {
                 data,
                 faqId,
                 itemClickListener,
-                projectName = projectName
+                projectName = projectName,
+                fromInvestment = isFromInvestment
             )
             binding.rvFaq.adapter = adapter
         }else{
@@ -240,7 +243,8 @@ class FaqDetailFragment : BaseFragment() {
             faqId,
             itemClickListener,
             item,
-            projectName
+            projectName,
+            isFromInvestment
         )
         binding.rvFaq.adapter = adapter
     }

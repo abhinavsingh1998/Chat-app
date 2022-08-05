@@ -4,10 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:id="@+id/blue_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_size_55"
+        android:background="@color/text_blue_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/sl_swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/blue_header"
         android:background="@drawable/all_corner_radius_white_bg"
         android:visibility="gone">
 

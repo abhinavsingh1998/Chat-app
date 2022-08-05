@@ -845,12 +845,14 @@ class ProjectDetailAdapter(
         fun bind(position: Int) {
             binding.tvSimilarInvestmentTitle.text = data.similarInvestmentSectionHeading
             val itemList = ArrayList<SimilarInvestment>()
-            for (i in 0..data.numberOfSimilarInvestmentsToShow - 1) {
-                itemList.add(data.similarInvestments[i])
+            if(data.similarInvestments.isNotEmpty()){
+                for (i in 0..data.numberOfSimilarInvestmentsToShow - 1) {
+                    itemList.add(data.similarInvestments[i])
+                }
+                similarInvestmentsAdapter =
+                    InvestmentAdapter(context, itemList, similarInvItemClickListener)
+                binding.rvSimilarInvestment.adapter = similarInvestmentsAdapter
             }
-            similarInvestmentsAdapter =
-                InvestmentAdapter(context, itemList, similarInvItemClickListener)
-            binding.rvSimilarInvestment.adapter = similarInvestmentsAdapter
             binding.tvSimilarInvestmentSeeAll.setOnClickListener(onItemClickListener)
         }
     }

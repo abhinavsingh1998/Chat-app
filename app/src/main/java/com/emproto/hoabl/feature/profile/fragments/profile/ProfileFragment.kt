@@ -267,7 +267,6 @@ class ProfileFragment : BaseFragment() {
                                                 ""
                                             ), false
                                         )
-
                                     } else {
                                         (requireActivity() as HomeActivity).showErrorToast(
                                             "Something Went Wrong"
