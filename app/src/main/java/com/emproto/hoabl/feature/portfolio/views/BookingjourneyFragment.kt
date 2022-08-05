@@ -382,7 +382,7 @@ class BookingjourneyFragment : BaseFragment() {
                                 FmFragment.newInstance(
                                     it.data!!.data.web_url!!,
                                     ""
-                                ), false
+                                ), true
                             )
 
                         } else {

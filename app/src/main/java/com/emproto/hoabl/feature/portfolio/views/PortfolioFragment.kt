@@ -122,8 +122,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible =
-            true
+        (requireActivity() as HomeActivity).showHeader()
 
         //initViews()
 
@@ -514,7 +513,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             watchList as Serializable
         )
         list.arguments = bundle
-        (requireActivity() as HomeActivity).addFragment(list, false)
+        (requireActivity() as HomeActivity).addFragment(list, true)
     }
 
     override fun investNow() {
@@ -526,7 +525,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             BookingjourneyFragment.newInstance(
                 investmentId,
                 ""
-            ), false
+            ), true
         )
     }
 
@@ -536,7 +535,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         val fragment = ProjectDetailFragment()
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(
-            fragment, false
+            fragment, true
         )
     }
 
@@ -546,7 +545,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         val bundle = Bundle()
         bundle.putInt("ProjectId", projectId)
         fragment.arguments = bundle
-        (requireActivity() as HomeActivity).addFragment(fragment, false)
+        (requireActivity() as HomeActivity).addFragment(fragment, true)
     }
 
     override fun onClickShare() {
@@ -559,7 +558,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         val fragment = ProjectDetailFragment()
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(
-            fragment, false
+            fragment, true
         )
     }
 

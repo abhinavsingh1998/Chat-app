@@ -104,7 +104,7 @@ class ProjectTimelineFragment : BaseFragment() {
                                         //open image viewer
                                         (requireActivity() as HomeActivity).addFragment(
                                             DocViewerFragment.newInstance(false, name, url),
-                                            false
+                                            true
                                         )
                                     }
 
@@ -114,7 +114,7 @@ class ProjectTimelineFragment : BaseFragment() {
                                                 FmFragment.newInstance(
                                                     url,
                                                     ""
-                                                ), false
+                                                ), true
                                             )
 
                                         } else {
@@ -184,7 +184,7 @@ class ProjectTimelineFragment : BaseFragment() {
                                 FmFragment.newInstance(
                                     it.data!!.data.web_url!!,
                                     ""
-                                ), false
+                                ), true
                             )
 
                         } else {
