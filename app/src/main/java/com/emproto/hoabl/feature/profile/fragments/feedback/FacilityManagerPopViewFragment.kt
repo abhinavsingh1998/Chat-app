@@ -30,8 +30,7 @@ class FacilityManagerPopViewFragment:DialogFragment() {
 
         FragmentFacilityManagerPopBinding.inflate(inflater, container, false)
         binding = FragmentFacilityManagerPopBinding.inflate(inflater, container, false)
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
-            false
+        (requireActivity() as HomeActivity).hideBottomNavigation()
         initClickListener()
         return binding.root
 

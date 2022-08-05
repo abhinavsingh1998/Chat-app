@@ -227,7 +227,7 @@ class ProfileFragment : BaseFragment() {
                                     val myAccount = AccountDetailsFragment()
                                     (requireActivity() as HomeActivity).addFragment(
                                         myAccount,
-                                        false
+                                        true
                                     )
 
                                 }
@@ -241,7 +241,7 @@ class ProfileFragment : BaseFragment() {
                                 securityFragment.arguments = bundle
                                 (requireActivity() as HomeActivity).addFragment(
                                     securityFragment,
-                                    false
+                                    true
                                 )
                             }
                             2 -> {
@@ -252,7 +252,7 @@ class ProfileFragment : BaseFragment() {
                                 helpCenterFragment.arguments = bundle
                                 (requireActivity() as HomeActivity).addFragment(
                                     helpCenterFragment,
-                                    false
+                                    true
                                 )
                             }
                             3 -> {
@@ -265,7 +265,7 @@ class ProfileFragment : BaseFragment() {
                                             FmFragment.newInstance(
                                                 fmData!!.data.web_url,
                                                 ""
-                                            ), false
+                                            ), true
                                         )
 
                                     } else {
@@ -276,7 +276,7 @@ class ProfileFragment : BaseFragment() {
                                 } else {
                                     (requireActivity() as HomeActivity).addFragment(
                                         facilityManagerPopViewFragment,
-                                        false
+                                        true
                                     )
 
                                 }
@@ -431,7 +431,7 @@ class ProfileFragment : BaseFragment() {
 
     private fun openMyAccount() {
         val myAccount = AccountDetailsFragment()
-        (requireActivity() as HomeActivity).addFragment(myAccount, false)
+        (requireActivity() as HomeActivity).addFragment(myAccount, true)
     }
 
     override fun onPause() {

@@ -121,25 +121,25 @@ class HelpCenterFragment : BaseFragment() {
                             fragment.arguments = bundle
                             (requireActivity() as HomeActivity).addFragment(
                                 fragment,
-                                false
+                                true
                             )
                         }
                         "About Us" -> {
                             (requireActivity() as HomeActivity).addFragment(
                                 AboutUsFragment(),
-                                false
+                                true
                             )
                         }
                         "Privacy Policy" -> {
                             (requireActivity() as HomeActivity).addFragment(
                                 PrivacyFragment(),
-                                false
+                                true
                             )
                         }
                         "Share your feedback" -> {
                             (requireActivity() as HomeActivity).addFragment(
                                 FeedbackFragment(),
-                                false
+                                true
                             )
                         }
                     }
@@ -151,7 +151,7 @@ class HelpCenterFragment : BaseFragment() {
                 override fun onChatClick(position: Int) {
                     (requireActivity() as HomeActivity).addFragment(
                         ChatsFragment(),
-                        false
+                        true
                     )
                 }
 

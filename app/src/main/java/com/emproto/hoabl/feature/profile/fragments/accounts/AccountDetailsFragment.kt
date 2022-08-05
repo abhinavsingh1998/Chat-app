@@ -116,8 +116,7 @@ class AccountDetailsFragment : Fragment(),
         initView()
         initClickListener()
         (requireActivity() as HomeActivity).hideBottomNavigation()
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
-            false
+
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 isReadPermissonGranted =
@@ -460,7 +459,7 @@ class AccountDetailsFragment : Fragment(),
     private fun openDocument(name: String, path: String) {
         (requireActivity() as HomeActivity).addFragment(
             DocViewerFragment.newInstance(true, name, path),
-            false
+            true
         )
     }
 

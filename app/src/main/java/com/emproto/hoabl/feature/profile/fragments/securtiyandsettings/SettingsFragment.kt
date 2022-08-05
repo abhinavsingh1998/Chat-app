@@ -39,7 +39,7 @@ class SettingsFragment:Fragment() {
 //            itemClickListener
 //        )
 //        binding.recyclerview1.adapter = detailAdapter
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible=false
+        (requireActivity() as HomeActivity).hideBottomNavigation()
         return binding.root
     }
     private fun initData(): ArrayList<SettingsData> {
