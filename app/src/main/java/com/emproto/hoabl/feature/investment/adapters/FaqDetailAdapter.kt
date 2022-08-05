@@ -134,6 +134,11 @@ class FaqDetailAdapter(
                 }
             })
 
+            //BackButton handled
+            imageArrow.setOnClickListener {
+                itemClickListener.onItemClicked(imageArrow,position,"")
+            }
+
             //Tick button handled from keyboard
             search.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {

@@ -416,12 +416,7 @@ class ProjectDetailAdapter(
                 binding.cvWhyInvestCard.setOnClickListener(onItemClickListener)
                 binding.tvApplyNow.setOnClickListener(onItemClickListener)
                 binding.tvFullApplyNow.setOnClickListener(onItemClickListener)
-                binding.tvRating.text = "${
-                    String.format(
-                        "%.0f",
-                        data.generalInfoEscalationGraph.estimatedAppreciation.toDouble()
-                    )
-                }%"
+                binding.tvRating.text = "${String.format("%.0f", data.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
 
                 val hoursInMillis =
                     TimeUnit.HOURS.toMillis(data.fomoContent.targetTime.hours.toLong())
@@ -438,9 +433,7 @@ class ProjectDetailAdapter(
                         val hour = millisUntilFinished / 3600000 % 24
                         val min = millisUntilFinished / 60000 % 60
                         val sec = millisUntilFinished / 1000 % 60
-                        binding.tvDuration.text = "${
-                            fh.format(hour).toString() + ":" + f.format(min) + ":" + f.format(sec)
-                        } Hrs Left"
+                        binding.tvDuration.text = "${fh.format(hour).toString() + ":" + f.format(min) + ":" + f.format(sec)} Hrs Left"
                     }
 
                     override fun onFinish() {
@@ -836,7 +829,6 @@ class ProjectDetailAdapter(
     private inner class ProjectNotConvincedViewHolder(private val binding: NotConvincedLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            val list = list[position]
         }
     }
 
@@ -846,12 +838,18 @@ class ProjectDetailAdapter(
             binding.tvSimilarInvestmentTitle.text = data.similarInvestmentSectionHeading
             val itemList = ArrayList<SimilarInvestment>()
             if(data.similarInvestments.isNotEmpty()){
-                for (i in 0..data.numberOfSimilarInvestmentsToShow - 1) {
-                    itemList.add(data.similarInvestments[i])
+                if(data.numberOfSimilarInvestmentsToShow <= data.similarInvestments.size){
+                    for (i in 0..data.numberOfSimilarInvestmentsToShow - 1) {
+                        itemList.add(data.similarInvestments[i])
+                    }
+                    similarInvestmentsAdapter =
+                        InvestmentAdapter(context, itemList, similarInvItemClickListener)
+                    binding.rvSimilarInvestment.adapter = similarInvestmentsAdapter
+                }else{
+                    similarInvestmentsAdapter =
+                        InvestmentAdapter(context, data.similarInvestments, similarInvItemClickListener)
+                    binding.rvSimilarInvestment.adapter = similarInvestmentsAdapter
                 }
-                similarInvestmentsAdapter =
-                    InvestmentAdapter(context, itemList, similarInvItemClickListener)
-                binding.rvSimilarInvestment.adapter = similarInvestmentsAdapter
             }
             binding.tvSimilarInvestmentSeeAll.setOnClickListener(onItemClickListener)
         }

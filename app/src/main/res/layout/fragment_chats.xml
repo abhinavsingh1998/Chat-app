@@ -111,6 +111,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginEnd="@dimen/margin_size_12"
         app:layout_constraintEnd_toEndOf="@id/clRefresh"
         app:layout_constraintStart_toStartOf="@+id/tvChats"
         app:layout_constraintTop_toBottomOf="@+id/clRefresh"

@@ -273,7 +273,9 @@ class ProjectDetailFragment : BaseFragment() {
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_TESTIMONIALS))
         when (allData.isSimilarInvestmentActive) {
             true -> {
-                list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_SIMILAR_INVESTMENT))
+                if(allData.similarInvestments.isNotEmpty()){
+                    list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_SIMILAR_INVESTMENT))
+                }
             }
         }
 
