@@ -304,9 +304,7 @@ class ProfileFragment : BaseFragment() {
                 val editProfile = EditProfileFragment()
                 bundle.putSerializable("profileData", profileData)
                 editProfile.arguments = bundle
-                (requireActivity() as HomeActivity).supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, editProfile, editProfile.javaClass.name)
-                    .addToBackStack(editProfile.javaClass.name).commit()
+                (requireActivity() as HomeActivity).addFragment(editProfile, true)
             }
         }
     }
