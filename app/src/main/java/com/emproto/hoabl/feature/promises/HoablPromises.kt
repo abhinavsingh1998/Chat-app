@@ -119,7 +119,7 @@ class HoablPromises : BaseFragment() {
                     homeViewModel.setSelectedPromise(promisesData.homePagesOrPromises[position])
                     (requireActivity() as HomeActivity).addFragment(
                         PromisesDetailsFragment(),
-                        false
+                        true
                     )
                 }
 

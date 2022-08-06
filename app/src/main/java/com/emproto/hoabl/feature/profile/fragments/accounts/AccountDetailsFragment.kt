@@ -116,8 +116,7 @@ class AccountDetailsFragment : Fragment(),
         initView()
         initClickListener()
         (requireActivity() as HomeActivity).hideBottomNavigation()
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
-            false
+
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 isReadPermissonGranted =
@@ -409,12 +408,7 @@ class AccountDetailsFragment : Fragment(),
         binding.tvSeeAllPayment.setOnClickListener {
             profileViewModel.savePaymentHistory(allPaymentList)
             val allPaymentHistoryFragment = AllPaymentHistoryFragment()
-            (requireActivity() as HomeActivity).supportFragmentManager.beginTransaction().add(
-                R.id.container,
-                allPaymentHistoryFragment,
-                allPaymentHistoryFragment.javaClass.name
-            )
-                .addToBackStack(allPaymentHistoryFragment.javaClass.name).commit()
+            (requireActivity() as HomeActivity).addFragment(allPaymentHistoryFragment,true)
         }
         binding.tvSeeAllDocuments.setOnClickListener {
             docsBottomSheet.show()
@@ -460,7 +454,7 @@ class AccountDetailsFragment : Fragment(),
     private fun openDocument(name: String, path: String) {
         (requireActivity() as HomeActivity).addFragment(
             DocViewerFragment.newInstance(true, name, path),
-            false
+            true
         )
     }
 

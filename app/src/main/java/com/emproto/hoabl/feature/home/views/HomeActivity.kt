@@ -141,7 +141,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             val chatsFragment = ChatsFragment()
             chatsFragment.arguments = bundle
             replaceFragment(
-                chatsFragment.javaClass, "", true, bundle, null, 0, false
+                chatsFragment.javaClass, "", true, bundle, null, 0, true
             )
         }
 
@@ -150,7 +150,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             val bundle = Bundle()
             bundle.putString("TopText", topText)
             fragment.arguments = bundle
-            addFragment(fragment, false)
+            addFragment(fragment, true)
         }
 
         activityHomeActivity.searchLayout.notificationView.setOnClickListener(View.OnClickListener {
@@ -165,7 +165,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
         activityHomeActivity.searchLayout.layout.setOnClickListener(View.OnClickListener {
             val fragment = AboutUsFragment()
-            addFragment(fragment, false)
+            addFragment(fragment, true)
         })
 
     }
@@ -216,28 +216,28 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             ScreenHome -> {
                 val homeFragment = HomeFragment()
                 homeFragment.arguments = bundle
-                replaceFragment(homeFragment.javaClass, "", true, bundle, null, 0, false)
+                replaceFragment(homeFragment.javaClass, "", true, bundle, null, 0, true)
             }
             ScreenInvestment -> {
                 val favouriteFragment = InvestmentFragment()
 //                val favouriteFragment = Testimonials()
                 favouriteFragment.arguments = bundle
-                replaceFragment(favouriteFragment.javaClass, "", true, bundle, null, 0, false)
+                replaceFragment(favouriteFragment.javaClass, "", true, bundle, null, 0, true)
             }
             ScreenPortfolio -> {
                 val portfolioFragment = PortfolioFragment()
                 portfolioFragment.arguments = bundle
-                replaceFragment(portfolioFragment.javaClass, "", true, bundle, null, 0, false)
+                replaceFragment(portfolioFragment.javaClass, "", true, bundle, null, 0, true)
             }
             ScreenPromises -> {
                 val cartFragment = HoablPromises()
                 cartFragment.arguments = bundle
-                replaceFragment(cartFragment.javaClass, "", true, bundle, null, 0, false)
+                replaceFragment(cartFragment.javaClass, "", true, bundle, null, 0, true)
             }
             ScreenProfile -> {
                 val profileFragment = ProfileFragment()
                 profileFragment.arguments = bundle
-                replaceFragment(profileFragment.javaClass, "", true, bundle, null, 0, false)
+                replaceFragment(profileFragment.javaClass, "", true, bundle, null, 0, true)
             }
 //            ScreenNotification -> {
 //
@@ -525,7 +525,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                                                         bundle,
                                                         null,
                                                         0,
-                                                        false
+                                                        true
                                                     )
                                                     bottomSheetDialog.dismiss()
 
@@ -540,7 +540,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                                                         bundle,
                                                         null,
                                                         0,
-                                                        false
+                                                        true
                                                     )
                                                     bottomSheetDialog.dismiss()
 

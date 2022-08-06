@@ -17,8 +17,7 @@ class PromisesFragment : BaseFragment() {
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentPromisesBinding.inflate(layoutInflater)
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
-            View.VISIBLE
+        (requireActivity() as HomeActivity).showHeader()
 
         initView()
         return binding.root

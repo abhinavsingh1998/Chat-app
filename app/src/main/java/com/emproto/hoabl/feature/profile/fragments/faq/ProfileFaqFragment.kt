@@ -41,7 +41,6 @@ class ProfileFaqFragment : Fragment() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         profileViewModel =
             ViewModelProvider(requireActivity(), homeFactory)[ProfileViewModel::class.java]
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
             true
         initClickListener()
         (requireActivity() as HomeActivity).hideBottomNavigation()

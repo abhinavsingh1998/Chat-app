@@ -47,13 +47,11 @@ class LatestUpdatesFragment : BaseFragment() {
 
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
 
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
-            View.GONE
+        (requireActivity() as HomeActivity).hideBottomNavigation()
 
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
 
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible =
-            true
+        (requireActivity() as HomeActivity).showHeader()
 
         (requireActivity() as HomeActivity).showBackArrow()
         initView()

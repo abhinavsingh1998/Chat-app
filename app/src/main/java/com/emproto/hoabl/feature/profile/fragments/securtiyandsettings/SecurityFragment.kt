@@ -63,7 +63,7 @@ class SecurityFragment : BaseFragment(){
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible=false
+        (requireActivity() as HomeActivity).hideBottomNavigation()
         profileViewModel =
             ViewModelProvider(requireActivity(), profileFactory)[ProfileViewModel::class.java]
         binding = FragmentSecurityBinding.inflate(layoutInflater)

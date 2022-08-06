@@ -62,10 +62,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel =
             ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
-            View.GONE
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
-            View.GONE
+        (requireActivity() as HomeActivity).hideHeader()
+        (requireActivity() as HomeActivity).hideBottomNavigation()
 
         return binding.root
     }

@@ -432,7 +432,7 @@ class SearchResultFragment : BaseFragment() {
                     fragmentSearchResultBinding.searchLayout.search.setText("")
                     (requireActivity() as HomeActivity).addFragment(
                         InsightsDetailsFragment(),
-                        false
+                        true
                     )
                 }
             }
@@ -456,7 +456,7 @@ class SearchResultFragment : BaseFragment() {
                     fragmentSearchResultBinding.searchLayout.search.setText("")
                     (requireActivity() as HomeActivity).addFragment(
                         LatestUpdatesDetailsFragment(),
-                        false
+                        true
                     )
                 }
 
@@ -570,7 +570,7 @@ class SearchResultFragment : BaseFragment() {
                     fragment.arguments = bundle
                     homeViewModel.setSearchedText(fragmentSearchResultBinding.searchLayout.search.text.toString())
                     fragmentSearchResultBinding.searchLayout.search.setText("")
-                    (requireActivity() as HomeActivity).addFragment(fragment, false)
+                    (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
                 1 -> {
                     val fragment = LandSkusFragment()
@@ -579,7 +579,7 @@ class SearchResultFragment : BaseFragment() {
                     fragment.arguments = bundle
                     homeViewModel.setSearchedText(fragmentSearchResultBinding.searchLayout.search.text.toString())
                     fragmentSearchResultBinding.searchLayout.search.setText("")
-                    (requireActivity() as HomeActivity).addFragment(fragment, false)
+                    (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
             }
         }
@@ -641,7 +641,7 @@ class SearchResultFragment : BaseFragment() {
         fragmentSearchResultBinding.searchLayout.search.setText("")
         (requireActivity() as HomeActivity).addFragment(
             DocViewerFragment.newInstance(true, name, path),
-            false
+            true
         )
     }
 

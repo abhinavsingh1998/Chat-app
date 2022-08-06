@@ -32,8 +32,7 @@ class PrivacyFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPrivacyBinding.inflate(inflater, container, false)
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
-            false
+        (requireActivity() as HomeActivity).hideBottomNavigation()
 
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         profileViewModel =

@@ -50,10 +50,8 @@ class ChatsFragment : BaseFragment(), ChatsAdapter.OnItemClickListener {
         homeViewModel =
             ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
         (requireActivity() as HomeActivity).showBackArrow()
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
-            View.VISIBLE
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
-            View.GONE
+        (requireActivity() as HomeActivity).showHeader()
+        (requireActivity() as HomeActivity).hideBottomNavigation()
         binding.clRefresh.setOnClickListener {
             callChatListApi()
         }

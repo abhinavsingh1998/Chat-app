@@ -59,12 +59,9 @@ class InvestmentFragment : BaseFragment() {
     }
 
     private fun setUpUI() {
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
-            View.VISIBLE
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
-            View.VISIBLE
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility =
-            View.GONE
+        (requireActivity() as HomeActivity).showHeader()
+        (requireActivity() as HomeActivity).showBottomNavigation()
+        (requireActivity() as HomeActivity).hideBackArrow()
         binding.slSwipeRefresh.setOnRefreshListener {
             binding.slSwipeRefresh.isRefreshing = true
             binding.slSwipeRefresh.visibility = View.GONE

@@ -62,8 +62,6 @@ class AllPaymentHistoryFragment : Fragment(),
             ViewModelProvider(requireActivity(), portfolioFactory)[PortfolioViewModel::class.java]
         profileViewModel =
             ViewModelProvider(requireActivity(), profileFactory)[ProfileViewModel::class.java]
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
-            true
         initClickListener()
         (requireActivity() as HomeActivity).hideBottomNavigation()
         return binding.root
@@ -98,7 +96,7 @@ class AllPaymentHistoryFragment : Fragment(),
     private fun openDocument(name: String, path: String) {
         (requireActivity() as HomeActivity).addFragment(
             DocViewerFragment.newInstance(true, "Test.ong"),
-            false
+            true
         )
     }
 

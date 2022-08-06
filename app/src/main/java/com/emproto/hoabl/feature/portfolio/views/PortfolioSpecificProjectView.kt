@@ -359,7 +359,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                                                     FmFragment.newInstance(
                                                         it.data.web_url,
                                                         ""
-                                                    ), false
+                                                    ), true
                                                 )
                                             } else {
                                                 (requireActivity() as HomeActivity).showErrorToast(
@@ -412,7 +412,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         list.arguments = bundle
                         (requireActivity() as HomeActivity).addFragment(
                             list,
-                            false
+                            true
                         )
                     }
 
@@ -422,7 +422,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         val fragment = ProjectDetailFragment()
                         fragment.arguments = bundle
                         (requireActivity() as HomeActivity).addFragment(
-                            fragment, false
+                            fragment, true
                         )
                     }
 
@@ -431,7 +431,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         val bundle = Bundle()
                         bundle.putInt("ProjectId", project)
                         fragment.arguments = bundle
-                        (requireActivity() as HomeActivity).addFragment(fragment, false)
+                        (requireActivity() as HomeActivity).addFragment(fragment, true)
                     }
 
                     override fun readAllFaq(position: Int, faqId: Int) {
@@ -447,7 +447,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         fragment.arguments = bundle
                         (requireActivity() as HomeActivity).addFragment(
                             fragment,
-                            false
+                            true
                         )
 
                     }
@@ -462,7 +462,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         homeViewModel.setSelectedPromise(details)
                         (requireActivity() as HomeActivity).addFragment(
                             PromisesDetailsFragment(),
-                            false
+                            true
                         )
 
                     }
@@ -494,7 +494,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         val fragment = ProjectDetailFragment()
                         fragment.arguments = bundle
                         (requireActivity() as HomeActivity).addFragment(
-                            fragment, false
+                            fragment, true
                         )
                     }
 
@@ -530,7 +530,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         val fragment = MediaViewFragment()
                         fragment.arguments = bundle
                         (requireActivity() as HomeActivity).addFragment(
-                            fragment, false
+                            fragment, true
                         )
                     }
 
@@ -546,7 +546,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         investmentViewModel.setMediaListItem(imagesList)
                         fragment.arguments = bundle
                         (requireActivity() as HomeActivity).addFragment(
-                            fragment, false
+                            fragment, true
                         )
                     }
 
@@ -555,7 +555,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                     }
 
                     override fun onClickAsk() {
-                        (requireActivity() as HomeActivity).addFragment(ChatsFragment(), false)
+                        (requireActivity() as HomeActivity).addFragment(ChatsFragment(), true)
                     }
 
                     override fun onDocumentView(name: String, path: String) {
@@ -614,7 +614,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
     private fun openDocument(name: String, path: String) {
         (requireActivity() as HomeActivity).addFragment(
             DocViewerFragment.newInstance(true, name, path),
-            false
+            true
         )
     }
 

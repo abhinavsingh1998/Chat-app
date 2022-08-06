@@ -65,11 +65,8 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAboutUsBinding.inflate(inflater, container, false)
-        (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible =
-            false
-
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible =
-            false
+        (requireActivity() as HomeActivity).hideBottomNavigation()
+        (requireActivity() as HomeActivity).hideHeader()
 
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         profileViewModel =
@@ -118,7 +115,7 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                     bundle,
                     null,
                     0,
-                    false
+                    true
                 )
             }
 
