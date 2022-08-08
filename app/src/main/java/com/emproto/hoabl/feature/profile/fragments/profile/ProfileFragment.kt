@@ -23,13 +23,10 @@ import com.emproto.hoabl.R
 
 import com.emproto.hoabl.databinding.FragmentProfileMainBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.login.AuthActivity
-import com.emproto.hoabl.feature.portfolio.views.CustomDialog
 import com.emproto.hoabl.feature.portfolio.views.FmFragment
-import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
-import com.emproto.hoabl.feature.profile.adapter.HelpCenterAdapter
+
 import com.emproto.hoabl.feature.profile.fragments.edit_profile.EditProfileFragment
 import com.emproto.hoabl.feature.profile.fragments.feedback.FacilityManagerPopViewFragment
 import com.emproto.hoabl.feature.profile.fragments.help_center.HelpCenterFragment
@@ -44,8 +41,7 @@ import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.profile.Data
-import com.example.portfolioui.databinding.DailogSecurePinConfirmationBinding
-import com.example.portfolioui.databinding.DialogSecurePinBinding
+
 import com.example.portfolioui.databinding.LogoutConfirmationBinding
 import java.util.concurrent.Executor
 
@@ -62,8 +58,6 @@ class ProfileFragment : BaseFragment() {
     private val mRequestCode = 300
     private val SETTING_REQUEST_CODE = 301
 
-
-
     val bundle = Bundle()
 
     @Inject
@@ -74,8 +68,6 @@ class ProfileFragment : BaseFragment() {
     var isTermsActive = false
     var isAboutUsActive = false
     var isSecurityTipsActive = false
-
-
 
     @Inject
     lateinit var appPreference: AppPreference
