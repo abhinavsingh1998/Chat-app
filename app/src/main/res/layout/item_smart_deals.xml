@@ -300,6 +300,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/jost_light"
                 android:maxLines="3"
+                android:minLines="3"
                 android:paddingHorizontal="@dimen/margin_size_10"
                 android:text="A biophilic-themed, luxury beachside serviced estate designed for the next generation of India"
                 android:textAlignment="textStart"

@@ -66,6 +66,7 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
         mBinding.inputMobile.addDropDownValues(list)
 
         initClickListner()
+        unselected_state()
 
         return mBinding.root
     }
@@ -107,6 +108,7 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
                 hCountryCode = countryCode.toString()
                 if (mobileNo.isNullOrEmpty() || name.isNullOrEmpty()) {
                     unselected_state()
+
 
                 } else {
                     selected_state()

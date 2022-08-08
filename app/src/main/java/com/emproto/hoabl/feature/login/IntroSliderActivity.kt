@@ -117,13 +117,13 @@ class IntroSliderActivity : BaseActivity(), StoriesProgressView.StoriesListener 
 
     fun btn_txt_chnage(){
         if (counter==2){
-            activityIntrosliderBinding.buttonSkip.setText("Get Started")
+            activityIntrosliderBinding.buttonSkip.setText("Get started")
             activityIntrosliderBinding.tmTxt.isVisible=false
         } else if(counter==1){
             activityIntrosliderBinding.tmTxt.isVisible=false
-            activityIntrosliderBinding.buttonSkip.setText("Skip & Get Started")
+            activityIntrosliderBinding.buttonSkip.setText("Skip & get started")
         } else {
-            activityIntrosliderBinding.buttonSkip.setText("Skip & Get Started")
+            activityIntrosliderBinding.buttonSkip.setText("Skip & get started")
             activityIntrosliderBinding.tmTxt.isVisible=true
         }
     }
