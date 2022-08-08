@@ -190,10 +190,10 @@ class HomeAdapter(
         fun bind(position: Int) {
 
             if (data.contactType == 225360002 && data.portfolioData.investmentCount > 0) {
-                binding.nestedCard?.isVisible= true
+                binding.nestedCard?.isVisible = true
                 presenting = false
             } else {
-                binding.nestedCard?.isVisible= false
+                binding.nestedCard?.isVisible = false
                 presenting = true
             }
             binding.contentTxt1.text = data?.portfolioData?.investmentCount?.toString()

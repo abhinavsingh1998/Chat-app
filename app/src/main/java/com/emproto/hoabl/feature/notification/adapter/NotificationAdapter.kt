@@ -39,7 +39,7 @@ class NotificationAdapter(
 
          holder.binding.tvChatDesc.text= item.notification.notificationDescription.body
          holder.binding.tvTopic.text= item.notification.notificationDescription.title
-         holder.binding.tvChatTime.text= Utility.convertDateToTime(item.notification.updatedAt) + "h"
+         holder.binding.tvChatTime.text= Utility.convertUTCtoTime(item.notification.updatedAt)
 
          if (item.readStatus== true){
              holder.binding.cardView.cardElevation= 0f
