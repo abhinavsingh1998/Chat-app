@@ -8,7 +8,7 @@
     android:layout_gravity="center_horizontal"
     app:cardElevation="5dp"
     android:outlineSpotShadowColor="#ababab"
-    android:layout_margin="@dimen/margin_size_4"
+    android:layout_marginVertical="@dimen/margin_size_4"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true">
 

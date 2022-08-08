@@ -2,18 +2,24 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/margin_size_10"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/app_color">
+
+    <View
+        android:id="@+id/top_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_size_18"
+        android:background="@drawable/bottom_curve_bg"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/kyc_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/margin_size_8"
         android:background="@color/app_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/top_view">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout1"
@@ -26,7 +32,7 @@
 
             <com.emproto.core.textviews.CustomTextView
                 style="@style/text_style_white_14"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_size_19"
                 android:layout_marginEnd="111dp"
@@ -63,5 +69,12 @@
             app:tabIndicatorHeight="0dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_size_10"
+        android:background="@drawable/homescreen_curve"
+        app:layout_constraintTop_toBottomOf="@id/kyc_layout"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
