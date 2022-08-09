@@ -327,7 +327,15 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                             it.data?.let {
                                 //load data in listview
                                 binding.financialRecycler.show()
-                                observePortFolioData(it)
+                                if (it.data.isInvestor)
+                                    observePortFolioData(it)
+                                else {
+                                    binding.noUserView.show()
+                                    binding.portfolioTopImg.visibility = View.VISIBLE
+                                    binding.addYouProject.visibility = View.VISIBLE
+                                    binding.instriction.visibility = View.VISIBLE
+                                    binding.btnExploreNewInvestmentProject.visibility = View.VISIBLE
+                                }
                             }
 
 
@@ -336,18 +344,9 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                             binding.refreshLayout.isRefreshing = false
                             binding.progressBaar.hide()
                             //show error dialog
-                            if (it.message == "The current user is not an investor") {
-                                binding.noUserView.show()
-                                binding.portfolioTopImg.visibility = View.VISIBLE
-                                binding.addYouProject.visibility = View.VISIBLE
-                                binding.instriction.visibility = View.VISIBLE
-                                binding.btnExploreNewInvestmentProject.visibility = View.VISIBLE
-                            } else {
-                                (requireActivity() as HomeActivity).showErrorToast(
-                                    it.message!!
-                                )
-                            }
-
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                it.message!!
+                            )
                         }
                     }
                 })

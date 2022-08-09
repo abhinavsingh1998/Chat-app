@@ -197,7 +197,7 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/corporate_phillosophy"
                         app:layout_constraintTop_toBottomOf="@+id/corporate_phillosophy"
                         tools:itemCount="2"
                         tools:listitem="@layout/corporate_philosphy_about_us_view"/>

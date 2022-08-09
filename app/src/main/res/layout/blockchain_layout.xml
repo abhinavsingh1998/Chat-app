@@ -4,15 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/iv_dont_miss_image"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="145dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_size_20"
         android:layout_marginTop="@dimen/margin_size_30"
-        android:scaleType="fitXY"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_dont_miss_image"
+            android:layout_width="match_parent"
+            android:layout_height="145dp"
+            android:scaleType="fitXY" />
+    </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

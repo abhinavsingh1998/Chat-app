@@ -637,7 +637,7 @@ class EditProfileFragment : BaseFragment() {
                     stateSelected,
                     citySelected
                 )
-                changeFontOnSave()
+//                changeFontOnSave()
 
             }
         }
