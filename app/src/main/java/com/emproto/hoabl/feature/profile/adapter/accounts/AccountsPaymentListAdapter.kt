@@ -95,8 +95,6 @@ class AccountsPaymentListAdapter(
                     )
                 ) outputFormat = SimpleDateFormat("d'rd' MMMM yyyy") else outputFormat =
                     SimpleDateFormat("d'th' MMMM yyyy")
-
-//                val yourDate: String = outputFormat.format(Date())
                 val date: Date = inputFormat.parse(accountsPaymentList[position].paymentDate)
                 val formattedDate: String = outputFormat.format(date)
                 holder.tvPaymentDate.text = formattedDate
