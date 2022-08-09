@@ -183,9 +183,6 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                             binding.statsHeaderTxt.isVisible=false
                             binding.statsItem.isVisible= false
                         }
-
-
-
                         //loading Philosphy list
                         philosophyAdapter = CorporatePhilosphyAdapter(
                             requireActivity(),

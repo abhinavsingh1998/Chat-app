@@ -17,8 +17,8 @@ class EditProfileUpdatedPopUpFragment : DialogFragment(), View.OnClickListener {
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentEditProfileUpdatedPopUpBinding.inflate(inflater, container, false)
-        binding.tcClose.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
-
+//        binding.tcClose.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
+        binding.tcClose.setOnClickListener { dismiss() }
 
         return binding.root
     }

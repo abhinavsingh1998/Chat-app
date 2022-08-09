@@ -9,12 +9,10 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.AccNoDataBinding
-import com.emproto.hoabl.databinding.ItemAccountsKycDocBinding
 import com.emproto.hoabl.databinding.ItemAccountsPaymentBinding
 import com.emproto.networklayer.response.profile.AccountsResponse
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AccountsPaymentListAdapter(
     private var mContext: Context?,
@@ -24,6 +22,7 @@ class AccountsPaymentListAdapter(
 
 ) : RecyclerView.Adapter<AccountsPaymentListAdapter.BaseViewHolder>() {
 
+    lateinit var outputFormat: SimpleDateFormat
     lateinit var binding: ItemAccountsPaymentBinding
     lateinit var bindingEmpty: AccNoDataBinding
 
@@ -84,7 +83,18 @@ class AccountsPaymentListAdapter(
             }
             if (!accountsPaymentList[position].paymentDate.isNullOrEmpty()) {
                 val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                val outputFormat = SimpleDateFormat("dd-MM-yyyy")
+//                val outputFormat = SimpleDateFormat("dd MMMM yyyy")
+                if (accountsPaymentList[position].paymentDate.endsWith("1") && !accountsPaymentList[position].paymentDate.endsWith("11"))
+                    outputFormat =
+                    SimpleDateFormat("d'st' MMMM yyyy") else if (accountsPaymentList[position].paymentDate.endsWith("2") && !accountsPaymentList[position].paymentDate.endsWith(
+                        "12"
+                    )
+                ) outputFormat =
+                    SimpleDateFormat("d'nd' MMMM  yyyy") else if (accountsPaymentList[position].paymentDate.endsWith("3") && !accountsPaymentList[position].paymentDate.endsWith(
+                        "13"
+                    )
+                ) outputFormat = SimpleDateFormat("d'rd' MMMM yyyy") else outputFormat =
+                    SimpleDateFormat("d'th' MMMM yyyy")
                 val date: Date = inputFormat.parse(accountsPaymentList[position].paymentDate)
                 val formattedDate: String = outputFormat.format(date)
                 holder.tvPaymentDate.text = formattedDate
