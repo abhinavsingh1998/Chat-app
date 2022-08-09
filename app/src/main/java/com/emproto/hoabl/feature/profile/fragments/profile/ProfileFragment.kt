@@ -1,5 +1,6 @@
 package com.emproto.hoabl.feature.profile.fragments.profile
 
+import android.app.Activity
 import android.app.Dialog
 import android.app.KeyguardManager
 import android.content.Context
@@ -22,11 +23,10 @@ import com.emproto.hoabl.R
 
 import com.emproto.hoabl.databinding.FragmentProfileMainBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.hoabl.feature.portfolio.views.FmFragment
-import com.emproto.hoabl.feature.profile.adapter.HelpCenterAdapter
+
 import com.emproto.hoabl.feature.profile.fragments.edit_profile.EditProfileFragment
 import com.emproto.hoabl.feature.profile.fragments.feedback.FacilityManagerPopViewFragment
 import com.emproto.hoabl.feature.profile.fragments.help_center.HelpCenterFragment
@@ -41,6 +41,7 @@ import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.profile.Data
+
 import com.example.portfolioui.databinding.LogoutConfirmationBinding
 import java.util.concurrent.Executor
 
@@ -54,6 +55,8 @@ class ProfileFragment : BaseFragment() {
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
     private lateinit var logoutDialog: Dialog
+    private val mRequestCode = 300
+    private val SETTING_REQUEST_CODE = 301
 
     val bundle = Bundle()
 
@@ -224,12 +227,7 @@ class ProfileFragment : BaseFragment() {
                                 if (!(requireActivity() as HomeActivity).isFingerprintValidate()) {
                                     setUpAuthentication()
                                 } else {
-                                    val myAccount = AccountDetailsFragment()
-                                    (requireActivity() as HomeActivity).addFragment(
-                                        myAccount,
-                                        true
-                                    )
-
+                                  openMyAccount()
                                 }
                             }
                             1 -> {
@@ -277,15 +275,9 @@ class ProfileFragment : BaseFragment() {
                                         facilityManagerPopViewFragment,
                                         true
                                     )
-
                                 }
-
                             }
-
-
                         }
-
-
                     }
                 },
                 object : ProfileOptionsAdapter.ProfileFooterInterface {
@@ -325,13 +317,10 @@ class ProfileFragment : BaseFragment() {
                     if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
                         setUpKeyGuardManager()
                     } else if (errorCode == BiometricPrompt.ERROR_NO_BIOMETRICS) {
-                        openMyAccount()
                     } else if (errorCode == BiometricPrompt.ERROR_USER_CANCELED) {
                         (requireActivity() as HomeActivity).onBackPressed()
                     } else if (errorCode == BiometricPrompt.ERROR_NO_DEVICE_CREDENTIAL) {
                         //no enrollment
-                        openMyAccount()
-
                     } else if (errorCode == BiometricPrompt.ERROR_HW_NOT_PRESENT) {
                         //setUpUI(true)
                         setUpKeyGuardManager()
@@ -345,8 +334,8 @@ class ProfileFragment : BaseFragment() {
                     result: BiometricPrompt.AuthenticationResult
                 ) {
                     super.onAuthenticationSucceeded(result)
-                    (requireActivity() as HomeActivity).fingerprintValidation(true)
                     openMyAccount()
+                    (requireActivity() as HomeActivity).fingerprintValidation(true)
                 }
 
                 override fun onAuthenticationFailed() {
@@ -369,11 +358,32 @@ class ProfileFragment : BaseFragment() {
                 "Hi,User",
                 "Verify your security PIN/Pattern"
             )
+            if (intent != null)
+                startActivityForResult(intent, mRequestCode)
+            else {
+                openMyAccount()
+                (requireActivity() as HomeActivity).fingerprintValidation(true)
+            }
         } else {
 
         }
     }
-
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            mRequestCode -> {
+                when (resultCode) {
+                    Activity.RESULT_OK -> {
+                        (requireActivity() as HomeActivity).fingerprintValidation(true)
+                        openMyAccount()
+                    }
+                }
+            }
+         SETTING_REQUEST_CODE -> {
+                setUpAuthentication()
+            }
+        }
+    }
 
     private fun logOut() {
         val logoutDialoglayout = LogoutConfirmationBinding.inflate(layoutInflater)
