@@ -122,6 +122,9 @@ class AuthActivity : BaseActivity() {
     }
 
     fun launch_bottom_sheet() {
+        val list = ArrayList<String>()
+        list.add("+91")
+        signingInIssueBiding.inputMobile.addDropDownValues(list)
         signingInIssueBiding.inputMobile.setValue(appPreference.getMobilenum())
         if(!appPreference.getMobilenum().isNullOrEmpty()){
             signingInIssueBiding.submitBtn.isEnabled = true
