@@ -34,7 +34,7 @@ class WatchlistAdapter(
                 tvItemLocation.text =
                     element.project.address.city + " " + element.project.address.state
                 val amount = element.project.priceStartingFrom.toDouble() / 100000
-                val convertedAmount = amount.toString().replace(".0", "")
+                val convertedAmount = String.format("%.0f",amount)
                 tvItemAmount.text = SpannableStringBuilder()
                     .bold { append("₹${convertedAmount} L") }
                     .append(" Onwards")

@@ -31,7 +31,7 @@ class LastFewPlotsAdapter(
             tvItemLocation.text = "${element.address.city}, ${element.address.state}"
             tvItemLocationInfo.text = element.shortDescription
             val amount = element.priceStartingFrom.toDouble() / 100000
-            val convertedAmount = amount.toString().replace(".0", "")
+            val convertedAmount = String.format("%.0f",amount)
             tvItemAmount.text = SpannableStringBuilder()
                 .bold { append("₹${convertedAmount} L") }
                 .append(" Onwards")
