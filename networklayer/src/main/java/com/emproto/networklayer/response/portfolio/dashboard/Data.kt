@@ -8,7 +8,8 @@ data class Data(
     val projects: List<Project>,
     val summary: Summary,
     var watchlist: List<Data>,
-    val pageManagement: PageData
+    val pageManagement: PageData,
+    val isInvestor: Boolean
 )
 
 data class PageData(val code: Int, val data: DataA)
