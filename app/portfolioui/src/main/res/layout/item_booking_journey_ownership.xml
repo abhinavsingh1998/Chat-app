@@ -92,12 +92,13 @@
 
             <TextView
                 android:id="@+id/tv_first"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/jost_regular"
                 android:text="Deed of conveyance"
                 android:textColor="@color/disable_text"
+                app:layout_constraintRight_toLeftOf="@id/text_hint"
                 app:layout_constraintLeft_toRightOf="@id/iv_first"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -138,12 +139,13 @@
 
             <TextView
                 android:id="@+id/tv_second"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_size_8"
                 android:fontFamily="@font/jost_regular"
                 android:text="7/12 document"
                 android:textColor="@color/disable_text"
+                app:layout_constraintEnd_toStartOf="@id/text_hint2"
                 app:layout_constraintStart_toEndOf="@id/iv_second"
                 app:layout_constraintTop_toTopOf="parent" />
 

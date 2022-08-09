@@ -7,7 +7,6 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -67,7 +66,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         override fun onItemClicked(view: View, position: Int, latitude: Double, longitude: Double) {
             when (view.id) {
                 R.id.cv_location_infrastructure_card -> {
-                    Log.d("latlon","${dummyLatitude},${dummyLongitude},${latitude},${longitude}")
                     initMarkerLocation(dummyLatitude, dummyLongitude, latitude, longitude)
                 }
             }

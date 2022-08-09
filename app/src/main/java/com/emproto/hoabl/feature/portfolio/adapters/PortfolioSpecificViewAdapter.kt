@@ -149,7 +149,7 @@ class PortfolioSpecificViewAdapter(
             }
             PORTFOLIO_FAQ -> {
                 FaqViewHolder(
-                    FaqLayoutBinding.inflate(
+                    FaqPortfolioLayoutBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
@@ -691,7 +691,7 @@ class PortfolioSpecificViewAdapter(
         }
     }
 
-    private inner class FaqViewHolder(private val binding: FaqLayoutBinding) :
+    private inner class FaqViewHolder(private val binding: FaqPortfolioLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             if (headingDetails.otherSectionHeadings != null && headingDetails.otherSectionHeadings.faqSection != null)

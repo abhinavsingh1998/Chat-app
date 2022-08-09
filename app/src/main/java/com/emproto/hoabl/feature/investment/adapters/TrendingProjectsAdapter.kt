@@ -32,7 +32,7 @@ class TrendingProjectsAdapter(
             tvItemLocationInfo.text = element.shortDescription
             tvNoViews.text = element.fomoContent.noOfViews.toString()
             val amount = element.priceStartingFrom.toDouble() / 100000
-            val convertedAmount = amount.toString().replace(".0", "")
+            val convertedAmount = String.format("%.0f",amount)
             tvItemAmount.text = SpannableStringBuilder()
                 .bold { append("₹${convertedAmount} L") }
                 .append(" Onwards")

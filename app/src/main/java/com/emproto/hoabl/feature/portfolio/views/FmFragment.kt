@@ -1,25 +1,25 @@
 package com.emproto.hoabl.feature.portfolio.views
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ProgressBar
+import androidx.core.content.ContextCompat.startActivity
+import androidx.fragment.app.Fragment
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentFmBinding
 import com.emproto.hoabl.feature.home.views.HomeActivity
-import android.content.Intent
-import android.net.Uri
-import android.util.Log
-import android.webkit.JavascriptInterface
-import android.widget.Toast
-import androidx.core.content.contentValuesOf
 import com.emproto.networklayer.response.webview.ShareObjectModel
+import com.google.gson.Gson
 import java.util.*
 
 
@@ -75,13 +75,15 @@ class FmFragment : BaseFragment() {
             //Received message from webview in native, process data
             Log.d("Share","message from webview= ${message.toString()}")
             val shareObjectModel = ShareObjectModel("","","","")
-
+            val gson = Gson()
+            val model = gson.fromJson<ShareObjectModel>(message,ShareObjectModel::class.java)
+            Log.d("Share","objectUrl = ${model.download_url}")
             val shareIntent = Intent(Intent.ACTION_SEND)
             shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             shareIntent.type = "text/plain"
             shareIntent.putExtra(
                 Intent.EXTRA_TEXT,
-                "Date from webview= $message"
+                "${model.message}\nDownload the gatepass via this url: ${model.download_url}"
             )
             startActivity(shareIntent)
         }
