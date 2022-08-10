@@ -35,6 +35,7 @@ import com.emproto.hoabl.feature.profile.adapter.ProfileOptionsAdapter
 import com.emproto.hoabl.feature.profile.data.ProfileModel
 import com.emproto.hoabl.feature.profile.data.ProfileOptionsData
 import com.emproto.hoabl.feature.profile.fragments.accounts.AccountDetailsFragment
+import com.emproto.hoabl.feature.profile.fragments.edit_profile.CircleTransform
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
@@ -146,6 +147,7 @@ class ProfileFragment : BaseFragment() {
             binding.profileUserLetters.visibility = View.GONE
             Glide.with(requireContext())
                 .load(profileData.profilePictureUrl)
+                .transform(CircleTransform(requireContext()))
                 .into(binding.ivProfile)
         } else {
             binding.cvProfileImage.visibility = View.GONE

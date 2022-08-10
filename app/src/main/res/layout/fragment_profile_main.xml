@@ -57,11 +57,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:elevation="@dimen/_8sdp"
                         android:gravity="center"
-                        android:scaleType="fitXY"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/margin_size_40" />
+                      />
                 </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
         </androidx.cardview.widget.CardView>
