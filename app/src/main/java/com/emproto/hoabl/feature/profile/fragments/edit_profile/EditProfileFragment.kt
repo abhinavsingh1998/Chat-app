@@ -464,7 +464,7 @@ class EditProfileFragment : BaseFragment() {
         setLightColor()
             Glide.with(requireContext())
                 .load(data.profilePictureUrl)
-                .dontTransform()
+                .transform(CircleTransform(requireContext()))
                 .into(binding.ivProfile)
 
         }
@@ -802,7 +802,10 @@ class EditProfileFragment : BaseFragment() {
         binding.cvProfileImage.visibility = View.VISIBLE
         binding.profileUserLetters.visibility = View.GONE
         try {
-            binding.ivProfile.setImageBitmap(thumbnail)
+            Glide.with(requireContext())
+                .load(thumbnail)
+                .transform(CircleTransform(requireContext()))
+                .into(binding.ivProfile)
             binding.tvremove.visibility = View.GONE
             binding.textremove.visibility = View.VISIBLE
             binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
@@ -835,7 +838,10 @@ class EditProfileFragment : BaseFragment() {
 
             binding.cvProfileImage.visibility = View.VISIBLE
             binding.profileUserLetters.visibility = View.GONE
-            binding.ivProfile.setImageBitmap(bitmap)
+            Glide.with(requireContext())
+                .load(bitmap)
+                .transform(CircleTransform(requireContext()))
+                .into(binding.ivProfile)
             binding.tvremove.visibility = View.GONE
             binding.textremove.visibility = View.VISIBLE
             binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
