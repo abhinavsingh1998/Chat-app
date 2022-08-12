@@ -1,7 +1,5 @@
 package com.emproto.networklayer.request.profile
 
-import com.google.gson.annotations.SerializedName
-
 data class EditUserNameRequest(
     val firstName:String=" ",
     val lastName:String=" ",
