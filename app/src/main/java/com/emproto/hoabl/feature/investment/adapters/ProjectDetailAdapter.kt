@@ -326,9 +326,11 @@ class ProjectDetailAdapter(
                         else -> regString = regString + "\n" + item
                     }
                 }
-                Glide.with(context)
-                    .load(data.opportunityDoc.whyToInvestMedia.value.url)
-                    .into(binding.whyInvestCard)
+                if (data.opportunityDoc != null) {
+                    Glide.with(context)
+                        .load(data.opportunityDoc.whyToInvestMedia.value.url)
+                        .into(binding.whyInvestCard)
+                }
                 tvRegistrationNumber.text = regString
                 Glide.with(context)
                     .load(data.projectCoverImages.newInvestmentPageMedia.value.url)
