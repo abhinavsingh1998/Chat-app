@@ -8,9 +8,8 @@ import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.HomeDataSource
 import com.emproto.networklayer.feature.PortfolioDataSource
 import com.emproto.networklayer.feature.ProfileDataSource
-import com.emproto.networklayer.request.login.profile.EditUserNameRequest
+import com.emproto.networklayer.request.profile.EditUserNameRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
-import com.emproto.networklayer.request.profile.LogOutFromCurrentBody
 import com.emproto.networklayer.request.profile.ReportSecurityRequest
 import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.BaseResponse

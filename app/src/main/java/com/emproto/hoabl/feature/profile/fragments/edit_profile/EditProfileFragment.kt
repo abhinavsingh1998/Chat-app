@@ -44,7 +44,7 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
-import com.emproto.networklayer.request.login.profile.EditUserNameRequest
+import com.emproto.networklayer.request.profile.EditUserNameRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.*
@@ -627,7 +627,7 @@ class EditProfileFragment : BaseFragment() {
                 binding.tvEmail.error = "Please enter valid email"
             } else {
                 sendProfileDetail(
-                    dob!!,
+                    dob,
                     email,
                     houseNo,
                     address,
@@ -730,7 +730,7 @@ class EditProfileFragment : BaseFragment() {
             data.firstName,
             data.lastName,
             validEmail,
-            validDOB!!,
+            validDOB,
             binding.autoGender.text.toString(),
             validHouse,
             validAdd,

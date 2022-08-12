@@ -4,10 +4,8 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.emproto.hoabl.repository.ProfileRepository
-import com.emproto.networklayer.request.login.TroubleSigningRequest
-import com.emproto.networklayer.request.login.profile.EditUserNameRequest
+import com.emproto.networklayer.request.profile.EditUserNameRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
-import com.emproto.networklayer.request.profile.LogOutFromCurrentBody
 import com.emproto.networklayer.request.profile.ReportSecurityRequest
 import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.BaseResponse

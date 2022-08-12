@@ -6,6 +6,7 @@ import com.emproto.networklayer.ApiService
 import com.emproto.networklayer.BuildConfig
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.preferences.AppPreferenceImp
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
@@ -45,7 +46,7 @@ class DataModule(private val application: Application) {
 
 
         return Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().serializeNulls().create()))
             .client(defaultHttpClient)
             .baseUrl(BuildConfig.BASE_URL).build()
     }
