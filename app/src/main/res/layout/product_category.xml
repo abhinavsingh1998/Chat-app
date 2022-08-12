@@ -33,15 +33,14 @@
 
             <TextView
                 android:id="@+id/tile_txt"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/jost_medium"
                 style="@style/text_style_text_black_color_14"
                 android:text="@string/lifestyle_text_about_us"
                 android:layout_marginStart="@dimen/margin_size_10"
                 android:layout_marginTop="@dimen/margin_size_17"
-                android:layout_marginEnd="@dimen/margin_size_200"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="50dp"
                 app:layout_constraintStart_toEndOf="@+id/location_iv"
                 app:layout_constraintTop_toTopOf="parent" />
             <View
