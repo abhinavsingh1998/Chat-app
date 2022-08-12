@@ -142,7 +142,8 @@ class TimelineAdapter(
                     itemInterface.onClickReraDetails(listData.timeLines[0].values.reraLink)
 
                 }
-                listHolder.binding.tvName.text = listData.timeLines[0].values.displayName
+                if (listData.timeLines[0] != null && listData.timeLines[0].values != null)
+                    listHolder.binding.tvName.text = listData.timeLines[0].values.displayName
                 listHolder.binding.imageView.setOnClickListener {
                     getToolTip(listData.timeLines[0].values.toolTipDetails).showAlignBottom(
                         listHolder.binding.imageView

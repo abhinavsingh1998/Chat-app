@@ -14,10 +14,10 @@ android {
         applicationId "com.hoabl"
         minSdk 19
         targetSdk 32
-        versionCode 55
-        versionName "0.0.55"
+        versionCode 58
+        versionName "0.0.58"
         multiDexEnabled true
-        archivesBaseName = "Hoabl_55"
+        archivesBaseName = "Hoabl_58"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.debug
     }
@@ -34,6 +34,7 @@ android {
         }
 
         preProd{
+            debuggable true
             buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-preprod-1970620156.ap-south-1.elb.amazonaws.com\"")
         }
 

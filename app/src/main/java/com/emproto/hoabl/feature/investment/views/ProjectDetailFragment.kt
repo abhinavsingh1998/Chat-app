@@ -252,7 +252,7 @@ class ProjectDetailFragment : BaseFragment() {
                 list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_SKUS))
             }
         }
-        when (allData.opportunityDoc.isProjectAminitiesActive) {
+        when (allData.opportunityDoc != null && allData.opportunityDoc.isProjectAminitiesActive) {
             true -> {
                 list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_AMENITIES))
             }
@@ -271,7 +271,7 @@ class ProjectDetailFragment : BaseFragment() {
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_TESTIMONIALS))
         when (allData.isSimilarInvestmentActive) {
             true -> {
-                if(allData.similarInvestments.isNotEmpty()){
+                if (allData.similarInvestments.isNotEmpty()) {
                     list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_SIMILAR_INVESTMENT))
                 }
             }
@@ -698,7 +698,8 @@ class ProjectDetailFragment : BaseFragment() {
                     )
                     intent.putExtra("YoutubeVideoId", url)
                     intent.putExtra("VideoTitle", title)
-                    startActivity(intent) }
+                    startActivity(intent)
+                }
             }
         }
     }

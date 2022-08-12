@@ -2,20 +2,18 @@ package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ItemPromisesBinding
 import com.emproto.hoabl.utils.ItemClickListener
-import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.networklayer.response.investment.PmData
-import com.emproto.networklayer.response.promises.HomePagesOrPromise
 
 class PromisesAdapter(
     private val list: List<PmData>,
     private val itemClickListener: ItemClickListener,
-    private val context: Context
+    private val context: Context,
+    val count: Int = 0
 ) : RecyclerView.Adapter<PromisesAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: ItemPromisesBinding) :
@@ -42,6 +40,11 @@ class PromisesAdapter(
         }
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int {
+
+        return if (list.size <= count)
+            list.size
+        else count
+    }
 
 }

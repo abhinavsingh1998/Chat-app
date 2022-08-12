@@ -29,6 +29,7 @@ android {
         }
 
         preProd{
+            debuggable true
             buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-preprod-1970620156.ap-south-1.elb.amazonaws.com\"")
         }
 
