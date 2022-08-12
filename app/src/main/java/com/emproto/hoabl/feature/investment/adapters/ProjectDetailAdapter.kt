@@ -416,7 +416,12 @@ class ProjectDetailAdapter(
                 binding.cvWhyInvestCard.setOnClickListener(onItemClickListener)
                 binding.tvApplyNow.setOnClickListener(onItemClickListener)
                 binding.tvFullApplyNow.setOnClickListener(onItemClickListener)
-                binding.tvRating.text = "${String.format("%.0f", data.generalInfoEscalationGraph.estimatedAppreciation.toDouble())}%"
+                binding.tvRating.text = "${
+                    String.format(
+                        "%.0f",
+                        data.generalInfoEscalationGraph.estimatedAppreciation.toDouble()
+                    )
+                }%"
 
                 val hoursInMillis =
                     TimeUnit.HOURS.toMillis(data.fomoContent.targetTime.hours.toLong())
@@ -433,7 +438,9 @@ class ProjectDetailAdapter(
                         val hour = millisUntilFinished / 3600000 % 24
                         val min = millisUntilFinished / 60000 % 60
                         val sec = millisUntilFinished / 1000 % 60
-                        binding.tvDuration.text = "${fh.format(hour).toString() + ":" + f.format(min) + ":" + f.format(sec)} Hrs Left"
+                        binding.tvDuration.text = "${
+                            fh.format(hour).toString() + ":" + f.format(min) + ":" + f.format(sec)
+                        } Hrs Left"
                     }
 
                     override fun onFinish() {
@@ -746,10 +753,10 @@ class ProjectDetailAdapter(
             val itemList = promisesList.sortedBy { it.priority }
             val sortedByList = ArrayList<PmData>()
             val listSize = pageManagementContent[0].totalPromisesOnHomeScreen
-            for (i in 0..listSize - 1) {
+            for (i in 0..itemList.size - 1) {
                 sortedByList.add(itemList[i])
             }
-            promisesAdapter = PromisesAdapter(sortedByList, itemClickListener, context)
+            promisesAdapter = PromisesAdapter(sortedByList, itemClickListener, context, listSize)
             binding.rvPromises.adapter = promisesAdapter
             binding.clNotConvincedPromises.setOnClickListener(onItemClickListener)
             binding.tvPromisesSeeAll.setOnClickListener(onItemClickListener)
@@ -759,7 +766,7 @@ class ProjectDetailAdapter(
     private inner class ProjectFaqViewHolder(private val binding: FaqLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            if (data.otherSectionHeadings != null) {
+            if (data.otherSectionHeadings != null && data.otherSectionHeadings.faqSection != null) {
                 binding.tvFaqTitle.text = data.otherSectionHeadings.faqSection.sectionHeading
             }
             val itemList = projectContentsAndFaqs
@@ -837,17 +844,21 @@ class ProjectDetailAdapter(
         fun bind(position: Int) {
             binding.tvSimilarInvestmentTitle.text = data.similarInvestmentSectionHeading
             val itemList = ArrayList<SimilarInvestment>()
-            if(data.similarInvestments.isNotEmpty()){
-                if(data.numberOfSimilarInvestmentsToShow <= data.similarInvestments.size){
+            if (data.similarInvestments.isNotEmpty()) {
+                if (data.numberOfSimilarInvestmentsToShow <= data.similarInvestments.size) {
                     for (i in 0..data.numberOfSimilarInvestmentsToShow - 1) {
                         itemList.add(data.similarInvestments[i])
                     }
                     similarInvestmentsAdapter =
                         InvestmentAdapter(context, itemList, similarInvItemClickListener)
                     binding.rvSimilarInvestment.adapter = similarInvestmentsAdapter
-                }else{
+                } else {
                     similarInvestmentsAdapter =
-                        InvestmentAdapter(context, data.similarInvestments, similarInvItemClickListener)
+                        InvestmentAdapter(
+                            context,
+                            data.similarInvestments,
+                            similarInvItemClickListener
+                        )
                     binding.rvSimilarInvestment.adapter = similarInvestmentsAdapter
                 }
             }
