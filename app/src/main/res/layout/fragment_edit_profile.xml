@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_size_16"
-                android:layout_toEndOf="@+id/arrowimage"
+                android:layout_toRightOf="@+id/arrowimage"
                 android:fontFamily="@font/jostmedium"
                 android:text="@string/edit_profile" />
         </RelativeLayout>
@@ -155,7 +155,7 @@
                                     android:elevation="@dimen/_8sdp"
                                     android:gravity="center"
                                     android:textColor="@color/white"
-                                    android:textSize="40sp" />
+                                    android:textSize="@dimen/margin_size_40" />
                             </androidx.cardview.widget.CardView>
                         </androidx.cardview.widget.CardView>
                     </androidx.cardview.widget.CardView>

@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.BuildConfig
 import com.emproto.hoabl.R
 
@@ -186,27 +187,27 @@ class ProfileFragment : BaseFragment() {
         (requireActivity() as HomeActivity).hideHeader()
 
         val item1 = ProfileOptionsData(
-            "My Account",
-            "Payment History & KYC",
+            Constants.MY_ACCOUNT_TITLE,
+            Constants.MY_ACCOUNT_DESCRIPTION,
             R.drawable.ic_profile,
             R.drawable.rightarrow
         )
         val item2 =
             ProfileOptionsData(
-                requireContext().resources.getString(R.string.securityandsetting),
-                "Report emergency, Location Prompt etc",
+               Constants.SECURITY_SETTINGS_TITLE,
+                Constants.SECURITY_SETTINGS_DESCRIPTION,
                 R.drawable.shield,
                 R.drawable.rightarrow
             )
         val item3 = ProfileOptionsData(
-            requireContext().resources.getString(R.string.help_center),
-            "Contact, About Us , Privacy Policy,Chat",
+           Constants.HELP_CENTER_TITLE,
+            Constants.HELP_CENTER_DESCRIPTION,
             R.drawable.helpmesg,
             R.drawable.rightarrow
         )
         val item4 = ProfileOptionsData(
-            requireContext().resources.getString(R.string.facility_management),
-            "Manage your land, book, etc",
+          Constants.FACILITY_MANAGEMENT_TITLE,
+            Constants.FACILITY_MANAGEMENT_DESCRIPTION,
             R.drawable.management_image,
             R.drawable.rightarrow
         )
@@ -234,9 +235,9 @@ class ProfileFragment : BaseFragment() {
                             }
                             1 -> {
                                 val bundle = Bundle()
-                                bundle.putBoolean("whatsappConsentEnabled", isWhatsappConsent)
-                                bundle.putBoolean("showPushNotifications", isPushNotificationSend)
-                                bundle.putBoolean("isSecurityTipsActive", isSecurityTipsActive)
+                                bundle.putBoolean(Constants.WHATSAPP_CONSENT_ENABLED, isWhatsappConsent)
+                                bundle.putBoolean(Constants.SHOW_PUSH_NOTIFICATION, isPushNotificationSend)
+                                bundle.putBoolean(Constants.IS_SECURITY_TIPS_ACTIVE, isSecurityTipsActive)
                                 val securityFragment = SecurityFragment()
                                 securityFragment.arguments = bundle
                                 (requireActivity() as HomeActivity).addFragment(
@@ -246,8 +247,8 @@ class ProfileFragment : BaseFragment() {
                             }
                             2 -> {
                                 val bundle = Bundle()
-                                bundle.putBoolean("isTermsActive", isTermsActive)
-                                bundle.putBoolean("isAboutUsActive", isAboutUsActive)
+                                bundle.putBoolean(Constants.IS_TERM_ACTIVE, isTermsActive)
+                                bundle.putBoolean(Constants.IS_ABOUT_US_ACTIVE, isAboutUsActive)
                                 val helpCenterFragment = HelpCenterFragment()
                                 helpCenterFragment.arguments = bundle
                                 (requireActivity() as HomeActivity).addFragment(
@@ -269,7 +270,7 @@ class ProfileFragment : BaseFragment() {
                                         )
                                     } else {
                                         (requireActivity() as HomeActivity).showErrorToast(
-                                            "Something Went Wrong"
+                                            Constants.SOMETHING_WENT_WRONG
                                         )
                                     }
                                 } else {
@@ -295,7 +296,7 @@ class ProfileFragment : BaseFragment() {
         binding.editProfile.setOnClickListener {
             if (::profileData.isInitialized) {
                 val editProfile = EditProfileFragment()
-                bundle.putSerializable("profileData", profileData)
+                bundle.putSerializable(Constants.PROFILE_DATA, profileData)
                 editProfile.arguments = bundle
                 (requireActivity() as HomeActivity).addFragment(editProfile, true)
             }
@@ -307,9 +308,9 @@ class ProfileFragment : BaseFragment() {
         executor = ContextCompat.getMainExecutor(this.requireContext())
         //Biometric dialog
         promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Hoabl")
-            .setSubtitle("Log in using your biometric credential")
-            .setNegativeButtonText("Use Pattern")
+            .setTitle(Constants.HOABL)
+            .setSubtitle(Constants.LOG_IN_USING_BIOMETRIC_CREDENTIAL)
+            .setNegativeButtonText(Constants.USE_PATTERN)
             .build()
 
         biometricPrompt = BiometricPrompt(this, executor,
@@ -357,8 +358,8 @@ class ProfileFragment : BaseFragment() {
             (activity as HomeActivity).getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val intent = keyguardManager.createConfirmDeviceCredentialIntent(
-                "Hi,User",
-                "Verify your security PIN/Pattern"
+                Constants.HI_USER,
+                Constants.VERIFY_YOUR_SERCURITY_PIN_PATTERN
             )
             if (intent != null)
                 startActivityForResult(intent, mRequestCode)

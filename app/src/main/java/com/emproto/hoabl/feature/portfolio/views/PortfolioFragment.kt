@@ -25,6 +25,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
@@ -235,9 +236,9 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         executor = ContextCompat.getMainExecutor(this.requireContext())
         //Biometric dialog
         promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Hoabl")
-            .setSubtitle("Log in using your biometric credential")
-            .setNegativeButtonText("Use Pattern")
+            .setTitle(Constants.HOABL)
+            .setSubtitle(Constants.LOG_IN_USING_BIOMETRIC_CREDENTIAL)
+            .setNegativeButtonText(Constants.USE_PATTERN)
             .build()
 
         biometricPrompt = BiometricPrompt(this, executor,
@@ -290,8 +291,8 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val intent = keyguardManager.createConfirmDeviceCredentialIntent(
-                "Hi,User",
-                "Verify your security PIN/Pattern"
+                Constants.HI_USER,
+                Constants.VERIFY_YOUR_SERCURITY_PIN_PATTERN
             )
             if (intent != null)
                 startActivityForResult(intent, mRequestCode)

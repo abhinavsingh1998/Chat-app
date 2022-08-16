@@ -11,6 +11,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
+import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ApplyConfirmationDialogBinding
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
@@ -36,7 +37,7 @@ class ConfirmationLogOutDialog(private val itemClickListener: ItemClickListener)
 
     private fun setUpUI() {
         binding.apply {
-            textView8.text = "Are you sure you want to logout from all devices?"
+            textView8.text = Constants.ARE_YOU_SURE_YOU_WANT_TO_LOGOUT_FROM_ALL_DEVICES
         }
         binding.actionYes.setOnClickListener { view ->
             dialog?.dismiss()

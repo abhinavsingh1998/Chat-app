@@ -38,6 +38,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
@@ -363,7 +364,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                                                 )
                                             } else {
                                                 (requireActivity() as HomeActivity).showErrorToast(
-                                                    "Something Went Wrong"
+                                                  Constants.SOMETHING_WENT_WRONG
                                                 )
                                             }
                                         }
@@ -442,8 +443,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
                             bundle.putInt("SelectedPosition", position)
                             bundle.putInt("FaqId", faqId)
                         }
-                        bundle.putBoolean("isFromInvestment", true)
-                        bundle.putString("ProjectName", "")
+                        bundle.putBoolean(Constants.IS_FROM_INVESTMENT, true)
+                        bundle.putString(Constants.PROJECT_NAME, "")
                         fragment.arguments = bundle
                         (requireActivity() as HomeActivity).addFragment(
                             fragment,

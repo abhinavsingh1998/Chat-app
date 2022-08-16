@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentHelpCenterBinding
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
@@ -45,8 +46,9 @@ class HelpCenterFragment : BaseFragment() {
     ): View? {
         binding = FragmentHelpCenterBinding.inflate(inflater, container, false)
         arguments.let {
-            isAboutUsActive = it?.getBoolean("isAboutUsActive",false) as Boolean
-            isTermsActive = it.getBoolean("isTermsActive",false)
+            isAboutUsActive = it?.getBoolean(Constants.IS_ABOUT_US_ACTIVE, false) as Boolean
+            isTermsActive = it.getBoolean(Constants.IS_TERM_ACTIVE, false)
+
         }
         initView()
         return binding.root
@@ -58,48 +60,48 @@ class HelpCenterFragment : BaseFragment() {
         (requireActivity() as HomeActivity).hideBottomNavigation()
 
         val item1 = DataHealthCenter(
-            "Frequently Asked Questions",
-            "Read all our FAQs here",
+            Constants.FAQ_TITLE,
+            Constants.FAQ_DESCRIPTION,
             R.drawable.ic_faq,
             R.drawable.rightarrow,
-            "Or Call us: +91 123 123 1231 Email us: help@hoabl.in"
+            Constants.INFO
         )
         val item2 =
             DataHealthCenter(
-                "Privacy Policy",
-                "Read our privacy policy",
+                Constants.PRIVACY_POLICY_TITLE,
+                Constants.PRIVACY_POLICY_DESCRIPTION,
                 R.drawable.ic_privacy_policy,
                 R.drawable.rightarrow,
-                "Or Call us: +91 123 123 1231 Email us: help@hoabl.in"
+                Constants.INFO
             )
         val item3 = DataHealthCenter(
-            "About Us",
-            "Read everything you want to know about us",
+            Constants.ABOUT_US_TITLE,
+            Constants.ABOUT_US_DESCRIPTION,
             R.drawable.ic_info_button,
             R.drawable.rightarrow,
-            "Or Call us: +91 123 123 1231 Email us: help@hoabl.in"
+            Constants.INFO
         )
         val item4 = DataHealthCenter(
-            "Share your feedback",
-            "This will help us improve the app for you",
+            Constants.FEEDBACK_TITLE,
+            Constants.FEEDBACK_DESCRIPTION,
             R.drawable.ic_feedback,
             R.drawable.rightarrow,
-            "Or Call us: +91 123 123 1231 Email us: help@hoabl.in"
+            Constants.INFO
         )
         val item5 = DataHealthCenter(
-            "Rate us!",
-            "Let us know your love for us! Rate us on the store",
+            Constants.RATE_US_TITLE,
+            Constants.RATE_US_DESCRIPTION,
             R.drawable.ic_rating_2,
             R.drawable.rightarrow,
-            "Or Call us: +91 123 123 1231 Email us: care@hoabl.in"
+            Constants.INFO
         )
 
         val listHolder = ArrayList<HelpModel>()
         listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item1))
-        when(isTermsActive){
+        when (isTermsActive) {
             true -> listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item2))
         }
-        when(isAboutUsActive){
+        when (isAboutUsActive) {
             true -> listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item3))
         }
         listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item4))
@@ -111,32 +113,32 @@ class HelpCenterFragment : BaseFragment() {
             requireContext(),
             listHolder,
             object : ItemClickListener {
-                override fun onItemClicked(view: View, position:Int, item:String) {
+                override fun onItemClicked(view: View, position: Int, item: String) {
                     when (item) {
-                        "Frequently Asked Questions" -> {
+                        Constants.FAQ_TITLE -> {
                             val fragment = FaqDetailFragment()
                             val bundle = Bundle()
-                            bundle.putBoolean("isFromInvestment",false)
-                            bundle.putString("ProjectName","General")
+                            bundle.putBoolean(Constants.IS_FROM_INVESTMENT, false)
+                            bundle.putString(Constants.PROJECT_NAME, Constants.GENERAL)
                             fragment.arguments = bundle
                             (requireActivity() as HomeActivity).addFragment(
                                 fragment,
                                 true
                             )
                         }
-                        "About Us" -> {
+                        Constants.ABOUT_US_TITLE -> {
                             (requireActivity() as HomeActivity).addFragment(
                                 AboutUsFragment(),
                                 true
                             )
                         }
-                        "Privacy Policy" -> {
+                        Constants.PRIVACY_POLICY_TITLE -> {
                             (requireActivity() as HomeActivity).addFragment(
                                 PrivacyFragment(),
                                 true
                             )
                         }
-                        "Share your feedback" -> {
+                        Constants.FEEDBACK_TITLE -> {
                             (requireActivity() as HomeActivity).addFragment(
                                 FeedbackFragment(),
                                 true
@@ -156,18 +158,18 @@ class HelpCenterFragment : BaseFragment() {
                 }
 
                 override fun onPhoneNumberClick(position: Int) {
-                    val u = Uri.parse("tel:" + "+911231231231")
-                    val intent = Intent(Intent.ACTION_DIAL,u)
+                    val u = Uri.parse("tel:" +Constants.TELEPHONE_NO )
+                    val intent = Intent(Intent.ACTION_DIAL, u)
                     try {
                         startActivity(intent)
                     } catch (s: SecurityException) {
-                        Toast.makeText(context, "An error occurred", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, Constants.AN_ERROR_OCCURRED, Toast.LENGTH_LONG).show()
                     }
                 }
 
                 override fun onEmailClick(position: Int) {
                     val intent = Intent(Intent.ACTION_SENDTO)
-                    val uri = Uri.parse("mailto:care@hoabl.in")
+                    val uri = Uri.parse(Constants.EMAIL)
                     intent.data = uri
                     startActivity(intent)
                 }
@@ -179,8 +181,6 @@ class HelpCenterFragment : BaseFragment() {
             requireActivity().supportFragmentManager.popBackStack()
         }
     }
-
-
 
 
 }

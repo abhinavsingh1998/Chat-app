@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FaqDetailFragmentBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -52,8 +53,8 @@ class FaqDetailFragment : BaseFragment() {
         arguments?.let {
             projectId = it.getInt("ProjectId")
             faqId = it.getInt("FaqId")
-            isFromInvestment = it.getBoolean("isFromInvestment")
-            projectName = it.getString("ProjectName").toString()
+            isFromInvestment = it.getBoolean(Constants.IS_FROM_INVESTMENT)
+            projectName = it.getString(Constants.PROJECT_NAME).toString()
         }
         return binding.root
     }

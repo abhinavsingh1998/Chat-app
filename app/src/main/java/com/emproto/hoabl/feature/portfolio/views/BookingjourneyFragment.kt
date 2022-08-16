@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.FragmentReceiptBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -387,14 +388,14 @@ class BookingjourneyFragment : BaseFragment() {
 
                         } else {
                             (requireActivity() as HomeActivity).showErrorToast(
-                                "Something Went Wrong"
+                               Constants.SOMETHING_WENT_WRONG
                             )
                         }
 
                     }
                     Status.ERROR -> {
                         (requireActivity() as HomeActivity).showErrorToast(
-                            "Something Went Wrong"
+                            Constants.SOMETHING_WENT_WRONG
                         )
                     }
                 }

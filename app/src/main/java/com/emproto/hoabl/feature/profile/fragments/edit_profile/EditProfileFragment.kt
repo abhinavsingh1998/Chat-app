@@ -36,6 +36,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseActivity
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentEditProfileBinding
@@ -129,7 +130,7 @@ class EditProfileFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
-            data = requireArguments().getSerializable("profileData") as Data
+            data = requireArguments().getSerializable(Constants.PROFILE_DATA) as Data
         }
     }
 
