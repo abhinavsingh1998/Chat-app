@@ -692,29 +692,6 @@ class EditProfileFragment : BaseFragment() {
         }
     }
 
-    private fun changeFontOnSave() {
-        val typeface1 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.emailTv.typeface = typeface1
-        val typeface2 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.houseNo.typeface = typeface2
-        val typeface3 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.completeAddress.typeface = typeface3
-        val typeface4 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.locality.typeface = typeface4
-        val typeface5 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.autoCountry.typeface = typeface5
-        val typeface6 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.autoState.typeface = typeface6
-        val typeface7 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.autoCity.typeface = typeface7
-        val typeface8 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.pincodeEditText.typeface = typeface8
-        val typeface9 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.autoGender.typeface = typeface9
-        val typeface10 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.tvDatePicker.typeface = typeface10
-    }
-
     private fun sendProfileDetail(
         validDOB: String?,
         validEmail: String,
