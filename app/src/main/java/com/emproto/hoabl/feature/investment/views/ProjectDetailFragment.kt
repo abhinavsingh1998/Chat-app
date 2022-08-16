@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ProjectDetailLayoutBinding
@@ -335,7 +336,7 @@ class ProjectDetailFragment : BaseFragment() {
                     val fragment = OpportunityDocsFragment()
                     val bundle = Bundle()
                     bundle.putInt("ProjectId", projectId)
-                    bundle.putString("ProjectName", allData.launchName)
+                    bundle.putString(Constants.PROJECT_NAME, allData.launchName)
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(
                         fragment,
@@ -407,8 +408,8 @@ class ProjectDetailFragment : BaseFragment() {
         val fragment = FaqDetailFragment()
         val bundle = Bundle()
         bundle.putInt("ProjectId", projectId)
-        bundle.putBoolean("isFromInvestment", true)
-        bundle.putString("ProjectName", allData.launchName)
+        bundle.putBoolean(Constants.IS_FROM_INVESTMENT, true)
+        bundle.putString(Constants.PROJECT_NAME, allData.launchName)
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(fragment, true)
     }
@@ -419,7 +420,7 @@ class ProjectDetailFragment : BaseFragment() {
         val fragment = OpportunityDocsFragment()
         val bundle = Bundle()
         bundle.putInt("ProjectId", projectId)
-        bundle.putString("ProjectName", allData.launchName)
+        bundle.putString(Constants.PROJECT_NAME, allData.launchName)
         bundle.putBoolean("isProjectAmenitiesClicked", true)
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(
@@ -640,8 +641,8 @@ class ProjectDetailFragment : BaseFragment() {
                     val bundle = Bundle()
                     bundle.putInt("ProjectId", projectId)
                     bundle.putInt("FaqId", item.toInt())
-                    bundle.putBoolean("isFromInvestment", true)
-                    bundle.putString("ProjectName", allData.launchName)
+                    bundle.putBoolean(Constants.IS_FROM_INVESTMENT, true)
+                    bundle.putString(Constants.PROJECT_NAME, allData.launchName)
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }

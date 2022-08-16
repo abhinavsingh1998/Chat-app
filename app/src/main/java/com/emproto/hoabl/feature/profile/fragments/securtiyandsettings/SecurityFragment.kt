@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentSecurityBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -68,9 +69,9 @@ class SecurityFragment : BaseFragment(){
             ViewModelProvider(requireActivity(), profileFactory)[ProfileViewModel::class.java]
         binding = FragmentSecurityBinding.inflate(layoutInflater)
         arguments.let {
-            isWhatsappEnabled = it?.getBoolean("whatsappConsentEnabled") as Boolean
-            showPushNotifications = it.getBoolean("showPushNotifications") as Boolean
-            isSecurityTipsActive = it.getBoolean("isSecurityTipsActive") as Boolean
+            isWhatsappEnabled = it?.getBoolean(Constants.WHATSAPP_CONSENT_ENABLED) as Boolean
+            showPushNotifications = it.getBoolean(Constants.SHOW_PUSH_NOTIFICATION) as Boolean
+            isSecurityTipsActive = it.getBoolean(Constants.IS_SECURITY_TIPS_ACTIVE) as Boolean
         }
         return binding.root
 

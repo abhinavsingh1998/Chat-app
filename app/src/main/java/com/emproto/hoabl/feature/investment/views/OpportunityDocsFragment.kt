@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentOpportunityDocsBinding
@@ -31,7 +32,7 @@ class OpportunityDocsFragment:BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentOpportunityDocsBinding.inflate(layoutInflater)
         arguments.let {
-            title = it?.getString("ProjectName").toString()
+            title = it?.getString(Constants.PROJECT_NAME).toString()
             projectId = it?.getInt("ProjectId", 0)!!
             isFromProjectAmenities = it.getBoolean("isProjectAmenitiesClicked",false)
         }

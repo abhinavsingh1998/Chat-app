@@ -36,8 +36,8 @@ lateinit var binding:FragmentNotificationBottomSheetBinding
     ): View? {
 
     binding= FragmentNotificationBottomSheetBinding.inflate(inflater, container,false)
-    (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.isVisible=false
-    (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.isVisible= false
+    (requireActivity() as HomeActivity).hideBottomNavigation()
+    (requireActivity() as HomeActivity).hideHeader()
 
         // Inflate the layout for this fragment
         view?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {

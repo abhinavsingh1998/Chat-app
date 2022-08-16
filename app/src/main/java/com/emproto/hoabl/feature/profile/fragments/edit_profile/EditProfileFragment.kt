@@ -36,6 +36,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseActivity
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentEditProfileBinding
@@ -129,7 +130,7 @@ class EditProfileFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
-            data = requireArguments().getSerializable("profileData") as Data
+            data = requireArguments().getSerializable(Constants.PROFILE_DATA) as Data
         }
     }
 
@@ -380,7 +381,7 @@ class EditProfileFragment : BaseFragment() {
 
         binding.textviewEnterName.text = data.firstName + " " + data.lastName
         Log.i("name", data.firstName + " " + data.lastName + data.email)
-        binding.enterPhonenumberTextview.text = data.phoneNumber
+        binding.enterPhonenumberTextview.text = data.countryCode+data.phoneNumber
         if (!data.email.isNullOrEmpty()) {
             binding.emailTv.setText(data.email)
         } else {
@@ -690,29 +691,6 @@ class EditProfileFragment : BaseFragment() {
                 removePictureDialog.show()
             }
         }
-    }
-
-    private fun changeFontOnSave() {
-        val typeface1 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.emailTv.typeface = typeface1
-        val typeface2 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.houseNo.typeface = typeface2
-        val typeface3 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.completeAddress.typeface = typeface3
-        val typeface4 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.locality.typeface = typeface4
-        val typeface5 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.autoCountry.typeface = typeface5
-        val typeface6 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.autoState.typeface = typeface6
-        val typeface7 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.autoCity.typeface = typeface7
-        val typeface8 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.pincodeEditText.typeface = typeface8
-        val typeface9 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.autoGender.typeface = typeface9
-        val typeface10 = context?.let1 { it1 -> ResourcesCompat.getFont(it1, R.font.jost_medium) }
-        binding.tvDatePicker.typeface = typeface10
     }
 
     private fun sendProfileDetail(

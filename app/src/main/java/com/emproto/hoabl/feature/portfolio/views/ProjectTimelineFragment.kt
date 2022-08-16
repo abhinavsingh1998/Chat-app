@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
@@ -89,7 +90,7 @@ class ProjectTimelineFragment : BaseFragment() {
                             if (item.priority == 1) {
                                 item.reraDetails = it.data.projectContent.reraDetails
                                 timelineList.add(TimelineModel(TimelineAdapter.TYPE_RERA, item))
-                            } else if (item.timeLineSectionHeading == "Facility Management" || item.timeLineSectionHeading == "Land Management" || item.priority == 5) {
+                            } else if (item.timeLineSectionHeading == Constants.FACILITY_MANAGEMENT_TITLE || item.timeLineSectionHeading == "Land Management" || item.priority == 5) {
                                 timelineList.add(TimelineModel(TimelineAdapter.TYPE_LAND, item))
                             } else
                                 timelineList.add(TimelineModel(TimelineAdapter.TYPE_LIST, item))
@@ -119,7 +120,7 @@ class ProjectTimelineFragment : BaseFragment() {
 
                                         } else {
                                             (requireActivity() as HomeActivity).showErrorToast(
-                                                "Something Went Wrong"
+                                            Constants.SOMETHING_WENT_WRONG
                                             )
                                         }
                                     }
@@ -189,7 +190,7 @@ class ProjectTimelineFragment : BaseFragment() {
 
                         } else {
                             (requireActivity() as HomeActivity).showErrorToast(
-                                "Something Went Wrong"
+                               Constants.SOMETHING_WENT_WRONG
                             )
                         }
 
@@ -197,7 +198,7 @@ class ProjectTimelineFragment : BaseFragment() {
                     Status.ERROR -> {
                         mBinding.loader.hide()
                         (requireActivity() as HomeActivity).showErrorToast(
-                            "Something Went Wrong"
+                            Constants.SOMETHING_WENT_WRONG
                         )
                     }
                 }

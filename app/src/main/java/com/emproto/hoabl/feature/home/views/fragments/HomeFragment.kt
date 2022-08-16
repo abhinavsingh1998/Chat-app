@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentHomeBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -309,7 +310,7 @@ class HomeFragment : BaseFragment() {
 
                                         } else {
                                             (requireActivity() as HomeActivity).showErrorToast(
-                                                "Something Went Wrong"
+                                               Constants.SOMETHING_WENT_WRONG
                                             )
                                         }
                                     }
