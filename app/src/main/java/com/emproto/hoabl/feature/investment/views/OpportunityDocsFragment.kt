@@ -33,8 +33,8 @@ class OpportunityDocsFragment:BaseFragment() {
         binding = FragmentOpportunityDocsBinding.inflate(layoutInflater)
         arguments.let {
             title = it?.getString(Constants.PROJECT_NAME).toString()
-            projectId = it?.getInt("ProjectId", 0)!!
-            isFromProjectAmenities = it.getBoolean("isProjectAmenitiesClicked",false)
+            projectId = it?.getInt(Constants.PROJECT_ID, 0)!!
+            isFromProjectAmenities = it.getBoolean(Constants.IS_PROJECT_AMENITIES_CLICKED,false)
         }
         return binding.root
     }
@@ -55,7 +55,6 @@ class OpportunityDocsFragment:BaseFragment() {
     private fun setUpUI() {
         (requireActivity() as HomeActivity).hideBottomNavigation()
         (requireActivity() as HomeActivity).showBackArrow()
-        (requireActivity() as HomeActivity).hideBottomNavigation()
     }
 
     private fun setUpRecyclerView() {
@@ -117,7 +116,7 @@ class OpportunityDocsFragment:BaseFragment() {
                 R.id.tv_apply_now -> {
                     val fragment = LandSkusFragment()
                     val bundle = Bundle()
-                    bundle.putInt("ProjectId", projectId)
+                    bundle.putInt(Constants.PROJECT_ID, projectId)
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }

@@ -438,10 +438,10 @@ class PortfolioSpecificProjectView : BaseFragment() {
                     override fun readAllFaq(position: Int, faqId: Int) {
                         val fragment = FaqDetailFragment()
                         val bundle = Bundle()
-                        bundle.putInt("ProjectId", projectId)
+                        bundle.putInt(Constants.PROJECT_ID, projectId)
                         if (position != -1) {
                             bundle.putInt("SelectedPosition", position)
-                            bundle.putInt("FaqId", faqId)
+                            bundle.putInt(Constants.FAQ_ID, faqId)
                         }
                         bundle.putBoolean(Constants.IS_FROM_INVESTMENT, true)
                         bundle.putString(Constants.PROJECT_NAME, "")
@@ -485,7 +485,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         )
                         applicationSubmitDialog.show(
                             parentFragmentManager,
-                            "ApplicationSubmitDialog"
+                            Constants.APPLICATION_SUBMIT_DIALOG
                         )
                     }
 

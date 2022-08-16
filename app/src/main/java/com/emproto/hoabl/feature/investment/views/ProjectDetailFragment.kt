@@ -84,7 +84,7 @@ class ProjectDetailFragment : BaseFragment() {
     ): View {
         binding = ProjectDetailLayoutBinding.inflate(layoutInflater)
         arguments?.let {
-            projectId = it.getInt("ProjectId", 0)
+            projectId = it.getInt(Constants.PROJECT_ID, 0)
         }
         return binding.root
     }
@@ -316,7 +316,7 @@ class ProjectDetailFragment : BaseFragment() {
                     val bundle = Bundle()
                     val projectLocation =
                         ProjectLocation(allData.crmProject.lattitude, allData.crmProject.longitude)
-                    bundle.putSerializable("ProjectLocation", projectLocation as Serializable)
+                    bundle.putSerializable(Constants.PROJECT_LOCATION, projectLocation as Serializable)
                     fragment.arguments = bundle
                     investmentViewModel.setMapLocationInfrastructure(mapLocationData)
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
@@ -335,7 +335,7 @@ class ProjectDetailFragment : BaseFragment() {
                     investmentViewModel.setSkus(landSkusData)
                     val fragment = OpportunityDocsFragment()
                     val bundle = Bundle()
-                    bundle.putInt("ProjectId", projectId)
+                    bundle.putInt(Constants.PROJECT_ID, projectId)
                     bundle.putString(Constants.PROJECT_NAME, allData.launchName)
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(
@@ -368,14 +368,14 @@ class ProjectDetailFragment : BaseFragment() {
                 R.id.tv_full_apply_now -> {
                     val fragment = LandSkusFragment()
                     val bundle = Bundle()
-                    bundle.putInt("ProjectId", projectId)
+                    bundle.putInt(Constants.PROJECT_ID, projectId)
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
                 R.id.tv_apply_now -> {
                     val fragment = LandSkusFragment()
                     val bundle = Bundle()
-                    bundle.putInt("ProjectId", projectId)
+                    bundle.putInt(Constants.PROJECT_ID, projectId)
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
@@ -384,7 +384,7 @@ class ProjectDetailFragment : BaseFragment() {
                     val bundle = Bundle()
                     val projectLocation =
                         ProjectLocation(allData.crmProject.lattitude, allData.crmProject.longitude)
-                    bundle.putSerializable("ProjectLocation", projectLocation as Serializable)
+                    bundle.putSerializable(Constants.PROJECT_LOCATION, projectLocation as Serializable)
                     fragment.arguments = bundle
                     investmentViewModel.setMapLocationInfrastructure(mapLocationData)
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
@@ -407,7 +407,7 @@ class ProjectDetailFragment : BaseFragment() {
     private fun navigateToFaqDetail() {
         val fragment = FaqDetailFragment()
         val bundle = Bundle()
-        bundle.putInt("ProjectId", projectId)
+        bundle.putInt(Constants.PROJECT_ID, projectId)
         bundle.putBoolean(Constants.IS_FROM_INVESTMENT, true)
         bundle.putString(Constants.PROJECT_NAME, allData.launchName)
         fragment.arguments = bundle
@@ -419,9 +419,9 @@ class ProjectDetailFragment : BaseFragment() {
         investmentViewModel.setSkus(landSkusData)
         val fragment = OpportunityDocsFragment()
         val bundle = Bundle()
-        bundle.putInt("ProjectId", projectId)
+        bundle.putInt(Constants.PROJECT_ID, projectId)
         bundle.putString(Constants.PROJECT_NAME, allData.launchName)
-        bundle.putBoolean("isProjectAmenitiesClicked", true)
+        bundle.putBoolean(Constants.IS_PROJECT_AMENITIES_CLICKED, true)
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(
             fragment,
@@ -532,7 +532,7 @@ class ProjectDetailFragment : BaseFragment() {
                         )
                         applicationSubmitDialog.show(
                             parentFragmentManager,
-                            "ApplicationSubmitDialog"
+                            Constants.APPLICATION_SUBMIT_DIALOG
                         )
                     }
                 }
@@ -564,7 +564,7 @@ class ProjectDetailFragment : BaseFragment() {
                     )
                     val projectLocation =
                         ProjectLocation(allData.crmProject.lattitude, allData.crmProject.longitude)
-                    bundle.putSerializable("ProjectLocation", projectLocation as Serializable)
+                    bundle.putSerializable(Constants.PROJECT_LOCATION, projectLocation as Serializable)
                     val fragment = MapFragment()
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(
@@ -591,7 +591,7 @@ class ProjectDetailFragment : BaseFragment() {
 
     private fun navigateToDetailScreen(item: Int) {
         val bundle = Bundle()
-        bundle.putInt("ProjectId", item)
+        bundle.putInt(Constants.PROJECT_ID, item)
         val fragment = ProjectDetailFragment()
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(
@@ -632,15 +632,15 @@ class ProjectDetailFragment : BaseFragment() {
                 }
                 R.id.iv_bookmark_icon -> {
                     when (item) {
-                        "true" -> addWatchList()
-                        "false" -> deleteWatchList()
+                        Constants.TRUE -> addWatchList()
+                        Constants.FALSE -> deleteWatchList()
                     }
                 }
                 R.id.cv_faq_card -> {
                     val fragment = FaqDetailFragment()
                     val bundle = Bundle()
-                    bundle.putInt("ProjectId", projectId)
-                    bundle.putInt("FaqId", item.toInt())
+                    bundle.putInt(Constants.PROJECT_ID, projectId)
+                    bundle.putInt(Constants.FAQ_ID, item.toInt())
                     bundle.putBoolean(Constants.IS_FROM_INVESTMENT, true)
                     bundle.putString(Constants.PROJECT_NAME, allData.launchName)
                     fragment.arguments = bundle
@@ -671,7 +671,7 @@ class ProjectDetailFragment : BaseFragment() {
                                     )
                                     applicationSubmitDialog.show(
                                         parentFragmentManager,
-                                        "ApplicationSubmitDialog"
+                                        Constants.APPLICATION_SUBMIT_DIALOG
                                     )
                                     callApi()
                                 }
@@ -697,8 +697,8 @@ class ProjectDetailFragment : BaseFragment() {
                         this@ProjectDetailFragment.requireActivity(),
                         YoutubeActivity::class.java
                     )
-                    intent.putExtra("YoutubeVideoId", url)
-                    intent.putExtra("VideoTitle", title)
+                    intent.putExtra(Constants.YOUTUBE_VIDEO_ID, url)
+                    intent.putExtra(Constants.VIDEO_TITLE, title)
                     startActivity(intent)
                 }
             }
@@ -708,7 +708,7 @@ class ProjectDetailFragment : BaseFragment() {
     private fun navigateToSkuScreen() {
         val fragment = LandSkusFragment()
         val bundle = Bundle()
-        bundle.putInt("ProjectId", projectId)
+        bundle.putInt(Constants.PROJECT_ID, projectId)
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(fragment, true)
     }

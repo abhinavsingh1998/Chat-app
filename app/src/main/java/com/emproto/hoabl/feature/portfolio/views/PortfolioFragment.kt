@@ -531,7 +531,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
     override fun onClickofWatchlist(projectId: Int) {
         val bundle = Bundle()
-        bundle.putInt("ProjectId", projectId)
+        bundle.putInt(Constants.PROJECT_ID, projectId)
         val fragment = ProjectDetailFragment()
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(
@@ -543,7 +543,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         //open sku screen
         val fragment = LandSkusFragment()
         val bundle = Bundle()
-        bundle.putInt("ProjectId", projectId)
+        bundle.putInt(Constants.PROJECT_ID, projectId)
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(fragment, true)
     }
@@ -554,7 +554,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
     override fun dontMissoutCard() {
         val bundle = Bundle()
-        bundle.putInt("ProjectId", dontMissoutId)
+        bundle.putInt(Constants.PROJECT_ID, dontMissoutId)
         val fragment = ProjectDetailFragment()
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(

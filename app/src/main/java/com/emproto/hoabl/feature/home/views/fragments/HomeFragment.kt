@@ -228,7 +228,7 @@ class HomeFragment : BaseFragment() {
                 R.id.cv_top_view -> {
                     val fragment = ProjectDetailFragment()
                     val bundle = Bundle()
-                    bundle.putInt("ProjectId", item.toInt())
+                    bundle.putInt(Constants.PROJECT_ID, item.toInt())
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(
                         fragment,
@@ -238,7 +238,7 @@ class HomeFragment : BaseFragment() {
                 R.id.tv_apply_now -> {
                     val fragment = LandSkusFragment()
                     val bundle = Bundle()
-                    bundle.putInt("ProjectId", item.toInt())
+                    bundle.putInt(Constants.PROJECT_ID, item.toInt())
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(
                         fragment,
@@ -248,7 +248,7 @@ class HomeFragment : BaseFragment() {
                 R.id.tv_item_location_info -> {
                     val fragment = ProjectDetailFragment()
                     val bundle = Bundle()
-                    bundle.putInt("ProjectId", item.toInt())
+                    bundle.putInt(Constants.PROJECT_ID, item.toInt())
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(
                         fragment,
@@ -258,7 +258,7 @@ class HomeFragment : BaseFragment() {
                 R.id.iv_bottom_arrow -> {
                     val fragment = ProjectDetailFragment()
                     val bundle = Bundle()
-                    bundle.putInt("ProjectId", item.toInt())
+                    bundle.putInt(Constants.PROJECT_ID, item.toInt())
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(
                         fragment,
@@ -336,7 +336,7 @@ class HomeFragment : BaseFragment() {
                 }
                 R.id.dont_miss_out_card -> {
                     val bundle = Bundle()
-                    bundle.putInt("ProjectId", projectId)
+                    bundle.putInt(Constants.PROJECT_ID, projectId)
                     val fragment = ProjectDetailFragment()
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(

@@ -51,8 +51,8 @@ class FaqDetailFragment : BaseFragment() {
     ): View {
         binding = FaqDetailFragmentBinding.inflate(layoutInflater)
         arguments?.let {
-            projectId = it.getInt("ProjectId")
-            faqId = it.getInt("FaqId")
+            projectId = it.getInt(Constants.PROJECT_ID)
+            faqId = it.getInt(Constants.FAQ_ID)
             isFromInvestment = it.getBoolean(Constants.IS_FROM_INVESTMENT)
             projectName = it.getString(Constants.PROJECT_NAME).toString()
         }

@@ -24,6 +24,7 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentSearchResultBinding
@@ -565,7 +566,7 @@ class SearchResultFragment : BaseFragment() {
             when (position) {
                 0 -> {
                     val bundle = Bundle()
-                    bundle.putInt("ProjectId", item.toInt())
+                    bundle.putInt(Constants.PROJECT_ID, item.toInt())
                     val fragment = ProjectDetailFragment()
                     fragment.arguments = bundle
                     homeViewModel.setSearchedText(fragmentSearchResultBinding.searchLayout.search.text.toString())
@@ -575,7 +576,7 @@ class SearchResultFragment : BaseFragment() {
                 1 -> {
                     val fragment = LandSkusFragment()
                     val bundle = Bundle()
-                    bundle.putInt("ProjectId", item.toInt())
+                    bundle.putInt(Constants.PROJECT_ID, item.toInt())
                     fragment.arguments = bundle
                     homeViewModel.setSearchedText(fragmentSearchResultBinding.searchLayout.search.text.toString())
                     fragmentSearchResultBinding.searchLayout.search.setText("")

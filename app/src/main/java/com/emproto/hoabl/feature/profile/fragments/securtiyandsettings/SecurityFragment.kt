@@ -81,7 +81,6 @@ class SecurityFragment : BaseFragment(){
         super.onViewCreated(view, savedInstanceState)
         val dataList: ArrayList<RecyclerViewItem> = ArrayList<RecyclerViewItem>()
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_REPORT))
-//        dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_AUTHENTICATE))
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_WHATSAPP_COMMUNICATION))
         when(isSecurityTipsActive){
             true -> {
@@ -118,11 +117,11 @@ class SecurityFragment : BaseFragment(){
             when(view.id){
                 R.id.switch1 -> {
                     when(item){
-                        "true" -> {
+                      Constants.TRUE -> {
                             isWhatsappEnabled = true
                             callWhatsAppConsentApi(isWhatsappEnabled,showPushNotifications)
                         }
-                        "false" -> {
+                      Constants.FALSE -> {
                             isWhatsappEnabled = false
                             callWhatsAppConsentApi(isWhatsappEnabled,showPushNotifications)
                         }
@@ -130,11 +129,11 @@ class SecurityFragment : BaseFragment(){
                 }
                 R.id.cl_security_tips -> {
                     when(item){
-                        "Security Tips" -> {
+                       Constants.SECURITY_TIPS -> {
                             val securityTipsFragment = SecurityTipsFragment()
                             (requireActivity() as HomeActivity).addFragment(securityTipsFragment,false)
                         }
-                        "Sign out from all devices" -> {
+                        Constants.SIGN_OUT_FROM_ALL_DEVICES -> {
                             logoutDialog.show()
                         }
                     }
@@ -150,7 +149,7 @@ class SecurityFragment : BaseFragment(){
 //                    }
                     profileViewModel.submitTroubleCase(ReportSecurityRequest(
                         caseType = "1005",
-                        description = "I want to raise a security emergency")).observe(viewLifecycleOwner, Observer {
+                        description = Constants.I_WANT_TO_RAISE_A_SECURITY_EMERGENCY)).observe(viewLifecycleOwner, Observer {
                             when(it.status){
                                 Status.LOADING -> {
                                     binding.progressBar.show()
@@ -160,11 +159,11 @@ class SecurityFragment : BaseFragment(){
                                     if (it.data != null) {
                                         it.data?.let {
                                             val applicationSubmitDialog = ApplicationSubmitDialog(
-                                                "Request Sent",
-                                                "A relationship manager will get back to you to discuss more about it.",
+                                                Constants.APPLICATION_SUBMIT_DIALOG_TITLE,
+                                                Constants.APPLICATION_SUBMIT_DIALOG_DESCRIPTION,
                                                 false
                                             )
-                                            applicationSubmitDialog.show(parentFragmentManager, "ApplicationSubmitDialog")
+                                            applicationSubmitDialog.show(parentFragmentManager, Constants.APPLICATION_SUBMIT_DIALOG)
                                         }
                                     }
                                 }
@@ -180,11 +179,11 @@ class SecurityFragment : BaseFragment(){
                 }
                 R.id.setting_switch -> {
                     when(item){
-                        "true" -> {
+                        Constants.TRUE -> {
                             showPushNotifications = true
                             callWhatsAppConsentApi(isWhatsappEnabled,showPushNotifications)
                         }
-                        "false" -> {
+                       Constants.FALSE -> {
                             showPushNotifications = false
                             callWhatsAppConsentApi(isWhatsappEnabled,showPushNotifications)
                         }
@@ -269,19 +268,19 @@ class SecurityFragment : BaseFragment(){
             // Do something with spokenText.
             Toast.makeText(this.requireContext(), spokenText.toString(), Toast.LENGTH_SHORT).show()
             when{
-                spokenText.toString().contains("Investment", ignoreCase = true) -> {
+                spokenText.toString().contains(Constants.INVESTMENT, ignoreCase = true) -> {
                     (requireActivity() as HomeActivity).navigate(R.id.navigation_investment)
                 }
-                spokenText.toString().contains("Promise", ignoreCase = true) -> {
+                spokenText.toString().contains(Constants.PROMISE, ignoreCase = true) -> {
                     (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
                 }
-                spokenText.toString().contains("Portfolio", ignoreCase = true) -> {
+                spokenText.toString().contains(Constants.PORTFOLIO, ignoreCase = true) -> {
                     (requireActivity() as HomeActivity).navigate(R.id.navigation_portfolio)
                 }
-                spokenText.toString().contains("Home", ignoreCase = true) -> {
+                spokenText.toString().contains(Constants.HOME, ignoreCase = true) -> {
                     (requireActivity() as HomeActivity).navigate(R.id.navigation_hoabl)
                 }
-                spokenText.toString().contains("Profile", ignoreCase = true) -> {
+                spokenText.toString().contains(Constants.PROFILE, ignoreCase = true) -> {
                     (requireActivity() as HomeActivity).navigate(R.id.navigation_profile)
                 }
             }
