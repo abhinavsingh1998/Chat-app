@@ -40,7 +40,7 @@ object Constants {
     //ProfileFragment
     val MY_ACCOUNT_TITLE = "My Account"
     val MY_ACCOUNT_DESCRIPTION = "Payment History & KYC"
-    val SECURITY_SETTINGS_TITLE = "Security &amp; Settings"
+    val SECURITY_SETTINGS_TITLE = "Security & Settings"
     val SECURITY_SETTINGS_DESCRIPTION = "Report emergency, Location Prompt etc"
     val HELP_CENTER_TITLE = "Help Center"
     val HELP_CENTER_DESCRIPTION = "Contact, About Us , Privacy Policy,Chat"
