@@ -10,8 +10,9 @@
     android:layout_marginEnd="16dp"
     android:layout_marginBottom="6dp"
     app:cardBackgroundColor="@color/white"
+    android:outlineSpotShadowColor="#ababab"
     app:cardCornerRadius="4dp"
-    app:cardElevation="@dimen/_1sdp">
+    app:cardElevation="@dimen/margin_size_8">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -30,8 +31,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="6dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/jost_regular"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -85,8 +86,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="6dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/jost_regular"
                 android:text="Status:"
                 android:textColor="#bcbcbc"
@@ -100,15 +101,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="6dp"
                 android:fontFamily="@font/jost_regular"
                 android:text="Verification Pending"
                 android:textColor="#ffab0b"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/textStatus"
-                app:layout_constraintTop_toBottomOf="@id/viewLine" />
+                app:layout_constraintBottom_toBottomOf="@+id/textStatus"
+                app:layout_constraintStart_toEndOf="@+id/textStatus"
+                app:layout_constraintTop_toTopOf="@+id/textStatus" />
 
             <TextView
                 android:id="@+id/tvReupload"
