@@ -380,7 +380,7 @@ class EditProfileFragment : BaseFragment() {
 
         binding.textviewEnterName.text = data.firstName + " " + data.lastName
         Log.i("name", data.firstName + " " + data.lastName + data.email)
-        binding.enterPhonenumberTextview.text = data.phoneNumber
+        binding.enterPhonenumberTextview.text = data.countryCode+data.phoneNumber
         if (!data.email.isNullOrEmpty()) {
             binding.emailTv.setText(data.email)
         } else {

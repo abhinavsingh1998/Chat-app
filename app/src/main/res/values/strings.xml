@@ -401,4 +401,10 @@
     <string name="thank_you_text">Thank you for contacting us. We will reach out to you within 24 hours.</string>
     <string name="log_out_all_text">Log Out From Other Devices</string>
     <string name="land_value">Land value in key growing locations of India increased\n by 20x in last 20 years</string>
+    <string name="status">Status:</string>
+    <string name="verification_pending">Verification Pending</string>
+    <string name="re_upload">Re-upload</string>
+    <string name="preview">Preview</string>
+    <string name="upload">Upload</string>
+    <string name="verify_team_msg">Our team will verify the uploaded document and reach you soon</string>
 </resources>
