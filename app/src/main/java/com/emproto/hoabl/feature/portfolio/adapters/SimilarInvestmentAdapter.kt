@@ -59,15 +59,8 @@ class SimilarInvestmentAdapter(
                 true -> holder.binding.tvDuration.visibility = View.VISIBLE
             }
 
-            val hoursInMillis =
-                TimeUnit.HOURS.toMillis(element.fomoContent.targetTime.hours.toLong())
-            val minsInMillis =
-                TimeUnit.MINUTES.toMillis(element.fomoContent.targetTime.minutes.toLong())
-            val secsInMillis =
-                TimeUnit.SECONDS.toMillis(element.fomoContent.targetTime.seconds.toLong())
-            val totalTimeInMillis = hoursInMillis + minsInMillis + secsInMillis
-
-            val timeCounter = object : CountDownTimer(totalTimeInMillis, 1000) {
+            val timeCounter = object : CountDownTimer(Utility.conversionForTimer(element.fomoContent.targetTime.hours.toString(),element.fomoContent.targetTime.minutes.toString(),
+                element.fomoContent.targetTime.seconds.toString()), 1000) {
                 override fun onTick(millisUntilFinished: Long) {
                     val f = DecimalFormat("00")
                     val fh = DecimalFormat("0")

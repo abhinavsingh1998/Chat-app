@@ -59,15 +59,8 @@ class InvestmentCardAdapter(
                 true -> holder.binding.tvDuration.visibility = View.VISIBLE
             }
 
-            val hoursInMillis =
-                TimeUnit.HOURS.toMillis(item.fomoContent.targetTime.hours.toLong())
-            val minsInMillis =
-                TimeUnit.MINUTES.toMillis(item.fomoContent.targetTime.minutes.toLong())
-            val secsInMillis =
-                TimeUnit.SECONDS.toMillis(item.fomoContent.targetTime.seconds.toLong())
-            val totalTimeInMillis = hoursInMillis + minsInMillis + secsInMillis
-
-            val timeCounter = object : CountDownTimer(totalTimeInMillis, 1000) {
+            val timeCounter = object : CountDownTimer(Utility.conversionForTimer(item.fomoContent.targetTime.hours.toString(),item.fomoContent.targetTime.minutes.toString(),
+                item.fomoContent.targetTime.seconds.toString()), 1000) {
                 override fun onTick(millisUntilFinished: Long) {
                     val f = DecimalFormat("00")
                     val fh = DecimalFormat("0")
@@ -78,11 +71,9 @@ class InvestmentCardAdapter(
                         fh.format(hour).toString() + ":" + f.format(min) + ":" + f.format(sec)
                     } Hrs Left"
                 }
-
                 override fun onFinish() {
 
                 }
-
             }
             timeCounter.start()
 

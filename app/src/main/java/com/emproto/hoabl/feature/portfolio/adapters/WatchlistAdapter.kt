@@ -56,15 +56,8 @@ class WatchlistAdapter(
                     true -> holder.binding.tvDuration.visibility = View.VISIBLE
                 }
 
-                val hoursInMillis =
-                    TimeUnit.HOURS.toMillis(element.project.fomoContent.targetTime.hours.toLong())
-                val minsInMillis =
-                    TimeUnit.MINUTES.toMillis(element.project.fomoContent.targetTime.minutes.toLong())
-                val secsInMillis =
-                    TimeUnit.SECONDS.toMillis(element.project.fomoContent.targetTime.seconds.toLong())
-                val totalTimeInMillis = hoursInMillis + minsInMillis + secsInMillis
-
-                val timeCounter = object : CountDownTimer(totalTimeInMillis, 1000) {
+                val timeCounter = object : CountDownTimer(Utility.conversionForTimer(element.project.fomoContent.targetTime.hours.toString(),element.project.fomoContent.targetTime.minutes.toString(),
+                    element.project.fomoContent.targetTime.seconds.toString()), 1000) {
                     override fun onTick(millisUntilFinished: Long) {
                         val f = DecimalFormat("00")
                         val fh = DecimalFormat("0")
