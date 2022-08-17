@@ -47,6 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_size_12"
             android:layout_marginTop="@dimen/margin_size_19"
+            android:paddingEnd="@dimen/margin_size_24"
             android:background="@drawable/grey_search_bg"
             android:drawableStart="@drawable/ic_shape_search"
             android:drawablePadding="@dimen/margin_size_8"

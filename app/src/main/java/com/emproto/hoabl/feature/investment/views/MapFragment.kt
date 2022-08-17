@@ -66,7 +66,12 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         override fun onItemClicked(view: View, position: Int, latitude: Double, longitude: Double) {
             when (view.id) {
                 R.id.cv_location_infrastructure_card -> {
-                    initMarkerLocation(dummyLatitude, dummyLongitude, latitude, longitude)
+                    if(isNetworkAvailable()){
+                        initMarkerLocation(dummyLatitude, dummyLongitude, latitude, longitude)
+                    }else{
+                        Toast.makeText(requireContext(), "Network not available", Toast.LENGTH_SHORT).show()
+                    }
+
                 }
             }
         }

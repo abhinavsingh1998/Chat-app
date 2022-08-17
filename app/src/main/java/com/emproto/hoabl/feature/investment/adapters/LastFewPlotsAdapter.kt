@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
+import android.os.CountDownTimer
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,8 @@ import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
+import java.text.DecimalFormat
+import java.util.concurrent.TimeUnit
 
 class LastFewPlotsAdapter(
     val context: Context,
@@ -43,6 +46,38 @@ class LastFewPlotsAdapter(
             Glide.with(context)
                 .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
                 .into(holder.binding.ivItemImage)
+
+            when(element.fomoContent.isTargetTimeActive){
+                false -> holder.binding.tvDuration.visibility = View.GONE
+                true -> holder.binding.tvDuration.visibility = View.VISIBLE
+            }
+
+            val hoursInMillis =
+                TimeUnit.HOURS.toMillis(element.fomoContent.targetTime.hours.toLong())
+            val minsInMillis =
+                TimeUnit.MINUTES.toMillis(element.fomoContent.targetTime.minutes.toLong())
+            val secsInMillis =
+                TimeUnit.SECONDS.toMillis(element.fomoContent.targetTime.seconds.toLong())
+            val totalTimeInMillis = hoursInMillis + minsInMillis + secsInMillis
+
+            val timeCounter = object : CountDownTimer(totalTimeInMillis, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    val f = DecimalFormat("00")
+                    val fh = DecimalFormat("0")
+                    val hour = millisUntilFinished / 3600000 % 24
+                    val min = millisUntilFinished / 60000 % 60
+                    val sec = millisUntilFinished / 1000 % 60
+                    holder.binding.tvDuration.text = "${
+                        fh.format(hour).toString() + ":" + f.format(min) + ":" + f.format(sec)
+                    } Hrs Left"
+                }
+
+                override fun onFinish() {
+
+                }
+
+            }
+            timeCounter.start()
         }
         holder.binding.cvTopView.setOnClickListener {
             itemClickListener.onItemClicked(it, 0, element.id.toString())

@@ -10,10 +10,7 @@ import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Paint
-import android.os.Build
-import android.os.Bundle
-import android.os.CountDownTimer
-import android.os.Handler
+import android.os.*
 import android.text.Editable
 import android.text.SpannableStringBuilder
 import android.text.TextWatcher
@@ -69,6 +66,9 @@ class OTPVerificationFragment : BaseFragment() {
     @Inject
     lateinit var appPreference: AppPreference
     lateinit var bottomSheetDialog: BottomSheetDialog
+
+    private var runnable: Runnable? = null
+    lateinit var handler : Handler
 
     var attempts_num = 0
     val Invalid_otp =
@@ -144,6 +144,7 @@ class OTPVerificationFragment : BaseFragment() {
         mBinding.tvMobileNumber.text = "$countryCode-$mobileno"
         mBinding.tvMobileNumber.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         mBinding.loginEdittext.hint = hint_txt
+        handler = Handler(Looper.getMainLooper())
 
         startSmsUserConsent()
 
@@ -228,41 +229,44 @@ class OTPVerificationFragment : BaseFragment() {
                                             "OTP Verified Successfully!"
                                         )
                                         Log.d("contactType", it.data?.user?.contactType.toString())
-                                        Handler().postDelayed({
-                                            it.data?.let { verifyOtpResponse ->
-                                                appPreference.setToken(verifyOtpResponse.token)
+                                        (activity as AuthActivity).isHandlerStarted = true
 
-                                                Log.i(
-                                                    "prlead",
-                                                    ContactType.PRELEAD.value.toString()
-                                                )
-                                                if (verifyOtpResponse.user.firstName.isNullOrEmpty()) {
-                                                    (requireActivity() as AuthActivity).replaceFragment(
-                                                        NameInputFragment.newInstance("", ""),
-                                                        true
+                                        runnable = object:Runnable{
+                                            override fun run() {
+                                                it.data?.let { verifyOtpResponse ->
+                                                    appPreference.setToken(verifyOtpResponse.token)
+
+                                                    Log.i(
+                                                        "prlead",
+                                                        ContactType.PRELEAD.value.toString()
                                                     )
-                                                } else if (verifyOtpResponse.user.contactType == ContactType.PRELEAD.value && verifyOtpResponse.user.verificationStatus == "Unverified") {
-                                                    (requireActivity() as AuthActivity).replaceFragment(
-                                                        NameInputFragment.newInstance(
-                                                            verifyOtpResponse.user.firstName ?:"",
-                                                            verifyOtpResponse.user.lastName ?: ""
-                                                        ),
-                                                        true
-                                                    )
-                                                } else {
-                                                    appPreference.saveLogin(true)
-                                                    startActivity(
-                                                        Intent(
-                                                            requireContext(),
-                                                            HomeActivity::class.java
+                                                    if (verifyOtpResponse.user.firstName.isNullOrEmpty()) {
+                                                        (requireActivity() as AuthActivity).replaceFragment(
+                                                            NameInputFragment.newInstance("", ""),
+                                                            true
                                                         )
-                                                    )
-                                                    requireActivity().finish()
+                                                    } else if (verifyOtpResponse.user.contactType == ContactType.PRELEAD.value && verifyOtpResponse.user.verificationStatus == "Unverified") {
+                                                        (requireActivity() as AuthActivity).replaceFragment(
+                                                            NameInputFragment.newInstance(
+                                                                verifyOtpResponse.user.firstName ?:"",
+                                                                verifyOtpResponse.user.lastName ?: ""
+                                                            ),
+                                                            true
+                                                        )
+                                                    } else {
+                                                        appPreference.saveLogin(true)
+                                                        startActivity(
+                                                            Intent(
+                                                                requireContext(),
+                                                                HomeActivity::class.java
+                                                            )
+                                                        )
+                                                        requireActivity().finish()
+                                                    }
                                                 }
                                             }
-                                        }, 1500)
-
-
+                                        }
+                                        runnable?.let { it1 -> handler.postDelayed(it1,1500) }
                                     }
                                 }
                             })
@@ -497,5 +501,10 @@ class OTPVerificationFragment : BaseFragment() {
         mBinding.tryAgainTxt.text = msg
         countDownTimer.cancel()
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        runnable?.let { handler.removeCallbacks(it) }
     }
 }
