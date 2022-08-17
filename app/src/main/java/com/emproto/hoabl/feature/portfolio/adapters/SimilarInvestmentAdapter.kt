@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.text.bold
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.networklayer.response.portfolio.ivdetails.SimilarInvestment
@@ -39,10 +40,10 @@ class SimilarInvestmentAdapter(
             val convertedAmount = amount.toString().replace(".0", "")
             tvItemAmount.text = SpannableStringBuilder()
                 .bold { append("₹${convertedAmount} L") }
-                .append(" Onwards")
+                .append(Constants.ONWARDS)
             tvItemArea.text = SpannableStringBuilder()
                 .bold { append("${element.areaStartingFrom} Sqft") }
-                .append(" Onwards")
+                .append(Constants.ONWARDS)
 
             tvNoViews.text = element.fomoContent.noOfViews.toString()
 //                Utility.coolFormat(element.fomoContent.noOfViews.toDouble(), 0)

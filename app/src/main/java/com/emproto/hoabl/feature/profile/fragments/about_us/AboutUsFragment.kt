@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
+import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentAboutUsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -252,14 +253,14 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                                         val graphData = currentData.generalInfoEscalationGraph.dataPoints.points
                                         val linevalues = ArrayList<Entry>()
                                         when(currentData.generalInfoEscalationGraph.dataPoints.dataPointType){
-                                            "Yearly" -> {
-                                                graphType = "Yearly"
+                                            Constants.YEARLY  -> {
+                                                graphType = Constants.YEARLY
                                                 for(item in graphData){
                                                     linevalues.add(Entry(item.year.toFloat(),item.value.toFloat()))
                                                 }
                                             }
-                                            "Half Yearly" -> {
-                                                graphType = "Half Yearly"
+                                            Constants.HALF_YEARLY -> {
+                                                graphType = Constants.HALF_YEARLY
                                                 for(i in 0..currentData.generalInfoEscalationGraph.dataPoints.points.size-1){
                                                     val fmString = currentData.generalInfoEscalationGraph.dataPoints.points[i].halfYear.toString().substring(0,3)
                                                     val yearString = currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(2,4)
@@ -272,8 +273,8 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                                                     index++
                                                 }
                                             }
-                                            "Quaterly" -> {
-                                                graphType = "Quaterly"
+                                           Constants.QUATERLY -> {
+                                                graphType = Constants.QUATERLY
                                                 for(i in 0..currentData.generalInfoEscalationGraph.dataPoints.points.size-1){
                                                     val fmString = currentData.generalInfoEscalationGraph.dataPoints.points[i].quater.toString().substring(0,2)
                                                     val yearString = currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(2,4)
@@ -286,8 +287,8 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                                                     index++
                                                 }
                                             }
-                                            "Monthly" -> {
-                                                graphType = "Monthly"
+                                            Constants.MONTHLY -> {
+                                                graphType = Constants.MONTHLY
                                                 for(i in 0..currentData.generalInfoEscalationGraph.dataPoints.points.size-1){
                                                     val fmString = currentData.generalInfoEscalationGraph.dataPoints.points[i].month.toString().substring(0,3)
                                                     val yearString = currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(2,4)
@@ -350,14 +351,14 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                         val graphData = currentData.generalInfoEscalationGraph.dataPoints.points
                         val linevalues = ArrayList<Entry>()
                         when(currentData.generalInfoEscalationGraph.dataPoints.dataPointType){
-                            "Yearly" -> {
-                                graphType = "Yearly"
+                            Constants.YEARLY  -> {
+                                graphType = Constants.YEARLY
                                 for(item in graphData){
                                     linevalues.add(Entry(item.year.toFloat(),item.value.toFloat()))
                                 }
                             }
-                            "Half Yearly" -> {
-                                graphType = "Half Yearly"
+                            Constants.HALF_YEARLY -> {
+                                graphType = Constants.HALF_YEARLY
                                 for(i in 0..currentData.generalInfoEscalationGraph.dataPoints.points.size-1){
                                     val fmString = currentData.generalInfoEscalationGraph.dataPoints.points[i].halfYear.toString().substring(0,3)
                                     val yearString = currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(2,4)
@@ -370,8 +371,8 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                                     index++
                                 }
                             }
-                            "Quaterly" -> {
-                                graphType = "Quaterly"
+                            Constants.QUATERLY -> {
+                                graphType = Constants.QUATERLY
                                 for(i in 0..currentData.generalInfoEscalationGraph.dataPoints.points.size-1){
                                     val fmString = currentData.generalInfoEscalationGraph.dataPoints.points[i].quater.toString().substring(0,2)
                                     val yearString = currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(2,4)
@@ -384,8 +385,8 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                                     index++
                                 }
                             }
-                            "Monthly" -> {
-                                graphType = "Monthly"
+                          Constants.MONTHLY-> {
+                                graphType = Constants.MONTHLY
                                 for(i in 0..currentData.generalInfoEscalationGraph.dataPoints.points.size-1){
                                     val fmString = currentData.generalInfoEscalationGraph.dataPoints.points[i].month.toString().substring(0,3)
                                     val yearString = currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(2,4)
@@ -459,9 +460,9 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
     inner class Xaxisformatter : IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
             return when(graphType){
-                "Quaterly" -> returnFormattedValue(p0)
-                "Monthly" -> returnFormattedValue(p0)
-                "Half Yearly" -> returnFormattedValue(p0)
+                Constants.QUATERLY -> returnFormattedValue(p0)
+              Constants.MONTHLY -> returnFormattedValue(p0)
+                Constants.HALF_YEARLY -> returnFormattedValue(p0)
                 else -> { String.format("%.0f", p0.toDouble()) }
             }
         }

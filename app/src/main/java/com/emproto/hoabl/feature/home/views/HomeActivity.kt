@@ -631,7 +631,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                         }
                         Status.ERROR -> {
                             when(it.message){
-                                "Access denied" -> {
+                               Constants.ACCESS_DENIED -> {
                                     appPreference.saveLogin(false)
                                     startActivity(Intent(mContext, AuthActivity::class.java))
                                     this@HomeActivity.finish()

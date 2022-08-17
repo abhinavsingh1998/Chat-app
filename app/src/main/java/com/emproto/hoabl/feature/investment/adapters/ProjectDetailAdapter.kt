@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.bumptech.glide.Glide
+import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.model.RecyclerViewItem
@@ -506,14 +507,14 @@ class ProjectDetailAdapter(
             val graphData = data.generalInfoEscalationGraph.dataPoints.points
             val linevalues = ArrayList<Entry>()
             when (data.generalInfoEscalationGraph.dataPoints.dataPointType) {
-                "Yearly" -> {
-                    graphType = "Yearly"
-                    for (item in graphData) {
+               Constants.YEARLY -> {
+                    graphType = Constants.YEARLY
+                   for (item in graphData) {
                         linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
                     }
                 }
-                "Half Yearly" -> {
-                    graphType = "Half Yearly"
+                Constants.HALF_YEARLY-> {
+                    graphType = Constants.HALF_YEARLY
                     for (i in 0..data.generalInfoEscalationGraph.dataPoints.points.size - 1) {
                         val fmString =
                             data.generalInfoEscalationGraph.dataPoints.points[i].halfYear.substring(
@@ -534,8 +535,8 @@ class ProjectDetailAdapter(
                         index++
                     }
                 }
-                "Quaterly" -> {
-                    graphType = "Quaterly"
+                Constants.QUATERLY -> {
+                    graphType = Constants.QUATERLY
                     for (i in 0..data.generalInfoEscalationGraph.dataPoints.points.size - 1) {
                         val quarterString =
                             data.generalInfoEscalationGraph.dataPoints.points[i].quater.substring(
@@ -556,8 +557,8 @@ class ProjectDetailAdapter(
                         index++
                     }
                 }
-                "Monthly" -> {
-                    graphType = "Monthly"
+                Constants.MONTHLY -> {
+                    graphType = Constants.MONTHLY
                     for (i in 0..data.generalInfoEscalationGraph.dataPoints.points.size - 1) {
                         val fmString =
                             data.generalInfoEscalationGraph.dataPoints.points[i].month.substring(
@@ -628,9 +629,9 @@ class ProjectDetailAdapter(
     inner class Xaxisformatter : IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
             return when (graphType) {
-                "Quaterly" -> returnFormattedValue(p0)
-                "Monthly" -> returnFormattedValue(p0)
-                "Half Yearly" -> returnFormattedValue(p0)
+               Constants.QUATERLY -> returnFormattedValue(p0)
+                Constants.MONTHLY -> returnFormattedValue(p0)
+                Constants.HALF_YEARLY-> returnFormattedValue(p0)
                 else -> {
                     String.format("%.0f", p0.toDouble())
                 }

@@ -62,10 +62,6 @@ class ChatsAdapter(
     }
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-//        val imageView: ImageView = itemView.findViewById(R.id.ivThumb)
-//        val topic: TextView = itemView.findViewById(R.id.tvTitle)
-//        val desc: TextView = itemView.findViewById(R.id.tvMsg)
-//        val time: TextView = itemView.findViewById(R.id.tvTime)
 
     }
 

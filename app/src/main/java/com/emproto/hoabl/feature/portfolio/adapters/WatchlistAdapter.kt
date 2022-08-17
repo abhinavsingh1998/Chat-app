@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.text.bold
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.networklayer.response.watchlist.Data
@@ -37,10 +38,10 @@ class WatchlistAdapter(
                 val convertedAmount = String.format("%.0f",amount)
                 tvItemAmount.text = SpannableStringBuilder()
                     .bold { append("₹${convertedAmount} L") }
-                    .append(" Onwards")
+                    .append(Constants.ONWARDS)
                 tvItemArea.text = SpannableStringBuilder()
                     .bold { append("${element.project.areaStartingFrom} Sqft") }
-                    .append(" Onwards")
+                    .append(Constants.ONWARDS)
                 tvNoViews.text = element.project.fomoContent.noOfViews.toString()
 //                Utility.coolFormat(element.project.fomoContent.noOfViews.toDouble(), 0)
                 tvItemLocationInfo.text = element.project.shortDescription
