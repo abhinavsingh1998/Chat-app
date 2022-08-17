@@ -119,7 +119,7 @@ class HelpCenterFragment : BaseFragment() {
                             val fragment = FaqDetailFragment()
                             val bundle = Bundle()
                             bundle.putBoolean(Constants.IS_FROM_INVESTMENT, false)
-                            bundle.putString(Constants.PROJECT_NAME, Constants.GENERAL)
+                            bundle.putString(Constants.PROJECT_NAME, "")
                             fragment.arguments = bundle
                             (requireActivity() as HomeActivity).addFragment(
                                 fragment,

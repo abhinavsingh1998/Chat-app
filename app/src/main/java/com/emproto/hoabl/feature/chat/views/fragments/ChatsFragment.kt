@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.databinding.FragmentChatsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.chat.adapter.ChatsAdapter
@@ -109,7 +110,7 @@ class ChatsFragment : BaseFragment(), ChatsAdapter.OnItemClickListener {
 
     override fun onChatItemClick(chat: List<CData>, view: View, position: Int) {
         val bundle = Bundle()
-        bundle.putSerializable("chatModel", chat[position] as Serializable)
+        bundle.putSerializable(Constants.CHAT_MODEL, chat[position] as Serializable)
         val chatsDetailFragment = ChatsDetailFragment()
         chatsDetailFragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(chatsDetailFragment, true)

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
@@ -47,7 +48,7 @@ class InvestmentCardAdapter(
             val amount = item.priceStartingFrom.toDouble() / 100000
             val convertedAmount = amount.toString().replace(".0", "")
             holder.binding.tvItemAmount.text = "₹$convertedAmount L Onwards"
-            holder.binding.tvItemArea.text = item.areaStartingFrom + " Sqft Onwards"
+            holder.binding.tvItemArea.text = item.areaStartingFrom + Constants.SQFT_ONWARDS
             holder.binding.tvItemLocationInfo.text = item.shortDescription
             Glide.with(context)
                 .load(item.projectCoverImages.homePageMedia.value.url)

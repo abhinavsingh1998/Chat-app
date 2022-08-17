@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentMapBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -91,7 +92,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         arguments?.let {
             data = it.getSerializable("Location") as MapLocationModel?
             selectedPosition = it.getInt("ItemPosition",-1)
-            val projectLocation = it.getSerializable("ProjectLocation") as ProjectLocation
+            val projectLocation = it.getSerializable(Constants.PROJECT_LOCATION) as ProjectLocation
             dummyLatitude = projectLocation.latitude.toDouble()
             dummyLongitude = projectLocation.longitude.toDouble()
         }

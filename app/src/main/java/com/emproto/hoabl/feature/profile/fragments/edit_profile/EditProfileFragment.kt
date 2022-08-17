@@ -389,7 +389,7 @@ class EditProfileFragment : BaseFragment() {
         }
         if (!data.dateOfBirth.isNullOrEmpty()) {
             val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-            val outputFormat = SimpleDateFormat("dd-MM-yyyy")
+            val outputFormat = SimpleDateFormat("dd/MM/yyyy")
             val date: Date = inputFormat.parse(data.dateOfBirth)
             val formattedDate: String = outputFormat.format(date)
             binding.tvDatePicker.setText(formattedDate)
@@ -1069,7 +1069,7 @@ class EditProfileFragment : BaseFragment() {
         cameraFile = File(context.externalCacheDir, "$fileSuffix.jpg")
         return FileProvider.getUriForFile(
             requireContext(),
-            requireContext().applicationContext.packageName + ".provider",
+            requireContext().applicationContext.packageName + Constants.DOT_PROVIDER,
             cameraFile!!
         )
     }

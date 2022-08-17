@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.text.bold
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.hoabl.utils.ItemClickListener
@@ -38,7 +39,7 @@ class TrendingProjectsAdapter(
             val convertedAmount = String.format("%.0f",amount)
             tvItemAmount.text = SpannableStringBuilder()
                 .bold { append("₹${convertedAmount} L") }
-                .append(" Onwards")
+                .append(Constants.ONWARDS)
             tvRating.text = "${
                 String.format(
                     " % .0f",
@@ -48,7 +49,7 @@ class TrendingProjectsAdapter(
             tvNoViews.text = Utility.coolFormat(element.fomoContent.noOfViews.toDouble(), 0)
             tvItemArea.text = SpannableStringBuilder()
                 .bold { append("${element.areaStartingFrom} Sqft") }
-                .append(" Onwards")
+                .append(Constants.ONWARDS)
             Glide.with(context)
                 .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
                 .into(holder.binding.ivItemImage)

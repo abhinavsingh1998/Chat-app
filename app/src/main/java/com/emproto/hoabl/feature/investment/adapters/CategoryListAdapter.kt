@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Constants
 import com.emproto.hoabl.databinding.ItemCategoryListBinding
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.*
@@ -52,8 +53,8 @@ class CategoryListAdapter(
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom.toDouble() / 100000
                         val convertedAmount = amount.toString().replace(".0", "")
-                        tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
-                        tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
+                        tvCategoryPrice.text = "₹${convertedAmount} L" + Constants.ONWARDS
+                        tvCategoryArea.text = element.areaStartingFrom + Constants.SQFT_ONWARDS
                         tvCategoryItemInfo.text = element.shortDescription
                         Glide.with(context)
                             .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
@@ -79,8 +80,8 @@ class CategoryListAdapter(
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom.toDouble() / 100000
                         val convertedAmount = amount.toString().replace(".0", "")
-                        tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
-                        tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
+                        tvCategoryPrice.text = "₹${convertedAmount} L" + Constants.ONWARDS
+                        tvCategoryArea.text = element.areaStartingFrom + Constants.SQFT_ONWARDS
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text = "${
                             String.format(
@@ -106,8 +107,8 @@ class CategoryListAdapter(
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom.toDouble() / 100000
                         val convertedAmount = amount.toString().replace(".0", "")
-                        tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
-                        tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
+                        tvCategoryPrice.text = "₹${convertedAmount} L" + Constants.ONWARDS
+                        tvCategoryArea.text = element.areaStartingFrom + Constants.SQFT_ONWARDS
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text = "${
                             String.format(
@@ -134,8 +135,8 @@ class CategoryListAdapter(
                         Log.d("dessrt", element.priceStartingFrom.toString())
                         val amount = element.priceStartingFrom.toDouble() / 100000
                         val convertedAmount = amount.toString().replace(".0", "")
-                        tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
-                        tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
+                        tvCategoryPrice.text = "₹${convertedAmount} L" + Constants.ONWARDS
+                        tvCategoryArea.text = element.areaStartingFrom + Constants.SQFT_ONWARDS
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text = "${
                             String.format(
@@ -161,8 +162,8 @@ class CategoryListAdapter(
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom.toDouble() / 100000
                         val convertedAmount = amount.toString().replace(".0", "")
-                        tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
-                        tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
+                        tvCategoryPrice.text = "₹${convertedAmount} L" + Constants.ONWARDS
+                        tvCategoryArea.text = element.areaStartingFrom + Constants.SQFT_ONWARDS
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text = "${
                             String.format(
@@ -188,8 +189,8 @@ class CategoryListAdapter(
                         tvProjectName.text = element.project.launchName
                         val amount = element.project.priceStartingFrom.toDouble() / 100000
                         val convertedAmount = amount.toString().replace(".0", "")
-                        tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
-                        tvCategoryArea.text = element.project.areaStartingFrom + " Sqft Onwards"
+                        tvCategoryPrice.text = "₹${convertedAmount} L" + Constants.ONWARDS
+                        tvCategoryArea.text = element.project.areaStartingFrom + Constants.SQFT_ONWARDS
                         tvCategoryItemInfo.text = element.project.shortDescription
                         Glide.with(context)
                             .load(element.project.projectCoverImages.collectionListViewPageMedia.value.url)
@@ -210,8 +211,8 @@ class CategoryListAdapter(
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom.toDouble() / 100000
                         val convertedAmount = amount.toString().replace(".0", "")
-                        tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
-                        tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
+                        tvCategoryPrice.text = "₹${convertedAmount} L" + Constants.ONWARDS
+                        tvCategoryArea.text = element.areaStartingFrom + Constants.SQFT_ONWARDS
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text = "${
                             String.format(
@@ -239,8 +240,8 @@ class CategoryListAdapter(
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom!!.toDouble() / 100000
                         val convertedAmount = amount.toString().replace(".0", "")
-                        tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
-                        tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
+                        tvCategoryPrice.text = "₹${convertedAmount} L" + Constants.ONWARDS
+                        tvCategoryArea.text = element.areaStartingFrom + Constants.SQFT_ONWARDS
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text = "${
                             String.format(
@@ -266,8 +267,8 @@ class CategoryListAdapter(
 
                     binding.apply {
                         tvProjectName.text = element.launchName
-                        tvCategoryPrice.text = element.priceStartingFrom + " Onwards"
-                        tvCategoryArea.text = element.areaStartingFrom + " Onwards"
+                        tvCategoryPrice.text = element.priceStartingFrom + Constants.ONWARDS
+                        tvCategoryArea.text = element.areaStartingFrom + Constants.ONWARDS
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text = "${
                             String.format(
@@ -293,7 +294,7 @@ class CategoryListAdapter(
                         tvProjectName.text = element.launchName
                         val amount = element.priceStartingFrom.toDouble() / 100000
                         val convertedAmount = amount.toString().replace(".0", "")
-                        tvCategoryPrice.text = "₹${convertedAmount} L" + " Onwards"
+                        tvCategoryPrice.text = "₹${convertedAmount} L" + Constants.ONWARDS
                         tvCategoryArea.text = element.areaStartingFrom + " Sqft Onwards"
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text =

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentInvestmentLayoutBinding
@@ -187,7 +188,7 @@ class InvestmentFragment : BaseFragment() {
 
     private fun navigateToDetailScreen(id: Int) {
         val bundle = Bundle()
-        bundle.putInt("ProjectId", id)
+        bundle.putInt(Constants.PROJECT_ID, id)
         val fragment = ProjectDetailFragment()
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(
@@ -198,7 +199,7 @@ class InvestmentFragment : BaseFragment() {
     private fun navigateToSkuScreen(id: Int) {
         val fragment = LandSkusFragment()
         val bundle = Bundle()
-        bundle.putInt("ProjectId", id)
+        bundle.putInt(Constants.PROJECT_ID, id)
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(fragment, true)
     }

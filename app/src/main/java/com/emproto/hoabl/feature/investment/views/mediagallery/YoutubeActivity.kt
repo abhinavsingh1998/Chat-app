@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityYoutubeBinding
 import com.emproto.hoabl.model.MediaViewItem
@@ -42,8 +43,8 @@ class YoutubeActivity : YouTubeBaseActivity() {
     }
 
     private fun initDatas() {
-        videoId = intent.getStringExtra("YoutubeVideoId").toString()
-        videoTitle = intent.getStringExtra("VideoTitle").toString()
+        videoId = intent.getStringExtra(Constants.YOUTUBE_VIDEO_ID).toString()
+        videoTitle = intent.getStringExtra(Constants.VIDEO_TITLE).toString()
         binding.tvMediaImageName.text = videoTitle
     }
 
@@ -62,7 +63,7 @@ class YoutubeActivity : YouTubeBaseActivity() {
                 p0: YouTubePlayer.Provider?,
                 p1: YouTubeInitializationResult?
             ) {
-                Toast.makeText(applicationContext, "Video player Failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(applicationContext, Constants.VIDEO_PLAYER_FAILED, Toast.LENGTH_SHORT).show();
             }
 
         })

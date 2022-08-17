@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.investment.adapters
 
 import android.app.Activity
 import android.content.Context
+import android.os.Build
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,7 +12,9 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.views.FaqDetailFragment
@@ -80,16 +83,24 @@ class FaqDetailAdapter(
         val close = itemView.findViewById<ImageView>(R.id.iv_close_image)
         val title = itemView.findViewById<MaterialTextView>(R.id.tv_faq_title)
         val imageArrow = itemView.findViewById<ImageView>(R.id.imgArrow)
+        @RequiresApi(Build.VERSION_CODES.M)
         fun bind(position: Int) {
             //Binding data
             when (projectName) {
-                "" -> title.text = "FAQs"
+                "" -> {
+                    title.text = Constants.FAQS
+                    title.setTextColor(title.context.getColor(R.color.app_color))
+                }
                 else -> title.text = "${projectName.toString()} - FAQs"
             }
 
-            when(fromInvestment){
-                true -> { imageArrow.visibility = View.GONE }
-                false -> { imageArrow.visibility = View.VISIBLE }
+            when (fromInvestment) {
+                true -> {
+                    imageArrow.visibility = View.GONE
+                }
+                false -> {
+                    imageArrow.visibility = View.VISIBLE
+                }
             }
 
             val list = arrayListOf<String>()
@@ -136,7 +147,7 @@ class FaqDetailAdapter(
 
             //BackButton handled
             imageArrow.setOnClickListener {
-                itemClickListener.onItemClicked(imageArrow,position,"")
+                itemClickListener.onItemClicked(imageArrow, position, "")
             }
             title.setOnClickListener {
                 itemClickListener.onItemClicked(imageArrow,position,"")

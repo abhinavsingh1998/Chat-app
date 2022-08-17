@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.databinding.FragmentTestimonialsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.adapters.AllInsightsAdapter
@@ -32,7 +33,7 @@ class Testimonials : BaseFragment() {
     private lateinit var mBinding: FragmentTestimonialsBinding
     lateinit var testimonialsAdapter: TestimonialsAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
-    val appURL= "https://hoabl.in/"
+    val appURL= Constants.APP_URL
     var testimonialsItem= 0
     var testimonilalsHeading:String= ""
     var testimonilalsSubHeading:String= ""
@@ -53,14 +54,14 @@ class Testimonials : BaseFragment() {
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
         (requireActivity() as HomeActivity).showBackArrow()
         arguments?.let {
-            testimonialsItem = it.getInt("testimonials", 0)
+            testimonialsItem = it.getInt(Constants.TESTIMONALS, 0)
         }
 
         arguments?.let {
-            testimonilalsHeading= it.getString("testimonialsHeading", "")
+            testimonilalsHeading= it.getString(Constants.TESTIMONALS_HEADING, "")
         }
         arguments?.let {
-            testimonilalsSubHeading= it.getString("testimonialsSubHeading", "")
+            testimonilalsSubHeading= it.getString(Constants.TESTIMONALS_SUB_HEADING, "")
         }
 
         initObserver(false)
@@ -150,7 +151,7 @@ class Testimonials : BaseFragment() {
     private fun referNow() {
             val dialog = ReferralDialog()
             dialog.isCancelable = true
-            dialog.show(parentFragmentManager, "Refrral card")
+            dialog.show(parentFragmentManager, Constants.REFERRAL_CARD)
 
         }
 }

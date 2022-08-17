@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentCategoryListBinding
@@ -94,7 +95,7 @@ class CategoryListFragment() : BaseFragment() {
                     arguments?.getSerializable("SimilarData") as List<SimilarInvestment>
                 setUpCategoryAdapter(data, -1)
             }
-            "Home" ->{
+           Constants.HOME ->{
                 binding.tvCategoryHeading.text = "All Investments"
                 val data =
                     arguments?.getSerializable("DiscoverAll") as List<com.emproto.networklayer.response.home.PageManagementsOrNewInvestment>
@@ -120,7 +121,7 @@ class CategoryListFragment() : BaseFragment() {
             when(position){
                 0 -> {
                     val bundle = Bundle()
-                    bundle.putInt("ProjectId", item.toInt())
+                    bundle.putInt(Constants.PROJECT_ID, item.toInt())
                     val fragment = ProjectDetailFragment()
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(
@@ -130,7 +131,7 @@ class CategoryListFragment() : BaseFragment() {
                 1 -> {
                     val fragment = LandSkusFragment()
                     val bundle = Bundle()
-                    bundle.putInt("ProjectId", item.toInt())
+                    bundle.putInt(Constants.PROJECT_ID, item.toInt())
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentVideoViewBinding
 import com.google.android.youtube.player.YouTubeInitializationResult
@@ -53,7 +54,7 @@ class MediaViewVideoFragment:BaseFragment() {
                     p0: YouTubePlayer.Provider?,
                     p1: YouTubeInitializationResult?
                 ) {
-                    Toast.makeText(this@MediaViewVideoFragment.requireContext(), "Video player Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this@MediaViewVideoFragment.requireContext(), Constants.VIDEO_PLAYER_FAILED, Toast.LENGTH_SHORT).show();
                 }
 
             })
