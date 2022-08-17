@@ -40,7 +40,7 @@ class FaqDetailFragment : BaseFragment() {
     private lateinit var adapter: FaqDetailAdapter
     private lateinit var allFaqList: List<CgData>
     private var isFromInvestment = true
-    private var projectName = "FAQs"
+    private var projectName = Constants.FAQS
     private var projectId = 0
     private var faqId = 0
 

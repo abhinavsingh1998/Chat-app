@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.databinding.FragmentLatestUpdatesBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.adapters.AllLatestUpdatesAdapter
@@ -29,7 +30,7 @@ class LatestUpdatesFragment : BaseFragment() {
     lateinit var mBinding: FragmentLatestUpdatesBinding
     lateinit var latestUpatesAdapter: AllLatestUpdatesAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
-    val appURL = "https://hoabl.in/"
+    val appURL = Constants.APP_URL
     var updatesListCount = 0
     lateinit var latestHeading: String
     lateinit var latestSubHeading: String

@@ -82,8 +82,8 @@ class SearchResultFragment : BaseFragment() {
 
         arguments.let {
             if (it != null) {
-                topText = it.getString("TopText").toString()
-                Log.d("ext", "text = ${topText}")
+                topText = it.getString(Constants.TOP_TEXT).toString()
+//                Log.d("ext", "text = ${topText}")
             }
         }
         fragmentSearchResultBinding.searchLayout.search.setText("")
@@ -345,7 +345,7 @@ class SearchResultFragment : BaseFragment() {
                                                 val filteredFaqList = faqList.filter {
                                                     it.frequentlyAskedQuestion.typeOfFAQ == "3001" //General faq
                                                 }
-                                                Log.d("DDDD", filteredFaqList.toString())
+//                                                Log.d("DDDD", filteredFaqList.toString())
                                                 val showFaqList = ArrayList<ProjectContentsAndFaq>()
                                                 when {
                                                     filteredFaqList.size > 3 -> {
@@ -445,7 +445,7 @@ class SearchResultFragment : BaseFragment() {
         val allLatestUpdatesAdapter = AllLatestUpdatesAdapter(requireContext(), luList, luList.size,
             object : AllLatestUpdatesAdapter.UpdatesItemsInterface {
                 override fun onClickItem(position: Int) {
-                    Log.d("eee", position.toString())
+//                    Log.d("eee", position.toString())
                     homeViewModel.setSeLectedLatestUpdates(luList[position])
                     homeViewModel.setSelectedPosition(
                         LatesUpdatesPosition(
@@ -488,7 +488,7 @@ class SearchResultFragment : BaseFragment() {
                                     fragmentSearchResultBinding.documentsList.visibility = View.GONE
                                 }
                                 else -> {
-                                    Log.d("getget", data.toString())
+//                                    Log.d("getget", data.toString())
                                     fragmentSearchResultBinding.tvDocuments.visibility =
                                         View.VISIBLE
                                     fragmentSearchResultBinding.documentsList.visibility =
@@ -590,23 +590,23 @@ class SearchResultFragment : BaseFragment() {
         override fun onclickDocument(name: String, path: String) {
             when (path) {
                 "" -> {
-                    Toast.makeText(requireContext(), "No data available", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), Constants.NO_DATA_AVAILABLE, Toast.LENGTH_SHORT).show()
                 }
                 else -> {
                     when {
-                        name.contains("jpg", true) -> {
+                        name.contains(Constants.JPG_SMALL, true) -> {
                             //open image loading screen
                             openDocument(name, path)
                         }
-                        name.contains("png", true) -> {
+                        name.contains(Constants.PNG_SMALL, true) -> {
                             //open image loading screen
                             openDocument(name, path)
                         }
-                        name.contains("pdf", false) -> {
+                        name.contains(Constants.PDF, false) -> {
                             getDocumentData(path)
                         }
                         else -> {
-                            Toast.makeText(context, "Invalid format", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, Constants.INVALID_FORMAT, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -688,20 +688,20 @@ class SearchResultFragment : BaseFragment() {
         if (file != null) {
             val path = FileProvider.getUriForFile(
                 requireContext(),
-                requireContext().applicationContext.packageName + ".provider",
+                requireContext().applicationContext.packageName + Constants.DOT_PROVIDER,
                 file
             )
             val intent = Intent(Intent.ACTION_VIEW)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            intent.setDataAndType(path, "application/pdf")
+            intent.setDataAndType(path, Constants.APPLICATION_PDF)
             try {
                 startActivity(intent)
             } catch (e: Exception) {
-                Log.e("Error:openPdf: ", e.localizedMessage)
+                Log.e(Constants.ERROR_OPEN_PDF, e.localizedMessage)
             }
         } else {
-            (requireActivity() as HomeActivity).showErrorToast("Something Went Wrong")
+            (requireActivity() as HomeActivity).showErrorToast(Constants.SOMETHING_WENT_WRONG)
         }
     }
 

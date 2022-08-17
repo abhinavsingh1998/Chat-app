@@ -1069,7 +1069,7 @@ class EditProfileFragment : BaseFragment() {
         cameraFile = File(context.externalCacheDir, "$fileSuffix.jpg")
         return FileProvider.getUriForFile(
             requireContext(),
-            requireContext().applicationContext.packageName + ".provider",
+            requireContext().applicationContext.packageName + Constants.DOT_PROVIDER,
             cameraFile!!
         )
     }

@@ -12,6 +12,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.views.FaqDetailFragment
@@ -83,7 +84,7 @@ class FaqDetailAdapter(
         fun bind(position: Int) {
             //Binding data
             when (projectName) {
-                "" -> title.text = "FAQs"
+                "" -> title.text = Constants.FAQS
                 else -> title.text = "${projectName.toString()} - FAQs"
             }
 

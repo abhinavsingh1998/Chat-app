@@ -501,7 +501,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     override fun referNow() {
         val dialog = ReferralDialog()
         dialog.isCancelable = true
-        dialog.show(parentFragmentManager, "Refrral card")
+        dialog.show(parentFragmentManager, Constants.REFERRAL_CARD)
     }
 
     override fun seeAllWatchlist() {

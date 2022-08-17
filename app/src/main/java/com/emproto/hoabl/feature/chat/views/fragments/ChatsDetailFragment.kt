@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentChatsDetailBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -82,7 +83,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         chatsDetailAdapter = ChatsDetailAdapter(context, newChatMessageList, this)
         binding.rvChat.adapter = chatsDetailAdapter
 
-        chatsList = arguments?.getSerializable("chatModel") as CData
+        chatsList = arguments?.getSerializable(Constants.CHAT_MODEL) as CData
         binding.tvChatTitle.text = chatsList?.project?.projectContent?.launchName.toString()
         context?.let {
             Glide.with(it)

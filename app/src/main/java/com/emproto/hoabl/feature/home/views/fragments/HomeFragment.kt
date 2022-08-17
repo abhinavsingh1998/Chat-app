@@ -59,7 +59,7 @@ class HomeFragment : BaseFragment() {
     private lateinit var homeData: com.emproto.networklayer.response.home.Data
 
 
-    val appURL = "https://hoabl.in/"
+    val appURL = Constants.APP_URL
     private var projectId = 0
 
     @Inject
@@ -359,11 +359,11 @@ class HomeFragment : BaseFragment() {
                 R.id.tv_seeall_testimonial -> {
                     val fragment = Testimonials()
                     val bundle = Bundle()
-                    bundle.putInt("testimonials", testimonialsListCount)
+                    bundle.putInt(Constants.TESTIMONALS, testimonialsListCount)
 
-                    bundle.putString("testimonialsHeading", testimonilalsHeading)
+                    bundle.putString(Constants.TESTIMONALS_HEADING, testimonilalsHeading)
 
-                    bundle.putString("testimonialsSubHeading", testimonilalsSubHeading)
+                    bundle.putString(Constants.TESTIMONALS_SUB_HEADING, testimonilalsSubHeading)
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
@@ -463,7 +463,7 @@ class HomeFragment : BaseFragment() {
     private fun referNow() {
         val dialog = ReferralDialog()
         dialog.isCancelable = true
-        dialog.show(parentFragmentManager, "Refrral card")
+        dialog.show(parentFragmentManager, Constants.REFERRAL_CARD)
     }
 
     private fun share_app() {

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.adapters.MyProjectsAdapter
 import com.emproto.hoabl.databinding.FragmentMyProjectsBinding
 
@@ -30,10 +31,10 @@ class MyProjectsFragment : BaseFragment() {
 
     private fun initView() {
         val list: ArrayList<String> = arrayListOf()
-        list.add("22L-2.5 Cr")
-        list.add("22L-2.5 Cr")
-        list.add("22L-2.5 Cr")
-        list.add("22L-2.5 Cr")
+        list.add(Constants.AMOUNT)
+        list.add(Constants.AMOUNT)
+        list.add(Constants.AMOUNT)
+        list.add(Constants.AMOUNT)
 
         myProjectsAdapter = MyProjectsAdapter(requireActivity(), list)
         linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)

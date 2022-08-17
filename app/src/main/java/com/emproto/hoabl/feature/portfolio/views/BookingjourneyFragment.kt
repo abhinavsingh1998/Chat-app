@@ -330,20 +330,20 @@ class BookingjourneyFragment : BaseFragment() {
         if (file != null) {
             val path = FileProvider.getUriForFile(
                 requireContext(),
-                requireContext().applicationContext.packageName + ".provider",
+                requireContext().applicationContext.packageName + Constants.DOT_PROVIDER,
                 file!!
             )
             val intent = Intent(Intent.ACTION_VIEW)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            intent.setDataAndType(path, "application/pdf")
+            intent.setDataAndType(path, Constants.APPLICATION_PDF)
             try {
                 startActivity(intent)
             } catch (e: Exception) {
-                Log.e("Error:openPdf: ", e.localizedMessage)
+                Log.e(Constants.ERROR_OPEN_PDF, e.localizedMessage)
             }
         } else {
-            (requireActivity() as HomeActivity).showErrorToast("Something Went Wrong")
+            (requireActivity() as HomeActivity).showErrorToast(Constants.SOMETHING_WENT_WRONG)
         }
 
 

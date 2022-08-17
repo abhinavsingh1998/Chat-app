@@ -349,10 +349,10 @@ object Utility {
         try {
             val o = BitmapFactory.Options()
             o.inJustDecodeBounds = true
-            if ((cameraFile!!.name).equals("jpg") || (cameraFile!!.name).equals("JPG") || (cameraFile!!.name).equals(
-                    "png"
-                ) || (cameraFile!!.name).equals("PNG") || (cameraFile!!.name).equals("jpeg") || (cameraFile!!.name).equals(
-                    "JPEG"
+            if ((cameraFile!!.name).equals(Constants.JPG_SMALL) || (cameraFile!!.name).equals(Constants.JPG_CAPITAL) || (cameraFile!!.name).equals(
+                   Constants.PNG_SMALL
+                ) || (cameraFile!!.name).equals(Constants.PNG_CAPITAL) || (cameraFile!!.name).equals(Constants.JPEG_SMALL) || (cameraFile!!.name).equals(
+               Constants.JPEG_CAPITAL
                 )
             ) {
                 o.inSampleSize = 6
@@ -406,10 +406,10 @@ object Utility {
                 }
                 val outputStream = FileOutputStream(newFile)
 
-                if ((cameraFile!!.name).equals("jpg") || (cameraFile!!.name).equals("JPG") || (cameraFile!!.name).equals(
-                        "png"
-                    ) || (cameraFile!!.name).equals("PNG") || (cameraFile!!.name).equals("jpeg") || (cameraFile!!.name).equals(
-                        "JPEG"
+                if ((cameraFile!!.name).equals(Constants.JPG_SMALL) || (cameraFile!!.name).equals(Constants.JPG_CAPITAL) || (cameraFile!!.name).equals(
+                     Constants.PNG_SMALL
+                    ) || (cameraFile!!.name).equals(Constants.PNG_CAPITAL) || (cameraFile!!.name).equals(Constants.JPEG_SMALL) || (cameraFile!!.name).equals(
+                        Constants.JPEG_CAPITAL
                     )
                 ) {
                     selectedBitmap!!.compress(Bitmap.CompressFormat.JPEG, 30, outputStream);

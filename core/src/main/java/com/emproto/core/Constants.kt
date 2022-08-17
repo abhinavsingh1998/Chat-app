@@ -8,7 +8,8 @@ object Constants {
     val TRUE = "true"
     val FALSE = "false"
 
-    //HelpCenterFragment-Strings
+    val DATA="Data"
+
     val FAQ_TITLE = "Frequently Asked Questions"
     val FAQ_DESCRIPTION = "Read all our FAQs here"
     val PRIVACY_POLICY_TITLE = "Privacy Policy"
@@ -24,20 +25,20 @@ object Constants {
     val TELEPHONE_NO = "+911231231231"
 
     val PROJECT_NAME = "ProjectName"
-    val PROJECT_ID="ProjectId"
-    val PROJECT_LOCATION="ProjectLocation"
-    val IS_PROJECT_AMENITIES_CLICKED="isProjectAmenitiesClicked"
+    val PROJECT_ID = "ProjectId"
+    val PROJECT_LOCATION = "ProjectLocation"
+    val IS_PROJECT_AMENITIES_CLICKED = "isProjectAmenitiesClicked"
     val IS_FROM_INVESTMENT = "isFromInvestment"
     val IS_ABOUT_US_ACTIVE = "isAboutUsActive"
     val IS_TERM_ACTIVE = "isTermsActive"
     val GENERAL = "General"
-    val FAQ_ID="FaqId"
+    val FAQ_ID = "FaqId"
 
 
     val AN_ERROR_OCCURRED = "An error occurred"
     val SOMETHING_WENT_WRONG = "Something Went Wrong"
+    val NO_DATA_AVAILABLE="No data available"
 
-    //ProfileFragment
     val MY_ACCOUNT_TITLE = "My Account"
     val MY_ACCOUNT_DESCRIPTION = "Payment History & KYC"
     val SECURITY_SETTINGS_TITLE = "Security & Settings"
@@ -62,22 +63,56 @@ object Constants {
     val ARE_YOU_SURE_YOU_WANT_TO_LOGOUT_FROM_ALL_DEVICES =
         "Are you sure you want to logout from all devices?"
     val SECURITY_TIPS = "Security Tips"
-    val SIGN_OUT_FROM_ALL_DEVICES="Sign out from all devices"
+    val SIGN_OUT_FROM_ALL_DEVICES = "Sign out from all devices"
 
-    val PROFILE="Profile"
-    val HOME="Home"
-    val PORTFOLIO="Portfolio"
-    val PROMISE="Promise"
-    val INVESTMENT="Investment"
+    val PROFILE = "Profile"
+    val HOME = "Home"
+    val PORTFOLIO = "Portfolio"
+    val PROMISE = "Promise"
+    val INVESTMENT = "Investment"
+    val FAQS = "FAQs"
 
-    val I_WANT_TO_RAISE_A_SECURITY_EMERGENCY= "I want to raise a security emergency"
+    val I_WANT_TO_RAISE_A_SECURITY_EMERGENCY = "I want to raise a security emergency"
 
-    val APPLICATION_SUBMIT_DIALOG="ApplicationSubmitDialog"
-    val APPLICATION_SUBMIT_DIALOG_TITLE="Request Sent"
-    val APPLICATION_SUBMIT_DIALOG_DESCRIPTION="A relationship manager will get back to you to discuss more about it."
+    val APPLICATION_SUBMIT_DIALOG = "ApplicationSubmitDialog"
+    val APPLICATION_SUBMIT_DIALOG_TITLE = "Request Sent"
+    val APPLICATION_SUBMIT_DIALOG_DESCRIPTION =
+        "A relationship manager will get back to you to discuss more about it."
 
 
-    val YOUTUBE_VIDEO_ID="YoutubeVideoId"
-    val VIDEO_TITLE="VideoTitle"
-    val VIDEO_PLAYER_FAILED= "Video player Failed"
+    val YOUTUBE_VIDEO_ID = "YoutubeVideoId"
+    val VIDEO_TITLE = "VideoTitle"
+    val VIDEO_PLAYER_FAILED = "Video player Failed"
+    val APP_URL = "https://hoabl.in/"
+
+    val TESTIMONALS = "testimonials"
+    val TESTIMONALS_HEADING = "testimonialsHeading"
+    val TESTIMONALS_SUB_HEADING = "testimonialsSubHeading"
+
+    val CHAT_MODEL="chatModel"
+    val REFERRAL_CARD="Refrral card"
+    val AMOUNT="22L-2.5 Cr"
+    val TOP_TEXT="TopText"
+
+    val JPG_SMALL="jpg"
+    val JPG_CAPITAL="JPG"
+
+    val PNG_SMALL="png"
+    val PNG_CAPITAL="PNG"
+
+    val JPEG_SMALL="jpeg"
+    val JPEG_CAPITAL="JPEG"
+
+    val PDF="pdf"
+
+    val INVALID_FORMAT= "Invalid format"
+    val DOT_PROVIDER=".provider"
+    val APPLICATION_PDF="application/pdf"
+    val ERROR_OPEN_PDF="Error:openPdf: "
+    val DRONE_SHOOT="DroneShoots"
+    val VIDEOS="Videos"
+    val PHOTOS="Photos"
+    val PHOTOS_360="360 photos"
+    val DRONE_SHOOTS="Drone Shoots"
+    val IMAGE_POSITION="ImagePosition"
 }

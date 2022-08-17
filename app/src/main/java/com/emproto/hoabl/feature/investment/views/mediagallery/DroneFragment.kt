@@ -44,10 +44,10 @@ class DroneFragment:BaseFragment() {
     }
 
     private fun initObserver() {
-        val medialist = investmentViewModel.getMediaContent().filter { it.title == "DroneShoots" }
+        val medialist = investmentViewModel.getMediaContent().filter { it.title == Constants.DRONE_SHOOT }
         val list = ArrayList<MediaGalleryItem>()
 //        list.add(MediaGalleryItem(1, "Videos"))
-        list.add(MediaGalleryItem(2, "Videos"))
+        list.add(MediaGalleryItem(2, Constants.VIDEOS))
 
         val videoList = arrayListOf<String>()
         for(item in medialist){

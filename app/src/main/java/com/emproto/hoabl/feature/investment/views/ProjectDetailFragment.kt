@@ -73,7 +73,7 @@ class ProjectDetailFragment : BaseFragment() {
     private lateinit var allData: PdData
 
     private var faqData: List<ProjectContentsAndFaq> = mutableListOf()
-    private var APP_URL = "https://hoabl.in/"
+    private var APP_URL = Constants.APP_URL
     private var isBookmarked = false
     private var watchListId = 0
 
@@ -440,7 +440,7 @@ class ProjectDetailFragment : BaseFragment() {
                         MediaViewItem(
                             item.mediaContentType,
                             item.mediaContent.value.url,
-                            title = "DroneShoots",
+                            title = Constants.DRONE_SHOOT,
                             id = itemId,
                             name = item.name
                         )
@@ -468,7 +468,7 @@ class ProjectDetailFragment : BaseFragment() {
                         MediaViewItem(
                             item.mediaContentType,
                             item.mediaContent.value.url,
-                            title = "Videos",
+                            title = Constants.VIDEOS,
                             id = itemId,
                             name = item.name
                         )
@@ -503,7 +503,7 @@ class ProjectDetailFragment : BaseFragment() {
         }
         val fragment = MediaGalleryFragment()
         val bundle = Bundle()
-        bundle.putSerializable("Data", imagesList)
+        bundle.putSerializable(Constants.DATA, imagesList)
         investmentViewModel.isVideoSeeAllClicked = isVideoAllCLicked
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(fragment, true)
@@ -605,13 +605,13 @@ class ProjectDetailFragment : BaseFragment() {
                 R.id.tv_hear_speak_see_all -> {
                     val fragment = Testimonials()
                     val bundle = Bundle()
-                    bundle.putInt("testimonials", item.toInt())
+                    bundle.putInt(Constants.TESTIMONALS, item.toInt())
                     bundle.putString(
-                        "testimonialsHeading",
+                    Constants.TESTIMONALS_HEADING,
                         allData.otherSectionHeadings.testimonials.sectionHeading
                     )
                     bundle.putString(
-                        "testimonialsSubHeading",
+                       Constants.TESTIMONALS_SUB_HEADING ,
                         allData.otherSectionHeadings.testimonials.subHeading
                     )
                     fragment.arguments = bundle

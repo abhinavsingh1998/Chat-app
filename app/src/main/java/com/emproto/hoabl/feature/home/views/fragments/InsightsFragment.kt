@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.databinding.FragmentInsightsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.adapters.AllInsightsAdapter
@@ -28,7 +29,7 @@ class InsightsFragment : BaseFragment() {
     lateinit var mBinding: FragmentInsightsBinding
     lateinit var insightsAdapter: AllInsightsAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
-    val appURL = "https://hoabl.in/"
+    val appURL =Constants.APP_URL
     var insightsListCount = 0
     lateinit var insightsHeading: String
     lateinit var insightsSubHeading: String

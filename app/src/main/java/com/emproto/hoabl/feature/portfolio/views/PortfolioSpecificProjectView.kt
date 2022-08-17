@@ -399,7 +399,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                     override fun referNow() {
                         val dialog = ReferralDialog()
                         dialog.isCancelable = true
-                        dialog.show(parentFragmentManager, "Refrral card")
+                        dialog.show(parentFragmentManager, Constants.REFERRAL_CARD)
                     }
 
                     override fun seeAllSimilarInvestment() {
@@ -524,8 +524,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
                             "kjdkjds",
                             "${mediaViewItem.toString()}, tyyt== ${allMediaList.toString()}, pos = $position"
                         )
-                        bundle.putSerializable("Data", mediaViewItem)
-                        bundle.putInt("ImagePosition", position)
+                        bundle.putSerializable(Constants.DATA, mediaViewItem)
+                        bundle.putInt(Constants.IMAGE_POSITION, position)
                         Log.d("kjdjdsj", allMediaList.toString())
                         investmentViewModel.setMediaListItem(allMediaList)
                         val fragment = MediaViewFragment()
@@ -543,7 +543,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                             ).get(InvestmentViewModel::class.java)
                         val fragment = MediaGalleryFragment()
                         val bundle = Bundle()
-                        bundle.putSerializable("Data", imagesList)
+                        bundle.putSerializable(Constants.DATA, imagesList)
                         investmentViewModel.setMediaListItem(imagesList)
                         fragment.arguments = bundle
                         (requireActivity() as HomeActivity).addFragment(
@@ -585,10 +585,10 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
     private fun openDocumentScreen(name: String, path: String) {
         val strings = name.split(".")
-        if (strings[1] == "png" || strings[1] == "jpg") {
+        if (strings[1] == Constants.PNG_SMALL || strings[1] == Constants.JPG_SMALL) {
             //open image loading screen
             openDocument(name, path)
-        } else if (strings[1] == "pdf") {
+        } else if (strings[1] == Constants.PDF) {
             getDocumentData(path)
         } else {
 
@@ -669,20 +669,20 @@ class PortfolioSpecificProjectView : BaseFragment() {
         if (file != null) {
             val path = FileProvider.getUriForFile(
                 requireContext(),
-                requireContext().applicationContext.packageName + ".provider",
+                requireContext().applicationContext.packageName + Constants.DOT_PROVIDER,
                 file!!
             )
             val intent = Intent(Intent.ACTION_VIEW)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            intent.setDataAndType(path, "application/pdf")
+            intent.setDataAndType(path, Constants.APPLICATION_PDF)
             try {
                 startActivity(intent)
             } catch (e: Exception) {
-                Log.e("Error:openPdf: ", e.localizedMessage)
+                Log.e(Constants.ERROR_OPEN_PDF, e.localizedMessage)
             }
         } else {
-            (requireActivity() as HomeActivity).showErrorToast("Something Went Wrong")
+            (requireActivity() as HomeActivity).showErrorToast(Constants.SOMETHING_WENT_WRONG)
         }
 
 

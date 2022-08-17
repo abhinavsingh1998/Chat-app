@@ -46,10 +46,10 @@ class VideosFragment:BaseFragment() {
     }
 
     private fun initObserver() {
-        val medialist = investmentViewModel.getMediaContent().filter { it.title == "Videos" }
+        val medialist = investmentViewModel.getMediaContent().filter { it.title == Constants.VIDEOS}
         val list = ArrayList<MediaGalleryItem>()
 //        list.add(MediaGalleryItem(1, "Videos"))
-        list.add(MediaGalleryItem(2, "Videos"))
+        list.add(MediaGalleryItem(2, Constants.VIDEOS))
         investmentViewModel.getVideoActive().observe(viewLifecycleOwner,Observer{
             when(it){
                 true -> {
