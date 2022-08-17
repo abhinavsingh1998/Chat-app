@@ -9,6 +9,7 @@ import androidx.core.text.bold
 import androidx.core.text.color
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
@@ -38,10 +39,10 @@ class InvestmentAdapter(
             val convertedAmount = amount.toString().replace(".0", "")
             tvItemAmount.text = SpannableStringBuilder()
                 .bold { append("₹${convertedAmount} L") }
-                .append(" Onwards")
+                .append(Constants.ONWARDS)
             tvItemArea.text = SpannableStringBuilder()
                 .bold { append("${element.areaStartingFrom} Sqft") }
-                .append(" Onwards")
+                .append(Constants.ONWARDS)
             tvItemLocationInfo.text = element.shortDescription
             Glide
                 .with(context)

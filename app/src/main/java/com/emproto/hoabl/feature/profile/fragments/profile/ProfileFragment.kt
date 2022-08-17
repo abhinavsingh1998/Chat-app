@@ -423,7 +423,7 @@ class ProfileFragment : BaseFragment() {
                     logoutDialog.dismiss()
                     Log.d("Code", "message= ${it.message.toString()}")
                     when (it.message) {
-                        "Access denied" -> {
+                        Constants.ACCESS_DENIED -> {
                             appPreference.saveLogin(false)
                             startActivity(Intent(context, AuthActivity::class.java))
                             requireActivity().finish()

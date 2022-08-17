@@ -10,6 +10,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemCompletedInvestmentsBinding
@@ -184,14 +185,14 @@ class CompletedInvestmentAdapter(
 //            linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
 //        }
         when (dataPointType) {
-            "Yearly" -> {
-                graphType = "Yearly"
+            Constants.YEARLY  -> {
+                graphType = Constants.YEARLY
                 for (item in points) {
                     linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
                 }
             }
-            "Half Yearly" -> {
-                graphType = "Half Yearly"
+            Constants.HALF_YEARLY -> {
+                graphType = Constants.HALF_YEARLY
                 for (i in 0..points.size - 1) {
                     val fmString = points[i].halfYear.substring(0, 3)
                     val yearString = points[i].year.substring(2, 4)
@@ -204,8 +205,8 @@ class CompletedInvestmentAdapter(
                     index++
                 }
             }
-            "Quaterly" -> {
-                graphType = "Quaterly"
+            Constants.QUATERLY -> {
+                graphType = Constants.QUATERLY
                 for (i in 0..points.size - 1) {
                     val fmString = points[i].quater.substring(0, 2)
                     val yearString = points[i].year.substring(2, 4)
@@ -218,8 +219,8 @@ class CompletedInvestmentAdapter(
                     index++
                 }
             }
-            "Monthly" -> {
-                graphType = "Monthly"
+            Constants.MONTHLY -> {
+                graphType = Constants.MONTHLY
                 for (i in 0..points.size - 1) {
                     val fmString = points[i].month.substring(0, 3)
                     val yearString = points[i].year.substring(2, 4)
@@ -305,14 +306,14 @@ class CompletedInvestmentAdapter(
 //            linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
 //        }
         when (dataPointType) {
-            "Yearly" -> {
-                graphType = "Yearly"
+            Constants.YEARLY  -> {
+                graphType = Constants.YEARLY
                 for (item in points) {
                     linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
                 }
             }
-            "Half Yearly" -> {
-                graphType = "Half Yearly"
+            Constants.HALF_YEARLY -> {
+                graphType = Constants.HALF_YEARLY
                 for (i in 0..points.size - 1) {
                     val fmString = points[i].halfYear.substring(0, 3)
                     val yearString = points[i].year.substring(2, 4)
@@ -325,8 +326,8 @@ class CompletedInvestmentAdapter(
                     index++
                 }
             }
-            "Quaterly" -> {
-                graphType = "Quaterly"
+            Constants.QUATERLY -> {
+                graphType = Constants.QUATERLY
                 for (i in 0..points.size - 1) {
                     val fmString = points[i].quater.substring(0, 2)
                     val yearString = points[i].year.substring(2, 4)
@@ -339,8 +340,8 @@ class CompletedInvestmentAdapter(
                     index++
                 }
             }
-            "Monthly" -> {
-                graphType = "Monthly"
+            Constants.MONTHLY -> {
+                graphType = Constants.MONTHLY
                 for (i in 0..points.size - 1) {
                     val fmString = points[i].month.substring(0, 3)
                     val yearString = points[i].year.substring(2, 4)
@@ -396,9 +397,9 @@ class CompletedInvestmentAdapter(
     inner class Xaxisformatter : IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
             return when (graphType) {
-                "Quaterly" -> returnFormattedValue(p0)
-                "Monthly" -> returnFormattedValue(p0)
-                "Half Yearly" -> returnFormattedValue(p0)
+                Constants.QUATERLY -> returnFormattedValue(p0)
+                Constants.MONTHLY -> returnFormattedValue(p0)
+                Constants.HALF_YEARLY -> returnFormattedValue(p0)
                 else -> {
                     String.format("%.0f", p0.toDouble())
                 }

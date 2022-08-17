@@ -583,14 +583,14 @@ class PortfolioSpecificViewAdapter(
             val linevalues = ArrayList<Entry>()
 
             when (graphData.dataPoints.dataPointType) {
-                "Yearly" -> {
-                    graphType = "Yearly"
+                Constants.YEARLY  -> {
+                    graphType = Constants.YEARLY
                     for (item in graphData.dataPoints.points) {
                         linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
                     }
                 }
-                "Half Yearly" -> {
-                    graphType = "Half Yearly"
+                Constants.HALF_YEARLY-> {
+                    graphType = Constants.HALF_YEARLY
                     for (i in 0..graphData.dataPoints.points.size - 1) {
                         val fmString = graphData.dataPoints.points[i].halfYear.substring(0, 3)
                         val yearString = graphData.dataPoints.points[i].year.substring(2, 4)
@@ -603,8 +603,8 @@ class PortfolioSpecificViewAdapter(
                         index++
                     }
                 }
-                "Quaterly" -> {
-                    graphType = "Quaterly"
+                Constants.QUATERLY -> {
+                    graphType = Constants.QUATERLY
                     for (i in 0..graphData.dataPoints.points.size - 1) {
                         val fmString = graphData.dataPoints.points[i].quater.substring(0, 2)
                         val yearString = graphData.dataPoints.points[i].year.substring(2, 4)
@@ -617,8 +617,8 @@ class PortfolioSpecificViewAdapter(
                         index++
                     }
                 }
-                "Monthly" -> {
-                    graphType = "Monthly"
+                Constants.MONTHLY -> {
+                    graphType = Constants.MONTHLY
                     for (i in 0..graphData.dataPoints.points.size - 1) {
                         val fmString = graphData.dataPoints.points[i].month.substring(0, 3)
                         val yearString = graphData.dataPoints.points[i].year.substring(2, 4)
@@ -752,9 +752,9 @@ class PortfolioSpecificViewAdapter(
     inner class Xaxisformatter : IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
             return when (graphType) {
-                "Quaterly" -> returnFormattedValue(p0)
-                "Monthly" -> returnFormattedValue(p0)
-                "Half Yearly" -> returnFormattedValue(p0)
+                Constants.QUATERLY -> returnFormattedValue(p0)
+               Constants.MONTHLY -> returnFormattedValue(p0)
+                Constants.HALF_YEARLY -> returnFormattedValue(p0)
                 else -> {
                     String.format("%.0f", p0.toDouble())
                 }
