@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.databinding.FragmentInsightsDetailsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.adapters.InsightsListAdapter
@@ -64,8 +65,8 @@ class InsightsDetailsFragment : BaseFragment() {
     val itemClickListener = object :YoutubeItemClickListener{
         override fun onItemClicked(view: View, position: Int, url: String,title:String) {
             val intent = Intent(requireActivity() as HomeActivity,YoutubeActivity::class.java)
-            intent.putExtra("YoutubeVideoId",url)
-            intent.putExtra("VideoTitle",title)
+            intent.putExtra(Constants.YOUTUBE_VIDEO_ID,url)
+            intent.putExtra(Constants.VIDEO_TITLE,title)
             startActivity(intent)
 
 

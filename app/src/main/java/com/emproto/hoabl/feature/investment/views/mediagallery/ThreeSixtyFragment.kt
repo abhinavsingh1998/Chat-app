@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.databinding.FragmentPhotosBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
@@ -71,7 +72,7 @@ class ThreeSixtyFragment:BaseFragment() {
     private fun setUpRecyclerView(list1: List<MediaViewItem>) {
         val list = ArrayList<MediaGalleryItem>()
 //        list.add(MediaGalleryItem(1, "Photos"))
-        list.add(MediaGalleryItem(2, "Photos"))
+        list.add(MediaGalleryItem(2, Constants.PHOTOS))
 
         val imageList = arrayListOf<String>()
         Log.d("jshdjshds",list1.toString())
@@ -121,9 +122,9 @@ class ThreeSixtyFragment:BaseFragment() {
             investmentViewModel.setMediaListItem(allImageList)
             val mediaViewFragment = MediaViewFragment()
             val bundle = Bundle()
-            bundle.putSerializable("Data", item)
+            bundle.putSerializable(Constants.DATA, item)
             bundle.putSerializable("medialist",allImageList)
-            bundle.putInt("ImagePosition",position)
+            bundle.putInt(Constants.IMAGE_POSITION,position)
             mediaViewFragment.arguments = bundle
             (requireActivity() as HomeActivity).addFragment(mediaViewFragment, true)
         }

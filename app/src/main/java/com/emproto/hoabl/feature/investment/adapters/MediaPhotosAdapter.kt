@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.core.Constants
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.model.MediaGalleryItem
 import com.emproto.hoabl.model.MediaViewItem
@@ -80,7 +81,7 @@ class MediaPhotosAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             when (itemList[position].type) {
-                "Photos" -> {
+                Constants.PHOTOS -> {
                     val imageList = mediaData
                     mediaPhotosPictureAdapter =
                         MediaPhotosPictureAdapter(context, clickListener, imageList)
@@ -88,7 +89,7 @@ class MediaPhotosAdapter(
                     binding.rvPhotos.layoutManager = gridLayoutManager
                     binding.rvPhotos.adapter = mediaPhotosPictureAdapter
                 }
-                "Videos" -> {
+               Constants.VIDEOS -> {
                     val videoList = mediaData
                     mediaItemVideosAdapter =
                         MediaItemVideosAdapter(context, youtubeItemClickListener, videoList)

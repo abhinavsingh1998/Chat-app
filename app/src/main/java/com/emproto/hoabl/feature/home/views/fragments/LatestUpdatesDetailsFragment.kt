@@ -31,7 +31,6 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
 
     lateinit var mBinding: FragmentLatestUpdatesDetailsBinding
 
-
     @Inject
     lateinit var factory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
@@ -64,7 +63,7 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
         homeViewModel.getSelectedPosition().observe(viewLifecycleOwner,Observer{
             position = it.position
             listLength = it.lisLenght
-            Log.d("RRR","${position},${listLength}")
+//            Log.d("RRR","${position},${listLength}")
             initObserver()
             initView(position)
             backView()

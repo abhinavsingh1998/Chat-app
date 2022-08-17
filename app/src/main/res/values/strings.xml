@@ -190,7 +190,7 @@
     <string name="email">Email</string>
     <string name="date_of_birth">Dob</string>
     <string name="gender">Gender</string>
-    <string name="Address_details">Address details</string>
+    <string name="Address_details">Communication Address Details</string>
     <string name="Enter_complete_Address">Enter complete street address</string>
     <string name="Enter_Layality">Enter Layality</string>
     <string name="Pincode">Pincode</string>

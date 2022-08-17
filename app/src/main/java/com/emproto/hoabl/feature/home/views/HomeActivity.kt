@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseActivity
+import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityHomeBinding
 import com.emproto.hoabl.databinding.FragmentNotificationBottomSheetBinding
@@ -88,7 +89,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private lateinit var profileViewModel: ProfileViewModel
 
     var added = false
-    val appURL = "https://hoabl.in/"
+    val appURL = Constants.APP_URL
     private var oneTimeValidation = false
 
     var topText = ""
@@ -148,7 +149,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         activityHomeActivity.searchLayout.search.setOnClickListener {
             val fragment = SearchResultFragment()
             val bundle = Bundle()
-            bundle.putString("TopText", topText)
+            bundle.putString(Constants.TOP_TEXT, topText)
             fragment.arguments = bundle
             addFragment(fragment, true)
         }

@@ -36,6 +36,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseActivity
+import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.DocumentsBottomSheetBinding
@@ -461,13 +462,13 @@ class AccountDetailsFragment : Fragment(),
     private fun openDocumentScreen(name: String, path: String) {
         val strings = name.split(".")
         if (strings.size > 1) {
-            if (strings[1] == "png" || strings[1] == "jpg") {
+            if (strings[1] == Constants.PNG_SMALL || strings[1] == Constants.JPG_SMALL) {
                 //open image loading screen
                 openDocument(name, path)
-            } else if (strings[1] == "pdf") {
+            } else if (strings[1] == Constants.PDF) {
                 getDocumentData(path)
             } else {
-                Toast.makeText(context, "Invalid format", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, Constants.INVALID_FORMAT, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -522,20 +523,20 @@ class AccountDetailsFragment : Fragment(),
         if (file != null) {
             val path = FileProvider.getUriForFile(
                 requireContext(),
-                requireContext().applicationContext.packageName + ".provider",
+                requireContext().applicationContext.packageName + Constants.DOT_PROVIDER,
                 file
             )
             val intent = Intent(Intent.ACTION_VIEW)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            intent.setDataAndType(path, "application/pdf")
+            intent.setDataAndType(path,Constants.APPLICATION_PDF)
             try {
                 startActivity(intent)
             } catch (e: Exception) {
-                Log.e("Error:openPdf: ", e.localizedMessage)
+                Log.e(Constants.ERROR_OPEN_PDF, e.localizedMessage)
             }
         } else {
-            (requireActivity() as HomeActivity).showErrorToast("Something Went Wrong")
+            (requireActivity() as HomeActivity).showErrorToast(Constants.SOMETHING_WENT_WRONG)
         }
     }
 
@@ -605,7 +606,7 @@ class AccountDetailsFragment : Fragment(),
         cameraFile = File(context.externalCacheDir, "$fileSuffix.jpg")
         return FileProvider.getUriForFile(
             requireContext(),
-            requireContext().applicationContext.packageName + ".provider",
+            requireContext().applicationContext.packageName + Constants.DOT_PROVIDER,
             cameraFile!!
         )
     }

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.databinding.FragmentVideosBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
@@ -43,10 +44,10 @@ class DroneFragment:BaseFragment() {
     }
 
     private fun initObserver() {
-        val medialist = investmentViewModel.getMediaContent().filter { it.title == "DroneShoots" }
+        val medialist = investmentViewModel.getMediaContent().filter { it.title == Constants.DRONE_SHOOT }
         val list = ArrayList<MediaGalleryItem>()
 //        list.add(MediaGalleryItem(1, "Videos"))
-        list.add(MediaGalleryItem(2, "Videos"))
+        list.add(MediaGalleryItem(2, Constants.VIDEOS))
 
         val videoList = arrayListOf<String>()
         for(item in medialist){
@@ -97,8 +98,8 @@ class DroneFragment:BaseFragment() {
             when(isYoutubeVideo){
                 true -> {
                     val intent = Intent(this@DroneFragment.requireActivity(),YoutubeActivity::class.java)
-                    intent.putExtra("YoutubeVideoId",url)
-                    intent.putExtra("VideoTitle",title)
+                    intent.putExtra(Constants.YOUTUBE_VIDEO_ID,url)
+                    intent.putExtra(Constants.VIDEO_TITLE,title)
                     startActivity(intent)
 //                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=${url}"))
 //                    startActivity(intent)

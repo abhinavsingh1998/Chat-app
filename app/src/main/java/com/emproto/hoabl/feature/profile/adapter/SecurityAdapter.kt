@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.profile.data.SettingsData
@@ -177,7 +178,7 @@ class SecurityAdapter(
             binding.apply {
                 Security.text = context.getString(R.string.log_out_all_text)
                 clSecurityTips.setOnClickListener {
-                itemClickListener.onItemClicked(binding.clSecurityTips,position,"Sign out from all devices")
+                itemClickListener.onItemClicked(binding.clSecurityTips,position,Constants.SIGN_OUT_FROM_ALL_DEVICES)
                 }
             }
         }

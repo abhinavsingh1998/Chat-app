@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.databinding.FragmentMediaGalleryBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
@@ -27,7 +28,7 @@ class MediaGalleryFragment : BaseFragment() {
     lateinit var mediaViewPagerAdapter: MediaViewPagerAdapter
     val list = ArrayList<MediaViewItem>()
 
-    private val tabList = arrayListOf<String>("Photos", "Videos", "Drone Shoots", "360 photos")
+    private val tabList = arrayListOf<String>(Constants.PHOTOS, Constants.VIDEOS,Constants.DRONE_SHOOTS, Constants.PHOTOS_360)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +38,7 @@ class MediaGalleryFragment : BaseFragment() {
         binding = FragmentMediaGalleryBinding.inflate(layoutInflater)
         list.clear()
         arguments?.let {
-            list.addAll(it.getSerializable("Data") as List<MediaViewItem>)
+            list.addAll(it.getSerializable(Constants.DATA) as List<MediaViewItem>)
 //            investmentViewModel.isVideoSeeAllClicked = it.getBoolean("isVideoSeeAllClicked")
         }
         return binding.root

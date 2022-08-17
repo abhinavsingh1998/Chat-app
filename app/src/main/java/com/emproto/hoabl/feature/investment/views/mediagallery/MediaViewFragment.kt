@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.databinding.FragmentMediaViewBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
@@ -64,12 +65,12 @@ class MediaViewFragment : BaseFragment() {
 
         //if not from investment module
         arguments?.let {
-            it.getSerializable("Data")?.let {
+            it.getSerializable(Constants.DATA)?.let {
                 data = it as MediaViewItem
                 binding.tvMediaImageName.text = data.name
                 showMedia(data)
             }
-            it.getInt("ImagePosition").let{
+            it.getInt(Constants.IMAGE_POSITION).let{
                 index = it
             }
         }

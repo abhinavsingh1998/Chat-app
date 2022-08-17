@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentLandSkusBinding
@@ -42,7 +43,7 @@ class LandSkusFragment:BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View{
         binding = FragmentLandSkusBinding.inflate(layoutInflater)
         arguments?.let {
-            projectId = it.getInt("ProjectId", 0)
+            projectId = it.getInt(Constants.PROJECT_ID, 0)
         }
         return binding.root
     }
@@ -132,7 +133,7 @@ class LandSkusFragment:BaseFragment() {
                                 binding.progressBar.hide()
                                 it.data?.let { data ->
                                     val applicationSubmitDialog = ApplicationSubmitDialog("Thank you for your interest!","Our Project Manager will reach out to you in 24 hours!")
-                                    applicationSubmitDialog.show(parentFragmentManager,"ApplicationSubmitDialog")
+                                    applicationSubmitDialog.show(parentFragmentManager,Constants.APPLICATION_SUBMIT_DIALOG)
                                     callApi()
                                 }
                             }
@@ -178,7 +179,7 @@ class LandSkusFragment:BaseFragment() {
                             "Our Project Manager will reach out to you soon!",
                             false
                         )
-                        applicationSubmitDialog.show(parentFragmentManager, "ApplicationSubmitDialog")
+                        applicationSubmitDialog.show(parentFragmentManager, Constants.APPLICATION_SUBMIT_DIALOG)
                     }
                 }
                 Status.ERROR -> {

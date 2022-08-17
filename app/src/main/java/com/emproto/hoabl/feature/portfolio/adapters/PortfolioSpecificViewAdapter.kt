@@ -13,6 +13,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
@@ -476,7 +477,7 @@ class PortfolioSpecificViewAdapter(
                         MediaViewItem(
                             item.mediaContentType,
                             item.mediaContent.value.url,
-                            title = "DroneShoots",
+                            title = Constants.DRONE_SHOOT,
                             id = itemId,
                             name = item.name
                         )
@@ -504,7 +505,7 @@ class PortfolioSpecificViewAdapter(
                         MediaViewItem(
                             item.mediaContentType,
                             item.mediaContent.value.url,
-                            title = "Videos",
+                            title = Constants.VIDEOS,
                             id = itemId,
                             name = item.name
                         )
