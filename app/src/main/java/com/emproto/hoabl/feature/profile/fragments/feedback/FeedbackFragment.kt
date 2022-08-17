@@ -69,20 +69,33 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 description = p0.toString()
                 if (p0.toString().length == 250) {
-                    binding.maxDesc.text = "250/250 Characters"
-                    binding.maxDesc.setTextColor(resources.getColor(R.color.text_red_color))
-                    binding.experienceTv.setTextColor(resources.getColor(R.color.text_red_color))
-
+                    binding.editIssuesLayout.boxStrokeColor = resources.getColor(R.color.text_red_color)
+                    binding.txtcount.isVisible = true
+                    binding.maxDesc.isVisible = false
+                    binding.experienceTv.setTextColor(resources.getColorStateList(R.color.text_red_color))
                 } else {
-                    binding.maxDesc.text = "0/250 Characters"
-                    binding.maxDesc.setTextColor(resources.getColor(R.color.text_light_grey_color))
-                    binding.experienceTv.setTextColor(resources.getColor(R.color.land_skus_text_black_color))
+                    binding.editIssuesLayout.boxStrokeColor = resources.getColor(R.color.app_color)
+                    binding.txtcount.isVisible = false
+                    binding.maxDesc.isVisible = true
+                    binding.maxDesc.text="${description.length}/250"
+                    binding.experienceTv.setTextColor(resources.getColorStateList(R.color.text_color))
                 }
+
+//                if (p0.toString().length == 250) {
+//                    binding.maxDesc.text = "250/250 Characters"
+//                    binding.maxDesc.setTextColor(resources.getColor(R.color.text_red_color))
+//                    binding.experienceTv.setTextColor(resources.getColor(R.color.text_red_color))
+//
+//                } else {
+//                    binding.maxDesc.text = "0/250 Characters"
+//                    binding.maxDesc.text="${description.length}/250"
+//                    binding.maxDesc.setTextColor(resources.getColor(R.color.text_light_grey_color))
+//                    binding.experienceTv.setTextColor(resources.getColor(R.color.land_skus_text_black_color))
+//                }
             }
             override fun afterTextChanged(p0: Editable?) {
                 if (p0.toString().isNullOrEmpty()) {
                     description = p0.toString()
-
                 }
 
             }

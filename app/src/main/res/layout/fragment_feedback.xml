@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/jost_medium"
-                android:text="Share your Feedback"
+                android:text="Share your feedback"
                 android:textColor="@color/app_color"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/imgArrow"
@@ -317,16 +317,25 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/feedback_view" />
-
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_issues_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="127dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="@dimen/margin_size_22"
+                    android:layout_marginEnd="@dimen/margin_size_12"
+                    app:boxStrokeColor="@color/app_color"
+                    app:boxStrokeWidthFocused="0.8dp"
+                    app:hintEnabled="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/checkbox_other">
                 <EditText
                     android:id="@+id/experience_tv"
                     style="@style/text_style_text_light_black_color_14"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/margin_size_120"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="@dimen/margin_size_22"
-                    android:layout_marginEnd="@dimen/margin_size_12"
-                    android:background="@drawable/search_bar"
+                    android:layout_height="match_parent"
                     android:fontFamily="@font/jost_regular"
                     android:gravity="top|start"
                     android:hint="Describe your experience here"
@@ -337,7 +346,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@id/checkbox_other" />
-
+                </com.google.android.material.textfield.TextInputLayout>
                 <TextView
                     android:id="@+id/max_desc"
                     android:layout_width="wrap_content"
@@ -347,9 +356,19 @@
                     android:fontFamily="@font/jost_regular"
                     android:layout_marginTop="@dimen/margin_size_4"
                     android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="@id/experience_tv"
-                 app:layout_constraintTop_toBottomOf="@id/experience_tv" />
-
+                    app:layout_constraintEnd_toEndOf="@id/edit_issues_layout"
+                 app:layout_constraintTop_toBottomOf="@id/edit_issues_layout" />
+                <com.emproto.core.textviews.CustomTextView
+                    android:id="@+id/txtcount"
+                    style="@style/text_style_red_color_14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jost_medium"
+                    android:text="You have reached maximum limit"
+                    android:textAlignment="textStart"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@id/edit_issues_layout"
+                    app:layout_constraintTop_toBottomOf="@id/edit_issues_layout" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/share_your_feedback"
@@ -375,7 +394,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/experience_tv" />
+                    app:layout_constraintTop_toBottomOf="@+id/edit_issues_layout" />
 
                 <ProgressBar
                     android:id="@+id/progressBar"
