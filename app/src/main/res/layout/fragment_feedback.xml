@@ -342,7 +342,7 @@
                     android:inputType="textMultiLine"
                     android:padding="10dp"
                     android:maxLength="250"
-                    android:digits="abcdefghijklmnopqrstuvwxyz,ABCDEFGHIJKLMNOPQRSTUVWXYZ,0123456789,@,#,%,&amp;,*,(,),_,{,},[,],',:,;,/,\,|,-,."
+                    android:digits="0 ,1 ,2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,ABCDEFGHIJKLMNOPQRSTUVWXYZ qwertzuiopasdfghjklyxcvbnm ,_ ,/ ,: ,( ,) ,. ,, , ,' ,&amp; ,[ ,] ,{ ,} "
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@id/checkbox_other" />
