@@ -517,6 +517,7 @@ class EditProfileFragment : BaseFragment() {
     private fun initClickListener() {
         binding.backAction.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
+            hideSoftKeyboard()
         }
         binding.emailTv.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
