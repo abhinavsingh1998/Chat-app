@@ -4,7 +4,7 @@
     <string name="hoabl_app">HOABL APP</string>
     <string name="MIXPANEL_KEY">b6e5cdf30ddcdfb3886bdaa58a1d0acc</string>
     <string name="new_investment">Investment</string>
-    <string name="portfolio">My Portfolio</string>
+    <string name="portfolio">Portfolio</string>
     <string name="promises">Promises</string>
     <string name="profile">Profile</string>
 
@@ -319,7 +319,7 @@
     <string name="_1h">1h</string>
     <string name="home_checkbox">Home</string>
     <string name="invest_checkbox">Invest</string>
-    <string name="other">Other</string>
+    <string name="other">Others</string>
     <string name="checkbox_desc">Please share your valuable feedback.</string>
     <string name="very_poor_text">Very Poor</string>
     <string name="excellent">Excellent</string>

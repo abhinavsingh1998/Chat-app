@@ -404,7 +404,8 @@ class AccountDetailsFragment : Fragment(),
     }
 
     private fun initClickListener() {
-        binding.backAction.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
+        binding.backAction.setOnClickListener { requireActivity().supportFragmentManager.popBackStack()
+        }
 
         binding.tvSeeAllPayment.setOnClickListener {
             profileViewModel.savePaymentHistory(allPaymentList)
