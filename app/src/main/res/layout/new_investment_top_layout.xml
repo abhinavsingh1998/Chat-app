@@ -15,13 +15,16 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_new_launch"
             style="@style/text_style_text_color_18"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_size_12"
             android:layout_marginTop="@dimen/margin_size_30"
             android:fontFamily="@font/jost_medium"
             android:text="@string/new_launch_soon"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textAlignment="textStart"
+            app:layout_constraintEnd_toStartOf="@id/tv_new_launch_see_all"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
         <com.emproto.core.textviews.CustomTextView
@@ -48,8 +51,11 @@
             android:layout_marginVertical="@dimen/margin_size_4"
             android:fontFamily="@font/jost_regular"
             android:text="@string/coming_soon"
-            android:textAlignment="center"
+            android:textAlignment="textStart"
             android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toStartOf="@id/tv_new_launch_see_all"
             app:layout_constraintStart_toStartOf="@+id/tv_new_launch"
             app:layout_constraintTop_toBottomOf="@id/tv_new_launch" />
 

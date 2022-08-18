@@ -458,6 +458,13 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
 
     }
 
+//    inner class Yaxisformatter : IAxisValueFormatter{
+//        override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
+//            val str = String.format("%.0f", p0.toDouble())
+//            return "$str%"
+//        }
+//    }
+
     inner class Xaxisformatter : IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
             return when(graphType){
