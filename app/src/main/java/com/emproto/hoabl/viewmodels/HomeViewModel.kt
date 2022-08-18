@@ -217,18 +217,17 @@ class HomeViewModel(
         return homeRepository.downloadDocument(path)
     }
 
-    fun getNotification(size:Int, index:Int):LiveData<BaseResponse<NotificationResponse>>{
-        return homeRepository.getNotificationList( size, index)
+    fun getNotification(size:Int, index:Int, refresh: Boolean):LiveData<BaseResponse<NotificationResponse>>{
+        return homeRepository.getNotificationList( size, index,refresh)
+    }
+
+    fun getNewNotification(size:Int, index:Int, refresh: Boolean):LiveData<BaseResponse<NotificationResponse>>{
+        return homeRepository.getNewNotificationList( size, index,refresh)
     }
 
     fun setReadStatus(ids: UnReadNotifications):LiveData<BaseResponse<ReadNotificationReponse>>{
         return homeRepository.setReadStatus(ids)
     }
-
-
-//    fun getActionItem():LiveData<BaseResponse<HomeActionItemResponse>>{
-//        return homeRepository.getActionItem()
-//    }
 
     fun setSearchedText(searchText: String) {
         this.searchText.postValue(searchText)

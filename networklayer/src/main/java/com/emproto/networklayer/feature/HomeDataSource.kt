@@ -127,6 +127,9 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
     suspend fun getNotificationList(size:Int, index:Int):Response<NotificationResponse>{
         return apiService.getNotificationList(size, index)
     }
+    suspend fun getNewNotificationList(size:Int, index:Int):Response<NotificationResponse>{
+        return apiService.getNewNotificationList(size, index)
+    }
 
     suspend fun setReadStatus(ids:UnReadNotifications):Response<ReadNotificationReponse>{
         return apiService.setReadStatus(ids)
