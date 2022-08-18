@@ -41,6 +41,7 @@ import com.emproto.hoabl.feature.portfolio.views.*
 import com.emproto.hoabl.feature.profile.fragments.about_us.AboutUsFragment
 import com.emproto.hoabl.feature.profile.fragments.profile.ProfileFragment
 import com.emproto.hoabl.feature.promises.HoablPromises
+import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
@@ -78,7 +79,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     lateinit var activityHomeActivity: ActivityHomeBinding
     lateinit var unReadNotifications: UnReadNotifications
     lateinit var manager: LinearLayoutManager
-    var  unreadNotificationList = ArrayList<Int>()
+    var unreadNotificationList = ArrayList<Int>()
     var pageIndex = 1
     var pageSize = 20
     var isScrolling = false
@@ -87,9 +88,9 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     var scrolledItem by Delegates.notNull<Int>()
     var totalNotification = 0
     var toatalPageSize = 0
-    lateinit var customAdapter:NotificationAdapter
-     var notificationList =ArrayList<Data>()
-    var num= 0
+    lateinit var customAdapter: NotificationAdapter
+    var notificationList = ArrayList<Data>()
+    var num = 0
 
 
     @Inject
@@ -142,7 +143,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         initData()
         initClickListener()
         trackEvent()
-        callNotificationApi(20,1,true)
+        callNotificationApi(20, 1, true)
 
     }
 
@@ -338,9 +339,9 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 activityHomeActivity.includeNavigation.bottomNavigation.menu[1].isChecked = true
             } else if (getCurrentFragment() is PortfolioFragment) {
                 activityHomeActivity.includeNavigation.bottomNavigation.menu[2].isChecked = true
-//            } else if (getCurrentFragment() is HoablPromises ||
-//                getCurrentFragment() is PromisesDetailsFragment
-//            ) {
+            } else if (getCurrentFragment() is HoablPromises ||
+                getCurrentFragment() is PromisesDetailsFragment
+            ) {
                 activityHomeActivity.includeNavigation.bottomNavigation.menu[3].isChecked = true
             } else if (getCurrentFragment() is ProfileFragment) {
                 activityHomeActivity.includeNavigation.bottomNavigation.menu[4].isChecked = true
@@ -479,7 +480,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                                 }
                             }
 
-                            for(i in 0..it?.data?.data?.size!! -1){
+                            for (i in 0..it?.data?.data?.size!! - 1) {
                                 notificationList.add(it?.data?.data!![i])
                             }
 
@@ -497,7 +498,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                                     bottomSheetDialog.dismiss()
 
                                 })
-                            if ( unreadNotificationList.isEmpty()) {
+                            if (unreadNotificationList.isEmpty()) {
                                 activityHomeActivity.searchLayout.notification.setImageDrawable(
                                     resources.getDrawable(R.drawable.normal_notification)
                                 )
@@ -608,7 +609,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             adapter = customAdapter
         }
 
-        }
+    }
 
     fun setReadStatus(ids: UnReadNotifications) {
         homeViewModel.setReadStatus(ids).observe(
@@ -675,7 +676,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
 
-
     @RequiresApi(Build.VERSION_CODES.M)
     private fun pagination() {
 
@@ -697,7 +697,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 totalItem = manager.itemCount
                 scrolledItem = manager.findFirstVisibleItemPosition()
 
-                if (isScrolling && currentItem + scrolledItem == totalItem-2 && pageIndex < toatalPageSize) {
+                if (isScrolling && currentItem + scrolledItem == totalItem - 2 && pageIndex < toatalPageSize) {
 
                     refreshNotificationlist(pageSize, ++pageIndex, true)
                 }
@@ -706,37 +706,38 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     fun refreshNotificationlist(pageSize: Int, pageIndex: Int, refresh: Boolean) {
-        homeViewModel.getNotification(pageSize, pageIndex, refresh).observe(this, object :Observer<BaseResponse<NotificationResponse>>{
-            override fun onChanged(it: BaseResponse<NotificationResponse>?) {
+        homeViewModel.getNotification(pageSize, pageIndex, refresh)
+            .observe(this, object : Observer<BaseResponse<NotificationResponse>> {
+                override fun onChanged(it: BaseResponse<NotificationResponse>?) {
 
-                when (it!!.status) {
-                    Status.LOADING -> {
-                        fragmentNotificationBottomSheetBinding.markAllRead.isVisible = true
+                    when (it!!.status) {
+                        Status.LOADING -> {
+                            fragmentNotificationBottomSheetBinding.markAllRead.isVisible = true
 
-                    }
-                    Status.ERROR -> {
-                        Toast.makeText(
-                            this@HomeActivity,
-                            it.message.toString(),
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                    Status.SUCCESS ->{
-                        fragmentNotificationBottomSheetBinding.markAllRead.isVisible = true
-
-                        totalNotification = it.data!!.totalCount
-                        toatalPageSize = it.data!!.totalPages
-
-                        for(i in 0..it?.data?.data?.size!! -1){
-                            notificationList.add(it?.data?.data!![i])
                         }
+                        Status.ERROR -> {
+                            Toast.makeText(
+                                this@HomeActivity,
+                                it.message.toString(),
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                        Status.SUCCESS -> {
+                            fragmentNotificationBottomSheetBinding.markAllRead.isVisible = true
 
-                        customAdapter.notifyItemInserted(notificationList.size-1)
+                            totalNotification = it.data!!.totalCount
+                            toatalPageSize = it.data!!.totalPages
+
+                            for (i in 0..it?.data?.data?.size!! - 1) {
+                                notificationList.add(it?.data?.data!![i])
+                            }
+
+                            customAdapter.notifyItemInserted(notificationList.size - 1)
+                        }
                     }
                 }
-            }
 
-        })
+            })
 
     }
 

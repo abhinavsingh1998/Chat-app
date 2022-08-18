@@ -14,10 +14,10 @@ android {
         applicationId "com.hoabl"
         minSdk 19
         targetSdk 32
-        versionCode 58
-        versionName "0.0.58"
+        versionCode 60
+        versionName "0.0.60"
         multiDexEnabled true
-        archivesBaseName = "Hoabl_58"
+        archivesBaseName = "Hoabl_60"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.debug
     }
