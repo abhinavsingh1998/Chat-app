@@ -187,15 +187,21 @@ class FaqDetailFragment : BaseFragment() {
                 R.id.imgArrow -> {
                     (activity as HomeActivity).onBackPressed()
                 }
+                R.id.tv_faq_title -> {
+                    (activity as HomeActivity).onBackPressed()
+                }
             }
         }
     }
 
     private fun sendFilteredData(item: String) {
         when {
-            item.isEmpty() -> {
+            item == "" -> {
                 hideKeyboard()
                 setUpRecyclerView(allFaqList, faqId)
+            }
+            item.isEmpty() -> {
+                Toast.makeText(this.requireContext(), "Search text cant be empty", Toast.LENGTH_SHORT).show()
             }
             else -> {
                 val list = ArrayList<RecyclerViewFaqItem>()
@@ -218,6 +224,10 @@ class FaqDetailFragment : BaseFragment() {
                             isFaqPresent = false
                         }
                     }
+                }
+                when(list.size){
+                    1 -> {
+                        Toast.makeText(requireContext(), "No faqs to show", Toast.LENGTH_SHORT).show()}
                 }
                 setAdapter(list, allFaqList, item)
             }

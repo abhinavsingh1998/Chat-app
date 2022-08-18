@@ -194,7 +194,9 @@ class LoginFragment : BaseFragment() {
                             hint_text= "Enter OTP"
                         }
 
-                        Log.d("rrrr",isCheck.toString())
+                        mBinding.getOtpButton.visibility = View.VISIBLE
+                        mBinding.progressBar.visibility = View.INVISIBLE
+
                         (requireActivity() as AuthActivity).replaceFragment(
                             OTPVerificationFragment.newInstance(
                                 hMobileNo, "+91",

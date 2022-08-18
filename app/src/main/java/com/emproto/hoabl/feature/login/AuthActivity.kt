@@ -50,6 +50,7 @@ class AuthActivity : BaseActivity() {
     var email = ""
     val phonepatterns = Pattern.compile("[1-9][0-9]{9}")
     val emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
+    var isHandlerStarted = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -149,7 +150,11 @@ class AuthActivity : BaseActivity() {
         if (supportFragmentManager.backStackEntryCount == 1) {
             finish()
         } else {
-            super.onBackPressed()
+            if(!isHandlerStarted){
+                super.onBackPressed()
+            }else{
+            //Doing nothing
+            }
         }
     }
 
@@ -214,7 +219,6 @@ class AuthActivity : BaseActivity() {
                     signingInIssueBiding.txtcount.isVisible = false
                     signingInIssueBiding.maxDesc.isVisible = true
                     signingInIssueBiding.maxDesc.text="${issueDetail.length}/250"+" Characters"
-
                     signingInIssueBiding.editIssues.setTextColor(resources.getColorStateList(R.color.text_color))
                 }
             }
@@ -304,6 +308,7 @@ class AuthActivity : BaseActivity() {
                         dialog.show(supportFragmentManager, "Submit Card")
                         signingInIssueBiding.editIssues.text = null
                         signingInIssueBiding.issueList.clearCheck()
+                        signingInIssueBiding.emailInput.text=null
 
                     }
                     Status.ERROR -> {

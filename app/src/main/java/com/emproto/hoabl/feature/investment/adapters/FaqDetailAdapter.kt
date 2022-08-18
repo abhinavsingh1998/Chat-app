@@ -137,7 +137,7 @@ class FaqDetailAdapter(
                     if (s.toString().length > 1 && s.toString() != "") {
                         close.visibility = View.VISIBLE
                     }
-                    if (s.toString().isEmpty() || s.toString().trim() == "") {
+                    if (s.toString().isEmpty() || s.toString() == "") {
                         Handler().postDelayed({
                             itemClickListener.onItemClicked(search, position, s.toString())
                         }, 500)
@@ -148,6 +148,9 @@ class FaqDetailAdapter(
             //BackButton handled
             imageArrow.setOnClickListener {
                 itemClickListener.onItemClicked(imageArrow, position, "")
+            }
+            title.setOnClickListener {
+                itemClickListener.onItemClicked(imageArrow,position,"")
             }
 
             //Tick button handled from keyboard

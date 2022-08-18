@@ -1,8 +1,10 @@
 package com.emproto.hoabl.feature.portfolio.adapters
 
 import android.content.Context
+import android.os.CountDownTimer
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.bold
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +13,8 @@ import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.networklayer.response.watchlist.Data
+import java.text.DecimalFormat
+import java.util.concurrent.TimeUnit
 
 class WatchlistAdapter(
     val context: Context,
@@ -46,6 +50,31 @@ class WatchlistAdapter(
 //                Utility.coolFormat(element.project.fomoContent.noOfViews.toDouble(), 0)
                 tvItemLocationInfo.text = element.project.shortDescription
                 tvRating.text = "${Utility.convertTo(element.project.estimatedAppreciation)}%"
+
+                when(element.project.fomoContent.isTargetTimeActive){
+                    false -> holder.binding.tvDuration.visibility = View.GONE
+                    true -> holder.binding.tvDuration.visibility = View.VISIBLE
+                }
+
+                val timeCounter = object : CountDownTimer(Utility.conversionForTimer(element.project.fomoContent.targetTime.hours.toString(),element.project.fomoContent.targetTime.minutes.toString(),
+                    element.project.fomoContent.targetTime.seconds.toString()), 1000) {
+                    override fun onTick(millisUntilFinished: Long) {
+                        val f = DecimalFormat("00")
+                        val fh = DecimalFormat("0")
+                        val hour = millisUntilFinished / 3600000 % 24
+                        val min = millisUntilFinished / 60000 % 60
+                        val sec = millisUntilFinished / 1000 % 60
+                        holder.binding.tvDuration.text = "${
+                            fh.format(hour).toString() + ":" + f.format(min) + ":" + f.format(sec)
+                        } Hrs Left"
+                    }
+
+                    override fun onFinish() {
+
+                    }
+
+                }
+                timeCounter.start()
             }
         }
         holder.binding.cvMainOuterCard.setOnClickListener {

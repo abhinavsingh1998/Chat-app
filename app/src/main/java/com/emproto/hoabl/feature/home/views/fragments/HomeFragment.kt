@@ -25,7 +25,9 @@ import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.portfolio.views.BookingjourneyFragment
 import com.emproto.hoabl.feature.portfolio.views.FmFragment
+import com.emproto.hoabl.feature.promises.HoablPromises
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
+import com.emproto.hoabl.fragments.PromisesFragment
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.Extensions.toData
 import com.emproto.hoabl.utils.Extensions.toHomePagesOrPromise
@@ -45,6 +47,7 @@ import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
 import com.emproto.networklayer.response.marketingUpdates.Data
+import com.emproto.networklayer.response.notification.dataResponse.NotificationResponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import javax.inject.Inject
 
@@ -130,6 +133,7 @@ class HomeFragment : BaseFragment() {
                                 (requireActivity() as HomeActivity).showBottomNavigation()
                                 binding.refressLayout.isRefreshing = false
                                 setParentRecycler(it.data!!.data)
+                                appPreference.saveUserType(it?.data?.data!!.contactType)
 
                                 homeData = it!!.data!!.data
                                 latestUptaesListCount = it!!.data!!.data.page.totalUpdatesOnListView
@@ -147,27 +151,6 @@ class HomeFragment : BaseFragment() {
                                     for (item in it!!.data!!.data!!.actionItem) {
                                         actionItemType.add(item)
                                     }
-
-
-                                }
-
-                                if (it!!.data!!.data.notifications != null) {
-                                    var itemList = ArrayList<Int>()
-                                    for (i in 0..it.data?.data!!.notifications.size - 1) {
-                                        if (!it!!.data!!.data.notifications[i].readStatus) {
-                                            itemList.add(it!!.data!!.data.notifications[i].id)
-                                        }
-                                    }
-
-                                    if(itemList.isEmpty()){
-                                        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.notification.setImageDrawable(
-                                            resources.getDrawable(R.drawable.normal_notification))
-                                    } else{
-                                        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.notification.setImageDrawable(
-                                            resources.getDrawable(R.drawable.ic_notification))
-
-                                    }
-
                                 }
 
                                 it.data.let {
@@ -207,6 +190,36 @@ class HomeFragment : BaseFragment() {
                     }
 
                 })
+
+            homeViewModel.getNewNotification(20,1, refresh )
+                .observe(viewLifecycleOwner, object : Observer<BaseResponse<NotificationResponse>>{
+                    override fun onChanged(it: BaseResponse<NotificationResponse>?) {
+                        when (it!!.status){
+                            Status.SUCCESS ->{
+                                if (it?.data?.data!=null){
+                                    var itemList = ArrayList<Int>()
+                                    for (i in 0..it.data?.data!!.size - 1) {
+                                        if (!it!!.data!!.data[i].readStatus) {
+                                            itemList.add(it!!.data!!.data[i].id)
+                                        }
+                                    }
+
+                                    if(itemList.isEmpty()){
+                                        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.notification.setImageDrawable(
+                                            resources.getDrawable(R.drawable.normal_notification))
+                                    } else{
+                                        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.notification.setImageDrawable(
+                                            resources.getDrawable(R.drawable.ic_notification))
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                })
+
+
         } else {
             binding.refressLayout.isRefreshing = false
             binding.shimmerLayout.shimmerViewContainer.hide()
@@ -315,6 +328,11 @@ class HomeFragment : BaseFragment() {
                                         }
                                     }
                                 }
+                                Status.ERROR ->{
+                                    (requireActivity() as HomeActivity).showErrorToast(
+                                        it.message!!
+                                    )
+                                }
                             }
                         })
                 }
@@ -353,7 +371,14 @@ class HomeFragment : BaseFragment() {
 
                 }
                 R.id.tv_seeall_promise -> {
-                    (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
+
+                    if(appPreference.isFacilityCard()){
+                        val fragment = HoablPromises()
+                        (requireActivity() as HomeActivity).addFragment(fragment, true)
+                    } else{
+                        (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
+
+                    }
 
                 }
                 R.id.tv_seeall_testimonial -> {

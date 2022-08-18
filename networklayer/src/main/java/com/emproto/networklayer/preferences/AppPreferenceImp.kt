@@ -17,6 +17,7 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
         val OFFER_CARD_URL = "offer_url"
         val CUSTOMER_TYPE = "customer_type"
         val PROMISES_COUNT = "promises_count"
+        val USERTYPE= "user_type"
     }
 
     private var preference = context.getSharedPreferences("hoabl-pref", Context.MODE_PRIVATE)
@@ -107,6 +108,14 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
 
     override fun setPromisesCount(count: Int) {
         saveInt(PROMISES_COUNT, count)
+    }
+
+    override fun saveUserType(type: Int) {
+        saveInt(USERTYPE, type)
+    }
+
+    override fun getUserType(): Int {
+        return getInt(USERTYPE,0 )
     }
 
 
