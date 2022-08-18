@@ -22,11 +22,11 @@ import com.emproto.networklayer.response.investment.SimilarInvestment
 import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
 
-class InvestmentAdapter(
+class SimlInvestmentAdapter(
     val context: Context,
     val list: List<SimilarInvestment>,
     val itemClickListener: SimilarInvItemClickListener
-) : RecyclerView.Adapter<InvestmentAdapter.MyViewHolder>() {
+) : RecyclerView.Adapter<SimlInvestmentAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = ItemSmartDealsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -66,6 +66,7 @@ class InvestmentAdapter(
                     val hour = millisUntilFinished / 3600000 % 24
                     val min = millisUntilFinished / 60000 % 60
                     val sec = millisUntilFinished / 1000 % 60
+                    Log.d("hello","${fh.format(hour)}, ${f.format(min)}, ${f.format(sec)}")
                     holder.binding.tvDuration.text = "${
                         fh.format(hour).toString() + ":" + f.format(min) + ":" + f.format(sec)
                     } Hrs Left"
