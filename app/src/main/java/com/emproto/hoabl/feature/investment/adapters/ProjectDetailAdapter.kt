@@ -626,6 +626,12 @@ class ProjectDetailAdapter(
         }
     }
 
+    inner class Yaxisformatter : IAxisValueFormatter{
+        override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
+            return "$p0%"
+        }
+    }
+
     inner class Xaxisformatter : IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
             return when (graphType) {

@@ -120,6 +120,9 @@ class CompletedInvestmentAdapter(
                 project.investment.allocationDate
             )
 
+            holder.binding.tvXAxisLabel.text = project.project.generalInfoEscalationGraph.yAxisDisplayName
+            holder.binding.tvYAxisLabel.text = project.project.generalInfoEscalationGraph.xAxisDisplayName
+
             if (type == ONGOING) {
                 holder.binding.cvInvesterAppreciation.visibility = View.GONE
                 holder.binding.tvCompletedInvestmentRatingUnit.text = "Actions"
