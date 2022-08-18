@@ -56,6 +56,7 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
         categories()
         return binding.root
     }
+
     private fun initClickListener() {
         ratingsStars()
         binding.backAction.setOnClickListener(this)
@@ -66,10 +67,12 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 description = p0.toString()
             }
+
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 description = p0.toString()
                 if (p0.toString().length == 250) {
-                    binding.editIssuesLayout.boxStrokeColor = resources.getColor(R.color.text_red_color)
+                    binding.editIssuesLayout.boxStrokeColor =
+                        resources.getColor(R.color.text_red_color)
                     binding.txtcount.isVisible = true
                     binding.maxDesc.isVisible = false
                     binding.experienceTv.setTextColor(resources.getColorStateList(R.color.text_red_color))
@@ -77,22 +80,12 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
                     binding.editIssuesLayout.boxStrokeColor = resources.getColor(R.color.app_color)
                     binding.txtcount.isVisible = false
                     binding.maxDesc.isVisible = true
-                    binding.maxDesc.text="${description.length}/250"
+                    binding.maxDesc.text = "${description.length}/250"+" Characters"
                     binding.experienceTv.setTextColor(resources.getColorStateList(R.color.text_color))
                 }
 
-//                if (p0.toString().length == 250) {
-//                    binding.maxDesc.text = "250/250 Characters"
-//                    binding.maxDesc.setTextColor(resources.getColor(R.color.text_red_color))
-//                    binding.experienceTv.setTextColor(resources.getColor(R.color.text_red_color))
-//
-//                } else {
-//                    binding.maxDesc.text = "0/250 Characters"
-//                    binding.maxDesc.text="${description.length}/250"
-//                    binding.maxDesc.setTextColor(resources.getColor(R.color.text_light_grey_color))
-//                    binding.experienceTv.setTextColor(resources.getColor(R.color.land_skus_text_black_color))
-//                }
             }
+
             override fun afterTextChanged(p0: Editable?) {
                 if (p0.toString().isNullOrEmpty()) {
                     description = p0.toString()
@@ -111,6 +104,7 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
         binding.checkboxProfile.setOnClickListener(this)
         binding.checkboxOther.setOnClickListener(this)
     }
+
     @SuppressLint("ResourceAsColor")
     private fun ratingsStars() {
         boldface = ResourcesCompat.getFont(requireContext(), R.font.jost_medium)
@@ -126,22 +120,27 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
         binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.selected5))
         selectedFontAndColor(binding.excelentTxt)
     }
+
     private fun selected4() {
         binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.selected4))
         selectedFontAndColor(binding.goodTxt)
     }
+
     private fun selected2() {
         binding.ivRating2.setImageDrawable(resources.getDrawable(R.drawable.selected2))
         selectedFontAndColor(binding.badTxt)
     }
+
     private fun selected3() {
         binding.ivRating3.setImageDrawable(resources.getDrawable(R.drawable.selected3))
         selectedFontAndColor(binding.okTxt)
     }
+
     private fun selected1() {
         binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.selected1))
         selectedFontAndColor(binding.veryPoorTxt)
     }
+
     private fun selectedFontAndColor(selectedText: TextView) {
         selectedText.setTextColor(resources.getColor(R.color.black))
         selectedText.typeface = boldface
@@ -151,22 +150,27 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
         binding.ivRating5.setImageDrawable(resources.getDrawable(R.drawable.unselected5))
         unSelectedFontAndColor(binding.excelentTxt)
     }
+
     private fun unselected4() {
         binding.ivRating4.setImageDrawable(resources.getDrawable(R.drawable.unselected4))
         unSelectedFontAndColor(binding.goodTxt)
     }
+
     private fun unselected3() {
         binding.ivRating3.setImageDrawable(resources.getDrawable(R.drawable.unselected3))
         unSelectedFontAndColor(binding.okTxt)
     }
+
     private fun unselected2() {
         binding.ivRating2.setImageDrawable(resources.getDrawable(R.drawable.unselected2))
         unSelectedFontAndColor(binding.badTxt)
     }
+
     private fun unselected1() {
         binding.ivRating1.setImageDrawable(resources.getDrawable(R.drawable.unselected1))
         unSelectedFontAndColor(binding.veryPoorTxt)
     }
+
     private fun unSelectedFontAndColor(unSelectedText: TextView) {
         unSelectedText.setTextColor(resources.getColor(R.color.category_location_ash_color))
         unSelectedText.typeface = lightface
@@ -205,8 +209,9 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(view: View?) {
 
         when (view?.id) {
-            R.id.back_action->{
+            R.id.back_action -> {
                 requireActivity().supportFragmentManager.popBackStack()
+                hideSoftKeyboard()
             }
             R.id.home_checkbox -> {
                 if (binding.homeCheckbox.isChecked) {
@@ -293,8 +298,9 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
                 unselected4()
                 selected5()
             }
-            R.id.share_your_feedback->{
-                if (ratings != 0 || description.isNotEmpty() || list.isNotEmpty()) {
+            R.id.share_your_feedback -> {
+                if (ratings != 0 || (description.isNotEmpty()&& description.trim().isNotEmpty())  || list.isNotEmpty()
+                ) {
                     feedBackRequest = FeedBackRequest(ratings, list, description)
                     initObserver()
                 } else {
@@ -302,6 +308,7 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
                         "Fill atleast one field"
                     )
                 }
+
             }
 
         }

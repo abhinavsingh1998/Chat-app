@@ -58,12 +58,11 @@ class AuthActivity : BaseActivity() {
         authViewModel = ViewModelProvider(this, authFactory)[AuthViewmodel::class.java]
         activityAuthBinding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(activityAuthBinding.root)
-
 //        otherIssueCheck()
         initView()
         close_sheet()
         initClickListener()
-        editIssuechecked()
+//        editIssuechecked()
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
 //            var window:Window = this.getWindow()
 //            window.setStatusBarColor(this.resources.getColor(R.color.black))
@@ -204,6 +203,7 @@ class AuthActivity : BaseActivity() {
             @SuppressLint("UseCompatLoadingForColorStateLists")
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 issueDetail = p0.toString()
+
                 if (p0.toString().length == 250) {
                     signingInIssueBiding.editIssuesLayout.boxStrokeColor = resources.getColor(R.color.text_red_color)
                     signingInIssueBiding.txtcount.isVisible = true
@@ -213,7 +213,8 @@ class AuthActivity : BaseActivity() {
                     signingInIssueBiding.editIssuesLayout.boxStrokeColor = resources.getColor(R.color.app_color)
                     signingInIssueBiding.txtcount.isVisible = false
                     signingInIssueBiding.maxDesc.isVisible = true
-                    signingInIssueBiding.maxDesc.text="${issueDetail.length}/250"
+                    signingInIssueBiding.maxDesc.text="${issueDetail.length}/250"+" Characters"
+
                     signingInIssueBiding.editIssues.setTextColor(resources.getColorStateList(R.color.text_color))
                 }
             }
@@ -221,7 +222,6 @@ class AuthActivity : BaseActivity() {
             override fun afterTextChanged(p0: Editable?) {
                 if (p0.toString().isNullOrEmpty()) {
                     issueDetail = p0.toString()
-
                 }
 
             }
@@ -251,9 +251,8 @@ class AuthActivity : BaseActivity() {
             }
 
         })
-
+        signingInIssueBiding.editIssues.error=null
         signingInIssueBiding.submitBtn.setOnClickListener(View.OnClickListener {
-
             if (hMobileNo.isEmpty() || hMobileNo.length != 10 || !hMobileNo.ValidNO()) {
                 signingInIssueBiding.textError.visibility = View.VISIBLE
                 signingInIssueBiding.inputMobile.showError()
@@ -262,19 +261,13 @@ class AuthActivity : BaseActivity() {
 
 
             if (signingInIssueBiding.issueSeven.isChecked) {
-                if (issueDetail.isEmpty()) {
+                if (issueDetail.isNullOrEmpty()||issueDetail.trim().isEmpty()) {
                     signingInIssueBiding.editIssues.error = "Please Describe The Issue"
                     Toast.makeText(this, "Please Describe The Issue", Toast.LENGTH_SHORT).show()
                     return@OnClickListener
                 }
             }
-            if (signingInIssueBiding.issueSeven.isChecked) {
-//                if (issueDetail.length< 30){
-//                    signingInIssueBiding.editIssues.error = "Please Describe in more words"
-//                    Toast.makeText(this, "Please Describe in more words", Toast.LENGTH_SHORT).show()
-//                    return@OnClickListener
-//                }
-            }
+
 
             if (!email.isEmpty()) {
                 if (!email.isValidEmail()) {
@@ -378,7 +371,7 @@ class AuthActivity : BaseActivity() {
 
     private fun editIssuechecked() {
         if (signingInIssueBiding.issueSeven.isChecked) {
-            if (issueDetail.isNullOrEmpty()) {
+            if (issueDetail.isNullOrEmpty()||issueDetail.trim().isEmpty()) {
                 signingInIssueBiding.submitBtn.isEnabled = false
                 signingInIssueBiding.submitBtn.isClickable = false
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
