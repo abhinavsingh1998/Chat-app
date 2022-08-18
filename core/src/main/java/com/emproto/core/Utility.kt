@@ -9,6 +9,7 @@ import android.graphics.Matrix
 import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
+import android.os.CountDownTimer
 import android.os.Environment
 import android.text.Spannable
 import android.text.SpannableString
@@ -455,6 +456,18 @@ object Utility {
         }else {
             return days.toString() + "d"
         }
+    }
+
+    fun conversionForTimer(hours:String,minutes:String,seconds:String):Long{
+        val hoursInMillis =
+            TimeUnit.HOURS.toMillis(hours.toLong())
+        val minsInMillis =
+            TimeUnit.MINUTES.toMillis(minutes.toLong())
+        val secsInMillis =
+            TimeUnit.SECONDS.toMillis(seconds.toLong())
+        val totalTimeInMillis = hoursInMillis + minsInMillis + secsInMillis
+
+        return totalTimeInMillis
     }
 
 }

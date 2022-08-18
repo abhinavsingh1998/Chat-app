@@ -81,7 +81,7 @@ class ProjectDetailAdapter(
     private lateinit var locationInfrastructureAdapter: LocationInfrastructureAdapter
     private lateinit var promisesAdapter: PromisesAdapter
     private lateinit var faqAdapter: FaqQuestionAdapter
-    private lateinit var similarInvestmentsAdapter: InvestmentAdapter
+    private lateinit var similarInvestmentsAdapter: SimlInvestmentAdapter
     private lateinit var onItemClickListener: View.OnClickListener
 
     private var isCollapsed = true
@@ -853,11 +853,11 @@ class ProjectDetailAdapter(
                         itemList.add(data.similarInvestments[i])
                     }
                     similarInvestmentsAdapter =
-                        InvestmentAdapter(context, itemList, similarInvItemClickListener)
+                        SimlInvestmentAdapter(context, itemList, similarInvItemClickListener)
                     binding.rvSimilarInvestment.adapter = similarInvestmentsAdapter
                 } else {
                     similarInvestmentsAdapter =
-                        InvestmentAdapter(
+                        SimlInvestmentAdapter(
                             context,
                             data.similarInvestments,
                             similarInvItemClickListener

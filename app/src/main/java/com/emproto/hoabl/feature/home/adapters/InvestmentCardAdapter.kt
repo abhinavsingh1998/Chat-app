@@ -2,7 +2,9 @@ package com.emproto.hoabl.feature.home.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.CountDownTimer
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -13,6 +15,8 @@ import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.home.Data
 import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
+import java.text.DecimalFormat
+import java.util.concurrent.TimeUnit
 
 class InvestmentCardAdapter(
     val context: Context,
@@ -49,6 +53,29 @@ class InvestmentCardAdapter(
             Glide.with(context)
                 .load(item.projectCoverImages.homePageMedia.value.url)
                 .into(holder.binding.ivItemImage)
+
+            when(item.fomoContent.isTargetTimeActive){
+                false -> holder.binding.tvDuration.visibility = View.GONE
+                true -> holder.binding.tvDuration.visibility = View.VISIBLE
+            }
+
+            val timeCounter = object : CountDownTimer(Utility.conversionForTimer(item.fomoContent.targetTime.hours.toString(),item.fomoContent.targetTime.minutes.toString(),
+                item.fomoContent.targetTime.seconds.toString()), 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    val f = DecimalFormat("00")
+                    val fh = DecimalFormat("0")
+                    val hour = millisUntilFinished / 3600000 % 24
+                    val min = millisUntilFinished / 60000 % 60
+                    val sec = millisUntilFinished / 1000 % 60
+                    holder.binding.tvDuration.text = "${
+                        fh.format(hour).toString() + ":" + f.format(min) + ":" + f.format(sec)
+                    } Hrs Left"
+                }
+                override fun onFinish() {
+
+                }
+            }
+            timeCounter.start()
 
             holder.binding.cvTopView.setOnClickListener {
                 itemIntrface.onItemClicked(it, position, item.id.toString())

@@ -1,7 +1,8 @@
 package com.emproto.hoabl.feature.portfolio.views
 
-import android.content.Context
-import android.content.Intent
+import android.app.DownloadManager
+import android.content.*
+import android.content.Context.DOWNLOAD_SERVICE
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -9,18 +10,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.JavascriptInterface
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import android.widget.ProgressBar
-import androidx.core.content.ContextCompat.startActivity
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentFmBinding
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.networklayer.response.webview.ShareObjectModel
 import com.google.gson.Gson
-import java.util.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -65,8 +63,33 @@ class FmFragment : BaseFragment() {
         binding.webView.addJavascriptInterface(JSBridge(),"JSBridge")
         binding.webView.loadUrl(param1!!)
 
+        binding.webView.setDownloadListener(object:DownloadListener{
+            override fun onDownloadStart(
+                url: String?,
+                userAgent: String?,
+                contentDisposition: String?,
+                mimetype: String?,
+                contentLength: Long
+            ) {
+                val request = DownloadManager.Request((Uri.parse("http://www.africau.edu/images/default/sample.pdf")))
+                request.setTitle(URLUtil.guessFileName("http://www.africau.edu/images/default/sample.pdf",contentDisposition,mimetype))
+                request.setDescription("Downloading file...")
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                val dm = requireActivity().getSystemService(DOWNLOAD_SERVICE) as DownloadManager?
+                dm!!.enqueue(request)
+                Toast.makeText(requireContext(), "Downloading...", Toast.LENGTH_SHORT).show()
+                requireActivity().registerReceiver(onComplete, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
+            }
+
+        })
 
         return binding.root
+    }
+
+    val onComplete = object: BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            Toast.makeText(requireContext(), "Downloading Complete", Toast.LENGTH_SHORT).show();
+        }
     }
 
     inner class JSBridge() {
@@ -119,7 +142,8 @@ class FmFragment : BaseFragment() {
                     Uri.parse(url)
                 )
                 requireContext.startActivity(intent)
-            } else if (url!!.startsWith("http:") || url!!.startsWith("https:")) {
+            }
+            else if (url!!.startsWith("http:") || url!!.startsWith("https:")) {
                 view!!.loadUrl(url!!)
             }
             return true
@@ -134,5 +158,6 @@ class FmFragment : BaseFragment() {
             super.onPageStarted(view, url, favicon)
             progressBaar.visibility = View.VISIBLE
         }
+
     }
 }
