@@ -17,6 +17,8 @@ interface AppPreference {
     fun isFacilityCard(): Boolean
     fun setCustomerType(customerType: String)
     fun setPromisesCount(count: Int)
+    fun saveUserType(type:Int)
+    fun getUserType(): Int
 
     //for dontmisout card
     fun saveOfferId(project: Int)

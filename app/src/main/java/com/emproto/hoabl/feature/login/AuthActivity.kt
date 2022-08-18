@@ -262,7 +262,6 @@ class AuthActivity : BaseActivity() {
                 return@OnClickListener
             }
 
-
             if (signingInIssueBiding.issueSeven.isChecked){
                 if (issueDetail.trim().isEmpty()){
                     signingInIssueBiding.editIssues.error = "Please Describe The Issue"

@@ -54,7 +54,6 @@ class NotificationAdapter(
              itemInterface.onClickItem(item.id, position)
          }
 
-
      }
 
     override fun getItemCount(): Int {

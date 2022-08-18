@@ -43,6 +43,9 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
     val mInsights = MutableLiveData<BaseResponse<InsightsResponse>>()
     val mTestimonials = MutableLiveData<BaseResponse<TestimonialsResponse>>()
     val mActionItem = MutableLiveData<BaseResponse<HomeActionItemResponse>>()
+    val mNewNotificationResponse = MutableLiveData<BaseResponse<NotificationResponse>>()
+
+
 
 
     /**
@@ -108,19 +111,13 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
 
                         val dasboard = async { HomeDataSource(application).getDashboardData(pageType)}
                         val actionItem= async { HomeDataSource(application).getActionItem() }
-                        val notificationsItem= async { HomeDataSource(application).getNotificationList(size,index) }
 
                         val dashBoardResponse= dasboard.await()
                         val actionItemResponse= actionItem.await()
-                        val notificationReponse= notificationsItem.await()
                         if (dashBoardResponse.isSuccessful) {
                             if (dashBoardResponse.body()!!.data != null){
                                 if(actionItemResponse.isSuccessful){
                                     dashBoardResponse.body()!!.data.actionItem = actionItemResponse.body()!!.data
-                                }
-                                if (notificationReponse.isSuccessful){
-                                    dashBoardResponse.body()!!.data.notifications = notificationReponse.body()!!.data
-
                                 }
                                 mHomeResponse.postValue(BaseResponse.success(dashBoardResponse.body()!!))
                             } else
@@ -640,32 +637,68 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
 
 
 
-    fun getNotificationList(size:Int, index:Int): LiveData<BaseResponse<NotificationResponse>> {
-        val mNotificationResponse = MutableLiveData<BaseResponse<NotificationResponse>>()
-        mNotificationResponse.postValue(BaseResponse.loading())
-        coroutineScope.launch {
-            try {
-                val request = HomeDataSource(application).getNotificationList(size, index)
-                if (request.isSuccessful) {
-                    if (request.body() != null && request.body() is NotificationResponse) {
-                        mNotificationResponse.postValue(BaseResponse.success(request.body()!!))
+    fun getNewNotificationList(size:Int, index:Int, refresh: Boolean = false): LiveData<BaseResponse<NotificationResponse>> {
 
-                    } else
-                        mNotificationResponse.postValue(BaseResponse.Companion.error("No data found"))
-                } else {
-                    mNotificationResponse.postValue(
-                        BaseResponse.Companion.error(
-                            getErrorMessage(
-                                request.errorBody()!!.string()
+        if (mNewNotificationResponse.value==null || refresh){
+            mNewNotificationResponse.postValue(BaseResponse.loading())
+            coroutineScope.launch {
+                try {
+                    val request = HomeDataSource(application).getNewNotificationList(size, index)
+                    if (request.isSuccessful) {
+                        if (request.body() != null && request.body() is NotificationResponse) {
+                            mNewNotificationResponse.postValue(BaseResponse.success(request.body()!!))
+
+                        } else
+                            mNewNotificationResponse.postValue(BaseResponse.Companion.error("No data found"))
+                    } else {
+                        mNewNotificationResponse.postValue(
+                            BaseResponse.Companion.error(
+                                getErrorMessage(
+                                    request.errorBody()!!.string()
+                                )
                             )
                         )
-                    )
-                }
-            } catch (e: Exception) {
+                    }
+                } catch (e: Exception) {
 
-                mNotificationResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                    mNewNotificationResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                }
             }
         }
+
+        return mNewNotificationResponse
+    }
+    fun getNotificationList(size:Int, index:Int, refresh: Boolean = false): LiveData<BaseResponse<NotificationResponse>> {
+
+        val mNotificationResponse = MutableLiveData<BaseResponse<NotificationResponse>>()
+
+        if (mNotificationResponse.value==null || refresh){
+            mNotificationResponse.postValue(BaseResponse.loading())
+            coroutineScope.launch {
+                try {
+                    val request = HomeDataSource(application).getNotificationList(size, index)
+                    if (request.isSuccessful) {
+                        if (request.body() != null && request.body() is NotificationResponse) {
+                            mNotificationResponse.postValue(BaseResponse.success(request.body()!!))
+
+                        } else
+                            mNotificationResponse.postValue(BaseResponse.Companion.error("No data found"))
+                    } else {
+                        mNotificationResponse.postValue(
+                            BaseResponse.Companion.error(
+                                getErrorMessage(
+                                    request.errorBody()!!.string()
+                                )
+                            )
+                        )
+                    }
+                } catch (e: Exception) {
+
+                    mNotificationResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                }
+            }
+        }
+
         return mNotificationResponse
     }
 

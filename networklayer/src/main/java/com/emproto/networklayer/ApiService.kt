@@ -255,6 +255,9 @@ public interface ApiService {
     @GET(ApiConstants.NOTICATION_LIST)
     suspend fun getNotificationList(@Query("size") size:Int,
                                     @Query("index") index:Int):Response<NotificationResponse>
+    @GET(ApiConstants.NOTICATION_LIST)
+    suspend fun getNewNotificationList(@Query("size") size:Int,
+                                    @Query("index") index:Int):Response<NotificationResponse>
 
     @POST(ApiConstants.READ_NOTIFICATION)
     suspend fun setReadStatus(@Body ids: UnReadNotifications):Response<ReadNotificationReponse>

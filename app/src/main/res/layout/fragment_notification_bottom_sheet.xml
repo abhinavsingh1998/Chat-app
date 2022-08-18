@@ -75,19 +75,6 @@
             app:layout_constraintTop_toTopOf="@id/tv_notification" />
 
 
-        <androidx.core.widget.ContentLoadingProgressBar
-            android:id="@+id/loader"
-            style="?android:attr/progressBarStyleSmallInverse"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:indeterminateTint="@color/app_color"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_notification"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.797"
-            app:layout_constraintStart_toEndOf="@+id/tv_notification"
-            app:layout_constraintTop_toTopOf="@+id/tv_notification" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
