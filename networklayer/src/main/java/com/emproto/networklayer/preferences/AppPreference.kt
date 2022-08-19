@@ -19,6 +19,8 @@ interface AppPreference {
     fun setPromisesCount(count: Int)
     fun saveUserType(type:Int)
     fun getUserType(): Int
+    fun setFmUrl(url:String)
+    fun getFmUrl():String
 
     //for dontmisout card
     fun saveOfferId(project: Int)

@@ -350,27 +350,29 @@ class PortfolioSpecificProjectView : BaseFragment() {
                     PortfolioSpecificViewAdapter.InvestmentScreenInterface {
                     override fun onClickFacilityCard() {
 
-                        portfolioviewmodel.getFacilityManagment("", "")
-                            .observe(viewLifecycleOwner, Observer {
-                                when (it.status) {
-                                    Status.SUCCESS -> {
-                                        it.data.let {
-                                            if (it != null) {
-                                                (requireActivity() as HomeActivity).addFragment(
-                                                    FmFragment.newInstance(
-                                                        it.data.web_url,
-                                                        ""
-                                                    ), true
-                                                )
-                                            } else {
-                                                (requireActivity() as HomeActivity).showErrorToast(
-                                                  Constants.SOMETHING_WENT_WRONG
-                                                )
-                                            }
-                                        }
-                                    }
-                                }
-                            })
+//                        portfolioviewmodel.getFacilityManagment("", "")
+//                            .observe(viewLifecycleOwner, Observer {
+//                                when (it.status) {
+//                                    Status.SUCCESS -> {
+//                                        it.data.let {
+//                                            if (it != null) {
+//                                                (requireActivity() as HomeActivity).addFragment(
+//                                                    FmFragment.newInstance(
+//                                                        it.data.web_url,
+//                                                        ""
+//                                                    ), true
+//                                                )
+//                                            } else {
+//                                                (requireActivity() as HomeActivity).showErrorToast(
+//                                                  Constants.SOMETHING_WENT_WRONG
+//                                                )
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                            })
+
+                        (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
 
                     }
 

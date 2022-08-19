@@ -21,6 +21,7 @@ import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
 import com.emproto.hoabl.feature.investment.dialogs.ConfirmationDialog
 import com.emproto.hoabl.feature.investment.views.mediagallery.MediaGalleryFragment
 import com.emproto.hoabl.feature.investment.views.mediagallery.YoutubeActivity
+import com.emproto.hoabl.feature.promises.HoablPromises
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.model.MapLocationModel
 import com.emproto.hoabl.model.MediaViewItem
@@ -36,6 +37,7 @@ import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.investment.AddInventoryBody
 import com.emproto.networklayer.request.investment.VideoCallBody
 import com.emproto.networklayer.request.investment.WatchListBody
@@ -55,6 +57,9 @@ class ProjectDetailFragment : BaseFragment() {
     @Inject
     lateinit var homeFactory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
+
+    @Inject
+    lateinit var appPreference: AppPreference
 
     @Inject
     lateinit var investmentFactory: InvestmentFactory
@@ -367,7 +372,13 @@ class ProjectDetailFragment : BaseFragment() {
                     startActivity(shareIntent)
                 }
                 R.id.tv_promises_see_all -> {
-                    (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
+                    if(appPreference.isFacilityCard()){
+                        val fragment = HoablPromises()
+                        (requireActivity() as HomeActivity).addFragment(fragment, true)
+                    } else{
+                        (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
+
+                    }
                 }
                 R.id.tv_full_apply_now -> {
                     val fragment = LandSkusFragment()
