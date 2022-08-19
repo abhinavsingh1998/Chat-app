@@ -322,7 +322,7 @@ object Utility {
 
     fun convertDate(time: String?, inputDateFormat: String? = null): String? {
         val inputPattern: String
-        inputPattern = inputDateFormat ?: "dd-MM-yyyy"
+        inputPattern = inputDateFormat ?: "dd/MM/yyyy"
         //yyyy-MM-dd HH:mm:ss.SSS
         val outputPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS"
         val inputFormat = SimpleDateFormat(inputPattern, Locale.US)
