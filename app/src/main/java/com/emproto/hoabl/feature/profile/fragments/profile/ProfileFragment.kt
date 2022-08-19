@@ -26,7 +26,9 @@ import com.emproto.hoabl.databinding.FragmentProfileMainBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.login.AuthActivity
+import com.emproto.hoabl.feature.portfolio.views.CustomDialog
 import com.emproto.hoabl.feature.portfolio.views.FmFragment
+import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
 
 import com.emproto.hoabl.feature.profile.fragments.edit_profile.EditProfileFragment
 import com.emproto.hoabl.feature.profile.fragments.feedback.FacilityManagerPopViewFragment
@@ -43,6 +45,8 @@ import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.profile.Data
+import com.example.portfolioui.databinding.DailogSecurePinConfirmationBinding
+import com.example.portfolioui.databinding.DialogSecurePinBinding
 
 import com.example.portfolioui.databinding.LogoutConfirmationBinding
 import java.util.concurrent.Executor
@@ -59,6 +63,12 @@ class ProfileFragment : BaseFragment() {
     private lateinit var logoutDialog: Dialog
     private val mRequestCode = 300
     private val SETTING_REQUEST_CODE = 301
+    lateinit var securePinDialog: CustomDialog
+    lateinit var dialogSecurePinBinding: DialogSecurePinBinding
+    lateinit var securePinConfirmationDialog: CustomDialog
+
+    lateinit var dialogSecurePinConfirmationBinding: DailogSecurePinConfirmationBinding
+
 
     val bundle = Bundle()
 
@@ -145,6 +155,7 @@ class ProfileFragment : BaseFragment() {
             setUserNamePIC(profileData)
         }
     }
+
     private fun setUserNamePIC(profileData: Data) {
         val firstLetter: String = profileData.firstName.substring(0, 1)
         val lastLetter = when {
@@ -174,6 +185,19 @@ class ProfileFragment : BaseFragment() {
     private fun initView() {
         (requireActivity() as HomeActivity).showBottomNavigation()
         (requireActivity() as HomeActivity).hideHeader()
+        dialogSecurePinBinding = DialogSecurePinBinding.inflate(layoutInflater)
+        dialogSecurePinBinding.tvTitle.text="Secure Your Account"
+        dialogSecurePinConfirmationBinding =
+            DailogSecurePinConfirmationBinding.inflate(layoutInflater)
+        dialogSecurePinConfirmationBinding.tvTitle.text="Are you sure you don't want to \n secure your account?"
+        securePinDialog = CustomDialog(requireContext())
+        securePinConfirmationDialog = CustomDialog(requireContext())
+
+        securePinDialog.setContentView(dialogSecurePinBinding.root)
+        securePinDialog.setCancelable(false)
+        securePinConfirmationDialog.setContentView(dialogSecurePinConfirmationBinding.root)
+        securePinConfirmationDialog.setCancelable(false)
+
 
         val item1 = ProfileOptionsData(
             Constants.MY_ACCOUNT_TITLE,
@@ -183,19 +207,19 @@ class ProfileFragment : BaseFragment() {
         )
         val item2 =
             ProfileOptionsData(
-               Constants.SECURITY_SETTINGS_TITLE,
+                Constants.SECURITY_SETTINGS_TITLE,
                 Constants.SECURITY_SETTINGS_DESCRIPTION,
                 R.drawable.shield,
                 R.drawable.rightarrow
             )
         val item3 = ProfileOptionsData(
-           Constants.HELP_CENTER_TITLE,
+            Constants.HELP_CENTER_TITLE,
             Constants.HELP_CENTER_DESCRIPTION,
             R.drawable.helpmesg,
             R.drawable.rightarrow
         )
         val item4 = ProfileOptionsData(
-          Constants.FACILITY_MANAGEMENT_TITLE,
+            Constants.FACILITY_MANAGEMENT_TITLE,
             Constants.FACILITY_MANAGEMENT_DESCRIPTION,
             R.drawable.management_image,
             R.drawable.rightarrow
@@ -219,14 +243,23 @@ class ProfileFragment : BaseFragment() {
                                 if (!(requireActivity() as HomeActivity).isFingerprintValidate()) {
                                     setUpAuthentication()
                                 } else {
-                                  openMyAccount()
+                                    openMyAccount()
                                 }
                             }
                             1 -> {
                                 val bundle = Bundle()
-                                bundle.putBoolean(Constants.WHATSAPP_CONSENT_ENABLED, isWhatsappConsent)
-                                bundle.putBoolean(Constants.SHOW_PUSH_NOTIFICATION, isPushNotificationSend)
-                                bundle.putBoolean(Constants.IS_SECURITY_TIPS_ACTIVE, isSecurityTipsActive)
+                                bundle.putBoolean(
+                                    Constants.WHATSAPP_CONSENT_ENABLED,
+                                    isWhatsappConsent
+                                )
+                                bundle.putBoolean(
+                                    Constants.SHOW_PUSH_NOTIFICATION,
+                                    isPushNotificationSend
+                                )
+                                bundle.putBoolean(
+                                    Constants.IS_SECURITY_TIPS_ACTIVE,
+                                    isSecurityTipsActive
+                                )
                                 val securityFragment = SecurityFragment()
                                 securityFragment.arguments = bundle
                                 (requireActivity() as HomeActivity).addFragment(
@@ -271,6 +304,30 @@ class ProfileFragment : BaseFragment() {
 
     private fun initClickListener() {
         logOut()
+        //secure pin dialog actions
+        dialogSecurePinBinding.acitionSecure.setOnClickListener {
+            startActivityForResult(
+                Intent(android.provider.Settings.ACTION_SETTINGS),
+                PortfolioFragment.SETTING_REQUEST_CODE
+            );
+            securePinDialog.dismiss()
+        }
+
+        dialogSecurePinBinding.actionDontsecure.setOnClickListener {
+            securePinDialog.dismiss()
+            securePinConfirmationDialog.show()
+        }
+
+        dialogSecurePinConfirmationBinding.actionNo.setOnClickListener {
+            securePinConfirmationDialog.dismiss()
+            securePinDialog.show()
+        }
+
+        dialogSecurePinConfirmationBinding.actionYes.setOnClickListener {
+            securePinConfirmationDialog.dismiss()
+            openMyAccount()
+            (requireActivity() as HomeActivity).fingerprintValidation(true)
+        }
         binding.editProfile.setOnClickListener {
             if (::profileData.isInitialized) {
                 val editProfile = EditProfileFragment()
@@ -298,6 +355,7 @@ class ProfileFragment : BaseFragment() {
                     if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
                         setUpKeyGuardManager()
                     } else if (errorCode == BiometricPrompt.ERROR_NO_BIOMETRICS) {
+                        securePinDialog.show()
                     } else if (errorCode == BiometricPrompt.ERROR_USER_CANCELED) {
                         (requireActivity() as HomeActivity).onBackPressed()
                     } else if (errorCode == BiometricPrompt.ERROR_NO_DEVICE_CREDENTIAL) {
@@ -349,6 +407,7 @@ class ProfileFragment : BaseFragment() {
 
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
@@ -360,7 +419,7 @@ class ProfileFragment : BaseFragment() {
                     }
                 }
             }
-         SETTING_REQUEST_CODE -> {
+            SETTING_REQUEST_CODE -> {
                 setUpAuthentication()
             }
         }
@@ -424,6 +483,6 @@ class ProfileFragment : BaseFragment() {
 
     override fun onPause() {
         super.onPause()
-       logoutDialog.dismiss()
+        logoutDialog.dismiss()
     }
 }
