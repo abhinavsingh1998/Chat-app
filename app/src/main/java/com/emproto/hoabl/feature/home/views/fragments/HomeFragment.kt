@@ -219,6 +219,29 @@ class HomeFragment : BaseFragment() {
 
                 })
 
+            homeViewModel.getFacilityManagment()
+                .observe(viewLifecycleOwner, Observer {
+                    when (it.status) {
+                        Status.SUCCESS -> {
+                            it!!.data!!.let {
+                                if (it != null) {
+                                    appPreference.setFmUrl(it?.data?.web_url)
+
+                                } else {
+                                    (requireActivity() as HomeActivity).showErrorToast(
+                                        Constants.SOMETHING_WENT_WRONG
+                                    )
+                                }
+                            }
+                        }
+                        Status.ERROR ->{
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                it.message!!
+                            )
+                        }
+                    }
+                })
+
 
         } else {
             binding.refressLayout.isRefreshing = false
@@ -308,33 +331,7 @@ class HomeFragment : BaseFragment() {
                 }
                 R.id.facility_management_card -> {
 
-                    homeViewModel.getFacilityManagment()
-                        .observe(viewLifecycleOwner, Observer {
-                            when (it.status) {
-                                Status.SUCCESS -> {
-                                    it!!.data!!.let {
-                                        if (it != null) {
-                                            (requireActivity() as HomeActivity).addFragment(
-                                                FmFragment.newInstance(
-                                                    it.data.web_url,
-                                                    ""
-                                                ), true
-                                            )
-
-                                        } else {
-                                            (requireActivity() as HomeActivity).showErrorToast(
-                                               Constants.SOMETHING_WENT_WRONG
-                                            )
-                                        }
-                                    }
-                                }
-                                Status.ERROR ->{
-                                    (requireActivity() as HomeActivity).showErrorToast(
-                                        it.message!!
-                                    )
-                                }
-                            }
-                        })
+                    (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
                 }
                 R.id.home_insights_card -> {
                     val convertedData =

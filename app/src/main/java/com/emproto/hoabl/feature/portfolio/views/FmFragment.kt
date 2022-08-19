@@ -16,9 +16,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentFmBinding
+import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.webview.ShareObjectModel
 import com.google.gson.Gson
+import javax.inject.Inject
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -34,6 +37,9 @@ private const val ARG_PARAM2 = "param2"
 class FmFragment : BaseFragment() {
 
     lateinit var binding: FragmentFmBinding
+
+    @Inject
+    lateinit var appPreference: AppPreference
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -53,7 +59,9 @@ class FmFragment : BaseFragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentFmBinding.inflate(layoutInflater)
+        (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         (requireActivity() as HomeActivity).hideHeader()
+        (requireActivity() as HomeActivity).showBottomNavigation()
         binding.webView.webViewClient = MyWebViewclient(binding.progressBaar, requireContext())
         binding.webView.getSettings().setJavaScriptEnabled(true);
         binding.webView.getSettings().setBuiltInZoomControls(true);
@@ -61,7 +69,7 @@ class FmFragment : BaseFragment() {
         binding.webView.getSettings().setDomStorageEnabled(true);
         binding.webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         binding.webView.addJavascriptInterface(JSBridge(),"JSBridge")
-        binding.webView.loadUrl(param1!!)
+        binding.webView.loadUrl(appPreference.getFmUrl())
 
         binding.webView.setDownloadListener(object:DownloadListener{
             override fun onDownloadStart(

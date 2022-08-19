@@ -78,4 +78,5 @@ interface HomeComponent {
     fun inject(fragment: ReceiptFragment)
     fun inject(fragment: SecurityFragment)
     fun inject(fragment: SecurityTipsFragment)
+    fun inject(fragment: FmFragment)
 }

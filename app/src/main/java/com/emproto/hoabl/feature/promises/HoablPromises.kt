@@ -11,12 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentHoabelPromisesBinding
+import com.emproto.hoabl.di.HomeAppModule_GetAppPreferenceFactory
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.promises.data.DataModel
 import com.emproto.hoabl.feature.promises.data.PromisesData
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.enum.ModuleEnum
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.promises.Data
 import javax.inject.Inject
@@ -31,6 +33,9 @@ class HoablPromises : BaseFragment() {
     private lateinit var adapter: HoabelPromiseAdapter
     private var dataList = ArrayList<DataModel>()
     val bundle = Bundle()
+
+    @Inject
+    lateinit var appPreference:AppPreference
 
 
     override fun onCreateView(
@@ -49,6 +54,11 @@ class HoablPromises : BaseFragment() {
 
         initViews()
         fetchPromises(false)
+
+        if(appPreference.isFacilityCard()){
+            (requireActivity() as HomeActivity).hideBottomNavigation()
+            (requireActivity() as HomeActivity).showBackArrow()
+        }
 
         return binding.root
     }

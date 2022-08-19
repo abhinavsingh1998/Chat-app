@@ -126,17 +126,6 @@ class ProfileFragment : BaseFragment() {
             }
         })
 
-        profileViewModel.getFacilityManagment()
-            .observe(viewLifecycleOwner, Observer {
-                when (it.status) {
-                    Status.SUCCESS -> {
-                        it.data.let {
-                            fmData = it!!
-                        }
-                    }
-                }
-            })
-
     }
 
     private fun setUiData(profileData: Data) {
@@ -261,18 +250,7 @@ class ProfileFragment : BaseFragment() {
                                     FacilityManagerPopViewFragment()
 
                                 if (appPreference.isFacilityCard()) {
-                                    if (fmData != null) {
-                                        (requireActivity() as HomeActivity).addFragment(
-                                            FmFragment.newInstance(
-                                                fmData!!.data.web_url,
-                                                ""
-                                            ), true
-                                        )
-                                    } else {
-                                        (requireActivity() as HomeActivity).showErrorToast(
-                                            Constants.SOMETHING_WENT_WRONG
-                                        )
-                                    }
+                                    (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
                                 } else {
                                     (requireActivity() as HomeActivity).addFragment(
                                         facilityManagerPopViewFragment,

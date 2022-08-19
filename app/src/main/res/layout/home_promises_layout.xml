@@ -15,13 +15,15 @@
         <com.emproto.core.textviews.CustomTextView
             android:id="@+id/textview4"
             style="@style/text_style_text_black_color_18"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_size_12"
             android:layout_marginTop="@dimen/margin_size_30"
+            android:layout_marginEnd="@dimen/margin_size_10"
             android:singleLine="true"
             android:text="@string/promise_wekeep"
             app:fontName="@string/jost_medium"
+            app:layout_constraintEnd_toStartOf="@+id/tv_seeall_promise"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
