@@ -276,6 +276,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginStart="@dimen/margin_size_4"
+
                     android:orientation="vertical">
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_possession_date_text"
@@ -301,7 +303,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/margin_size_4"
+                    >
 
 
                         <com.google.android.material.textview.MaterialTextView
@@ -328,97 +332,7 @@
 
             </LinearLayout>
 
-<!--            <LinearLayout-->
-<!--                android:id="@+id/allocation_date_linear"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="@dimen/margin_size_14"-->
-<!--                android:orientation="vertical"-->
-<!--                app:layout_constraintEnd_toStartOf="@+id/tv_possession_date_linear"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/paid_linear"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/paid_linear">-->
 
-<!--                <com.google.android.material.textview.MaterialTextView-->
-<!--                    android:id="@+id/tv_allocation_date_text"-->
-<!--                    style="@style/text_style_medium_gold_color_14"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:fontFamily="@font/jost_regular"-->
-<!--                    android:text="@string/allocation_date" />-->
-
-<!--                <com.google.android.material.textview.MaterialTextView-->
-<!--                    android:id="@+id/tv_allocation_date"-->
-<!--                    style="@style/text_style_thick_brown_color_14"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="@dimen/margin_size_4"-->
-<!--                    android:fontFamily="@font/jost_bold"-->
-<!--                    android:text="11 Nov 2021" />-->
-
-<!--            </LinearLayout>-->
-
-<!--            <LinearLayout-->
-<!--                android:id="@+id/tv_possession_date_linear"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="@dimen/margin_size_4"-->
-<!--                android:orientation="vertical"-->
-<!--                app:layout_constraintEnd_toStartOf="@+id/linearLayoutCompat"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/allocation_date_linear"-->
-<!--                app:layout_constraintTop_toTopOf="@id/allocation_date_linear">-->
-
-<!--                <com.google.android.material.textview.MaterialTextView-->
-<!--                    android:id="@+id/tv_possession_date_text"-->
-<!--                    style="@style/text_style_medium_gold_color_14"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:fontFamily="@font/jost_regular"-->
-<!--                    android:text="@string/possession_date" />-->
-
-<!--                <com.google.android.material.textview.MaterialTextView-->
-<!--                    android:id="@+id/tv_possession_date"-->
-<!--                    style="@style/text_style_thick_brown_color_14"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="@dimen/margin_size_4"-->
-<!--                    android:fontFamily="@font/jost_bold"-->
-<!--                    android:text="18 Dec 2022" />-->
-
-<!--            </LinearLayout>-->
-
-
-<!--            <androidx.appcompat.widget.LinearLayoutCompat-->
-
-<!--                android:id="@+id/linearLayoutCompat"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="4dp"-->
-<!--                android:layout_marginEnd="16dp"-->
-<!--                android:orientation="horizontal"-->
-<!--                app:layout_constraintBottom_toBottomOf="@id/tv_possession_date_linear"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="@id/tv_possession_date_linear">-->
-
-<!--                <com.google.android.material.textview.MaterialTextView-->
-<!--                    android:id="@+id/tv_view_more"-->
-<!--                    style="@style/text_style_view_more_brown_color_12"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginEnd="4dp"-->
-<!--                    android:fontFamily="@font/jost_medium"-->
-<!--                    android:text="@string/view_more"-->
-<!--                    android:visibility="visible" />-->
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/iv_view_more_drop_down"-->
-<!--                    android:layout_width="@dimen/margin_size_18"-->
-<!--                    android:layout_height="@dimen/margin_size_18"-->
-<!--                    android:src="@drawable/ic_drop_down"-->
-<!--                    android:visibility="visible"-->
-<!--                    app:layout_constraintBottom_toBottomOf="@id/tv_view_more"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="@id/tv_view_more" />-->
-<!--            </androidx.appcompat.widget.LinearLayoutCompat>-->
 
             <TextView
                 android:id="@+id/textView12"
@@ -552,7 +466,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/jost_light"
-                                    android:text="@string/investment_amount" />
+                                    android:text="@string/investment_amount"/>
 
                                 <ImageView
                                     android:id="@+id/iv_invested_amount"
@@ -592,7 +506,7 @@
                                 android:layout_marginTop="4dp"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/jost_light"
-                                android:text="@string/amount_paid" />
+                                android:text="Paid" />
                         </LinearLayout>
 
                         <LinearLayout
