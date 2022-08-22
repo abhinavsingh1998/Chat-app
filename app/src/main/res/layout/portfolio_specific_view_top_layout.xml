@@ -134,95 +134,109 @@
 
             <LinearLayout
                 android:id="@+id/paid_linear"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="@dimen/margin_size_12"
-                android:orientation="vertical"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:weightSum="3"
                 app:layout_constraintEnd_toStartOf="@id/pending_linear"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="@id/tv_investment_details"
                 app:layout_constraintTop_toBottomOf="@id/view_line">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_paid"
-                    style="@style/text_style_medium_gold_color_14"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_info_outlined"
-                    android:drawablePadding="4dp"
-                    android:fontFamily="@font/jost_regular"
-                    android:text="@string/paid"
-                    app:drawableTint="@color/gold_color" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_paid_amount"
-                    style="@style/text_style_thick_brown_color_14"
-                    android:layout_width="wrap_content"
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_paid"
+                        style="@style/text_style_medium_gold_color_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_info_outlined"
+                        android:drawablePadding="4dp"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="@string/paid"
+                        app:drawableTint="@color/gold_color" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_paid_amount"
+                        style="@style/text_style_thick_brown_color_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_4"
+                        android:fontFamily="@font/jost_bold"
+                        android:text="₹2.0Lakhs" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/pending_linear"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_size_4"
-                    android:fontFamily="@font/jost_bold"
-                    android:text="₹2.0Lakhs" />
+                    android:layout_marginStart="@dimen/margin_size_4"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
 
-            </LinearLayout>
+                    app:layout_constraintEnd_toStartOf="@id/area_linear"
+                    app:layout_constraintStart_toEndOf="@id/paid_linear"
+                    app:layout_constraintTop_toTopOf="@id/paid_linear">
 
-            <LinearLayout
-                android:id="@+id/pending_linear"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_size_4"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toStartOf="@id/area_linear"
-                app:layout_constraintStart_toEndOf="@id/paid_linear"
-                app:layout_constraintTop_toTopOf="@id/paid_linear">
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_pending"
+                        style="@style/text_style_medium_gold_color_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_info_outlined"
+                        android:drawablePadding="4dp"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="@string/pending" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_pending"
-                    style="@style/text_style_medium_gold_color_14"
-                    android:layout_width="wrap_content"
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_pending_amount"
+                        style="@style/text_style_thick_brown_color_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_4"
+                        android:fontFamily="@font/jost_bold"
+                        android:text="₹1.0Lakhs" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/area_linear"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_info_outlined"
-                    android:drawablePadding="4dp"
-                    android:fontFamily="@font/jost_regular"
-                    android:text="@string/pending" />
+                    android:layout_marginStart="@dimen/margin_size_4"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_pending_amount"
-                    style="@style/text_style_thick_brown_color_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_size_4"
-                    android:fontFamily="@font/jost_bold"
-                    android:text="₹1.0Lakhs" />
+                    app:layout_constraintEnd_toEndOf="@id/tv_view_booking_journey"
+                    app:layout_constraintStart_toEndOf="@id/pending_linear"
+                    app:layout_constraintTop_toTopOf="@id/paid_linear">
 
-            </LinearLayout>
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_area"
+                        style="@style/text_style_medium_gold_color_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="@string/area" />
 
-            <LinearLayout
-                android:id="@+id/area_linear"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_size_4"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="@id/tv_view_booking_journey"
-                app:layout_constraintStart_toEndOf="@id/pending_linear"
-                app:layout_constraintTop_toTopOf="@id/paid_linear">
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_area_unit"
+                        style="@style/text_style_thick_brown_color_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_4"
+                        android:fontFamily="@font/jost_bold"
+                        android:text="5000sqft" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_area"
-                    style="@style/text_style_medium_gold_color_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/jost_regular"
-                    android:text="@string/area" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_area_unit"
-                    style="@style/text_style_thick_brown_color_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_size_4"
-                    android:fontFamily="@font/jost_bold"
-                    android:text="5000sqft" />
-
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -290,15 +304,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
+                android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="@id/tv_possession_date_linear"
-                app:layout_constraintEnd_toEndOf="@+id/area_linear"
-                app:layout_constraintStart_toEndOf="@+id/tv_possession_date_linear"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_possession_date_linear">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_view_more"
-                    style="@style/text_style_view_more_brown_color_14"
+                    style="@style/text_style_view_more_brown_color_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
@@ -310,7 +324,6 @@
                     android:id="@+id/iv_view_more_drop_down"
                     android:layout_width="@dimen/margin_size_18"
                     android:layout_height="@dimen/margin_size_18"
-                    android:layout_marginEnd="8dp"
                     android:src="@drawable/ic_drop_down"
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@id/tv_view_more"
@@ -343,7 +356,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView12">
+                app:layout_constraintTop_toBottomOf="@+id/textView12"
+                tools:visibility="visible">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -410,90 +424,123 @@
                         android:layerType="software"
                         app:layout_constraintTop_toBottomOf="@id/tv_land_id_title" />
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_investment_amount"
-                        style="@style/text_style_dark_black_color_16"
+                    <LinearLayout
+                        android:id="@+id/ll"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_size_25"
                         android:layout_marginTop="@dimen/margin_size_12"
-                        android:layout_marginEnd="@dimen/margin_size_10"
-                        android:fontFamily="@font/jost_medium"
-                        android:text="₹20Lakhs"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/top_dashed_line" />
+                        android:layout_marginEnd="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3.3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/top_dashed_line"
+                        app:layout_constraintTop_toBottomOf="@id/top_dashed_line">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_investment_amount_title"
-                        style="@style/text_style_dark_black_color_14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_size_4"
-                        android:fontFamily="@font/jost_light"
-                        android:text="@string/investment_amount"
-                        app:layout_constraintStart_toStartOf="@id/tv_investment_amount"
-                        app:layout_constraintTop_toBottomOf="@id/tv_investment_amount" />
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.3"
+                            android:orientation="vertical"
+                            android:weightSum="2">
 
-                    <ImageView
-                        android:id="@+id/iv_invested_amount"
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
-                        android:layout_marginStart="3dp"
-                        android:src="@drawable/ic_info_outlined"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_investment_amount_title"
-                        app:layout_constraintStart_toEndOf="@+id/tv_investment_amount_title"
-                        app:layout_constraintTop_toTopOf="@+id/tv_investment_amount_title" />
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_investment_amount"
+                                style="@style/text_style_dark_black_color_16"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/jost_medium"
+                                android:text="₹20Lakhs" />
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_amount_paid"
-                        style="@style/text_style_dark_black_color_12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/margin_size_4"
-                        android:fontFamily="@font/jost_medium"
-                        android:text="₹1Lakhs"
-                        app:layout_constraintBottom_toTopOf="@id/tv_amount_paid_title"
-                        app:layout_constraintStart_toStartOf="@id/tv_amount_paid_title"
-                        app:layout_constraintTop_toTopOf="@id/tv_investment_amount" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_amount_paid_title"
-                        style="@style/text_style_dark_black_color_12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_size_10"
-                        android:fontFamily="@font/jost_light"
-                        android:text="@string/amount_paid"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_investment_amount_title"
-                        app:layout_constraintEnd_toStartOf="@id/tv_amount_pending_title"
-                        app:layout_constraintStart_toEndOf="@id/tv_investment_amount_title"
-                        app:layout_constraintTop_toTopOf="@id/tv_investment_amount_title" />
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/tv_investment_amount_title"
+                                    style="@style/text_style_dark_black_color_14"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/jost_light"
+                                    android:text="@string/investment_amount"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                                <ImageView
+                                    android:id="@+id/iv_invested_amount"
+                                    android:layout_width="12dp"
+                                    android:layout_height="12dp"
+                                    android:layout_marginStart="3dp"
+                                    android:src="@drawable/ic_info_outlined"
+                                    android:visibility="visible"
+                                    android:layout_gravity="center"
+                                  />
+                            </LinearLayout>
+                        </LinearLayout>
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_amount_pending"
-                        style="@style/text_style_dark_black_color_12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/margin_size_4"
-                        android:fontFamily="@font/jost_medium"
-                        android:text="₹1.5Lakhs"
-                        app:layout_constraintBottom_toTopOf="@id/tv_amount_pending_title"
-                        app:layout_constraintStart_toStartOf="@id/tv_amount_pending_title"
-                        app:layout_constraintTop_toTopOf="@id/tv_investment_amount" />
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:weightSum="2">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_amount_pending_title"
-                        style="@style/text_style_dark_black_color_12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_size_16"
-                        android:fontFamily="@font/jost_light"
-                        android:text="@string/amount_pending"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_investment_amount_title"
-                        app:layout_constraintEnd_toEndOf="@id/top_dashed_line"
-                        app:layout_constraintStart_toEndOf="@id/tv_amount_paid_title"
-                        app:layout_constraintTop_toTopOf="@id/tv_investment_amount_title" />
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_amount_paid"
+                                style="@style/text_style_dark_black_color_12"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_size_10"
+                                android:layout_marginBottom="@dimen/margin_size_4"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/jost_medium"
+                                android:text="₹1Lakhs" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_amount_paid_title"
+                                style="@style/text_style_dark_black_color_12"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_size_10"
+                                android:layout_marginTop="4dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/jost_light"
+                                android:text="@string/amount_paid" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_amount_pending"
+                                style="@style/text_style_dark_black_color_12"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/margin_size_4"
+                                android:fontFamily="@font/jost_medium"
+                                android:text="₹1.5Lakhs"
+                                app:layout_constraintBottom_toTopOf="@id/tv_amount_pending_title"
+                                app:layout_constraintStart_toStartOf="@id/tv_amount_pending_title"
+                                app:layout_constraintTop_toTopOf="@id/tv_investment_amount" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_amount_pending_title"
+                                style="@style/text_style_dark_black_color_12"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="@font/jost_light"
+                                android:text="@string/amount_pending"
+                                app:layout_constraintBottom_toBottomOf="@id/tv_investment_amount_title"
+                                app:layout_constraintEnd_toEndOf="@id/top_dashed_line"
+                                app:layout_constraintStart_toEndOf="@id/tv_amount_paid_title"
+                                app:layout_constraintTop_toTopOf="@id/tv_investment_amount_title" />
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_registry_amount"
@@ -506,8 +553,8 @@
                         android:text="₹2.0Lakhs"
                         app:layout_constraintEnd_toStartOf="@+id/tv_other_expenses"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/tv_investment_amount_title"
-                        app:layout_constraintTop_toBottomOf="@id/tv_investment_amount_title" />
+                        app:layout_constraintStart_toStartOf="@+id/ll"
+                        app:layout_constraintTop_toBottomOf="@id/ll" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_registry_amount_title"
@@ -567,6 +614,163 @@
                         app:layout_constraintBottom_toBottomOf="@+id/tv_other_expenses_title"
                         app:layout_constraintStart_toEndOf="@+id/tv_other_expenses_title"
                         app:layout_constraintTop_toTopOf="@+id/tv_other_expenses_title" />
+                    <!--                    <com.google.android.material.textview.MaterialTextView-->
+                    <!--                        android:id="@+id/tv_investment_amount"-->
+                    <!--                        style="@style/text_style_dark_black_color_16"-->
+                    <!--                        android:layout_width="0dp"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginStart="@dimen/margin_size_25"-->
+                    <!--                        android:layout_marginTop="@dimen/margin_size_12"-->
+                    <!--                        android:layout_marginEnd="@dimen/margin_size_10"-->
+                    <!--                        android:fontFamily="@font/jost_medium"-->
+                    <!--                        android:text="₹20Lakhs"-->
+                    <!--                        app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                        app:layout_constraintTop_toBottomOf="@id/top_dashed_line" />-->
+
+                    <!--                    <com.google.android.material.textview.MaterialTextView-->
+                    <!--                        android:id="@+id/tv_investment_amount_title"-->
+                    <!--                        style="@style/text_style_dark_black_color_14"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginTop="@dimen/margin_size_4"-->
+                    <!--                        android:fontFamily="@font/jost_light"-->
+                    <!--                        android:text="@string/investment_amount"-->
+                    <!--                        app:layout_constraintStart_toStartOf="@id/tv_investment_amount"-->
+                    <!--                        app:layout_constraintTop_toBottomOf="@id/tv_investment_amount" />-->
+
+                    <!--                    <ImageView-->
+                    <!--                        android:id="@+id/iv_invested_amount"-->
+                    <!--                        android:layout_width="12dp"-->
+                    <!--                        android:layout_height="12dp"-->
+                    <!--                        android:layout_marginStart="3dp"-->
+                    <!--                        android:src="@drawable/ic_info_outlined"-->
+                    <!--                        android:visibility="visible"-->
+                    <!--                        app:layout_constraintBottom_toBottomOf="@+id/tv_investment_amount_title"-->
+                    <!--                        app:layout_constraintStart_toEndOf="@+id/tv_investment_amount_title"-->
+                    <!--                        app:layout_constraintTop_toTopOf="@+id/tv_investment_amount_title" />-->
+
+                    <!--                    <com.google.android.material.textview.MaterialTextView-->
+                    <!--                        android:id="@+id/tv_amount_paid"-->
+                    <!--                        style="@style/text_style_dark_black_color_12"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginBottom="@dimen/margin_size_4"-->
+                    <!--                        android:fontFamily="@font/jost_medium"-->
+                    <!--                        android:text="₹1Lakhs"-->
+                    <!--                        app:layout_constraintBottom_toTopOf="@id/tv_amount_paid_title"-->
+                    <!--                        app:layout_constraintStart_toStartOf="@id/tv_amount_paid_title"-->
+                    <!--                        app:layout_constraintTop_toTopOf="@id/tv_investment_amount" />-->
+
+                    <!--                    <com.google.android.material.textview.MaterialTextView-->
+                    <!--                        android:id="@+id/tv_amount_paid_title"-->
+                    <!--                        style="@style/text_style_dark_black_color_12"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginStart="@dimen/margin_size_10"-->
+                    <!--                        android:fontFamily="@font/jost_light"-->
+                    <!--                        android:text="@string/amount_paid"-->
+                    <!--                        app:layout_constraintBottom_toBottomOf="@id/tv_investment_amount_title"-->
+                    <!--                        app:layout_constraintEnd_toStartOf="@id/tv_amount_pending_title"-->
+                    <!--                        app:layout_constraintStart_toEndOf="@id/tv_investment_amount_title"-->
+                    <!--                        app:layout_constraintTop_toTopOf="@id/tv_investment_amount_title" />-->
+
+                    <!--                    <com.google.android.material.textview.MaterialTextView-->
+                    <!--                        android:id="@+id/tv_amount_pending"-->
+                    <!--                        style="@style/text_style_dark_black_color_12"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginBottom="@dimen/margin_size_4"-->
+                    <!--                        android:fontFamily="@font/jost_medium"-->
+                    <!--                        android:text="₹1.5Lakhs"-->
+                    <!--                        app:layout_constraintBottom_toTopOf="@id/tv_amount_pending_title"-->
+                    <!--                        app:layout_constraintStart_toStartOf="@id/tv_amount_pending_title"-->
+                    <!--                        app:layout_constraintTop_toTopOf="@id/tv_investment_amount" />-->
+
+                    <!--                    <com.google.android.material.textview.MaterialTextView-->
+                    <!--                        android:id="@+id/tv_amount_pending_title"-->
+                    <!--                        style="@style/text_style_dark_black_color_12"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginStart="@dimen/margin_size_16"-->
+                    <!--                        android:fontFamily="@font/jost_light"-->
+                    <!--                        android:text="@string/amount_pending"-->
+                    <!--                        app:layout_constraintBottom_toBottomOf="@id/tv_investment_amount_title"-->
+                    <!--                        app:layout_constraintEnd_toEndOf="@id/top_dashed_line"-->
+                    <!--                        app:layout_constraintStart_toEndOf="@id/tv_amount_paid_title"-->
+                    <!--                        app:layout_constraintTop_toTopOf="@id/tv_investment_amount_title" />-->
+
+                    <!--                    <com.google.android.material.textview.MaterialTextView-->
+                    <!--                        android:id="@+id/tv_registry_amount"-->
+                    <!--                        style="@style/text_style_dark_black_color_14"-->
+                    <!--                        android:layout_width="0dp"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginTop="@dimen/margin_size_12"-->
+                    <!--                        android:layout_marginEnd="@dimen/margin_size_10"-->
+                    <!--                        android:fontFamily="@font/jost_medium"-->
+                    <!--                        android:text="₹2.0Lakhs"-->
+                    <!--                        app:layout_constraintEnd_toStartOf="@+id/tv_other_expenses"-->
+                    <!--                        app:layout_constraintHorizontal_bias="0.5"-->
+                    <!--                        app:layout_constraintStart_toStartOf="@+id/tv_investment_amount_title"-->
+                    <!--                        app:layout_constraintTop_toBottomOf="@id/tv_investment_amount_title" />-->
+
+                    <!--                    <com.google.android.material.textview.MaterialTextView-->
+                    <!--                        android:id="@+id/tv_registry_amount_title"-->
+                    <!--                        style="@style/text_style_dark_black_color_14"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginTop="@dimen/margin_size_4"-->
+                    <!--                        android:fontFamily="@font/jost_light"-->
+                    <!--                        android:text="@string/registry_amount"-->
+                    <!--                        app:layout_constraintStart_toStartOf="@id/tv_registry_amount"-->
+                    <!--                        app:layout_constraintTop_toBottomOf="@id/tv_registry_amount" />-->
+
+                    <!--                    <ImageView-->
+                    <!--                        android:id="@+id/iv_amount_pending"-->
+                    <!--                        android:layout_width="12dp"-->
+                    <!--                        android:layout_height="12dp"-->
+                    <!--                        android:layout_marginStart="3dp"-->
+                    <!--                        android:src="@drawable/ic_info_outlined"-->
+                    <!--                        android:visibility="visible"-->
+                    <!--                        app:layout_constraintBottom_toBottomOf="@+id/tv_registry_amount_title"-->
+                    <!--                        app:layout_constraintStart_toEndOf="@+id/tv_registry_amount_title"-->
+                    <!--                        app:layout_constraintTop_toTopOf="@+id/tv_registry_amount_title" />-->
+
+                    <!--                    <com.google.android.material.textview.MaterialTextView-->
+                    <!--                        android:id="@+id/tv_other_expenses"-->
+                    <!--                        style="@style/text_style_dark_black_color_14"-->
+                    <!--                        android:layout_width="0dp"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginBottom="@dimen/margin_size_4"-->
+                    <!--                        android:fontFamily="@font/jost_medium"-->
+                    <!--                        android:text="₹50k"-->
+                    <!--                        app:layout_constraintBottom_toTopOf="@id/tv_other_expenses_title"-->
+                    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                        app:layout_constraintHorizontal_bias="0.5"-->
+                    <!--                        app:layout_constraintStart_toEndOf="@+id/tv_registry_amount"-->
+                    <!--                        app:layout_constraintTop_toTopOf="@id/tv_registry_amount" />-->
+
+                    <!--                    <com.google.android.material.textview.MaterialTextView-->
+                    <!--                        android:id="@+id/tv_other_expenses_title"-->
+                    <!--                        style="@style/text_style_dark_black_color_14"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:fontFamily="@font/jost_light"-->
+                    <!--                        android:text="@string/other_expenses"-->
+                    <!--                        app:layout_constraintBottom_toBottomOf="@id/tv_registry_amount_title"-->
+                    <!--                        app:layout_constraintStart_toStartOf="@+id/tv_other_expenses"-->
+                    <!--                        app:layout_constraintTop_toTopOf="@id/tv_registry_amount_title" />-->
+
+
+                    <!--                    <ImageView-->
+                    <!--                        android:id="@+id/iv_amount_pending1"-->
+                    <!--                        android:layout_width="12dp"-->
+                    <!--                        android:layout_height="12dp"-->
+                    <!--                        android:layout_marginStart="3dp"-->
+                    <!--                        android:src="@drawable/ic_info_outlined"-->
+                    <!--                        android:visibility="visible"-->
+                    <!--                        app:layout_constraintBottom_toBottomOf="@+id/tv_other_expenses_title"-->
+                    <!--                        app:layout_constraintStart_toEndOf="@+id/tv_other_expenses_title"-->
+                    <!--                        app:layout_constraintTop_toTopOf="@+id/tv_other_expenses_title" />-->
 
                     <View
                         android:id="@+id/middle_dashed_line"
