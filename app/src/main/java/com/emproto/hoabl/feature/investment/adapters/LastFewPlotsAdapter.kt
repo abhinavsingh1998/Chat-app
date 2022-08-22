@@ -1,5 +1,6 @@
 package com.emproto.hoabl.feature.investment.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.CountDownTimer
 import android.text.SpannableStringBuilder
@@ -49,12 +50,13 @@ class LastFewPlotsAdapter(
                 .into(holder.binding.ivItemImage)
 
             when(element.fomoContent.isTargetTimeActive){
-                false -> holder.binding.tvDuration.visibility = View.GONE
-                true -> holder.binding.tvDuration.visibility = View.VISIBLE
+                false -> holder.binding.timerView.visibility = View.GONE
+                true -> holder.binding.timerView.visibility = View.VISIBLE
             }
 
             val timeCounter = object : CountDownTimer(Utility.conversionForTimer(element.fomoContent.targetTime.hours.toString(),element.fomoContent.targetTime.minutes.toString(),
                 element.fomoContent.targetTime.seconds.toString()), 1000) {
+                @SuppressLint("SetTextI18n")
                 override fun onTick(millisUntilFinished: Long) {
                     val f = DecimalFormat("00")
                     val fh = DecimalFormat("0")

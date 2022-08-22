@@ -56,6 +56,7 @@ class HomeViewModel(
 
     private var position = MutableLiveData<LatesUpdatesPosition>()
     private var latUpdPosition = MutableLiveData<LatesUpdatesPosition>()
+    private var notificationData= MutableLiveData<NotificationResponse>()
     private var listData= MutableLiveData<Page>()
     private var searchText = MutableLiveData<String>()
 
@@ -236,4 +237,5 @@ class HomeViewModel(
     fun getSearchedText(): LiveData<String> {
         return searchText
     }
+
 }

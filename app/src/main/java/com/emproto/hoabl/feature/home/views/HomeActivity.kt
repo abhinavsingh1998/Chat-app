@@ -80,7 +80,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     lateinit var activityHomeActivity: ActivityHomeBinding
     lateinit var unReadNotifications: UnReadNotifications
     lateinit var manager: LinearLayoutManager
-    var unreadNotificationList = ArrayList<Int>()
     var pageIndex = 1
     var pageSize = 20
     var isScrolling = false
@@ -92,6 +91,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     lateinit var customAdapter: NotificationAdapter
     var notificationList = ArrayList<Data>()
     var num = 0
+    var markAll= ArrayList<Int>()
 
 
     @Inject
@@ -144,7 +144,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         initData()
         initClickListener()
         trackEvent()
-        callNotificationApi(20, 1, true)
 
         if(appPreference.isFacilityCard()){
             val item = activityHomeActivity.includeNavigation.bottomNavigation.menu.getItem(3)
@@ -180,7 +179,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         }
 
         activityHomeActivity.searchLayout.notificationView.setOnClickListener(View.OnClickListener {
-
+            notificationList.clear()
+            callNotificationApi(20, 1, true)
             launch_bottom_sheet()
         })
 
@@ -465,164 +465,83 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         })
     }
 
-    fun callNotificationApi(pageSize: Int, pageIndex: Int, refresh: Boolean) {
-        homeViewModel.getNotification(pageSize, pageIndex, refresh)
-            .observe(this, object : Observer<BaseResponse<NotificationResponse>> {
-                override fun onChanged(it: BaseResponse<NotificationResponse>?) {
-                    when (it!!.status) {
+    fun callNotificationApi(pageSize: Int,pageIndex: Int, refresh:Boolean ){
+        homeViewModel.getNotification(pageSize,pageIndex,refresh).observe(this,object: Observer<BaseResponse<NotificationResponse>>{
 
-                        Status.LOADING -> {
-                            fragmentNotificationBottomSheetBinding.markAllRead.isVisible = true
+            override fun onChanged(it: BaseResponse<NotificationResponse>?) {
 
+                when (it!!.status) {
+                    Status.LOADING -> {
+                        fragmentNotificationBottomSheetBinding.progressBar.isVisible=true
+                        fragmentNotificationBottomSheetBinding.rv.isVisible=false
+                    }
+                    Status.SUCCESS -> {
+                        fragmentNotificationBottomSheetBinding.rv.isVisible=true
+                        fragmentNotificationBottomSheetBinding.progressBar.isVisible=false
+                        fragmentNotificationBottomSheetBinding.markAllRead.isVisible = true
+
+                        totalNotification = it!!.data!!.totalCount
+                        toatalPageSize = it!!.data!!.totalPages
+
+                        for (i in 0..it!!.data!!.data?.size!! - 1) {
+                            notificationList.add(it!!.data!!.data[i]!!)
                         }
-                        Status.ERROR -> {
-                            Toast.makeText(
-                                this@HomeActivity,
-                                it.message.toString(),
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                        Status.SUCCESS -> {
 
-                            totalNotification = it.data!!.totalCount
-                            toatalPageSize = it.data!!.totalPages
+//                        unReadNotifications = UnReadNotifications(unreadNotificationList)
+//
+//                        fragmentNotificationBottomSheetBinding.markAllRead.setOnClickListener(
+//                            View.OnClickListener {
+//                                setReadStatus(unReadNotifications)
+//                                activityHomeActivity.searchLayout.notification.setImageDrawable(
+//                                    resources.getDrawable(R.drawable.normal_notification)
+//                                )
+//                                fragmentNotificationBottomSheetBinding.markAllRead.setTextColor(
+//                                    resources.getColor(R.color.color_text_normal)
+//                                )
+//                                unreadNotificationList.clear()
+//                                bottomSheetDialog.dismiss()
+//
+//                            })
+//                        if (unreadNotificationList.isEmpty()) {
+//                            activityHomeActivity.searchLayout.notification.setImageDrawable(
+//                                resources.getDrawable(R.drawable.normal_notification)
+//                            )
+//
+//                            fragmentNotificationBottomSheetBinding.markAllRead.setTextColor(
+//                                resources.getColor(R.color.color_text_normal)
+//                            )
+//
+//                            fragmentNotificationBottomSheetBinding.markAllRead.isClickable =
+//                                false
+//                        } else {
+//                            activityHomeActivity.searchLayout.notification.setImageDrawable(
+//                                resources.getDrawable(R.drawable.ic_notification)
+//                            )
+//
+//                            fragmentNotificationBottomSheetBinding.markAllRead.isClickable =
+//                                true
+//                            fragmentNotificationBottomSheetBinding.markAllRead.setTextColor(
+//                                resources.getColor(R.color.black))
+//                        }
+                        notificationNavigation ()
 
-
-                            for (i in 0..it.data?.data!!.size - 1) {
-                                if (it.data!!.data[i].readStatus == false) {
-                                    unreadNotificationList.add(it.data?.data!![i].id)
-                                }
-                            }
-
-                            for (i in 0..it?.data?.data?.size!! - 1) {
-                                notificationList.add(it?.data?.data!![i])
-                            }
-
-                            unReadNotifications = UnReadNotifications(unreadNotificationList)
-
-                            fragmentNotificationBottomSheetBinding.markAllRead.setOnClickListener(
-                                View.OnClickListener {
-                                    setReadStatus(unReadNotifications)
-                                    activityHomeActivity.searchLayout.notification.setImageDrawable(
-                                        resources.getDrawable(R.drawable.normal_notification)
-                                    )
-                                    fragmentNotificationBottomSheetBinding.markAllRead.setTextColor(
-                                        resources.getColor(R.color.color_text_normal)
-                                    )
-                                    bottomSheetDialog.dismiss()
-
-                                })
-                            if (unreadNotificationList.isEmpty()) {
-                                activityHomeActivity.searchLayout.notification.setImageDrawable(
-                                    resources.getDrawable(R.drawable.normal_notification)
-                                )
-
-                                fragmentNotificationBottomSheetBinding.markAllRead.setTextColor(
-                                    resources.getColor(R.color.color_text_normal)
-                                )
-
-                                fragmentNotificationBottomSheetBinding.markAllRead.isClickable =
-                                    false
-                            } else {
-                                activityHomeActivity.searchLayout.notification.setImageDrawable(
-                                    resources.getDrawable(R.drawable.ic_notification)
-                                )
-                                fragmentNotificationBottomSheetBinding.markAllRead.isClickable =
-                                    true
-                            }
-                        }
+                    }
+                    Status.ERROR -> {
+                        (this@HomeActivity).showErrorToast(
+                            it.message!!
+                        )
                     }
                 }
-
-            })
+            }
+        })
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun launch_bottom_sheet() {
         bottomSheetDialog.show()
+         pageIndex = 1
+         pageSize = 20
         pagination()
-        fragmentNotificationBottomSheetBinding.markAllRead.isVisible = true
-
-        bottomSheetDialog.findViewById<RecyclerView>(R.id.rv)?.apply {
-            customAdapter = NotificationAdapter(
-                this@HomeActivity,
-                notificationList,
-                object : NotificationAdapter.ItemsClickInterface {
-                    override fun onClickItem(id: Int, posittion: Int) {
-                        var list = ArrayList<Int>()
-                        list.add(id)
-
-                        if (unreadNotificationList.size == 1) {
-                            activityHomeActivity.searchLayout.notification.setImageDrawable(
-                                resources.getDrawable(R.drawable.normal_notification)
-                            )
-                        }
-
-                        unReadNotifications = UnReadNotifications(list)
-                        setReadStatus(unReadNotifications)
-                        if (notificationList[posittion].notification.targetPage == 1) {
-
-                            bottomSheetDialog.dismiss()
-                        } else if (notificationList[posittion].notification.targetPage == 2) {
-                            val bundle = Bundle()
-                            val latestUpdatesFragment =
-                                LatestUpdatesFragment()
-                            latestUpdatesFragment.arguments = bundle
-                            replaceFragment(
-                                latestUpdatesFragment.javaClass,
-                                "",
-                                true,
-                                bundle,
-                                null,
-                                0,
-                                true
-                            )
-                            bottomSheetDialog.dismiss()
-
-                        } else if (notificationList[posittion].notification.targetPage == 3) {
-                            val bundle = Bundle()
-                            val insightsFragment = InsightsFragment()
-                            insightsFragment.arguments = bundle
-                            replaceFragment(
-                                insightsFragment.javaClass,
-                                "",
-                                true,
-                                bundle,
-                                null,
-                                0,
-                                true
-                            )
-                            bottomSheetDialog.dismiss()
-
-                        } else if (notificationList[posittion].notification.targetPage == 4) {
-
-                            (this@HomeActivity).navigate(R.id.navigation_investment)
-                            bottomSheetDialog.dismiss()
-
-                        } else if (notificationList[posittion].notification.targetPage == 5) {
-                            (this@HomeActivity).navigate(R.id.navigation_portfolio)
-                            bottomSheetDialog.dismiss()
-
-                        } else if (notificationList[posittion].notification.targetPage == 6) {
-                            (this@HomeActivity).navigate(R.id.navigation_promises)
-                            bottomSheetDialog.dismiss()
-
-                        } else if (notificationList[posittion].notification.targetPage == 7) {
-                            (this@HomeActivity).navigate(R.id.navigation_profile)
-                            bottomSheetDialog.dismiss()
-                        } else {
-                            bottomSheetDialog.dismiss()
-                        }
-                    }
-
-                })
-            manager =
-                LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            layoutManager = manager
-
-            adapter = customAdapter
-        }
-
         }
 
     fun setReadStatus(ids: UnReadNotifications) {
@@ -719,16 +638,150 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         })
     }
 
+    private fun notificationNavigation (){
+        var unreadNotificationList = ArrayList<Int>()
+
+
+        for (i in 0..notificationList.size - 1) {
+            if (notificationList[i].readStatus == false) {
+                unreadNotificationList.add(notificationList[i]?.id)
+            }
+        }
+
+        unReadNotifications = UnReadNotifications(unreadNotificationList)
+
+        markAll.add(0)
+
+        fragmentNotificationBottomSheetBinding.markAllRead.setOnClickListener(
+            View.OnClickListener {
+                unReadNotifications = UnReadNotifications(markAll)
+                setReadStatus(unReadNotifications)
+                activityHomeActivity.searchLayout.notification.setImageDrawable(
+                    resources.getDrawable(R.drawable.normal_notification)
+                )
+                fragmentNotificationBottomSheetBinding.markAllRead.setTextColor(
+                    resources.getColor(R.color.color_text_normal)
+                )
+                unreadNotificationList.clear()
+                bottomSheetDialog.dismiss()
+            })
+        if (unreadNotificationList.isEmpty()) {
+            activityHomeActivity.searchLayout.notification.setImageDrawable(
+                resources.getDrawable(R.drawable.normal_notification)
+            )
+
+            fragmentNotificationBottomSheetBinding.markAllRead.setTextColor(
+                resources.getColor(R.color.color_text_normal)
+            )
+
+            fragmentNotificationBottomSheetBinding.markAllRead.isClickable =
+                false
+        } else {
+            activityHomeActivity.searchLayout.notification.setImageDrawable(
+                resources.getDrawable(R.drawable.ic_notification)
+            )
+
+            fragmentNotificationBottomSheetBinding.markAllRead.isClickable =
+                true
+            fragmentNotificationBottomSheetBinding.markAllRead.setTextColor(
+                resources.getColor(R.color.black))
+        }
+
+        bottomSheetDialog.findViewById<RecyclerView>(R.id.rv)?.apply {
+
+            customAdapter = NotificationAdapter(
+                this@HomeActivity,
+                notificationList,
+                object : NotificationAdapter.ItemsClickInterface {
+                    override fun onClickItem(id: Int, posittion: Int) {
+                        var list = ArrayList<Int>()
+                        list.add(id)
+
+                        if (unreadNotificationList.size == 1) {
+                            activityHomeActivity.searchLayout.notification.setImageDrawable(
+                                resources.getDrawable(R.drawable.normal_notification)
+                            )
+                            unreadNotificationList.clear()
+                        }
+                        unReadNotifications = UnReadNotifications(list)
+                        setReadStatus(unReadNotifications)
+                        if (notificationList[posittion].notification.targetPage == 1) {
+
+                            bottomSheetDialog.dismiss()
+                        } else if (notificationList[posittion].notification.targetPage == 2) {
+                            val bundle = Bundle()
+                            val latestUpdatesFragment =
+                                LatestUpdatesFragment()
+                            latestUpdatesFragment.arguments = bundle
+                            replaceFragment(
+                                latestUpdatesFragment.javaClass,
+                                "",
+                                true,
+                                bundle,
+                                null,
+                                0,
+                                true
+                            )
+                            bottomSheetDialog.dismiss()
+
+                        } else if (notificationList[posittion].notification.targetPage == 3) {
+                            val bundle = Bundle()
+                            val insightsFragment = InsightsFragment()
+                            insightsFragment.arguments = bundle
+                            replaceFragment(
+                                insightsFragment.javaClass,
+                                "",
+                                true,
+                                bundle,
+                                null,
+                                0,
+                                true
+                            )
+                            bottomSheetDialog.dismiss()
+
+                        } else if (notificationList[posittion].notification.targetPage == 4) {
+
+                            (this@HomeActivity).navigate(R.id.navigation_investment)
+                            bottomSheetDialog.dismiss()
+
+                        } else if (notificationList[posittion].notification.targetPage == 5) {
+                            (this@HomeActivity).navigate(R.id.navigation_portfolio)
+                            bottomSheetDialog.dismiss()
+
+                        } else if (notificationList[posittion].notification.targetPage == 6) {
+                            (this@HomeActivity).navigate(R.id.navigation_promises)
+                            bottomSheetDialog.dismiss()
+
+                        } else if (notificationList[posittion].notification.targetPage == 7) {
+                            (this@HomeActivity).navigate(R.id.navigation_profile)
+                            bottomSheetDialog.dismiss()
+                        } else {
+                            bottomSheetDialog.dismiss()
+                        }
+                    }
+                }
+            )
+            manager =
+                LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            layoutManager = manager
+
+            adapter = customAdapter
+        }
+
+    }
+
     fun refreshNotificationlist(pageSize: Int, pageIndex: Int, refresh: Boolean) {
         homeViewModel.getNotification(pageSize, pageIndex, refresh).observe(this, object :Observer<BaseResponse<NotificationResponse>>{
             override fun onChanged(it: BaseResponse<NotificationResponse>?) {
 
                 when (it!!.status) {
                     Status.LOADING -> {
+                        fragmentNotificationBottomSheetBinding.progressBar.isVisible=true
                         fragmentNotificationBottomSheetBinding.markAllRead.isVisible = true
 
                     }
                     Status.ERROR -> {
+                        fragmentNotificationBottomSheetBinding.progressBar.isVisible=false
                         Toast.makeText(
                             this@HomeActivity,
                             it.message.toString(),
@@ -736,10 +789,18 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                         ).show()
                     }
                     Status.SUCCESS ->{
+                        fragmentNotificationBottomSheetBinding.progressBar.isVisible=false
                         fragmentNotificationBottomSheetBinding.markAllRead.isVisible = true
 
                         totalNotification = it.data!!.totalCount
                         toatalPageSize = it.data!!.totalPages
+
+
+//                        for (i in 0..it!!.data!!.data!!.size - 1) {
+//                            if (it!!.data!!.data[i].readStatus == false) {
+//                                unreadNotificationList.add(it!!.data!!.data[i]?.id)
+//                            }
+//                        }
 
                         for(i in 0..it?.data?.data?.size!! -1){
                             notificationList.add(it?.data?.data!![i])
