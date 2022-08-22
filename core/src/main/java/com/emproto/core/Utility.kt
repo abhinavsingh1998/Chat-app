@@ -216,6 +216,9 @@ object Utility {
         try {
             amountInString = if (amount < 100000) {
                 "₹ ${df.format(amount)}"
+            } else if (amount > 10000000) {
+                val value = df.format(amount / 10000000)
+                "₹$value Cr*"
             } else {
                 val value = df.format(amount / 100000)
                 "₹$value Lakhs*"
@@ -346,14 +349,19 @@ object Utility {
         val df = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
         return df.parse(date).hours.toString()
     }
+
     fun getCompressedImageFile(cameraFile: File, context: Context?): File? {
         try {
             val o = BitmapFactory.Options()
             o.inJustDecodeBounds = true
-            if ((cameraFile!!.name).equals(Constants.JPG_SMALL) || (cameraFile!!.name).equals(Constants.JPG_CAPITAL) || (cameraFile!!.name).equals(
-                   Constants.PNG_SMALL
-                ) || (cameraFile!!.name).equals(Constants.PNG_CAPITAL) || (cameraFile!!.name).equals(Constants.JPEG_SMALL) || (cameraFile!!.name).equals(
-               Constants.JPEG_CAPITAL
+            if ((cameraFile!!.name).equals(Constants.JPG_SMALL) || (cameraFile!!.name).equals(
+                    Constants.JPG_CAPITAL
+                ) || (cameraFile!!.name).equals(
+                    Constants.PNG_SMALL
+                ) || (cameraFile!!.name).equals(Constants.PNG_CAPITAL) || (cameraFile!!.name).equals(
+                    Constants.JPEG_SMALL
+                ) || (cameraFile!!.name).equals(
+                    Constants.JPEG_CAPITAL
                 )
             ) {
                 o.inSampleSize = 6
@@ -407,9 +415,13 @@ object Utility {
                 }
                 val outputStream = FileOutputStream(newFile)
 
-                if ((cameraFile!!.name).equals(Constants.JPG_SMALL) || (cameraFile!!.name).equals(Constants.JPG_CAPITAL) || (cameraFile!!.name).equals(
-                     Constants.PNG_SMALL
-                    ) || (cameraFile!!.name).equals(Constants.PNG_CAPITAL) || (cameraFile!!.name).equals(Constants.JPEG_SMALL) || (cameraFile!!.name).equals(
+                if ((cameraFile!!.name).equals(Constants.JPG_SMALL) || (cameraFile!!.name).equals(
+                        Constants.JPG_CAPITAL
+                    ) || (cameraFile!!.name).equals(
+                        Constants.PNG_SMALL
+                    ) || (cameraFile!!.name).equals(Constants.PNG_CAPITAL) || (cameraFile!!.name).equals(
+                        Constants.JPEG_SMALL
+                    ) || (cameraFile!!.name).equals(
                         Constants.JPEG_CAPITAL
                     )
                 ) {
@@ -426,6 +438,7 @@ object Utility {
         }
 
     }
+
     fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
         val matrix = Matrix()
         matrix.postRotate(angle)
@@ -435,7 +448,10 @@ object Utility {
         )
     }
 
-    fun convertUTCtoTime(createdAt:String,timePattern:String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"):String{
+    fun convertUTCtoTime(
+        createdAt: String,
+        timePattern: String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+    ): String {
         val format = SimpleDateFormat(timePattern)
         format.timeZone = TimeZone.getTimeZone("GMT")
         val date = format.parse(createdAt)
@@ -447,18 +463,18 @@ object Utility {
         val seconds = TimeUnit.MILLISECONDS.toSeconds(differenceTimeInMs)
         val days = TimeUnit.MILLISECONDS.toDays(differenceTimeInMs)
 
-        if(seconds < 60){
+        if (seconds < 60) {
             return seconds.toString() + "s"
-        }else if(minutes < 60){
+        } else if (minutes < 60) {
             return minutes.toString() + "m"
-        }else if(hours<24){
+        } else if (hours < 24) {
             return hours.toString() + "h"
-        }else {
+        } else {
             return days.toString() + "d"
         }
     }
 
-    fun conversionForTimer(hours:String,minutes:String,seconds:String):Long{
+    fun conversionForTimer(hours: String, minutes: String, seconds: String): Long {
         val hoursInMillis =
             TimeUnit.HOURS.toMillis(hours.toLong())
         val minsInMillis =
