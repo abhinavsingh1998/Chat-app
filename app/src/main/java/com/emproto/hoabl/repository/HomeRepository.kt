@@ -43,7 +43,6 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
     val mInsights = MutableLiveData<BaseResponse<InsightsResponse>>()
     val mTestimonials = MutableLiveData<BaseResponse<TestimonialsResponse>>()
     val mActionItem = MutableLiveData<BaseResponse<HomeActionItemResponse>>()
-    val mNewNotificationResponse = MutableLiveData<BaseResponse<NotificationResponse>>()
 
 
 
@@ -639,6 +638,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
 
     fun getNewNotificationList(size:Int, index:Int, refresh: Boolean = false): LiveData<BaseResponse<NotificationResponse>> {
 
+        val mNewNotificationResponse = MutableLiveData<BaseResponse<NotificationResponse>>()
         if (mNewNotificationResponse.value==null || refresh){
             mNewNotificationResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,10 +23,8 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.portfolio.views.BookingjourneyFragment
-import com.emproto.hoabl.feature.portfolio.views.FmFragment
 import com.emproto.hoabl.feature.promises.HoablPromises
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
-import com.emproto.hoabl.fragments.PromisesFragment
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.Extensions.toData
 import com.emproto.hoabl.utils.Extensions.toHomePagesOrPromise
@@ -40,8 +37,6 @@ import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.enum.ModuleEnum
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.BaseResponse
-import com.emproto.networklayer.response.HomeActionItemResponse
-import com.emproto.networklayer.response.actionItem.HomeActionItem
 import com.emproto.networklayer.response.bookingjourney.BJHeader
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.home.HomeResponse
@@ -226,7 +221,6 @@ class HomeFragment : BaseFragment() {
                             it!!.data!!.let {
                                 if (it != null) {
                                     appPreference.setFmUrl(it?.data?.web_url)
-
                                 } else {
                                     (requireActivity() as HomeActivity).showErrorToast(
                                         Constants.SOMETHING_WENT_WRONG

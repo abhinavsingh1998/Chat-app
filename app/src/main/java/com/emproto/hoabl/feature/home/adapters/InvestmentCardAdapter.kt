@@ -55,8 +55,9 @@ class InvestmentCardAdapter(
                 .into(holder.binding.ivItemImage)
 
             when(item.fomoContent.isTargetTimeActive){
-                false -> holder.binding.tvDuration.visibility = View.GONE
-                true -> holder.binding.tvDuration.visibility = View.VISIBLE
+                false -> holder.binding.timerView.visibility = View.GONE
+
+                true -> holder.binding.timerView.visibility = View.VISIBLE
             }
 
             val timeCounter = object : CountDownTimer(Utility.conversionForTimer(item.fomoContent.targetTime.hours.toString(),item.fomoContent.targetTime.minutes.toString(),
