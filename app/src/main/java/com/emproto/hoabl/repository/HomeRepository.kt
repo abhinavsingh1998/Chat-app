@@ -702,12 +702,12 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         return mNotificationResponse
     }
 
-    fun setReadStatus(ids: UnReadNotifications): LiveData<BaseResponse<ReadNotificationReponse>> {
+    fun setReadStatus(id: Int): LiveData<BaseResponse<ReadNotificationReponse>> {
         val mNotificationResponse = MutableLiveData<BaseResponse<ReadNotificationReponse>>()
         mNotificationResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val request = HomeDataSource(application).setReadStatus(ids)
+                val request = HomeDataSource(application).setReadStatus(id)
                 if (request.isSuccessful) {
                     if (request.body() != null && request.body() is ReadNotificationReponse) {
                         mNotificationResponse.postValue(BaseResponse.success(request.body()!!))

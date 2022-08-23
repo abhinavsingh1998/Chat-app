@@ -131,7 +131,7 @@ public class HomeDataSource(val application: Application) : BaseDataSource(appli
         return apiService.getNewNotificationList(size, index)
     }
 
-    suspend fun setReadStatus(ids:UnReadNotifications):Response<ReadNotificationReponse>{
-        return apiService.setReadStatus(ids)
+    suspend fun setReadStatus(id:Int):Response<ReadNotificationReponse>{
+        return apiService.setReadStatus(id)
     }
 }
