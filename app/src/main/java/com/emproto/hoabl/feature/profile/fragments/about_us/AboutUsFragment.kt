@@ -92,36 +92,24 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
     }
 
     private fun initClickListener() {
-        binding.backAction.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                requireActivity().supportFragmentManager.popBackStack()
-            }
-        })
+        binding.backAction.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
 
-        binding.invest.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(v: View?) {
-                (requireActivity() as HomeActivity).navigate(R.id.navigation_investment)
-            }
+        binding.invest.setOnClickListener { (requireActivity() as HomeActivity).navigate(R.id.navigation_investment) }
 
-        })
-
-        binding.tvQuery.setOnClickListener(object :View.OnClickListener{
-            override fun onClick(v: View?) {
-                val bundle = Bundle()
-                val chatsFragment = ChatsFragment()
-                chatsFragment.arguments = bundle
-                (requireActivity() as HomeActivity).replaceFragment(
-                    chatsFragment.javaClass,
-                    "",
-                    true,
-                    bundle,
-                    null,
-                    0,
-                    true
-                )
-            }
-
-        })
+        binding.tvQuery.setOnClickListener {
+            val bundle = Bundle()
+            val chatsFragment = ChatsFragment()
+            chatsFragment.arguments = bundle
+            (requireActivity() as HomeActivity).replaceFragment(
+                chatsFragment.javaClass,
+                "",
+                true,
+                bundle,
+                null,
+                0,
+                true
+            )
+        }
     }
 
     override fun graphItemClicked(position: Int, itemView: View, line: View) {
@@ -135,335 +123,390 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
 
     private fun initObserver(refresh:Boolean){
 
-        profileViewModel.getAboutHoabl(5005).observe(viewLifecycleOwner, object :Observer<BaseResponse<ProflieResponse>>{
-            override fun onChanged(it: BaseResponse<ProflieResponse>?) {
-                when (it?.status){
+        profileViewModel.getAboutHoabl(5005).observe(viewLifecycleOwner
+        ) { it ->
+            when (it?.status) {
 
-                    Status.LOADING ->{
-                        binding.rootView.isVisible= false
-                        binding.loader.show()
+                Status.LOADING -> {
+                    binding.rootView.isVisible = false
+                    binding.loader.show()
+                }
+
+                Status.SUCCESS -> {
+                    binding.rootView.isVisible = true
+                    binding.loader.hide()
+                    val commonData = it.data?.data?.page?.aboutUs
+
+                    var url = commonData?.foundersVision?.media?.value?.url
+
+                    Glide.with(requireContext()).load(url)
+                        .into(binding.aboutusView)
+
+                    binding.nameTv.text = commonData?.foundersVision?.founderName
+                    binding.tvHeading.text = commonData?.foundersVision?.sectionHeading
+                    binding.fullDescriptionTv.text =
+                        showHTMLText(commonData?.foundersVision?.description)
+
+                    binding.tvAboutHoabel.text = commonData?.aboutHoabl?.sectionHeading
+                    binding.ttvAboutHoabel.text = showHTMLText(commonData?.aboutHoabl?.description)
+                    binding.corporatePhillosophy.text =
+                        commonData?.corporatePhilosophy?.sectionHeading
+                    binding.statsHeaderTxt.text = commonData?.statsOverview?.sectionHeading
+
+                    if (commonData?.isAboutHoablActive == false) {
+                        binding.ttvAboutHoabel.isVisible = false
+                        binding.tvAboutHoabel.isVisible = false
                     }
-
-                    Status.SUCCESS ->{
-                        binding.rootView.isVisible= true
-                        binding.loader.hide()
-                        val commonData= it.data?.data?.page?.aboutUs
-
-                     var url= commonData?.foundersVision?.media?.value?.url
-
-                        Glide.with(requireContext()).load(url)
-                            .into(binding.aboutusView)
-
-                        binding.nameTv.text= commonData?.foundersVision?.founderName
-                        binding.tvHeading.text= commonData?.foundersVision?.sectionHeading
-                        binding.fullDescriptionTv.text= showHTMLText(commonData?.foundersVision?.description)
-
-                        binding.tvAboutHoabel.text=commonData?.aboutHoabl?.sectionHeading
-                        binding.ttvAboutHoabel.text= showHTMLText(commonData?.aboutHoabl?.description)
-                        binding.corporatePhillosophy.text= commonData?.corporatePhilosophy?.sectionHeading
-                        binding.statsHeaderTxt.text= commonData?.statsOverview?.sectionHeading
-
-                        if (commonData?.isAboutHoablActive==false){
-                            binding.ttvAboutHoabel.isVisible=false
-                            binding.tvAboutHoabel.isVisible= false
-                        }
-                        if(commonData?.isFoundersVisionActive==false){
-                            binding.tvHeading.isVisible= false
-                            binding.aboutusView.isVisible= false
-                            binding.nameTv.isVisible= false
-                            binding.fullDescriptionTv.isVisible=false
-                        }
-                        if (commonData?.isCorporatePhilosophyActive==false){
-                            binding.corporatePhillosophy.isVisible= false
-                            binding.aboutUsRv.isVisible= false
-                        }
-                        if(commonData?.isProductCategoryActive==false){
-                            binding.tvProductCategory.isVisible= false
-                            binding.productcategoryRv.isVisible= false
-                        }
-                        if(commonData?.isStatsOverviewActive==false){
-                            binding.statsHeaderTxt.isVisible=false
-                            binding.statsItem.isVisible= false
-                        }
-                        //loading Philosphy list
-                        philosophyAdapter = CorporatePhilosphyAdapter(
-                            requireActivity(),
-                            commonData?.corporatePhilosophy!!.detailedInformation,
-                        )
-
-
-                        linearLayoutManager = LinearLayoutManager(
-                            requireContext(),
-                            RecyclerView.HORIZONTAL,
-                            false
-                        )
-                        binding.aboutUsRv.layoutManager = linearLayoutManager
-                        binding.aboutUsRv.adapter = philosophyAdapter
-
-                        //loading product list
-                        productAdapter= ProductAdapter(requireActivity(),
-                        commonData?.productCategory!!.detailedInformation)
-
-                        linearLayoutManager = LinearLayoutManager(
-                            requireContext(),
-                            RecyclerView.VERTICAL,
-                            false
-                        )
-                        binding.productcategoryRv.layoutManager = linearLayoutManager
-                        binding.productcategoryRv.adapter = productAdapter
-
-
-                        //loading Stats list
-
-                        statsOverViewAdapter= StatsOverViewAboutUsAdapter(requireActivity(),
-                            commonData?.statsOverview?.detailedInformation)
-
-                        gridLayoutManager = GridLayoutManager(requireContext(), 2)
-                        binding.statsItem.layoutManager =  gridLayoutManager
-                        binding.statsItem.adapter = statsOverViewAdapter
-                        binding.statsItem.setItemViewCacheSize(10)
-                        binding.statsItem.setHasFixedSize(true)
+                    if (commonData?.isFoundersVisionActive == false) {
+                        binding.tvHeading.isVisible = false
+                        binding.aboutusView.isVisible = false
+                        binding.nameTv.isVisible = false
+                        binding.fullDescriptionTv.isVisible = false
                     }
+                    if (commonData?.isCorporatePhilosophyActive == false) {
+                        binding.corporatePhillosophy.isVisible = false
+                        binding.aboutUsRv.isVisible = false
+                    }
+                    if (commonData?.isProductCategoryActive == false) {
+                        binding.tvProductCategory.isVisible = false
+                        binding.productcategoryRv.isVisible = false
+                    }
+                    if (commonData?.isStatsOverviewActive == false) {
+                        binding.statsHeaderTxt.isVisible = false
+                        binding.statsItem.isVisible = false
+                    }
+                    //loading Philosphy list
+                    philosophyAdapter = CorporatePhilosphyAdapter(
+                        requireActivity(),
+                        commonData?.corporatePhilosophy!!.detailedInformation,
+                    )
+
+
+                    linearLayoutManager = LinearLayoutManager(
+                        requireContext(),
+                        RecyclerView.HORIZONTAL,
+                        false
+                    )
+                    binding.aboutUsRv.layoutManager = linearLayoutManager
+                    binding.aboutUsRv.adapter = philosophyAdapter
+
+                    //loading product list
+                    productAdapter = ProductAdapter(
+                        requireActivity(),
+                        commonData?.productCategory!!.detailedInformation
+                    )
+
+                    linearLayoutManager = LinearLayoutManager(
+                        requireContext(),
+                        RecyclerView.VERTICAL,
+                        false
+                    )
+                    binding.productcategoryRv.layoutManager = linearLayoutManager
+                    binding.productcategoryRv.adapter = productAdapter
+
+
+                    //loading Stats list
+
+                    statsOverViewAdapter = StatsOverViewAboutUsAdapter(
+                        requireActivity(),
+                        commonData?.statsOverview?.detailedInformation
+                    )
+
+                    gridLayoutManager = GridLayoutManager(requireContext(), 2)
+                    binding.statsItem.layoutManager = gridLayoutManager
+                    binding.statsItem.adapter = statsOverViewAdapter
+                    binding.statsItem.setItemViewCacheSize(10)
+                    binding.statsItem.setHasFixedSize(true)
                 }
             }
+        }
 
-        })
+        profileViewModel.getAllProjects(refresh).observe(viewLifecycleOwner
+        ) { it ->
+            when (it?.status) {
+                Status.LOADING -> {
+                    binding.rootView.isVisible = false
+                    binding.loader.show()
 
-        profileViewModel.getAllProjects(refresh).observe(viewLifecycleOwner, object : Observer<BaseResponse<AllProjectsResponse>>{
-            override fun onChanged(it: BaseResponse<AllProjectsResponse>?) {
+                }
+                Status.SUCCESS -> {
+                    binding.rootView.isVisible = true
+                    binding.loader.hide()
+                    projectAdapter = AllProjectsAdapter(
+                        requireActivity(),
+                        it?.data?.data!!,
+                        object : AllProjectsAdapter.AllprojectsInterface {
+                            override fun onClickItem(position: Int) {
 
-                when(it?.status) {
-                    Status.LOADING ->{
-                        binding.rootView.isVisible= false
-                        binding.loader.show()
+                                var currentData = it?.data?.data!![position]
 
-                    }
-                    Status.SUCCESS ->{
-                        binding.rootView.isVisible= true
-                        binding.loader.hide()
-                        projectAdapter= AllProjectsAdapter(
-                            requireActivity(),
-                            it?.data?.data!!,
-                            object : AllProjectsAdapter.AllprojectsInterface{
-                                override fun onClickItem(position: Int) {
-
-                                    var currentData= it?.data?.data!![position]
-
-                                        binding.tvXAxisLabel.text = currentData.generalInfoEscalationGraph.yAxisDisplayName
-                                        binding.tvYAxisLabel.text = currentData.generalInfoEscalationGraph.xAxisDisplayName
-                                        val graphData = currentData.generalInfoEscalationGraph.dataPoints.points
-                                        val linevalues = ArrayList<Entry>()
-                                        when(currentData.generalInfoEscalationGraph.dataPoints.dataPointType){
-                                            Constants.YEARLY  -> {
-                                                graphType = Constants.YEARLY
-                                                for(item in graphData){
-                                                    linevalues.add(Entry(item.year.toFloat(),item.value.toFloat()))
-                                                }
-                                            }
-                                            Constants.HALF_YEARLY -> {
-                                                graphType = Constants.HALF_YEARLY
-                                                for(i in 0..currentData.generalInfoEscalationGraph.dataPoints.points.size-1){
-                                                    val fmString = currentData.generalInfoEscalationGraph.dataPoints.points[i].halfYear.toString().substring(0,3)
-                                                    val yearString = currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(2,4)
-                                                    val str = "$fmString-$yearString"
-                                                    xaxisList.add(str)
-                                                }
-                                                var index = 0
-                                                for(item in graphData){
-                                                    linevalues.add(Entry(index.toFloat(),item.value.toFloat()))
-                                                    index++
-                                                }
-                                            }
-                                           Constants.QUATERLY -> {
-                                                graphType = Constants.QUATERLY
-                                                for(i in 0..currentData.generalInfoEscalationGraph.dataPoints.points.size-1){
-                                                    val fmString = currentData.generalInfoEscalationGraph.dataPoints.points[i].quater.toString().substring(0,2)
-                                                    val yearString = currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(2,4)
-                                                    val str = "$fmString-$yearString"
-                                                    xaxisList.add(str)
-                                                }
-                                                var index = 0
-                                                for(item in graphData){
-                                                    linevalues.add(Entry(index.toFloat(),item.value.toFloat()))
-                                                    index++
-                                                }
-                                            }
-                                            Constants.MONTHLY -> {
-                                                graphType = Constants.MONTHLY
-                                                for(i in 0..currentData.generalInfoEscalationGraph.dataPoints.points.size-1){
-                                                    val fmString = currentData.generalInfoEscalationGraph.dataPoints.points[i].month.toString().substring(0,3)
-                                                    val yearString = currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(2,4)
-                                                    val str = "$fmString-$yearString"
-                                                    xaxisList.add(str)
-                                                }
-                                                var index = 0
-                                                for(item in graphData){
-                                                    linevalues.add(Entry(index.toFloat(),item.value.toFloat()))
-                                                    index++
-                                                }
-                                            }
+                                binding.tvXAxisLabel.text =
+                                    currentData.generalInfoEscalationGraph.yAxisDisplayName
+                                binding.tvYAxisLabel.text =
+                                    currentData.generalInfoEscalationGraph.xAxisDisplayName
+                                val graphData =
+                                    currentData.generalInfoEscalationGraph.dataPoints.points
+                                val linevalues = ArrayList<Entry>()
+                                when (currentData.generalInfoEscalationGraph.dataPoints.dataPointType) {
+                                    Constants.YEARLY -> {
+                                        graphType = Constants.YEARLY
+                                        for (item in graphData) {
+                                            linevalues.add(
+                                                Entry(
+                                                    item.year.toFloat(),
+                                                    item.value.toFloat()
+                                                )
+                                            )
                                         }
-
-                                        val linedataset = LineDataSet(linevalues, "")
-                                        //We add features to our chart
-                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                            linedataset.color = resources.getColor(R.color.green)
-                                        }
-
-                                        linedataset.valueTextSize = 12F
-                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                            linedataset.fillColor = resources.getColor(R.color.green)
-                                        }
-                                        linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
-                                        linedataset.setDrawCircles(false)
-                                        linedataset.setDrawValues(false)
-                                        val data = LineData(linedataset)
-
-                                        binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
-                                        binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
-                                        binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false);
-                                        binding.ivPriceTrendsGraph.setTouchEnabled(false)
-                                        binding.ivPriceTrendsGraph.setPinchZoom(false)
-                                        binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
-                                        //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
-                                        //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
-                                        binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false);
-                                        binding.ivPriceTrendsGraph.getXAxis().position = XAxis.XAxisPosition.BOTTOM;
-                                        //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
-                                        binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false);
-                                        binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false);
-                                        binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false);
-                                        binding.ivPriceTrendsGraph.xAxis.granularity = 1f
-                                        binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
-//
-                                        binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter = Xaxisformatter()
-                                        binding.ivPriceTrendsGraph.xAxis.valueFormatter = Xaxisformatter()
-                                        binding.ivPriceTrendsGraph.data = data
-                                        binding.ivPriceTrendsGraph.extraBottomOffset
-                                        binding.ivPriceTrendsGraph.animateXY(2000, 2000)
                                     }
-                            }
-                        )
+                                    Constants.HALF_YEARLY -> {
+                                        graphType = Constants.HALF_YEARLY
+                                        for (i in 0..currentData.generalInfoEscalationGraph.dataPoints.points.size - 1) {
+                                            val fmString =
+                                                currentData.generalInfoEscalationGraph.dataPoints.points[i].halfYear.toString()
+                                                    .substring(0, 3)
+                                            val yearString =
+                                                currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(
+                                                    2,
+                                                    4
+                                                )
+                                            val str = "$fmString-$yearString"
+                                            xaxisList.add(str)
+                                        }
+                                        var index = 0
+                                        for (item in graphData) {
+                                            linevalues.add(
+                                                Entry(
+                                                    index.toFloat(),
+                                                    item.value.toFloat()
+                                                )
+                                            )
+                                            index++
+                                        }
+                                    }
+                                    Constants.QUATERLY -> {
+                                        graphType = Constants.QUATERLY
+                                        for (i in 0..currentData.generalInfoEscalationGraph.dataPoints.points.size - 1) {
+                                            val fmString =
+                                                currentData.generalInfoEscalationGraph.dataPoints.points[i].quater.toString()
+                                                    .substring(0, 2)
+                                            val yearString =
+                                                currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(
+                                                    2,
+                                                    4
+                                                )
+                                            val str = "$fmString-$yearString"
+                                            xaxisList.add(str)
+                                        }
+                                        var index = 0
+                                        for (item in graphData) {
+                                            linevalues.add(
+                                                Entry(
+                                                    index.toFloat(),
+                                                    item.value.toFloat()
+                                                )
+                                            )
+                                            index++
+                                        }
+                                    }
+                                    Constants.MONTHLY -> {
+                                        graphType = Constants.MONTHLY
+                                        for (i in 0..currentData.generalInfoEscalationGraph.dataPoints.points.size - 1) {
+                                            val fmString =
+                                                currentData.generalInfoEscalationGraph.dataPoints.points[i].month.toString()
+                                                    .substring(0, 3)
+                                            val yearString =
+                                                currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(
+                                                    2,
+                                                    4
+                                                )
+                                            val str = "$fmString-$yearString"
+                                            xaxisList.add(str)
+                                        }
+                                        var index = 0
+                                        for (item in graphData) {
+                                            linevalues.add(
+                                                Entry(
+                                                    index.toFloat(),
+                                                    item.value.toFloat()
+                                                )
+                                            )
+                                            index++
+                                        }
+                                    }
+                                }
 
-                        var currentData= it?.data?.data!![defaultPosition]
+                                val linedataset = LineDataSet(linevalues, "")
+                                //We add features to our chart
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                    linedataset.color = resources.getColor(R.color.green)
+                                }
 
-                        binding.tvXAxisLabel.text = currentData.generalInfoEscalationGraph.yAxisDisplayName
-                        binding.tvYAxisLabel.text = currentData.generalInfoEscalationGraph.xAxisDisplayName
-                        val graphData = currentData.generalInfoEscalationGraph.dataPoints.points
-                        val linevalues = ArrayList<Entry>()
-                        when(currentData.generalInfoEscalationGraph.dataPoints.dataPointType){
-                            Constants.YEARLY  -> {
-                                graphType = Constants.YEARLY
-                                for(item in graphData){
-                                    linevalues.add(Entry(item.year.toFloat(),item.value.toFloat()))
+                                linedataset.valueTextSize = 12F
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                    linedataset.fillColor = resources.getColor(R.color.green)
                                 }
-                            }
-                            Constants.HALF_YEARLY -> {
-                                graphType = Constants.HALF_YEARLY
-                                for(i in 0..currentData.generalInfoEscalationGraph.dataPoints.points.size-1){
-                                    val fmString = currentData.generalInfoEscalationGraph.dataPoints.points[i].halfYear.toString().substring(0,3)
-                                    val yearString = currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(2,4)
-                                    val str = "$fmString-$yearString"
-                                    xaxisList.add(str)
-                                }
-                                var index = 0
-                                for(item in graphData){
-                                    linevalues.add(Entry(index.toFloat(),item.value.toFloat()))
-                                    index++
-                                }
-                            }
-                            Constants.QUATERLY -> {
-                                graphType = Constants.QUATERLY
-                                for(i in 0..currentData.generalInfoEscalationGraph.dataPoints.points.size-1){
-                                    val fmString = currentData.generalInfoEscalationGraph.dataPoints.points[i].quater.toString().substring(0,2)
-                                    val yearString = currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(2,4)
-                                    val str = "$fmString-$yearString"
-                                    xaxisList.add(str)
-                                }
-                                var index = 0
-                                for(item in graphData){
-                                    linevalues.add(Entry(index.toFloat(),item.value.toFloat()))
-                                    index++
-                                }
-                            }
-                          Constants.MONTHLY-> {
-                                graphType = Constants.MONTHLY
-                                for(i in 0..currentData.generalInfoEscalationGraph.dataPoints.points.size-1){
-                                    val fmString = currentData.generalInfoEscalationGraph.dataPoints.points[i].month.toString().substring(0,3)
-                                    val yearString = currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(2,4)
-                                    val str = "$fmString-$yearString"
-                                    xaxisList.add(str)
-                                }
-                                var index = 0
-                                for(item in graphData){
-                                    linevalues.add(Entry(index.toFloat(),item.value.toFloat()))
-                                    index++
-                                }
+                                linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
+                                linedataset.setDrawCircles(false)
+                                linedataset.setDrawValues(false)
+                                val data = LineData(linedataset)
+
+                                binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
+                                binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
+                                binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false);
+                                binding.ivPriceTrendsGraph.setTouchEnabled(false)
+                                binding.ivPriceTrendsGraph.setPinchZoom(false)
+                                binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
+                                //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
+                                //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
+                                binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false);
+                                binding.ivPriceTrendsGraph.getXAxis().position =
+                                    XAxis.XAxisPosition.BOTTOM;
+                                //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
+                                binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false);
+                                binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false);
+                                binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false);
+                                binding.ivPriceTrendsGraph.xAxis.granularity = 1f
+                                binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
+                                //
+                                binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter =
+                                    Xaxisformatter()
+                                binding.ivPriceTrendsGraph.xAxis.valueFormatter = Xaxisformatter()
+                                binding.ivPriceTrendsGraph.data = data
+                                binding.ivPriceTrendsGraph.extraBottomOffset
+                                binding.ivPriceTrendsGraph.animateXY(2000, 2000)
                             }
                         }
+                    )
 
-                        val linedataset = LineDataSet(linevalues, "")
-                        //We add features to our chart
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            linedataset.color = resources.getColor(R.color.green)
+                    var currentData = it?.data?.data!![defaultPosition]
+
+                    binding.tvXAxisLabel.text =
+                        currentData.generalInfoEscalationGraph.yAxisDisplayName
+                    binding.tvYAxisLabel.text =
+                        currentData.generalInfoEscalationGraph.xAxisDisplayName
+                    val graphData = currentData.generalInfoEscalationGraph.dataPoints.points
+                    val linevalues = ArrayList<Entry>()
+                    when (currentData.generalInfoEscalationGraph.dataPoints.dataPointType) {
+                        Constants.YEARLY -> {
+                            graphType = Constants.YEARLY
+                            for (item in graphData) {
+                                linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
+                            }
                         }
-
-                        linedataset.valueTextSize = 12F
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            linedataset.fillColor = resources.getColor(R.color.green)
+                        Constants.HALF_YEARLY -> {
+                            graphType = Constants.HALF_YEARLY
+                            for (i in 0 until currentData.generalInfoEscalationGraph.dataPoints.points.size) {
+                                val fmString =
+                                    currentData.generalInfoEscalationGraph.dataPoints.points[i].halfYear.toString()
+                                        .substring(0, 3)
+                                val yearString =
+                                    currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(
+                                        2,
+                                        4
+                                    )
+                                val str = "$fmString-$yearString"
+                                xaxisList.add(str)
+                            }
+                            for ((index, item) in graphData.withIndex()) {
+                                linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
+                            }
                         }
-                        linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
-                        linedataset.setDrawCircles(false)
-                        linedataset.setDrawValues(false)
-                        val data = LineData(linedataset)
-
-                        binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
-                        binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
-                        binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false);
-                        binding.ivPriceTrendsGraph.setTouchEnabled(false)
-                        binding.ivPriceTrendsGraph.setPinchZoom(false)
-                        binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
-                        //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
-                        //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
-                        binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false);
-                        binding.ivPriceTrendsGraph.getXAxis().position = XAxis.XAxisPosition.BOTTOM;
-                        //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
-                        binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false);
-                        binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false);
-                        binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false);
-                        binding.ivPriceTrendsGraph.xAxis.granularity = 1f
-                        binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
-//
-                        binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter = Xaxisformatter()
-                        binding.ivPriceTrendsGraph.xAxis.valueFormatter = Xaxisformatter()
-                        binding.ivPriceTrendsGraph.data = data
-                        binding.ivPriceTrendsGraph.extraBottomOffset
-                        binding.ivPriceTrendsGraph.animateXY(2000, 2000)
-
-                        linearLayoutManager = LinearLayoutManager(
-                            requireContext(),
-                            RecyclerView.HORIZONTAL,
-                            false
-                        )
-                        binding.recyclerViewGraphOptions.layoutManager = linearLayoutManager
-                        binding.recyclerViewGraphOptions.adapter = projectAdapter
+                        Constants.QUATERLY -> {
+                            graphType = Constants.QUATERLY
+                            for (i in 0 until currentData.generalInfoEscalationGraph.dataPoints.points.size) {
+                                val fmString =
+                                    currentData.generalInfoEscalationGraph.dataPoints.points[i].quater.toString()
+                                        .substring(0, 2)
+                                val yearString =
+                                    currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(
+                                        2,
+                                        4
+                                    )
+                                val str = "$fmString-$yearString"
+                                xaxisList.add(str)
+                            }
+                            var index = 0
+                            for (item in graphData) {
+                                linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
+                                index++
+                            }
+                        }
+                        Constants.MONTHLY -> {
+                            graphType = Constants.MONTHLY
+                            for (i in 0 until currentData.generalInfoEscalationGraph.dataPoints.points.size) {
+                                val fmString =
+                                    currentData.generalInfoEscalationGraph.dataPoints.points[i].month.toString()
+                                        .substring(0, 3)
+                                val yearString =
+                                    currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(
+                                        2,
+                                        4
+                                    )
+                                val str = "$fmString-$yearString"
+                                xaxisList.add(str)
+                            }
+                            var index = 0
+                            for (item in graphData) {
+                                linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
+                                index++
+                            }
+                        }
                     }
-                    Status.ERROR ->{
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+
+                    val linedataset = LineDataSet(linevalues, "")
+                    //We add features to our chart
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        linedataset.color = resources.getColor(R.color.green)
                     }
+
+                    linedataset.valueTextSize = 12F
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        linedataset.fillColor = resources.getColor(R.color.green)
+                    }
+                    linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
+                    linedataset.setDrawCircles(false)
+                    linedataset.setDrawValues(false)
+                    val data = LineData(linedataset)
+
+                    binding.ivPriceTrendsGraph.description.isEnabled = false;
+                    binding.ivPriceTrendsGraph.legend.isEnabled = false;
+                    binding.ivPriceTrendsGraph.axisLeft.setDrawGridLines(false);
+                    binding.ivPriceTrendsGraph.setTouchEnabled(false)
+                    binding.ivPriceTrendsGraph.setPinchZoom(false)
+                    binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
+                    //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
+                    //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
+                    binding.ivPriceTrendsGraph.xAxis.setDrawGridLines(false);
+                    binding.ivPriceTrendsGraph.xAxis.position = XAxis.XAxisPosition.BOTTOM;
+                    //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
+                    binding.ivPriceTrendsGraph.axisRight.setDrawGridLines(false);
+                    binding.ivPriceTrendsGraph.axisRight.setDrawLabels(false);
+                    binding.ivPriceTrendsGraph.axisRight.setDrawAxisLine(false);
+                    binding.ivPriceTrendsGraph.xAxis.granularity = 1f
+                    binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
+                    //
+                    binding.ivPriceTrendsGraph.axisLeft.valueFormatter = Xaxisformatter()
+                    binding.ivPriceTrendsGraph.xAxis.valueFormatter = Xaxisformatter()
+                    binding.ivPriceTrendsGraph.data = data
+                    binding.ivPriceTrendsGraph.extraBottomOffset
+                    binding.ivPriceTrendsGraph.animateXY(2000, 2000)
+
+                    linearLayoutManager = LinearLayoutManager(
+                        requireContext(),
+                        RecyclerView.HORIZONTAL,
+                        false
+                    )
+                    binding.recyclerViewGraphOptions.layoutManager = linearLayoutManager
+                    binding.recyclerViewGraphOptions.adapter = projectAdapter
+                }
+                Status.ERROR -> {
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
                 }
             }
-
-        })
+        }
 
     }
-
-//    inner class Yaxisformatter : IAxisValueFormatter{
-//        override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
-//            val str = String.format("%.0f", p0.toDouble())
-//            return "$str%"
-//        }
-//    }
 
     inner class Xaxisformatter : IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
