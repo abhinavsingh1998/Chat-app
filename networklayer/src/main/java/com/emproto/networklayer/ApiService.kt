@@ -158,6 +158,10 @@ public interface ApiService {
     @GET(ApiConstants.PROJECT_TIMELINE)
     suspend fun getProjectTimeline(@Path("id") id: Int): Response<ProjectTimelineResponse>
 
+    @GET(ApiConstants.PROJECT_TIMELINE_MEDIA)
+    suspend fun getProjectTimelineMedia(@Path("category") category: String,
+                                        @Query("projectContentId") projectContentId: String): Response<ProjectTimelineResponse>
+
     @GET(ApiConstants.FACILITY_MANAGMENT)
     suspend fun getFacilityManagment(
         @Query("plotNumber") plotNumber: String?,

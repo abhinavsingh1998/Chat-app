@@ -149,6 +149,9 @@ class TimelineAdapter(
                         listHolder.binding.imageView
                     )
                 }
+                if(listData.timeLines[0].isSectionActive){
+
+                }
 
             }
             TYPE_LIST -> {
@@ -170,14 +173,20 @@ class TimelineAdapter(
                 for (item in listData.timeLines) {
                     when (item.values.percentage) {
                         0.0 -> {
-                            stepsList.add(StepsModel(StepsAdapter.TYPE_INSTART, item))
+                            if(item.isSectionActive){
+                                stepsList.add(StepsModel(StepsAdapter.TYPE_INSTART, item))
+                            }
                         }
                         in 1.0..99.99 -> {
                             isOneProgress = true
-                            stepsList.add(StepsModel(StepsAdapter.TYPE_INPROGRESS, item))
+                            if(item.isSectionActive){
+                                stepsList.add(StepsModel(StepsAdapter.TYPE_INPROGRESS, item))
+                            }
                         }
                         else -> {
-                            stepsList.add(StepsModel(StepsAdapter.TYPE_COMPLETED, item))
+                            if(item.isSectionActive){
+                                stepsList.add(StepsModel(StepsAdapter.TYPE_COMPLETED, item))
+                            }
                         }
                     }
                 }

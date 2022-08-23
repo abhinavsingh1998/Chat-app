@@ -103,6 +103,10 @@ class PortfolioViewModel(
         return portfolioRepository.getProjectTimeline(id)
     }
 
+    fun getProjectTimelineMedia(category: String,projectContentId:String): LiveData<BaseResponse<ProjectTimelineResponse>> {
+        return portfolioRepository.getProjectTimelineMedia(category, projectContentId)
+    }
+
     fun getFacilityManagment(plotId: String?=null, crmId: String?=null): LiveData<BaseResponse<FMResponse>> {
         return portfolioRepository.getFacilitymanagment(plotId, crmId)
     }

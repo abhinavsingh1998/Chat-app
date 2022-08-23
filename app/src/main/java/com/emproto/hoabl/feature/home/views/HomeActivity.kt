@@ -263,8 +263,10 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             }
             ScreenFM -> {
                 val fmFragment = FmFragment()
+                val mbundle = Bundle()
+                mbundle.putString("param1",appPreference.getFmUrl())
                 fmFragment.arguments = bundle
-                replaceFragment(fmFragment.javaClass, "", true, bundle, null, 0, true)
+                replaceFragment(fmFragment.javaClass, "", true, mbundle, null, 0, true)
 
             }
 //            ScreenNotification -> {

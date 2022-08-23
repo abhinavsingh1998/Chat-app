@@ -69,7 +69,7 @@ class FmFragment : BaseFragment() {
         binding.webView.getSettings().setDomStorageEnabled(true);
         binding.webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         binding.webView.addJavascriptInterface(JSBridge(),"JSBridge")
-        binding.webView.loadUrl(appPreference.getFmUrl())
+        binding.webView.loadUrl(param1.toString())
 
         binding.webView.setDownloadListener(object:DownloadListener{
             override fun onDownloadStart(

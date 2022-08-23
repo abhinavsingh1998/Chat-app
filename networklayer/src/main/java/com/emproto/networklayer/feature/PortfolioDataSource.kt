@@ -65,6 +65,11 @@ class PortfolioDataSource(val application: Application) : BaseDataSource(applica
         return apiService.getProjectTimeline(id)
     }
 
+    //get project timeline media
+    suspend fun getProjectTimelineMedia(category: String,projectContentId:String): Response<ProjectTimelineResponse> {
+        return apiService.getProjectTimelineMedia(category,projectContentId)
+    }
+
     //get facility managment
     suspend fun getFacilityManagment(plotId: String?, crmId: String?): Response<FMResponse> {
         return apiService.getFacilityManagment(plotId, crmId)

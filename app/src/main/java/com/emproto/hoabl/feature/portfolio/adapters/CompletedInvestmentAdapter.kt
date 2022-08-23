@@ -400,11 +400,11 @@ class CompletedInvestmentAdapter(
     inner class Xaxisformatter : IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
             return when (graphType) {
-                Constants.QUATERLY -> returnFormattedValue(p0)
-                Constants.MONTHLY -> returnFormattedValue(p0)
-                Constants.HALF_YEARLY -> returnFormattedValue(p0)
+                Constants.QUATERLY -> returnFormattedValue(Math.abs(p0))
+                Constants.MONTHLY -> returnFormattedValue(Math.abs(p0))
+                Constants.HALF_YEARLY -> returnFormattedValue(Math.abs(p0))
                 else -> {
-                    String.format("%.0f", p0.toDouble())
+                    String.format("%.0f", Math.abs(p0).toDouble())
                 }
             }
         }
