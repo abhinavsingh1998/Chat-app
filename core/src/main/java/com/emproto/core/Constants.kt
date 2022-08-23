@@ -129,4 +129,11 @@ object Constants {
     val PLEASE_ENTER_VALID_EMAIL="Please enter valid email"
     val YOU_HAVE_REACHED_THE_MAX_CHARACTERS_LIMIT="You have reached the max characters limit"
     val PICTURE_ALREADY_REMOVED="Picture already removed"
+
+    val TAKE_PHOTO="Take Photo"
+    val CHOOSE_FROM_GALLERY="Choose from Gallery"
+    val CANCEL="Cancel"
+    val ADD_PHOTO="Add Photo!"
+    val NOTHING_SELECTED="Nothing Selected"
+    val IMAGE="image"
 }

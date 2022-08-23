@@ -548,12 +548,12 @@ class AccountDetailsFragment : Fragment(),
 
     private fun selectImage() {
         val options =
-            arrayOf<CharSequence>("Take Photo", "Choose from Gallery", "Cancel")
+            arrayOf<CharSequence>(Constants.TAKE_PHOTO, Constants.CHOOSE_FROM_GALLERY, Constants.CANCEL)
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireActivity())
-        builder.setTitle("Add Photo!")
+        builder.setTitle(Constants.ADD_PHOTO)
         builder.setItems(options) { dialog, item ->
             when {
-                options[item] == "Take Photo" -> {
+                options[item] == Constants.TAKE_PHOTO -> {
                     val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                     intent.putExtra(
                         MediaStore.EXTRA_OUTPUT,
@@ -564,7 +564,7 @@ class AccountDetailsFragment : Fragment(),
                     cameraLauncher.launch(intent)
 
                 }
-                options[item] == "Choose from Gallery" -> {
+                options[item] ==Constants.CHOOSE_FROM_GALLERY -> {
                     val intent =
                         Intent(
                             Intent.ACTION_PICK,
@@ -572,7 +572,7 @@ class AccountDetailsFragment : Fragment(),
                         )
                     resultLauncher.launch(intent)
                 }
-                options[item] == "Cancel" -> {
+                options[item] ==Constants.CANCEL -> {
                     dialog.dismiss()
                 }
             }
@@ -761,7 +761,7 @@ class AccountDetailsFragment : Fragment(),
                 onSelectFromGalleryResult(data!!)
             } else {
                 (requireActivity() as BaseActivity).showError(
-                    "Nothing Selected",
+                    Constants.NOTHING_SELECTED,
                     binding.root
                 )
             }
@@ -796,7 +796,7 @@ class AccountDetailsFragment : Fragment(),
                 val split = docId.split(":".toRegex()).toTypedArray()
                 val type = split[0]
                 var contentUri: Uri? = null
-                if ("image" == type) {
+                if (Constants.IMAGE == type) {
                     contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
                 } else if ("video" == type) {
                     contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
