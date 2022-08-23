@@ -546,16 +546,16 @@ class EditProfileFragment : BaseFragment() {
         removePictureDialog()
         binding.saveAndUpdate.setOnClickListener {
             if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-                if (type == "CAMERA_CLICK")
+                if (type == Constants.CAMERA_CLICK)
                     callingUploadPicApi(destinationFile!!)
-                else if (type == "GALLERY_CLICK") {
+                else if (type == Constants.GALLERY_CLICK) {
                     callingUploadPicApi(destinationFile)
                 } else {
 
                 }
             } else {
                 (requireActivity() as BaseActivity).showError(
-                    "Please check Internet Connections to upload image",
+                    Constants.PLEASE_CHECK_INTERNET_CONNECTIONS_TO_UPLOAD_IMAGE,
                     binding.root
                 )
             }
@@ -568,13 +568,13 @@ class EditProfileFragment : BaseFragment() {
                 binding.tvEmail.isErrorEnabled = false
             } else if (email.isNotEmpty()) {
                 binding.tvEmail.isErrorEnabled = true
-                binding.tvEmail.error = "Please enter valid email"
+                binding.tvEmail.error = Constants.PLEASE_ENTER_VALID_EMAIL
             }
 
             houseNo = binding.houseNo.text.toString()
             if (houseNo.isNotEmpty()) {
                 if (houseNo.length == 150) {
-                    binding.floorHouseNum.error = "You have reached the max characters limit"
+                    binding.floorHouseNum.error = Constants.YOU_HAVE_REACHED_THE_MAX_CHARACTERS_LIMIT
                 } else {
                     houseNo = binding.houseNo.text.toString()
                 }
@@ -582,7 +582,7 @@ class EditProfileFragment : BaseFragment() {
             address = binding.completeAddress.text.toString()
             if (address.isNotEmpty()) {
                 if (address.length == 150) {
-                    binding.comAdd.error = "You have reached the max characters limit"
+                    binding.comAdd.error = Constants.YOU_HAVE_REACHED_THE_MAX_CHARACTERS_LIMIT
                 } else {
                     address = binding.completeAddress.text.toString()
                 }
@@ -591,7 +591,7 @@ class EditProfileFragment : BaseFragment() {
 
             if (locality.isNotEmpty()) {
                 if (locality.length == 150) {
-                    binding.tvLocality.error = "You have reached the max characters limit"
+                    binding.tvLocality.error =  Constants.YOU_HAVE_REACHED_THE_MAX_CHARACTERS_LIMIT
                 } else {
                     locality = binding.locality.text.toString()
                 }
@@ -602,11 +602,6 @@ class EditProfileFragment : BaseFragment() {
                 pinCode = binding.pincodeEditText.text.toString()
 
             }
-//            else{
-//                pinCode = binding.pincodeEditText.text.toString()
-//            }
-
-
             countrySelected = binding.autoCountry.text.toString()
             if (countrySelected.isNotEmpty()) {
                 binding.spinnerCountry.isErrorEnabled = false
@@ -626,7 +621,7 @@ class EditProfileFragment : BaseFragment() {
             }
 
             if (email.isNotEmpty() && !email.isValidEmail()) {
-                binding.tvEmail.error = "Please enter valid email"
+                binding.tvEmail.error = Constants.PLEASE_ENTER_VALID_EMAIL
             } else {
                 sendProfileDetail(
                     dob,
@@ -687,7 +682,7 @@ class EditProfileFragment : BaseFragment() {
         }
         binding.tvremove.setOnClickListener {
             if (data.profilePictureUrl.isNullOrEmpty()) {
-                Toast.makeText(context, "Picture already removed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, Constants.PICTURE_ALREADY_REMOVED, Toast.LENGTH_SHORT).show()
             } else {
                 removePictureDialog.show()
             }
@@ -794,7 +789,7 @@ class EditProfileFragment : BaseFragment() {
         } catch (e: Exception) {
             e.message
         }
-        type = "CAMERA_CLICK"
+        type = Constants.CAMERA_CLICK
     }
 
 
@@ -810,7 +805,7 @@ class EditProfileFragment : BaseFragment() {
             try {
                 val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
                 destinationFile = File(filePath)
-                type = "GALLERY_CLICK"
+                type = Constants.GALLERY_CLICK
             } catch (e: Exception) {
                 Log.e("Error", "onSelectFromGalleryResult: " + e.localizedMessage)
             }

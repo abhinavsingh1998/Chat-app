@@ -122,4 +122,11 @@ object Constants {
     val HALF_YEARLY="Half Yearly"
     val MONTHLY="Monthly"
     val QUATERLY="Quaterly"
+
+    val CAMERA_CLICK="CAMERA_CLICK"
+    val GALLERY_CLICK="GALLERY_CLICK"
+    val PLEASE_CHECK_INTERNET_CONNECTIONS_TO_UPLOAD_IMAGE="Please check Internet Connections to upload image"
+    val PLEASE_ENTER_VALID_EMAIL="Please enter valid email"
+    val YOU_HAVE_REACHED_THE_MAX_CHARACTERS_LIMIT="You have reached the max characters limit"
+    val PICTURE_ALREADY_REMOVED="Picture already removed"
 }

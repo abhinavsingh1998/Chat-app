@@ -651,7 +651,7 @@ class AccountDetailsFragment : Fragment(),
             callingUploadPicApi(cameraFile!!, extension)
         } else {
             (requireActivity() as BaseActivity).showError(
-                "Please check Internet Connections to upload image",
+                Constants.PLEASE_CHECK_INTERNET_CONNECTIONS_TO_UPLOAD_IMAGE,
                 binding.root
 
             )
@@ -739,7 +739,7 @@ class AccountDetailsFragment : Fragment(),
 
                 } else {
                     (requireActivity() as BaseActivity).showError(
-                        "Please check Internet Connections to upload image",
+                        Constants.PLEASE_CHECK_INTERNET_CONNECTIONS_TO_UPLOAD_IMAGE,
                         binding.root
                     )
                 }
