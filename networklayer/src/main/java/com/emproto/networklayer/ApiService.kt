@@ -35,6 +35,7 @@ import com.emproto.networklayer.response.notification.readStatus.ReadNotificatio
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
+import com.emproto.networklayer.response.portfolio.prtimeline.MediaResponse
 import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineResponse
 import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.profile.AllProjectsResponse
@@ -157,6 +158,10 @@ public interface ApiService {
 
     @GET(ApiConstants.PROJECT_TIMELINE)
     suspend fun getProjectTimeline(@Path("id") id: Int): Response<ProjectTimelineResponse>
+
+    @GET(ApiConstants.PROJECT_TIMELINE_MEDIA)
+    suspend fun getProjectTimelineMedia(@Path("category") category: String,
+                                        @Query("projectContentId") projectContentId: String): Response<MediaResponse>
 
     @GET(ApiConstants.FACILITY_MANAGMENT)
     suspend fun getFacilityManagment(

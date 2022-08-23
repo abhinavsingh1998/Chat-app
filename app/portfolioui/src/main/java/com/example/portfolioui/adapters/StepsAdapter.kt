@@ -7,6 +7,7 @@ import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.Utility
 import com.example.portfolioui.R
@@ -81,9 +82,21 @@ class StepsAdapter(
                 val data = dataList[position].timeline
                 type1Holder.binding.tvName.text = data.values.displayName
 
+                type1Holder.binding.textView7.text = showHTMLText(
+                    String.format(
+                        context.getString(R.string.tv_receipt),
+                        "View Details"
+                    )
+                )
 
                 type1Holder.binding.imageView.setOnClickListener {
                     getToolTip(data.values.toolTipDetails).showAlignBottom(type1Holder.binding.imageView)
+                }
+
+                if(data.values.isCtaActive != null){
+                    if(!data.values.isCtaActive){
+                        type1Holder.binding.textView7.isVisible = false
+                    }
                 }
 
             }
@@ -102,10 +115,15 @@ class StepsAdapter(
                 }
                 type1Holder.binding.textView7.setOnClickListener {
                     itemInterface.onClickVDetails(
-                        data.values.medias.key,
-                        data.values.medias.value.url
+                        dataList[position].timeline.category,
+                        data.values.displayName
                     )
 
+                }
+                if(data.values.isCtaActive != null){
+                    if(!data.values.isCtaActive){
+                        type1Holder.binding.textView7.isVisible = false
+                    }
                 }
             }
             TYPE_INPROGRESS -> {
@@ -124,6 +142,11 @@ class StepsAdapter(
 
                 type1Holder.binding.imageView.setOnClickListener {
                     getToolTip(data.values.toolTipDetails).showAlignBottom(type1Holder.binding.imageView)
+                }
+                if(data.values.isCtaActive != null){
+                    if(!data.values.isCtaActive){
+                        type1Holder.binding.textView7.isVisible = false
+                    }
                 }
             }
         }

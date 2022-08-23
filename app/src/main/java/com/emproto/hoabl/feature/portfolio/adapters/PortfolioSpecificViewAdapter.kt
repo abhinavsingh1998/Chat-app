@@ -752,12 +752,21 @@ class PortfolioSpecificViewAdapter(
 
     inner class Xaxisformatter : IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
-            return when (graphType) {
-                Constants.QUATERLY -> returnFormattedValue(p0)
-                Constants.MONTHLY -> returnFormattedValue(p0)
-                Constants.HALF_YEARLY -> returnFormattedValue(p0)
+            var floatValue = 0.0f
+            when{
+                p0<0.0f -> {
+                    floatValue = 0.0f
+                }
                 else -> {
-                    String.format("%.0f", p0.toDouble())
+                    floatValue = p0
+                }
+            }
+            return when (graphType) {
+                Constants.QUATERLY -> returnFormattedValue(Math.abs(floatValue))
+               Constants.MONTHLY -> returnFormattedValue(Math.abs(floatValue))
+                Constants.HALF_YEARLY -> returnFormattedValue(Math.abs(floatValue))
+                else -> {
+                    String.format("%.0f", Math.abs(floatValue).toDouble())
                 }
             }
         }

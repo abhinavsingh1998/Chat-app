@@ -13,6 +13,7 @@ import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
+import com.emproto.networklayer.response.portfolio.prtimeline.MediaResponse
 import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
 import retrofit2.Response
@@ -63,6 +64,11 @@ class PortfolioDataSource(val application: Application) : BaseDataSource(applica
     //get project timeline
     suspend fun getProjectTimeline(id: Int): Response<ProjectTimelineResponse> {
         return apiService.getProjectTimeline(id)
+    }
+
+    //get project timeline media
+    suspend fun getProjectTimelineMedia(category: String,projectContentId:String): Response<MediaResponse> {
+        return apiService.getProjectTimelineMedia(category,projectContentId)
     }
 
     //get facility managment

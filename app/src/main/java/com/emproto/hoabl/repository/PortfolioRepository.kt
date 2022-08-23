@@ -15,6 +15,7 @@ import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
+import com.emproto.networklayer.response.portfolio.prtimeline.MediaResponse
 import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineResponse
 import com.emproto.networklayer.response.profile.ProfileResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
@@ -29,6 +30,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
     val mPromisesResponse = MutableLiveData<BaseResponse<PortfolioData>>()
     val mDocumentsResponse = MutableLiveData<BaseResponse<ProjectTimelineResponse>>()
     val investmentResponseList = ArrayList<InvestmentDetailsResponse>()
+    val projectTimeLineMediaResponse = MutableLiveData<ProjectTimelineResponse>()
 
 
     private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
@@ -238,6 +240,33 @@ class PortfolioRepository @Inject constructor(application: Application) :
             }
         }
         return mDocumentsResponse
+    }
+
+    fun getProjectTimelineMedia(category: String,projectContentId:String): LiveData<BaseResponse<MediaResponse>> {
+        val mTimelineMediaResponse = MutableLiveData<BaseResponse<MediaResponse>>()
+        mTimelineMediaResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = PortfolioDataSource(application).getProjectTimelineMedia(category,projectContentId)
+                if (request.isSuccessful) {
+                    if (request.body()!!.data != null)
+                        mTimelineMediaResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mTimelineMediaResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mTimelineMediaResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mTimelineMediaResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mTimelineMediaResponse
     }
 
     fun getFacilitymanagment(plotId: String?, crmId: String?): LiveData<BaseResponse<FMResponse>> {

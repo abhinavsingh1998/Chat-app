@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.portfolio.views
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -103,10 +104,7 @@ class ProjectTimelineFragment : BaseFragment() {
                                 object : TimelineAdapter.TimelineInterface {
                                     override fun onClickVDetails(name: String, url: String) {
                                         //open image viewer
-                                        (requireActivity() as HomeActivity).addFragment(
-                                            DocViewerFragment.newInstance(false, name, url),
-                                            true
-                                        )
+                                        getUrl(name,url)
                                     }
 
                                     override fun onClickReraDetails(url: String) {
@@ -203,5 +201,41 @@ class ProjectTimelineFragment : BaseFragment() {
                     }
                 }
             })
+    }
+
+
+    private fun getUrl(category: String, url: String) {
+        val categoryType = when(category){
+            "Project Design & Boundary" -> "4001"
+            "Infrastructure & Amenities Development" -> "4003"
+            "Plot Delivery" -> ""
+            else -> ""
+        }
+        portfolioviewmodel.getProjectTimelineMedia(
+            category = category, projectContentId = param1.toString()
+        ).observe(viewLifecycleOwner, Observer {
+            when(it.status){
+                Status.LOADING -> {
+                    mBinding.loader.show()
+                }
+                Status.SUCCESS -> {
+                    mBinding.loader.hide()
+                    it.data?.let {
+                        if(it.data.isNotEmpty()){
+                            (requireActivity() as HomeActivity).addFragment(
+                                DocViewerFragment.newInstance(false, it.data[0].name, it.data[0].mediaContent.value.url),
+                                true
+                            )
+                        }
+                    }
+                }
+                Status.ERROR -> {
+                    mBinding.loader.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(
+                        Constants.SOMETHING_WENT_WRONG
+                    )
+                }
+            }
+        })
     }
 }

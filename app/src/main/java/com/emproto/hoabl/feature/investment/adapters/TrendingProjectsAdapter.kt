@@ -46,7 +46,7 @@ class TrendingProjectsAdapter(
                     element.generalInfoEscalationGraph.estimatedAppreciation
                 )
             }%"
-            tvNoViews.text = Utility.coolFormat(element.fomoContent.noOfViews.toDouble(), 0)
+            tvNoViews.text = element.fomoContent.noOfViews.toString()
             tvItemArea.text = SpannableStringBuilder()
                 .bold { append("${element.areaStartingFrom} Sqft") }
                 .append(Constants.ONWARDS)
