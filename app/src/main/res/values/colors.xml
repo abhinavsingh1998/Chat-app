@@ -33,6 +33,7 @@
     <color name="progress_secondary">#8affffff</color>
     <color name="progress_max_active">@color/white</color>
     <color name="text_gold_color">#928336</color>
+    <color name="text_orange_color">#ccab00</color>
     <color name="gold_color">#957c00</color>
     <color name="light_gold_color">#ae9100</color>
     <color name="text_thick_brown_color">#706a4a</color>

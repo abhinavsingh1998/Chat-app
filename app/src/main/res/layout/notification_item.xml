@@ -34,6 +34,7 @@
                 android:layout_marginLeft="11dp"
                 android:layout_marginTop="7dp"
                 android:layout_marginRight="5dp"
+                android:visibility="gone"
                 android:background="@drawable/groupimage"
                 android:fontFamily="@font/jostregular"
                 android:text="@string/new_text"
@@ -45,7 +46,7 @@
                 style="@style/text_style_blue_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_size_6"
+                android:layout_marginStart="11dp"
                 android:layout_marginEnd="40dp"
                 android:layout_marginTop="@dimen/margin_size_7"
                 android:ellipsize="end"
@@ -59,7 +60,7 @@
 
             <TextView
                 android:id="@+id/tv_chat_time"
-                style="@style/text_style_light_grey_14"
+                style="@style/text_style_orange_color_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/jostmedium"

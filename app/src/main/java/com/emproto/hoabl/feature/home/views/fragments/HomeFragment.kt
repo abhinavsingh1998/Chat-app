@@ -173,6 +173,11 @@ class HomeFragment : BaseFragment() {
                                     )
                                 }
 
+                                if(appPreference.isFacilityCard()){
+                                    val item = (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.menu.getItem(3)
+                                    item.title = "Facility"
+                                }
+
                             }
                             Status.ERROR -> {
                                 binding.shimmerLayout.shimmerViewContainer.hide()

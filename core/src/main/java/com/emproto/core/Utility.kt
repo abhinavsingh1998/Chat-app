@@ -464,7 +464,7 @@ object Utility {
         val days = TimeUnit.MILLISECONDS.toDays(differenceTimeInMs)
 
         if (seconds < 60) {
-            return seconds.toString() + "s"
+            return "Just now"
         } else if (minutes < 60) {
             return minutes.toString() + "m"
         } else if (hours < 24) {

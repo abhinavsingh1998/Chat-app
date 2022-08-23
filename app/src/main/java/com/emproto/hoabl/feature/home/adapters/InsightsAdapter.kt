@@ -8,13 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.core.Utility
-import com.emproto.core.textviews.CustomTextView
-import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemInsightsBinding
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.home.Data
@@ -93,10 +89,6 @@ class InsightsAdapter(
 
     inner class MyViewHolder(val binding: ItemInsightsBinding) :
         RecyclerView.ViewHolder(binding.root)
-
-    interface InsightsItemInterface {
-        fun onClickItem(position: Int)
-    }
 
     public fun showHTMLText(message: String?): Spanned {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

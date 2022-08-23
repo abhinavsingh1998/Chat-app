@@ -7,13 +7,11 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AbsListView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.get
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -36,9 +34,9 @@ import com.emproto.hoabl.feature.home.views.fragments.LatestUpdatesFragment
 import com.emproto.hoabl.feature.home.views.fragments.SearchResultFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
 import com.emproto.hoabl.feature.login.AuthActivity
-import com.emproto.hoabl.feature.notification.HoabelNotifiaction
 import com.emproto.hoabl.feature.notification.adapter.NotificationAdapter
-import com.emproto.hoabl.feature.portfolio.views.*
+import com.emproto.hoabl.feature.portfolio.views.FmFragment
+import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
 import com.emproto.hoabl.feature.profile.fragments.about_us.AboutUsFragment
 import com.emproto.hoabl.feature.profile.fragments.profile.ProfileFragment
 import com.emproto.hoabl.feature.promises.HoablPromises
@@ -69,14 +67,12 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     val ScreenPromises = 3
     val ScreenProfile = 4
     val ScreenFM = 5
-    lateinit var hoabelNotifiaction: HoabelNotifiaction
     lateinit var fragmentNotificationBottomSheetBinding: FragmentNotificationBottomSheetBinding
     lateinit var bottomSheetDialog: BottomSheetDialog
     var CurrentScreen = -1
     private var contentFrame = 0
     private var mContext: Context? = null
     private var closeApp = false
-    private var toolbar: Toolbar? = null
     lateinit var activityHomeActivity: ActivityHomeBinding
     lateinit var unReadNotifications: UnReadNotifications
     lateinit var manager: LinearLayoutManager
@@ -144,11 +140,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         initData()
         initClickListener()
         trackEvent()
-
-        if(appPreference.isFacilityCard()){
-            val item = activityHomeActivity.includeNavigation.bottomNavigation.menu.getItem(3)
-            item.title = "Facility"
-        }
     }
 
     private fun trackEvent() {
@@ -178,16 +169,16 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             addFragment(fragment, true)
         }
 
-        activityHomeActivity.searchLayout.notificationView.setOnClickListener(View.OnClickListener {
+        activityHomeActivity.searchLayout.notificationView.setOnClickListener {
             notificationList.clear()
             callNotificationApi(20, 1, true)
             launch_bottom_sheet()
-        })
+        }
 
-        activityHomeActivity.searchLayout.layout.setOnClickListener(View.OnClickListener {
+        activityHomeActivity.searchLayout.layout.setOnClickListener {
             val fragment = AboutUsFragment()
             addFragment(fragment, true)
-        })
+        }
 
     }
 
@@ -544,8 +535,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         pagination()
         }
 
-    fun setReadStatus(ids: UnReadNotifications) {
-        homeViewModel.setReadStatus(ids).observe(
+    fun setReadStatus(id: Int) {
+        homeViewModel.setReadStatus(id).observe(
             this@HomeActivity,
             object :
                 Observer<BaseResponse<ReadNotificationReponse>> {
@@ -554,10 +545,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                         Status.LOADING -> {
                         }
                         Status.SUCCESS -> {
-                            Log.i("success", it.message.toString())
                         }
                         Status.ERROR -> {
-                            Log.i("error", it.message.toString())
 
                         }
 
@@ -648,14 +637,9 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             }
         }
 
-        unReadNotifications = UnReadNotifications(unreadNotificationList)
-
-        markAll.add(0)
-
         fragmentNotificationBottomSheetBinding.markAllRead.setOnClickListener(
             View.OnClickListener {
-                unReadNotifications = UnReadNotifications(markAll)
-                setReadStatus(unReadNotifications)
+                setReadStatus(0)
                 activityHomeActivity.searchLayout.notification.setImageDrawable(
                     resources.getDrawable(R.drawable.normal_notification)
                 )
@@ -694,8 +678,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 notificationList,
                 object : NotificationAdapter.ItemsClickInterface {
                     override fun onClickItem(id: Int, posittion: Int) {
-                        var list = ArrayList<Int>()
-                        list.add(id)
 
                         if (unreadNotificationList.size == 1) {
                             activityHomeActivity.searchLayout.notification.setImageDrawable(
@@ -703,8 +685,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                             )
                             unreadNotificationList.clear()
                         }
-                        unReadNotifications = UnReadNotifications(list)
-                        setReadStatus(unReadNotifications)
+                        setReadStatus(id)
                         if (notificationList[posittion].notification.targetPage == 1) {
 
                             bottomSheetDialog.dismiss()
@@ -794,13 +775,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
                         totalNotification = it.data!!.totalCount
                         toatalPageSize = it.data!!.totalPages
-
-
-//                        for (i in 0..it!!.data!!.data!!.size - 1) {
-//                            if (it!!.data!!.data[i].readStatus == false) {
-//                                unreadNotificationList.add(it!!.data!!.data[i]?.id)
-//                            }
-//                        }
 
                         for(i in 0..it?.data?.data?.size!! -1){
                             notificationList.add(it?.data?.data!![i])

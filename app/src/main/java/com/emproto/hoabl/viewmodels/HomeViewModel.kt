@@ -226,8 +226,8 @@ class HomeViewModel(
         return homeRepository.getNewNotificationList( size, index,refresh)
     }
 
-    fun setReadStatus(ids: UnReadNotifications):LiveData<BaseResponse<ReadNotificationReponse>>{
-        return homeRepository.setReadStatus(ids)
+    fun setReadStatus(id: Int):LiveData<BaseResponse<ReadNotificationReponse>>{
+        return homeRepository.setReadStatus(id)
     }
 
     fun setSearchedText(searchText: String) {
