@@ -8,5 +8,6 @@ data class Values(
     val webLink: String,
     val reraLink: String,
     val dateOfCompletion: String,
-    val displayName: String
+    val displayName: String,
+    val isCtaActive: Boolean
 )

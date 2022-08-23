@@ -99,28 +99,34 @@ class InvestmentFragment : BaseFragment() {
     }
 
     private fun mediaGalleryApi(invData: Data) {
-        investmentViewModel.getInvestmentsMediaGallery(newInvestmentsList[0].id)
-            .observe(viewLifecycleOwner, Observer {
-                when (it.status) {
-                    Status.LOADING -> {
-                        binding.progressBar.show()
-                    }
-                    Status.SUCCESS -> {
-                        binding.progressBar.hide()
-                        it.data?.data?.let { data ->
-                            if (data != null) {
-                                setUpRecyclerView(invData, data.mediaGalleries)
+        if(newInvestmentsList[0] == null){
+            (requireActivity() as HomeActivity).showErrorToast(
+                "Media gallery Id is null"
+            )
+        }else{
+            investmentViewModel.getInvestmentsMediaGallery(newInvestmentsList[0].id)
+                .observe(viewLifecycleOwner, Observer {
+                    when (it.status) {
+                        Status.LOADING -> {
+                            binding.progressBar.show()
+                        }
+                        Status.SUCCESS -> {
+                            binding.progressBar.hide()
+                            it.data?.data?.let { data ->
+                                if (data != null) {
+                                    setUpRecyclerView(invData, data.mediaGalleries)
+                                }
                             }
                         }
+                        Status.ERROR -> {
+                            binding.progressBar.hide()
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                it.message!!
+                            )
+                        }
                     }
-                    Status.ERROR -> {
-                        binding.progressBar.hide()
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            it.message!!
-                        )
-                    }
-                }
-            })
+                })
+        }
     }
 
     private fun setUpRecyclerView(data: Data, mediaGalleries: MediaGalleries) {

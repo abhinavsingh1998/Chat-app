@@ -15,6 +15,7 @@ import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
+import com.emproto.networklayer.response.portfolio.prtimeline.MediaResponse
 import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineResponse
 import com.emproto.networklayer.response.profile.ProfileResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
@@ -241,8 +242,8 @@ class PortfolioRepository @Inject constructor(application: Application) :
         return mDocumentsResponse
     }
 
-    fun getProjectTimelineMedia(category: String,projectContentId:String): LiveData<BaseResponse<ProjectTimelineResponse>> {
-        val mTimelineMediaResponse = MutableLiveData<BaseResponse<ProjectTimelineResponse>>()
+    fun getProjectTimelineMedia(category: String,projectContentId:String): LiveData<BaseResponse<MediaResponse>> {
+        val mTimelineMediaResponse = MutableLiveData<BaseResponse<MediaResponse>>()
         mTimelineMediaResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {

@@ -20,6 +20,7 @@ import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentInformation
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
+import com.emproto.networklayer.response.portfolio.prtimeline.MediaResponse
 import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineResponse
 import com.emproto.networklayer.response.profile.ProfileResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
@@ -103,7 +104,7 @@ class PortfolioViewModel(
         return portfolioRepository.getProjectTimeline(id)
     }
 
-    fun getProjectTimelineMedia(category: String,projectContentId:String): LiveData<BaseResponse<ProjectTimelineResponse>> {
+    fun getProjectTimelineMedia(category: String,projectContentId:String): LiveData<BaseResponse<MediaResponse>> {
         return portfolioRepository.getProjectTimelineMedia(category, projectContentId)
     }
 

@@ -232,7 +232,9 @@ class ProjectDetailFragment : BaseFragment() {
     ) {
         val list = ArrayList<RecyclerViewItem>()
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_PROJECT_DETAIL))
-        list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_MAP))
+        when(allData.address.isMapDetailsActive){
+            true -> list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_MAP))
+        }
         when (allData.isEscalationGraphActive) {
             true -> {
                 list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_PRICE_TRENDS))

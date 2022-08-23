@@ -8,5 +8,6 @@ data class Address(
     val gpsLocationLink: String,
     val mapMedia: MapMedia,
     val pinCode: String,
-    val state: String
+    val state: String,
+    val isMapDetailsActive:Boolean = true
 ):Serializable
