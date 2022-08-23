@@ -408,10 +408,8 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                                 val str = "$fmString-$yearString"
                                 xaxisList.add(str)
                             }
-                            var index = 0
-                            for (item in graphData) {
+                            for ((index, item) in graphData.withIndex()) {
                                 linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
-                                index++
                             }
                         }
                         Constants.QUATERLY -> {
