@@ -144,11 +144,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         initData()
         initClickListener()
         trackEvent()
-
-        if(appPreference.isFacilityCard()){
-            val item = activityHomeActivity.includeNavigation.bottomNavigation.menu.getItem(3)
-            item.title = "Facility"
-        }
     }
 
     private fun trackEvent() {
@@ -794,13 +789,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
                         totalNotification = it.data!!.totalCount
                         toatalPageSize = it.data!!.totalPages
-
-
-//                        for (i in 0..it!!.data!!.data!!.size - 1) {
-//                            if (it!!.data!!.data[i].readStatus == false) {
-//                                unreadNotificationList.add(it!!.data!!.data[i]?.id)
-//                            }
-//                        }
 
                         for(i in 0..it?.data?.data?.size!! -1){
                             notificationList.add(it?.data?.data!![i])

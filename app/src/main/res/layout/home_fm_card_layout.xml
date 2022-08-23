@@ -11,6 +11,7 @@
         app:cardCornerRadius="@dimen/margin_size_8"
         app:cardElevation="@dimen/margin_size_0"
         android:elevation="@dimen/margin_size_0"
+        android:visibility="gone"
         android:layout_marginHorizontal="@dimen/margin_size_20"
         android:layout_marginTop="@dimen/margin_size_25"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -21,8 +22,7 @@
                 android:id="@+id/facility_management_card"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/dont_miss_new"/>
+                android:scaleType="fitXY"/>
 
     </androidx.cardview.widget.CardView>
 
@@ -43,8 +43,7 @@
             android:id="@+id/dont_miss_out_card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@drawable/dont_miss_new"/>
+            android:scaleType="fitXY"/>
     </androidx.cardview.widget.CardView>
 
 

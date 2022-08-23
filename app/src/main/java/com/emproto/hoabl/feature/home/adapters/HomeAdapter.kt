@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -367,12 +368,11 @@ class HomeAdapter(
                 binding.dontMissOutCard.isVisible = true
             }
 
-            if (data.isFacilityVisible == false) {
-                binding.facilityManagementCard.isVisible == false
+            if (data.isFacilityVisible==true) {
+                binding.facilityManagementCardView.visibility=View.VISIBLE
+                Glide.with(context).load(data.page.facilityManagement.value.url)
+                    .into(binding.facilityManagementCard)
             }
-
-            Glide.with(context).load(data.page.facilityManagement.value.url)
-                .into(binding.facilityManagementCard)
 
             binding.facilityManagementCard.setOnClickListener(View.OnClickListener {
                 itemClickListener.onItemClicked(it, position, "")
