@@ -265,7 +265,7 @@ public interface ApiService {
                                     @Query("index") index:Int):Response<NotificationResponse>
 
     @POST(ApiConstants.READ_NOTIFICATION)
-    suspend fun setReadStatus(@Body ids: UnReadNotifications):Response<ReadNotificationReponse>
+    suspend fun setReadStatus(@Query("id") id: Int):Response<ReadNotificationReponse>
 
     @POST(ApiConstants.LOG_OUT)
     suspend fun logOutFromCurrent():Response<LogOutFromCurrentResponse>

@@ -5,7 +5,7 @@ data class Notification(
     val id: Int,
     val notificationDescription: NotificationDescription,
     val notificationTemplate: String,
-    val targetPage:Int,
+    val targetPage: Int,
     val notificationType: String,
     val projectId: Int,
     val updatedAt: String

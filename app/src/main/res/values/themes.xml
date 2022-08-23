@@ -401,6 +401,11 @@
         <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@color/view_more_brown_color</item>
     </style>
+    <style name="text_style_view_more_brown_color_12">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/view_more_brown_color</item>
+    </style>
 
     <style name="text_style_thick_brown_color_14">
         <item name="android:gravity">start</item>
@@ -461,6 +466,13 @@
         <item name="android:gravity">start</item>
         <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@color/text_red_color</item>
+    </style>
+
+
+    <style name="text_style_orange_color_14">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/text_orange_color</item>
     </style>
 
     <style name="text_style_dark_green_color_14">

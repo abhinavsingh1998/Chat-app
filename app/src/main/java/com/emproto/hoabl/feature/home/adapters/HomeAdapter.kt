@@ -13,11 +13,10 @@ import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
-import com.emproto.networklayer.response.home.*
+import com.emproto.networklayer.response.home.Data
 import com.google.android.material.tabs.TabLayoutMediator
 import java.text.NumberFormat
 import java.util.*
-import kotlin.math.sign
 
 class HomeAdapter(
     var context: Context,
@@ -196,15 +195,15 @@ class HomeAdapter(
                 binding.nestedCard?.isVisible = false
                 presenting = true
             }
-            binding.contentTxt1.text = data?.portfolioData?.investmentCount?.toString()
-            binding.contentTxt2.text = data?.portfolioData?.totalAreaSqFt?.toString()
-            binding.contentTxt3.text = Utility.formatAmount(data?.portfolioData?.amountInvested)
+            binding.contentTxt1.text = data.portfolioData.investmentCount.toString()
+            binding.contentTxt2.text = data.portfolioData.totalAreaSqFt.toString()
+            binding.contentTxt3.text = Utility.formatAmount(data.portfolioData.amountInvested)
             binding.contentTxt4.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
-                .format(data?.portfolioData?.amountPending).toString()
+                .format(data.portfolioData.amountPending).toString()
 
-            binding.viewPortfolioBtn.setOnClickListener(View.OnClickListener {
+            binding.viewPortfolioBtn.setOnClickListener {
                 itemClickListener.onItemClicked(it, position, "")
-            })
+            }
         }
     }
 
@@ -227,16 +226,15 @@ class HomeAdapter(
                 itemClickListener
             )
 
-            if (data.page.isNewInvestmentsActive == false || data.pageManagementsOrNewInvestments == null ||
-                data.page.totalProjectsOnHomeScreen == 0
+            if (!data.page.isNewInvestmentsActive || data.pageManagementsOrNewInvestments == null || data.page.totalProjectsOnHomeScreen == 0
             ) {
                 binding.investmentLayout.isVisible = false
             }
 
 
-            binding.tvViewallInvestments.setOnClickListener(View.OnClickListener {
+            binding.tvViewallInvestments.setOnClickListener {
                 itemClickListener.onItemClicked(it, position, "")
-            })
+            }
 
             linearLayoutManager = LinearLayoutManager(
                 context,
@@ -247,7 +245,7 @@ class HomeAdapter(
             binding.investmentList.adapter = investmentAdapter
             binding.investmentList.setHasFixedSize(true)
             binding.investmentList.setItemViewCacheSize(10)
-            binding.investmentList.setDrawingCacheEnabled(true)
+            binding.investmentList.isDrawingCacheEnabled = true
         }
     }
 
@@ -291,9 +289,9 @@ class HomeAdapter(
                 itemClickListener
             )
 
-            binding.tvSeeAllUpdate.setOnClickListener(View.OnClickListener {
+            binding.tvSeeAllUpdate.setOnClickListener {
                 itemClickListener.onItemClicked(it, position, "")
-            })
+            }
 
 //          binding.latesUpdatesRecyclerview.getLayoutManager()!!.onRestoreInstanceState()
 
@@ -303,8 +301,7 @@ class HomeAdapter(
                 false
             )
 
-            if (data.page.isLatestUpdatesActive == false || data.pageManagementOrLatestUpdates == null ||
-                data.page.totalUpdatesOnHomeScreen == 0
+            if (!data.page.isLatestUpdatesActive || data.pageManagementOrLatestUpdates == null || data.page.totalUpdatesOnHomeScreen == 0
             ) {
                 binding.latestUpdatesLayout.isVisible = false
             }
@@ -330,12 +327,11 @@ class HomeAdapter(
             )
 
             binding.textview4.text = data.page.promisesHeading
-            binding.tvSeeallPromise.setOnClickListener(View.OnClickListener {
+            binding.tvSeeallPromise.setOnClickListener {
                 itemClickListener.onItemClicked(it, position, "")
-            })
+            }
 
-            if (data.page.isPromisesActive == false || data.homePagesOrPromises == null ||
-                data.page.totalPromisesOnHomeScreen == 0
+            if (!data.page.isPromisesActive || data.homePagesOrPromises == null || data.page.totalPromisesOnHomeScreen == 0
             ) {
                 binding.hoablPromisesLayout.isVisible = false
 
@@ -359,31 +355,29 @@ class HomeAdapter(
         fun bind(position: Int) {
 
 
-            if (data.contactType != 1 || data.contactType != 225360001) {
-                if (data.page.isPromotionAndOfferActive == false) {
-                    binding.dontMissOutCard.isVisible = false
+            if (data.contactType == 1 || data.contactType == 225360001) {
+                if (data.page.isPromotionAndOfferActive) {
+                    binding.dontMissOutCardView.visibility=View.VISIBLE
+                    Glide.with(context).load(data.page.promotionAndOffersMedia.value.url)
+                        .into(binding.dontMissOutCard)
                 }
             } else {
-                binding.dontMissOutCard.isVisible = true
+                binding.dontMissOutCardView.visibility=View.GONE
             }
 
-            if (data.isFacilityVisible == false) {
-                binding.facilityManagementCard.isVisible == false
+            if (data.isFacilityVisible) {
+                binding.facilityManagementCardView.visibility=View.VISIBLE
+                Glide.with(context).load(data.page.facilityManagement.value.url)
+                    .into(binding.facilityManagementCard)
             }
 
-            Glide.with(context).load(data.page.facilityManagement.value.url)
-                .into(binding.facilityManagementCard)
-
-            binding.facilityManagementCard.setOnClickListener(View.OnClickListener {
+            binding.facilityManagementCard.setOnClickListener {
                 itemClickListener.onItemClicked(it, position, "")
-            })
+            }
 
-            Glide.with(context).load(data.page.promotionAndOffersMedia.value.url)
-                .into(binding.dontMissOutCard)
-
-            binding.dontMissOutCard.setOnClickListener(View.OnClickListener {
+            binding.dontMissOutCard.setOnClickListener {
                 itemClickListener.onItemClicked(it, position, "")
-            })
+            }
 
         }
     }
@@ -397,9 +391,9 @@ class HomeAdapter(
                 data.pageManagementOrInsights,
                 itemClickListener
             )
-            binding.tvSeeallInsights.setOnClickListener(View.OnClickListener {
+            binding.tvSeeallInsights.setOnClickListener {
                 itemClickListener.onItemClicked(it, position, "")
-            })
+            }
             binding.textview5.text = data.page.insightsHeading
 
             linearLayoutManager = LinearLayoutManager(
@@ -408,8 +402,7 @@ class HomeAdapter(
                 false
             )
 
-            if (data.page.isInsightsActive == false || data.pageManagementOrInsights == null ||
-                data.page.totalInsightsOnHomeScreen == 0
+            if (!data.page.isInsightsActive || data.pageManagementOrInsights == null || data.page.totalInsightsOnHomeScreen == 0
             ) {
                 binding.insightsLayout.isVisible = false
             }
@@ -432,12 +425,11 @@ class HomeAdapter(
             )
             binding.textview6.text = data.page.testimonialsHeading
 
-            binding.tvSeeallTestimonial.setOnClickListener(View.OnClickListener {
+            binding.tvSeeallTestimonial.setOnClickListener {
                 itemClickListener.onItemClicked(it, position, "")
-            })
+            }
 
-            if (data.page.isTestimonialsActive == false || data.pageManagementsOrTestimonials == null ||
-                data.page.totalTestimonialsOnHomeScreen == 0
+            if (!data.page.isTestimonialsActive || data.pageManagementsOrTestimonials == null || data.page.totalTestimonialsOnHomeScreen == 0
             ) {
                 binding.testimonialsLayout.isVisible = false
             }
@@ -455,12 +447,12 @@ class HomeAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
 
-            binding.btnReferNow.setOnClickListener(View.OnClickListener {
+            binding.btnReferNow.setOnClickListener {
                 itemClickListener.onItemClicked(it, position, "")
-            })
-            binding.appShareView.setOnClickListener(View.OnClickListener {
+            }
+            binding.appShareView.setOnClickListener {
                 itemClickListener.onItemClicked(it, position, "")
-            })
+            }
         }
     }
 

@@ -35,6 +35,7 @@ import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.BalloonSizeSpec
 import com.skydoves.balloon.createBalloon
+import java.math.BigDecimal
 import kotlin.collections.ArrayList
 
 
@@ -366,7 +367,7 @@ class PortfolioSpecificViewAdapter(
                             )
                         }
                         binding.tvPending.setOnClickListener {
-                            getToolTip("₹${data.projectExtraDetails.amountPending}").showAlignTop(
+                            getToolTip("₹${BigDecimal(data.projectExtraDetails.amountPending)}").showAlignTop(
                                 binding.tvPending
                             )
                         }
@@ -583,13 +584,13 @@ class PortfolioSpecificViewAdapter(
             val linevalues = ArrayList<Entry>()
 
             when (graphData.dataPoints.dataPointType) {
-                Constants.YEARLY  -> {
+                Constants.YEARLY -> {
                     graphType = Constants.YEARLY
                     for (item in graphData.dataPoints.points) {
                         linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
                     }
                 }
-                Constants.HALF_YEARLY-> {
+                Constants.HALF_YEARLY -> {
                     graphType = Constants.HALF_YEARLY
                     for (i in 0..graphData.dataPoints.points.size - 1) {
                         val fmString = graphData.dataPoints.points[i].halfYear.substring(0, 3)

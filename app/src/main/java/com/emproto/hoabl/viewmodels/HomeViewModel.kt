@@ -56,6 +56,7 @@ class HomeViewModel(
 
     private var position = MutableLiveData<LatesUpdatesPosition>()
     private var latUpdPosition = MutableLiveData<LatesUpdatesPosition>()
+    private var notificationData= MutableLiveData<NotificationResponse>()
     private var listData= MutableLiveData<Page>()
     private var searchText = MutableLiveData<String>()
 
@@ -225,8 +226,8 @@ class HomeViewModel(
         return homeRepository.getNewNotificationList( size, index,refresh)
     }
 
-    fun setReadStatus(ids: UnReadNotifications):LiveData<BaseResponse<ReadNotificationReponse>>{
-        return homeRepository.setReadStatus(ids)
+    fun setReadStatus(id: Int):LiveData<BaseResponse<ReadNotificationReponse>>{
+        return homeRepository.setReadStatus(id)
     }
 
     fun setSearchedText(searchText: String) {
@@ -236,4 +237,5 @@ class HomeViewModel(
     fun getSearchedText(): LiveData<String> {
         return searchText
     }
+
 }

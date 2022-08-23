@@ -43,7 +43,6 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
     val mInsights = MutableLiveData<BaseResponse<InsightsResponse>>()
     val mTestimonials = MutableLiveData<BaseResponse<TestimonialsResponse>>()
     val mActionItem = MutableLiveData<BaseResponse<HomeActionItemResponse>>()
-    val mNewNotificationResponse = MutableLiveData<BaseResponse<NotificationResponse>>()
 
 
 
@@ -639,6 +638,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
 
     fun getNewNotificationList(size:Int, index:Int, refresh: Boolean = false): LiveData<BaseResponse<NotificationResponse>> {
 
+        val mNewNotificationResponse = MutableLiveData<BaseResponse<NotificationResponse>>()
         if (mNewNotificationResponse.value==null || refresh){
             mNewNotificationResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
@@ -702,12 +702,12 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         return mNotificationResponse
     }
 
-    fun setReadStatus(ids: UnReadNotifications): LiveData<BaseResponse<ReadNotificationReponse>> {
+    fun setReadStatus(id: Int): LiveData<BaseResponse<ReadNotificationReponse>> {
         val mNotificationResponse = MutableLiveData<BaseResponse<ReadNotificationReponse>>()
         mNotificationResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val request = HomeDataSource(application).setReadStatus(ids)
+                val request = HomeDataSource(application).setReadStatus(id)
                 if (request.isSuccessful) {
                     if (request.body() != null && request.body() is ReadNotificationReponse) {
                         mNotificationResponse.postValue(BaseResponse.success(request.body()!!))

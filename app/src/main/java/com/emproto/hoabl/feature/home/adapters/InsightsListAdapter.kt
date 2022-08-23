@@ -11,11 +11,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.DetailViewItemBinding
-import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.utils.YoutubeItemClickListener
-import com.emproto.networklayer.response.home.DetailedInfo
-import com.emproto.networklayer.response.home.InsightsMedia
-import com.emproto.networklayer.response.insights.Data
 
 
 class InsightsListAdapter(
@@ -34,37 +30,31 @@ class InsightsListAdapter(
         val item = list[position]
         holder.binding.firstDetails.text = showHTMLText(item.description)
 
-        if (item.media != null) {
-            holder.binding.imageDesc.text = item.media.mediaDescription
+        holder.binding.imageDesc.text = item.media.mediaDescription
 
-            if (!item.media.value.url.isNullOrEmpty()) {
-                holder.binding.image1.isVisible = true
-            } else {
-                holder.binding.image1.isVisible = false
+        holder.binding.image1.isVisible = !item.media.value.url.isNullOrEmpty()
+        when (item.media.value.mediaType) {
+            "VIDEO" -> {
+
+                val url = item.media.value.url.replace("https://www.youtube.com/embed/", "")
+                val youtubeUrl = "https://img.youtube.com/vi/${url}/hqdefault.jpg"
+                Glide.with(context)
+                    .load(youtubeUrl)
+                    .into(holder.binding.image1)
+                holder.binding.playBtn.isVisible = true
+                holder.binding.image1.setOnClickListener {
+                    itemClickListener.onItemClicked(
+                        it,
+                        position,
+                        url,
+                        item.media.mediaDescription
+                    )
+                }
             }
-            when (item.media.value.mediaType) {
-                "VIDEO" -> {
-
-                    val url = item.media.value.url.replace("https://www.youtube.com/embed/", "")
-                    val youtubeUrl = "https://img.youtube.com/vi/${url}/hqdefault.jpg"
-                    Glide.with(context)
-                        .load(youtubeUrl)
-                        .into(holder.binding.image1)
-                    holder.binding.playBtn.isVisible = true
-                    holder.binding.image1.setOnClickListener {
-                        itemClickListener.onItemClicked(
-                            it,
-                            position,
-                            url,
-                            item.media.mediaDescription
-                        )
-                    }
-                }
-                else -> {
-                    Glide.with(context)
-                        .load(item.media.value.url)
-                        .into(holder.binding.image1)
-                }
+            else -> {
+                Glide.with(context)
+                    .load(item.media.value.url)
+                    .into(holder.binding.image1)
             }
         }
     }
@@ -77,7 +67,7 @@ class InsightsListAdapter(
     inner class InsightsHolder(var binding: DetailViewItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    public fun showHTMLText(message: String?): Spanned {
+    fun showHTMLText(message: String?): Spanned {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
         } else {
