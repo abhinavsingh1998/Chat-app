@@ -4,5 +4,6 @@ import com.emproto.networklayer.response.profile.AccountsResponse
 
 data class Handover(
     val guidelines: AccountsResponse.Data.Document,
-    val handoverDate: String
+    val handoverDate: String,
+    val handoverFlag: Boolean
 )

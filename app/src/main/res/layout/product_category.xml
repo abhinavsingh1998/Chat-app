@@ -14,7 +14,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="150dp">
 
         <ImageView
             android:id="@+id/location_iv"
@@ -58,6 +58,7 @@
             android:layout_marginTop="@dimen/margin_size_11"
             android:layout_marginBottom="@dimen/margin_size_12"
             android:fontFamily="@font/jost_light"
+            android:maxLines="3"
             android:text="@string/complete_description_about_us"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

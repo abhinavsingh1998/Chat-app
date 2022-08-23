@@ -278,7 +278,10 @@ class BookingJourneyAdapter(
                     )
                 )
 
-                if (list.handover.handoverDate != null && Utility.compareDates(list.handover.handoverDate)) {
+                if (list.handover.handoverDate != null &&
+                    Utility.compareDates(list.handover.handoverDate) &&
+                    list.handover.handoverFlag
+                ) {
                     anyInProgress = true
                     listHolder.binding.headerIndicator.background =
                         context.getDrawable(R.drawable.ic_in_progress)
@@ -299,7 +302,7 @@ class BookingJourneyAdapter(
 
 
                 }
-                if (list.handover.guidelines != null) {
+                if (list.handover.guidelines != null && list.handover.handoverFlag) {
                     anyInProgress = true
                     listHolder.binding.headerIndicator.background =
                         context.getDrawable(R.drawable.ic_in_progress)
@@ -322,7 +325,7 @@ class BookingJourneyAdapter(
                     }
 
                 }
-                if (anyInProgress) {
+                if (list.handover.handoverFlag) {
                     listHolder.binding.container.background =
                         context.getDrawable(R.drawable.bg_outline_app_color)
                 }
@@ -523,7 +526,7 @@ class BookingJourneyAdapter(
                         "View Details", item
                     )
                 )
-            }  else {
+            } else {
                 anyInProgress = true
                 list.add(
                     BookingStepsModel(

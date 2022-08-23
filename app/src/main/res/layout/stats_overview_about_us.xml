@@ -3,12 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/stats_full_overview"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="220dp"
         android:layout_marginStart="@dimen/margin_size_6"
         android:layout_marginTop="@dimen/margin_size_14"
         android:layout_marginEnd="@dimen/margin_size_6"
@@ -61,16 +59,17 @@
             android:id="@+id/desc_stats"
             style="@style/text_style_text_color_13"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="@dimen/margin_size_10"
+            android:layout_marginEnd="10dp"
             android:layout_marginTop="@dimen/margin_size_12"
-            android:layout_marginBottom="@dimen/margin_size_15"
             android:fontFamily="@font/jost_light"
             android:padding="@dimen/margin_size_5"
             android:singleLine="false"
-            app:layout_constraintBottom_toBottomOf="@+id/stats_full_overview"
-            app:layout_constraintEnd_toEndOf="@+id/stats_full_overview"
-            app:layout_constraintStart_toStartOf="@+id/stats_full_overview"
+            android:maxLines="5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider_line_about_us"
             app:layout_constraintVertical_bias="0.09" />
 
