@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
 import com.emproto.core.Utility
+import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentReceiptBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
@@ -274,7 +275,7 @@ class BookingjourneyFragment : BaseFragment() {
                     }
 
                     override fun facilityManagment(plotId: String, projectId: String) {
-                        manageMyLand(plotId, projectId)
+                        manageMyLand()
                     }
 
                 })
@@ -370,36 +371,9 @@ class BookingjourneyFragment : BaseFragment() {
                 })
     }
 
-    fun manageMyLand(plotId: String, crmId: String) {
-        portfolioviewmodel.getFacilityManagment(plotId, crmId)
-            .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-                when (it.status) {
-                    Status.LOADING -> {
+    fun manageMyLand() {
+        (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
 
-                    }
-                    Status.SUCCESS -> {
-                        if (it.data!!.data.web_url != null) {
-                            (requireActivity() as HomeActivity).addFragment(
-                                FmFragment.newInstance(
-                                    it.data!!.data.web_url!!,
-                                    ""
-                                ), true
-                            )
-
-                        } else {
-                            (requireActivity() as HomeActivity).showErrorToast(
-                               Constants.SOMETHING_WENT_WRONG
-                            )
-                        }
-
-                    }
-                    Status.ERROR -> {
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            Constants.SOMETHING_WENT_WRONG
-                        )
-                    }
-                }
-            })
     }
 
 }
