@@ -621,34 +621,11 @@ class AccountDetailsFragment : Fragment(),
     }
 
     private fun onCaptureImageResult() {
-        val selectedImage = cameraFile?.path
-        destinationFile = cameraFile!!
-        val thumbnail = BitmapFactory.decodeFile(selectedImage)
-        val ei = ExifInterface(cameraFile!!.path)
-        val orientation =
-            ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
-
-        when (orientation) {
-            ExifInterface.ORIENTATION_ROTATE_90 -> {
-                rotateImage(thumbnail, 90f)
-            }
-            ExifInterface.ORIENTATION_ROTATE_180 -> {
-                rotateImage(thumbnail, 180f)
-            }
-            ExifInterface.ORIENTATION_ROTATE_270 -> {
-                rotateImage(thumbnail, 270f)
-            }
-            ExifInterface.ORIENTATION_NORMAL -> {
-                thumbnail
-            }
-            else -> {
-                thumbnail
-            }
-        }
+        destinationFile = Utility.getCompressedImageFile(cameraFile!!, context)!!
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
             val extension: String =
                 cameraFile?.name!!.substring(cameraFile?.name!!.lastIndexOf(".") + 1)
-            callingUploadPicApi(cameraFile!!, extension)
+            callingUploadPicApi(destinationFile, extension)
         } else {
             (requireActivity() as BaseActivity).showError(
                 Constants.PLEASE_CHECK_INTERNET_CONNECTIONS_TO_UPLOAD_IMAGE,
@@ -657,16 +634,6 @@ class AccountDetailsFragment : Fragment(),
             )
         }
     }
-
-    fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
-        val matrix = Matrix()
-        matrix.postRotate(angle)
-        return Bitmap.createBitmap(
-            source, 0, 0, source.width, source.height,
-            matrix, true
-        )
-    }
-
     private fun callingUploadPicApi(destinationFile: File, extension: String) {
         profileViewModel.uploadKycDocument(extension, destinationFile, selectedDocumentType)
             .observe(
@@ -732,11 +699,10 @@ class AccountDetailsFragment : Fragment(),
             try {
                 val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
                 if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-                    destinationFile = File(filePath)
+                    destinationFile=Utility.getCompressedImageFile(File(filePath), context)!!
                     val extension: String =
                         destinationFile.name.substring(destinationFile.name.lastIndexOf(".") + 1)
                     callingUploadPicApi(destinationFile, extension)
-
                 } else {
                     (requireActivity() as BaseActivity).showError(
                         Constants.PLEASE_CHECK_INTERNET_CONNECTIONS_TO_UPLOAD_IMAGE,

@@ -115,8 +115,7 @@ class DocViewerFragment : BaseFragment() {
                             binding.tvMediaImageName.text = name
                             binding.progressBar.visibility = View.GONE
                             val bitmap = Utility.getBitmapFromBase64(it.data!!.data)
-                            val rotatedBitmap = bitmap?.let { it1 -> rotateImage(it1,0f) }
-                            binding.ivMediaPhoto.setImageBitmap(rotatedBitmap)
+                            binding.ivMediaPhoto.setImageBitmap(bitmap)
                         }
                     }
                 })
