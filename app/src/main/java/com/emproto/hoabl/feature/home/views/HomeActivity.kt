@@ -41,6 +41,7 @@ import com.emproto.hoabl.feature.profile.fragments.about_us.AboutUsFragment
 import com.emproto.hoabl.feature.profile.fragments.profile.ProfileFragment
 import com.emproto.hoabl.feature.promises.HoablPromises
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
+import com.emproto.hoabl.fragments.PromisesFragment
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
@@ -480,42 +481,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                             notificationList.add(it!!.data!!.data[i]!!)
                         }
 
-//                        unReadNotifications = UnReadNotifications(unreadNotificationList)
-//
-//                        fragmentNotificationBottomSheetBinding.markAllRead.setOnClickListener(
-//                            View.OnClickListener {
-//                                setReadStatus(unReadNotifications)
-//                                activityHomeActivity.searchLayout.notification.setImageDrawable(
-//                                    resources.getDrawable(R.drawable.normal_notification)
-//                                )
-//                                fragmentNotificationBottomSheetBinding.markAllRead.setTextColor(
-//                                    resources.getColor(R.color.color_text_normal)
-//                                )
-//                                unreadNotificationList.clear()
-//                                bottomSheetDialog.dismiss()
-//
-//                            })
-//                        if (unreadNotificationList.isEmpty()) {
-//                            activityHomeActivity.searchLayout.notification.setImageDrawable(
-//                                resources.getDrawable(R.drawable.normal_notification)
-//                            )
-//
-//                            fragmentNotificationBottomSheetBinding.markAllRead.setTextColor(
-//                                resources.getColor(R.color.color_text_normal)
-//                            )
-//
-//                            fragmentNotificationBottomSheetBinding.markAllRead.isClickable =
-//                                false
-//                        } else {
-//                            activityHomeActivity.searchLayout.notification.setImageDrawable(
-//                                resources.getDrawable(R.drawable.ic_notification)
-//                            )
-//
-//                            fragmentNotificationBottomSheetBinding.markAllRead.isClickable =
-//                                true
-//                            fragmentNotificationBottomSheetBinding.markAllRead.setTextColor(
-//                                resources.getColor(R.color.black))
-//                        }
                         notificationNavigation ()
 
                     }
@@ -732,7 +697,23 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                             bottomSheetDialog.dismiss()
 
                         } else if (notificationList[posittion].notification.targetPage == 6) {
-                            (this@HomeActivity).navigate(R.id.navigation_promises)
+                           if (!appPreference.isFacilityCard()) {
+                               (this@HomeActivity).navigate(R.id.navigation_promises)
+                            } else{
+                               val bundle = Bundle()
+                               val promisesFragment = HoablPromises()
+                               promisesFragment.arguments = bundle
+                               replaceFragment(
+                                   promisesFragment.javaClass,
+                                   "",
+                                   true,
+                                   bundle,
+                                   null,
+                                   0,
+                                   true
+                               )
+                           }
+
                             bottomSheetDialog.dismiss()
 
                         } else if (notificationList[posittion].notification.targetPage == 7) {

@@ -34,7 +34,6 @@
                 android:layout_marginLeft="11dp"
                 android:layout_marginTop="7dp"
                 android:layout_marginRight="5dp"
-                android:visibility="gone"
                 android:background="@drawable/groupimage"
                 android:fontFamily="@font/jostregular"
                 android:text="@string/new_text"
