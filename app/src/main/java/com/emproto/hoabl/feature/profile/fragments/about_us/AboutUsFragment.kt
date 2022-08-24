@@ -369,8 +369,8 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                                 binding.ivPriceTrendsGraph.xAxis.granularity = 1f
                                 binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
                                 //
-                                binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter =
-                                    Xaxisformatter()
+//                                binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter =
+//                                    Xaxisformatter()
                                 binding.ivPriceTrendsGraph.xAxis.valueFormatter = Xaxisformatter()
                                 binding.ivPriceTrendsGraph.data = data
                                 binding.ivPriceTrendsGraph.extraBottomOffset
@@ -486,7 +486,7 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                     binding.ivPriceTrendsGraph.xAxis.granularity = 1f
                     binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
                     //
-                    binding.ivPriceTrendsGraph.axisLeft.valueFormatter = Xaxisformatter()
+//                    binding.ivPriceTrendsGraph.axisLeft.valueFormatter = Xaxisformatter()
                     binding.ivPriceTrendsGraph.xAxis.valueFormatter = Xaxisformatter()
                     binding.ivPriceTrendsGraph.data = data
                     binding.ivPriceTrendsGraph.extraBottomOffset

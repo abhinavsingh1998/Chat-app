@@ -616,7 +616,7 @@ class ProjectDetailAdapter(
 //            binding.ivPriceTrendsGraph.getXAxis().setAxisMinimum(data.getXMin() - 0.25f);
                 //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
                 //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
-                binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter = Xaxisformatter()
+//                binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter = Xaxisformatter()
                 binding.ivPriceTrendsGraph.xAxis.valueFormatter = Xaxisformatter()
                 binding.ivPriceTrendsGraph.data = data
                 binding.ivPriceTrendsGraph.extraBottomOffset

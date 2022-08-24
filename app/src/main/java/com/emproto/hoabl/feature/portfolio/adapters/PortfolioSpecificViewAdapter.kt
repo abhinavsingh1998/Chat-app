@@ -671,7 +671,7 @@ class PortfolioSpecificViewAdapter(
                 binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false)
                 binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false)
                 binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false)
-                binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter = Xaxisformatter()
+//                binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter = Xaxisformatter()
                 binding.ivPriceTrendsGraph.xAxis.valueFormatter = Xaxisformatter()
                 //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
                 //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
