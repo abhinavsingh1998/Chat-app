@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseActivity
+import com.emproto.core.Constants
 import com.emproto.core.customedittext.OnValueChangedListener
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityAuthBinding
@@ -275,7 +276,7 @@ class AuthActivity : BaseActivity() {
 
             if (!email.isEmpty()) {
                 if (!email.isValidEmail()) {
-                    signingInIssueBiding.emailLayout.error = "Please enter valid email"
+                    signingInIssueBiding.emailLayout.error = Constants.PLEASE_ENTER_VALID_EMAIL
                     return@OnClickListener
                 }
             }

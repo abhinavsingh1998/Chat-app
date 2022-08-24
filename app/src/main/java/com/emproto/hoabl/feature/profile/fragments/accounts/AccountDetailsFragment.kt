@@ -548,12 +548,12 @@ class AccountDetailsFragment : Fragment(),
 
     private fun selectImage() {
         val options =
-            arrayOf<CharSequence>("Take Photo", "Choose from Gallery", "Cancel")
+            arrayOf<CharSequence>(Constants.TAKE_PHOTO, Constants.CHOOSE_FROM_GALLERY, Constants.CANCEL)
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireActivity())
-        builder.setTitle("Add Photo!")
+        builder.setTitle(Constants.ADD_PHOTO)
         builder.setItems(options) { dialog, item ->
             when {
-                options[item] == "Take Photo" -> {
+                options[item] == Constants.TAKE_PHOTO -> {
                     val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                     intent.putExtra(
                         MediaStore.EXTRA_OUTPUT,
@@ -564,7 +564,7 @@ class AccountDetailsFragment : Fragment(),
                     cameraLauncher.launch(intent)
 
                 }
-                options[item] == "Choose from Gallery" -> {
+                options[item] ==Constants.CHOOSE_FROM_GALLERY -> {
                     val intent =
                         Intent(
                             Intent.ACTION_PICK,
@@ -572,7 +572,7 @@ class AccountDetailsFragment : Fragment(),
                         )
                     resultLauncher.launch(intent)
                 }
-                options[item] == "Cancel" -> {
+                options[item] ==Constants.CANCEL -> {
                     dialog.dismiss()
                 }
             }
@@ -621,52 +621,19 @@ class AccountDetailsFragment : Fragment(),
     }
 
     private fun onCaptureImageResult() {
-        val selectedImage = cameraFile?.path
-        destinationFile = cameraFile!!
-        val thumbnail = BitmapFactory.decodeFile(selectedImage)
-        val ei = ExifInterface(cameraFile!!.path)
-        val orientation =
-            ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
-
-        when (orientation) {
-            ExifInterface.ORIENTATION_ROTATE_90 -> {
-                rotateImage(thumbnail, 90f)
-            }
-            ExifInterface.ORIENTATION_ROTATE_180 -> {
-                rotateImage(thumbnail, 180f)
-            }
-            ExifInterface.ORIENTATION_ROTATE_270 -> {
-                rotateImage(thumbnail, 270f)
-            }
-            ExifInterface.ORIENTATION_NORMAL -> {
-                thumbnail
-            }
-            else -> {
-                thumbnail
-            }
-        }
+        destinationFile = Utility.getCompressedImageFile(cameraFile!!, context)!!
         if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
             val extension: String =
                 cameraFile?.name!!.substring(cameraFile?.name!!.lastIndexOf(".") + 1)
-            callingUploadPicApi(cameraFile!!, extension)
+            callingUploadPicApi(destinationFile, extension)
         } else {
             (requireActivity() as BaseActivity).showError(
-                "Please check Internet Connections to upload image",
+                Constants.PLEASE_CHECK_INTERNET_CONNECTIONS_TO_UPLOAD_IMAGE,
                 binding.root
 
             )
         }
     }
-
-    fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
-        val matrix = Matrix()
-        matrix.postRotate(angle)
-        return Bitmap.createBitmap(
-            source, 0, 0, source.width, source.height,
-            matrix, true
-        )
-    }
-
     private fun callingUploadPicApi(destinationFile: File, extension: String) {
         profileViewModel.uploadKycDocument(extension, destinationFile, selectedDocumentType)
             .observe(
@@ -732,14 +699,13 @@ class AccountDetailsFragment : Fragment(),
             try {
                 val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
                 if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-                    destinationFile = File(filePath)
+                    destinationFile=Utility.getCompressedImageFile(File(filePath), context)!!
                     val extension: String =
                         destinationFile.name.substring(destinationFile.name.lastIndexOf(".") + 1)
                     callingUploadPicApi(destinationFile, extension)
-
                 } else {
                     (requireActivity() as BaseActivity).showError(
-                        "Please check Internet Connections to upload image",
+                        Constants.PLEASE_CHECK_INTERNET_CONNECTIONS_TO_UPLOAD_IMAGE,
                         binding.root
                     )
                 }
@@ -761,7 +727,7 @@ class AccountDetailsFragment : Fragment(),
                 onSelectFromGalleryResult(data!!)
             } else {
                 (requireActivity() as BaseActivity).showError(
-                    "Nothing Selected",
+                    Constants.NOTHING_SELECTED,
                     binding.root
                 )
             }
@@ -796,7 +762,7 @@ class AccountDetailsFragment : Fragment(),
                 val split = docId.split(":".toRegex()).toTypedArray()
                 val type = split[0]
                 var contentUri: Uri? = null
-                if ("image" == type) {
+                if (Constants.IMAGE == type) {
                     contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
                 } else if ("video" == type) {
                     contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
