@@ -290,7 +290,7 @@ class CompletedInvestmentAdapter(
                 context,
                 R.font.jost_regular
             )
-            ivCompletedInvestmentGraph.getAxisLeft().valueFormatter = Xaxisformatter()
+//            ivCompletedInvestmentGraph.getAxisLeft().valueFormatter = Xaxisformatter()
             ivCompletedInvestmentGraph.xAxis.valueFormatter = Xaxisformatter()
             //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
             //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
