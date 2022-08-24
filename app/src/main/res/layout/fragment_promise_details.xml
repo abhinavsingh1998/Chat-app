@@ -90,7 +90,6 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:paddingBottom="@dimen/margin_size_18"
-            app:layout_constraintBottom_toTopOf="@+id/apply_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/line_view2" />
@@ -102,6 +101,7 @@
             android:layout_marginLeft="0dp"
             android:layout_marginTop="0dp"
             android:layout_marginRight="0dp"
+            android:visibility="gone"
             android:background="@color/background_grey_color"
             android:paddingBottom="@dimen/margin_size_20"
             app:layout_constraintEnd_toEndOf="parent"
