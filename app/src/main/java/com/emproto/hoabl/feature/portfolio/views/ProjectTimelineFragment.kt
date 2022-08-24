@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
+import com.emproto.hoabl.R
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
@@ -170,37 +171,8 @@ class ProjectTimelineFragment : BaseFragment() {
     }
 
     fun getLandManagment() {
-        portfolioviewmodel.getFacilityManagment()
-            .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-                when (it.status) {
-                    Status.LOADING -> {
-                        mBinding.loader.show()
-                    }
-                    Status.SUCCESS -> {
-                        mBinding.loader.hide()
-                        if (it.data!!.data.web_url != null) {
-                            (requireActivity() as HomeActivity).addFragment(
-                                FmFragment.newInstance(
-                                    it.data!!.data.web_url!!,
-                                    ""
-                                ), true
-                            )
 
-                        } else {
-                            (requireActivity() as HomeActivity).showErrorToast(
-                               Constants.SOMETHING_WENT_WRONG
-                            )
-                        }
-
-                    }
-                    Status.ERROR -> {
-                        mBinding.loader.hide()
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            Constants.SOMETHING_WENT_WRONG
-                        )
-                    }
-                }
-            })
+        (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
     }
 
 
