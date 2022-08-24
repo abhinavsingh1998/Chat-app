@@ -104,7 +104,7 @@ class OpportunityDocsFragment:BaseFragment() {
             opportunityDocsAdapter.setItemClickListener(onItemClickListener)
             when(isFromProjectAmenities){
                 true -> {
-                    binding.rvOppDocs.scrollToPosition(6)
+                    binding.rvOppDocs.scrollToPosition(list.size-1)
                 }
             }
         })

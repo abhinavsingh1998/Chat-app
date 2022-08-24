@@ -301,8 +301,21 @@ class OpportunityDocsAdapter(
         fun bind(position: Int) {
             binding.tvTourismAround.text = data.tourismAround.heading
             val list = arrayListOf<Story>()
-            for (i in 0..3) {
-                list.add(data.tourismAround.stories[i])
+            when{
+                data.tourismAround.stories.size < 5 ->{
+                    for(item in data.tourismAround.stories){
+                        list.add(item)
+                    }
+                    binding.apply {
+                        tvViewMore.visibility = View.GONE
+                        ivViewMoreArrow.visibility = View.GONE
+                    }
+                }
+                else -> {
+                    for (i in 0..3) {
+                        list.add(data.tourismAround.stories[i])
+                    }
+                }
             }
             destinationAdapter = DestinationAdapter(context, list)
             binding.rvDestination.adapter = destinationAdapter
@@ -389,16 +402,42 @@ class OpportunityDocsAdapter(
                 val list = arrayListOf<ProjectAminity>()
                 when (isFromProjectAmenities) {
                     true -> {
-                        for (item in data.projectAminities) {
-                            list.add(item)
+                        when{
+                            data.projectAminities.size < 5 -> {
+                                for (item in data.projectAminities) {
+                                    list.add(item)
+                                }
+                                binding.apply {
+                                    tvViewMore.visibility = View.GONE
+                                    ivViewMoreArrow.visibility = View.GONE
+                                }
+                            }
+                            else -> {
+                                for(item in data.projectAminities){
+                                    list.add(item)
+                                }
+                                binding.ivViewMoreArrow.setImageResource(R.drawable.path_3)
+                                binding.tvViewMore.text = context.getString(R.string.view_less_caps)
+                                isClicked = false
+                            }
                         }
-                        binding.ivViewMoreArrow.setImageResource(R.drawable.path_3)
-                        binding.tvViewMore.text = context.getString(R.string.view_less_caps)
-                        isClicked = false
                     }
                     false -> {
-                        for (i in 0..3) {
-                            list.add(data.projectAminities[i])
+                        when {
+                            data.projectAminities.size < 5 -> {
+                                for (item in data.projectAminities) {
+                                    list.add(item)
+                                }
+                                binding.apply {
+                                    tvViewMore.visibility = View.GONE
+                                    ivViewMoreArrow.visibility = View.GONE
+                                }
+                            }
+                            else -> {
+                                for (i in 0..3) {
+                                    list.add(data.projectAminities[i])
+                                }
+                            }
                         }
                     }
                 }
