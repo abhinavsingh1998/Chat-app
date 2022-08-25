@@ -96,25 +96,40 @@ class PromisesDetailsFragment : BaseFragment() {
             val list = ArrayList<String>()
             list.addAll(it.description)
             binding.tvDescList.adapter = PromiseDetailsAdapter(requireContext(), list)
-            it.howToApply?.let {
-                binding.textviewApply1.text = it.description
 
+            if(it.isHowToApplyActive){
+                binding.applyView.isVisible=true
+                //apply
+                binding.textviewApply.text = it.howToApply?.title
+                it.howToApply?.let {
+                    binding.textviewApply1.text = it.description
+
+                }
+            } else{
+                binding.applyView.isVisible=false
             }
+
+            //termsAndConditions
+            if (it.isTermsAndConditionsActive){
+                if (it.termsAndConditions != null) {
+                    binding.textViewTAndC.isVisible= true
+                    termsConditionDialogBinding.tvTitle.text =
+                        showHTMLText(it.termsAndConditions?.description)
+                    termsConditionDialogBinding.tvTitle.setMovementMethod(
+                        ScrollingMovementMethod()
+                    )
+                    binding.textViewTAndC.text = it.termsAndConditions?.displayName
+
+                }
+            } else{
+                binding.textViewTAndC.isVisible= true
+            }
+
             if (it.displayMedia != null)
                 Glide.with(requireContext())
                     .load(it.displayMedia?.value?.url)
                     .into(binding.imageSecurity)
-            //termsAndConditions
-            if (it.termsAndConditions != null) {
-                termsConditionDialogBinding.tvTitle.text =
-                    showHTMLText(it.termsAndConditions?.description)
-                termsConditionDialogBinding.tvTitle.setMovementMethod(
-                    ScrollingMovementMethod()
-                )
-                binding.textViewTAndC.text = it.termsAndConditions?.displayName
-                //apply
-                binding.textviewApply.text = it.howToApply?.title
-            }
+
         })
 
 //        homeViewModel.getTermsCondition(5004).observe(viewLifecycleOwner, Observer {
