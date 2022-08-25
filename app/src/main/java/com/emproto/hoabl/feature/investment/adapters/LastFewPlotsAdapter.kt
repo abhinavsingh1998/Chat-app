@@ -54,6 +54,11 @@ class LastFewPlotsAdapter(
                 true -> holder.binding.timerView.visibility = View.VISIBLE
             }
 
+            when(element.fomoContent.isNoOfViewsActive){
+                true -> holder.binding.cvView.visibility = View.VISIBLE
+                false -> holder.binding.cvView.visibility = View.GONE
+            }
+
             val timeCounter = object : CountDownTimer(Utility.conversionForTimer(element.fomoContent.targetTime.hours.toString(),element.fomoContent.targetTime.minutes.toString(),
                 element.fomoContent.targetTime.seconds.toString()), 1000) {
                 @SuppressLint("SetTextI18n")

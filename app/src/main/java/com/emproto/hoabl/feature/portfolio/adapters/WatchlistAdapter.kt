@@ -52,8 +52,13 @@ class WatchlistAdapter(
                 tvRating.text = "${Utility.convertTo(element.project.estimatedAppreciation)}%"
 
                 when(element.project.fomoContent.isTargetTimeActive){
-                    false -> holder.binding.tvDuration.visibility = View.GONE
-                    true -> holder.binding.tvDuration.visibility = View.VISIBLE
+                    false -> holder.binding.timerView.visibility = View.GONE
+                    true -> holder.binding.timerView.visibility = View.VISIBLE
+                }
+
+                when(element.project.fomoContent.isNoOfViewsActive){
+                    true -> holder.binding.cvView.visibility = View.VISIBLE
+                    false -> holder.binding.cvView.visibility = View.GONE
                 }
 
                 val timeCounter = object : CountDownTimer(Utility.conversionForTimer(element.project.fomoContent.targetTime.hours.toString(),element.project.fomoContent.targetTime.minutes.toString(),
