@@ -47,7 +47,7 @@ class InvestmentFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpViewModel()
         setUpUI()
-        callApi()
+        callApi(false)
     }
 
     private fun setUpViewModel() {
@@ -65,37 +65,51 @@ class InvestmentFragment : BaseFragment() {
         (requireActivity() as HomeActivity).hideBackArrow()
         binding.slSwipeRefresh.setOnRefreshListener {
             binding.slSwipeRefresh.isRefreshing = true
-            binding.slSwipeRefresh.visibility = View.GONE
-            callApi()
+            binding.rvInvestmentPage.hide()
+            callApi(true)
         }
     }
 
-    private fun callApi() {
-        investmentViewModel.getInvestments(5002).observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Status.LOADING -> {
-                    binding.progressBar.show()
-                }
-                Status.SUCCESS -> {
-                    binding.progressBar.hide()
-                    binding.slSwipeRefresh.visibility = View.VISIBLE
-                    it.data?.data?.let { data ->
+    private fun callApi(refresh:Boolean) {
+        if(isNetworkAvailable()){
+            investmentViewModel.getInvestments(5002,refresh).observe(viewLifecycleOwner, Observer {
+                when (it.status) {
+                    Status.LOADING -> {
+                        binding.progressBar.show()
+                        binding.noInternetView.mainContainer.hide()
+                    }
+                    Status.SUCCESS -> {
+                        binding.progressBar.hide()
+                        binding.noInternetView.mainContainer.hide()
                         binding.slSwipeRefresh.isRefreshing = false
-                        newInvestmentsList = data.pageManagementsOrNewInvestments
-                        smartDealsList = data.pageManagementsOrCollectionOneModels
-                        trendingProjectsList = data.pageManagementsOrCollectionTwoModels
-                        projectId = data.page.promotionAndOffersProjectContentId
-                        mediaGalleryApi(data)
+                        it.data?.data?.let { data ->
+                            binding.rvInvestmentPage.show()
+                            newInvestmentsList = data.pageManagementsOrNewInvestments
+                            smartDealsList = data.pageManagementsOrCollectionOneModels
+                            trendingProjectsList = data.pageManagementsOrCollectionTwoModels
+                            projectId = data.page.promotionAndOffersProjectContentId
+                            mediaGalleryApi(data)
+                        }
+                    }
+                    Status.ERROR -> {
+                        binding.slSwipeRefresh.isRefreshing=false
+                        binding.progressBar.hide()
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            it.message!!
+                        )
                     }
                 }
-                Status.ERROR -> {
-                    binding.progressBar.hide()
-                    (requireActivity() as HomeActivity).showErrorToast(
-                        it.message!!
-                    )
-                }
+            })
+        }else{
+            binding.slSwipeRefresh.isRefreshing = false
+            binding.progressBar.hide()
+            binding.rvInvestmentPage.hide()
+            binding.noInternetView.mainContainer.show()
+            binding.noInternetView.textView6.setOnClickListener {
+                callApi(true)
             }
-        })
+        }
+
     }
 
     private fun mediaGalleryApi(invData: Data) {

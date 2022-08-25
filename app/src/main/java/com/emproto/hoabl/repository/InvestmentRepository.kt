@@ -18,6 +18,8 @@ class InvestmentRepository @Inject constructor(application: Application) : BaseR
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + parentJob)
 
+    val mInvestmentResponse = MutableLiveData<BaseResponse<InvestmentResponse>>()
+
     /**
      * Get all investments
      *
@@ -25,28 +27,29 @@ class InvestmentRepository @Inject constructor(application: Application) : BaseR
      * @return
      */
 
-    fun getInvestments(pageType: Int): LiveData<BaseResponse<InvestmentResponse>> {
-        val mInvestmentResponse = MutableLiveData<BaseResponse<InvestmentResponse>>()
-        mInvestmentResponse.postValue(BaseResponse.loading())
-        coroutineScope.launch {
-            try {
-                val request = InvestmentDataSource(application).getInvestmentsData(pageType)
-                if (request.isSuccessful) {
-                    if (request.body()!!.data != null)
-                        mInvestmentResponse.postValue(BaseResponse.success(request.body()!!))
-                    else
-                        mInvestmentResponse.postValue(BaseResponse.Companion.error("No data found"))
-                } else {
-                    mInvestmentResponse.postValue(
-                        BaseResponse.Companion.error(
-                            getErrorMessage(
-                                request.errorBody()!!.string()
+    fun getInvestments(pageType: Int, refresh: Boolean): LiveData<BaseResponse<InvestmentResponse>> {
+        if (mInvestmentResponse.value == null || refresh){
+            mInvestmentResponse.postValue(BaseResponse.loading())
+            coroutineScope.launch {
+                try {
+                    val request = InvestmentDataSource(application).getInvestmentsData(pageType)
+                    if (request.isSuccessful) {
+                        if (request.body()!!.data != null)
+                            mInvestmentResponse.postValue(BaseResponse.success(request.body()!!))
+                        else
+                            mInvestmentResponse.postValue(BaseResponse.Companion.error("No data found"))
+                    } else {
+                        mInvestmentResponse.postValue(
+                            BaseResponse.Companion.error(
+                                getErrorMessage(
+                                    request.errorBody()!!.string()
+                                )
                             )
                         )
-                    )
+                    }
+                } catch (e: Exception) {
+                    mInvestmentResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
                 }
-            } catch (e: Exception) {
-                mInvestmentResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
             }
         }
         return mInvestmentResponse

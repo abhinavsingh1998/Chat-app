@@ -474,7 +474,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         val troubleSigningRequest = TroubleSigningRequest(
                             "1002",
                             "91",
-                            "I want to know more about - promises",
+                            "I want to know more about promises for ${it.data.projectInformation.launchName.toString()}",
                             "",
                             "",
                             appPreference.getMobilenum()
