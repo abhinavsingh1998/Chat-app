@@ -13,7 +13,6 @@ import com.emproto.networklayer.request.investment.WatchListBody
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.MapData
 import com.emproto.networklayer.response.investment.*
-import com.emproto.networklayer.response.promises.HomePagesOrPromise
 
 class InvestmentViewModel(
     private var mapplication: Application,
@@ -49,8 +48,8 @@ class InvestmentViewModel(
 
     var isVideoSeeAllClicked = false
 
-    fun getInvestments(pageType: Int): LiveData<BaseResponse<InvestmentResponse>> {
-        return investmentRepository.getInvestments(pageType)
+    fun getInvestments(pageType: Int, refresh: Boolean): LiveData<BaseResponse<InvestmentResponse>> {
+        return investmentRepository.getInvestments(pageType,refresh)
     }
 
     fun getInvestmentsMediaGallery(projectId: Int): LiveData<BaseResponse<ProjectMediaGalleryResponse>> {
