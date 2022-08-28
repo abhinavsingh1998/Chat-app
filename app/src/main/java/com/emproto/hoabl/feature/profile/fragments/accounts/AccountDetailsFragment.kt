@@ -404,13 +404,14 @@ class AccountDetailsFragment : Fragment(),
     }
 
     private fun initClickListener() {
-        binding.backAction.setOnClickListener { requireActivity().supportFragmentManager.popBackStack()
+        binding.backAction.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         binding.tvSeeAllPayment.setOnClickListener {
             profileViewModel.savePaymentHistory(allPaymentList)
             val allPaymentHistoryFragment = AllPaymentHistoryFragment()
-            (requireActivity() as HomeActivity).addFragment(allPaymentHistoryFragment,true)
+            (requireActivity() as HomeActivity).addFragment(allPaymentHistoryFragment, true)
         }
         binding.tvSeeAllDocuments.setOnClickListener {
             docsBottomSheet.show()
@@ -530,7 +531,7 @@ class AccountDetailsFragment : Fragment(),
             val intent = Intent(Intent.ACTION_VIEW)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            intent.setDataAndType(path,Constants.APPLICATION_PDF)
+            intent.setDataAndType(path, Constants.APPLICATION_PDF)
             try {
                 startActivity(intent)
             } catch (e: Exception) {
@@ -548,7 +549,11 @@ class AccountDetailsFragment : Fragment(),
 
     private fun selectImage() {
         val options =
-            arrayOf<CharSequence>(Constants.TAKE_PHOTO, Constants.CHOOSE_FROM_GALLERY, Constants.CANCEL)
+            arrayOf<CharSequence>(
+                Constants.TAKE_PHOTO,
+                Constants.CHOOSE_FROM_GALLERY,
+                Constants.CANCEL
+            )
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireActivity())
         builder.setTitle(Constants.ADD_PHOTO)
         builder.setItems(options) { dialog, item ->
@@ -564,7 +569,7 @@ class AccountDetailsFragment : Fragment(),
                     cameraLauncher.launch(intent)
 
                 }
-                options[item] ==Constants.CHOOSE_FROM_GALLERY -> {
+                options[item] == Constants.CHOOSE_FROM_GALLERY -> {
                     val intent =
                         Intent(
                             Intent.ACTION_PICK,
@@ -572,7 +577,7 @@ class AccountDetailsFragment : Fragment(),
                         )
                     resultLauncher.launch(intent)
                 }
-                options[item] ==Constants.CANCEL -> {
+                options[item] == Constants.CANCEL -> {
                     dialog.dismiss()
                 }
             }
@@ -634,6 +639,7 @@ class AccountDetailsFragment : Fragment(),
             )
         }
     }
+
     private fun callingUploadPicApi(destinationFile: File, extension: String) {
         profileViewModel.uploadKycDocument(extension, destinationFile, selectedDocumentType)
             .observe(
@@ -646,22 +652,26 @@ class AccountDetailsFragment : Fragment(),
                     Status.SUCCESS -> {
                         binding.progressBar.hide()
                         it.data?.let {
-                            if (it.data.response.data.name != null && it.data.response.data.name != null) {
-                                for (item in kycUploadList) {
-                                    if (selectedDocumentType == DOC_TYPE_UNVERIFIED_ADDRESS_PROOF && item.documentName == "Address Proof") {
-                                        item.name = it.data.response.data.name
-                                        item.path = it.data.response.data.path
-                                        item.status = "Verification Pending"
-                                    } else if (selectedDocumentType == DOC_TYPE_UNVERIFIED_PAN_CARD && item.documentName == "PAN Card") {
-                                        item.name = it.data.response.data.name
-                                        item.path = it.data.response.data.path
-                                        item.status = "Verification Pending"
+                            if (it.data.response != null) {
+                                if (it.data.response.data.name != null && it.data.response.data.name != null) {
+                                    for (item in kycUploadList) {
+                                        if (selectedDocumentType == DOC_TYPE_UNVERIFIED_ADDRESS_PROOF && item.documentName == "Address Proof") {
+                                            item.name = it.data.response.data.name
+                                            item.path = it.data.response.data.path
+                                            item.status = "Verification Pending"
+                                        } else if (selectedDocumentType == DOC_TYPE_UNVERIFIED_PAN_CARD && item.documentName == "PAN Card") {
+                                            item.name = it.data.response.data.name
+                                            item.path = it.data.response.data.path
+                                            item.status = "Verification Pending"
+                                        }
                                     }
+                                    kycUploadAdapter.notifyDataSetChanged()
+                                    val dialog = AccountKycStatusPopUpFragment()
+                                    dialog.isCancelable = false
+                                    dialog.show(childFragmentManager, "submitted")
                                 }
-                                kycUploadAdapter.notifyDataSetChanged()
-                                val dialog = AccountKycStatusPopUpFragment()
-                                dialog.isCancelable = false
-                                dialog.show(childFragmentManager, "submitted")
+                            } else {
+                                (requireActivity() as HomeActivity).showErrorToast(Constants.SOMETHING_WENT_WRONG)
                             }
 
                         }
@@ -677,6 +687,7 @@ class AccountDetailsFragment : Fragment(),
                 }
             }
     }
+
     var resultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -699,7 +710,7 @@ class AccountDetailsFragment : Fragment(),
             try {
                 val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
                 if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-                    destinationFile=Utility.getCompressedImageFile(File(filePath), context)!!
+                    destinationFile = Utility.getCompressedImageFile(File(filePath), context)!!
                     val extension: String =
                         destinationFile.name.substring(destinationFile.name.lastIndexOf(".") + 1)
                     callingUploadPicApi(destinationFile, extension)

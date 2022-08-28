@@ -97,22 +97,22 @@ class PromisesDetailsFragment : BaseFragment() {
             list.addAll(it.description)
             binding.tvDescList.adapter = PromiseDetailsAdapter(requireContext(), list)
 
-            if(it.isHowToApplyActive){
-                binding.applyView.isVisible=true
+            if (it.isHowToApplyActive) {
+                binding.applyView.isVisible = true
                 //apply
                 binding.textviewApply.text = it.howToApply?.title
                 it.howToApply?.let {
                     binding.textviewApply1.text = it.description
 
                 }
-            } else{
-                binding.applyView.isVisible=false
+            } else {
+                binding.applyView.isVisible = false
             }
 
             //termsAndConditions
-            if (it.isTermsAndConditionsActive){
+            if (!it.isTermsAndConditionsActive) {
                 if (it.termsAndConditions != null) {
-                    binding.textViewTAndC.isVisible= true
+                    binding.textViewTAndC.visibility = View.GONE
                     termsConditionDialogBinding.tvTitle.text =
                         showHTMLText(it.termsAndConditions?.description)
                     termsConditionDialogBinding.tvTitle.setMovementMethod(
@@ -121,8 +121,8 @@ class PromisesDetailsFragment : BaseFragment() {
                     binding.textViewTAndC.text = it.termsAndConditions?.displayName
 
                 }
-            } else{
-                binding.textViewTAndC.isVisible= true
+            } else {
+                binding.textViewTAndC.visibility = View.VISIBLE
             }
 
             if (it.displayMedia != null)

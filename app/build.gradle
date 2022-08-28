@@ -14,10 +14,10 @@ android {
         applicationId "com.hoabl"
         minSdk 19
         targetSdk 32
-        versionCode 61
-        versionName "0.0.61"
+        versionCode 63
+        versionName "0.0.63"
         multiDexEnabled true
-        archivesBaseName = "Hoabl_61"
+        archivesBaseName = "Hoabl_63"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.debug
         vectorDrawables.useSupportLibrary = true
