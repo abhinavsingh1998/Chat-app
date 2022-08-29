@@ -252,30 +252,25 @@ class PortfolioSpecificViewAdapter(
 //                            reraNumber += "\n"
 //                        }
 //                    }
-                    if (data.investmentInformation.allocationDate != null)
-                        binding.tvAllocationDate.text =
+
+                    binding.tvAllocationDate.text =
+                        if (data.investmentInformation.allocationDate != null)
                             Utility.parseDateFromUtc(
-                                data.investmentInformation.allocationDate,
-                                null
-                            )
-                    if (data.investmentInformation.possesionDate != null) {
-                        binding.tvPossessionDate.text =
+                                data.investmentInformation.allocationDate
+                            ) else "-"
+
+                    binding.tvPossessionDate.text =
+                        if (data.investmentInformation.possesionDate != null)
                             Utility.parseDateFromUtcToMMYYYY(
                                 data.investmentInformation.possesionDate,
                                 null
-                            )
-                    } else {
-                        binding.tvPossessionDate.text = "-"
-                    }
+                            ) else "-"
                     //view more
-                    binding.tvLandId.text = "Hoabl/" + data.investmentInformation.crmInventory.name
+                    binding.tvLandId.text = data.investmentInformation.crmInventory.name
                     if (data.investmentInformation.crmInventoryBucket != null) {
                         binding.tvSkuType.text = data.investmentInformation.crmInventoryBucket.name
                     }
 
-                    if (data.investmentInformation != null) {
-
-                    }
                     binding.tvInvestmentAmount.text =
                         Utility.formatAmount(data.investmentInformation.amountInvested)
 
@@ -290,33 +285,33 @@ class PortfolioSpecificViewAdapter(
                         Utility.formatAmount(data.investmentInformation.otherExpenses)
 
                     binding.tvInvestmentAmountTitle.setOnClickListener {
-                        getToolTip("₹${data.investmentInformation.amountInvested}").showAlignTop(
+                        getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.amountInvested)).showAlignTop(
                             binding.ivInvestedAmount
                         )
                     }
                     binding.ivInvestedAmount.setOnClickListener {
-                        getToolTip("₹${data.investmentInformation.amountInvested}").showAlignTop(
+                        getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.amountInvested)).showAlignTop(
                             binding.ivInvestedAmount
                         )
                     }
 
                     binding.ivAmountPending.setOnClickListener {
-                        getToolTip("₹${data.investmentInformation.sdrCharges}").showAlignTop(
+                        getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.sdrCharges)).showAlignTop(
                             binding.ivAmountPending
                         )
                     }
                     binding.tvRegistryAmountTitle.setOnClickListener {
-                        getToolTip("₹${data.investmentInformation.sdrCharges}").showAlignTop(
+                        getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.sdrCharges)).showAlignTop(
                             binding.ivAmountPending
                         )
                     }
                     binding.tvOtherExpensesTitle.setOnClickListener {
-                        getToolTip("₹${data.investmentInformation.otherExpenses}").showAlignTop(
+                        getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.otherExpenses)).showAlignTop(
                             binding.ivAmountPending1
                         )
                     }
                     binding.ivAmountPending1.setOnClickListener {
-                        getToolTip("₹${data.investmentInformation.otherExpenses}").showAlignTop(
+                        getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.otherExpenses)).showAlignTop(
                             binding.ivAmountPending1
                         )
                     }
@@ -324,7 +319,9 @@ class PortfolioSpecificViewAdapter(
                     binding.registrationNo.text = reraNumber
                     binding.tvLatitude.text = data.projectInformation.crmProject.lattitude
                     binding.tvLongitude.text = data.projectInformation.crmProject.longitude
-                    binding.tvAltitude.text = data.projectInformation.crmProject.altitude + "m"
+                    binding.tvAltitude.text =
+                        if (data.projectInformation.crmProject.altitude != null) "${data.projectInformation.crmProject.altitude}m"
+                        else "-"
                     binding.ownersName.text = data.investmentInformation.owners[0]
                     Glide.with(context).load(data.projectExtraDetails.projectIco.value.url)
                         .into(binding.ivProjectImage)
@@ -346,7 +343,7 @@ class PortfolioSpecificViewAdapter(
                             Utility.formatAmount(data.investmentInformation.amountInvested)
                         getToolTip("₹${data.investmentInformation.amountInvested}")
                         binding.tvPaid.setOnClickListener {
-                            getToolTip("₹${data.investmentInformation.amountInvested}").showAlignTop(
+                            getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.amountInvested)).showAlignTop(
                                 binding.tvPaid
                             )
                         }
@@ -362,12 +359,12 @@ class PortfolioSpecificViewAdapter(
                         binding.tvAmountPaid.text =
                             Utility.formatAmount(data.projectExtraDetails.paidAmount)
                         binding.tvPaid.setOnClickListener {
-                            getToolTip("₹${data.projectExtraDetails.paidAmount}").showAlignTop(
+                            getToolTip(Utility.convertToCurrencyFormat(data.projectExtraDetails.paidAmount)).showAlignTop(
                                 binding.tvPaid
                             )
                         }
                         binding.tvPending.setOnClickListener {
-                            getToolTip("₹${BigDecimal(data.projectExtraDetails.amountPending)}").showAlignTop(
+                            getToolTip("${BigDecimal(data.projectExtraDetails.amountPending)}").showAlignTop(
                                 binding.tvPending
                             )
                         }
@@ -753,8 +750,8 @@ class PortfolioSpecificViewAdapter(
     inner class Xaxisformatter : IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
             var floatValue = 0.0f
-            when{
-                p0<0.0f -> {
+            when {
+                p0 < 0.0f -> {
                     floatValue = 0.0f
                 }
                 else -> {
@@ -763,7 +760,7 @@ class PortfolioSpecificViewAdapter(
             }
             return when (graphType) {
                 Constants.QUATERLY -> returnFormattedValue(Math.abs(floatValue))
-               Constants.MONTHLY -> returnFormattedValue(Math.abs(floatValue))
+                Constants.MONTHLY -> returnFormattedValue(Math.abs(floatValue))
                 Constants.HALF_YEARLY -> returnFormattedValue(Math.abs(floatValue))
                 else -> {
                     String.format("%.0f", Math.abs(floatValue).toDouble())

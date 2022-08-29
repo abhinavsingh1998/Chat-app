@@ -215,8 +215,8 @@ class ExistingUsersPortfolioAdapter(
             if (list[position].data != null) {
                 val summary = list[position].data as Summary
                 val completed = summary.completed
-                binding.contentTxt1.text = "" + completed.count
-                binding.contentTxt2.text = "" + completed.areaSqFt
+                binding.contentTxt1.text = "${completed.count}"
+                binding.contentTxt2.text = Utility.convertTo(completed.areaSqFt)
                 binding.contentTxt3.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
                     .format(completed.amountInvested)
                 binding.contentTxt4.text = "${summary.iea}% IEA"
