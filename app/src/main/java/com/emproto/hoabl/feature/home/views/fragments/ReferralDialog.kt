@@ -20,6 +20,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ReferralDialogBinding
 import com.emproto.hoabl.databinding.ReferralSuccessDialogBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.portfolio.views.CustomDialog
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
@@ -159,6 +160,12 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
                     Status.LOADING ->{
                         mBinding.referBtn.isVisible= false
                         mBinding.progressBar.isVisible= true
+                    }
+
+                    Status.ERROR ->{
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            it.message!!)
+                        dismiss()
                     }
                 }
             })

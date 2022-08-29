@@ -8,6 +8,7 @@
     android:layout_gravity="center_horizontal"
     app:cardElevation="6dp"
     android:outlineSpotShadowColor="#ababab"
+    android:layout_marginTop="@dimen/margin_size_4"
     android:layout_marginBottom="@dimen/margin_size_10"
     android:layout_marginRight="@dimen/margin_size_4"
     android:layout_marginStart="@dimen/margin_size_2"
