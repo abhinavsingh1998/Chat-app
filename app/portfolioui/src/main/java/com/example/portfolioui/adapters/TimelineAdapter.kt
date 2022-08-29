@@ -14,6 +14,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.core.Utility
 import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimeline
 import com.example.portfolioui.R
 import com.example.portfolioui.databinding.ItemTimelineDataBinding
@@ -96,6 +97,11 @@ class TimelineAdapter(
                 val headerData = dataList[position].data as TimelineHeaderData
                 header_holder.binding.projectName.text = headerData.projectName
                 header_holder.binding.tvAddress.text = headerData.address
+
+                header_holder.binding.tvDate.text =
+                    if (headerData.completionDate != null) Utility.parseDateFromUtcToMMYYYY(
+                        headerData.completionDate
+                    ) else "-"
             }
             TYPE_LAND -> {
                 val listData = dataList[position].data as ProjectTimeline
@@ -118,7 +124,7 @@ class TimelineAdapter(
                     }
 
                 }
-                if(!listData.timeLines[0].isSectionActive){
+                if (!listData.timeLines[0].isSectionActive) {
                     langHolder.binding.apply {
                         stepView.visibility = View.INVISIBLE
                         ivFirst.isVisible = false
@@ -126,8 +132,8 @@ class TimelineAdapter(
                         getOtpButton.isVisible = false
                     }
                 }
-                if(listData.timeLines[0].values.isCtaActive != null){
-                    if(!listData.timeLines[0].values.isCtaActive){
+                if (listData.timeLines[0].values.isCtaActive != null) {
+                    if (!listData.timeLines[0].values.isCtaActive) {
                         langHolder.binding.apply {
                             getOtpButton.isVisible = false
                         }
@@ -167,7 +173,7 @@ class TimelineAdapter(
                         listHolder.binding.imageView
                     )
                 }
-                if(!listData.timeLines[0].isSectionActive){
+                if (!listData.timeLines[0].isSectionActive) {
                     listHolder.binding.apply {
                         stepView.visibility = View.INVISIBLE
                         stepsType.isVisible = false
@@ -177,8 +183,8 @@ class TimelineAdapter(
                         textView10.isVisible = false
                     }
                 }
-                if(listData.timeLines[0].values.isCtaActive != null){
-                    if(!listData.timeLines[0].values.isCtaActive){
+                if (listData.timeLines[0].values.isCtaActive != null) {
+                    if (!listData.timeLines[0].values.isCtaActive) {
                         listHolder.binding.apply {
                             textView7.isVisible = false
                         }
@@ -204,19 +210,37 @@ class TimelineAdapter(
                 for (item in listData.timeLines) {
                     when (item.values.percentage) {
                         0.0 -> {
-                            if(item.isSectionActive){
-                                stepsList.add(StepsModel(StepsAdapter.TYPE_INSTART, item, listData.timeLineSectionHeading))
+                            if (item.isSectionActive) {
+                                stepsList.add(
+                                    StepsModel(
+                                        StepsAdapter.TYPE_INSTART,
+                                        item,
+                                        listData.timeLineSectionHeading
+                                    )
+                                )
                             }
                         }
                         in 1.0..99.99 -> {
                             isOneProgress = true
-                            if(item.isSectionActive){
-                                stepsList.add(StepsModel(StepsAdapter.TYPE_INPROGRESS, item, listData.timeLineSectionHeading))
+                            if (item.isSectionActive) {
+                                stepsList.add(
+                                    StepsModel(
+                                        StepsAdapter.TYPE_INPROGRESS,
+                                        item,
+                                        listData.timeLineSectionHeading
+                                    )
+                                )
                             }
                         }
                         else -> {
-                            if(item.isSectionActive){
-                                stepsList.add(StepsModel(StepsAdapter.TYPE_COMPLETED, item, listData.timeLineSectionHeading))
+                            if (item.isSectionActive) {
+                                stepsList.add(
+                                    StepsModel(
+                                        StepsAdapter.TYPE_COMPLETED,
+                                        item,
+                                        listData.timeLineSectionHeading
+                                    )
+                                )
                             }
                         }
                     }

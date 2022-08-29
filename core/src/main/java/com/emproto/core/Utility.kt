@@ -22,6 +22,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import java.io.*
 import java.text.DecimalFormat
+import java.text.NumberFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -484,6 +485,11 @@ object Utility {
         val totalTimeInMillis = hoursInMillis + minsInMillis + secsInMillis
 
         return totalTimeInMillis
+    }
+
+    fun convertToCurrencyFormat(amount: Double): String {
+        return NumberFormat.getCurrencyInstance(Locale("en", "in"))
+            .format(amount)
     }
 
 }

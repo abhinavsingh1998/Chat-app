@@ -80,7 +80,7 @@ class ProjectTimelineFragment : BaseFragment() {
                         val timelineHeaderData = TimelineHeaderData(
                             it.data.projectContent.launchName,
                             it.data.projectContent.address.city + " , " + it.data.projectContent.address.state,
-                            ""
+                            it.data.projectContent.projectCompletionDate
                         )
                         timelineList.add(
                             TimelineModel(
@@ -105,7 +105,7 @@ class ProjectTimelineFragment : BaseFragment() {
                                 object : TimelineAdapter.TimelineInterface {
                                     override fun onClickVDetails(name: String, url: String) {
                                         //open image viewer
-                                        getUrl(name,url)
+                                        getUrl(name, url)
                                     }
 
                                     override fun onClickReraDetails(url: String) {
@@ -119,7 +119,7 @@ class ProjectTimelineFragment : BaseFragment() {
 
                                         } else {
                                             (requireActivity() as HomeActivity).showErrorToast(
-                                            Constants.SOMETHING_WENT_WRONG
+                                                Constants.SOMETHING_WENT_WRONG
                                             )
                                         }
                                     }
@@ -177,7 +177,7 @@ class ProjectTimelineFragment : BaseFragment() {
 
 
     private fun getUrl(category: String, url: String) {
-        val categoryType = when(category){
+        val categoryType = when (category) {
             "Project Design & Boundary" -> "4001"
             "Infrastructure & Amenities Development" -> "4003"
             "Plot Delivery" -> ""
@@ -186,16 +186,20 @@ class ProjectTimelineFragment : BaseFragment() {
         portfolioviewmodel.getProjectTimelineMedia(
             category = category, projectContentId = param1.toString()
         ).observe(viewLifecycleOwner, Observer {
-            when(it.status){
+            when (it.status) {
                 Status.LOADING -> {
                     mBinding.loader.show()
                 }
                 Status.SUCCESS -> {
                     mBinding.loader.hide()
                     it.data?.let {
-                        if(it.data.isNotEmpty()){
+                        if (it.data.isNotEmpty()) {
                             (requireActivity() as HomeActivity).addFragment(
-                                DocViewerFragment.newInstance(false, it.data[0].name, it.data[0].mediaContent.value.url),
+                                DocViewerFragment.newInstance(
+                                    false,
+                                    it.data[0].name,
+                                    it.data[0].mediaContent.value.url
+                                ),
                                 true
                             )
                         }

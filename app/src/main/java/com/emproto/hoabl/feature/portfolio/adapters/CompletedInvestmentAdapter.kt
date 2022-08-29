@@ -103,7 +103,7 @@ class CompletedInvestmentAdapter(
                 }
             }
 
-            holder.binding.tvInventoryId.text = "Hoabl/${project.investment.crmInventory.name}"
+            holder.binding.tvInventoryId.text = "${project.investment.crmInventory.name}"
             holder.binding.tvEstimatedAppreciationRating.text =
                 "" + project.project.generalInfoEscalationGraph.estimatedAppreciation + "%"
 
