@@ -193,10 +193,12 @@ class EditProfileFragment : BaseFragment() {
         binding.tvRemove1.setTextColor(Color.parseColor("#9d9eb1"))
         binding.tvRemove2.setTextColor(Color.parseColor("#9d9eb1"))
     }
+
     private fun setLightColor() {
         binding.tvRemove1.setTextColor(Color.parseColor("#9192a0"))
         binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
     }
+
     private fun getCountries(refresh: Boolean) {
         profileViewModel.getCountries(refresh).observe(viewLifecycleOwner) {
             when (it.status) {
@@ -376,12 +378,12 @@ class EditProfileFragment : BaseFragment() {
                 isWriteStorageGranted =
                     permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE]
                         ?: isWriteStorageGranted
+                selectImage()
             }
-        requestPermission()
 
         binding.textviewEnterName.text = data.firstName + " " + data.lastName
         Log.i("name", data.firstName + " " + data.lastName + data.email)
-        binding.enterPhonenumberTextview.text = data.countryCode+" "+data.phoneNumber
+        binding.enterPhonenumberTextview.text = data.countryCode + data.phoneNumber
         if (!data.email.isNullOrEmpty()) {
             binding.emailTv.setText(data.email)
         } else {
@@ -457,12 +459,12 @@ class EditProfileFragment : BaseFragment() {
             binding.cvProfileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
             binding.tvremove.isClickable = false
-           setColor()
+            setColor()
             setUserNamePIC(data)
         } else {
             binding.cvProfileImage.visibility = View.VISIBLE
             binding.profileUserLetters.visibility = View.GONE
-        setLightColor()
+            setLightColor()
             Glide.with(requireContext())
                 .load(data.profilePictureUrl)
                 .transform(CircleTransform(requireContext()))
@@ -470,6 +472,7 @@ class EditProfileFragment : BaseFragment() {
 
         }
     }
+
     private fun enableEdit(autoValue: AutoCompleteTextView) {
         autoValue.isCursorVisible = false
         autoValue.customSelectionActionModeCallback = object : ActionMode.Callback {
@@ -541,7 +544,14 @@ class EditProfileFragment : BaseFragment() {
         })
 
 
-        binding.uploadNewPicture.setOnClickListener { selectImage() }
+        binding.uploadNewPicture.setOnClickListener {
+            if (!isReadStorageGranted && !isWriteStorageGranted) {
+                requestPermission()
+
+            }else if (isReadStorageGranted&&isWriteStorageGranted){
+                selectImage()
+            }
+        }
 
         removePictureDialog()
         binding.saveAndUpdate.setOnClickListener {
@@ -574,7 +584,8 @@ class EditProfileFragment : BaseFragment() {
             houseNo = binding.houseNo.text.toString()
             if (houseNo.isNotEmpty()) {
                 if (houseNo.length == 150) {
-                    binding.floorHouseNum.error = Constants.YOU_HAVE_REACHED_THE_MAX_CHARACTERS_LIMIT
+                    binding.floorHouseNum.error =
+                        Constants.YOU_HAVE_REACHED_THE_MAX_CHARACTERS_LIMIT
                 } else {
                     houseNo = binding.houseNo.text.toString()
                 }
@@ -591,7 +602,7 @@ class EditProfileFragment : BaseFragment() {
 
             if (locality.isNotEmpty()) {
                 if (locality.length == 150) {
-                    binding.tvLocality.error =  Constants.YOU_HAVE_REACHED_THE_MAX_CHARACTERS_LIMIT
+                    binding.tvLocality.error = Constants.YOU_HAVE_REACHED_THE_MAX_CHARACTERS_LIMIT
                 } else {
                     locality = binding.locality.text.toString()
                 }
@@ -682,7 +693,8 @@ class EditProfileFragment : BaseFragment() {
         }
         binding.tvremove.setOnClickListener {
             if (data.profilePictureUrl.isNullOrEmpty()) {
-                Toast.makeText(context, Constants.PICTURE_ALREADY_REMOVED, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, Constants.PICTURE_ALREADY_REMOVED, Toast.LENGTH_SHORT)
+                    .show()
             } else {
                 removePictureDialog.show()
             }
@@ -764,6 +776,7 @@ class EditProfileFragment : BaseFragment() {
             permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
             permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         }
+
         if (permissionRequest.isNotEmpty()) {
             permissionLauncher.launch(permissionRequest.toTypedArray())
         }
@@ -849,6 +862,7 @@ class EditProfileFragment : BaseFragment() {
                 }
             }
     }
+
     private fun callDeletePic(data: Data) {
         val fileName: String = data.profilePictureUrl.toString()
             .substring(data.profilePictureUrl.toString().lastIndexOf('/') + 1)
@@ -886,7 +900,11 @@ class EditProfileFragment : BaseFragment() {
 
     private fun selectImage() {
         val options =
-            arrayOf<CharSequence>(Constants.TAKE_PHOTO, Constants.CHOOSE_FROM_GALLERY, Constants.CANCEL)
+            arrayOf<CharSequence>(
+                Constants.TAKE_PHOTO,
+                Constants.CHOOSE_FROM_GALLERY,
+                Constants.CANCEL
+            )
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireActivity())
         builder.setTitle(Constants.ADD_PHOTO)
         builder.setItems(options) { dialog, item ->
