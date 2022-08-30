@@ -1,6 +1,8 @@
 package com.emproto.hoabl.feature.investment.views
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -44,6 +46,9 @@ class FaqDetailFragment : BaseFragment() {
     private var projectId = 0
     private var faqId = 0
 
+    lateinit var handler : Handler
+    private var runnable: Runnable? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -56,6 +61,7 @@ class FaqDetailFragment : BaseFragment() {
             isFromInvestment = it.getBoolean(Constants.IS_FROM_INVESTMENT)
             projectName = it.getString(Constants.PROJECT_NAME).toString()
         }
+        handler = Handler(Looper.getMainLooper())
         return binding.root
     }
 
@@ -71,7 +77,7 @@ class FaqDetailFragment : BaseFragment() {
             ViewModelProvider(
                 requireActivity(),
                 investmentFactory
-            ).get(InvestmentViewModel::class.java)
+            )[InvestmentViewModel::class.java]
         profileViewModel =
             ViewModelProvider(requireActivity(), factory)[ProfileViewModel::class.java]
         (requireActivity() as HomeActivity).showHeader()
@@ -99,7 +105,7 @@ class FaqDetailFragment : BaseFragment() {
         (activity as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility = View.GONE
         binding.blueHeader.visibility = View.VISIBLE
         //Getting general faqs
-        profileViewModel.getGeneralFaqs(2001).observe(this, Observer {
+        profileViewModel.getGeneralFaqs(2001).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
@@ -126,7 +132,7 @@ class FaqDetailFragment : BaseFragment() {
         (activity as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility = View.VISIBLE
         binding.blueHeader.visibility = View.GONE
         //Getting project faqs
-        investmentViewModel.getInvestmentsFaq(projectId).observe(this, Observer {
+        investmentViewModel.getInvestmentsFaq(projectId).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
@@ -164,7 +170,9 @@ class FaqDetailFragment : BaseFragment() {
                 faqId,
                 itemClickListener,
                 projectName = projectName,
-                fromInvestment = isFromInvestment
+                fromInvestment = isFromInvestment,
+               handler= handler,
+                runnable = runnable
             )
             binding.rvFaq.adapter = adapter
         }else{
@@ -261,8 +269,12 @@ class FaqDetailFragment : BaseFragment() {
             itemClickListener,
             item,
             projectName,
-            isFromInvestment
+            isFromInvestment,handler, runnable
         )
         binding.rvFaq.adapter = adapter
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        runnable?.let { handler.removeCallbacks(it) }
     }
 }

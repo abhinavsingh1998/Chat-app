@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -90,6 +91,11 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     var num = 0
     var markAll = ArrayList<Int>()
 
+    lateinit var handler : Handler
+    private var runnable: Runnable? = null
+
+
+
 
     @Inject
     lateinit var factory: HomeFactory
@@ -138,6 +144,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             FragmentNotificationBottomSheetBinding.inflate(layoutInflater)
         bottomSheetDialog.setContentView(fragmentNotificationBottomSheetBinding.root)
         activityHomeActivity.searchLayout.imageBack.setOnClickListener { onBackPressed() }
+        handler = Handler(Looper.getMainLooper())
+
         initData()
         initClickListener()
         trackEvent()
@@ -331,8 +339,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             if (closeApp) {
                 finishAffinity()
             } else {
-                closeApp = true
-                Handler().postDelayed({ closeApp = false }, 2000)
+                runnable = Runnable { closeApp = true }
+                runnable?.let { it1 -> handler.postDelayed(it1,2000) }
                 Toast.makeText(mContext, "Please press again to exit", Toast.LENGTH_LONG).show()
             }
         } else {
@@ -770,6 +778,10 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
             })
 
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        runnable?.let { handler.removeCallbacks(it) }
     }
 
 }
