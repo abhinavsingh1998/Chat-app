@@ -454,10 +454,10 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 )
                 //it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName + " " + it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
                 activityHomeActivity.searchLayout.rotateText.text = showHTMLText(
-                    "$totalAmtLandSold           $totalLandsold    $grossWeight    $num_User"
+                    "$totalLandsold          $totalAmtLandSold    $grossWeight    $num_User"
                 )
                 topText = showHTMLText(
-                    "$totalAmtLandSold    $totalLandsold    $grossWeight    $num_User"
+                    "$totalLandsold   $totalAmtLandSold   $grossWeight    $num_User"
                 ).toString()
             }
 
