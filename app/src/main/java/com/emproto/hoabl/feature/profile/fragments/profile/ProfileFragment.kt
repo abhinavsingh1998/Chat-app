@@ -38,10 +38,6 @@ import com.emproto.hoabl.feature.profile.adapter.ProfileOptionsAdapter
 import com.emproto.hoabl.feature.profile.data.ProfileModel
 import com.emproto.hoabl.feature.profile.data.ProfileOptionsData
 import com.emproto.hoabl.feature.profile.fragments.accounts.AccountDetailsFragment
-import com.emproto.hoabl.feature.profile.fragments.edit_profile.EditProfileFragment
-import com.emproto.hoabl.feature.profile.fragments.feedback.FacilityManagerPopViewFragment
-import com.emproto.hoabl.feature.profile.fragments.help_center.HelpCenterFragment
-import com.emproto.hoabl.feature.profile.fragments.securtiyandsettings.SecurityFragment
 import com.emproto.hoabl.feature.profile.fragments.edit_profile.CircleTransform
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
