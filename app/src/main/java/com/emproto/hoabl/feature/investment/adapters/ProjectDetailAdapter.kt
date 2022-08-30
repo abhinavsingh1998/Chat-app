@@ -507,13 +507,13 @@ class ProjectDetailAdapter(
             val graphData = data.generalInfoEscalationGraph.dataPoints.points
             val linevalues = ArrayList<Entry>()
             when (data.generalInfoEscalationGraph.dataPoints.dataPointType) {
-               Constants.YEARLY -> {
+                Constants.YEARLY -> {
                     graphType = Constants.YEARLY
-                   for (item in graphData) {
+                    for (item in graphData) {
                         linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
                     }
                 }
-                Constants.HALF_YEARLY-> {
+                Constants.HALF_YEARLY -> {
                     graphType = Constants.HALF_YEARLY
                     for (i in 0..data.generalInfoEscalationGraph.dataPoints.points.size - 1) {
                         val fmString =
@@ -626,7 +626,7 @@ class ProjectDetailAdapter(
         }
     }
 
-    inner class Yaxisformatter : IAxisValueFormatter{
+    inner class Yaxisformatter : IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
             return "$p0%"
         }
@@ -635,9 +635,9 @@ class ProjectDetailAdapter(
     inner class Xaxisformatter : IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
             return when (graphType) {
-               Constants.QUATERLY -> returnFormattedValue(p0)
+                Constants.QUATERLY -> returnFormattedValue(p0)
                 Constants.MONTHLY -> returnFormattedValue(p0)
-                Constants.HALF_YEARLY-> returnFormattedValue(p0)
+                Constants.HALF_YEARLY -> returnFormattedValue(p0)
                 else -> {
                     String.format("%.0f", p0.toDouble())
                 }
@@ -714,7 +714,9 @@ class ProjectDetailAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             binding.apply {
-                tvProjectAmenitiesTitle.text = data.opportunityDoc.projectAminitiesSectionHeading
+                if (data.opportunityDoc.projectAminitiesSectionHeading != null)
+                    tvProjectAmenitiesTitle.text =
+                        data.opportunityDoc.projectAminitiesSectionHeading
                 val list = ArrayList<ProjectAminity>()
                 if (data.opportunityDoc.projectAminities.size > 4) {
                     for (i in 0..3) {

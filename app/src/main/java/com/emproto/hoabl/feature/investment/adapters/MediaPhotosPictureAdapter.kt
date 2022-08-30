@@ -47,11 +47,11 @@ class MediaPhotosPictureAdapter(
 
     override fun onBindViewHolder(holder: MediaPhotosPictureAdapter.ViewHolder, position: Int) {
         val element = itemList[position]
+        holder.binding.tvImageName.text = element.name
+        holder.bind(holder.itemView, position, element, itemClickListener)
         Glide.with(context)
             .load(element.media)
             .into(holder.image)
-        holder.binding.tvImageName.text = element.name
-        holder.bind(holder.itemView, position, element, itemClickListener)
     }
 
     override fun getItemCount(): Int = itemList.size

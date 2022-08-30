@@ -14,10 +14,10 @@ android {
         applicationId "com.hoabl"
         minSdk 19
         targetSdk 32
-        versionCode 62
-        versionName "0.0.62"
+        versionCode 63
+        versionName "0.0.63"
         multiDexEnabled true
-        archivesBaseName = "Hoabl_62"
+        archivesBaseName = "Hoabl_63"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.debug
         vectorDrawables.useSupportLibrary = true
@@ -30,11 +30,14 @@ android {
     buildTypes {
 
         qa {
+            versionNameSuffix '-qa'
+
             debuggable true
             buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-qa-1093935714.ap-south-1.elb.amazonaws.com\"")
         }
 
         preProd{
+            versionNameSuffix '-preprod'
             debuggable true
             buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-preprod-1970620156.ap-south-1.elb.amazonaws.com\"")
         }

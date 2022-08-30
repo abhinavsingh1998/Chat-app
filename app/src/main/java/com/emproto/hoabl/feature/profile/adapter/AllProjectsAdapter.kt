@@ -39,16 +39,7 @@ class AllProjectsAdapter(
         Glide.with(context).load(currentItem.projectCoverImages.newInvestmentPageMedia.value.url)
             .into(holder.binding.projectImg)
 
-        if(position == selectedItemPos) {
-            holder.binding.tabBar.isVisible= true
-
-
-        }
-        else {
-
-            holder.binding.tabBar.isVisible= false
-
-        }
+        holder.binding.tabBar.isVisible = position == selectedItemPos
 
 //        if(position==0){
 //            holder.binding.rootView.performClick()
@@ -58,11 +49,11 @@ class AllProjectsAdapter(
 
             lastItemSelectedPos = selectedItemPos
             selectedItemPos = position
-            if(lastItemSelectedPos == -1)
-                lastItemSelectedPos = selectedItemPos
+            lastItemSelectedPos = if(lastItemSelectedPos == -1)
+                selectedItemPos
             else {
                 notifyItemChanged(lastItemSelectedPos)
-                lastItemSelectedPos = selectedItemPos
+                selectedItemPos
             }
             notifyItemChanged(selectedItemPos)
 

@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.chat.views.fragments
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -41,7 +42,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     lateinit var homeFactory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
     var chatsList: CData? = null
-    var chatHistoryList : Data? = null
+    var chatHistoryList: Data? = null
     var chatDetailList: ChatDetailResponse.ChatDetailList? = null
     lateinit var chatsDetailAdapter: ChatsDetailAdapter
     var newChatMessageList = ArrayList<ChatDetailModel>()
@@ -51,6 +52,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     private var isMessagesEnabled = true
     private var latestConversationId = 0
     private var isMyFirstCallCompleted = false
+    lateinit var handler: Handler
+    private var runnable: Runnable? = null
 
     lateinit var binding: FragmentChatsDetailBinding
 
@@ -65,7 +68,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
             ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
         (requireActivity() as HomeActivity).hideHeader()
         (requireActivity() as HomeActivity).hideBottomNavigation()
-
+        handler = Handler(Looper.getMainLooper())
         return binding.root
     }
 
@@ -95,7 +98,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
             onBackPressed()
         }
 
-        binding.etType.addTextChangedListener(object:TextWatcher{
+        binding.etType.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
@@ -103,9 +106,10 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                when{
+                when {
                     s.toString().length > 0 -> {
-                        binding.clSend.background = resources.getDrawable(R.drawable.send_button_blue_bg)
+                        binding.clSend.background =
+                            resources.getDrawable(R.drawable.send_button_blue_bg)
                     }
                 }
             }
@@ -123,10 +127,11 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     }
 
     private fun callChatHistoryApi() {
-        homeViewModel.getChatHistory(chatsList?.project?.crmId.toString(),
+        homeViewModel.getChatHistory(
+            chatsList?.project?.crmId.toString(),
             chatsList?.isInvested!!
-        ).observe(viewLifecycleOwner,Observer{
-            when(it.status){
+        ).observe(viewLifecycleOwner, Observer {
+            when (it.status) {
                 Status.LOADING -> {
                     binding.loader.show()
                     binding.rvChat.visibility = View.INVISIBLE
@@ -135,31 +140,31 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                     binding.loader.hide()
                     binding.rvChat.visibility = View.VISIBLE
                     it.data?.let {
-                        if(it.data.messages.isNotEmpty()){
+                        if (it.data.messages.isNotEmpty()) {
                             binding.clButtonStart.visibility = View.GONE
 //                            binding.tvDay.visibility = View.VISIBLE
                             chatHistoryList = it.data
                             getTime()
                             newChatMessageList.clear()
-                            if(it.data.conversation != null){
-                                when(it.data.conversation.isOpen){
+                            if (it.data.conversation != null) {
+                                when (it.data.conversation.isOpen) {
                                     true -> {
                                         isMessagesEnabled = true
                                     }
                                 }
-                            }else{
+                            } else {
                                 binding.clButtonStart.visibility = View.VISIBLE
                             }
 
                             //Welcome message
-                            if(it.data.autoChat != null){
+                            if (it.data.autoChat != null) {
                                 newChatMessageList.add(
                                     ChatDetailModel(
                                         it.data.autoChat.chatJSON.welcomeMessage.toString(),
                                         null, MessageType.RECEIVER, time
                                     )
                                 )
-                            }else{
+                            } else {
                                 newChatMessageList.add(
                                     ChatDetailModel(
                                         "Hi Welcome",
@@ -168,9 +173,9 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                 )
                             }
                             //Old messages
-                            for(item in it.data.messages){
-                                if(item.message != null){
-                                    when{
+                            for (item in it.data.messages) {
+                                if (item.message != null) {
+                                    when {
                                         item.origin == "2" -> {
                                             newChatMessageList.add(
                                                 ChatDetailModel(
@@ -197,17 +202,21 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                             }
                             binding.rvChat.smoothScrollToPosition(it.data.messages.size)
                             val messagesList = it.data.messages
-                            for(i in messagesList.size-1 downTo 0){
-                                if(messagesList[i].origin == "2" && messagesList[i].message == resources.getString(R.string.describe_issue)){
+                            for (i in messagesList.size - 1 downTo 0) {
+                                if (messagesList[i].origin == "2" && messagesList[i].message == resources.getString(
+                                        R.string.describe_issue
+                                    )
+                                ) {
                                     binding.clType.visibility = View.VISIBLE
                                     binding.clButtonStart.visibility = View.INVISIBLE
                                     sendTypedMessage()
                                 }
                             }
-                            if(messagesList[messagesList.size-1].message == resources.getString(R.string.thank_you_text)){
-                                    isMessagesEnabled = false
+                            if (messagesList[messagesList.size - 1].message == resources.getString(R.string.thank_you_text)) {
+                                isMessagesEnabled = false
                             }
-                            latestConversationId = messagesList[messagesList.size-1].conversationId
+                            latestConversationId =
+                                messagesList[messagesList.size - 1].conversationId
 
                             chatsDetailAdapter.notifyDataSetChanged()
                         }
@@ -223,7 +232,12 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     }
 
     private fun callChatInitiateApi() {
-        homeViewModel.chatInitiate(ChatInitiateRequest(chatsList?.isInvested,chatsList?.project?.crmId.toString())).observe(viewLifecycleOwner, Observer {
+        homeViewModel.chatInitiate(
+            ChatInitiateRequest(
+                chatsList?.isInvested,
+                chatsList?.project?.crmId.toString()
+            )
+        ).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     binding.loader.show()
@@ -237,7 +251,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                         latestConversationId = it.data!!.chatDetailList.conversation.id
                         addMessages(it.data!!.chatDetailList)
                         chatsDetailAdapter.notifyDataSetChanged()
-                        binding.rvChat.smoothScrollToPosition(newChatMessageList.size-1)
+                        binding.rvChat.smoothScrollToPosition(newChatMessageList.size - 1)
                     }
                 }
                 Status.ERROR -> {
@@ -281,8 +295,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
     }
 
-    override fun onOptionClick(option: Option, view: View, position: Int,conversationId:Int) {
-        if(conversationId == latestConversationId){
+    override fun onOptionClick(option: Option, view: View, position: Int, conversationId: Int) {
+        if (conversationId == latestConversationId) {
             when (isMessagesEnabled) {
                 true -> {
                     newChatMessageList.add(
@@ -309,15 +323,15 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                                 latestConversationId
                                             )
                                         )
-                                        Handler().postDelayed({
+                                        runnable = Runnable {
                                             sendMessage(
                                                 chatDetailList!!.autoChat.chatJSON.chatBody[i].message,
                                                 2,
                                                 null,
                                                 chatDetailList!!.autoChat.chatJSON.chatBody[i].options
                                             )
-                                        },2000)
-
+                                        }
+                                        runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
                                         chatsDetailAdapter.notifyDataSetChanged()
                                         binding.rvChat.smoothScrollToPosition(newChatMessageList.size - 1)
                                         break
@@ -336,15 +350,16 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                                 latestConversationId
                                             )
                                         )
-                                        Handler().postDelayed({
+
+                                        runnable = Runnable {
                                             sendMessage(
                                                 chatHistoryList!!.autoChat.chatJSON.chatBody[i].message,
                                                 2,
                                                 null,
                                                 chatHistoryList!!.autoChat.chatJSON.chatBody[i].options
                                             )
-                                        },2000)
-
+                                        }
+                                        runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
                                         chatsDetailAdapter.notifyDataSetChanged()
                                         binding.rvChat.smoothScrollToPosition(newChatMessageList.size - 1)
                                         break
@@ -379,14 +394,15 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     )
                                 )
                                 isMessagesEnabled = false
-                                Handler().postDelayed({
+                                runnable = Runnable {
                                     sendMessage(
                                         chatDetailList!!.autoChat.chatJSON.allowTypingMessage,
                                         2,
                                         null,
                                         null
                                     )
-                                },2000)
+                                }
+                                runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
                             }
                             else -> {
                                 newChatMessageList.add(
@@ -397,14 +413,17 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     )
                                 )
                                 isMessagesEnabled = false
-                                Handler().postDelayed({
+                                runnable = Runnable {
                                     sendMessage(
                                         chatHistoryList!!.autoChat.chatJSON.allowTypingMessage,
                                         2,
                                         null,
                                         null
                                     )
-                                },2000)
+                                }
+                                runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
+
+
                             }
                         }
                         binding.rvChat.smoothScrollToPosition(newChatMessageList.size - 1)
@@ -423,14 +442,15 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     )
                                 )
                                 isMessagesEnabled = false
-                                Handler().postDelayed({
+                                runnable = Runnable {
                                     sendMessage(
                                         chatDetailList!!.autoChat.chatJSON.finalMessage,
                                         2,
                                         null,
                                         null
                                     )
-                                },2000)
+                                }
+                                runnable?.let { it1 -> handler.postDelayed(it1, 2000)}
                             }
                             else -> {
                                 newChatMessageList.add(
@@ -441,14 +461,15 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     )
                                 )
                                 isMessagesEnabled = false
-                                Handler().postDelayed({
+                                runnable = Runnable {
                                     sendMessage(
                                         chatHistoryList!!.autoChat.chatJSON.finalMessage,
                                         2,
                                         null,
                                         null
                                     )
-                                },2000)
+                                }
+                                runnable?.let { it1 -> handler.postDelayed(it1, 2000)}
                             }
                         }
 
@@ -473,7 +494,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                         latestConversationId
                     )
                 )
-                sendMessage(binding.etType.text.toString(),1,null,null)
+                sendMessage(binding.etType.text.toString(), 1, null, null)
                 chatsDetailAdapter.notifyDataSetChanged()
                 binding.rvChat.smoothScrollToPosition(newChatMessageList.size - 1)
                 binding.etType.text.clear();
@@ -484,20 +505,27 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         }
     }
 
-    private fun sendMessage(text: String?,origin:Int,selection:Int?,options:ArrayList<Option>?) {
-        when{
+    private fun sendMessage(
+        text: String?,
+        origin: Int,
+        selection: Int?,
+        options: ArrayList<Option>?
+    ) {
+        when {
             chatDetailList != null -> {
-                homeViewModel.sendMessage(SendMessageBody(
-                    conversationId = chatDetailList?.conversation?.id.toString(),
-                    message =  text.toString(),
-                    crmProjectId = chatsList?.project?.crmProjectId.toString(),
-                    origin = origin,
-                    selection = selection,
-                    crmLaunchPhaseId = chatsList?.project?.crmId.toString(),
-                    launchPhaseId = chatsList?.project?.projectContent?.id.toString(),
-                    options = options
-                )).observe(this,Observer{
-                    when(it.status){
+                homeViewModel.sendMessage(
+                    SendMessageBody(
+                        conversationId = chatDetailList?.conversation?.id.toString(),
+                        message = text.toString(),
+                        crmProjectId = chatsList?.project?.crmProjectId.toString(),
+                        origin = origin,
+                        selection = selection,
+                        crmLaunchPhaseId = chatsList?.project?.crmId.toString(),
+                        launchPhaseId = chatsList?.project?.projectContent?.id.toString(),
+                        options = options
+                    )
+                ).observe(this, Observer {
+                    when (it.status) {
                         Status.LOADING -> {
                         }
                         Status.SUCCESS -> {
@@ -512,24 +540,26 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                 })
             }
             else -> {
-                homeViewModel.sendMessage(SendMessageBody(
-                    conversationId = chatHistoryList?.conversation?.id.toString(),
-                    message =  text.toString(),
-                    crmProjectId = chatsList?.project?.crmProjectId.toString(),
-                    origin = origin,
-                    selection = selection,
-                    crmLaunchPhaseId = chatsList?.project?.crmId.toString(),
-                    launchPhaseId = chatsList?.project?.projectContent?.id.toString(),
-                    options = options
-                )).observe(this,Observer{
-                    when(it.status){
+                homeViewModel.sendMessage(
+                    SendMessageBody(
+                        conversationId = chatHistoryList?.conversation?.id.toString(),
+                        message = text.toString(),
+                        crmProjectId = chatsList?.project?.crmProjectId.toString(),
+                        origin = origin,
+                        selection = selection,
+                        crmLaunchPhaseId = chatsList?.project?.crmId.toString(),
+                        launchPhaseId = chatsList?.project?.projectContent?.id.toString(),
+                        options = options
+                    )
+                ).observe(this, Observer {
+                    when (it.status) {
                         Status.LOADING -> {
 
                         }
                         Status.SUCCESS -> {
 
                             it.data?.let {
-                                if(it.data.message.origin == "1"){
+                                if (it.data.message.origin == "1") {
                                     isMyFirstCallCompleted = true
                                 }
                             }
@@ -550,5 +580,9 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         time = sdf!!.format(c!!.time)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        runnable?.let { handler.removeCallbacks(it) }
+    }
 
 }

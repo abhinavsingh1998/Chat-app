@@ -76,9 +76,6 @@ class CompletedInvestmentAdapter(
             manageInvestmentDetails(project)
         }
         if (project.project != null) {
-            Glide.with(context)
-                .load(project.project.projectIcon.value.url)
-                .into(holder.binding.ivCompletedInvestmentImage)
 
             holder.binding.tvCompletedInvestmentName.text = project.project.launchName
             holder.binding.tvCompletedInvestmentProjectText.text =
@@ -103,7 +100,7 @@ class CompletedInvestmentAdapter(
                 }
             }
 
-            holder.binding.tvInventoryId.text = "Hoabl/${project.investment.crmInventory.name}"
+            holder.binding.tvInventoryId.text = "${project.investment.crmInventory.name}"
             holder.binding.tvEstimatedAppreciationRating.text =
                 "" + project.project.generalInfoEscalationGraph.estimatedAppreciation + "%"
 
@@ -138,6 +135,9 @@ class CompletedInvestmentAdapter(
                     "${project.investment.projectIea}% "
 
             }
+            Glide.with(context)
+                .load(project.project.projectIcon.value.url)
+                .into(holder.binding.ivCompletedInvestmentImage)
 
         }
 

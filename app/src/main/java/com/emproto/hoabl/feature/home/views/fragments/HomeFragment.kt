@@ -244,6 +244,7 @@ class HomeFragment : BaseFragment() {
 
         } else {
             binding.refressLayout.isRefreshing = false
+            (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.hide()
             binding.shimmerLayout.shimmerViewContainer.hide()
             (requireActivity() as HomeActivity).showHeader()
             (requireActivity() as HomeActivity).showBottomNavigation()
@@ -251,7 +252,6 @@ class HomeFragment : BaseFragment() {
             binding.noInternetView.mainContainer.show()
             binding.noInternetView.textView6.setOnClickListener(View.OnClickListener {
                 initObserver(true)
-                (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.hide()
             })
         }
     }

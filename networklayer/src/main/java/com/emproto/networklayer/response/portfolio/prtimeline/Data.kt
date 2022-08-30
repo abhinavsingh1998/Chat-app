@@ -24,5 +24,6 @@ data class Data(
     val updatedAt: String,
     val address: Address,
     val reraDetails: ReraDetails,
+    val projectCompletionDate:String
 
     )

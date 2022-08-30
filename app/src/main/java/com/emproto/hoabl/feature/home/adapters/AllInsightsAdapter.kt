@@ -30,48 +30,42 @@ class AllInsightsAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = list.get(holder.adapterPosition)
         holder.binding.title.text= item.displayTitle
-        if(item.insightsMedia[0].media!=null){
-            when(item.insightsMedia[0].media.value.mediaType){
-                "VIDEO" -> {
-                    val url = item.insightsMedia[0].media.value.url.replace("https://www.youtube.com/embed/","")
-                    val youtubeUrl = "https://img.youtube.com/vi/${url}/hqdefault.jpg"
-                    Glide.with(context)
-                        .load(youtubeUrl)
-                        .into(holder.binding.locationImage)
-
-                    holder.binding.playBtn.isVisible= true
-                }
-                else -> {
-                    Glide.with(context)
-                        .load(item.insightsMedia[0].media.value.url)
-                        .into(holder.binding.locationImage)
-                }
-            }}
         if (item.insightsMedia[0].description.isNullOrEmpty()){
             holder.binding.btnReadMore.isVisible= false
-
 
         }else{
             holder.binding.deatils.text= showHTMLText(item.insightsMedia[0].description)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 Utility.convertString(holder.binding.deatils,context,showHTMLText(item.insightsMedia[0].description).toString(),2)
             }
+            if(item.insightsMedia[0].media!=null){
+                when(item.insightsMedia[0].media.value.mediaType){
+                    "VIDEO" -> {
+                        val url = item.insightsMedia[0].media.value.url.replace("https://www.youtube.com/embed/","")
+                        val youtubeUrl = "https://img.youtube.com/vi/${url}/hqdefault.jpg"
+                        Glide.with(context)
+                            .load(youtubeUrl)
+                            .into(holder.binding.locationImage)
+                        holder.binding.playBtn.isVisible= true
+                    }
+                    else -> {
+                        Glide.with(context)
+                            .load(item.insightsMedia[0].media.value.url)
+                            .into(holder.binding.locationImage)
+                    }
+                }}
         }
-
-
-        //holder.binding.arrowImage.setImageResource(item.arrowImage)
         holder.binding.rootView.setOnClickListener {
             itemInterface.onClickItem(holder.adapterPosition)
         }
 
     }
-
     override fun getItemCount(): Int {
         var itemList= 0
-        if (list.size < listCount){
-            itemList = list.size
+        itemList = if (list.size < listCount){
+            list.size
         } else{
-            itemList= listCount
+            listCount
         }
         return itemList
     }

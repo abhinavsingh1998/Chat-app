@@ -19,19 +19,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
-import com.emproto.hoabl.BuildConfig
 import com.emproto.hoabl.R
-
+import com.emproto.hoabl.databinding.FacilitymanagerBinding
 import com.emproto.hoabl.databinding.FragmentProfileMainBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.hoabl.feature.portfolio.views.CustomDialog
-import com.emproto.hoabl.feature.portfolio.views.FmFragment
 import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
 
 import com.emproto.hoabl.feature.profile.fragments.edit_profile.EditProfileFragment
-import com.emproto.hoabl.feature.profile.fragments.feedback.FacilityManagerPopViewFragment
 import com.emproto.hoabl.feature.profile.fragments.help_center.HelpCenterFragment
 import com.emproto.hoabl.feature.profile.fragments.securtiyandsettings.SecurityFragment
 import com.emproto.hoabl.feature.profile.adapter.ProfileOptionsAdapter
@@ -50,7 +47,6 @@ import com.example.portfolioui.databinding.DialogSecurePinBinding
 
 import com.example.portfolioui.databinding.LogoutConfirmationBinding
 import java.util.concurrent.Executor
-
 import javax.inject.Inject
 
 class ProfileFragment : BaseFragment() {
@@ -61,9 +57,13 @@ class ProfileFragment : BaseFragment() {
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
     private lateinit var logoutDialog: Dialog
+    lateinit var facilityManagerDialog: FacilitymanagerBinding
+    lateinit var securePinDialog: CustomDialog
+    lateinit var facilityDialog: CustomDialog
+
+
     private val mRequestCode = 300
     private val SETTING_REQUEST_CODE = 301
-    lateinit var securePinDialog: CustomDialog
     lateinit var dialogSecurePinBinding: DialogSecurePinBinding
     lateinit var securePinConfirmationDialog: CustomDialog
 
@@ -136,6 +136,17 @@ class ProfileFragment : BaseFragment() {
             }
         })
 
+        profileViewModel.getFacilityManagment()
+            .observe(viewLifecycleOwner, Observer {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        it.data.let {
+                            fmData = it!!
+                        }
+                    }
+                }
+            })
+
     }
 
     private fun setUiData(profileData: Data) {
@@ -167,17 +178,21 @@ class ProfileFragment : BaseFragment() {
             }
         }
         binding.tvUserName.text = firstLetter + "" + lastLetter
-
         if (profileData.lastName.isNullOrEmpty()) {
             val firstLetter: String = profileData.firstName.substring(0, 2)
-
             binding.tvUserName.text = firstLetter
-        } else {
+        }else if(profileData.firstName.isNullOrEmpty()&&profileData.lastName.isNullOrEmpty()){
+            val firstLetter = "A"
+            val lastLetter="B"
+            binding.tvUserName.text = firstLetter+lastLetter
+        }else if(profileData.firstName.isNullOrEmpty()&&!(profileData.lastName.isNullOrEmpty())){
+            val lastLetter: String = profileData.lastName.substring(0, 2)
+            binding.tvUserName.text = lastLetter
+        }
+        else {
             val firstLetter: String = profileData.firstName.substring(0, 1)
-
             val lastLetter: String = profileData.lastName.substring(0, 1)
             binding.tvUserName.text = firstLetter + "" + lastLetter
-
         }
     }
 
@@ -185,6 +200,12 @@ class ProfileFragment : BaseFragment() {
     private fun initView() {
         (requireActivity() as HomeActivity).showBottomNavigation()
         (requireActivity() as HomeActivity).hideHeader()
+        facilityManagerDialog = FacilitymanagerBinding.inflate(layoutInflater)
+        facilityDialog = CustomDialog(requireContext())
+
+        facilityDialog.setContentView(facilityManagerDialog.root)
+        facilityDialog.setCancelable(false)
+
         dialogSecurePinBinding = DialogSecurePinBinding.inflate(layoutInflater)
         dialogSecurePinBinding.tvTitle.text="Secure Your Account"
         dialogSecurePinConfirmationBinding =
@@ -279,16 +300,11 @@ class ProfileFragment : BaseFragment() {
                                 )
                             }
                             3 -> {
-                                val facilityManagerPopViewFragment =
-                                    FacilityManagerPopViewFragment()
 
                                 if (appPreference.isFacilityCard()) {
                                     (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
                                 } else {
-                                    (requireActivity() as HomeActivity).addFragment(
-                                        facilityManagerPopViewFragment,
-                                        true
-                                    )
+                                    facilityManagerDialogBox()
                                 }
                             }
                         }
@@ -300,6 +316,13 @@ class ProfileFragment : BaseFragment() {
                     }
                 }
             )
+    }
+
+    private fun facilityManagerDialogBox() {
+        facilityDialog.show()
+        facilityManagerDialog.actionOk.setOnClickListener {
+            facilityDialog.dismiss()
+        }
     }
 
     private fun initClickListener() {

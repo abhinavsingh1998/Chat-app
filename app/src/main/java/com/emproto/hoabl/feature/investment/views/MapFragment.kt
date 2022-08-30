@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +41,7 @@ import com.google.gson.Gson
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import java.lang.Runnable
 import javax.inject.Inject
 
 
@@ -59,6 +61,9 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     var dummyLongitude = 73.1711629
     private var distanceList = ArrayList<String>()
     private var destinationList= ArrayList<ValueXXX>()
+
+    lateinit var handler : Handler
+    private var runnable: Runnable? = null
 
     private val job = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
@@ -89,6 +94,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        handler = Handler(Looper.getMainLooper())
         arguments?.let {
             data = it.getSerializable("Location") as MapLocationModel?
             selectedPosition = it.getInt("ItemPosition",-1)
@@ -222,14 +228,9 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             calculateDistance(dummyLatitude,dummyLongitude,it.values)
 
         })
+        runnable = Runnable {   binding.cvBackButton.visibility = View.VISIBLE }
+        runnable?.let { it1 -> handler.postDelayed(it1,2000) }
 
-        Handler().postDelayed({
-            binding.cvBackButton.visibility = View.VISIBLE
-//            val anim = AnimationUtils.loadAnimation(this.requireContext(),R.anim.balloon_fade_in)
-//            anim.duration = 3000
-//            binding.mapLocationBottomSheet.clMapBottomSheet.startAnimation(anim)
-//            binding.cvBackButton.startAnimation(anim)
-        }, 2000)
 
         binding.cvBackButton.setOnClickListener {
             (requireActivity() as HomeActivity).onBackPressed()
@@ -446,6 +447,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     override fun onDestroy() {
         job.cancel()
         super.onDestroy()
-    }
+        runnable?.let { handler.removeCallbacks(it) }
 
+    }
 }

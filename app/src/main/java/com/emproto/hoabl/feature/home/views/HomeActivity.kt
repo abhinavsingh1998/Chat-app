@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -88,7 +89,12 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     lateinit var customAdapter: NotificationAdapter
     var notificationList = ArrayList<Data>()
     var num = 0
-    var markAll= ArrayList<Int>()
+    var markAll = ArrayList<Int>()
+
+    lateinit var handler : Handler
+    private var runnable: Runnable? = null
+
+
 
 
     @Inject
@@ -138,6 +144,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             FragmentNotificationBottomSheetBinding.inflate(layoutInflater)
         bottomSheetDialog.setContentView(fragmentNotificationBottomSheetBinding.root)
         activityHomeActivity.searchLayout.imageBack.setOnClickListener { onBackPressed() }
+        handler = Handler(Looper.getMainLooper())
+
         initData()
         initClickListener()
         trackEvent()
@@ -206,9 +214,9 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 return true
             }
             R.id.navigation_promises -> {
-                if(appPreference.isFacilityCard()){
-                    openScreen(ScreenFM,"",false)
-                }else{
+                if (appPreference.isFacilityCard()) {
+                    openScreen(ScreenFM, "", false)
+                } else {
                     openScreen(ScreenPromises, "", false)
                 }
                 return true
@@ -256,7 +264,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             ScreenFM -> {
                 val fmFragment = FmFragment()
                 val mbundle = Bundle()
-                mbundle.putString("param1",appPreference.getFmUrl())
+                mbundle.putString("param1", appPreference.getFmUrl())
                 fmFragment.arguments = bundle
                 replaceFragment(fmFragment.javaClass, "", true, mbundle, null, 0, true)
 
@@ -331,8 +339,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             if (closeApp) {
                 finishAffinity()
             } else {
-                closeApp = true
-                Handler().postDelayed({ closeApp = false }, 2000)
+                runnable = Runnable { closeApp = true }
+                runnable?.let { it1 -> handler.postDelayed(it1,2000) }
                 Toast.makeText(mContext, "Please press again to exit", Toast.LENGTH_LONG).show()
             }
         } else {
@@ -343,14 +351,11 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 activityHomeActivity.includeNavigation.bottomNavigation.menu[1].isChecked = true
             } else if (getCurrentFragment() is PortfolioFragment) {
                 activityHomeActivity.includeNavigation.bottomNavigation.menu[2].isChecked = true
-
-            } else if (!appPreference.isFacilityCard()) {
-                if (getCurrentFragment() is HoablPromises || getCurrentFragment() is PromisesDetailsFragment) {
-                    activityHomeActivity.includeNavigation.bottomNavigation.menu[3].isChecked = true
-                }
+            } else if (!appPreference.isFacilityCard() && (getCurrentFragment() is HoablPromises || getCurrentFragment() is PromisesDetailsFragment)) {
+                activityHomeActivity.includeNavigation.bottomNavigation.menu[3].isChecked = true
             } else if (getCurrentFragment() is ProfileFragment) {
                 activityHomeActivity.includeNavigation.bottomNavigation.menu[4].isChecked = true
-            } else if(getCurrentFragment() is FmFragment){
+            } else if (getCurrentFragment() is FmFragment) {
                 activityHomeActivity.includeNavigation.bottomNavigation.menu[3].isChecked = true
 
             }
@@ -449,58 +454,59 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 )
                 //it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName + " " + it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
                 activityHomeActivity.searchLayout.rotateText.text = showHTMLText(
-                    "$totalAmtLandSold           $totalLandsold    $grossWeight    $num_User"
+                    "$totalLandsold          $totalAmtLandSold    $grossWeight    $num_User"
                 )
                 topText = showHTMLText(
-                    "$totalAmtLandSold    $totalLandsold    $grossWeight    $num_User"
+                    "$totalLandsold   $totalAmtLandSold   $grossWeight    $num_User"
                 ).toString()
             }
 
         })
     }
 
-    fun callNotificationApi(pageSize: Int,pageIndex: Int, refresh:Boolean ){
-        homeViewModel.getNotification(pageSize,pageIndex,refresh).observe(this,object: Observer<BaseResponse<NotificationResponse>>{
+    fun callNotificationApi(pageSize: Int, pageIndex: Int, refresh: Boolean) {
+        homeViewModel.getNotification(pageSize, pageIndex, refresh)
+            .observe(this, object : Observer<BaseResponse<NotificationResponse>> {
 
-            override fun onChanged(it: BaseResponse<NotificationResponse>?) {
+                override fun onChanged(it: BaseResponse<NotificationResponse>?) {
 
-                when (it!!.status) {
-                    Status.LOADING -> {
-                        fragmentNotificationBottomSheetBinding.progressBar.isVisible=true
-                        fragmentNotificationBottomSheetBinding.rv.isVisible=false
-                    }
-                    Status.SUCCESS -> {
-                        fragmentNotificationBottomSheetBinding.rv.isVisible=true
-                        fragmentNotificationBottomSheetBinding.progressBar.isVisible=false
-                        fragmentNotificationBottomSheetBinding.markAllRead.isVisible = true
-
-                        totalNotification = it!!.data!!.totalCount
-                        toatalPageSize = it!!.data!!.totalPages
-
-                        for (i in 0..it!!.data!!.data?.size!! - 1) {
-                            notificationList.add(it!!.data!!.data[i]!!)
+                    when (it!!.status) {
+                        Status.LOADING -> {
+                            fragmentNotificationBottomSheetBinding.progressBar.isVisible = true
+                            fragmentNotificationBottomSheetBinding.rv.isVisible = false
                         }
+                        Status.SUCCESS -> {
+                            fragmentNotificationBottomSheetBinding.rv.isVisible = true
+                            fragmentNotificationBottomSheetBinding.progressBar.isVisible = false
+                            fragmentNotificationBottomSheetBinding.markAllRead.isVisible = true
 
-                        notificationNavigation ()
+                            totalNotification = it!!.data!!.totalCount
+                            toatalPageSize = it!!.data!!.totalPages
 
-                    }
-                    Status.ERROR -> {
-                        (this@HomeActivity).showErrorToast(
-                            it.message!!
-                        )
+                            for (i in 0..it!!.data!!.data?.size!! - 1) {
+                                notificationList.add(it!!.data!!.data[i]!!)
+                            }
+
+                            notificationNavigation()
+
+                        }
+                        Status.ERROR -> {
+                            (this@HomeActivity).showErrorToast(
+                                it.message!!
+                            )
+                        }
                     }
                 }
-            }
-        })
+            })
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun launch_bottom_sheet() {
         bottomSheetDialog.show()
-         pageIndex = 1
-         pageSize = 20
+        pageIndex = 1
+        pageSize = 20
         pagination()
-        }
+    }
 
     fun setReadStatus(id: Int) {
         homeViewModel.setReadStatus(id).observe(
@@ -594,7 +600,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         })
     }
 
-    private fun notificationNavigation (){
+    private fun notificationNavigation() {
         var unreadNotificationList = ArrayList<Int>()
 
 
@@ -635,7 +641,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             fragmentNotificationBottomSheetBinding.markAllRead.isClickable =
                 true
             fragmentNotificationBottomSheetBinding.markAllRead.setTextColor(
-                resources.getColor(R.color.black))
+                resources.getColor(R.color.black)
+            )
         }
 
         bottomSheetDialog.findViewById<RecyclerView>(R.id.rv)?.apply {
@@ -697,22 +704,22 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                             bottomSheetDialog.dismiss()
 
                         } else if (notificationList[posittion].notification.targetPage == 6) {
-                           if (!appPreference.isFacilityCard()) {
-                               (this@HomeActivity).navigate(R.id.navigation_promises)
-                            } else{
-                               val bundle = Bundle()
-                               val promisesFragment = HoablPromises()
-                               promisesFragment.arguments = bundle
-                               replaceFragment(
-                                   promisesFragment.javaClass,
-                                   "",
-                                   true,
-                                   bundle,
-                                   null,
-                                   0,
-                                   true
-                               )
-                           }
+                            if (!appPreference.isFacilityCard()) {
+                                (this@HomeActivity).navigate(R.id.navigation_promises)
+                            } else {
+                                val bundle = Bundle()
+                                val promisesFragment = HoablPromises()
+                                promisesFragment.arguments = bundle
+                                replaceFragment(
+                                    promisesFragment.javaClass,
+                                    "",
+                                    true,
+                                    bundle,
+                                    null,
+                                    0,
+                                    true
+                                )
+                            }
 
                             bottomSheetDialog.dismiss()
 
@@ -735,41 +742,46 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     fun refreshNotificationlist(pageSize: Int, pageIndex: Int, refresh: Boolean) {
-        homeViewModel.getNotification(pageSize, pageIndex, refresh).observe(this, object :Observer<BaseResponse<NotificationResponse>>{
-            override fun onChanged(it: BaseResponse<NotificationResponse>?) {
+        homeViewModel.getNotification(pageSize, pageIndex, refresh)
+            .observe(this, object : Observer<BaseResponse<NotificationResponse>> {
+                override fun onChanged(it: BaseResponse<NotificationResponse>?) {
 
-                when (it!!.status) {
-                    Status.LOADING -> {
-                        fragmentNotificationBottomSheetBinding.progressBar.isVisible=true
-                        fragmentNotificationBottomSheetBinding.markAllRead.isVisible = true
+                    when (it!!.status) {
+                        Status.LOADING -> {
+                            fragmentNotificationBottomSheetBinding.progressBar.isVisible = true
+                            fragmentNotificationBottomSheetBinding.markAllRead.isVisible = true
 
-                    }
-                    Status.ERROR -> {
-                        fragmentNotificationBottomSheetBinding.progressBar.isVisible=false
-                        Toast.makeText(
-                            this@HomeActivity,
-                            it.message.toString(),
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                    Status.SUCCESS ->{
-                        fragmentNotificationBottomSheetBinding.progressBar.isVisible=false
-                        fragmentNotificationBottomSheetBinding.markAllRead.isVisible = true
-
-                        totalNotification = it.data!!.totalCount
-                        toatalPageSize = it.data!!.totalPages
-
-                        for(i in 0..it?.data?.data?.size!! -1){
-                            notificationList.add(it?.data?.data!![i])
                         }
+                        Status.ERROR -> {
+                            fragmentNotificationBottomSheetBinding.progressBar.isVisible = false
+                            Toast.makeText(
+                                this@HomeActivity,
+                                it.message.toString(),
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                        Status.SUCCESS -> {
+                            fragmentNotificationBottomSheetBinding.progressBar.isVisible = false
+                            fragmentNotificationBottomSheetBinding.markAllRead.isVisible = true
 
-                        customAdapter.notifyItemInserted(notificationList.size-1)
+                            totalNotification = it.data!!.totalCount
+                            toatalPageSize = it.data!!.totalPages
+
+                            for (i in 0..it?.data?.data?.size!! - 1) {
+                                notificationList.add(it?.data?.data!![i])
+                            }
+
+                            customAdapter.notifyItemInserted(notificationList.size - 1)
+                        }
                     }
                 }
-            }
 
-        })
+            })
 
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        runnable?.let { handler.removeCallbacks(it) }
     }
 
 }
