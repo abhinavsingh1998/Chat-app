@@ -353,6 +353,8 @@ class PortfolioSpecificViewAdapter(
                         binding.tvAmountPending.visibility = View.GONE
                         binding.tvAmountPendingTitle.visibility = View.GONE
                         binding.tvAllocationDateText.text = "Owned Since"
+                        Glide.with(context).load(data.projectExtraDetails.projectIco.value.url)
+                            .into(binding.ivProjectImage)
                     } else {
                         binding.tvPendingAmount.text =
                             Utility.formatAmount(data.projectExtraDetails.amountPending)

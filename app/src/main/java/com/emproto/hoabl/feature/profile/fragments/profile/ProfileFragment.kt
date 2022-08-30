@@ -178,17 +178,21 @@ class ProfileFragment : BaseFragment() {
             }
         }
         binding.tvUserName.text = firstLetter + "" + lastLetter
-
         if (profileData.lastName.isNullOrEmpty()) {
             val firstLetter: String = profileData.firstName.substring(0, 2)
-
             binding.tvUserName.text = firstLetter
-        } else {
+        }else if(profileData.firstName.isNullOrEmpty()&&profileData.lastName.isNullOrEmpty()){
+            val firstLetter = "A"
+            val lastLetter="B"
+            binding.tvUserName.text = firstLetter+lastLetter
+        }else if(profileData.firstName.isNullOrEmpty()&&!(profileData.lastName.isNullOrEmpty())){
+            val lastLetter: String = profileData.lastName.substring(0, 2)
+            binding.tvUserName.text = lastLetter
+        }
+        else {
             val firstLetter: String = profileData.firstName.substring(0, 1)
-
             val lastLetter: String = profileData.lastName.substring(0, 1)
             binding.tvUserName.text = firstLetter + "" + lastLetter
-
         }
     }
 

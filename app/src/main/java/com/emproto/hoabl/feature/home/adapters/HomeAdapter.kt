@@ -51,7 +51,6 @@ class HomeAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-
             HOME_PORTFOLIO -> {
                 PortfolioViewHolder(
                     HomePortfolioCardBinding.inflate(
@@ -353,8 +352,17 @@ class HomeAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(position: Int) {
-
-
+            if (data.isFacilityVisible) {
+                binding.facilityManagementCardView.visibility=View.VISIBLE
+                Glide.with(context).load(data.page.facilityManagement.value.url)
+                    .into(binding.facilityManagementCard)
+            }
+            binding.facilityManagementCard.setOnClickListener {
+                itemClickListener.onItemClicked(it, position, "")
+            }
+            binding.dontMissOutCard.setOnClickListener {
+                itemClickListener.onItemClicked(it, position, "")
+            }
             if (data.contactType == 1 || data.contactType == 225360001) {
                 if (data.page.isPromotionAndOfferActive) {
                     binding.dontMissOutCardView.visibility=View.VISIBLE
@@ -363,20 +371,6 @@ class HomeAdapter(
                 }
             } else {
                 binding.dontMissOutCardView.visibility=View.GONE
-            }
-
-            if (data.isFacilityVisible) {
-                binding.facilityManagementCardView.visibility=View.VISIBLE
-                Glide.with(context).load(data.page.facilityManagement.value.url)
-                    .into(binding.facilityManagementCard)
-            }
-
-            binding.facilityManagementCard.setOnClickListener {
-                itemClickListener.onItemClicked(it, position, "")
-            }
-
-            binding.dontMissOutCard.setOnClickListener {
-                itemClickListener.onItemClicked(it, position, "")
             }
 
         }

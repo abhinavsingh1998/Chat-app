@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.os.Build
 import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -32,7 +33,11 @@ class FaqDetailAdapter(
     private val itemClickListener: ItemClickListener,
     private val searchText: String = "",
     private val projectName: String,
-    private val fromInvestment: Boolean
+    private val fromInvestment: Boolean,
+    private val handler: Handler,
+    private var runnable: Runnable?=null
+
+
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -43,7 +48,9 @@ class FaqDetailAdapter(
     private lateinit var categoryAdapter: PopularCategoryAdapter
     private lateinit var faqAdapter: FaqAdapter
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
         return when (viewType) {
             VIEW_TYPE_ONE -> {
                 TopViewHolder(
@@ -60,6 +67,7 @@ class FaqDetailAdapter(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (list[position].viewType) {
             VIEW_TYPE_ONE -> {
@@ -138,9 +146,11 @@ class FaqDetailAdapter(
                         close.visibility = View.VISIBLE
                     }
                     if (s.toString().isEmpty() || s.toString() == "") {
-                        Handler().postDelayed({
-                            itemClickListener.onItemClicked(search, position, s.toString())
-                        }, 500)
+                        runnable = Runnable {itemClickListener.onItemClicked(search, position, s.toString()) }
+                        runnable.let { it1 -> it1?.let { handler.postDelayed(it,500) } }
+//                        Handler().postDelayed({
+//                            itemClickListener.onItemClicked(search, position, s.toString())
+//                        }, 500)
                     }
                 }
             })
@@ -156,9 +166,8 @@ class FaqDetailAdapter(
             //Tick button handled from keyboard
             search.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    Handler().postDelayed({
-                        itemClickListener.onItemClicked(search, position, search.text.toString())
-                    }, 500)
+                    runnable = Runnable {  itemClickListener.onItemClicked(search, position, search.text.toString()) }
+                    runnable.let { it1 -> it1?.let { handler.postDelayed(it,500) } }
                     fragment.hideKeyboard()
                     true
                 }

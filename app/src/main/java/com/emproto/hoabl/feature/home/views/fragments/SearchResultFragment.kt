@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -70,6 +71,8 @@ class SearchResultFragment : BaseFragment() {
     val docList = ArrayList<Data>()
     private var base64Data = ""
     private val permissionRequest: MutableList<String> = ArrayList()
+    lateinit var handler: Handler
+    private var runnable: Runnable? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,6 +82,7 @@ class SearchResultFragment : BaseFragment() {
         fragmentSearchResultBinding = FragmentSearchResultBinding.inflate(layoutInflater)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel = ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
+        handler = Handler(Looper.getMainLooper())
 
         arguments.let {
             if (it != null) {
@@ -131,9 +135,11 @@ class SearchResultFragment : BaseFragment() {
                     if (p0.toString() != "" && p0.toString().length > 1) {
                         fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility =
                             View.VISIBLE
-                        Handler().postDelayed({
+                        runnable = Runnable {
                             callSearchApi(p0.toString(), true)
-                        }, 1000)
+                        }
+                        runnable?.let { it1 -> handler.postDelayed(it1, 1000) }
+
                     } else
                         return true
                 }
@@ -191,14 +197,15 @@ class SearchResultFragment : BaseFragment() {
 //                }
                 if (p0.toString().isEmpty()) {
                     fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.GONE
-                    Handler().postDelayed({
-                        callSearchApi("", false)
-                    }, 2000)
-                }else if (p0.toString() != "" && p0.toString().length > 1){
+                    runnable = Runnable {
+                        callSearchApi("", false)                    }
+                    runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
+                } else if (p0.toString() != "" && p0.toString().length > 1) {
                     fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.VISIBLE
-                    Handler().postDelayed({
-                        callSearchApi(p0.toString().trim(), true)
-                    }, 2000)
+                    runnable = Runnable {
+                        callSearchApi(p0.toString().trim(), true)                  }
+                    runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
+
                 }
             }
 
@@ -209,7 +216,7 @@ class SearchResultFragment : BaseFragment() {
     }
 
     private fun callSearchApi(searchWord: String, searchStringPresent: Boolean) {
-        homeViewModel.getSearchResult(searchWord.trim()).observe(this, Observer {
+        homeViewModel.getSearchResult(searchWord.trim()).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     fragmentSearchResultBinding.progressBar.show()
@@ -366,9 +373,10 @@ class SearchResultFragment : BaseFragment() {
                                         val filteredFaqList = faqList.filter {
                                             it.frequentlyAskedQuestion.typeOfFAQ == "3001"
                                         }
-                                        if(filteredFaqList.isEmpty()){
+                                        if (filteredFaqList.isEmpty()) {
                                             fragmentSearchResultBinding.tvFaq.visibility = View.GONE
-                                            fragmentSearchResultBinding.faqsList.visibility = View.GONE
+                                            fragmentSearchResultBinding.faqsList.visibility =
+                                                View.GONE
                                         }
                                         setUpFaqAdapter(filteredFaqList)
                                     }
@@ -473,7 +481,7 @@ class SearchResultFragment : BaseFragment() {
         insightsData: List<com.emproto.networklayer.response.insights.Data>,
         searchStringPresent: Boolean
     ) {
-        homeViewModel.getSearchDocResult(searchWord.trim()).observe(this, Observer {
+        homeViewModel.getSearchDocResult(searchWord.trim()).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     fragmentSearchResultBinding.progressBar.show()
@@ -590,7 +598,11 @@ class SearchResultFragment : BaseFragment() {
         override fun onclickDocument(name: String, path: String) {
             when (path) {
                 "" -> {
-                    Toast.makeText(requireContext(), Constants.NO_DATA_AVAILABLE, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        Constants.NO_DATA_AVAILABLE,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                 else -> {
                     when {
@@ -606,7 +618,8 @@ class SearchResultFragment : BaseFragment() {
                             getDocumentData(path)
                         }
                         else -> {
-                            Toast.makeText(context, Constants.INVALID_FORMAT, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, Constants.INVALID_FORMAT, Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
                 }
@@ -764,5 +777,8 @@ class SearchResultFragment : BaseFragment() {
             override fun onDocumentView(name: String, path: String) {
             }
         }
-
+    override fun onDestroy() {
+        super.onDestroy()
+        runnable?.let { handler.removeCallbacks(it) }
+    }
 }

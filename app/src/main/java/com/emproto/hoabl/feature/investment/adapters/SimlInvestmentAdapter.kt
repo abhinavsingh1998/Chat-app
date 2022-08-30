@@ -48,11 +48,6 @@ class SimlInvestmentAdapter(
                 .bold { append("${element.areaStartingFrom} Sqft") }
                 .append(Constants.ONWARDS)
             tvItemLocationInfo.text = element.shortDescription
-            Glide
-                .with(context)
-                .load(element.projectCoverImages?.newInvestmentPageMedia?.value?.url)
-                .into(ivItemImage)
-
             when(element.fomoContent.isTargetTimeActive){
                 false -> holder.binding.timerView.visibility = View.GONE
                 true -> holder.binding.timerView.visibility = View.VISIBLE
@@ -99,6 +94,10 @@ class SimlInvestmentAdapter(
             clItemInfo.setOnClickListener {
                 itemClickListener.onItemClicked(it, position, element.id.toString())
             }
+            Glide
+                .with(context)
+                .load(element.projectCoverImages?.newInvestmentPageMedia?.value?.url)
+                .into(ivItemImage)
         }
     }
 
