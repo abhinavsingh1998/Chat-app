@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
-import com.emproto.hoabl.BuildConfig
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FacilitymanagerBinding
 import com.emproto.hoabl.databinding.FragmentProfileMainBinding
@@ -27,11 +26,9 @@ import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.hoabl.feature.portfolio.views.CustomDialog
-import com.emproto.hoabl.feature.portfolio.views.FmFragment
 import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
 
 import com.emproto.hoabl.feature.profile.fragments.edit_profile.EditProfileFragment
-import com.emproto.hoabl.feature.profile.fragments.feedback.FacilityManagerPopViewFragment
 import com.emproto.hoabl.feature.profile.fragments.help_center.HelpCenterFragment
 import com.emproto.hoabl.feature.profile.fragments.securtiyandsettings.SecurityFragment
 import com.emproto.hoabl.feature.profile.adapter.ProfileOptionsAdapter
@@ -62,6 +59,8 @@ class ProfileFragment : BaseFragment() {
     private lateinit var logoutDialog: Dialog
     lateinit var facilityManagerDialog: FacilitymanagerBinding
     lateinit var securePinDialog: CustomDialog
+    lateinit var facilityDialog: CustomDialog
+
 
     private val mRequestCode = 300
     private val SETTING_REQUEST_CODE = 301
@@ -198,10 +197,10 @@ class ProfileFragment : BaseFragment() {
         (requireActivity() as HomeActivity).showBottomNavigation()
         (requireActivity() as HomeActivity).hideHeader()
         facilityManagerDialog = FacilitymanagerBinding.inflate(layoutInflater)
-        securePinDialog = CustomDialog(requireContext())
+        facilityDialog = CustomDialog(requireContext())
 
-        securePinDialog.setContentView(facilityManagerDialog.root)
-        securePinDialog.setCancelable(false)
+        facilityDialog.setContentView(facilityManagerDialog.root)
+        facilityDialog.setCancelable(false)
 
         dialogSecurePinBinding = DialogSecurePinBinding.inflate(layoutInflater)
         dialogSecurePinBinding.tvTitle.text="Secure Your Account"
@@ -297,17 +296,11 @@ class ProfileFragment : BaseFragment() {
                                 )
                             }
                             3 -> {
-                                val facilityManagerPopViewFragment =
-                                    FacilityManagerPopViewFragment()
 
                                 if (appPreference.isFacilityCard()) {
                                     (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
                                 } else {
                                     facilityManagerDialogBox()
-                                    (requireActivity() as HomeActivity).addFragment(
-                                        facilityManagerPopViewFragment,
-                                        true
-                                    )
                                 }
                             }
                         }
@@ -322,9 +315,9 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun facilityManagerDialogBox() {
-        securePinDialog.show()
+        facilityDialog.show()
         facilityManagerDialog.actionOk.setOnClickListener {
-            securePinDialog.dismiss()
+            facilityDialog.dismiss()
         }
     }
 
