@@ -31,6 +31,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
 import com.emproto.core.Utility
@@ -40,7 +42,11 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.model.ContactsModel
 import com.emproto.hoabl.model.DownloadModel
 import com.emproto.hoabl.model.MediaModel
+import com.emproto.hoabl.model.UploadModel
+import com.emproto.hoabl.viewmodels.ProfileViewModel
+import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.preferences.AppPreference
+import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.webview.ShareObjectModel
 import com.google.gson.Gson
 import java.io.ByteArrayOutputStream
@@ -68,6 +74,10 @@ class FmFragment : BaseFragment() {
     lateinit var binding: FragmentFmBinding
 
     @Inject
+    lateinit var homeFactory: HomeFactory
+    private lateinit var profileViewModel: ProfileViewModel
+
+    @Inject
     lateinit var appPreference: AppPreference
 
     // TODO: Rename and change types of parameters
@@ -91,12 +101,16 @@ class FmFragment : BaseFragment() {
     var isReadPermissonGranted = false
     var isWritePermissonGranted = false
 
+    private var uploadObject = UploadModel("","")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+
 
         permissionLauncherForContacts =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -137,6 +151,9 @@ class FmFragment : BaseFragment() {
         // Inflate the layout for this fragment
         binding = FragmentFmBinding.inflate(layoutInflater)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
+        profileViewModel =
+            ViewModelProvider(requireActivity(), homeFactory)[ProfileViewModel::class.java]
+        (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         (requireActivity() as HomeActivity).hideHeader()
         (requireActivity() as HomeActivity).showBottomNavigation()
         binding.webView.webViewClient = MyWebViewclient(binding.progressBaar, requireContext(),contacts,binding.webView,this)
@@ -159,8 +176,13 @@ class FmFragment : BaseFragment() {
 
     inner class JSBridge() {
         @JavascriptInterface
-        fun sendUploadActionInNative(){
-            Log.d("Share", "message from upload")
+        fun sendUploadActionInNative(obj:String){
+            Log.d("Share", "message from upload $obj")
+            val gson = Gson()
+            val objectUpl = gson.fromJson<UploadModel>(obj,UploadModel::class.java)
+            Log.d("Share", "message from upload $objectUpl")
+            uploadObject = objectUpl
+            requestStoragePermission()
         }
 
         @JavascriptInterface
@@ -168,45 +190,43 @@ class FmFragment : BaseFragment() {
             Log.d("Share", "message from document $url")
             val gson = Gson()
             val urlD = gson.fromJson<DownloadModel>(url,DownloadModel::class.java)
-
-            binding.webView.post(object:Runnable{
-                override fun run() {
-                    val request = DownloadManager.Request((Uri.parse(urlD.url.toString())))
-                    request.setDescription("Downloading file...")
-                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                    val dm = requireActivity().getSystemService(DOWNLOAD_SERVICE) as DownloadManager?
-                    binding.progressBaar.show()
-                    dm!!.enqueue(request)
-                    Toast.makeText(requireContext(), "Downloading...", Toast.LENGTH_SHORT).show()
-                    requireActivity().registerReceiver(
-                        onComplete,
-                        IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
-                    )
-                }
-
-            })
-
-
-
+            if(urlD!=null){
+                binding.webView.post(object : Runnable {
+                    override fun run() {
+                        val request = DownloadManager.Request((Uri.parse(urlD.url.toString())))
+                        request.setDescription("Downloading file...")
+                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                        val dm =
+                            requireActivity().getSystemService(DOWNLOAD_SERVICE) as DownloadManager?
+                        binding.progressBaar.show()
+                        dm!!.enqueue(request)
+                        Toast.makeText(requireContext(), "Downloading...", Toast.LENGTH_SHORT)
+                            .show()
+                        requireActivity().registerReceiver(
+                            onComplete,
+                            IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+                        )
+                    }
+                })
+            } else {
+                Toast.makeText(requireContext(), "Download url is empty", Toast.LENGTH_SHORT).show()
+            }
         }
 
         @JavascriptInterface
         fun sendContactActionInNative() {
             Log.d("Share", "message from contact")
-
-//            if (Build.VERSION.SDK_INT >= 23) {
-//                requestContactPermission()
-//            } else {
-//                readContacts()
-//            }
-            requestStoragePermission()
+            if (Build.VERSION.SDK_INT >= 23) {
+                requestContactPermission()
+            } else {
+                readContacts()
+            }
         }
 
         @JavascriptInterface
         fun shareActionInNative(message:String){
             //Received message from webview in native, process data
             Log.d("Share","message from share= ${message.toString()}")
-            val shareObjectModel = ShareObjectModel("","","","")
             val gson = Gson()
             val model = gson.fromJson<ShareObjectModel>(message,ShareObjectModel::class.java)
             val shareIntent = Intent(Intent.ACTION_SEND)
@@ -232,15 +252,6 @@ class FmFragment : BaseFragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FmFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             FmFragment().apply {
@@ -320,7 +331,7 @@ class FmFragment : BaseFragment() {
 
     }
 
-    private fun requestStoragePermission(){
+    private fun requestStoragePermission() {
         isReadPermissonGranted = ContextCompat.checkSelfPermission(
             requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
@@ -400,12 +411,6 @@ class FmFragment : BaseFragment() {
         if (cur != null) {
             cur.close()
         }
-    }
-
-    private fun sendDataToWebView(){
-        binding.webView.evaluateJavascript(
-            "javascript: " +"updateFromNative(\"" + "$contacts" +
-                    "\")",null)
     }
 
     @SuppressLint("Range")
@@ -492,12 +497,22 @@ class FmFragment : BaseFragment() {
 
                 }
                 options[item] == Constants.CHOOSE_FROM_GALLERY -> {
-                    val intent =
-                        Intent(
-                            Intent.ACTION_PICK,
-                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                        )
-                    resultLauncher.launch(intent)
+                    when(uploadObject.type){
+                        "image" -> {
+                            val intent = Intent(
+                                Intent.ACTION_PICK,
+                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                            )
+                            resultLauncher.launch(intent)
+                        }
+                        "doc" -> {
+                            val pdfIntent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+                            pdfIntent.type = "application/pdf"
+                            pdfIntent.addCategory(Intent.CATEGORY_OPENABLE)
+                            resultLauncher.launch(pdfIntent)
+                        }
+                    }
+
                 }
                 options[item] == Constants.CANCEL -> {
                     dialog.dismiss()
@@ -541,56 +556,83 @@ class FmFragment : BaseFragment() {
         val thumbnail = BitmapFactory.decodeFile(selectedImage)
 
         val gson = Gson()
+        val encodeImage = encodeImage(destinationFile.path)
 
         val image = MediaModel(encodeImage(destinationFile.path))
         val jsonData = gson.toJson(image)
 
-        binding.webView.post(object :Runnable{
-            override fun run() {
-                binding.webView.evaluateJavascript(
-                    "javascript: " + "getUploadActionFromNative( "+ jsonData +")", null)
-            }
-        })
-
+        callUploadApi(destinationFile)
         Log.d("Camera Image","${jsonData}")
 
+    }
+
+    private fun callUploadApi(destinationFile: File) {
+        profileViewModel.uploadFm(uploadObject.type,uploadObject.page_name,destinationFile).observe(viewLifecycleOwner,Observer{
+            when(it.status){
+                Status.LOADING -> {
+                    binding.progressBaar.show()
+                }
+                Status.SUCCESS -> {
+                    binding.progressBaar.hide()
+                    it.data?.let { fm ->
+                        Log.d("upload",fm.toString())
+                        val gson = Gson()
+                        val jsonData = gson.toJson(fm)
+                        Log.d("UploadSend",jsonData)
+                        binding.webView.post(object : Runnable {
+                            override fun run() {
+                                binding.webView.evaluateJavascript(
+                                    "javascript: " + "getUploadActionFromNative( " + jsonData + ")",
+                                    null
+                                )
+                            }
+                        })
+                    }
+                }
+                Status.ERROR -> {
+                    binding.progressBaar.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                }
+            }
+        })
     }
 
     private fun onSelectFromGalleryResult(data: Intent) {
         val selectedImage = data.data
         var inputStream =
             requireContext().contentResolver.openInputStream(selectedImage!!)
-        try {
-            val bitmap = BitmapFactory.decodeStream(inputStream)
-            val bytes = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-
+        if(selectedImage.path!!.contains(".pdf")){
             try {
                 val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
+                Log.d("filepath",filePath.toString())
                 destinationFile = File(filePath)
 
-                val gson = Gson()
-
-                if(filePath!=null) {
-                    val image = MediaModel(encodeImage(filePath))
-                    val jsonData = gson.toJson(image)
-                    binding.webView.post(object :Runnable{
-                        override fun run() {
-                            binding.webView.evaluateJavascript(
-                                "javascript: " + "getUploadActionFromNative( "+ jsonData +")", null)
-                        }
-                    })
-                    Log.d("Gallery Image",jsonData)
-                }
+                callUploadApi(destinationFile)
 
             } catch (e: Exception) {
                 Log.e("Error", "onSelectFromGalleryResult: " + e.localizedMessage)
             }
+        }else{
+            try {
+                val bitmap = BitmapFactory.decodeStream(inputStream)
+                val bytes = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
 
+                try {
+                    val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
+                    Log.d("filepath",filePath.toString())
+                    destinationFile = File(filePath)
 
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
+                    callUploadApi(destinationFile)
+
+                } catch (e: Exception) {
+                    Log.e("Error", "onSelectFromGalleryResult: " + e.localizedMessage)
+                }
+            } catch (e: java.lang.Exception) {
+                e.printStackTrace()
+            }
         }
+
     }
 
     @SuppressLint("NewApi")
@@ -611,6 +653,9 @@ class FmFragment : BaseFragment() {
                 // TODO handle non-primary volumes
             } else if (isDownloadsDocument(uri)) {
                 val id = DocumentsContract.getDocumentId(uri)
+                if (id.startsWith("raw:")) {
+                    return id.replaceFirst("raw:", "");
+                }
                 val contentUri = ContentUris.withAppendedId(
                     Uri.parse("content://downloads/public_downloads"),
                     java.lang.Long.valueOf(id)

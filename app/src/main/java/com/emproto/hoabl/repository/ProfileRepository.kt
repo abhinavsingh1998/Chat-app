@@ -8,12 +8,10 @@ import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.HomeDataSource
 import com.emproto.networklayer.feature.PortfolioDataSource
 import com.emproto.networklayer.feature.ProfileDataSource
-import com.emproto.networklayer.request.profile.EditUserNameRequest
-import com.emproto.networklayer.request.profile.FeedBackRequest
-import com.emproto.networklayer.request.profile.ReportSecurityRequest
-import com.emproto.networklayer.request.profile.WhatsappConsentBody
+import com.emproto.networklayer.request.profile.*
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
+import com.emproto.networklayer.response.fm.FmUploadResponse
 import com.emproto.networklayer.response.investment.FaqDetailResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
@@ -715,6 +713,33 @@ class ProfileRepository @Inject constructor(application: Application) :
             }
         }
         return mDocumentsResponse
+    }
+
+    fun uploadFm(type:String,pageName:String,image:File): LiveData<BaseResponse<FmUploadResponse>> {
+        val mUploadFmResponse = MutableLiveData<BaseResponse<FmUploadResponse>>()
+        mUploadFmResponse.postValue(BaseResponse.loading())
+        coroutineScope.launch {
+            try {
+                val request = ProfileDataSource(application).uploadFm(type, pageName, image)
+                if (request.isSuccessful) {
+                    if (request.body() != null)
+                        mUploadFmResponse.postValue(BaseResponse.success(request.body()!!))
+                    else
+                        mUploadFmResponse.postValue(BaseResponse.Companion.error("No data found"))
+                } else {
+                    mUploadFmResponse.postValue(
+                        BaseResponse.Companion.error(
+                            getErrorMessage(
+                                request.errorBody()!!.string()
+                            )
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                mUploadFmResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+            }
+        }
+        return mUploadFmResponse
     }
 
 }

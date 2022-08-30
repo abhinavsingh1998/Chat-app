@@ -4,12 +4,10 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.emproto.hoabl.repository.ProfileRepository
-import com.emproto.networklayer.request.profile.EditUserNameRequest
-import com.emproto.networklayer.request.profile.FeedBackRequest
-import com.emproto.networklayer.request.profile.ReportSecurityRequest
-import com.emproto.networklayer.request.profile.WhatsappConsentBody
+import com.emproto.networklayer.request.profile.*
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
+import com.emproto.networklayer.response.fm.FmUploadResponse
 import com.emproto.networklayer.response.investment.FaqDetailResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
@@ -149,6 +147,10 @@ class ProfileViewModel(
 
     fun downloadDocument(path: String): LiveData<BaseResponse<DDocumentResponse>> {
         return profileRepository.downloadDocument(path)
+    }
+
+    fun uploadFm(type:String,pageName:String,image:File): LiveData<BaseResponse<FmUploadResponse>> {
+        return profileRepository.uploadFm(type, pageName, image)
     }
 }
 
