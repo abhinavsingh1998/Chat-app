@@ -33,16 +33,17 @@ class SecurityTipsAdapter(
     override fun onBindViewHolder(holder: SecurityTipsViewHolder, position: Int) {
         val element= list[position]
         holder.binding.apply {
-            Glide
-                .with(context)
-                .load(element.media.value.url)
-                .into(ivSecurityTips)
+
             tvDesc.text = element.media.name.replaceFirstChar {
                 if (it.isLowerCase()) it.titlecase(
                     Locale.ROOT
                 ) else it.toString()
             }
             tvFullDescription.text = showHTMLText(element.description)
+            Glide
+                .with(context)
+                .load(element.media.value.url)
+                .into(ivSecurityTips)
         }
     }
 

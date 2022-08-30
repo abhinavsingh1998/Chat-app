@@ -50,9 +50,7 @@ class InvestmentCardAdapter(
             holder.binding.tvItemAmount.text = "₹$convertedAmount L Onwards"
             holder.binding.tvItemArea.text = item.areaStartingFrom + Constants.SQFT_ONWARDS
             holder.binding.tvItemLocationInfo.text = item.shortDescription
-            Glide.with(context)
-                .load(item.projectCoverImages.homePageMedia.value.url)
-                .into(holder.binding.ivItemImage)
+
 
             when(item.fomoContent.isTargetTimeActive){
                 false -> holder.binding.timerView.visibility = View.GONE
@@ -94,17 +92,19 @@ class InvestmentCardAdapter(
             holder.binding.ivBottomArrow.setOnClickListener {
                 itemIntrface.onItemClicked(it, position, item.id.toString())
             }
+            Glide.with(context)
+                .load(item.projectCoverImages.homePageMedia.value.url)
+                .into(holder.binding.ivItemImage)
         }
 
     }
 
     override fun getItemCount(): Int {
-
         var itemList = 0
-        if (itemCount.page.totalProjectsOnHomeScreen < list.size) {
-            itemList = itemCount.page.totalProjectsOnHomeScreen
+        itemList = if (itemCount.page.totalProjectsOnHomeScreen < list.size) {
+            itemCount.page.totalProjectsOnHomeScreen
         } else {
-            itemList = list.size
+            list.size
         }
         return itemList
         return itemCount.page.totalProjectsOnHomeScreen

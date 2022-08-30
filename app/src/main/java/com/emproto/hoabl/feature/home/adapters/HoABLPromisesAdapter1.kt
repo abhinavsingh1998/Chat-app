@@ -28,21 +28,18 @@ class HoABLPromisesAdapter1(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val item = list.get(holder.adapterPosition)
-
+        val item = list[holder.adapterPosition]
         holder.binding.title.text = item.name
         holder.binding.desc.text = item.shortDescription
+        holder.binding.homePromisesItem.setOnClickListener(View.OnClickListener {
+            itemIntrface.onItemClicked(it, position, item.id.toString())
+        })
         if (item.displayMedia!=null){
             Glide.with(context)
                 .load(item.displayMedia!!.value.url)
                 .dontAnimate()
                 .into(holder.binding.image)
         }
-
-        holder.binding.homePromisesItem.setOnClickListener(View.OnClickListener {
-            itemIntrface.onItemClicked(it, position, item.id.toString())
-        })
-
     }
 
     override fun getItemCount(): Int {
