@@ -17,24 +17,22 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.BuildConfig
 import com.emproto.hoabl.R
-
+import com.emproto.hoabl.databinding.FacilitymanagerBinding
 import com.emproto.hoabl.databinding.FragmentProfileMainBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.login.AuthActivity
+import com.emproto.hoabl.feature.portfolio.views.CustomDialog
 import com.emproto.hoabl.feature.portfolio.views.FmFragment
-import com.emproto.hoabl.feature.profile.adapter.HelpCenterAdapter
-import com.emproto.hoabl.feature.profile.fragments.edit_profile.EditProfileFragment
-import com.emproto.hoabl.feature.profile.fragments.feedback.FacilityManagerPopViewFragment
-import com.emproto.hoabl.feature.profile.fragments.help_center.HelpCenterFragment
-import com.emproto.hoabl.feature.profile.fragments.securtiyandsettings.SecurityFragment
 import com.emproto.hoabl.feature.profile.adapter.ProfileOptionsAdapter
 import com.emproto.hoabl.feature.profile.data.ProfileModel
 import com.emproto.hoabl.feature.profile.data.ProfileOptionsData
 import com.emproto.hoabl.feature.profile.fragments.accounts.AccountDetailsFragment
+import com.emproto.hoabl.feature.profile.fragments.edit_profile.EditProfileFragment
+import com.emproto.hoabl.feature.profile.fragments.feedback.FacilityManagerPopViewFragment
+import com.emproto.hoabl.feature.profile.fragments.help_center.HelpCenterFragment
+import com.emproto.hoabl.feature.profile.fragments.securtiyandsettings.SecurityFragment
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
@@ -43,7 +41,6 @@ import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.profile.Data
 import com.example.portfolioui.databinding.LogoutConfirmationBinding
 import java.util.concurrent.Executor
-
 import javax.inject.Inject
 
 class ProfileFragment : BaseFragment() {
@@ -54,6 +51,9 @@ class ProfileFragment : BaseFragment() {
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
     private lateinit var logoutDialog: Dialog
+    lateinit var facilityManagerDialog: FacilitymanagerBinding
+    lateinit var securePinDialog: CustomDialog
+
 
     val bundle = Bundle()
 
@@ -179,6 +179,12 @@ class ProfileFragment : BaseFragment() {
     private fun initView() {
         (requireActivity() as HomeActivity).showBottomNavigation()
         (requireActivity() as HomeActivity).hideHeader()
+        facilityManagerDialog = FacilitymanagerBinding.inflate(layoutInflater)
+        securePinDialog = CustomDialog(requireContext())
+
+        securePinDialog.setContentView(facilityManagerDialog.root)
+        securePinDialog.setCancelable(false)
+
 
         val item1 = ProfileOptionsData(
             "My Account",
@@ -273,11 +279,7 @@ class ProfileFragment : BaseFragment() {
                                         )
                                     }
                                 } else {
-                                    (requireActivity() as HomeActivity).addFragment(
-                                        facilityManagerPopViewFragment,
-                                        true
-                                    )
-
+                                    facilityManagerDialogBox()
                                 }
 
                             }
@@ -294,6 +296,13 @@ class ProfileFragment : BaseFragment() {
                     }
                 }
             )
+    }
+
+    private fun facilityManagerDialogBox() {
+        securePinDialog.show()
+        facilityManagerDialog.actionOk.setOnClickListener {
+            securePinDialog.dismiss()
+        }
     }
 
     private fun initClickListener() {
