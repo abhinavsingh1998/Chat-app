@@ -168,30 +168,18 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun setUserNamePIC(profileData: Data) {
-        val firstLetter: String = profileData.firstName.substring(0, 1)
-        val lastLetter = when {
-            profileData.lastName.isNotEmpty() -> {
-                profileData.lastName.substring(0, 1)
-            }
-            else -> {
-                ""
-            }
-        }
-        binding.tvUserName.text = firstLetter + "" + lastLetter
-        if (profileData.lastName.isNullOrEmpty()) {
-            val firstLetter: String = profileData.firstName.substring(0, 2)
+        if (!profileData.firstName.isNullOrEmpty() && profileData.lastName.isNullOrEmpty()) {
+            val firstLetter: String = profileData.firstName!!.substring(0, 2)
             binding.tvUserName.text = firstLetter
-        }else if(profileData.firstName.isNullOrEmpty()&&profileData.lastName.isNullOrEmpty()){
-            val firstLetter = "A"
-            val lastLetter="B"
-            binding.tvUserName.text = firstLetter+lastLetter
-        }else if(profileData.firstName.isNullOrEmpty()&&!(profileData.lastName.isNullOrEmpty())){
-            val lastLetter: String = profileData.lastName.substring(0, 2)
+        }else if(profileData.firstName.isNullOrEmpty() && profileData.lastName.isNullOrEmpty()){
+            binding.tvUserName.text = "AB"
+        }else if(profileData.firstName.isNullOrEmpty() && !(profileData.lastName.isNullOrEmpty()) ){
+            val lastLetter: String = profileData.lastName!!.substring(0, 2)
             binding.tvUserName.text = lastLetter
         }
         else {
-            val firstLetter: String = profileData.firstName.substring(0, 1)
-            val lastLetter: String = profileData.lastName.substring(0, 1)
+            val firstLetter: String = profileData.firstName!!.substring(0, 1)
+            val lastLetter: String = profileData.lastName!!.substring(0, 1)
             binding.tvUserName.text = firstLetter + "" + lastLetter
         }
     }

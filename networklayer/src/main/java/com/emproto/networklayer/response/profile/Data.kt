@@ -23,7 +23,7 @@ data class Data(
     @SerializedName("email")
     val email: String?,
     @SerializedName("firstName")
-    val firstName: String,
+    val firstName: String?,
     @SerializedName("gender")
     val gender: String,
     @SerializedName("houseNumber")
@@ -37,7 +37,7 @@ data class Data(
     @SerializedName("isProfileComplete")
     val isProfileComplete: Boolean,
     @SerializedName("lastName")
-    val lastName: String,
+    val lastName: String?,
     @SerializedName("locality")
     val locality: String,
     @SerializedName("phoneNumber")
