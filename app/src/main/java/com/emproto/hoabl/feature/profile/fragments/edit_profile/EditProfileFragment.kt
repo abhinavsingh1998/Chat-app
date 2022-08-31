@@ -177,6 +177,9 @@ class EditProfileFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        isReadStorageGranted = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED
+        isWriteStorageGranted = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+
         if (data.profilePictureUrl.isNullOrEmpty()) {
             binding.tvremove.isClickable = false
             setColor()
@@ -496,17 +499,20 @@ class EditProfileFragment : BaseFragment() {
         autoValue.isLongClickable = false
     }
 
-    private fun setUserNamePIC(data: Data) {
-        if (this.data.lastName.isNullOrEmpty()) {
-            val firstLetter: String = this.data.firstName.substring(0, 2)
-
+    private fun setUserNamePIC(profileData: Data) {
+        if (!profileData.firstName.isNullOrEmpty() && profileData.lastName.isNullOrEmpty()) {
+            val firstLetter: String = profileData.firstName!!.substring(0, 2)
             binding.tvUserName.text = firstLetter
-        } else {
-            val firstLetter: String = this.data.firstName.substring(0, 1)
-
-            val lastLetter: String = this.data.lastName.substring(0, 1)
+        }else if(profileData.firstName.isNullOrEmpty() && profileData.lastName.isNullOrEmpty()){
+            binding.tvUserName.text = "AB"
+        }else if(profileData.firstName.isNullOrEmpty() && !(profileData.lastName.isNullOrEmpty()) ){
+            val lastLetter: String = profileData.lastName!!.substring(0, 2)
+            binding.tvUserName.text = lastLetter
+        }
+        else {
+            val firstLetter: String = profileData.firstName!!.substring(0, 1)
+            val lastLetter: String = profileData.lastName!!.substring(0, 1)
             binding.tvUserName.text = firstLetter + "" + lastLetter
-
         }
     }
 
@@ -543,11 +549,9 @@ class EditProfileFragment : BaseFragment() {
             }
         })
 
-
         binding.uploadNewPicture.setOnClickListener {
             if (!isReadStorageGranted && !isWriteStorageGranted) {
                 requestPermission()
-
             }else if (isReadStorageGranted&&isWriteStorageGranted){
                 selectImage()
             }
@@ -713,8 +717,8 @@ class EditProfileFragment : BaseFragment() {
         validCity: String
     ) {
         val editUserNameRequest = EditUserNameRequest(
-            data.firstName,
-            data.lastName,
+            data.firstName ?: "",
+            data.lastName ?: "",
             validEmail,
             validDOB,
             binding.autoGender.text.toString(),
@@ -765,13 +769,7 @@ class EditProfileFragment : BaseFragment() {
 
     /*----------upload picture--------------*/
     private fun requestPermission() {
-        isReadStorageGranted = ContextCompat.checkSelfPermission(
-            requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED
 
-        isWriteStorageGranted = ContextCompat.checkSelfPermission(
-            requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED
         if (!isReadStorageGranted && !isWriteStorageGranted) {
             permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
             permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
