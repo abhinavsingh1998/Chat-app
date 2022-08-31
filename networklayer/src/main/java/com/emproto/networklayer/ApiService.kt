@@ -4,15 +4,12 @@ import com.emproto.networklayer.request.chat.SendMessageBody
 import com.emproto.networklayer.request.investment.AddInventoryBody
 import com.emproto.networklayer.request.investment.VideoCallBody
 import com.emproto.networklayer.request.investment.WatchListBody
-import com.emproto.networklayer.request.profile.EditUserNameRequest
 import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.request.notification.UnReadNotifications
-import com.emproto.networklayer.request.profile.FeedBackRequest
-import com.emproto.networklayer.request.profile.ReportSecurityRequest
-import com.emproto.networklayer.request.profile.WhatsappConsentBody
+import com.emproto.networklayer.request.profile.*
 import com.emproto.networklayer.request.refernow.ReferalRequest
 import com.emproto.networklayer.response.actionItem.HomeActionItem
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
@@ -22,6 +19,7 @@ import com.emproto.networklayer.response.chats.ChatInitiateRequest
 import com.emproto.networklayer.response.chats.ChatResponse
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
+import com.emproto.networklayer.response.fm.FmUploadResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.*
@@ -273,4 +271,10 @@ public interface ApiService {
     @POST(ApiConstants.LOG_OUT_ALL)
     suspend fun logOutFromAll():Response<LogOutFromCurrentResponse>
 
+    @Multipart
+    @POST
+    suspend fun uploadFm(@Part type: MultipartBody.Part,
+                         @Part page_name: MultipartBody.Part,
+                         @Part image: MultipartBody.Part,
+                         @Url url:String = "https://fm.hoabl.in/api/user/upload/files"):Response<FmUploadResponse>
 }

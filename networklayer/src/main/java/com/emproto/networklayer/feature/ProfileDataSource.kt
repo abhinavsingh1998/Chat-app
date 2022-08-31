@@ -9,6 +9,8 @@ import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.request.profile.EditUserNameRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.request.profile.ReportSecurityRequest
+import com.emproto.networklayer.request.profile.UploadFmBody
+import com.emproto.networklayer.response.fm.FmUploadResponse
 import com.emproto.networklayer.response.investment.FaqDetailResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
@@ -161,5 +163,17 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
     //log out from all devices
     suspend fun logOutFromAllDevices(): Response<LogOutFromCurrentResponse> {
         return apiService.logOutFromAll()
+    }
+
+    //upload from webview
+    suspend fun uploadFm(type:String,pageName:String,image:File): Response<FmUploadResponse> {
+        return apiService.uploadFm(
+            MultipartBody.Part.createFormData("type", type),
+            MultipartBody.Part.createFormData("page_name", pageName),
+            MultipartBody.Part.createFormData(
+                "image", image.name,
+                RequestBody.create("image/*".toMediaTypeOrNull(), image)
+            )
+        )
     }
 }

@@ -67,7 +67,6 @@ class MediaViewFragment : BaseFragment() {
         arguments?.let {
             it.getSerializable(Constants.DATA)?.let {
                 data = it as MediaViewItem
-                binding.tvMediaImageName.text = data.name
                 showMedia(data)
             }
             it.getInt(Constants.IMAGE_POSITION).let{
@@ -137,6 +136,8 @@ class MediaViewFragment : BaseFragment() {
     }
 
     fun showMedia(mediaType: MediaViewItem) {
+        binding.tvMediaImageName.text = mediaType.name
+
         when (mediaType.mediaType) {
             "image" -> {
                 binding.ivMediaPhoto.visibility = View.VISIBLE
