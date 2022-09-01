@@ -206,7 +206,7 @@ class HomeFragment : BaseFragment() {
 
                                     if(itemList.isEmpty()){
                                         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.notification.setImageDrawable(
-                                            resources.getDrawable(R.drawable.normal_notification))
+                                            resources.getDrawable(R.drawable.ic_notification_inactive))
                                     } else{
                                         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.notification.setImageDrawable(
                                             resources.getDrawable(R.drawable.ic_notification))
