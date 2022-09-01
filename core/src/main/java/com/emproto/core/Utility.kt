@@ -36,8 +36,8 @@ object Utility {
     const val FILTER_SELECTED = "filter"
 
     fun parseDate(time: String?): String? {
-        val inputPattern = "yyyy-MM-dd"
-        val outputPattern = "dd MMM yyyy"
+        val inputPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        val outputPattern = "dd/MM/yyyy"
         val inputFormat = SimpleDateFormat(inputPattern)
         val outputFormat = SimpleDateFormat(outputPattern)
         var date: Date? = null

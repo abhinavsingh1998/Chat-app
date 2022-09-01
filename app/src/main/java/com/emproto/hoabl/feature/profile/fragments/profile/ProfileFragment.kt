@@ -111,14 +111,14 @@ class ProfileFragment : BaseFragment() {
                 Status.SUCCESS -> {
                     binding.progressBaar.hide()
                     if (it.data != null) {
-                        it.data?.let {
-                            profileData = it.data
-                            isWhatsappConsent = it.data.whatsappConsent
-                            isPushNotificationSend = it.data.showPushNotifications
-                            isTermsActive = it.data.pageManagement.data.page.isTermsActive
-                            isAboutUsActive = it.data.pageManagement.data.page.isAboutUsActive
+                        it.data?.let {it1->
+                            profileData = it1.data
+                            isWhatsappConsent = it1.data.whatsappConsent
+                            isPushNotificationSend = it1.data.showPushNotifications
+                            isTermsActive = it1.data.pageManagement.data.page.isTermsActive
+                            isAboutUsActive = it1.data.pageManagement.data.page.isAboutUsActive
                             isSecurityTipsActive =
-                                it.data.pageManagement.data.page.isSecurityTipsActive
+                                it1.data.pageManagement.data.page.isSecurityTipsActive
                         }
                         if (::profileData.isInitialized) {
                             setUiData(profileData)
@@ -150,9 +150,7 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun setUiData(profileData: Data) {
-        binding.tvName.text = profileData.firstName + " " + profileData.lastName
-
-        /*for user pic not available show username as pic label*/
+        "${profileData.firstName} ${profileData.lastName}".also { binding.tvName.text = it }
         if (profileData.profilePictureUrl != null && profileData.profilePictureUrl!!.isNotEmpty()) {
             binding.cvProfileImage.visibility = View.VISIBLE
             binding.profileUserLetters.visibility = View.GONE
@@ -172,7 +170,7 @@ class ProfileFragment : BaseFragment() {
             val firstLetter: String = profileData.firstName!!.substring(0, 2)
             binding.tvUserName.text = firstLetter
         }else if(profileData.firstName.isNullOrEmpty() && profileData.lastName.isNullOrEmpty()){
-            binding.tvUserName.text = "AB"
+            "AB".also { binding.tvUserName.text = it }
         }else if(profileData.firstName.isNullOrEmpty() && !(profileData.lastName.isNullOrEmpty()) ){
             val lastLetter: String = profileData.lastName!!.substring(0, 2)
             binding.tvUserName.text = lastLetter
@@ -180,7 +178,7 @@ class ProfileFragment : BaseFragment() {
         else {
             val firstLetter: String = profileData.firstName!!.substring(0, 1)
             val lastLetter: String = profileData.lastName!!.substring(0, 1)
-            binding.tvUserName.text = firstLetter + "" + lastLetter
+            "${firstLetter}${lastLetter}".also { binding.tvUserName.text = it }
         }
     }
 
@@ -195,10 +193,10 @@ class ProfileFragment : BaseFragment() {
         facilityDialog.setCancelable(false)
 
         dialogSecurePinBinding = DialogSecurePinBinding.inflate(layoutInflater)
-        dialogSecurePinBinding.tvTitle.text="Secure Your Account"
+        "Secure Your Account".also { dialogSecurePinBinding.tvTitle.text = it }
         dialogSecurePinConfirmationBinding =
             DailogSecurePinConfirmationBinding.inflate(layoutInflater)
-        dialogSecurePinConfirmationBinding.tvTitle.text="Are you sure you don't want to \n secure your account?"
+        "Are you sure you don't want to \n secure your account?".also { dialogSecurePinConfirmationBinding.tvTitle.text = it }
         securePinDialog = CustomDialog(requireContext())
         securePinConfirmationDialog = CustomDialog(requireContext())
 

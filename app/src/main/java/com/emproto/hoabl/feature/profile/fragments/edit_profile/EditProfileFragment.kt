@@ -384,66 +384,63 @@ class EditProfileFragment : BaseFragment() {
                 selectImage()
             }
 
-        binding.textviewEnterName.text = data.firstName + " " + data.lastName
+        "${data.firstName} ${data.lastName}".also { binding.textviewEnterName.text = it }
         Log.i("name", data.firstName + " " + data.lastName + data.email)
-        binding.enterPhonenumberTextview.text = data.countryCode + data.phoneNumber
+        "${data.countryCode} ${data.phoneNumber}".also { binding.enterPhonenumberTextview.text = it }
         if (!data.email.isNullOrEmpty()) {
             binding.emailTv.setText(data.email)
         } else {
             binding.emailTv.setText("")
         }
-        if (!data.dateOfBirth.isNullOrEmpty()) {
-            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-            val outputFormat = SimpleDateFormat("dd/MM/yyyy")
-            val date: Date = inputFormat.parse(data.dateOfBirth)
-            val formattedDate: String = outputFormat.format(date)
-            binding.tvDatePicker.setText(formattedDate)
+        if (data.dateOfBirth.isNotEmpty()) {
+            val date=Utility.parseDate(data.dateOfBirth)
+            binding.tvDatePicker.setText(date)
         } else {
             binding.tvDatePicker.setText("")
         }
-        if (!data.gender.isNullOrEmpty()) {
+        if (data.gender.isNotEmpty()) {
             binding.autoGender.setText(data.gender)
             enableEdit(binding.autoGender)
         } else {
             binding.autoGender.setText("")
         }
-        if (!data.houseNumber.isNullOrEmpty()) {
+        if (data.houseNumber.isNotEmpty()) {
             binding.houseNo.setText(data.houseNumber)
         } else {
             binding.houseNo.setText("")
         }
-        if (!data.streetAddress.isNullOrEmpty()) {
+        if (data.streetAddress.isNotEmpty()) {
             binding.completeAddress.setText(data.streetAddress)
         } else {
             binding.completeAddress.setText("")
         }
-        if (!data.locality.isNullOrEmpty()) {
+        if (data.locality.isNotEmpty()) {
             binding.locality.setText(data.locality)
         } else {
             binding.locality.setText("")
         }
-        if (!data.country.isNullOrEmpty()) {
+        if (data.country.isNotEmpty()) {
             binding.autoCountry.setText(data.country)
             enableEdit(binding.autoCountry)
         } else {
             binding.autoCountry.setText("")
 
         }
-        if (!data.state.isNullOrEmpty()) {
+        if (data.state.isNotEmpty()) {
             binding.autoState.setText(data.state)
             enableEdit(binding.autoState)
         } else {
             binding.autoState.setText("")
 
         }
-        if (!data.city.isNullOrEmpty()) {
+        if (data.city.isNotEmpty()) {
             binding.autoCity.setText(data.city)
             enableEdit(binding.autoCity)
         } else {
             binding.autoCity.setText("")
 
         }
-        if (!data.pincode.toString().isNullOrEmpty()) {
+        if (data.pincode.toString().isNotEmpty()) {
             if (data.pincode.toString() == "null") {
                 binding.pincodeEditText.setText("")
 
@@ -451,9 +448,6 @@ class EditProfileFragment : BaseFragment() {
                 binding.pincodeEditText.setText(data.pincode.toString())
 
             }
-
-        } else if (data.pincode.toString() == null) {
-            binding.pincodeEditText.setText("")
 
         } else {
             binding.pincodeEditText.setText("")
@@ -512,7 +506,7 @@ class EditProfileFragment : BaseFragment() {
         else {
             val firstLetter: String = profileData.firstName!!.substring(0, 1)
             val lastLetter: String = profileData.lastName!!.substring(0, 1)
-            binding.tvUserName.text = firstLetter + "" + lastLetter
+            "${firstLetter}${lastLetter}".also { binding.tvUserName.text = it }
         }
     }
 
