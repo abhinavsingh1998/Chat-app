@@ -25,6 +25,8 @@ import com.emproto.hoabl.feature.chat.model.MessageType
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.ChatsDetailAdapter
 import com.emproto.hoabl.feature.investment.adapters.OnOptionClickListener
+import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
+import com.emproto.hoabl.feature.portfolio.views.BookingjourneyFragment
 import com.emproto.hoabl.feature.profile.fragments.about_us.AboutUsFragment
 import com.emproto.hoabl.utils.Extensions.hideKeyboard
 import com.emproto.hoabl.viewmodels.HomeViewModel
@@ -56,6 +58,11 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     private var runnable: Runnable? = null
 
     lateinit var binding: FragmentChatsDetailBinding
+
+    companion object{
+        const val MORE_OPTIONS = 1
+        const val NAVIGATE = 2
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -309,7 +316,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
                     sendMessage(option.text, 1, option.action.toString().toInt(), null)
 
-                    if (option.actionType == ActionType.MORE_OPTIONS.name) {
+                    if (option.actionType == MORE_OPTIONS) {
                         when {
                             chatDetailList != null -> {
                                 for (i in chatDetailList!!.autoChat.chatJSON.chatBody.indices) {
@@ -367,7 +374,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                 }
                             }
                         }
-                    } else if (option.actionType == ActionType.NAVIGATE.name) {
+                    } else if (option.actionType == NAVIGATE) {
                         when (option.action) {
                             "109" -> {
                                 (requireActivity() as HomeActivity).addFragment(
@@ -375,8 +382,32 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     true
                                 )
                             }
+                            "111" -> {
+                                chatsList?.project?.let {
+                                    val bundle = Bundle()
+                                    bundle.putInt(Constants.PROJECT_ID, it.projectContent.id)
+                                    val fragment = ProjectDetailFragment()
+                                    fragment.arguments = bundle
+                                    (requireActivity() as HomeActivity).addFragment(
+                                        fragment, true
+                                    )
+                                }
+                            }
                             "113" -> {
                                 (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
+                            }
+                            "119" -> {
+                                (requireActivity() as HomeActivity).navigate(R.id.navigation_portfolio)
+                            }
+                            "120" -> {
+                                chatsList?.project?.let {
+                                    (requireActivity() as HomeActivity).addFragment(
+                                        BookingjourneyFragment.newInstance(
+                                            it.projectContent.id,
+                                            ""
+                                        ), true
+                                    )
+                                }
                             }
                         }
                     } else if (option.action == "108") {

@@ -86,7 +86,7 @@ data class Option(
     @SerializedName("action")
     val action: String?,
     @SerializedName("actionType")
-    val actionType: String?,
+    val actionType: Int,
     @SerializedName("optionNumber")
     val optionNumber: Int?,
     @SerializedName("text")
