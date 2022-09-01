@@ -243,8 +243,6 @@ class AccountDetailsFragment : Fragment(),
                     if (it.data?.data!!.paymentHistory != null && it.data!!.data.paymentHistory is List<AccountsResponse.Data.PaymentHistory>) {
                         allPaymentList =
                             it.data!!.data.paymentHistory as ArrayList<AccountsResponse.Data.PaymentHistory>
-                        allPaymentList.clear()
-
                         if (allPaymentList.isNullOrEmpty()) {
                             binding.tvPaymentHistory.visibility = View.VISIBLE
                             binding.cvNoPayment.visibility = View.VISIBLE
