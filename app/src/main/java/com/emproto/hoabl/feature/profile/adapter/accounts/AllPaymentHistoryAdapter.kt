@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemAccountsPaymentBinding
 import com.emproto.networklayer.response.profile.AccountsResponse
@@ -24,6 +25,7 @@ class AllPaymentHistoryAdapter(
 
     ) : RecyclerView.Adapter<AllPaymentHistoryAdapter.ViewHolder>() {
 
+    lateinit var outputFormat: SimpleDateFormat
     lateinit var binding: ItemAccountsPaymentBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -44,24 +46,21 @@ class AllPaymentHistoryAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(!accountsPaymentList[position].paidAmount.toString().isNullOrEmpty()){
-            holder.tvPaidAmount.text = "₹" + accountsPaymentList[position].paidAmount.toString()
+            "₹${accountsPaymentList[position].paidAmount}".also { holder.tvPaidAmount.text = it }
         }
         if(!accountsPaymentList[position].launchName.isNullOrEmpty()){
             holder.tvProjectName.text = accountsPaymentList[position].launchName
         }
         if (!accountsPaymentList[position].paymentDate.isNullOrEmpty()) {
-            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-            val outputFormat = SimpleDateFormat("dd-MM-yyyy")
-            val date: Date = inputFormat.parse(accountsPaymentList[position].paymentDate)
-            val formattedDate: String = outputFormat.format(date)
-            holder.tvPaymentDate.text = formattedDate
+            val paymentDate = Utility.dateInWords(accountsPaymentList[position].paymentDate)
+            holder.tvPaymentDate.text = paymentDate
         }
         if (accountsPaymentList[position].crmInventory!=null) {
-            holder.tvLandId.text = "Land id:" + "" + accountsPaymentList[position].crmInventory
+            "Land id:${accountsPaymentList[position].crmInventory}".also { holder.tvLandId.text = it }
         }
         holder.tvSeeReceipt.setOnClickListener {
             if (accountsPaymentList[position].document==null) {
-                Toast.makeText(mContext, "No Receipt", Toast.LENGTH_SHORT).show()
+                Toast.makeText(mContext, "Connect with your relationship manager\nfor the receipt", Toast.LENGTH_SHORT).show()
             } else {
                 mListener.onAccountsAllPaymentItemClick(
                     accountsPaymentList,
