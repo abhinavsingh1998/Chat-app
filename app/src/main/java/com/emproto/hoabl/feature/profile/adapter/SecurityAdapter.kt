@@ -119,7 +119,7 @@ class SecurityAdapter(
 //        newsList.add(SettingsData("Location", "Control location access here"))
 //        newsList.add(SettingsData("Read SMS", "Control location access here"))
         newsList.add(SettingsData("Send Push Notifications", "Control location access here"))
-        newsList.add(SettingsData("Assistance Access", "Control location access here"))
+//        newsList.add(SettingsData("Assistance Access", "Control location access here"))
 
         return newsList
     }
