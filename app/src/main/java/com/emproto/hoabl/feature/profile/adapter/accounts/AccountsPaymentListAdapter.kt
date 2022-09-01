@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.AccNoDataBinding
 import com.emproto.hoabl.databinding.ItemAccountsPaymentBinding
@@ -85,22 +86,8 @@ class AccountsPaymentListAdapter(
                 holder.tvProjectName.text = accountsPaymentList[position].launchName
             }
             if (!accountsPaymentList[position].paymentDate.isNullOrEmpty()) {
-                val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-//                val outputFormat = SimpleDateFormat("dd MMMM yyyy")
-                if (accountsPaymentList[position].paymentDate.endsWith("1") && !accountsPaymentList[position].paymentDate.endsWith("11"))
-                    outputFormat =
-                    SimpleDateFormat("d'st' MMMM yyyy") else if (accountsPaymentList[position].paymentDate.endsWith("2") && !accountsPaymentList[position].paymentDate.endsWith(
-                        "12"
-                    )
-                ) outputFormat =
-                    SimpleDateFormat("d'nd' MMMM  yyyy") else if (accountsPaymentList[position].paymentDate.endsWith("3") && !accountsPaymentList[position].paymentDate.endsWith(
-                        "13"
-                    )
-                ) outputFormat = SimpleDateFormat("d'rd' MMMM yyyy") else outputFormat =
-                    SimpleDateFormat("d'th' MMMM yyyy")
-                val date: Date = inputFormat.parse(accountsPaymentList[position].paymentDate)
-                val formattedDate: String = outputFormat.format(date)
-                holder.tvPaymentDate.text = formattedDate
+                val paymentDate = Utility.dateInWords(accountsPaymentList[position].paymentDate)
+                holder.tvPaymentDate.text = paymentDate
             }
             if (accountsPaymentList[position].crmInventory != null) {
                 "Land id:${accountsPaymentList[position].crmInventory}".also { holder.tvLandId.text = it }

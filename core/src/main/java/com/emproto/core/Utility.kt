@@ -35,6 +35,32 @@ object Utility {
     const val END_DATE = "enddate"
     const val FILTER_SELECTED = "filter"
 
+
+    fun dateInWords(time: String): String? {
+        val inputPattern ="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        val inputFormat = SimpleDateFormat(inputPattern)
+        val outputFormat: SimpleDateFormat
+        var date: Date? = null
+        var str: String? = null
+        try {
+            outputFormat = if (time.endsWith("1") && !time.endsWith("11"))
+                SimpleDateFormat("d'st' MMMM yyyy")
+            else if (time.endsWith("2") && !time.endsWith("12"))
+                SimpleDateFormat("d'nd' MMMM  yyyy")
+            else if (time.endsWith("3") && !time.endsWith("13"))
+                SimpleDateFormat("d'rd' MMMM yyyy")
+            else SimpleDateFormat("d'th' MMMM yyyy")
+
+            date = inputFormat.parse(time)
+            str = outputFormat.format(date)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+
+
+
+        return str
+    }
     fun parseDate(time: String?): String? {
         val inputPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         val outputPattern = "dd/MM/yyyy"
