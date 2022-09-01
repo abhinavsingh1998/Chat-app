@@ -79,7 +79,7 @@ class AccountsPaymentListAdapter(
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         if(holder is NotEmptyList) {
             if (!accountsPaymentList[position].paidAmount.toString().isNullOrEmpty()) {
-                holder.tvPaidAmount.text = "₹" + accountsPaymentList[position].paidAmount.toString()
+                "₹${accountsPaymentList[position].paidAmount}".also { holder.tvPaidAmount.text = it }
             }
             if (!accountsPaymentList[position].launchName.isNullOrEmpty()) {
                 holder.tvProjectName.text = accountsPaymentList[position].launchName
@@ -103,13 +103,12 @@ class AccountsPaymentListAdapter(
                 holder.tvPaymentDate.text = formattedDate
             }
             if (accountsPaymentList[position].crmInventory != null) {
-                holder.tvLandId.text =
-                    "Land id:" + "" + accountsPaymentList[position].crmInventory
+                "Land id:${accountsPaymentList[position].crmInventory}".also { holder.tvLandId.text = it }
             }
 
             holder.tvSeeReceipt.setOnClickListener {
                 if (accountsPaymentList[position].document == null) {
-                    Toast.makeText(mContext, "No Receipt", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(mContext, "Connect with your relationship manager\nfor the receipt", Toast.LENGTH_SHORT).show()
                 } else {
                     mListener.onAccountsPaymentItemClick(
                         accountsPaymentList,
