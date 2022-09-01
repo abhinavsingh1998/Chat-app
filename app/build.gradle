@@ -14,10 +14,10 @@ android {
         applicationId "com.hoabl"
         minSdk 19
         targetSdk 32
-        versionCode 63
-        versionName "0.0.63"
+        versionCode 1
+        versionName "1.0.0"
         multiDexEnabled true
-        archivesBaseName = "Hoabl_63"
+        archivesBaseName = "Hoabl_1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.debug
         vectorDrawables.useSupportLibrary = true
@@ -45,7 +45,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-dev-306342355.ap-south-1.elb.amazonaws.com\"")
+            buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-preprod-1970620156.ap-south-1.elb.amazonaws.com\"")
 
         }
     }
@@ -70,8 +70,8 @@ dependencies {
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constrainVersion"
     implementation "androidx.legacy:legacy-support-v4:$legacy_version"
-    implementation 'com.google.firebase:firebase-messaging-ktx:23.0.3'
-    implementation 'androidx.browser:browser:1.3.0'
+    implementation "com.google.firebase:firebase-messaging-ktx:$firebaseMessaging"
+    implementation "androidx.browser:browser:$browserVersion"
     //implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.0'
     testImplementation "junit:junit:$jUnit"
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
@@ -118,8 +118,8 @@ dependencies {
     implementation "com.github.skydoves:balloon:1.4.2"
 
     //Maps SDK
-    implementation 'com.google.android.gms:play-services-maps:18.0.2'
-    implementation 'com.google.android.libraries.places:places:2.4.0'
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.android.libraries.places:places:2.6.0'
 
     //mix pannel integration
     implementation 'com.mixpanel.android:mixpanel-android:6.4.0'
