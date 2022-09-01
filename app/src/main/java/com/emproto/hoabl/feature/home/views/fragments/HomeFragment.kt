@@ -175,7 +175,7 @@ class HomeFragment : BaseFragment() {
 
                                 if(appPreference.isFacilityCard()){
                                     val item = (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.menu.getItem(3)
-                                    item.title = "Facility"
+                                    item.title = "My Services"
                                 }
 
                             }
@@ -206,7 +206,7 @@ class HomeFragment : BaseFragment() {
 
                                     if(itemList.isEmpty()){
                                         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.notification.setImageDrawable(
-                                            resources.getDrawable(R.drawable.normal_notification))
+                                            resources.getDrawable(R.drawable.ic_notification_inactive))
                                     } else{
                                         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.notification.setImageDrawable(
                                             resources.getDrawable(R.drawable.ic_notification))
