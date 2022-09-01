@@ -242,8 +242,6 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                             break
                         }
                     }
-
-                    Toast.makeText(requireContext(), selectedItemPos.toString(),Toast.LENGTH_LONG).show()
                     projectAdapter = AllProjectsAdapter(
                         requireActivity(),
                         it?.data?.data!!,
@@ -392,7 +390,7 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                         }
                     )
 
-                    var currentData = it?.data?.data!![defaultPosition]
+                    var currentData = it?.data?.data!![selectedItemPos]
 
                     binding.tvXAxisLabel.text =
                         currentData.generalInfoEscalationGraph.yAxisDisplayName
@@ -513,7 +511,9 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                     binding.recyclerViewGraphOptions.layoutManager = linearLayoutManager
                     binding.recyclerViewGraphOptions.adapter = projectAdapter
                     val snapHelper = LinearSnapHelper()
-                    snapHelper.attachToRecyclerView(binding.recyclerViewGraphOptions)
+                    if(binding.recyclerViewGraphOptions.getOnFlingListener() == null){
+                        snapHelper.attachToRecyclerView(binding.recyclerViewGraphOptions)
+                    }
                 }
                 Status.ERROR -> {
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
