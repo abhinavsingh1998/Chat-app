@@ -4,6 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.2677083333333333" />
+        <entry key="..\:/Android Projects/Office Projects/app/src/main/res/drawable-hdpi/ic_notification_5.xml" value="0.1665" />
+        <entry key="..\:/Android Projects/Office Projects/app/src/main/res/drawable/ic_notification_5.xml" value="0.1665" />
+        <entry key="..\:/Android Projects/Office Projects/app/src/main/res/drawable/ic_notification_icon.xml" value="0.1665" />
+        <entry key="..\:/Android Projects/Office Projects/app/src/main/res/drawable/ic_notification_inactive.xml" value="0.10666666666666667" />
+        <entry key="..\:/Android Projects/Office Projects/app/src/main/res/drawable/normal_notification.xml" value="0.1665" />
+        <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/complete_payment_card.xml" value="0.1" />
+        <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/custom_toolbar.xml" value="0.16666666666666666" />
+        <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/fragment_notification_bottom_sheet.xml" value="0.11979166666666667" />
+        <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/payment_pending_layout.xml" value="0.1796875" />
+        <entry key="..\:/Android Projects/Office Projects/core/src/main/res/drawable/ic_notification.xml" value="0.12" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/MyApplication/hoabl_customer_app_android/app/portfolioui/src/main/res/layout/dailog_secure_pin_confirmation.xml" value="0.17239583333333333" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/MyApplication/hoabl_customer_app_android/app/portfolioui/src/main/res/layout/dialog_registration_details.xml" value="0.184375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/MyApplication/hoabl_customer_app_android/app/portfolioui/src/main/res/layout/dialog_secure_pin.xml" value="0.3333333333333333" />

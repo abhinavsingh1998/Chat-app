@@ -454,7 +454,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 )
                 //it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName + " " + it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
                 activityHomeActivity.searchLayout.rotateText.text = showHTMLText(
-                    "$totalLandsold          $totalAmtLandSold    $grossWeight    $num_User"
+                    "$totalLandsold    $totalAmtLandSold    $grossWeight    $num_User"
                 )
                 topText = showHTMLText(
                     "$totalLandsold   $totalAmtLandSold   $grossWeight    $num_User"
@@ -614,7 +614,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             View.OnClickListener {
                 setReadStatus(0)
                 activityHomeActivity.searchLayout.notification.setImageDrawable(
-                    resources.getDrawable(R.drawable.normal_notification)
+                    resources.getDrawable(R.drawable.ic_notification_inactive)
                 )
                 fragmentNotificationBottomSheetBinding.markAllRead.setTextColor(
                     resources.getColor(R.color.color_text_normal)
@@ -624,7 +624,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             })
         if (unreadNotificationList.isEmpty()) {
             activityHomeActivity.searchLayout.notification.setImageDrawable(
-                resources.getDrawable(R.drawable.normal_notification)
+                resources.getDrawable(R.drawable.ic_notification_inactive)
             )
 
             fragmentNotificationBottomSheetBinding.markAllRead.setTextColor(
@@ -655,7 +655,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
                         if (unreadNotificationList.size == 1) {
                             activityHomeActivity.searchLayout.notification.setImageDrawable(
-                                resources.getDrawable(R.drawable.normal_notification)
+                                resources.getDrawable(R.drawable.ic_notification_inactive)
                             )
                             unreadNotificationList.clear()
                         }
