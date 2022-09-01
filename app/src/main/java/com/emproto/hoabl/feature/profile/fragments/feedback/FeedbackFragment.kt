@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentFeedbackBinding
+import com.emproto.hoabl.databinding.FragmentFeedbackBinding.*
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.ProfileViewModel
@@ -46,7 +47,7 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentFeedbackBinding.inflate(inflater, container, false)
+        binding = inflate(inflater, container, false)
         (requireActivity() as HomeActivity).hideBottomNavigation()
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         profileViewModel =

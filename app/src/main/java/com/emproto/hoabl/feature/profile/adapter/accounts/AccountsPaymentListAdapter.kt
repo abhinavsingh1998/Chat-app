@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -61,6 +62,8 @@ class AccountsPaymentListAdapter(
 
     class EmptyList(ItemView: View) : AccountsPaymentListAdapter.BaseViewHolder(ItemView) {
         var tvMsg = itemView.findViewById<TextView>(R.id.tvMsg)
+        var ivIcon = itemView.findViewById<ImageView>(R.id.ivIcon)
+
     }
     abstract class BaseViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {}
 
@@ -120,7 +123,9 @@ class AccountsPaymentListAdapter(
 
             }
         }else if(holder is EmptyList){
-            holder.tvMsg.text="No Payment is done yet,See your payment history after making your first payment."
+            "No Payment is done yet,See your payment history after making your first payment.".also { holder.tvMsg.text = it }
+            holder.ivIcon.setImageResource(R.drawable.payment)
+
         }
     }
 
