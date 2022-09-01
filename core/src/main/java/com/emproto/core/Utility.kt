@@ -56,9 +56,6 @@ object Utility {
         } catch (e: ParseException) {
             e.printStackTrace()
         }
-
-
-
         return str
     }
     fun parseDate(time: String?): String? {
