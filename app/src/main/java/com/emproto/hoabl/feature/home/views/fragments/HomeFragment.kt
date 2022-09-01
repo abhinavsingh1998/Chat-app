@@ -175,7 +175,7 @@ class HomeFragment : BaseFragment() {
 
                                 if(appPreference.isFacilityCard()){
                                     val item = (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.menu.getItem(3)
-                                    item.title = "Facility"
+                                    item.title = "My Services"
                                 }
 
                             }
