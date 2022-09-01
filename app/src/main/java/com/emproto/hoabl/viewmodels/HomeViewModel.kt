@@ -59,6 +59,7 @@ class HomeViewModel(
     private var notificationData= MutableLiveData<NotificationResponse>()
     private var listData= MutableLiveData<Page>()
     private var searchText = MutableLiveData<String>()
+    private var investmentId = MutableLiveData<Int>()
 
     @Inject
     lateinit var homeSearchDao: HomeSearchDao
