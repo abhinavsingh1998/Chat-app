@@ -25,8 +25,10 @@ import com.emproto.hoabl.feature.chat.model.MessageType
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.ChatsDetailAdapter
 import com.emproto.hoabl.feature.investment.adapters.OnOptionClickListener
+import com.emproto.hoabl.feature.investment.views.FaqDetailFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.portfolio.views.BookingjourneyFragment
+import com.emproto.hoabl.feature.portfolio.views.ProjectTimelineFragment
 import com.emproto.hoabl.feature.profile.fragments.about_us.AboutUsFragment
 import com.emproto.hoabl.utils.Extensions.hideKeyboard
 import com.emproto.hoabl.viewmodels.HomeViewModel
@@ -400,13 +402,36 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                 (requireActivity() as HomeActivity).navigate(R.id.navigation_portfolio)
                             }
                             "120" -> {
+//                                chatsList?.project?.let {
+//                                    (requireActivity() as HomeActivity).addFragment(
+//                                        BookingjourneyFragment.newInstance(
+//                                            it.id,
+//                                            ""
+//                                        ), true
+//                                    )
+//                                }
+                                (requireActivity() as HomeActivity).navigate(R.id.navigation_portfolio)
+                            }
+                            "121" -> {
+//                                chatsList?.project?.let{
+//                                    (requireActivity() as HomeActivity).addFragment(
+//                                        ProjectTimelineFragment.newInstance(
+//                                            it.id,
+//                                            ""
+//                                        ), true
+//                                    )
+//                                }
+                                (requireActivity() as HomeActivity).navigate(R.id.navigation_portfolio)
+                            }
+                            "114" -> {
                                 chatsList?.project?.let {
-                                    (requireActivity() as HomeActivity).addFragment(
-                                        BookingjourneyFragment.newInstance(
-                                            it.projectContent.id,
-                                            ""
-                                        ), true
-                                    )
+                                    val fragment = FaqDetailFragment()
+                                    val bundle = Bundle()
+                                    bundle.putInt(Constants.PROJECT_ID, it.projectContent.id)
+                                    bundle.putBoolean(Constants.IS_FROM_INVESTMENT, true)
+                                    bundle.putString(Constants.PROJECT_NAME, it.launchName)
+                                    fragment.arguments = bundle
+                                    (requireActivity() as HomeActivity).addFragment(fragment, true)
                                 }
                             }
                         }
@@ -588,11 +613,10 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
                         }
                         Status.SUCCESS -> {
-
                             it.data?.let {
-                                if (it.data.message.origin == "1") {
-                                    isMyFirstCallCompleted = true
-                                }
+//                                if (it.data.message.origin == "1") {
+//                                    isMyFirstCallCompleted = true
+//                                }
                             }
                         }
                         Status.ERROR -> {

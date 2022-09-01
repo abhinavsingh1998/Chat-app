@@ -165,7 +165,7 @@ class FaqDetailAdapter(
 
             //Tick button handled from keyboard
             search.setOnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     runnable = Runnable {  itemClickListener.onItemClicked(search, position, search.text.toString()) }
                     runnable.let { it1 -> it1?.let { handler.postDelayed(it,500) } }
                     fragment.hideKeyboard()
