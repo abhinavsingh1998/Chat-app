@@ -465,7 +465,6 @@ class FmFragment : BaseFragment() {
                         for((key,value ) in hashMap){
                             cArray.add(ContactsModel(name = value, phoneNo = key))
                         }
-                        cArray.sortBy { it.name.toString() }
                         val gson = Gson()
                         val data = gson.toJson(cArray)
                         Log.d("JSON",data.toString())
