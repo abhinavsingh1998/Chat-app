@@ -57,6 +57,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -89,10 +90,12 @@ class FmFragment : BaseFragment() {
     var destinationFile = File("")
 
     var contacts = HashMap<String,String>()
-    val cArray = ArrayList<ContactsModel>()
+    val cArray = mutableListOf<ContactsModel>()
 
     lateinit var permissionLauncherForContacts: ActivityResultLauncher<Array<String>>
     lateinit var permissionLauncherForUpload: ActivityResultLauncher<Array<String>>
+
+    lateinit var builder:AlertDialog.Builder
 
     val permissionRequestForContacts: MutableList<String> = ArrayList()
     val permissionRequestForUpload: MutableList<String> = ArrayList()
@@ -142,6 +145,8 @@ class FmFragment : BaseFragment() {
                     Toast.makeText(requireContext(), "Please give storage permission", Toast.LENGTH_SHORT).show()
                 }
             }
+
+        builder = AlertDialog.Builder(requireActivity())
     }
 
     override fun onCreateView(
@@ -415,7 +420,7 @@ class FmFragment : BaseFragment() {
 
     @SuppressLint("Range")
     fun readContacts() {
-        binding.progressBaar.show()
+//        binding.progressBaar.show()
         val cr: ContentResolver = requireActivity().contentResolver
         val cur: Cursor? = cr.query(
             ContactsContract.Contacts.CONTENT_URI,
@@ -445,6 +450,7 @@ class FmFragment : BaseFragment() {
                         null
                     )
                     if (pCur != null) {
+                        val hashMap = HashMap<String,String>()
                         while (pCur.moveToNext()) {
                             val phoneNo: String = pCur.getString(
                                 pCur.getColumnIndex(
@@ -453,10 +459,13 @@ class FmFragment : BaseFragment() {
                             )
                             Log.i("Contact", "Name: $name")
                             Log.i("Contact", "Phone Number: $phoneNo")
+                            hashMap[phoneNo.replace("\\s".toRegex(),"")] = name
 
-                            cArray.add(ContactsModel(name = name, phoneNo = phoneNo))
                         }
-
+                        for((key,value ) in hashMap){
+                            cArray.add(ContactsModel(name = value, phoneNo = key))
+                        }
+                        cArray.sortBy { it.name.toString() }
                         val gson = Gson()
                         val data = gson.toJson(cArray)
                         Log.d("JSON",data.toString())
@@ -481,7 +490,7 @@ class FmFragment : BaseFragment() {
     private fun selectImage() {
         val options =
             arrayOf<CharSequence>(Constants.TAKE_PHOTO, Constants.CHOOSE_FROM_GALLERY, Constants.CANCEL)
-        val builder: AlertDialog.Builder = AlertDialog.Builder(requireActivity())
+
         builder.setTitle(Constants.ADD_PHOTO)
         builder.setItems(options) { dialog, item ->
             when {
@@ -494,7 +503,7 @@ class FmFragment : BaseFragment() {
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                     intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
                     cameraLauncher.launch(intent)
-
+                    dialog.dismiss()
                 }
                 options[item] == Constants.CHOOSE_FROM_GALLERY -> {
                     when(uploadObject.type){
@@ -503,16 +512,17 @@ class FmFragment : BaseFragment() {
                                 Intent.ACTION_PICK,
                                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI
                             )
+                            dialog.dismiss()
                             resultLauncher.launch(intent)
                         }
                         "doc" -> {
                             val pdfIntent = Intent(Intent.ACTION_OPEN_DOCUMENT)
                             pdfIntent.type = "application/pdf"
                             pdfIntent.addCategory(Intent.CATEGORY_OPENABLE)
+                            dialog.dismiss()
                             resultLauncher.launch(pdfIntent)
                         }
                     }
-
                 }
                 options[item] == Constants.CANCEL -> {
                     dialog.dismiss()
