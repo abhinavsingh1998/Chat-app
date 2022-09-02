@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
@@ -57,6 +58,7 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
     lateinit var projectAdapter:AllProjectsAdapter
     lateinit var statsOverViewAdapter:StatsOverViewAboutUsAdapter
      var defaultPosition=0
+     var selectedItemPos=0
 
     private var graphType = ""
     private var xaxisList = ArrayList<String>()
@@ -232,9 +234,18 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                 Status.SUCCESS -> {
                     binding.rootView.isVisible = true
                     binding.loader.hide()
+
+
+                    for(i in 0..it?.data?.data?.size!! - 1){
+                        if (it?.data?.data?.get(i)?.isEscalationGraphActive!!){
+                            selectedItemPos = i
+                            break
+                        }
+                    }
                     projectAdapter = AllProjectsAdapter(
                         requireActivity(),
                         it?.data?.data!!,
+                        selectedItemPos,
                         object : AllProjectsAdapter.AllprojectsInterface {
                             override fun onClickItem(position: Int) {
 
@@ -379,7 +390,7 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                         }
                     )
 
-                    var currentData = it?.data?.data!![defaultPosition]
+                    var currentData = it?.data?.data!![selectedItemPos]
 
                     binding.tvXAxisLabel.text =
                         currentData.generalInfoEscalationGraph.yAxisDisplayName
@@ -499,6 +510,10 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                     )
                     binding.recyclerViewGraphOptions.layoutManager = linearLayoutManager
                     binding.recyclerViewGraphOptions.adapter = projectAdapter
+                    val snapHelper = LinearSnapHelper()
+                    if(binding.recyclerViewGraphOptions.getOnFlingListener() == null){
+                        snapHelper.attachToRecyclerView(binding.recyclerViewGraphOptions)
+                    }
                 }
                 Status.ERROR -> {
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
