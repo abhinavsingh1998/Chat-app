@@ -166,21 +166,21 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                             }
 
                             //Welcome message
-                            if (it.data.autoChat != null) {
-                                newChatMessageList.add(
-                                    ChatDetailModel(
-                                        it.data.autoChat.chatJSON.welcomeMessage.toString(),
-                                        null, MessageType.RECEIVER, time
-                                    )
-                                )
-                            } else {
-                                newChatMessageList.add(
-                                    ChatDetailModel(
-                                        "Hi Welcome",
-                                        null, MessageType.RECEIVER, time
-                                    )
-                                )
-                            }
+//                            if (it.data.autoChat != null) {
+//                                newChatMessageList.add(
+//                                    ChatDetailModel(
+//                                        it.data.autoChat.chatJSON.welcomeMessage.toString(),
+//                                        null, MessageType.RECEIVER, time
+//                                    )
+//                                )
+//                            } else {
+//                                newChatMessageList.add(
+//                                    ChatDetailModel(
+//                                        "Hi Welcome",
+//                                        null, MessageType.RECEIVER, time
+//                                    )
+//                                )
+//                            }
                             //Old messages
                             for (item in it.data.messages) {
                                 if (item.message != null) {
@@ -345,6 +345,9 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     true
                                 )
                             }
+                            "110" -> {
+                                (requireActivity() as HomeActivity).navigate(R.id.navigation_investment)
+                            }
                             "111" -> {
                                 chatsList?.project?.let {
                                     val bundle = Bundle()
@@ -355,6 +358,17 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                         fragment, true
                                     )
                                 }
+                            }
+                            "112" -> {
+                                val fragment = FaqDetailFragment()
+                                val bundle = Bundle()
+                                bundle.putBoolean(Constants.IS_FROM_INVESTMENT, false)
+                                bundle.putString(Constants.PROJECT_NAME, "")
+                                fragment.arguments = bundle
+                                (requireActivity() as HomeActivity).addFragment(
+                                    fragment,
+                                    true
+                                )
                             }
                             "113" -> {
                                 (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
