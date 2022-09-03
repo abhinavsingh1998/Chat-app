@@ -5,6 +5,7 @@ import android.os.Build
 import android.text.Html
 import android.text.Spanned
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -15,14 +16,15 @@ import com.emproto.hoabl.databinding.CorporatePhilosphyAboutUsViewBinding
 import com.emproto.hoabl.databinding.ProjectTabLayoutBinding
 import com.emproto.hoabl.feature.home.adapters.InsightsAdapter
 import com.emproto.networklayer.response.profile.DataXXX
+import com.google.android.youtube.player.internal.i
 
 class AllProjectsAdapter(
     private val context: Context,
     private val list: List<DataXXX>,
+    private var selectedItemPos:Int,
     val itemIntrface: AllprojectsInterface
 ): RecyclerView.Adapter<AllProjectsAdapter.MyViewHolder>(){
 
-    var selectedItemPos = 0
     var lastItemSelectedPos = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllProjectsAdapter.MyViewHolder {
@@ -33,32 +35,32 @@ class AllProjectsAdapter(
     override fun onBindViewHolder(holder: AllProjectsAdapter.MyViewHolder, position: Int) {
         val currentItem= list.get(position)
 
-        holder.binding.projectName.text= currentItem?.launchName
+
+        if (list.get(position).isEscalationGraphActive){
+            holder.binding.rootView.visibility= View.VISIBLE
+            holder.binding.projectName.text= currentItem?.launchName
 
 
-        Glide.with(context).load(currentItem.projectCoverImages.newInvestmentPageMedia.value.url)
-            .into(holder.binding.projectImg)
+            holder.binding.tabBar.isVisible = position == selectedItemPos
 
-        holder.binding.tabBar.isVisible = position == selectedItemPos
+            holder.binding.rootView.setOnClickListener {
 
-//        if(position==0){
-//            holder.binding.rootView.performClick()
-//        }
+                lastItemSelectedPos = selectedItemPos
+                selectedItemPos = position
+                lastItemSelectedPos = if(lastItemSelectedPos == -1)
+                    selectedItemPos
+                else {
+                    notifyItemChanged(lastItemSelectedPos)
+                    selectedItemPos
+                }
+                notifyItemChanged(selectedItemPos)
 
-        holder.binding.rootView.setOnClickListener {
-
-            lastItemSelectedPos = selectedItemPos
-            selectedItemPos = position
-            lastItemSelectedPos = if(lastItemSelectedPos == -1)
-                selectedItemPos
-            else {
-                notifyItemChanged(lastItemSelectedPos)
-                selectedItemPos
+                holder.binding.tabBar.isVisible= true
+                itemIntrface.onClickItem(holder.adapterPosition)
             }
-            notifyItemChanged(selectedItemPos)
 
-            holder.binding.tabBar.isVisible= true
-            itemIntrface.onClickItem(holder.adapterPosition)
+            Glide.with(context).load(currentItem.projectCoverImages.newInvestmentPageMedia.value.url)
+                .into(holder.binding.projectImg)
         }
 
     }
