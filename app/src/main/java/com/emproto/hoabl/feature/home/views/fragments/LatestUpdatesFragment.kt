@@ -183,5 +183,3 @@ class LatestUpdatesFragment : BaseFragment() {
         startActivity(shareIntent)
     }
 }
-
-

@@ -63,7 +63,6 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
         homeViewModel.getSelectedPosition().observe(viewLifecycleOwner,Observer{
             position = it.position
             listLength = it.lisLenght
-//            Log.d("RRR","${position},${listLength}")
             initObserver()
             initView(position)
             backView()
@@ -85,7 +84,6 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
             )
         }
         )
-
     }
 
     private fun backView() {

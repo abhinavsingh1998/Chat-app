@@ -224,7 +224,7 @@ class HomeFragment : BaseFragment() {
                     when (it.status) {
                         Status.SUCCESS -> {
                             it!!.data!!.let {
-                                if (it != null) {
+                                if (it != null && it!!.data!!.web_url != null) {
                                     appPreference.setFmUrl(it?.data?.web_url)
                                 } else {
                                     (requireActivity() as HomeActivity).showErrorToast(
