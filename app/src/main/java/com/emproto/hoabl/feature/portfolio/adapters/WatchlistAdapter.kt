@@ -32,14 +32,11 @@ class WatchlistAdapter(
         val element = list[position]
         holder.binding.apply {
             if (element.project != null) {
-                Glide.with(context)
-                    .load(element.project.projectCoverImages.homePageMedia.value.url)
-                    .into(ivItemImage)
                 tvItemLocationName.text = element.project.launchName
                 tvItemLocation.text =
                     element.project.address.city + " " + element.project.address.state
                 val amount = element.project.priceStartingFrom.toDouble() / 100000
-                val convertedAmount = String.format("%.0f",amount)
+                val convertedAmount = String.format("%.0f", amount)
                 tvItemAmount.text = SpannableStringBuilder()
                     .bold { append("₹${convertedAmount} L") }
                     .append(Constants.ONWARDS)
@@ -51,35 +48,44 @@ class WatchlistAdapter(
                 tvItemLocationInfo.text = element.project.shortDescription
                 tvRating.text = "${Utility.convertTo(element.project.estimatedAppreciation)}%"
 
-                when(element.project.fomoContent.isTargetTimeActive){
-                    false -> holder.binding.timerView.visibility = View.GONE
-                    true -> holder.binding.timerView.visibility = View.VISIBLE
-                }
+                holder.binding.timerView.visibility =
+                    if (element.project.fomoContent.isTargetTimeActive) {
+                        val timeCounter = object : CountDownTimer(
+                            Utility.conversionForTimer(
+                                element.project.fomoContent.targetTime.hours.toString(),
+                                element.project.fomoContent.targetTime.minutes.toString(),
+                                element.project.fomoContent.targetTime.seconds.toString()
+                            ), 1000
+                        ) {
+                            override fun onTick(millisUntilFinished: Long) {
+                                val f = DecimalFormat("00")
+                                val fh = DecimalFormat("0")
+                                val hour = millisUntilFinished / 3600000 % 24
+                                val min = millisUntilFinished / 60000 % 60
+                                val sec = millisUntilFinished / 1000 % 60
+                                holder.binding.tvDuration.text = "${
+                                    fh.format(hour)
+                                        .toString() + ":" + f.format(min) + ":" + f.format(sec)
+                                } Hrs Left"
+                            }
 
-                when(element.project.fomoContent.isNoOfViewsActive){
+                            override fun onFinish() {
+
+                            }
+
+                        }
+                        timeCounter.start()
+                        View.VISIBLE
+                    } else View.GONE
+
+                when (element.project.fomoContent.isNoOfViewsActive) {
                     true -> holder.binding.cvView.visibility = View.VISIBLE
                     false -> holder.binding.cvView.visibility = View.GONE
                 }
 
-                val timeCounter = object : CountDownTimer(Utility.conversionForTimer(element.project.fomoContent.targetTime.hours.toString(),element.project.fomoContent.targetTime.minutes.toString(),
-                    element.project.fomoContent.targetTime.seconds.toString()), 1000) {
-                    override fun onTick(millisUntilFinished: Long) {
-                        val f = DecimalFormat("00")
-                        val fh = DecimalFormat("0")
-                        val hour = millisUntilFinished / 3600000 % 24
-                        val min = millisUntilFinished / 60000 % 60
-                        val sec = millisUntilFinished / 1000 % 60
-                        holder.binding.tvDuration.text = "${
-                            fh.format(hour).toString() + ":" + f.format(min) + ":" + f.format(sec)
-                        } Hrs Left"
-                    }
-
-                    override fun onFinish() {
-
-                    }
-
-                }
-                timeCounter.start()
+                Glide.with(context)
+                    .load(element.project.projectCoverImages.homePageMedia.value.url)
+                    .into(ivItemImage)
             }
         }
         holder.binding.cvMainOuterCard.setOnClickListener {

@@ -4,19 +4,26 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_project_detail_map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_size_13"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/margin_size_28"
+        app:cardCornerRadius="@dimen/margin_size_8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
     <ImageView
         android:id="@+id/project_detail_map"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_size_166"
         android:scaleType="centerCrop"
-        android:layout_marginHorizontal="@dimen/margin_size_13"
-        android:layout_marginTop="@dimen/margin_size_28"
         android:src="@drawable/red"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        />
+    </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_view_on_map"
@@ -31,8 +38,8 @@
         android:layout_marginBottom="@dimen/margin_size_25"
         android:paddingHorizontal="@dimen/margin_size_18"
         android:paddingVertical="@dimen/margin_size_9"
-        app:layout_constraintStart_toStartOf="@id/project_detail_map"
-        app:layout_constraintEnd_toEndOf="@id/project_detail_map"
-        app:layout_constraintBottom_toBottomOf="@id/project_detail_map"/>
+        app:layout_constraintStart_toStartOf="@id/card_project_detail_map"
+        app:layout_constraintEnd_toEndOf="@id/card_project_detail_map"
+        app:layout_constraintBottom_toBottomOf="@id/card_project_detail_map"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
