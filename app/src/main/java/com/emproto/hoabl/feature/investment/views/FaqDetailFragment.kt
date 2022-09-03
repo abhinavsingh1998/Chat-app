@@ -171,7 +171,7 @@ class FaqDetailFragment : BaseFragment() {
                 itemClickListener,
                 projectName = projectName,
                 fromInvestment = isFromInvestment,
-               handler= handler,
+                handler= handler,
                 runnable = runnable
             )
             binding.rvFaq.adapter = adapter
@@ -187,6 +187,7 @@ class FaqDetailFragment : BaseFragment() {
                     binding.rvFaq.smoothScrollToPosition(position + 1)
                 }
                 R.id.et_search -> {
+                    hideKeyboard()
                     sendFilteredData(item)
                 }
                 R.id.iv_faq_card_drop_down -> {
@@ -235,7 +236,8 @@ class FaqDetailFragment : BaseFragment() {
                 }
                 when(list.size){
                     1 -> {
-                        Toast.makeText(requireContext(), "No faqs to show", Toast.LENGTH_SHORT).show()}
+                        Toast.makeText(requireContext(), "No faqs to show", Toast.LENGTH_LONG).show()
+                    }
                 }
                 setAdapter(list, allFaqList, item)
             }

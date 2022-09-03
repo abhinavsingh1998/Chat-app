@@ -12,7 +12,8 @@ data class CData(
     val isInvested: Boolean,
     val lastMessage: LastMsg,
     val project: Project,
-    val unreadCount: Int
+    val unreadCount: Int,
+    val portfolioData:PortfolioModel?
 ):Serializable
 
 data class Project(

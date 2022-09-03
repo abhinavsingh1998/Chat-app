@@ -62,7 +62,7 @@ class ExistingUsersPortfolioAdapter(
             }
             TYPE_SUMMARY_COMPLETED -> {
                 SummaryCompletedInvestmentsViewHolder(
-                    FinancialSummaryCard2Binding.inflate(
+                    FinancialSummaryCard1Binding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
@@ -159,56 +159,16 @@ class ExistingUsersPortfolioAdapter(
         }
     }
 
-    private inner class SummaryCompletedInvestmentsViewHolder(private val binding: FinancialSummaryCard2Binding) :
+    private inner class SummaryCompletedInvestmentsViewHolder(private val binding: FinancialSummaryCard1Binding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            binding.contentHeader.text = "Summary - Completed Investments"
 
-            binding.cardView1.setBackgroundResource(R.drawable.financial_summary_dark_card)
-            binding.cardView2.setBackgroundResource(R.drawable.financial_summary_dark_card)
-            binding.cardView3.setBackgroundResource(R.drawable.financial_summary_dark_card)
-            binding.cardView4.setBackgroundResource(R.drawable.financial_summary_dark_card)
-
-            binding.cardName1.setTextColor(
-                ContextCompat.getColor(
-                    context,
-                    R.color.unselected_button_color
-                )
-            )
-            binding.cardName2.setTextColor(
-                ContextCompat.getColor(
-                    context,
-                    R.color.unselected_button_color
-                )
-            )
-            binding.cardName3.setTextColor(
-                ContextCompat.getColor(
-                    context,
-                    R.color.unselected_button_color
-                )
-            )
-            binding.cardName4.setTextColor(
-                ContextCompat.getColor(
-                    context,
-                    R.color.unselected_button_color
-                )
-            )
-
-            binding.contentTxt1.setTextColor(Color.WHITE)
-            binding.contentTxt2.setTextColor(Color.WHITE)
-            binding.contentTxt3.setTextColor(Color.WHITE)
             binding.contentTxt4.setTextColor(
                 ContextCompat.getColor(
                     context,
                     R.color.portfolio_blue_color
                 )
             )
-
-            binding.cardName1.text = "No. of Products"
-            binding.cardName2.text = "Area in Sqft"
-            binding.cardName3.text = "Amount Invested"
-            binding.cardName4.text = "Avg Est. Appreciation"
-
             binding.ivAmount.visibility = View.VISIBLE
             binding.ivAmountPending.visibility = View.GONE
             //getting data
@@ -351,7 +311,7 @@ class ExistingUsersPortfolioAdapter(
             watchlistAdapter = WatchlistAdapter(context, watchList, onItemClickListener)
             binding.rvSmartDealsNv.adapter = watchlistAdapter
             binding.rvSmartDealsNv.setHasFixedSize(true)
-            binding.rvSmartDealsNv.setItemViewCacheSize(20)
+            binding.rvSmartDealsNv.setItemViewCacheSize(10)
             binding.tvSmartDealsSeeAll.setOnClickListener {
                 onItemClickListener.seeAllWatchlist()
             }
