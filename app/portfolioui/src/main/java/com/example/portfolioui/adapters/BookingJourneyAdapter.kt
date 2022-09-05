@@ -450,13 +450,17 @@ class BookingJourneyAdapter(
         if (data.POA.isPOARequired) {
             if (data.POA.isPOAAlloted) {
                 anyInProgress = true
-                list.add(
-                    BookingStepsModel(
-                        BookingStepsAdapter.TYPE_COMPLETED, "Power of Attorney", "POA Assigned",
-                        VIEW_POA,
-                        data.POA.poaLetter,true
+                if (data.POA.poaLetter!=null) {
+                    list.add(
+                        BookingStepsModel(
+                            BookingStepsAdapter.TYPE_COMPLETED, "Power of Attorney", "POA Assigned",
+                            VIEW_POA,
+                            data.POA.poaLetter,
+                            true
+                        )
                     )
-                )
+                }
+
             } else {
                 list.add(
                     BookingStepsModel(
