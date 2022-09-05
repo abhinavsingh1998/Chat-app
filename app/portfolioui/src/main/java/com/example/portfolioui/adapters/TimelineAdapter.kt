@@ -169,9 +169,10 @@ class TimelineAdapter(
                 if (listData.timeLines[0] != null && listData.timeLines[0].values != null)
                     listHolder.binding.tvName.text = listData.timeLines[0].values.displayName
                 listHolder.binding.imageView.setOnClickListener {
-                    getToolTip(listData.timeLines[0].values.toolTipDetails).showAlignBottom(
-                        listHolder.binding.imageView
-                    )
+                    if (listData.timeLines[0].values.toolTipDetails != null)
+                        getToolTip(listData.timeLines[0].values.toolTipDetails).showAlignBottom(
+                            listHolder.binding.imageView
+                        )
                 }
                 if (!listData.timeLines[0].isSectionActive) {
                     listHolder.binding.apply {
