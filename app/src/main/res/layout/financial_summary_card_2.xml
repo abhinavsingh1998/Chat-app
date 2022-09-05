@@ -168,7 +168,7 @@
             android:layout_marginTop="@dimen/margin_size_14"
             android:layout_marginEnd="6dp"
             android:fontFamily="@font/jost_medium"
-            android:text="@string/amount_pending"
+            android:text="Amount Pending"
             app:layout_constraintEnd_toStartOf="@+id/iv_amount_pending"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

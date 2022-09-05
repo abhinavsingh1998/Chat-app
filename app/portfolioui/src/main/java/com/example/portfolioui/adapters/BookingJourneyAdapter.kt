@@ -454,14 +454,14 @@ class BookingJourneyAdapter(
                     BookingStepsModel(
                         BookingStepsAdapter.TYPE_COMPLETED, "Power of Attorney", "POA Assigned",
                         VIEW_POA,
-                        data.POA.poaLetter
+                        data.POA.poaLetter,true
                     )
                 )
             } else {
                 list.add(
                     BookingStepsModel(
                         BookingStepsAdapter.TYPE_INPROGRESS, "Power of Attorney", "POA Assigned",
-                        VIEW_POA
+                        VIEW_POA, disableLink = false
                     )
                 )
             }

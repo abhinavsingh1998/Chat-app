@@ -77,6 +77,7 @@ class BookingStepsAdapter(
                 val data = dataList[position]
                 type1Holder.binding.tvTitle.text = data.text
                 type1Holder.binding.tvDescription.text = data.description
+
                 type1Holder.binding.tvLink.text =
                     showHTMLText(
                         String.format(
