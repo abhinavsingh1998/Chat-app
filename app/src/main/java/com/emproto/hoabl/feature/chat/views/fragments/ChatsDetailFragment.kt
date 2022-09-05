@@ -55,7 +55,6 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     private var time: String? = null
     private var isMessagesEnabled = true
     private var latestConversationId = 0
-    private var isMyFirstCallCompleted = false
     lateinit var handler: Handler
     private var runnable: Runnable? = null
 
@@ -64,6 +63,27 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     companion object{
         const val MORE_OPTIONS = 1
         const val NAVIGATE = 2
+        const val FINAL_MESSAGE = "100"
+        const val ABOUT_HOABL= "102"
+        const val PROMISE= "103"
+        const val INVESTMENTS= "104"
+        const val OTHERS= "105"
+        const val PROJECT= "106"
+        const val SALES= "107"
+        const val START_TYPING= "108"
+        const val REDIRECT_ABOUT_HOABL= "109"
+        const val REDIRECT_INVESTMENTS= "110"
+        const val REDIRECT_PROJECT= "111"
+        const val REDIRECT_OTHERS= "112"
+        const val REDIRECT_PROMISE= "113"
+        const val REDIRECT_FAQ= "114"
+        const val PORTFOLIO= "115"
+        const val BOOKING_STATUS= "116"
+        const val DEVELOPMENT_STATUS= "117"
+        const val PAYMENT= "118"
+        const val REDIRECT_PORTFOLIO= "119"
+        const val REDIRECT_BOOKING_JOURNEY= "120"
+        const val REDIRECT_PROJECT_TIMELINE= "121"
     }
 
     override fun onCreateView(
@@ -320,7 +340,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
                     if (option.actionType == MORE_OPTIONS) {
                         when {
-                            option.action == "105" -> {
+                            option.action == OTHERS -> {
                                 if(chatsList?.isInvested == false){
                                     val fragment = FaqDetailFragment()
                                     val bundle = Bundle()
@@ -339,16 +359,16 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                         }
                     } else if (option.actionType == NAVIGATE) {
                         when (option.action) {
-                            "109" -> {
+                            REDIRECT_ABOUT_HOABL -> {
                                 (requireActivity() as HomeActivity).addFragment(
                                     AboutUsFragment(),
                                     true
                                 )
                             }
-                            "110" -> {
+                            REDIRECT_INVESTMENTS -> {
                                 (requireActivity() as HomeActivity).navigate(R.id.navigation_investment)
                             }
-                            "111" -> {
+                            REDIRECT_PROJECT -> {
                                 chatsList?.project?.let {
                                     val bundle = Bundle()
                                     bundle.putInt(Constants.PROJECT_ID, it.projectContent.id)
@@ -359,7 +379,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     )
                                 }
                             }
-                            "112" -> {
+                            REDIRECT_OTHERS -> {
                                 val fragment = FaqDetailFragment()
                                 val bundle = Bundle()
                                 bundle.putBoolean(Constants.IS_FROM_INVESTMENT, false)
@@ -370,13 +390,13 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     true
                                 )
                             }
-                            "113" -> {
+                            REDIRECT_PROMISE -> {
                                 (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
                             }
-                            "119" -> {
+                            REDIRECT_PORTFOLIO -> {
                                 (requireActivity() as HomeActivity).navigate(R.id.navigation_portfolio)
                             }
-                            "120" -> {
+                            REDIRECT_BOOKING_JOURNEY -> {
                                 chatsList?.portfolioData?.let {
                                     (requireActivity() as HomeActivity).addFragment(
                                         BookingjourneyFragment.newInstance(
@@ -386,7 +406,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     )
                                 }
                             }
-                            "121" -> {
+                            REDIRECT_PROJECT_TIMELINE -> {
                                 chatsList?.project?.let{
                                     (requireActivity() as HomeActivity).addFragment(
                                         ProjectTimelineFragment.newInstance(
@@ -396,7 +416,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     )
                                 }
                             }
-                            "114" -> {
+                            "REDIRECT_FAQ" -> {
                                 chatsList?.project?.let {
                                     val fragment = FaqDetailFragment()
                                     val bundle = Bundle()
@@ -408,7 +428,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                 }
                             }
                         }
-                    } else if (option.action == "108") {
+                    } else if (option.action == START_TYPING) {
                         binding.clType.visibility = View.VISIBLE
                         binding.clButtonStart.visibility = View.INVISIBLE
                         isMessagesEnabled = false
@@ -458,7 +478,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                         binding.rvChat.smoothScrollToPosition(newChatMessageList.size - 1)
                         sendTypedMessage()
 
-                    } else if (option.action == "100") {
+                    } else if (option.action == FINAL_MESSAGE) {
                         binding.clType.visibility = View.GONE
                         getTime()
                         when {

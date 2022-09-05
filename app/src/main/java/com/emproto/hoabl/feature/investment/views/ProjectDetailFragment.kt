@@ -16,6 +16,7 @@ import com.emproto.hoabl.databinding.ProjectDetailLayoutBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.fragments.Testimonials
+import com.emproto.hoabl.feature.investment.adapters.OpportunityDocsAdapter
 import com.emproto.hoabl.feature.investment.adapters.ProjectDetailAdapter
 import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
 import com.emproto.hoabl.feature.investment.dialogs.ConfirmationDialog
