@@ -241,7 +241,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     sendTypedMessage()
                                 }
                             }
-                            if (messagesList[messagesList.size - 1].message == resources.getString(R.string.thank_you_text)) {
+                            if (messagesList[messagesList.size - 1].message == resources.getString(R.string.thank_you_text) ||
+                                messagesList[messagesList.size - 1].message == resources.getString(R.string.request_time_out_text)) {
                                 isMessagesEnabled = false
                             }
                             latestConversationId =
@@ -416,7 +417,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     )
                                 }
                             }
-                            "REDIRECT_FAQ" -> {
+                            REDIRECT_FAQ -> {
                                 chatsList?.project?.let {
                                     val fragment = FaqDetailFragment()
                                     val bundle = Bundle()
