@@ -217,7 +217,7 @@ class HomeAdapter(
 //
 //            projectList.addAll(data.pageManagementsOrNewInvestments)
 
-            if (presenting) {
+            if (!presenting) {
                 binding.present.isVisible = false
             }
             investmentAdapter = InvestmentCardAdapter(
