@@ -404,7 +404,8 @@ class BookingJourneyAdapter(
                     BookingStepsAdapter.TYPE_COMPLETED,
                     "Application",
                     data.application.milestoneName ?: "",
-                    ""
+                    "",
+                    disableLink = data.allotment.allotmentLetter == null
                 )
             )
         } else {
@@ -454,14 +455,15 @@ class BookingJourneyAdapter(
                     BookingStepsModel(
                         BookingStepsAdapter.TYPE_COMPLETED, "Power of Attorney", "POA Assigned",
                         VIEW_POA,
-                        data.POA.poaLetter
+                        data = data.POA.poaLetter, disableLink = data.POA.poaLetter == null
                     )
                 )
+
             } else {
                 list.add(
                     BookingStepsModel(
                         BookingStepsAdapter.TYPE_INPROGRESS, "Power of Attorney", "POA Assigned",
-                        VIEW_POA
+                        VIEW_POA,
                     )
                 )
             }
@@ -497,7 +499,7 @@ class BookingJourneyAdapter(
             list.add(
                 BookingStepsModel(
                     BookingStepsAdapter.TYPE_COMPLETED, "Registration", "Completed",
-                    VIEW_DETAILS, data.Registration
+                    VIEW_DETAILS, data.Registration, disableLink = data.Registration.registrationNumber==null
                 )
             )
         } else {
