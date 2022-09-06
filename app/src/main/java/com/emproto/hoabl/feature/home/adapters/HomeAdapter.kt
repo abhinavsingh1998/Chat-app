@@ -189,10 +189,10 @@ class HomeAdapter(
 
             if (data.portfolioData != null) {
                 if (data.contactType == 225360002 && data.portfolioData.investmentCount > 0) {
-                    binding.nestedCard?.isVisible = true
+                    binding.nestedCard?.visibility = View.VISIBLE
                     presenting = false
                 } else {
-                    binding.nestedCard?.isVisible = false
+                    binding.nestedCard?.visibility = View.GONE
                     presenting = true
                 }
                 binding.contentTxt1.text = data.portfolioData.investmentCount.toString()
@@ -217,7 +217,7 @@ class HomeAdapter(
 //
 //            projectList.addAll(data.pageManagementsOrNewInvestments)
 
-            if (presenting == false) {
+            if (presenting) {
                 binding.present.isVisible = false
             }
             investmentAdapter = InvestmentCardAdapter(
