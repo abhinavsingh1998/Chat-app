@@ -219,28 +219,29 @@ class HomeFragment : BaseFragment() {
 
                 })
 
-            homeViewModel.getFacilityManagment()
-                .observe(viewLifecycleOwner, Observer {
-                    when (it.status) {
-                        Status.SUCCESS -> {
-                            it!!.data!!.let {
-                                if (it != null && it!!.data!!.web_url != null) {
-                                    appPreference.setFmUrl(it?.data?.web_url)
-                                } else {
-                                    (requireActivity() as HomeActivity).showErrorToast(
-                                        Constants.SOMETHING_WENT_WRONG
-                                    )
+            if (appPreference.isFacilityCard()){
+                homeViewModel.getFacilityManagment()
+                    .observe(viewLifecycleOwner, Observer {
+                        when (it.status) {
+                            Status.SUCCESS -> {
+                                it!!.data!!.let {
+                                    if (it != null && it!!.data!!.web_url != null) {
+                                        appPreference.setFmUrl(it?.data?.web_url)
+                                    } else {
+                                        (requireActivity() as HomeActivity).showErrorToast(
+                                            Constants.SOMETHING_WENT_WRONG
+                                        )
+                                    }
                                 }
                             }
+                            Status.ERROR ->{
+                                (requireActivity() as HomeActivity).showErrorToast(
+                                    it.message!!
+                                )
+                            }
                         }
-                        Status.ERROR ->{
-                            (requireActivity() as HomeActivity).showErrorToast(
-                                it.message!!
-                            )
-                        }
-                    }
-                })
-
+                    })
+            }
 
         } else {
             binding.refressLayout.isRefreshing = false
