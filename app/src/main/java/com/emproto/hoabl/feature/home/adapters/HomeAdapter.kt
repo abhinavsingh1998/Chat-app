@@ -187,21 +187,23 @@ class HomeAdapter(
         @SuppressLint("SetTextI18n")
         fun bind(position: Int) {
 
-            if (data.contactType == 225360002 && data.portfolioData.investmentCount > 0) {
-                binding.nestedCard?.isVisible = true
-                presenting = false
-            } else {
-                binding.nestedCard?.isVisible = false
-                presenting = true
-            }
-            binding.contentTxt1.text = data.portfolioData.investmentCount.toString()
-            binding.contentTxt2.text = data.portfolioData.totalAreaSqFt.toString()
-            binding.contentTxt3.text = Utility.formatAmount(data.portfolioData.amountInvested)
-            binding.contentTxt4.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
-                .format(data.portfolioData.amountPending).toString()
+            if (data.portfolioData != null) {
+                if (data.contactType == 225360002 && data.portfolioData.investmentCount > 0) {
+                    binding.nestedCard?.isVisible = true
+                    presenting = false
+                } else {
+                    binding.nestedCard?.isVisible = false
+                    presenting = true
+                }
+                binding.contentTxt1.text = data.portfolioData.investmentCount.toString()
+                binding.contentTxt2.text = data.portfolioData.totalAreaSqFt.toString()
+                binding.contentTxt3.text = Utility.formatAmount(data.portfolioData.amountInvested)
+                binding.contentTxt4.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
+                    .format(data.portfolioData.amountPending).toString()
 
-            binding.viewPortfolioBtn.setOnClickListener {
-                itemClickListener.onItemClicked(it, position, "")
+                binding.viewPortfolioBtn.setOnClickListener {
+                    itemClickListener.onItemClicked(it, position, "")
+                }
             }
         }
     }
@@ -353,7 +355,7 @@ class HomeAdapter(
 
         fun bind(position: Int) {
             if (data.isFacilityVisible) {
-                binding.facilityManagementCardView.visibility=View.VISIBLE
+                binding.facilityManagementCardView.visibility = View.VISIBLE
                 Glide.with(context).load(data.page.facilityManagement.value.url)
                     .into(binding.facilityManagementCard)
             }
@@ -365,12 +367,12 @@ class HomeAdapter(
             }
             if (data.contactType == 1 || data.contactType == 225360001) {
                 if (data.page.isPromotionAndOfferActive) {
-                    binding.dontMissOutCardView.visibility=View.VISIBLE
+                    binding.dontMissOutCardView.visibility = View.VISIBLE
                     Glide.with(context).load(data.page.promotionAndOffersMedia.value.url)
                         .into(binding.dontMissOutCard)
                 }
             } else {
-                binding.dontMissOutCardView.visibility=View.GONE
+                binding.dontMissOutCardView.visibility = View.GONE
             }
 
         }
