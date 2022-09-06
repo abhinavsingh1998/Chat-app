@@ -4,25 +4,25 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_project_detail_map"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/margin_size_166"
         android:layout_marginHorizontal="@dimen/margin_size_13"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/margin_size_28"
         app:cardCornerRadius="@dimen/margin_size_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/project_detail_map"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/margin_size_166"
-        android:scaleType="centerCrop"
-        android:src="@drawable/red"
-        />
+        <ImageView
+            android:id="@+id/project_detail_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/red" />
     </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatButton

@@ -243,7 +243,7 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                         }
                     }
 
-                    Toast.makeText(requireContext(), selectedItemPos.toString(),Toast.LENGTH_LONG).show()
+//                    Toast.makeText(requireContext(), selectedItemPos.toString(),Toast.LENGTH_LONG).show()
                     projectAdapter = AllProjectsAdapter(
                         requireActivity(),
                         it?.data?.data!!,

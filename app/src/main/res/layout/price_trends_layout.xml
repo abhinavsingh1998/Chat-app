@@ -15,7 +15,7 @@
         android:fontFamily="@font/jost_medium"
         android:textSize="18sp"
         android:text="Price Trends"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tv_rise_year"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
