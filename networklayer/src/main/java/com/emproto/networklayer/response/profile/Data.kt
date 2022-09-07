@@ -5,11 +5,11 @@ import java.io.Serializable
 
 data class Data(
     @SerializedName("city")
-    val city: String,
+    val city: String?,
     @SerializedName("contactType")
     val contactType: String,
     @SerializedName("country")
-    var country: String,
+    var country: String?,
     @SerializedName("countryCode")
     val countryCode: String,
     @SerializedName("createdAt")
@@ -17,7 +17,7 @@ data class Data(
     @SerializedName("crmId")
     val crmId: String,
     @SerializedName("dateOfBirth")
-    val dateOfBirth: String,
+    val dateOfBirth: String?,
     @SerializedName("deviceTokens")
     val deviceToken: Any?,
     @SerializedName("email")
@@ -25,9 +25,9 @@ data class Data(
     @SerializedName("firstName")
     val firstName: String?,
     @SerializedName("gender")
-    val gender: String,
+    val gender: String?,
     @SerializedName("houseNumber")
-    val houseNumber: String,
+    val houseNumber: String?,
     @SerializedName("id")
     val id: Int,
     @SerializedName("isFacilityVisible")
@@ -39,7 +39,7 @@ data class Data(
     @SerializedName("lastName")
     val lastName: String?,
     @SerializedName("locality")
-    val locality: String,
+    val locality: String?,
     @SerializedName("phoneNumber")
     val phoneNumber: String,
     @SerializedName("pincode")
@@ -47,9 +47,9 @@ data class Data(
     @SerializedName("profilePictureUrl")
     val profilePictureUrl: String?,
     @SerializedName("state")
-    val state: String,
+    val state: String?,
     @SerializedName("streetAddress")
-    val streetAddress: String,
+    val streetAddress: String?,
     @SerializedName("updatedAt")
     val updatedAt: String,
     @SerializedName("whatsappConsent")

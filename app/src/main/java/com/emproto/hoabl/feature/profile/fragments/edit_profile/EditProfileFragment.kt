@@ -392,55 +392,55 @@ class EditProfileFragment : BaseFragment() {
         } else {
             binding.emailTv.setText("")
         }
-        if (data.dateOfBirth.isNotEmpty()) {
+        if (!data.dateOfBirth.isNullOrEmpty()) {
             val date=Utility.parseDate(data.dateOfBirth)
             binding.tvDatePicker.setText(date)
         } else {
             binding.tvDatePicker.setText("")
         }
-        if (data.gender.isNotEmpty()) {
+        if (!data.gender.isNullOrEmpty()) {
             binding.autoGender.setText(data.gender)
             enableEdit(binding.autoGender)
         } else {
             binding.autoGender.setText("")
         }
-        if (data.houseNumber.isNotEmpty()) {
+        if (!data.houseNumber.isNullOrEmpty()) {
             binding.houseNo.setText(data.houseNumber)
         } else {
             binding.houseNo.setText("")
         }
-        if (data.streetAddress.isNotEmpty()) {
+        if (!data.streetAddress.isNullOrEmpty()) {
             binding.completeAddress.setText(data.streetAddress)
         } else {
             binding.completeAddress.setText("")
         }
-        if (data.locality.isNotEmpty()) {
+        if (!data.locality.isNullOrEmpty()) {
             binding.locality.setText(data.locality)
         } else {
             binding.locality.setText("")
         }
-        if (data.country.isNotEmpty()) {
+        if (!data.country.isNullOrEmpty()) {
             binding.autoCountry.setText(data.country)
             enableEdit(binding.autoCountry)
         } else {
             binding.autoCountry.setText("")
 
         }
-        if (data.state.isNotEmpty()) {
+        if (!data.state.isNullOrEmpty()) {
             binding.autoState.setText(data.state)
             enableEdit(binding.autoState)
         } else {
             binding.autoState.setText("")
 
         }
-        if (data.city.isNotEmpty()) {
+        if (!data.city.isNullOrEmpty()) {
             binding.autoCity.setText(data.city)
             enableEdit(binding.autoCity)
         } else {
             binding.autoCity.setText("")
 
         }
-        if (data.pincode.toString().isNotEmpty()) {
+        if (!data.pincode.toString().isNullOrEmpty()) {
             if (data.pincode.toString() == "null") {
                 binding.pincodeEditText.setText("")
 
