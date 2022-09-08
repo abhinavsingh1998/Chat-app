@@ -440,7 +440,7 @@ class EditProfileFragment : BaseFragment() {
             binding.autoCity.setText("")
 
         }
-        if (!data.pincode.toString().isNullOrEmpty()) {
+        if (data.pincode.toString()!=null && data.pincode.toString().isNotEmpty()) {
             if (data.pincode.toString() == "null") {
                 binding.pincodeEditText.setText("")
 
@@ -452,7 +452,7 @@ class EditProfileFragment : BaseFragment() {
         } else {
             binding.pincodeEditText.setText("")
         }
-        if (data.profilePictureUrl.isNullOrEmpty()) {
+        if (data.profilePictureUrl?.isNotEmpty() == true) {
             binding.cvProfileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
             binding.tvremove.isClickable = false
