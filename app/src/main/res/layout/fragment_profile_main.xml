@@ -179,11 +179,43 @@
         android:id="@+id/profile_options_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/Logoutbtn"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="80dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider_line"
         tools:listitem="@layout/profile_option_view" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Logoutbtn"
+        style="@style/text_regular_text_color_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btnshape"
+        android:fontFamily="@font/jost_medium"
+        android:maxWidth="@dimen/margin_size_100"
+        android:minWidth="@dimen/margin_size_120"
+        android:text="@string/logout_text"
+        android:textAllCaps="false"
+        android:layout_marginBottom="28dp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintBottom_toTopOf="@+id/version" />
+
+    <TextView
+        android:id="@+id/version"
+        style="@style/text_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/jost_regular"
+        android:gravity="center_horizontal"
+        android:text="@string/app_version_v0_22"
+        android:textStyle="normal"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
