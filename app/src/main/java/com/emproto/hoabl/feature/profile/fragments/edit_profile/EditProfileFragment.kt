@@ -398,42 +398,42 @@ class EditProfileFragment : BaseFragment() {
         } else {
             binding.tvDatePicker.setText("")
         }
-        if (!data.gender.isNullOrEmpty()) {
+        if (data.gender?.isNotEmpty() == true) {
             binding.autoGender.setText(data.gender)
             enableEdit(binding.autoGender)
         } else {
             binding.autoGender.setText("")
         }
-        if (!data.houseNumber.isNullOrEmpty()) {
+        if (data.houseNumber?.isNotEmpty() == true) {
             binding.houseNo.setText(data.houseNumber)
         } else {
             binding.houseNo.setText("")
         }
-        if (!data.streetAddress.isNullOrEmpty()) {
+        if (data.streetAddress?.isNotEmpty() == true) {
             binding.completeAddress.setText(data.streetAddress)
         } else {
             binding.completeAddress.setText("")
         }
-        if (!data.locality.isNullOrEmpty()) {
+        if (data.locality?.isNotEmpty() == true) {
             binding.locality.setText(data.locality)
         } else {
             binding.locality.setText("")
         }
-        if (!data.country.isNullOrEmpty()) {
+        if (data.country?.isNotEmpty() == true) {
             binding.autoCountry.setText(data.country)
             enableEdit(binding.autoCountry)
         } else {
             binding.autoCountry.setText("")
 
         }
-        if (!data.state.isNullOrEmpty()) {
+        if (data.state?.isNotEmpty() == true) {
             binding.autoState.setText(data.state)
             enableEdit(binding.autoState)
         } else {
             binding.autoState.setText("")
 
         }
-        if (!data.city.isNullOrEmpty()) {
+        if (data.city?.isNotEmpty() == true) {
             binding.autoCity.setText(data.city)
             enableEdit(binding.autoCity)
         } else {
