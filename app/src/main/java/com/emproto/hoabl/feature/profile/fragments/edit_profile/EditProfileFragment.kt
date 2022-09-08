@@ -392,7 +392,7 @@ class EditProfileFragment : BaseFragment() {
         } else {
             binding.emailTv.setText("")
         }
-        if (data.dateOfBirth!=null&& data.dateOfBirth!!.isNotEmpty()) {
+        if (data.dateOfBirth?.isNotEmpty() == true) {
             val date=Utility.parseDate(data.dateOfBirth)
             binding.tvDatePicker.setText(date)
         } else {
