@@ -452,7 +452,7 @@ class EditProfileFragment : BaseFragment() {
         } else {
             binding.pincodeEditText.setText("")
         }
-        if (data.profilePictureUrl?.isNotEmpty() == true) {
+        if (data.profilePictureUrl.isNullOrEmpty()) {
             binding.cvProfileImage.visibility = View.GONE
             binding.profileUserLetters.visibility = View.VISIBLE
             binding.tvremove.isClickable = false
