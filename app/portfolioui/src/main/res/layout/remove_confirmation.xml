@@ -9,30 +9,38 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/no_media"
+            app:layout_constraintBottom_toTopOf="@id/textView8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"    />
 
         <TextView
             android:id="@+id/textView8"
-            style="@style/text_medium_black_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="42dp"
             android:layout_marginEnd="20dp"
-            android:text="Are you sure you want to remove picture?"
+            android:gravity="center"
+            android:text="Hoabl needs permission to access media.\nKindly turn on your files and media permission"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@id/view3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <View
             android:id="@+id/view3"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="42dp"
             android:background="#b6b3d0"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
 
 
         <TextView
@@ -44,6 +52,7 @@
             android:gravity="center"
             android:paddingVertical="@dimen/margin_size_15"
             android:text="NO"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/action_yes"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,10 +63,11 @@
             style="@style/text_bold_appcolor_14"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="?android:selectableItemBackground"
             android:gravity="center"
             android:paddingVertical="@dimen/margin_size_15"
-            android:text="YES"
+            android:text="Go to Settings"
+            android:textAllCaps="true"
+            android:textColor="@color/app_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/action_no"
