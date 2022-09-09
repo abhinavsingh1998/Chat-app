@@ -52,6 +52,7 @@ import com.emproto.networklayer.request.profile.EditUserNameRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.*
+import com.example.portfolioui.databinding.DeniedLayoutBinding
 import com.example.portfolioui.databinding.RemoveConfirmationBinding
 import java.io.*
 import java.text.SimpleDateFormat
@@ -94,6 +95,8 @@ class EditProfileFragment : BaseFragment() {
     val permissionRequest: MutableList<String> = ArrayList()
 
     lateinit var removePictureDialog: Dialog
+    var removeDeniedPermissionDialog: Dialog?=null
+
 
     private lateinit var countriesData: List<Countries>
     private lateinit var statesData: List<States>
@@ -693,18 +696,19 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun showPermissionDeniedDialog() {
-        val removeDialogLayout = RemoveConfirmationBinding.inflate(layoutInflater)
-        removePictureDialog= Dialog(requireContext())
-        removePictureDialog.setCancelable(true)
-        removePictureDialog.setContentView(removeDialogLayout.root)
+        val removeDialogLayout = DeniedLayoutBinding.inflate(layoutInflater)
+        removeDeniedPermissionDialog= Dialog(requireContext())
+        removeDeniedPermissionDialog?.setCancelable(true)
+        removeDeniedPermissionDialog?.setContentView(removeDialogLayout.root)
         removeDialogLayout.actionYes.setOnClickListener {
             val intent = Intent()
             intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
             val uri = Uri.fromParts("package", context?.packageName, null)
             intent.data = uri
             startActivityForResult(intent, PICK_GALLERY_IMAGE)
+            removeDeniedPermissionDialog?.dismiss()
         }
-        removePictureDialog.show()
+        removeDeniedPermissionDialog?.show()
 
     }
 
@@ -1111,6 +1115,7 @@ class EditProfileFragment : BaseFragment() {
             cameraFile!!
         )
     }
+
 
 }
 
