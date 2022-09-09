@@ -86,10 +86,9 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/aboutus_card_view"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/margin_size_150"
+                        android:layout_height="0dp"
                         app:cardCornerRadius="@dimen/margin_size_6"
                         android:layout_marginStart="@dimen/margin_size_19"
-                        android:layout_marginTop="@dimen/margin_size_30"
                         android:layout_marginEnd="@dimen/margin_size_21"
                         android:elevation="0dp"
                         app:cardElevation="0dp"
@@ -102,6 +101,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
+                            android:visibility="gone"
                             />
 
                     </androidx.cardview.widget.CardView>
