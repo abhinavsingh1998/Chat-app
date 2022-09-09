@@ -387,7 +387,7 @@ class EditProfileFragment : BaseFragment() {
         "${data.firstName} ${data.lastName}".also { binding.textviewEnterName.text = it }
         Log.i("name", data.firstName + " " + data.lastName + data.email)
         "${data.countryCode} ${data.phoneNumber}".also { binding.enterPhonenumberTextview.text = it }
-        if (!data.email.isNullOrEmpty()) {
+        if (data.email?.isNotEmpty() == true) {
             binding.emailTv.setText(data.email)
         } else {
             binding.emailTv.setText("")
@@ -440,7 +440,7 @@ class EditProfileFragment : BaseFragment() {
             binding.autoCity.setText("")
 
         }
-        if (!data.pincode.toString().isNullOrEmpty()) {
+        if (data.pincode.toString()!=null && data.pincode.toString().isNotEmpty()) {
             if (data.pincode.toString() == "null") {
                 binding.pincodeEditText.setText("")
 
