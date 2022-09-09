@@ -46,7 +46,7 @@ class HomeAdapter(
     private lateinit var testimonialAdapter: TestimonialAdapter
     private lateinit var onItemClickListener: View.OnClickListener
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private var presenting: Boolean = true
+    private var presenting: Boolean = false
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -188,12 +188,12 @@ class HomeAdapter(
         fun bind(position: Int) {
 
             if (data.portfolioData != null) {
-                if (data.contactType == 225360002 && data.portfolioData.investmentCount > 0) {
+                if (data.portfolioData.investmentCount > 0) {
                     binding.nestedCard?.visibility = View.VISIBLE
-                    presenting = false
+                    presenting = true
                 } else {
                     binding.nestedCard?.visibility = View.GONE
-                    presenting = true
+                    presenting = false
                 }
                 binding.contentTxt1.text = data.portfolioData.investmentCount.toString()
                 binding.contentTxt2.text = data.portfolioData.totalAreaSqFt.toString()
