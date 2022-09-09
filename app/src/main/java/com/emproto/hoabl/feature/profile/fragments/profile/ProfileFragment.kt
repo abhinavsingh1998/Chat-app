@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
+import com.emproto.hoabl.BuildConfig
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FacilitymanagerBinding
 import com.emproto.hoabl.databinding.FragmentProfileMainBinding
@@ -111,7 +112,7 @@ class ProfileFragment : BaseFragment() {
                 Status.SUCCESS -> {
                     binding.progressBaar.hide()
                     if (it.data != null) {
-                        it.data?.let {it1->
+                        it.data?.let { it1 ->
                             profileData = it1.data
                             isWhatsappConsent = it1.data.whatsappConsent
                             isPushNotificationSend = it1.data.showPushNotifications
@@ -169,13 +170,12 @@ class ProfileFragment : BaseFragment() {
         if (!profileData.firstName.isNullOrEmpty() && profileData.lastName.isNullOrEmpty()) {
             val firstLetter: String = profileData.firstName!!.substring(0, 2)
             binding.tvUserName.text = firstLetter
-        }else if(profileData.firstName.isNullOrEmpty() && profileData.lastName.isNullOrEmpty()){
+        } else if (profileData.firstName.isNullOrEmpty() && profileData.lastName.isNullOrEmpty()) {
             "AB".also { binding.tvUserName.text = it }
-        }else if(profileData.firstName.isNullOrEmpty() && !(profileData.lastName.isNullOrEmpty()) ){
+        } else if (profileData.firstName.isNullOrEmpty() && !(profileData.lastName.isNullOrEmpty())) {
             val lastLetter: String = profileData.lastName!!.substring(0, 2)
             binding.tvUserName.text = lastLetter
-        }
-        else {
+        } else {
             val firstLetter: String = profileData.firstName!!.substring(0, 1)
             val lastLetter: String = profileData.lastName!!.substring(0, 1)
             "${firstLetter}${lastLetter}".also { binding.tvUserName.text = it }
@@ -196,7 +196,9 @@ class ProfileFragment : BaseFragment() {
         "Secure Your Account".also { dialogSecurePinBinding.tvTitle.text = it }
         dialogSecurePinConfirmationBinding =
             DailogSecurePinConfirmationBinding.inflate(layoutInflater)
-        "Are you sure you don't want to \n secure your account?".also { dialogSecurePinConfirmationBinding.tvTitle.text = it }
+        "Are you sure you don't want to \n secure your account?".also {
+            dialogSecurePinConfirmationBinding.tvTitle.text = it
+        }
         securePinDialog = CustomDialog(requireContext())
         securePinConfirmationDialog = CustomDialog(requireContext())
 
@@ -237,7 +239,12 @@ class ProfileFragment : BaseFragment() {
         listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, item2))
         listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, item3))
         listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, item4))
-        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_FOOTER, item1))
+//        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_FOOTER, item1))
+
+        binding.Logoutbtn.setOnClickListener {
+            logoutDialog.show()
+        }
+       binding.version.text = "App Version:" + BuildConfig.VERSION_NAME
 
         binding.profileOptionsRecyclerview.layoutManager = LinearLayoutManager(requireActivity())
         binding.profileOptionsRecyclerview.adapter =

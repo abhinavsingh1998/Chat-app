@@ -387,60 +387,60 @@ class EditProfileFragment : BaseFragment() {
         "${data.firstName} ${data.lastName}".also { binding.textviewEnterName.text = it }
         Log.i("name", data.firstName + " " + data.lastName + data.email)
         "${data.countryCode} ${data.phoneNumber}".also { binding.enterPhonenumberTextview.text = it }
-        if (!data.email.isNullOrEmpty()) {
+        if (data.email?.isNotEmpty() == true) {
             binding.emailTv.setText(data.email)
         } else {
             binding.emailTv.setText("")
         }
-        if (data.dateOfBirth.isNotEmpty()) {
+        if (data.dateOfBirth?.isNotEmpty() == true) {
             val date=Utility.parseDate(data.dateOfBirth)
             binding.tvDatePicker.setText(date)
         } else {
             binding.tvDatePicker.setText("")
         }
-        if (data.gender.isNotEmpty()) {
+        if (data.gender?.isNotEmpty() == true) {
             binding.autoGender.setText(data.gender)
             enableEdit(binding.autoGender)
         } else {
             binding.autoGender.setText("")
         }
-        if (data.houseNumber.isNotEmpty()) {
+        if (data.houseNumber?.isNotEmpty() == true) {
             binding.houseNo.setText(data.houseNumber)
         } else {
             binding.houseNo.setText("")
         }
-        if (data.streetAddress.isNotEmpty()) {
+        if (data.streetAddress?.isNotEmpty() == true) {
             binding.completeAddress.setText(data.streetAddress)
         } else {
             binding.completeAddress.setText("")
         }
-        if (data.locality.isNotEmpty()) {
+        if (data.locality?.isNotEmpty() == true) {
             binding.locality.setText(data.locality)
         } else {
             binding.locality.setText("")
         }
-        if (data.country.isNotEmpty()) {
+        if (data.country?.isNotEmpty() == true) {
             binding.autoCountry.setText(data.country)
             enableEdit(binding.autoCountry)
         } else {
             binding.autoCountry.setText("")
 
         }
-        if (data.state.isNotEmpty()) {
+        if (data.state?.isNotEmpty() == true) {
             binding.autoState.setText(data.state)
             enableEdit(binding.autoState)
         } else {
             binding.autoState.setText("")
 
         }
-        if (data.city.isNotEmpty()) {
+        if (data.city?.isNotEmpty() == true) {
             binding.autoCity.setText(data.city)
             enableEdit(binding.autoCity)
         } else {
             binding.autoCity.setText("")
 
         }
-        if (data.pincode.toString().isNotEmpty()) {
+        if (data.pincode.toString()!=null && data.pincode.toString().isNotEmpty()) {
             if (data.pincode.toString() == "null") {
                 binding.pincodeEditText.setText("")
 
