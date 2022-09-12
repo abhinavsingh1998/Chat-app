@@ -12,7 +12,6 @@ import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.DocumentsContract
@@ -88,7 +87,7 @@ class AccountDetailsFragment : Fragment(),
 
     private var cameraFile: File? = null
     private lateinit var destinationFile: File
-    private val PICK_GALLERY_IMAGE = 1
+    private val pickGalleryImage = 1
     private lateinit var bitmap: Bitmap
     private var selectedDocumentType = 0
     private val kycUploadList = ArrayList<KycUpload>()
@@ -542,7 +541,7 @@ class AccountDetailsFragment : Fragment(),
         }
     }
 
-    override fun onUploadClick(kycUploadList: ArrayList<KycUpload>, view: View, documentType: Int) {
+    override fun onUploadClick(newList: ArrayList<KycUpload>, view: View, documentType: Int) {
         selectImage()
         selectedDocumentType = documentType
     }
@@ -622,28 +621,28 @@ class AccountDetailsFragment : Fragment(),
         profileViewModel.uploadKycDocument(extension, destinationFile, selectedDocumentType)
             .observe(
                 viewLifecycleOwner
-            ) { it ->
+            ) {
                 when (it?.status) {
                     Status.LOADING -> {
                         binding.progressBar.show()
                     }
                     Status.SUCCESS -> {
                         binding.progressBar.hide()
-                        it.data?.let {
-                            if (it.data.response != null) {
-                                if (it.data.response.data.name != null && it.data.response.data.name != null) {
+                        it.data?.let {it1->
+                            if (it1.data.response != null) {
+                                if (it1.data.response.data.name != null && it1.data.response.data.name != null) {
                                     for (item in kycUploadList) {
                                         if (selectedDocumentType == DOC_TYPE_UNVERIFIED_ADDRESS_PROOF && item.documentName == "Address Proof") {
-                                            item.name = it.data.response.data.name
-                                            item.path = it.data.response.data.path
+                                            item.name = it1.data.response.data.name
+                                            item.path = it1.data.response.data.path
                                             item.status = "Verification Pending"
                                         } else if (selectedDocumentType == DOC_TYPE_UNVERIFIED_PAN_CARD && item.documentName == "PAN Card") {
-                                            item.name = it.data.response.data.name
-                                            item.path = it.data.response.data.path
+                                            item.name = it1.data.response.data.name
+                                            item.path = it1.data.response.data.path
                                             item.status = "Verification Pending"
                                         }
                                     }
-                                    kycUploadAdapter.notifyDataSetChanged()
+                                    with(kycUploadAdapter) { notifyDataSetChanged() }
                                     val dialog = AccountKycStatusPopUpFragment()
                                     dialog.isCancelable = false
                                     dialog.show(childFragmentManager, "submitted")
@@ -713,7 +712,7 @@ class AccountDetailsFragment : Fragment(),
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == PICK_GALLERY_IMAGE) {
+            if (requestCode == pickGalleryImage) {
                 onSelectFromGalleryResult(data!!)
             } else {
                 (requireActivity() as BaseActivity).showError(
@@ -726,7 +725,7 @@ class AccountDetailsFragment : Fragment(),
 
     @SuppressLint("NewApi")
     fun getRealPathFromURI_API19(context: Context, uri: Uri): String? {
-        val isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
+        val isKitKat = true
 
         // DocumentProvider
         if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
