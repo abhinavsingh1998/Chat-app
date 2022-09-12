@@ -12,15 +12,18 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
+import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
+import android.view.View.GONE
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -49,6 +52,7 @@ import com.emproto.networklayer.request.profile.EditUserNameRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.*
+import com.example.portfolioui.databinding.DeniedLayoutBinding
 import com.example.portfolioui.databinding.RemoveConfirmationBinding
 import java.io.*
 import java.text.SimpleDateFormat
@@ -91,6 +95,8 @@ class EditProfileFragment : BaseFragment() {
     val permissionRequest: MutableList<String> = ArrayList()
 
     lateinit var removePictureDialog: Dialog
+    var removeDeniedPermissionDialog: Dialog?=null
+
 
     private lateinit var countriesData: List<Countries>
     private lateinit var statesData: List<States>
@@ -177,8 +183,14 @@ class EditProfileFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        isReadStorageGranted = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED
-        isWriteStorageGranted = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        isReadStorageGranted = ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+        isWriteStorageGranted = ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
 
         if (data.profilePictureUrl.isNullOrEmpty()) {
             binding.tvremove.isClickable = false
@@ -381,19 +393,28 @@ class EditProfileFragment : BaseFragment() {
                 isWriteStorageGranted =
                     permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE]
                         ?: isWriteStorageGranted
-                selectImage()
+
+                Log.d("permission3", "$isReadStorageGranted $isWriteStorageGranted")
+
+                if (isReadStorageGranted && isWriteStorageGranted) {
+                    selectImage()
+                }else{
+                    showPermissionDeniedDialog()
+                }
             }
 
         "${data.firstName} ${data.lastName}".also { binding.textviewEnterName.text = it }
         Log.i("name", data.firstName + " " + data.lastName + data.email)
-        "${data.countryCode} ${data.phoneNumber}".also { binding.enterPhonenumberTextview.text = it }
+        "${data.countryCode} ${data.phoneNumber}".also {
+            binding.enterPhonenumberTextview.text = it
+        }
         if (data.email?.isNotEmpty() == true) {
             binding.emailTv.setText(data.email)
         } else {
             binding.emailTv.setText("")
         }
         if (data.dateOfBirth?.isNotEmpty() == true) {
-            val date=Utility.parseDate(data.dateOfBirth)
+            val date = Utility.parseDate(data.dateOfBirth)
             binding.tvDatePicker.setText(date)
         } else {
             binding.tvDatePicker.setText("")
@@ -440,7 +461,7 @@ class EditProfileFragment : BaseFragment() {
             binding.autoCity.setText("")
 
         }
-        if (data.pincode.toString()!=null && data.pincode.toString().isNotEmpty()) {
+        if (data.pincode.toString() != null && data.pincode.toString().isNotEmpty()) {
             if (data.pincode.toString() == "null") {
                 binding.pincodeEditText.setText("")
 
@@ -497,13 +518,12 @@ class EditProfileFragment : BaseFragment() {
         if (!profileData.firstName.isNullOrEmpty() && profileData.lastName.isNullOrEmpty()) {
             val firstLetter: String = profileData.firstName!!.substring(0, 2)
             binding.tvUserName.text = firstLetter
-        }else if(profileData.firstName.isNullOrEmpty() && profileData.lastName.isNullOrEmpty()){
+        } else if (profileData.firstName.isNullOrEmpty() && profileData.lastName.isNullOrEmpty()) {
             binding.tvUserName.text = "AB"
-        }else if(profileData.firstName.isNullOrEmpty() && !(profileData.lastName.isNullOrEmpty()) ){
+        } else if (profileData.firstName.isNullOrEmpty() && !(profileData.lastName.isNullOrEmpty())) {
             val lastLetter: String = profileData.lastName!!.substring(0, 2)
             binding.tvUserName.text = lastLetter
-        }
-        else {
+        } else {
             val firstLetter: String = profileData.firstName!!.substring(0, 1)
             val lastLetter: String = profileData.lastName!!.substring(0, 1)
             "${firstLetter}${lastLetter}".also { binding.tvUserName.text = it }
@@ -544,9 +564,10 @@ class EditProfileFragment : BaseFragment() {
         })
 
         binding.uploadNewPicture.setOnClickListener {
+            Log.d("permission1", "" +isReadStorageGranted + " " + isWriteStorageGranted)
             if (!isReadStorageGranted && !isWriteStorageGranted) {
                 requestPermission()
-            }else if (isReadStorageGranted&&isWriteStorageGranted){
+            } else if (isReadStorageGranted && isWriteStorageGranted) {
                 selectImage()
             }
         }
@@ -674,6 +695,23 @@ class EditProfileFragment : BaseFragment() {
         }
     }
 
+    private fun showPermissionDeniedDialog() {
+        val removeDialogLayout = DeniedLayoutBinding.inflate(layoutInflater)
+        removeDeniedPermissionDialog= Dialog(requireContext())
+        removeDeniedPermissionDialog?.setCancelable(true)
+        removeDeniedPermissionDialog?.setContentView(removeDialogLayout.root)
+        removeDialogLayout.actionYes.setOnClickListener {
+            val intent = Intent()
+            intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+            val uri = Uri.fromParts("package", context?.packageName, null)
+            intent.data = uri
+            startActivityForResult(intent, PICK_GALLERY_IMAGE)
+            removeDeniedPermissionDialog?.dismiss()
+        }
+        removeDeniedPermissionDialog?.show()
+
+    }
+
     private fun removePictureDialog() {
         val removeDialogLayout = RemoveConfirmationBinding.inflate(layoutInflater)
         removePictureDialog = Dialog(requireContext())
@@ -763,11 +801,11 @@ class EditProfileFragment : BaseFragment() {
 
     /*----------upload picture--------------*/
     private fun requestPermission() {
-
         if (!isReadStorageGranted && !isWriteStorageGranted) {
             permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
             permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         }
+        Log.d("permission2", "" +isReadStorageGranted + " " + isWriteStorageGranted)
 
         if (permissionRequest.isNotEmpty()) {
             permissionLauncher.launch(permissionRequest.toTypedArray())
@@ -1077,7 +1115,6 @@ class EditProfileFragment : BaseFragment() {
             cameraFile!!
         )
     }
-
 }
 
 
