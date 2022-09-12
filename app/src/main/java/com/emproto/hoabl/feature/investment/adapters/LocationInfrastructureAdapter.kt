@@ -9,9 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemLocationInfrastructureBinding
-import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.utils.MapItemClickListener
-import com.emproto.networklayer.response.investment.LocInfValues
 import com.emproto.networklayer.response.investment.ValueXXX
 
 class LocationInfrastructureAdapter(
@@ -28,10 +26,7 @@ class LocationInfrastructureAdapter(
     inner class MyViewHolder(var binding: ItemLocationInfrastructureBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
-            view: View,
-            position: Int,
-            item: Any,
-            clickListener: MapItemClickListener
+            position: Int
         ) {
             val element = list[position]
             when (distanceList.size) {
@@ -56,16 +51,17 @@ class LocationInfrastructureAdapter(
                     .into(ivLocationImage)
                 when (isDistanceAvl) {
                     true -> tvLocationDistance.visibility = View.VISIBLE
+                    else -> {}
                 }
             }
             binding.cvLocationInfrastructureCard.setOnClickListener {
                 lastItemSelectedPos = selectedItemPos
                 selectedItemPos = adapterPosition
-                if (lastItemSelectedPos == -1)
-                    lastItemSelectedPos = selectedItemPos
+                lastItemSelectedPos = if (lastItemSelectedPos == -1)
+                    selectedItemPos
                 else {
                     notifyItemChanged(lastItemSelectedPos)
-                    lastItemSelectedPos = selectedItemPos
+                    selectedItemPos
                 }
                 notifyItemChanged(selectedItemPos)
                 itemClickListener.onItemClicked(it, position, element.latitude, element.longitude)
@@ -92,7 +88,7 @@ class LocationInfrastructureAdapter(
             holder.binding.cvLocationInfrastructureCard.strokeColor =
                 ContextCompat.getColor(context, R.color.white)
         }
-        holder.bind(holder.itemView, position, list, itemClickListener)
+        holder.bind(position)
     }
 
     override fun getItemCount(): Int = list.size

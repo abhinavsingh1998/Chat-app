@@ -3,12 +3,10 @@ package com.emproto.hoabl.feature.investment.views
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
@@ -46,7 +44,7 @@ class FaqDetailFragment : BaseFragment() {
     private var projectId = 0
     private var faqId = 0
 
-    lateinit var handler : Handler
+    private lateinit var handler : Handler
     private var runnable: Runnable? = null
 
     override fun onCreateView(
@@ -105,7 +103,7 @@ class FaqDetailFragment : BaseFragment() {
         (activity as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility = View.GONE
         binding.blueHeader.visibility = View.VISIBLE
         //Getting general faqs
-        profileViewModel.getGeneralFaqs(2001).observe(viewLifecycleOwner, Observer {
+        profileViewModel.getGeneralFaqs(2001).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
@@ -124,7 +122,7 @@ class FaqDetailFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).showErrorToast(it.message!!)
                 }
             }
-        })
+        }
     }
 
     private fun callProjectFaqApi() {
@@ -132,7 +130,7 @@ class FaqDetailFragment : BaseFragment() {
         (activity as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility = View.VISIBLE
         binding.blueHeader.visibility = View.GONE
         //Getting project faqs
-        investmentViewModel.getInvestmentsFaq(projectId).observe(viewLifecycleOwner, Observer {
+        investmentViewModel.getInvestmentsFaq(projectId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
@@ -153,7 +151,7 @@ class FaqDetailFragment : BaseFragment() {
                     )
                 }
             }
-        })
+        }
     }
 
     private fun setUpRecyclerView(data: List<CgData>, faqId: Int) {
@@ -215,7 +213,7 @@ class FaqDetailFragment : BaseFragment() {
             else -> {
                 val list = ArrayList<RecyclerViewFaqItem>()
                 list.add(RecyclerViewFaqItem(1, allFaqList[0]))
-                val searchString = item.toString()
+                val searchString = item
                 var isFaqPresent = false
                 for (item in allFaqList) { //Comparing search text with api data
                     for (element in item.faqs) {
@@ -232,6 +230,7 @@ class FaqDetailFragment : BaseFragment() {
                             list.add(RecyclerViewFaqItem(2, item))
                             isFaqPresent = false
                         }
+                        else -> {}
                     }
                 }
                 when(list.size){
@@ -239,14 +238,13 @@ class FaqDetailFragment : BaseFragment() {
                         Toast.makeText(requireContext(), "No faqs to show", Toast.LENGTH_LONG).show()
                     }
                 }
-                setAdapter(list, allFaqList, item)
+                setAdapter(list, item)
             }
         }
     }
 
     private fun setAdapter(
         list: ArrayList<RecyclerViewFaqItem>,
-        allFaqList: List<CgData>,
         item: String
     ) {
         var isItemsPresent = false

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseFragment
@@ -74,23 +73,23 @@ class MediaViewFragment : BaseFragment() {
             }
         }
 
-        investmentViewModel.getMediaListItem().observe(viewLifecycleOwner,Observer{
+        investmentViewModel.getMediaListItem().observe(viewLifecycleOwner) {
             mediaData.clear()
             for (item in it) {
                 mediaData.add(item)
             }
-            when(mediaData.size){
+            when (mediaData.size) {
                 1 -> {
                     binding.ivMediaRightArrow.visibility = View.GONE
                     binding.ivMediaLeftArrow.visibility = View.GONE
                 }
                 else -> {
-                    when {
-                        mediaData.size-1 == index -> {
+                    when (index) {
+                        mediaData.size - 1 -> {
                             binding.ivMediaRightArrow.visibility = View.GONE
                             binding.ivMediaLeftArrow.visibility = View.VISIBLE
                         }
-                        index == 0 -> {
+                        0 -> {
                             binding.ivMediaRightArrow.visibility = View.VISIBLE
                             binding.ivMediaLeftArrow.visibility = View.GONE
                         }
@@ -101,7 +100,7 @@ class MediaViewFragment : BaseFragment() {
                     }
                 }
             }
-        })
+        }
 
         binding.ivMediaRightArrow.setOnClickListener {
             if(index < mediaData.size-1){
@@ -135,7 +134,7 @@ class MediaViewFragment : BaseFragment() {
 
     }
 
-    fun showMedia(mediaType: MediaViewItem) {
+    private fun showMedia(mediaType: MediaViewItem) {
         binding.tvMediaImageName.text = mediaType.name
 
         when (mediaType.mediaType) {

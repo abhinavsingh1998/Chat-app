@@ -14,7 +14,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.emproto.core.BaseFragment
@@ -62,7 +61,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     private var distanceList = ArrayList<String>()
     private var destinationList= ArrayList<ValueXXX>()
 
-    lateinit var handler : Handler
+    private lateinit var handler : Handler
     private var runnable: Runnable? = null
 
     private val job = Job()
@@ -87,7 +86,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMapBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -183,7 +182,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             MarkerOptions()
                 .position(originLocation)
                 .icon(
-                    BitmapFromVector(
+                    bitmapFromVector(
                         this.requireContext(),
                         R.drawable.ic_baseline_location_on_24
                     )
@@ -194,18 +193,18 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             MarkerOptions()
                 .position(destinationLocation)
                 .icon(
-                    BitmapFromVector(
+                    bitmapFromVector(
                         this.requireContext(),
                         R.drawable.ic_baseline_location_on_24_red
                     )
                 )
         )
-        val urll = getDirectionURL(
+        val directionUrl = getDirectionURL(
             originLocation,
             destinationLocation,
             resources.getString(R.string.map_api_key)
         )
-        callDirectionApi(urll)
+        callDirectionApi(directionUrl)
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 15F))
     }
@@ -218,16 +217,16 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     }
 
     private fun initObserver() {
-        investmentViewModel.getMapLocationInfrastructure().observe(viewLifecycleOwner, Observer {
-            for (i in 0..it.values.size - 1) {
+        investmentViewModel.getMapLocationInfrastructure().observe(viewLifecycleOwner) {
+            for (i in 0 until it.values.size) {
                 if (data?.destinationLatitude == it.values[i].latitude && data?.destinationLongitude == it.values[i].longitude) {
                     selectedPosition = i
                 }
                 destinationList.add(it.values[i])
             }
-            calculateDistance(dummyLatitude,dummyLongitude,it.values)
+            calculateDistance(dummyLatitude, dummyLongitude, it.values)
 
-        })
+        }
         runnable = Runnable {   binding.cvBackButton.visibility = View.VISIBLE }
         runnable?.let { it1 -> handler.postDelayed(it1,2000) }
 
@@ -238,11 +237,11 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     }
 
     private fun enableMyLocation() {
-        when {
+        when (PackageManager.PERMISSION_GRANTED) {
             ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED -> {
+            ) -> {
                 initMap()
                 initObserver()
                 setDataFromPrevious()
@@ -257,7 +256,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         }
     }
 
-    val requestPermissionLauncher =
+    private val requestPermissionLauncher =
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
@@ -278,27 +277,27 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             }
         }
 
+//
+//    private fun addMarkers(googleMap: GoogleMap) {
+//        val bounds = LatLngBounds.builder()
+//        val marker = googleMap.addMarker(
+//            MarkerOptions()
+//                .title("Isle of Bliss")
+//                .position(LatLng(dummyLatitude, dummyLongitude))
+//                .icon(BitmapFromVector(this.requireContext(), R.drawable.location_image_red))
+//        )
+//        bounds.include(LatLng(dummyLatitude, dummyLongitude))
+//        marker?.tag = "Isle of Bliss"
+////        googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(),50))
+//        googleMap.animateCamera(
+//            CameraUpdateFactory.newLatLngZoom(
+//                LatLng(dummyLatitude, dummyLongitude),
+//                16.0f
+//            )
+//        )
+//    }
 
-    private fun addMarkers(googleMap: GoogleMap) {
-        val bounds = LatLngBounds.builder()
-        val marker = googleMap.addMarker(
-            MarkerOptions()
-                .title("Isle of Bliss")
-                .position(LatLng(dummyLatitude, dummyLongitude))
-                .icon(BitmapFromVector(this.requireContext(), R.drawable.location_image_red))
-        )
-        bounds.include(LatLng(dummyLatitude, dummyLongitude))
-        marker?.tag = "Isle of Bliss"
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(),50))
-        googleMap.animateCamera(
-            CameraUpdateFactory.newLatLngZoom(
-                LatLng(dummyLatitude, dummyLongitude),
-                16.0f
-            )
-        )
-    }
-
-    private fun BitmapFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
+    private fun bitmapFromVector(context: Context, vectorResId: Int): BitmapDescriptor {
         val vectorDrawable = ContextCompat.getDrawable(context, vectorResId)
         vectorDrawable!!.setBounds(
             0,
@@ -352,19 +351,19 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             }
 
             withContext(Dispatchers.Main){
-                val lineoption = PolylineOptions()
+                val lineOption = PolylineOptions()
                 for (i in result.indices) {
-                    lineoption.addAll(result[i])
-                    lineoption.width(10f)
-                    lineoption.color(ContextCompat.getColor(requireContext(), R.color.text_blue_color))
-                    lineoption.geodesic(true)
+                    lineOption.addAll(result[i])
+                    lineOption.width(10f)
+                    lineOption.color(ContextCompat.getColor(requireContext(), R.color.text_blue_color))
+                    lineOption.geodesic(true)
                 }
-                mMap.addPolyline(lineoption)
+                mMap.addPolyline(lineOption)
             }
         }
     }
 
-    fun decodePolyline(encoded: String): List<LatLng> {
+    private fun decodePolyline(encoded: String): List<LatLng> {
         val poly = ArrayList<LatLng>()
         var index = 0
         val len = encoded.length
@@ -379,8 +378,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 result = result or (b and 0x1f shl shift)
                 shift += 5
             } while (b >= 0x20)
-            val dlat = if (result and 1 != 0) (result shr 1).inv() else result shr 1
-            lat += dlat
+            val dLat = if (result and 1 != 0) (result shr 1).inv() else result shr 1
+            lat += dLat
             shift = 0
             result = 0
             do {
@@ -388,8 +387,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 result = result or (b and 0x1f shl shift)
                 shift += 5
             } while (b >= 0x20)
-            val dlng = if (result and 1 != 0) (result shr 1).inv() else result shr 1
-            lng += dlng
+            val dLng = if (result and 1 != 0) (result shr 1).inv() else result shr 1
+            lng += dLng
             val latLng = LatLng((lat.toDouble() / 1E5), (lng.toDouble() / 1E5))
             poly.add(latLng)
         }
@@ -397,7 +396,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(p0: GoogleMap) {
-        mMap = p0!!
+        mMap = p0
         val originLocation = LatLng(dummyLatitude, dummyLongitude)
         mMap.clear()
         mMap.addMarker(MarkerOptions().position(originLocation))

@@ -16,7 +16,6 @@ import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
 import java.text.DecimalFormat
-import java.util.concurrent.TimeUnit
 
 class LastFewPlotsAdapter(
     val context: Context,

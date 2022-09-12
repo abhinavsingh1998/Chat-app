@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.CustomImageLayoutBinding
-import com.emproto.hoabl.model.ViewItem
 
 class InvestmentViewPagerAdapter(private var imageList: List<String>) :
     RecyclerView.Adapter<InvestmentViewPagerAdapter.InvestmentViewHolder>() {

@@ -132,7 +132,7 @@ class CategoryListAdapter(
 
                     binding.apply {
                         tvProjectName.text = element.launchName
-                        Log.d("dessrt", element.priceStartingFrom.toString())
+                        Log.d("cateGory", element.priceStartingFrom.toString())
                         val amount = element.priceStartingFrom.toDouble() / 100000
                         val convertedAmount = amount.toString().replace(".0", "")
                         tvCategoryPrice.text = "₹${convertedAmount} L" + Constants.ONWARDS

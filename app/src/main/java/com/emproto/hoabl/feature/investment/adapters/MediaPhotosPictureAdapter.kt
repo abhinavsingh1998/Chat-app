@@ -10,10 +10,7 @@ import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemPhotosMediaLayoutBinding
 import com.emproto.hoabl.model.MediaViewItem
-import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.utils.MediaItemClickListener
-import com.emproto.hoabl.utils.OnRecyclerViewItemClickListener
-import com.emproto.networklayer.response.investment.Image
 
 class MediaPhotosPictureAdapter(
     private val context: Context,

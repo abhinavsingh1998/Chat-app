@@ -69,9 +69,7 @@ class ProjectDetailAdapter(
         const val VIEW_TYPE_TESTIMONIALS = 12
         const val VIEW_TYPE_NOT_CONVINCED = 13
         const val VIEW_TYPE_SIMILAR_INVESTMENT = 14
-        const val TWO_SPACES = " "
         const val MEDIA_ACTIVE = "1001"
-        const val MEDIA_INACTIVE = "1002"
     }
 
     private lateinit var projectDetailViewPagerAdapter: ProjectDetailViewPagerAdapter
@@ -84,7 +82,6 @@ class ProjectDetailAdapter(
     private lateinit var similarInvestmentsAdapter: SimlInvestmentAdapter
     private lateinit var onItemClickListener: View.OnClickListener
 
-    private var isCollapsed = true
     private var isClicked = true
     private var isReadMoreClicked = true
     private var graphType = ""

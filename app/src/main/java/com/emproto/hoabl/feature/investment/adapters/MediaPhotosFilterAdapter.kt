@@ -4,13 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemPhotosFilterBinding
-import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 
 class MediaPhotosFilterAdapter(private val itemList: List<String>) :
     RecyclerView.Adapter<MediaPhotosFilterAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: ItemPhotosFilterBinding) :
-        RecyclerView.ViewHolder(binding.getRoot())
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view =

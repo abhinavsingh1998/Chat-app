@@ -1,8 +1,6 @@
 package com.emproto.hoabl.feature.investment.views.mediagallery
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.emproto.core.Constants
@@ -12,22 +10,21 @@ import com.emproto.hoabl.model.MediaViewItem
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
-import kotlin.collections.ArrayList
 
 class YoutubeActivity : YouTubeBaseActivity() {
 
     lateinit var binding:ActivityYoutubeBinding
-    var videoId = ""
+    private var videoId = ""
     var index = 0
-    var videoList = ArrayList<MediaViewItem>()
-    var videoTitle = ""
+    private var videoList = ArrayList<MediaViewItem>()
+    private var videoTitle = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityYoutubeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initDatas()
+        initData()
         playYoutubeVideo(videoId)
 
         binding.ivCloseButton.setOnClickListener{
@@ -42,7 +39,7 @@ class YoutubeActivity : YouTubeBaseActivity() {
         }
     }
 
-    private fun initDatas() {
+    private fun initData() {
         videoId = intent.getStringExtra(Constants.YOUTUBE_VIDEO_ID).toString()
         videoTitle = intent.getStringExtra(Constants.VIDEO_TITLE).toString()
         binding.tvMediaImageName.text = videoTitle
@@ -63,7 +60,7 @@ class YoutubeActivity : YouTubeBaseActivity() {
                 p0: YouTubePlayer.Provider?,
                 p1: YouTubeInitializationResult?
             ) {
-                Toast.makeText(applicationContext, Constants.VIDEO_PLAYER_FAILED, Toast.LENGTH_SHORT).show();
+                Toast.makeText(applicationContext, Constants.VIDEO_PLAYER_FAILED, Toast.LENGTH_SHORT).show()
             }
 
         })

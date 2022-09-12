@@ -6,17 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ProjectDetailLayoutBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.home.views.fragments.Testimonials
-import com.emproto.hoabl.feature.investment.adapters.OpportunityDocsAdapter
 import com.emproto.hoabl.feature.investment.adapters.ProjectDetailAdapter
 import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
 import com.emproto.hoabl.feature.investment.dialogs.ConfirmationDialog
@@ -79,7 +77,7 @@ class ProjectDetailFragment : BaseFragment() {
     private lateinit var allData: PdData
 
     private var faqData: List<ProjectContentsAndFaq> = mutableListOf()
-    private var APP_URL = Constants.APP_URL
+    private var appUrl = Constants.APP_URL
     private var isBookmarked = false
     private var watchListId = 0
 
@@ -124,7 +122,7 @@ class ProjectDetailFragment : BaseFragment() {
     }
 
     private fun callApi() {
-        investmentViewModel.getInvestmentsPromises().observe(viewLifecycleOwner, Observer {
+        investmentViewModel.getInvestmentsPromises().observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
@@ -142,11 +140,11 @@ class ProjectDetailFragment : BaseFragment() {
                     )
                 }
             }
-        })
+        }
     }
 
     private fun callProjectIdApi(promiseData: List<PmData>) {
-        investmentViewModel.getInvestmentsDetail(projectId).observe(viewLifecycleOwner, Observer {
+        investmentViewModel.getInvestmentsDetail(projectId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
@@ -186,7 +184,7 @@ class ProjectDetailFragment : BaseFragment() {
                             data.projectContentsAndFaqs,
                             data.pageManagementContent
                         )
-                    }
+               }
                 }
                 Status.ERROR -> {
                     binding.progressBar.hide()
@@ -195,12 +193,14 @@ class ProjectDetailFragment : BaseFragment() {
                     )
                 }
             }
-        })
+        }
     }
+
+
 
     private fun addWatchList() {
         investmentViewModel.addWatchList(WatchListBody(projectId))
-            .observe(viewLifecycleOwner, Observer {
+            .observe(viewLifecycleOwner) {
                 when (it.status) {
                     Status.LOADING -> {
                         binding.progressBar.show()
@@ -222,7 +222,7 @@ class ProjectDetailFragment : BaseFragment() {
                         )
                     }
                 }
-            })
+            }
     }
 
     private fun setUpRecyclerView(
@@ -235,41 +235,49 @@ class ProjectDetailFragment : BaseFragment() {
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_PROJECT_DETAIL))
         when(allData.address.isMapDetailsActive){
             true -> list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_MAP))
+            else -> {}
         }
         when (allData.isEscalationGraphActive) {
             true -> {
                 list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_PRICE_TRENDS))
             }
+            else -> {}
         }
         when (allData.isKeyPillarsActive) {
             true -> {
                 list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_KEY_PILLARS))
             }
+            else -> {}
         }
         when (allData.isMediaGalleryActive) {
             true -> {
                 list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_VIDEO_DRONE))
             }
+            else -> {}
         }
         when (allData.isOffersAndPromotionsActive) {
             true -> {
                 list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_DONT_MISS))
             }
+            else -> {}
         }
         when (allData.isInventoryBucketActive) {
             true -> {
                 list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_SKUS))
             }
+            else -> {}
         }
         when (allData.opportunityDoc != null && allData.opportunityDoc.isProjectAminitiesActive) {
             true -> {
                 list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_AMENITIES))
             }
+            else -> {}
         }
         when (allData.isLocationInfrastructureActive) {
             true -> {
                 list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_LOCATION_INFRASTRUCTURE))
             }
+            else -> {}
         }
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_PROMISES))
         when {
@@ -284,6 +292,7 @@ class ProjectDetailFragment : BaseFragment() {
                     list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_SIMILAR_INVESTMENT))
                 }
             }
+            else -> {}
         }
 
         val adapter =
@@ -370,7 +379,7 @@ class ProjectDetailFragment : BaseFragment() {
                     shareIntent.type = "text/plain"
                     shareIntent.putExtra(
                         Intent.EXTRA_TEXT,
-                        "The House Of Abhinandan Lodha $APP_URL"
+                        "The House Of Abhinandan Lodha $appUrl"
                     )
                     startActivity(shareIntent)
                 }
@@ -455,7 +464,7 @@ class ProjectDetailFragment : BaseFragment() {
     private fun navigateToMediaGallery(isVideoAllCLicked: Boolean) {
         val imagesList = ArrayList<MediaViewItem>()
         var itemId = 0
-        for (i in 0..mediaData.size - 1) {
+        for (i in mediaData.indices) {
             for (item in mediaData[i].droneShoots!!) {
                 if (item.status == MEDIA_ACTIVE) {
                     itemId++
@@ -520,7 +529,7 @@ class ProjectDetailFragment : BaseFragment() {
                     coverImages.newInvestmentPageMedia.value.url,
                     title = "Images",
                     id = itemId,
-                    name = allData.launchName.toString()
+                    name = allData.launchName
                 )
             )
         }
@@ -540,7 +549,7 @@ class ProjectDetailFragment : BaseFragment() {
                 issueType = "Schedule a video call",
                 projectId = projectId
             )
-        ).observe(viewLifecycleOwner, Observer {
+        ).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
@@ -566,10 +575,10 @@ class ProjectDetailFragment : BaseFragment() {
                     )
                 }
             }
-        })
+        }
     }
 
-    val mapItemClickListener = object : MapItemClickListener {
+    private val mapItemClickListener = object : MapItemClickListener {
         override fun onItemClicked(view: View, position: Int, latitude: Double, longitude: Double) {
             when (view.id) {
                 R.id.cv_location_infrastructure_card -> {
@@ -603,7 +612,7 @@ class ProjectDetailFragment : BaseFragment() {
         }
     }
 
-    val similarInvItemClickListener = object : SimilarInvItemClickListener {
+    private val similarInvItemClickListener = object : SimilarInvItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
             when (view.id) {
                 R.id.cv_top_view -> navigateToDetailScreen(item.toInt())
@@ -684,7 +693,7 @@ class ProjectDetailFragment : BaseFragment() {
                             inventoryBucketId = position,
                             launchPhaseId = projectId
                         )
-                    ).observe(viewLifecycleOwner, Observer {
+                    ).observe(viewLifecycleOwner) {
                         when (it.status) {
                             Status.LOADING -> {
                                 binding.progressBar.show()
@@ -710,13 +719,13 @@ class ProjectDetailFragment : BaseFragment() {
                                 )
                             }
                         }
-                    })
+                    }
                 }
             }
         }
     }
 
-    val videoItemClickListener = object : YoutubeItemClickListener {
+    private val videoItemClickListener = object : YoutubeItemClickListener {
         override fun onItemClicked(view: View, position: Int, url: String, title: String) {
             when (view.id) {
                 R.id.iv_latest_image -> {
@@ -746,9 +755,9 @@ class ProjectDetailFragment : BaseFragment() {
     }
 
     private fun deleteWatchList() {
-        investmentViewModel.getWatchListId().observe(viewLifecycleOwner, Observer {
+        investmentViewModel.getWatchListId().observe(viewLifecycleOwner) {
             if (it != null) {
-                investmentViewModel.deleteWatchList(it).observe(viewLifecycleOwner, Observer { it ->
+                investmentViewModel.deleteWatchList(it).observe(viewLifecycleOwner) { it ->
                     when (it.status) {
                         Status.LOADING -> {
                             binding.progressBar.show()
@@ -770,8 +779,8 @@ class ProjectDetailFragment : BaseFragment() {
                             )
                         }
                     }
-                })
+                }
             }
-        })
+        }
     }
 }

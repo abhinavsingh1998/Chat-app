@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ItemKeyPillarBinding
-import com.emproto.networklayer.response.investment.ProjectValue
 import com.emproto.networklayer.response.investment.ValueX
 
 class KeyPillarAdapter(val context: Context, private val list: List<ValueX>) :

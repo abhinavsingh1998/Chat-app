@@ -5,29 +5,21 @@ import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.text.bold
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.CompositePageTransformer
-import androidx.viewpager2.widget.MarginPageTransformer
 import com.bumptech.glide.Glide
-import com.emproto.core.Utility
-import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.*
-import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.databinding.LastFewPlotsLayoutBinding
+import com.emproto.hoabl.databinding.NewInvestmentTopLayoutBinding
+import com.emproto.hoabl.databinding.TrendingProjectsLayoutBinding
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.Data
 import com.emproto.networklayer.response.investment.MediaGalleries
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionTwoModel
-import com.google.android.material.tabs.TabLayoutMediator
-import kotlin.math.roundToInt
 
 class NewInvestmentAdapter(
-    private val activity: HomeActivity,
     private val context: Context,
     val list: List<RecyclerViewItem>,
     private val data: Data,
@@ -163,7 +155,7 @@ class NewInvestmentAdapter(
             val list = data.pageManagementsOrCollectionOneModels
             val itemsCount = data.page.collectionOne.totalProjectContentsToDisplay
             val showList = ArrayList<PageManagementsOrCollectionOneModel>()
-            for (i in 0..itemsCount - 1) {
+            for (i in 0 until itemsCount) {
                 showList.add(list[i])
             }
             lastFewPlotsAdapter = LastFewPlotsAdapter(context, showList, itemClickListener)
@@ -181,7 +173,7 @@ class NewInvestmentAdapter(
             val list = data.pageManagementsOrCollectionTwoModels
             val itemsCount = data.page.collectionTwo.totalProjectContentsToDisplay
             val showList = ArrayList<PageManagementsOrCollectionTwoModel>()
-            for (i in 0..itemsCount - 1) {
+            for (i in 0 until itemsCount) {
                 showList.add(list[i])
             }
             trendingProjectsAdapter = TrendingProjectsAdapter(context, showList, itemClickListener)

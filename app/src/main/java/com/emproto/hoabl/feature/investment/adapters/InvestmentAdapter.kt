@@ -3,24 +3,18 @@ package com.emproto.hoabl.feature.investment.adapters
 import android.content.Context
 import android.os.CountDownTimer
 import android.text.SpannableStringBuilder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.bold
-import androidx.core.text.color
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.core.Constants
 import com.emproto.core.Utility
-import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
-import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.utils.SimilarInvItemClickListener
-import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
 import com.emproto.networklayer.response.investment.SimilarInvestment
 import java.text.DecimalFormat
-import java.util.concurrent.TimeUnit
 
 class InvestmentAdapter(
     val context: Context,
