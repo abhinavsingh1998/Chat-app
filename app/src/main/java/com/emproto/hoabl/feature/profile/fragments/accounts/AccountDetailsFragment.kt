@@ -11,8 +11,6 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Matrix
-import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -107,7 +105,7 @@ class AccountDetailsFragment : Fragment(),
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAccountDetailsBinding.inflate(inflater, container, false)
 
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
@@ -148,7 +146,7 @@ class AccountDetailsFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        profileViewModel.getAccountsList().observe(viewLifecycleOwner, Observer {
+        profileViewModel.getAccountsList().observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
@@ -302,7 +300,7 @@ class AccountDetailsFragment : Fragment(),
                     (requireActivity() as HomeActivity).showErrorToast(it.message!!)
                 }
             }
-        })
+        }
     }
 
     private fun getKycList(kycLists: ArrayList<AccountsResponse.Data.Document>): Collection<KycUpload> {
@@ -476,23 +474,23 @@ class AccountDetailsFragment : Fragment(),
 
     fun getDocumentData(path: String) {
         profileViewModel.downloadDocument(path)
-            .observe(viewLifecycleOwner,
-                androidx.lifecycle.Observer {
-                    when (it.status) {
-                        Status.LOADING -> {
-                            binding.progressBar.show()
-                        }
-                        Status.SUCCESS -> {
-                            binding.progressBar.hide()
-                            requestPermission(it.data!!.data)
-                        }
-                        Status.ERROR -> {
-                            (requireActivity() as HomeActivity).showErrorToast(
-                                it.message!!
-                            )
-                        }
+            .observe(viewLifecycleOwner
+            ) {
+                when (it.status) {
+                    Status.LOADING -> {
+                        binding.progressBar.show()
                     }
-                })
+                    Status.SUCCESS -> {
+                        binding.progressBar.hide()
+                        requestPermission(it.data!!.data)
+                    }
+                    Status.ERROR -> {
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            it.message!!
+                        )
+                    }
+                }
+            }
     }
 
     private fun requestPermission(base64: String) {
@@ -534,7 +532,7 @@ class AccountDetailsFragment : Fragment(),
             try {
                 startActivity(intent)
             } catch (e: Exception) {
-                Log.e(Constants.ERROR_OPEN_PDF, e.localizedMessage)
+                e.localizedMessage?.let { Log.e(Constants.ERROR_OPEN_PDF, it) }
             }
         } else {
             (requireActivity() as HomeActivity).showErrorToast(Constants.SOMETHING_WENT_WRONG)
