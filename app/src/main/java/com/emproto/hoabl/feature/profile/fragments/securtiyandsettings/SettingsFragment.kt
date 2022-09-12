@@ -1,3 +1,4 @@
+
 package com.emproto.hoabl.feature.profile.fragments.securtiyandsettings
 
 import android.os.Bundle
@@ -52,7 +53,6 @@ class SettingsFragment:Fragment() {
         return newsList
     }
 }
-
 
 
 
