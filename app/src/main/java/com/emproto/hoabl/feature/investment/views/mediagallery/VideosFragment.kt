@@ -1,18 +1,16 @@
 package com.emproto.hoabl.feature.investment.views.mediagallery
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentVideosBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.MediaPhotosAdapter
 import com.emproto.hoabl.model.MediaGalleryItem
 import com.emproto.hoabl.model.MediaViewItem
@@ -28,11 +26,9 @@ class VideosFragment:BaseFragment() {
     lateinit var investmentFactory: InvestmentFactory
     lateinit var investmentViewModel: InvestmentViewModel
     lateinit var binding:FragmentVideosBinding
-    lateinit var mediaPhotosAdapter: MediaPhotosAdapter
+    private lateinit var mediaPhotosAdapter: MediaPhotosAdapter
 
     private var isYoutubeVideo = true
-
-    private var videoList = ArrayList<MediaViewItem>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentVideosBinding.inflate(layoutInflater)
@@ -50,8 +46,8 @@ class VideosFragment:BaseFragment() {
         val list = ArrayList<MediaGalleryItem>()
 //        list.add(MediaGalleryItem(1, "Videos"))
         list.add(MediaGalleryItem(2, Constants.VIDEOS))
-        investmentViewModel.getVideoActive().observe(viewLifecycleOwner,Observer{
-            when(it){
+        investmentViewModel.getVideoActive().observe(viewLifecycleOwner) {
+            when (it) {
                 true -> {
                     binding.tvNoData.visibility = View.GONE
                     binding.ivNoData.visibility = View.GONE
@@ -63,7 +59,7 @@ class VideosFragment:BaseFragment() {
                     binding.rvMainVideos.visibility = View.GONE
                 }
             }
-        })
+        }
         mediaPhotosAdapter =
             MediaPhotosAdapter(this.requireContext(), list, mediaItemClickListener, medialist,itemClickListener)
         binding.rvMainVideos.adapter = mediaPhotosAdapter
@@ -96,6 +92,7 @@ class VideosFragment:BaseFragment() {
 //                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=${url}"))
 //                    startActivity(intent)
                 }
+                else -> {}
             }
         }
     }

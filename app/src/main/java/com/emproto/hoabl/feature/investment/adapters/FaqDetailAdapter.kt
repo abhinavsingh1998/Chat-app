@@ -1,10 +1,7 @@
 package com.emproto.hoabl.feature.investment.adapters
 
-import android.app.Activity
-import android.content.Context
 import android.os.Build
 import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -17,7 +14,6 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.Constants
 import com.emproto.hoabl.R
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.views.FaqDetailFragment
 import com.emproto.hoabl.model.RecyclerViewFaqItem
 import com.emproto.hoabl.utils.Extensions.hideKeyboard
@@ -74,7 +70,7 @@ class FaqDetailAdapter(
                 (holder as TopViewHolder).bind(position)
             }
             VIEW_TYPE_TWO -> {
-                (holder as CategoryViewHolder).bind(position, list[position].data)
+                (holder as CategoryViewHolder).bind(list[position].data)
             }
         }
     }
@@ -185,7 +181,7 @@ class FaqDetailAdapter(
     inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvCategoryTitle = itemView.findViewById<MaterialTextView>(R.id.tv_category_title)
         val rvFaq = itemView.findViewById<RecyclerView>(R.id.rv_faq)
-        fun bind(position: Int, data: CgData) {
+        fun bind(data: CgData) {
             tvCategoryTitle.text = data.name
             val sortedList = data.faqs.sortedBy { it.priority }
             faqAdapter = FaqAdapter(sortedList, faqId, itemClickListener)

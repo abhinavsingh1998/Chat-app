@@ -4,16 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentInvestmentLayoutBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.NewInvestmentAdapter
-import com.emproto.hoabl.model.*
+import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
@@ -27,6 +26,7 @@ class InvestmentFragment : BaseFragment() {
     @Inject
     lateinit var investmentFactory: InvestmentFactory
     lateinit var investmentViewModel: InvestmentViewModel
+
     private lateinit var binding: FragmentInvestmentLayoutBinding
     private lateinit var newInvestmentAdapter: NewInvestmentAdapter
     private lateinit var smartDealsList: List<PageManagementsOrCollectionOneModel>
@@ -56,7 +56,7 @@ class InvestmentFragment : BaseFragment() {
             ViewModelProvider(
                 requireActivity(),
                 investmentFactory
-            ).get(InvestmentViewModel::class.java)
+            )[InvestmentViewModel::class.java]
     }
 
     private fun setUpUI() {
@@ -72,7 +72,7 @@ class InvestmentFragment : BaseFragment() {
 
     private fun callApi(refresh:Boolean) {
         if(isNetworkAvailable()){
-            investmentViewModel.getInvestments(5002,refresh).observe(viewLifecycleOwner, Observer {
+            investmentViewModel.getInvestments(5002,refresh).observe(viewLifecycleOwner) {
                 when (it.status) {
                     Status.LOADING -> {
                         binding.progressBar.show()
@@ -92,14 +92,14 @@ class InvestmentFragment : BaseFragment() {
                         }
                     }
                     Status.ERROR -> {
-                        binding.slSwipeRefresh.isRefreshing=false
+                        binding.slSwipeRefresh.isRefreshing = false
                         binding.progressBar.hide()
                         (requireActivity() as HomeActivity).showErrorToast(
                             it.message!!
                         )
                     }
                 }
-            })
+            }
         }else{
             binding.slSwipeRefresh.isRefreshing = false
             binding.progressBar.hide()
@@ -119,7 +119,7 @@ class InvestmentFragment : BaseFragment() {
             )
         }else{
             investmentViewModel.getInvestmentsMediaGallery(newInvestmentsList[0].id)
-                .observe(viewLifecycleOwner, Observer {
+                .observe(viewLifecycleOwner) {
                     when (it.status) {
                         Status.LOADING -> {
                             binding.progressBar.show()
@@ -139,7 +139,7 @@ class InvestmentFragment : BaseFragment() {
                             )
                         }
                     }
-                })
+                }
         }
     }
 
@@ -150,12 +150,13 @@ class InvestmentFragment : BaseFragment() {
             true -> {
                 list.add(RecyclerViewItem(NewInvestmentAdapter.TYPE_LAST_PLOTS))
             }
+            else -> {}
         }
         when (data.page.isCollectionTwoActive) {
             true -> list.add(RecyclerViewItem(NewInvestmentAdapter.TYPE_TRENDING_PROJECTS))
+            else -> {}
         }
         newInvestmentAdapter = NewInvestmentAdapter(
-            (requireActivity() as HomeActivity),
             this.requireContext(),
             list,
             data,
@@ -167,7 +168,7 @@ class InvestmentFragment : BaseFragment() {
     }
 
     private fun callProjectContentAPi() {
-        investmentViewModel.getAllInvestmentsProjects().observe(viewLifecycleOwner, Observer {
+        investmentViewModel.getAllInvestmentsProjects().observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
@@ -190,7 +191,7 @@ class InvestmentFragment : BaseFragment() {
                     )
                 }
             }
-        })
+        }
     }
 
     private val itemClickListener = object : ItemClickListener {

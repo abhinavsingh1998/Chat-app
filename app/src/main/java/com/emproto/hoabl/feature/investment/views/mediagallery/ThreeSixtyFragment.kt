@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
@@ -23,15 +22,11 @@ import javax.inject.Inject
 
 class ThreeSixtyFragment:BaseFragment() {
 
-    companion object {
-        const val TAG = "PhotosFragment"
-    }
-
     @Inject
     lateinit var investmentFactory: InvestmentFactory
     lateinit var investmentViewModel: InvestmentViewModel
     lateinit var binding: FragmentPhotosBinding
-    lateinit var mediaPhotosAdapter: MediaPhotosAdapter
+    private lateinit var mediaPhotosAdapter: MediaPhotosAdapter
 
     private var allImageList = ArrayList<MediaViewItem>()
 
@@ -56,7 +51,7 @@ class ThreeSixtyFragment:BaseFragment() {
             ViewModelProvider(
                 requireActivity(),
                 investmentFactory
-            ).get(InvestmentViewModel::class.java)
+            )[InvestmentViewModel::class.java]
         (requireActivity() as HomeActivity).showBackArrow()
         (requireActivity() as HomeActivity).showHeader()
     }
@@ -64,9 +59,6 @@ class ThreeSixtyFragment:BaseFragment() {
     private fun initObserver() {
         val list1 = investmentViewModel.getMediaContent().filter { it.title == "ThreeSixtyImages" }
         setUpRecyclerView(list1)
-//        investmentViewModel.getMedia().observe(viewLifecycleOwner, Observer {
-//            setUpRecyclerView(it)
-//        })
     }
 
     private fun setUpRecyclerView(list1: List<MediaViewItem>) {
@@ -75,7 +67,7 @@ class ThreeSixtyFragment:BaseFragment() {
         list.add(MediaGalleryItem(2, Constants.PHOTOS))
 
         val imageList = arrayListOf<String>()
-        Log.d("jshdjshds",list1.toString())
+        Log.d("listMedia",list1.toString())
         imageList.clear()
         for(item in list1){
             imageList.add(item.media)
@@ -84,8 +76,8 @@ class ThreeSixtyFragment:BaseFragment() {
             allImageList.add(item)
         }
 
-        investmentViewModel.getThreeSixtyActive().observe(viewLifecycleOwner,Observer{
-            when(it){
+        investmentViewModel.getThreeSixtyActive().observe(viewLifecycleOwner) {
+            when (it) {
                 true -> {
                     binding.tvNoData.visibility = View.GONE
                     binding.ivNoData.visibility = View.GONE
@@ -97,7 +89,7 @@ class ThreeSixtyFragment:BaseFragment() {
                     binding.rvMainPhotos.visibility = View.GONE
                 }
             }
-        })
+        }
 
         mediaPhotosAdapter =
             MediaPhotosAdapter(
@@ -118,12 +110,11 @@ class ThreeSixtyFragment:BaseFragment() {
 
     private val itemClickListener = object : MediaItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: MediaViewItem) {
-//            investmentViewModel.setMediaItem(item)
             investmentViewModel.setMediaListItem(allImageList)
             val mediaViewFragment = MediaViewFragment()
             val bundle = Bundle()
             bundle.putSerializable(Constants.DATA, item)
-            bundle.putSerializable("medialist",allImageList)
+            bundle.putSerializable("mediaList",allImageList)
             bundle.putInt(Constants.IMAGE_POSITION,position)
             mediaViewFragment.arguments = bundle
             (requireActivity() as HomeActivity).addFragment(mediaViewFragment, true)

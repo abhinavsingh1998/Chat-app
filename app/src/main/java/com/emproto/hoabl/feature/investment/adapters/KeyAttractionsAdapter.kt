@@ -21,6 +21,6 @@ class KeyAttractionsAdapter(private val itemList: List<String>) :
     override fun getItemCount(): Int = itemList.size
 
     inner class KeyAttractionsViewHolder(var binding: KeyAttractionsLayoutBinding) :
-        RecyclerView.ViewHolder(binding.getRoot())
+        RecyclerView.ViewHolder(binding.root)
 
 }

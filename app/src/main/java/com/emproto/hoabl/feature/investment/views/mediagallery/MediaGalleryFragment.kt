@@ -1,11 +1,10 @@
 package com.emproto.hoabl.feature.investment.views.mediagallery
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
@@ -25,16 +24,16 @@ class MediaGalleryFragment : BaseFragment() {
     lateinit var investmentFactory: InvestmentFactory
     lateinit var investmentViewModel: InvestmentViewModel
     lateinit var binding: FragmentMediaGalleryBinding
-    lateinit var mediaViewPagerAdapter: MediaViewPagerAdapter
+    private lateinit var mediaViewPagerAdapter: MediaViewPagerAdapter
     val list = ArrayList<MediaViewItem>()
 
-    private val tabList = arrayListOf<String>(Constants.PHOTOS, Constants.VIDEOS,Constants.DRONE_SHOOTS, Constants.PHOTOS_360)
+    private val tabList = arrayListOf(Constants.PHOTOS, Constants.VIDEOS,Constants.DRONE_SHOOTS, Constants.PHOTOS_360)
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+        ): View {
         binding = FragmentMediaGalleryBinding.inflate(layoutInflater)
         list.clear()
         arguments?.let {
@@ -59,6 +58,7 @@ class MediaGalleryFragment : BaseFragment() {
         (requireActivity() as HomeActivity).hideBottomNavigation()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setUpTabLayoutViewPager() {
         investmentViewModel.setMediaContent(list)
         mediaViewPagerAdapter = MediaViewPagerAdapter(childFragmentManager, lifecycle)
@@ -74,6 +74,7 @@ class MediaGalleryFragment : BaseFragment() {
                 mediaViewPagerAdapter.notifyDataSetChanged()
                 investmentViewModel.isVideoSeeAllClicked = false
             }
+            else -> {}
         }
     }
 }

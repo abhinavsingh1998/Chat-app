@@ -1,11 +1,7 @@
 package com.emproto.hoabl.feature.investment.adapters
 
-import com.github.mikephil.charting.formatter.DefaultValueFormatter
-import com.github.mikephil.charting.formatter.IValueFormatter
-import com.github.mikephil.charting.utils.ViewPortHandler
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +26,6 @@ class OpportunityDocsAdapter(
     private val context: Context,
     private val itemList: List<RecyclerViewItem>,
     private val data: OpprotunityDoc,
-    private val title: String,
     private val isFromProjectAmenities: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -54,7 +49,7 @@ class OpportunityDocsAdapter(
 
     private var isClicked = true
     private var graphType = ""
-    private var xaxisList = ArrayList<String>()
+    private var axisList = ArrayList<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -151,102 +146,96 @@ class OpportunityDocsAdapter(
             binding.tvXAxisLabel.text = data.escalationGraph.yAxisDisplayName
             binding.tvYAxisLabel.text = data.escalationGraph.xAxisDisplayName
             val graphData = data.escalationGraph.dataPoints.points
-            val linevalues = ArrayList<Entry>()
+            val lineValues = ArrayList<Entry>()
             when (data.escalationGraph.dataPoints.dataPointType) {
                 Constants.YEARLY -> {
                     graphType = Constants.YEARLY
                     for (item in graphData) {
-                        linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
+                        lineValues.add(Entry(item.year.toFloat(), item.value.toFloat()))
                     }
                 }
                 Constants.HALF_YEARLY -> {
                     graphType = Constants.HALF_YEARLY
-                    for (i in 0..data.escalationGraph.dataPoints.points.size - 1) {
+                    for (i in 0 until data.escalationGraph.dataPoints.points.size) {
                         val fmString =
                             data.escalationGraph.dataPoints.points[i].halfYear.substring(0, 3)
                         val yearString =
                             data.escalationGraph.dataPoints.points[i].year.substring(2, 4)
                         val str = "$fmString-$yearString"
-                        xaxisList.add(str)
+                        axisList.add(str)
                     }
-                    var index = 0
-                    for (item in graphData) {
-                        linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
-                        index++
+                    for ((index, item) in graphData.withIndex()) {
+                        lineValues.add(Entry(index.toFloat(), item.value.toFloat()))
                     }
                 }
                 Constants.QUATERLY-> {
                     graphType = Constants.QUATERLY
-                    for (i in 0..data.escalationGraph.dataPoints.points.size - 1) {
+                    for (i in 0 until data.escalationGraph.dataPoints.points.size) {
                         val fmString =
                             data.escalationGraph.dataPoints.points[i].quater.substring(0, 2)
                         val yearString =
                             data.escalationGraph.dataPoints.points[i].year.substring(2, 4)
                         val str = "$fmString-$yearString"
-                        xaxisList.add(str)
+                        axisList.add(str)
                     }
-                    var index = 0
-                    for (item in graphData) {
-                        linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
-                        index++
+                    for ((index, item) in graphData.withIndex()) {
+                        lineValues.add(Entry(index.toFloat(), item.value.toFloat()))
                     }
                 }
                 Constants.MONTHLY -> {
                     graphType = Constants.MONTHLY
-                    for (i in 0..data.escalationGraph.dataPoints.points.size - 1) {
+                    for (i in 0 until data.escalationGraph.dataPoints.points.size) {
                         val fmString =
                             data.escalationGraph.dataPoints.points[i].month.substring(0, 3)
                         val yearString =
                             data.escalationGraph.dataPoints.points[i].year.substring(2, 4)
                         val str = "$fmString-$yearString"
-                        xaxisList.add(str)
+                        axisList.add(str)
                     }
-                    var index = 0
-                    for (item in graphData) {
-                        linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
-                        index++
+                    for ((index, item) in graphData.withIndex()) {
+                        lineValues.add(Entry(index.toFloat(), item.value.toFloat()))
                     }
                 }
             }
 
-            if (linevalues.isNotEmpty()) {
-                val linedataset = LineDataSet(linevalues, "")
+            if (lineValues.isNotEmpty()) {
+                val lineDataset = LineDataSet(lineValues, "")
                 //We add features to our chart
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    linedataset.color = context.getColor(R.color.green)
+                    lineDataset.color = context.getColor(R.color.green)
                 }
 
-                linedataset.valueTextSize = 12F
+                lineDataset.valueTextSize = 12F
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    linedataset.fillColor = context.getColor(R.color.green)
+                    lineDataset.fillColor = context.getColor(R.color.green)
                 }
-                linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
-                linedataset.setDrawCircles(false)
-                linedataset.setDrawValues(false)
-                val data = LineData(linedataset)
+                lineDataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+                lineDataset.setDrawCircles(false)
+                lineDataset.setDrawValues(false)
+                val data = LineData(lineDataset)
 
-                binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
-                binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
-                binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false);
+                binding.ivPriceTrendsGraph.getDescription().setEnabled(false)
+                binding.ivPriceTrendsGraph.getLegend().setEnabled(false)
+                binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false)
                 binding.ivPriceTrendsGraph.setTouchEnabled(false)
                 binding.ivPriceTrendsGraph.setPinchZoom(false)
                 binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
                 //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
                 //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
-                binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false);
-                binding.ivPriceTrendsGraph.getXAxis().position = XAxis.XAxisPosition.BOTTOM;
+                binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false)
+                binding.ivPriceTrendsGraph.getXAxis().position = XAxis.XAxisPosition.BOTTOM
                 //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
-                binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false);
-                binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false);
-                binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false);
+                binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false)
+                binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false)
+                binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false)
                 binding.ivPriceTrendsGraph.xAxis.granularity = 1f
                 binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
 //            binding.ivPriceTrendsGraph.getXAxis().setAxisMaximum(data.getXMax() + 0.25f);
 //            binding.ivPriceTrendsGraph.getXAxis().setAxisMinimum(data.getXMin() - 0.25f);
                 //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
                 //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
-//                binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter = Xaxisformatter()
-                binding.ivPriceTrendsGraph.xAxis.valueFormatter = Xaxisformatter()
+//                binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter = XAxisformatter()
+                binding.ivPriceTrendsGraph.xAxis.valueFormatter = XAxisformatter()
                 binding.ivPriceTrendsGraph.data = data
                 binding.ivPriceTrendsGraph.animateXY(2000, 2000)
                 binding.textView10.visibility = View.GONE
@@ -254,7 +243,7 @@ class OpportunityDocsAdapter(
         }
     }
 
-    inner class Xaxisformatter : IAxisValueFormatter {
+    inner class XAxisformatter : IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
             return when (graphType) {
                 Constants.QUATERLY -> returnFormattedValue(p0)
@@ -269,7 +258,7 @@ class OpportunityDocsAdapter(
 
     private fun returnFormattedValue(floatValue: Float): String {
         return when {
-            floatValue.toInt() < 10 -> xaxisList[floatValue.toInt()]
+            floatValue.toInt() < 10 -> axisList[floatValue.toInt()]
             else -> {
                 String.format("%.0f", floatValue.toDouble())
             }
@@ -520,14 +509,14 @@ class OpportunityDocsAdapter(
         }
     }
 
-    private inner class OppDocsKeyAttractionsViewHolder(private val binding: OppDocKeyAttractionsLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
-            val list = arrayListOf<String>("1", "2", "3", "4", "5", "6")
-            keyAttractionsAdapter = KeyAttractionsAdapter(list)
-            binding.rvKeyAttractions.adapter = keyAttractionsAdapter
-        }
-    }
+//    private inner class OppDocsKeyAttractionsViewHolder(private val binding: OppDocKeyAttractionsLayoutBinding) :
+//        RecyclerView.ViewHolder(binding.root) {
+//        fun bind(position: Int) {
+//            val list = arrayListOf<String>("1", "2", "3", "4", "5", "6")
+//            keyAttractionsAdapter = KeyAttractionsAdapter(list)
+//            binding.rvKeyAttractions.adapter = keyAttractionsAdapter
+//        }
+//    }
 
     override fun getItemViewType(position: Int): Int {
         return itemList[position].viewType

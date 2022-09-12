@@ -20,7 +20,7 @@ class MediaViewVideoFragment:BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentVideoViewBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -28,17 +28,6 @@ class MediaViewVideoFragment:BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        lifecycle.addObserver(binding.activityMainYoutubePlayerView)
-//
-//        (requireActivity() as HomeActivity).hideHeader()
-//        binding.activityMainYoutubePlayerView.addYouTubePlayerListener(object:
-//            AbstractYouTubePlayerListener() {
-//            override fun onReady(youTubePlayer: YouTubePlayer) {
-//                super.onReady(youTubePlayer)
-//                val videoId = "1FJHYqE0RDg"
-//                youTubePlayer.loadVideo(videoId, 0F)
-//            }
-//        })
         binding.ytPlayer.initialize(resources.getString(R.string.youtube_api_key),object:
             YouTubePlayer.OnInitializedListener {
                 override fun onInitializationSuccess(
@@ -54,7 +43,7 @@ class MediaViewVideoFragment:BaseFragment() {
                     p0: YouTubePlayer.Provider?,
                     p1: YouTubeInitializationResult?
                 ) {
-                    Toast.makeText(this@MediaViewVideoFragment.requireContext(), Constants.VIDEO_PLAYER_FAILED, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this@MediaViewVideoFragment.requireContext(), Constants.VIDEO_PLAYER_FAILED, Toast.LENGTH_SHORT).show()
                 }
 
             })

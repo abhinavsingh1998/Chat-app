@@ -1,7 +1,6 @@
 package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,13 +24,13 @@ class ChatsDetailAdapter(
 
 ) : RecyclerView.Adapter<ChatsDetailAdapter.BaseViewHolder>() {
     lateinit var binding: ItemChatDetailBinding
-    lateinit var bindingSender: ItemChatSenderMessageBinding
+    private lateinit var bindingSender: ItemChatSenderMessageBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        if (viewType == R.layout.item_chat_detail) {
+        return if (viewType == R.layout.item_chat_detail) {
             binding =
                 ItemChatDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            return ReceiverViewHolder(binding.root)
+            ReceiverViewHolder(binding.root)
         } else {
             bindingSender =
                 ItemChatSenderMessageBinding.inflate(
@@ -39,15 +38,15 @@ class ChatsDetailAdapter(
                     parent,
                     false
                 )
-            return SenderViewHolder(bindingSender.root)
+            SenderViewHolder(bindingSender.root)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (chatDetailList[position].messageType == MessageType.RECEIVER) {
-            return R.layout.item_chat_detail
+        return if (chatDetailList[position].messageType == MessageType.RECEIVER) {
+            R.layout.item_chat_detail
         } else {
-            return R.layout.item_chat_sender_message
+            R.layout.item_chat_sender_message
         }
     }
 
@@ -66,7 +65,7 @@ class ChatsDetailAdapter(
         var tvChatSendTime = itemView.findViewById<TextView>(R.id.tvChatSendTime)
     }
 
-    abstract class BaseViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {}
+    abstract class BaseViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView)
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         if (holder is ReceiverViewHolder) {
@@ -80,7 +79,6 @@ class ChatsDetailAdapter(
                     LinearLayoutManager(mContext, RecyclerView.VERTICAL, false)
                 holder.rvOptions.adapter =
                     ChatOptionAdapter(
-                        mContext,
                         chatDetailList[position].option!!,
                         chatDetailList[position].conversationId,
                         mListener

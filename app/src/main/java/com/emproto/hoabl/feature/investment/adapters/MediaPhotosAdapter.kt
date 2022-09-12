@@ -1,14 +1,14 @@
 package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.Constants
-import com.emproto.hoabl.databinding.*
+import com.emproto.hoabl.databinding.MediaPhotosFilterLayoutBinding
+import com.emproto.hoabl.databinding.MediaPhotosPictureLayoutBinding
 import com.emproto.hoabl.model.MediaGalleryItem
 import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.utils.MediaItemClickListener

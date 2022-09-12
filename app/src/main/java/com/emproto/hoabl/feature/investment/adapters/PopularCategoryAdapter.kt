@@ -1,10 +1,8 @@
 package com.emproto.hoabl.feature.investment.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.emproto.hoabl.databinding.FaqCategoryLayoutBinding
 import com.emproto.hoabl.databinding.ItemPopularCategoryBinding
 import com.emproto.hoabl.utils.ItemClickListener
 
