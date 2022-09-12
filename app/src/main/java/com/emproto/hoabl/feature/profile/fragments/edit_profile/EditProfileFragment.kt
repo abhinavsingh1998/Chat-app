@@ -563,12 +563,14 @@ class EditProfileFragment : BaseFragment() {
         removePictureDialog()
         binding.saveAndUpdate.setOnClickListener {
             if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
-                if (type == Constants.CAMERA_CLICK)
-                    callingUploadPicApi(destinationFile!!)
-                else if (type == Constants.GALLERY_CLICK) {
-                    callingUploadPicApi(destinationFile)
-                } else {
+                when (type) {
+                    Constants.CAMERA_CLICK -> callingUploadPicApi(destinationFile!!)
+                    Constants.GALLERY_CLICK -> {
+                        callingUploadPicApi(destinationFile)
+                    }
+                    else -> {
 
+                    }
                 }
             } else {
                 (requireActivity() as BaseActivity).showError(
@@ -860,7 +862,7 @@ class EditProfileFragment : BaseFragment() {
         profileViewModel.uploadProfilePicture(destinationFile, destinationFile.name)
             .observe(
                 viewLifecycleOwner
-            ) { it ->
+            ) {
                 when (it?.status) {
                     Status.LOADING -> {
                         binding.progressBaar.show()
