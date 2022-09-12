@@ -12,8 +12,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
-import android.opengl.Visibility
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.DocumentsContract
@@ -33,8 +31,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.core.content.res.ResourcesCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseActivity
@@ -49,7 +45,6 @@ import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.profile.EditUserNameRequest
-import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.*
 import com.example.portfolioui.databinding.DeniedLayoutBinding
@@ -64,7 +59,7 @@ import kotlin.let as let1
 
 class EditProfileFragment : BaseFragment() {
     private var type: String? = null
-    lateinit var datePicker: DatePickerDialog.OnDateSetListener
+    private lateinit var datePicker: DatePickerDialog.OnDateSetListener
     val bundle = Bundle()
 
     @Inject
@@ -72,31 +67,28 @@ class EditProfileFragment : BaseFragment() {
     lateinit var profileViewModel: ProfileViewModel
     lateinit var binding: FragmentEditProfileBinding
 
-    var email = ""
-    var houseNo = ""
-    var address = ""
-    var locality = ""
-    var pinCode = ""
-    var countrySelected = ""
-    var stateSelected = ""
-    var citySelected = ""
-    var dob: String? = null
+    private var email = ""
+    private var houseNo = ""
+    var address: String = ""
+    private var locality = ""
+    private var pinCode = ""
+    private var countrySelected = ""
+    private var stateSelected = ""
+    private var citySelected = ""
+    private var dob: String? = null
 
-    val emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
-    val pinCodePattern = Pattern.compile("([1-9]{1}[0-9]{5}|[1-9]{1}[0-9]{3}\\\\s[0-9]{3})")
-
-    private val PICK_GALLERY_IMAGE = 1
-    lateinit var bitmap: Bitmap
-    var destinationFile = File("")
+    private val emailPattern = Pattern.compile("""[a-zA-Z0-9._-]+@[a-z]+\.+[a-z]+""")
+    private val pickGalleryImage = 1
+    private lateinit var bitmap: Bitmap
+    private var destinationFile = File("")
 
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private var isReadStorageGranted = false
     private var isWriteStorageGranted = false
-    val permissionRequest: MutableList<String> = ArrayList()
+    private val permissionRequest: MutableList<String> = ArrayList()
 
-    lateinit var removePictureDialog: Dialog
+    private lateinit var removePictureDialog: Dialog
     var removeDeniedPermissionDialog: Dialog?=null
-
 
     private lateinit var countriesData: List<Countries>
     private lateinit var statesData: List<States>
@@ -110,12 +102,12 @@ class EditProfileFragment : BaseFragment() {
     private val listCities = ArrayList<String>()
 
     lateinit var state: String
-    lateinit var stateIso: String
-    lateinit var country: String
-    lateinit var countryIso: String
+    private lateinit var stateIso: String
+    private lateinit var country: String
+    private lateinit var countryIso: String
     lateinit var city: String
 
-    lateinit var gender: String
+    private lateinit var gender: String
     private var cameraFile: File? = null
 
     @Inject
@@ -144,7 +136,7 @@ class EditProfileFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = FragmentEditProfileBinding.inflate(inflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         profileViewModel =
@@ -154,12 +146,12 @@ class EditProfileFragment : BaseFragment() {
         (requireActivity() as HomeActivity).hideBottomNavigation()
 
         val myCalender = Calendar.getInstance()
-        datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayofMonth ->
+        datePicker = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             myCalender.set(Calendar.YEAR, year)
             myCalender.set(Calendar.MONTH, month)
-            myCalender.set(Calendar.DAY_OF_MONTH, dayofMonth)
+            myCalender.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-            updateLable(myCalender)
+            updateLabel(myCalender)
         }
         binding.tvDatePicker.setOnClickListener {
             context?.let1 { it1 ->
@@ -177,7 +169,7 @@ class EditProfileFragment : BaseFragment() {
         }
         initView()
         setGenderSpinnersData()
-        getCountries(false)
+        false.getCountries()
         return binding.root
     }
 
@@ -214,17 +206,15 @@ class EditProfileFragment : BaseFragment() {
         binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
     }
 
-    private fun getCountries(refresh: Boolean) {
-        profileViewModel.getCountries(refresh).observe(viewLifecycleOwner) {
+    private fun Boolean.getCountries() {
+        profileViewModel.getCountries(this).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBaar.show()
                 }
                 Status.SUCCESS -> {
                     binding.progressBaar.hide()
-                    it.data?.data?.let1 { it ->
-                        countriesData = it
-                    }
+                    it.data?.data?.let1 { it1 -> countriesData = it1 }
                     if (data.country != null) {
                         for (i in countriesData) {
                             if (data.country == i.name) {
@@ -250,40 +240,38 @@ class EditProfileFragment : BaseFragment() {
 
     private fun getStates(countryIso: String, refresh: Boolean) {
         profileViewModel.getStates(countryIso, refresh)
-            .observe(viewLifecycleOwner, object : Observer<BaseResponse<StatesResponse>> {
-                override fun onChanged(it: BaseResponse<StatesResponse>) {
-                    when (it!!.status) {
-                        Status.LOADING -> {
-                            binding.progressBaar.show()
+            .observe(viewLifecycleOwner
+            ) {
+                when (it.status) {
+                    Status.LOADING -> {
+                        binding.progressBaar.show()
+                    }
+                    Status.SUCCESS -> {
+                        binding.progressBaar.hide()
+                        it.data?.data?.let1 { data ->
+                            statesData = data
                         }
-                        Status.SUCCESS -> {
-                            binding.progressBaar.hide()
-                            it.data?.data?.let1 { data ->
-                                statesData = data
-                            }
-                            if (data.state != null) {
-                                for (i in statesData) {
-                                    if (data.state == i.name) {
-                                        stateIso = i.isoCode
-                                    }
-                                    listStates.add(i.name)
-                                    listStatesISO.add(i.isoCode)
+                        if (data.state != null) {
+                            for (i in statesData) {
+                                if (data.state == i.name) {
+                                    stateIso = i.isoCode
                                 }
-                            } else {
-                                for (i in statesData.indices) {
-                                    listStates.add(statesData[i].name)
-                                    listStatesISO.add(statesData[i].isoCode)
-                                }
+                                listStates.add(i.name)
+                                listStatesISO.add(i.isoCode)
                             }
-                            setStateSpinnersData()
+                        } else {
+                            for (i in statesData.indices) {
+                                listStates.add(statesData[i].name)
+                                listStatesISO.add(statesData[i].isoCode)
+                            }
                         }
-                        Status.ERROR -> {
-                            binding.progressBaar.hide()
-                        }
+                        setStateSpinnersData()
+                    }
+                    Status.ERROR -> {
+                        binding.progressBaar.hide()
                     }
                 }
-
-            })
+            }
     }
 
     private fun getCities(value1: String, isoCode: String, refresh: Boolean) {
@@ -319,7 +307,7 @@ class EditProfileFragment : BaseFragment() {
         binding.autoGender.setAdapter(adapter)
 
         binding.autoGender.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, view, position, id ->
+            AdapterView.OnItemClickListener { parent, _, position, _ ->
                 gender = parent?.adapter?.getItem(position).toString().substring(0, 1)
                 enableEdit(binding.autoGender)
             }
@@ -331,7 +319,7 @@ class EditProfileFragment : BaseFragment() {
         countryArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         binding.autoCountry.setAdapter(countryArrayAdapter)
         binding.autoCountry.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, view, position, id ->
+            AdapterView.OnItemClickListener { _, _, position, _ ->
                 binding.autoState.setText("")
                 binding.autoCity.setText("")
                 country = listCountries[position]
@@ -354,7 +342,7 @@ class EditProfileFragment : BaseFragment() {
         stateArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         binding.autoState.setAdapter(stateArrayAdapter)
         binding.autoState.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, view, position, id ->
+            AdapterView.OnItemClickListener { _, _, position, _ ->
                 binding.autoCity.setText("")
                 state = listStates[position]
                 stateIso = listStatesISO[position]
@@ -375,7 +363,7 @@ class EditProfileFragment : BaseFragment() {
         cityAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         binding.autoCity.setAdapter(cityAdapter)
         binding.autoCity.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, view, position, id ->
+            AdapterView.OnItemClickListener { _, _, position, _ ->
                 city = listCities[position]
             }
         enableEdit(binding.autoCity)
@@ -461,7 +449,7 @@ class EditProfileFragment : BaseFragment() {
             binding.autoCity.setText("")
 
         }
-        if (data.pincode.toString() != null && data.pincode.toString().isNotEmpty()) {
+        if (data.pincode != null && data.pincode.toString().isNotEmpty()) {
             if (data.pincode.toString() == "null") {
                 binding.pincodeEditText.setText("")
 
@@ -530,7 +518,7 @@ class EditProfileFragment : BaseFragment() {
         }
     }
 
-    private fun updateLable(myCalendar: Calendar) {
+    private fun updateLabel(myCalendar: Calendar) {
         val sdf = SimpleDateFormat("dd/MM/yyyy'T'HH:mm:ssZ", Locale.ENGLISH)
         val dateSelected = sdf.format(myCalendar.time)
         binding.tvDatePicker.setText(dateSelected.substring(0, 10))
@@ -593,7 +581,7 @@ class EditProfileFragment : BaseFragment() {
             }
 
             email = binding.emailTv.text.toString()
-            if (email.isValidEmail()) {
+            if (email.isValidEmail()!!) {
                 binding.tvEmail.isErrorEnabled = false
             } else if (email.isNotEmpty()) {
                 binding.tvEmail.isErrorEnabled = true
@@ -650,7 +638,7 @@ class EditProfileFragment : BaseFragment() {
                 citySelected = binding.autoCity.text.toString()
             }
 
-            if (email.isNotEmpty() && !email.isValidEmail()) {
+            if (email.isNotEmpty() && !email.isValidEmail()!!) {
                 binding.tvEmail.error = Constants.PLEASE_ENTER_VALID_EMAIL
             } else {
                 sendProfileDetail(
@@ -765,7 +753,7 @@ class EditProfileFragment : BaseFragment() {
         profileViewModel.editUserNameProfile(editUserNameRequest)
             .observe(
                 viewLifecycleOwner
-            ) { it ->
+            ) {
                 when (it!!.status) {
                     Status.LOADING -> {
                         binding.progressBaar.show()
@@ -793,11 +781,9 @@ class EditProfileFragment : BaseFragment() {
     }
 
 
-    fun CharSequence?.isValidEmail() =
-        emailPattern.matcher(this).matches()
+    private fun CharSequence?.isValidEmail() =
+        this?.let1 { emailPattern.matcher(it).matches() }
 
-    fun CharSequence?.isValidPinCode() =
-        pinCodePattern.matcher(this).matches()
 
     /*----------upload picture--------------*/
     private fun requestPermission() {
@@ -838,7 +824,7 @@ class EditProfileFragment : BaseFragment() {
 
     private fun onSelectFromGalleryResult(data: Intent) {
         val selectedImage = data.data
-        var inputStream =
+        val inputStream =
             requireContext().contentResolver.openInputStream(selectedImage!!)
         try {
             bitmap = BitmapFactory.decodeStream(inputStream)
@@ -889,6 +875,7 @@ class EditProfileFragment : BaseFragment() {
                             it.message!!
                         )
                     }
+                    else -> {}
                 }
             }
     }
@@ -898,7 +885,7 @@ class EditProfileFragment : BaseFragment() {
             .substring(data.profilePictureUrl.toString().lastIndexOf('/') + 1)
         Log.i("profileUrl", fileName)
         profileViewModel.deleteProfileImage(fileName)
-            .observe(viewLifecycleOwner, Observer {
+            .observe(viewLifecycleOwner) {
                 when (it.status) {
                     Status.LOADING -> {
                         binding.progressBaar.show()
@@ -925,7 +912,7 @@ class EditProfileFragment : BaseFragment() {
                         Log.i("delete api error", it.message.toString())
                     }
                 }
-            })
+            }
     }
 
     private fun selectImage() {
@@ -966,7 +953,7 @@ class EditProfileFragment : BaseFragment() {
         builder.show()
     }
 
-    var cameraLauncher = registerForActivityResult(
+    private var cameraLauncher = registerForActivityResult(
         StartActivityForResult()
     ) { result ->
         if (result.resultCode === Activity.RESULT_OK) {
@@ -974,7 +961,7 @@ class EditProfileFragment : BaseFragment() {
         }
     }
 
-    var resultLauncher = registerForActivityResult(
+    private var resultLauncher = registerForActivityResult(
         StartActivityForResult()
     ) { result ->
         if (result != null && result.resultCode === Activity.RESULT_OK) {
@@ -987,7 +974,7 @@ class EditProfileFragment : BaseFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == PICK_GALLERY_IMAGE) {
+            if (requestCode == pickGalleryImage) {
                 onSelectFromGalleryResult(data!!)
             } else {
                 (requireActivity() as BaseActivity).showError(
@@ -1000,7 +987,7 @@ class EditProfileFragment : BaseFragment() {
 
     @SuppressLint("NewApi")
     fun getRealPathFromURI_API19(context: Context, uri: Uri): String? {
-        val isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
+        val isKitKat = true
 
         // DocumentProvider
         if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
@@ -1026,18 +1013,22 @@ class EditProfileFragment : BaseFragment() {
                 val split = docId.split(":".toRegex()).toTypedArray()
                 val type = split[0]
                 var contentUri: Uri? = null
-                if (Constants.IMAGE == type) {
-                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                } else if ("video" == type) {
-                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-                } else if ("audio" == type) {
-                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                when {
+                    Constants.IMAGE == type -> {
+                        contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                    }
+                    "video" == type -> {
+                        contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+                    }
+                    "audio" == type -> {
+                        contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                    }
                 }
                 val selection = "_id=?"
                 val selectionArgs = arrayOf(
                     split[1]
                 )
-                return getDataColumn(context, contentUri, selection, selectionArgs!!)
+                return getDataColumn(context, contentUri, selection, selectionArgs)
             }
         } else if ("content".equals(uri.scheme, ignoreCase = true)) {
 
@@ -1054,7 +1045,7 @@ class EditProfileFragment : BaseFragment() {
         return null
     }
 
-    fun isExternalStorageDocument(uri: Uri): Boolean {
+    private fun isExternalStorageDocument(uri: Uri): Boolean {
         return "com.android.externalstorage.documents" == uri.authority
     }
 
@@ -1062,7 +1053,7 @@ class EditProfileFragment : BaseFragment() {
      * @param uri The Uri to check.
      * @return Whether the Uri authority is DownloadsProvider.
      */
-    fun isDownloadsDocument(uri: Uri): Boolean {
+    private fun isDownloadsDocument(uri: Uri): Boolean {
         return "com.android.providers.downloads.documents" == uri.authority
     }
 
@@ -1070,7 +1061,7 @@ class EditProfileFragment : BaseFragment() {
      * @param uri The Uri to check.
      * @return Whether the Uri authority is MediaProvider.
      */
-    fun isMediaDocument(uri: Uri): Boolean {
+    private fun isMediaDocument(uri: Uri): Boolean {
         return "com.android.providers.media.documents" == uri.authority
     }
 
@@ -1078,11 +1069,11 @@ class EditProfileFragment : BaseFragment() {
      * @param uri The Uri to check.
      * @return Whether the Uri authority is Google Photos.
      */
-    fun isGooglePhotosUri(uri: Uri): Boolean {
+    private fun isGooglePhotosUri(uri: Uri): Boolean {
         return "com.google.android.apps.photos.content" == uri.authority
     }
 
-    fun getDataColumn(
+    private fun getDataColumn(
         context: Context, uri: Uri?, selection: String?,
         selectionArgs: Array<String>?
     ): String? {
@@ -1106,7 +1097,7 @@ class EditProfileFragment : BaseFragment() {
         return null
     }
 
-    fun getPhotoFile(context: Context): Uri? {
+    private fun getPhotoFile(context: Context): Uri? {
         val fileSuffix = SimpleDateFormat("yyyyMMddHHmmss").format(Date())
         cameraFile = File(context.externalCacheDir, "$fileSuffix.jpg")
         return FileProvider.getUriForFile(
