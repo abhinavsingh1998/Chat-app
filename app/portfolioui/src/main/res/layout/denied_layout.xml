@@ -11,8 +11,9 @@
         android:layout_height="match_parent">
         <ImageView
             android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_height="40dp"
             android:src="@drawable/no_media"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/textView8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"    />
@@ -25,10 +26,10 @@
             android:layout_marginTop="42dp"
             android:layout_marginEnd="20dp"
             android:gravity="center"
-            android:fontFamily="@font/jost_regular"
+            android:fontFamily="@font/jost_medium"
             android:text="Hoabl needs permission to access media.\nKindly turn on your files and media permission"
-            android:textColor="@color/black"
-            android:textSize="12sp"
+            android:textColor="#1c1c1c"
+            android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@id/view3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -45,21 +46,6 @@
 
 
         <TextView
-            android:id="@+id/action_no"
-            style="@style/text_bold_appcolor_14"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="?android:selectableItemBackground"
-            android:gravity="center"
-            android:paddingVertical="@dimen/margin_size_15"
-            android:text="NO"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/action_yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view3" />
-
-        <TextView
             android:id="@+id/action_yes"
             style="@style/text_bold_appcolor_14"
             android:layout_width="0dp"
@@ -72,7 +58,7 @@
             android:fontFamily="@string/jost_bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/action_no"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view3" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
