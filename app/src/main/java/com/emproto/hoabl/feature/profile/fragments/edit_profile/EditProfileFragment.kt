@@ -1115,8 +1115,6 @@ class EditProfileFragment : BaseFragment() {
             cameraFile!!
         )
     }
-
-
 }
 
 
