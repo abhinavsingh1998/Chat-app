@@ -535,7 +535,7 @@ class AccountDetailsFragment : Fragment(),
             try {
                 startActivity(intent)
             } catch (e: Exception) {
-                Log.e(Constants.ERROR_OPEN_PDF, e.localizedMessage)
+                e.localizedMessage?.let { Log.e(Constants.ERROR_OPEN_PDF, it) }
             }
         } else {
             (requireActivity() as HomeActivity).showErrorToast(Constants.SOMETHING_WENT_WRONG)
