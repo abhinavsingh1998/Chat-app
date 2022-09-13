@@ -10,7 +10,6 @@ import com.emproto.hoabl.databinding.ItemSkusBinding
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.networklayer.response.investment.Inventory
-import com.emproto.networklayer.response.investment.InventoryBucketContent
 
 class SkuAdapter(
     private val list: List<Inventory>?,
@@ -34,7 +33,8 @@ class SkuAdapter(
             tvStartingAt.text = SpannableStringBuilder()
                 .append("Starting at")
                 .bold { append(" ₹${convertedAmount} L") }
-            tvAreaSkus.text = "${element.areaRange?.from} - ${element.areaRange?.to} Sqft"
+            val areaSkus = "${element.areaRange?.from} - ${element.areaRange?.to} Sqft"
+            tvAreaSkus.text = areaSkus
             //Changing UI corresponding to application
             when (element.isApplied) {
                 true -> {
@@ -47,6 +47,7 @@ class SkuAdapter(
                     tvApplied.visibility = View.GONE
                     ivTick.visibility = View.GONE
                 }
+                else -> {}
             }
         }
 

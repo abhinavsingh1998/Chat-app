@@ -73,13 +73,13 @@ class NewInvestmentAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (list[position].viewType) {
             TYPE_NEW_LAUNCH -> {
-                (holder as NewLaunchViewHolder).bind(position)
+                (holder as NewLaunchViewHolder).bind()
             }
             TYPE_LAST_PLOTS -> {
-                (holder as LastFewPlotsViewHolder).bind(position)
+                (holder as LastFewPlotsViewHolder).bind()
             }
             TYPE_TRENDING_PROJECTS -> {
-                (holder as TrendingProjectsViewHolder).bind(position)
+                (holder as TrendingProjectsViewHolder).bind()
             }
         }
     }
@@ -88,13 +88,14 @@ class NewInvestmentAdapter(
 
     private inner class NewLaunchViewHolder(private val binding: NewInvestmentTopLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
-            binding.tvRating.text = "${
+        fun bind() {
+            val rating = "${
                 String.format(
                     " % .0f",
-                    data.pageManagementsOrNewInvestments[0].generalInfoEscalationGraph.estimatedAppreciation.toDouble()
+                    data.pageManagementsOrNewInvestments[0].generalInfoEscalationGraph.estimatedAppreciation
                 )
             }%"
+            binding.tvRating.text = rating
             binding.tvNewLaunch.text = data.page.newInvestments.displayName
             binding.tvComingSoon.text = data.page.newInvestments.subHeading
             binding.tvInvestmentProjectName.text =
@@ -149,7 +150,7 @@ class NewInvestmentAdapter(
 
     private inner class LastFewPlotsViewHolder(private val binding: LastFewPlotsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.tvSmartDealsTitle.text = data.page.collectionOne.heading
             binding.tvSmartDealsSubtitle.text = data.page.collectionOne.subHeading
             val list = data.pageManagementsOrCollectionOneModels
@@ -166,7 +167,7 @@ class NewInvestmentAdapter(
 
     private inner class TrendingProjectsViewHolder(private val binding: TrendingProjectsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.tvTrendingProjectsTitle.text = data.page.collectionTwo.heading
             binding.tvTrendingProjectsSubtitle.text = data.page.collectionTwo.subHeading
 

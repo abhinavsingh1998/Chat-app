@@ -4,11 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.emproto.hoabl.databinding.CustomImageLayoutBinding
 import com.emproto.hoabl.databinding.ItemLatestImagesVideosBinding
-import com.emproto.hoabl.model.ViewItem
 import com.emproto.hoabl.model.YoutubeModel
-import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.utils.YoutubeItemClickListener
 
 class VideoDroneAdapter(

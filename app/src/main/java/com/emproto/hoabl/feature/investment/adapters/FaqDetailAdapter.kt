@@ -90,12 +90,14 @@ class FaqDetailAdapter(
         @RequiresApi(Build.VERSION_CODES.M)
         fun bind(position: Int) {
             //Binding data
+            val project = "$projectName - FAQs"
             when (projectName) {
                 "" -> {
                     title.text = Constants.FAQS
                     title.setTextColor(title.context.getColor(R.color.app_color))
                 }
-                else -> title.text = "${projectName.toString()} - FAQs"
+
+                else -> title.text = project
             }
 
             when (fromInvestment) {

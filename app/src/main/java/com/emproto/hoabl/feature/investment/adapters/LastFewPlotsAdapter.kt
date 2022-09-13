@@ -32,14 +32,16 @@ class LastFewPlotsAdapter(
         val element = list[position]
         holder.binding.apply {
             tvItemLocationName.text = element.launchName
-            tvItemLocation.text = "${element.address.city}, ${element.address.state}"
+            val itemLocation = "${element.address.city}, ${element.address.state}"
+            tvItemLocation.text = itemLocation
             tvItemLocationInfo.text = element.shortDescription
             val amount = element.priceStartingFrom.toDouble() / 100000
             val convertedAmount = String.format("%.0f",amount)
             tvItemAmount.text = SpannableStringBuilder()
                 .bold { append("₹${convertedAmount} L") }
                 .append(Constants.ONWARDS)
-            tvRating.text = "${String.format(" % .0f", element.generalInfoEscalationGraph.estimatedAppreciation)}%"
+            val rating = "${String.format(" % .0f", element.generalInfoEscalationGraph.estimatedAppreciation)}%"
+            tvRating.text =rating
             tvNoViews.text = element.fomoContent.noOfViews.toString()
             tvItemArea.text = SpannableStringBuilder()
                 .bold { append("${element.areaStartingFrom} Sqft") }

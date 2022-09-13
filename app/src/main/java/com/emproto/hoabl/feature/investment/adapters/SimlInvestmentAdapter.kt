@@ -8,19 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.bold
-import androidx.core.text.color
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.core.Constants
 import com.emproto.core.Utility
-import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
-import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.utils.SimilarInvItemClickListener
-import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
 import com.emproto.networklayer.response.investment.SimilarInvestment
 import java.text.DecimalFormat
-import java.util.concurrent.TimeUnit
 
 class SimlInvestmentAdapter(
     val context: Context,
@@ -38,7 +33,8 @@ class SimlInvestmentAdapter(
         holder.binding.apply {
             tvNoViews.text = element.fomoContent.noOfViews.toString()
             tvItemLocationName.text = element.launchName
-            tvItemLocation.text = "${element.address?.city}, ${element.address?.state}"
+            val itemLocation = "${element.address?.city}, ${element.address?.state}"
+            tvItemLocation.text = itemLocation
             val amount = element.priceStartingFrom!!.toDouble() / 100000
             val convertedAmount = amount.toString().replace(".0", "")
             tvItemAmount.text = SpannableStringBuilder()
@@ -67,9 +63,10 @@ class SimlInvestmentAdapter(
                     val min = millisUntilFinished / 60000 % 60
                     val sec = millisUntilFinished / 1000 % 60
                     Log.d("hello","${fh.format(hour)}, ${f.format(min)}, ${f.format(sec)}")
-                    holder.binding.tvDuration.text = "${
+                    val duration = "${
                         fh.format(hour).toString() + ":" + f.format(min) + ":" + f.format(sec)
                     } Hrs Left"
+                    holder.binding.tvDuration.text = duration
                 }
 
                 override fun onFinish() {
