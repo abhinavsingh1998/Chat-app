@@ -83,13 +83,12 @@ class FmFragment : BaseFragment() {
 
     private lateinit var permissionLauncherForContacts: ActivityResultLauncher<Array<String>>
     private lateinit var permissionLauncherForUpload: ActivityResultLauncher<Array<String>>
-    private lateinit var builder:AlertDialog.Builder
 
-    val permissionRequestForContacts: MutableList<String> = ArrayList()
-    val permissionRequestForUpload: MutableList<String> = ArrayList()
+    private lateinit var builder:AlertDialog.Builder
 
     private val permissionRequestForContacts: MutableList<String> = ArrayList()
     private val permissionRequestForUpload: MutableList<String> = ArrayList()
+
 
     private var isContactPermissionGranted = false
     private var isReadPermissionGranted = false
