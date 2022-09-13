@@ -89,7 +89,6 @@ class FmFragment : BaseFragment() {
     private val permissionRequestForContacts: MutableList<String> = ArrayList()
     private val permissionRequestForUpload: MutableList<String> = ArrayList()
 
-
     private var isContactPermissionGranted = false
     private var isReadPermissionGranted = false
     private var isWritePermissionGranted = false
