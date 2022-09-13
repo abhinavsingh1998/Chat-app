@@ -5,15 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentHoabelPromisesBinding
-import com.emproto.hoabl.di.HomeAppModule_GetAppPreferenceFactory
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.promises.data.DataModel
 import com.emproto.hoabl.feature.promises.data.PromisesData
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
@@ -30,8 +27,7 @@ class HoablPromises : BaseFragment() {
     lateinit var homeFactory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
     lateinit var binding: FragmentHoabelPromisesBinding
-    private lateinit var adapter: HoabelPromiseAdapter
-    private var dataList = ArrayList<DataModel>()
+
     val bundle = Bundle()
 
     @Inject
@@ -42,11 +38,11 @@ class HoablPromises : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHoabelPromisesBinding.inflate(inflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel =
-            ViewModelProvider(requireActivity(), homeFactory).get(HomeViewModel::class.java)
+            ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
 
         (requireActivity() as HomeActivity).showHeader()
         (requireActivity() as HomeActivity).hideBackArrow()
@@ -65,7 +61,7 @@ class HoablPromises : BaseFragment() {
 
     private fun fetchPromises(refresh: Boolean) {
         homeViewModel.getPromises(ModuleEnum.PROMISES.value, refresh)
-            .observe(viewLifecycleOwner, Observer {
+            .observe(viewLifecycleOwner) {
                 when (it.status) {
                     Status.LOADING -> {
                         binding.loader.show()
@@ -76,9 +72,7 @@ class HoablPromises : BaseFragment() {
                         binding.swipeRefresh.isRefreshing = false
                         binding.loader.hide()
                         binding.listPromises.show()
-                        it.data!!.data?.let { promisesData ->
-                            showPromises(promisesData)
-                        }
+                        showPromises(it.data!!.data)
 
                     }
                     Status.ERROR -> {
@@ -88,7 +82,7 @@ class HoablPromises : BaseFragment() {
                         )
                     }
                 }
-            })
+            }
 
     }
 

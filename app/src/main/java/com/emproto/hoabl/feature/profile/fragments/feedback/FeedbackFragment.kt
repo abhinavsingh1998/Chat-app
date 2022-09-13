@@ -81,7 +81,7 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
                     binding.editIssuesLayout.boxStrokeColor = resources.getColor(R.color.app_color)
                     binding.txtcount.isVisible = false
                     binding.maxDesc.isVisible = true
-                    binding.maxDesc.text = "${description.length}/250"+" Characters"
+                    "${description.length}/250"+" Characters".also { binding.maxDesc.text = it }
                     binding.experienceTv.setTextColor(resources.getColorStateList(R.color.text_color))
                 }
 
