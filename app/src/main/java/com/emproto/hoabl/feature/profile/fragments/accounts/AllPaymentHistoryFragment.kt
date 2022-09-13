@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
@@ -65,6 +66,19 @@ class AllPaymentHistoryFragment : Fragment(),
             ViewModelProvider(requireActivity(), profileFactory)[ProfileViewModel::class.java]
         initClickListener()
         (requireActivity() as HomeActivity).hideBottomNavigation()
+        permissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+                isReadPermissionGranted =
+                    permissions[Manifest.permission.READ_EXTERNAL_STORAGE]
+                        ?: isReadPermissionGranted
+                isWritePermissionGranted = permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE]
+                    ?: isWritePermissionGranted
+
+                if (isReadPermissionGranted && isWritePermissionGranted) {
+                    openPdf(base64Data)
+                }
+            }
+
         return binding.root
     }
 
@@ -114,7 +128,7 @@ class AllPaymentHistoryFragment : Fragment(),
     }
 
     fun getDocumentData(path: String) {
-        portfolioviewmodel.downloadDocument(path)
+        profileViewModel.downloadDocument(path)
             .observe(viewLifecycleOwner,
                 androidx.lifecycle.Observer {
                     when (it.status) {
@@ -123,7 +137,7 @@ class AllPaymentHistoryFragment : Fragment(),
                         }
                         Status.SUCCESS -> {
                             binding.progressBar.hide()
-                            requestPermisson(it.data!!.data)
+                            requestPermission(it.data!!.data)
                         }
                         Status.ERROR -> {
                             (requireActivity() as HomeActivity).showErrorToast(
