@@ -699,7 +699,7 @@ class AccountDetailsFragment : Fragment(),
 
     private fun onSelectFromGalleryResult(data: Intent) {
         val selectedImage = data.data
-        var inputStream =
+        val inputStream =
             requireContext().contentResolver.openInputStream(selectedImage!!)
         try {
             bitmap = BitmapFactory.decodeStream(inputStream)
