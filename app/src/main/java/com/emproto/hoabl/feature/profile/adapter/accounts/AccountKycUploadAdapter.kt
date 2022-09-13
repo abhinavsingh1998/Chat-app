@@ -52,45 +52,48 @@ class AccountKycUploadAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvDocName.text = newList[position].documentName
-        if (newList[position].status == "UPLOAD") {
-            holder.tvUploadDoc.text = "Upload"
-            holder.tvUploadDoc.isEnabled = true
-        } else if (newList[position].status == "View") {
-            holder.tvUploadDoc.text = "View"
-            holder.tvUploadDoc.isEnabled = true
-        } else {
-            holder.tvUploadDoc.visibility=View.GONE
-            holder.viewUnderLine.visibility=View.GONE
-            holder.clStatus.visibility=View.VISIBLE
-            holder.textStatus.visibility=View.VISIBLE
-            holder.tvPreview.setOnClickListener {
-                viewListener.onAccountsKycItemClick(
-                    newList,
-                    it,
-                    position,
-                    newList[position].name,
-                    newList[position].path
-                )
+        when (newList[position].status) {
+            "UPLOAD" -> {
+                holder.tvUploadDoc.text = "Upload"
+                holder.tvUploadDoc.isEnabled = true
             }
-            holder.tvReupload.setOnClickListener {
-                if (newList[position].documentName == "Address Proof") {
-                    mListener.onUploadClick(newList, it, 200110)
-                } else if (newList[position].documentName == "PAN Card") {
-                    mListener.onUploadClick(newList, it, 200109)
+            "View" -> {
+                holder.tvUploadDoc.text = "View"
+                holder.tvUploadDoc.isEnabled = true
+            }
+            else -> {
+                holder.tvUploadDoc.visibility=View.GONE
+                holder.viewUnderLine.visibility=View.GONE
+                holder.clStatus.visibility=View.VISIBLE
+                holder.textStatus.visibility=View.VISIBLE
+                holder.tvPreview.setOnClickListener {
+                    viewListener.onAccountsKycItemClick(
+                        newList,
+                        it,
+                        position,
+                        newList[position].name,
+                        newList[position].path
+                    )
                 }
-            }
-        }
-        holder.tvUploadDoc.setOnClickListener {
-            Log.d("RRRR", newList[position].name)
-            when {
-                newList[position].status == "UPLOAD" -> {
+                holder.tvReupload.setOnClickListener {
                     if (newList[position].documentName == "Address Proof") {
                         mListener.onUploadClick(newList, it, 200110)
                     } else if (newList[position].documentName == "PAN Card") {
                         mListener.onUploadClick(newList, it, 200109)
                     }
                 }
-                newList[position].status == "View" -> {
+            }
+        }
+        holder.tvUploadDoc.setOnClickListener {
+            when (newList[position].status) {
+                "UPLOAD" -> {
+                    if (newList[position].documentName == "Address Proof") {
+                        mListener.onUploadClick(newList, it, 200110)
+                    } else if (newList[position].documentName == "PAN Card") {
+                        mListener.onUploadClick(newList, it, 200109)
+                    }
+                }
+                "View" -> {
                     viewListener.onAccountsKycItemClick(
                         newList,
                         it,

@@ -11,7 +11,10 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.media.ExifInterface
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.DocumentsContract
@@ -23,9 +26,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -66,7 +72,7 @@ class AccountDetailsFragment : Fragment(),
         const val DOC_TYPE_UNVERIFIED_ADDRESS_PROOF = 200110
     }
 
-    private lateinit var kycUploadAdapter: AccountKycUploadAdapter
+    lateinit var kycUploadAdapter: AccountKycUploadAdapter
 
     @Inject
     lateinit var profileFactory: ProfileFactory
@@ -74,34 +80,34 @@ class AccountDetailsFragment : Fragment(),
 
     lateinit var binding: FragmentAccountDetailsBinding
     val bundle = Bundle()
-    private lateinit var allPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>
+    lateinit var allPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>
 
-    private lateinit var allKycDocList: ArrayList<AccountsResponse.Data.Document>
-    private lateinit var kycLists: ArrayList<AccountsResponse.Data.Document>
-    private lateinit var documentList: ArrayList<AccountsResponse.Data.Document>
+    lateinit var allKycDocList: ArrayList<AccountsResponse.Data.Document>
+    lateinit var kycLists: ArrayList<AccountsResponse.Data.Document>
+    lateinit var documentList: ArrayList<AccountsResponse.Data.Document>
 
 
-    private lateinit var documentBinding: DocumentsBottomSheetBinding
-    private lateinit var docsBottomSheet: BottomSheetDialog
+    lateinit var documentBinding: DocumentsBottomSheetBinding
+    lateinit var docsBottomSheet: BottomSheetDialog
 
     private var cameraFile: File? = null
-    private lateinit var destinationFile: File
-    private val pickGalleryImage = 1
-    private lateinit var bitmap: Bitmap
-    private var selectedDocumentType = 0
-    private val kycUploadList = ArrayList<KycUpload>()
+    lateinit var destinationFile: File
+    private val PICK_GALLERY_IMAGE = 1
+    lateinit var bitmap: Bitmap
+    var selectedDocumentType = 0
+    val kycUploadList = ArrayList<KycUpload>()
 
     private var isReadPermissonGranted: Boolean = false
-    private var isWritePermissionGranted: Boolean = false
+    private var isWritePermissonGranted: Boolean = false
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private val permissionRequest: MutableList<String> = ArrayList()
-    private var base64Data: String = ""
+    var base64Data: String = ""
     var status = ""
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentAccountDetailsBinding.inflate(inflater, container, false)
 
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
@@ -117,10 +123,10 @@ class AccountDetailsFragment : Fragment(),
                 isReadPermissonGranted =
                     permissions[Manifest.permission.READ_EXTERNAL_STORAGE]
                         ?: isReadPermissonGranted
-                isWritePermissionGranted = permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE]
-                    ?: isWritePermissionGranted
+                isWritePermissonGranted = permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE]
+                    ?: isWritePermissonGranted
 
-                if (isReadPermissonGranted && isWritePermissionGranted) {
+                if (isReadPermissonGranted && isWritePermissonGranted) {
                     openPdf(base64Data)
                 }
             }
@@ -142,7 +148,7 @@ class AccountDetailsFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        profileViewModel.getAccountsList().observe(viewLifecycleOwner) {
+        profileViewModel.getAccountsList().observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
@@ -296,7 +302,7 @@ class AccountDetailsFragment : Fragment(),
                     (requireActivity() as HomeActivity).showErrorToast(it.message!!)
                 }
             }
-        }
+        })
     }
 
     private fun getKycList(kycLists: ArrayList<AccountsResponse.Data.Document>): Collection<KycUpload> {
@@ -345,50 +351,45 @@ class AccountDetailsFragment : Fragment(),
         }
         when (kycLists.size) {
             1 -> {
-                when (kycLists[0].documentType) {
-                    DOC_TYPE_ADDRESS_PROOF -> {
-                        val kycItem = KycUpload(
-                            "PAN Card",
-                            documentCategory = DOC_CATEGORY_KYC,
-                            documentType = DOC_TYPE_PAN_CARD,
-                            status = "UPLOAD"
-                        )
-                        kycUploadList.add(kycItem)
-                    }
-                    DOC_TYPE_UNVERIFIED_ADDRESS_PROOF -> {
-                        val kycItem = KycUpload(
-                            "PAN Card",
-                            documentCategory = DOC_CATEGORY_KYC,
-                            documentType = DOC_TYPE_PAN_CARD,
-                            status = "UPLOAD"
-                        )
-                        kycUploadList.add(kycItem)
-                    }
-                    DOC_TYPE_PAN_CARD -> {
-                        val kycItem = KycUpload(
-                            "Address Proof",
-                            documentCategory = DOC_CATEGORY_KYC,
-                            documentType = DOC_TYPE_ADDRESS_PROOF,
-                            status = "UPLOAD"
-                        )
-                        kycUploadList.add(kycItem)
-                    }
-                    else -> {
-                        val kycItem = KycUpload(
-                            "Address Proof",
-                            documentCategory = DOC_CATEGORY_KYC,
-                            documentType = DOC_TYPE_ADDRESS_PROOF,
-                            status = "UPLOAD"
-                        )
-                        kycUploadList.add(kycItem)
-                    }
+                if (kycLists[0].documentType == DOC_TYPE_ADDRESS_PROOF) {
+                    val kycItem = KycUpload(
+                        "PAN Card",
+                        documentCategory = DOC_CATEGORY_KYC,
+                        documentType = DOC_TYPE_PAN_CARD,
+                        status = "UPLOAD"
+                    )
+                    kycUploadList.add(kycItem)
+                } else if (kycLists[0].documentType == DOC_TYPE_UNVERIFIED_ADDRESS_PROOF) {
+                    val kycItem = KycUpload(
+                        "PAN Card",
+                        documentCategory = DOC_CATEGORY_KYC,
+                        documentType = DOC_TYPE_PAN_CARD,
+                        status = "UPLOAD"
+                    )
+                    kycUploadList.add(kycItem)
+                } else if (kycLists[0].documentType == DOC_TYPE_PAN_CARD) {
+                    val kycItem = KycUpload(
+                        "Address Proof",
+                        documentCategory = DOC_CATEGORY_KYC,
+                        documentType = DOC_TYPE_ADDRESS_PROOF,
+                        status = "UPLOAD"
+                    )
+                    kycUploadList.add(kycItem)
+                } else {
+                    val kycItem = KycUpload(
+                        "Address Proof",
+                        documentCategory = DOC_CATEGORY_KYC,
+                        documentType = DOC_TYPE_ADDRESS_PROOF,
+                        status = "UPLOAD"
+                    )
+                    kycUploadList.add(kycItem)
                 }
             }
         }
         return kycUploadList
     }
 
-    private val viewListener = object : AccountKycUploadAdapter.OnKycItemClickListener {
+    val viewListener = object : AccountKycUploadAdapter.OnKycItemClickListener {
         override fun onAccountsKycItemClick(
             accountsDocumentList: ArrayList<KycUpload>,
             view: View,
@@ -473,25 +474,25 @@ class AccountDetailsFragment : Fragment(),
         }
     }
 
-    private fun getDocumentData(path: String) {
+    fun getDocumentData(path: String) {
         profileViewModel.downloadDocument(path)
-            .observe(viewLifecycleOwner
-            ) {
-                when (it.status) {
-                    Status.LOADING -> {
-                        binding.progressBar.show()
+            .observe(viewLifecycleOwner,
+                androidx.lifecycle.Observer {
+                    when (it.status) {
+                        Status.LOADING -> {
+                            binding.progressBar.show()
+                        }
+                        Status.SUCCESS -> {
+                            binding.progressBar.hide()
+                            requestPermission(it.data!!.data)
+                        }
+                        Status.ERROR -> {
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                it.message!!
+                            )
+                        }
                     }
-                    Status.SUCCESS -> {
-                        binding.progressBar.hide()
-                        requestPermission(it.data!!.data)
-                    }
-                    Status.ERROR -> {
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            it.message!!
-                        )
-                    }
-                }
-            }
+                })
     }
 
     private fun requestPermission(base64: String) {
@@ -500,12 +501,12 @@ class AccountDetailsFragment : Fragment(),
             Manifest.permission.READ_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
 
-        isWritePermissionGranted = ContextCompat.checkSelfPermission(
+        isWritePermissonGranted = ContextCompat.checkSelfPermission(
             requireContext(),
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
 
-        if (!isReadPermissonGranted || !isWritePermissionGranted) {
+        if (!isReadPermissonGranted || !isWritePermissonGranted) {
             permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
             permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         } else {
@@ -533,14 +534,14 @@ class AccountDetailsFragment : Fragment(),
             try {
                 startActivity(intent)
             } catch (e: Exception) {
-                e.localizedMessage?.let { Log.e(Constants.ERROR_OPEN_PDF, it) }
+                Log.e(Constants.ERROR_OPEN_PDF, e.localizedMessage)
             }
         } else {
             (requireActivity() as HomeActivity).showErrorToast(Constants.SOMETHING_WENT_WRONG)
         }
     }
 
-    override fun onUploadClick(newList: ArrayList<KycUpload>, view: View, documentType: Int) {
+    override fun onUploadClick(kycUploadList: ArrayList<KycUpload>, view: View, documentType: Int) {
         selectImage()
         selectedDocumentType = documentType
     }
@@ -583,7 +584,29 @@ class AccountDetailsFragment : Fragment(),
         builder.show()
     }
 
-    private fun getPhotoFile(context: Context): Uri? {
+    fun isStoragePermissionGranted(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+                == PackageManager.PERMISSION_GRANTED
+            ) {
+                true
+            } else {
+                ActivityCompat.requestPermissions(
+                    this.requireActivity(),
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    1
+                )
+                false
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
+            true
+        }
+    }
+
+    fun getPhotoFile(context: Context): Uri? {
         val fileSuffix = SimpleDateFormat("yyyyMMddHHmmss").format(Date())
         cameraFile = File(context.externalCacheDir, "$fileSuffix.jpg")
         return FileProvider.getUriForFile(
@@ -593,7 +616,7 @@ class AccountDetailsFragment : Fragment(),
         )
     }
 
-    private var cameraLauncher = registerForActivityResult(
+    var cameraLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode === Activity.RESULT_OK) {
@@ -620,28 +643,28 @@ class AccountDetailsFragment : Fragment(),
         profileViewModel.uploadKycDocument(extension, destinationFile, selectedDocumentType)
             .observe(
                 viewLifecycleOwner
-            ) {
+            ) { it ->
                 when (it?.status) {
                     Status.LOADING -> {
                         binding.progressBar.show()
                     }
                     Status.SUCCESS -> {
                         binding.progressBar.hide()
-                        it.data?.let {it1->
-                            if (it1.data.response != null) {
-                                if (it1.data.response.data.name != null && it1.data.response.data.name != null) {
+                        it.data?.let {
+                            if (it.data.response != null) {
+                                if (it.data.response.data.name != null && it.data.response.data.name != null) {
                                     for (item in kycUploadList) {
                                         if (selectedDocumentType == DOC_TYPE_UNVERIFIED_ADDRESS_PROOF && item.documentName == "Address Proof") {
-                                            item.name = it1.data.response.data.name
-                                            item.path = it1.data.response.data.path
+                                            item.name = it.data.response.data.name
+                                            item.path = it.data.response.data.path
                                             item.status = "Verification Pending"
                                         } else if (selectedDocumentType == DOC_TYPE_UNVERIFIED_PAN_CARD && item.documentName == "PAN Card") {
-                                            item.name = it1.data.response.data.name
-                                            item.path = it1.data.response.data.path
+                                            item.name = it.data.response.data.name
+                                            item.path = it.data.response.data.path
                                             item.status = "Verification Pending"
                                         }
                                     }
-                                    with(kycUploadAdapter) { notifyDataSetChanged() }
+                                    kycUploadAdapter.notifyDataSetChanged()
                                     val dialog = AccountKycStatusPopUpFragment()
                                     dialog.isCancelable = false
                                     dialog.show(childFragmentManager, "submitted")
@@ -660,12 +683,11 @@ class AccountDetailsFragment : Fragment(),
                             Toast.LENGTH_LONG
                         ).show()
                     }
-                    else -> {}
                 }
             }
     }
 
-    private var resultLauncher = registerForActivityResult(
+    var resultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result != null && result.resultCode === Activity.RESULT_OK) {
@@ -711,7 +733,7 @@ class AccountDetailsFragment : Fragment(),
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == pickGalleryImage) {
+            if (requestCode == PICK_GALLERY_IMAGE) {
                 onSelectFromGalleryResult(data!!)
             } else {
                 (requireActivity() as BaseActivity).showError(
@@ -724,7 +746,7 @@ class AccountDetailsFragment : Fragment(),
 
     @SuppressLint("NewApi")
     fun getRealPathFromURI_API19(context: Context, uri: Uri): String? {
-        val isKitKat = true
+        val isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
 
         // DocumentProvider
         if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
@@ -750,16 +772,12 @@ class AccountDetailsFragment : Fragment(),
                 val split = docId.split(":".toRegex()).toTypedArray()
                 val type = split[0]
                 var contentUri: Uri? = null
-                when {
-                    Constants.IMAGE == type -> {
-                        contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                    }
-                    "video" == type -> {
-                        contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-                    }
-                    "audio" == type -> {
-                        contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-                    }
+                if (Constants.IMAGE == type) {
+                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                } else if ("video" == type) {
+                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+                } else if ("audio" == type) {
+                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
                 }
                 val selection = "_id=?"
                 val selectionArgs = arrayOf(
@@ -782,7 +800,7 @@ class AccountDetailsFragment : Fragment(),
         return null
     }
 
-    private fun isExternalStorageDocument(uri: Uri): Boolean {
+    fun isExternalStorageDocument(uri: Uri): Boolean {
         return "com.android.externalstorage.documents" == uri.authority
     }
 
@@ -790,7 +808,7 @@ class AccountDetailsFragment : Fragment(),
      * @param uri The Uri to check.
      * @return Whether the Uri authority is DownloadsProvider.
      */
-    private fun isDownloadsDocument(uri: Uri): Boolean {
+    fun isDownloadsDocument(uri: Uri): Boolean {
         return "com.android.providers.downloads.documents" == uri.authority
     }
 
@@ -798,7 +816,7 @@ class AccountDetailsFragment : Fragment(),
      * @param uri The Uri to check.
      * @return Whether the Uri authority is MediaProvider.
      */
-    private fun isMediaDocument(uri: Uri): Boolean {
+    fun isMediaDocument(uri: Uri): Boolean {
         return "com.android.providers.media.documents" == uri.authority
     }
 
@@ -806,11 +824,11 @@ class AccountDetailsFragment : Fragment(),
      * @param uri The Uri to check.
      * @return Whether the Uri authority is Google Photos.
      */
-    private fun isGooglePhotosUri(uri: Uri): Boolean {
+    fun isGooglePhotosUri(uri: Uri): Boolean {
         return "com.google.android.apps.photos.content" == uri.authority
     }
 
-    private fun getDataColumn(
+    fun getDataColumn(
         context: Context, uri: Uri?, selection: String?,
         selectionArgs: Array<String>?
     ): String? {
