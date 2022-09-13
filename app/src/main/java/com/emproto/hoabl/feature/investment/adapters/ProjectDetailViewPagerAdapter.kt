@@ -5,10 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.*
+import com.emproto.hoabl.databinding.CustomViewpagerImageLayoutBinding
+import com.emproto.hoabl.databinding.SeeAllLayoutBinding
 import com.emproto.hoabl.model.RecyclerViewItem
-import com.emproto.hoabl.model.ViewItem
 import com.emproto.hoabl.utils.ItemClickListener
 
 class ProjectDetailViewPagerAdapter(

@@ -52,7 +52,7 @@ class MediaPhotosAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (itemList[position].viewType) {
-            PHOTOS_VIEW_TYPE_ONE -> (holder as FilterViewHolder).bind(position)
+            PHOTOS_VIEW_TYPE_ONE -> (holder as FilterViewHolder).bind()
             PHOTOS_VIEW_TYPE_TWO -> (holder as PhotoViewHolder).bind(position)
         }
     }
@@ -61,8 +61,8 @@ class MediaPhotosAdapter(
 
     private inner class FilterViewHolder(val binding: MediaPhotosFilterLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
-            val list = arrayListOf<String>(
+        fun bind() {
+            val list = arrayListOf(
                 "All Photos",
                 "Plots",
                 "Roads",

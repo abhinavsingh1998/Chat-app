@@ -1,22 +1,14 @@
 package com.emproto.hoabl.feature.investment.dialogs
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Observer
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ApplyConfirmationDialogBinding
-import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
-import com.google.android.material.textview.MaterialTextView
 
 class ConfirmationDialog(
     private val investmentViewModel: InvestmentViewModel,
@@ -41,7 +33,7 @@ class ConfirmationDialog(
     }
 
     private fun setUpUI() {
-        investmentViewModel.getSku().observe(viewLifecycleOwner, Observer {
+        investmentViewModel.getSku().observe(viewLifecycleOwner) {
             it.let { data ->
                 binding.apply {
                     tvItemLandSkusName.text = data.name
@@ -49,8 +41,10 @@ class ConfirmationDialog(
                     val convertedFromAmount = String.format("%.0f", amount)
                     val amountTo = it.priceRange?.to!!.toDouble() / 100000
                     val convertedToAmount = String.format("%.0f", amountTo)
-                    tvItemLandSkusArea.text = "${data.areaRange?.from} - ${data.areaRange?.to} Sqft"
-                    tvItemLandSkusPrice.text = "₹${convertedFromAmount}L - ${convertedToAmount}L"
+                    val itemLandSkus = "${data.areaRange?.from} - ${data.areaRange?.to} Sqft"
+                    tvItemLandSkusArea.text = itemLandSkus
+                    val itemLandSkusPrice = "₹${convertedFromAmount}L - ${convertedToAmount}L"
+                    tvItemLandSkusPrice.text = itemLandSkusPrice
                     tvItemLandSkusDescription.text = data.shortDescription
                 }
                 binding.tvYesText.setOnClickListener { view ->
@@ -59,13 +53,13 @@ class ConfirmationDialog(
                 }
                 binding.tvNoText.setOnClickListener(this)
             }
-        })
+        }
     }
 
     override fun onStart() {
         super.onStart()
         val width = (resources.displayMetrics.widthPixels * 0.75).toInt()
-        val height = (resources.displayMetrics.heightPixels * 0.40).toInt()
+        (resources.displayMetrics.heightPixels * 0.40).toInt()
         dialog!!.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 

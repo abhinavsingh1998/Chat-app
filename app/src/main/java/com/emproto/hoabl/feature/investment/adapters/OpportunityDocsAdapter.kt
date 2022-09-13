@@ -40,7 +40,6 @@ class OpportunityDocsAdapter(
         const val OPP_DOCS_VIEW_TYPE_EIGHT = 8
     }
 
-    private lateinit var keyAttractionsAdapter: KeyAttractionsAdapter
     private lateinit var destinationAdapter: DestinationAdapter
     private lateinit var currentInfraStoryAdapter: CurrentInfraStoryAdapter
     private lateinit var upcomingInfraStoryAdapter: UpcomingInfraStoryAdapter
@@ -114,14 +113,14 @@ class OpportunityDocsAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (itemList[position].viewType) {
-            OPP_DOCS_VIEW_TYPE_ONE -> (holder as OppDocsTopViewHolder).bind(position)
-            OPP_DOCS_VIEW_TYPE_TWO -> (holder as OppDocsExpGrowthViewHolder).bind(position)
-            OPP_DOCS_VIEW_TYPE_THREE -> (holder as CurrentInfraStoryViewHolder).bind(position)
-            OPP_DOCS_VIEW_TYPE_FOUR -> (holder as UpcomingInfraStoryViewHolder).bind(position)
-            OPP_DOCS_VIEW_TYPE_FIVE -> (holder as OppDocsTourismViewHolder).bind(position)
-            OPP_DOCS_VIEW_TYPE_SIX -> (holder as AboutProjectViewHolder).bind(position)
-            OPP_DOCS_VIEW_TYPE_SEVEN -> (holder as ProjectAmenitiesViewHolder).bind(position)
-            OPP_DOCS_VIEW_TYPE_EIGHT -> (holder as ApplyViewHolder).bind(position)
+            OPP_DOCS_VIEW_TYPE_ONE -> (holder as OppDocsTopViewHolder).bind()
+            OPP_DOCS_VIEW_TYPE_TWO -> (holder as OppDocsExpGrowthViewHolder).bind()
+            OPP_DOCS_VIEW_TYPE_THREE -> (holder as CurrentInfraStoryViewHolder).bind()
+            OPP_DOCS_VIEW_TYPE_FOUR -> (holder as UpcomingInfraStoryViewHolder).bind()
+            OPP_DOCS_VIEW_TYPE_FIVE -> (holder as OppDocsTourismViewHolder).bind()
+            OPP_DOCS_VIEW_TYPE_SIX -> (holder as AboutProjectViewHolder).bind()
+            OPP_DOCS_VIEW_TYPE_SEVEN -> (holder as ProjectAmenitiesViewHolder).bind()
+            OPP_DOCS_VIEW_TYPE_EIGHT -> (holder as ApplyViewHolder).bind()
         }
     }
 
@@ -129,7 +128,7 @@ class OpportunityDocsAdapter(
 
     private inner class OppDocsTopViewHolder(private val binding: OppDocsTopLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.tvOppDocProjectTitle.text = data.sectionHeading.heading
             binding.tvOppDocProjectThemeTitle.text = data.sectionHeading.subHeading
             Glide
@@ -141,7 +140,7 @@ class OpportunityDocsAdapter(
 
     private inner class OppDocsExpGrowthViewHolder(private val binding: OppDocExpectedGrowthLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.tvExpectedGrowth.text = data.escalationGraph.title
             binding.tvXAxisLabel.text = data.escalationGraph.yAxisDisplayName
             binding.tvYAxisLabel.text = data.escalationGraph.xAxisDisplayName
@@ -267,7 +266,7 @@ class OpportunityDocsAdapter(
 
     private inner class CurrentInfraStoryViewHolder(private val binding: CurrentInfraStoryLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.tvCurrentInfraStory.text = data.currentInfraStory.heading
             currentInfraStoryAdapter =
                 CurrentInfraStoryAdapter(context, data.currentInfraStory.stories)
@@ -277,7 +276,7 @@ class OpportunityDocsAdapter(
 
     private inner class UpcomingInfraStoryViewHolder(private val binding: UpcomingInfraStoryLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.tvUpcomingInfraStory.text = data.upcomingInfraStory.heading
             upcomingInfraStoryAdapter =
                 UpcomingInfraStoryAdapter(context, data.upcomingInfraStory.stories)
@@ -287,7 +286,7 @@ class OpportunityDocsAdapter(
 
     private inner class OppDocsTourismViewHolder(private val binding: OppDocsDestinationLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.tvTourismAround.text = data.tourismAround.heading
             val list = arrayListOf<Story>()
             when{
@@ -369,7 +368,7 @@ class OpportunityDocsAdapter(
 
     private inner class AboutProjectViewHolder(private val binding: AboutProjectLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.apply {
                 tvAboutProjectTitle.text = data.aboutProjects.heading
                 tvAbtProjectInfo.text = context.showHTMLText(data.aboutProjects.description)
@@ -382,7 +381,7 @@ class OpportunityDocsAdapter(
 
     private inner class ProjectAmenitiesViewHolder(private val binding: ProjectAmenitiesLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.apply {
                 tvProjectAmenitiesAll.visibility = View.INVISIBLE
                 tvViewMore.visibility = View.VISIBLE
@@ -494,7 +493,7 @@ class OpportunityDocsAdapter(
 
     private inner class ApplyViewHolder(private val binding: ApplyLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             when (data.isPageFooterActive) {
                 false -> {
                     binding.tvBookingStarts.visibility = View.GONE

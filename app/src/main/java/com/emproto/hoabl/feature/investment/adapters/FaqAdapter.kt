@@ -1,17 +1,11 @@
 package com.emproto.hoabl.feature.investment.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.ItemFaqBinding
 import com.emproto.hoabl.databinding.ItemInvFaqBinding
 import com.emproto.hoabl.utils.ItemClickListener
-import com.emproto.networklayer.response.investment.CgData
 import com.emproto.networklayer.response.investment.Faq
 
 class FaqAdapter(
@@ -46,8 +40,8 @@ class FaqAdapter(
             tvFaqAnswer.text = element.faqAnswer.answer
         }
         if (faqId != null) {
-            when {
-                faqId == element.id -> {
+            when (faqId) {
+                element.id -> {
                     holder.binding.ivFaqCardDropDown.performClick()
                     itemClickListener.onItemClicked(
                         holder.binding.ivFaqCardDropDown,

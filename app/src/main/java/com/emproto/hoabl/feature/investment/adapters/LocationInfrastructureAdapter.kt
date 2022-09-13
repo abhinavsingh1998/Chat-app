@@ -41,9 +41,11 @@ class LocationInfrastructureAdapter(
 
             binding.apply {
                 tvLocationName.text = element.name
+                val locationDuration = "${element.minutes}mins"
+                val tvlocationDuration = "${element.hours}hr ${element.minutes}mins"
                 when (element.hours) {
-                    "0" -> tvLocationDuration.text = "${element.minutes}mins"
-                    else -> tvLocationDuration.text = "${element.hours}hr ${element.minutes}mins"
+                    "0" -> tvLocationDuration.text = locationDuration
+                    else -> tvLocationDuration.text = tvlocationDuration
                 }
                 Glide
                     .with(context)

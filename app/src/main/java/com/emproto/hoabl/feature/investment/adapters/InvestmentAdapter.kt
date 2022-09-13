@@ -32,7 +32,8 @@ class InvestmentAdapter(
         holder.binding.apply {
             tvNoViews.text = element.fomoContent.noOfViews.toString()
             tvItemLocationName.text = element.launchName
-            tvItemLocation.text = "${element.address?.city}, ${element.address?.state}"
+            val tvitemLocation = "${element.address?.city}, ${element.address?.state}"
+            tvItemLocation.text = tvitemLocation
             val amount = element.priceStartingFrom!!.toDouble() / 100000
             val convertedAmount = amount.toString().replace(".0", "")
             tvItemAmount.text = SpannableStringBuilder()
@@ -60,9 +61,10 @@ class InvestmentAdapter(
                     val hour = millisUntilFinished / 3600000 % 24
                     val min = millisUntilFinished / 60000 % 60
                     val sec = millisUntilFinished / 1000 % 60
-                    holder.binding.tvDuration.text = "${
+                    val durationTime = "${
                         fh.format(hour).toString() + ":" + f.format(min) + ":" + f.format(sec)
                     } Hrs Left"
+                    holder.binding.tvDuration.text = durationTime
                 }
 
                 override fun onFinish() {

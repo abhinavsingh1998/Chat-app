@@ -82,7 +82,8 @@ class LandSkusAdapter(
     private inner class LandSkusAvailableViewHolder(val binding: LandSkusTopLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
-            binding.tvLandSkusTitle.text = "${title} (${notAppliedList.size})"
+            val landSkus =  "$title (${notAppliedList.size})"
+            binding.tvLandSkusTitle.text =landSkus
             binding.tvLandSkusSubtitle.text = subtitle
             skusListAdapter = SkusListAdapter(fragment, notAppliedList, itemClickListener)
             binding.rvLandSkusItems.adapter = skusListAdapter
@@ -95,7 +96,7 @@ class LandSkusAdapter(
         fun bind() {
             arrayListOf("1", "2")
             skusListAppliedAdapter =
-                SkusListAppliedAdapter(fragment, appliedList, itemClickListener)
+                SkusListAppliedAdapter(appliedList, itemClickListener)
             binding.rvLandSkusItemsApplied.adapter = skusListAppliedAdapter
         }
     }

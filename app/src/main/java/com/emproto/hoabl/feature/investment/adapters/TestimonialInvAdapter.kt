@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.ItemTestimonialsBinding
-import com.emproto.hoabl.feature.home.adapters.TestimonialAdapter
 import com.emproto.networklayer.response.home.PageManagementsOrTestimonial
 
 class TestimonialInvAdapter(val context: Context, val list: List<PageManagementsOrTestimonial>) :
@@ -18,10 +17,12 @@ class TestimonialInvAdapter(val context: Context, val list: List<PageManagements
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val item = list.get(holder.adapterPosition)
+        val item = list[holder.adapterPosition]
 
-        holder.binding.tvName.text = item.firstName + " " + item.lastName
-        holder.binding.tvCompanyName.text = item.designation + " " + item.companyName
+        val tvName = item.firstName + " " + item.lastName
+        holder.binding.tvName.text = tvName
+        val tvCompanyName = item.designation + " " + item.companyName
+        holder.binding.tvCompanyName.text = tvCompanyName
         holder.binding.details.text = item.testimonialContent
 
     }
