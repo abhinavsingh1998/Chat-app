@@ -244,7 +244,7 @@ class ProfileFragment : BaseFragment() {
         binding.Logoutbtn.setOnClickListener {
             logoutDialog.show()
         }
-       binding.version.text = "App Version:" + BuildConfig.VERSION_NAME
+        binding.version.text = "App Version:" + BuildConfig.VERSION_NAME
 
         binding.profileOptionsRecyclerview.layoutManager = LinearLayoutManager(requireActivity())
         binding.profileOptionsRecyclerview.adapter =
@@ -467,6 +467,7 @@ class ProfileFragment : BaseFragment() {
                     binding.progressBaar.hide()
                     if (it.data != null) {
                         appPreference.saveLogin(false)
+                        appPreference.setToken("")
                         startActivity(Intent(context, AuthActivity::class.java))
                         requireActivity().finish()
                     }
@@ -477,6 +478,7 @@ class ProfileFragment : BaseFragment() {
                     Log.d("Code", "message= ${it.message.toString()}")
                     when (it.message) {
                         Constants.ACCESS_DENIED -> {
+                            appPreference.setToken("")
                             appPreference.saveLogin(false)
                             startActivity(Intent(context, AuthActivity::class.java))
                             requireActivity().finish()
