@@ -346,8 +346,6 @@ class BookingjourneyFragment : BaseFragment() {
         } else {
             (requireActivity() as HomeActivity).showErrorToast(Constants.SOMETHING_WENT_WRONG)
         }
-
-
     }
 
     fun getDocumentData(path: String) {
@@ -373,7 +371,5 @@ class BookingjourneyFragment : BaseFragment() {
 
     fun manageMyLand() {
         (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
-
     }
-
 }
