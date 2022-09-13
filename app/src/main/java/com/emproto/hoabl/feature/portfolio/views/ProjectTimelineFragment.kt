@@ -1,12 +1,9 @@
 package com.emproto.hoabl.feature.portfolio.views
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
@@ -23,15 +20,9 @@ import com.example.portfolioui.models.TimelineHeaderData
 import com.example.portfolioui.models.TimelineModel
 import javax.inject.Inject
 
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ProjectTimelineFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ProjectTimelineFragment : BaseFragment() {
     private var param1: Int = 0
     private var param2: String? = null
@@ -39,7 +30,7 @@ class ProjectTimelineFragment : BaseFragment() {
 
     @Inject
     lateinit var portfolioFactory: PortfolioFactory
-    lateinit var portfolioviewmodel: PortfolioViewModel
+    lateinit var portfolioViewModel: PortfolioViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,11 +43,11 @@ class ProjectTimelineFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         mBinding = FragmentProjectTimelineBinding.inflate(inflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
-        portfolioviewmodel = ViewModelProvider(
+        portfolioViewModel = ViewModelProvider(
             requireActivity(),
             portfolioFactory
         )[PortfolioViewModel::class.java]
@@ -66,8 +57,8 @@ class ProjectTimelineFragment : BaseFragment() {
     }
 
     private fun initObserver() {
-        portfolioviewmodel.getProjectTimeline(param1).observe(viewLifecycleOwner, Observer {
-            when (it.status) {
+        portfolioViewModel.getProjectTimeline(param1).observe(viewLifecycleOwner) { response ->
+            when (response.status) {
                 Status.LOADING -> {
                     mBinding.loader.show()
                     mBinding.rootView.hide()
@@ -75,7 +66,7 @@ class ProjectTimelineFragment : BaseFragment() {
                 Status.SUCCESS -> {
                     mBinding.loader.hide()
                     mBinding.rootView.show()
-                    it.data?.let {
+                    response.data?.let {
                         val timelineList = ArrayList<TimelineModel>()
                         val timelineHeaderData = TimelineHeaderData(
                             it.data.projectContent.launchName,
@@ -105,7 +96,7 @@ class ProjectTimelineFragment : BaseFragment() {
                                 object : TimelineAdapter.TimelineInterface {
                                     override fun onClickVDetails(name: String, url: String) {
                                         //open image viewer
-                                        getUrl(name, url)
+                                        getUrl(name)
                                     }
 
                                     override fun onClickReraDetails(url: String) {
@@ -125,7 +116,7 @@ class ProjectTimelineFragment : BaseFragment() {
                                     }
 
                                     override fun onClickLand() {
-                                        getLandManagment()
+                                        getLandManagement()
                                     }
 
                                 })
@@ -138,11 +129,11 @@ class ProjectTimelineFragment : BaseFragment() {
                 Status.ERROR -> {
                     mBinding.loader.hide()
                     (requireActivity() as HomeActivity).showErrorToast(
-                        it.message!!
+                        response.message!!
                     )
                 }
             }
-        })
+        }
     }
 
     private fun initView() {
@@ -170,29 +161,27 @@ class ProjectTimelineFragment : BaseFragment() {
             }
     }
 
-    fun getLandManagment() {
-
+    fun getLandManagement() {
         (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
     }
 
-
-    private fun getUrl(category: String, url: String) {
-        val categoryType = when (category) {
+    private fun getUrl(category: String) {
+        when (category) {
             "Project Design & Boundary" -> "4001"
             "Infrastructure & Amenities Development" -> "4003"
             "Plot Delivery" -> ""
             else -> ""
         }
-        portfolioviewmodel.getProjectTimelineMedia(
+        portfolioViewModel.getProjectTimelineMedia(
             category = category, projectContentId = param1.toString()
-        ).observe(viewLifecycleOwner, Observer {
-            when (it.status) {
+        ).observe(viewLifecycleOwner) { response ->
+            when (response.status) {
                 Status.LOADING -> {
                     mBinding.loader.show()
                 }
                 Status.SUCCESS -> {
                     mBinding.loader.hide()
-                    it.data?.let {
+                    response.data?.let {
                         if (it.data.isNotEmpty()) {
                             (requireActivity() as HomeActivity).addFragment(
                                 DocViewerFragment.newInstance(
@@ -212,6 +201,6 @@ class ProjectTimelineFragment : BaseFragment() {
                     )
                 }
             }
-        })
+        }
     }
 }

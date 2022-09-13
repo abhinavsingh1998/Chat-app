@@ -7,10 +7,6 @@ import android.view.WindowManager
 
 class CustomDialog(context: Context) : Dialog(context) {
 
-    fun setFullWidth() {
-
-    }
-
     override fun show() {
         super.show()
         val window = this.getWindow()
