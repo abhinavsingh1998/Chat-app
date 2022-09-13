@@ -157,15 +157,15 @@ class HelpCenterFragment : BaseFragment() {
                     )
                 }
 
-                override fun onPhoneNumberClick(position: Int) {
-                    val u = Uri.parse("tel:" +Constants.TELEPHONE_NO )
-                    val intent = Intent(Intent.ACTION_DIAL, u)
-                    try {
-                        startActivity(intent)
-                    } catch (s: SecurityException) {
-                        Toast.makeText(context, Constants.AN_ERROR_OCCURRED, Toast.LENGTH_LONG).show()
-                    }
-                }
+//                override fun onPhoneNumberClick(position: Int) {
+//                    val u = Uri.parse("tel:" +Constants.TELEPHONE_NO )
+//                    val intent = Intent(Intent.ACTION_DIAL, u)
+//                    try {
+//                        startActivity(intent)
+//                    } catch (s: SecurityException) {
+//                        Toast.makeText(context, Constants.AN_ERROR_OCCURRED, Toast.LENGTH_LONG).show()
+//                    }
+//                }
 
                 override fun onEmailClick(position: Int) {
                     val intent = Intent(Intent.ACTION_SENDTO)
