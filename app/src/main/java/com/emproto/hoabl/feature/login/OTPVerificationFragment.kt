@@ -481,7 +481,10 @@ class OTPVerificationFragment : BaseFragment() {
             }
 
         }.start()
-        counter += 15000
+
+        if (counter<120000){
+            counter += 15000
+        }
     }
 
     @SuppressLint("ResourceType")

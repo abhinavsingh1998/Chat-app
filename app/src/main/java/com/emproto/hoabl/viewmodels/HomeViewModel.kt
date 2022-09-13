@@ -92,8 +92,8 @@ class HomeViewModel(
         return promise
     }
 
-    fun getDashBoardData(pageType: Int, refresh: Boolean,size:Int, index:Int): LiveData<BaseResponse<HomeResponse>> {
-        return homeRepository.getDashboardData(pageType, refresh, size, index )
+    fun getDashBoardData(pageType: Int, refresh: Boolean): LiveData<BaseResponse<HomeResponse>> {
+        return homeRepository.getDashboardData(pageType, refresh)
     }
 
     fun setDashBoardData(data: HomeResponse) {

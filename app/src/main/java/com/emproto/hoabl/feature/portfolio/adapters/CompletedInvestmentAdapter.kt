@@ -136,7 +136,7 @@ class CompletedInvestmentAdapter(
 
             }
             Glide.with(context)
-                .load(project.project.projectIcon.value.url)
+                .load(project?.project?.projectIcon?.value?.url)
                 .into(holder.binding.ivCompletedInvestmentImage)
 
         }

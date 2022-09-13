@@ -97,8 +97,6 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
     fun getDashboardData(
         pageType: Int,
         refresh: Boolean = false,
-        size:Int,
-        index:Int
     ): LiveData<BaseResponse<HomeResponse>> {
 
         if (mHomeResponse.value == null || refresh) {
