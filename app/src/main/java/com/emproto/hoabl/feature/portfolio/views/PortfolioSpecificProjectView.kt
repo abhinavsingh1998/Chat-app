@@ -220,7 +220,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
             if (filteredPayments.isNotEmpty()) {
                 list.add(
                     RecyclerViewItem(
-                        PortfolioSpecificViewAdapter.PORTFOLIO_PENDING_CARD,
+                        PortfolioSpecificViewAdapter.PORTFOLIO_PENDINGCARD,
                         filteredPayments, iea, 0.0, it.data.investmentInformation.id
                     )
                 )
@@ -315,7 +315,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
         }
 
         //adding refer now
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_REFER_NOW))
+        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_REFERNOW))
 
         //adding faq section
         if (it.data.projectInformation.projectContentsAndFaqs != null) {
@@ -334,7 +334,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
             if (it.data.projectInformation.similarInvestments.isNotEmpty()) {
                 list.add(
                     RecyclerViewItem(
-                        PortfolioSpecificViewAdapter.PORTFOLIO_SIMILAR_INVESTMENT,
+                        PortfolioSpecificViewAdapter.PORTFOLIO_SIMILER_INVESTMENT,
                         it.data.projectInformation.similarInvestments
                     )
                 )
@@ -404,7 +404,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         )
                     }
 
-                    override fun onApplyInvestment(project: Int) {
+                    override fun onApplySinvestment(project: Int) {
                         val fragment = LandSkusFragment()
                         val bundle = Bundle()
                         bundle.putInt("ProjectId", project)
