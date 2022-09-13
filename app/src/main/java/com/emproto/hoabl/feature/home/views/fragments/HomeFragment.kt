@@ -21,7 +21,7 @@ import com.emproto.hoabl.feature.home.data.LatesUpdatesPosition
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
-import com.emproto.hoabl.feature.portfolio.views.BookingjourneyFragment
+import com.emproto.hoabl.feature.portfolio.views.BookingJourneyFragment
 import com.emproto.hoabl.feature.promises.HoablPromises
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.model.RecyclerViewItem
@@ -428,7 +428,7 @@ class HomeFragment : BaseFragment() {
                         portfolioViewModel.saveBookingHeader(bjHeader)
 
                         (requireActivity() as HomeActivity).addFragment(
-                            BookingjourneyFragment.newInstance(
+                            BookingJourneyFragment.newInstance(
                                 actionItemData.investmentId,
                                 ""
                             ), true

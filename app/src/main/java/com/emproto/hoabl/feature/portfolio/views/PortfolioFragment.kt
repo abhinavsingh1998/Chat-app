@@ -2,31 +2,23 @@ package com.emproto.hoabl.feature.portfolio.views
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
-import android.app.Dialog
 import android.app.KeyguardManager
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
-import com.emproto.core.Utility
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentPortfolioBinding
@@ -39,7 +31,6 @@ import com.emproto.hoabl.feature.portfolio.adapters.ExistingUsersPortfolioAdapte
 import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
-import com.emproto.networklayer.ApiConstants
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.portfolio.dashboard.InvestmentHeadingDetails
@@ -50,13 +41,12 @@ import com.example.portfolioui.databinding.DailogLockPermissonBinding
 import com.example.portfolioui.databinding.DailogSecurePinConfirmationBinding
 import com.example.portfolioui.databinding.DialogAllowPinBinding
 import com.example.portfolioui.databinding.DialogSecurePinBinding
-import okhttp3.ResponseBody
-import java.io.File
 import java.io.Serializable
 import java.util.concurrent.Executor
 import javax.inject.Inject
 
 
+@Suppress("DEPRECATION")
 class PortfolioFragment : BaseFragment(), View.OnClickListener,
     ExistingUsersPortfolioAdapter.ExistingUserInterface {
 
@@ -66,36 +56,35 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     }
 
     lateinit var binding: FragmentPortfolioBinding
-    lateinit var keyguardManager: KeyguardManager
+    private lateinit var keyguardManager: KeyguardManager
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
 
     @Inject
     lateinit var portfolioFactory: PortfolioFactory
-    lateinit var portfolioviewmodel: PortfolioViewModel
+    lateinit var portfolioViewModel: PortfolioViewModel
 
     @Inject
     lateinit var appPreference: AppPreference
-    lateinit var pinPermissonDialog: DailogLockPermissonBinding
-    lateinit var pinAllowDailog: DialogAllowPinBinding
+    private lateinit var pinPermissionDialog: DailogLockPermissonBinding
+    private lateinit var pinAllowDialog: DialogAllowPinBinding
 
-    lateinit var dialogSecurePinBinding: DialogSecurePinBinding
-    lateinit var dialogSecurePinConfirmationBinding: DailogSecurePinConfirmationBinding
+    private lateinit var dialogSecurePinBinding: DialogSecurePinBinding
+    private lateinit var dialogSecurePinConfirmationBinding: DailogSecurePinConfirmationBinding
 
     lateinit var securePinDialog: CustomDialog
-    lateinit var securePinConfirmationDialog: CustomDialog
+    private lateinit var securePinConfirmationDialog: CustomDialog
 
-    lateinit var pinDialog: CustomDialog
-    lateinit var pinAllowD: CustomDialog
+    private lateinit var pinDialog: CustomDialog
+    private lateinit var pinAllowD: CustomDialog
     var watchList = ArrayList<Data>()
 
     private lateinit var adapter: ExistingUsersPortfolioAdapter
-    val permissionRequest: MutableList<String> = ArrayList()
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
-    var isReadPermissonGranted: Boolean = false
-    var investmentId = 0
-    var dontMissoutId = 0
+    private var isReadPermissionGranted: Boolean = false
+    private var investmentId = 0
+    private var doNotMissOutId = 0
 
 
     override fun onCreateView(
@@ -105,15 +94,15 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     ): View {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         binding = FragmentPortfolioBinding.inflate(layoutInflater)
-        portfolioviewmodel = ViewModelProvider(
+        portfolioViewModel = ViewModelProvider(
             requireActivity(),
             portfolioFactory
         )[PortfolioViewModel::class.java]
 
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-                isReadPermissonGranted =
-                    permissions[Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissonGranted
+                isReadPermissionGranted =
+                    permissions[Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissionGranted
             }
 
         initViews()
@@ -133,8 +122,8 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         (requireActivity() as HomeActivity).showBottomNavigation()
         (requireActivity() as HomeActivity).hideBackArrow()
 
-        pinPermissonDialog = DailogLockPermissonBinding.inflate(layoutInflater)
-        pinAllowDailog = DialogAllowPinBinding.inflate(layoutInflater)
+        pinPermissionDialog = DailogLockPermissonBinding.inflate(layoutInflater)
+        pinAllowDialog = DialogAllowPinBinding.inflate(layoutInflater)
         dialogSecurePinBinding = DialogSecurePinBinding.inflate(layoutInflater)
         dialogSecurePinConfirmationBinding =
             DailogSecurePinConfirmationBinding.inflate(layoutInflater)
@@ -144,10 +133,10 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         securePinDialog = CustomDialog(requireContext())
         securePinConfirmationDialog = CustomDialog(requireContext())
 
-        pinDialog.setContentView(pinPermissonDialog.root)
+        pinDialog.setContentView(pinPermissionDialog.root)
         pinDialog.setCancelable(false)
 
-        pinAllowD.setContentView(pinAllowDailog.root)
+        pinAllowD.setContentView(pinAllowDialog.root)
         pinAllowD.setCancelable(false)
 
         securePinDialog.setContentView(dialogSecurePinBinding.root)
@@ -156,7 +145,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         securePinConfirmationDialog.setContentView(dialogSecurePinConfirmationBinding.root)
         securePinConfirmationDialog.setCancelable(false)
 
-        pinPermissonDialog.tvActivate.setOnClickListener {
+        pinPermissionDialog.tvActivate.setOnClickListener {
             //activate pin
             appPreference.activatePin(true)
             appPreference.savePinDialogStatus(true)
@@ -165,15 +154,12 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             //setUpUI(true)
         }
 
-        pinPermissonDialog.tvDontallow.setOnClickListener {
-            //dont show dialog again
-            //setUpUI(true)
-            //appPreference.savePinDialogStatus(true)
+        pinPermissionDialog.tvDontallow.setOnClickListener {
             pinDialog.dismiss()
             pinAllowD.show()
 
         }
-        pinAllowDailog.tvActivate.setOnClickListener {
+        pinAllowDialog.tvActivate.setOnClickListener {
             //setUpUI(true)
             //appPreference.savePinDialogStatus(true)
             pinAllowD.dismiss()
@@ -188,12 +174,10 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                 setUpInitialUI()
                 setUpAuthentication()
             } else {
-                //normal flow
-                setUpUI(true)
+                setUpUI()
             }
 
         } else {
-            //show pin permisson dialog
             pinDialog.show()
         }
         setUpClickListeners()
@@ -207,7 +191,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             startActivityForResult(
                 Intent(android.provider.Settings.ACTION_SETTINGS),
                 SETTING_REQUEST_CODE
-            );
+            )
             securePinDialog.dismiss()
         }
 
@@ -223,7 +207,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
         dialogSecurePinConfirmationBinding.actionYes.setOnClickListener {
             securePinConfirmationDialog.dismiss()
-            setUpUI(true)
+            setUpUI()
             (requireActivity() as HomeActivity).fingerprintValidation(true)
         }
     }
@@ -245,23 +229,30 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                     super.onAuthenticationError(errorCode, errString)
-                    if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
-                        setUpKeyGuardManager()
-                    } else if (errorCode == BiometricPrompt.ERROR_NO_BIOMETRICS) {
-                        //user doesn't have any biometric
-                        //show dialog here.
-                        //setUpUI(true)
-                        securePinDialog.show()
-                    } else if (errorCode == BiometricPrompt.ERROR_USER_CANCELED) {
-                        (requireActivity() as HomeActivity).onBackPressed()
-                    } else if (errorCode == BiometricPrompt.ERROR_NO_DEVICE_CREDENTIAL) {
-                        //no enrollment
+                    when (errorCode) {
+                        BiometricPrompt.ERROR_NEGATIVE_BUTTON -> {
+                            setUpKeyGuardManager()
+                        }
+                        BiometricPrompt.ERROR_NO_BIOMETRICS -> {
+                            //user doesn't have any biometric
+                            //show dialog here.
+                            //setUpUI(true)
+                            securePinDialog.show()
+                        }
+                        BiometricPrompt.ERROR_USER_CANCELED -> {
+                            (requireActivity() as HomeActivity).onBackPressed()
+                        }
+                        BiometricPrompt.ERROR_NO_DEVICE_CREDENTIAL -> {
+                            //no enrollment
 
-                    } else if (errorCode == BiometricPrompt.ERROR_HW_NOT_PRESENT) {
-                        //setUpUI(true)
-                        setUpKeyGuardManager()
-                    } else {
-                        setUpUI(true)
+                        }
+                        BiometricPrompt.ERROR_HW_NOT_PRESENT -> {
+                            //setUpUI(true)
+                            setUpKeyGuardManager()
+                        }
+                        else -> {
+                            setUpUI()
+                        }
                     }
                 }
 
@@ -270,12 +261,9 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                 ) {
                     super.onAuthenticationSucceeded(result)
                     (requireActivity() as HomeActivity).fingerprintValidation(true)
-                    setUpUI(true)
+                    setUpUI()
                 }
 
-                override fun onAuthenticationFailed() {
-                    super.onAuthenticationFailed()
-                }
             })
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
@@ -297,14 +285,14 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             if (intent != null)
                 startActivityForResult(intent, mRequestCode)
             else {
-                setUpUI(true)
+                setUpUI()
             }
         } else {
 
         }
     }
 
-    private fun setUpUI(authenticated: Boolean = false) {
+    private fun setUpUI() {
         fetchUserPortfolio(false)
         binding.refreshLayout.setOnRefreshListener {
             binding.refreshLayout.isRefreshing = true
@@ -314,7 +302,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
     private fun fetchUserPortfolio(refresh: Boolean) {
         if (isNetworkAvailable()) {
-            portfolioviewmodel.getPortfolioDashboard(refresh)
+            portfolioViewModel.getPortfolioDashboard(refresh)
                 .observe(viewLifecycleOwner, Observer { it ->
                     when (it.status) {
                         Status.LOADING -> {
@@ -363,8 +351,12 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     }
 
     private fun observePortFolioData(portfolioData: PortfolioData) {
+        if (portfolioData.data.pageManagement != null && portfolioData.data.pageManagement.data != null && portfolioData.data.pageManagement.data.page.facilityManagement != null) {
+            appPreference.setFacilityCard(portfolioData.data.pageManagement.data.isFacilityVisible)
+            appPreference.saveOfferUrl(portfolioData.data.pageManagement.data.page.facilityManagement.value.url)
+        }
 
-        portfolioData.let {
+        portfolioData.let { data ->
             val list = ArrayList<PortfolioModel>()
             list.add(
                 PortfolioModel(
@@ -372,29 +364,29 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                     portfolioData.data.pageManagement
                 )
             )
-            if (it.data.summary.completed.count > 0) {
+            if (data.data.summary.completed.count > 0) {
                 list.add(
                     PortfolioModel(
                         ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED,
-                        it.data.summary
+                        data.data.summary
                     )
                 )
             }
-            if (it.data.summary.ongoing.count > 0) {
+            if (data.data.summary.ongoing.count > 0) {
                 list.add(
                     PortfolioModel(
                         ExistingUsersPortfolioAdapter.TYPE_SUMMARY_ONGOING,
-                        it.data.summary.ongoing
+                        data.data.summary.ongoing
                     )
                 )
             }
             list.add(
                 PortfolioModel(
                     ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
-                    it.data.projects.filter { it.investment.isBookingComplete }
+                    data.data.projects.filter { it.investment.isBookingComplete }
                 )
             )
-            val onGoingProjects = it.data.projects.filter { !it.investment.isBookingComplete }
+            val onGoingProjects = data.data.projects.filter { !it.investment.isBookingComplete }
             if (onGoingProjects.isNotEmpty()) {
                 investmentId = onGoingProjects[0].investment.id
             }
@@ -408,7 +400,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                 portfolioData.data.pageManagement.data != null &&
                 portfolioData.data.pageManagement.data.page.isPromotionAndOfferActive
             ) {
-                dontMissoutId =
+                doNotMissOutId =
                     portfolioData.data.pageManagement.data.page.promotionAndOffersProjectContentId
                 list.add(
                     PortfolioModel(
@@ -418,12 +410,12 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                 )
             }
 
-            if (it.data.watchlist != null && it.data.watchlist.isNotEmpty()) {
+            if (data.data.watchlist != null && data.data.watchlist.isNotEmpty()) {
                 watchList.clear()
-                watchList.addAll(it.data.watchlist)
+                watchList.addAll(data.data.watchlist)
                 list.add(
                     PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_WATCHLIST, it.data.watchlist
+                        ExistingUsersPortfolioAdapter.TYPE_WATCHLIST, data.data.watchlist
                     )
                 )
             }
@@ -448,6 +440,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
@@ -455,7 +448,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                 when (resultCode) {
                     RESULT_OK -> {
                         (requireActivity() as HomeActivity).fingerprintValidation(true)
-                        setUpUI(true)
+                        setUpUI()
                     }
                 }
             }
@@ -488,8 +481,8 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         arguments.putString("IEA", iea)
         arguments.putDouble("EA", ea)
         portfolioSpecificProjectView.arguments = arguments
-        portfolioviewmodel.setprojectAddress(otherDetails)
-        portfolioviewmodel.saveHeadingDetails(headingDetails)
+        portfolioViewModel.setprojectAddress(otherDetails)
+        portfolioViewModel.saveHeadingDetails(headingDetails)
         (requireActivity() as HomeActivity).addFragment(portfolioSpecificProjectView, true)
     }
 
@@ -517,7 +510,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
     override fun onGoingDetails() {
         (requireActivity() as HomeActivity).addFragment(
-            BookingjourneyFragment.newInstance(
+            BookingJourneyFragment.newInstance(
                 investmentId,
                 ""
             ), true
@@ -549,47 +542,12 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
     override fun dontMissoutCard() {
         val bundle = Bundle()
-        bundle.putInt(Constants.PROJECT_ID, dontMissoutId)
+        bundle.putInt(Constants.PROJECT_ID, doNotMissOutId)
         val fragment = ProjectDetailFragment()
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(
             fragment, true
         )
     }
-
-    private fun setUpRecyclerView() {
-        val list = ArrayList<PortfolioModel>()
-        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_HEADER))
-        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED))
-        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_SUMMARY_ONGOING))
-//        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT))
-//        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT))
-        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_NUDGE_CARD))
-        //list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_WATCHLIST))
-        list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_REFER))
-        adapter = ExistingUsersPortfolioAdapter(
-            requireActivity(),
-            list,
-            this@PortfolioFragment
-        )
-        binding.financialRecycler.adapter = adapter
-    }
-
-    private fun requestPermisson() {
-        isReadPermissonGranted = ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED
-
-        if (!isReadPermissonGranted) {
-            permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
-            permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        }
-        if (permissionRequest.isNotEmpty()) {
-            permissionLauncher.launch(permissionRequest.toTypedArray())
-        }
-
-    }
-
 
 }
