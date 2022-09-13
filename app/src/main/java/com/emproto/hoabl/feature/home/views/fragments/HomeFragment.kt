@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.home.views.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -106,118 +107,8 @@ class HomeFragment : BaseFragment() {
     private fun initObserver(refresh: Boolean) {
 
         if (isNetworkAvailable()) {
-            homeViewModel.getDashBoardData(ModuleEnum.HOME.value, refresh, 20, 1)
-                .observe(viewLifecycleOwner, object : Observer<BaseResponse<HomeResponse>> {
-                    override fun onChanged(it: BaseResponse<HomeResponse>?) {
-                        when (it!!.status) {
-                            Status.LOADING -> {
-                                binding.dashBoardRecyclerView.hide()
-                                binding.noInternetView.mainContainer.hide()
-                                (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.hide()
-                                (requireActivity() as HomeActivity).hideHeader()
-                                (requireActivity() as HomeActivity).hideBottomNavigation()
-                                binding.shimmerLayout.shimmerViewContainer.show()
-
-                            }
-                            Status.SUCCESS -> {
-                                binding.dashBoardRecyclerView.show()
-                                binding.noInternetView.mainContainer.hide()
-                                (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.show()
-                                binding.shimmerLayout.shimmerViewContainer.hide()
-                                (requireActivity() as HomeActivity).showHeader()
-                                (requireActivity() as HomeActivity).showBottomNavigation()
-                                binding.refressLayout.isRefreshing = false
-                                setParentRecycler(it.data!!.data)
-                                appPreference.saveUserType(it?.data?.data!!.contactType)
-
-                                homeData = it!!.data!!.data
-                                latestUptaesListCount = it!!.data!!.data.page.totalUpdatesOnListView
-                                InsightsListCount = it!!.data!!.data.page.totalInsightsOnListView
-                                testimonialsListCount =
-                                    it!!.data!!.data.page.totalTestimonialsOnListView
-                                appPreference.setPromisesCount(it!!.data!!.data.page.totalPromisesOnHomeScreen)
-
-                                homeViewModel.setHeaderAndList(it!!.data!!.data.page)
-                                testimonilalsHeading = it!!.data!!.data.page.testimonialsHeading
-                                testimonilalsSubHeading =
-                                    it!!.data!!.data.page.testimonialsSubHeading
-
-                                if (it!!.data!!.data.actionItem != null) {
-                                    for (item in it!!.data!!.data!!.actionItem) {
-                                        actionItemType.add(item)
-                                    }
-                                }
-
-                                it.data.let {
-                                    if (it != null) {
-                                        projectId = it.data.page.promotionAndOffersProjectContentId
-                                        appPreference.saveOfferId(projectId)
-                                        //appPreference.saveOfferUrl(it.data.page.promotionAndOffersMedia.value.url)
-                                        homeViewModel.setDashBoardData(it)
-                                        appPreference.setFacilityCard(it.data.isFacilityVisible)
-                                    }
-                                }
-
-                                (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.headset.setOnClickListener {
-                                    val bundle = Bundle()
-                                    val chatsFragment = ChatsFragment()
-                                    chatsFragment.arguments = bundle
-                                    (requireActivity() as HomeActivity).replaceFragment(
-                                        chatsFragment.javaClass,
-                                        "",
-                                        true,
-                                        bundle,
-                                        null,
-                                        0,
-                                        true
-                                    )
-                                }
-
-                                if(appPreference.isFacilityCard()){
-                                    val item = (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.menu.getItem(3)
-                                    item.title = "My Services"
-                                }
-
-                            }
-                            Status.ERROR -> {
-                                binding.shimmerLayout.shimmerViewContainer.hide()
-                                (requireActivity() as HomeActivity).showErrorToast(
-                                    it.message!!
-                                )
-                                binding.dashBoardRecyclerView.show()
-                            }
-                        }
-                    }
-
-                })
-
-            homeViewModel.getNewNotification(20,1, refresh )
-                .observe(viewLifecycleOwner, object : Observer<BaseResponse<NotificationResponse>>{
-                    override fun onChanged(it: BaseResponse<NotificationResponse>?) {
-                        when (it!!.status){
-                            Status.SUCCESS ->{
-                                if (it?.data?.data!=null){
-                                    var itemList = ArrayList<Int>()
-                                    for (i in 0..it.data?.data!!.size - 1) {
-                                        if (!it!!.data!!.data[i].readStatus) {
-                                            itemList.add(it!!.data!!.data[i].id)
-                                        }
-                                    }
-
-                                    if(itemList.isEmpty()){
-                                        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.notification.setImageDrawable(
-                                            resources.getDrawable(R.drawable.ic_notification_inactive))
-                                    } else{
-                                        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.notification.setImageDrawable(
-                                            resources.getDrawable(R.drawable.ic_notification))
-
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                })
+            getDashBoardData(refresh)
+            getNewNotification(refresh)
 
             if (appPreference.isFacilityCard()){
                 homeViewModel.getFacilityManagment()
@@ -244,19 +135,149 @@ class HomeFragment : BaseFragment() {
             }
 
         } else {
-            binding.refressLayout.isRefreshing = false
-            (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.hide()
-            binding.shimmerLayout.shimmerViewContainer.hide()
-            (requireActivity() as HomeActivity).showHeader()
-            (requireActivity() as HomeActivity).showBottomNavigation()
-            binding.dashBoardRecyclerView.hide()
-            binding.noInternetView.mainContainer.show()
-            binding.noInternetView.textView6.setOnClickListener(View.OnClickListener {
-                initObserver(true)
-            })
+            noNetworkSatate()
         }
     }
 
+    private fun getDashBoardData(refresh: Boolean){
+
+        homeViewModel.getDashBoardData(ModuleEnum.HOME.value, refresh)
+            .observe(viewLifecycleOwner, object : Observer<BaseResponse<HomeResponse>> {
+                override fun onChanged(it: BaseResponse<HomeResponse>?) {
+                    when (it!!.status) {
+                        Status.LOADING -> {
+                            loadingState()
+                        }
+                        Status.SUCCESS -> {
+                            successState()
+                            setParentRecycler(it.data!!.data)
+                            appPreference.saveUserType(it?.data?.data!!.contactType)
+
+                            homeData = it!!.data!!.data
+                            latestUptaesListCount = it!!.data!!.data.page.totalUpdatesOnListView
+                            InsightsListCount = it!!.data!!.data.page.totalInsightsOnListView
+                            testimonialsListCount =
+                                it!!.data!!.data.page.totalTestimonialsOnListView
+                            appPreference.setPromisesCount(it!!.data!!.data.page.totalPromisesOnHomeScreen)
+
+                            homeViewModel.setHeaderAndList(it!!.data!!.data.page)
+                            testimonilalsHeading = it!!.data!!.data.page.testimonialsHeading
+                            testimonilalsSubHeading =
+                                it!!.data!!.data.page.testimonialsSubHeading
+
+                            if (it!!.data!!.data.actionItem != null) {
+                                for (item in it!!.data!!.data!!.actionItem) {
+                                    actionItemType.add(item)
+                                }
+                            }
+                            it.data.let {
+                                if (it != null) {
+                                    projectId = it.data.page.promotionAndOffersProjectContentId
+                                    appPreference.saveOfferId(projectId)
+                                    //appPreference.saveOfferUrl(it.data.page.promotionAndOffersMedia.value.url)
+                                    homeViewModel.setDashBoardData(it)
+                                    appPreference.setFacilityCard(it.data.isFacilityVisible)
+                                }
+                            }
+
+                            chatNavigation()
+
+                            if(appPreference.isFacilityCard()){
+                                val item = (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.menu.getItem(3)
+                                item.title = "My Services"
+                            }
+
+                        }
+                        Status.ERROR -> {
+                            binding.shimmerLayout.shimmerViewContainer.hide()
+                            (requireActivity() as HomeActivity).showErrorToast(
+                                it.message!!
+                            )
+                            binding.dashBoardRecyclerView.show()
+                        }
+                    }
+                }
+
+            })
+
+    }
+
+    private fun loadingState(){
+        binding.dashBoardRecyclerView.hide()
+        binding.noInternetView.mainContainer.hide()
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.hide()
+        (requireActivity() as HomeActivity).hideHeader()
+        (requireActivity() as HomeActivity).hideBottomNavigation()
+        binding.shimmerLayout.shimmerViewContainer.show()
+    }
+
+    private fun successState(){
+        binding.dashBoardRecyclerView.show()
+        binding.noInternetView.mainContainer.hide()
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.show()
+        binding.shimmerLayout.shimmerViewContainer.hide()
+        (requireActivity() as HomeActivity).showHeader()
+        (requireActivity() as HomeActivity).showBottomNavigation()
+        binding.refressLayout.isRefreshing = false
+    }
+
+    private fun chatNavigation(){
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.headset.setOnClickListener {
+            val bundle = Bundle()
+            val chatsFragment = ChatsFragment()
+            chatsFragment.arguments = bundle
+            (requireActivity() as HomeActivity).replaceFragment(chatsFragment.javaClass,
+                "",
+                true,
+                bundle,
+                null,
+                0,
+                true
+            )
+        }
+    }
+
+    private fun noNetworkSatate(){
+        binding.refressLayout.isRefreshing = false
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.hide()
+        binding.shimmerLayout.shimmerViewContainer.hide()
+        (requireActivity() as HomeActivity).showHeader()
+        (requireActivity() as HomeActivity).showBottomNavigation()
+        binding.dashBoardRecyclerView.hide()
+        binding.noInternetView.mainContainer.show()
+        binding.noInternetView.textView6.setOnClickListener(View.OnClickListener {
+            initObserver(true)
+        })
+    }
+
+    private fun getNewNotification (refresh: Boolean){
+        homeViewModel.getNewNotification(20,1, refresh )
+            .observe(viewLifecycleOwner, object : Observer<BaseResponse<NotificationResponse>>{
+                override fun onChanged(it: BaseResponse<NotificationResponse>?) {
+                    when (it!!.status){
+                        Status.SUCCESS ->{
+                            if (it?.data?.data!=null){
+                                var itemList = ArrayList<Int>()
+                                for (i in 0..it.data?.data!!.size - 1) {
+                                    if (!it!!.data!!.data[i].readStatus) {
+                                        itemList.add(it!!.data!!.data[i].id)
+                                    }
+                                }
+                                if(itemList.isEmpty()){
+                                    (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.notification.setImageDrawable(
+                                        resources.getDrawable(R.drawable.ic_notification_inactive))
+                                } else{
+                                    (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.notification.setImageDrawable(
+                                        resources.getDrawable(R.drawable.ic_notification))
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+            })
+    }
 
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
