@@ -21,7 +21,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
-import android.view.View.GONE
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -78,11 +77,10 @@ class EditProfileFragment : BaseFragment() {
     private var citySelected = ""
     private var dob: String? = null
 
-    private val emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
-
-    private val PICK_GALLERY_IMAGE = 1
-    lateinit var bitmap: Bitmap
-    var destinationFile = File("")
+    private val emailPattern = Pattern.compile("""[a-zA-Z0-9._-]+@[a-z]+\.+[a-z]+""")
+    private val pickGalleryImage = 1
+    private lateinit var bitmap: Bitmap
+    private var destinationFile = File("")
 
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private var isReadStorageGranted = false
@@ -91,6 +89,7 @@ class EditProfileFragment : BaseFragment() {
 
     private lateinit var removePictureDialog: Dialog
     private var removeDeniedPermissionDialog: Dialog?=null
+
 
     private lateinit var countriesData: List<Countries>
     private lateinit var statesData: List<States>
@@ -394,16 +393,15 @@ class EditProfileFragment : BaseFragment() {
             }
 
         "${data.firstName} ${data.lastName}".also { binding.textviewEnterName.text = it }
-        "${data.countryCode} ${data.phoneNumber}".also {
-            binding.enterPhonenumberTextview.text = it
-        }
+        Log.i("name", data.firstName + " " + data.lastName + data.email)
+        "${data.countryCode} ${data.phoneNumber}".also { binding.enterPhonenumberTextview.text = it }
         if (data.email?.isNotEmpty() == true) {
             binding.emailTv.setText(data.email)
         } else {
             binding.emailTv.setText("")
         }
         if (data.dateOfBirth?.isNotEmpty() == true) {
-            val date = Utility.parseDate(data.dateOfBirth)
+            val date=Utility.parseDate(data.dateOfBirth)
             binding.tvDatePicker.setText(date)
         } else {
             binding.tvDatePicker.setText("")
@@ -450,7 +448,7 @@ class EditProfileFragment : BaseFragment() {
             binding.autoCity.setText("")
 
         }
-        if (data.pincode != null && data.pincode.toString().isNotEmpty()) {
+        if (data.pincode!=null && data.pincode.toString().isNotEmpty()) {
             if (data.pincode.toString() == "null") {
                 binding.pincodeEditText.setText("")
 
@@ -507,12 +505,13 @@ class EditProfileFragment : BaseFragment() {
         if (!profileData.firstName.isNullOrEmpty() && profileData.lastName.isNullOrEmpty()) {
             val firstLetter: String = profileData.firstName!!.substring(0, 2)
             binding.tvUserName.text = firstLetter
-        } else if (profileData.firstName.isNullOrEmpty() && profileData.lastName.isNullOrEmpty()) {
+        }else if(profileData.firstName.isNullOrEmpty() && profileData.lastName.isNullOrEmpty()){
             "AB".also { binding.tvUserName.text = it }
-        } else if (profileData.firstName.isNullOrEmpty() && !(profileData.lastName.isNullOrEmpty())) {
+        }else if(profileData.firstName.isNullOrEmpty() && !(profileData.lastName.isNullOrEmpty()) ){
             val lastLetter: String = profileData.lastName!!.substring(0, 2)
             binding.tvUserName.text = lastLetter
-        } else {
+        }
+        else {
             val firstLetter: String = profileData.firstName!!.substring(0, 1)
             val lastLetter: String = profileData.lastName!!.substring(0, 1)
             "${firstLetter}${lastLetter}".also { binding.tvUserName.text = it }
@@ -553,7 +552,6 @@ class EditProfileFragment : BaseFragment() {
         })
 
         binding.uploadNewPicture.setOnClickListener {
-            Log.d("permission1", "" +isReadStorageGranted + " " + isWriteStorageGranted)
             if (!isReadStorageGranted && !isWriteStorageGranted) {
                 requestPermission()
             } else if (isReadStorageGranted && isWriteStorageGranted) {
@@ -696,7 +694,7 @@ class EditProfileFragment : BaseFragment() {
             intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
             val uri = Uri.fromParts("package", context?.packageName, null)
             intent.data = uri
-            startActivityForResult(intent, PICK_GALLERY_IMAGE)
+            startActivityForResult(intent, pickGalleryImage)
             removeDeniedPermissionDialog?.dismiss()
         }
         removeDeniedPermissionDialog?.show()
@@ -794,7 +792,6 @@ class EditProfileFragment : BaseFragment() {
             permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
             permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         }
-        Log.d("permission2", "" +isReadStorageGranted + " " + isWriteStorageGranted)
 
         if (permissionRequest.isNotEmpty()) {
             permissionLauncher.launch(permissionRequest.toTypedArray())
@@ -886,6 +883,7 @@ class EditProfileFragment : BaseFragment() {
     private fun callDeletePic(data: Data) {
         val fileName: String = data.profilePictureUrl.toString()
             .substring(data.profilePictureUrl.toString().lastIndexOf('/') + 1)
+        Log.i("profileUrl", fileName)
         profileViewModel.deleteProfileImage(fileName)
             .observe(viewLifecycleOwner) {
                 when (it.status) {
@@ -911,6 +909,7 @@ class EditProfileFragment : BaseFragment() {
                             it.message.toString(),
                             Toast.LENGTH_SHORT
                         ).show()
+                        Log.i("delete api error", it.message.toString())
                     }
                 }
             }
@@ -1108,6 +1107,7 @@ class EditProfileFragment : BaseFragment() {
             cameraFile!!
         )
     }
+
 }
 
 
