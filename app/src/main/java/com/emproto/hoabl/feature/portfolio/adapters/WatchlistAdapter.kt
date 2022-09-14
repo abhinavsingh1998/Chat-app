@@ -14,7 +14,6 @@ import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.networklayer.response.watchlist.Data
 import java.text.DecimalFormat
-import java.util.concurrent.TimeUnit
 
 class WatchlistAdapter(
     val context: Context,
@@ -33,8 +32,7 @@ class WatchlistAdapter(
         holder.binding.apply {
             if (element.project != null) {
                 tvItemLocationName.text = element.project.launchName
-                tvItemLocation.text =
-                    element.project.address.city + " " + element.project.address.state
+                (element.project.address.city + " " + element.project.address.state).also { tvItemLocation.text = it }
                 val amount = element.project.priceStartingFrom.toDouble() / 100000
                 val convertedAmount = String.format("%.0f", amount)
                 tvItemAmount.text = SpannableStringBuilder()
@@ -44,9 +42,8 @@ class WatchlistAdapter(
                     .bold { append("${element.project.areaStartingFrom} Sqft") }
                     .append(Constants.ONWARDS)
                 tvNoViews.text = element.project.fomoContent.noOfViews.toString()
-//                Utility.coolFormat(element.project.fomoContent.noOfViews.toDouble(), 0)
                 tvItemLocationInfo.text = element.project.shortDescription
-                tvRating.text = "${Utility.convertTo(element.project.estimatedAppreciation)}%"
+                "${Utility.convertTo(element.project.estimatedAppreciation)}%".also { tvRating.text = it }
 
                 holder.binding.timerView.visibility =
                     if (element.project.fomoContent.isTargetTimeActive) {
@@ -63,10 +60,10 @@ class WatchlistAdapter(
                                 val hour = millisUntilFinished / 3600000 % 24
                                 val min = millisUntilFinished / 60000 % 60
                                 val sec = millisUntilFinished / 1000 % 60
-                                holder.binding.tvDuration.text = "${
+                                "${
                                     fh.format(hour)
                                         .toString() + ":" + f.format(min) + ":" + f.format(sec)
-                                } Hrs Left"
+                                } Hrs Left".also { holder.binding.tvDuration.text = it }
                             }
 
                             override fun onFinish() {
@@ -89,7 +86,7 @@ class WatchlistAdapter(
             }
         }
         holder.binding.cvMainOuterCard.setOnClickListener {
-            onItemClickListener.onClickofWatchlist(element.project.id)
+            onItemClickListener.onClickOfWatchlist(element.project.id)
         }
         holder.binding.tvApplyNow.setOnClickListener {
             onItemClickListener.onClickApplyNow(element.project.id)

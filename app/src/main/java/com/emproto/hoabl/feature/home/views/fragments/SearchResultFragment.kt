@@ -743,7 +743,7 @@ class SearchResultFragment : BaseFragment() {
             override fun onClickSimilarInvestment(project: Int) {
             }
 
-            override fun onApplySinvestment(projectId: Int) {
+            override fun onApplyInvestment(projectId: Int) {
             }
 
             override fun readAllFaq(position: Int, faqId: Int) {

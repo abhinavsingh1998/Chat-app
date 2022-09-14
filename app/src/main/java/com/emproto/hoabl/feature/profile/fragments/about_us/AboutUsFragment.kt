@@ -43,7 +43,7 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
     lateinit var profileViewModel: ProfileViewModel
 
     lateinit var binding: FragmentAboutUsBinding
-    private lateinit var philosophyAdapter:CorporatePhilosphyAdapter
+    private lateinit var philosophyAdapter:CorporatePhilosophyAdapter
     private lateinit var productAdapter: ProductAdapter
     lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var gridLayoutManager: GridLayoutManager
@@ -166,7 +166,7 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                     }
                     Glide.with(requireContext()).load(url)
                         .into(binding.aboutusView)
-                    philosophyAdapter = CorporatePhilosphyAdapter(
+                    philosophyAdapter = CorporatePhilosophyAdapter(
                         requireActivity(),
                         commonData?.corporatePhilosophy!!.detailedInformation,
                     )
@@ -234,7 +234,7 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                         requireActivity(),
                         it?.data?.data!!,
                         selectedItemPos,
-                        object : AllProjectsAdapter.AllprojectsInterface {
+                        object : AllProjectsAdapter.AllProjectsInterface {
                             override fun onClickItem(position: Int) {
 
                                 val currentData = it?.data?.data!![position]
@@ -331,14 +331,14 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                                 val lineDataSet = LineDataSet(lineValues, "")
                                 //We add features to our chart
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                    lineDataSet.color = resources.getColor(R.color.green)
+                                    lineDataSet.color = ContextCompat.getColor(context!!,R.color.green)
                                 }
 
                                 lineDataSet.valueTextSize = 12F
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                    lineDataSet.fillColor = resources.getColor(R.color.green)
+                                    lineDataSet.fillColor = ContextCompat.getColor(context!!,R.color.green)
                                 }
-                                lineDataSet.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
+                                lineDataSet.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
                                 lineDataSet.setDrawCircles(false)
                                 lineDataSet.setDrawValues(false)
                                 val data = LineData(lineDataSet)

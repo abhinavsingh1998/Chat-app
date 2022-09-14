@@ -7,25 +7,21 @@ import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.CorporatePhilosphyAboutUsViewBinding
 import com.emproto.hoabl.databinding.ProjectTabLayoutBinding
-import com.emproto.hoabl.feature.home.adapters.InsightsAdapter
 import com.emproto.networklayer.response.profile.DataXXX
-import com.google.android.youtube.player.internal.i
 
+@Suppress("DEPRECATION")
 class AllProjectsAdapter(
     private val context: Context,
     private val list: List<DataXXX>,
     private var selectedItemPos:Int,
-    val itemIntrface: AllprojectsInterface
+    private val itemInterface: AllProjectsInterface
 ): RecyclerView.Adapter<AllProjectsAdapter.MyViewHolder>(){
 
-    var lastItemSelectedPos = -1
+    private var lastItemSelectedPos = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllProjectsAdapter.MyViewHolder {
         val view = ProjectTabLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -33,10 +29,10 @@ class AllProjectsAdapter(
     }
 
     override fun onBindViewHolder(holder: AllProjectsAdapter.MyViewHolder, position: Int) {
-        val currentItem= list.get(position)
+        val currentItem= list[position]
 
 
-        if (list.get(position).isEscalationGraphActive){
+        if (list[position].isEscalationGraphActive){
             holder.binding.rootView.visibility= View.VISIBLE
             holder.binding.projectName.text= currentItem?.launchName
 
@@ -56,7 +52,7 @@ class AllProjectsAdapter(
                 notifyItemChanged(selectedItemPos)
 
                 holder.binding.tabBar.isVisible= true
-                itemIntrface.onClickItem(holder.adapterPosition)
+                itemInterface.onClickItem(holder.adapterPosition)
             }
 
             Glide.with(context).load(currentItem.projectCoverImages.newInvestmentPageMedia.value.url)
@@ -71,12 +67,12 @@ class AllProjectsAdapter(
     inner class MyViewHolder(val binding: ProjectTabLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    interface AllprojectsInterface {
+    interface AllProjectsInterface {
         fun onClickItem(position: Int)
     }
 
 
-    public fun showHTMLText(message: String?): Spanned {
+     fun showHTMLText(message: String?): Spanned {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
         } else {

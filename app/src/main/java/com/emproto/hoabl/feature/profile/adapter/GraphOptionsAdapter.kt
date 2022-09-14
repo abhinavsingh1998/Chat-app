@@ -28,14 +28,15 @@ class GraphOptionsAdapter(context: Context, private val data: ArrayList<String>,
     }
 
     override fun onBindViewHolder(holder: GraphViewHolder, position: Int) {
-        holder.tvHeading.text= data.get(position)
+        holder.tvHeading.text= data[position]
 
-        holder.itemView.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(v: View?) {
-                graphItemClicks.graphItemClicked(holder.layoutPosition,holder.itemView,holder.line)
-            }
-
-        })
+        holder.itemView.setOnClickListener {
+            graphItemClicks.graphItemClicked(
+                holder.layoutPosition,
+                holder.itemView,
+                holder.line
+            )
+        }
     }
 
     interface GraphItemClicks{

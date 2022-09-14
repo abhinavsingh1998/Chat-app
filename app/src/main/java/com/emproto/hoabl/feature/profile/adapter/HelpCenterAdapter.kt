@@ -13,11 +13,12 @@ import com.emproto.hoabl.feature.profile.data.HelpModel
 import com.emproto.hoabl.utils.ItemClickListener
 
 
+@Suppress("DEPRECATION")
 class HelpCenterAdapter(
     var context: Context,
-    val dataList: ArrayList<HelpModel>,
-    val itemInterface: ItemClickListener,
-    val footerInterface: FooterInterface
+    private val dataList: ArrayList<HelpModel>,
+    private val itemInterface: ItemClickListener,
+    private val footerInterface: FooterInterface
 
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -57,13 +58,13 @@ class HelpCenterAdapter(
         when (holder.itemViewType) {
             VIEW_ITEM -> {
                 val item = dataList[holder.layoutPosition].data
-                val header_holder = holder as HelpCenterAdapter.HoablHealthViewHolder
+                val headerHolder = holder as HelpCenterAdapter.HoablHealthViewHolder
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    header_holder.binding.ivIcon.setImageResource(item.img)
+                    headerHolder.binding.ivIcon.setImageResource(item.img)
                 }
-                header_holder.binding.tvTitle.text = item.title
-                header_holder.binding.tvDescirption.text = item.description
-                header_holder.binding.hoabelView.setOnClickListener {
+                headerHolder.binding.tvTitle.text = item.title
+                headerHolder.binding.tvDescirption.text = item.description
+                headerHolder.binding.hoabelView.setOnClickListener {
                     itemInterface.onItemClicked(it,position,item.title)
                 }
 
@@ -92,10 +93,6 @@ class HelpCenterAdapter(
 
     inner class HoablHealthFooterHolder(var binding: HelpCenterFooterBinding) :
         RecyclerView.ViewHolder(binding.root)
-
-    interface HelpItemInterface {
-        fun onClickItem(position: Int)
-    }
 
     interface FooterInterface {
         fun onChatClick(position: Int)

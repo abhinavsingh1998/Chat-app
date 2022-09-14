@@ -14,7 +14,7 @@ import com.emproto.networklayer.response.promises.HomePagesOrPromise
 class PromisesListAdapter(
     val context: Context,
     private val data: List<HomePagesOrPromise>,
-    val itemInterface: HoabelPromiseAdapter.PromisedItemInterface
+    val itemInterface: HoablPromiseAdapter.PromisedItemInterface
 
 ) : RecyclerView.Adapter<PromisesListAdapter.PromisesHolder>() {
 

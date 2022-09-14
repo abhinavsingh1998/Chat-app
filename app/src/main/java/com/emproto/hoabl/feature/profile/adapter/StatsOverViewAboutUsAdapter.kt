@@ -5,18 +5,12 @@ import android.os.Build
 import android.text.Html
 import android.text.Spanned
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.CorporatePhilosphyAboutUsViewBinding
 import com.emproto.hoabl.databinding.StatsOverviewAboutUsBinding
-import com.emproto.hoabl.feature.profile.data.StatsAboutusData
 import com.emproto.networklayer.response.resourceManagment.DetailedInformationXX
-import com.emproto.networklayer.response.resourceManagment.StatsOverview
 
+@Suppress("DEPRECATION")
 class StatsOverViewAboutUsAdapter(
     val context: Context,
     private val statsList: List<DetailedInformationXX>
@@ -42,7 +36,7 @@ class StatsOverViewAboutUsAdapter(
     inner class MyStatsViewHolder(val binding: StatsOverviewAboutUsBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    public fun showHTMLText(message: String?): Spanned {
+     fun showHTMLText(message: String?): Spanned {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
         } else {

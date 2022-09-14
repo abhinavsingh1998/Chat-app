@@ -1,6 +1,6 @@
 package com.emproto.hoabl.feature.promises
 
-import com.emproto.hoabl.feature.promises.adapter.HoabelPromiseAdapter
+import com.emproto.hoabl.feature.promises.adapter.HoablPromiseAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -90,7 +90,7 @@ class HoablPromises : BaseFragment() {
         val list = ArrayList<PromisesData>()
         list.add(
             PromisesData(
-                HoabelPromiseAdapter.TYPE_HEADER,
+                HoablPromiseAdapter.TYPE_HEADER,
                 "",
                 promisesData.page.promiseSection,
                 emptyList()
@@ -98,7 +98,7 @@ class HoablPromises : BaseFragment() {
         )
         list.add(
             PromisesData(
-                HoabelPromiseAdapter.TYPE_LIST,
+                HoablPromiseAdapter.TYPE_LIST,
                 "",
                 promisesData.page.promiseSection,
                 promisesData.homePagesOrPromises
@@ -106,7 +106,7 @@ class HoablPromises : BaseFragment() {
         )
         list.add(
             PromisesData(
-                HoabelPromiseAdapter.TYPE_DISCLAIMER,
+                HoablPromiseAdapter.TYPE_DISCLAIMER,
                 "",
                 promisesData.page.promiseSection,
                 emptyList()
@@ -115,10 +115,10 @@ class HoablPromises : BaseFragment() {
 
         binding.listPromises.layoutManager =
             LinearLayoutManager(requireActivity())
-        binding.listPromises.adapter = HoabelPromiseAdapter(
+        binding.listPromises.adapter = HoablPromiseAdapter(
             requireContext(),
             list,
-            object : HoabelPromiseAdapter.PromisedItemInterface {
+            object : HoablPromiseAdapter.PromisedItemInterface {
                 override fun onClickItem(position: Int) {
                     homeViewModel.setSelectedPromise(promisesData.homePagesOrPromises[position])
                     (requireActivity() as HomeActivity).addFragment(

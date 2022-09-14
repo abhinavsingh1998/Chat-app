@@ -57,6 +57,7 @@ import javax.inject.Inject
 import kotlin.let as let1
 
 
+@Suppress("DEPRECATED_IDENTITY_EQUALS", "DEPRECATION")
 class EditProfileFragment : BaseFragment() {
     private var type: String? = null
     private lateinit var datePicker: DatePickerDialog.OnDateSetListener
@@ -88,7 +89,7 @@ class EditProfileFragment : BaseFragment() {
     private val permissionRequest: MutableList<String> = ArrayList()
 
     private lateinit var removePictureDialog: Dialog
-    var removeDeniedPermissionDialog: Dialog?=null
+    private var removeDeniedPermissionDialog: Dialog?=null
 
     private lateinit var countriesData: List<Countries>
     private lateinit var statesData: List<States>
@@ -507,7 +508,7 @@ class EditProfileFragment : BaseFragment() {
             val firstLetter: String = profileData.firstName!!.substring(0, 2)
             binding.tvUserName.text = firstLetter
         } else if (profileData.firstName.isNullOrEmpty() && profileData.lastName.isNullOrEmpty()) {
-            binding.tvUserName.text = "AB"
+            "AB".also { binding.tvUserName.text = it }
         } else if (profileData.firstName.isNullOrEmpty() && !(profileData.lastName.isNullOrEmpty())) {
             val lastLetter: String = profileData.lastName!!.substring(0, 2)
             binding.tvUserName.text = lastLetter
@@ -973,6 +974,7 @@ class EditProfileFragment : BaseFragment() {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
@@ -1100,7 +1102,7 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun getPhotoFile(context: Context): Uri? {
-        val fileSuffix = SimpleDateFormat("yyyyMMddHHmmss").format(Date())
+        val fileSuffix = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(Date())
         cameraFile = File(context.externalCacheDir, "$fileSuffix.jpg")
         return FileProvider.getUriForFile(
             requireContext(),

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.emproto.hoabl.feature.profile.adapter
 
 import android.content.Context
@@ -5,16 +7,10 @@ import android.os.Build
 import android.text.Html
 import android.text.Spanned
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.ItemFaqBinding
 import com.emproto.hoabl.databinding.ItemSecurityTipsBinding
-import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
-import com.emproto.hoabl.utils.ItemClickListener
-import com.emproto.networklayer.response.portfolio.ivdetails.ProjectContentsAndFaq
 import com.emproto.networklayer.response.profile.DetailedInformationXXX
 import java.util.*
 
