@@ -115,11 +115,8 @@ class SecurityAdapter(
     }
 
     private fun initData(): ArrayList<SettingsData> {
-        val newsList: ArrayList<SettingsData> = ArrayList<SettingsData>()
-//        newsList.add(SettingsData("Location", "Control location access here"))
-//        newsList.add(SettingsData("Read SMS", "Control location access here"))
+        val newsList: ArrayList<SettingsData> = ArrayList()
         newsList.add(SettingsData("Send Push Notifications", "Control location access here"))
-//        newsList.add(SettingsData("Assistance Access", "Control location access here"))
 
         return newsList
     }
@@ -150,7 +147,7 @@ class SecurityAdapter(
                     binding.switch1.isChecked = false
                 }
             }
-            binding.switch1.setOnCheckedChangeListener { buttonView, isChecked ->
+            binding.switch1.setOnCheckedChangeListener { _, isChecked ->
                 when (isChecked) {
                     true -> {
                         itemClickListener.onItemClicked(binding.switch1,position,isChecked.toString())
@@ -199,9 +196,5 @@ class SecurityAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return list[position].viewType
-    }
-
-    interface HelpItemInterface {
-        fun onClickItem(position: Int)
     }
 }

@@ -6,19 +6,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.BuildConfig
-import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.HelpCenterFooterBinding
-import com.emproto.hoabl.databinding.ItemHelpCenterBinding
 import com.emproto.hoabl.databinding.ProfileFooterBinding
 import com.emproto.hoabl.databinding.ProfileOptionViewBinding
-import com.emproto.hoabl.feature.profile.fragments.profile.ProfileFragment
 import com.emproto.hoabl.feature.profile.data.ProfileModel
 
 class ProfileOptionsAdapter(
     var context: Context,
-    val dataList: ArrayList<ProfileModel>,
-    val profileItemInterface: ProfileItemInterface,
-    val profileFooterInterface: ProfileFooterInterface
+    private val dataList: ArrayList<ProfileModel>,
+    private val profileItemInterface: ProfileItemInterface,
+    private val profileFooterInterface: ProfileFooterInterface
 
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
@@ -57,17 +53,17 @@ class ProfileOptionsAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
            VIEW_ITEM -> {
-               val header_holder = holder as ProfileOptionViewHolder
-               val item = dataList[header_holder.layoutPosition].data
+               val headerHolder = holder as ProfileOptionViewHolder
+               val item = dataList[headerHolder.layoutPosition].data
 
                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                   header_holder.binding.ivIcon.setImageResource(item.img)
+                   headerHolder.binding.ivIcon.setImageResource(item.img)
                }
-               header_holder.binding.tvTitle.text = item.title
-               header_holder.binding.tvDescirption.text = item.description
+               headerHolder.binding.tvTitle.text = item.title
+               headerHolder.binding.tvDescirption.text = item.description
 
-               header_holder.binding.hoabelView.setOnClickListener {
-                   profileItemInterface.onClickItem(header_holder.layoutPosition)
+               headerHolder.binding.hoabelView.setOnClickListener {
+                   profileItemInterface.onClickItem(headerHolder.layoutPosition)
                }
 
             }
@@ -76,7 +72,7 @@ class ProfileOptionsAdapter(
                 listHolder.binding.Logoutbtn.setOnClickListener {
                     profileFooterInterface.onLogoutClickItem(holder.layoutPosition)
                 }
-               listHolder.binding.version.text = "App Version:" + BuildConfig.VERSION_NAME
+               ("App Version:" + BuildConfig.VERSION_NAME).also { listHolder.binding.version.text = it }
            }
         }
     }

@@ -1,21 +1,15 @@
 package com.emproto.hoabl.feature.profile.adapter.accounts
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.AccNoDataBinding
 import com.emproto.hoabl.databinding.ItemAccountsKycDocBinding
-import com.emproto.hoabl.databinding.ItemChatDetailBinding
-import com.emproto.hoabl.databinding.ItemChatSenderMessageBinding
-import com.emproto.hoabl.feature.chat.model.MessageType
-import com.emproto.hoabl.feature.investment.adapters.ChatsDetailAdapter
 import com.emproto.networklayer.response.profile.AccountsResponse
 
 class AccountsDocumentLabelListAdapter(
@@ -27,21 +21,24 @@ class AccountsDocumentLabelListAdapter(
 ) : RecyclerView.Adapter<AccountsDocumentLabelListAdapter.BaseViewHolder>() {
 
     lateinit var binding: ItemAccountsKycDocBinding
-    lateinit var bindingEmpty: AccNoDataBinding
+    private lateinit var bindingEmpty: AccNoDataBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        if (viewType == R.layout.item_accounts_kyc_doc) {
-            binding =
-                ItemAccountsKycDocBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            return NotEmptyList(binding.root)
-        } else {
-            bindingEmpty =
-                AccNoDataBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-            return EmptyList(bindingEmpty.root)
+        when (viewType) {
+            R.layout.item_accounts_kyc_doc -> {
+                binding =
+                    ItemAccountsKycDocBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                return NotEmptyList(binding.root)
+            }
+            else -> {
+                bindingEmpty =
+                    AccNoDataBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                return EmptyList(bindingEmpty.root)
+            }
         }
     }
 
@@ -59,7 +56,7 @@ class AccountsDocumentLabelListAdapter(
     }
 
     class EmptyList(ItemView: View) : AccountsDocumentLabelListAdapter.BaseViewHolder(ItemView) {
-        var tvMsg = itemView.findViewById<TextView>(R.id.tvMsg)
+        var tvMsg = itemView.findViewById<TextView>(R.id.tvMsg)!!
     }
 
     abstract class BaseViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {}
@@ -98,7 +95,7 @@ class AccountsDocumentLabelListAdapter(
                 }
             }
         }else if(holder is EmptyList){
-            holder.tvMsg.text="The Uploaded Documents will be shown here.You can view them after uploading."
+            "The Uploaded Documents will be shown here.You can view them after uploading.".also { holder.tvMsg.text = it }
         }
     }
 }

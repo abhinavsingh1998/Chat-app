@@ -10,10 +10,10 @@ import com.emproto.hoabl.databinding.PromisesItemDisclaimerBinding
 import com.emproto.hoabl.databinding.PromisesItemHeaderBinding
 import com.emproto.hoabl.feature.promises.data.PromisesData
 
-class HoabelPromiseAdapter(
+class HoablPromiseAdapter(
     var context: Context,
-    val dataList: ArrayList<PromisesData>,
-    val itemInterface: PromisedItemInterface
+    private val dataList: ArrayList<PromisesData>,
+    private val itemInterface: PromisedItemInterface
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

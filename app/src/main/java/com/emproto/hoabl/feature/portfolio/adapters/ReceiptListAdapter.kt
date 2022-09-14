@@ -39,7 +39,6 @@ class ReceiptListAdapter(
         holder.apply {
 
             tvPaidAmount.text = "₹${Utility.convertTo(accountsPaymentList[position].paidAmount)}"
-            //tvProjectName.text = accountsPaymentList[position].projectName
             if (accountsPaymentList[position].paymentDate != null)
                 tvPaymentDate.text =
                     Utility.parseDateFromUtc(accountsPaymentList[position].paymentDate)
@@ -50,15 +49,12 @@ class ReceiptListAdapter(
                     "See Receipt"
                 )
             )
-            tvSeeReceipt.setOnClickListener(object : View.OnClickListener {
-                override fun onClick(p0: View?) {
-                    if (accountsPaymentList[position].document != null &&
-                        accountsPaymentList[position].document.path != null
-                    )
-                        mListener.onAccountsPaymentItemClick(accountsPaymentList[position].document.path)
-                }
-
-            })
+            tvSeeReceipt.setOnClickListener {
+                if (accountsPaymentList[position].document != null &&
+                    accountsPaymentList[position].document.path != null
+                )
+                    mListener.onAccountsPaymentItemClick(accountsPaymentList[position].document.path)
+            }
         }
     }
 

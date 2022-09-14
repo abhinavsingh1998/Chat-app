@@ -517,7 +517,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         )
     }
 
-    override fun onClickofWatchlist(projectId: Int) {
+    override fun onClickOfWatchlist(projectId: Int) {
         val bundle = Bundle()
         bundle.putInt(Constants.PROJECT_ID, projectId)
         val fragment = ProjectDetailFragment()
@@ -540,7 +540,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         (requireActivity() as HomeActivity).share_app()
     }
 
-    override fun dontMissoutCard() {
+    override fun doNotMissOutCard() {
         val bundle = Bundle()
         bundle.putInt(Constants.PROJECT_ID, doNotMissOutId)
         val fragment = ProjectDetailFragment()

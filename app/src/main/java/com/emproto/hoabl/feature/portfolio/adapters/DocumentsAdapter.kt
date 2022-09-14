@@ -10,7 +10,7 @@ import com.emproto.networklayer.response.documents.Data
 class DocumentsAdapter(
     private val list: List<Data>,
     private val docImageVisibility: Boolean,
-    val ivInterface: DocumentInterface
+    private val ivInterface: DocumentInterface
 ) : RecyclerView.Adapter<DocumentsAdapter.DocumentsViewHolder>() {
 
     inner class DocumentsViewHolder(var binding: ItemPortfolioDocumentsBinding) :
@@ -29,6 +29,7 @@ class DocumentsAdapter(
         holder.binding.tvDocLabel.text = list[position].name
         when (docImageVisibility) {
             true -> holder.binding.ivDocsImage.visibility = View.VISIBLE
+            false -> {}
         }
         holder.binding.tvView.setOnClickListener {
             when{
