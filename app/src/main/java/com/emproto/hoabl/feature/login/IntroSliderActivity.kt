@@ -73,7 +73,6 @@ class IntroSliderActivity : BaseActivity(), StoriesProgressView.StoriesListener 
         image = activityIntrosliderBinding.image
 
         storyStart()
-
     }
 
     private fun storyStart() {
@@ -109,10 +108,14 @@ class IntroSliderActivity : BaseActivity(), StoriesProgressView.StoriesListener 
     }
 
     override fun onNext() {
-        ++counter
-        image.setImageResource(resources[counter])
-        textview?.setText(txtResource[counter])
-        btn_txt_chnage()
+        try {
+            ++counter
+            image.setImageResource(resources[counter])
+            textview?.setText(txtResource[counter])
+            btn_txt_chnage()
+        } catch (e:Exception){
+
+        }
     }
 
     fun btn_txt_chnage(){
@@ -130,13 +133,16 @@ class IntroSliderActivity : BaseActivity(), StoriesProgressView.StoriesListener 
 
     override fun onPrev() {
 
-        if ((counter - 1) < 0)
-            return
-        --counter
-        image.setImageResource(resources[counter])
-        textview!!.setText(txtResource[counter])
-        btn_txt_chnage()
+        try {
+            if ((counter - 1) < 0)
+                return
+            --counter
+            image.setImageResource(resources[counter])
+            textview!!.setText(txtResource[counter])
+            btn_txt_chnage()
+        } catch (e:Exception){
 
+        }
     }
 
     override fun onComplete() {
