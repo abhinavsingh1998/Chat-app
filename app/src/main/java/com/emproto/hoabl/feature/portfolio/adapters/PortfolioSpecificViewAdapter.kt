@@ -314,8 +314,8 @@ class PortfolioSpecificViewAdapter(
                         .into(binding.ivProjectImage)
                     //project status based configuration
                     if (data.projectExtraDetails.isBookingComplete) {
-                        binding.tvPending.text = "OEA"
-                        binding.tvPendingAmount.text = "${list[position].iea}%"
+                        "IEA".also { binding.tvPending.text = it }
+                        "${list[position].iea}%".also { binding.tvPendingAmount.text = it }
                         binding.tvPendingAmount.setCompoundDrawablesWithIntrinsicBounds(
                             R.drawable.ic_trending,
                             0,
