@@ -376,7 +376,6 @@
     <string name="new_launches">New Launches</string>
     <string name="please_after_one_hour">You have reached the maximum limit for resending the OTP. Please retry again after an hour.</string>
     <string name="all_investments">All investments</string>
-    <string name="youtube_api_key">AIzaSyCP5DUonkpAHNNB4SSFd9ezloSG5dH_i98</string>
     <string name="header"><![CDATA[%1$s <font size="16"><b>%2$s</b></font> &#160&#160&#160&#160&#160&#160]]></string>
     <string name="manage_your_land_book">Manage your land, book, etc</string>
     <string name="email_address">Email Address</string>

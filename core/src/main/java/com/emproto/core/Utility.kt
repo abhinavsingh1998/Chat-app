@@ -7,9 +7,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.media.ExifInterface
-import android.net.Uri
 import android.os.Build
-import android.os.CountDownTimer
 import android.os.Environment
 import android.text.Spannable
 import android.text.SpannableString
@@ -19,7 +17,6 @@ import android.util.Log
 import android.view.Window
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.Fragment
 import java.io.*
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -27,7 +24,9 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.Exception
+import javax.crypto.*
+import javax.crypto.spec.IvParameterSpec
+import javax.crypto.spec.SecretKeySpec
 
 
 object Utility {
@@ -37,7 +36,7 @@ object Utility {
 
 
     fun dateInWords(time: String): String? {
-        val inputPattern ="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        val inputPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         val inputFormat = SimpleDateFormat(inputPattern)
         val outputFormat: SimpleDateFormat
         var date: Date? = null
@@ -58,6 +57,7 @@ object Utility {
         }
         return str
     }
+
     fun parseDate(time: String?): String? {
         val inputPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         val outputPattern = "dd/MM/yyyy"
@@ -514,6 +514,38 @@ object Utility {
         return NumberFormat.getCurrencyInstance(Locale("en", "in"))
             .format(amount)
     }
+
+    private const val SECRET_KEY = "aesEncryptionKey"
+    private const val INIT_VECTOR = "encryptionIntVec"
+
+    fun encrypt(value: String): String? {
+        try {
+            val iv = IvParameterSpec(INIT_VECTOR.toByteArray(charset("UTF-8")))
+            val skeySpec = SecretKeySpec(SECRET_KEY.toByteArray(charset("UTF-8")), "AES")
+            val cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING")
+            cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv)
+            val encrypted = cipher.doFinal(value.toByteArray())
+            return Base64.encodeToString(encrypted, Base64.DEFAULT)
+        } catch (ex: java.lang.Exception) {
+            ex.printStackTrace()
+        }
+        return null
+    }
+
+    fun decrypt(value: String?): String? {
+        try {
+            val iv = IvParameterSpec(INIT_VECTOR.toByteArray(charset("UTF-8")))
+            val skeySpec = SecretKeySpec(SECRET_KEY.toByteArray(charset("UTF-8")), "AES")
+            val cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING")
+            cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv)
+            val original = cipher.doFinal(Base64.decode(value, Base64.DEFAULT))
+            return String(original)
+        } catch (ex: java.lang.Exception) {
+            ex.printStackTrace()
+        }
+        return null
+    }
+
 
 }
 
