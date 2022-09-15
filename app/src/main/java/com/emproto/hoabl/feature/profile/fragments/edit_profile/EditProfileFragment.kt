@@ -694,7 +694,7 @@ class EditProfileFragment : BaseFragment() {
             intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
             val uri = Uri.fromParts("package", context?.packageName, null)
             intent.data = uri
-            startActivityForResult(intent, pickGalleryImage)
+            startActivityForResult(intent, PICK_GALLERY_IMAGE)
             removeDeniedPermissionDialog?.dismiss()
         }
         removeDeniedPermissionDialog?.show()
@@ -975,7 +975,7 @@ class EditProfileFragment : BaseFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == pickGalleryImage) {
+            if (requestCode == PICK_GALLERY_IMAGE) {
                 onSelectFromGalleryResult(data!!)
             } else {
                 (requireActivity() as BaseActivity).showError(
