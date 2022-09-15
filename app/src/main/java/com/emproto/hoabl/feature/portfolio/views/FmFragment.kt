@@ -451,7 +451,6 @@ class FmFragment : BaseFragment() {
                         null
                     )
                     if (pCur != null) {
-
                         val hashMap = HashMap<String,String>()
                         while (pCur.moveToNext()) {
                             val phoneNo: String = pCur.getString(
@@ -467,7 +466,7 @@ class FmFragment : BaseFragment() {
                         for((key,value ) in hashMap){
                             cArray.add(ContactsModel(name = value, phoneNo = key))
                         }
-                        Log.d("Count",cArray.size.toString())
+                        Log.d("count",cArray.size.toString())
                         val gson = Gson()
                         val data = gson.toJson(cArray)
                         Log.d("JSON",data.toString())
