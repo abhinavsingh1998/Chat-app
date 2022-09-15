@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,16 +13,12 @@ import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
 import com.emproto.hoabl.databinding.FragmentTestimonialsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.home.adapters.AllInsightsAdapter
 import com.emproto.hoabl.feature.home.adapters.TestimonialsAdapter
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
-import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
-import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.testimonials.TestimonialsResponse
-import java.util.*
 import javax.inject.Inject
 
 
@@ -31,12 +26,12 @@ class Testimonials : BaseFragment() {
 
 
     private lateinit var mBinding: FragmentTestimonialsBinding
-    lateinit var testimonialsAdapter: TestimonialsAdapter
+    private lateinit var testimonialsAdapter: TestimonialsAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
-    val appURL= Constants.APP_URL
-    var testimonialsItem= 0
-    var testimonilalsHeading:String= ""
-    var testimonilalsSubHeading:String= ""
+    private val appURL = Constants.APP_URL
+    private var testimonialsItem = 0
+    private var testimonilalsHeading: String = ""
+    private var testimonilalsSubHeading: String = ""
 
 
     @Inject
@@ -58,10 +53,10 @@ class Testimonials : BaseFragment() {
         }
 
         arguments?.let {
-            testimonilalsHeading= it.getString(Constants.TESTIMONALS_HEADING, "")
+            testimonilalsHeading = it.getString(Constants.TESTIMONALS_HEADING, "")
         }
         arguments?.let {
-            testimonilalsSubHeading= it.getString(Constants.TESTIMONALS_SUB_HEADING, "")
+            testimonilalsSubHeading = it.getString(Constants.TESTIMONALS_SUB_HEADING, "")
         }
 
         initObserver(false)
@@ -69,75 +64,80 @@ class Testimonials : BaseFragment() {
         return mBinding.root
     }
 
-    private fun initObserver(refresh:Boolean) {
+    private fun initObserver(refresh: Boolean) {
 
-        homeViewModel.getTestimonialsData(refresh).observe(viewLifecycleOwner, object:Observer<BaseResponse<TestimonialsResponse>> {
-            override fun onChanged(it: BaseResponse<TestimonialsResponse>?) {
-                when (it?.status){
-                   Status.LOADING ->{
-                       mBinding.rootView.hide()
-                       mBinding.loader.show()
-                   }
-                    Status.SUCCESS ->{
-                        mBinding.rootView.show()
-                        mBinding.loader.hide()
-
-                        mBinding.headerText.text= testimonilalsHeading
-                        mBinding.subHeaderTxt.text= testimonilalsSubHeading
-
-                        it.data.let {
-
-                            if (it!= null){
-                                homeViewModel.setTestimonials(it)
-
-
-                                //loading List
-                                testimonialsAdapter = TestimonialsAdapter(requireActivity(),
-                                    it.data,
-                                    testimonialsItem
-                                )
-                                linearLayoutManager = LinearLayoutManager(
-                                    requireContext(),
-                                    RecyclerView.VERTICAL,
-                                    false
-                                )
-                                mBinding.recyclerTestimonilas.layoutManager = linearLayoutManager
-                                mBinding.recyclerTestimonilas.adapter = testimonialsAdapter
-                            }
-                        }
-                    }
-                    Status.ERROR ->{
-                        mBinding.loader.hide()
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            it.message!!
-                        )
-                        mBinding.rootView.show()
-                    }
-
+        homeViewModel.getTestimonialsData(refresh).observe(
+            viewLifecycleOwner
+        ) {
+            when (it?.status) {
+                Status.LOADING -> {
+                    mBinding.rootView.hide()
+                    mBinding.loader.show()
                 }
+                Status.SUCCESS -> {
+                    mBinding.rootView.show()
+                    mBinding.loader.hide()
+
+                    mBinding.headerText.text = testimonilalsHeading
+                    mBinding.subHeaderTxt.text = testimonilalsSubHeading
+
+                    initAdpater(it!!.data!!)
+                }
+                Status.ERROR -> {
+                    mBinding.loader.hide()
+                    (requireActivity() as HomeActivity).showErrorToast(
+                        it.message!!
+                    )
+                    mBinding.rootView.show()
+                }
+
             }
-        })
         }
+    }
+
+    private fun initAdpater(it: TestimonialsResponse) {
+        it.let {
+
+            if (it != null) {
+                homeViewModel.setTestimonials(it)
+
+
+                //loading List
+                testimonialsAdapter = TestimonialsAdapter(
+                    requireActivity(),
+                    it?.data,
+                    testimonialsItem
+                )
+                linearLayoutManager = LinearLayoutManager(
+                    requireContext(),
+                    RecyclerView.VERTICAL,
+                    false
+                )
+                mBinding.recyclerTestimonilas.layoutManager = linearLayoutManager
+                mBinding.recyclerTestimonilas.adapter = testimonialsAdapter
+            }
+        }
+
+    }
 
     private fun initClickListner() {
 
-        mBinding.referralLayout.appShareBtn.setOnClickListener(View.OnClickListener {
+        mBinding.referralLayout.appShareBtn.setOnClickListener {
             share_app()
-        })
+        }
 
-        mBinding.referralLayout.btnReferNow.setOnClickListener(View.OnClickListener {
+        mBinding.referralLayout.btnReferNow.setOnClickListener {
             referNow()
-        })
+        }
 
-        mBinding.refressLayout.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+        mBinding.refressLayout.setOnRefreshListener {
             mBinding.loader.show()
             initObserver(refresh = true)
 
-            mBinding.refressLayout.isRefreshing= false
+            mBinding.refressLayout.isRefreshing = false
 
-        })
+        }
     }
-
 
 
     private fun share_app() {
@@ -149,9 +149,9 @@ class Testimonials : BaseFragment() {
     }
 
     private fun referNow() {
-            val dialog = ReferralDialog()
-            dialog.isCancelable = true
-            dialog.show(parentFragmentManager, Constants.REFERRAL_CARD)
+        val dialog = ReferralDialog()
+        dialog.isCancelable = true
+        dialog.show(parentFragmentManager, Constants.REFERRAL_CARD)
 
-        }
+    }
 }

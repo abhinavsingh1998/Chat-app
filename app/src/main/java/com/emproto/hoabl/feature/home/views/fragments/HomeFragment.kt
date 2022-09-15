@@ -2,11 +2,9 @@ package com.emproto.hoabl.feature.home.views.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,7 +16,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentHomeBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
-import com.emproto.hoabl.feature.home.adapters.*
+import com.emproto.hoabl.feature.home.adapters.HomeAdapter
 import com.emproto.hoabl.feature.home.data.LatesUpdatesPosition
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
@@ -44,7 +42,6 @@ import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
 import com.emproto.networklayer.response.marketingUpdates.Data
 import com.emproto.networklayer.response.notification.dataResponse.NotificationResponse
-import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import javax.inject.Inject
 
 
@@ -69,18 +66,10 @@ class HomeFragment : BaseFragment() {
     var latestUptaesListCount: Int = 0
     var InsightsListCount: Int = 0
     var testimonialsListCount: Int = 0
-    lateinit var latestHeading: String
-    lateinit var latestSubHeading: String
-
-    lateinit var insightsHeading: String
-    lateinit var insightsSubHeading: String
 
     lateinit var testimonilalsHeading: String
     lateinit var testimonilalsSubHeading: String
     private var actionItemType= ArrayList<com.emproto.networklayer.response.actionItem.Data>()
-
-
-    var fmData: FMResponse? = null
 
     @Inject
     lateinit var portfolioFactory: PortfolioFactory
@@ -112,12 +101,12 @@ class HomeFragment : BaseFragment() {
 
             if (appPreference.isFacilityCard()){
                 homeViewModel.getFacilityManagment()
-                    .observe(viewLifecycleOwner, Observer {
+                    .observe(viewLifecycleOwner, Observer { it ->
                         when (it.status) {
                             Status.SUCCESS -> {
                                 it!!.data!!.let {
-                                    if (it != null && it!!.data!!.web_url != null) {
-                                        appPreference.setFmUrl(it?.data?.web_url)
+                                    if (it != null && it.data.web_url != null) {
+                                        appPreference.setFmUrl(it.data.web_url)
                                     } else {
                                         (requireActivity() as HomeActivity).showErrorToast(
                                             Constants.SOMETHING_WENT_WRONG

@@ -255,25 +255,15 @@ class HomeAdapter(
 
         fun bind(position: Int) {
 
-            if (data.actionItem == null) {
-                binding.kycLayout.isVisible = false
-                pendingPaymentsAdapter = PendingPaymentsAdapter(
-                    context,
-                    data.actionItem,
-                    itemClickListener
-                )
+            pendingPaymentsAdapter = PendingPaymentsAdapter(
+                context,
+                data.actionItem,
+                itemClickListener
+            )
 
-            } else {
-                pendingPaymentsAdapter = PendingPaymentsAdapter(
-                    context,
-                    data.actionItem,
-                    itemClickListener
-                )
-
-                binding.kycLayoutCard.adapter = pendingPaymentsAdapter
-                TabLayoutMediator(binding.tabDot, binding.kycLayoutCard) { _, _ ->
-                }.attach()
-            }
+            binding.kycLayoutCard.adapter = pendingPaymentsAdapter
+            TabLayoutMediator(binding.tabDot, binding.kycLayoutCard) { _, _ ->
+            }.attach()
 
 
         }

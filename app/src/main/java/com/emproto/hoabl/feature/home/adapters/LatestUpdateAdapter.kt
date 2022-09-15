@@ -20,7 +20,7 @@ class LatestUpdateAdapter(
     val context: Context,
     val itemCount: Data,
     val list: List<PageManagementOrLatestUpdate>,
-    val itemIntrface: ItemClickListener
+    private val itemIntrface: ItemClickListener
 ) : RecyclerView.Adapter<LatestUpdateAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -30,7 +30,7 @@ class LatestUpdateAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val item = list.get(holder.adapterPosition)
+        val item = list[holder.adapterPosition]
         holder.binding.title.text = item.displayTitle
 
 
@@ -71,10 +71,10 @@ class LatestUpdateAdapter(
 
     override fun getItemCount(): Int {
         var itemList = 0
-        if (itemCount.page.totalUpdatesOnHomeScreen < list.size) {
-            itemList = itemCount.page.totalUpdatesOnHomeScreen
+        itemList = if (itemCount.page.totalUpdatesOnHomeScreen < list.size) {
+            itemCount.page.totalUpdatesOnHomeScreen
         } else {
-            itemList = list.size
+            list.size
         }
         return itemList
     }

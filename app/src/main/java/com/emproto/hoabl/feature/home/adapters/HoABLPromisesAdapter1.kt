@@ -2,23 +2,19 @@ package com.emproto.hoabl.feature.home.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ItemHoablPromisesBinding
-import com.emproto.hoabl.databinding.ItemPromisesBinding
-import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.home.Data
 import com.emproto.networklayer.response.home.HomePagesOrPromise
-import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
 
 class HoABLPromisesAdapter1(
     val context: Context,
     val itemCount: Data,
     val list: List<HomePagesOrPromise>,
-    val itemIntrface: ItemClickListener
+    private val itemIntrface: ItemClickListener
 ) : RecyclerView.Adapter<HoABLPromisesAdapter1.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -31,10 +27,10 @@ class HoABLPromisesAdapter1(
         val item = list[holder.adapterPosition]
         holder.binding.title.text = item.name
         holder.binding.desc.text = item.shortDescription
-        holder.binding.homePromisesItem.setOnClickListener(View.OnClickListener {
+        holder.binding.homePromisesItem.setOnClickListener {
             itemIntrface.onItemClicked(it, position, item.id.toString())
-        })
-        if (item.displayMedia!=null){
+        }
+        if (item.displayMedia != null) {
             Glide.with(context)
                 .load(item.displayMedia!!.value.url)
                 .dontAnimate()
@@ -44,10 +40,10 @@ class HoABLPromisesAdapter1(
 
     override fun getItemCount(): Int {
         var itemList = 0
-        if (itemCount.page.totalPromisesOnHomeScreen < list.size) {
-            itemList = itemCount.page.totalPromisesOnHomeScreen
+        itemList = if (itemCount.page.totalPromisesOnHomeScreen < list.size) {
+            itemCount.page.totalPromisesOnHomeScreen
         } else {
-            itemList = list.size
+            list.size
         }
         return itemList
     }

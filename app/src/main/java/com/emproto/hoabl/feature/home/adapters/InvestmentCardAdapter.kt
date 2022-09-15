@@ -11,18 +11,16 @@ import com.bumptech.glide.Glide
 import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
-import com.emproto.hoabl.feature.investment.adapters.InvestmentAdapter
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.home.Data
 import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
 import java.text.DecimalFormat
-import java.util.concurrent.TimeUnit
 
 class InvestmentCardAdapter(
     val context: Context,
     val itemCount: Data,
     val list: List<PageManagementsOrNewInvestment>,
-    val itemIntrface: ItemClickListener
+    private val itemIntrface: ItemClickListener
 ) :
     RecyclerView.Adapter<InvestmentCardAdapter.MyViewHolder>() {
 
@@ -36,7 +34,7 @@ class InvestmentCardAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
 
-        val item = list.get(holder.adapterPosition)
+        val item = list[holder.adapterPosition]
 
         if(item!=null){
             holder.binding!!.tvItemLocationName.text = item.launchName
