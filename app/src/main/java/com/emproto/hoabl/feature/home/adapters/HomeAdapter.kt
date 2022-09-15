@@ -18,23 +18,23 @@ import com.google.android.material.tabs.TabLayoutMediator
 import java.text.NumberFormat
 import java.util.*
 
+@Suppress("DEPRECATION")
 class HomeAdapter(
     var context: Context,
     val data: Data,
     val list: List<RecyclerViewItem>,
-//    val actionItemData: List<com.emproto.networklayer.response.Data>?,
     val itemClickListener: ItemClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val HOME_PORTFOLIO = 1
         const val NEW_PROJECT = 2
-        const val INCOMPLETED_KYC = 3
+        const val INCOMPLETE_KYC = 3
         const val LATEST_UPDATES = 4
         const val PROMISES = 5
-        const val FACILITY_MANAGMENT = 6
+        const val FACILITY_MANAGEMENT = 6
         const val INSIGHTS = 7
-        const val TESTIMONIAS = 8
+        const val TESTIMONIALS = 8
         const val SHARE_APP = 9
     }
 
@@ -70,7 +70,7 @@ class HomeAdapter(
                     )
                 )
             }
-            INCOMPLETED_KYC -> {
+            INCOMPLETE_KYC -> {
                 IncompleteKycViewHolder(
                     PaymentPendingLayoutBinding.inflate(
                         LayoutInflater.from(
@@ -100,7 +100,7 @@ class HomeAdapter(
                 )
             }
 
-            FACILITY_MANAGMENT -> {
+            FACILITY_MANAGEMENT -> {
                 FacilityManagementViewHolder(
                     HomeFmCardLayoutBinding.inflate(
                         LayoutInflater.from(
@@ -120,7 +120,7 @@ class HomeAdapter(
                 )
             }
 
-            TESTIMONIAS -> {
+            TESTIMONIALS -> {
                 TestimonialsViewHolder(
                     HomeTestimonialsLayoutBinding.inflate(
                         LayoutInflater.from(
@@ -150,7 +150,7 @@ class HomeAdapter(
             NEW_PROJECT -> {
                 (holder as NewInvestmentViewHolder).bind(position)
             }
-            INCOMPLETED_KYC -> {
+            INCOMPLETE_KYC -> {
                 (holder as IncompleteKycViewHolder).bind(position)
             }
             LATEST_UPDATES -> {
@@ -159,13 +159,13 @@ class HomeAdapter(
             PROMISES -> {
                 (holder as PromisesViewHolder).bind(position)
             }
-            FACILITY_MANAGMENT -> {
+            FACILITY_MANAGEMENT -> {
                 (holder as FacilityManagementViewHolder).bind(position)
             }
             INSIGHTS -> {
                 (holder as InsightsViewHolder).bind(position)
             }
-            TESTIMONIAS -> {
+            TESTIMONIALS -> {
                 (holder as TestimonialsViewHolder).bind(position)
             }
             SHARE_APP -> {
@@ -284,7 +284,6 @@ class HomeAdapter(
                 itemClickListener.onItemClicked(it, position, "")
             }
 
-//          binding.latesUpdatesRecyclerview.getLayoutManager()!!.onRestoreInstanceState()
 
             linearLayoutManager = LinearLayoutManager(
                 context,
@@ -296,8 +295,6 @@ class HomeAdapter(
             ) {
                 binding.latestUpdatesLayout.isVisible = false
             }
-
-//            binding.latesUpdatesRecyclerview.onScrollStateChanged(RecyclerView.OnScrollListener)
 
             binding.textview2.text = data.page.latestUpdates.heading
             binding.latesUpdatesRecyclerview.layoutManager = linearLayoutManager

@@ -16,11 +16,12 @@ import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.home.Data
 import com.emproto.networklayer.response.home.PageManagementOrInsight
 
+@Suppress("DEPRECATION")
 class InsightsAdapter(
     val context: Context,
-    val itemcount: Data,
+    val itemCount: Data,
     val list: List<PageManagementOrInsight>,
-    private val itemIntrface: ItemClickListener
+    val itemInterface: ItemClickListener
 ) : RecyclerView.Adapter<InsightsAdapter.MyViewHolder>() {
 
 
@@ -72,15 +73,13 @@ class InsightsAdapter(
         holder.binding.tvVideotitle.text = item.displayTitle
 
         holder.binding.homeInsightsCard.setOnClickListener {
-            itemIntrface.onItemClicked(it, position, item.id.toString())
+            itemInterface.onItemClicked(it, position, item.id.toString())
         }
     }
 
     override fun getItemCount(): Int {
-
-        var itemList = 0
-        itemList = if (itemcount.page.totalInsightsOnHomeScreen < list.size) {
-            itemcount.page.totalInsightsOnHomeScreen
+        val itemList = if (itemCount.page.totalInsightsOnHomeScreen < list.size) {
+            itemCount.page.totalInsightsOnHomeScreen
         } else {
             list.size
         }
