@@ -235,11 +235,6 @@ class OTPVerificationFragment : BaseFragment() {
                                             override fun run() {
                                                 it.data?.let { verifyOtpResponse ->
                                                     appPreference.setToken(verifyOtpResponse.token)
-
-                                                    Log.i(
-                                                        "prlead",
-                                                        ContactType.PRELEAD.value.toString()
-                                                    )
                                                     if (verifyOtpResponse.user.firstName.isNullOrEmpty()) {
                                                         (requireActivity() as AuthActivity).replaceFragment(
                                                             NameInputFragment.newInstance("", ""),
