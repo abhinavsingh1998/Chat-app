@@ -19,7 +19,7 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.portfolio.views.CustomDialog
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
-import com.emproto.networklayer.request.refernow.ReferalRequest
+import com.emproto.networklayer.request.refernow.ReferralRequest
 import com.emproto.networklayer.response.enums.Status
 import java.util.regex.Pattern
 import javax.inject.Inject
@@ -133,7 +133,7 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
     private fun referalClick() {
         mBinding.referBtn.setOnClickListener {
 
-            val referRequest = ReferalRequest(name, mobileNo)
+            val referRequest = ReferralRequest(name, mobileNo)
 
             if (mobileNo.length != 10 || !mobileNo.ValidNO()) {
                 mBinding.inputMobile.showError()

@@ -1,6 +1,6 @@
 package com.emproto.networklayer.response.investment
 
-data class OpprotunityDoc(
+data class OpportunityDoc(
     val sectionHeading: SectionHeading,
     val aboutProjects: AboutProjects,
     val bannerImage: BannerImage,

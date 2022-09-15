@@ -6,29 +6,29 @@ import javax.inject.Inject
 class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
 
     companion object {
-        val LOGGEDIN = "login"
-        val TOKEN = "token"
-        val Number = "number"
-        val PINVARIFICATION = "pin"
-        val PIN_AUTH = "pin_auth"
-        val FACILITY_CARD = "facility_card"
-        val NOTIFICATION_TOKEN = "notification_token"
-        val OFFER_ID = "offer_id"
-        val OFFER_CARD_URL = "offer_url"
-        val CUSTOMER_TYPE = "customer_type"
-        val PROMISES_COUNT = "promises_count"
-        val USERTYPE= "user_type"
-        val FMURL="fm_url"
+        const val LOGGED_IN = "login"
+        const val TOKEN = "token"
+        const val Number = "number"
+        const val PIN_VERIFICATION = "pin"
+        const val PIN_AUTH = "pin_auth"
+        const val FACILITY_CARD = "facility_card"
+        const val NOTIFICATION_TOKEN = "notification_token"
+        const val OFFER_ID = "offer_id"
+        const val OFFER_CARD_URL = "offer_url"
+        const val CUSTOMER_TYPE = "customer_type"
+        const val PROMISES_COUNT = "promises_count"
+        const val USERTYPE= "user_type"
+        const val FM_URL="fm_url"
     }
 
     private var preference = context.getSharedPreferences("hoabl-pref", Context.MODE_PRIVATE)
     private var editor = preference.edit()
     override fun saveLogin(loggedIn: Boolean) {
-        saveBoolean(LOGGEDIN, loggedIn)
+        saveBoolean(LOGGED_IN, loggedIn)
     }
 
     override fun isUserLoggedIn(): Boolean {
-        return getBoolean(LOGGEDIN, false)
+        return getBoolean(LOGGED_IN, false)
     }
 
     override fun setToken(token: String) {
@@ -80,11 +80,11 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
     }
 
     override fun savePinDialogStatus(status: Boolean) {
-        saveBoolean(PINVARIFICATION, status)
+        saveBoolean(PIN_VERIFICATION, status)
     }
 
     override fun isPinDialogShown(): Boolean {
-        return getBoolean(PINVARIFICATION, false)
+        return getBoolean(PIN_VERIFICATION, false)
     }
 
     override fun activatePin(status: Boolean) {
@@ -120,11 +120,11 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
     }
 
     override fun setFmUrl(url: String) {
-        saveString(FMURL, url)
+        saveString(FM_URL, url)
     }
 
     override fun getFmUrl(): String {
-        return getString(FMURL,"")
+        return getString(FM_URL,"")
     }
 
 

@@ -279,7 +279,6 @@ class ProfileRepository @Inject constructor(application: Application) :
             try {
                 val request = ProfileDataSource(application).getUserProfile()
                 if (request.isSuccessful) {
-                    Log.i("Request", request.message())
                     mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
                 } else {
                     mDocumentsResponse.postValue(

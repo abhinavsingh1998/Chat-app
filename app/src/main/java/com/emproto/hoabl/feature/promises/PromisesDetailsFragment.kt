@@ -121,22 +121,6 @@ class PromisesDetailsFragment : BaseFragment() {
 
         }
 
-//        homeViewModel.getTermsCondition(5004).observe(viewLifecycleOwner, Observer {
-//            when (it.status) {
-//                Status.SUCCESS -> {
-//                    it.data?.let {
-//                        if (it.data.page.termsAndConditions != null) {
-//                            termsConditionDialogBinding.tvTitle.text =
-//                                showHTMLText(it.data.page.termsAndConditions.description)
-//                            termsConditionDialogBinding.tvTitle.setMovementMethod(
-//                                ScrollingMovementMethod()
-//                            )
-//                        }
-//                    }
-//                }
-//
-//            }
-//        })
     }
 
 }
