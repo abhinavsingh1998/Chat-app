@@ -437,8 +437,6 @@ class FmFragment : BaseFragment() {
                                     ContactsContract.CommonDataKinds.Phone.NUMBER
                                 )
                             )
-                            Log.i("Contact", "Name: $name")
-                            Log.i("Contact", "Phone Number: $phoneNo")
                             hashMap[phoneNo.replace("\\s".toRegex(),"")] = name
 
                         }
