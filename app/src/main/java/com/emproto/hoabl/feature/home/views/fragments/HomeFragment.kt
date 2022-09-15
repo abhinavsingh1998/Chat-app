@@ -463,12 +463,12 @@ class HomeFragment : BaseFragment() {
 
         list.add(RecyclerViewItem(HomeAdapter.HOME_PORTFOLIO))
         list.add(RecyclerViewItem(HomeAdapter.NEW_PROJECT))
-        list.add(RecyclerViewItem(HomeAdapter.INCOMPLETED_KYC))
+        list.add(RecyclerViewItem(HomeAdapter.INCOMPLETE_KYC))
         list.add(RecyclerViewItem(HomeAdapter.LATEST_UPDATES))
         list.add(RecyclerViewItem(HomeAdapter.PROMISES))
-        list.add(RecyclerViewItem(HomeAdapter.FACILITY_MANAGMENT))
+        list.add(RecyclerViewItem(HomeAdapter.FACILITY_MANAGEMENT))
         list.add(RecyclerViewItem(HomeAdapter.INSIGHTS))
-        list.add(RecyclerViewItem(HomeAdapter.TESTIMONIAS))
+        list.add(RecyclerViewItem(HomeAdapter.TESTIMONIALS))
         list.add(RecyclerViewItem(HomeAdapter.SHARE_APP))
 
         binding.dashBoardRecyclerView.adapter = homeAdapter

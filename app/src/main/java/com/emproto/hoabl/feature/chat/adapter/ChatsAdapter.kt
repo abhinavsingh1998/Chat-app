@@ -10,12 +10,6 @@ import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemChatBinding
 import com.emproto.networklayer.response.chats.CData
-import com.emproto.networklayer.response.chats.ChatResponse
-import java.text.SimpleDateFormat
-import java.util.*
-import java.util.concurrent.TimeUnit
-import kotlin.time.Duration.Companion.days
-import kotlin.time.Duration.Companion.hours
 
 class ChatsAdapter(
     private var mContext: Context,
@@ -25,7 +19,6 @@ class ChatsAdapter(
 ) : RecyclerView.Adapter<ChatsAdapter.ViewHolder>() {
 
     lateinit var binding: ItemChatBinding
-    var timePattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding = ItemChatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -36,9 +29,9 @@ class ChatsAdapter(
         fun onChatItemClick(chatList: List<CData>, view: View, position: Int)
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        binding.tvChatTitle.text = chatList[position].project.projectContent.launchName.toString()
+        binding.tvChatTitle.text = chatList[position].project.projectContent.launchName
         if(chatList[position].lastMessage!=null){
-            binding.tvChatDesc.text = chatList[position].lastMessage.message.toString()
+            binding.tvChatDesc.text = chatList[position].lastMessage.message
             binding.tvChatTime.text = Utility.convertUTCtoTime(chatList[position].lastMessage.createdAt)
         }else{
             binding.tvChatDesc.text=""
@@ -56,9 +49,7 @@ class ChatsAdapter(
         return chatList.size
     }
 
-    class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-
-    }
+    class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView)
 
 
 }

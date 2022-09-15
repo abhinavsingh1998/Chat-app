@@ -50,7 +50,10 @@ class HoABLPromisesAdapter(
     }
 
 
-    inner class MyViewHolder(var binding: ItemHoablPromisesBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    inner class MyViewHolder(binding: ItemHoablPromisesBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        var binding = binding
+
+    }
 
 }

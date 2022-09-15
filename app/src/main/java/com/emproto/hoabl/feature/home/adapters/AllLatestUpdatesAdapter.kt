@@ -28,7 +28,7 @@ class AllLatestUpdatesAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val item = list[holder.adapterPosition]
+        val item = list.get(holder.adapterPosition)
         holder.binding.title.text = item.displayTitle
         if (!item.subTitle.isNullOrEmpty()) {
             holder.binding.placeName.text = item.subTitle
@@ -72,9 +72,7 @@ class AllLatestUpdatesAdapter(
     }
 
     override fun getItemCount(): Int {
-
-        var itemList = 0
-        itemList = if (list.size < listCount) {
+        val itemList = if (list.size < listCount) {
             list.size
         } else {
             listCount
