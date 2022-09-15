@@ -18,7 +18,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
-import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentMapBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -60,27 +59,22 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     var dummyLatitude = 17.7667503
     var dummyLongitude = 73.1711629
     private var distanceList = ArrayList<String>()
-    private var destinationList = ArrayList<ValueXXX>()
+    private var destinationList= ArrayList<ValueXXX>()
 
-    private lateinit var handler: Handler
+    lateinit var handler : Handler
     private var runnable: Runnable? = null
 
     private val job = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
-    private val encryptedMapKey = "3j+SjzloU3Keq7Fk+lbKW9W2kdodK3M59ZmL10v+AOctU/oems5E2ANOrD73gB59"
 
     private val mapItemClickListener = object : MapItemClickListener {
         override fun onItemClicked(view: View, position: Int, latitude: Double, longitude: Double) {
             when (view.id) {
                 R.id.cv_location_infrastructure_card -> {
-                    if (isNetworkAvailable()) {
+                    if(isNetworkAvailable()){
                         initMarkerLocation(dummyLatitude, dummyLongitude, latitude, longitude)
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "Network not available",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                    }else{
+                        Toast.makeText(requireContext(), "Network not available", Toast.LENGTH_SHORT).show()
                     }
 
                 }
@@ -102,7 +96,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         handler = Handler(Looper.getMainLooper())
         arguments?.let {
             data = it.getSerializable("Location") as MapLocationModel?
-            selectedPosition = it.getInt("ItemPosition", -1)
+            selectedPosition = it.getInt("ItemPosition",-1)
             val projectLocation = it.getSerializable(Constants.PROJECT_LOCATION) as ProjectLocation
             dummyLatitude = projectLocation.latitude.toDouble()
             dummyLongitude = projectLocation.longitude.toDouble()
@@ -111,18 +105,14 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         enableMyLocation()
     }
 
-    private fun calculateDistance(
-        originLat: Double,
-        originLong: Double,
-        destinationList: List<ValueXXX>
-    ) {
-        val originLocation = LatLng(originLat, originLong)
-        for (item in destinationList) {
-            val destinationLocation = LatLng(item.latitude, item.longitude)
+    private fun calculateDistance(originLat:Double,originLong:Double,destinationList: List<ValueXXX>) {
+        val originLocation = LatLng(originLat,originLong)
+        for(item in destinationList){
+            val destinationLocation = LatLng(item.latitude,item.longitude)
             val url = getDirectionURL(
                 originLocation,
                 destinationLocation,
-                Utility.decrypt(encryptedMapKey)!!
+                resources.getString(R.string.map_api_key)
             )
             callDirectionsApiForDistance(url)
         }
@@ -143,9 +133,9 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 //                addMarkers(googleMap)
                 mMap = googleMap
                 val originLocation = LatLng(dummyLatitude, dummyLongitude)
-                mMap.clear()
-                mMap.addMarker(MarkerOptions().position(originLocation))
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
+                mMap?.clear()
+                mMap?.addMarker(MarkerOptions().position(originLocation))
+                mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
                 initMarkerLocation(
                     data?.originLatitude!!,
                     data?.originLongitude!!,
@@ -161,7 +151,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         investmentViewModel =
             ViewModelProvider(requireActivity(), investmentFactory)[InvestmentViewModel::class.java]
         if (!Places.isInitialized()) {
-            Places.initialize(this.requireContext(), Utility.decrypt(encryptedMapKey)!!)
+            Places.initialize(this.requireContext(), resources.getString(R.string.map_api_key))
         }
         val mapFragment = childFragmentManager.findFragmentById(
             R.id.map_fragment
@@ -173,9 +163,9 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 //long = 73.0749419
                 mMap = googleMap
                 val originLocation = LatLng(dummyLatitude, dummyLongitude)
-                mMap.clear()
-                mMap.addMarker(MarkerOptions().position(originLocation))
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 15F))
+                mMap?.clear()
+                mMap?.addMarker(MarkerOptions().position(originLocation))
+                mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
             }
         }
     }
@@ -186,37 +176,37 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         destinationLatitude: Double,
         destinationLongitude: Double
     ) {
-        mMap.clear()
+        mMap?.clear()
         val originLocation = LatLng(originLatitude, originLongitude)
-        mMap.addMarker(
+        mMap?.addMarker(
             MarkerOptions()
                 .position(originLocation)
                 .icon(
-                    bitmapFromVector(
+                    BitmapFromVector(
                         this.requireContext(),
                         R.drawable.ic_baseline_location_on_24
                     )
                 )
         )
         val destinationLocation = LatLng(destinationLatitude, destinationLongitude)
-        mMap.addMarker(
+        mMap?.addMarker(
             MarkerOptions()
                 .position(destinationLocation)
                 .icon(
-                    bitmapFromVector(
+                    BitmapFromVector(
                         this.requireContext(),
                         R.drawable.ic_baseline_location_on_24_red
                     )
                 )
         )
-        val directionUrl = getDirectionURL(
+        val urll = getDirectionURL(
             originLocation,
             destinationLocation,
-            Utility.decrypt(encryptedMapKey)!!
+            resources.getString(R.string.map_api_key)
         )
-        callDirectionApi(directionUrl)
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 15F))
+        callDirectionApi(urll)
+        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
+        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 15F))
     }
 
     private fun setUpUI() {
@@ -237,8 +227,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             calculateDistance(dummyLatitude, dummyLongitude, it.values)
 
         }
-        runnable = Runnable { binding.cvBackButton.visibility = View.VISIBLE }
-        runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
+        runnable = Runnable {   binding.cvBackButton.visibility = View.VISIBLE }
+        runnable?.let { it1 -> handler.postDelayed(it1,2000) }
 
 
         binding.cvBackButton.setOnClickListener {
@@ -247,11 +237,11 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     }
 
     private fun enableMyLocation() {
-        when (PackageManager.PERMISSION_GRANTED) {
+        when {
             ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
-            ) -> {
+            ) == PackageManager.PERMISSION_GRANTED -> {
                 initMap()
                 initObserver()
                 setDataFromPrevious()
@@ -287,27 +277,27 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             }
         }
 
-//
-//    private fun addMarkers(googleMap: GoogleMap) {
-//        val bounds = LatLngBounds.builder()
-//        val marker = googleMap.addMarker(
-//            MarkerOptions()
-//                .title("Isle of Bliss")
-//                .position(LatLng(dummyLatitude, dummyLongitude))
-//                .icon(BitmapFromVector(this.requireContext(), R.drawable.location_image_red))
-//        )
-//        bounds.include(LatLng(dummyLatitude, dummyLongitude))
-//        marker?.tag = "Isle of Bliss"
-////        googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(),50))
-//        googleMap.animateCamera(
-//            CameraUpdateFactory.newLatLngZoom(
-//                LatLng(dummyLatitude, dummyLongitude),
-//                16.0f
-//            )
-//        )
-//    }
 
-    private fun bitmapFromVector(context: Context, vectorResId: Int): BitmapDescriptor {
+    private fun addMarkers(googleMap: GoogleMap) {
+        val bounds = LatLngBounds.builder()
+        val marker = googleMap.addMarker(
+            MarkerOptions()
+                .title("Isle of Bliss")
+                .position(LatLng(dummyLatitude, dummyLongitude))
+                .icon(BitmapFromVector(this.requireContext(), R.drawable.location_image_red))
+        )
+        bounds.include(LatLng(dummyLatitude, dummyLongitude))
+        marker?.tag = "Isle of Bliss"
+//        googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(),50))
+        googleMap.animateCamera(
+            CameraUpdateFactory.newLatLngZoom(
+                LatLng(dummyLatitude, dummyLongitude),
+                16.0f
+            )
+        )
+    }
+
+    private fun BitmapFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
         val vectorDrawable = ContextCompat.getDrawable(context, vectorResId)
         vectorDrawable!!.setBounds(
             0,
@@ -341,7 +331,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 "&key=$secret"
     }
 
-    private fun callDirectionApi(url: String) {
+    private fun callDirectionApi(url:String){
         uiScope.launch(Dispatchers.IO) {
             val client = OkHttpClient()
             val request = Request.Builder().url(url).build()
@@ -360,20 +350,15 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 e.printStackTrace()
             }
 
-            withContext(Dispatchers.Main) {
-                val lineOption = PolylineOptions()
+            withContext(Dispatchers.Main){
+                val lineoption = PolylineOptions()
                 for (i in result.indices) {
-                    lineOption.addAll(result[i])
-                    lineOption.width(10f)
-                    lineOption.color(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.text_blue_color
-                        )
-                    )
-                    lineOption.geodesic(true)
+                    lineoption.addAll(result[i])
+                    lineoption.width(10f)
+                    lineoption.color(ContextCompat.getColor(requireContext(), R.color.text_blue_color))
+                    lineoption.geodesic(true)
                 }
-                mMap.addPolyline(lineOption)
+                mMap?.addPolyline(lineoption)
             }
         }
     }
@@ -393,8 +378,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 result = result or (b and 0x1f shl shift)
                 shift += 5
             } while (b >= 0x20)
-            val dLat = if (result and 1 != 0) (result shr 1).inv() else result shr 1
-            lat += dLat
+            val dlat = if (result and 1 != 0) (result shr 1).inv() else result shr 1
+            lat += dlat
             shift = 0
             result = 0
             do {
@@ -402,8 +387,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 result = result or (b and 0x1f shl shift)
                 shift += 5
             } while (b >= 0x20)
-            val dLng = if (result and 1 != 0) (result shr 1).inv() else result shr 1
-            lng += dLng
+            val dlng = if (result and 1 != 0) (result shr 1).inv() else result shr 1
+            lng += dlng
             val latLng = LatLng((lat.toDouble() / 1E5), (lng.toDouble() / 1E5))
             poly.add(latLng)
         }
@@ -411,14 +396,14 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(p0: GoogleMap) {
-        mMap = p0
+        mMap = p0!!
         val originLocation = LatLng(dummyLatitude, dummyLongitude)
-        mMap.clear()
-        mMap.addMarker(MarkerOptions().position(originLocation))
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 15F))
+        mMap?.clear()
+        mMap?.addMarker(MarkerOptions().position(originLocation))
+        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
     }
 
-    private fun callDirectionsApiForDistance(url: String) {
+    private fun callDirectionsApiForDistance(url:String){
         uiScope.launch(Dispatchers.IO) {
             val client = OkHttpClient()
             val request = Request.Builder().url(url).build()
@@ -440,7 +425,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             }
             withContext(Dispatchers.Main) {
                 distanceList.add(dis)
-                if (distanceList.size == destinationList.size) {
+                if(distanceList.size == destinationList.size){
                     adapter = LocationInfrastructureAdapter(
                         requireContext(),
                         destinationList,

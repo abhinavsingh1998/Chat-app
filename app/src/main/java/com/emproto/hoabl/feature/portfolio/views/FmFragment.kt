@@ -401,7 +401,6 @@ class FmFragment : BaseFragment() {
 
     @SuppressLint("Range")
     fun readContacts() {
-//        binding.progressBaar.show()
         val cArray = mutableListOf<ContactsModel>()
         val cr: ContentResolver = requireActivity().contentResolver
         val cur: Cursor? = cr.query(
