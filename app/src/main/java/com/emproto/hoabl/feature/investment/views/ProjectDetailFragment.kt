@@ -66,7 +66,7 @@ class ProjectDetailFragment : BaseFragment() {
     private lateinit var binding: ProjectDetailLayoutBinding
 
     private var projectId = 0
-    private lateinit var oppDocData: OpprotunityDoc
+    private lateinit var oppDocData: OpportunityDoc
     private lateinit var mediaData: List<MediaGalleryOrProjectContent>
     private lateinit var coverImages: ProjectCoverImages
     private lateinit var promisesData: List<PmData>

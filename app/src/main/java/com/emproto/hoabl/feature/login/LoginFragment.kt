@@ -103,10 +103,6 @@ class LoginFragment : BaseFragment() {
                 termsConditionDialogBinding.tvHeading.text = getString(R.string.termscondition)
                 bottomSheetDialog.show()
             }),
-//            Pair("Privacy Policy", View.OnClickListener {
-//                termsConditionDialogBinding.tvHeading.text = getString(R.string.privacypolicy)
-//                bottomSheetDialog.show()
-//            })
         )
 
         termsConditionDialogBinding.acitonClose.setOnClickListener {

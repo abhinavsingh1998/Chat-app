@@ -1,6 +1,6 @@
 package com.emproto.networklayer.response.investment
 
-data class PdProjectAminity(
+data class PdProjectAmenity(
     val icon: IconXX,
     val name: String
 )

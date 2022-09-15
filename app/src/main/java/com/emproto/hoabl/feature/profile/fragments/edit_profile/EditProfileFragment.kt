@@ -394,7 +394,6 @@ class EditProfileFragment : BaseFragment() {
             }
 
         "${data.firstName} ${data.lastName}".also { binding.textviewEnterName.text = it }
-        Log.i("name", data.firstName + " " + data.lastName + data.email)
         "${data.countryCode} ${data.phoneNumber}".also {
             binding.enterPhonenumberTextview.text = it
         }
@@ -887,7 +886,6 @@ class EditProfileFragment : BaseFragment() {
     private fun callDeletePic(data: Data) {
         val fileName: String = data.profilePictureUrl.toString()
             .substring(data.profilePictureUrl.toString().lastIndexOf('/') + 1)
-        Log.i("profileUrl", fileName)
         profileViewModel.deleteProfileImage(fileName)
             .observe(viewLifecycleOwner) {
                 when (it.status) {
@@ -913,7 +911,6 @@ class EditProfileFragment : BaseFragment() {
                             it.message.toString(),
                             Toast.LENGTH_SHORT
                         ).show()
-                        Log.i("delete api error", it.message.toString())
                     }
                 }
             }

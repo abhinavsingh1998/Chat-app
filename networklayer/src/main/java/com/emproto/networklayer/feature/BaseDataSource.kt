@@ -12,22 +12,18 @@ import com.emproto.networklayer.di.DataComponent
 import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.ApiService
 import com.emproto.networklayer.di.DaggerDataComponent
-import com.emproto.networklayer.request.refernow.ReferalRequest
+import com.emproto.networklayer.request.refernow.ReferralRequest
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
-import com.emproto.networklayer.response.documents.DocumentsResponse
-import com.emproto.networklayer.response.home.HomeResponse
-import com.emproto.networklayer.response.promises.PromisesResponse
 import com.emproto.networklayer.response.refer.ReferalResponse
 import retrofit2.Response
 import javax.inject.Inject
-import javax.inject.Named
 
 /**
  * Base Data Source.
  * All the common end point used accross the sub modules.
  * @property application
  */
-public abstract class BaseDataSource(val baseApplication: Application) {
+public abstract class BaseDataSource(private val baseApplication: Application) {
     @Inject
     lateinit var baseService: ApiService
 
@@ -42,8 +38,8 @@ public abstract class BaseDataSource(val baseApplication: Application) {
         }
     }
 
-    suspend fun getRefer(referalRequest: ReferalRequest): Response<ReferalResponse> {
-        return baseService.referNow(referalRequest)
+    suspend fun getRefer(referralRequest: ReferralRequest): Response<ReferalResponse> {
+        return baseService.referNow(referralRequest)
     }
 
     suspend fun downloadDocument(path: String): Response<DDocumentResponse> {
