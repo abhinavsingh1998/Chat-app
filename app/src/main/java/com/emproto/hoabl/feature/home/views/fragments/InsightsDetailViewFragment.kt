@@ -18,5 +18,4 @@ class InsightsDetailViewFragment : BaseFragment() {
         return mBinding.root
     }
 
-
 }

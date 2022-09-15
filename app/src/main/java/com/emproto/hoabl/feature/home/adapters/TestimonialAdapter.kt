@@ -1,5 +1,6 @@
 package com.emproto.hoabl.feature.home.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -21,8 +22,9 @@ class TestimonialAdapter(
         return MyViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val item = list.get(holder.adapterPosition)
+        val item = list[holder.adapterPosition]
 
         holder.binding.tvName.text = item.firstName + " " + item.lastName
         holder.binding.tvCompanyName.text = item.designation + " " + item.companyName
@@ -31,10 +33,10 @@ class TestimonialAdapter(
 
     override fun getItemCount(): Int {
         var itemList = 0
-        if (itemCount.page.totalTestimonialsOnHomeScreen < list.size) {
-            itemList = itemCount.page.totalTestimonialsOnHomeScreen
+        itemList = if (itemCount.page.totalTestimonialsOnHomeScreen < list.size) {
+            itemCount.page.totalTestimonialsOnHomeScreen
         } else {
-            itemList = list.size
+            list.size
         }
         return itemList
     }

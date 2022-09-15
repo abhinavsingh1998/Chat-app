@@ -20,7 +20,7 @@ class InsightsAdapter(
     val context: Context,
     val itemcount: Data,
     val list: List<PageManagementOrInsight>,
-    val itemIntrface: ItemClickListener
+    private val itemIntrface: ItemClickListener
 ) : RecyclerView.Adapter<InsightsAdapter.MyViewHolder>() {
 
 
@@ -30,7 +30,7 @@ class InsightsAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val item = list.get(holder.adapterPosition)
+        val item = list[holder.adapterPosition]
         holder.binding.tvVideotitle.text = item.displayTitle
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -79,10 +79,10 @@ class InsightsAdapter(
     override fun getItemCount(): Int {
 
         var itemList = 0
-        if (itemcount.page.totalInsightsOnHomeScreen < list.size) {
-            itemList = itemcount.page.totalInsightsOnHomeScreen
+        itemList = if (itemcount.page.totalInsightsOnHomeScreen < list.size) {
+            itemcount.page.totalInsightsOnHomeScreen
         } else {
-            itemList = list.size
+            list.size
         }
         return itemList
     }
@@ -90,7 +90,7 @@ class InsightsAdapter(
     inner class MyViewHolder(val binding: ItemInsightsBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    public fun showHTMLText(message: String?): Spanned {
+    fun showHTMLText(message: String?): Spanned {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
         } else {

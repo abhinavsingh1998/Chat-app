@@ -14,7 +14,7 @@ import com.emproto.networklayer.response.promises.HomePagesOrPromise
 class HoABLPromisesAdapter(
     val context: Context,
     val list: List<HomePagesOrPromise>,
-    val ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface,
+    private val ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface,
     val count: Int
 ) :
     RecyclerView.Adapter<HoABLPromisesAdapter.MyViewHolder>() {
@@ -50,10 +50,7 @@ class HoABLPromisesAdapter(
     }
 
 
-    inner class MyViewHolder(binding: ItemHoablPromisesBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        var binding: ItemHoablPromisesBinding = binding
-
-    }
+    inner class MyViewHolder(var binding: ItemHoablPromisesBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
 }

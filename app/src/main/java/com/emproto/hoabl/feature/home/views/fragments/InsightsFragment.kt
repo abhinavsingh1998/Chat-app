@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
 import com.emproto.hoabl.databinding.FragmentInsightsBinding
@@ -18,21 +17,19 @@ import com.emproto.hoabl.feature.home.adapters.AllInsightsAdapter
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
-import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.insights.InsightsResponse
-import com.skydoves.balloon.balloon
 import javax.inject.Inject
 
 class InsightsFragment : BaseFragment() {
 
     lateinit var mBinding: FragmentInsightsBinding
-    lateinit var insightsAdapter: AllInsightsAdapter
+    private lateinit var insightsAdapter: AllInsightsAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
-    val appURL =Constants.APP_URL
-    var insightsListCount = 0
-    lateinit var insightsHeading: String
-    lateinit var insightsSubHeading: String
+    private val appURL =Constants.APP_URL
+    private var insightsListCount = 0
+    private lateinit var insightsHeading: String
+    private lateinit var insightsSubHeading: String
 
 
     @Inject
@@ -69,76 +66,80 @@ class InsightsFragment : BaseFragment() {
         })
     }
 
-
     private fun initObserver(refresh: Boolean) {
 
         homeViewModel.getInsightsData(refresh, true)
-            .observe(viewLifecycleOwner, object : Observer<BaseResponse<InsightsResponse>> {
-                override fun onChanged(it: BaseResponse<InsightsResponse>?) {
-                    when (it?.status) {
+            .observe(viewLifecycleOwner
+            ) {
+                when (it?.status) {
 
-                        Status.ERROR -> {
-                            mBinding.rootView.hide()
-                            mBinding.loader.show()
-                        }
-                        Status.SUCCESS -> {
-                            mBinding.rootView.show()
-                            mBinding.loader.hide()
+                    Status.ERROR -> {
+                        mBinding.rootView.hide()
+                        mBinding.loader.show()
+                    }
+                    Status.SUCCESS -> {
+                        mBinding.rootView.show()
+                        mBinding.loader.hide()
 
-                            mBinding.headerText.text = insightsHeading
-                            mBinding.subHeaderTxt.text = insightsSubHeading
+                        mBinding.headerText.text = insightsHeading
+                        mBinding.subHeaderTxt.text = insightsSubHeading
 
-                            it.data.let {
-                                if (it != null) {
-                                    homeViewModel.setInsightsData(it.data)
-                                }
+                        initAdapeter(it.data!!)
 
-                                it?.data!!.size
-                                insightsAdapter = AllInsightsAdapter(requireActivity(),
-                                    insightsListCount,
-                                    it.data,
-                                    object : AllInsightsAdapter.InsightsItemsInterface {
-                                        override fun onClickItem(position: Int) {
-                                            homeViewModel.setSeLectedInsights(it.data[position])
-                                            (requireActivity() as HomeActivity).addFragment(
-                                                InsightsDetailsFragment(),
-                                                true
-                                            )
-                                        }
-                                    }
-                                )
-                                linearLayoutManager = LinearLayoutManager(
-                                    requireContext(),
-                                    RecyclerView.VERTICAL,
-                                    false
-                                )
-                                mBinding.recyclerInsights.layoutManager = linearLayoutManager
-                                mBinding.recyclerInsights.adapter = insightsAdapter
-
-                            }
-                        }
                     }
                 }
+            }
+    }
 
-            })
+    private fun initAdapeter(data:InsightsResponse ){
+
+        data.data.let {
+            if (data != null) {
+                homeViewModel.setInsightsData(data?.data)
+            }
+
+            data?.data!!.size
+            insightsAdapter = AllInsightsAdapter(requireActivity(),
+                insightsListCount,
+                data?.data,
+                object : AllInsightsAdapter.InsightsItemsInterface {
+                    override fun onClickItem(position: Int) {
+                        homeViewModel.setSeLectedInsights(data?.data[position])
+                        (requireActivity() as HomeActivity).addFragment(
+                            InsightsDetailsFragment(),
+                            true
+                        )
+                    }
+                }
+            )
+            linearLayoutManager = LinearLayoutManager(
+                requireContext(),
+                RecyclerView.VERTICAL,
+                false
+            )
+            mBinding.recyclerInsights.layoutManager = linearLayoutManager
+            mBinding.recyclerInsights.adapter = insightsAdapter
+
+        }
+
     }
 
     private fun initClickListner() {
 
-        mBinding.appShareBtn.setOnClickListener(View.OnClickListener {
-            share_app()
-        })
+        mBinding.appShareBtn.setOnClickListener {
+            shareApp()
+        }
 
-        mBinding.refressLayout.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+        mBinding.refressLayout.setOnRefreshListener {
             mBinding.loader.show()
             initObserver(refresh = true)
 
             mBinding.refressLayout.isRefreshing = false
 
-        })
+        }
     }
 
-    private fun share_app() {
+    private fun shareApp() {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         shareIntent.type = "text/plain"
