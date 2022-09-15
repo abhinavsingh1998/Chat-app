@@ -79,10 +79,7 @@ class FmFragment : BaseFragment() {
 
     private var destinationFile = File("")
 
-    var contacts = HashMap<String,String>()
-
-    lateinit var permissionLauncherForContacts: ActivityResultLauncher<Array<String>>
-    lateinit var permissionLauncherForUpload: ActivityResultLauncher<Array<String>>
+    private var contacts = HashMap<String,String>()
 
     private lateinit var permissionLauncherForContacts: ActivityResultLauncher<Array<String>>
     private lateinit var permissionLauncherForUpload: ActivityResultLauncher<Array<String>>
