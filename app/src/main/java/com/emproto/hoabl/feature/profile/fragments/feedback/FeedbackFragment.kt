@@ -305,7 +305,7 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
                     initObserver()
                 } else {
                     (requireActivity() as HomeActivity).showErrorToast(
-                        requireContext().getString(R.string.fill_alteast_one_field)
+                       "Fill Atleast One field"
                     )
                 }
 

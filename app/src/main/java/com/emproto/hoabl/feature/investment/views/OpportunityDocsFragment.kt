@@ -109,6 +109,7 @@ class OpportunityDocsFragment:BaseFragment() {
                 this.requireContext(),
                 list,
                 it,
+                title,
                 isFromProjectAmenities
             )
             binding.rvOppDocs.adapter = opportunityDocsAdapter
