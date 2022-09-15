@@ -90,7 +90,7 @@ class FmFragment : BaseFragment() {
     var destinationFile = File("")
 
     var contacts = HashMap<String,String>()
-    val cArray = mutableListOf<ContactsModel>()
+
 
     lateinit var permissionLauncherForContacts: ActivityResultLauncher<Array<String>>
     lateinit var permissionLauncherForUpload: ActivityResultLauncher<Array<String>>
@@ -421,6 +421,7 @@ class FmFragment : BaseFragment() {
     @SuppressLint("Range")
     fun readContacts() {
 //        binding.progressBaar.show()
+        val cArray = mutableListOf<ContactsModel>()
         val cr: ContentResolver = requireActivity().contentResolver
         val cur: Cursor? = cr.query(
             ContactsContract.Contacts.CONTENT_URI,
@@ -450,6 +451,7 @@ class FmFragment : BaseFragment() {
                         null
                     )
                     if (pCur != null) {
+
                         val hashMap = HashMap<String,String>()
                         while (pCur.moveToNext()) {
                             val phoneNo: String = pCur.getString(
@@ -465,6 +467,7 @@ class FmFragment : BaseFragment() {
                         for((key,value ) in hashMap){
                             cArray.add(ContactsModel(name = value, phoneNo = key))
                         }
+                        Log.d("Count",cArray.size.toString())
                         val gson = Gson()
                         val data = gson.toJson(cArray)
                         Log.d("JSON",data.toString())
