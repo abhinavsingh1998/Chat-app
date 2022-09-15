@@ -122,7 +122,7 @@ class AccountDetailsFragment : Fragment(),
                 isWritePermissionGranted = permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE]
                     ?: isWritePermissionGranted
 
-                if (isReadPermissionGranted && isWritePermissonGranted) {
+                if (isReadPermissionGranted && isWritePermissionGranted) {
                     openPdf(base64Data)
                 }
             }
@@ -507,7 +507,7 @@ class AccountDetailsFragment : Fragment(),
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
 
-        if (!isReadPermissionGranted || !isWritePermissonGranted) {
+        if (!isReadPermissionGranted || !isWritePermissionGranted) {
             permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
             permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         } else {
