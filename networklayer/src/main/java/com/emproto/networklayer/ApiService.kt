@@ -276,5 +276,5 @@ public interface ApiService {
     suspend fun uploadFm(@Part type: MultipartBody.Part,
                          @Part page_name: MultipartBody.Part,
                          @Part image: MultipartBody.Part,
-                         @Url url:String = "https://fm.hoabl.in/api/user/upload/files"):Response<FmUploadResponse>
+                         @Url url:String = "https://fm-admin.hoabl.in/api/user/upload/files"):Response<FmUploadResponse>
 }
