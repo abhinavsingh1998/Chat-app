@@ -78,10 +78,11 @@ class EditProfileFragment : BaseFragment() {
     private var citySelected = ""
     private var dob: String? = null
 
-    private val emailPattern = Pattern.compile("""[a-zA-Z0-9._-]+@[a-z]+\.+[a-z]+""")
-    private val pickGalleryImage = 1
-    private lateinit var bitmap: Bitmap
-    private var destinationFile = File("")
+    private val emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
+
+    private val PICK_GALLERY_IMAGE = 1
+    lateinit var bitmap: Bitmap
+    var destinationFile = File("")
 
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private var isReadStorageGranted = false
@@ -978,7 +979,7 @@ class EditProfileFragment : BaseFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == pickGalleryImage) {
+            if (requestCode == PICK_GALLERY_IMAGE) {
                 onSelectFromGalleryResult(data!!)
             } else {
                 (requireActivity() as BaseActivity).showError(
