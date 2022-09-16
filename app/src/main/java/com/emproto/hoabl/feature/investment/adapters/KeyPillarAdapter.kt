@@ -23,8 +23,9 @@ class KeyPillarAdapter(val context: Context, private val list: List<ValueX>) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val element = list[position]
         holder.binding.tvPremiumLocation.text = element.name
-        holder.binding.tvPointOne.text = element.points[0]
-        holder.binding.tvPointTwo.text = element.points[1]
+
+        if (element.points.isNotEmpty())
+            holder.binding.tvPointOne.text = element.points[0]
         Glide
             .with(context)
             .load(element.icon.value.url)

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cv_key_pillar_card"
     android:layout_width="195dp"
-    android:layout_height="@dimen/margin_size_200"
+    android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/margin_size_4"
     android:layout_marginEnd="@dimen/margin_size_6"
     android:outlineSpotShadowColor="#ababab"
@@ -64,7 +64,6 @@
             android:fontFamily="@font/jost_regular"
             android:gravity="center|center_vertical"
             android:lines="3"
-            android:text="Point 1 goes here Point 1 goes here"
             android:textColor="@color/text_blue_color"
             android:textSize="@dimen/text_size_13"
             app:layout_constraintBottom_toTopOf="@id/tv_point_two"
@@ -73,6 +72,7 @@
             app:layout_constraintTop_toBottomOf="@id/top_line" />
 
         <com.google.android.material.textview.MaterialTextView
+            android:visibility="gone"
             android:id="@+id/tv_point_two"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -82,7 +82,6 @@
             android:gravity="center|center_vertical"
             android:lines="3"
             android:layout_marginBottom="@dimen/margin_size_14"
-            android:text="Point 1 goes here Point 1 goes here"
             android:textColor="@color/text_blue_color"
             android:textSize="@dimen/text_size_13"
             app:layout_constraintBottom_toBottomOf="parent"
