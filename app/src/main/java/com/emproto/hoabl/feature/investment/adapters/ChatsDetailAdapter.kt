@@ -55,14 +55,14 @@ class ChatsDetailAdapter(
     }
 
     class ReceiverViewHolder(ItemView: View) : BaseViewHolder(ItemView) {
-        var tvMessage = itemView.findViewById<TextView>(R.id.tvMessage)
-        var rvOptions = itemView.findViewById<RecyclerView>(R.id.rvOptions)
-        var tvTime = itemView.findViewById<TextView>(R.id.tvChatTime)
+        var tvMessage: TextView = itemView.findViewById(R.id.tvMessage)
+        var rvOptions: RecyclerView = itemView.findViewById(R.id.rvOptions)
+        var tvTime: TextView = itemView.findViewById(R.id.tvChatTime)
     }
 
     class SenderViewHolder(ItemView: View) : BaseViewHolder(ItemView) {
-        var tvSentMessage = itemView.findViewById<TextView>(R.id.tvSentMessage)
-        var tvChatSendTime = itemView.findViewById<TextView>(R.id.tvChatSendTime)
+        var tvSentMessage: TextView = itemView.findViewById(R.id.tvSentMessage)
+        var tvChatSendTime: TextView = itemView.findViewById(R.id.tvChatSendTime)
     }
 
     abstract class BaseViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView)

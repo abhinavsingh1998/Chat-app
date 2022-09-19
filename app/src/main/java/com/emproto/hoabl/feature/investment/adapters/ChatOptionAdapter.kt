@@ -39,7 +39,7 @@ class ChatOptionAdapter(
     }
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-        var tvOption = itemView.findViewById<TextView>(R.id.tvOption)
+        var tvOption: TextView = itemView.findViewById(R.id.tvOption)
     }
 
 }
