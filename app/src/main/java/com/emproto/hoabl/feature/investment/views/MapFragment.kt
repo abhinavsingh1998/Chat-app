@@ -194,7 +194,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             MarkerOptions()
                 .position(originLocation)
                 .icon(
-                    bitmapFromVector(
+                    BitmapFromVector(
                         this.requireContext(),
                         R.drawable.ic_baseline_location_on_24
                     )
@@ -205,7 +205,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             MarkerOptions()
                 .position(destinationLocation)
                 .icon(
-                    bitmapFromVector(
+                    BitmapFromVector(
                         this.requireContext(),
                         R.drawable.ic_baseline_location_on_24_red
                     )
@@ -290,7 +290,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         }
 
 
-    private fun bitmapFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
+    private fun BitmapFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
         val vectorDrawable = ContextCompat.getDrawable(context, vectorResId)
         vectorDrawable!!.setBounds(
             0,
