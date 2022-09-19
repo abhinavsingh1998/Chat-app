@@ -1,7 +1,6 @@
 package com.emproto.hoabl.feature.portfolio.views
 
 import android.Manifest
-import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -13,7 +12,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
@@ -29,7 +27,6 @@ import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.response.bookingjourney.Data
 import com.emproto.networklayer.response.bookingjourney.Payment
 import com.emproto.networklayer.response.enums.Status
-import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentInformation
 import com.example.portfolioui.adapters.BookingJourneyAdapter
 import com.example.portfolioui.databinding.DialogHandoverDetailsBinding
 import com.example.portfolioui.databinding.DialogPendingPaymentBinding
@@ -38,7 +35,6 @@ import com.example.portfolioui.databinding.FragmentBookingjourneyBinding
 import com.example.portfolioui.models.BookingModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
@@ -46,22 +42,17 @@ import kotlin.collections.ArrayList
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Bookingjourney.newInstance] factory method to
- * create an instance of this fragment.
- */
-class BookingjourneyFragment : BaseFragment() {
+class BookingJourneyFragment : BaseFragment() {
 
     private var param1: Int = 0
     private var param2: String? = null
     lateinit var mBinding: FragmentBookingjourneyBinding
 
-    val permissionRequest: MutableList<String> = ArrayList()
+    private val permissionRequest: MutableList<String> = ArrayList()
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
-    var isReadPermissonGranted: Boolean = false
-    var isWritePermissonGranted: Boolean = false
-    var base64Data: String = ""
+    private var isReadPermissionGranted = false
+    private var isWritePermissionGranted = false
+    private var base64Data: String = ""
 
     lateinit var dialogRegistrationDetailsBinding: DialogRegistrationDetailsBinding
     lateinit var registrationDialog: CustomDialog
@@ -77,7 +68,7 @@ class BookingjourneyFragment : BaseFragment() {
 
     @Inject
     lateinit var portfolioFactory: PortfolioFactory
-    lateinit var portfolioviewmodel: PortfolioViewModel
+    lateinit var portfolioViewModel: PortfolioViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,10 +81,10 @@ class BookingjourneyFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mBinding = FragmentBookingjourneyBinding.inflate(inflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
-        portfolioviewmodel = ViewModelProvider(
+        portfolioViewModel = ViewModelProvider(
             requireActivity(),
             portfolioFactory
         )[PortfolioViewModel::class.java]
@@ -112,13 +103,13 @@ class BookingjourneyFragment : BaseFragment() {
 
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-                isReadPermissonGranted =
+                isReadPermissionGranted =
                     permissions[Manifest.permission.READ_EXTERNAL_STORAGE]
-                        ?: isReadPermissonGranted
-                isWritePermissonGranted = permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE]
-                    ?: isWritePermissonGranted
+                        ?: isReadPermissionGranted
+                isWritePermissionGranted = permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE]
+                    ?: isWritePermissionGranted
 
-                if (isReadPermissonGranted && isWritePermissonGranted) {
+                if (isReadPermissionGranted && isWritePermissionGranted) {
                     openPdf(base64Data)
                 }
             }
@@ -147,7 +138,7 @@ class BookingjourneyFragment : BaseFragment() {
 
         allReceiptDialog = FragmentReceiptBinding.inflate(layoutInflater)
         bottomSheetDialog = BottomSheetDialog(requireContext())
-        bottomSheetDialog.behavior.setState(BottomSheetBehavior.STATE_EXPANDED)
+        bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         bottomSheetDialog.setContentView(allReceiptDialog.root)
         allReceiptDialog.actionClose.setOnClickListener {
             bottomSheetDialog.dismiss()
@@ -155,8 +146,8 @@ class BookingjourneyFragment : BaseFragment() {
     }
 
     private fun getBookingJourneyData(investedId: Int) {
-        portfolioviewmodel.getBookingJourney(investedId)
-            .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        portfolioViewModel.getBookingJourney(investedId)
+            .observe(viewLifecycleOwner) {
                 when (it.status) {
                     Status.LOADING -> {
                         mBinding.loader.show()
@@ -172,15 +163,15 @@ class BookingjourneyFragment : BaseFragment() {
                         )
                     }
                 }
-            })
+            }
     }
 
-    fun loadBookingJourneyData(data1: Data) {
+    private fun loadBookingJourneyData(data1: Data) {
         val data = data1.bookingJourney
         val bookingList = ArrayList<BookingModel>()
 
 
-        val headerData = portfolioviewmodel.getBookingHeader()
+        val headerData = portfolioViewModel.getBookingHeader()
         bookingList.add(
             BookingModel(
                 BookingJourneyAdapter.TYPE_HEADER,
@@ -211,20 +202,17 @@ class BookingjourneyFragment : BaseFragment() {
                     }
 
                     override fun onClickPendingCardDetails(payment: Payment) {
-                        dialogPendingPayment.tvPendingAmount.text =
-                            "₹ ${Utility.convertTo(payment.pendingAmount)}"
+                        "₹ ${Utility.convertTo(payment.pendingAmount)}".also { dialogPendingPayment.tvPendingAmount.text = it }
 
                         if (payment.pendingAmount == 0.0) {
                             dialogPendingPayment.tvPaidAmount.visibility = View.GONE
                             dialogPendingPayment.textView14.visibility = View.GONE
                         } else {
-                            dialogPendingPayment.tvPaidAmount.text =
-                                "₹ ${Utility.convertTo(payment.paidAmount)}"
+                            "₹ ${Utility.convertTo(payment.paidAmount)}".also { dialogPendingPayment.tvPaidAmount.text = it }
                         }
                         dialogPendingPayment.tvMilestoneName.text = payment.paymentMilestone
                         if (payment.targetDate != null)
-                            dialogPendingPayment.tvDueDate.text =
-                                "Due date: ${Utility.parseDateFromUtc(payment.targetDate)}"
+                            "Due date: ${Utility.parseDateFromUtc(payment.targetDate)}".also { dialogPendingPayment.tvDueDate.text = it }
                         pendingPaymentDialog.show()
 
                     }
@@ -284,17 +272,10 @@ class BookingjourneyFragment : BaseFragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Bookingjourney.
-         */
+
         @JvmStatic
         fun newInstance(param1: Int, param2: String) =
-            BookingjourneyFragment().apply {
+            BookingJourneyFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
@@ -302,18 +283,18 @@ class BookingjourneyFragment : BaseFragment() {
             }
     }
 
-    private fun requestPermisson(base64: String) {
-        isReadPermissonGranted = ContextCompat.checkSelfPermission(
+    private fun requestPermission(base64: String) {
+        isReadPermissionGranted = ContextCompat.checkSelfPermission(
             requireContext(),
             Manifest.permission.READ_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
 
-        isWritePermissonGranted = ContextCompat.checkSelfPermission(
+        isWritePermissionGranted = ContextCompat.checkSelfPermission(
             requireContext(),
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
 
-        if (!isReadPermissonGranted || !isWritePermissonGranted) {
+        if (!isReadPermissionGranted || !isWritePermissionGranted) {
             permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
             permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         } else {
@@ -336,12 +317,12 @@ class BookingjourneyFragment : BaseFragment() {
             )
             val intent = Intent(Intent.ACTION_VIEW)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             intent.setDataAndType(path, Constants.APPLICATION_PDF)
             try {
                 startActivity(intent)
             } catch (e: Exception) {
-                Log.e(Constants.ERROR_OPEN_PDF, e.localizedMessage)
+                e.localizedMessage?.let { Log.e(Constants.ERROR_OPEN_PDF, it) }
             }
         } else {
             (requireActivity() as HomeActivity).showErrorToast(Constants.SOMETHING_WENT_WRONG)
@@ -349,24 +330,24 @@ class BookingjourneyFragment : BaseFragment() {
     }
 
     fun getDocumentData(path: String) {
-        portfolioviewmodel.downloadDocument(path)
-            .observe(viewLifecycleOwner,
-                androidx.lifecycle.Observer {
-                    when (it.status) {
-                        Status.LOADING -> {
-                            mBinding.loader.show()
-                        }
-                        Status.SUCCESS -> {
-                            mBinding.loader.hide()
-                            requestPermisson(it.data!!.data)
-                        }
-                        Status.ERROR -> {
-                            (requireActivity() as HomeActivity).showErrorToast(
-                                it.message!!
-                            )
-                        }
+        portfolioViewModel.downloadDocument(path)
+            .observe(viewLifecycleOwner
+            ) {
+                when (it.status) {
+                    Status.LOADING -> {
+                        mBinding.loader.show()
                     }
-                })
+                    Status.SUCCESS -> {
+                        mBinding.loader.hide()
+                        requestPermission(it.data!!.data)
+                    }
+                    Status.ERROR -> {
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            it.message!!
+                        )
+                    }
+                }
+            }
     }
 
     fun manageMyLand() {

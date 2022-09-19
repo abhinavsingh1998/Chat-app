@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.R
@@ -58,17 +57,16 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
     companion object {
         const val MEDIA_ACTIVE = "1001"
-        const val MEDIA_INACTIVE = "1002"
     }
 
     lateinit var binding: FragmentPortfolioSpecificViewBinding
-    lateinit var portfolioSpecificViewAdapter: PortfolioSpecificViewAdapter
-    lateinit var documentBinding: DocumentsBottomSheetBinding
+    private lateinit var portfolioSpecificViewAdapter: PortfolioSpecificViewAdapter
+    private lateinit var documentBinding: DocumentsBottomSheetBinding
     lateinit var docsBottomSheet: BottomSheetDialog
 
     @Inject
     lateinit var portfolioFactory: PortfolioFactory
-    lateinit var portfolioviewmodel: PortfolioViewModel
+    lateinit var portfolioViewModel: PortfolioViewModel
 
     //only for promises details screen
     @Inject
@@ -80,20 +78,20 @@ class PortfolioSpecificProjectView : BaseFragment() {
     lateinit var investmentViewModel: InvestmentViewModel
 
     val list = ArrayList<RecyclerViewItem>()
-    var crmId: Int = 0
+    private var crmId: Int = 0
     var projectId: Int = 0
-    var iea: String = ""
-    var ea: Double = 0.0
+    private var iea: String = ""
+    private var ea: Double = 0.0
     var allMediaList = ArrayList<MediaViewItem>()
 
     @Inject
     lateinit var appPreference: AppPreference
 
-    private var isReadPermissonGranted: Boolean = false
-    private var isWritePermissonGranted: Boolean = false
+    private var isReadPermissionGranted: Boolean = false
+    private var isWritePermissionGranted: Boolean = false
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private val permissionRequest: MutableList<String> = ArrayList()
-    var base64Data: String = ""
+    private var base64Data: String = ""
 
 
     override fun onCreateView(
@@ -104,18 +102,18 @@ class PortfolioSpecificProjectView : BaseFragment() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         binding = FragmentPortfolioSpecificViewBinding.inflate(layoutInflater)
 
-        portfolioviewmodel =
+        portfolioViewModel =
             ViewModelProvider(requireActivity(), portfolioFactory)[PortfolioViewModel::class.java]
         investmentViewModel =
             ViewModelProvider(requireActivity(), investmentFactory)[InvestmentViewModel::class.java]
         //getting data from arguments
-        arguments?.let {
-            crmId = it.getInt("IVID")
-            projectId = it.getInt("PID")
-            it.getString("IEA")?.let {
+        arguments?.let { bundle ->
+            crmId = bundle.getInt("IVID")
+            projectId = bundle.getInt("PID")
+            bundle.getString("IEA")?.let {
                 iea = it
             }
-            it.getDouble("EA")?.let {
+            bundle.getDouble("EA").let {
                 ea = it
             }
         }
@@ -145,22 +143,22 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-                isReadPermissonGranted =
+                isReadPermissionGranted =
                     permissions[Manifest.permission.READ_EXTERNAL_STORAGE]
-                        ?: isReadPermissonGranted
-                isWritePermissonGranted = permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE]
-                    ?: isWritePermissonGranted
+                        ?: isReadPermissionGranted
+                isWritePermissionGranted = permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE]
+                    ?: isWritePermissionGranted
 
-                if (isReadPermissonGranted && isWritePermissonGranted) {
+                if (isReadPermissionGranted && isWritePermissionGranted) {
                     openPdf(base64Data)
                 }
             }
     }
 
     private fun initObserver() {
-        portfolioviewmodel.getInvestmentDetails(crmId, projectId)
-            .observe(viewLifecycleOwner, Observer {
-                when (it.status) {
+        portfolioViewModel.getInvestmentDetails(crmId, projectId)
+            .observe(viewLifecycleOwner) { response ->
+                when (response.status) {
                     Status.LOADING -> {
                         binding.loader.show()
                         binding.rvPortfolioSpecificView.hide()
@@ -168,41 +166,41 @@ class PortfolioSpecificProjectView : BaseFragment() {
                     Status.SUCCESS -> {
                         binding.loader.hide()
                         binding.rvPortfolioSpecificView.show()
-                        it.data?.let {
+                        response.data?.let {
                             loadInvestmentDetails(it)
                         }
                     }
                     Status.ERROR -> {
                         binding.loader.hide()
                         (requireActivity() as HomeActivity).showErrorToast(
-                            it.message!!
+                            response.message!!
                         )
                     }
 
                 }
-            })
+            }
 
     }
 
     private fun loadInvestmentDetails(it: InvestmentDetailsResponse) {
         //saving project name and address for booking journey screen
-        val headingDetails = portfolioviewmodel.getHeadingDetails()
-        portfolioviewmodel.setInvestmentInfo(it.data.investmentInformation)
+        val headingDetails = portfolioViewModel.getHeadingDetails()
+        portfolioViewModel.setInvestmentInfo(it.data.investmentInformation)
         it.data.investmentInformation.launchName = it.data.projectInformation.launchName
-        it.data.investmentInformation.address = portfolioviewmodel.getprojectAddress().address
+        it.data.investmentInformation.address = portfolioViewModel.getprojectAddress().address
 
         val bjHeader = BJHeader(
             it.data.investmentInformation.launchName,
-            it.data.investmentInformation.address?.let { it.city } + " , " + it.data.investmentInformation.address?.let { it.state },
+            it.data.investmentInformation.address?.city + " , " + it.data.investmentInformation.address?.let { it.state },
             it.data.investmentInformation.bookingStatus,
             it.data.investmentInformation.owners[0],
             "Hoabl/${it.data.investmentInformation.crmInventory.name}"
         )
-        portfolioviewmodel.saveBookingHeader(bjHeader)
+        portfolioViewModel.saveBookingHeader(bjHeader)
         var itemId = 0
 
         list.clear()
-        it.data.projectExtraDetails = portfolioviewmodel.getprojectAddress()
+        it.data.projectExtraDetails = portfolioViewModel.getprojectAddress()
 
         //top section in investment details
         list.add(
@@ -216,14 +214,14 @@ class PortfolioSpecificProjectView : BaseFragment() {
         //adding pending cards
         if (!it.data.investmentInformation.isBookingComplete) {
 
-            val filteredpayments = it.data.investmentInformation.paymentSchedules.filter {
+            val filteredPayments = it.data.investmentInformation.paymentSchedules.filter {
                 it.targetDate != null && !it.isPaymentDone && Utility.compareDates(it.targetDate)
             }
-            if (filteredpayments.isNotEmpty()) {
+            if (filteredPayments.isNotEmpty()) {
                 list.add(
                     RecyclerViewItem(
-                        PortfolioSpecificViewAdapter.PORTFOLIO_PENDINGCARD,
-                        filteredpayments, iea, 0.0, it.data.investmentInformation.id
+                        PortfolioSpecificViewAdapter.PORTFOLIO_PENDING_CARD,
+                        filteredPayments, iea, 0.0, it.data.investmentInformation.id
                     )
                 )
             }
@@ -317,7 +315,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
         }
 
         //adding refer now
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_REFERNOW))
+        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_REFER_NOW))
 
         //adding faq section
         if (it.data.projectInformation.projectContentsAndFaqs != null) {
@@ -336,7 +334,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
             if (it.data.projectInformation.similarInvestments.isNotEmpty()) {
                 list.add(
                     RecyclerViewItem(
-                        PortfolioSpecificViewAdapter.PORTFOLIO_SIMILER_INVESTMENT,
+                        PortfolioSpecificViewAdapter.PORTFOLIO_SIMILAR_INVESTMENT,
                         it.data.projectInformation.similarInvestments
                     )
                 )
@@ -349,29 +347,6 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 object :
                     PortfolioSpecificViewAdapter.InvestmentScreenInterface {
                     override fun onClickFacilityCard() {
-
-//                        portfolioviewmodel.getFacilityManagment("", "")
-//                            .observe(viewLifecycleOwner, Observer {
-//                                when (it.status) {
-//                                    Status.SUCCESS -> {
-//                                        it.data.let {
-//                                            if (it != null) {
-//                                                (requireActivity() as HomeActivity).addFragment(
-//                                                    FmFragment.newInstance(
-//                                                        it.data.web_url,
-//                                                        ""
-//                                                    ), true
-//                                                )
-//                                            } else {
-//                                                (requireActivity() as HomeActivity).showErrorToast(
-//                                                  Constants.SOMETHING_WENT_WRONG
-//                                                )
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//                            })
-
                         (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
 
                     }
@@ -391,7 +366,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
                     override fun seeBookingJourney(id: Int) {
                         (requireActivity() as HomeActivity).addFragment(
-                            BookingjourneyFragment.newInstance(
+                            BookingJourneyFragment.newInstance(
                                 id,
                                 ""
                             ), true
@@ -429,7 +404,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         )
                     }
 
-                    override fun onApplySinvestment(project: Int) {
+                    override fun onApplyInvestment(project: Int) {
                         val fragment = LandSkusFragment()
                         val bundle = Bundle()
                         bundle.putInt("ProjectId", project)
@@ -460,7 +435,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                             ViewModelProvider(
                                 requireActivity(),
                                 homeFactory
-                            ).get(HomeViewModel::class.java)
+                            )[HomeViewModel::class.java]
                         val details = it.data.projectPromises.data[position]
                         homeViewModel.setSelectedPromise(details)
                         (requireActivity() as HomeActivity).addFragment(
@@ -474,12 +449,12 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         val troubleSigningRequest = TroubleSigningRequest(
                             "1002",
                             "91",
-                            "I want to know more about promises for ${it.data.projectInformation.launchName.toString()}",
+                            "I want to know more about promises for ${it.data.projectInformation.launchName}",
                             "",
                             "",
                             appPreference.getMobilenum()
                         )
-                        portfolioviewmodel.submitTroubleCase(troubleSigningRequest)
+                        portfolioViewModel.submitTroubleCase(troubleSigningRequest)
                         val applicationSubmitDialog = ApplicationSubmitDialog(
                             "Request Sent.",
                             "A relationship manager will get back to you to discuss more about it.",
@@ -519,16 +494,11 @@ class PortfolioSpecificProjectView : BaseFragment() {
                             ViewModelProvider(
                                 requireActivity(),
                                 investmentFactory
-                            ).get(InvestmentViewModel::class.java)
+                            )[InvestmentViewModel::class.java]
 //                        val mediaViewItem = MediaViewItem(media.mediaContentType, item.mediaContent.value.url,title = "Images", id = itemId, name = item.name)
                         val bundle = Bundle()
-                        Log.d(
-                            "kjdkjds",
-                            "${mediaViewItem.toString()}, tyyt== ${allMediaList.toString()}, pos = $position"
-                        )
                         bundle.putSerializable(Constants.DATA, mediaViewItem)
                         bundle.putInt(Constants.IMAGE_POSITION, position)
-                        Log.d("kjdjdsj", allMediaList.toString())
                         investmentViewModel.setMediaListItem(allMediaList)
                         val fragment = MediaViewFragment()
                         fragment.arguments = bundle
@@ -542,7 +512,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                             ViewModelProvider(
                                 requireActivity(),
                                 investmentFactory
-                            ).get(InvestmentViewModel::class.java)
+                            )[InvestmentViewModel::class.java]
                         val fragment = MediaGalleryFragment()
                         val bundle = Bundle()
                         bundle.putSerializable(Constants.DATA, imagesList)
@@ -596,24 +566,6 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
         }
     }
-
-    private fun setUpRecyclerView() {
-
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_TOP_SECTION))
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_PENDINGCARD))
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_FACILITY_CARD))
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_DOCUMENTS))
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_TRENDING_IMAGES))
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_PROMISES))
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_GRAPH))
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_REFERNOW))
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_FAQ))
-        list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_SIMILER_INVESTMENT))
-        //portfolioSpecificViewAdapter = PortfolioSpecificViewAdapter(this.requireContext(), list)
-        binding.rvPortfolioSpecificView.adapter = portfolioSpecificViewAdapter
-        //portfolioSpecificViewAdapter.setItemClickListener(onPortfolioSpecificItemClickListener)
-    }
-
     private fun openDocument(name: String, path: String) {
         (requireActivity() as HomeActivity).addFragment(
             DocViewerFragment.newInstance(true, name, path),
@@ -621,39 +573,39 @@ class PortfolioSpecificProjectView : BaseFragment() {
         )
     }
 
-    fun getDocumentData(path: String) {
-        portfolioviewmodel.downloadDocument(path)
-            .observe(viewLifecycleOwner,
-                androidx.lifecycle.Observer {
-                    when (it.status) {
-                        Status.LOADING -> {
-                            binding.loader.show()
-                        }
-                        Status.SUCCESS -> {
-                            binding.loader.hide()
-                            requestPermisson(it.data!!.data)
-                        }
-                        Status.ERROR -> {
-                            (requireActivity() as HomeActivity).showErrorToast(
-                                it.message!!
-                            )
-                        }
+    private fun getDocumentData(path: String) {
+        portfolioViewModel.downloadDocument(path)
+            .observe(viewLifecycleOwner
+            ) {
+                when (it.status) {
+                    Status.LOADING -> {
+                        binding.loader.show()
                     }
-                })
+                    Status.SUCCESS -> {
+                        binding.loader.hide()
+                        requestPermission(it.data!!.data)
+                    }
+                    Status.ERROR -> {
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            it.message!!
+                        )
+                    }
+                }
+            }
     }
 
-    private fun requestPermisson(base64: String) {
-        isReadPermissonGranted = ContextCompat.checkSelfPermission(
+    private fun requestPermission(base64: String) {
+        isReadPermissionGranted = ContextCompat.checkSelfPermission(
             requireContext(),
             Manifest.permission.READ_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
 
-        isWritePermissonGranted = ContextCompat.checkSelfPermission(
+        isWritePermissionGranted = ContextCompat.checkSelfPermission(
             requireContext(),
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
 
-        if (!isReadPermissonGranted || !isWritePermissonGranted) {
+        if (!isReadPermissionGranted || !isWritePermissionGranted) {
             permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
             permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         } else {
@@ -676,12 +628,12 @@ class PortfolioSpecificProjectView : BaseFragment() {
             )
             val intent = Intent(Intent.ACTION_VIEW)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             intent.setDataAndType(path, Constants.APPLICATION_PDF)
             try {
                 startActivity(intent)
             } catch (e: Exception) {
-                Log.e(Constants.ERROR_OPEN_PDF, e.localizedMessage)
+                e.localizedMessage?.let { Log.e(Constants.ERROR_OPEN_PDF, it) }
             }
         } else {
             (requireActivity() as HomeActivity).showErrorToast(Constants.SOMETHING_WENT_WRONG)

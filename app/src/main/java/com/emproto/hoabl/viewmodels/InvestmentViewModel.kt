@@ -24,7 +24,7 @@ class InvestmentViewModel(
     private var trendingProjects = MutableLiveData<List<PageManagementsOrCollectionTwoModel>>()
     private var projectid = MutableLiveData<Int>()
     private var mapLocationData = MutableLiveData<LocationInfrastructure>()
-    private var oppDocData = MutableLiveData<OpprotunityDoc>()
+    private var oppDocData = MutableLiveData<OpportunityDoc>()
     private var landSkusData = MutableLiveData<List<InventoryBucketContent>>()
     private var mediaData = MutableLiveData<ProjectCoverImages>()
     private var mediaViewItem = MutableLiveData<MediaViewItem>()
@@ -140,11 +140,11 @@ class InvestmentViewModel(
         return mapLocationData
     }
 
-    fun setOpportunityDoc(oppDocData: OpprotunityDoc) {
+    fun setOpportunityDoc(oppDocData: OpportunityDoc) {
         this.oppDocData.postValue(oppDocData)
     }
 
-    fun getOpportunityDoc(): LiveData<OpprotunityDoc> {
+    fun getOpportunityDoc(): LiveData<OpportunityDoc> {
         return oppDocData
     }
 

@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentLandSkusBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.LandSkusAdapter
 import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
 import com.emproto.hoabl.feature.investment.dialogs.ConfirmationDialog
@@ -24,13 +23,13 @@ import com.emproto.networklayer.request.investment.VideoCallBody
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.investment.Inventory
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 class LandSkusFragment:BaseFragment() {
 
     @Inject
     lateinit var investmentFactory: InvestmentFactory
     lateinit var investmentViewModel: InvestmentViewModel
+
     private lateinit var binding: FragmentLandSkusBinding
     private lateinit var landSkusAdapter: LandSkusAdapter
 
@@ -56,7 +55,7 @@ class LandSkusFragment:BaseFragment() {
     }
 
     private fun callApi() {
-        investmentViewModel.getAllInventories(projectId).observe(viewLifecycleOwner,Observer{
+        investmentViewModel.getAllInventories(projectId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
@@ -68,12 +67,15 @@ class LandSkusFragment:BaseFragment() {
                         binding.slSwipeRefresh.isRefreshing = false
                         appliedList.clear()
                         notAppliedList.clear()
-                        title = data.projectContent.otherSectionHeadings?.inventoryBucketContents!!.sectionHeading
-                        subtitle = data.projectContent.otherSectionHeadings?.inventoryBucketContents!!.subHeading
-                        for(item in data.projectContent.inventoryBucketContents!!){
-                            when(item.isApplied){
+                        title =
+                            data.projectContent.otherSectionHeadings?.inventoryBucketContents!!.sectionHeading
+                        subtitle =
+                            data.projectContent.otherSectionHeadings?.inventoryBucketContents!!.subHeading
+                        for (item in data.projectContent.inventoryBucketContents!!) {
+                            when (item.isApplied) {
                                 true -> appliedList.add(item)
                                 false -> notAppliedList.add(item)
+                                else -> {}
                             }
                         }
                         setUpRecyclerview()
@@ -86,13 +88,13 @@ class LandSkusFragment:BaseFragment() {
                     )
                 }
             }
-        })
+        }
     }
 
     private fun setUpUI() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         investmentViewModel =
-            ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
+            ViewModelProvider(requireActivity(), investmentFactory)[InvestmentViewModel::class.java]
         (activity as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.VISIBLE
         (requireActivity() as HomeActivity).hideBottomNavigation()
@@ -124,16 +126,22 @@ class LandSkusFragment:BaseFragment() {
                     investmentViewModel.addInventory(AddInventoryBody(
                         inventoryBucketId = position,
                         launchPhaseId = projectId
-                    )).observe(viewLifecycleOwner,Observer{
-                        when(it.status){
+                    )).observe(viewLifecycleOwner) {
+                        when (it.status) {
                             Status.LOADING -> {
                                 binding.progressBar.show()
                             }
                             Status.SUCCESS -> {
                                 binding.progressBar.hide()
-                                it.data?.let { data ->
-                                    val applicationSubmitDialog = ApplicationSubmitDialog("Thank you for your interest!","Our Project Manager will reach out to you in 24 hours!")
-                                    applicationSubmitDialog.show(parentFragmentManager,Constants.APPLICATION_SUBMIT_DIALOG)
+                                it.data?.let { _ ->
+                                    val applicationSubmitDialog = ApplicationSubmitDialog(
+                                        "Thank you for your interest!",
+                                        "Our Project Manager will reach out to you in 24 hours!"
+                                    )
+                                    applicationSubmitDialog.show(
+                                        parentFragmentManager,
+                                        Constants.APPLICATION_SUBMIT_DIALOG
+                                    )
                                     callApi()
                                 }
                             }
@@ -144,7 +152,7 @@ class LandSkusFragment:BaseFragment() {
                                 )
                             }
                         }
-                    })
+                    }
                 }
             }
             when(view.id){
@@ -166,20 +174,23 @@ class LandSkusFragment:BaseFragment() {
             description = "",
             issueType = "Schedule a video call",
             projectId= projectId)
-        ).observe(viewLifecycleOwner,Observer{
+        ).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
                 }
                 Status.SUCCESS -> {
                     binding.progressBar.hide()
-                    it.data?.data?.let { data ->
+                    it.data?.data?.let {
                         val applicationSubmitDialog = ApplicationSubmitDialog(
                             "Video Call request sent successfully.",
                             "Our Project Manager will reach out to you soon!",
                             false
                         )
-                        applicationSubmitDialog.show(parentFragmentManager, Constants.APPLICATION_SUBMIT_DIALOG)
+                        applicationSubmitDialog.show(
+                            parentFragmentManager,
+                            Constants.APPLICATION_SUBMIT_DIALOG
+                        )
                     }
                 }
                 Status.ERROR -> {
@@ -189,7 +200,7 @@ class LandSkusFragment:BaseFragment() {
                     )
                 }
             }
-        })
+        }
     }
 
     val onLandSkusItemClickListener =

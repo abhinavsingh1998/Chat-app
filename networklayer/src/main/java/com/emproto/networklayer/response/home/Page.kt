@@ -1,6 +1,5 @@
 package com.emproto.networklayer.response.home
 
-import com.emproto.networklayer.response.portfolio.ivdetails.Image
 import java.io.Serializable
 
 data class Page(

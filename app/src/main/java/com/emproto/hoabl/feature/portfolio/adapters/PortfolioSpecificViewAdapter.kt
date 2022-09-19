@@ -2,13 +2,11 @@ package com.emproto.hoabl.feature.portfolio.adapters
 
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.ScaleAnimation
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,6 +35,7 @@ import com.skydoves.balloon.BalloonSizeSpec
 import com.skydoves.balloon.createBalloon
 import java.math.BigDecimal
 import kotlin.collections.ArrayList
+import kotlin.math.abs
 
 
 class PortfolioSpecificViewAdapter(
@@ -50,17 +49,16 @@ class PortfolioSpecificViewAdapter(
 
     companion object {
         const val PORTFOLIO_TOP_SECTION = 1
-        const val PORTFOLIO_PENDINGCARD = 2
+        const val PORTFOLIO_PENDING_CARD = 2
         const val PORTFOLIO_FACILITY_CARD = 3
         const val PORTFOLIO_DOCUMENTS = 4
         const val PORTFOLIO_TRENDING_IMAGES = 5
         const val PORTFOLIO_PROMISES = 6
         const val PORTFOLIO_GRAPH = 7
-        const val PORTFOLIO_REFERNOW = 8
+        const val PORTFOLIO_REFER_NOW = 8
         const val PORTFOLIO_FAQ = 9
-        const val PORTFOLIO_SIMILER_INVESTMENT = 10
+        const val PORTFOLIO_SIMILAR_INVESTMENT = 10
         const val MEDIA_ACTIVE = "1001"
-        const val MEDIA_INACTIVE = "1002"
     }
 
     private lateinit var specificViewPagerAdapter: PortfolioSpecificViewPagerAdapter
@@ -69,11 +67,10 @@ class PortfolioSpecificViewAdapter(
     private lateinit var promisesAdapter: HoABLPromisesAdapter
     private lateinit var faqAdapter: ProjectFaqAdapter
     private lateinit var similarInvestmentsAdapter: SimilarInvestmentAdapter
-    private lateinit var onItemClickListener: View.OnClickListener
 
     //for graph
     private var graphType = ""
-    private var xaxisList = ArrayList<String>()
+    private var xAxisList = ArrayList<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -86,7 +83,7 @@ class PortfolioSpecificViewAdapter(
                     )
                 )
             }
-            PORTFOLIO_PENDINGCARD -> {
+            PORTFOLIO_PENDING_CARD -> {
                 PendingViewHolder(
                     PendingItemsLayoutBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -140,7 +137,7 @@ class PortfolioSpecificViewAdapter(
                     )
                 )
             }
-            PORTFOLIO_REFERNOW -> {
+            PORTFOLIO_REFER_NOW -> {
                 ReferViewHolder(
                     PortfolioSepcificViewReferLayoutBinding.inflate(
                         LayoutInflater.from(
@@ -176,7 +173,7 @@ class PortfolioSpecificViewAdapter(
             PORTFOLIO_TOP_SECTION -> {
                 (holder as ProjectSpecificTopViewHolder).bind(position)
             }
-            PORTFOLIO_PENDINGCARD -> {
+            PORTFOLIO_PENDING_CARD -> {
                 (holder as PendingViewHolder).bind(position)
             }
             PORTFOLIO_FACILITY_CARD -> {
@@ -194,13 +191,13 @@ class PortfolioSpecificViewAdapter(
             PORTFOLIO_GRAPH -> {
                 (holder as PriceTrendsViewHolder).bind(position)
             }
-            PORTFOLIO_REFERNOW -> {
-                (holder as ReferViewHolder).bind(position)
+            PORTFOLIO_REFER_NOW -> {
+                (holder as ReferViewHolder).bind()
             }
             PORTFOLIO_FAQ -> {
                 (holder as FaqViewHolder).bind(position)
             }
-            PORTFOLIO_SIMILER_INVESTMENT -> {
+            PORTFOLIO_SIMILAR_INVESTMENT -> {
                 (holder as SimilarInvestmentsViewHolder).bind(position)
             }
         }
@@ -228,15 +225,13 @@ class PortfolioSpecificViewAdapter(
                 list[position].data as com.emproto.networklayer.response.portfolio.ivdetails.Data
             if (data != null) {
                 binding.tvProjectName.text = data.projectInformation.launchName
-                binding.tvProjectLocation.text =
-                    data.projectExtraDetails.address.city + "," + data.projectExtraDetails.address.state
+                (data.projectExtraDetails.address.city + "," + data.projectExtraDetails.address.state).also { binding.tvProjectLocation.text = it }
                 if (data.investmentInformation != null) {
                     if (data.projectExtraDetails != null) {
                         binding.tvPaidAmount.text =
                             Utility.formatAmount(data?.projectExtraDetails.paidAmount)
                     }
-                    binding.tvAreaUnit.text =
-                        "${Utility.convertTo(data?.investmentInformation.crmInventory.areaSqFt)} sqft"
+                    "${Utility.convertTo(data?.investmentInformation.crmInventory.areaSqFt)} sqft".also { binding.tvAreaUnit.text = it }
                     if (data.projectInformation.fullDescription != null)
                         binding.tvProjectInfo.text = data.projectInformation.fullDescription
                     else binding.tvProjectInfo.text = "-"
@@ -244,14 +239,6 @@ class PortfolioSpecificViewAdapter(
                     if (data.investmentInformation.crmInventory.crmReraPhase != null) {
                         reraNumber = data.investmentInformation.crmInventory.crmReraPhase.reraNumber
                     }
-
-//                    val mSize = data.projectInformation.reraDetails.reraNumbers.size
-//                    for ((index, item) in data.projectInformation.reraDetails.reraNumbers.withIndex()) {
-//                        reraNumber += item
-//                        if (index + 1 != mSize) {
-//                            reraNumber += "\n"
-//                        }
-//                    }
 
                     binding.tvAllocationDate.text =
                         if (data.investmentInformation.allocationDate != null)
@@ -327,8 +314,8 @@ class PortfolioSpecificViewAdapter(
                         .into(binding.ivProjectImage)
                     //project status based configuration
                     if (data.projectExtraDetails.isBookingComplete) {
-                        binding.tvPending.text = "OEA"
-                        binding.tvPendingAmount.text = "${list[position].iea}%"
+                        "IEA".also { binding.tvPending.text = it }
+                        "${list[position].iea}%".also { binding.tvPendingAmount.text = it }
                         binding.tvPendingAmount.setCompoundDrawablesWithIntrinsicBounds(
                             R.drawable.ic_trending,
                             0,
@@ -337,9 +324,8 @@ class PortfolioSpecificViewAdapter(
                         )
                         binding.tvPending.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
                         binding.tvPendingAmount.setTextColor(context.getColor(R.color.app_color))
-                        binding.tvPaid.text = "Invested"
+                        "Invested".also { binding.tvPaid.text = it }
                         binding.tvPaidAmount.text =
-                                //NumberFormat.getCurrencyInstance(Locale("en", "in")).format(data.investmentInformation.bookingJourney.paidAmount)
                             Utility.formatAmount(data.investmentInformation.amountInvested)
                         getToolTip("₹${data.investmentInformation.amountInvested}")
                         binding.tvPaid.setOnClickListener {
@@ -352,7 +338,7 @@ class PortfolioSpecificViewAdapter(
                         binding.tvAmountPaidTitle.visibility = View.GONE
                         binding.tvAmountPending.visibility = View.GONE
                         binding.tvAmountPendingTitle.visibility = View.GONE
-                        binding.tvAllocationDateText.text = "Owned Since"
+                        "Owned Since".also { binding.tvAllocationDateText.text = it }
                         Glide.with(context).load(data.projectExtraDetails.projectIco.value.url)
                             .into(binding.ivProjectImage)
                     } else {
@@ -397,13 +383,13 @@ class PortfolioSpecificViewAdapter(
         private fun showHideSubSection() {
             if (binding.cvMoreInfoCard.visibility == View.VISIBLE) {
                 binding.cvMoreInfoCard.visibility = View.GONE
-                binding.tvViewMore.text = "View More"
-                binding.ivViewMoreDropDown.setImageDrawable(context.getDrawable(R.drawable.ic_drop_down))
+                "View More".also { binding.tvViewMore.text = it }
+                binding.ivViewMoreDropDown.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_drop_down))
 
             } else {
                 binding.cvMoreInfoCard.visibility = View.VISIBLE
-                binding.tvViewMore.text = "View Less"
-                binding.ivViewMoreDropDown.setImageDrawable(context.getDrawable(R.drawable.ic_arrow_upward))
+                "View Less".also { binding.tvViewMore.text = it }
+                binding.ivViewMoreDropDown.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_arrow_upward))
             }
         }
     }
@@ -413,18 +399,18 @@ class PortfolioSpecificViewAdapter(
         fun bind(position: Int) {
 
             val allPayments = list[position].data as List<PaymentSchedulesItem>
-            val investmentid = list[position].iid
+            val investmentId = list[position].iid
 
             specificViewPagerAdapter = PortfolioSpecificViewPagerAdapter(allPayments,
                 object : PortfolioSpecificViewPagerAdapter.PendingCardInterface {
                     override fun onclickCard() {
-                        ivInterface.seeBookingJourney(investmentid)
+                        ivInterface.seeBookingJourney(investmentId)
                     }
 
                 })
             binding.vpAttention.adapter = specificViewPagerAdapter
             binding.tvSeeallAttention.setOnClickListener {
-                ivInterface.seeBookingJourney(investmentid)
+                ivInterface.seeBookingJourney(investmentId)
             }
 
             TabLayoutMediator(binding.tabDotLayout, binding.vpAttention) { _, _ ->
@@ -536,16 +522,10 @@ class PortfolioSpecificViewAdapter(
                     }
                 }
             }
-            Log.d("allmedia", allMediaList.toString())
             latestImagesVideosAdapter = VideoAdapter(allMediaList, ivInterface)
             val layoutManager =
                 GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
 
-//            layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-//                override fun getSpanSize(position: Int): Int {
-//                    return if (position == 0) 2 else 1
-//                }
-//            }
             binding.rvLatestImagesVideos.layoutManager = layoutManager
             binding.rvLatestImagesVideos.adapter = latestImagesVideosAdapter
             binding.tvLastUpdatedDate.text =
@@ -575,105 +555,88 @@ class PortfolioSpecificViewAdapter(
     private inner class PriceTrendsViewHolder(private val binding: PriceTrendsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            binding.tvRating.text = "${Utility.convertTo(list[position].ea)} %"
+            "${Utility.convertTo(list[position].ea)} %".also { binding.tvRating.text = it }
             val graphData = list[position].data as GeneralInfoEscalationGraph
             binding.tvPriceTrendsTitle.text = graphData.title
             binding.tvXAxisLabel.text = graphData.yAxisDisplayName
             binding.tvYAxisLabel.text = graphData.xAxisDisplayName
-            val linevalues = ArrayList<Entry>()
+            val lineValues = ArrayList<Entry>()
 
             when (graphData.dataPoints.dataPointType) {
                 Constants.YEARLY -> {
                     graphType = Constants.YEARLY
                     for (item in graphData.dataPoints.points) {
-                        linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
+                        lineValues.add(Entry(item.year.toFloat(), item.value.toFloat()))
                     }
                 }
                 Constants.HALF_YEARLY -> {
                     graphType = Constants.HALF_YEARLY
-                    for (i in 0..graphData.dataPoints.points.size - 1) {
+                    for (i in 0 until graphData.dataPoints.points.size) {
                         val fmString = graphData.dataPoints.points[i].halfYear.substring(0, 3)
                         val yearString = graphData.dataPoints.points[i].year.substring(2, 4)
                         val str = "$fmString-$yearString"
-                        xaxisList.add(str)
+                        xAxisList.add(str)
                     }
-                    var index = 0
-                    for (item in graphData.dataPoints.points) {
-                        linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
-                        index++
+                    for ((index, item) in graphData.dataPoints.points.withIndex()) {
+                        lineValues.add(Entry(index.toFloat(), item.value.toFloat()))
                     }
                 }
                 Constants.QUATERLY -> {
                     graphType = Constants.QUATERLY
-                    for (i in 0..graphData.dataPoints.points.size - 1) {
+                    for (i in 0 until graphData.dataPoints.points.size) {
                         val fmString = graphData.dataPoints.points[i].quater.substring(0, 2)
                         val yearString = graphData.dataPoints.points[i].year.substring(2, 4)
                         val str = "$fmString-$yearString"
-                        xaxisList.add(str)
+                        xAxisList.add(str)
                     }
-                    var index = 0
-                    for (item in graphData.dataPoints.points) {
-                        linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
-                        index++
+                    for ((index, item) in graphData.dataPoints.points.withIndex()) {
+                        lineValues.add(Entry(index.toFloat(), item.value.toFloat()))
                     }
                 }
                 Constants.MONTHLY -> {
                     graphType = Constants.MONTHLY
-                    for (i in 0..graphData.dataPoints.points.size - 1) {
+                    for (i in 0 until graphData.dataPoints.points.size) {
                         val fmString = graphData.dataPoints.points[i].month.substring(0, 3)
                         val yearString = graphData.dataPoints.points[i].year.substring(2, 4)
                         val str = "$fmString-$yearString"
-                        xaxisList.add(str)
+                        xAxisList.add(str)
                     }
-                    var index = 0
-                    for (item in graphData.dataPoints.points) {
-                        linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
-                        index++
+                    for ((index, item) in graphData.dataPoints.points.withIndex()) {
+                        lineValues.add(Entry(index.toFloat(), item.value.toFloat()))
                     }
                 }
             }
 
-//            for (item in graphData.dataPoints.points) {
-//                linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
-//            }
-            if (linevalues.isNotEmpty()) {
-                val linedataset = LineDataSet(linevalues, "")
+            if (lineValues.isNotEmpty()) {
+                val lineDataSet = LineDataSet(lineValues, "")
                 //We add features to our chart
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    linedataset.color = context.getColor(R.color.green)
+                    lineDataSet.color = context.getColor(R.color.green)
                 }
 
-                linedataset.valueTextSize = 12F
+                lineDataSet.valueTextSize = 12F
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    linedataset.fillColor = context.getColor(R.color.green)
+                    lineDataSet.fillColor = context.getColor(R.color.green)
                 }
-                linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
-                linedataset.setDrawCircles(false)
-                linedataset.setDrawValues(false)
-                val data = LineData(linedataset)
+                lineDataSet.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+                lineDataSet.setDrawCircles(false)
+                lineDataSet.setDrawValues(false)
+                val data = LineData(lineDataSet)
 
-                //binding.ivPriceTrendsGraph.setDrawBorders(false);
-                //binding.ivPriceTrendsGraph.setDrawGridBackground(false);
-                binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
-                binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
-                binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false)
+                binding.ivPriceTrendsGraph.description.isEnabled = false
+                binding.ivPriceTrendsGraph.legend.isEnabled = false
+                binding.ivPriceTrendsGraph.axisLeft.setDrawGridLines(false)
                 binding.ivPriceTrendsGraph.setTouchEnabled(false)
                 binding.ivPriceTrendsGraph.setPinchZoom(false)
                 binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
-                //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
-                //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
-                binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false)
+                binding.ivPriceTrendsGraph.xAxis.setDrawGridLines(false)
                 binding.ivPriceTrendsGraph.xAxis.typeface
                 binding.ivPriceTrendsGraph.xAxis.granularity = 1f
-                binding.ivPriceTrendsGraph.getXAxis().position = XAxis.XAxisPosition.BOTTOM
-                //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
-                binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false)
-                binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false)
-                binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false)
-//                binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter = Xaxisformatter()
-                binding.ivPriceTrendsGraph.xAxis.valueFormatter = Xaxisformatter()
-                //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
-                //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
+                binding.ivPriceTrendsGraph.xAxis.position = XAxis.XAxisPosition.BOTTOM
+                binding.ivPriceTrendsGraph.axisRight.setDrawGridLines(false)
+                binding.ivPriceTrendsGraph.axisRight.setDrawLabels(false)
+                binding.ivPriceTrendsGraph.axisRight.setDrawAxisLine(false)
+                binding.ivPriceTrendsGraph.xAxis.valueFormatter = XAxisFormatter()
                 binding.ivPriceTrendsGraph.data = data
                 binding.ivPriceTrendsGraph.animateXY(2000, 2000)
             }
@@ -682,7 +645,7 @@ class PortfolioSpecificViewAdapter(
 
     private inner class ReferViewHolder(private val binding: PortfolioSepcificViewReferLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.btnReferNow.setOnClickListener {
                 ivInterface.referNow()
             }
@@ -749,23 +712,22 @@ class PortfolioSpecificViewAdapter(
         }
     }
 
-    inner class Xaxisformatter : IAxisValueFormatter {
+    inner class XAxisFormatter : IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
-            var floatValue = 0.0f
-            when {
+         val floatValue = when {
                 p0 < 0.0f -> {
-                    floatValue = 0.0f
+                    0.0f
                 }
                 else -> {
-                    floatValue = p0
+                    p0
                 }
             }
             return when (graphType) {
-                Constants.QUATERLY -> returnFormattedValue(Math.abs(floatValue))
-                Constants.MONTHLY -> returnFormattedValue(Math.abs(floatValue))
-                Constants.HALF_YEARLY -> returnFormattedValue(Math.abs(floatValue))
+                Constants.QUATERLY -> returnFormattedValue(abs(floatValue))
+                Constants.MONTHLY -> returnFormattedValue(abs(floatValue))
+                Constants.HALF_YEARLY -> returnFormattedValue(abs(floatValue))
                 else -> {
-                    String.format("%.0f", Math.abs(floatValue).toDouble())
+                    String.format("%.0f", abs(floatValue).toDouble())
                 }
             }
         }
@@ -773,7 +735,7 @@ class PortfolioSpecificViewAdapter(
 
     private fun returnFormattedValue(floatValue: Float): String {
         return when {
-            floatValue.toInt() < 10 -> xaxisList[floatValue.toInt()]
+            floatValue.toInt() < 10 -> xAxisList[floatValue.toInt()]
             else -> {
                 String.format("%.0f", floatValue.toDouble())
             }
@@ -807,7 +769,7 @@ class PortfolioSpecificViewAdapter(
         fun referNow()
         fun seeAllSimilarInvestment()
         fun onClickSimilarInvestment(project: Int)
-        fun onApplySinvestment(projectId: Int)
+        fun onApplyInvestment(projectId: Int)
         fun readAllFaq(position: Int, faqId: Int)
         fun seePromisesDetails(position: Int)
         fun moreAboutPromises()
@@ -818,16 +780,6 @@ class PortfolioSpecificViewAdapter(
         fun shareApp()
         fun onClickAsk()
         fun onDocumentView(name: String, path: String)
-    }
-
-    private fun setScaleAnimation(view: View) {
-        val anim = ScaleAnimation(
-            0.0f, 1.0f, 0.0f, 1.0f,
-            Animation.RELATIVE_TO_SELF, 0.5f,
-            Animation.RELATIVE_TO_SELF, 0.5f
-        )
-        anim.duration = 300
-        view.startAnimation(anim)
     }
 
 }

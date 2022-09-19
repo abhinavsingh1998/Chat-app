@@ -2,8 +2,6 @@ package com.emproto.networklayer.response.investment
 
 import com.emproto.networklayer.response.portfolio.ivdetails.LatestMediaGalleryOrProjectContent
 import com.emproto.networklayer.response.watchlist.Data
-import com.emproto.networklayer.response.watchlist.Watchlist
-import com.emproto.networklayer.response.watchlist.WatchlistData
 
 data class PdData(
     val address: Address,
@@ -33,7 +31,7 @@ data class PdData(
     val mediaGalleryOrProjectContent: List<MediaGalleryOrProjectContent>,
     val numberOfSimilarInvestmentsToShow: Int,
     val offersAndPromotions: OffersAndPromotions,
-    val opportunityDoc: OpprotunityDoc,
+    val opportunityDoc: OpportunityDoc,
     val priceStartingFrom: String,
     val projectContentsAndFaqs: List<ProjectContentsAndFaq>,
     val projectCoverImages: ProjectCoverImages,

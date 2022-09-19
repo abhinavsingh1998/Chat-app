@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
@@ -30,7 +29,7 @@ class ChatsFragment : BaseFragment(), ChatsAdapter.OnItemClickListener {
 
     lateinit var binding: FragmentChatsBinding
 
-    var timePattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+    private var timePattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,11 +41,11 @@ class ChatsFragment : BaseFragment(), ChatsAdapter.OnItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initDatas()
+        initData()
         callChatListApi()
     }
 
-    private fun initDatas() {
+    private fun initData() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel =
             ViewModelProvider(requireActivity(), homeFactory)[HomeViewModel::class.java]
@@ -59,8 +58,8 @@ class ChatsFragment : BaseFragment(), ChatsAdapter.OnItemClickListener {
     }
 
     private fun callChatListApi() {
-        homeViewModel.getChatsList().observe(viewLifecycleOwner, Observer {
-            when (it.status) {
+        homeViewModel.getChatsList().observe(viewLifecycleOwner) { response ->
+            when (response.status) {
                 Status.LOADING -> {
                     binding.loader.show()
                     binding.rvChats.visibility = View.INVISIBLE
@@ -68,15 +67,15 @@ class ChatsFragment : BaseFragment(), ChatsAdapter.OnItemClickListener {
                 Status.SUCCESS -> {
                     binding.loader.hide()
                     binding.rvChats.visibility = View.VISIBLE
-                    it.data.let {
-                        if (it?.data != null && it.data is List<CData>) {
-                            binding.rvChats.adapter = ChatsAdapter(requireContext(), it.data, this)
-                            binding.tvChats.text = "Chat (${it.data.size.toString()})"
+                    response.data.let { chatResponse ->
+                        if (chatResponse?.data != null && chatResponse.data is List<CData>) {
+                            binding.rvChats.adapter = ChatsAdapter(requireContext(), chatResponse.data, this)
+                            "Chat (${chatResponse.data.size})".also { binding.tvChats.text = it }
                             //setting last updated time
                             val dateListInMS = ArrayList<Long>()
-                            for (item in it.data) {
+                            for (item in chatResponse.data) {
                                 if (item.lastMessage != null) {
-                                    val format = SimpleDateFormat(timePattern)
+                                    val format = SimpleDateFormat(timePattern, Locale.getDefault())
                                     format.timeZone =
                                         TimeZone.getTimeZone("GMT") //setting timezone for avoiding minus 5hrs
                                     val date = format.parse(item.lastMessage.createdAt)
@@ -91,7 +90,7 @@ class ChatsFragment : BaseFragment(), ChatsAdapter.OnItemClickListener {
                                 val lastUpdateTimeInMs =
                                     dateListInMS[0] //picking first one in arraylist because more milliseconds means its the latest time
                                 val sdf =
-                                    SimpleDateFormat("dd/MM/yyyy  hh:mm:ss aa")  //creating pattern based on our requirement
+                                    SimpleDateFormat("dd/MM/yyyy  hh:mm:ss aa", Locale.getDefault())  //creating pattern based on our requirement
                                 val calendar = Calendar.getInstance()
                                 calendar.timeInMillis = lastUpdateTimeInMs
                                 binding.tvLastUpdatedTime.text =
@@ -102,15 +101,15 @@ class ChatsFragment : BaseFragment(), ChatsAdapter.OnItemClickListener {
                 }
                 Status.ERROR -> {
                     binding.loader.hide()
-                    (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                    (requireActivity() as HomeActivity).showErrorToast(response.message!!)
                 }
             }
-        })
+        }
     }
 
-    override fun onChatItemClick(chat: List<CData>, view: View, position: Int) {
+    override fun onChatItemClick(chatList: List<CData>, view: View, position: Int) {
         val bundle = Bundle()
-        bundle.putSerializable(Constants.CHAT_MODEL, chat[position] as Serializable)
+        bundle.putSerializable(Constants.CHAT_MODEL, chatList[position] as Serializable)
         val chatsDetailFragment = ChatsDetailFragment()
         chatsDetailFragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(chatsDetailFragment, true)

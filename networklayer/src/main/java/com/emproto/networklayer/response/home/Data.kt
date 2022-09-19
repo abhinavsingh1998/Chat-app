@@ -1,9 +1,5 @@
 package com.emproto.networklayer.response.home
 
-import com.emproto.networklayer.request.notification.UnReadNotifications
-import com.emproto.networklayer.response.Data
-import com.emproto.networklayer.response.HomeActionItemResponse
-import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import java.io.Serializable
 
 data class Data(

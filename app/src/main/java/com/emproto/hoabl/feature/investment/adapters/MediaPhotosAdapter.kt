@@ -1,14 +1,14 @@
 package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.Constants
-import com.emproto.hoabl.databinding.*
+import com.emproto.hoabl.databinding.MediaPhotosFilterLayoutBinding
+import com.emproto.hoabl.databinding.MediaPhotosPictureLayoutBinding
 import com.emproto.hoabl.model.MediaGalleryItem
 import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.utils.MediaItemClickListener
@@ -52,7 +52,7 @@ class MediaPhotosAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (itemList[position].viewType) {
-            PHOTOS_VIEW_TYPE_ONE -> (holder as FilterViewHolder).bind(position)
+            PHOTOS_VIEW_TYPE_ONE -> (holder as FilterViewHolder).bind()
             PHOTOS_VIEW_TYPE_TWO -> (holder as PhotoViewHolder).bind(position)
         }
     }
@@ -61,8 +61,8 @@ class MediaPhotosAdapter(
 
     private inner class FilterViewHolder(val binding: MediaPhotosFilterLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
-            val list = arrayListOf<String>(
+        fun bind() {
+            val list = arrayListOf(
                 "All Photos",
                 "Plots",
                 "Roads",

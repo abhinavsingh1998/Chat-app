@@ -24,7 +24,6 @@ import com.emproto.hoabl.feature.investment.dialogs.ConfirmationDialog
 import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.hoabl.feature.profile.adapter.SecurityAdapter
 import com.emproto.hoabl.feature.profile.adapter.SettingsAdapter
-import com.emproto.hoabl.feature.profile.fragments.profile.ConfirmationLogOutDialog
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.ProfileViewModel
@@ -258,6 +257,7 @@ class SecurityFragment : BaseFragment(){
         })
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == SPEECH_REQUEST_CODE && resultCode == Activity.RESULT_OK) {

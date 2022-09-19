@@ -13,10 +13,8 @@ import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.hoabl.utils.ItemClickListener
-import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionTwoModel
 import java.text.DecimalFormat
-import java.util.concurrent.TimeUnit
 
 class TrendingProjectsAdapter(
     val context: Context,
@@ -40,12 +38,13 @@ class TrendingProjectsAdapter(
             tvItemAmount.text = SpannableStringBuilder()
                 .bold { append("₹${convertedAmount} L") }
                 .append(Constants.ONWARDS)
-            tvRating.text = "${
+            val rating = "${
                 String.format(
                     " % .0f",
                     element.generalInfoEscalationGraph.estimatedAppreciation
                 )
             }%"
+            tvRating.text = rating
             tvNoViews.text = element.fomoContent.noOfViews.toString()
             tvItemArea.text = SpannableStringBuilder()
                 .bold { append("${element.areaStartingFrom} Sqft") }
@@ -72,9 +71,10 @@ class TrendingProjectsAdapter(
                     val hour = millisUntilFinished / 3600000 % 24
                     val min = millisUntilFinished / 60000 % 60
                     val sec = millisUntilFinished / 1000 % 60
-                    holder.binding.tvDuration.text = "${
+                    val duration = "${
                         fh.format(hour).toString() + ":" + f.format(min) + ":" + f.format(sec)
                     } Hrs Left"
+                    holder.binding.tvDuration.text = duration
                 }
 
                 override fun onFinish() {

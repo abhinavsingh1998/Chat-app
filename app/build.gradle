@@ -35,7 +35,7 @@ android {
             buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-qa-1093935714.ap-south-1.elb.amazonaws.com\"")
         }
 
-        preProd{
+        preProd {
             versionNameSuffix '0.0.68-preprod'
             debuggable true
             buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-preprod-1970620156.ap-south-1.elb.amazonaws.com\"")

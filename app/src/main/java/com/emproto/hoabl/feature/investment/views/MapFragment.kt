@@ -14,7 +14,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.emproto.core.BaseFragment
@@ -87,7 +86,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMapBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -134,9 +133,9 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 //                addMarkers(googleMap)
                 mMap = googleMap
                 val originLocation = LatLng(dummyLatitude, dummyLongitude)
-                mMap.clear()
-                mMap.addMarker(MarkerOptions().position(originLocation))
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
+                mMap?.clear()
+                mMap?.addMarker(MarkerOptions().position(originLocation))
+                mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
                 initMarkerLocation(
                     data?.originLatitude!!,
                     data?.originLongitude!!,
@@ -164,9 +163,9 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 //long = 73.0749419
                 mMap = googleMap
                 val originLocation = LatLng(dummyLatitude, dummyLongitude)
-                mMap.clear()
-                mMap.addMarker(MarkerOptions().position(originLocation))
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
+                mMap?.clear()
+                mMap?.addMarker(MarkerOptions().position(originLocation))
+                mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
             }
         }
     }
@@ -177,9 +176,9 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         destinationLatitude: Double,
         destinationLongitude: Double
     ) {
-        mMap.clear()
+        mMap?.clear()
         val originLocation = LatLng(originLatitude, originLongitude)
-        mMap.addMarker(
+        mMap?.addMarker(
             MarkerOptions()
                 .position(originLocation)
                 .icon(
@@ -190,7 +189,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 )
         )
         val destinationLocation = LatLng(destinationLatitude, destinationLongitude)
-        mMap.addMarker(
+        mMap?.addMarker(
             MarkerOptions()
                 .position(destinationLocation)
                 .icon(
@@ -206,8 +205,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             resources.getString(R.string.map_api_key)
         )
         callDirectionApi(urll)
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 15F))
+        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
+        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 15F))
     }
 
     private fun setUpUI() {
@@ -218,16 +217,16 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     }
 
     private fun initObserver() {
-        investmentViewModel.getMapLocationInfrastructure().observe(viewLifecycleOwner, Observer {
-            for (i in 0..it.values.size - 1) {
+        investmentViewModel.getMapLocationInfrastructure().observe(viewLifecycleOwner) {
+            for (i in 0 until it.values.size) {
                 if (data?.destinationLatitude == it.values[i].latitude && data?.destinationLongitude == it.values[i].longitude) {
                     selectedPosition = i
                 }
                 destinationList.add(it.values[i])
             }
-            calculateDistance(dummyLatitude,dummyLongitude,it.values)
+            calculateDistance(dummyLatitude, dummyLongitude, it.values)
 
-        })
+        }
         runnable = Runnable {   binding.cvBackButton.visibility = View.VISIBLE }
         runnable?.let { it1 -> handler.postDelayed(it1,2000) }
 
@@ -257,7 +256,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         }
     }
 
-    val requestPermissionLauncher =
+    private val requestPermissionLauncher =
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
@@ -359,12 +358,12 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                     lineoption.color(ContextCompat.getColor(requireContext(), R.color.text_blue_color))
                     lineoption.geodesic(true)
                 }
-                mMap.addPolyline(lineoption)
+                mMap?.addPolyline(lineoption)
             }
         }
     }
 
-    fun decodePolyline(encoded: String): List<LatLng> {
+    private fun decodePolyline(encoded: String): List<LatLng> {
         val poly = ArrayList<LatLng>()
         var index = 0
         val len = encoded.length
@@ -399,9 +398,9 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0!!
         val originLocation = LatLng(dummyLatitude, dummyLongitude)
-        mMap.clear()
-        mMap.addMarker(MarkerOptions().position(originLocation))
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
+        mMap?.clear()
+        mMap?.addMarker(MarkerOptions().position(originLocation))
+        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
     }
 
     private fun callDirectionsApiForDistance(url:String){

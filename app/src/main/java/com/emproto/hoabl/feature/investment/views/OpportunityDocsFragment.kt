@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
 import com.emproto.hoabl.R
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentOpportunityDocsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.OpportunityDocsAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
@@ -24,7 +23,7 @@ class OpportunityDocsFragment:BaseFragment() {
     lateinit var investmentFactory: InvestmentFactory
     lateinit var investmentViewModel: InvestmentViewModel
     lateinit var binding:FragmentOpportunityDocsBinding
-    lateinit var opportunityDocsAdapter: OpportunityDocsAdapter
+    private lateinit var opportunityDocsAdapter: OpportunityDocsAdapter
     private var title = ""
     private var projectId = 0
     private var isFromProjectAmenities = false
@@ -59,55 +58,69 @@ class OpportunityDocsFragment:BaseFragment() {
 
     private fun setUpRecyclerView() {
         binding.progressBar.visibility = View.VISIBLE
-        investmentViewModel.getOpportunityDoc().observe(viewLifecycleOwner, Observer {
+        investmentViewModel.getOpportunityDoc().observe(viewLifecycleOwner) {
             binding.progressBar.visibility = View.GONE
             val list = ArrayList<RecyclerViewItem>()
-            when(it.isBannerImageActive){
+            when (it.isBannerImageActive) {
                 true -> {
                     list.add(RecyclerViewItem(1))
                 }
+                else -> {}
             }
-            when(it.isEscalationGraphActive){
+            when (it.isEscalationGraphActive) {
                 true -> {
                     list.add(RecyclerViewItem(2))
                 }
+                else -> {}
             }
-            when(it.isCurrentInfraStoryActive){
+            when (it.isCurrentInfraStoryActive) {
                 true -> {
                     list.add(RecyclerViewItem(3))
                 }
+                else -> {}
             }
-            when(it.isUpcomingInfraStoryActive){
+            when (it.isUpcomingInfraStoryActive) {
                 true -> {
                     list.add(RecyclerViewItem(4))
                 }
+                else -> {}
             }
-            when(it.isTourismAroundActive){
+            when (it.isTourismAroundActive) {
                 true -> {
                     list.add(RecyclerViewItem(5))
                 }
+                else -> {}
             }
-            when(it.isAboutProjectsActive){
+            when (it.isAboutProjectsActive) {
                 true -> {
                     list.add(RecyclerViewItem(6))
                 }
+                else -> {}
             }
-            when(it.isProjectAminitiesActive){
+            when (it.isProjectAminitiesActive) {
                 true -> {
                     list.add(RecyclerViewItem(7))
                 }
+                else -> {}
             }
             list.add(RecyclerViewItem(8))
 
-            opportunityDocsAdapter = OpportunityDocsAdapter(this.requireContext(),list,it,title,isFromProjectAmenities)
+            opportunityDocsAdapter = OpportunityDocsAdapter(
+                this.requireContext(),
+                list,
+                it,
+                title,
+                isFromProjectAmenities
+            )
             binding.rvOppDocs.adapter = opportunityDocsAdapter
             opportunityDocsAdapter.setItemClickListener(onItemClickListener)
-            when(isFromProjectAmenities){
+            when (isFromProjectAmenities) {
                 true -> {
-                    binding.rvOppDocs.scrollToPosition(list.size-1)
+                    binding.rvOppDocs.scrollToPosition(list.size - 1)
                 }
+                else -> {}
             }
-        })
+        }
     }
 
     val onItemClickListener =

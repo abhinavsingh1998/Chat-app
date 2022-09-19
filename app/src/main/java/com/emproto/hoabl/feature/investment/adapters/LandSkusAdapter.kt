@@ -62,13 +62,13 @@ class LandSkusAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (list[position].viewType) {
             LAND_SKUS_VIEW_TYPE_ONE -> {
-                (holder as LandSkusAvailableViewHolder).bind(position)
+                (holder as LandSkusAvailableViewHolder).bind()
             }
             LAND_SKUS_VIEW_TYPE_TWO -> {
-                (holder as LandSkusAppliedViewHolder).bind(position)
+                (holder as LandSkusAppliedViewHolder).bind()
             }
             LAND_SKUS_VIEW_TYPE_THREE -> {
-                (holder as LandSkusNotConvincedViewHolder).bind(position)
+                (holder as LandSkusNotConvincedViewHolder).bind()
             }
         }
     }
@@ -81,8 +81,9 @@ class LandSkusAdapter(
 
     private inner class LandSkusAvailableViewHolder(val binding: LandSkusTopLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
-            binding.tvLandSkusTitle.text = "${title} (${notAppliedList.size})"
+        fun bind() {
+            val landSkus =  "$title (${notAppliedList.size})"
+            binding.tvLandSkusTitle.text =landSkus
             binding.tvLandSkusSubtitle.text = subtitle
             skusListAdapter = SkusListAdapter(fragment, notAppliedList, itemClickListener)
             binding.rvLandSkusItems.adapter = skusListAdapter
@@ -92,17 +93,17 @@ class LandSkusAdapter(
 
     private inner class LandSkusAppliedViewHolder(val binding: LandSkusAppliedLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
-            val list = arrayListOf<String>("1", "2")
+        fun bind() {
+            arrayListOf("1", "2")
             skusListAppliedAdapter =
-                SkusListAppliedAdapter(fragment, appliedList, itemClickListener)
+                SkusListAppliedAdapter(appliedList, itemClickListener)
             binding.rvLandSkusItemsApplied.adapter = skusListAppliedAdapter
         }
     }
 
     private inner class LandSkusNotConvincedViewHolder(val binding: NotConvincedLayoutBlackBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.clNotConvinced.setOnClickListener(onItemClickListener)
         }
     }

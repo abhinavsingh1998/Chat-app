@@ -1,12 +1,10 @@
 package com.emproto.hoabl.feature.investment.views.mediagallery
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
@@ -28,7 +26,7 @@ class DroneFragment:BaseFragment() {
     lateinit var investmentFactory: InvestmentFactory
     lateinit var investmentViewModel: InvestmentViewModel
     lateinit var binding:FragmentVideosBinding
-    lateinit var mediaPhotosAdapter: MediaPhotosAdapter
+    private lateinit var mediaPhotosAdapter: MediaPhotosAdapter
 
     private var isYoutubeVideo = true
 
@@ -44,17 +42,17 @@ class DroneFragment:BaseFragment() {
     }
 
     private fun initObserver() {
-        val medialist = investmentViewModel.getMediaContent().filter { it.title == Constants.DRONE_SHOOT }
+        val mediaList = investmentViewModel.getMediaContent().filter { it.title == Constants.DRONE_SHOOT }
         val list = ArrayList<MediaGalleryItem>()
 //        list.add(MediaGalleryItem(1, "Videos"))
         list.add(MediaGalleryItem(2, Constants.VIDEOS))
 
         val videoList = arrayListOf<String>()
-        for(item in medialist){
+        for(item in mediaList){
             videoList.add(item.media)
         }
-        investmentViewModel.getDroneActive().observe(viewLifecycleOwner,Observer{
-            when(it){
+        investmentViewModel.getDroneActive().observe(viewLifecycleOwner) {
+            when (it) {
                 true -> {
                     binding.tvNoData.visibility = View.GONE
                     binding.ivNoData.visibility = View.GONE
@@ -66,13 +64,13 @@ class DroneFragment:BaseFragment() {
                     binding.rvMainVideos.visibility = View.GONE
                 }
             }
-        })
+        }
         mediaPhotosAdapter =
             MediaPhotosAdapter(
                 this.requireContext(),
                 list,
                 mediaItemClickListener,
-                medialist,
+                mediaList,
                 itemClickListener
             )
         binding.rvMainVideos.adapter = mediaPhotosAdapter
@@ -101,9 +99,8 @@ class DroneFragment:BaseFragment() {
                     intent.putExtra(Constants.YOUTUBE_VIDEO_ID,url)
                     intent.putExtra(Constants.VIDEO_TITLE,title)
                     startActivity(intent)
-//                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=${url}"))
-//                    startActivity(intent)
                 }
+                else -> {}
             }
         }
     }

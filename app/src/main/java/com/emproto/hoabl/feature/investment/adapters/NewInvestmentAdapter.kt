@@ -5,29 +5,21 @@ import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.text.bold
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.CompositePageTransformer
-import androidx.viewpager2.widget.MarginPageTransformer
 import com.bumptech.glide.Glide
-import com.emproto.core.Utility
-import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.*
-import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.databinding.LastFewPlotsLayoutBinding
+import com.emproto.hoabl.databinding.NewInvestmentTopLayoutBinding
+import com.emproto.hoabl.databinding.TrendingProjectsLayoutBinding
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.Data
 import com.emproto.networklayer.response.investment.MediaGalleries
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
 import com.emproto.networklayer.response.investment.PageManagementsOrCollectionTwoModel
-import com.google.android.material.tabs.TabLayoutMediator
-import kotlin.math.roundToInt
 
 class NewInvestmentAdapter(
-    private val activity: HomeActivity,
     private val context: Context,
     val list: List<RecyclerViewItem>,
     private val data: Data,
@@ -81,13 +73,13 @@ class NewInvestmentAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (list[position].viewType) {
             TYPE_NEW_LAUNCH -> {
-                (holder as NewLaunchViewHolder).bind(position)
+                (holder as NewLaunchViewHolder).bind()
             }
             TYPE_LAST_PLOTS -> {
-                (holder as LastFewPlotsViewHolder).bind(position)
+                (holder as LastFewPlotsViewHolder).bind()
             }
             TYPE_TRENDING_PROJECTS -> {
-                (holder as TrendingProjectsViewHolder).bind(position)
+                (holder as TrendingProjectsViewHolder).bind()
             }
         }
     }
@@ -96,13 +88,14 @@ class NewInvestmentAdapter(
 
     private inner class NewLaunchViewHolder(private val binding: NewInvestmentTopLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
-            binding.tvRating.text = "${
+        fun bind() {
+            val rating = "${
                 String.format(
                     " % .0f",
-                    data.pageManagementsOrNewInvestments[0].generalInfoEscalationGraph.estimatedAppreciation.toDouble()
+                    data.pageManagementsOrNewInvestments[0].generalInfoEscalationGraph.estimatedAppreciation
                 )
             }%"
+            binding.tvRating.text = rating
             binding.tvNewLaunch.text = data.page.newInvestments.displayName
             binding.tvComingSoon.text = data.page.newInvestments.subHeading
             binding.tvInvestmentProjectName.text =
@@ -157,13 +150,13 @@ class NewInvestmentAdapter(
 
     private inner class LastFewPlotsViewHolder(private val binding: LastFewPlotsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.tvSmartDealsTitle.text = data.page.collectionOne.heading
             binding.tvSmartDealsSubtitle.text = data.page.collectionOne.subHeading
             val list = data.pageManagementsOrCollectionOneModels
             val itemsCount = data.page.collectionOne.totalProjectContentsToDisplay
             val showList = ArrayList<PageManagementsOrCollectionOneModel>()
-            for (i in 0..itemsCount - 1) {
+            for (i in 0 until itemsCount) {
                 showList.add(list[i])
             }
             lastFewPlotsAdapter = LastFewPlotsAdapter(context, showList, itemClickListener)
@@ -174,14 +167,14 @@ class NewInvestmentAdapter(
 
     private inner class TrendingProjectsViewHolder(private val binding: TrendingProjectsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.tvTrendingProjectsTitle.text = data.page.collectionTwo.heading
             binding.tvTrendingProjectsSubtitle.text = data.page.collectionTwo.subHeading
 
             val list = data.pageManagementsOrCollectionTwoModels
             val itemsCount = data.page.collectionTwo.totalProjectContentsToDisplay
             val showList = ArrayList<PageManagementsOrCollectionTwoModel>()
-            for (i in 0..itemsCount - 1) {
+            for (i in 0 until itemsCount) {
                 showList.add(list[i])
             }
             trendingProjectsAdapter = TrendingProjectsAdapter(context, showList, itemClickListener)

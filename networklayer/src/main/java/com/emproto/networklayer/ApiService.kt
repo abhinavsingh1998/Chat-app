@@ -8,9 +8,8 @@ import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.request.login.TroubleSigningRequest
-import com.emproto.networklayer.request.notification.UnReadNotifications
 import com.emproto.networklayer.request.profile.*
-import com.emproto.networklayer.request.refernow.ReferalRequest
+import com.emproto.networklayer.request.refernow.ReferralRequest
 import com.emproto.networklayer.response.actionItem.HomeActionItem
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
 import com.emproto.networklayer.response.chats.*
@@ -175,7 +174,7 @@ public interface ApiService {
     suspend fun getInvestmentsProjectFaq(@Path("projectContentId") projectContentId: Int): Response<FaqDetailResponse>
 
     @POST(ApiConstants.REFER_NOW)
-    suspend fun referNow(@Body referBody: ReferalRequest): Response<ReferalResponse>
+    suspend fun referNow(@Body referBody: ReferralRequest): Response<ReferalResponse>
 
     @GET(ApiConstants.COUNTRIES)
     suspend fun getCountries(): Response<CountryResponse>
@@ -276,5 +275,5 @@ public interface ApiService {
     suspend fun uploadFm(@Part type: MultipartBody.Part,
                          @Part page_name: MultipartBody.Part,
                          @Part image: MultipartBody.Part,
-                         @Url url:String = "https://fm.hoabl.in/api/user/upload/files"):Response<FmUploadResponse>
+                         @Url url:String = "https://fm-admin.hoabl.in/api/user/upload/files"):Response<FmUploadResponse>
 }

@@ -8,8 +8,7 @@ import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.HomeDataSource
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.request.chat.SendMessageBody
-import com.emproto.networklayer.request.notification.UnReadNotifications
-import com.emproto.networklayer.request.refernow.ReferalRequest
+import com.emproto.networklayer.request.refernow.ReferralRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.HomeActionItemResponse
 import com.emproto.networklayer.response.chats.*
@@ -260,12 +259,12 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         return mAddUsernameResponse
     }
 
-    fun addReferral(referalRequest: ReferalRequest): LiveData<BaseResponse<ReferalResponse>> {
+    fun addReferral(referralRequest: ReferralRequest): LiveData<BaseResponse<ReferalResponse>> {
         val mAddUsernameResponse = MutableLiveData<BaseResponse<ReferalResponse>>()
         mAddUsernameResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val request = HomeDataSource(application).getRefer(referalRequest)
+                val request = HomeDataSource(application).getRefer(referralRequest)
                 if (request.isSuccessful) {
                     mAddUsernameResponse.postValue(BaseResponse.success(request.body()!!))
                 } else {

@@ -8,7 +8,6 @@ import com.emproto.hoabl.databinding.ItemLandSkusBinding
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.Inventory
-import com.emproto.networklayer.response.investment.InventoryBucketContent
 
 class SkusListAdapter(
     private val fragment: LandSkusFragment,
@@ -34,12 +33,14 @@ class SkusListAdapter(
                 itemClickListener.onItemClicked(it, position, element.id.toString())
             }
             tvItemLandSkusName.text = element.name
-            tvItemLandSkusArea.text = "${element.areaRange?.from} - ${element.areaRange?.to} Sqft"
+            val landSkusArea = "${element.areaRange?.from} - ${element.areaRange?.to} Sqft"
+            tvItemLandSkusArea.text = landSkusArea
             val amount = element.priceRange?.from!!.toDouble() / 100000
             val convertedFromAmount = String.format("%.0f", amount)
             val amountTo = element.priceRange!!.to.toDouble() / 100000
             val convertedToAmount = String.format("%.0f", amountTo)
-            tvItemLandSkusPrice.text = "₹${convertedFromAmount}L - ${convertedToAmount}L"
+            val itemLandSkusPrice = "₹${convertedFromAmount}L - ${convertedToAmount}L"
+            tvItemLandSkusPrice.text = itemLandSkusPrice
             tvItemLandSkusDescription.text = element.shortDescription
         }
     }

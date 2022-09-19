@@ -16,7 +16,7 @@ data class PdOpprotunityDoc(
     val isTourismAroundActive: Boolean,
     val isUpcomingInfraStoryActive: Boolean,
     val pageFooter: String,
-    val projectAminities: List<PdProjectAminity>,
+    val projectAmenities: List<PdProjectAmenity>,
     val projectContentId: Int,
     val tourismAround: PdTourismAround,
     val upcomingInfraStory: PdUpcomingInfraStory,

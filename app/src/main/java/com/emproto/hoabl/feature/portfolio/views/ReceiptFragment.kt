@@ -1,14 +1,12 @@
 package com.emproto.hoabl.feature.portfolio.views
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentReceiptBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
@@ -17,25 +15,18 @@ import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import javax.inject.Inject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ReceiptFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ReceiptFragment : BaseFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    lateinit var fragmentReceiptBinding: FragmentReceiptBinding
+    private lateinit var fragmentReceiptBinding: FragmentReceiptBinding
 
     @Inject
     lateinit var portfolioFactory: PortfolioFactory
-    lateinit var portfolioviewmodel: PortfolioViewModel
+    lateinit var portfolioViewModel: PortfolioViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,11 +39,11 @@ class ReceiptFragment : BaseFragment() {
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         fragmentReceiptBinding = FragmentReceiptBinding.inflate(inflater)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
-        portfolioviewmodel = ViewModelProvider(
+        portfolioViewModel = ViewModelProvider(
                 requireActivity(),
                 portfolioFactory
         )[PortfolioViewModel::class.java]
@@ -71,7 +62,7 @@ class ReceiptFragment : BaseFragment() {
             (requireActivity() as HomeActivity).onBackPressed()
         }
 
-        val paymentHistory = portfolioviewmodel.getPaymentHistory()
+        val paymentHistory = portfolioViewModel.getPaymentHistory()
 
         fragmentReceiptBinding.receiptList.layoutManager = LinearLayoutManager(requireContext())
         fragmentReceiptBinding.receiptList.adapter = ReceiptListAdapter(
@@ -79,7 +70,7 @@ class ReceiptFragment : BaseFragment() {
                 paymentHistory,
                 object : ReceiptListAdapter.OnPaymentItemClickListener {
                     override fun onAccountsPaymentItemClick(
-                            accountsPaymentList: String
+                        path: String
                     ) {
                         //download the receipt
                     }

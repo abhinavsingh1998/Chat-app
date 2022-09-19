@@ -9,10 +9,8 @@ import com.emproto.core.Database.TableModel.SearchModel
 import com.emproto.hoabl.feature.home.data.LatesUpdatesPosition
 import com.emproto.hoabl.repository.HomeRepository
 import com.emproto.networklayer.request.chat.SendMessageBody
-import com.emproto.networklayer.request.notification.UnReadNotifications
-import com.emproto.networklayer.request.refernow.ReferalRequest
+import com.emproto.networklayer.request.refernow.ReferralRequest
 import com.emproto.networklayer.response.BaseResponse
-import com.emproto.networklayer.response.HomeActionItemResponse
 import com.emproto.networklayer.response.chats.*
 import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
@@ -20,7 +18,6 @@ import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.home.Page
 import com.emproto.networklayer.response.insights.InsightsResponse
-import com.emproto.networklayer.response.investment.AllProjectsResponse
 import com.emproto.networklayer.response.marketingUpdates.Data
 import com.emproto.networklayer.response.marketingUpdates.LatestUpdatesResponse
 import com.emproto.networklayer.response.notification.dataResponse.NotificationResponse
@@ -199,8 +196,8 @@ class HomeViewModel(
         return homeRepository.getAccountsList()
     }
 
-    fun getReferNow(referalRequest: ReferalRequest): LiveData<BaseResponse<ReferalResponse>> {
-        return homeRepository.addReferral(referalRequest)
+    fun getReferNow(referralRequest: ReferralRequest): LiveData<BaseResponse<ReferalResponse>> {
+        return homeRepository.addReferral(referralRequest)
     }
 
     fun getFacilityManagment(): LiveData<BaseResponse<FMResponse>> {

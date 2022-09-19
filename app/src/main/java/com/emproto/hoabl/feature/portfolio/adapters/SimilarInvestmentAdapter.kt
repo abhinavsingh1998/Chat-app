@@ -14,13 +14,12 @@ import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.networklayer.response.portfolio.ivdetails.SimilarInvestment
 import java.text.DecimalFormat
-import java.util.concurrent.TimeUnit
 
 class SimilarInvestmentAdapter(
     val context: Context,
     val list: List<SimilarInvestment>,
-    val ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface,
-    val toShow: Int
+    private val ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface,
+    private val toShow: Int
 ) :
     RecyclerView.Adapter<SimilarInvestmentAdapter.MyViewHolder>() {
 
@@ -38,7 +37,7 @@ class SimilarInvestmentAdapter(
                     .into(holder.binding.ivItemImage)
             }
             tvItemLocationName.text = element.launchName
-            tvItemLocation.text = "${element.address.city},${element.address.state}"
+            "${element.address.city},${element.address.state}".also { tvItemLocation.text = it }
 
             val amount = element.priceStartingFrom.toDouble() / 100000
             val convertedAmount = amount.toString().replace(".0", "")
@@ -50,9 +49,8 @@ class SimilarInvestmentAdapter(
                 .append(Constants.ONWARDS)
 
             tvNoViews.text = element.fomoContent.noOfViews.toString()
-//                Utility.coolFormat(element.fomoContent.noOfViews.toDouble(), 0)
             tvItemLocationInfo.text = element.shortDescription
-            tvRating.text = "${Utility.convertTo(element.estimatedAppreciation)}%"
+            "${Utility.convertTo(element.estimatedAppreciation)}%".also { tvRating.text = it }
 
             when(element.fomoContent.isTargetTimeActive){
                 false -> holder.binding.timerView.visibility = View.GONE
@@ -72,9 +70,9 @@ class SimilarInvestmentAdapter(
                     val hour = millisUntilFinished / 3600000 % 24
                     val min = millisUntilFinished / 60000 % 60
                     val sec = millisUntilFinished / 1000 % 60
-                    holder.binding.tvDuration.text = "${
+                    "${
                         fh.format(hour).toString() + ":" + f.format(min) + ":" + f.format(sec)
-                    } Hrs Left"
+                    } Hrs Left".also { holder.binding.tvDuration.text = it }
                 }
 
                 override fun onFinish() {
@@ -88,7 +86,7 @@ class SimilarInvestmentAdapter(
                 ivInterface.onClickSimilarInvestment(element.id)
             }
             tvApplyNow.setOnClickListener {
-                ivInterface.onApplySinvestment(element.id)
+                ivInterface.onApplyInvestment(element.id)
             }
         }
     }

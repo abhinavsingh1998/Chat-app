@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.emproto.hoabl.databinding.FragmentAccountKycStatusPopUpBinding
-import com.emproto.hoabl.databinding.FragmentEditProfileUpdatedPopUpBinding
 
 class AccountKycStatusPopUpFragment : DialogFragment(), View.OnClickListener {
 

@@ -7,18 +7,15 @@ import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.emproto.core.Constants
 import com.emproto.hoabl.R
@@ -27,13 +24,9 @@ import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.profile.adapter.*
-import com.emproto.hoabl.utils.Extensions.hideKeyboard
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
-import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
-import com.emproto.networklayer.response.profile.AllProjectsResponse
-import com.emproto.networklayer.response.resourceManagment.ProflieResponse
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -50,25 +43,23 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
     lateinit var profileViewModel: ProfileViewModel
 
     lateinit var binding: FragmentAboutUsBinding
-    lateinit var ivarrow: ImageView
-    lateinit var philosophyAdapter:CorporatePhilosphyAdapter
-    lateinit var productAdapter: ProductAdapter
+    private lateinit var philosophyAdapter:CorporatePhilosophyAdapter
+    private lateinit var productAdapter: ProductAdapter
     lateinit var linearLayoutManager: LinearLayoutManager
-    lateinit var gridLayoutManager: GridLayoutManager
-    lateinit var projectAdapter:AllProjectsAdapter
-    lateinit var statsOverViewAdapter:StatsOverViewAboutUsAdapter
-     var defaultPosition=0
-     var selectedItemPos=0
-    val snapHelper = LinearSnapHelper()
+    private lateinit var gridLayoutManager: GridLayoutManager
+    private lateinit var projectAdapter:AllProjectsAdapter
+    private lateinit var statsOverViewAdapter:StatsOverViewAboutUsAdapter
+     private var selectedItemPos=0
+    private val snapHelper = LinearSnapHelper()
 
     private var graphType = ""
-    private var xaxisList = ArrayList<String>()
+    private var xAxisList = ArrayList<String>()
 
     val bundle = Bundle()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAboutUsBinding.inflate(inflater, container, false)
         (requireActivity() as HomeActivity).hideBottomNavigation()
         (requireActivity() as HomeActivity).hideHeader()
@@ -85,13 +76,13 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
 
     private fun initView() {
 
-        binding.refreshLayout.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+        binding.refreshLayout.setOnRefreshListener {
             binding.loader.show()
             initObserver(refresh = true)
 
             binding.refreshLayout.isRefreshing = false
 
-        })
+        }
     }
 
     private fun initClickListener() {
@@ -118,7 +109,7 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
     override fun graphItemClicked(position: Int, itemView: View, line: View) {
         if (view?.isSelected == true) {
             line.visibility = View.VISIBLE
-            line.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.app_color));
+            line.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.app_color))
         } else {
             line.visibility = View.GONE
         }
@@ -127,9 +118,8 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
     private fun initObserver(refresh:Boolean){
 
         profileViewModel.getAboutHoabl(5005).observe(viewLifecycleOwner
-        ) { it ->
+        ) {
             when (it?.status) {
-
                 Status.LOADING -> {
                     binding.rootView.isVisible = false
                     binding.loader.show()
@@ -139,11 +129,7 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                     binding.rootView.isVisible = true
                     binding.loader.hide()
                     val commonData = it.data?.data?.page?.aboutUs
-
-                    var url = commonData?.foundersVision?.media?.value?.url
-
-                    Glide.with(requireContext()).load(url)
-                        .into(binding.aboutusView)
+                    val url = commonData?.foundersVision?.media?.value?.url
 
                     binding.nameTv.text = commonData?.foundersVision?.founderName
                     binding.tvHeading.text = commonData?.foundersVision?.sectionHeading
@@ -178,8 +164,9 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                         binding.statsHeaderTxt.isVisible = false
                         binding.statsItem.isVisible = false
                     }
-                    //loading Philosphy list
-                    philosophyAdapter = CorporatePhilosphyAdapter(
+                    Glide.with(requireContext()).load(url)
+                        .into(binding.aboutusView)
+                    philosophyAdapter = CorporatePhilosophyAdapter(
                         requireActivity(),
                         commonData?.corporatePhilosophy!!.detailedInformation,
                     )
@@ -194,10 +181,10 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                     binding.aboutUsRv.adapter = philosophyAdapter
 
                     //loading product list
-                    productAdapter = ProductAdapter(
+                    ProductAdapter(
                         requireActivity(),
                         commonData?.productCategory!!.detailedInformation
-                    )
+                    ).also { it1 -> productAdapter = it1 }
 
                     linearLayoutManager = LinearLayoutManager(
                         requireContext(),
@@ -210,10 +197,10 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
 
                     //loading Stats list
 
-                    statsOverViewAdapter = StatsOverViewAboutUsAdapter(
+                    StatsOverViewAboutUsAdapter(
                         requireActivity(),
                         commonData?.statsOverview?.detailedInformation
-                    )
+                    ).also { it1 -> statsOverViewAdapter = it1 }
 
                     gridLayoutManager = GridLayoutManager(requireContext(), 2)
                     binding.statsItem.layoutManager = gridLayoutManager
@@ -221,11 +208,12 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                     binding.statsItem.setItemViewCacheSize(10)
                     binding.statsItem.setHasFixedSize(true)
                 }
+                else -> {}
             }
         }
 
         profileViewModel.getAllProjects(refresh).observe(viewLifecycleOwner
-        ) { it ->
+        ) {
             when (it?.status) {
                 Status.LOADING -> {
                     binding.rootView.isVisible = false
@@ -236,8 +224,7 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                     binding.rootView.isVisible = true
                     binding.loader.hide()
 
-
-                    for(i in 0..it?.data?.data?.size!! - 1){
+                    for(i in 0 until it?.data?.data?.size!!){
                         if (it?.data?.data?.get(i)?.isEscalationGraphActive!!){
                             selectedItemPos = i
                             break
@@ -247,23 +234,22 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                         requireActivity(),
                         it?.data?.data!!,
                         selectedItemPos,
-                        object : AllProjectsAdapter.AllprojectsInterface {
+                        object : AllProjectsAdapter.AllProjectsInterface {
                             override fun onClickItem(position: Int) {
 
-                                var currentData = it?.data?.data!![position]
-
+                                val currentData = it?.data?.data!![position]
                                 binding.tvXAxisLabel.text =
                                     currentData.generalInfoEscalationGraph.yAxisDisplayName
                                 binding.tvYAxisLabel.text =
                                     currentData.generalInfoEscalationGraph.xAxisDisplayName
                                 val graphData =
                                     currentData.generalInfoEscalationGraph.dataPoints.points
-                                val linevalues = ArrayList<Entry>()
+                                val lineValues = ArrayList<Entry>()
                                 when (currentData.generalInfoEscalationGraph.dataPoints.dataPointType) {
                                     Constants.YEARLY -> {
                                         graphType = Constants.YEARLY
                                         for (item in graphData) {
-                                            linevalues.add(
+                                            lineValues.add(
                                                 Entry(
                                                     item.year.toFloat(),
                                                     item.value.toFloat()
@@ -273,7 +259,7 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                                     }
                                     Constants.HALF_YEARLY -> {
                                         graphType = Constants.HALF_YEARLY
-                                        for (i in 0..currentData.generalInfoEscalationGraph.dataPoints.points.size - 1) {
+                                        for (i in 0 until currentData.generalInfoEscalationGraph.dataPoints.points.size) {
                                             val fmString =
                                                 currentData.generalInfoEscalationGraph.dataPoints.points[i].halfYear.toString()
                                                     .substring(0, 3)
@@ -283,22 +269,20 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                                                     4
                                                 )
                                             val str = "$fmString-$yearString"
-                                            xaxisList.add(str)
+                                            xAxisList.add(str)
                                         }
-                                        var index = 0
-                                        for (item in graphData) {
-                                            linevalues.add(
+                                        for ((index, item) in graphData.withIndex()) {
+                                            lineValues.add(
                                                 Entry(
                                                     index.toFloat(),
                                                     item.value.toFloat()
                                                 )
                                             )
-                                            index++
                                         }
                                     }
                                     Constants.QUATERLY -> {
                                         graphType = Constants.QUATERLY
-                                        for (i in 0..currentData.generalInfoEscalationGraph.dataPoints.points.size - 1) {
+                                        for (i in 0 until currentData.generalInfoEscalationGraph.dataPoints.points.size) {
                                             val fmString =
                                                 currentData.generalInfoEscalationGraph.dataPoints.points[i].quater.toString()
                                                     .substring(0, 2)
@@ -308,22 +292,20 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                                                     4
                                                 )
                                             val str = "$fmString-$yearString"
-                                            xaxisList.add(str)
+                                            xAxisList.add(str)
                                         }
-                                        var index = 0
-                                        for (item in graphData) {
-                                            linevalues.add(
+                                        for ((index, item) in graphData.withIndex()) {
+                                            lineValues.add(
                                                 Entry(
                                                     index.toFloat(),
                                                     item.value.toFloat()
                                                 )
                                             )
-                                            index++
                                         }
                                     }
                                     Constants.MONTHLY -> {
                                         graphType = Constants.MONTHLY
-                                        for (i in 0..currentData.generalInfoEscalationGraph.dataPoints.points.size - 1) {
+                                        for (i in 0 until currentData.generalInfoEscalationGraph.dataPoints.points.size) {
                                             val fmString =
                                                 currentData.generalInfoEscalationGraph.dataPoints.points[i].month.toString()
                                                     .substring(0, 3)
@@ -333,57 +315,48 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                                                     4
                                                 )
                                             val str = "$fmString-$yearString"
-                                            xaxisList.add(str)
+                                            xAxisList.add(str)
                                         }
-                                        var index = 0
-                                        for (item in graphData) {
-                                            linevalues.add(
+                                        for ((index, item) in graphData.withIndex()) {
+                                            lineValues.add(
                                                 Entry(
                                                     index.toFloat(),
                                                     item.value.toFloat()
                                                 )
                                             )
-                                            index++
                                         }
                                     }
                                 }
 
-                                val linedataset = LineDataSet(linevalues, "")
+                                val lineDataSet = LineDataSet(lineValues, "")
                                 //We add features to our chart
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                    linedataset.color = resources.getColor(R.color.green)
+                                    lineDataSet.color = ContextCompat.getColor(context!!,R.color.green)
                                 }
 
-                                linedataset.valueTextSize = 12F
+                                lineDataSet.valueTextSize = 12F
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                    linedataset.fillColor = resources.getColor(R.color.green)
+                                    lineDataSet.fillColor = ContextCompat.getColor(context!!,R.color.green)
                                 }
-                                linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
-                                linedataset.setDrawCircles(false)
-                                linedataset.setDrawValues(false)
-                                val data = LineData(linedataset)
+                                lineDataSet.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+                                lineDataSet.setDrawCircles(false)
+                                lineDataSet.setDrawValues(false)
+                                val data = LineData(lineDataSet)
 
-                                binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
-                                binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
-                                binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false);
+                                binding.ivPriceTrendsGraph.description.isEnabled = false
+                                binding.ivPriceTrendsGraph.legend.isEnabled = false
+                                binding.ivPriceTrendsGraph.axisLeft.setDrawGridLines(false)
                                 binding.ivPriceTrendsGraph.setTouchEnabled(false)
                                 binding.ivPriceTrendsGraph.setPinchZoom(false)
                                 binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
-                                //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
-                                //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
-                                binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false);
-                                binding.ivPriceTrendsGraph.getXAxis().position =
-                                    XAxis.XAxisPosition.BOTTOM;
-                                //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
-                                binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false);
-                                binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false);
-                                binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false);
+                                binding.ivPriceTrendsGraph.xAxis.setDrawGridLines(false)
+                                binding.ivPriceTrendsGraph.xAxis.position = XAxis.XAxisPosition.BOTTOM
+                                binding.ivPriceTrendsGraph.axisRight.setDrawGridLines(false)
+                                binding.ivPriceTrendsGraph.axisRight.setDrawLabels(false)
+                                binding.ivPriceTrendsGraph.axisRight.setDrawAxisLine(false)
                                 binding.ivPriceTrendsGraph.xAxis.granularity = 1f
                                 binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
-                                //
-//                                binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter =
-//                                    Xaxisformatter()
-                                binding.ivPriceTrendsGraph.xAxis.valueFormatter = Xaxisformatter()
+                                binding.ivPriceTrendsGraph.xAxis.valueFormatter = XAxisFormatter()
                                 binding.ivPriceTrendsGraph.data = data
                                 binding.ivPriceTrendsGraph.extraBottomOffset
                                 binding.ivPriceTrendsGraph.animateXY(2000, 2000)
@@ -391,19 +364,19 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                         }
                     )
 
-                    var currentData = it?.data?.data!![selectedItemPos]
+                    val currentData = it?.data?.data!![selectedItemPos]
 
                     binding.tvXAxisLabel.text =
                         currentData.generalInfoEscalationGraph.yAxisDisplayName
                     binding.tvYAxisLabel.text =
                         currentData.generalInfoEscalationGraph.xAxisDisplayName
                     val graphData = currentData.generalInfoEscalationGraph.dataPoints.points
-                    val linevalues = ArrayList<Entry>()
+                    val lineValues = ArrayList<Entry>()
                     when (currentData.generalInfoEscalationGraph.dataPoints.dataPointType) {
                         Constants.YEARLY -> {
                             graphType = Constants.YEARLY
                             for (item in graphData) {
-                                linevalues.add(Entry(item.year.toFloat(), item.value.toFloat()))
+                                lineValues.add(Entry(item.year.toFloat(), item.value.toFloat()))
                             }
                         }
                         Constants.HALF_YEARLY -> {
@@ -418,10 +391,10 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                                         4
                                     )
                                 val str = "$fmString-$yearString"
-                                xaxisList.add(str)
+                                xAxisList.add(str)
                             }
                             for ((index, item) in graphData.withIndex()) {
-                                linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
+                                lineValues.add(Entry(index.toFloat(), item.value.toFloat()))
                             }
                         }
                         Constants.QUATERLY -> {
@@ -436,12 +409,10 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                                         4
                                     )
                                 val str = "$fmString-$yearString"
-                                xaxisList.add(str)
+                                xAxisList.add(str)
                             }
-                            var index = 0
-                            for (item in graphData) {
-                                linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
-                                index++
+                            for ((index, item) in graphData.withIndex()) {
+                                lineValues.add(Entry(index.toFloat(), item.value.toFloat()))
                             }
                         }
                         Constants.MONTHLY -> {
@@ -456,50 +427,43 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                                         4
                                     )
                                 val str = "$fmString-$yearString"
-                                xaxisList.add(str)
+                                xAxisList.add(str)
                             }
-                            var index = 0
-                            for (item in graphData) {
-                                linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
-                                index++
+                            for ((index, item) in graphData.withIndex()) {
+                                lineValues.add(Entry(index.toFloat(), item.value.toFloat()))
                             }
                         }
                     }
 
-                    val linedataset = LineDataSet(linevalues, "")
+                    val lineDataSet = LineDataSet(lineValues, "")
                     //We add features to our chart
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        linedataset.color = resources.getColor(R.color.green)
+                        lineDataSet.color = requireContext().getColor(R.color.green)
                     }
 
-                    linedataset.valueTextSize = 12F
+                    lineDataSet.valueTextSize = 12F
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        linedataset.fillColor = resources.getColor(R.color.green)
+                        lineDataSet.fillColor = requireContext().getColor(R.color.green)
                     }
-                    linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER;
-                    linedataset.setDrawCircles(false)
-                    linedataset.setDrawValues(false)
-                    val data = LineData(linedataset)
+                    lineDataSet.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+                    lineDataSet.setDrawCircles(false)
+                    lineDataSet.setDrawValues(false)
+                    val data = LineData(lineDataSet)
 
-                    binding.ivPriceTrendsGraph.description.isEnabled = false;
-                    binding.ivPriceTrendsGraph.legend.isEnabled = false;
-                    binding.ivPriceTrendsGraph.axisLeft.setDrawGridLines(false);
+                    binding.ivPriceTrendsGraph.description.isEnabled = false
+                    binding.ivPriceTrendsGraph.legend.isEnabled = false
+                    binding.ivPriceTrendsGraph.axisLeft.setDrawGridLines(false)
                     binding.ivPriceTrendsGraph.setTouchEnabled(false)
                     binding.ivPriceTrendsGraph.setPinchZoom(false)
                     binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
-                    //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
-                    //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
-                    binding.ivPriceTrendsGraph.xAxis.setDrawGridLines(false);
-                    binding.ivPriceTrendsGraph.xAxis.position = XAxis.XAxisPosition.BOTTOM;
-                    //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
-                    binding.ivPriceTrendsGraph.axisRight.setDrawGridLines(false);
-                    binding.ivPriceTrendsGraph.axisRight.setDrawLabels(false);
-                    binding.ivPriceTrendsGraph.axisRight.setDrawAxisLine(false);
+                    binding.ivPriceTrendsGraph.xAxis.setDrawGridLines(false)
+                    binding.ivPriceTrendsGraph.xAxis.position = XAxis.XAxisPosition.BOTTOM
+                    binding.ivPriceTrendsGraph.axisRight.setDrawGridLines(false)
+                    binding.ivPriceTrendsGraph.axisRight.setDrawLabels(false)
+                    binding.ivPriceTrendsGraph.axisRight.setDrawAxisLine(false)
                     binding.ivPriceTrendsGraph.xAxis.granularity = 1f
                     binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
-                    //
-//                    binding.ivPriceTrendsGraph.axisLeft.valueFormatter = Xaxisformatter()
-                    binding.ivPriceTrendsGraph.xAxis.valueFormatter = Xaxisformatter()
+                    binding.ivPriceTrendsGraph.xAxis.valueFormatter = XAxisFormatter()
                     binding.ivPriceTrendsGraph.data = data
                     binding.ivPriceTrendsGraph.extraBottomOffset
                     binding.ivPriceTrendsGraph.animateXY(2000, 2000)
@@ -512,19 +476,20 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                     binding.recyclerViewGraphOptions.layoutManager = linearLayoutManager
                     binding.recyclerViewGraphOptions.adapter = projectAdapter
 
-                    if (binding.recyclerViewGraphOptions.getOnFlingListener() == null){
+                    if (binding.recyclerViewGraphOptions.onFlingListener == null){
                         snapHelper.attachToRecyclerView(binding.recyclerViewGraphOptions)
                     }
                 }
                 Status.ERROR -> {
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
                 }
+                null -> TODO()
             }
         }
 
     }
 
-    inner class Xaxisformatter : IAxisValueFormatter {
+    inner class XAxisFormatter : IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
             return when(graphType){
                 Constants.QUATERLY -> returnFormattedValue(p0)
@@ -537,7 +502,7 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
 
     private fun returnFormattedValue(floatValue:Float):String{
         return when {
-            floatValue.toInt() < 10 -> xaxisList[floatValue.toInt()]
+            floatValue.toInt() < 10 -> xAxisList[floatValue.toInt()]
             else -> { String.format("%.0f", floatValue.toDouble()) }
         }
     }
@@ -546,7 +511,7 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
         } else {
-            Html.fromHtml(message)
+         Html.fromHtml(message)
         }
     }
 }

@@ -5,12 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.model.MediaViewItem
-import com.emproto.networklayer.response.portfolio.ivdetails.Image
 import com.example.portfolioui.databinding.ProjectMediaBinding
 
 class VideoAdapter(
     private val list: List<MediaViewItem>,
-    val ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface
+    private val ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface
 ) :
     RecyclerView.Adapter<VideoAdapter.MyViewHolder>() {
 

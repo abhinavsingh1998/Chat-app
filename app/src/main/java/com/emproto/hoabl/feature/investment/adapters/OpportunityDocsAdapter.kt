@@ -1,11 +1,7 @@
 package com.emproto.hoabl.feature.investment.adapters
 
-import com.github.mikephil.charting.formatter.DefaultValueFormatter
-import com.github.mikephil.charting.formatter.IValueFormatter
-import com.github.mikephil.charting.utils.ViewPortHandler
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +12,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.Extensions.showHTMLText
-import com.emproto.networklayer.response.investment.OpprotunityDoc
+import com.emproto.networklayer.response.investment.OpportunityDoc
 import com.emproto.networklayer.response.investment.ProjectAminity
 import com.emproto.networklayer.response.investment.Story
 import com.github.mikephil.charting.components.AxisBase
@@ -29,7 +25,7 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter
 class OpportunityDocsAdapter(
     private val context: Context,
     private val itemList: List<RecyclerViewItem>,
-    private val data: OpprotunityDoc,
+    private val data: OpportunityDoc,
     private val title: String,
     private val isFromProjectAmenities: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

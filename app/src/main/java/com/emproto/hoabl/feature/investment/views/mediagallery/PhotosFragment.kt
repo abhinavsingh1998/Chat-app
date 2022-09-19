@@ -1,17 +1,15 @@
 package com.emproto.hoabl.feature.investment.views.mediagallery
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentPhotosBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.MediaPhotosAdapter
 import com.emproto.hoabl.model.MediaGalleryItem
 import com.emproto.hoabl.model.MediaViewItem
@@ -23,15 +21,11 @@ import javax.inject.Inject
 
 class PhotosFragment : BaseFragment() {
 
-    companion object {
-        const val TAG = "PhotosFragment"
-    }
-
     @Inject
     lateinit var investmentFactory: InvestmentFactory
     lateinit var investmentViewModel: InvestmentViewModel
     lateinit var binding: FragmentPhotosBinding
-    lateinit var mediaPhotosAdapter: MediaPhotosAdapter
+    private lateinit var mediaPhotosAdapter: MediaPhotosAdapter
 
     private var allImageList = ArrayList<MediaViewItem>()
 
@@ -56,7 +50,7 @@ class PhotosFragment : BaseFragment() {
             ViewModelProvider(
                 requireActivity(),
                 investmentFactory
-            ).get(InvestmentViewModel::class.java)
+            )[InvestmentViewModel::class.java]
         (requireActivity() as HomeActivity).showBackArrow()
         (requireActivity() as HomeActivity).showHeader()
     }
@@ -74,8 +68,8 @@ class PhotosFragment : BaseFragment() {
         for(item in list1){
             allImageList.add(item)
         }
-        investmentViewModel.getImageActive().observe(viewLifecycleOwner,Observer{
-            when(it){
+        investmentViewModel.getImageActive().observe(viewLifecycleOwner) {
+            when (it) {
                 true -> {
                     binding.tvNoData.visibility = View.GONE
                     binding.ivNoData.visibility = View.GONE
@@ -87,7 +81,7 @@ class PhotosFragment : BaseFragment() {
                     binding.rvMainPhotos.visibility = View.GONE
                 }
             }
-        })
+        }
 
         mediaPhotosAdapter =
             MediaPhotosAdapter(

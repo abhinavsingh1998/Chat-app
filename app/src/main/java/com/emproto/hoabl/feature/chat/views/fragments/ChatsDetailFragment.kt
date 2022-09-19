@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,7 +20,6 @@ import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentChatsDetailBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.chat.model.ActionType
 import com.emproto.hoabl.feature.chat.model.ChatDetailModel
 import com.emproto.hoabl.feature.chat.model.MessageType
 import com.emproto.hoabl.feature.home.views.HomeActivity
@@ -27,7 +27,7 @@ import com.emproto.hoabl.feature.investment.adapters.ChatsDetailAdapter
 import com.emproto.hoabl.feature.investment.adapters.OnOptionClickListener
 import com.emproto.hoabl.feature.investment.views.FaqDetailFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
-import com.emproto.hoabl.feature.portfolio.views.BookingjourneyFragment
+import com.emproto.hoabl.feature.portfolio.views.BookingJourneyFragment
 import com.emproto.hoabl.feature.portfolio.views.ProjectTimelineFragment
 import com.emproto.hoabl.feature.profile.fragments.about_us.AboutUsFragment
 import com.emproto.hoabl.utils.Extensions.hideKeyboard
@@ -45,51 +45,42 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     @Inject
     lateinit var homeFactory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
-    var chatsList: CData? = null
-    var chatHistoryList: Data? = null
-    var chatDetailList: ChatDetailResponse.ChatDetailList? = null
-    lateinit var chatsDetailAdapter: ChatsDetailAdapter
-    var newChatMessageList = ArrayList<ChatDetailModel>()
+    private var chatsList: CData? = null
+    private var chatHistoryList: Data? = null
+    private var chatDetailList: ChatDetailResponse.ChatDetailList? = null
+    private lateinit var chatsDetailAdapter: ChatsDetailAdapter
+    private var newChatMessageList = ArrayList<ChatDetailModel>()
     private var c: Calendar? = null
     private var sdf: SimpleDateFormat? = null
     private var time: String? = null
     private var isMessagesEnabled = true
     private var latestConversationId = 0
-    lateinit var handler: Handler
+    private lateinit var handler: Handler
     private var runnable: Runnable? = null
 
     lateinit var binding: FragmentChatsDetailBinding
 
-    companion object{
+    companion object {
         const val MORE_OPTIONS = 1
         const val NAVIGATE = 2
         const val FINAL_MESSAGE = "100"
-        const val ABOUT_HOABL= "102"
-        const val PROMISE= "103"
-        const val INVESTMENTS= "104"
-        const val OTHERS= "105"
-        const val PROJECT= "106"
-        const val SALES= "107"
-        const val START_TYPING= "108"
-        const val REDIRECT_ABOUT_HOABL= "109"
-        const val REDIRECT_INVESTMENTS= "110"
-        const val REDIRECT_PROJECT= "111"
-        const val REDIRECT_OTHERS= "112"
-        const val REDIRECT_PROMISE= "113"
-        const val REDIRECT_FAQ= "114"
-        const val PORTFOLIO= "115"
-        const val BOOKING_STATUS= "116"
-        const val DEVELOPMENT_STATUS= "117"
-        const val PAYMENT= "118"
-        const val REDIRECT_PORTFOLIO= "119"
-        const val REDIRECT_BOOKING_JOURNEY= "120"
-        const val REDIRECT_PROJECT_TIMELINE= "121"
+        const val OTHERS = "105"
+        const val START_TYPING = "108"
+        const val REDIRECT_ABOUT_HOABL = "109"
+        const val REDIRECT_INVESTMENTS = "110"
+        const val REDIRECT_PROJECT = "111"
+        const val REDIRECT_OTHERS = "112"
+        const val REDIRECT_PROMISE = "113"
+        const val REDIRECT_FAQ = "114"
+        const val REDIRECT_PORTFOLIO = "119"
+        const val REDIRECT_BOOKING_JOURNEY = "120"
+        const val REDIRECT_PROJECT_TIMELINE = "121"
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentChatsDetailBinding.inflate(layoutInflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
@@ -136,13 +127,12 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
             override fun afterTextChanged(s: Editable?) {
                 when {
-                    s.toString().length > 0 -> {
+                    s.toString().isNotEmpty() -> {
                         binding.clSend.background =
-                            resources.getDrawable(R.drawable.send_button_blue_bg)
+                            ContextCompat.getDrawable(context!!, R.drawable.send_button_blue_bg)
                     }
                 }
             }
-
         })
 
         callChatHistoryApi()
@@ -159,7 +149,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         homeViewModel.getChatHistory(
             chatsList?.project?.crmId.toString(),
             chatsList?.isInvested!!
-        ).observe(viewLifecycleOwner, Observer {
+        ).observe(viewLifecycleOwner) { it ->
             when (it.status) {
                 Status.LOADING -> {
                     binding.loader.show()
@@ -171,7 +161,6 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                     it.data?.let {
                         if (it.data.messages.isNotEmpty()) {
                             binding.clButtonStart.visibility = View.GONE
-//                            binding.tvDay.visibility = View.VISIBLE
                             chatHistoryList = it.data
                             getTime()
                             newChatMessageList.clear()
@@ -180,32 +169,16 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     true -> {
                                         isMessagesEnabled = true
                                     }
+                                    else -> {}
                                 }
                             } else {
                                 binding.clButtonStart.visibility = View.VISIBLE
                             }
 
-                            //Welcome message
-//                            if (it.data.autoChat != null) {
-//                                newChatMessageList.add(
-//                                    ChatDetailModel(
-//                                        it.data.autoChat.chatJSON.welcomeMessage.toString(),
-//                                        null, MessageType.RECEIVER, time
-//                                    )
-//                                )
-//                            } else {
-//                                newChatMessageList.add(
-//                                    ChatDetailModel(
-//                                        "Hi Welcome",
-//                                        null, MessageType.RECEIVER, time
-//                                    )
-//                                )
-//                            }
-                            //Old messages
                             for (item in it.data.messages) {
                                 if (item.message != null) {
-                                    when {
-                                        item.origin == "2" -> {
+                                    when (item.origin) {
+                                        "2" -> {
                                             newChatMessageList.add(
                                                 ChatDetailModel(
                                                     item.message,
@@ -216,7 +189,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                             )
 
                                         }
-                                        item.origin == "1" -> {
+                                        "1" -> {
                                             newChatMessageList.add(
                                                 ChatDetailModel(
                                                     item.message,
@@ -242,7 +215,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                 }
                             }
                             if (messagesList[messagesList.size - 1].message == resources.getString(R.string.thank_you_text) ||
-                                messagesList[messagesList.size - 1].message == resources.getString(R.string.request_time_out_text)) {
+                                messagesList[messagesList.size - 1].message == resources.getString(R.string.request_time_out_text)
+                            ) {
                                 isMessagesEnabled = false
                             }
                             latestConversationId =
@@ -258,7 +232,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                     (requireActivity() as HomeActivity).showErrorToast(it.message!!)
                 }
             }
-        })
+        }
     }
 
     private fun callChatInitiateApi() {
@@ -267,7 +241,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                 chatsList?.isInvested,
                 chatsList?.project?.crmId.toString()
             )
-        ).observe(viewLifecycleOwner, Observer {
+        ).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.loader.show()
@@ -289,12 +263,12 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                     (requireActivity() as HomeActivity).showErrorToast(it.message!!)
                 }
             }
-        })
+        }
 
     }
 
     private fun getDay() {
-        val sdf = SimpleDateFormat("EEEE")
+        val sdf = SimpleDateFormat("EEEE", Locale.getDefault())
         val d = Date()
         val dayOfTheWeek = sdf.format(d)
         binding.tvDay.text = dayOfTheWeek
@@ -338,11 +312,50 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                     )
 
                     sendMessage(option.text, 1, option.action.toString().toInt(), null)
-
-                    if (option.actionType == MORE_OPTIONS) {
-                        when {
-                            option.action == OTHERS -> {
-                                if(chatsList?.isInvested == false){
+                    when {
+                        option.actionType == MORE_OPTIONS -> {
+                            when (option.action) {
+                                OTHERS -> {
+                                    if (chatsList?.isInvested == false) {
+                                        val fragment = FaqDetailFragment()
+                                        val bundle = Bundle()
+                                        bundle.putBoolean(Constants.IS_FROM_INVESTMENT, false)
+                                        bundle.putString(Constants.PROJECT_NAME, "")
+                                        fragment.arguments = bundle
+                                        (requireActivity() as HomeActivity).addFragment(
+                                            fragment,
+                                            true
+                                        )
+                                    } else {
+                                        addingOptions(option)
+                                    }
+                                }
+                                else -> addingOptions(option)
+                            }
+                        }
+                        option.actionType == NAVIGATE -> {
+                            when (option.action) {
+                                REDIRECT_ABOUT_HOABL -> {
+                                    (requireActivity() as HomeActivity).addFragment(
+                                        AboutUsFragment(),
+                                        true
+                                    )
+                                }
+                                REDIRECT_INVESTMENTS -> {
+                                    (requireActivity() as HomeActivity).navigate(R.id.navigation_investment)
+                                }
+                                REDIRECT_PROJECT -> {
+                                    chatsList?.project?.let {
+                                        val bundle = Bundle()
+                                        bundle.putInt(Constants.PROJECT_ID, it.projectContent.id)
+                                        val fragment = ProjectDetailFragment()
+                                        fragment.arguments = bundle
+                                        (requireActivity() as HomeActivity).addFragment(
+                                            fragment, true
+                                        )
+                                    }
+                                }
+                                REDIRECT_OTHERS -> {
                                     val fragment = FaqDetailFragment()
                                     val bundle = Bundle()
                                     bundle.putBoolean(Constants.IS_FROM_INVESTMENT, false)
@@ -352,188 +365,154 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                         fragment,
                                         true
                                     )
-                                }else{
-                                    addingOptions(option)
                                 }
-                            }
-                            else -> addingOptions(option)
-                        }
-                    } else if (option.actionType == NAVIGATE) {
-                        when (option.action) {
-                            REDIRECT_ABOUT_HOABL -> {
-                                (requireActivity() as HomeActivity).addFragment(
-                                    AboutUsFragment(),
-                                    true
-                                )
-                            }
-                            REDIRECT_INVESTMENTS -> {
-                                (requireActivity() as HomeActivity).navigate(R.id.navigation_investment)
-                            }
-                            REDIRECT_PROJECT -> {
-                                chatsList?.project?.let {
-                                    val bundle = Bundle()
-                                    bundle.putInt(Constants.PROJECT_ID, it.projectContent.id)
-                                    val fragment = ProjectDetailFragment()
-                                    fragment.arguments = bundle
-                                    (requireActivity() as HomeActivity).addFragment(
-                                        fragment, true
-                                    )
+                                REDIRECT_PROMISE -> {
+                                    (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
                                 }
-                            }
-                            REDIRECT_OTHERS -> {
-                                val fragment = FaqDetailFragment()
-                                val bundle = Bundle()
-                                bundle.putBoolean(Constants.IS_FROM_INVESTMENT, false)
-                                bundle.putString(Constants.PROJECT_NAME, "")
-                                fragment.arguments = bundle
-                                (requireActivity() as HomeActivity).addFragment(
-                                    fragment,
-                                    true
-                                )
-                            }
-                            REDIRECT_PROMISE -> {
-                                (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
-                            }
-                            REDIRECT_PORTFOLIO -> {
-                                (requireActivity() as HomeActivity).navigate(R.id.navigation_portfolio)
-                            }
-                            REDIRECT_BOOKING_JOURNEY -> {
-                                chatsList?.portfolioData?.let {
-                                    (requireActivity() as HomeActivity).addFragment(
-                                        BookingjourneyFragment.newInstance(
-                                            it.investmentId,
-                                            ""
-                                        ), true
-                                    )
+                                REDIRECT_PORTFOLIO -> {
+                                    (requireActivity() as HomeActivity).navigate(R.id.navigation_portfolio)
                                 }
-                            }
-                            REDIRECT_PROJECT_TIMELINE -> {
-                                chatsList?.project?.let{
-                                    (requireActivity() as HomeActivity).addFragment(
-                                        ProjectTimelineFragment.newInstance(
-                                            it.projectContent.id,
-                                            ""
-                                        ), true
-                                    )
+                                REDIRECT_BOOKING_JOURNEY -> {
+                                    chatsList?.portfolioData?.let {
+                                        (requireActivity() as HomeActivity).addFragment(
+                                            BookingJourneyFragment.newInstance(
+                                                it.investmentId,
+                                                ""
+                                            ), true
+                                        )
+                                    }
                                 }
-                            }
-                            REDIRECT_FAQ -> {
-                                chatsList?.project?.let {
-                                    val fragment = FaqDetailFragment()
-                                    val bundle = Bundle()
-                                    bundle.putInt(Constants.PROJECT_ID, it.projectContent.id)
-                                    bundle.putBoolean(Constants.IS_FROM_INVESTMENT, true)
-                                    bundle.putString(Constants.PROJECT_NAME, it.launchName)
-                                    fragment.arguments = bundle
-                                    (requireActivity() as HomeActivity).addFragment(fragment, true)
+                                REDIRECT_PROJECT_TIMELINE -> {
+                                    chatsList?.project?.let {
+                                        (requireActivity() as HomeActivity).addFragment(
+                                            ProjectTimelineFragment.newInstance(
+                                                it.projectContent.id,
+                                                ""
+                                            ), true
+                                        )
+                                    }
+                                }
+                                REDIRECT_FAQ -> {
+                                    chatsList?.project?.let {
+                                        val fragment = FaqDetailFragment()
+                                        val bundle = Bundle()
+                                        bundle.putInt(Constants.PROJECT_ID, it.projectContent.id)
+                                        bundle.putBoolean(Constants.IS_FROM_INVESTMENT, true)
+                                        bundle.putString(Constants.PROJECT_NAME, it.launchName)
+                                        fragment.arguments = bundle
+                                        (requireActivity() as HomeActivity).addFragment(fragment, true)
+                                    }
                                 }
                             }
                         }
-                    } else if (option.action == START_TYPING) {
-                        binding.clType.visibility = View.VISIBLE
-                        binding.clButtonStart.visibility = View.INVISIBLE
-                        isMessagesEnabled = false
-                        getTime()
-                        when {
-                            chatDetailList != null -> {
-                                newChatMessageList.add(
-                                    ChatDetailModel(
-                                        chatDetailList!!.autoChat.chatJSON.allowTypingMessage,
-                                        null, MessageType.RECEIVER, time,
-                                        latestConversationId
+                        option.action == START_TYPING -> {
+                            binding.clType.visibility = View.VISIBLE
+                            binding.clButtonStart.visibility = View.INVISIBLE
+                            isMessagesEnabled = false
+                            getTime()
+                            when {
+                                chatDetailList != null -> {
+                                    newChatMessageList.add(
+                                        ChatDetailModel(
+                                            chatDetailList!!.autoChat.chatJSON.allowTypingMessage,
+                                            null, MessageType.RECEIVER, time,
+                                            latestConversationId
+                                        )
                                     )
-                                )
-                                isMessagesEnabled = false
-                                runnable = Runnable {
-                                    sendMessage(
-                                        chatDetailList!!.autoChat.chatJSON.allowTypingMessage,
-                                        2,
-                                        null,
-                                        null
-                                    )
+                                    isMessagesEnabled = false
+                                    runnable = Runnable {
+                                        sendMessage(
+                                            chatDetailList!!.autoChat.chatJSON.allowTypingMessage,
+                                            2,
+                                            null,
+                                            null
+                                        )
+                                    }
+                                    runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
                                 }
-                                runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
-                            }
-                            else -> {
-                                newChatMessageList.add(
-                                    ChatDetailModel(
-                                        chatHistoryList!!.autoChat.chatJSON.allowTypingMessage,
-                                        null, MessageType.RECEIVER, time,
-                                        latestConversationId
+                                else -> {
+                                    newChatMessageList.add(
+                                        ChatDetailModel(
+                                            chatHistoryList!!.autoChat.chatJSON.allowTypingMessage,
+                                            null, MessageType.RECEIVER, time,
+                                            latestConversationId
+                                        )
                                     )
-                                )
-                                isMessagesEnabled = false
-                                runnable = Runnable {
-                                    sendMessage(
-                                        chatHistoryList!!.autoChat.chatJSON.allowTypingMessage,
-                                        2,
-                                        null,
-                                        null
-                                    )
-                                }
-                                runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
+                                    isMessagesEnabled = false
+                                    runnable = Runnable {
+                                        sendMessage(
+                                            chatHistoryList!!.autoChat.chatJSON.allowTypingMessage,
+                                            2,
+                                            null,
+                                            null
+                                        )
+                                    }
+                                    runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
 
 
+                                }
                             }
-                        }
-                        binding.rvChat.smoothScrollToPosition(newChatMessageList.size - 1)
-                        sendTypedMessage()
+                            binding.rvChat.smoothScrollToPosition(newChatMessageList.size - 1)
+                            sendTypedMessage()
 
-                    } else if (option.action == FINAL_MESSAGE) {
-                        binding.clType.visibility = View.GONE
-                        getTime()
-                        when {
-                            chatDetailList != null -> {
-                                newChatMessageList.add(
-                                    ChatDetailModel(
-                                        chatDetailList!!.autoChat.chatJSON.finalMessage,
-                                        null, MessageType.RECEIVER, time,
-                                        latestConversationId
-                                    )
-                                )
-                                isMessagesEnabled = false
-                                runnable = Runnable {
-                                    sendMessage(
-                                        chatDetailList!!.autoChat.chatJSON.finalMessage,
-                                        2,
-                                        null,
-                                        null
-                                    )
-                                }
-                                runnable?.let { it1 -> handler.postDelayed(it1, 2000)}
-                            }
-                            else -> {
-                                newChatMessageList.add(
-                                    ChatDetailModel(
-                                        chatHistoryList!!.autoChat.chatJSON.finalMessage,
-                                        null, MessageType.RECEIVER, time,
-                                        latestConversationId
-                                    )
-                                )
-                                isMessagesEnabled = false
-                                runnable = Runnable {
-                                    sendMessage(
-                                        chatHistoryList!!.autoChat.chatJSON.finalMessage,
-                                        2,
-                                        null,
-                                        null
-                                    )
-                                }
-                                runnable?.let { it1 -> handler.postDelayed(it1, 2000)}
-                            }
                         }
+                        option.action == FINAL_MESSAGE -> {
+                            binding.clType.visibility = View.GONE
+                            getTime()
+                            when {
+                                chatDetailList != null -> {
+                                    newChatMessageList.add(
+                                        ChatDetailModel(
+                                            chatDetailList!!.autoChat.chatJSON.finalMessage,
+                                            null, MessageType.RECEIVER, time,
+                                            latestConversationId
+                                        )
+                                    )
+                                    isMessagesEnabled = false
+                                    runnable = Runnable {
+                                        sendMessage(
+                                            chatDetailList!!.autoChat.chatJSON.finalMessage,
+                                            2,
+                                            null,
+                                            null
+                                        )
+                                    }
+                                    runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
+                                }
+                                else -> {
+                                    newChatMessageList.add(
+                                        ChatDetailModel(
+                                            chatHistoryList!!.autoChat.chatJSON.finalMessage,
+                                            null, MessageType.RECEIVER, time,
+                                            latestConversationId
+                                        )
+                                    )
+                                    isMessagesEnabled = false
+                                    runnable = Runnable {
+                                        sendMessage(
+                                            chatHistoryList!!.autoChat.chatJSON.finalMessage,
+                                            2,
+                                            null,
+                                            null
+                                        )
+                                    }
+                                    runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
+                                }
+                            }
 
                         chatsDetailAdapter.notifyDataSetChanged()
                         binding.rvChat.smoothScrollToPosition(newChatMessageList.size - 1)
 
+                        }
                     }
                 }
+                else -> {}
             }
         }
     }
 
     private fun addingOptions(option: Option) {
-        when{
+        when {
             chatDetailList != null -> {
                 for (i in chatDetailList!!.autoChat.chatJSON.chatBody.indices) {
                     if (option.optionNumber == chatDetailList!!.autoChat.chatJSON.chatBody[i].linkedOption) {
@@ -583,7 +562,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                             )
                         }
                         runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
-                        chatsDetailAdapter.notifyDataSetChanged()
+                        chatsDetailAdapter.run { notifyDataSetChanged() }
                         binding.rvChat.smoothScrollToPosition(newChatMessageList.size - 1)
                         break
                     }
@@ -608,7 +587,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                 sendMessage(binding.etType.text.toString(), 1, null, null)
                 chatsDetailAdapter.notifyDataSetChanged()
                 binding.rvChat.smoothScrollToPosition(newChatMessageList.size - 1)
-                binding.etType.text.clear();
+                binding.etType.text.clear()
             } else {
                 Toast.makeText(context, "Message cannot be empty", Toast.LENGTH_SHORT)
                     .show()
@@ -635,7 +614,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                         launchPhaseId = chatsList?.project?.projectContent?.id.toString(),
                         options = options
                     )
-                ).observe(this, Observer {
+                ).observe(viewLifecycleOwner) {
                     when (it.status) {
                         Status.LOADING -> {
                         }
@@ -648,7 +627,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                             (requireActivity() as HomeActivity).showErrorToast(it.message!!)
                         }
                     }
-                })
+                }
             }
             else -> {
                 homeViewModel.sendMessage(
@@ -662,23 +641,21 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                         launchPhaseId = chatsList?.project?.projectContent?.id.toString(),
                         options = options
                     )
-                ).observe(this, Observer {
+                ).observe(viewLifecycleOwner) {
                     when (it.status) {
                         Status.LOADING -> {
 
                         }
                         Status.SUCCESS -> {
                             it.data?.let {
-//                                if (it.data.message.origin == "1") {
-//                                    isMyFirstCallCompleted = true
-//                                }
+
                             }
                         }
                         Status.ERROR -> {
                             (requireActivity() as HomeActivity).showErrorToast(it.message!!)
                         }
                     }
-                })
+                }
             }
         }
 
@@ -686,7 +663,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
     private fun getTime() {
         c = Calendar.getInstance()
-        sdf = SimpleDateFormat("h:mm a")
+        sdf = SimpleDateFormat("h:mm a", Locale.getDefault())
         time = sdf!!.format(c!!.time)
     }
 

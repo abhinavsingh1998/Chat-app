@@ -1,17 +1,17 @@
 package com.emproto.hoabl.feature.investment.views
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
 import com.emproto.hoabl.R
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentCategoryListBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.adapters.CategoryListAdapter
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
@@ -20,11 +20,12 @@ import com.emproto.networklayer.response.investment.*
 import com.emproto.networklayer.response.portfolio.ivdetails.SimilarInvestment
 import javax.inject.Inject
 
-class CategoryListFragment() : BaseFragment() {
+class CategoryListFragment : BaseFragment() {
 
     @Inject
     lateinit var investmentFactory: InvestmentFactory
     lateinit var investmentViewModel: InvestmentViewModel
+
     private lateinit var binding: FragmentCategoryListBinding
     private lateinit var categoryListAdapter: CategoryListAdapter
     private var type: String? = ""
@@ -52,11 +53,12 @@ class CategoryListFragment() : BaseFragment() {
             ViewModelProvider(
                 requireActivity(),
                 investmentFactory
-            ).get(InvestmentViewModel::class.java)
+            )[InvestmentViewModel::class.java]
         (requireActivity() as HomeActivity).hideBottomNavigation()
         (requireActivity() as HomeActivity).showBackArrow()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initObserver() {
         when (type) {
             "LastFewPLots" -> {

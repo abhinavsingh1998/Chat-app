@@ -52,6 +52,10 @@ class OTPVerificationFragment : BaseFragment() {
     var counter = 30000L
     lateinit var countDownTimer: CountDownTimer
 
+    /// lateinit var dialog: Dialog
+    private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
+    private var isReadSMSGranted = false
+    val permissionRequest: MutableList<String> = ArrayList()
 
     @Inject
     lateinit var authFactory: AuthFactory
@@ -131,6 +135,12 @@ class OTPVerificationFragment : BaseFragment() {
 //    }
 
     private fun initView() {
+        permissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+                isReadSMSGranted = permissions[Manifest.permission.READ_SMS] ?: isReadSMSGranted
+            }
+
+//        requestPermission()
         mBinding.tvMobileNumber.text = "$countryCode-$mobileno"
         mBinding.tvMobileNumber.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         mBinding.loginEdittext.hint = hint_txt
@@ -225,11 +235,6 @@ class OTPVerificationFragment : BaseFragment() {
                                             override fun run() {
                                                 it.data?.let { verifyOtpResponse ->
                                                     appPreference.setToken(verifyOtpResponse.token)
-
-                                                    Log.i(
-                                                        "prlead",
-                                                        ContactType.PRELEAD.value.toString()
-                                                    )
                                                     if (verifyOtpResponse.user.firstName.isNullOrEmpty()) {
                                                         (requireActivity() as AuthActivity).replaceFragment(
                                                             NameInputFragment.newInstance("", ""),
@@ -353,6 +358,20 @@ class OTPVerificationFragment : BaseFragment() {
         })
     }
 
+    private fun requestPermission() {
+        isReadSMSGranted = ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.READ_SMS
+        ) == PackageManager.PERMISSION_GRANTED
+
+
+        if (!isReadSMSGranted) {
+            permissionRequest.add(Manifest.permission.READ_SMS)
+        }
+        if (permissionRequest.isNotEmpty()) {
+            permissionLauncher.launch(permissionRequest.toTypedArray())
+        }
+    }
 
     override fun onStart() {
         super.onStart()
@@ -457,10 +476,7 @@ class OTPVerificationFragment : BaseFragment() {
             }
 
         }.start()
-
-        if (counter<120000){
-            counter += 15000
-        }
+        counter += 15000
     }
 
     @SuppressLint("ResourceType")

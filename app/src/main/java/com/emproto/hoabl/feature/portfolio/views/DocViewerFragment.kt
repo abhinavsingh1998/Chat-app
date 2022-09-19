@@ -1,22 +1,10 @@
 package com.emproto.hoabl.feature.portfolio.views
 
-import android.content.Context
-import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.Matrix
-import android.media.ExifInterface
-import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
-import android.provider.MediaStore.Images
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.FileProvider
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseFragment
@@ -27,23 +15,12 @@ import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.response.enums.Status
 import com.example.portfolioui.databinding.FragmentSingledocBinding
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
 import javax.inject.Inject
 
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val FROM_PATH = "param1"
 private const val ARG_PARAM2 = "param2"
 private const val IMAGE_URL = "param3"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DocViewerFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DocViewerFragment : BaseFragment() {
 
     lateinit var binding: FragmentSingledocBinding
@@ -55,7 +32,7 @@ class DocViewerFragment : BaseFragment() {
 
     @Inject
     lateinit var portfolioFactory: PortfolioFactory
-    lateinit var portfolioviewmodel: PortfolioViewModel
+    lateinit var portfolioViewModel: PortfolioViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,12 +46,12 @@ class DocViewerFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
 
         binding = FragmentSingledocBinding.inflate(layoutInflater)
-        portfolioviewmodel = ViewModelProvider(
+        portfolioViewModel = ViewModelProvider(
             requireActivity(),
             portfolioFactory
         )[PortfolioViewModel::class.java]
@@ -104,81 +81,26 @@ class DocViewerFragment : BaseFragment() {
     }
 
     private fun initObserver() {
-        portfolioviewmodel.downloadDocument(imageUrl!!)
-            .observe(viewLifecycleOwner,
-                Observer {
-                    when (it.status) {
-                        Status.LOADING -> {
-                            binding.progressBar.visibility = View.VISIBLE
-                        }
-                        Status.SUCCESS -> {
-                            binding.tvMediaImageName.text = name
-                            binding.progressBar.visibility = View.GONE
-                            val bitmap = Utility.getBitmapFromBase64(it.data!!.data)
-                            binding.ivMediaPhoto.setImageBitmap(bitmap)
-                        }
+        portfolioViewModel.downloadDocument(imageUrl!!)
+            .observe(viewLifecycleOwner
+            ) {
+                when (it.status) {
+                    Status.LOADING -> {
+                        binding.progressBar.visibility = View.VISIBLE
                     }
-                })
+                    Status.SUCCESS -> {
+                        binding.tvMediaImageName.text = name
+                        binding.progressBar.visibility = View.GONE
+                        val bitmap = Utility.getBitmapFromBase64(it.data!!.data)
+                        binding.ivMediaPhoto.setImageBitmap(bitmap)
+                    }
+                    Status.ERROR -> {}
+                }
+            }
     }
-
-    fun bitmapToFile(bitmap: Bitmap, fileNameToSave: String): File? { // File name like "image.png"
-        //create a file to write bitmap data
-        var file: File? = null
-        return try {
-            file = File(Environment.getExternalStorageDirectory().toString() + File.separator + fileNameToSave)
-            file.createNewFile()
-
-            //Convert bitmap to byte array
-            val bos = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos) // YOU can also save it in JPEG
-            val bitmapdata = bos.toByteArray()
-
-            //write the bytes in file
-            val fos = FileOutputStream(file)
-            fos.write(bitmapdata)
-            fos.flush()
-            fos.close()
-            file
-        } catch (e: Exception) {
-            e.printStackTrace()
-            file // it will return null
-        }
-    }
-
-    fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
-        val matrix = Matrix()
-        matrix.postRotate(angle)
-        return Bitmap.createBitmap(
-            source, 0, 0, source.width, source.height,
-            matrix, true
-        )
-    }
-
-    fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
-        val bytes = ByteArrayOutputStream()
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path = Images.Media.insertImage(inContext.contentResolver, inImage, "Title", null)
-        return Uri.parse(path)
-    }
-
-    fun getRealPathFromURI(uri: Uri?): String? {
-        val cursor = uri?.let { context?.getContentResolver()?.query(it, null, null, null, null) }
-        cursor?.moveToFirst()
-        val idx: Int = cursor?.getColumnIndex(MediaStore.Images.ImageColumns.DATA)!!
-        return cursor.getString(idx)
-    }
-
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DocViewerFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(fromPath: Boolean, name: String, imageUrl: String? = null) =
             DocViewerFragment().apply {

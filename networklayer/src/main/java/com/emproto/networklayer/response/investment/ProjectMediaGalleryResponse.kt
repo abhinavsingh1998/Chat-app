@@ -7,7 +7,7 @@ data class ProjectMediaGalleryResponse(
 )
 
 data class MgData(
-    val latestMedaiGalleries: LatestMedaiGalleries,
+    val latestMediaGalleries: LatestMedaiGalleries,
     val mediaGalleries: MediaGalleries
 )
 

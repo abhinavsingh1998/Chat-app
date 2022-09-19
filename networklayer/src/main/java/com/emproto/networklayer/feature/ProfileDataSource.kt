@@ -9,7 +9,6 @@ import com.emproto.networklayer.di.DataModule
 import com.emproto.networklayer.request.profile.EditUserNameRequest
 import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.request.profile.ReportSecurityRequest
-import com.emproto.networklayer.request.profile.UploadFmBody
 import com.emproto.networklayer.response.fm.FmUploadResponse
 import com.emproto.networklayer.response.investment.FaqDetailResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse

@@ -2,12 +2,9 @@ package com.emproto.hoabl.feature.portfolio.adapters
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.ScaleAnimation
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.ImageViewCompat
@@ -45,8 +42,6 @@ class ExistingUsersPortfolioAdapter(
     }
 
     private lateinit var completedInvestmentAdapter: CompletedInvestmentAdapter
-
-    //private lateinit var onItemClickListener : View.OnClickListener
     private lateinit var watchlistAdapter: WatchlistAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -137,7 +132,7 @@ class ExistingUsersPortfolioAdapter(
             TYPE_ONGOING_INVESTMENT -> (holder as OngoingInvestmentsViewHolder).bind(position)
             TYPE_NUDGE_CARD -> (holder as BlockchainViewHolder).bind(position)
             TYPE_WATCHLIST -> (holder as MyWatchListViewHolder).bind(position)
-            TYPE_REFER -> (holder as PortfolioReferViewHolder).bind(position)
+            TYPE_REFER -> (holder as PortfolioReferViewHolder).bind()
         }
     }
 
@@ -179,19 +174,19 @@ class ExistingUsersPortfolioAdapter(
                 binding.contentTxt2.text = Utility.convertTo(completed.areaSqFt)
                 binding.contentTxt3.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
                     .format(completed.amountInvested)
-                binding.contentTxt4.text = "${summary.iea}% OEA"
+                "${summary.iea}% IEA".also { binding.contentTxt4.text = it }
             }
 
 
 
             binding.contentTxt4.setOnClickListener {
-                getToolTip("Owner Estimated Appreciation").showAlignBottom(binding.ivAmount)
+                getToolTip("Investor Estimated Appreciation").showAlignBottom(binding.ivAmount)
             }
             binding.cardName4.setOnClickListener {
-                getToolTip("Owner Estimated Appreciation").showAlignBottom(binding.ivAmount)
+                getToolTip("Investor Estimated Appreciation").showAlignBottom(binding.ivAmount)
             }
             binding.ivAmount.setOnClickListener {
-                getToolTip("Owner Estimated Appreciation").showAlignBottom(binding.ivAmount)
+                getToolTip("Investor Estimated Appreciation").showAlignBottom(binding.ivAmount)
             }
 
             binding.cardName3.setOnClickListener {
@@ -220,7 +215,7 @@ class ExistingUsersPortfolioAdapter(
 
             if (list[position].data != null) {
                 val ongoing = list[position].data as Ongoing
-                binding.contentTxt1.text = "" + ongoing.count
+                ("" + ongoing.count).also { binding.contentTxt1.text = it }
                 binding.contentTxt2.text = Utility.convertTo(ongoing.areaSqFt)
                 binding.contentTxt3.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
                     .format(ongoing.amountPaid)
@@ -296,7 +291,7 @@ class ExistingUsersPortfolioAdapter(
             Glide.with(context).load(url).placeholder(R.drawable.dont_miss_new)
                 .into(binding.ivDontMissImage)
             binding.ivDontMissImage.setOnClickListener {
-                onItemClickListener.dontMissoutCard()
+                onItemClickListener.doNotMissOutCard()
             }
         }
     }
@@ -307,7 +302,7 @@ class ExistingUsersPortfolioAdapter(
             val watchList =
                 list[position].data as List<Data>
             binding.tvSmartDealsSubtitle.visibility = View.GONE
-            binding.tvSmartDealsTitle.text = "My WatchList"
+            "My WatchList".also { binding.tvSmartDealsTitle.text = it }
             watchlistAdapter = WatchlistAdapter(context, watchList, onItemClickListener)
             binding.rvSmartDealsNv.adapter = watchlistAdapter
             binding.rvSmartDealsNv.setHasFixedSize(true)
@@ -321,7 +316,7 @@ class ExistingUsersPortfolioAdapter(
 
     private inner class PortfolioReferViewHolder(private val binding: PortfolioReferLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.btnReferNow.setOnClickListener {
                 onItemClickListener.referNow()
             }
@@ -344,10 +339,10 @@ class ExistingUsersPortfolioAdapter(
         fun seeAllWatchlist()
         fun investNow()
         fun onGoingDetails()
-        fun onClickofWatchlist(projectId: Int)
+        fun onClickOfWatchlist(projectId: Int)
         fun onClickApplyNow(projectId: Int)
         fun onClickShare()
-        fun dontMissoutCard()
+        fun doNotMissOutCard()
     }
 
     fun getToolTip(text: String): Balloon {
@@ -368,14 +363,5 @@ class ExistingUsersPortfolioAdapter(
         return balloon
     }
 
-    private fun setScaleAnimation(view: View) {
-        val anim = ScaleAnimation(
-            0.0f, 1.0f, 0.0f, 1.0f,
-            Animation.RELATIVE_TO_SELF, 0.5f,
-            Animation.RELATIVE_TO_SELF, 0.5f
-        )
-        anim.duration = 300
-        view.startAnimation(anim)
-    }
 
 }

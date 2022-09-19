@@ -1,10 +1,8 @@
 package com.emproto.hoabl.feature.investment.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.emproto.hoabl.databinding.ItemFaqBinding
 import com.emproto.hoabl.databinding.ItemFaqQuestionBinding
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.ProjectContentsAndFaq

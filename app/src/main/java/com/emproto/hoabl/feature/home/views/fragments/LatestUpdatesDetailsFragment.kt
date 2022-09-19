@@ -1,15 +1,13 @@
 package com.emproto.hoabl.feature.home.views.fragments
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
@@ -21,11 +19,8 @@ import com.emproto.hoabl.feature.home.data.LatesUpdatesPosition
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
-import com.emproto.networklayer.response.home.DetailedInfo
 import com.emproto.networklayer.response.marketingUpdates.Data
-import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 class LatestUpdatesDetailsFragment : BaseFragment() {
 
@@ -37,9 +32,8 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
 
     lateinit var bundle: Bundle
     var position: Int = 0
-    var listLength: Int = 0
+    private var listLength: Int = 0
     lateinit var it: Data
-    var updatesListCount = 0
     lateinit var data: LiveData<LatesUpdatesPosition>
     lateinit var layoutManager: LinearLayoutManager
 
@@ -60,7 +54,7 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        homeViewModel.getSelectedPosition().observe(viewLifecycleOwner,Observer{
+        homeViewModel.getSelectedPosition().observe(viewLifecycleOwner) {
             position = it.position
             listLength = it.lisLenght
             initObserver()
@@ -68,11 +62,13 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
             backView()
             forwardView()
             initClickListener()
-        })
+        }
     }
 
     private fun initObserver() {
-        homeViewModel.getSelectedLatestUpdates().observe(viewLifecycleOwner, Observer {
+        homeViewModel.getSelectedLatestUpdates().observe(
+            viewLifecycleOwner
+        ) {
             this.it = it
             mBinding.title.text = it.displayTitle
             mBinding.cityName.text = it.subTitle
@@ -83,48 +79,48 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
                 it.detailedInfo
             )
         }
-        )
     }
 
     private fun backView() {
-        mBinding.backView.setOnClickListener(View.OnClickListener {
+        mBinding.backView.setOnClickListener {
             if (position > 0) {
                 --position
                 mBinding.storyView.removeAllViews()
                 initView(position)
-                homeViewModel.getLatestUpdates().observe(viewLifecycleOwner, Observer {
+                homeViewModel.getLatestUpdates().observe(viewLifecycleOwner) {
 
                     it.let {
                         homeViewModel.setSeLectedLatestUpdates(it[position])
                     }
-                })
+                }
                 initObserver()
-                mBinding.parentScrollView.scrollTo(0,0)
+                mBinding.parentScrollView.scrollTo(0, 0)
             }
-        })
+        }
     }
 
     private fun forwardView() {
-        mBinding.fowardView.setOnClickListener(View.OnClickListener {
+        mBinding.fowardView.setOnClickListener {
 
             if (position + 1 != listLength) {
                 ++position
                 mBinding.storyView.removeAllViews()
                 initView(position)
 
-                homeViewModel.getLatestUpdates().observe(viewLifecycleOwner, Observer {
+                homeViewModel.getLatestUpdates().observe(viewLifecycleOwner) {
 
                     it.let {
                         homeViewModel.setSeLectedLatestUpdates(it[position])
                     }
-                })
+                }
                 initObserver()
-                mBinding.parentScrollView.scrollTo(0,0)
+                mBinding.parentScrollView.scrollTo(0, 0)
             }
 
-        })
+        }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun initView(position: Int) {
         val totalPosition = listLength
         val filledPosition = position
@@ -149,9 +145,9 @@ class LatestUpdatesDetailsFragment : BaseFragment() {
     }
 
     fun initClickListener() {
-        mBinding.backBtnView.setOnClickListener(View.OnClickListener {
+        mBinding.backBtnView.setOnClickListener {
             (this.requireActivity() as HomeActivity).onBackPressed()
-        })
+        }
     }
 
 }

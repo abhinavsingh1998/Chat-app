@@ -11,14 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.InsightsListItemBinding
-import com.emproto.networklayer.response.home.PageManagementOrInsight
 import com.emproto.networklayer.response.insights.Data
 
+@Suppress("DEPRECATION")
 class AllInsightsAdapter(
     val context: Context,
-    val listCount:Int,
+    private val listCount:Int,
     val list: List<Data>,
-    val itemInterface: InsightsItemsInterface
+    private val itemInterface: InsightsItemsInterface
 ) : RecyclerView.Adapter<AllInsightsAdapter.MyViewHolder>() {
 
 
@@ -28,7 +28,7 @@ class AllInsightsAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val item = list.get(holder.adapterPosition)
+        val item = list[holder.adapterPosition]
         holder.binding.title.text= item.displayTitle
         if (item.insightsMedia[0].description.isNullOrEmpty()){
             holder.binding.btnReadMore.isVisible= false
@@ -61,8 +61,8 @@ class AllInsightsAdapter(
 
     }
     override fun getItemCount(): Int {
-        var itemList= 0
-        itemList = if (list.size < listCount){
+
+        val itemList = if (list.size < listCount){
             list.size
         } else{
             listCount
@@ -77,7 +77,7 @@ class AllInsightsAdapter(
         fun onClickItem(position: Int)
     }
 
-    public fun showHTMLText(message: String?): Spanned {
+     fun showHTMLText(message: String?): Spanned {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
         } else {

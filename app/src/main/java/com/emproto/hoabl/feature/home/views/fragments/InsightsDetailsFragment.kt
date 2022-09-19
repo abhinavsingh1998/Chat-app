@@ -27,6 +27,7 @@ class InsightsDetailsFragment : BaseFragment() {
 
     lateinit var mBinding: FragmentInsightsDetailsBinding
     private lateinit var adapter: InsightsListAdapter
+
     @Inject
     lateinit var factory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
@@ -53,29 +54,24 @@ class InsightsDetailsFragment : BaseFragment() {
 
     private fun initObserver() {
         homeViewModel.getSelectedInsights().observe(viewLifecycleOwner, Observer {
-            mBinding.title.text= it.displayTitle
+            mBinding.title.text = it.displayTitle
 
             mBinding.listInsights.layoutManager = LinearLayoutManager(requireContext())
-            mBinding.listInsights.adapter = InsightsListAdapter(requireContext(),
-                it.insightsMedia,itemClickListener)
+            mBinding.listInsights.adapter = InsightsListAdapter(
+                requireContext(),
+                it.insightsMedia, itemClickListener
+            )
         }
         )
     }
 
-    val itemClickListener = object :YoutubeItemClickListener{
-        override fun onItemClicked(view: View, position: Int, url: String,title:String) {
-            val intent = Intent(requireActivity() as HomeActivity,YoutubeActivity::class.java)
-            intent.putExtra(Constants.YOUTUBE_VIDEO_ID,url)
-            intent.putExtra(Constants.VIDEO_TITLE,title)
+    val itemClickListener = object : YoutubeItemClickListener {
+        override fun onItemClicked(view: View, position: Int, url: String, title: String) {
+            val intent = Intent(requireActivity() as HomeActivity, YoutubeActivity::class.java)
+            intent.putExtra(Constants.YOUTUBE_VIDEO_ID, url)
+            intent.putExtra(Constants.VIDEO_TITLE, title)
             startActivity(intent)
 
-
-
-//            val builder = CustomTabsIntent.Builder()
-//            val customTabsIntent= builder.build()
-//            customTabsIntent.launchUrl(requireContext(), Uri.parse("http://www.youtube.com/watch?v=${url}"))
-////            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=${url}"))
-////            startActivity(intent)
         }
 
     }

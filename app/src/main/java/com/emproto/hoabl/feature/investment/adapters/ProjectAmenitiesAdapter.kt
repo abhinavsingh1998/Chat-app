@@ -2,11 +2,9 @@ package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.hoabl.databinding.ProjectAmenitiesItemLayoutBinding
 import com.emproto.networklayer.response.investment.ProjectAminity
 

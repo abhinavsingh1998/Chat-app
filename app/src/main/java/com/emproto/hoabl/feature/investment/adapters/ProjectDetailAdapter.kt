@@ -69,9 +69,7 @@ class ProjectDetailAdapter(
         const val VIEW_TYPE_TESTIMONIALS = 12
         const val VIEW_TYPE_NOT_CONVINCED = 13
         const val VIEW_TYPE_SIMILAR_INVESTMENT = 14
-        const val TWO_SPACES = " "
         const val MEDIA_ACTIVE = "1001"
-        const val MEDIA_INACTIVE = "1002"
     }
 
     private lateinit var projectDetailViewPagerAdapter: ProjectDetailViewPagerAdapter
@@ -84,7 +82,6 @@ class ProjectDetailAdapter(
     private lateinit var similarInvestmentsAdapter: SimlInvestmentAdapter
     private lateinit var onItemClickListener: View.OnClickListener
 
-    private var isCollapsed = true
     private var isClicked = true
     private var isReadMoreClicked = true
     private var graphType = ""
@@ -227,43 +224,43 @@ class ProjectDetailAdapter(
                 (holder as ProjectTopCardViewHolder).bind(position)
             }
             VIEW_TYPE_MAP -> {
-                (holder as ProjectMapViewHolder).bind(position)
+                (holder as ProjectMapViewHolder).bind()
             }
             VIEW_TYPE_PRICE_TRENDS -> {
-                (holder as ProjectPriceTrendsViewHolder).bind(position)
+                (holder as ProjectPriceTrendsViewHolder).bind()
             }
             VIEW_TYPE_KEY_PILLARS -> {
-                (holder as ProjectKeyPillarsViewHolder).bind(position)
+                (holder as ProjectKeyPillarsViewHolder).bind()
             }
             VIEW_TYPE_VIDEO_DRONE -> {
-                (holder as ProjectVideosDroneViewHolder).bind(position)
+                (holder as ProjectVideosDroneViewHolder).bind()
             }
             VIEW_TYPE_DONT_MISS -> {
-                (holder as ProjectDontMissViewHolder).bind(position)
+                (holder as ProjectDontMissViewHolder).bind()
             }
             VIEW_TYPE_SKUS -> {
-                (holder as ProjectSkusViewHolder).bind(position)
+                (holder as ProjectSkusViewHolder).bind()
             }
             VIEW_TYPE_AMENITIES -> {
-                (holder as ProjectAmenitiesViewHolder).bind(position)
+                (holder as ProjectAmenitiesViewHolder).bind()
             }
             VIEW_TYPE_LOCATION_INFRASTRUCTURE -> {
-                (holder as ProjectLocationInfrastructureViewHolder).bind(position)
+                (holder as ProjectLocationInfrastructureViewHolder).bind()
             }
             VIEW_TYPE_PROMISES -> {
-                (holder as ProjectPromisesViewHolder).bind(position)
+                (holder as ProjectPromisesViewHolder).bind()
             }
             VIEW_TYPE_FAQ -> {
-                (holder as ProjectFaqViewHolder).bind(position)
+                (holder as ProjectFaqViewHolder).bind()
             }
             VIEW_TYPE_TESTIMONIALS -> {
                 (holder as ProjectTestimonialsViewHolder).bind(position)
             }
             VIEW_TYPE_NOT_CONVINCED -> {
-                (holder as ProjectNotConvincedViewHolder).bind(position)
+                (holder as ProjectNotConvincedViewHolder).bind()
             }
             VIEW_TYPE_SIMILAR_INVESTMENT -> {
-                (holder as ProjectSimilarInvestmentsViewHolder).bind(position)
+                (holder as ProjectSimilarInvestmentsViewHolder).bind()
             }
         }
     }
@@ -308,14 +305,17 @@ class ProjectDetailAdapter(
             binding.apply {
                 tvProjectName.text = data.launchName
 
-                tvProjectLocation.text = "${data.address.city}, ${data.address.state}"
+                val projectLocation = "${data.address.city}, ${data.address.state}"
+                tvProjectLocation.text = projectLocation
 //                tvViewCount.text = Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)
                 tvViewCount.text = data.fomoContent.noOfViews.toString()
 //                tvDuration.text = "${data.fomoContent.targetTime.hours}:${data.fomoContent.targetTime.minutes}:${data.fomoContent.targetTime.seconds} Hrs Left"
                 val amount = data.priceStartingFrom.toDouble() / 100000
                 val convertedAmount = amount.toString().replace(".0", "")
-                tvPriceRange.text = "₹${convertedAmount} L"
-                tvAreaRange.text = "${data.areaStartingFrom} Sqft"
+                val priceRange = "₹${convertedAmount} L"
+                tvPriceRange.text = priceRange
+                val areaRange = "${data.areaStartingFrom} Sqft"
+                tvAreaRange.text = areaRange
                 tvProjectViewInfo.text = SpannableStringBuilder()
 //                    .bold { append("${Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)} People") }
                     .bold { append("${data.fomoContent.noOfViews} People") }
@@ -358,6 +358,7 @@ class ProjectDetailAdapter(
                             tvLocationInformationText.maxLines = Integer.MAX_VALUE
                             isReadMoreClicked = false
                         }
+                        else -> {}
                     }
                 }
                 tvLocationInformationText.setOnClickListener {
@@ -368,6 +369,7 @@ class ProjectDetailAdapter(
                             tvLocationInformationText.maxLines = 2
                             isReadMoreClicked = true
                         }
+                        else -> {}
                     }
                 }
 
@@ -392,40 +394,41 @@ class ProjectDetailAdapter(
                     balloon.showAlignBottom(ivRegInfo)
                 }
                 binding.ivShareIcon.setOnClickListener(onItemClickListener)
-                when (isBookmarked) {
+                isClicked = when (isBookmarked) {
                     true -> {
                         ivBookmarkIcon.setImageResource(R.drawable.heart_5_filled)
-                        isClicked = false
+                        false
                     }
                     false -> {
                         ivBookmarkIcon.setImageResource(R.drawable.heart_5)
-                        isClicked = true
+                        true
                     }
                 }
                 binding.ivBookmarkIcon.setOnClickListener {
-                    when (isClicked) {
+                    isClicked = when (isClicked) {
                         true -> {
                             ivBookmarkIcon.setImageResource(R.drawable.heart_5_filled)
                             itemClickListener.onItemClicked(it, position, isClicked.toString())
-                            isClicked = false
+                            false
                         }
                         false -> {
                             ivBookmarkIcon.setImageResource(R.drawable.heart_5)
                             itemClickListener.onItemClicked(it, position, isClicked.toString())
-                            isClicked = true
+                            true
                         }
                     }
                 }
                 binding.cvWhyInvestCard.setOnClickListener(onItemClickListener)
                 binding.tvApplyNow.setOnClickListener(onItemClickListener)
                 binding.tvFullApplyNow.setOnClickListener(onItemClickListener)
-                binding.tvRating.text = "${
+                val rating = "${
                     String.format(
                         "%.0f",
-                        data.generalInfoEscalationGraph.estimatedAppreciation.toDouble()
+                        data.generalInfoEscalationGraph.estimatedAppreciation
                     )
                 }%"
 
+                binding.tvRating.text = rating
                 val hoursInMillis =
                     TimeUnit.HOURS.toMillis(data.fomoContent.targetTime.hours.toLong())
                 val minsInMillis =
@@ -441,9 +444,10 @@ class ProjectDetailAdapter(
                         val hour = millisUntilFinished / 3600000 % 24
                         val min = millisUntilFinished / 60000 % 60
                         val sec = millisUntilFinished / 1000 % 60
-                        binding.tvDuration.text = "${
+                        val duration = "${
                             fh.format(hour).toString() + ":" + f.format(min) + ":" + f.format(sec)
                         } Hrs Left"
+                        binding.tvDuration.text = duration
                     }
 
                     override fun onFinish() {
@@ -487,7 +491,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectMapViewHolder(private val binding: ViewMapLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             Glide
                 .with(context)
                 .load(data.address.mapMedia.value.url)
@@ -498,10 +502,10 @@ class ProjectDetailAdapter(
 
     private inner class ProjectPriceTrendsViewHolder(private val binding: PriceTrendsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.tvPriceTrendsTitle.text = data.generalInfoEscalationGraph.title
-            binding.tvRating.text =
-                String.format("%.0f", data.generalInfoEscalationGraph.estimatedAppreciation) + "%"
+            val rating = String.format("%.0f", data.generalInfoEscalationGraph.estimatedAppreciation) + "%"
+            binding.tvRating.text =rating
             binding.tvXAxisLabel.text = data.generalInfoEscalationGraph.yAxisDisplayName
             binding.tvYAxisLabel.text = data.generalInfoEscalationGraph.xAxisDisplayName
             val graphData = data.generalInfoEscalationGraph.dataPoints.points
@@ -515,7 +519,7 @@ class ProjectDetailAdapter(
                 }
                 Constants.HALF_YEARLY -> {
                     graphType = Constants.HALF_YEARLY
-                    for (i in 0..data.generalInfoEscalationGraph.dataPoints.points.size - 1) {
+                    for (i in 0 until data.generalInfoEscalationGraph.dataPoints.points.size) {
                         val fmString =
                             data.generalInfoEscalationGraph.dataPoints.points[i].halfYear.substring(
                                 0,
@@ -529,15 +533,13 @@ class ProjectDetailAdapter(
                         val str = "$fmString-$yearString"
                         xaxisList.add(str)
                     }
-                    var index = 0
-                    for (item in graphData) {
+                    for ((index, item) in graphData.withIndex()) {
                         linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
-                        index++
                     }
                 }
                 Constants.QUATERLY -> {
                     graphType = Constants.QUATERLY
-                    for (i in 0..data.generalInfoEscalationGraph.dataPoints.points.size - 1) {
+                    for (i in 0 until data.generalInfoEscalationGraph.dataPoints.points.size) {
                         val quarterString =
                             data.generalInfoEscalationGraph.dataPoints.points[i].quater.substring(
                                 0,
@@ -551,15 +553,13 @@ class ProjectDetailAdapter(
                         val str = "$quarterString-$yearString"
                         xaxisList.add(str)
                     }
-                    var index = 0
-                    for (item in graphData) {
+                    for ((index, item) in graphData.withIndex()) {
                         linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
-                        index++
                     }
                 }
                 Constants.MONTHLY -> {
                     graphType = Constants.MONTHLY
-                    for (i in 0..data.generalInfoEscalationGraph.dataPoints.points.size - 1) {
+                    for (i in 0 until data.generalInfoEscalationGraph.dataPoints.points.size) {
                         val fmString =
                             data.generalInfoEscalationGraph.dataPoints.points[i].month.substring(
                                 0,
@@ -573,10 +573,8 @@ class ProjectDetailAdapter(
                         val str = "$fmString-$yearString"
                         xaxisList.add(str)
                     }
-                    var index = 0
-                    for (item in graphData) {
+                    for ((index, item) in graphData.withIndex()) {
                         linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
-                        index++
                     }
                 }
             }
@@ -596,20 +594,20 @@ class ProjectDetailAdapter(
                 linedataset.setDrawValues(false)
                 val data = LineData(linedataset)
 
-                binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
-                binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
-                binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false);
+                binding.ivPriceTrendsGraph.getDescription().setEnabled(false)
+                binding.ivPriceTrendsGraph.getLegend().setEnabled(false)
+                binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false)
                 binding.ivPriceTrendsGraph.setTouchEnabled(false)
                 binding.ivPriceTrendsGraph.setPinchZoom(false)
                 binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
                 //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
                 //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
-                binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false);
-                binding.ivPriceTrendsGraph.getXAxis().position = XAxis.XAxisPosition.BOTTOM;
+                binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false)
+                binding.ivPriceTrendsGraph.getXAxis().position = XAxis.XAxisPosition.BOTTOM
                 //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
-                binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false);
-                binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false);
-                binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false);
+                binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false)
+                binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false)
+                binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false)
                 binding.ivPriceTrendsGraph.xAxis.granularity = 1f
                 binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
 //            binding.ivPriceTrendsGraph.getXAxis().setAxisMaximum(data.getXMax() + 0.25f);
@@ -626,11 +624,11 @@ class ProjectDetailAdapter(
         }
     }
 
-    inner class Yaxisformatter : IAxisValueFormatter {
-        override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
-            return "$p0%"
-        }
-    }
+//    inner class Yaxisformatter : IAxisValueFormatter {
+//        override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
+//            return "$p0%"
+//        }
+//    }
 
     inner class Xaxisformatter : IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
@@ -656,7 +654,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectKeyPillarsViewHolder(private val binding: KeyPillarsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.tvKeyPillarsTitle.text = data.keyPillars.heading
             keyPillarAdapter = KeyPillarAdapter(context, data.keyPillars.values)
             binding.rvKeyPillars.adapter = keyPillarAdapter
@@ -665,7 +663,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectVideosDroneViewHolder(private val binding: VideoDroneLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.tvVideoTitle.text = data.mediaGallerySectionHeading
             val itemList = ArrayList<YoutubeModel>()
             for (item in data.mediaGalleryOrProjectContent[0].videos!!) {
@@ -686,7 +684,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectDontMissViewHolder(private val binding: DontMissLayoutPdBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             Glide
                 .with(context)
                 .load(data.offersAndPromotions.value.url)
@@ -696,7 +694,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectSkusViewHolder(private val binding: SkusLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.tvChooseSkusApplyTitle.text =
                 data.otherSectionHeadings.inventoryBucketContents.sectionHeading
             skuAdapter = SkuAdapter(
@@ -712,7 +710,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectAmenitiesViewHolder(private val binding: ProjectAmenitiesLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.apply {
                 if (data.opportunityDoc.projectAminitiesSectionHeading != null)
                     tvProjectAmenitiesTitle.text =
@@ -736,7 +734,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectLocationInfrastructureViewHolder(private val binding: LocationInfrastructureLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.tvLocationInfrastructureTitle.text = data.locationInfrastructure.heading
             val disList = ArrayList<String>()
             locationInfrastructureAdapter = LocationInfrastructureAdapter(
@@ -753,7 +751,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectPromisesViewHolder(private val binding: PromisesLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.tvPromisesTitle.text = data.otherSectionHeadings.promises.sectionHeading
             val promisesList = ArrayList<PmData>()
             for (item in promisesData) {
@@ -764,8 +762,8 @@ class ProjectDetailAdapter(
             val itemList = promisesList.sortedBy { it.priority }
             val sortedByList = ArrayList<PmData>()
             val listSize = pageManagementContent[0].totalPromisesOnHomeScreen
-            for (i in 0..itemList.size - 1) {
-                sortedByList.add(itemList[i])
+            for (element in itemList) {
+                sortedByList.add(element)
             }
             promisesAdapter = PromisesAdapter(sortedByList, itemClickListener, context, listSize)
             binding.rvPromises.adapter = promisesAdapter
@@ -776,7 +774,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectFaqViewHolder(private val binding: FaqLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             if (data.otherSectionHeadings != null && data.otherSectionHeadings.faqSection != null) {
                 binding.tvFaqTitle.text = data.otherSectionHeadings.faqSection.sectionHeading
             }
@@ -827,7 +825,7 @@ class ProjectDetailAdapter(
                 val sortedList = list.sortedBy { it.priority }
                 val showList = ArrayList<PageManagementsOrTestimonial>()
                 val listSize = pageManagementContent[0].totalTestimonialsOnHomeScreen
-                for (i in 0..listSize - 1) {
+                for (i in 0 until listSize) {
                     showList.add(sortedList[i])
                 }
                 val adapter = TestimonialInvAdapter(context, showList)
@@ -846,18 +844,18 @@ class ProjectDetailAdapter(
 
     private inner class ProjectNotConvincedViewHolder(private val binding: NotConvincedLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
         }
     }
 
     private inner class ProjectSimilarInvestmentsViewHolder(private val binding: SimilarInvestmentsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.tvSimilarInvestmentTitle.text = data.similarInvestmentSectionHeading
             val itemList = ArrayList<SimilarInvestment>()
             if (data.similarInvestments.isNotEmpty()) {
                 if (data.numberOfSimilarInvestmentsToShow <= data.similarInvestments.size) {
-                    for (i in 0..data.numberOfSimilarInvestmentsToShow - 1) {
+                    for (i in 0 until data.numberOfSimilarInvestmentsToShow) {
                         itemList.add(data.similarInvestments[i])
                     }
                     similarInvestmentsAdapter =

@@ -5,7 +5,6 @@ import android.os.Build
 import android.text.Html
 import android.text.Spanned
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -51,7 +50,6 @@ class LatestUpdateAdapter(
                 holder.binding.imageCard.isVisible = false
             }
 
-//            holder.binding.description.text=showHTMLText(item.detailedInfo[0].description)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 Utility.convertString(
                     holder.binding.description,
@@ -70,11 +68,10 @@ class LatestUpdateAdapter(
     }
 
     override fun getItemCount(): Int {
-        var itemList = 0
-        if (itemCount.page.totalUpdatesOnHomeScreen < list.size) {
-            itemList = itemCount.page.totalUpdatesOnHomeScreen
+        val itemList = if (itemCount.page.totalUpdatesOnHomeScreen < list.size) {
+            itemCount.page.totalUpdatesOnHomeScreen
         } else {
-            itemList = list.size
+            list.size
         }
         return itemList
     }
@@ -82,7 +79,7 @@ class LatestUpdateAdapter(
     inner class MyViewHolder(val binding: ItemLatestUpdatesBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    public fun showHTMLText(message: String?): Spanned {
+     fun showHTMLText(message: String?): Spanned {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
         } else {

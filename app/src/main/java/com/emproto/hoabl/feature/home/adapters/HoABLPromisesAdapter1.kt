@@ -7,18 +7,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ItemHoablPromisesBinding
-import com.emproto.hoabl.databinding.ItemPromisesBinding
-import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.home.Data
 import com.emproto.networklayer.response.home.HomePagesOrPromise
-import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
 
 class HoABLPromisesAdapter1(
     val context: Context,
     val itemCount: Data,
     val list: List<HomePagesOrPromise>,
-    val itemIntrface: ItemClickListener
+    private val itemInterface: ItemClickListener
 ) : RecyclerView.Adapter<HoABLPromisesAdapter1.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -31,9 +28,9 @@ class HoABLPromisesAdapter1(
         val item = list[holder.adapterPosition]
         holder.binding.title.text = item.name
         holder.binding.desc.text = item.shortDescription
-        holder.binding.homePromisesItem.setOnClickListener(View.OnClickListener {
-            itemIntrface.onItemClicked(it, position, item.id.toString())
-        })
+        holder.binding.homePromisesItem.setOnClickListener {
+            itemInterface.onItemClicked(it, position, item.id.toString())
+        }
         if (item.displayMedia!=null){
             Glide.with(context)
                 .load(item.displayMedia!!.value.url)

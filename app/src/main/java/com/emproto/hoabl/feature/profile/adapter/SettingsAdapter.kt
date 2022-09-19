@@ -9,7 +9,6 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.feature.profile.data.SettingsData
-import com.emproto.hoabl.utils.Extensions
 import com.emproto.hoabl.utils.ItemClickListener
 
 
@@ -34,7 +33,7 @@ class SettingsAdapter(
                 true -> holder.switch.isChecked = true
                 false -> holder.switch.isChecked = false
             }
-            holder.switch.setOnCheckedChangeListener { buttonView, isChecked ->
+            holder.switch.setOnCheckedChangeListener { _, isChecked ->
                 when (isChecked) {
                     true -> {
                         itemClickListener.onItemClicked(
@@ -54,7 +53,7 @@ class SettingsAdapter(
             }
         }
         if(holder.adapterPosition == 1){
-            holder.switch.setOnCheckedChangeListener { buttonView, isChecked ->
+            holder.switch.setOnCheckedChangeListener { _, isChecked ->
                 when (isChecked) {
                     true -> {
                         itemClickListener.onItemClicked(

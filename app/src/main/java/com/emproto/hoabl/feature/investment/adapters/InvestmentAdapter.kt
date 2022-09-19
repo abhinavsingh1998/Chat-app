@@ -3,24 +3,18 @@ package com.emproto.hoabl.feature.investment.adapters
 import android.content.Context
 import android.os.CountDownTimer
 import android.text.SpannableStringBuilder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.bold
-import androidx.core.text.color
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.core.Constants
 import com.emproto.core.Utility
-import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
-import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.utils.SimilarInvItemClickListener
-import com.emproto.networklayer.response.investment.PageManagementsOrCollectionOneModel
 import com.emproto.networklayer.response.investment.SimilarInvestment
 import java.text.DecimalFormat
-import java.util.concurrent.TimeUnit
 
 class InvestmentAdapter(
     val context: Context,
@@ -38,7 +32,8 @@ class InvestmentAdapter(
         holder.binding.apply {
             tvNoViews.text = element.fomoContent.noOfViews.toString()
             tvItemLocationName.text = element.launchName
-            tvItemLocation.text = "${element.address?.city}, ${element.address?.state}"
+            val tvitemLocation = "${element.address?.city}, ${element.address?.state}"
+            tvItemLocation.text = tvitemLocation
             val amount = element.priceStartingFrom!!.toDouble() / 100000
             val convertedAmount = amount.toString().replace(".0", "")
             tvItemAmount.text = SpannableStringBuilder()
@@ -66,9 +61,10 @@ class InvestmentAdapter(
                     val hour = millisUntilFinished / 3600000 % 24
                     val min = millisUntilFinished / 60000 % 60
                     val sec = millisUntilFinished / 1000 % 60
-                    holder.binding.tvDuration.text = "${
+                    val durationTime = "${
                         fh.format(hour).toString() + ":" + f.format(min) + ":" + f.format(sec)
                     } Hrs Left"
+                    holder.binding.tvDuration.text = durationTime
                 }
 
                 override fun onFinish() {
