@@ -190,10 +190,10 @@ class HomeAdapter(
             if (data.portfolioData != null) {
                 if (data.portfolioData.investmentCount > 0) {
                     binding.nestedCard?.visibility = View.VISIBLE
-                    presenting = true
+                    presenting = false
                 } else {
                     binding.nestedCard?.visibility = View.GONE
-                    presenting = false
+                    presenting = true
                 }
                 binding.contentTxt1.text = data.portfolioData.investmentCount.toString()
                 binding.contentTxt2.text = data.portfolioData.totalAreaSqFt.toString()
