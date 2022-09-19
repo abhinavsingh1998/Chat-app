@@ -33,7 +33,7 @@ object Utility {
     const val START_DATE = "startdate"
     const val END_DATE = "enddate"
     const val FILTER_SELECTED = "filter"
-
+    const val releaseMapKey = "3j+SjzloU3Keq7Fk+lbKW9W2kdodK3M59ZmL10v+AOctU/oems5E2ANOrD73gB59"
 
     fun dateInWords(time: String): String? {
         val inputPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"

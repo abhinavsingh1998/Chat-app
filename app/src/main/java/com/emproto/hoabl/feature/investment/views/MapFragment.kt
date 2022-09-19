@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
+import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentMapBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -59,9 +60,9 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     var dummyLatitude = 17.7667503
     var dummyLongitude = 73.1711629
     private var distanceList = ArrayList<String>()
-    private var destinationList= ArrayList<ValueXXX>()
+    private var destinationList = ArrayList<ValueXXX>()
 
-    lateinit var handler : Handler
+    lateinit var handler: Handler
     private var runnable: Runnable? = null
 
     private val job = Job()
@@ -71,10 +72,14 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         override fun onItemClicked(view: View, position: Int, latitude: Double, longitude: Double) {
             when (view.id) {
                 R.id.cv_location_infrastructure_card -> {
-                    if(isNetworkAvailable()){
+                    if (isNetworkAvailable()) {
                         initMarkerLocation(dummyLatitude, dummyLongitude, latitude, longitude)
-                    }else{
-                        Toast.makeText(requireContext(), "Network not available", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Network not available",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
 
                 }
@@ -96,7 +101,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         handler = Handler(Looper.getMainLooper())
         arguments?.let {
             data = it.getSerializable("Location") as MapLocationModel?
-            selectedPosition = it.getInt("ItemPosition",-1)
+            selectedPosition = it.getInt("ItemPosition", -1)
             val projectLocation = it.getSerializable(Constants.PROJECT_LOCATION) as ProjectLocation
             dummyLatitude = projectLocation.latitude.toDouble()
             dummyLongitude = projectLocation.longitude.toDouble()
@@ -105,14 +110,21 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         enableMyLocation()
     }
 
-    private fun calculateDistance(originLat:Double,originLong:Double,destinationList: List<ValueXXX>) {
-        val originLocation = LatLng(originLat,originLong)
-        for(item in destinationList){
-            val destinationLocation = LatLng(item.latitude,item.longitude)
+    private fun calculateDistance(
+        originLat: Double,
+        originLong: Double,
+        destinationList: List<ValueXXX>
+    ) {
+        val originLocation = LatLng(originLat, originLong)
+        for (item in destinationList) {
+            val destinationLocation = LatLng(item.latitude, item.longitude)
             val url = getDirectionURL(
                 originLocation,
                 destinationLocation,
-                resources.getString(R.string.map_api_key)
+                Utility.decrypt(
+                    Utility
+                        .releaseMapKey
+                )!!
             )
             callDirectionsApiForDistance(url)
         }
@@ -151,7 +163,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         investmentViewModel =
             ViewModelProvider(requireActivity(), investmentFactory)[InvestmentViewModel::class.java]
         if (!Places.isInitialized()) {
-            Places.initialize(this.requireContext(), resources.getString(R.string.map_api_key))
+            Places.initialize(this.requireContext(), Utility.decrypt(Utility.releaseMapKey))
         }
         val mapFragment = childFragmentManager.findFragmentById(
             R.id.map_fragment
@@ -202,7 +214,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         val urll = getDirectionURL(
             originLocation,
             destinationLocation,
-            resources.getString(R.string.map_api_key)
+            Utility.decrypt(Utility.releaseMapKey)!!
         )
         callDirectionApi(urll)
         mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
@@ -227,8 +239,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             calculateDistance(dummyLatitude, dummyLongitude, it.values)
 
         }
-        runnable = Runnable {   binding.cvBackButton.visibility = View.VISIBLE }
-        runnable?.let { it1 -> handler.postDelayed(it1,2000) }
+        runnable = Runnable { binding.cvBackButton.visibility = View.VISIBLE }
+        runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
 
 
         binding.cvBackButton.setOnClickListener {
@@ -331,7 +343,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 "&key=$secret"
     }
 
-    private fun callDirectionApi(url:String){
+    private fun callDirectionApi(url: String) {
         uiScope.launch(Dispatchers.IO) {
             val client = OkHttpClient()
             val request = Request.Builder().url(url).build()
@@ -350,12 +362,17 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 e.printStackTrace()
             }
 
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 val lineoption = PolylineOptions()
                 for (i in result.indices) {
                     lineoption.addAll(result[i])
                     lineoption.width(10f)
-                    lineoption.color(ContextCompat.getColor(requireContext(), R.color.text_blue_color))
+                    lineoption.color(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.text_blue_color
+                        )
+                    )
                     lineoption.geodesic(true)
                 }
                 mMap?.addPolyline(lineoption)
@@ -403,7 +420,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
     }
 
-    private fun callDirectionsApiForDistance(url:String){
+    private fun callDirectionsApiForDistance(url: String) {
         uiScope.launch(Dispatchers.IO) {
             val client = OkHttpClient()
             val request = Request.Builder().url(url).build()
@@ -425,7 +442,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             }
             withContext(Dispatchers.Main) {
                 distanceList.add(dis)
-                if(distanceList.size == destinationList.size){
+                if (distanceList.size == destinationList.size) {
                     adapter = LocationInfrastructureAdapter(
                         requireContext(),
                         destinationList,

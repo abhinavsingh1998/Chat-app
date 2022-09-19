@@ -19,7 +19,6 @@ class YoutubeActivity : YouTubeBaseActivity() {
     var index = 0
     private var videoList = ArrayList<MediaViewItem>()
     private var videoTitle = ""
-    private val encryptedMapKey = "3j+SjzloU3Keq7Fk+lbKW9W2kdodK3M59ZmL10v+AOctU/oems5E2ANOrD73gB59"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +47,7 @@ class YoutubeActivity : YouTubeBaseActivity() {
     }
 
     private fun playYoutubeVideo(youtubeId: String) {
-        binding.ytPlayer.initialize(Utility.decrypt(encryptedMapKey),
+        binding.ytPlayer.initialize(Utility.decrypt(Utility.releaseMapKey),
             object : YouTubePlayer.OnInitializedListener {
                 override fun onInitializationSuccess(
                     p0: YouTubePlayer.Provider?,
