@@ -277,9 +277,20 @@ class ProjectDetailAdapter(
             val list = ArrayList<RecyclerViewItem>()
             val listViews = ArrayList<String>()
             listViews.add(data.projectCoverImages.newInvestmentPageMedia.value.url)
-            for (item in data.mediaGalleryOrProjectContent[0].images!!) {
-                listViews.add(item.mediaContent.value.url)
-                list.add(RecyclerViewItem(1))
+            when {
+                data.mediaGalleryOrProjectContent[0].images!!.size > 3 -> {
+                    for (item in 0..3) {
+                        listViews.add(data.mediaGalleryOrProjectContent[0].images!![item].mediaContent.value.url)
+                        list.add(RecyclerViewItem(1))
+                    }
+                }
+                data.mediaGalleryOrProjectContent[0].images!!.size <= 3 -> {
+                    for (item in data.mediaGalleryOrProjectContent[0].images!!) {
+                        listViews.add(item.mediaContent.value.url)
+                        list.add(RecyclerViewItem(1))
+                    }
+                }
+
             }
             list.add(RecyclerViewItem(2))
 
@@ -323,8 +334,20 @@ class ProjectDetailAdapter(
                 var regString = ""
                 for (item in data.reraDetails.reraNumbers) {
                     when (regString) {
-                        "" -> regString += item
-                        else -> regString = regString + "\n" + item
+                        "" -> {
+                            regString += item
+                        }
+                        else -> {
+                            regString = regString + "\n" + item
+                        }
+                    }
+                }
+                when {
+                    data.reraDetails.reraNumbers.isEmpty()&&data.reraDetails.reraNumbers.size==0 -> {
+                        ivRegInfo.visibility = View.GONE
+                    }
+                    else -> {
+                        ivRegInfo.visibility = View.VISIBLE
                     }
                 }
                 if (data.opportunityDoc != null) {
@@ -504,8 +527,9 @@ class ProjectDetailAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             binding.tvPriceTrendsTitle.text = data.generalInfoEscalationGraph.title
-            val rating = String.format("%.0f", data.generalInfoEscalationGraph.estimatedAppreciation) + "%"
-            binding.tvRating.text =rating
+            val rating =
+                String.format("%.0f", data.generalInfoEscalationGraph.estimatedAppreciation) + "%"
+            binding.tvRating.text = rating
             binding.tvXAxisLabel.text = data.generalInfoEscalationGraph.yAxisDisplayName
             binding.tvYAxisLabel.text = data.generalInfoEscalationGraph.xAxisDisplayName
             val graphData = data.generalInfoEscalationGraph.dataPoints.points
