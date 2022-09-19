@@ -16,7 +16,6 @@ import com.google.android.youtube.player.YouTubePlayer
 class MediaViewVideoFragment : BaseFragment() {
 
     lateinit var binding: FragmentVideoViewBinding
-    private val encryptedMapKey = "3j+SjzloU3Keq7Fk+lbKW9W2kdodK3M59ZmL10v+AOctU/oems5E2ANOrD73gB59"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +29,7 @@ class MediaViewVideoFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.ytPlayer.initialize(Utility.decrypt(encryptedMapKey), object :
+        binding.ytPlayer.initialize(Utility.decrypt(Utility.releaseMapKey), object :
             YouTubePlayer.OnInitializedListener {
             override fun onInitializationSuccess(
                 p0: YouTubePlayer.Provider?,
