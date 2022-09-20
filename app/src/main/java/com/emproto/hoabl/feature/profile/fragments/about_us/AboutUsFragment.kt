@@ -27,6 +27,7 @@ import com.emproto.hoabl.feature.profile.adapter.*
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.resourceManagment.AboutUs
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -36,20 +37,20 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import javax.inject.Inject
 
 
-class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
+class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
 
     @Inject
     lateinit var factory: ProfileFactory
     lateinit var profileViewModel: ProfileViewModel
 
     lateinit var binding: FragmentAboutUsBinding
-    private lateinit var philosophyAdapter:CorporatePhilosophyAdapter
+    private lateinit var philosophyAdapter: CorporatePhilosophyAdapter
     private lateinit var productAdapter: ProductAdapter
     lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var gridLayoutManager: GridLayoutManager
-    private lateinit var projectAdapter:AllProjectsAdapter
-    private lateinit var statsOverViewAdapter:StatsOverViewAboutUsAdapter
-     private var selectedItemPos=0
+    private lateinit var projectAdapter: AllProjectsAdapter
+    private lateinit var statsOverViewAdapter: StatsOverViewAboutUsAdapter
+    private var selectedItemPos = 0
     private val snapHelper = LinearSnapHelper()
 
     private var graphType = ""
@@ -75,11 +76,9 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
     }
 
     private fun initView() {
-
         binding.refreshLayout.setOnRefreshListener {
             binding.loader.show()
             initObserver(refresh = true)
-
             binding.refreshLayout.isRefreshing = false
 
         }
@@ -87,7 +86,6 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
 
     private fun initClickListener() {
         binding.backAction.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
-
         binding.invest.setOnClickListener { (requireActivity() as HomeActivity).navigate(R.id.navigation_investment) }
 
         binding.tvQuery.setOnClickListener {
@@ -115,135 +113,51 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
         }
     }
 
-    private fun initObserver(refresh:Boolean){
-
-        profileViewModel.getAboutHoabl(5005).observe(viewLifecycleOwner
+    private fun initObserver(refresh: Boolean) {
+        profileViewModel.getAboutHoabl(5005).observe(
+            viewLifecycleOwner
         ) {
             when (it?.status) {
                 Status.LOADING -> {
                     binding.rootView.isVisible = false
                     binding.loader.show()
                 }
-
                 Status.SUCCESS -> {
                     binding.rootView.isVisible = true
                     binding.loader.hide()
                     val commonData = it.data?.data?.page?.aboutUs
                     val url = commonData?.foundersVision?.media?.value?.url
-
-                    binding.nameTv.text = commonData?.foundersVision?.founderName
-                    binding.tvHeading.text = commonData?.foundersVision?.sectionHeading
-                    binding.fullDescriptionTv.text =
-                        showHTMLText(commonData?.foundersVision?.description)
-
-                    binding.tvAboutHoabel.text = commonData?.aboutHoabl?.sectionHeading
-                    binding.ttvAboutHoabel.text = showHTMLText(commonData?.aboutHoabl?.description)
-                    binding.corporatePhillosophy.text =
-                        commonData?.corporatePhilosophy?.sectionHeading
-                    binding.statsHeaderTxt.text = commonData?.statsOverview?.sectionHeading
-
-                    if (commonData?.isAboutHoablActive == false) {
-                        binding.ttvAboutHoabel.isVisible = false
-                        binding.tvAboutHoabel.isVisible = false
-                    }
-                    if (commonData?.isFoundersVisionActive == false) {
-                        binding.tvHeading.isVisible = false
-                        binding.aboutusView.isVisible = false
-                        binding.nameTv.isVisible = false
-                        binding.fullDescriptionTv.isVisible = false
-                    }
-                    if (commonData?.isCorporatePhilosophyActive == false) {
-                        binding.corporatePhillosophy.isVisible = false
-                        binding.aboutUsRv.isVisible = false
-                    }
-                    if (commonData?.isProductCategoryActive == false) {
-                        binding.tvProductCategory.isVisible = false
-                        binding.productcategoryRv.isVisible = false
-                    }
-                    if (commonData?.isStatsOverviewActive == false) {
-                        binding.statsHeaderTxt.isVisible = false
-                        binding.statsItem.isVisible = false
-                    }
-                    Glide.with(requireContext()).load(url)
-                        .into(binding.aboutusView)
-                    philosophyAdapter = CorporatePhilosophyAdapter(
-                        requireActivity(),
-                        commonData?.corporatePhilosophy!!.detailedInformation,
-                    )
-
-
-                    linearLayoutManager = LinearLayoutManager(
-                        requireContext(),
-                        RecyclerView.HORIZONTAL,
-                        false
-                    )
-                    binding.aboutUsRv.layoutManager = linearLayoutManager
-                    binding.aboutUsRv.adapter = philosophyAdapter
-
-                    //loading product list
-                    ProductAdapter(
-                        requireActivity(),
-                        commonData?.productCategory!!.detailedInformation
-                    ).also { it1 -> productAdapter = it1 }
-
-                    linearLayoutManager = LinearLayoutManager(
-                        requireContext(),
-                        RecyclerView.VERTICAL,
-                        false
-                    )
-                    binding.productcategoryRv.layoutManager = linearLayoutManager
-                    binding.productcategoryRv.adapter = productAdapter
-
-
-                    //loading Stats list
-
-                    StatsOverViewAboutUsAdapter(
-                        requireActivity(),
-                        commonData?.statsOverview?.detailedInformation
-                    ).also { it1 -> statsOverViewAdapter = it1 }
-
-                    gridLayoutManager = GridLayoutManager(requireContext(), 2)
-                    binding.statsItem.layoutManager = gridLayoutManager
-                    binding.statsItem.adapter = statsOverViewAdapter
-                    binding.statsItem.setItemViewCacheSize(10)
-                    binding.statsItem.setHasFixedSize(true)
+                    setDataAboutHoabl(commonData, url)
+                    setRecyclerView(commonData)
                 }
                 else -> {}
             }
         }
 
-        profileViewModel.getAllProjects(refresh).observe(viewLifecycleOwner
+        profileViewModel.getAllProjects(refresh).observe(
+            viewLifecycleOwner
         ) {
             when (it?.status) {
                 Status.LOADING -> {
                     binding.rootView.isVisible = false
                     binding.loader.show()
-
                 }
                 Status.SUCCESS -> {
                     binding.rootView.isVisible = true
                     binding.loader.hide()
 
-                    for(i in 0 until it?.data?.data?.size!!){
-                        if (it?.data?.data?.get(i)?.isEscalationGraphActive!!){
+                    for (i in 0 until it?.data?.data?.size!!) {
+                        if (it?.data?.data?.get(i)?.isEscalationGraphActive!!) {
                             selectedItemPos = i
                             break
                         }
                     }
-                    projectAdapter = AllProjectsAdapter(
-                        requireActivity(),
-                        it?.data?.data!!,
-                        selectedItemPos,
-                        object : AllProjectsAdapter.AllProjectsInterface {
+                    projectAdapter = AllProjectsAdapter(requireActivity(), it?.data?.data!!, selectedItemPos, object : AllProjectsAdapter.AllProjectsInterface {
                             override fun onClickItem(position: Int) {
-
                                 val currentData = it?.data?.data!![position]
-                                binding.tvXAxisLabel.text =
-                                    currentData.generalInfoEscalationGraph.yAxisDisplayName
-                                binding.tvYAxisLabel.text =
-                                    currentData.generalInfoEscalationGraph.xAxisDisplayName
-                                val graphData =
-                                    currentData.generalInfoEscalationGraph.dataPoints.points
+                                binding.tvXAxisLabel.text = currentData.generalInfoEscalationGraph.yAxisDisplayName
+                                binding.tvYAxisLabel.text = currentData.generalInfoEscalationGraph.xAxisDisplayName
+                                val graphData = currentData.generalInfoEscalationGraph.dataPoints.points
                                 val lineValues = ArrayList<Entry>()
                                 when (currentData.generalInfoEscalationGraph.dataPoints.dataPointType) {
                                     Constants.YEARLY -> {
@@ -331,12 +245,14 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                                 val lineDataSet = LineDataSet(lineValues, "")
                                 //We add features to our chart
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                    lineDataSet.color = ContextCompat.getColor(context!!,R.color.green)
+                                    lineDataSet.color =
+                                        ContextCompat.getColor(context!!, R.color.green)
                                 }
 
                                 lineDataSet.valueTextSize = 12F
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                    lineDataSet.fillColor = ContextCompat.getColor(context!!,R.color.green)
+                                    lineDataSet.fillColor =
+                                        ContextCompat.getColor(context!!, R.color.green)
                                 }
                                 lineDataSet.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
                                 lineDataSet.setDrawCircles(false)
@@ -350,7 +266,8 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                                 binding.ivPriceTrendsGraph.setPinchZoom(false)
                                 binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
                                 binding.ivPriceTrendsGraph.xAxis.setDrawGridLines(false)
-                                binding.ivPriceTrendsGraph.xAxis.position = XAxis.XAxisPosition.BOTTOM
+                                binding.ivPriceTrendsGraph.xAxis.position =
+                                    XAxis.XAxisPosition.BOTTOM
                                 binding.ivPriceTrendsGraph.axisRight.setDrawGridLines(false)
                                 binding.ivPriceTrendsGraph.axisRight.setDrawLabels(false)
                                 binding.ivPriceTrendsGraph.axisRight.setDrawAxisLine(false)
@@ -365,11 +282,8 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                     )
 
                     val currentData = it?.data?.data!![selectedItemPos]
-
-                    binding.tvXAxisLabel.text =
-                        currentData.generalInfoEscalationGraph.yAxisDisplayName
-                    binding.tvYAxisLabel.text =
-                        currentData.generalInfoEscalationGraph.xAxisDisplayName
+                    binding.tvXAxisLabel.text = currentData.generalInfoEscalationGraph.yAxisDisplayName
+                    binding.tvYAxisLabel.text = currentData.generalInfoEscalationGraph.xAxisDisplayName
                     val graphData = currentData.generalInfoEscalationGraph.dataPoints.points
                     val lineValues = ArrayList<Entry>()
                     when (currentData.generalInfoEscalationGraph.dataPoints.dataPointType) {
@@ -468,15 +382,10 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
                     binding.ivPriceTrendsGraph.extraBottomOffset
                     binding.ivPriceTrendsGraph.animateXY(2000, 2000)
 
-                    linearLayoutManager = LinearLayoutManager(
-                        requireContext(),
-                        RecyclerView.HORIZONTAL,
-                        false
-                    )
+                    linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
                     binding.recyclerViewGraphOptions.layoutManager = linearLayoutManager
                     binding.recyclerViewGraphOptions.adapter = projectAdapter
-
-                    if (binding.recyclerViewGraphOptions.onFlingListener == null){
+                    if (binding.recyclerViewGraphOptions.onFlingListener == null) {
                         snapHelper.attachToRecyclerView(binding.recyclerViewGraphOptions)
                     }
                 }
@@ -489,21 +398,85 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
 
     }
 
+    private fun setDataAboutHoabl(commonData: AboutUs?, url: String?) {
+        binding.nameTv.text = commonData?.foundersVision?.founderName
+        binding.tvHeading.text = commonData?.foundersVision?.sectionHeading
+        binding.fullDescriptionTv.text = showHTMLText(commonData?.foundersVision?.description)
+        binding.tvAboutHoabel.text = commonData?.aboutHoabl?.sectionHeading
+        binding.ttvAboutHoabel.text = showHTMLText(commonData?.aboutHoabl?.description)
+        binding.corporatePhillosophy.text = commonData?.corporatePhilosophy?.sectionHeading
+        binding.statsHeaderTxt.text = commonData?.statsOverview?.sectionHeading
+        setVisibilities(commonData)
+        Glide.with(requireContext()).load(url).into(binding.aboutusView)
+    }
+
+    private fun setVisibilities(commonData: AboutUs?) {
+        if (commonData?.isAboutHoablActive == false) {
+            binding.ttvAboutHoabel.isVisible = false
+            binding.tvAboutHoabel.isVisible = false
+        }
+        if (commonData?.isFoundersVisionActive == false) {
+            binding.tvHeading.isVisible = false
+            binding.aboutusView.isVisible = false
+            binding.nameTv.isVisible = false
+            binding.fullDescriptionTv.isVisible = false
+        }
+        if (commonData?.isCorporatePhilosophyActive == false) {
+            binding.corporatePhillosophy.isVisible = false
+            binding.aboutUsRv.isVisible = false
+        }
+        if (commonData?.isProductCategoryActive == false) {
+            binding.tvProductCategory.isVisible = false
+            binding.productcategoryRv.isVisible = false
+        }
+        if (commonData?.isStatsOverviewActive == false) {
+            binding.statsHeaderTxt.isVisible = false
+            binding.statsItem.isVisible = false
+        }
+
+    }
+
+    private fun setRecyclerView(commonData: AboutUs?) {
+        //CorporatePhilosophyAdapter
+        philosophyAdapter = CorporatePhilosophyAdapter(requireActivity(), commonData?.corporatePhilosophy!!.detailedInformation,)
+        linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+        binding.aboutUsRv.layoutManager = linearLayoutManager
+        binding.aboutUsRv.adapter = philosophyAdapter
+
+        //ProductAdapter
+        ProductAdapter(requireActivity(), commonData?.productCategory!!.detailedInformation).also { it1 -> productAdapter = it1 }
+        linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        binding.productcategoryRv.layoutManager = linearLayoutManager
+        binding.productcategoryRv.adapter = productAdapter
+
+        //StatsOverViewAboutUsAdapter
+        StatsOverViewAboutUsAdapter(requireActivity(), commonData?.statsOverview?.detailedInformation).also { it1 -> statsOverViewAdapter = it1 }
+        gridLayoutManager = GridLayoutManager(requireContext(), 2)
+        binding.statsItem.layoutManager = gridLayoutManager
+        binding.statsItem.adapter = statsOverViewAdapter
+        binding.statsItem.setItemViewCacheSize(10)
+        binding.statsItem.setHasFixedSize(true)
+    }
+
     inner class XAxisFormatter : IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
-            return when(graphType){
+            return when (graphType) {
                 Constants.QUATERLY -> returnFormattedValue(p0)
-              Constants.MONTHLY -> returnFormattedValue(p0)
+                Constants.MONTHLY -> returnFormattedValue(p0)
                 Constants.HALF_YEARLY -> returnFormattedValue(p0)
-                else -> { String.format("%.0f", p0.toDouble()) }
+                else -> {
+                    String.format("%.0f", p0.toDouble())
+                }
             }
         }
     }
 
-    private fun returnFormattedValue(floatValue:Float):String{
+    private fun returnFormattedValue(floatValue: Float): String {
         return when {
             floatValue.toInt() < 10 -> xAxisList[floatValue.toInt()]
-            else -> { String.format("%.0f", floatValue.toDouble()) }
+            else -> {
+                String.format("%.0f", floatValue.toDouble())
+            }
         }
     }
 
@@ -511,7 +484,7 @@ class AboutUsFragment : Fragment() , GraphOptionsAdapter.GraphItemClicks {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
         } else {
-         Html.fromHtml(message)
+            Html.fromHtml(message)
         }
     }
 }

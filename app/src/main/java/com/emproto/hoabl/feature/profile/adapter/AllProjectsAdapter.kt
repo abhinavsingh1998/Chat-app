@@ -35,12 +35,8 @@ class AllProjectsAdapter(
         if (list[position].isEscalationGraphActive){
             holder.binding.rootView.visibility= View.VISIBLE
             holder.binding.projectName.text= currentItem?.launchName
-
-
             holder.binding.tabBar.isVisible = position == selectedItemPos
-
             holder.binding.rootView.setOnClickListener {
-
                 lastItemSelectedPos = selectedItemPos
                 selectedItemPos = position
                 lastItemSelectedPos = if(lastItemSelectedPos == -1)
