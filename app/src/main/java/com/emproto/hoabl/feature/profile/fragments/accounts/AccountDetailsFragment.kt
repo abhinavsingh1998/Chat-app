@@ -105,15 +105,16 @@ class AccountDetailsFragment : Fragment(),
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentAccountDetailsBinding.inflate(inflater, container, false)
-
+        (requireActivity() as HomeActivity).hideBottomNavigation()
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
-
-        profileViewModel =
-            ViewModelProvider(requireActivity(), profileFactory)[ProfileViewModel::class.java]
+        profileViewModel = ViewModelProvider(requireActivity(), profileFactory)[ProfileViewModel::class.java]
         initView()
         initClickListener()
-        (requireActivity() as HomeActivity).hideBottomNavigation()
+        callPermissionLauncher()
+        return binding.root
+    }
 
+    private fun callPermissionLauncher() {
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 isReadPermissionGranted =
@@ -126,22 +127,17 @@ class AccountDetailsFragment : Fragment(),
                     openPdf(base64Data)
                 }
             }
-
-        return binding.root
     }
 
     private fun initView() {
         documentBinding = DocumentsBottomSheetBinding.inflate(layoutInflater)
-        docsBottomSheet =
-            BottomSheetDialog(this.requireContext(), R.style.BottomSheetDialogTheme)
+        docsBottomSheet = BottomSheetDialog(this.requireContext(), R.style.BottomSheetDialogTheme)
         docsBottomSheet.setContentView(documentBinding.root)
-
         documentBinding.ivDocsClose.setOnClickListener {
             docsBottomSheet.dismiss()
         }
 
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         profileViewModel.getAccountsList().observe(viewLifecycleOwner) {
@@ -152,8 +148,7 @@ class AccountDetailsFragment : Fragment(),
                 Status.SUCCESS -> {
                     binding.progressBar.hide()
                     if (it.data?.data!!.documents != null && it.data!!.data.documents is List<AccountsResponse.Data.Document>) {
-                        allKycDocList =
-                            it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>
+                        allKycDocList = it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>
                         kycLists = ArrayList<AccountsResponse.Data.Document>()
                         documentList = ArrayList<AccountsResponse.Data.Document>()
                         for (document in allKycDocList) {
@@ -163,134 +158,13 @@ class AccountDetailsFragment : Fragment(),
                                 documentList.add(document)
                             }
                         }
-                        when {
-                            kycLists.isNullOrEmpty() -> {
-                                kycUploadList.add(
-                                    KycUpload(
-                                        "Address Proof",
-                                        documentCategory = DOC_CATEGORY_KYC,
-                                        documentType = DOC_TYPE_ADDRESS_PROOF,
-                                        "UPLOAD"
-                                    )
-                                )
-                                kycUploadList.add(
-                                    KycUpload(
-                                        "PAN Card",
-                                        documentCategory = DOC_CATEGORY_KYC,
-                                        documentType = DOC_TYPE_PAN_CARD,
-                                        "UPLOAD"
-                                    )
-                                )
-                                kycUploadAdapter = AccountKycUploadAdapter(
-                                    context,
-                                    kycUploadList, this, viewListener
-                                )
-                                binding.rvKyc.adapter = kycUploadAdapter
-                            }
-                            else -> {
-                                kycUploadList.clear()
-                                kycUploadList.addAll(getKycList(kycLists))
-                                kycUploadAdapter = AccountKycUploadAdapter(
-                                    context,
-                                    kycUploadList, this, viewListener
-                                )
-                                binding.rvKyc.adapter = kycUploadAdapter
-                            }
-                        }
-                        if (documentList.isNullOrEmpty()) {
-                            binding.rvDocuments.visibility = View.VISIBLE
-                            binding.tvSeeAllDocuments.visibility = View.GONE
-                            documentList.add(
-                                AccountsResponse.Data.Document(
-                                    "1",
-                                    "2",
-                                    "3",
-                                    "4",
-                                    5,
-                                    6,
-                                    7,
-                                    "8",
-                                    "9",
-                                    "10",
-                                    "11",
-                                    "12",
-                                    "13"
-                                )
-                            )
-                            binding.rvDocuments.layoutManager =
-                                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-                            binding.rvDocuments.adapter = AccountsDocumentLabelListAdapter(
-                                context, documentList,
-                                this, "empty"
-                            )
-
-                        } else {
-                            binding.rvDocuments.visibility = View.VISIBLE
-                            binding.tvSeeAllDocuments.visibility = View.VISIBLE
-                            binding.rvDocuments.layoutManager =
-                                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-                            binding.rvDocuments.adapter = AccountsDocumentLabelListAdapter(
-                                context,
-                                documentList,
-                                this, "not"
-                            )
-                        }
+                        setKycList()
+                        setDocumentList()
                     }
                     if (it.data?.data!!.paymentHistory != null && it.data!!.data.paymentHistory is List<AccountsResponse.Data.PaymentHistory>) {
                         allPaymentList =
                             it.data!!.data.paymentHistory as ArrayList<AccountsResponse.Data.PaymentHistory>
-                        if (allPaymentList.isNullOrEmpty()) {
-                            binding.tvPaymentHistory.visibility = View.VISIBLE
-                            binding.cvNoPayment.visibility = View.VISIBLE
-                            binding.tvSeeAllPayment.visibility = View.GONE
-                            binding.rvPaymentHistory.visibility = View.VISIBLE
-                            allPaymentList.add(
-                                AccountsResponse.Data.PaymentHistory(
-                                    "1",
-                                    "2",
-                                    "3",
-                                    "4",
-                                    AccountsResponse.Data.PaymentHistory.Document(
-                                        "5",
-                                        "6",
-                                        "7",
-                                        "8",
-                                        "9",
-                                        "10",
-                                        11,
-                                        "12",
-                                        "13",
-                                        "14",
-                                        "15",
-                                        "16"
-                                    ),
-                                    17,
-                                    "18",
-                                    19,
-                                    "20",
-                                    "21"
-                                )
-                            )
-                            binding.rvPaymentHistory.layoutManager =
-                                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-                            binding.rvPaymentHistory.adapter = AccountsPaymentListAdapter(
-                                context,
-                                allPaymentList,
-                                this, "empty"
-                            )
-                        } else {
-                            binding.tvPaymentHistory.visibility = View.VISIBLE
-                            binding.tvSeeAllPayment.visibility = View.VISIBLE
-                            binding.cvNoPayment.visibility = View.GONE
-                            binding.rvPaymentHistory.visibility = View.VISIBLE
-                            binding.rvPaymentHistory.layoutManager =
-                                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-                            binding.rvPaymentHistory.adapter = AccountsPaymentListAdapter(
-                                context,
-                                allPaymentList,
-                                this, "not"
-                            )
-                        }
+                        setAllPaymentList()
                     }
                 }
                 Status.ERROR -> {
@@ -299,6 +173,125 @@ class AccountDetailsFragment : Fragment(),
                 }
             }
         }
+    }
+
+    private fun setAllPaymentList() {
+        if (allPaymentList.isNullOrEmpty()) {
+            binding.tvPaymentHistory.visibility = View.VISIBLE
+            binding.cvNoPayment.visibility = View.VISIBLE
+            binding.tvSeeAllPayment.visibility = View.GONE
+            binding.rvPaymentHistory.visibility = View.VISIBLE
+            allPaymentList.add(
+                AccountsResponse.Data.PaymentHistory(
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    AccountsResponse.Data.PaymentHistory.Document(
+                        "5",
+                        "6",
+                        "7",
+                        "8",
+                        "9",
+                        "10",
+                        11,
+                        "12",
+                        "13",
+                        "14",
+                        "15",
+                        "16"
+                    ),
+                    17,
+                    "18",
+                    19,
+                    "20",
+                    "21"
+                )
+            )
+            binding.rvPaymentHistory.layoutManager =
+                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+            binding.rvPaymentHistory.adapter = AccountsPaymentListAdapter(
+                context,
+                allPaymentList,
+                this, "empty"
+            )
+        } else {
+            binding.tvPaymentHistory.visibility = View.VISIBLE
+            binding.tvSeeAllPayment.visibility = View.VISIBLE
+            binding.cvNoPayment.visibility = View.GONE
+            binding.rvPaymentHistory.visibility = View.VISIBLE
+            binding.rvPaymentHistory.layoutManager =
+                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+            binding.rvPaymentHistory.adapter = AccountsPaymentListAdapter(
+                context,
+                allPaymentList,
+                this, "not"
+            )
+        }
+    }
+
+    private fun setDocumentList() {
+        if (documentList.isNullOrEmpty()) {
+            binding.rvDocuments.visibility = View.VISIBLE
+            binding.tvSeeAllDocuments.visibility = View.GONE
+            documentList.add(
+                AccountsResponse.Data.Document(
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    5,
+                    6,
+                    7,
+                    "8",
+                    "9",
+                    "10",
+                    "11",
+                    "12",
+                    "13"
+                )
+            )
+            binding.rvDocuments.layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+            binding.rvDocuments.adapter = AccountsDocumentLabelListAdapter(context, documentList, this, "empty")
+
+        } else {
+            binding.rvDocuments.visibility = View.VISIBLE
+            binding.tvSeeAllDocuments.visibility = View.VISIBLE
+            binding.rvDocuments.layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+            binding.rvDocuments.adapter = AccountsDocumentLabelListAdapter(context, documentList, this, "not")
+        }
+    }
+
+    private fun setKycList() {
+        when {
+            kycLists.isNullOrEmpty() -> {
+                kycUploadList.add(
+                    KycUpload(
+                        "Address Proof",
+                        documentCategory = DOC_CATEGORY_KYC,
+                        documentType = DOC_TYPE_ADDRESS_PROOF,
+                        "UPLOAD"
+                    )
+                )
+                kycUploadList.add(
+                    KycUpload(
+                        "PAN Card",
+                        documentCategory = DOC_CATEGORY_KYC,
+                        documentType = DOC_TYPE_PAN_CARD,
+                        "UPLOAD"
+                    )
+                )
+                kycUploadAdapter = AccountKycUploadAdapter(context, kycUploadList, this, viewListener)
+                binding.rvKyc.adapter = kycUploadAdapter
+            }
+            else -> {
+                kycUploadList.clear()
+                kycUploadList.addAll(getKycList(kycLists))
+                kycUploadAdapter = AccountKycUploadAdapter(context, kycUploadList, this, viewListener)
+                binding.rvKyc.adapter = kycUploadAdapter
+            }
+        }
+
     }
 
     private fun getKycList(kycLists: ArrayList<AccountsResponse.Data.Document>): Collection<KycUpload> {

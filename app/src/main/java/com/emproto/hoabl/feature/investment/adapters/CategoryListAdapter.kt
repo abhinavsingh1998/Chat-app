@@ -97,7 +97,7 @@ class CategoryListAdapter(
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text = tRating
                         Glide.with(context)
-                            .load(element.projectCoverImages.homePageMedia.value.url)
+                            .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
                             .into(ivCategoryImage)
                     }
                 }
