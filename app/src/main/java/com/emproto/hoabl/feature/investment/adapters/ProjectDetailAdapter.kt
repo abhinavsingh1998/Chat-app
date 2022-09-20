@@ -328,34 +328,41 @@ class ProjectDetailAdapter(
                 val areaRange = "${data.areaStartingFrom} Sqft"
                 tvAreaRange.text = areaRange
                 tvProjectViewInfo.text = SpannableStringBuilder()
-//                    .bold { append("${Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)} People") }
                     .bold { append("${data.fomoContent.noOfViews} People") }
                     .append(" saw this in ${data.fomoContent.days} days")
-                var regString = ""
-                for (item in data.reraDetails.reraNumbers) {
-                    when (regString) {
-                        "" -> {
-                            regString += item
+                if(data.reraDetails.isReraDetailsActive){
+                    binding.tvRegistrationNumber.visibility=View.VISIBLE
+                    ivRegInfo.visibility = View.VISIBLE
+                    var regString = ""
+                    for (item in data.reraDetails.reraNumbers) {
+                        when (regString) {
+                            "" -> {
+                                regString += item
+                            }
+                            else -> {
+                                regString = regString + "\n" + item
+                            }
                         }
-                        else -> {
-                            regString = regString + "\n" + item
-                        }
                     }
+                    tvRegistrationNumber.text = regString
+                }else{
+                    binding.tvRegistrationNumber.visibility=View.GONE
+                    ivRegInfo.visibility = View.GONE
                 }
-                when {
-                    data.reraDetails.reraNumbers.isEmpty()&&data.reraDetails.reraNumbers.size==0 -> {
-                        ivRegInfo.visibility = View.GONE
-                    }
-                    else -> {
-                        ivRegInfo.visibility = View.VISIBLE
-                    }
-                }
+
+//                when {
+//                    data.reraDetails.reraNumbers.isEmpty()&&data.reraDetails.reraNumbers.size==0 -> {
+//                        ivRegInfo.visibility = View.GONE
+//                    }
+//                    else -> {
+//                        ivRegInfo.visibility = View.VISIBLE
+//                    }
+//                }
                 if (data.opportunityDoc != null) {
                     Glide.with(context)
                         .load(data.opportunityDoc.whyToInvestMedia.value.url)
                         .into(binding.whyInvestCard)
                 }
-                tvRegistrationNumber.text = regString
                 Glide.with(context)
                     .load(data.projectCoverImages.newInvestmentPageMedia.value.url)
                     .into(ivSmallTopImage)

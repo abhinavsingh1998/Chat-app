@@ -381,7 +381,6 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
                     binding.ivPriceTrendsGraph.data = data
                     binding.ivPriceTrendsGraph.extraBottomOffset
                     binding.ivPriceTrendsGraph.animateXY(2000, 2000)
-
                     linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
                     binding.recyclerViewGraphOptions.layoutManager = linearLayoutManager
                     binding.recyclerViewGraphOptions.adapter = projectAdapter
