@@ -65,6 +65,11 @@ class AllPaymentHistoryFragment : Fragment(),
             ViewModelProvider(requireActivity(), profileFactory)[ProfileViewModel::class.java]
         initClickListener()
         (requireActivity() as HomeActivity).hideBottomNavigation()
+        callPermissionLauncher()
+        return binding.root
+    }
+
+    private fun callPermissionLauncher() {
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 isReadPermissionGranted =
@@ -77,13 +82,11 @@ class AllPaymentHistoryFragment : Fragment(),
                     openPdf(base64Data)
                 }
             }
-
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var allPaymentList = profileViewModel.getAllPayment()
+        val allPaymentList = profileViewModel.getAllPayment()
         binding.rvAllPaymentHistory.layoutManager =
             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
         binding.rvAllPaymentHistory.adapter = AllPaymentHistoryAdapter(
@@ -103,7 +106,7 @@ class AllPaymentHistoryFragment : Fragment(),
         name: String,
         path: String
     ) {
-        openDocumentScreen(name, path.toString())
+        openDocumentScreen(name, path)
 
     }
 
@@ -126,25 +129,25 @@ class AllPaymentHistoryFragment : Fragment(),
         }
     }
 
-    fun getDocumentData(path: String) {
+    private fun getDocumentData(path: String) {
         profileViewModel.downloadDocument(path)
-            .observe(viewLifecycleOwner,
-                androidx.lifecycle.Observer {
-                    when (it.status) {
-                        Status.LOADING -> {
-                            binding.progressBar.show()
-                        }
-                        Status.SUCCESS -> {
-                            binding.progressBar.hide()
-                            requestPermission(it.data!!.data)
-                        }
-                        Status.ERROR -> {
-                            (requireActivity() as HomeActivity).showErrorToast(
-                                it.message!!
-                            )
-                        }
+            .observe(viewLifecycleOwner
+            ) {
+                when (it.status) {
+                    Status.LOADING -> {
+                        binding.progressBar.show()
                     }
-                })
+                    Status.SUCCESS -> {
+                        binding.progressBar.hide()
+                        requestPermission(it.data!!.data)
+                    }
+                    Status.ERROR -> {
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            it.message!!
+                        )
+                    }
+                }
+            }
     }
 
     private fun requestPermission(base64: String) {

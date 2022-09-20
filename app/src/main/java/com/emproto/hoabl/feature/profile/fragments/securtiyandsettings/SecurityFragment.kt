@@ -9,8 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
@@ -20,7 +18,6 @@ import com.emproto.hoabl.databinding.FragmentSecurityBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
-import com.emproto.hoabl.feature.investment.dialogs.ConfirmationDialog
 import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.hoabl.feature.profile.adapter.SecurityAdapter
 import com.emproto.hoabl.feature.profile.adapter.SettingsAdapter
@@ -33,7 +30,6 @@ import com.emproto.networklayer.request.profile.ReportSecurityRequest
 import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.enums.Status
 import com.example.portfolioui.databinding.LogoutAllConfirmationBinding
-import com.example.portfolioui.databinding.LogoutConfirmationBinding
 import javax.inject.Inject
 
 
@@ -89,10 +85,10 @@ class SecurityFragment : BaseFragment(){
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SIGN_OUT_ALL))
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SETTINGS_ALL_OPTIONS))
 
-        val logoutDialoglayout = LogoutAllConfirmationBinding.inflate(layoutInflater)
+        val logoutDialogLayout = LogoutAllConfirmationBinding.inflate(layoutInflater)
         logoutDialog = Dialog(requireContext())
         logoutDialog.setCancelable(false)
-        logoutDialog.setContentView(logoutDialoglayout.root)
+        logoutDialog.setContentView(logoutDialogLayout.root)
 
         val adapter = SecurityAdapter(this.requireContext(), dataList, itemClickListener, isWhatsappEnabled, showPushNotifications)
         binding.rvHelpCenter.adapter = adapter
@@ -101,11 +97,11 @@ class SecurityFragment : BaseFragment(){
             requireActivity().supportFragmentManager.popBackStack()
         }
 
-        logoutDialoglayout.actionYes.setOnClickListener {
+        logoutDialogLayout.actionYes.setOnClickListener {
             logOutFromAllDevices()
         }
 
-        logoutDialoglayout.actionNo.setOnClickListener {
+        logoutDialogLayout.actionNo.setOnClickListener {
             logoutDialog.dismiss()
         }
 

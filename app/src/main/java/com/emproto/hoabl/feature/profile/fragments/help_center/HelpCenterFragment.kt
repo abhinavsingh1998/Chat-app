@@ -31,9 +31,7 @@ class HelpCenterFragment : BaseFragment() {
 
     @Inject
     lateinit var binding: FragmentHelpCenterBinding
-    private lateinit var adapter: HelpCenterAdapter
     lateinit var recyclerView: RecyclerView
-    private var dataList = ArrayList<DataHealthCenter>()
     val bundle = Bundle()
 
     private var isAboutUsActive = false
