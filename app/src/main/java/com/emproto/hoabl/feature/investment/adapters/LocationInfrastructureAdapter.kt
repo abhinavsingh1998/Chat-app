@@ -44,7 +44,7 @@ class LocationInfrastructureAdapter(
                 val locationDuration = "${element.minutes}mins"
                 val tvlocationDuration = "${element.hours}hr ${element.minutes}mins"
                 when (element.hours) {
-                    "0" -> tvLocationDuration.text = locationDuration
+                    "00" -> tvLocationDuration.text = locationDuration
                     else -> tvLocationDuration.text = tvlocationDuration
                 }
                 Glide
