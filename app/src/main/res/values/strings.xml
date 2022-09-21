@@ -397,7 +397,7 @@
     <string name="resendotp">Resend OTP</string>
     <string name="no_faqs_to_show">No faqs to show</string>
     <string name="investments">Investments</string>
-    <string name="no_media_text">It’s stunning, but just not uploaded yet.\nPlease wait.</string>
+    <string name="no_media_text">It’s stunning, and its coming soon.\nPlease wait.</string>
     <string name="describe_issue">Please describe your issue in a few words. Our agent will get back to you within 24 hours.</string>
     <string name="thank_you_text">Thank you for reaching out to us. Our sales executive will get in touch you soon to address all your questions.</string>
     <string name="request_time_out_text">Request timed out .Please restart the process to create a support ticket.</string>

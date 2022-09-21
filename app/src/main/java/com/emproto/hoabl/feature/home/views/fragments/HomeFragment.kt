@@ -5,11 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
 import com.emproto.hoabl.R
@@ -35,13 +34,10 @@ import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.enum.ModuleEnum
 import com.emproto.networklayer.preferences.AppPreference
-import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.bookingjourney.BJHeader
 import com.emproto.networklayer.response.enums.Status
-import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
 import com.emproto.networklayer.response.marketingUpdates.Data
-import com.emproto.networklayer.response.notification.dataResponse.NotificationResponse
 import javax.inject.Inject
 
 
@@ -55,7 +51,7 @@ class HomeFragment : BaseFragment() {
     private lateinit var homeData: com.emproto.networklayer.response.home.Data
 
 
-    val appURL = Constants.APP_URL
+    private val appURL = Constants.APP_URL
     private var projectId = 0
 
     @Inject
@@ -63,12 +59,12 @@ class HomeFragment : BaseFragment() {
     lateinit var investmentFactory: InvestmentFactory
     lateinit var homeViewModel: HomeViewModel
     val list = ArrayList<PageManagementsOrNewInvestment>()
-    var latestUptaesListCount: Int = 0
-    var InsightsListCount: Int = 0
+    private var latestUpdatesListCount: Int = 0
+    private var insightsListCount: Int = 0
     var testimonialsListCount: Int = 0
 
-    lateinit var testimonilalsHeading: String
-    lateinit var testimonilalsSubHeading: String
+    lateinit var testimonialsHeading: String
+    lateinit var testimonialsSubHeading: String
     private var actionItemType= ArrayList<com.emproto.networklayer.response.actionItem.Data>()
 
     @Inject
@@ -82,7 +78,7 @@ class HomeFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
@@ -101,7 +97,7 @@ class HomeFragment : BaseFragment() {
 
             if (appPreference.isFacilityCard()){
                 homeViewModel.getFacilityManagment()
-                    .observe(viewLifecycleOwner, Observer { it ->
+                    .observe(viewLifecycleOwner) { it ->
                         when (it.status) {
                             Status.SUCCESS -> {
                                 it!!.data!!.let {
@@ -114,80 +110,82 @@ class HomeFragment : BaseFragment() {
                                     }
                                 }
                             }
-                            Status.ERROR ->{
+                            Status.ERROR -> {
                                 (requireActivity() as HomeActivity).showErrorToast(
                                     it.message!!
                                 )
                             }
+                            Status.LOADING -> {}
                         }
-                    })
+                    }
             }
 
         } else {
-            noNetworkSatate()
+            noNetworkState()
         }
     }
 
     private fun getDashBoardData(refresh: Boolean){
 
         homeViewModel.getDashBoardData(ModuleEnum.HOME.value, refresh)
-            .observe(viewLifecycleOwner, object : Observer<BaseResponse<HomeResponse>> {
-                override fun onChanged(it: BaseResponse<HomeResponse>?) {
-                    when (it!!.status) {
-                        Status.LOADING -> {
-                            loadingState()
-                        }
-                        Status.SUCCESS -> {
-                            successState()
-                            setParentRecycler(it.data!!.data)
-                            appPreference.saveUserType(it?.data?.data!!.contactType)
+            .observe(viewLifecycleOwner
+            ) { it ->
+                when (it!!.status) {
+                    Status.LOADING -> {
+                        loadingState()
+                    }
+                    Status.SUCCESS -> {
+                        successState()
+                        setParentRecycler(it.data!!.data)
+                        appPreference.saveUserType(it?.data?.data!!.contactType)
 
-                            homeData = it!!.data!!.data
-                            latestUptaesListCount = it!!.data!!.data.page.totalUpdatesOnListView
-                            InsightsListCount = it!!.data!!.data.page.totalInsightsOnListView
-                            testimonialsListCount =
-                                it!!.data!!.data.page.totalTestimonialsOnListView
-                            appPreference.setPromisesCount(it!!.data!!.data.page.totalPromisesOnHomeScreen)
+                        homeData = it!!.data!!.data
+                        latestUpdatesListCount = it!!.data!!.data.page.totalUpdatesOnListView
+                        insightsListCount = it!!.data!!.data.page.totalInsightsOnListView
+                        testimonialsListCount =
+                            it!!.data!!.data.page.totalTestimonialsOnListView
+                        appPreference.setPromisesCount(it!!.data!!.data.page.totalPromisesOnHomeScreen)
 
-                            homeViewModel.setHeaderAndList(it!!.data!!.data.page)
-                            testimonilalsHeading = it!!.data!!.data.page.testimonialsHeading
-                            testimonilalsSubHeading =
-                                it!!.data!!.data.page.testimonialsSubHeading
+                        homeViewModel.setHeaderAndList(it!!.data!!.data.page)
+                        testimonialsHeading = it!!.data!!.data.page.testimonialsHeading
+                        testimonialsSubHeading =
+                            it!!.data!!.data.page.testimonialsSubHeading
 
-                            if (it!!.data!!.data.actionItem != null) {
-                                for (item in it!!.data!!.data!!.actionItem) {
-                                    actionItemType.add(item)
-                                }
+                        if (it!!.data!!.data.actionItem != null) {
+                            for (item in it!!.data!!.data!!.actionItem) {
+                                actionItemType.add(item)
                             }
-                            it.data.let {
-                                if (it != null) {
-                                    projectId = it.data.page.promotionAndOffersProjectContentId
-                                    appPreference.saveOfferId(projectId)
-                                    //appPreference.saveOfferUrl(it.data.page.promotionAndOffersMedia.value.url)
-                                    homeViewModel.setDashBoardData(it)
-                                    appPreference.setFacilityCard(it.data.isFacilityVisible)
-                                }
-                            }
-
-                            chatNavigation()
-
-                            if(appPreference.isFacilityCard()){
-                                val item = (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.menu.getItem(3)
-                                item.title = "My Services"
-                            }
-
                         }
-                        Status.ERROR -> {
-                            binding.shimmerLayout.shimmerViewContainer.hide()
-                            (requireActivity() as HomeActivity).showErrorToast(
-                                it.message!!
-                            )
-                            binding.dashBoardRecyclerView.show()
+                        it.data.let {
+                            if (it != null) {
+                                projectId = it.data.page.promotionAndOffersProjectContentId
+                                appPreference.saveOfferId(projectId)
+                                //appPreference.saveOfferUrl(it.data.page.promotionAndOffersMedia.value.url)
+                                homeViewModel.setDashBoardData(it)
+                                appPreference.setFacilityCard(it.data.isFacilityVisible)
+                            }
                         }
+
+                        chatNavigation()
+
+                        if (appPreference.isFacilityCard()) {
+                            val item =
+                                (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.menu.getItem(
+                                    3
+                                )
+                            item.title = "My Services"
+                        }
+
+                    }
+                    Status.ERROR -> {
+                        binding.shimmerLayout.shimmerViewContainer.hide()
+                        (requireActivity() as HomeActivity).showErrorToast(
+                            it.message!!
+                        )
+                        binding.dashBoardRecyclerView.show()
                     }
                 }
-
-            })
+            }
 
     }
 
@@ -226,7 +224,7 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun noNetworkSatate(){
+    private fun noNetworkState(){
         binding.refressLayout.isRefreshing = false
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.hide()
         binding.shimmerLayout.shimmerViewContainer.hide()
@@ -234,38 +232,40 @@ class HomeFragment : BaseFragment() {
         (requireActivity() as HomeActivity).showBottomNavigation()
         binding.dashBoardRecyclerView.hide()
         binding.noInternetView.mainContainer.show()
-        binding.noInternetView.textView6.setOnClickListener(View.OnClickListener {
+        binding.noInternetView.textView6.setOnClickListener {
             initObserver(true)
-        })
+        }
     }
 
     private fun getNewNotification (refresh: Boolean){
         homeViewModel.getNewNotification(20,1, refresh )
-            .observe(viewLifecycleOwner, object : Observer<BaseResponse<NotificationResponse>>{
-                override fun onChanged(it: BaseResponse<NotificationResponse>?) {
-                    when (it!!.status){
-                        Status.SUCCESS ->{
-                            if (it?.data?.data!=null){
-                                var itemList = ArrayList<Int>()
-                                for (i in 0..it.data?.data!!.size - 1) {
-                                    if (!it!!.data!!.data[i].readStatus) {
-                                        itemList.add(it!!.data!!.data[i].id)
-                                    }
+            .observe(viewLifecycleOwner
+            ) {
+                when (it!!.status) {
+                    Status.SUCCESS -> {
+                        if (it?.data?.data != null) {
+                            val itemList = ArrayList<Int>()
+                            for (i in 0 until it.data?.data!!.size) {
+                                if (!it!!.data!!.data[i].readStatus) {
+                                    itemList.add(it!!.data!!.data[i].id)
                                 }
-                                if(itemList.isEmpty()){
-                                    (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.notification.setImageDrawable(
-                                        resources.getDrawable(R.drawable.ic_notification_inactive))
-                                } else{
-                                    (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.notification.setImageDrawable(
-                                        resources.getDrawable(R.drawable.ic_notification))
+                            }
+                            if (itemList.isEmpty()) {
+                                (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.notification.setImageDrawable(
+                                    ContextCompat.getDrawable(requireContext(),R.drawable.ic_notification_inactive)
+                                )
+                            } else {
+                                (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.notification.setImageDrawable(
+                                    context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.ic_notification) }
+                                )
 
-                                }
                             }
                         }
                     }
+                    Status.ERROR -> {}
+                    Status.LOADING -> {}
                 }
-
-            })
+            }
     }
 
     private val itemClickListener = object : ItemClickListener {
@@ -315,7 +315,7 @@ class HomeFragment : BaseFragment() {
                     val convertedData =
                         homeData?.pageManagementOrLatestUpdates[position].toData()
                     val list = ArrayList<Data>()
-                    for (item in homeData!!.pageManagementOrLatestUpdates) {
+                    for (item in (homeData!!.pageManagementOrLatestUpdates)) {
                         list.add(item.toData())
                     }
                     homeViewModel.setLatestUpdatesData(list)
@@ -393,9 +393,9 @@ class HomeFragment : BaseFragment() {
                     val bundle = Bundle()
                     bundle.putInt(Constants.TESTIMONALS, testimonialsListCount)
 
-                    bundle.putString(Constants.TESTIMONALS_HEADING, testimonilalsHeading)
+                    bundle.putString(Constants.TESTIMONALS_HEADING, testimonialsHeading)
 
-                    bundle.putString(Constants.TESTIMONALS_SUB_HEADING, testimonilalsSubHeading)
+                    bundle.putString(Constants.TESTIMONALS_SUB_HEADING, testimonialsSubHeading)
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
@@ -406,7 +406,7 @@ class HomeFragment : BaseFragment() {
                     referNow()
                 }
                 R.id.app_share_view -> {
-                    share_app()
+                    shareApp()
                 }
 
                 R.id.see_all_pending_payment -> {
@@ -474,12 +474,11 @@ class HomeFragment : BaseFragment() {
         binding.dashBoardRecyclerView.adapter = homeAdapter
         binding.dashBoardRecyclerView.layoutManager = linearLayoutManager
 
-        binding.refressLayout.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
-            //binding.loader.show()
+        binding.refressLayout.setOnRefreshListener {
             initObserver(refresh = true)
             binding.refressLayout.isRefreshing = false
 
-        })
+        }
 
     }
 
@@ -498,7 +497,7 @@ class HomeFragment : BaseFragment() {
         dialog.show(parentFragmentManager, Constants.REFERRAL_CARD)
     }
 
-    private fun share_app() {
+    private fun shareApp() {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         shareIntent.type = "text/plain"
