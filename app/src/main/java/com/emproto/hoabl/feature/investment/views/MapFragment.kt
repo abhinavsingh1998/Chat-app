@@ -62,7 +62,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     private var distanceList = ArrayList<String>()
     private var destinationList = ArrayList<ValueXXX>()
 
-    lateinit var handler: Handler
+    private lateinit var handler: Handler
     private var runnable: Runnable? = null
 
     private val job = Job()
@@ -72,15 +72,24 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         override fun onItemClicked(view: View, position: Int, latitude: Double, longitude: Double) {
             when (view.id) {
                 R.id.cv_location_infrastructure_card -> {
-                    if (isNetworkAvailable()) {
-                        initMarkerLocation(dummyLatitude, dummyLongitude, latitude, longitude)
-                    } else {
+                    try{
+                        if (isNetworkAvailable()) {
+                            initMarkerLocation(dummyLatitude, dummyLongitude, latitude, longitude)
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                "Network not available",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }catch (e:Exception){
                         Toast.makeText(
                             requireContext(),
-                            "Network not available",
+                            "Error Occurred",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
+
 
                 }
             }
@@ -249,11 +258,11 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     }
 
     private fun enableMyLocation() {
-        when {
+        when (PackageManager.PERMISSION_GRANTED) {
             ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED -> {
+            ) -> {
                 initMap()
                 initObserver()
                 setDataFromPrevious()
@@ -289,25 +298,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             }
         }
 
-
-    private fun addMarkers(googleMap: GoogleMap) {
-        val bounds = LatLngBounds.builder()
-        val marker = googleMap.addMarker(
-            MarkerOptions()
-                .title("Isle of Bliss")
-                .position(LatLng(dummyLatitude, dummyLongitude))
-                .icon(BitmapFromVector(this.requireContext(), R.drawable.location_image_red))
-        )
-        bounds.include(LatLng(dummyLatitude, dummyLongitude))
-        marker?.tag = "Isle of Bliss"
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(),50))
-        googleMap.animateCamera(
-            CameraUpdateFactory.newLatLngZoom(
-                LatLng(dummyLatitude, dummyLongitude),
-                16.0f
-            )
-        )
-    }
 
     private fun BitmapFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
         val vectorDrawable = ContextCompat.getDrawable(context, vectorResId)

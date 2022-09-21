@@ -82,11 +82,11 @@ class FaqDetailAdapter(
     }
 
     private inner class TopViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val rvPopCategory = itemView.findViewById<RecyclerView>(R.id.rv_pop_category)
-        val search = itemView.findViewById<EditText>(R.id.et_search)
-        val close = itemView.findViewById<ImageView>(R.id.iv_close_image)
-        val title = itemView.findViewById<MaterialTextView>(R.id.tv_faq_title)
-        val imageArrow = itemView.findViewById<ImageView>(R.id.imgArrow)
+        val rvPopCategory: RecyclerView = itemView.findViewById(R.id.rv_pop_category)
+        val search: EditText = itemView.findViewById(R.id.et_search)
+        val close: ImageView = itemView.findViewById(R.id.iv_close_image)
+        val title: MaterialTextView = itemView.findViewById(R.id.tv_faq_title)
+        val imageArrow: ImageView = itemView.findViewById(R.id.imgArrow)
         @RequiresApi(Build.VERSION_CODES.M)
         fun bind(position: Int) {
             //Binding data
@@ -181,8 +181,8 @@ class FaqDetailAdapter(
     }
 
     inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvCategoryTitle = itemView.findViewById<MaterialTextView>(R.id.tv_category_title)
-        val rvFaq = itemView.findViewById<RecyclerView>(R.id.rv_faq)
+        private val tvCategoryTitle: MaterialTextView = itemView.findViewById(R.id.tv_category_title)
+        private val rvFaq: RecyclerView = itemView.findViewById(R.id.rv_faq)
         fun bind(data: CgData) {
             tvCategoryTitle.text = data.name
             val sortedList = data.faqs.sortedBy { it.priority }

@@ -625,20 +625,20 @@ class ProjectDetailAdapter(
                 linedataset.setDrawValues(false)
                 val data = LineData(linedataset)
 
-                binding.ivPriceTrendsGraph.getDescription().setEnabled(false)
-                binding.ivPriceTrendsGraph.getLegend().setEnabled(false)
-                binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false)
+                binding.ivPriceTrendsGraph.description.isEnabled = false
+                binding.ivPriceTrendsGraph.legend.isEnabled = false
+                binding.ivPriceTrendsGraph.axisLeft.setDrawGridLines(false)
                 binding.ivPriceTrendsGraph.setTouchEnabled(false)
                 binding.ivPriceTrendsGraph.setPinchZoom(false)
                 binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
                 //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
                 //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
-                binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false)
-                binding.ivPriceTrendsGraph.getXAxis().position = XAxis.XAxisPosition.BOTTOM
+                binding.ivPriceTrendsGraph.xAxis.setDrawGridLines(false)
+                binding.ivPriceTrendsGraph.xAxis.position = XAxis.XAxisPosition.BOTTOM
                 //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
-                binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false)
-                binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false)
-                binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false)
+                binding.ivPriceTrendsGraph.axisRight.setDrawGridLines(false)
+                binding.ivPriceTrendsGraph.axisRight.setDrawLabels(false)
+                binding.ivPriceTrendsGraph.axisRight.setDrawAxisLine(false)
                 binding.ivPriceTrendsGraph.xAxis.granularity = 1f
                 binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
 //            binding.ivPriceTrendsGraph.getXAxis().setAxisMaximum(data.getXMax() + 0.25f);
@@ -873,7 +873,7 @@ class ProjectDetailAdapter(
         }
     }
 
-    private inner class ProjectNotConvincedViewHolder(private val binding: NotConvincedLayoutBinding) :
+    private inner class ProjectNotConvincedViewHolder(binding: NotConvincedLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
         }
