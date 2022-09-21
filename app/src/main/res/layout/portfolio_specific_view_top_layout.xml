@@ -308,25 +308,25 @@
                     >
 
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/tv_view_more"
-                            style="@style/text_style_view_more_brown_color_12"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="4dp"
-                            android:fontFamily="@font/jost_medium"
-                            android:text="@string/view_more"
-                            android:visibility="visible" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_view_more"
+                        style="@style/text_style_view_more_brown_color_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="@string/view_more"
+                        android:visibility="visible" />
 
-                        <ImageView
-                            android:id="@+id/iv_view_more_drop_down"
-                            android:layout_width="@dimen/margin_size_18"
-                            android:layout_height="@dimen/margin_size_18"
-                            android:src="@drawable/ic_drop_down"
-                            android:visibility="visible"
-                            app:layout_constraintBottom_toBottomOf="@id/tv_view_more"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/tv_view_more" />
+                    <ImageView
+                        android:id="@+id/iv_view_more_drop_down"
+                        android:layout_width="@dimen/margin_size_18"
+                        android:layout_height="@dimen/margin_size_18"
+                        android:src="@drawable/ic_drop_down"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_view_more"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_view_more" />
 
                 </LinearLayout>
 
@@ -434,7 +434,7 @@
                         android:layout_marginTop="@dimen/margin_size_12"
                         android:layout_marginEnd="10dp"
                         android:orientation="horizontal"
-                        android:weightSum="3.4"
+                        android:weightSum="3.5"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@id/top_dashed_line"
                         app:layout_constraintTop_toBottomOf="@id/top_dashed_line">
@@ -442,7 +442,7 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1.4"
+                            android:layout_weight="1.5"
                             android:orientation="vertical"
                             android:weightSum="2">
 
