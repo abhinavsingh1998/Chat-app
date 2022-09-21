@@ -47,7 +47,7 @@ class LastFewPlotsAdapter(
                 .bold { append("${element.areaStartingFrom} Sqft") }
                 .append(Constants.ONWARDS)
             Glide.with(context)
-                .load(element.projectCoverImages.newInvestmentPageMedia.value.url)
+                .load(element.projectCoverImages.homePageMedia.value.url)
                 .into(holder.binding.ivItemImage)
 
             when(element.fomoContent.isTargetTimeActive){

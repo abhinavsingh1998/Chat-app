@@ -49,8 +49,7 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
         binding = inflate(inflater, container, false)
         (requireActivity() as HomeActivity).hideBottomNavigation()
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
-        profileViewModel =
-            ViewModelProvider(requireActivity(), factory)[ProfileViewModel::class.java]
+        profileViewModel = ViewModelProvider(requireActivity(), factory)[ProfileViewModel::class.java]
 
         initClickListener()
         categories()
