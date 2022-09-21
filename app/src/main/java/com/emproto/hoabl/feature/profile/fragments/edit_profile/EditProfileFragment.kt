@@ -145,34 +145,16 @@ class EditProfileFragment : BaseFragment() {
         binding = FragmentEditProfileBinding.inflate(layoutInflater)
 
         (requireActivity() as HomeActivity).hideBottomNavigation()
+        datePickerDialog()
 
-        val myCalender = Calendar.getInstance()
-        datePicker = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-            myCalender.set(Calendar.YEAR, year)
-            myCalender.set(Calendar.MONTH, month)
-            myCalender.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-            updateLabel(myCalender)
-        }
-        binding.tvDatePicker.setOnClickListener {
-            context?.let1 { it1 ->
-                val dialog = DatePickerDialog(
-                    it1,
-                    datePicker,
-                    myCalender.get(Calendar.YEAR),
-                    myCalender.get(Calendar.MONTH),
-                    myCalender.get(Calendar.DAY_OF_MONTH)
-                )
-                dialog.datePicker.maxDate = System.currentTimeMillis()
-                dialog.show()
 
-            }
-        }
         initView()
         setGenderSpinnersData()
         false.getCountries()
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -195,6 +177,30 @@ class EditProfileFragment : BaseFragment() {
 
         }
         initClickListener()
+    }
+    private fun datePickerDialog() {
+        val myCalender = Calendar.getInstance()
+        datePicker = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            myCalender.set(Calendar.YEAR, year)
+            myCalender.set(Calendar.MONTH, month)
+            myCalender.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            updateLabel(myCalender)
+
+            binding.tvDatePicker.setOnClickListener {
+                context?.let1 { it1 ->
+                    val dialog = DatePickerDialog(
+                        it1,
+                        datePicker,
+                        myCalender.get(Calendar.YEAR),
+                        myCalender.get(Calendar.MONTH),
+                        myCalender.get(Calendar.DAY_OF_MONTH)
+                    )
+                    dialog.datePicker.maxDate = System.currentTimeMillis()
+                    dialog.show()
+
+                }
+            }
+        }
     }
 
     private fun setColor() {
