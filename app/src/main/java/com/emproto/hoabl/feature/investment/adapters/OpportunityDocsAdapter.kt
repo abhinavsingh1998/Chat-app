@@ -1,5 +1,6 @@
 package com.emproto.hoabl.feature.investment.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.view.LayoutInflater
@@ -26,7 +27,6 @@ class OpportunityDocsAdapter(
     private val context: Context,
     private val itemList: List<RecyclerViewItem>,
     private val data: OpportunityDoc,
-    private val title: String,
     private val isFromProjectAmenities: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -41,7 +41,6 @@ class OpportunityDocsAdapter(
         const val OPP_DOCS_VIEW_TYPE_EIGHT = 8
     }
 
-    private lateinit var keyAttractionsAdapter: KeyAttractionsAdapter
     private lateinit var destinationAdapter: DestinationAdapter
     private lateinit var currentInfraStoryAdapter: CurrentInfraStoryAdapter
     private lateinit var upcomingInfraStoryAdapter: UpcomingInfraStoryAdapter
@@ -115,14 +114,14 @@ class OpportunityDocsAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (itemList[position].viewType) {
-            OPP_DOCS_VIEW_TYPE_ONE -> (holder as OppDocsTopViewHolder).bind(position)
-            OPP_DOCS_VIEW_TYPE_TWO -> (holder as OppDocsExpGrowthViewHolder).bind(position)
-            OPP_DOCS_VIEW_TYPE_THREE -> (holder as CurrentInfraStoryViewHolder).bind(position)
-            OPP_DOCS_VIEW_TYPE_FOUR -> (holder as UpcomingInfraStoryViewHolder).bind(position)
-            OPP_DOCS_VIEW_TYPE_FIVE -> (holder as OppDocsTourismViewHolder).bind(position)
-            OPP_DOCS_VIEW_TYPE_SIX -> (holder as AboutProjectViewHolder).bind(position)
-            OPP_DOCS_VIEW_TYPE_SEVEN -> (holder as ProjectAmenitiesViewHolder).bind(position)
-            OPP_DOCS_VIEW_TYPE_EIGHT -> (holder as ApplyViewHolder).bind(position)
+            OPP_DOCS_VIEW_TYPE_ONE -> (holder as OppDocsTopViewHolder).bind()
+            OPP_DOCS_VIEW_TYPE_TWO -> (holder as OppDocsExpGrowthViewHolder).bind()
+            OPP_DOCS_VIEW_TYPE_THREE -> (holder as CurrentInfraStoryViewHolder).bind()
+            OPP_DOCS_VIEW_TYPE_FOUR -> (holder as UpcomingInfraStoryViewHolder).bind()
+            OPP_DOCS_VIEW_TYPE_FIVE -> (holder as OppDocsTourismViewHolder).bind()
+            OPP_DOCS_VIEW_TYPE_SIX -> (holder as AboutProjectViewHolder).bind()
+            OPP_DOCS_VIEW_TYPE_SEVEN -> (holder as ProjectAmenitiesViewHolder).bind()
+            OPP_DOCS_VIEW_TYPE_EIGHT -> (holder as ApplyViewHolder).bind()
         }
     }
 
@@ -130,7 +129,7 @@ class OpportunityDocsAdapter(
 
     private inner class OppDocsTopViewHolder(private val binding: OppDocsTopLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.tvOppDocProjectTitle.text = data.sectionHeading.heading
             binding.tvOppDocProjectThemeTitle.text = data.sectionHeading.subHeading
             Glide
@@ -142,7 +141,7 @@ class OpportunityDocsAdapter(
 
     private inner class OppDocsExpGrowthViewHolder(private val binding: OppDocExpectedGrowthLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.tvExpectedGrowth.text = data.escalationGraph.title
             binding.tvXAxisLabel.text = data.escalationGraph.yAxisDisplayName
             binding.tvYAxisLabel.text = data.escalationGraph.xAxisDisplayName
@@ -157,7 +156,7 @@ class OpportunityDocsAdapter(
                 }
                 Constants.HALF_YEARLY -> {
                     graphType = Constants.HALF_YEARLY
-                    for (i in 0..data.escalationGraph.dataPoints.points.size - 1) {
+                    for (i in 0 until data.escalationGraph.dataPoints.points.size) {
                         val fmString =
                             data.escalationGraph.dataPoints.points[i].halfYear.substring(0, 3)
                         val yearString =
@@ -165,15 +164,13 @@ class OpportunityDocsAdapter(
                         val str = "$fmString-$yearString"
                         xaxisList.add(str)
                     }
-                    var index = 0
-                    for (item in graphData) {
+                    for ((index, item) in graphData.withIndex()) {
                         linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
-                        index++
                     }
                 }
                 Constants.QUATERLY-> {
                     graphType = Constants.QUATERLY
-                    for (i in 0..data.escalationGraph.dataPoints.points.size - 1) {
+                    for (i in 0 until data.escalationGraph.dataPoints.points.size) {
                         val fmString =
                             data.escalationGraph.dataPoints.points[i].quater.substring(0, 2)
                         val yearString =
@@ -181,15 +178,13 @@ class OpportunityDocsAdapter(
                         val str = "$fmString-$yearString"
                         xaxisList.add(str)
                     }
-                    var index = 0
-                    for (item in graphData) {
+                    for ((index, item) in graphData.withIndex()) {
                         linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
-                        index++
                     }
                 }
                 Constants.MONTHLY -> {
                     graphType = Constants.MONTHLY
-                    for (i in 0..data.escalationGraph.dataPoints.points.size - 1) {
+                    for (i in 0 until data.escalationGraph.dataPoints.points.size) {
                         val fmString =
                             data.escalationGraph.dataPoints.points[i].month.substring(0, 3)
                         val yearString =
@@ -197,10 +192,8 @@ class OpportunityDocsAdapter(
                         val str = "$fmString-$yearString"
                         xaxisList.add(str)
                     }
-                    var index = 0
-                    for (item in graphData) {
+                    for ((index, item) in graphData.withIndex()) {
                         linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
-                        index++
                     }
                 }
             }
@@ -221,20 +214,20 @@ class OpportunityDocsAdapter(
                 linedataset.setDrawValues(false)
                 val data = LineData(linedataset)
 
-                binding.ivPriceTrendsGraph.getDescription().setEnabled(false);
-                binding.ivPriceTrendsGraph.getLegend().setEnabled(false);
-                binding.ivPriceTrendsGraph.getAxisLeft().setDrawGridLines(false);
+                binding.ivPriceTrendsGraph.description.isEnabled = false
+                binding.ivPriceTrendsGraph.legend.isEnabled = false
+                binding.ivPriceTrendsGraph.axisLeft.setDrawGridLines(false)
                 binding.ivPriceTrendsGraph.setTouchEnabled(false)
                 binding.ivPriceTrendsGraph.setPinchZoom(false)
                 binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
                 //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
                 //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
-                binding.ivPriceTrendsGraph.getXAxis().setDrawGridLines(false);
-                binding.ivPriceTrendsGraph.getXAxis().position = XAxis.XAxisPosition.BOTTOM;
+                binding.ivPriceTrendsGraph.xAxis.setDrawGridLines(false)
+                binding.ivPriceTrendsGraph.xAxis.position = XAxis.XAxisPosition.BOTTOM
                 //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
-                binding.ivPriceTrendsGraph.getAxisRight().setDrawGridLines(false);
-                binding.ivPriceTrendsGraph.getAxisRight().setDrawLabels(false);
-                binding.ivPriceTrendsGraph.getAxisRight().setDrawAxisLine(false);
+                binding.ivPriceTrendsGraph.axisRight.setDrawGridLines(false)
+                binding.ivPriceTrendsGraph.axisRight.setDrawLabels(false)
+                binding.ivPriceTrendsGraph.axisRight.setDrawAxisLine(false)
                 binding.ivPriceTrendsGraph.xAxis.granularity = 1f
                 binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
 //            binding.ivPriceTrendsGraph.getXAxis().setAxisMaximum(data.getXMax() + 0.25f);
@@ -274,7 +267,7 @@ class OpportunityDocsAdapter(
 
     private inner class CurrentInfraStoryViewHolder(private val binding: CurrentInfraStoryLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.tvCurrentInfraStory.text = data.currentInfraStory.heading
             currentInfraStoryAdapter =
                 CurrentInfraStoryAdapter(context, data.currentInfraStory.stories)
@@ -284,7 +277,7 @@ class OpportunityDocsAdapter(
 
     private inner class UpcomingInfraStoryViewHolder(private val binding: UpcomingInfraStoryLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.tvUpcomingInfraStory.text = data.upcomingInfraStory.heading
             upcomingInfraStoryAdapter =
                 UpcomingInfraStoryAdapter(context, data.upcomingInfraStory.stories)
@@ -294,7 +287,8 @@ class OpportunityDocsAdapter(
 
     private inner class OppDocsTourismViewHolder(private val binding: OppDocsDestinationLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        @SuppressLint("NotifyDataSetChanged")
+        fun bind() {
             binding.tvTourismAround.text = data.tourismAround.heading
             val list = arrayListOf<Story>()
             when{
@@ -376,7 +370,7 @@ class OpportunityDocsAdapter(
 
     private inner class AboutProjectViewHolder(private val binding: AboutProjectLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.apply {
                 tvAboutProjectTitle.text = data.aboutProjects.heading
                 tvAbtProjectInfo.text = context.showHTMLText(data.aboutProjects.description)
@@ -389,7 +383,8 @@ class OpportunityDocsAdapter(
 
     private inner class ProjectAmenitiesViewHolder(private val binding: ProjectAmenitiesLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        @SuppressLint("NotifyDataSetChanged")
+        fun bind() {
             binding.apply {
                 tvProjectAmenitiesAll.visibility = View.INVISIBLE
                 tvViewMore.visibility = View.VISIBLE
@@ -501,7 +496,7 @@ class OpportunityDocsAdapter(
 
     private inner class ApplyViewHolder(private val binding: ApplyLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             when (data.isPageFooterActive) {
                 false -> {
                     binding.tvBookingStarts.visibility = View.GONE
@@ -513,15 +508,6 @@ class OpportunityDocsAdapter(
             }
 
             binding.tvApplyNow.setOnClickListener(onItemClickListener)
-        }
-    }
-
-    private inner class OppDocsKeyAttractionsViewHolder(private val binding: OppDocKeyAttractionsLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
-            val list = arrayListOf<String>("1", "2", "3", "4", "5", "6")
-            keyAttractionsAdapter = KeyAttractionsAdapter(list)
-            binding.rvKeyAttractions.adapter = keyAttractionsAdapter
         }
     }
 
