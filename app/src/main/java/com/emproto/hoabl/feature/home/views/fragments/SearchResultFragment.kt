@@ -150,72 +150,72 @@ class SearchResultFragment : BaseFragment() {
 
     private fun initObserver() {
         //for ticker
-        homeViewModel.gethomeData().observe(viewLifecycleOwner) {
-            it.let {
-                val totalLandsold: String? = String.format(
-                    getString(R.string.header),
-                    it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName,
-                    it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value + " Sqft"
-                )
-                //it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value
+            homeViewModel.gethomeData().observe(viewLifecycleOwner) {
+                it.let {
+                    val totalLandsold: String? = String.format(
+                        getString(R.string.header),
+                        it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName,
+                        it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value + " Sqft"
+                    )
+                    //it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value
 
-                val totalAmtLandSold: String? = String.format(
-                    getString(R.string.header),
-                    it.data?.page?.mastheadSection?.totalAmountOfLandTransacted?.displayName,
-                    it.data?.page?.mastheadSection?.totalAmountOfLandTransacted?.value
-                )
-                //it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
-                val grossWeight: String? = String.format(
-                    getString(R.string.header),
-                    it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName,
-                    it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
-                )
-                //it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName + " " + it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
-                val num_User: String? = String.format(
-                    getString(R.string.header),
-                    it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName,
-                    it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
-                )
-                //it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName + " " + it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
+                    val totalAmtLandSold: String? = String.format(
+                        getString(R.string.header),
+                        it.data?.page?.mastheadSection?.totalAmountOfLandTransacted?.displayName,
+                        it.data?.page?.mastheadSection?.totalAmountOfLandTransacted?.value
+                    )
+                    //it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
+                    val grossWeight: String? = String.format(
+                        getString(R.string.header),
+                        it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName,
+                        it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
+                    )
+                    //it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.displayName + " " + it.data?.page?.mastheadSection?.grossWeightedAvgAppreciation?.value
+                    val num_User: String? = String.format(
+                        getString(R.string.header),
+                        it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName,
+                        it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
+                    )
+                    //it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.displayName + " " + it.data?.page?.mastheadSection?.totalNumberOfUsersWhoBoughtTheLand?.value
 //                fragmentSearchResultBinding.searchLayout.rotateText.text = showHTMLText(
 //                    "$totalAmtLandSold    $totalLandsold    $grossWeight    $num_User"
 //                )
 
-            }
-        }
-
-        fragmentSearchResultBinding.searchLayout.search.addTextChangedListener(object :
-            TextWatcher {
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//                if (p0.toString().isEmpty() || p0.toString().isBlank()) {
-//                    fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.GONE
-//                }
-                if (p0.toString().isEmpty()) {
-                    fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.GONE
-                    runnable = Runnable {
-                        callSearchApi("", false)                    }
-                    runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
-                } else if (p0.toString() != "" && p0.toString().length > 1) {
-                    fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.VISIBLE
-                    runnable = Runnable {
-                        callSearchApi(p0.toString().trim(), true)                  }
-                    runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
-
                 }
             }
 
-            override fun afterTextChanged(p0: Editable?) {
+            fragmentSearchResultBinding.searchLayout.search.addTextChangedListener(object :
+                TextWatcher {
 
-            }
-        })
-    }
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                }
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//                if (p0.toString().isEmpty() || p0.toString().isBlank()) {
+//                    fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.GONE
+//                }
+                    if (p0.toString().isEmpty()) {
+                        fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.GONE
+                        runnable = Runnable {
+                            callSearchApi("", false)                    }
+                        runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
+                    } else if (p0.toString() != "" && p0.toString().length > 1) {
+                        fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.VISIBLE
+                        runnable = Runnable {
+                            callSearchApi(p0.toString().trim(), true)                  }
+                        runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
+
+                    }
+                }
+
+                override fun afterTextChanged(p0: Editable?) {
+
+                }
+            })
+        }
 
     private fun callSearchApi(searchWord: String, searchStringPresent: Boolean) {
-        homeViewModel.getSearchResult(searchWord.trim()).observe(viewLifecycleOwner, Observer {
+        homeViewModel.getSearchResult(searchWord.trim()).observe(this, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     fragmentSearchResultBinding.progressBar.show()
