@@ -174,6 +174,7 @@ class HomeFragment : BaseFragment() {
                                     3
                                 )
                             item.title = "My Services"
+                            item.setIcon( R.drawable.ic_access_card)
                         }
 
                     }
