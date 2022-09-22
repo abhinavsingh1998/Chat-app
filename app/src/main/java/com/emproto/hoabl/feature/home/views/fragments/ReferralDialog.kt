@@ -49,14 +49,14 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
 
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
-        val window = dialog!!.getWindow()
+        val window = dialog!!.window
         window!!.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
         window.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND)
         window.setDimAmount(0.9F)
-        list.add("+91")
+        list.add("+91 | IND")
         mBinding.inputMobile.addDropDownValues(list)
 
         initClickListner()
