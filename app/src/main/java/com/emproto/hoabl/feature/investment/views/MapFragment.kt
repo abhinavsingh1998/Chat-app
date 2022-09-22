@@ -18,7 +18,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
-import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentMapBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -29,6 +28,7 @@ import com.emproto.hoabl.model.ProjectLocation
 import com.emproto.hoabl.utils.MapItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
+import com.emproto.networklayer.NetworkUtil
 import com.emproto.networklayer.response.MapData
 import com.emproto.networklayer.response.investment.ValueXXX
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -72,7 +72,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         override fun onItemClicked(view: View, position: Int, latitude: Double, longitude: Double) {
             when (view.id) {
                 R.id.cv_location_infrastructure_card -> {
-                    try{
+                    try {
                         if (isNetworkAvailable()) {
                             initMarkerLocation(dummyLatitude, dummyLongitude, latitude, longitude)
                         } else {
@@ -82,7 +82,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-                    }catch (e:Exception){
+                    } catch (e: Exception) {
                         Toast.makeText(
                             requireContext(),
                             "Error Occurred",
@@ -102,6 +102,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMapBinding.inflate(layoutInflater)
+        val encyptKey = NetworkUtil.encrypt("AIzaSyBAQrIpZqIE4moMhptpOYD9Wa9585l9ju0")
         return binding.root
     }
 
@@ -130,10 +131,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             val url = getDirectionURL(
                 originLocation,
                 destinationLocation,
-                Utility.decrypt(
-                    Utility
-                        .releaseMapKey
-                )!!
+                NetworkUtil.decrypt()!!
             )
             callDirectionsApiForDistance(url)
         }
@@ -172,7 +170,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         investmentViewModel =
             ViewModelProvider(requireActivity(), investmentFactory)[InvestmentViewModel::class.java]
         if (!Places.isInitialized()) {
-            Places.initialize(this.requireContext(), Utility.decrypt(Utility.releaseMapKey))
+            Places.initialize(this.requireContext(), NetworkUtil.decrypt())
         }
         val mapFragment = childFragmentManager.findFragmentById(
             R.id.map_fragment
@@ -223,7 +221,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         val urll = getDirectionURL(
             originLocation,
             destinationLocation,
-            Utility.decrypt(Utility.releaseMapKey)!!
+            NetworkUtil.decrypt()!!
         )
         callDirectionApi(urll)
         mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))

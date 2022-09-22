@@ -20,21 +20,25 @@ android {
 
         debug {
             debuggable true
+            buildConfigField("String", "MAP_KEY", "\"62X/OKEKC82iS4I0dBIm26+h+SNXueaWXo9XIFQYX1cYlqrcVIcaKk2161SM8x2x\"")
             buildConfigField("String", "BASE_URL", "\"https://cms-api.dev.hoabl.in\"")
         }
 
         qa {
             debuggable true
+            buildConfigField("String", "MAP_KEY", "\"62X/OKEKC82iS4I0dBIm26+h+SNXueaWXo9XIFQYX1cYlqrcVIcaKk2161SM8x2x\"")
             buildConfigField("String", "BASE_URL", "\"https://cms-api.stg.hoabl.in\"")
         }
 
         preProd{
             debuggable true
+            buildConfigField("String", "MAP_KEY", "\"62X/OKEKC82iS4I0dBIm26+h+SNXueaWXo9XIFQYX1cYlqrcVIcaKk2161SM8x2x\"")
             buildConfigField("String", "BASE_URL", "\"https://cms-api.uat.hoabl.in\"")
         }
 
         release {
             minifyEnabled false
+            buildConfigField("String", "MAP_KEY", "\"3j+SjzloU3Keq7Fk+lbKW9W2kdodK3M59ZmL10v+AOctU/oems5E2ANOrD73gB59\"")
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "BASE_URL", "\"https://cms-api.hoabl.in\"")
 

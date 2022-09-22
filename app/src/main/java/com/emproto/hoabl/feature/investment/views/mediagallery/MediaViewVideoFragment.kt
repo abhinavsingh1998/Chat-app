@@ -7,9 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
-import com.emproto.core.Utility
-import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentVideoViewBinding
+import com.emproto.networklayer.NetworkUtil
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 
@@ -29,7 +28,7 @@ class MediaViewVideoFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.ytPlayer.initialize(Utility.decrypt(Utility.releaseMapKey), object :
+        binding.ytPlayer.initialize(NetworkUtil.decrypt(), object :
             YouTubePlayer.OnInitializedListener {
             override fun onInitializationSuccess(
                 p0: YouTubePlayer.Provider?,

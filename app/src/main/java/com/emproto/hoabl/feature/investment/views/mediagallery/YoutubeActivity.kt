@@ -4,10 +4,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.emproto.core.Constants
-import com.emproto.core.Utility
-import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityYoutubeBinding
 import com.emproto.hoabl.model.MediaViewItem
+import com.emproto.networklayer.NetworkUtil
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
@@ -47,7 +46,8 @@ class YoutubeActivity : YouTubeBaseActivity() {
     }
 
     private fun playYoutubeVideo(youtubeId: String) {
-        binding.ytPlayer.initialize(Utility.decrypt(Utility.releaseMapKey),
+        binding.ytPlayer.initialize(
+            NetworkUtil.decrypt(),
             object : YouTubePlayer.OnInitializedListener {
                 override fun onInitializationSuccess(
                     p0: YouTubePlayer.Provider?,
