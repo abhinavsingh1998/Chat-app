@@ -351,10 +351,6 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     }
 
     private fun observePortFolioData(portfolioData: PortfolioData) {
-        if (portfolioData.data.pageManagement != null && portfolioData.data.pageManagement.data != null && portfolioData.data.pageManagement.data.page.facilityManagement != null) {
-            appPreference.setFacilityCard(portfolioData.data.pageManagement.data.isFacilityVisible)
-            appPreference.saveOfferUrl(portfolioData.data.pageManagement.data.page.facilityManagement.value.url)
-        }
 
         portfolioData.let { data ->
             val list = ArrayList<PortfolioModel>()

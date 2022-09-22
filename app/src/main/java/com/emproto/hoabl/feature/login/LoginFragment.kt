@@ -90,7 +90,7 @@ class LoginFragment : BaseFragment() {
 
     private fun initView() {
         val list = ArrayList<String>()
-        list.add("+91")
+        list.add("+91 | IND")
         mBinding.inputMobile.addDropDownValues(list)
 
         hMobileNo= appPreference.getMobilenum()

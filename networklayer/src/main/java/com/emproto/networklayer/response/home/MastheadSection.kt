@@ -4,7 +4,7 @@ import java.io.Serializable
 
 data class MastheadSection(
     val grossWeightedAvgAppreciation: GrossWeightedAvgAppreciation,
-    val totalAmountOfLandTransacted: TotalAmoutOfLandTransacted,
+    val totalAmoutOfLandTransacted: TotalAmoutOfLandTransacted,
     val totalNumberOfUsersWhoBoughtTheLand: TotalNumberOfUsersWhoBoughtTheLand,
     val totalSqftOfLandTransacted: TotalSqftOfLandTransacted
 ):Serializable

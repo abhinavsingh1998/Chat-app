@@ -323,7 +323,7 @@
                     android:layout_marginHorizontal="@dimen/margin_size_16"
                     android:layout_marginTop="@dimen/margin_size_14"
                     android:fontFamily="@font/jost_bold"
-                    android:text="₹2L"
+                    android:text="₹2Lakhs"
                     style="@style/text_style_text_black_color_16"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
