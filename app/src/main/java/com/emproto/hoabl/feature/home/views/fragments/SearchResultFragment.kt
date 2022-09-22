@@ -161,8 +161,8 @@ class SearchResultFragment : BaseFragment() {
 
                     val totalAmtLandSold: String? = String.format(
                         getString(R.string.header),
-                        it.data?.page?.mastheadSection?.totalAmountOfLandTransacted?.displayName,
-                        it.data?.page?.mastheadSection?.totalAmountOfLandTransacted?.value
+                        it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName,
+                        it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
                     )
                     //it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalAmoutOfLandTransacted?.value
                     val grossWeight: String? = String.format(

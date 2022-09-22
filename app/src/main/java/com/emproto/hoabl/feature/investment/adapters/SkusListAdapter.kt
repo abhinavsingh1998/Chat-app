@@ -39,7 +39,7 @@ class SkusListAdapter(
             val convertedFromAmount = String.format("%.0f", amount)
             val amountTo = element.priceRange!!.to.toDouble() / 100000
             val convertedToAmount = String.format("%.0f", amountTo)
-            val itemLandSkusPrice = "₹${convertedFromAmount}L - ${convertedToAmount}L"
+            val itemLandSkusPrice = "₹${convertedFromAmount}Lakhs - ${convertedToAmount}Lakhs"
             tvItemLandSkusPrice.text = itemLandSkusPrice
             tvItemLandSkusDescription.text = element.shortDescription
         }

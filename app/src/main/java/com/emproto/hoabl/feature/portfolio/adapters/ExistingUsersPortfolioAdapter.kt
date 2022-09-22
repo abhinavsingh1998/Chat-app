@@ -174,19 +174,19 @@ class ExistingUsersPortfolioAdapter(
                 binding.contentTxt2.text = Utility.convertTo(completed.areaSqFt)
                 binding.contentTxt3.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
                     .format(completed.amountInvested)
-                "${summary.iea}% IEA".also { binding.contentTxt4.text = it }
+                "${summary.iea} OEA".also { binding.contentTxt4.text = it }
             }
 
 
 
             binding.contentTxt4.setOnClickListener {
-                getToolTip("Investor Estimated Appreciation").showAlignBottom(binding.ivAmount)
+                getToolTip("Owner Estimated Appreciation").showAlignBottom(binding.ivAmount)
             }
             binding.cardName4.setOnClickListener {
-                getToolTip("Investor Estimated Appreciation").showAlignBottom(binding.ivAmount)
+                getToolTip("Owner  Estimated Appreciation").showAlignBottom(binding.ivAmount)
             }
             binding.ivAmount.setOnClickListener {
-                getToolTip("Investor Estimated Appreciation").showAlignBottom(binding.ivAmount)
+                getToolTip("Owner Estimated Appreciation").showAlignBottom(binding.ivAmount)
             }
 
             binding.cardName3.setOnClickListener {

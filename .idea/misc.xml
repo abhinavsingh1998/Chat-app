@@ -20,13 +20,19 @@
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/fragment_about_us.xml" value="0.11979166666666667" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/fragment_home.xml" value="0.11979166666666667" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/fragment_notification_bottom_sheet.xml" value="0.11979166666666667" />
+        <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/fragment_portfolio_specific_view.xml" value="0.11979166666666667" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/home_portfolio_card.xml" value="0.11979166666666667" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/home_testimonials_layout.xml" value="0.11979166666666667" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/insights_list_item.xml" value="0.11979166666666667" />
-        <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/item_completed_investments.xml" value="0.3444075304540421" />
+        <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/item_completed_investments.xml" value="0.22" />
+        <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/item_land_skus.xml" value="0.29330499468650373" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/item_location_infrastructure.xml" value="0.11979166666666667" />
+        <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/land_skus_top_layout.xml" value="0.11979166666666667" />
+        <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/ongoing_investments_layout.xml" value="0.22" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/payment_pending_layout.xml" value="0.12" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/portfolio_refer_layout.xml" value="0.11979166666666667" />
+        <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/portfolio_specific_view_top_layout.xml" value="0.3317307692307692" />
+        <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/project_detail_top_layout.xml" value="0.8333333333333334" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/menu/bottom_navigation.xml" value="0.11666666666666667" />
         <entry key="..\:/Android Projects/Office Projects/core/src/main/res/drawable/ic_notification.xml" value="0.12" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/MyApplication/hoabl_customer_app_android/app/portfolioui/src/main/res/layout/dailog_secure_pin_confirmation.xml" value="0.17239583333333333" />

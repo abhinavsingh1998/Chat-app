@@ -462,7 +462,7 @@
 
                                 <com.google.android.material.textview.MaterialTextView
                                     android:id="@+id/tv_investment_amount_title"
-                                    style="@style/text_style_dark_black_color_14"
+                                    style="@style/text_style_dark_black_color_12"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/jost_light"
@@ -567,7 +567,7 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_registry_amount_title"
-                        style="@style/text_style_dark_black_color_14"
+                        style="@style/text_style_dark_black_color_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_size_4"

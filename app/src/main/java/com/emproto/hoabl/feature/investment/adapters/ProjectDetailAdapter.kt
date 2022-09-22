@@ -323,7 +323,7 @@ class ProjectDetailAdapter(
 //                tvDuration.text = "${data.fomoContent.targetTime.hours}:${data.fomoContent.targetTime.minutes}:${data.fomoContent.targetTime.seconds} Hrs Left"
                 val amount = data.priceStartingFrom.toDouble() / 100000
                 val convertedAmount = amount.toString().replace(".0", "")
-                val priceRange = "₹${convertedAmount} L"
+                val priceRange = "₹${convertedAmount} Lakhs"
                 tvPriceRange.text = priceRange
                 val areaRange = "${data.areaStartingFrom} Sqft"
                 tvAreaRange.text = areaRange

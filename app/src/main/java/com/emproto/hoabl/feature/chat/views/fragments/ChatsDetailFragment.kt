@@ -178,6 +178,17 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                             for (item in it.data.messages) {
                                 if (item.message != null) {
                                     when (item.origin) {
+                                        "3" -> {
+                                            newChatMessageList.add(
+                                                ChatDetailModel(
+                                                    item.message,
+                                                    item.options,
+                                                    MessageType.RECEIVER, time,
+                                                    item.conversationId
+                                                )
+                                            )
+
+                                        }
                                         "2" -> {
                                             newChatMessageList.add(
                                                 ChatDetailModel(

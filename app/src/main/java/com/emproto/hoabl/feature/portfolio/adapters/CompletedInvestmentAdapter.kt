@@ -120,9 +120,9 @@ class CompletedInvestmentAdapter(
                 holder.binding.tvCompletedInvestmentRating.setTextColor(context.getColor(R.color.text_red_color))
                 holder.binding.tvCompletedInvestmentRatingUnit.setTextColor(context.getColor(R.color.text_red_color))
             } else {
-                "${project.investment.projectIea}% ".also { holder.binding.tvCompletedInvestmentRating.text = it }
+                "${project.investment.projectIea} ".also { holder.binding.tvCompletedInvestmentRating.text = it }
                 holder.binding.cvInvesterAppreciation.visibility = View.VISIBLE
-                "${project.investment.projectIea}% ".also { holder.binding.tvInvestorAppreciationRating.text = it }
+                "${project.investment.projectIea} ".also { holder.binding.tvInvestorAppreciationRating.text = it }
 
             }
             Glide.with(context)
