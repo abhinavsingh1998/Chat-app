@@ -124,7 +124,7 @@ class AuthActivity : BaseActivity() {
 
     fun launch_bottom_sheet() {
         val list = ArrayList<String>()
-        list.add("+91")
+        list.add("+91 | IND")
         signingInIssueBiding.inputMobile.addDropDownValues(list)
         signingInIssueBiding.inputMobile.setValue(appPreference.getMobilenum())
         if (!appPreference.getMobilenum().isNullOrEmpty()) {

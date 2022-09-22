@@ -146,9 +146,6 @@ class EditProfileFragment : BaseFragment() {
 
         (requireActivity() as HomeActivity).hideBottomNavigation()
         datePickerDialog()
-
-
-
         initView()
         setGenderSpinnersData()
         false.getCountries()
@@ -180,25 +177,25 @@ class EditProfileFragment : BaseFragment() {
     }
     private fun datePickerDialog() {
         val myCalender = Calendar.getInstance()
-        datePicker = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+
+        datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayofMonth ->
             myCalender.set(Calendar.YEAR, year)
             myCalender.set(Calendar.MONTH, month)
-            myCalender.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            myCalender.set(Calendar.DAY_OF_MONTH, dayofMonth)
+
             updateLabel(myCalender)
-
-            binding.tvDatePicker.setOnClickListener {
-                context?.let1 { it1 ->
-                    val dialog = DatePickerDialog(
-                        it1,
-                        datePicker,
-                        myCalender.get(Calendar.YEAR),
-                        myCalender.get(Calendar.MONTH),
-                        myCalender.get(Calendar.DAY_OF_MONTH)
-                    )
-                    dialog.datePicker.maxDate = System.currentTimeMillis()
-                    dialog.show()
-
-                }
+        }
+        binding.tvDatePicker.setOnClickListener {
+            context?.let1 { it1 ->
+                val dialog = DatePickerDialog(
+                    it1,
+                    datePicker,
+                    myCalender.get(Calendar.YEAR),
+                    myCalender.get(Calendar.MONTH),
+                    myCalender.get(Calendar.DAY_OF_MONTH)
+                )
+                dialog.datePicker.maxDate = System.currentTimeMillis()
+                dialog.show()
             }
         }
     }
@@ -524,7 +521,7 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun updateLabel(myCalendar: Calendar) {
-        val sdf = SimpleDateFormat("dd/MM/yyyy'T'HH:mm:ssZ", Locale.ENGLISH)
+        val sdf = SimpleDateFormat("dd/MM/yyyy'T'HH:mm:ssZ")
         val dateSelected = sdf.format(myCalendar.time)
         binding.tvDatePicker.setText(dateSelected.substring(0, 10))
 
