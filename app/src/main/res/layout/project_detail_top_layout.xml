@@ -37,13 +37,16 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_project_name"
             style="@style/text_style_text_black_color_17"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/jost_medium"
             android:singleLine="true"
+            android:ellipsize="end"
+            android:gravity="start"
             android:text="Isle of Bliss"
             android:textStyle="bold"
             android:layout_marginHorizontal="@dimen/margin_size_8"
+            app:layout_constraintEnd_toStartOf="@id/iv_bookmark_icon"
             app:layout_constraintStart_toEndOf="@id/cv_small_top_image"
             app:layout_constraintTop_toTopOf="@id/cv_small_top_image"/>
 
