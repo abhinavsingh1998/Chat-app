@@ -625,7 +625,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                         launchPhaseId = chatsList?.project?.projectContent?.id.toString(),
                         options = options
                     )
-                ).observe(viewLifecycleOwner) {
+                ).observe(this) {
                     when (it.status) {
                         Status.LOADING -> {
                         }
@@ -652,7 +652,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                         launchPhaseId = chatsList?.project?.projectContent?.id.toString(),
                         options = options
                     )
-                ).observe(viewLifecycleOwner) {
+                ).observe(this) {
                     when (it.status) {
                         Status.LOADING -> {
 
