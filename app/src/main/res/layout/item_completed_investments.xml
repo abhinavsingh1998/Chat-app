@@ -243,7 +243,7 @@
         android:layout_marginHorizontal="@dimen/margin_size_12"
         android:layout_marginTop="@dimen/margin_size_9"
         android:background="@drawable/bg_outline_portfolio"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cv_completed_investment_card">
