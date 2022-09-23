@@ -203,7 +203,7 @@ class AccountDetailsFragment : Fragment(),
                     ),
                     17,
                     "18",
-                    19,
+                    19F,
                     "20",
                     "21"
                 )

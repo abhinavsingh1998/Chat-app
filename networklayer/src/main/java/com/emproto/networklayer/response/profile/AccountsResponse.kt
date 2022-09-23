@@ -63,7 +63,7 @@ data class AccountsResponse(
             @SerializedName("launchName")
             val launchName: String,
             @SerializedName("paidAmount")
-            val paidAmount: Int,
+            val paidAmount: Float,
             @SerializedName("paymentDate")
             val paymentDate: String,
             @SerializedName("updatedAt")
