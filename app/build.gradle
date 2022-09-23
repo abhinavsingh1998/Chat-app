@@ -48,7 +48,7 @@ android {
         }
 
         release {
-            versionNameSuffix '1.0.2'
+            versionNameSuffix '1.0.3'
             minifyEnabled false
             buildConfigField("String", "MAP_KEY", "\"3j+SjzloU3Keq7Fk+lbKW9W2kdodK3M59ZmL10v+AOctU/oems5E2ANOrD73gB59\"")
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -120,7 +120,7 @@ dependencies {
     // Declare the dependency for the Performance Monitoring library
     implementation 'com.google.firebase:firebase-perf-ktx'
 
-    implementation 'com.google.android.gms:play-services-auth:20.2.0'
+    implementation 'com.google.android.gms:play-services-auth:20.3.0'
     implementation 'com.google.android.gms:play-services-auth-api-phone:18.0.1'
 
     //Tooltip
