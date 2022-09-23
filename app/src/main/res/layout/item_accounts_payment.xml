@@ -15,6 +15,8 @@
         android:text="Isle of Bliss"
         android:textSize="15sp"
         android:textColor="@color/black"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/tvSeeReceipt"
       app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvPaidAmount"/>
     <TextView
@@ -26,7 +28,9 @@
         android:fontFamily="@font/jost_medium"
         android:text="Isle of Bliss"
         android:textSize="13sp"
+        android:layout_marginEnd="4dp"
         android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@id/tvSeeReceipt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvProjectName"/>
 
@@ -82,11 +86,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="4dp"
         android:fontFamily="@font/jost_semibold"
         android:text="₹20,000"
         android:textColor="#676ac0"
         android:textSize="14sp"
         android:textStyle="normal"
+        app:layout_constraintEnd_toStartOf="@id/tvPaymentDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
