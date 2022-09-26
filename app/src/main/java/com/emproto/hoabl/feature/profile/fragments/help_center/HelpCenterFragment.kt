@@ -142,6 +142,22 @@ class HelpCenterFragment : BaseFragment() {
                                 true
                             )
                         }
+                        Constants.RATE_US_TITLE -> {
+                            val intent = Intent(Intent.ACTION_VIEW)
+                            val uri = Uri.parse(Constants.PLAY_STORE)
+                            intent.data = uri
+                            try{
+                                startActivity(intent)
+                            }
+                            catch (s: SecurityException) {
+                                Toast.makeText(
+                                    context,
+                                    Constants.AN_ERROR_OCCURRED,
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+
+                        }
                     }
 
                 }
