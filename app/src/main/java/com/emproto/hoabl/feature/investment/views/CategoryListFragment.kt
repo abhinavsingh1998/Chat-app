@@ -113,9 +113,10 @@ class CategoryListFragment : BaseFragment() {
     }
 
     private fun setUpCategoryAdapter(list: List<Any>, type: Int) {
-        categoryListAdapter =
-            CategoryListAdapter(this.requireContext(), list, itemClickListener, type)
-        binding.rvCategoryList.adapter = categoryListAdapter
+        if(list.isNotEmpty()){
+            categoryListAdapter = CategoryListAdapter(this.requireContext(), list, itemClickListener, type)
+            binding.rvCategoryList.adapter = categoryListAdapter
+        }
     }
 
     private val itemClickListener = object : ItemClickListener {

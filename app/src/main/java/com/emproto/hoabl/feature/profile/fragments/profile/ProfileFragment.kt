@@ -228,9 +228,9 @@ class ProfileFragment : BaseFragment() {
             R.drawable.rightarrow
         )
         val item4 = ProfileOptionsData(
-            Constants.FACILITY_MANAGEMENT_TITLE,
+            Constants.MY_SERVICES_TITLE,
             Constants.FACILITY_MANAGEMENT_DESCRIPTION,
-            R.drawable.management_image,
+            R.drawable.my_services_profile,
             R.drawable.rightarrow
         )
 
