@@ -28,6 +28,8 @@ object Constants {
     val RATE_US_DESCRIPTION = "Let us know your love for us! Rate us on the store"
     val INFO = "Or Call us: +91 123 123 1231 Email us: help@hoabl.in"
     val EMAIL = "mailto:care@hoabl.in"
+    val PLAY_STORE = "https://play.google.com/store/apps/details?id=com.hoabl"
+
     val TELEPHONE_NO = "+911231231231"
 
     val PROJECT_NAME = "ProjectName"
