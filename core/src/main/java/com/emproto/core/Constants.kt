@@ -54,6 +54,8 @@ object Constants {
     val HELP_CENTER_TITLE = "Help Center"
     val HELP_CENTER_DESCRIPTION = "Contact, About Us , Privacy Policy,Chat"
     val FACILITY_MANAGEMENT_TITLE = "Facility Management"
+    val MY_SERVICES_TITLE = "My Services"
+
     val FACILITY_MANAGEMENT_DESCRIPTION = "Manage your land, book, etc"
 
     val WHATSAPP_CONSENT_ENABLED = "whatsappConsentEnabled"

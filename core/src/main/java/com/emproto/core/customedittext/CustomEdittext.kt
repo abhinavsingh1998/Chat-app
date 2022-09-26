@@ -127,7 +127,7 @@ class CustomEdittext : ConstraintLayout {
                 if (onValueChangeListner != null) {
                     onValueChangeListner!!.onValueChanged(textValue, value)
                 }
-                countryCodeText.text = value
+                countryCodeText.text = "+91"
                 alertDialog!!.cancel()
                 refreshView()
             }

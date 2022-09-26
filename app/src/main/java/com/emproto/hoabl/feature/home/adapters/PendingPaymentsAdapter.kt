@@ -28,7 +28,7 @@ class PendingPaymentsAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val item = list!!.get(holder.adapterPosition)
+        val item = list!![holder.adapterPosition]
 
         holder.binding.apply {
             actionRequired.text = item!!.cardTitle
