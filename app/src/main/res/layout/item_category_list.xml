@@ -146,7 +146,7 @@
                 android:id="@+id/text_name_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_size_9"
+                android:layout_marginHorizontal="@dimen/margin_size_4"
                 android:gravity="start"
                 android:orientation="vertical"
                 android:visibility="visible"
