@@ -72,7 +72,7 @@ class OTPVerificationFragment : BaseFragment() {
 
     var attempts_num = 0
     val Invalid_otp =
-        "You have incorrectly typed the OTP 5 times. Please retry again after an hour."
+        "You have incorrectly typed the OTP 5 times. Please try again after an hour."
     val fisrt_attempt =
         "You have incorrectly typed the OTP 1 time. Click on Resend OTP to receive OTP again"
     val second_attempt =
