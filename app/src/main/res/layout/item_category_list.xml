@@ -172,7 +172,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/jost_regular"
-                    android:text="Anjarle, Maharashtra"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:text="Anjarle, Maharastra"
                     android:textStyle="normal" />
             </LinearLayout>
 
