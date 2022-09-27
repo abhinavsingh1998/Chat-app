@@ -56,6 +56,7 @@ class CategoryListAdapter(
                         val convertedAmount = amount.toString().replace(".0", "")
                         val priceAmount= "₹${convertedAmount} L" + Constants.ONWARDS
                         val areaPrice=element.areaStartingFrom + Constants.SQFT_ONWARDS
+                        val locationName=element.address.city+"\n"+element.address.state
                         val rating="${
                         String.format(
                             "%.0f",
@@ -65,6 +66,7 @@ class CategoryListAdapter(
                         tvCategoryPrice.text = priceAmount
                         tvCategoryArea.text = areaPrice
                         tvCategoryItemInfo.text = element.shortDescription
+                        tvProjectLocation.text=locationName
                         Glide.with(context)
                             .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
                             .into(ivCategoryImage)
@@ -86,6 +88,7 @@ class CategoryListAdapter(
                         val convertedAmount = amount.toString().replace(".0", "")
                         val categoryPrice="₹${convertedAmount} L" + Constants.ONWARDS
                         val categoryArea= element.areaStartingFrom + Constants.SQFT_ONWARDS
+                        val locationName=element.address.city +"\n"+element.address.state
                         val tRating="${
                             String.format(
                                 "%.0f",
@@ -96,6 +99,8 @@ class CategoryListAdapter(
                         tvCategoryArea.text =categoryArea
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text = tRating
+                        tvProjectLocation.text=locationName
+
                         Glide.with(context)
                             .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
                             .into(ivCategoryImage)
@@ -116,6 +121,7 @@ class CategoryListAdapter(
                         val convertedAmount = amount.toString().replace(".0", "")
                         val categoryPrice="₹${convertedAmount} L" + Constants.ONWARDS
                         val categoryArea=element.areaStartingFrom + Constants.SQFT_ONWARDS
+                        val locationName=element.address.city +"\n"+element.address.state
                         val tRating="${
                             String.format(
                                 "%.0f",
@@ -126,6 +132,8 @@ class CategoryListAdapter(
                         tvCategoryArea.text = categoryArea
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text = tRating
+                        tvProjectLocation.text=locationName
+
                         Glide.with(context)
                             .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
                             .into(ivCategoryImage)
@@ -177,6 +185,8 @@ class CategoryListAdapter(
                         val convertedAmount = amount.toString().replace(".0", "")
                         val categoryPrice="₹${convertedAmount} L" + Constants.ONWARDS
                         val categoryIemInfo=element.areaStartingFrom + Constants.SQFT_ONWARDS
+                        val locationName=element.address.city +"\n"+element.address.state
+
                         val rating="${
                             String.format(
                                 "%.0f",
@@ -187,6 +197,8 @@ class CategoryListAdapter(
                         tvCategoryArea.text = categoryIemInfo
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text =rating
+                        tvProjectLocation.text=locationName
+
                         Glide.with(context)
                             .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
                             .into(ivCategoryImage)
@@ -207,9 +219,12 @@ class CategoryListAdapter(
                         val convertedAmount = amount.toString().replace(".0", "")
                         val categoryPrice ="₹${convertedAmount} L" + Constants.ONWARDS
                         val categoryArea=element.project.areaStartingFrom + Constants.SQFT_ONWARDS
+                        val locationName=element.project.address.city +"\n"+element.project.address.state
+
                         tvCategoryPrice.text = categoryPrice
                         tvCategoryArea.text = categoryArea
                         tvCategoryItemInfo.text = element.project.shortDescription
+                        tvProjectLocation.text=locationName
                         Glide.with(context)
                             .load(element.project.projectCoverImages.collectionListViewPageMedia.value.url)
                             .into(ivCategoryImage)
@@ -231,6 +246,8 @@ class CategoryListAdapter(
                         val convertedAmount = amount.toString().replace(".0", "")
                         val categoryPrice="₹${convertedAmount} L" + Constants.ONWARDS
                         val categoryArea=element.areaStartingFrom + Constants.SQFT_ONWARDS
+                        val locationName=element.address.city +"\n"+element.address.state
+
                         val rating= "${
                             String.format(
                                 "%.0f",
@@ -239,6 +256,8 @@ class CategoryListAdapter(
                         }%"
                         tvCategoryPrice.text = categoryPrice
                         tvCategoryArea.text = categoryArea
+                        tvProjectLocation.text=locationName
+
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text =rating
                         Glide.with(context)
@@ -262,6 +281,8 @@ class CategoryListAdapter(
                         val amount = element.priceStartingFrom!!.toDouble() / 100000
                         val convertedAmount = amount.toString().replace(".0", "")
                         val categoryPrice="₹${convertedAmount} L" + Constants.ONWARDS
+                        val locationName=element.address.city +"\n"+element.address.state
+
                         val rating="${
                             String.format(
                                 "%.0f",
@@ -271,6 +292,7 @@ class CategoryListAdapter(
                         tvCategoryPrice.text = categoryPrice
                         val categoryArea = element.areaStartingFrom + Constants.SQFT_ONWARDS
                         tvCategoryArea.text = categoryArea
+                        tvProjectLocation.text=locationName
                         tvCategoryItemInfo.text = element.shortDescription
                         tvRating.text = rating
                         Glide.with(context)
@@ -321,9 +343,13 @@ class CategoryListAdapter(
                         val categoryPrice="₹${convertedAmount} L" + Constants.ONWARDS
                         val categoryArea=element.areaStartingFrom + " Sqft Onwards"
                         val rating="${String.format("%.0f", element.estimatedAppreciation)}%"
+                        val locationName=element.address.city +"\n"+element.address.state
+
                         tvCategoryPrice.text = categoryPrice
                         tvCategoryArea.text = categoryArea
                         tvCategoryItemInfo.text = element.shortDescription
+                        tvProjectLocation.text=locationName
+
                         tvRating.text =rating
 
                         Glide.with(context)

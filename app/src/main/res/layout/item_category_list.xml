@@ -146,7 +146,7 @@
                 android:id="@+id/text_name_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_size_9"
+                android:layout_marginHorizontal="@dimen/margin_size_4"
                 android:gravity="start"
                 android:orientation="vertical"
                 android:visibility="visible"
@@ -172,7 +172,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/jost_regular"
-                    android:text="Anjarle, Maharashtra"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:text="Anjarle, Maharastra"
                     android:textStyle="normal" />
             </LinearLayout>
 
