@@ -77,7 +77,7 @@ class ProjectDetailFragment : BaseFragment() {
     private lateinit var allData: PdData
 
     private var faqData: List<ProjectContentsAndFaq> = mutableListOf()
-    private var appUrl = Constants.APP_URL
+    private var appUrl = Constants.PLAY_STORE
     private var isBookmarked = false
     private var watchListId = 0
 
@@ -327,6 +327,9 @@ class ProjectDetailFragment : BaseFragment() {
                 }
                 R.id.tv_similar_investment_see_all -> {
                     navigateToCategory()
+                }
+                R.id.iv_share_icon->{
+                    (requireActivity() as HomeActivity).share_app()
                 }
                 R.id.btn_view_on_map -> {
                     if(isNetworkAvailable()){

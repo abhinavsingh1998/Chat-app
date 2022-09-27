@@ -26,7 +26,7 @@ class LatestUpdatesFragment : BaseFragment() {
     lateinit var mBinding: FragmentLatestUpdatesBinding
     private lateinit var latestUpatesAdapter: AllLatestUpdatesAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private val appURL = Constants.APP_URL
+    private val appURL = Constants.PLAY_STORE
     var updatesListCount = 0
     private lateinit var latestHeading: String
     private lateinit var latestSubHeading: String

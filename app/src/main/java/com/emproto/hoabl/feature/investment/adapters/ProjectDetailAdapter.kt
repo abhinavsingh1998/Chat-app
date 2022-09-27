@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.CountDownTimer
 import android.text.SpannableStringBuilder
@@ -16,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
+import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.model.YoutubeModel
 import com.emproto.hoabl.utils.ItemClickListener
@@ -51,8 +53,10 @@ class ProjectDetailAdapter(
     private val similarInvItemClickListener: SimilarInvItemClickListener,
     private val mapItemClickListener: MapItemClickListener,
     private val projectContentsAndFaqs: List<ProjectContentsAndFaq>,
-    private val pageManagementContent: PageManagementContent
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val pageManagementContent: PageManagementContent,
+
+
+    ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val VIEW_TYPE_PROJECT_DETAIL = 1
@@ -908,6 +912,9 @@ class ProjectDetailAdapter(
 
     fun setItemClickListener(clickListener: View.OnClickListener) {
         onItemClickListener = clickListener
+    }
+    interface ShareAppInterFace{
+        fun shareApp()
     }
 
 }
