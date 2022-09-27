@@ -86,7 +86,7 @@ class ChatsDetailAdapter(
 
             }
         } else if (holder is SenderViewHolder) {
-            holder.tvSentMessage.text = chatDetailList[position].message
+            holder.tvSentMessage.text = chatDetailList[position].message?.trim()
             holder.tvChatSendTime.text = chatDetailList[position].time
         }
     }

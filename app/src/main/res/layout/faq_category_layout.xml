@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/category"
+        android:visibility="gone"
         android:fontFamily="@font/jost_medium"
         android:layout_marginHorizontal="@dimen/margin_size_14"
         android:layout_marginTop="@dimen/margin_size_16"

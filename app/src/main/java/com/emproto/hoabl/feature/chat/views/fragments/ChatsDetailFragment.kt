@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -39,7 +38,6 @@ import com.emproto.networklayer.response.enums.Status
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     @Inject
@@ -123,11 +121,18 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
+                binding.etType.text.toString().trim()
 
+            }
             override fun afterTextChanged(s: Editable?) {
                 when {
+                    s.toString().trim().isEmpty()->{
+                        binding.ivSend.isClickable=false
+                        binding.clSend.background =
+                            ContextCompat.getDrawable(context!!, R.drawable.send_button_bg)
+                    }
                     s.toString().isNotEmpty() -> {
+                        binding.ivSend.isClickable=true
                         binding.clSend.background =
                             ContextCompat.getDrawable(context!!, R.drawable.send_button_blue_bg)
                     }
@@ -136,10 +141,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         })
 
         callChatHistoryApi()
-
         binding.clButtonStart.setOnClickListener {
             binding.clButtonStart.visibility = View.GONE
-//            binding.tvDay.visibility = View.VISIBLE
             callChatInitiateApi()
             getDay()
         }
@@ -411,7 +414,10 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                         bundle.putBoolean(Constants.IS_FROM_INVESTMENT, true)
                                         bundle.putString(Constants.PROJECT_NAME, it.launchName)
                                         fragment.arguments = bundle
-                                        (requireActivity() as HomeActivity).addFragment(fragment, true)
+                                        (requireActivity() as HomeActivity).addFragment(
+                                            fragment,
+                                            true
+                                        )
                                     }
                                 }
                             }
@@ -511,8 +517,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                 }
                             }
 
-                        chatsDetailAdapter.notifyDataSetChanged()
-                        binding.rvChat.smoothScrollToPosition(newChatMessageList.size - 1)
+                            chatsDetailAdapter.notifyDataSetChanged()
+                            binding.rvChat.smoothScrollToPosition(newChatMessageList.size - 1)
 
                         }
                     }
