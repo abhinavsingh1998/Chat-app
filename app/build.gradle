@@ -14,7 +14,7 @@ android {
         applicationId "com.hoabl"
         minSdk 19
         targetSdk 32
-        versionCode 4
+        versionCode 5
         versionName ""
         multiDexEnabled true
         archivesBaseName = "Hoabl"
@@ -39,7 +39,7 @@ android {
         }
 
         preProd {
-            versionNameSuffix '0.0.68-preprod'
+            versionNameSuffix '0.0.69-preprod'
             debuggable true
             buildConfigField("String", "MAP_KEY", "\"62X/OKEKC82iS4I0dBIm26+h+SNXueaWXo9XIFQYX1cYlqrcVIcaKk2161SM8x2x\"")
             buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-preprod-1970620156.ap-south-1.elb.amazonaws.com\"")
