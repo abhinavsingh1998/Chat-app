@@ -184,10 +184,18 @@ class FaqDetailAdapter(
         private val tvCategoryTitle: MaterialTextView = itemView.findViewById(R.id.tv_category_title)
         private val rvFaq: RecyclerView = itemView.findViewById(R.id.rv_faq)
         fun bind(data: CgData) {
-            tvCategoryTitle.text = data.name
-            val sortedList = data.faqs.sortedBy { it.priority }
-            faqAdapter = FaqAdapter(sortedList, faqId, itemClickListener)
-            rvFaq.adapter = faqAdapter
+            if(data.numberOfFaqs!=null){
+                tvCategoryTitle.visibility=View.VISIBLE
+
+                tvCategoryTitle.text = data.name
+                val sortedList = data.faqs.sortedBy { it.priority }
+                faqAdapter = FaqAdapter(sortedList, faqId, itemClickListener)
+                rvFaq.adapter = faqAdapter
+            }
+            else{
+                tvCategoryTitle.visibility=View.GONE
+            }
+
         }
     }
 
