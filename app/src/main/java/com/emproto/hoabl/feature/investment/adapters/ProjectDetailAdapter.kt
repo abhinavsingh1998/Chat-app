@@ -15,6 +15,7 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.bumptech.glide.Glide
 import com.emproto.core.Constants
+import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
@@ -319,16 +320,10 @@ class ProjectDetailAdapter(
 
             binding.apply {
                 tvProjectName.text = data.launchName
-
                 val projectLocation = "${data.address.city}, ${data.address.state}"
                 tvProjectLocation.text = projectLocation
-//                tvViewCount.text = Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)
                 tvViewCount.text = data.fomoContent.noOfViews.toString()
-//                tvDuration.text = "${data.fomoContent.targetTime.hours}:${data.fomoContent.targetTime.minutes}:${data.fomoContent.targetTime.seconds} Hrs Left"
-                val amount = data.priceStartingFrom.toDouble() / 100000
-                val convertedAmount = amount.toString().replace(".0", "")
-                val priceRange = "₹${convertedAmount} Lakhs"
-                tvPriceRange.text = priceRange
+                tvPriceRange.text = Utility.formatAmount( data.priceStartingFrom.toDouble())
                 val areaRange = "${data.areaStartingFrom} Sqft"
                 tvAreaRange.text = areaRange
                 tvProjectViewInfo.text = SpannableStringBuilder()
