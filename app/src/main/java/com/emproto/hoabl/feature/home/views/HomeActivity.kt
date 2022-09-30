@@ -99,7 +99,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private lateinit var profileViewModel: ProfileViewModel
 
     private var added = false
-    private val appURL = Constants.APP_URL
+    private val appURL = Constants.PLAY_STORE
     private var oneTimeValidation = false
 
     private var topText = ""

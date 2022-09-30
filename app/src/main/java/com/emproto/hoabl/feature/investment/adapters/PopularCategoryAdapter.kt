@@ -25,6 +25,7 @@ class PopularCategoryAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val element = list[position]
         holder.binding.apply {
+
             tvCategoryName.text = element
             cvCategoryName.setOnClickListener {
                 itemClickListener.onItemClicked(it, position, element)

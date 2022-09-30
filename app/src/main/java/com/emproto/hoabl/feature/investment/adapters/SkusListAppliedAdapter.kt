@@ -3,6 +3,7 @@ package com.emproto.hoabl.feature.investment.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ItemLandSkusAppliedBinding
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.Inventory
@@ -26,12 +27,7 @@ class SkusListAppliedAdapter(
             tvItemLandSkusName.text = element.name
             val itemLandSkusArea = "${element.areaRange?.from} - ${element.areaRange?.to} Sqft"
             tvItemLandSkusArea.text = itemLandSkusArea
-            val amount = element.priceRange?.from!!.toDouble() / 100000
-            val convertedFromAmount = String.format("%.0f", amount)
-            val amountTo = element.priceRange?.to!!.toDouble() / 100000
-            val convertedToAmount = String.format("%.0f", amountTo)
-            val itemLandSkusPrice = "₹${convertedFromAmount}Lakhs - ${convertedToAmount}Lakhs"
-            tvItemLandSkusPrice.text = itemLandSkusPrice
+            tvItemLandSkusPrice.text = Utility.formatAmount(element.priceRange?.from!!.toDouble() )
             tvItemLandSkusDescription.text = element.shortDescription
         }
     }

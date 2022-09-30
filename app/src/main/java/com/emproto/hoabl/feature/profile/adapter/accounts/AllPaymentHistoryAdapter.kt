@@ -51,12 +51,14 @@ class AllPaymentHistoryAdapter(
         if(!accountsPaymentList[position].launchName.isNullOrEmpty()){
             holder.tvProjectName.text = accountsPaymentList[position].launchName
         }
+        if (accountsPaymentList[position].crmInventory!=null) {
+            "Land id:${accountsPaymentList[position].crmInventory}".also { holder.tvLandId.text = it }
+        }
         if (!accountsPaymentList[position].paymentDate.isNullOrEmpty()) {
             val paymentDate = Utility.dateInWords(accountsPaymentList[position].paymentDate)
             holder.tvPaymentDate.text = paymentDate
-        }
-        if (accountsPaymentList[position].crmInventory!=null) {
-            "Land id:${accountsPaymentList[position].crmInventory}".also { holder.tvLandId.text = it }
+        }else{
+            holder.tvPaymentDate.text=""
         }
         holder.tvSeeReceipt.setOnClickListener {
             if (accountsPaymentList[position].document==null) {
