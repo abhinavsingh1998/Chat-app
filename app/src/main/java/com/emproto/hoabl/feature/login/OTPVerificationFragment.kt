@@ -107,6 +107,7 @@ class OTPVerificationFragment : BaseFragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -116,6 +117,7 @@ class OTPVerificationFragment : BaseFragment() {
         authViewModel = ViewModelProvider(requireActivity(), authFactory)[AuthViewmodel::class.java]
         mBinding = FragmentVerifyOtpBinding.inflate(layoutInflater)
         authActivity = AuthActivity()
+        mBinding.etOtp.isFocusable=true
         initView()
         initClickListener()
         otpTimerCount()
@@ -156,8 +158,10 @@ class OTPVerificationFragment : BaseFragment() {
 
             }
 
+            @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
+                mBinding.etOtp.letterSpacing= 1f
             }
 
             @RequiresApi(Build.VERSION_CODES.M)
