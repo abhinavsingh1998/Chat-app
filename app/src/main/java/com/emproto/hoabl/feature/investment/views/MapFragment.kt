@@ -102,7 +102,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMapBinding.inflate(layoutInflater)
-        val encyptKey = NetworkUtil.encrypt("AIzaSyBAQrIpZqIE4moMhptpOYD9Wa9585l9ju0")
         return binding.root
     }
 
