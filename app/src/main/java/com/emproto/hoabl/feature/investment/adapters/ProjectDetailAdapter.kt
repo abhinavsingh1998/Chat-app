@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.CountDownTimer
 import android.text.SpannableStringBuilder
@@ -14,8 +15,10 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.bumptech.glide.Glide
 import com.emproto.core.Constants
+import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
+import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.model.YoutubeModel
 import com.emproto.hoabl.utils.ItemClickListener
@@ -51,8 +54,10 @@ class ProjectDetailAdapter(
     private val similarInvItemClickListener: SimilarInvItemClickListener,
     private val mapItemClickListener: MapItemClickListener,
     private val projectContentsAndFaqs: List<ProjectContentsAndFaq>,
-    private val pageManagementContent: PageManagementContent
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val pageManagementContent: PageManagementContent,
+
+
+    ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val VIEW_TYPE_PROJECT_DETAIL = 1
@@ -315,16 +320,10 @@ class ProjectDetailAdapter(
 
             binding.apply {
                 tvProjectName.text = data.launchName
-
                 val projectLocation = "${data.address.city}, ${data.address.state}"
                 tvProjectLocation.text = projectLocation
-//                tvViewCount.text = Utility.coolFormat(data.fomoContent.noOfViews.toDouble(),0)
                 tvViewCount.text = data.fomoContent.noOfViews.toString()
-//                tvDuration.text = "${data.fomoContent.targetTime.hours}:${data.fomoContent.targetTime.minutes}:${data.fomoContent.targetTime.seconds} Hrs Left"
-                val amount = data.priceStartingFrom.toDouble() / 100000
-                val convertedAmount = amount.toString().replace(".0", "")
-                val priceRange = "₹${convertedAmount} Lakhs"
-                tvPriceRange.text = priceRange
+                tvPriceRange.text = Utility.formatAmount( data.priceStartingFrom.toDouble())
                 val areaRange = "${data.areaStartingFrom} Sqft"
                 tvAreaRange.text = areaRange
                 tvProjectViewInfo.text = SpannableStringBuilder()
@@ -908,6 +907,9 @@ class ProjectDetailAdapter(
 
     fun setItemClickListener(clickListener: View.OnClickListener) {
         onItemClickListener = clickListener
+    }
+    interface ShareAppInterFace{
+        fun shareApp()
     }
 
 }

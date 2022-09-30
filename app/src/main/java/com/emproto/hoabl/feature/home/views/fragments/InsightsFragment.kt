@@ -26,7 +26,7 @@ class InsightsFragment : BaseFragment() {
     lateinit var mBinding: FragmentInsightsBinding
     private lateinit var insightsAdapter: AllInsightsAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private val appURL =Constants.APP_URL
+    private val appURL =Constants.PLAY_STORE
     private var insightsListCount = 0
     private lateinit var insightsHeading: String
     private lateinit var insightsSubHeading: String

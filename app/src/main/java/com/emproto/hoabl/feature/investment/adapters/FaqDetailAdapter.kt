@@ -111,7 +111,9 @@ class FaqDetailAdapter(
 
             val list = arrayListOf<String>()
             for (item in faqData) {
-                list.add(item.name)
+                if(item.numberOfFaqs!=null){
+                    list.add(item.name)
+                }
             }
             categoryAdapter = PopularCategoryAdapter(list, itemClickListener)
             rvPopCategory.adapter = categoryAdapter
@@ -186,7 +188,6 @@ class FaqDetailAdapter(
         fun bind(data: CgData) {
             if(data.numberOfFaqs!=null){
                 tvCategoryTitle.visibility=View.VISIBLE
-
                 tvCategoryTitle.text = data.name
                 val sortedList = data.faqs.sortedBy { it.priority }
                 faqAdapter = FaqAdapter(sortedList, faqId, itemClickListener)

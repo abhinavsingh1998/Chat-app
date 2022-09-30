@@ -28,7 +28,7 @@ class Testimonials : BaseFragment() {
     private lateinit var mBinding: FragmentTestimonialsBinding
     private lateinit var testimonialsAdapter: TestimonialsAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private val appURL = Constants.APP_URL
+    private val appURL = Constants.PLAY_STORE
     private var testimonialsItem = 0
     private var testimonilalsHeading: String = ""
     private var testimonilalsSubHeading: String = ""
