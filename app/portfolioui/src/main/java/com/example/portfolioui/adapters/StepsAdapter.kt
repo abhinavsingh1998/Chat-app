@@ -93,8 +93,8 @@ class StepsAdapter(
                     getToolTip(data.values.toolTipDetails).showAlignBottom(type1Holder.binding.imageView)
                 }
 
-                if(data.values.isCtaActive != null){
-                    if(!data.values.isCtaActive){
+                if (data.values.isCtaActive != null) {
+                    if (!data.values.isCtaActive) {
                         type1Holder.binding.textView7.isVisible = false
                     }
                 }
@@ -120,8 +120,8 @@ class StepsAdapter(
                     )
 
                 }
-                if(data.values.isCtaActive != null){
-                    if(!data.values.isCtaActive){
+                if (data.values.isCtaActive != null) {
+                    if (!data.values.isCtaActive) {
                         type1Holder.binding.textView7.isVisible = false
                     }
                 }
@@ -143,8 +143,8 @@ class StepsAdapter(
                 type1Holder.binding.imageView.setOnClickListener {
                     getToolTip(data.values.toolTipDetails).showAlignBottom(type1Holder.binding.imageView)
                 }
-                if(data.values.isCtaActive != null){
-                    if(!data.values.isCtaActive){
+                if (data.values.isCtaActive != null) {
+                    if (!data.values.isCtaActive) {
                         type1Holder.binding.textView7.isVisible = false
                     }
                 }

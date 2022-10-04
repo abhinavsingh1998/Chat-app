@@ -2,7 +2,6 @@ package com.emproto.hoabl.feature.home.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -31,7 +30,7 @@ class HoABLPromisesAdapter1(
         holder.binding.homePromisesItem.setOnClickListener {
             itemInterface.onItemClicked(it, position, item.id.toString())
         }
-        if (item.displayMedia!=null){
+        if (item.displayMedia != null) {
             Glide.with(context)
                 .load(item.displayMedia!!.value.url)
                 .dontAnimate()

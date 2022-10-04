@@ -64,7 +64,7 @@ class IntroSliderActivity : BaseActivity(), StoriesProgressView.StoriesListener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityIntrosliderBinding = ActivityIntrosliderBinding.inflate(layoutInflater)
-       // (application as HomeComponentProvider).homeComponent().inject(this)
+        // (application as HomeComponentProvider).homeComponent().inject(this)
         setContentView(activityIntrosliderBinding.root)
         context = this
 
@@ -113,21 +113,21 @@ class IntroSliderActivity : BaseActivity(), StoriesProgressView.StoriesListener 
             image.setImageResource(resources[counter])
             textview?.setText(txtResource[counter])
             btn_txt_chnage()
-        } catch (e:Exception){
+        } catch (e: Exception) {
 
         }
     }
 
-    fun btn_txt_chnage(){
-        if (counter==2){
+    fun btn_txt_chnage() {
+        if (counter == 2) {
             activityIntrosliderBinding.buttonSkip.setText("Get started")
-            activityIntrosliderBinding.tmTxt.isVisible=false
-        } else if(counter==1){
-            activityIntrosliderBinding.tmTxt.isVisible=false
+            activityIntrosliderBinding.tmTxt.isVisible = false
+        } else if (counter == 1) {
+            activityIntrosliderBinding.tmTxt.isVisible = false
             activityIntrosliderBinding.buttonSkip.setText("Skip & get started")
         } else {
             activityIntrosliderBinding.buttonSkip.setText("Skip & get started")
-            activityIntrosliderBinding.tmTxt.isVisible=true
+            activityIntrosliderBinding.tmTxt.isVisible = true
         }
     }
 
@@ -140,13 +140,13 @@ class IntroSliderActivity : BaseActivity(), StoriesProgressView.StoriesListener 
             image.setImageResource(resources[counter])
             textview!!.setText(txtResource[counter])
             btn_txt_chnage()
-        } catch (e:Exception){
+        } catch (e: Exception) {
 
         }
     }
 
     override fun onComplete() {
-        counter=0
+        counter = 0
         storyStart()
     }
 

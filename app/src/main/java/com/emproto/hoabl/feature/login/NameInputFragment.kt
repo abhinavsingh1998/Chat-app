@@ -12,12 +12,12 @@ import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
-import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentNameInputBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.viewmodels.AuthViewmodel
 import com.emproto.hoabl.viewmodels.factory.AuthFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
@@ -76,7 +76,7 @@ class NameInputFragment : BaseFragment() {
     }
 
     private fun initClickListener() {
-        if (firstName!=null) {
+        if (firstName != null) {
             binding.firstName.setText(firstName)
             binding.submitBtn.isEnabled = true
             binding.submitBtn.isClickable = true
@@ -85,7 +85,7 @@ class NameInputFragment : BaseFragment() {
                     getDrawable(requireContext(), R.drawable.button_bg)
             }
         }
-        if (lastName!=null) {
+        if (lastName != null) {
             binding.secondName.setText(lastName)
         }
 

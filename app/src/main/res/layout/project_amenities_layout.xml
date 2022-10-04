@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_project_amenities_title"
@@ -30,51 +30,51 @@
         android:singleLine="true"
         android:text="@string/see_all"
         app:fontName="@string/jost_regular"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/tv_project_amenities_title"
-        app:layout_constraintTop_toTopOf="@+id/tv_project_amenities_title"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_project_amenities_title" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_project_amenities_item_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_size_8"
-        android:layout_marginEnd="@dimen/margin_size_13"
         android:layout_marginTop="@dimen/margin_size_6"
+        android:layout_marginEnd="@dimen/margin_size_13"
+        android:clipToPadding="false"
         android:orientation="vertical"
         android:paddingBottom="@dimen/margin_size_5"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
+        app:layout_constrainedHeight="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_project_amenities_title"
-        android:clipToPadding="false"
-        app:layout_constrainedHeight="true"
+        app:spanCount="2"
         tools:itemCount="10"
         tools:listitem="@layout/project_amenities_item_layout" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_view_more"
+        style="@style/text_style_blue_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_size_14"
         android:layout_marginEnd="@dimen/margin_size_5"
-        app:layout_constraintEnd_toStartOf="@id/iv_view_more_arrow"
-        app:layout_constraintTop_toBottomOf="@id/rv_project_amenities_item_recycler"
         android:text="@string/view_more"
         android:textAllCaps="true"
         android:visibility="gone"
-        android:layout_marginTop="@dimen/margin_size_14"
-        style="@style/text_style_blue_14" />
+        app:layout_constraintEnd_toStartOf="@id/iv_view_more_arrow"
+        app:layout_constraintTop_toBottomOf="@id/rv_project_amenities_item_recycler" />
 
     <ImageView
         android:id="@+id/iv_view_more_arrow"
         android:layout_width="12dp"
         android:layout_height="9dp"
+        android:layout_marginEnd="@dimen/margin_size_10"
         android:src="@drawable/path_3_1"
         android:visibility="gone"
-        android:layout_marginEnd="@dimen/margin_size_10"
+        app:layout_constraintBottom_toBottomOf="@id/tv_view_more"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_view_more"
-        app:layout_constraintBottom_toBottomOf="@id/tv_view_more"/>
+        app:layout_constraintTop_toTopOf="@id/tv_view_more" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

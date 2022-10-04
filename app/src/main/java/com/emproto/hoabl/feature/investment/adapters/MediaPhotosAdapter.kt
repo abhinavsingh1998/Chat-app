@@ -89,7 +89,7 @@ class MediaPhotosAdapter(
                     binding.rvPhotos.layoutManager = gridLayoutManager
                     binding.rvPhotos.adapter = mediaPhotosPictureAdapter
                 }
-               Constants.VIDEOS -> {
+                Constants.VIDEOS -> {
                     val videoList = mediaData
                     mediaItemVideosAdapter =
                         MediaItemVideosAdapter(context, youtubeItemClickListener, videoList)

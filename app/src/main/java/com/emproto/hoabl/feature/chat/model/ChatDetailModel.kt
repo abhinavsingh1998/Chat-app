@@ -7,8 +7,9 @@ data class ChatDetailModel(
     val option: ArrayList<Option>? = null,
     val messageType: MessageType,
     val time: String?,
-    val conversationId:Int=0
+    val conversationId: Int = 0
 )
+
 enum class MessageType {
     SENDER, RECEIVER
 }

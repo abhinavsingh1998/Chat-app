@@ -3,12 +3,12 @@
     android:height="16dp"
     android:viewportWidth="17"
     android:viewportHeight="16">
-  <path
-      android:pathData="M0,9.112a6.581,6.888 0,1 0,13.162 0a6.581,6.888 0,1 0,-13.162 0z"
-      android:fillColor="#B0EF8F"
-      android:fillType="nonZero"/>
-  <path
-      android:pathData="m6.655,14.436 l-0.083,-0.149C5.297,12.013 1.909,7.188 1.874,7.14l-0.049,-0.07L2.98,5.876l3.654,2.67c2.3,-3.124 4.447,-5.27 5.847,-6.524C14.012,0.652 15.009,0.02 15.019,0.014L15.042,0H17l-0.187,0.174C12.003,4.66 6.789,14.19 6.737,14.286l-0.082,0.15z"
-      android:fillColor="#009045"
-      android:fillType="nonZero"/>
+    <path
+        android:fillColor="#B0EF8F"
+        android:fillType="nonZero"
+        android:pathData="M0,9.112a6.581,6.888 0,1 0,13.162 0a6.581,6.888 0,1 0,-13.162 0z" />
+    <path
+        android:fillColor="#009045"
+        android:fillType="nonZero"
+        android:pathData="m6.655,14.436 l-0.083,-0.149C5.297,12.013 1.909,7.188 1.874,7.14l-0.049,-0.07L2.98,5.876l3.654,2.67c2.3,-3.124 4.447,-5.27 5.847,-6.524C14.012,0.652 15.009,0.02 15.019,0.014L15.042,0H17l-0.187,0.174C12.003,4.66 6.789,14.19 6.737,14.286l-0.082,0.15z" />
 </vector>

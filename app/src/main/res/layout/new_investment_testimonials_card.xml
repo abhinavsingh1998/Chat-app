@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_testimonials"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/margin_size_20"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_video_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_size_30"
             android:layout_marginHorizontal="@dimen/margin_size_13"
+            android:layout_marginTop="@dimen/margin_size_30"
             android:fontFamily="@font/jost_medium"
             android:text="@string/hear_our_customers_speak"
             android:textColor="@color/text_light_black_color"
@@ -28,8 +28,6 @@
 
         <com.emproto.core.textviews.CustomTextView
             android:id="@+id/tv_hear_speak_see_all"
-            android:textColor="@color/text_blue_color"
-            android:textSize="@dimen/text_size_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_size_14"
@@ -37,20 +35,21 @@
             android:drawablePadding="@dimen/margin_size_6"
             android:singleLine="true"
             android:text="@string/see_all"
+            android:textColor="@color/text_blue_color"
+            android:textSize="@dimen/text_size_14"
             app:fontName="@string/jost_regular"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@+id/tv_video_title"
-            app:layout_constraintTop_toTopOf="@+id/tv_video_title"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_video_title" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_testimonials"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_size_24"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_video_title"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_video_title" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_dot_layout"

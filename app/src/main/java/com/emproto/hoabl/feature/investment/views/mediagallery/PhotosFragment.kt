@@ -65,7 +65,7 @@ class PhotosFragment : BaseFragment() {
         list.add(MediaGalleryItem(2, Constants.PHOTOS))
 
         allImageList.clear()
-        for(item in list1){
+        for (item in list1) {
             allImageList.add(item)
         }
         investmentViewModel.getImageActive().observe(viewLifecycleOwner) {
@@ -94,7 +94,7 @@ class PhotosFragment : BaseFragment() {
         binding.rvMainPhotos.adapter = mediaPhotosAdapter
     }
 
-    val youtubeItemClickListener = object:YoutubeItemClickListener{
+    val youtubeItemClickListener = object : YoutubeItemClickListener {
         override fun onItemClicked(view: View, position: Int, url: String, title: String) {
 
         }
@@ -107,7 +107,7 @@ class PhotosFragment : BaseFragment() {
             val mediaViewFragment = MediaViewFragment()
             val bundle = Bundle()
             bundle.putSerializable(Constants.DATA, item)
-            bundle.putInt(Constants.IMAGE_POSITION,position)
+            bundle.putInt(Constants.IMAGE_POSITION, position)
             mediaViewFragment.arguments = bundle
             (requireActivity() as HomeActivity).addFragment(mediaViewFragment, true)
         }

@@ -36,12 +36,17 @@ class LastFewPlotsAdapter(
             tvItemLocation.text = itemLocation
             tvItemLocationInfo.text = element.shortDescription
             val amount = element.priceStartingFrom.toDouble() / 100000
-            val convertedAmount = String.format("%.0f",amount)
+            val convertedAmount = String.format("%.0f", amount)
             tvItemAmount.text = SpannableStringBuilder()
                 .bold { append("₹${convertedAmount} L") }
                 .append(Constants.ONWARDS)
-            val rating = "${String.format(" % .0f", element.generalInfoEscalationGraph.estimatedAppreciation)}%"
-            tvRating.text =rating
+            val rating = "${
+                String.format(
+                    " % .0f",
+                    element.generalInfoEscalationGraph.estimatedAppreciation
+                )
+            }%"
+            tvRating.text = rating
             tvNoViews.text = element.fomoContent.noOfViews.toString()
             tvItemArea.text = SpannableStringBuilder()
                 .bold { append("${element.areaStartingFrom} Sqft") }
@@ -50,18 +55,23 @@ class LastFewPlotsAdapter(
                 .load(element.projectCoverImages.homePageMedia.value.url)
                 .into(holder.binding.ivItemImage)
 
-            when(element.fomoContent.isTargetTimeActive){
+            when (element.fomoContent.isTargetTimeActive) {
                 false -> holder.binding.timerView.visibility = View.GONE
                 true -> holder.binding.timerView.visibility = View.VISIBLE
             }
 
-            when(element.fomoContent.isNoOfViewsActive){
+            when (element.fomoContent.isNoOfViewsActive) {
                 true -> holder.binding.cvView.visibility = View.VISIBLE
                 false -> holder.binding.cvView.visibility = View.GONE
             }
 
-            val timeCounter = object : CountDownTimer(Utility.conversionForTimer(element.fomoContent.targetTime.hours.toString(),element.fomoContent.targetTime.minutes.toString(),
-                element.fomoContent.targetTime.seconds.toString()), 1000) {
+            val timeCounter = object : CountDownTimer(
+                Utility.conversionForTimer(
+                    element.fomoContent.targetTime.hours.toString(),
+                    element.fomoContent.targetTime.minutes.toString(),
+                    element.fomoContent.targetTime.seconds.toString()
+                ), 1000
+            ) {
                 @SuppressLint("SetTextI18n")
                 override fun onTick(millisUntilFinished: Long) {
                     val f = DecimalFormat("00")

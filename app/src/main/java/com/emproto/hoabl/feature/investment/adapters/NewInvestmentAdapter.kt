@@ -98,7 +98,8 @@ class NewInvestmentAdapter(
             binding.tvRating.text = rating
             binding.tvNewLaunch.text = data.page.newInvestments.displayName
             binding.tvComingSoon.text = data.page.newInvestments.subHeading
-            binding.tvInvestmentProjectLocation.text=data.pageManagementsOrNewInvestments[0].address.city + "," +data.pageManagementsOrNewInvestments[0].address.state
+            binding.tvInvestmentProjectLocation.text =
+                data.pageManagementsOrNewInvestments[0].address.city + "," + data.pageManagementsOrNewInvestments[0].address.state
 
 
             binding.tvInvestmentProjectName.text =

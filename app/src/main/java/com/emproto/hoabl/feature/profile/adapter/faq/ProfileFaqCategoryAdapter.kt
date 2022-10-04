@@ -27,11 +27,12 @@ class ProfileFaqCategoryAdapter(
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(!faqCategoryList[position].categoryId.toString().isNullOrEmpty())
-        holder.categoryNumber.text = "Category"+" "+ faqCategoryList[position].categoryId.toString()
-        if(!faqCategoryList.isNullOrEmpty())
-        holder.rvFaqList.layoutManager =
-            LinearLayoutManager(mContext, RecyclerView.VERTICAL, false)
+        if (!faqCategoryList[position].categoryId.toString().isNullOrEmpty())
+            holder.categoryNumber.text =
+                "Category" + " " + faqCategoryList[position].categoryId.toString()
+        if (!faqCategoryList.isNullOrEmpty())
+            holder.rvFaqList.layoutManager =
+                LinearLayoutManager(mContext, RecyclerView.VERTICAL, false)
         holder.rvFaqList.adapter =
             ProfileFaqListAdapter(mContext, faqCategoryList)
 
@@ -50,7 +51,7 @@ class ProfileFaqCategoryAdapter(
     }
 }
 
-    //    companion object {
+//    companion object {
 //        const val FAQ_TEXT_VIEW = 1
 //        const val FAQ_CATEGORY_VIEW = 2
 //        const val FAQ_TEXT_VIEW2 = 3

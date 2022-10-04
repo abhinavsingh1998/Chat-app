@@ -2,8 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ongoingProjects_layout"
@@ -58,8 +57,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/_8sdp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_ongoing" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -228,8 +227,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_100sdp"
             android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_100sdp"
             android:layout_marginRight="@dimen/_20sdp"
             android:background="@drawable/button_bg"
             android:drawableRight="@drawable/ic_arrow_right"
@@ -238,8 +237,8 @@
             android:text="@string/explore_investment_prjects"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text2"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

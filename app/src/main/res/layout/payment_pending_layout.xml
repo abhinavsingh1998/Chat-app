@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/app_color">
 
     <View
@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_size_18"
         android:background="@drawable/bottom_curve_bg"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/kyc_layout"
@@ -75,6 +75,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_size_10"
         android:background="@drawable/homescreen_curve"
-        app:layout_constraintTop_toBottomOf="@id/kyc_layout"/>
+        app:layout_constraintTop_toBottomOf="@id/kyc_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentPrivacyBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.response.enums.Status
@@ -19,6 +18,7 @@ import javax.inject.Inject
 
 class PrivacyFragment : BaseFragment() {
     lateinit var binding: FragmentPrivacyBinding
+
     @Inject
     lateinit var factory: ProfileFactory
     lateinit var profileViewModel: ProfileViewModel
@@ -44,7 +44,6 @@ class PrivacyFragment : BaseFragment() {
     }
 
 
-
     private fun initClickListener() {
 
         binding.backAction.setOnClickListener {
@@ -60,19 +59,20 @@ class PrivacyFragment : BaseFragment() {
                     binding.rootView.show()
                     binding.loader.hide()
                     it.data?.let {
-                        binding.tvHeading.text = showHTMLText(it.data.page.termsAndConditions.displayName)
+                        binding.tvHeading.text =
+                            showHTMLText(it.data.page.termsAndConditions.displayName)
                         binding.tvDescription.text =
                             showHTMLText(it.data.page.termsAndConditions.description)
                     }
                 }
-                Status.ERROR ->{
-                        binding.rootView.hide()
-                        binding.loader.show()
+                Status.ERROR -> {
+                    binding.rootView.hide()
+                    binding.loader.show()
                     (requireActivity() as HomeActivity).showErrorToast(
                         it.message!!
                     )
                 }
-                Status.LOADING->{
+                Status.LOADING -> {
                     binding.rootView.hide()
                     binding.loader.show()
 

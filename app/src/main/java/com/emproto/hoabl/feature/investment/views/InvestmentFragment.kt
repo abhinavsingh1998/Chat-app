@@ -26,7 +26,6 @@ class InvestmentFragment : BaseFragment() {
     @Inject
     lateinit var investmentFactory: InvestmentFactory
     lateinit var investmentViewModel: InvestmentViewModel
-
     private lateinit var binding: FragmentInvestmentLayoutBinding
     private lateinit var newInvestmentAdapter: NewInvestmentAdapter
     private lateinit var smartDealsList: List<PageManagementsOrCollectionOneModel>
@@ -70,9 +69,9 @@ class InvestmentFragment : BaseFragment() {
         }
     }
 
-    private fun callApi(refresh:Boolean) {
-        if(isNetworkAvailable()){
-            investmentViewModel.getInvestments(5002,refresh).observe(viewLifecycleOwner) {
+    private fun callApi(refresh: Boolean) {
+        if (isNetworkAvailable()) {
+            investmentViewModel.getInvestments(5002, refresh).observe(viewLifecycleOwner) {
                 when (it.status) {
                     Status.LOADING -> {
                         binding.progressBar.show()
@@ -100,7 +99,7 @@ class InvestmentFragment : BaseFragment() {
                     }
                 }
             }
-        }else{
+        } else {
             binding.slSwipeRefresh.isRefreshing = false
             binding.progressBar.hide()
             binding.rvInvestmentPage.hide()
@@ -113,11 +112,11 @@ class InvestmentFragment : BaseFragment() {
     }
 
     private fun mediaGalleryApi(invData: Data) {
-        if(newInvestmentsList[0] == null){
+        if (newInvestmentsList[0] == null) {
             (requireActivity() as HomeActivity).showErrorToast(
                 "Media gallery Id is null"
             )
-        }else{
+        } else {
             investmentViewModel.getInvestmentsMediaGallery(newInvestmentsList[0].id)
                 .observe(viewLifecycleOwner) {
                     when (it.status) {

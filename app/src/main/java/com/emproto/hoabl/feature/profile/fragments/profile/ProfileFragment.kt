@@ -28,15 +28,14 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.hoabl.feature.portfolio.views.CustomDialog
 import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
-
-import com.emproto.hoabl.feature.profile.fragments.edit_profile.EditProfileFragment
-import com.emproto.hoabl.feature.profile.fragments.help_center.HelpCenterFragment
-import com.emproto.hoabl.feature.profile.fragments.securtiyandsettings.SecurityFragment
 import com.emproto.hoabl.feature.profile.adapter.ProfileOptionsAdapter
 import com.emproto.hoabl.feature.profile.data.ProfileModel
 import com.emproto.hoabl.feature.profile.data.ProfileOptionsData
 import com.emproto.hoabl.feature.profile.fragments.accounts.AccountDetailsFragment
 import com.emproto.hoabl.feature.profile.fragments.edit_profile.CircleTransform
+import com.emproto.hoabl.feature.profile.fragments.edit_profile.EditProfileFragment
+import com.emproto.hoabl.feature.profile.fragments.help_center.HelpCenterFragment
+import com.emproto.hoabl.feature.profile.fragments.securtiyandsettings.SecurityFragment
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
@@ -45,7 +44,6 @@ import com.emproto.networklayer.response.portfolio.fm.FMResponse
 import com.emproto.networklayer.response.profile.Data
 import com.example.portfolioui.databinding.DailogSecurePinConfirmationBinding
 import com.example.portfolioui.databinding.DialogSecurePinBinding
-
 import com.example.portfolioui.databinding.LogoutConfirmationBinding
 import java.util.concurrent.Executor
 import javax.inject.Inject

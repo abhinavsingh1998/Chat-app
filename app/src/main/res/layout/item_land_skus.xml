@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -39,12 +38,12 @@
             android:layout_marginStart="@dimen/margin_size_8"
             android:layout_marginEnd="@dimen/margin_size_8"
             android:fontFamily="@font/jost_medium"
-            android:text="2500 - 2650 Sqft"
             android:gravity="center_vertical"
+            android:text="2500 - 2650 Sqft"
             android:textColor="@color/text_violet_dark_color"
             android:textSize="@dimen/text_size_14"
-            app:layout_constraintEnd_toEndOf="@id/btn_apply_now"
             app:layout_constraintBottom_toBottomOf="@id/tv_item_land_skus_name"
+            app:layout_constraintEnd_toEndOf="@id/btn_apply_now"
             app:layout_constraintStart_toEndOf="@id/tv_item_land_skus_name"
             app:layout_constraintTop_toTopOf="@id/tv_item_land_skus_name" />
 
@@ -65,8 +64,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_size_10"
-            android:layout_marginBottom="@dimen/margin_size_11"
             android:layout_marginEnd="@dimen/margin_size_15"
+            android:layout_marginBottom="@dimen/margin_size_11"
             android:ellipsize="marquee"
             android:fontFamily="@font/jost_light"
             android:text="Beach side lifestyle near Mumbai with luxurious amenities,affordable rates,good surroundings"

@@ -26,7 +26,7 @@ class MediaViewFragment : BaseFragment() {
     lateinit var binding: FragmentMediaViewBinding
 
     private var mediaData = ArrayList<MediaViewItem>()
-    private lateinit var data:MediaViewItem
+    private lateinit var data: MediaViewItem
     private var index = 0
 
     override fun onCreateView(
@@ -68,7 +68,7 @@ class MediaViewFragment : BaseFragment() {
                 data = it as MediaViewItem
                 showMedia(data)
             }
-            it.getInt(Constants.IMAGE_POSITION).let{
+            it.getInt(Constants.IMAGE_POSITION).let {
                 index = it
             }
         }
@@ -103,32 +103,32 @@ class MediaViewFragment : BaseFragment() {
         }
 
         binding.ivMediaRightArrow.setOnClickListener {
-            if(index < mediaData.size-1){
+            if (index < mediaData.size - 1) {
                 binding.ivMediaRightArrow.visibility = View.VISIBLE
                 binding.ivMediaLeftArrow.visibility = View.VISIBLE
                 index++
                 showMedia(mediaData[index])
             }
-            if(index == mediaData.size-1){
+            if (index == mediaData.size - 1) {
                 binding.ivMediaRightArrow.visibility = View.GONE
                 binding.ivMediaLeftArrow.visibility = View.VISIBLE
             }
         }
 
         binding.ivMediaLeftArrow.setOnClickListener {
-            if(index > 0){
+            if (index > 0) {
                 binding.ivMediaLeftArrow.visibility = View.VISIBLE
                 binding.ivMediaRightArrow.visibility = View.VISIBLE
                 index--
                 showMedia(mediaData[index])
             }
-            if(index == 0){
+            if (index == 0) {
                 binding.ivMediaLeftArrow.visibility = View.GONE
                 binding.ivMediaRightArrow.visibility = View.VISIBLE
             }
         }
 
-        binding.ivCloseButton.setOnClickListener{
+        binding.ivCloseButton.setOnClickListener {
             (requireActivity() as HomeActivity).onBackPressed()
         }
 

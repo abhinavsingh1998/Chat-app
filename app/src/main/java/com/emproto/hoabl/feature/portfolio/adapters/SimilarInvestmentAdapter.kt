@@ -52,18 +52,23 @@ class SimilarInvestmentAdapter(
             tvItemLocationInfo.text = element.shortDescription
             "${Utility.convertTo(element.estimatedAppreciation)}%".also { tvRating.text = it }
 
-            when(element.fomoContent.isTargetTimeActive){
+            when (element.fomoContent.isTargetTimeActive) {
                 false -> holder.binding.timerView.visibility = View.GONE
                 true -> holder.binding.timerView.visibility = View.VISIBLE
             }
 
-            when(element.fomoContent.isNoOfViewsActive){
+            when (element.fomoContent.isNoOfViewsActive) {
                 true -> holder.binding.cvView.visibility = View.VISIBLE
                 false -> holder.binding.cvView.visibility = View.GONE
             }
 
-            val timeCounter = object : CountDownTimer(Utility.conversionForTimer(element.fomoContent.targetTime.hours.toString(),element.fomoContent.targetTime.minutes.toString(),
-                element.fomoContent.targetTime.seconds.toString()), 1000) {
+            val timeCounter = object : CountDownTimer(
+                Utility.conversionForTimer(
+                    element.fomoContent.targetTime.hours.toString(),
+                    element.fomoContent.targetTime.minutes.toString(),
+                    element.fomoContent.targetTime.seconds.toString()
+                ), 1000
+            ) {
                 override fun onTick(millisUntilFinished: Long) {
                     val f = DecimalFormat("00")
                     val fh = DecimalFormat("0")

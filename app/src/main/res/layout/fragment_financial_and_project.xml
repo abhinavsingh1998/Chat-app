@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.portfolio.views.FinancialAndProjectFragment"
-    android:background="@color/app_color">
+    android:background="@color/app_color"
+    tools:context=".feature.portfolio.views.FinancialAndProjectFragment">
 
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/testimonials_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/homescreen_curve"
         android:layout_marginTop="@dimen/margin_size_14"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:background="@drawable/homescreen_curve"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager2"

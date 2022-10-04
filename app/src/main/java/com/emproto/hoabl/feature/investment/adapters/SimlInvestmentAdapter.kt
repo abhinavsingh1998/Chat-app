@@ -44,25 +44,30 @@ class SimlInvestmentAdapter(
                 .bold { append("${element.areaStartingFrom} Sqft") }
                 .append(Constants.ONWARDS)
             tvItemLocationInfo.text = element.shortDescription
-            when(element.fomoContent.isTargetTimeActive){
+            when (element.fomoContent.isTargetTimeActive) {
                 false -> holder.binding.timerView.visibility = View.GONE
                 true -> holder.binding.timerView.visibility = View.VISIBLE
             }
 
-            when(element.fomoContent.isNoOfViewsActive){
+            when (element.fomoContent.isNoOfViewsActive) {
                 true -> holder.binding.cvView.visibility = View.VISIBLE
                 false -> holder.binding.cvView.visibility = View.GONE
             }
 
-            val timeCounter = object : CountDownTimer(Utility.conversionForTimer(element.fomoContent.targetTime.hours.toString(),
-                element.fomoContent.targetTime.minutes.toString(), element.fomoContent.targetTime.seconds.toString()), 1000) {
+            val timeCounter = object : CountDownTimer(
+                Utility.conversionForTimer(
+                    element.fomoContent.targetTime.hours.toString(),
+                    element.fomoContent.targetTime.minutes.toString(),
+                    element.fomoContent.targetTime.seconds.toString()
+                ), 1000
+            ) {
                 override fun onTick(millisUntilFinished: Long) {
                     val f = DecimalFormat("00")
                     val fh = DecimalFormat("0")
                     val hour = millisUntilFinished / 3600000 % 24
                     val min = millisUntilFinished / 60000 % 60
                     val sec = millisUntilFinished / 1000 % 60
-                    Log.d("hello","${fh.format(hour)}, ${f.format(min)}, ${f.format(sec)}")
+                    Log.d("hello", "${fh.format(hour)}, ${f.format(min)}, ${f.format(sec)}")
                     val duration = "${
                         fh.format(hour).toString() + ":" + f.format(min) + ":" + f.format(sec)
                     } Hrs Left"

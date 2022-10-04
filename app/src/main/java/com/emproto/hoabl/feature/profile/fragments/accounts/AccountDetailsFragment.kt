@@ -39,7 +39,10 @@ import com.emproto.hoabl.databinding.FragmentAccountDetailsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.portfolio.views.DocViewerFragment
-import com.emproto.hoabl.feature.profile.adapter.accounts.*
+import com.emproto.hoabl.feature.profile.adapter.accounts.AccountKycUploadAdapter
+import com.emproto.hoabl.feature.profile.adapter.accounts.AccountsDocumentLabelListAdapter
+import com.emproto.hoabl.feature.profile.adapter.accounts.AccountsPaymentListAdapter
+import com.emproto.hoabl.feature.profile.adapter.accounts.AllDocumentAdapter
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.response.enums.Status
@@ -107,7 +110,8 @@ class AccountDetailsFragment : Fragment(),
         binding = FragmentAccountDetailsBinding.inflate(inflater, container, false)
         (requireActivity() as HomeActivity).hideBottomNavigation()
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
-        profileViewModel = ViewModelProvider(requireActivity(), profileFactory)[ProfileViewModel::class.java]
+        profileViewModel =
+            ViewModelProvider(requireActivity(), profileFactory)[ProfileViewModel::class.java]
         initView()
         initClickListener()
         callPermissionLauncher()
@@ -138,6 +142,7 @@ class AccountDetailsFragment : Fragment(),
         }
 
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         profileViewModel.getAccountsList().observe(viewLifecycleOwner) {
@@ -148,7 +153,8 @@ class AccountDetailsFragment : Fragment(),
                 Status.SUCCESS -> {
                     binding.progressBar.hide()
                     if (it.data?.data!!.documents != null && it.data!!.data.documents is List<AccountsResponse.Data.Document>) {
-                        allKycDocList = it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>
+                        allKycDocList =
+                            it.data!!.data.documents as ArrayList<AccountsResponse.Data.Document>
                         kycLists = ArrayList<AccountsResponse.Data.Document>()
                         documentList = ArrayList<AccountsResponse.Data.Document>()
                         for (document in allKycDocList) {
@@ -251,14 +257,18 @@ class AccountDetailsFragment : Fragment(),
                     "13"
                 )
             )
-            binding.rvDocuments.layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-            binding.rvDocuments.adapter = AccountsDocumentLabelListAdapter(context, documentList, this, "empty")
+            binding.rvDocuments.layoutManager =
+                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+            binding.rvDocuments.adapter =
+                AccountsDocumentLabelListAdapter(context, documentList, this, "empty")
 
         } else {
             binding.rvDocuments.visibility = View.VISIBLE
             binding.tvSeeAllDocuments.visibility = View.VISIBLE
-            binding.rvDocuments.layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-            binding.rvDocuments.adapter = AccountsDocumentLabelListAdapter(context, documentList, this, "not")
+            binding.rvDocuments.layoutManager =
+                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+            binding.rvDocuments.adapter =
+                AccountsDocumentLabelListAdapter(context, documentList, this, "not")
         }
     }
 
@@ -281,13 +291,15 @@ class AccountDetailsFragment : Fragment(),
                         "UPLOAD"
                     )
                 )
-                kycUploadAdapter = AccountKycUploadAdapter(context, kycUploadList, this, viewListener)
+                kycUploadAdapter =
+                    AccountKycUploadAdapter(context, kycUploadList, this, viewListener)
                 binding.rvKyc.adapter = kycUploadAdapter
             }
             else -> {
                 kycUploadList.clear()
                 kycUploadList.addAll(getKycList(kycLists))
-                kycUploadAdapter = AccountKycUploadAdapter(context, kycUploadList, this, viewListener)
+                kycUploadAdapter =
+                    AccountKycUploadAdapter(context, kycUploadList, this, viewListener)
                 binding.rvKyc.adapter = kycUploadAdapter
             }
         }
@@ -470,7 +482,8 @@ class AccountDetailsFragment : Fragment(),
 
     private fun getDocumentData(path: String) {
         profileViewModel.downloadDocument(path)
-            .observe(viewLifecycleOwner
+            .observe(
+                viewLifecycleOwner
             ) {
                 when (it.status) {
                     Status.LOADING -> {
@@ -579,7 +592,7 @@ class AccountDetailsFragment : Fragment(),
     }
 
     private fun getPhotoFile(context: Context): Uri? {
-        val fileSuffix = SimpleDateFormat("yyyyMMddHHmmss",Locale.getDefault()).format(Date())
+        val fileSuffix = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(Date())
         cameraFile = File(context.externalCacheDir, "$fileSuffix.jpg")
         return FileProvider.getUriForFile(
             requireContext(),

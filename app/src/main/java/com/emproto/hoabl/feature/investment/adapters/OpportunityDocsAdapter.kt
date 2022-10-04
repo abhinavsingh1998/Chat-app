@@ -168,7 +168,7 @@ class OpportunityDocsAdapter(
                         linevalues.add(Entry(index.toFloat(), item.value.toFloat()))
                     }
                 }
-                Constants.QUATERLY-> {
+                Constants.QUATERLY -> {
                     graphType = Constants.QUATERLY
                     for (i in 0 until data.escalationGraph.dataPoints.points.size) {
                         val fmString =
@@ -291,9 +291,9 @@ class OpportunityDocsAdapter(
         fun bind() {
             binding.tvTourismAround.text = data.tourismAround.heading
             val list = arrayListOf<Story>()
-            when{
-                data.tourismAround.stories.size < 5 ->{
-                    for(item in data.tourismAround.stories){
+            when {
+                data.tourismAround.stories.size < 5 -> {
+                    for (item in data.tourismAround.stories) {
                         list.add(item)
                     }
                     binding.apply {
@@ -393,7 +393,7 @@ class OpportunityDocsAdapter(
                 val list = arrayListOf<ProjectAminity>()
                 when (isFromProjectAmenities) {
                     true -> {
-                        when{
+                        when {
                             data.projectAminities.size < 5 -> {
                                 for (item in data.projectAminities) {
                                     list.add(item)
@@ -404,7 +404,7 @@ class OpportunityDocsAdapter(
                                 }
                             }
                             else -> {
-                                for(item in data.projectAminities){
+                                for (item in data.projectAminities) {
                                     list.add(item)
                                 }
                                 binding.ivViewMoreArrow.setImageResource(R.drawable.path_3)

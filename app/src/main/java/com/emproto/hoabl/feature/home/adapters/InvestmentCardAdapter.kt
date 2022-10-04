@@ -36,11 +36,12 @@ class InvestmentCardAdapter(
 
         val item = list[holder.adapterPosition]
 
-        if(item!=null){
+        if (item != null) {
             holder.binding!!.tvItemLocationName.text = item.launchName
             holder.binding.tvItemLocation.text = item.address.city + "," + item.address.state
-            holder.binding.tvRating.text = Utility.convertTo(item.generalInfoEscalationGraph.estimatedAppreciation) + "%"
-            holder.binding.tvNoViews.text= item.fomoContent.noOfViews.toString()
+            holder.binding.tvRating.text =
+                Utility.convertTo(item.generalInfoEscalationGraph.estimatedAppreciation) + "%"
+            holder.binding.tvNoViews.text = item.fomoContent.noOfViews.toString()
 
             val amount = item.priceStartingFrom.toDouble() / 100000
             val convertedAmount = amount.toString().replace(".0", "")
@@ -49,18 +50,23 @@ class InvestmentCardAdapter(
             holder.binding.tvItemLocationInfo.text = item.shortDescription
 
 
-            when(item.fomoContent.isTargetTimeActive){
+            when (item.fomoContent.isTargetTimeActive) {
                 false -> holder.binding.timerView.visibility = View.GONE
                 true -> holder.binding.timerView.visibility = View.VISIBLE
             }
 
-            when(item.fomoContent.isNoOfViewsActive){
+            when (item.fomoContent.isNoOfViewsActive) {
                 true -> holder.binding.cvView.visibility = View.VISIBLE
                 false -> holder.binding.cvView.visibility = View.GONE
             }
 
-            val timeCounter = object : CountDownTimer(Utility.conversionForTimer(item.fomoContent.targetTime.hours.toString(),item.fomoContent.targetTime.minutes.toString(),
-                item.fomoContent.targetTime.seconds.toString()), 1000) {
+            val timeCounter = object : CountDownTimer(
+                Utility.conversionForTimer(
+                    item.fomoContent.targetTime.hours.toString(),
+                    item.fomoContent.targetTime.minutes.toString(),
+                    item.fomoContent.targetTime.seconds.toString()
+                ), 1000
+            ) {
                 override fun onTick(millisUntilFinished: Long) {
                     val f = DecimalFormat("00")
                     val fh = DecimalFormat("0")
@@ -71,6 +77,7 @@ class InvestmentCardAdapter(
                         fh.format(hour).toString() + ":" + f.format(min) + ":" + f.format(sec)
                     } Hrs Left"
                 }
+
                 override fun onFinish() {
 
                 }
@@ -97,7 +104,7 @@ class InvestmentCardAdapter(
     }
 
     override fun getItemCount(): Int {
-       val  itemList = if (itemCount.page.totalProjectsOnHomeScreen < list.size) {
+        val itemList = if (itemCount.page.totalProjectsOnHomeScreen < list.size) {
             itemCount.page.totalProjectsOnHomeScreen
         } else {
             list.size

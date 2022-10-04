@@ -1,21 +1,15 @@
 package com.emproto.hoabl.feature.login
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Patterns
 import android.view.View
-import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.view.isEmpty
-import androidx.core.view.isNotEmpty
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseActivity
 import com.emproto.core.Constants
@@ -29,7 +23,6 @@ import com.emproto.hoabl.viewmodels.factory.AuthFactory
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.response.enums.Status
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.regex.Pattern
 import javax.inject.Inject
@@ -151,10 +144,10 @@ class AuthActivity : BaseActivity() {
         if (supportFragmentManager.backStackEntryCount == 1) {
             finish()
         } else {
-            if(!isHandlerStarted){
+            if (!isHandlerStarted) {
                 super.onBackPressed()
-            }else{
-            //Doing nothing
+            } else {
+                //Doing nothing
             }
         }
     }
@@ -211,15 +204,17 @@ class AuthActivity : BaseActivity() {
                 issueDetail = p0.toString()
 
                 if (p0.toString().length == 250) {
-                    signingInIssueBiding.editIssuesLayout.boxStrokeColor = resources.getColor(R.color.text_red_color)
+                    signingInIssueBiding.editIssuesLayout.boxStrokeColor =
+                        resources.getColor(R.color.text_red_color)
                     signingInIssueBiding.txtcount.isVisible = true
                     signingInIssueBiding.maxDesc.isVisible = false
                     signingInIssueBiding.editIssues.setTextColor(resources.getColorStateList(R.color.text_red_color))
                 } else {
-                    signingInIssueBiding.editIssuesLayout.boxStrokeColor = resources.getColor(R.color.app_color)
+                    signingInIssueBiding.editIssuesLayout.boxStrokeColor =
+                        resources.getColor(R.color.app_color)
                     signingInIssueBiding.txtcount.isVisible = false
                     signingInIssueBiding.maxDesc.isVisible = true
-                    signingInIssueBiding.maxDesc.text="${issueDetail.length}/250"+" Characters"
+                    signingInIssueBiding.maxDesc.text = "${issueDetail.length}/250" + " Characters"
                     signingInIssueBiding.editIssues.setTextColor(resources.getColorStateList(R.color.text_color))
                 }
             }
@@ -256,7 +251,7 @@ class AuthActivity : BaseActivity() {
             }
 
         })
-        signingInIssueBiding.editIssues.error=null
+        signingInIssueBiding.editIssues.error = null
         signingInIssueBiding.submitBtn.setOnClickListener(View.OnClickListener {
             if (hMobileNo.isEmpty() || hMobileNo.length != 10 || !hMobileNo.ValidNO()) {
                 signingInIssueBiding.textError.visibility = View.VISIBLE
@@ -266,7 +261,7 @@ class AuthActivity : BaseActivity() {
 
 
             if (signingInIssueBiding.issueSeven.isChecked) {
-                if (issueDetail.isNullOrEmpty()||issueDetail.trim().isEmpty()) {
+                if (issueDetail.isNullOrEmpty() || issueDetail.trim().isEmpty()) {
                     signingInIssueBiding.editIssues.error = "Please Describe The Issue"
                     Toast.makeText(this, "Please Describe The Issue", Toast.LENGTH_SHORT).show()
                     return@OnClickListener
@@ -309,7 +304,7 @@ class AuthActivity : BaseActivity() {
                         dialog.show(supportFragmentManager, "Submit Card")
                         signingInIssueBiding.editIssues.text = null
                         signingInIssueBiding.issueList.clearCheck()
-                        signingInIssueBiding.emailInput.text=null
+                        signingInIssueBiding.emailInput.text = null
 
                     }
                     Status.ERROR -> {
@@ -377,7 +372,7 @@ class AuthActivity : BaseActivity() {
 
     private fun editIssuechecked() {
         if (signingInIssueBiding.issueSeven.isChecked) {
-            if (issueDetail.isNullOrEmpty()||issueDetail.trim().isEmpty()) {
+            if (issueDetail.isNullOrEmpty() || issueDetail.trim().isEmpty()) {
                 signingInIssueBiding.submitBtn.isEnabled = false
                 signingInIssueBiding.submitBtn.isClickable = false
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

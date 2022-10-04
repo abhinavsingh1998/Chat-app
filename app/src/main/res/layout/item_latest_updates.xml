@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginVertical="@dimen/margin_size_4"
+    android:outlineSpotShadowColor="#ababab"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/_5sdp"
-    android:layout_gravity="center_horizontal"
     app:cardElevation="5dp"
-    android:outlineSpotShadowColor="#ababab"
-    android:layout_marginVertical="@dimen/margin_size_4"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true">
 
@@ -19,31 +19,31 @@
         android:paddingBottom="@dimen/margin_size_2">
 
         <TextView
-            android:fontFamily="@font/jost_medium"
             android:id="@+id/title"
+            style="@style/text_style_text_color_16"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/text_style_text_color_16"
-            android:text="Title"
             android:layout_marginStart="@dimen/margin_size_6"
             android:layout_marginTop="@dimen/margin_size_10"
             android:layout_marginEnd="@dimen/margin_size_17"
-            android:maxLines="1"
             android:ellipsize="end"
-            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/jost_medium"
+            android:maxLines="1"
+            android:text="Title"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_name"
             style="@style/text_style_grey_13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Parikrama"
+            android:layout_marginEnd="@dimen/margin_size_17"
+            android:ellipsize="end"
             android:fontFamily="@font/jost_italic"
             android:maxLines="1"
-            android:ellipsize="end"
-            android:layout_marginEnd="@dimen/margin_size_17"
+            android:text="Parikrama"
             app:layout_constraintStart_toStartOf="@id/title"
             app:layout_constraintTop_toBottomOf="@id/title" />
 
@@ -52,11 +52,11 @@
             android:layout_width="150dp"
             android:layout_height="@dimen/margin_size_80"
             android:layout_marginLeft="@dimen/margin_size_6"
+            android:layout_marginTop="@dimen/margin_size_10"
             android:layout_marginRight="@dimen/margin_size_7"
             android:layout_marginBottom="@dimen/margin_size_4"
-            android:layout_marginTop="@dimen/margin_size_10"
-            app:cardCornerRadius="@dimen/margin_size_6"
             android:visibility="gone"
+            app:cardCornerRadius="@dimen/margin_size_6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_name">
@@ -89,15 +89,15 @@
 
         <com.emproto.core.textviews.CustomTextView
             android:id="@+id/btn_read_more"
+            style="@style/text_style_blue_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/text_style_blue_14"
-            android:fontFamily="@font/jost_medium"
+            android:layout_marginBottom="@dimen/margin_size_2"
             android:background="@color/white"
+            android:fontFamily="@font/jost_medium"
+            android:paddingHorizontal="4dp"
             android:text="@string/read_more_expand"
             android:visibility="gone"
-            android:paddingHorizontal="4dp"
-            android:layout_marginBottom="@dimen/margin_size_2"
             app:layout_constraintBottom_toBottomOf="@+id/description"
             app:layout_constraintEnd_toEndOf="@+id/description" />
 

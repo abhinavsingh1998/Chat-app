@@ -65,7 +65,7 @@ class HomeFragment : BaseFragment() {
 
     lateinit var testimonialsHeading: String
     lateinit var testimonialsSubHeading: String
-    private var actionItemType= ArrayList<com.emproto.networklayer.response.actionItem.Data>()
+    private var actionItemType = ArrayList<com.emproto.networklayer.response.actionItem.Data>()
 
     @Inject
     lateinit var portfolioFactory: PortfolioFactory
@@ -95,7 +95,7 @@ class HomeFragment : BaseFragment() {
             getDashBoardData(refresh)
             getNewNotification(refresh)
 
-            if (appPreference.isFacilityCard()){
+            if (appPreference.isFacilityCard()) {
                 homeViewModel.getFacilityManagment()
                     .observe(viewLifecycleOwner) { it ->
                         when (it.status) {
@@ -125,10 +125,11 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun getDashBoardData(refresh: Boolean){
+    private fun getDashBoardData(refresh: Boolean) {
 
         homeViewModel.getDashBoardData(ModuleEnum.HOME.value, refresh)
-            .observe(viewLifecycleOwner
+            .observe(
+                viewLifecycleOwner
             ) { it ->
                 when (it!!.status) {
                     Status.LOADING -> {
@@ -174,7 +175,7 @@ class HomeFragment : BaseFragment() {
                                     3
                                 )
                             item.title = "My Services"
-                            item.setIcon( R.drawable.ic_access_card)
+                            item.setIcon(R.drawable.ic_access_card)
                         }
 
                     }
@@ -190,7 +191,7 @@ class HomeFragment : BaseFragment() {
 
     }
 
-    private fun loadingState(){
+    private fun loadingState() {
         binding.dashBoardRecyclerView.hide()
         binding.noInternetView.mainContainer.hide()
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.hide()
@@ -199,7 +200,7 @@ class HomeFragment : BaseFragment() {
         binding.shimmerLayout.shimmerViewContainer.show()
     }
 
-    private fun successState(){
+    private fun successState() {
         binding.dashBoardRecyclerView.show()
         binding.noInternetView.mainContainer.hide()
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.show()
@@ -209,12 +210,13 @@ class HomeFragment : BaseFragment() {
         binding.refressLayout.isRefreshing = false
     }
 
-    private fun chatNavigation(){
+    private fun chatNavigation() {
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.headset.setOnClickListener {
             val bundle = Bundle()
             val chatsFragment = ChatsFragment()
             chatsFragment.arguments = bundle
-            (requireActivity() as HomeActivity).replaceFragment(chatsFragment.javaClass,
+            (requireActivity() as HomeActivity).replaceFragment(
+                chatsFragment.javaClass,
                 "",
                 true,
                 bundle,
@@ -225,7 +227,7 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun noNetworkState(){
+    private fun noNetworkState() {
         binding.refressLayout.isRefreshing = false
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.hide()
         binding.shimmerLayout.shimmerViewContainer.hide()
@@ -238,9 +240,10 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun getNewNotification (refresh: Boolean){
-        homeViewModel.getNewNotification(20,1, refresh )
-            .observe(viewLifecycleOwner
+    private fun getNewNotification(refresh: Boolean) {
+        homeViewModel.getNewNotification(20, 1, refresh)
+            .observe(
+                viewLifecycleOwner
             ) {
                 when (it!!.status) {
                     Status.SUCCESS -> {
@@ -253,11 +256,19 @@ class HomeFragment : BaseFragment() {
                             }
                             if (itemList.isEmpty()) {
                                 (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.notification.setImageDrawable(
-                                    ContextCompat.getDrawable(requireContext(),R.drawable.ic_notification_inactive)
+                                    ContextCompat.getDrawable(
+                                        requireContext(),
+                                        R.drawable.ic_notification_inactive
+                                    )
                                 )
                             } else {
                                 (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.notification.setImageDrawable(
-                                    context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.ic_notification) }
+                                    context?.let { it1 ->
+                                        ContextCompat.getDrawable(
+                                            it1,
+                                            R.drawable.ic_notification
+                                        )
+                                    }
                                 )
 
                             }
@@ -380,10 +391,10 @@ class HomeFragment : BaseFragment() {
                 }
                 R.id.tv_seeall_promise -> {
 
-                    if(appPreference.isFacilityCard()){
+                    if (appPreference.isFacilityCard()) {
                         val fragment = HoablPromises()
                         (requireActivity() as HomeActivity).addFragment(fragment, true)
-                    } else{
+                    } else {
                         (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
 
                     }
@@ -440,7 +451,7 @@ class HomeFragment : BaseFragment() {
                     }
                 }
 
-                R.id.view_portfolio_btn->{
+                R.id.view_portfolio_btn -> {
                     (requireActivity() as HomeActivity).navigate(R.id.navigation_portfolio)
                 }
             }

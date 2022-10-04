@@ -4,8 +4,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_5sdp"
-    android:elevation="@dimen/_4sdp"
-    android:background="@drawable/login_edittext_bg">
+    android:background="@drawable/login_edittext_bg"
+    android:elevation="@dimen/_4sdp">
 
     <TextView
         android:id="@+id/project_name"
@@ -29,6 +29,7 @@
         android:layout_margin="@dimen/_5sdp"
         android:padding="@dimen/_4sdp"
         app:layout_constraintTop_toBottomOf="@id/project_name">
+
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
@@ -42,11 +43,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="start|center"
+                android:gravity="start|center"
                 android:maxLines="1"
                 android:minLines="1"
                 android:singleLine="true"
-                android:layout_gravity="start|center"
-                android:gravity="start|center"
                 android:text="@string/congrats"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_16"
@@ -55,10 +56,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="start|center"
+                android:gravity="start|center"
                 android:maxLines="2"
                 android:minLines="2"
-                android:gravity="start|center"
-                android:layout_gravity="start|center"
                 android:padding="@dimen/_2sdp"
                 android:text="@string/application_success"
                 android:textColor="@color/text_grey_color"
@@ -82,8 +83,8 @@
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/linearLayout"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -92,7 +93,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/text_grey_color"
-        app:layout_constraintTop_toBottomOf="@id/layout"/>
+        app:layout_constraintTop_toBottomOf="@id/layout" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout2"
@@ -100,8 +101,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_5sdp"
         android:padding="@dimen/_4sdp"
-        app:layout_constraintTop_toBottomOf="@id/view"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view">
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -127,10 +128,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="2"
-                android:minLines="1"
                 android:layout_gravity="start|center"
                 android:gravity="start|center"
+                android:maxLines="2"
+                android:minLines="1"
                 android:padding="@dimen/_2sdp"
                 android:text="@string/refund_sucess"
                 android:textColor="@color/text_grey_color"
@@ -155,8 +156,8 @@
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/linearLayout2"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/linearLayout2"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

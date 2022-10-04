@@ -30,9 +30,9 @@
             android:id="@+id/cl_project_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/confirm_project_background"
             android:layout_marginHorizontal="@dimen/margin_size_16"
             android:layout_marginVertical="@dimen/margin_size_14"
+            android:background="@drawable/confirm_project_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_dialog_title">

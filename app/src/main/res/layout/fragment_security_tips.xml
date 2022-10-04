@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="55dp"
-        android:visibility="visible"
         android:layout_marginBottom="50dp"
         android:background="@drawable/shape2"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -72,15 +71,15 @@
                     android:id="@+id/rv_security_tips"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
                     android:orientation="vertical"
+                    android:paddingBottom="@dimen/margin_size_55"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:clipToPadding="false"
-                    android:paddingBottom="@dimen/margin_size_55"
-                    android:nestedScrollingEnabled="false"
-                    tools:itemCount="2"
                     app:layout_constraintTop_toBottomOf="@id/tv_page_heading"
+                    tools:itemCount="2"
                     tools:listitem="@layout/item_security_tips" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

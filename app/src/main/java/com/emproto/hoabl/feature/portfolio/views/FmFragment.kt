@@ -23,7 +23,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.*
+import android.webkit.JavascriptInterface
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -53,8 +55,6 @@ import java.io.FileNotFoundException
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -79,11 +79,11 @@ class FmFragment : BaseFragment() {
 
     private var destinationFile = File("")
 
-    private var contacts = HashMap<String,String>()
+    private var contacts = HashMap<String, String>()
 
     private lateinit var permissionLauncherForContacts: ActivityResultLauncher<Array<String>>
     private lateinit var permissionLauncherForUpload: ActivityResultLauncher<Array<String>>
-    private lateinit var builder:AlertDialog.Builder
+    private lateinit var builder: AlertDialog.Builder
 
     private val permissionRequestForContacts: MutableList<String> = ArrayList()
     private val permissionRequestForUpload: MutableList<String> = ArrayList()
@@ -92,7 +92,7 @@ class FmFragment : BaseFragment() {
     private var isReadPermissionGranted = false
     private var isWritePermissionGranted = false
 
-    private var uploadObject = UploadModel("","")
+    private var uploadObject = UploadModel("", "")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,8 +109,12 @@ class FmFragment : BaseFragment() {
 
                 if (isContactPermissionGranted) {
                     readContacts()
-                }else{
-                    Toast.makeText(requireContext(), "Please give contacts permission", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Please give contacts permission",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
             }
@@ -124,11 +128,16 @@ class FmFragment : BaseFragment() {
                     permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE]
                         ?: isWritePermissionGranted
 
-                if(isWritePermissionGranted && isReadPermissionGranted){
-                    Toast.makeText(requireContext(), "Storage access granted", Toast.LENGTH_SHORT).show()
+                if (isWritePermissionGranted && isReadPermissionGranted) {
+                    Toast.makeText(requireContext(), "Storage access granted", Toast.LENGTH_SHORT)
+                        .show()
                     selectImage()
-                }else{
-                    Toast.makeText(requireContext(), "Please give storage permission", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Please give storage permission",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
@@ -147,18 +156,19 @@ class FmFragment : BaseFragment() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         (requireActivity() as HomeActivity).hideHeader()
         (requireActivity() as HomeActivity).showBottomNavigation()
-        binding.webView.webViewClient = MyWebViewClient(binding.progressBaar, requireContext(),contacts,binding.webView,this)
+        binding.webView.webViewClient =
+            MyWebViewClient(binding.progressBaar, requireContext(), contacts, binding.webView, this)
         true.also { binding.webView.settings.javaScriptEnabled = it }
         true.also { binding.webView.settings.builtInZoomControls = it }
         binding.webView.settings.displayZoomControls = false
         binding.webView.settings.domStorageEnabled = true
         binding.webView.scrollBarStyle = WebView.SCROLLBARS_OUTSIDE_OVERLAY
-        binding.webView.addJavascriptInterface(JSBridge(),"JSBridge")
+        binding.webView.addJavascriptInterface(JSBridge(), "JSBridge")
         binding.webView.loadUrl(param1.toString())
         return binding.root
     }
 
-    val onComplete = object: BroadcastReceiver() {
+    val onComplete = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             binding.progressBaar.hide()
             Toast.makeText(requireContext(), "Downloading Complete", Toast.LENGTH_SHORT).show()
@@ -167,21 +177,21 @@ class FmFragment : BaseFragment() {
 
     inner class JSBridge() {
         @JavascriptInterface
-        fun sendUploadActionInNative(obj:String){
+        fun sendUploadActionInNative(obj: String) {
             Log.d("Share", "message from upload $obj")
             val gson = Gson()
-            val objectUpl = gson.fromJson(obj,UploadModel::class.java)
+            val objectUpl = gson.fromJson(obj, UploadModel::class.java)
             Log.d("Share", "message from upload $objectUpl")
             uploadObject = objectUpl
             requestStoragePermission()
         }
 
         @JavascriptInterface
-        fun sendDownloadActionInNative(url:String){
+        fun sendDownloadActionInNative(url: String) {
             Log.d("Share", "message from document $url")
             val gson = Gson()
-            val urlD = gson.fromJson(url,DownloadModel::class.java)
-            if(urlD!=null){
+            val urlD = gson.fromJson(url, DownloadModel::class.java)
+            if (urlD != null) {
                 binding.webView.post {
                     val request = DownloadManager.Request((Uri.parse(urlD.url)))
                     request.setDescription("Downloading file...")
@@ -213,14 +223,14 @@ class FmFragment : BaseFragment() {
         }
 
         @JavascriptInterface
-        fun shareActionInNative(message:String){
-            Log.d("Share","message from share= $message")
+        fun shareActionInNative(message: String) {
+            Log.d("Share", "message from share= $message")
             val gson = Gson()
-            val model = gson.fromJson(message,ShareObjectModel::class.java)
+            val model = gson.fromJson(message, ShareObjectModel::class.java)
             val shareIntent = Intent(Intent.ACTION_SEND)
             shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             shareIntent.type = "text/plain"
-            when(model.download_url){
+            when (model.download_url) {
                 null -> {
                     shareIntent.putExtra(
                         Intent.EXTRA_TEXT,
@@ -260,15 +270,14 @@ class FmFragment : BaseFragment() {
 
         @Deprecated("Deprecated in Java")
         override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-            Log.d("Share",url.toString())
+            Log.d("Share", url.toString())
             if (url!!.startsWith("tel:")) {
                 val intent = Intent(
                     Intent.ACTION_DIAL,
                     Uri.parse(url)
                 )
                 requireContext.startActivity(intent)
-            }
-            else if (url!!.startsWith("http:") || url!!.startsWith("https:")) {
+            } else if (url!!.startsWith("http:") || url!!.startsWith("https:")) {
                 view!!.loadUrl(url!!)
             }
             return true
@@ -303,7 +312,7 @@ class FmFragment : BaseFragment() {
     }
 
     private fun requestContactPermission() {
-        isContactPermissionGranted  = ContextCompat.checkSelfPermission(
+        isContactPermissionGranted = ContextCompat.checkSelfPermission(
             requireContext(),
             Manifest.permission.READ_CONTACTS
         ) == PackageManager.PERMISSION_GRANTED
@@ -372,7 +381,7 @@ class FmFragment : BaseFragment() {
                         null
                     )
                     if (pCur != null) {
-                        val ctList = HashMap<String,String>()
+                        val ctList = HashMap<String, String>()
                         while (pCur.moveToNext()) {
                             val phoneNo: String = pCur.getString(
                                 pCur.getColumnIndex(
@@ -388,7 +397,7 @@ class FmFragment : BaseFragment() {
                                         "\")", null
                             )
                         }
-                        Log.d("hello","${gson.toJson(ctList)}")
+                        Log.d("hello", "${gson.toJson(ctList)}")
                     }
                     pCur?.close()
                 }
@@ -430,23 +439,23 @@ class FmFragment : BaseFragment() {
                     )
                     if (pCur != null) {
 
-                        val hashMap = HashMap<String,String>()
+                        val hashMap = HashMap<String, String>()
                         while (pCur.moveToNext()) {
                             val phoneNo: String = pCur.getString(
                                 pCur.getColumnIndex(
                                     ContactsContract.CommonDataKinds.Phone.NUMBER
                                 )
                             )
-                            hashMap[phoneNo.replace("\\s".toRegex(),"")] = name
+                            hashMap[phoneNo.replace("\\s".toRegex(), "")] = name
 
                         }
-                        for((key,value ) in hashMap){
+                        for ((key, value) in hashMap) {
                             cArray.add(ContactsModel(name = value, phoneNo = key))
                         }
-                        Log.d("Count",cArray.size.toString())
+                        Log.d("Count", cArray.size.toString())
                         val gson = Gson()
                         val data = gson.toJson(cArray)
-                        Log.d("JSON",data.toString())
+                        Log.d("JSON", data.toString())
                         binding.webView.post {
                             binding.webView.evaluateJavascript(
                                 "javascript: getContactListFromNative( $data)", null
@@ -464,7 +473,11 @@ class FmFragment : BaseFragment() {
 
     private fun selectImage() {
         val options =
-            arrayOf<CharSequence>(Constants.TAKE_PHOTO, Constants.CHOOSE_FROM_GALLERY, Constants.CANCEL)
+            arrayOf<CharSequence>(
+                Constants.TAKE_PHOTO,
+                Constants.CHOOSE_FROM_GALLERY,
+                Constants.CANCEL
+            )
 
         builder.setTitle(Constants.ADD_PHOTO)
         builder.setItems(options) { dialog, item ->
@@ -481,7 +494,7 @@ class FmFragment : BaseFragment() {
                     dialog.dismiss()
                 }
                 options[item] == Constants.CHOOSE_FROM_GALLERY -> {
-                    when(uploadObject.type){
+                    when (uploadObject.type) {
                         "image" -> {
                             val intent = Intent(
                                 Intent.ACTION_PICK,
@@ -542,43 +555,45 @@ class FmFragment : BaseFragment() {
     }
 
     private fun callUploadApi(destinationFile: File) {
-        profileViewModel.uploadFm(uploadObject.type,uploadObject.page_name,destinationFile).observe(viewLifecycleOwner
-        ) {
-            when (it.status) {
-                Status.LOADING -> {
-                    binding.progressBaar.show()
-                }
-                Status.SUCCESS -> {
-                    binding.progressBaar.hide()
-                    it.data?.let { fm ->
-                        Log.d("upload", fm.toString())
-                        val gson = Gson()
-                        val jsonData = gson.toJson(fm)
-                        Log.d("UploadSend", jsonData)
-                        binding.webView.post {
-                            binding.webView.evaluateJavascript(
-                                "javascript: getUploadActionFromNative( $jsonData)",
-                                null
-                            )
+        profileViewModel.uploadFm(uploadObject.type, uploadObject.page_name, destinationFile)
+            .observe(
+                viewLifecycleOwner
+            ) {
+                when (it.status) {
+                    Status.LOADING -> {
+                        binding.progressBaar.show()
+                    }
+                    Status.SUCCESS -> {
+                        binding.progressBaar.hide()
+                        it.data?.let { fm ->
+                            Log.d("upload", fm.toString())
+                            val gson = Gson()
+                            val jsonData = gson.toJson(fm)
+                            Log.d("UploadSend", jsonData)
+                            binding.webView.post {
+                                binding.webView.evaluateJavascript(
+                                    "javascript: getUploadActionFromNative( $jsonData)",
+                                    null
+                                )
+                            }
                         }
                     }
-                }
-                Status.ERROR -> {
-                    binding.progressBaar.hide()
-                    (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                    Status.ERROR -> {
+                        binding.progressBaar.hide()
+                        (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                    }
                 }
             }
-        }
     }
 
     private fun onSelectFromGalleryResult(data: Intent) {
         val selectedImage = data.data
         val inputStream =
             requireContext().contentResolver.openInputStream(selectedImage!!)
-        if(selectedImage.path!!.contains(".pdf")){
+        if (selectedImage.path!!.contains(".pdf")) {
             try {
                 val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
-                Log.d("filepath",filePath.toString())
+                Log.d("filepath", filePath.toString())
                 destinationFile = filePath?.let { File(it) }!!
 
                 callUploadApi(destinationFile)
@@ -586,7 +601,7 @@ class FmFragment : BaseFragment() {
             } catch (e: Exception) {
                 Log.e("Error", "onSelectFromGalleryResult: " + e.localizedMessage)
             }
-        }else{
+        } else {
             try {
                 val bitmap = BitmapFactory.decodeStream(inputStream)
                 val bytes = ByteArrayOutputStream()
@@ -594,7 +609,7 @@ class FmFragment : BaseFragment() {
 
                 try {
                     val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
-                    Log.d("filepath",filePath.toString())
+                    Log.d("filepath", filePath.toString())
                     destinationFile = File(filePath)
 
                     callUploadApi(destinationFile)
@@ -737,7 +752,7 @@ class FmFragment : BaseFragment() {
         bm.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val b = baos.toByteArray()
         //Base64.de
-        return Base64.encodeToString(b,Base64.DEFAULT)
+        return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
 }

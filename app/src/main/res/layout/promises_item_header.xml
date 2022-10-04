@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -69,8 +68,8 @@ of your land ownership journey is easy."
         android:layout_marginTop="27dp"
         android:fontFamily="@font/jost_regular"
         android:text="About Promises"
-        android:textSize="18sp"
         android:textColor="#16161c"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
@@ -85,9 +84,9 @@ of your land ownership journey is easy."
         android:fontFamily="@font/jost_light"
         android:justificationMode="inter_word"
         android:lineSpacingExtra="@dimen/margin_size_7"
-        android:textColor="@color/blackk"
         android:text="Neque porro quisquam estp qui dolorem ipsu porro quisquam estp qui ipsu. Neque porro quisquam estp qui dolorem ipsu porro quisquam estp qui ipsu.Neque porro quisquam estp qui dolorem ipsu porro quisquam estp qui ipsu.Neque porro quisquam estp qui dolorem."
         android:textAlignment="viewStart"
+        android:textColor="@color/blackk"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

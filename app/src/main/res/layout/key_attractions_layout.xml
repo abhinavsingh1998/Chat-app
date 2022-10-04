@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="@dimen/_3sdp"
         android:layout_margin="@dimen/margin_size_7"
         app:cardCornerRadius="@dimen/margin_size_4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:cardElevation="@dimen/_3sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -23,25 +23,25 @@
                 android:id="@+id/iv_key_attraction_item_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/sun_umbrella"
                 android:layout_margin="@dimen/margin_size_8"
+                android:src="@drawable/sun_umbrella"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_key_attraction_item_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Karde Beach"
-                android:fontFamily="@font/jost_regular"
-                android:textSize="@dimen/text_size_14"
                 android:layout_marginStart="@dimen/margin_size_12"
+                android:fontFamily="@font/jost_regular"
+                android:text="Karde Beach"
                 android:textColor="@color/text_color"
-                app:layout_constraintStart_toEndOf="@id/iv_key_attraction_item_image"
+                android:textSize="@dimen/text_size_14"
+                app:layout_constraintBottom_toBottomOf="@id/iv_key_attraction_item_image"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/iv_key_attraction_item_image"
-                app:layout_constraintBottom_toBottomOf="@id/iv_key_attraction_item_image"/>
+                app:layout_constraintStart_toEndOf="@id/iv_key_attraction_item_image"
+                app:layout_constraintTop_toTopOf="@id/iv_key_attraction_item_image" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

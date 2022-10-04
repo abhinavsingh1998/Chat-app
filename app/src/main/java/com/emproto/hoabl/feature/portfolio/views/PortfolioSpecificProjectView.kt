@@ -1,56 +1,56 @@
 package com.emproto.hoabl.feature.portfolio.views
 
 import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
+import com.emproto.core.Constants
+import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.DocumentsBottomSheetBinding
 import com.emproto.hoabl.databinding.FragmentPortfolioSpecificViewBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.home.views.fragments.ReferralDialog
 import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
 import com.emproto.hoabl.feature.investment.views.CategoryListFragment
 import com.emproto.hoabl.feature.investment.views.FaqDetailFragment
-import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
-import com.emproto.hoabl.feature.portfolio.adapters.DocumentsAdapter
-import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
-import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
-import com.emproto.hoabl.model.RecyclerViewItem
-import com.emproto.hoabl.viewmodels.HomeViewModel
-import com.emproto.hoabl.viewmodels.PortfolioViewModel
-import com.emproto.hoabl.viewmodels.factory.HomeFactory
-import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
-import com.emproto.networklayer.response.enums.Status
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import java.io.Serializable
-import javax.inject.Inject
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.util.Log
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
-import com.emproto.core.Constants
-import com.emproto.core.Utility
-import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
+import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.investment.views.mediagallery.MediaGalleryFragment
 import com.emproto.hoabl.feature.investment.views.mediagallery.MediaViewFragment
 import com.emproto.hoabl.feature.portfolio.adapters.DocumentInterface
+import com.emproto.hoabl.feature.portfolio.adapters.DocumentsAdapter
+import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
+import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
 import com.emproto.hoabl.model.MediaViewItem
-import com.emproto.networklayer.preferences.AppPreference
+import com.emproto.hoabl.model.RecyclerViewItem
+import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
+import com.emproto.hoabl.viewmodels.PortfolioViewModel
+import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
+import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.login.TroubleSigningRequest
 import com.emproto.networklayer.response.bookingjourney.BJHeader
+import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentDetailsResponse
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.io.Serializable
+import javax.inject.Inject
 
 
 class PortfolioSpecificProjectView : BaseFragment() {
@@ -566,6 +566,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
         }
     }
+
     private fun openDocument(name: String, path: String) {
         (requireActivity() as HomeActivity).addFragment(
             DocViewerFragment.newInstance(true, name, path),
@@ -575,7 +576,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
     private fun getDocumentData(path: String) {
         portfolioViewModel.downloadDocument(path)
-            .observe(viewLifecycleOwner
+            .observe(
+                viewLifecycleOwner
             ) {
                 when (it.status) {
                     Status.LOADING -> {

@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
@@ -146,10 +145,9 @@ class HelpCenterFragment : BaseFragment() {
                             val intent = Intent(Intent.ACTION_VIEW)
                             val uri = Uri.parse(Constants.PLAY_STORE)
                             intent.data = uri
-                            try{
+                            try {
                                 startActivity(intent)
-                            }
-                            catch (s: SecurityException) {
+                            } catch (s: SecurityException) {
                                 Toast.makeText(
                                     context,
                                     Constants.AN_ERROR_OCCURRED,

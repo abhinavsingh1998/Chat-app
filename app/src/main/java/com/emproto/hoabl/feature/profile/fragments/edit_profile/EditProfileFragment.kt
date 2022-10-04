@@ -2,7 +2,10 @@ package com.emproto.hoabl.feature.profile.fragments.edit_profile
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.*
+import android.app.Activity
+import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.app.Dialog
 import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
@@ -45,10 +48,13 @@ import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.profile.EditUserNameRequest
 import com.emproto.networklayer.response.enums.Status
-import com.emproto.networklayer.response.profile.*
+import com.emproto.networklayer.response.profile.Countries
+import com.emproto.networklayer.response.profile.Data
+import com.emproto.networklayer.response.profile.States
 import com.example.portfolioui.databinding.DeniedLayoutBinding
 import com.example.portfolioui.databinding.RemoveConfirmationBinding
-import java.io.*
+import java.io.ByteArrayOutputStream
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
@@ -88,7 +94,7 @@ class EditProfileFragment : BaseFragment() {
     private val permissionRequest: MutableList<String> = ArrayList()
 
     private lateinit var removePictureDialog: Dialog
-    private var removeDeniedPermissionDialog: Dialog?=null
+    private var removeDeniedPermissionDialog: Dialog? = null
 
 
     private lateinit var countriesData: List<Countries>
@@ -175,6 +181,7 @@ class EditProfileFragment : BaseFragment() {
         }
         initClickListener()
     }
+
     private fun datePickerDialog() {
         val myCalender = Calendar.getInstance()
 
@@ -244,7 +251,8 @@ class EditProfileFragment : BaseFragment() {
 
     private fun getStates(countryIso: String, refresh: Boolean) {
         profileViewModel.getStates(countryIso, refresh)
-            .observe(viewLifecycleOwner
+            .observe(
+                viewLifecycleOwner
             ) {
                 when (it.status) {
                     Status.LOADING -> {
@@ -390,20 +398,22 @@ class EditProfileFragment : BaseFragment() {
 
                 if (isReadStorageGranted && isWriteStorageGranted) {
                     selectImage()
-                }else{
+                } else {
                     showPermissionDeniedDialog()
                 }
             }
 
         "${data.firstName} ${data.lastName}".also { binding.textviewEnterName.text = it }
-        "${data.countryCode} ${data.phoneNumber}".also { binding.enterPhonenumberTextview.text = it }
+        "${data.countryCode} ${data.phoneNumber}".also {
+            binding.enterPhonenumberTextview.text = it
+        }
         if (data.email?.isNotEmpty() == true) {
             binding.emailTv.setText(data.email)
         } else {
             binding.emailTv.setText("")
         }
         if (data.dateOfBirth?.isNotEmpty() == true) {
-            val date=Utility.parseDate(data.dateOfBirth)
+            val date = Utility.parseDate(data.dateOfBirth)
             binding.tvDatePicker.setText(date)
         } else {
             binding.tvDatePicker.setText("")
@@ -450,7 +460,7 @@ class EditProfileFragment : BaseFragment() {
             binding.autoCity.setText("")
 
         }
-        if (data.pincode!=null && data.pincode.toString().isNotEmpty()) {
+        if (data.pincode != null && data.pincode.toString().isNotEmpty()) {
             if (data.pincode.toString() == "null") {
                 binding.pincodeEditText.setText("")
 
@@ -507,13 +517,12 @@ class EditProfileFragment : BaseFragment() {
         if (!profileData.firstName.isNullOrEmpty() && profileData.lastName.isNullOrEmpty()) {
             val firstLetter: String = profileData.firstName!!.substring(0, 2)
             binding.tvUserName.text = firstLetter
-        }else if(profileData.firstName.isNullOrEmpty() && profileData.lastName.isNullOrEmpty()){
+        } else if (profileData.firstName.isNullOrEmpty() && profileData.lastName.isNullOrEmpty()) {
             "AB".also { binding.tvUserName.text = it }
-        }else if(profileData.firstName.isNullOrEmpty() && !(profileData.lastName.isNullOrEmpty()) ){
+        } else if (profileData.firstName.isNullOrEmpty() && !(profileData.lastName.isNullOrEmpty())) {
             val lastLetter: String = profileData.lastName!!.substring(0, 2)
             binding.tvUserName.text = lastLetter
-        }
-        else {
+        } else {
             val firstLetter: String = profileData.firstName!!.substring(0, 1)
             val lastLetter: String = profileData.lastName!!.substring(0, 1)
             "${firstLetter}${lastLetter}".also { binding.tvUserName.text = it }
@@ -688,7 +697,7 @@ class EditProfileFragment : BaseFragment() {
 
     private fun showPermissionDeniedDialog() {
         val removeDialogLayout = DeniedLayoutBinding.inflate(layoutInflater)
-        removeDeniedPermissionDialog= Dialog(requireContext())
+        removeDeniedPermissionDialog = Dialog(requireContext())
         removeDeniedPermissionDialog?.setCancelable(true)
         removeDeniedPermissionDialog?.setContentView(removeDialogLayout.root)
         removeDialogLayout.actionYes.setOnClickListener {

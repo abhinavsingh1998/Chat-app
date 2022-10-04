@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
 import com.emproto.hoabl.databinding.FragmentTestimonialsBinding

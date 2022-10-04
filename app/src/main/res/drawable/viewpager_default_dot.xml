@@ -6,7 +6,7 @@
             android:shape="ring"
             android:thickness="3dp"
             android:useLevel="false">
-            <solid android:color="@color/viewpager_default_dot_color"/>
+            <solid android:color="@color/viewpager_default_dot_color" />
         </shape>
     </item>
 </layer-list>

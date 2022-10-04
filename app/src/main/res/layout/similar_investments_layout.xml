@@ -11,16 +11,16 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/margin_size_8"
         app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_similiar_investments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bottom_corner_radius_bg"
             android:layout_marginBottom="@dimen/margin_size_25"
+            android:background="@drawable/bottom_corner_radius_bg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -49,9 +49,9 @@
                 android:singleLine="true"
                 android:text="@string/see_all"
                 app:fontName="@string/jost_regular"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_similar_investment_title"
-                app:layout_constraintTop_toTopOf="@+id/tv_similar_investment_title"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_similar_investment_title" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_similar_investment"

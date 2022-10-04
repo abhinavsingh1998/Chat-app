@@ -19,15 +19,17 @@ class SecurityTipsAdapter(
     private val list: List<DetailedInformationXXX>
 ) : RecyclerView.Adapter<SecurityTipsAdapter.SecurityTipsViewHolder>() {
 
-    inner class SecurityTipsViewHolder(var binding: ItemSecurityTipsBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class SecurityTipsViewHolder(var binding: ItemSecurityTipsBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SecurityTipsViewHolder {
-        val view = ItemSecurityTipsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view =
+            ItemSecurityTipsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return SecurityTipsViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: SecurityTipsViewHolder, position: Int) {
-        val element= list[position]
+        val element = list[position]
         holder.binding.apply {
 
             tvDesc.text = element.media.name.replaceFirstChar {

@@ -2,10 +2,8 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <solid
-        android:color="@color/homescreen_background"/>
+    <solid android:color="@color/homescreen_background" />
 
-    <corners
-        android:radius="@dimen/_2sdp"/>
+    <corners android:radius="@dimen/_2sdp" />
 
 </shape>

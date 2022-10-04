@@ -7,14 +7,14 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_tourism_around"
+        style="@style/text_style_text_light_black_color_18"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_size_12"
-        android:fontFamily="@font/jost_medium"
         android:layout_marginTop="@dimen/margin_size_30"
+        android:fontFamily="@font/jost_medium"
         android:text="Tourism around"
         android:textAlignment="textStart"
-        style="@style/text_style_text_light_black_color_18"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,27 +35,27 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_view_more"
+        style="@style/text_style_blue_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@id/tv_view_more"
-        app:layout_constraintTop_toBottomOf="@id/rv_destination"
-        android:text="@string/view_more"
-        android:textAllCaps="true"
         android:layout_marginTop="@dimen/margin_size_14"
         android:layout_marginEnd="@dimen/margin_size_12"
-        style="@style/text_style_blue_14" />
+        android:text="@string/view_more"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toStartOf="@id/tv_view_more"
+        app:layout_constraintTop_toBottomOf="@id/rv_destination" />
 
     <ImageView
         android:id="@+id/iv_view_more_arrow"
         android:layout_width="12dp"
         android:layout_height="9dp"
-        android:src="@drawable/path_3_1"
+        android:layout_marginStart="@dimen/margin_size_5"
         android:layout_marginEnd="@dimen/margin_size_10"
         android:scaleType="fitXY"
+        android:src="@drawable/path_3_1"
+        app:layout_constraintBottom_toBottomOf="@id/tv_view_more"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/margin_size_5"
         app:layout_constraintStart_toEndOf="@id/tv_view_more"
-        app:layout_constraintTop_toTopOf="@id/tv_view_more"
-        app:layout_constraintBottom_toBottomOf="@id/tv_view_more"/>
+        app:layout_constraintTop_toTopOf="@id/tv_view_more" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

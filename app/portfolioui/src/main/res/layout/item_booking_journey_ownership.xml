@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/margin_size_16"
@@ -98,8 +97,8 @@
                 android:fontFamily="@font/jost_regular"
                 android:text="Deed of conveyance"
                 android:textColor="@color/disable_text"
-                app:layout_constraintRight_toLeftOf="@id/text_hint"
                 app:layout_constraintLeft_toRightOf="@id/iv_first"
+                app:layout_constraintRight_toLeftOf="@id/text_hint"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView

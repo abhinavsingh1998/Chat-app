@@ -28,13 +28,15 @@ class ChatsAdapter(
     interface OnItemClickListener {
         fun onChatItemClick(chatList: List<CData>, view: View, position: Int)
     }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         binding.tvChatTitle.text = chatList[position].project.projectContent.launchName
-        if(chatList[position].lastMessage!=null){
+        if (chatList[position].lastMessage != null) {
             binding.tvChatDesc.text = chatList[position].lastMessage.message
-            binding.tvChatTime.text = Utility.convertUTCtoTime(chatList[position].lastMessage.createdAt)
-        }else{
-            binding.tvChatDesc.text=""
+            binding.tvChatTime.text =
+                Utility.convertUTCtoTime(chatList[position].lastMessage.createdAt)
+        } else {
+            binding.tvChatDesc.text = ""
             binding.tvChatTime.text = ""
         }
         binding.clChat.setOnClickListener {
@@ -45,6 +47,7 @@ class ChatsAdapter(
             .placeholder(R.drawable.ic_baseline_image_24)
             .into(binding.ivChatThumb)
     }
+
     override fun getItemCount(): Int {
         return chatList.size
     }

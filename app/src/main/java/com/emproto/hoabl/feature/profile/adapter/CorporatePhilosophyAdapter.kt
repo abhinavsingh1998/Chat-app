@@ -14,20 +14,28 @@ import com.emproto.networklayer.response.resourceManagment.DetailedInformation
 @Suppress("DEPRECATION")
 class CorporatePhilosophyAdapter(
     val context: Context,
-    private val corporateList: List<DetailedInformation>):
-    RecyclerView.Adapter<CorporatePhilosophyAdapter.MyViewHolder>(){
+    private val corporateList: List<DetailedInformation>
+) :
+    RecyclerView.Adapter<CorporatePhilosophyAdapter.MyViewHolder>() {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CorporatePhilosophyAdapter.MyViewHolder {
-        val view = CorporatePhilosphyAboutUsViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): CorporatePhilosophyAdapter.MyViewHolder {
+        val view = CorporatePhilosphyAboutUsViewBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return MyViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: CorporatePhilosophyAdapter.MyViewHolder, position: Int) {
-        val currentItem= corporateList[position]
+        val currentItem = corporateList[position]
 
-        holder.binding.tvPieceOfLand.text= currentItem.displayName
-        holder.binding.fullDescTv.text= showHTMLText(currentItem.description)
+        holder.binding.tvPieceOfLand.text = currentItem.displayName
+        holder.binding.fullDescTv.text = showHTMLText(currentItem.description)
         Glide.with(context).load(currentItem.media.value.url)
             .into(holder.binding.ivImage)
     }
@@ -35,6 +43,7 @@ class CorporatePhilosophyAdapter(
     override fun getItemCount(): Int {
         return corporateList.size
     }
+
     inner class MyViewHolder(val binding: CorporatePhilosphyAboutUsViewBinding) :
         RecyclerView.ViewHolder(binding.root)
 

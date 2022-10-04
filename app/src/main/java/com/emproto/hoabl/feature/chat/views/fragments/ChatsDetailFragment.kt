@@ -124,15 +124,16 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                 binding.etType.text.toString().trim()
 
             }
+
             override fun afterTextChanged(s: Editable?) {
                 when {
-                    s.toString().trim().isEmpty()->{
-                        binding.ivSend.isClickable=false
+                    s.toString().trim().isEmpty() -> {
+                        binding.ivSend.isClickable = false
                         binding.clSend.background =
                             ContextCompat.getDrawable(context!!, R.drawable.send_button_bg)
                     }
                     s.toString().isNotEmpty() -> {
-                        binding.ivSend.isClickable=true
+                        binding.ivSend.isClickable = true
                         binding.clSend.background =
                             ContextCompat.getDrawable(context!!, R.drawable.send_button_blue_bg)
                     }

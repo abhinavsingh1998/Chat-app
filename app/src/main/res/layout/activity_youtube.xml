@@ -15,53 +15,53 @@
         android:id="@+id/iv_close_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/group_3"
-        android:layout_marginTop="92dp"
         android:layout_marginStart="@dimen/margin_size_16"
+        android:layout_marginTop="92dp"
+        android:src="@drawable/group_3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_media_image_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size_16"
-        android:textColor="@color/white"
+        android:layout_marginHorizontal="@dimen/margin_size_12"
         android:fontFamily="@font/jost_regular"
         android:text="Isle of Bliss view . 11th Feb 2022"
-        android:layout_marginHorizontal="@dimen/margin_size_12"
-        app:layout_constraintStart_toEndOf="@id/iv_close_button"
-        app:layout_constraintTop_toTopOf="@id/iv_close_button"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_16"
         app:layout_constraintBottom_toBottomOf="@id/iv_close_button"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_close_button"
+        app:layout_constraintTop_toTopOf="@id/iv_close_button" />
 
     <com.google.android.youtube.player.YouTubePlayerView
+        android:id="@+id/ytPlayer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ytPlayer"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/iv_media_left_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_size_11"
         android:src="@drawable/group_9"
         android:visibility="gone"
-        android:layout_marginStart="@dimen/margin_size_11"
+        app:layout_constraintBottom_toBottomOf="@id/ytPlayer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/ytPlayer"
-        app:layout_constraintBottom_toBottomOf="@id/ytPlayer"/>
+        app:layout_constraintTop_toTopOf="@id/ytPlayer" />
 
     <ImageView
         android:id="@+id/iv_media_right_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_size_11"
         android:src="@drawable/group_9_copy"
         android:visibility="gone"
-        android:layout_marginEnd="@dimen/margin_size_11"
+        app:layout_constraintBottom_toBottomOf="@id/ytPlayer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/ytPlayer"
-        app:layout_constraintBottom_toBottomOf="@id/ytPlayer"/>
+        app:layout_constraintTop_toTopOf="@id/ytPlayer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

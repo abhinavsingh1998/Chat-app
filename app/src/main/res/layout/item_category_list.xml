@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -71,8 +70,8 @@
                 android:layout_height="0dp"
                 android:layout_marginVertical="@dimen/margin_size_4"
                 android:layout_marginStart="@dimen/margin_size_4"
-                app:cardCornerRadius="8dp"
                 android:fitsSystemWindows="true"
+                app:cardCornerRadius="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -86,10 +85,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:scaleType="fitXY"
-                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/cl_category_bottom_view"
@@ -126,11 +125,11 @@
                             android:layout_marginVertical="@dimen/margin_size_5"
                             android:layout_marginStart="@dimen/margin_size_18"
                             android:layout_marginEnd="12dp"
+                            android:ellipsize="end"
                             android:fontFamily="@font/jost_medium"
+                            android:maxLines="2"
                             android:text="@string/area_text_draft"
                             android:textAlignment="center"
-                            android:maxLines="2"
-                            android:ellipsize="end"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/tv_category_price"
@@ -147,12 +146,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_size_4"
+                android:layout_marginBottom="@dimen/margin_size_1"
                 android:gravity="start"
                 android:orientation="vertical"
                 android:visibility="visible"
-                app:layout_constraintEnd_toStartOf="@id/rating_linear"
-                android:layout_marginBottom="@dimen/margin_size_1"
                 app:layout_constraintBottom_toTopOf="@id/category_bottom_view_bg"
+                app:layout_constraintEnd_toStartOf="@id/rating_linear"
                 app:layout_constraintStart_toEndOf="@id/cv_category_image"
                 app:layout_constraintTop_toTopOf="@id/cv_category_image">
 
@@ -171,9 +170,9 @@
                     style="@style/text_style_medium_grey_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
                     android:fontFamily="@font/jost_regular"
                     android:maxLines="2"
-                    android:ellipsize="end"
                     android:text="Anjarle, Maharastra"
                     android:textStyle="normal" />
             </LinearLayout>
@@ -206,10 +205,9 @@
                 android:id="@+id/rating_linear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/text_name_layout"
-                app:layout_constraintStart_toEndOf="@id/text_name_layout"
                 app:layout_constraintEnd_toEndOf="@id/iv_forward_arrow_category"
-                >
+                app:layout_constraintStart_toEndOf="@id/text_name_layout"
+                app:layout_constraintTop_toTopOf="@id/text_name_layout">
 
                 <ImageView
                     android:id="@+id/iv_rating"
@@ -224,13 +222,13 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_rating"
                     style="@style/text_style_dark_greenp_color_13"
-                    android:textSize="@dimen/text_size_13"
-                    android:textColor="#44b75d"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_size_4"
                     android:fontFamily="@font/jost_bold"
                     android:text="5%"
+                    android:textColor="#44b75d"
+                    android:textSize="@dimen/text_size_13"
                     app:layout_constraintBottom_toBottomOf="@id/iv_rating"
                     app:layout_constraintStart_toEndOf="@id/iv_rating"
                     app:layout_constraintTop_toTopOf="@id/iv_rating" />
@@ -240,21 +238,21 @@
                 android:id="@+id/iv_forward_arrow_category"
                 android:layout_width="@dimen/margin_size_15"
                 android:layout_height="8dp"
-                android:layout_marginBottom="@dimen/margin_size_7"
                 android:layout_marginEnd="@dimen/margin_size_12"
+                android:layout_marginBottom="@dimen/margin_size_7"
                 android:src="@drawable/combined_shape"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/category_bottom_view_bg" />
+                app:layout_constraintBottom_toTopOf="@id/category_bottom_view_bg"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <ImageView
                 android:id="@+id/category_bottom_view_bg"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/category_item_light_ash_color"
-                app:layout_constraintTop_toTopOf="@id/cl_category_bottom_view"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cl_category_bottom_view" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_category_item_info"
@@ -279,17 +277,17 @@
 
     <com.emproto.core.textviews.CustomTextView
         android:id="@+id/tv_apply_now_category"
-        android:layout_width="wrap_content"
         style="@style/text_style_text_black_color_12"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_size_10"
         android:drawableRight="@drawable/ic_black_right_arrow"
         android:drawablePadding="@dimen/margin_size_6"
-        android:singleLine="true"
         android:fontFamily="@string/jost_bold"
+        android:singleLine="true"
         android:text="Apply Now"
         app:layout_constraintEnd_toEndOf="@+id/cv_category_outer_card"
-        app:layout_constraintTop_toBottomOf="@+id/cv_category_outer_card"/>
+        app:layout_constraintTop_toBottomOf="@+id/cv_category_outer_card" />
 
     <View
         android:layout_width="match_parent"

@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:paddingBottom="59dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:paddingBottom="59dp">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_key_attractions_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Key Attractions"
-        android:textSize="@dimen/text_size_16"
-        android:fontFamily="@font/jost_regular"
-        android:textColor="@color/text_light_black_color"
-        android:layout_marginTop="@dimen/margin_size_30"
         android:layout_marginHorizontal="@dimen/margin_size_12"
+        android:layout_marginTop="@dimen/margin_size_30"
+        android:fontFamily="@font/jost_regular"
+        android:text="Key Attractions"
+        android:textColor="@color/text_light_black_color"
+        android:textSize="@dimen/text_size_16"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_key_attractions_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Dapoli: The hidden Jewel of the Konkan"
-        android:textSize="@dimen/text_size_14"
-        android:fontFamily="@font/jost_regular"
-        android:textColor="@color/text_lightgrey_color"
         android:layout_marginTop="@dimen/margin_size_4"
         android:layout_marginEnd="@dimen/margin_size_12"
+        android:fontFamily="@font/jost_regular"
+        android:text="Dapoli: The hidden Jewel of the Konkan"
+        android:textColor="@color/text_lightgrey_color"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_key_attractions_title"
-        app:layout_constraintTop_toBottomOf="@id/tv_key_attractions_title"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_key_attractions_title" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_key_attractions"
@@ -41,12 +40,12 @@
         android:layout_marginHorizontal="@dimen/margin_size_12"
         android:layout_marginTop="@dimen/margin_size_24"
         android:orientation="vertical"
-        app:spanCount="2"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/tv_keyAtt_starting_price_info"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_key_attractions_description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tv_keyAtt_starting_price_info"/>
+        app:spanCount="2" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_keyAtt_starting_price_info"
@@ -60,10 +59,10 @@
         android:paddingVertical="@dimen/margin_size_10"
         android:text="Allocation starting soon. Starting price — - ——."
         android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/tv_ka_invest_now"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_key_attractions"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/rv_key_attractions" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_ka_invest_now"

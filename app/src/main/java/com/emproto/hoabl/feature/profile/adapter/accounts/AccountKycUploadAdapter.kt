@@ -1,7 +1,6 @@
 package com.emproto.hoabl.feature.profile.adapter.accounts
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,7 +36,7 @@ class AccountKycUploadAdapter(
             newList: ArrayList<KycUpload>,
             view: View,
             documentType: Int
-         )
+        )
     }
 
     interface OnKycItemClickListener {
@@ -62,10 +61,10 @@ class AccountKycUploadAdapter(
                 holder.tvUploadDoc.isEnabled = true
             }
             else -> {
-                holder.tvUploadDoc.visibility=View.GONE
-                holder.viewUnderLine.visibility=View.GONE
-                holder.clStatus.visibility=View.VISIBLE
-                holder.textStatus.visibility=View.VISIBLE
+                holder.tvUploadDoc.visibility = View.GONE
+                holder.viewUnderLine.visibility = View.GONE
+                holder.clStatus.visibility = View.VISIBLE
+                holder.textStatus.visibility = View.VISIBLE
                 holder.tvPreview.setOnClickListener {
                     viewListener.onAccountsKycItemClick(
                         newList,
@@ -106,9 +105,11 @@ class AccountKycUploadAdapter(
 
         }
     }
+
     override fun getItemCount(): Int {
         return newList.size
     }
+
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val tvDocName: TextView = itemView.findViewById(R.id.tvDocName)
         val tvUploadDoc: TextView = itemView.findViewById(R.id.tvUploadDoc)

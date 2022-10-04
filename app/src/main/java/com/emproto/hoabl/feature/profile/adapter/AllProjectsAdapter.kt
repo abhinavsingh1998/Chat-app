@@ -17,29 +17,33 @@ import com.emproto.networklayer.response.profile.DataXXX
 class AllProjectsAdapter(
     private val context: Context,
     private val list: List<DataXXX>,
-    private var selectedItemPos:Int,
+    private var selectedItemPos: Int,
     private val itemInterface: AllProjectsInterface
-): RecyclerView.Adapter<AllProjectsAdapter.MyViewHolder>(){
+) : RecyclerView.Adapter<AllProjectsAdapter.MyViewHolder>() {
 
     private var lastItemSelectedPos = -1
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllProjectsAdapter.MyViewHolder {
-        val view = ProjectTabLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): AllProjectsAdapter.MyViewHolder {
+        val view =
+            ProjectTabLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: AllProjectsAdapter.MyViewHolder, position: Int) {
-        val currentItem= list[position]
+        val currentItem = list[position]
 
 
-        if (list[position].isEscalationGraphActive){
-            holder.binding.rootView.visibility= View.VISIBLE
-            holder.binding.projectName.text= currentItem?.launchName
+        if (list[position].isEscalationGraphActive) {
+            holder.binding.rootView.visibility = View.VISIBLE
+            holder.binding.projectName.text = currentItem?.launchName
             holder.binding.tabBar.isVisible = position == selectedItemPos
             holder.binding.rootView.setOnClickListener {
                 lastItemSelectedPos = selectedItemPos
                 selectedItemPos = position
-                lastItemSelectedPos = if(lastItemSelectedPos == -1)
+                lastItemSelectedPos = if (lastItemSelectedPos == -1)
                     selectedItemPos
                 else {
                     notifyItemChanged(lastItemSelectedPos)
@@ -47,11 +51,12 @@ class AllProjectsAdapter(
                 }
                 notifyItemChanged(selectedItemPos)
 
-                holder.binding.tabBar.isVisible= true
+                holder.binding.tabBar.isVisible = true
                 itemInterface.onClickItem(holder.adapterPosition)
             }
 
-            Glide.with(context).load(currentItem.projectCoverImages.newInvestmentPageMedia.value.url)
+            Glide.with(context)
+                .load(currentItem.projectCoverImages.newInvestmentPageMedia.value.url)
                 .into(holder.binding.projectImg)
         }
 
@@ -60,6 +65,7 @@ class AllProjectsAdapter(
     override fun getItemCount(): Int {
         return list.size
     }
+
     inner class MyViewHolder(val binding: ProjectTabLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -68,7 +74,7 @@ class AllProjectsAdapter(
     }
 
 
-     fun showHTMLText(message: String?): Spanned {
+    fun showHTMLText(message: String?): Spanned {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
         } else {

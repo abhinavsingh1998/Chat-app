@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/_8sdp"
-        android:elevation="@dimen/_4sdp"
         android:background="@drawable/homescreen_curve"
+        android:elevation="@dimen/_4sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,25 +22,25 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:elevation="@dimen/margin_size_4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/app_color"
             app:tabIndicatorHeight="@dimen/margin_size_4"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/black"
             app:tabTextAppearance="@style/tab_text"
-            app:tabTextColor="@color/text_lightgrey_color"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:tabTextColor="@color/text_lightgrey_color" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/tabLayout"
             app:layout_constraintBottom_toTopOf="@id/share"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/tabLayout" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/share"
@@ -48,9 +48,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_size_6"
             android:background="@drawable/share_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintStart_toStartOf="parent">
 
             <LinearLayout
                 android:id="@+id/layout_share"
@@ -66,8 +66,8 @@
                     style="@style/text_style_light_grey_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/share"
                     android:layout_marginLeft="@dimen/margin_size_6"
+                    android:text="@string/share"
                     app:fontName="@string/jost_regular" />
 
                 <com.emproto.core.textviews.CustomTextView
@@ -75,8 +75,8 @@
                     style="@style/text_style_light_grey_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/hoabl_app"
                     android:layout_marginLeft="@dimen/margin_size_6"
+                    android:text="@string/hoabl_app"
                     app:fontName="@string/jost_medium" />
 
                 <com.emproto.core.textviews.CustomTextView
@@ -84,25 +84,25 @@
                     style="@style/text_style_light_grey_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/friends"
                     android:layout_marginLeft="@dimen/margin_size_6"
+                    android:text="@string/friends"
                     app:fontName="@string/jost_regular" />
 
             </LinearLayout>
 
             <com.emproto.core.textviews.CustomTextView
+                style="@style/text_style_white_11"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:text="@string/share"
-                app:textAllCaps="true"
-                android:padding="@dimen/margin_size_15"
                 android:background="@drawable/share_background"
-                android:textAllCaps="true"
-                style="@style/text_style_white_11"
-                app:fontName="@string/jost_medium"
                 android:drawableLeft="@drawable/ic_share"
+                android:padding="@dimen/margin_size_15"
+                android:text="@string/share"
+                android:textAllCaps="true"
+                app:fontName="@string/jost_medium"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:textAllCaps="true" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

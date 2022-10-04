@@ -1,10 +1,8 @@
 package com.emproto.hoabl.feature.notification.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.app.NotificationCompat.getColor
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -12,9 +10,7 @@ import com.bumptech.glide.Glide
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.NotificationItemBinding
-import com.emproto.hoabl.feature.home.adapters.AllLatestUpdatesAdapter
 import com.emproto.networklayer.response.notification.dataResponse.Data
-import java.text.SimpleDateFormat
 
 class NotificationAdapter(
     val mContext: Context,
@@ -50,12 +46,22 @@ class NotificationAdapter(
         if (item.readStatus == true) {
             holder.binding.cardView.cardElevation = 0f
             holder.binding.tvNew.isVisible = false
-            holder.binding.tvChatTime.setTextColor(ContextCompat.getColor(mContext,R.color.text_grey_color))
+            holder.binding.tvChatTime.setTextColor(
+                ContextCompat.getColor(
+                    mContext,
+                    R.color.text_grey_color
+                )
+            )
 
         } else {
             holder.binding.cardView.cardElevation = 25f
             holder.binding.tvNew.isVisible = true
-            holder.binding.tvChatTime.setTextColor(ContextCompat.getColor(mContext,R.color.text_orange_color))
+            holder.binding.tvChatTime.setTextColor(
+                ContextCompat.getColor(
+                    mContext,
+                    R.color.text_orange_color
+                )
+            )
         }
 
         holder.binding.cardView.setOnClickListener {

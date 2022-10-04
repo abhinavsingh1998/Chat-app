@@ -125,7 +125,7 @@ class SecurityAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             binding.buttonView.setOnClickListener {
-                itemClickListener.onItemClicked(it,position,position.toString())
+                itemClickListener.onItemClicked(it, position, position.toString())
             }
         }
     }
@@ -139,7 +139,7 @@ class SecurityAdapter(
     private inner class WhatsappCommunicationViewHolder(private val binding: SecurityView2Binding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            when(isWhatsappEnabled){
+            when (isWhatsappEnabled) {
                 true -> {
                     binding.switch1.isChecked = true
                 }
@@ -150,10 +150,18 @@ class SecurityAdapter(
             binding.switch1.setOnCheckedChangeListener { _, isChecked ->
                 when (isChecked) {
                     true -> {
-                        itemClickListener.onItemClicked(binding.switch1,position,isChecked.toString())
+                        itemClickListener.onItemClicked(
+                            binding.switch1,
+                            position,
+                            isChecked.toString()
+                        )
                     }
                     false -> {
-                        itemClickListener.onItemClicked(binding.switch1,position,isChecked.toString())
+                        itemClickListener.onItemClicked(
+                            binding.switch1,
+                            position,
+                            isChecked.toString()
+                        )
                     }
                 }
             }
@@ -164,7 +172,7 @@ class SecurityAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             binding.clSecurityTips.setOnClickListener {
-                itemClickListener.onItemClicked(binding.clSecurityTips,position,"Security Tips")
+                itemClickListener.onItemClicked(binding.clSecurityTips, position, "Security Tips")
             }
         }
     }
@@ -175,7 +183,11 @@ class SecurityAdapter(
             binding.apply {
                 Security.text = context.getString(R.string.log_out_all_text)
                 clSecurityTips.setOnClickListener {
-                itemClickListener.onItemClicked(binding.clSecurityTips,position,Constants.SIGN_OUT_FROM_ALL_DEVICES)
+                    itemClickListener.onItemClicked(
+                        binding.clSecurityTips,
+                        position,
+                        Constants.SIGN_OUT_FROM_ALL_DEVICES
+                    )
                 }
             }
         }
@@ -185,7 +197,8 @@ class SecurityAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             binding.recyclerview1.layoutManager = LinearLayoutManager(context)
-            settingsAdapter = SettingsAdapter(context, initData(),showPushNotifications,itemClickListener)
+            settingsAdapter =
+                SettingsAdapter(context, initData(), showPushNotifications, itemClickListener)
             binding.recyclerview1.adapter = settingsAdapter
         }
     }

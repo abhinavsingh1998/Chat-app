@@ -13,7 +13,8 @@ import com.emproto.networklayer.response.investment.*
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
-class InvestmentRepository @Inject constructor(application: Application) : BaseRepository(application) {
+class InvestmentRepository @Inject constructor(application: Application) :
+    BaseRepository(application) {
 
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + parentJob)
@@ -27,8 +28,11 @@ class InvestmentRepository @Inject constructor(application: Application) : BaseR
      * @return
      */
 
-    fun getInvestments(pageType: Int, refresh: Boolean): LiveData<BaseResponse<InvestmentResponse>> {
-        if (mInvestmentResponse.value == null || refresh){
+    fun getInvestments(
+        pageType: Int,
+        refresh: Boolean
+    ): LiveData<BaseResponse<InvestmentResponse>> {
+        if (mInvestmentResponse.value == null || refresh) {
             mInvestmentResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
@@ -60,7 +64,8 @@ class InvestmentRepository @Inject constructor(application: Application) : BaseR
         mInvestmentResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val request = InvestmentDataSource(application).getMediaGallery(projectId = projectId)
+                val request =
+                    InvestmentDataSource(application).getMediaGallery(projectId = projectId)
                 if (request.isSuccessful) {
                     if (request.body()!!.data != null)
                         mInvestmentResponse.postValue(BaseResponse.success(request.body()!!))
@@ -87,31 +92,35 @@ class InvestmentRepository @Inject constructor(application: Application) : BaseR
         mInvestmentDetailResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val watchList = async { InvestmentDataSource(application).getMyWatchlist()  }
+                val watchList = async { InvestmentDataSource(application).getMyWatchlist() }
                 val inventories = async { InvestmentDataSource(application).getInventories(id) }
                 val testimonials = async { InvestmentDataSource(application).getTestimonialsData() }
-                val investmentDetail = async { InvestmentDataSource(application).getInvestmentsDetailData(id) }
+                val investmentDetail =
+                    async { InvestmentDataSource(application).getInvestmentsDetailData(id) }
                 val watchlistResponse = watchList.await()
                 val inventoriesResponse = inventories.await()
                 val testimonialsResponse = testimonials.await()
                 val investmentDetailResponse = investmentDetail.await()
                 if (investmentDetailResponse.isSuccessful) {
-                    if (investmentDetailResponse.body()!!.data != null){
-                        if(watchlistResponse.isSuccessful){
+                    if (investmentDetailResponse.body()!!.data != null) {
+                        if (watchlistResponse.isSuccessful) {
                             investmentDetailResponse.body()!!.data.projectContent.watchlist =
                                 watchlistResponse.body()!!.data
                         }
-                        if(inventoriesResponse.isSuccessful){
+                        if (inventoriesResponse.isSuccessful) {
                             investmentDetailResponse.body()!!.data.projectContent.inventoriesList =
                                 inventoriesResponse.body()!!.data
                         }
-                        if(testimonialsResponse.isSuccessful){
+                        if (testimonialsResponse.isSuccessful) {
                             investmentDetailResponse.body()!!.data.projectContent.testimonials =
                                 testimonialsResponse.body()!!.data
                         }
-                        mInvestmentDetailResponse.postValue(BaseResponse.success(investmentDetailResponse.body()!!))
-                    }
-                    else
+                        mInvestmentDetailResponse.postValue(
+                            BaseResponse.success(
+                                investmentDetailResponse.body()!!
+                            )
+                        )
+                    } else
                         mInvestmentDetailResponse.postValue(BaseResponse.Companion.error("No data found"))
                 } else {
                     mInvestmentDetailResponse.postValue(
@@ -157,7 +166,8 @@ class InvestmentRepository @Inject constructor(application: Application) : BaseR
     }
 
     fun getInvestmentsPromises(): LiveData<BaseResponse<InvestmentPromisesResponse>> {
-        val mInvestmentPromisesResponse = MutableLiveData<BaseResponse<InvestmentPromisesResponse>>()
+        val mInvestmentPromisesResponse =
+            MutableLiveData<BaseResponse<InvestmentPromisesResponse>>()
         mInvestmentPromisesResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {

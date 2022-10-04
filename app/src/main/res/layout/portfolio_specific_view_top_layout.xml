@@ -229,8 +229,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_size_4"
-                        android:gravity="end"
                         android:fontFamily="@font/jost_bold"
+                        android:gravity="end"
                         android:text="5000sqft" />
 
                 </LinearLayout>
@@ -253,6 +253,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
+
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_allocation_date_text"
                         style="@style/text_style_medium_gold_color_14"
@@ -275,10 +276,11 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginStart="@dimen/margin_size_4"
+                    android:layout_weight="1"
 
                     android:orientation="vertical">
+
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_possession_date_text"
                         style="@style/text_style_medium_gold_color_14"
@@ -301,11 +303,10 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_gravity="center_vertical"
-                    android:orientation="horizontal"
                     android:layout_marginStart="@dimen/margin_size_4"
-                    >
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
 
 
                     <com.google.android.material.textview.MaterialTextView
@@ -331,7 +332,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
 
 
             <TextView
@@ -466,7 +466,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/jost_light"
-                                    android:text="@string/investment_amount"/>
+                                    android:text="@string/investment_amount" />
 
                                 <ImageView
                                     android:id="@+id/iv_invested_amount"

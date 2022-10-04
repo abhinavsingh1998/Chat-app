@@ -21,8 +21,8 @@
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_arrow_left"
-                android:scaleType="fitXY" />
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_arrow_left" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/titleTV"
@@ -30,9 +30,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/app_name"
-                android:visibility="gone"
                 android:textColor="@color/circle_indicator_color"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:visibility="gone" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 </com.google.android.material.appbar.AppBarLayout>

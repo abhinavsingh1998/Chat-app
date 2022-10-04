@@ -113,8 +113,13 @@ class BookingStepsAdapter(
                         }
                     }
                 } else {
-                    type1Holder.binding.tvLink.isClickable=false
-                    type1Holder.binding.tvLink.setTextColor(ContextCompat.getColor(context, R.color.disable_text));
+                    type1Holder.binding.tvLink.isClickable = false
+                    type1Holder.binding.tvLink.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.disable_text
+                        )
+                    );
                 }
 
             }
@@ -132,8 +137,18 @@ class BookingStepsAdapter(
                     )
 
                 type1Holder.binding.ivProgressIcon.setImageDrawable(context.getDrawable(R.drawable.ic_inprogress_bg))
-                type1Holder.binding.tvTitle.setTextColor(ContextCompat.getColor(context, R.color.disable_text));
-                type1Holder.binding.tvDescription.setTextColor(ContextCompat.getColor(context, R.color.disable_text));
+                type1Holder.binding.tvTitle.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.disable_text
+                    )
+                );
+                type1Holder.binding.tvDescription.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.disable_text
+                    )
+                );
 
                 if (type == SECTION_PAYMENT) {
                     var payment: Payment? = null
@@ -141,14 +156,24 @@ class BookingStepsAdapter(
                         payment = dataList[position].data as Payment
                     type1Holder.binding.imageView3.visibility = View.VISIBLE
                     type1Holder.binding.imageView3.setImageDrawable(context.getDrawable(R.drawable.rupee_disable))
-                    type1Holder.binding.tvLink.setTextColor(ContextCompat.getColor(context, R.color.disable_text));
+                    type1Holder.binding.tvLink.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.disable_text
+                        )
+                    );
                     type1Holder.binding.tvLink.setOnClickListener {
                         itemInterface.onClickPendingCardDetails(payment!!)
                     }
 
                 } else {
                     type1Holder.binding.imageView3.visibility = View.GONE
-                    type1Holder.binding.tvLink.setTextColor(ContextCompat.getColor(context, R.color.disable_text));
+                    type1Holder.binding.tvLink.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.disable_text
+                        )
+                    );
 
                 }
 

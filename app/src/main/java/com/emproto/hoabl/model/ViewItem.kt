@@ -4,4 +4,5 @@ import java.io.Serializable
 
 data class ViewItem(
     var imageId: Int,
-    var imageDrawable: Int) : Serializable
+    var imageDrawable: Int
+) : Serializable

@@ -10,12 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemChatDetailBinding
 import com.emproto.hoabl.databinding.ItemChatSenderMessageBinding
-
 import com.emproto.hoabl.feature.chat.model.ChatDetailModel
 import com.emproto.hoabl.feature.chat.model.MessageType
 import com.emproto.networklayer.response.chats.Option
-
-import kotlin.collections.ArrayList
 
 class ChatsDetailAdapter(
     private var mContext: Context?,
@@ -81,8 +78,9 @@ class ChatsDetailAdapter(
                     ChatOptionAdapter(
                         chatDetailList[position].option!!,
                         chatDetailList[position].conversationId,
-                        mListener
-                    )
+                        mListener,
+
+                        )
 
             }
         } else if (holder is SenderViewHolder) {

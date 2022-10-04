@@ -4,12 +4,12 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.hoabl.repository.InvestmentRepository
-import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import javax.inject.Inject
 
 
-class InvestmentFactory @Inject constructor(private var application: Application, private var investmentRepository: InvestmentRepository
+class InvestmentFactory @Inject constructor(
+    private var application: Application, private var investmentRepository: InvestmentRepository
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

@@ -12,7 +12,6 @@ import androidx.core.app.NotificationCompat
 import com.emproto.hoabl.HoablSplashActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.networklayer.preferences.AppPreference
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -60,7 +59,7 @@ class MyFirebasemessagingService : FirebaseMessagingService() {
         // Check if message contains a notification payload.
         remoteMessage.notification?.let {
             Log.d(TAG, "Message Notification Body: ${it.body}")
-            sendNotification(it.body!!,it.title!!)
+            sendNotification(it.body!!, it.title!!)
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM

@@ -32,12 +32,12 @@ class DocumentsAdapter(
             false -> {}
         }
         holder.binding.tvView.setOnClickListener {
-            when{
+            when {
                 list[position].path.isNullOrEmpty() -> {
-                    ivInterface.onclickDocument("No name","")
+                    ivInterface.onclickDocument("No name", "")
                 }
                 else -> {
-                    ivInterface.onclickDocument(list[position].name,list[position].path)
+                    ivInterface.onclickDocument(list[position].name, list[position].path)
                 }
             }
         }

@@ -19,63 +19,65 @@ import com.emproto.networklayer.response.marketingUpdates.Data
 import com.emproto.networklayer.response.marketingUpdates.MarketingUpdateCreatedBy
 import com.emproto.networklayer.response.marketingUpdates.MarketingUpdateUpdatedBy
 
-object Extensions{
+object Extensions {
 
-    fun saveToPreferences(activity:Activity,key:String,value:String){
+    fun saveToPreferences(activity: Activity, key: String, value: String) {
         val sharedPref: SharedPreferences = activity.getPreferences(Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.putString(key, value)
         editor.apply()
     }
 
-    fun getFromPreferences(activity:Activity,key:String,value:String):String{
+    fun getFromPreferences(activity: Activity, key: String, value: String): String {
         val sharedPref: SharedPreferences = activity.getPreferences(Context.MODE_PRIVATE)
-        return sharedPref.getString(key,"").toString()
+        return sharedPref.getString(key, "").toString()
     }
 
-    fun PmData.toHomePagesOrPromise() = com.emproto.networklayer.response.promises.HomePagesOrPromise(
-        createdAt = createdAt.toString(),
-        createdBy = createdBy.toString(),
-        crmPromiseId = crmPromiseId.toString(),
-        description = description!!,
-        displayMedia = displayMedia!!,
-        howToApply = howToApply!!,
-        id = id!!,
-        isHowToApplyActive = isHowToApplyActive!!,
-        isTermsAndConditionsActive = isTermsAndConditionsActive!!,
-        name = name!!,
-        priority = priority.toString(),
-        promiseIconType = promiseIconType.toString(),
-        promiseMedia = promiseMedia,
-        promiseType = promiseType.toString(),
-        shortDescription = shortDescription.toString(),
-        status = status.toString(),
-        termsAndConditions = termsAndConditions!!,
-        updatedAt = updatedAt.toString(),
-        updatedBy = updatedBy.toString()
-    )
+    fun PmData.toHomePagesOrPromise() =
+        com.emproto.networklayer.response.promises.HomePagesOrPromise(
+            createdAt = createdAt.toString(),
+            createdBy = createdBy.toString(),
+            crmPromiseId = crmPromiseId.toString(),
+            description = description!!,
+            displayMedia = displayMedia!!,
+            howToApply = howToApply!!,
+            id = id!!,
+            isHowToApplyActive = isHowToApplyActive!!,
+            isTermsAndConditionsActive = isTermsAndConditionsActive!!,
+            name = name!!,
+            priority = priority.toString(),
+            promiseIconType = promiseIconType.toString(),
+            promiseMedia = promiseMedia,
+            promiseType = promiseType.toString(),
+            shortDescription = shortDescription.toString(),
+            status = status.toString(),
+            termsAndConditions = termsAndConditions!!,
+            updatedAt = updatedAt.toString(),
+            updatedBy = updatedBy.toString()
+        )
 
-    fun HomePagesOrPromise.toHomePagesOrPromise() = com.emproto.networklayer.response.promises.HomePagesOrPromise(
-        createdAt = createdAt.toString(),
-        createdBy = createdBy.toString(),
-        crmPromiseId = crmPromiseId.toString(),
-        description = description,
-        displayMedia = displayMedia,
-        howToApply = howToApply,
-        id = id,
-        isHowToApplyActive = isHowToApplyActive,
-        isTermsAndConditionsActive = isTermsAndConditionsActive,
-        name = name,
-        priority = priority.toString(),
-        promiseIconType = promiseIconType.toString(),
-        promiseMedia = promiseMedia,
-        promiseType = promiseType.toString(),
-        shortDescription = shortDescription.toString(),
-        status = status.toString(),
-        termsAndConditions = termsAndConditions,
-        updatedAt = updatedAt.toString(),
-        updatedBy = updatedBy.toString()
-    )
+    fun HomePagesOrPromise.toHomePagesOrPromise() =
+        com.emproto.networklayer.response.promises.HomePagesOrPromise(
+            createdAt = createdAt.toString(),
+            createdBy = createdBy.toString(),
+            crmPromiseId = crmPromiseId.toString(),
+            description = description,
+            displayMedia = displayMedia,
+            howToApply = howToApply,
+            id = id,
+            isHowToApplyActive = isHowToApplyActive,
+            isTermsAndConditionsActive = isTermsAndConditionsActive,
+            name = name,
+            priority = priority.toString(),
+            promiseIconType = promiseIconType.toString(),
+            promiseMedia = promiseMedia,
+            promiseType = promiseType.toString(),
+            shortDescription = shortDescription.toString(),
+            status = status.toString(),
+            termsAndConditions = termsAndConditions,
+            updatedAt = updatedAt.toString(),
+            updatedBy = updatedBy.toString()
+        )
 
     fun PageManagementOrLatestUpdate.toData() = Data(
         createdAt = createdAt,
@@ -84,8 +86,8 @@ object Extensions{
         displayTitle = displayTitle,
         formType = formType,
         id = id,
-        marketingUpdateCreatedBy = MarketingUpdateCreatedBy(firstName = "",id = 0),
-        marketingUpdateUpdatedBy = MarketingUpdateUpdatedBy(firstName = "",id=0),
+        marketingUpdateCreatedBy = MarketingUpdateCreatedBy(firstName = "", id = 0),
+        marketingUpdateUpdatedBy = MarketingUpdateUpdatedBy(firstName = "", id = 0),
         priority = 0,
         shouldDisplayDate = false,
         status = status,
@@ -97,23 +99,27 @@ object Extensions{
 
     fun PageManagementOrInsight.toData() = com.emproto.networklayer.response.insights.Data(
 
-        createdAt= createdAt,
-        createdBy= createdBy,
-        displayTitle= displayTitle,
-        id= id,
-        insightsCreatedAdmin= InsightsCreatedAdmin("","", "",
+        createdAt = createdAt,
+        createdBy = createdBy,
+        displayTitle = displayTitle,
+        id = id,
+        insightsCreatedAdmin = InsightsCreatedAdmin(
+            "", "", "",
             "", 0, "", "", "", "", 0,
             false, "", "", "", 0,
-            "", "", 0),
-        insightsMedia= insightsMedia,
-        insightsModifiedAdmin=  InsightsModifiedAdmin("","", "",
+            "", "", 0
+        ),
+        insightsMedia = insightsMedia,
+        insightsModifiedAdmin = InsightsModifiedAdmin(
+            "", "", "",
             "", 0, "", "", "", "", 0,
             false, "", "", "", 0,
-            "", "", 0),
-        modifiedBy= modifiedBy,
-        priority= priority,
-        status= status,
-        updatedAt= updatedAt
+            "", "", 0
+        ),
+        modifiedBy = modifiedBy,
+        priority = priority,
+        status = status,
+        updatedAt = updatedAt
 
     )
 
@@ -126,7 +132,8 @@ object Extensions{
     }
 
     fun Context.hideKeyboard(view: View) {
-        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 

@@ -19,7 +19,6 @@ import java.io.Serializable
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 class ChatsFragment : BaseFragment(), ChatsAdapter.OnItemClickListener {
 
@@ -69,7 +68,8 @@ class ChatsFragment : BaseFragment(), ChatsAdapter.OnItemClickListener {
                     binding.rvChats.visibility = View.VISIBLE
                     response.data.let { chatResponse ->
                         if (chatResponse?.data != null && chatResponse.data is List<CData>) {
-                            binding.rvChats.adapter = ChatsAdapter(requireContext(), chatResponse.data, this)
+                            binding.rvChats.adapter =
+                                ChatsAdapter(requireContext(), chatResponse.data, this)
                             "Chat (${chatResponse.data.size})".also { binding.tvChats.text = it }
                             //setting last updated time
                             val dateListInMS = ArrayList<Long>()
@@ -90,7 +90,10 @@ class ChatsFragment : BaseFragment(), ChatsAdapter.OnItemClickListener {
                                 val lastUpdateTimeInMs =
                                     dateListInMS[0] //picking first one in arraylist because more milliseconds means its the latest time
                                 val sdf =
-                                    SimpleDateFormat("dd/MM/yyyy  hh:mm:ss aa", Locale.getDefault())  //creating pattern based on our requirement
+                                    SimpleDateFormat(
+                                        "dd/MM/yyyy  hh:mm:ss aa",
+                                        Locale.getDefault()
+                                    )  //creating pattern based on our requirement
                                 val calendar = Calendar.getInstance()
                                 calendar.timeInMillis = lastUpdateTimeInMs
                                 binding.tvLastUpdatedTime.text =

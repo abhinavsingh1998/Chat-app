@@ -242,12 +242,18 @@ class PortfolioRepository @Inject constructor(application: Application) :
         return mDocumentsResponse
     }
 
-    fun getProjectTimelineMedia(category: String,projectContentId:String): LiveData<BaseResponse<MediaResponse>> {
+    fun getProjectTimelineMedia(
+        category: String,
+        projectContentId: String
+    ): LiveData<BaseResponse<MediaResponse>> {
         val mTimelineMediaResponse = MutableLiveData<BaseResponse<MediaResponse>>()
         mTimelineMediaResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val request = PortfolioDataSource(application).getProjectTimelineMedia(category,projectContentId)
+                val request = PortfolioDataSource(application).getProjectTimelineMedia(
+                    category,
+                    projectContentId
+                )
                 if (request.isSuccessful) {
                     if (request.body()!!.data != null)
                         mTimelineMediaResponse.postValue(BaseResponse.success(request.body()!!))

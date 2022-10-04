@@ -4,13 +4,12 @@
 
 
     <gradient
-        android:type="linear"
-        android:startColor="#32369f"
-        android:endColor="#212365"
+        android:angle="180"
         android:centerColor="#212365"
-        android:angle="180" />
-    <corners
-        android:radius="0dp"/>
+        android:endColor="#212365"
+        android:startColor="#32369f"
+        android:type="linear" />
+    <corners android:radius="0dp" />
 
 
 </shape>

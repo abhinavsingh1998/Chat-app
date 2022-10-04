@@ -1,48 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/iv_submitted_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/margin_size_28"
-        android:src="@drawable/submitted_tick_image"/>
+        android:src="@drawable/submitted_tick_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_application_submit"
+        style="@style/text_style_text_light_black_color_dialog_16"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_size_28"
         android:layout_marginHorizontal="@dimen/margin_size_19"
-        android:text="@string/application_submitted"
+        android:layout_marginTop="@dimen/margin_size_28"
         android:fontFamily="@font/jost_medium"
-        style="@style/text_style_text_light_black_color_dialog_16"
+        android:text="@string/application_submitted"
         android:textAlignment="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_submitted_image"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_submitted_image" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_application_thanks"
+        style="@style/text_style_text_confirm_color_14"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_size_10"
         android:layout_marginHorizontal="@dimen/margin_size_19"
-        android:text="@string/thanking_text"
+        android:layout_marginTop="@dimen/margin_size_10"
         android:fontFamily="@font/jost_regular"
-        style="@style/text_style_text_confirm_color_14"
+        android:text="@string/thanking_text"
         android:textAlignment="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_application_submit"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_application_submit" />
 
     <View
         android:id="@+id/view_application_submitted_line"
@@ -50,24 +48,24 @@
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/margin_size_22"
         android:background="@color/grey_line"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_application_thanks"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_application_thanks" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_submit_okay"
+        style="@style/text_style_blue_14"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="Okay"
-        android:textAllCaps="true"
-        android:textAlignment="center"
-        android:fontFamily="@font/jost_bold"
-        style="@style/text_style_blue_14"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_application_submitted_line"
+        android:layout_marginHorizontal="@dimen/margin_size_19"
         android:layout_marginVertical="@dimen/margin_size_17"
-        android:layout_marginHorizontal="@dimen/margin_size_19"/>
+        android:fontFamily="@font/jost_bold"
+        android:text="Okay"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_application_submitted_line" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
