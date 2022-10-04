@@ -112,9 +112,16 @@ class NewInvestmentAdapter(
             binding.tvArea.text = SpannableStringBuilder()
                 .append("${data.pageManagementsOrNewInvestments[0].areaStartingFrom} Sqft")
             binding.tvBackgroundGrey.text = data.pageManagementsOrNewInvestments[0].shortDescription
-            binding.tvViewInfo.text = SpannableStringBuilder()
-                .bold { append("${data.pageManagementsOrNewInvestments[0].fomoContent.noOfViews} People") }
-                .append(" saw this in ${data.pageManagementsOrNewInvestments[0].fomoContent.days} days")
+            if(data.pageManagementsOrNewInvestments[0].fomoContent.isDaysActive){
+                binding.tvViewInfo.visibility=View.VISIBLE
+                binding.tvViewInfo.text = SpannableStringBuilder()
+                    .bold { append("${data.pageManagementsOrNewInvestments[0].fomoContent.noOfViews} People") }
+                    .append(" saw this in ${data.pageManagementsOrNewInvestments[0].fomoContent.days} days")
+            }
+            else{
+                binding.tvViewInfo.visibility=View.GONE
+            }
+
 
             val listViews = ArrayList<String>()
             for (item in mediaGalleries.images) {
