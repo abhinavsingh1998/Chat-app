@@ -82,6 +82,14 @@ class CompletedInvestmentAdapter(
             holder.binding.tvCompletedInvestmentArea.text =
                 Utility.convertTo(project.investment.crmInventory.areaSqFt)
 
+            if(!project.project.isEscalationGraphActive){
+                holder.binding.ivCompletedInvestmentGraphImage.visibility= View.GONE
+                holder.binding.clGraphCard.visibility= View.GONE
+            } else{
+                holder.binding.ivCompletedInvestmentGraphImage.visibility= View.VISIBLE
+                holder.binding.clGraphCard.visibility= View.VISIBLE
+            }
+
             holder.binding.viewDarkBg.setOnClickListener {
                 if (holder.binding.ivCompletedInvestmentDropArrow.visibility == View.VISIBLE) {
                     holder.binding.cvCompletedInvestmentGraphCard.visibility = View.VISIBLE
