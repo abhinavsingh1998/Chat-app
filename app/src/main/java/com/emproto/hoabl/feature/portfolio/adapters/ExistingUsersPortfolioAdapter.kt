@@ -15,8 +15,8 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
 import com.emproto.networklayer.response.portfolio.dashboard.*
-import com.emproto.networklayer.response.watchlist.Data
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
+import com.emproto.networklayer.response.watchlist.Data
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.BalloonSizeSpec

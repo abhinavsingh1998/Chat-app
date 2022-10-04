@@ -77,8 +77,12 @@ class CompletedInvestmentAdapter(
             holder.binding.tvCompletedInvestmentName.text = project.project.launchName
             holder.binding.tvCompletedInvestmentProjectText.text =
                 project.investment.inventoryBucket
-            (project.project.address.city + "," + project.project.address.state).also { holder.binding.tvCompletedInvestmentLocation.text = it }
-            "₹${Utility.convertToDecimal(project.investment.amountInvested)}".also { holder.binding.tvCompletedInvestmentPrice.text = it }
+            (project.project.address.city + "," + project.project.address.state).also {
+                holder.binding.tvCompletedInvestmentLocation.text = it
+            }
+            "₹${Utility.convertToDecimal(project.investment.amountInvested)}".also {
+                holder.binding.tvCompletedInvestmentPrice.text = it
+            }
             holder.binding.tvCompletedInvestmentArea.text =
                 Utility.convertTo(project.investment.crmInventory.areaSqFt)
 
@@ -118,19 +122,27 @@ class CompletedInvestmentAdapter(
                 project.project.generalInfoEscalationGraph.dataPoints.dataPointType
             )
 
-            holder.binding.tvXAxisLabel.text = project.project.generalInfoEscalationGraph.yAxisDisplayName
-            holder.binding.tvYAxisLabel.text = project.project.generalInfoEscalationGraph.xAxisDisplayName
+            holder.binding.tvXAxisLabel.text =
+                project.project.generalInfoEscalationGraph.yAxisDisplayName
+            holder.binding.tvYAxisLabel.text =
+                project.project.generalInfoEscalationGraph.xAxisDisplayName
 
             if (type == ONGOING) {
                 holder.binding.cvInvesterAppreciation.visibility = View.GONE
                 "Actions".also { holder.binding.tvCompletedInvestmentRatingUnit.text = it }
-                ("" + project.investment.actionItemCount).also { holder.binding.tvCompletedInvestmentRating.text = it }
+                ("" + project.investment.actionItemCount).also {
+                    holder.binding.tvCompletedInvestmentRating.text = it
+                }
                 holder.binding.tvCompletedInvestmentRating.setTextColor(context.getColor(R.color.text_red_color))
                 holder.binding.tvCompletedInvestmentRatingUnit.setTextColor(context.getColor(R.color.text_red_color))
             } else {
-                "${project.investment.projectIea} ".also { holder.binding.tvCompletedInvestmentRating.text = it }
+                "${project.investment.projectIea} ".also {
+                    holder.binding.tvCompletedInvestmentRating.text = it
+                }
                 holder.binding.cvInvesterAppreciation.visibility = View.VISIBLE
-                "${project.investment.projectIea} ".also { holder.binding.tvInvestorAppreciationRating.text = it }
+                "${project.investment.projectIea} ".also {
+                    holder.binding.tvInvestorAppreciationRating.text = it
+                }
 
             }
             Glide.with(context)
@@ -180,7 +192,7 @@ class CompletedInvestmentAdapter(
         val lineValues = ArrayList<Entry>()
 
         when (dataPointType) {
-            Constants.YEARLY  -> {
+            Constants.YEARLY -> {
                 graphType = Constants.YEARLY
                 for (item in points) {
                     lineValues.add(Entry(item.year.toFloat(), item.value.toFloat()))
@@ -282,7 +294,7 @@ class CompletedInvestmentAdapter(
         val lineValues = ArrayList<Entry>()
 
         when (dataPointType) {
-            Constants.YEARLY  -> {
+            Constants.YEARLY -> {
                 graphType = Constants.YEARLY
                 for (item in points) {
                     lineValues.add(Entry(item.year.toFloat(), item.value.toFloat()))

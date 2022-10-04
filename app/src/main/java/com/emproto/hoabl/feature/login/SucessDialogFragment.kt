@@ -2,7 +2,6 @@ package com.emproto.hoabl.feature.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,7 @@ import java.util.*
 class SucessDialogFragment : DialogFragment(), View.OnClickListener {
 
     private lateinit var sucessLayoutBinding: SuccessLayoutBinding
-    lateinit var  timer: Timer
+    lateinit var timer: Timer
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,9 +34,9 @@ class SucessDialogFragment : DialogFragment(), View.OnClickListener {
 
     }
 
-    fun clickListner(){
+    fun clickListner() {
         sucessLayoutBinding.continueBtn.setOnClickListener(View.OnClickListener {
-           startHome(true)
+            startHome(true)
         })
     }
 
@@ -49,8 +48,8 @@ class SucessDialogFragment : DialogFragment(), View.OnClickListener {
 //         }, 5000)
 //     }
 
-    fun startHome(clickedCheck:Boolean){
-        if(clickedCheck==true){
+    fun startHome(clickedCheck: Boolean) {
+        if (clickedCheck == true) {
             startActivity(Intent(requireContext(), HomeActivity::class.java))
             requireActivity().finish()
         }

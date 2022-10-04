@@ -12,11 +12,11 @@ import com.emproto.networklayer.response.chats.Option
 class ChatOptionAdapter(
     private var option: ArrayList<Option>,
     private var conversationId: Int,
-    private var optionListener: OnOptionClickListener
+    private var optionListener: OnOptionClickListener,
+
 ) : RecyclerView.Adapter<ChatOptionAdapter.ViewHolder>() {
 
     lateinit var binding: ItemOptionBinding
-
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -29,8 +29,11 @@ class ChatOptionAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvOption.text = option[position].text
 
+
         holder.tvOption.setOnClickListener {
+
             optionListener.onOptionClick(option[position], it, position, conversationId)
+
         }
     }
 

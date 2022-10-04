@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#494c9a"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#494c9a">
 
     <ImageView
         android:id="@+id/iv_docs"
@@ -20,23 +20,23 @@
         android:id="@+id/tv_pdf"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/jostregular"
-        android:textStyle="normal"
-        android:textSize="12sp"
-        android:textColor="#ffffff"
-        tools:text="Document Name.pdf"
-        android:layout_marginTop="@dimen/margin_size_4"
         android:layout_marginStart="@dimen/margin_size_12"
+        android:layout_marginTop="@dimen/margin_size_4"
+        android:fontFamily="@font/jostregular"
+        android:textColor="#ffffff"
+        android:textSize="12sp"
+        android:textStyle="normal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_docs" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_docs"
+        tools:text="Document Name.pdf" />
 
     <ImageView
         android:id="@+id/iv_pdf_arrow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_combined_shape_copy_5"
-        android:layout_marginEnd="@dimen/margin_size_16"
         android:layout_marginTop="@dimen/margin_size_16"
+        android:layout_marginEnd="@dimen/margin_size_16"
+        android:src="@drawable/ic_combined_shape_copy_5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

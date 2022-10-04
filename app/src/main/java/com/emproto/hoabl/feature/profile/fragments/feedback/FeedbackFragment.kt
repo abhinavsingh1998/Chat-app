@@ -17,7 +17,7 @@ import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentFeedbackBinding
-import com.emproto.hoabl.databinding.FragmentFeedbackBinding.*
+import com.emproto.hoabl.databinding.FragmentFeedbackBinding.inflate
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.viewmodels.ProfileViewModel
@@ -49,7 +49,8 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
         binding = inflate(inflater, container, false)
         (requireActivity() as HomeActivity).hideBottomNavigation()
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
-        profileViewModel = ViewModelProvider(requireActivity(), factory)[ProfileViewModel::class.java]
+        profileViewModel =
+            ViewModelProvider(requireActivity(), factory)[ProfileViewModel::class.java]
 
         initClickListener()
         categories()
@@ -71,18 +72,28 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
                 description = p0.toString()
                 if (p0.toString().length == 250) {
                     binding.editIssuesLayout.boxStrokeColor =
-                        ContextCompat.getColor(context!!,R.color.text_red_color)
+                        ContextCompat.getColor(context!!, R.color.text_red_color)
                     binding.txtcount.isVisible = true
                     binding.maxDesc.isVisible = false
-                    binding.experienceTv.setTextColor(ContextCompat.getColorStateList(context!!,R.color.text_red_color))
+                    binding.experienceTv.setTextColor(
+                        ContextCompat.getColorStateList(
+                            context!!,
+                            R.color.text_red_color
+                        )
+                    )
                 } else {
                     binding.editIssuesLayout.boxStrokeColor =
-                        context?.let { ContextCompat.getColor(it,R.color.app_color) }!!
+                        context?.let { ContextCompat.getColor(it, R.color.app_color) }!!
                     binding.txtcount.isVisible = false
                     binding.maxDesc.isVisible = true
                     "${description.length}/250  Characters".also { binding.maxDesc.text = it }
-                    with(binding) { experienceTv.setTextColor(ContextCompat.getColorStateList(
-                        context!!,R.color.text_color)) }
+                    with(binding) {
+                        experienceTv.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context!!, R.color.text_color
+                            )
+                        )
+                    }
                 }
             }
 
@@ -117,74 +128,131 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun selected5() {
-        binding.ivRating5.setImageDrawable(context?.let { ContextCompat.getDrawable(it,R.drawable.selected5) })
+        binding.ivRating5.setImageDrawable(context?.let {
+            ContextCompat.getDrawable(
+                it,
+                R.drawable.selected5
+            )
+        })
         selectedFontAndColor(binding.excelentTxt)
     }
 
     private fun selected4() {
-        binding.ivRating4.setImageDrawable(context?.let { ContextCompat.getDrawable(it,R.drawable.selected4) })
+        binding.ivRating4.setImageDrawable(context?.let {
+            ContextCompat.getDrawable(
+                it,
+                R.drawable.selected4
+            )
+        })
         selectedFontAndColor(binding.goodTxt)
     }
 
     private fun selected2() {
-        binding.ivRating2.setImageDrawable(context?.let { ContextCompat.getDrawable(it,R.drawable.selected2) })
+        binding.ivRating2.setImageDrawable(context?.let {
+            ContextCompat.getDrawable(
+                it,
+                R.drawable.selected2
+            )
+        })
         selectedFontAndColor(binding.badTxt)
     }
 
     private fun selected3() {
-        binding.ivRating3.setImageDrawable(context?.let { ContextCompat.getDrawable(it,R.drawable.selected3) })
+        binding.ivRating3.setImageDrawable(context?.let {
+            ContextCompat.getDrawable(
+                it,
+                R.drawable.selected3
+            )
+        })
         selectedFontAndColor(binding.okTxt)
     }
 
     private fun selected1() {
-        binding.ivRating1.setImageDrawable(context?.let { ContextCompat.getDrawable(it,R.drawable.selected1) })
+        binding.ivRating1.setImageDrawable(context?.let {
+            ContextCompat.getDrawable(
+                it,
+                R.drawable.selected1
+            )
+        })
         selectedFontAndColor(binding.veryPoorTxt)
     }
 
     private fun selectedFontAndColor(selectedText: TextView) {
-        selectedText.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
+        selectedText.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
         selectedText.typeface = boldface
     }
 
     private fun unselected5() {
-        binding.ivRating5.setImageDrawable(context?.let { ContextCompat.getDrawable(it,R.drawable.unselected5) })
+        binding.ivRating5.setImageDrawable(context?.let {
+            ContextCompat.getDrawable(
+                it,
+                R.drawable.unselected5
+            )
+        })
         unSelectedFontAndColor(binding.excelentTxt)
     }
 
     private fun unselected4() {
-        binding.ivRating4.setImageDrawable(context?.let { ContextCompat.getDrawable(it,R.drawable.unselected4) })
+        binding.ivRating4.setImageDrawable(context?.let {
+            ContextCompat.getDrawable(
+                it,
+                R.drawable.unselected4
+            )
+        })
         unSelectedFontAndColor(binding.goodTxt)
     }
 
     private fun unselected3() {
-        binding.ivRating3.setImageDrawable(context?.let { ContextCompat.getDrawable(it,R.drawable.unselected3) })
+        binding.ivRating3.setImageDrawable(context?.let {
+            ContextCompat.getDrawable(
+                it,
+                R.drawable.unselected3
+            )
+        })
         unSelectedFontAndColor(binding.okTxt)
     }
 
     private fun unselected2() {
-        binding.ivRating2.setImageDrawable(context?.let { ContextCompat.getDrawable(it,R.drawable.unselected2) })
+        binding.ivRating2.setImageDrawable(context?.let {
+            ContextCompat.getDrawable(
+                it,
+                R.drawable.unselected2
+            )
+        })
         unSelectedFontAndColor(binding.badTxt)
     }
 
     private fun unselected1() {
-        binding.ivRating1.setImageDrawable(context?.let { ContextCompat.getDrawable(it,R.drawable.unselected1) })
+        binding.ivRating1.setImageDrawable(context?.let {
+            ContextCompat.getDrawable(
+                it,
+                R.drawable.unselected1
+            )
+        })
         unSelectedFontAndColor(binding.veryPoorTxt)
     }
 
     private fun unSelectedFontAndColor(unSelectedText: TextView) {
-        unSelectedText.setTextColor(ContextCompat.getColor(requireContext(),R.color.category_location_ash_color))
+        unSelectedText.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.category_location_ash_color
+            )
+        )
         unSelectedText.typeface = lightface
     }
 
     private fun initObserver() {
         profileViewModel.submitFeedback(feedBackRequest)
-            .observe(viewLifecycleOwner
+            .observe(
+                viewLifecycleOwner
             ) {
                 when (it!!.status) {
                     Status.ERROR -> {
                         binding.progressBar.isVisible = false
                         binding.shareYourFeedback.isVisible = true
-                        binding.shareYourFeedback.text = requireContext().getString(R.string.share_your_feedback)
+                        binding.shareYourFeedback.text =
+                            requireContext().getString(R.string.share_your_feedback)
                         (requireActivity() as HomeActivity).showErrorToast(
                             it.message!!
                         )
@@ -298,13 +366,14 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
                 selected5()
             }
             R.id.share_your_feedback -> {
-                if (ratings != 0 || (description.isNotEmpty()&& description.trim().isNotEmpty())  || list.isNotEmpty()
+                if (ratings != 0 || (description.isNotEmpty() && description.trim()
+                        .isNotEmpty()) || list.isNotEmpty()
                 ) {
                     feedBackRequest = FeedBackRequest(ratings, list, description)
                     initObserver()
                 } else {
                     (requireActivity() as HomeActivity).showErrorToast(
-                       "Fill Atleast One field"
+                        "Fill Atleast One field"
                     )
                 }
 

@@ -21,6 +21,7 @@ class ProfileOptionsAdapter(
         const val VIEW_ITEM = 0
         const val VIEW_FOOTER = 1
     }
+
     override fun getItemViewType(position: Int): Int {
         return dataList[position].viewType
     }
@@ -52,37 +53,38 @@ class ProfileOptionsAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
-           VIEW_ITEM -> {
-               val headerHolder = holder as ProfileOptionViewHolder
-               val item = dataList[headerHolder.layoutPosition].data
+            VIEW_ITEM -> {
+                val headerHolder = holder as ProfileOptionViewHolder
+                val item = dataList[headerHolder.layoutPosition].data
 
-               if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                   headerHolder.binding.ivIcon.setImageResource(item.img)
-               }
-               headerHolder.binding.tvTitle.text = item.title
-               headerHolder.binding.tvDescirption.text = item.description
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    headerHolder.binding.ivIcon.setImageResource(item.img)
+                }
+                headerHolder.binding.tvTitle.text = item.title
+                headerHolder.binding.tvDescirption.text = item.description
 
-               headerHolder.binding.hoabelView.setOnClickListener {
-                   profileItemInterface.onClickItem(headerHolder.layoutPosition)
-               }
+                headerHolder.binding.hoabelView.setOnClickListener {
+                    profileItemInterface.onClickItem(headerHolder.layoutPosition)
+                }
 
             }
-           VIEW_FOOTER -> {
+            VIEW_FOOTER -> {
                 val listHolder = holder as ProfileFooterViewHolder
                 listHolder.binding.Logoutbtn.setOnClickListener {
                     profileFooterInterface.onLogoutClickItem(holder.layoutPosition)
                 }
-               ("App Version:" + BuildConfig.VERSION_NAME).also { listHolder.binding.version.text = it }
-           }
+                ("App Version:" + BuildConfig.VERSION_NAME).also {
+                    listHolder.binding.version.text = it
+                }
+            }
         }
     }
-
-
 
 
     override fun getItemCount(): Int {
         return dataList.size
     }
+
     inner class ProfileOptionViewHolder(var binding: ProfileOptionViewBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -90,10 +92,10 @@ class ProfileOptionsAdapter(
         RecyclerView.ViewHolder(binding.root)
 
 
-
     interface ProfileItemInterface {
         fun onClickItem(position: Int)
     }
+
     interface ProfileFooterInterface {
         fun onLogoutClickItem(position: Int)
     }

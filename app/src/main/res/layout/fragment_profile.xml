@@ -64,8 +64,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view">
 
@@ -80,9 +80,9 @@
                 android:layout_height="0dp"
                 android:layout_margin="@dimen/_8sdp"
                 android:padding="@dimen/_5sdp"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/image1"
@@ -606,35 +606,35 @@
                 android:id="@+id/logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:background="@drawable/homescreen_text_bg"
+                android:editable="false"
+                android:imeOptions="actionDone"
+                android:paddingLeft="@dimen/_15sdp"
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingRight="@dimen/_15sdp"
+                android:paddingBottom="@dimen/_8sdp"
+                android:singleLine="true"
                 android:text="@string/logout"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_14"
-                android:paddingTop="@dimen/_8sdp"
-                android:layout_margin="@dimen/_10sdp"
-                android:paddingBottom="@dimen/_8sdp"
-                android:paddingLeft="@dimen/_15sdp"
-                android:paddingRight="@dimen/_15sdp"
                 android:textStyle="bold"
-                android:singleLine="true"
-                android:imeOptions="actionDone"
-                android:editable="false"
-                android:background="@drawable/homescreen_text_bg"
-                app:layout_constraintTop_toBottomOf="@id/support_layout"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@id/support_layout" />
 
             <TextView
                 android:id="@+id/verison_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
                 android:singleLine="true"
                 android:textColor="@color/text_grey_color"
                 android:textSize="@dimen/text_size_12"
-                android:layout_margin="@dimen/_8sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/logout"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@id/logout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

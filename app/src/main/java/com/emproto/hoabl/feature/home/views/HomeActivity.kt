@@ -47,12 +47,8 @@ import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
-import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.notification.dataResponse.Data
-import com.emproto.networklayer.response.notification.dataResponse.NotificationResponse
-import com.emproto.networklayer.response.notification.readStatus.ReadNotificationReponse
-import com.emproto.networklayer.response.profile.ProfileResponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.mixpanel.android.mpmetrics.MixpanelAPI
@@ -453,7 +449,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     private fun callNotificationApi(pageSize: Int, pageIndex: Int, refresh: Boolean) {
         homeViewModel.getNotification(pageSize, pageIndex, refresh)
-            .observe(this
+            .observe(
+                this
             ) {
                 when (it!!.status) {
                     Status.LOADING -> {
@@ -729,7 +726,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     fun refreshNotificationlist(pageSize: Int, pageIndex: Int, refresh: Boolean) {
         homeViewModel.getNotification(pageSize, pageIndex, refresh)
-            .observe(this
+            .observe(
+                this
             ) {
                 when (it!!.status) {
                     Status.LOADING -> {

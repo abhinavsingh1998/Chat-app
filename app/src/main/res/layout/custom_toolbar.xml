@@ -84,14 +84,14 @@
             android:background="@drawable/login_edittext_bg"
             android:drawableLeft="@drawable/ic_shape_search"
             android:drawablePadding="@dimen/margin_size_6"
+            android:enabled="true"
+            android:focusable="false"
             android:fontFamily="@font/jost_regular"
             android:gravity="start|center"
             android:hint="@string/search"
+            android:inputType="none"
             android:minHeight="@dimen/text_size_32"
             android:padding="@dimen/_4sdp"
-            android:inputType="none"
-            android:focusable="false"
-            android:enabled="true"
             android:textColor="@color/text_color"
             android:textColorHint="@color/search_hint"
             android:textSize="@dimen/text_size_12"
@@ -118,10 +118,10 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:visibility="visible"
-            app:layout_constraintRight_toRightOf="@id/notification"
-            app:layout_constraintTop_toTopOf="@id/notification"
             app:layout_constraintBottom_toBottomOf="@id/notification"
-            app:layout_constraintLeft_toLeftOf="@id/notification"/>
+            app:layout_constraintLeft_toLeftOf="@id/notification"
+            app:layout_constraintRight_toRightOf="@id/notification"
+            app:layout_constraintTop_toTopOf="@id/notification" />
 
         <ImageView
             android:id="@+id/headset"
@@ -129,9 +129,9 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/margin_size_20"
             android:clickable="true"
-            android:visibility="visible"
-            android:src="@drawable/ic_chat"
             android:padding="4dp"
+            android:src="@drawable/ic_chat"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -141,10 +141,10 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:visibility="visible"
-            app:layout_constraintRight_toRightOf="@id/headset"
-            app:layout_constraintTop_toTopOf="@id/headset"
             app:layout_constraintBottom_toBottomOf="@id/headset"
-            app:layout_constraintLeft_toLeftOf="@id/headset"/>
+            app:layout_constraintLeft_toLeftOf="@id/headset"
+            app:layout_constraintRight_toRightOf="@id/headset"
+            app:layout_constraintTop_toTopOf="@id/headset" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

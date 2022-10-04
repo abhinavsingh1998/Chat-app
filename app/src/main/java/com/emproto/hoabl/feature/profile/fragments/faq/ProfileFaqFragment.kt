@@ -1,18 +1,17 @@
 package com.emproto.hoabl.feature.profile.fragments.faq
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.databinding.FragmentFaqBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.profile.adapter.faq.ProfileFaqCategoryAdapter
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
@@ -41,7 +40,7 @@ class ProfileFaqFragment : Fragment() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         profileViewModel =
             ViewModelProvider(requireActivity(), homeFactory)[ProfileViewModel::class.java]
-            true
+        true
         initClickListener()
         (requireActivity() as HomeActivity).hideBottomNavigation()
 
@@ -53,8 +52,9 @@ class ProfileFaqFragment : Fragment() {
         getProfileFaqData()
 
     }
+
     private fun getProfileFaqData() {
-        val typeOfFAQ="3001"
+        val typeOfFAQ = "3001"
         profileViewModel.getFaqList(typeOfFAQ).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
@@ -75,6 +75,7 @@ class ProfileFaqFragment : Fragment() {
         })
 
     }
+
     private fun setAdapter() {
         binding.rvHelpCenterCategory.layoutManager =
             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)

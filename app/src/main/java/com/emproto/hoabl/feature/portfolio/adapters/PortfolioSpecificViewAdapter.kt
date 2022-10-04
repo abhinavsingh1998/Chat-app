@@ -34,7 +34,6 @@ import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.BalloonSizeSpec
 import com.skydoves.balloon.createBalloon
 import java.math.BigDecimal
-import kotlin.collections.ArrayList
 import kotlin.math.abs
 
 
@@ -225,13 +224,17 @@ class PortfolioSpecificViewAdapter(
                 list[position].data as com.emproto.networklayer.response.portfolio.ivdetails.Data
             if (data != null) {
                 binding.tvProjectName.text = data.projectInformation.launchName
-                (data.projectExtraDetails.address.city + "," + data.projectExtraDetails.address.state).also { binding.tvProjectLocation.text = it }
+                (data.projectExtraDetails.address.city + "," + data.projectExtraDetails.address.state).also {
+                    binding.tvProjectLocation.text = it
+                }
                 if (data.investmentInformation != null) {
                     if (data.projectExtraDetails != null) {
                         binding.tvPaidAmount.text =
                             Utility.formatAmount(data?.projectExtraDetails.paidAmount)
                     }
-                    "${Utility.convertTo(data?.investmentInformation.crmInventory.areaSqFt)} sqft".also { binding.tvAreaUnit.text = it }
+                    "${Utility.convertTo(data?.investmentInformation.crmInventory.areaSqFt)} sqft".also {
+                        binding.tvAreaUnit.text = it
+                    }
                     if (data.projectInformation.fullDescription != null)
                         binding.tvProjectInfo.text = data.projectInformation.fullDescription
                     else binding.tvProjectInfo.text = "-"
@@ -384,12 +387,22 @@ class PortfolioSpecificViewAdapter(
             if (binding.cvMoreInfoCard.visibility == View.VISIBLE) {
                 binding.cvMoreInfoCard.visibility = View.GONE
                 "View More".also { binding.tvViewMore.text = it }
-                binding.ivViewMoreDropDown.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_drop_down))
+                binding.ivViewMoreDropDown.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        context,
+                        R.drawable.ic_drop_down
+                    )
+                )
 
             } else {
                 binding.cvMoreInfoCard.visibility = View.VISIBLE
                 "View Less".also { binding.tvViewMore.text = it }
-                binding.ivViewMoreDropDown.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_arrow_upward))
+                binding.ivViewMoreDropDown.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        context,
+                        R.drawable.ic_arrow_upward
+                    )
+                )
             }
         }
     }
@@ -714,7 +727,7 @@ class PortfolioSpecificViewAdapter(
 
     inner class XAxisFormatter : IAxisValueFormatter {
         override fun getFormattedValue(p0: Float, p1: AxisBase?): String {
-         val floatValue = when {
+            val floatValue = when {
                 p0 < 0.0f -> {
                     0.0f
                 }

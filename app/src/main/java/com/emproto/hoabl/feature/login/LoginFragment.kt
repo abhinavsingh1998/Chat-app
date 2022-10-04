@@ -1,6 +1,5 @@
 package com.emproto.hoabl.feature.login
 
-import android.app.Activity
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -8,11 +7,9 @@ import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.method.ScrollingMovementMethod
 import android.text.style.ClickableSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
@@ -43,14 +40,18 @@ class LoginFragment : BaseFragment() {
     var hCountryCode = ""
     lateinit var bottomSheetDialog: BottomSheetDialog
     lateinit var termsConditionDialogBinding: TermsConditionDialogBinding
-    val patterns  = Pattern.compile("^(0|[1-9][0-9]*)\$")
-    val first_attempt= "Please enter the OTP sent to your mobile number. You have 4 attempts remaining to verify your OTP."
-    val second_attempts= "Please enter the OTP sent to your mobile number. You have 3 attempts remaining to verify your OTP."
-    val third_attempts= "Please enter the OTP sent to your mobile number. You have 2 attempts remaining to verify your OTP."
-    val four_attempts= "Please enter the OTP sent to your mobile number. You have 1 attempt remaining to verify your OTP."
-    val five_attempts= R.string.five_attempts_remaining
-    val try_one_hour= R.string.try_after_one_hour
-    var hint_text= ""
+    val patterns = Pattern.compile("^(0|[1-9][0-9]*)\$")
+    val first_attempt =
+        "Please enter the OTP sent to your mobile number. You have 4 attempts remaining to verify your OTP."
+    val second_attempts =
+        "Please enter the OTP sent to your mobile number. You have 3 attempts remaining to verify your OTP."
+    val third_attempts =
+        "Please enter the OTP sent to your mobile number. You have 2 attempts remaining to verify your OTP."
+    val four_attempts =
+        "Please enter the OTP sent to your mobile number. You have 1 attempt remaining to verify your OTP."
+    val five_attempts = R.string.five_attempts_remaining
+    val try_one_hour = R.string.try_after_one_hour
+    var hint_text = ""
     var isCheck = false
 
 
@@ -93,7 +94,7 @@ class LoginFragment : BaseFragment() {
         list.add("+91 | IND")
         mBinding.inputMobile.addDropDownValues(list)
 
-        hMobileNo= appPreference.getMobilenum()
+        hMobileNo = appPreference.getMobilenum()
         bottomSheetDialog = BottomSheetDialog(requireContext())
         termsConditionDialogBinding = TermsConditionDialogBinding.inflate(layoutInflater)
         bottomSheetDialog.setContentView(termsConditionDialogBinding.root)
@@ -111,7 +112,6 @@ class LoginFragment : BaseFragment() {
     }
 
 
-
     private fun initClickListeners() {
 
         mBinding.inputMobile.onValueChangeListner(object : OnValueChangedListener {
@@ -120,17 +120,17 @@ class LoginFragment : BaseFragment() {
                 hCountryCode = countryCode
                 mBinding.otpText.visibility = View.VISIBLE
                 mBinding.textError.visibility = View.GONE
-                mBinding.switchWhatspp.isChecked= true
+                mBinding.switchWhatspp.isChecked = true
             }
 
             override fun afterValueChanges(value1: String?) {
-                mBinding.switchWhatspp.isChecked= true
+                mBinding.switchWhatspp.isChecked = true
                 hMobileNo = value1!!
                 appPreference.setMobilenum(hMobileNo)
                 if (value1.isNullOrEmpty()) {
                     mBinding.getOtpButton.isEnabled = false
                     mBinding.getOtpButton.isClickable = false
-                    mBinding.switchWhatspp.isChecked= false
+                    mBinding.switchWhatspp.isChecked = false
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         mBinding.getOtpButton.background =
                             resources.getDrawable(R.drawable.unselect_button_bg)
@@ -138,7 +138,7 @@ class LoginFragment : BaseFragment() {
                 } else {
                     mBinding.getOtpButton.isEnabled = true
                     mBinding.getOtpButton.isClickable = true
-                    mBinding.switchWhatspp.isChecked= true
+                    mBinding.switchWhatspp.isChecked = true
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         mBinding.getOtpButton.background =
                             resources.getDrawable(R.drawable.button_bg)
@@ -164,7 +164,7 @@ class LoginFragment : BaseFragment() {
 
         mBinding.getOtpButton.setOnClickListener {
 
-            if (hMobileNo.isNullOrEmpty() || hMobileNo.length!= 10 || !hMobileNo.isNumber()) {
+            if (hMobileNo.isNullOrEmpty() || hMobileNo.length != 10 || !hMobileNo.isNumber()) {
                 mBinding.otpText.visibility = View.INVISIBLE
                 mBinding.textError.visibility = View.VISIBLE
                 mBinding.inputMobile.showError()
@@ -176,18 +176,20 @@ class LoginFragment : BaseFragment() {
             authViewModel.getOtp(otpRequest).observe(viewLifecycleOwner, Observer {
                 when (it.status) {
                     Status.SUCCESS -> {
-                        if (it.data?.message.toString().equals("Please enter the OTP sent to your mobile number")){
-                            hint_text="Enter OTP"
-                        } else if (it.data?.message.toString().equals(four_attempts)){
-                            hint_text="Enter OTP (1 attempts left)"
-                        } else if (it.data?.message.toString().equals(third_attempts)){
-                            hint_text= "Enter OTP (2 attempts left)"
-                        }else if (it.data?.message.toString().equals(second_attempts)){
-                            hint_text= "Enter OTP (3 attempts left)"
-                        }else if (it.data?.message.toString().equals(first_attempt)){
-                            hint_text= "Enter OTP (4 attempts left)"
-                        } else{
-                            hint_text= "Enter OTP"
+                        if (it.data?.message.toString()
+                                .equals("Please enter the OTP sent to your mobile number")
+                        ) {
+                            hint_text = "Enter OTP"
+                        } else if (it.data?.message.toString().equals(four_attempts)) {
+                            hint_text = "Enter OTP (1 attempts left)"
+                        } else if (it.data?.message.toString().equals(third_attempts)) {
+                            hint_text = "Enter OTP (2 attempts left)"
+                        } else if (it.data?.message.toString().equals(second_attempts)) {
+                            hint_text = "Enter OTP (3 attempts left)"
+                        } else if (it.data?.message.toString().equals(first_attempt)) {
+                            hint_text = "Enter OTP (4 attempts left)"
+                        } else {
+                            hint_text = "Enter OTP"
                         }
 
                         mBinding.getOtpButton.visibility = View.VISIBLE
@@ -196,7 +198,8 @@ class LoginFragment : BaseFragment() {
                         (requireActivity() as AuthActivity).replaceFragment(
                             OTPVerificationFragment.newInstance(
                                 hMobileNo, "+91",
-                            hint_text,isCheck), true
+                                hint_text, isCheck
+                            ), true
                         )
                     }
                     Status.ERROR -> {

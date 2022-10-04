@@ -18,9 +18,9 @@
 
     <TextView
         android:id="@+id/tvWelcome"
+        style="@style/text_violet_color_14"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/text_violet_color_14"
         android:layout_marginHorizontal="@dimen/margin_size_12"
         android:layout_marginTop="@dimen/margin_size_23"
         android:fontFamily="@font/jost_regular"
@@ -32,51 +32,51 @@
 
     <TextView
         android:id="@+id/tvChats"
+        style="@style/text_dark_blue_chat_color_14"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_size_30"
         android:layout_marginEnd="@dimen/margin_size_12"
         android:fontFamily="@font/jost_medium"
+        android:text="Chats (5)"
         android:textStyle="normal"
-        style="@style/text_dark_blue_chat_color_14"
         app:layout_constraintStart_toStartOf="@id/tvWelcome"
-        app:layout_constraintTop_toBottomOf="@+id/tvWelcome"
-        android:text="Chats (5)" />
+        app:layout_constraintTop_toBottomOf="@+id/tvWelcome" />
 
     <TextView
         android:id="@+id/textLastUpdated"
+        style="@style/text_dark_grey_chat_color_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_size_14"
         android:fontFamily="@font/jost_light"
         android:text="@string/last_updated_on"
-        style="@style/text_dark_grey_chat_color_14"
         android:textStyle="normal"
         app:layout_constraintStart_toStartOf="@id/tvChats"
         app:layout_constraintTop_toBottomOf="@id/tvChats" />
 
     <TextView
         android:id="@+id/tvLastUpdatedTime"
+        style="@style/text_time_chat_color_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_size_6"
         android:fontFamily="@font/jost_regular"
         android:text=""
-        style="@style/text_time_chat_color_14"
         android:textStyle="normal"
-        android:layout_marginStart="@dimen/margin_size_6"
         app:layout_constraintBottom_toBottomOf="@id/textLastUpdated"
         app:layout_constraintStart_toEndOf="@id/textLastUpdated"
         app:layout_constraintTop_toTopOf="@id/textLastUpdated" />
 
     <TextView
         android:id="@+id/tvLastUpdatedDate"
+        style="@style/text_time_chat_color_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_size_12"
         android:layout_marginStart="@dimen/margin_size_4"
+        android:layout_marginEnd="@dimen/margin_size_12"
         android:fontFamily="@font/jost_regular"
         android:text="11th March’22"
-        style="@style/text_time_chat_color_14"
         android:textStyle="normal"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/tvLastUpdatedTime"
@@ -88,8 +88,8 @@
         android:layout_width="@dimen/margin_size_28"
         android:layout_height="@dimen/margin_size_28"
         android:layout_marginEnd="14dp"
-        android:visibility="gone"
         android:background="@drawable/refresh_bg"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/textLastUpdated"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/textLastUpdated">
@@ -110,14 +110,14 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="10dp"
         android:layout_marginEnd="@dimen/margin_size_12"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/clRefresh"
         app:layout_constraintStart_toStartOf="@+id/tvChats"
         app:layout_constraintTop_toBottomOf="@+id/clRefresh"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="vertical"
         tools:listitem="@layout/item_chat" />
 
     <androidx.core.widget.ContentLoadingProgressBar

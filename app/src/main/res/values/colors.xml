@@ -111,4 +111,5 @@
     <color name="confirm_dialog_text_color">#7b7878</color>
     <color name="chat_grey_color">#707070</color>
     <color name="chat_time_color">#141615</color>
+    <color name="additional_7">#FFFFFF</color>
 </resources>

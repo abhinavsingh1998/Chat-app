@@ -15,31 +15,34 @@ import com.emproto.networklayer.response.resourceManagment.DetailedInformationX
 
 class ProductAdapter(
     val context: Context,
-    private val corporateList: List<DetailedInformationX>):
-    RecyclerView.Adapter<ProductAdapter.MyViewHolder>(){
+    private val corporateList: List<DetailedInformationX>
+) :
+    RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = ProductCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view =
+            ProductCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ProductAdapter.MyViewHolder, position: Int) {
-        val currentItem= corporateList[position]
+        val currentItem = corporateList[position]
 
-        holder.binding.tileTxt.text= currentItem.displayName
+        holder.binding.tileTxt.text = currentItem.displayName
         Glide.with(context).load(currentItem.media.value.url)
             .into(holder.binding.locationIv)
 
-        holder.binding.fullDesc.text= showHTMLText(currentItem.description)
+        holder.binding.fullDesc.text = showHTMLText(currentItem.description)
     }
 
     override fun getItemCount(): Int {
         return corporateList.size
     }
+
     inner class MyViewHolder(val binding: ProductCategoryBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-     fun showHTMLText(message: String?): Spanned {
+    fun showHTMLText(message: String?): Spanned {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
         } else {

@@ -10,12 +10,12 @@
     <ImageView
         android:layout_width="@dimen/margin_size_75"
         android:layout_height="3dp"
+        android:layout_marginTop="@dimen/margin_size_8"
         android:background="@drawable/all_corner_radius_white_bg"
         android:backgroundTint="@color/homescreen_background"
-        android:layout_marginTop="@dimen/margin_size_8"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_around_project_text"
@@ -35,14 +35,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_size_6"
         android:layout_marginTop="@dimen/margin_size_6"
+        android:clipToPadding="false"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/margin_size_10"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constrainedHeight="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_around_project_text"
-        android:clipToPadding="false"
-        app:layout_constrainedHeight="true"
         tools:itemCount="10"
         tools:listitem="@layout/item_location_infrastructure" />
 

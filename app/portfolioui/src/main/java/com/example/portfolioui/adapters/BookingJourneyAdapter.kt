@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.Utility
 import com.emproto.networklayer.response.bookingjourney.*
-import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentInformation
-import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
 import com.example.portfolioui.R
-import com.example.portfolioui.databinding.*
+import com.example.portfolioui.databinding.ItemBookingHeaderBinding
+import com.example.portfolioui.databinding.ItemBookingJourneyBinding
+import com.example.portfolioui.databinding.ItemBookingJourneyOwnershipBinding
+import com.example.portfolioui.databinding.ItemFacilityBinding
 import com.example.portfolioui.models.BookingModel
 import com.example.portfolioui.models.BookingStepsModel
-import com.example.portfolioui.models.StepsModel
 
 class BookingJourneyAdapter(
     var context: Context,
@@ -498,8 +498,12 @@ class BookingJourneyAdapter(
             anyInProgress = true
             list.add(
                 BookingStepsModel(
-                    BookingStepsAdapter.TYPE_COMPLETED, "Registration", "Completed",
-                    VIEW_DETAILS, data.Registration, disableLink = data.Registration.registrationNumber==null
+                    BookingStepsAdapter.TYPE_COMPLETED,
+                    "Registration",
+                    "Completed",
+                    VIEW_DETAILS,
+                    data.Registration,
+                    disableLink = data.Registration.registrationNumber == null
                 )
             )
         } else {

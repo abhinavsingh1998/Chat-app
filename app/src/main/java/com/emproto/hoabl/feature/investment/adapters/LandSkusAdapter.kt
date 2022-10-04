@@ -11,7 +11,6 @@ import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.Inventory
-import kotlin.collections.ArrayList
 
 class LandSkusAdapter(
     private val fragment: LandSkusFragment,
@@ -82,8 +81,8 @@ class LandSkusAdapter(
     private inner class LandSkusAvailableViewHolder(val binding: LandSkusTopLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
-            val landSkus =  "$title (${notAppliedList.size})"
-            binding.tvLandSkusTitle.text =landSkus
+            val landSkus = "$title (${notAppliedList.size})"
+            binding.tvLandSkusTitle.text = landSkus
             binding.tvLandSkusSubtitle.text = subtitle
             skusListAdapter = SkusListAdapter(fragment, notAppliedList, itemClickListener)
             binding.rvLandSkusItems.adapter = skusListAdapter

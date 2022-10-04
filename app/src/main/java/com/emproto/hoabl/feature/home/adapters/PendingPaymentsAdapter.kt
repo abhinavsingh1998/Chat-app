@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.CompletePaymentCardBinding
-import com.emproto.hoabl.databinding.ItemLatestUpdatesBinding
 import com.emproto.hoabl.utils.ItemClickListener
-import com.emproto.networklayer.response.HomeActionItemResponse
 import com.emproto.networklayer.response.actionItem.Data
 
 

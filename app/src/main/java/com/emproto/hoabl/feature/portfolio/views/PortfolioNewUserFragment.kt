@@ -10,9 +10,13 @@ import com.emproto.hoabl.databinding.FragmentPortfolioNewUserBinding
 
 class PortfolioNewUserFragment : BaseFragment() {
 
-    lateinit var binding:FragmentPortfolioNewUserBinding
+    lateinit var binding: FragmentPortfolioNewUserBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
         binding = FragmentPortfolioNewUserBinding.inflate(layoutInflater)
         return binding.root
     }

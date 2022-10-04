@@ -28,16 +28,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tabSelectedTextColor="@color/black"
                 app:tabIndicatorColor="@color/text_blue_color"
+                app:tabSelectedTextColor="@color/black"
                 app:tabTextAppearance="@style/MediaCustomTabText"
                 app:tabTextColor="@color/text_lightgrey_color" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_size_1"
-                android:background="#eeeeee"
-             />
+                android:background="#eeeeee" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/vp_media_gallery"
@@ -46,8 +45,7 @@
                 android:layout_weight="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tl_media_gallery"
-                />
+                app:layout_constraintTop_toBottomOf="@id/tl_media_gallery" />
 
         </LinearLayout>
 

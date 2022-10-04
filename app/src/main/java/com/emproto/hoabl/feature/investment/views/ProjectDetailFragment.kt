@@ -184,7 +184,7 @@ class ProjectDetailFragment : BaseFragment() {
                             data.projectContentsAndFaqs,
                             data.pageManagementContent
                         )
-               }
+                    }
                 }
                 Status.ERROR -> {
                     binding.progressBar.hide()
@@ -195,7 +195,6 @@ class ProjectDetailFragment : BaseFragment() {
             }
         }
     }
-
 
 
     private fun addWatchList() {
@@ -233,7 +232,7 @@ class ProjectDetailFragment : BaseFragment() {
     ) {
         val list = ArrayList<RecyclerViewItem>()
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_PROJECT_DETAIL))
-        when(allData.address.isMapDetailsActive){
+        when (allData.address.isMapDetailsActive) {
             true -> list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_MAP))
             else -> {}
         }
@@ -328,21 +327,28 @@ class ProjectDetailFragment : BaseFragment() {
                 R.id.tv_similar_investment_see_all -> {
                     navigateToCategory()
                 }
-                R.id.iv_share_icon->{
+                R.id.iv_share_icon -> {
                     (requireActivity() as HomeActivity).share_app()
                 }
                 R.id.btn_view_on_map -> {
-                    if(isNetworkAvailable()){
+                    if (isNetworkAvailable()) {
                         val fragment = MapFragment()
                         val bundle = Bundle()
                         val projectLocation =
-                            ProjectLocation(allData.crmProject.lattitude, allData.crmProject.longitude)
+                            ProjectLocation(
+                                allData.crmProject.lattitude,
+                                allData.crmProject.longitude
+                            )
                         bundle.putSerializable("ProjectLocation", projectLocation as Serializable)
                         fragment.arguments = bundle
                         investmentViewModel.setMapLocationInfrastructure(mapLocationData)
                         (requireActivity() as HomeActivity).addFragment(fragment, true)
-                    }else{
-                        Toast.makeText(this.requireContext(), "Network not available", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(
+                            this.requireContext(),
+                            "Network not available",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
                 R.id.cl_not_convinced_promises -> {
@@ -387,10 +393,10 @@ class ProjectDetailFragment : BaseFragment() {
                     startActivity(shareIntent)
                 }
                 R.id.tv_promises_see_all -> {
-                    if(appPreference.isFacilityCard()){
+                    if (appPreference.isFacilityCard()) {
                         val fragment = HoablPromises()
                         (requireActivity() as HomeActivity).addFragment(fragment, true)
-                    } else{
+                    } else {
                         (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
 
                     }
@@ -410,17 +416,24 @@ class ProjectDetailFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
                 R.id.tv_location_infrastructure_all -> {
-                    if(isNetworkAvailable()){
+                    if (isNetworkAvailable()) {
                         val fragment = MapFragment()
                         val bundle = Bundle()
                         val projectLocation =
-                            ProjectLocation(allData.crmProject.lattitude, allData.crmProject.longitude)
+                            ProjectLocation(
+                                allData.crmProject.lattitude,
+                                allData.crmProject.longitude
+                            )
                         bundle.putSerializable("ProjectLocation", projectLocation as Serializable)
                         fragment.arguments = bundle
                         investmentViewModel.setMapLocationInfrastructure(mapLocationData)
                         (requireActivity() as HomeActivity).addFragment(fragment, true)
-                    }else{
-                        Toast.makeText(this.requireContext(), "Network not available", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(
+                            this.requireContext(),
+                            "Network not available",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
 
                 }
@@ -600,15 +613,19 @@ class ProjectDetailFragment : BaseFragment() {
                     val projectLocation =
                         ProjectLocation(allData.crmProject.lattitude, allData.crmProject.longitude)
                     bundle.putSerializable("ProjectLocation", projectLocation as Serializable)
-                    if(isNetworkAvailable()){
+                    if (isNetworkAvailable()) {
                         val fragment = MapFragment()
                         fragment.arguments = bundle
                         (requireActivity() as HomeActivity).addFragment(
                             fragment,
                             true
                         )
-                    }else{
-                        Toast.makeText(requireContext(), "Network not available", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Network not available",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
@@ -646,11 +663,11 @@ class ProjectDetailFragment : BaseFragment() {
                     val bundle = Bundle()
                     bundle.putInt(Constants.TESTIMONALS, item.toInt())
                     bundle.putString(
-                    Constants.TESTIMONALS_HEADING,
+                        Constants.TESTIMONALS_HEADING,
                         allData.otherSectionHeadings.testimonials.sectionHeading
                     )
                     bundle.putString(
-                       Constants.TESTIMONALS_SUB_HEADING ,
+                        Constants.TESTIMONALS_SUB_HEADING,
                         allData.otherSectionHeadings.testimonials.subHeading
                     )
                     fragment.arguments = bundle

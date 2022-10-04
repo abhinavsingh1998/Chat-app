@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.emproto.core.BaseFragment
 import com.emproto.core.databinding.TermsConditionDialogBinding
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentPromiseDetailsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.promises.adapter.PromiseDetailsAdapter
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
@@ -64,7 +64,8 @@ class PromisesDetailsFragment : BaseFragment() {
         bottomSheetDialog = BottomSheetDialog(requireContext())
         termsConditionDialogBinding = TermsConditionDialogBinding.inflate(layoutInflater)
         bottomSheetDialog.setContentView(termsConditionDialogBinding.root)
-        binding.textViewTAndC.paintFlags = binding.textViewTAndC.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+        binding.textViewTAndC.paintFlags =
+            binding.textViewTAndC.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
         binding.getPortfolioButton.setOnClickListener {
             //open 3 rd tab portfolio

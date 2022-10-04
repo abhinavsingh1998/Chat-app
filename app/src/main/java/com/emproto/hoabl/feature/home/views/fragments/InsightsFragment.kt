@@ -26,7 +26,7 @@ class InsightsFragment : BaseFragment() {
     lateinit var mBinding: FragmentInsightsBinding
     private lateinit var insightsAdapter: AllInsightsAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private val appURL =Constants.PLAY_STORE
+    private val appURL = Constants.PLAY_STORE
     private var insightsListCount = 0
     private lateinit var insightsHeading: String
     private lateinit var insightsSubHeading: String
@@ -57,11 +57,11 @@ class InsightsFragment : BaseFragment() {
         return mBinding.root
     }
 
-    private fun initView(){
-        homeViewModel.getHeaderAndList().observe(viewLifecycleOwner, Observer{
-            insightsListCount= it.totalInsightsOnListView
-            insightsHeading= it.insightsHeading
-           insightsSubHeading= it.insightsSubHeading
+    private fun initView() {
+        homeViewModel.getHeaderAndList().observe(viewLifecycleOwner, Observer {
+            insightsListCount = it.totalInsightsOnListView
+            insightsHeading = it.insightsHeading
+            insightsSubHeading = it.insightsSubHeading
 
         })
     }
@@ -69,7 +69,8 @@ class InsightsFragment : BaseFragment() {
     private fun initObserver(refresh: Boolean) {
 
         homeViewModel.getInsightsData(refresh, true)
-            .observe(viewLifecycleOwner
+            .observe(
+                viewLifecycleOwner
             ) {
                 when (it?.status) {
 
@@ -91,7 +92,7 @@ class InsightsFragment : BaseFragment() {
             }
     }
 
-    private fun initAdapeter(data:InsightsResponse ){
+    private fun initAdapeter(data: InsightsResponse) {
 
         data.data.let {
             if (data != null) {

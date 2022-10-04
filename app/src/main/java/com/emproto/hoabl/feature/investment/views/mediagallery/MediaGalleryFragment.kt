@@ -27,13 +27,18 @@ class MediaGalleryFragment : BaseFragment() {
     private lateinit var mediaViewPagerAdapter: MediaViewPagerAdapter
     val list = ArrayList<MediaViewItem>()
 
-    private val tabList = arrayListOf(Constants.PHOTOS, Constants.VIDEOS,Constants.DRONE_SHOOTS, Constants.PHOTOS_360)
+    private val tabList = arrayListOf(
+        Constants.PHOTOS,
+        Constants.VIDEOS,
+        Constants.DRONE_SHOOTS,
+        Constants.PHOTOS_360
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-        ): View {
+    ): View {
         binding = FragmentMediaGalleryBinding.inflate(layoutInflater)
         list.clear()
         arguments?.let {
@@ -67,9 +72,9 @@ class MediaGalleryFragment : BaseFragment() {
             tab.text = tabList[position]
         }.attach()
 
-        when(investmentViewModel.isVideoSeeAllClicked){
+        when (investmentViewModel.isVideoSeeAllClicked) {
             true -> {
-                binding.vpMediaGallery.setCurrentItem(1,false)
+                binding.vpMediaGallery.setCurrentItem(1, false)
                 mediaViewPagerAdapter = MediaViewPagerAdapter(childFragmentManager, lifecycle)
                 mediaViewPagerAdapter.notifyDataSetChanged()
                 investmentViewModel.isVideoSeeAllClicked = false

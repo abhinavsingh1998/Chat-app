@@ -152,12 +152,19 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
                             break
                         }
                     }
-                    projectAdapter = AllProjectsAdapter(requireActivity(), it?.data?.data!!, selectedItemPos, object : AllProjectsAdapter.AllProjectsInterface {
+                    projectAdapter = AllProjectsAdapter(
+                        requireActivity(),
+                        it?.data?.data!!,
+                        selectedItemPos,
+                        object : AllProjectsAdapter.AllProjectsInterface {
                             override fun onClickItem(position: Int) {
                                 val currentData = it?.data?.data!![position]
-                                binding.tvXAxisLabel.text = currentData.generalInfoEscalationGraph.yAxisDisplayName
-                                binding.tvYAxisLabel.text = currentData.generalInfoEscalationGraph.xAxisDisplayName
-                                val graphData = currentData.generalInfoEscalationGraph.dataPoints.points
+                                binding.tvXAxisLabel.text =
+                                    currentData.generalInfoEscalationGraph.yAxisDisplayName
+                                binding.tvYAxisLabel.text =
+                                    currentData.generalInfoEscalationGraph.xAxisDisplayName
+                                val graphData =
+                                    currentData.generalInfoEscalationGraph.dataPoints.points
                                 val lineValues = ArrayList<Entry>()
                                 when (currentData.generalInfoEscalationGraph.dataPoints.dataPointType) {
                                     Constants.YEARLY -> {
@@ -282,8 +289,10 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
                     )
 
                     val currentData = it?.data?.data!![selectedItemPos]
-                    binding.tvXAxisLabel.text = currentData.generalInfoEscalationGraph.yAxisDisplayName
-                    binding.tvYAxisLabel.text = currentData.generalInfoEscalationGraph.xAxisDisplayName
+                    binding.tvXAxisLabel.text =
+                        currentData.generalInfoEscalationGraph.yAxisDisplayName
+                    binding.tvYAxisLabel.text =
+                        currentData.generalInfoEscalationGraph.xAxisDisplayName
                     val graphData = currentData.generalInfoEscalationGraph.dataPoints.points
                     val lineValues = ArrayList<Entry>()
                     when (currentData.generalInfoEscalationGraph.dataPoints.dataPointType) {
@@ -381,7 +390,8 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
                     binding.ivPriceTrendsGraph.data = data
                     binding.ivPriceTrendsGraph.extraBottomOffset
                     binding.ivPriceTrendsGraph.animateXY(2000, 2000)
-                    linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+                    linearLayoutManager =
+                        LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
                     binding.recyclerViewGraphOptions.layoutManager = linearLayoutManager
                     binding.recyclerViewGraphOptions.adapter = projectAdapter
                     if (binding.recyclerViewGraphOptions.onFlingListener == null) {
@@ -437,19 +447,28 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
 
     private fun setRecyclerView(commonData: AboutUs?) {
         //CorporatePhilosophyAdapter
-        philosophyAdapter = CorporatePhilosophyAdapter(requireActivity(), commonData?.corporatePhilosophy!!.detailedInformation,)
+        philosophyAdapter = CorporatePhilosophyAdapter(
+            requireActivity(),
+            commonData?.corporatePhilosophy!!.detailedInformation,
+        )
         linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
         binding.aboutUsRv.layoutManager = linearLayoutManager
         binding.aboutUsRv.adapter = philosophyAdapter
 
         //ProductAdapter
-        ProductAdapter(requireActivity(), commonData?.productCategory!!.detailedInformation).also { it1 -> productAdapter = it1 }
+        ProductAdapter(
+            requireActivity(),
+            commonData?.productCategory!!.detailedInformation
+        ).also { it1 -> productAdapter = it1 }
         linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         binding.productcategoryRv.layoutManager = linearLayoutManager
         binding.productcategoryRv.adapter = productAdapter
 
         //StatsOverViewAboutUsAdapter
-        StatsOverViewAboutUsAdapter(requireActivity(), commonData?.statsOverview?.detailedInformation).also { it1 -> statsOverViewAdapter = it1 }
+        StatsOverViewAboutUsAdapter(
+            requireActivity(),
+            commonData?.statsOverview?.detailedInformation
+        ).also { it1 -> statsOverViewAdapter = it1 }
         gridLayoutManager = GridLayoutManager(requireContext(), 2)
         binding.statsItem.layoutManager = gridLayoutManager
         binding.statsItem.adapter = statsOverViewAdapter

@@ -3,11 +3,9 @@ package com.emproto.hoabl.feature.login
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Paint
 import android.os.*
@@ -15,7 +13,9 @@ import android.text.Editable
 import android.text.SpannableStringBuilder
 import android.text.TextWatcher
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -31,8 +31,10 @@ import com.emproto.hoabl.databinding.FragmentVerifyOtpBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.model.ContactType
+import com.emproto.hoabl.smsverificatio.SmsBroadcastReceiver
 import com.emproto.hoabl.viewmodels.AuthViewmodel
 import com.emproto.hoabl.viewmodels.factory.AuthFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.login.OtpRequest
 import com.emproto.networklayer.request.login.OtpVerifyRequest
 import com.emproto.networklayer.response.enums.Status
@@ -40,9 +42,6 @@ import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import javax.inject.Inject
-import com.emproto.hoabl.smsverificatio.SmsBroadcastReceiver
-import com.emproto.networklayer.preferences.AppPreference
-import okhttp3.internal.wait
 
 
 class OTPVerificationFragment : BaseFragment() {
@@ -68,7 +67,7 @@ class OTPVerificationFragment : BaseFragment() {
     lateinit var bottomSheetDialog: BottomSheetDialog
 
     private var runnable: Runnable? = null
-    lateinit var handler : Handler
+    lateinit var handler: Handler
 
     var attempts_num = 0
     val Invalid_otp =
@@ -117,7 +116,7 @@ class OTPVerificationFragment : BaseFragment() {
         authViewModel = ViewModelProvider(requireActivity(), authFactory)[AuthViewmodel::class.java]
         mBinding = FragmentVerifyOtpBinding.inflate(layoutInflater)
         authActivity = AuthActivity()
-        mBinding.etOtp.isFocusable=true
+        mBinding.etOtp.isFocusable = true
         initView()
         initClickListener()
         otpTimerCount()
@@ -161,7 +160,7 @@ class OTPVerificationFragment : BaseFragment() {
             @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
-                mBinding.etOtp.letterSpacing= 1f
+                mBinding.etOtp.letterSpacing = 1f
             }
 
             @RequiresApi(Build.VERSION_CODES.M)
@@ -235,7 +234,7 @@ class OTPVerificationFragment : BaseFragment() {
                                         Log.d("contactType", it.data?.user?.contactType.toString())
                                         (activity as AuthActivity).isHandlerStarted = true
 
-                                        runnable = object:Runnable{
+                                        runnable = object : Runnable {
                                             override fun run() {
                                                 it.data?.let { verifyOtpResponse ->
                                                     appPreference.setToken(verifyOtpResponse.token)
@@ -247,8 +246,10 @@ class OTPVerificationFragment : BaseFragment() {
                                                     } else if (verifyOtpResponse.user.contactType == ContactType.PRELEAD.value && verifyOtpResponse.user.verificationStatus == "Unverified") {
                                                         (requireActivity() as AuthActivity).replaceFragment(
                                                             NameInputFragment.newInstance(
-                                                                verifyOtpResponse.user.firstName ?:"",
-                                                                verifyOtpResponse.user.lastName ?: ""
+                                                                verifyOtpResponse.user.firstName
+                                                                    ?: "",
+                                                                verifyOtpResponse.user.lastName
+                                                                    ?: ""
                                                             ),
                                                             true
                                                         )
@@ -265,7 +266,7 @@ class OTPVerificationFragment : BaseFragment() {
                                                 }
                                             }
                                         }
-                                        runnable?.let { it1 -> handler.postDelayed(it1,1500) }
+                                        runnable?.let { it1 -> handler.postDelayed(it1, 1500) }
                                     }
                                 }
                             })

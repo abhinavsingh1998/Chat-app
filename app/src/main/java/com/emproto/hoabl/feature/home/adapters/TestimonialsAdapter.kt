@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.TestimonalsListViewBinding
 import com.emproto.networklayer.response.testimonials.Data
 
-class TestimonialsAdapter(val context: Context, val list: List<Data>, private val listCount:Int) : RecyclerView.Adapter<TestimonialsAdapter.MyViewHolder>() {
+class TestimonialsAdapter(val context: Context, val list: List<Data>, private val listCount: Int) :
+    RecyclerView.Adapter<TestimonialsAdapter.MyViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = TestimonalsListViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view =
+            TestimonalsListViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(view)
     }
 
@@ -20,18 +22,18 @@ class TestimonialsAdapter(val context: Context, val list: List<Data>, private va
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = list[holder.adapterPosition]
 
-        holder.binding.tvName.text= item.firstName + " " + item.lastName
-        holder.binding.tvCompanyName.text= item.designation + " " + item.companyName
-        holder.binding.details.text= item.testimonialContent
+        holder.binding.tvName.text = item.firstName + " " + item.lastName
+        holder.binding.tvCompanyName.text = item.designation + " " + item.companyName
+        holder.binding.details.text = item.testimonialContent
 
     }
 
     override fun getItemCount(): Int {
 
-        var itemList= 0
-        itemList = if (list.size < listCount){
+        var itemList = 0
+        itemList = if (list.size < listCount) {
             list.size
-        } else{
+        } else {
             listCount
         }
         return itemList

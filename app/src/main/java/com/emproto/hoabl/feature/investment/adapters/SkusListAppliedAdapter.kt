@@ -27,7 +27,7 @@ class SkusListAppliedAdapter(
             tvItemLandSkusName.text = element.name
             val itemLandSkusArea = "${element.areaRange?.from} - ${element.areaRange?.to} Sqft"
             tvItemLandSkusArea.text = itemLandSkusArea
-            tvItemLandSkusPrice.text = Utility.formatAmount(element.priceRange?.from!!.toDouble() )
+            tvItemLandSkusPrice.text = Utility.formatAmount(element.priceRange?.from!!.toDouble())
             tvItemLandSkusDescription.text = element.shortDescription
         }
     }

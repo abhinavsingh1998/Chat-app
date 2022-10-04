@@ -17,23 +17,27 @@ import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import javax.inject.Inject
 
-class OpportunityDocsFragment:BaseFragment() {
+class OpportunityDocsFragment : BaseFragment() {
 
     @Inject
     lateinit var investmentFactory: InvestmentFactory
     lateinit var investmentViewModel: InvestmentViewModel
-    lateinit var binding:FragmentOpportunityDocsBinding
+    lateinit var binding: FragmentOpportunityDocsBinding
     private lateinit var opportunityDocsAdapter: OpportunityDocsAdapter
     private var title = ""
     private var projectId = 0
     private var isFromProjectAmenities = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentOpportunityDocsBinding.inflate(layoutInflater)
         arguments.let {
             title = it?.getString(Constants.PROJECT_NAME).toString()
             projectId = it?.getInt(Constants.PROJECT_ID, 0)!!
-            isFromProjectAmenities = it.getBoolean(Constants.IS_PROJECT_AMENITIES_CLICKED,false)
+            isFromProjectAmenities = it.getBoolean(Constants.IS_PROJECT_AMENITIES_CLICKED, false)
         }
         return binding.root
     }
@@ -124,7 +128,7 @@ class OpportunityDocsFragment:BaseFragment() {
 
     val onItemClickListener =
         View.OnClickListener { view ->
-            when(view.id){
+            when (view.id) {
                 R.id.tv_apply_now -> {
                     val fragment = LandSkusFragment()
                     val bundle = Bundle()

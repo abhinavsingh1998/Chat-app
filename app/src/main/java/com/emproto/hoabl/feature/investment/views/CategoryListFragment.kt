@@ -97,7 +97,7 @@ class CategoryListFragment : BaseFragment() {
                     arguments?.getSerializable("SimilarData") as List<SimilarInvestment>
                 setUpCategoryAdapter(data, -1)
             }
-           Constants.HOME ->{
+            Constants.HOME -> {
                 binding.tvCategoryHeading.text = "All Investments"
                 val data =
                     arguments?.getSerializable("DiscoverAll") as List<com.emproto.networklayer.response.home.PageManagementsOrNewInvestment>
@@ -107,21 +107,22 @@ class CategoryListFragment : BaseFragment() {
                 binding.tvCategoryHeading.text = "Similar Investments"
                 val data =
                     arguments?.getSerializable("SimilarInvestmentsData") as List<com.emproto.networklayer.response.investment.SimilarInvestment>
-                setUpCategoryAdapter(data,6)
+                setUpCategoryAdapter(data, 6)
             }
         }
     }
 
     private fun setUpCategoryAdapter(list: List<Any>, type: Int) {
-        if(list.isNotEmpty()){
-            categoryListAdapter = CategoryListAdapter(this.requireContext(), list, itemClickListener, type)
+        if (list.isNotEmpty()) {
+            categoryListAdapter =
+                CategoryListAdapter(this.requireContext(), list, itemClickListener, type)
             binding.rvCategoryList.adapter = categoryListAdapter
         }
     }
 
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
-            when(position){
+            when (position) {
                 0 -> {
                     val bundle = Bundle()
                     bundle.putInt(Constants.PROJECT_ID, item.toInt())

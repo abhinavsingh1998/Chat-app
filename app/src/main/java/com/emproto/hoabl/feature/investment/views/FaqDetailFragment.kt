@@ -44,7 +44,7 @@ class FaqDetailFragment : BaseFragment() {
     private var projectId = 0
     private var faqId = 0
 
-    private lateinit var handler : Handler
+    private lateinit var handler: Handler
     private var runnable: Runnable? = null
 
     override fun onCreateView(
@@ -100,7 +100,8 @@ class FaqDetailFragment : BaseFragment() {
 
     private fun callProfileFaqApi() {
         //UI setup
-        (activity as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility = View.GONE
+        (activity as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
+            View.GONE
         binding.blueHeader.visibility = View.VISIBLE
         //Getting general faqs
         profileViewModel.getGeneralFaqs(2001).observe(viewLifecycleOwner) {
@@ -127,7 +128,8 @@ class FaqDetailFragment : BaseFragment() {
 
     private fun callProjectFaqApi() {
         //UI setup
-        (activity as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility = View.VISIBLE
+        (activity as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
+            View.VISIBLE
         binding.blueHeader.visibility = View.GONE
         //Getting project faqs
         investmentViewModel.getInvestmentsFaq(projectId).observe(viewLifecycleOwner) {
@@ -155,7 +157,7 @@ class FaqDetailFragment : BaseFragment() {
     }
 
     private fun setUpRecyclerView(data: List<CgData>, faqId: Int) {
-        if(data.isNotEmpty()){  //If the api data is not empty
+        if (data.isNotEmpty()) {  //If the api data is not empty
             val list = ArrayList<RecyclerViewFaqItem>()
             list.add(RecyclerViewFaqItem(1, data[0])) //Adding category
             for (item in data) {
@@ -169,11 +171,11 @@ class FaqDetailFragment : BaseFragment() {
                 itemClickListener,
                 projectName = projectName,
                 fromInvestment = isFromInvestment,
-                handler= handler,
+                handler = handler,
                 runnable = runnable
             )
             binding.rvFaq.adapter = adapter
-        }else{
+        } else {
             Toast.makeText(requireContext(), "No Faqs exist", Toast.LENGTH_SHORT).show()
         }
     }
@@ -208,7 +210,11 @@ class FaqDetailFragment : BaseFragment() {
                 setUpRecyclerView(allFaqList, faqId)
             }
             item.isEmpty() -> {
-                Toast.makeText(this.requireContext(), "Search text cant be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this.requireContext(),
+                    "Search text cant be empty",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
             else -> {
                 val list = ArrayList<RecyclerViewFaqItem>()
@@ -225,7 +231,7 @@ class FaqDetailFragment : BaseFragment() {
                             isFaqPresent = true
                         }
                     }
-                    when(isFaqPresent){
+                    when (isFaqPresent) {
                         true -> {
                             list.add(RecyclerViewFaqItem(2, item))
                             isFaqPresent = false
@@ -233,9 +239,10 @@ class FaqDetailFragment : BaseFragment() {
                         else -> {}
                     }
                 }
-                when(list.size){
+                when (list.size) {
                     1 -> {
-                        Toast.makeText(requireContext(), "No faqs to show", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), "No faqs to show", Toast.LENGTH_LONG)
+                            .show()
                     }
                 }
                 setAdapter(list, item)
@@ -269,10 +276,11 @@ class FaqDetailFragment : BaseFragment() {
             itemClickListener,
             item,
             projectName,
-            isFromInvestment,handler, runnable
+            isFromInvestment, handler, runnable
         )
         binding.rvFaq.adapter = adapter
     }
+
     override fun onDestroy() {
         super.onDestroy()
         runnable?.let { handler.removeCallbacks(it) }

@@ -29,7 +29,6 @@ import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.AccountsResponse
-import java.util.*
 import javax.inject.Inject
 
 class AllPaymentHistoryFragment : Fragment(),
@@ -119,7 +118,7 @@ class AllPaymentHistoryFragment : Fragment(),
 
     private fun openDocumentScreen(name: String, path: String) {
         val strings = name.split(".")
-        if (strings[1] == Constants.PNG_SMALL || strings[1] ==Constants.JPG_SMALL) {
+        if (strings[1] == Constants.PNG_SMALL || strings[1] == Constants.JPG_SMALL) {
             //open image loading screen
             openDocument(name, path)
         } else if (strings[1] == Constants.PDF) {
@@ -131,7 +130,8 @@ class AllPaymentHistoryFragment : Fragment(),
 
     private fun getDocumentData(path: String) {
         profileViewModel.downloadDocument(path)
-            .observe(viewLifecycleOwner
+            .observe(
+                viewLifecycleOwner
             ) {
                 when (it.status) {
                     Status.LOADING -> {

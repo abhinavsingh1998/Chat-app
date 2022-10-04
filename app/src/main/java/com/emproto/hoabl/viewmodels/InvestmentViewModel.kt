@@ -48,8 +48,11 @@ class InvestmentViewModel(
 
     var isVideoSeeAllClicked = false
 
-    fun getInvestments(pageType: Int, refresh: Boolean): LiveData<BaseResponse<InvestmentResponse>> {
-        return investmentRepository.getInvestments(pageType,refresh)
+    fun getInvestments(
+        pageType: Int,
+        refresh: Boolean
+    ): LiveData<BaseResponse<InvestmentResponse>> {
+        return investmentRepository.getInvestments(pageType, refresh)
     }
 
     fun getInvestmentsMediaGallery(projectId: Int): LiveData<BaseResponse<ProjectMediaGalleryResponse>> {
@@ -252,7 +255,7 @@ class InvestmentViewModel(
         return locationData
     }
 
-    fun setFaqPosition(pos:Int) {
+    fun setFaqPosition(pos: Int) {
         this.faqPosition.postValue(pos)
     }
 
@@ -260,7 +263,7 @@ class InvestmentViewModel(
         return faqPosition
     }
 
-    fun setImageActive(isImageActive:Boolean) {
+    fun setImageActive(isImageActive: Boolean) {
         this.isImageActive.postValue(isImageActive)
     }
 
@@ -268,7 +271,7 @@ class InvestmentViewModel(
         return isImageActive
     }
 
-    fun setVideoActive(isVideoActive:Boolean) {
+    fun setVideoActive(isVideoActive: Boolean) {
         this.isVideoActive.postValue(isVideoActive)
     }
 
@@ -276,7 +279,7 @@ class InvestmentViewModel(
         return isVideoActive
     }
 
-    fun setDroneActive(isDroneActive:Boolean) {
+    fun setDroneActive(isDroneActive: Boolean) {
         this.isDroneActive.postValue(isDroneActive)
     }
 
@@ -284,7 +287,7 @@ class InvestmentViewModel(
         return isDroneActive
     }
 
-    fun setThreeSixtyActive(isThreeSixtyActive:Boolean) {
+    fun setThreeSixtyActive(isThreeSixtyActive: Boolean) {
         this.isThreeSixtyActive.postValue(isThreeSixtyActive)
     }
 
@@ -292,7 +295,7 @@ class InvestmentViewModel(
         return isThreeSixtyActive
     }
 
-    fun getMapData():LiveData<MapData>{
+    fun getMapData(): LiveData<MapData> {
         return mapData
     }
 }

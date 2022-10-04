@@ -69,6 +69,7 @@
             tools:listitem="@layout/item_help_center" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/loader"
         style="?android:attr/progressBarStyleLarge"
@@ -79,7 +80,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -151,6 +151,7 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/text_location"
             android:layout_width="wrap_content"
@@ -170,8 +171,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
-            android:gravity="center"
             android:drawableLeft="@drawable/ic_arrow_drop"
+            android:gravity="center"
             android:singleLine="true"
             android:text="5%"
             android:textColor="@color/text_grey_color"
@@ -179,12 +180,13 @@
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/projectName"
             app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/projectValueyear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginLeft="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginRight="@dimen/_4sdp"
             android:gravity="center"
             android:singleLine="true"
@@ -200,11 +202,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
-            android:paddingRight="@dimen/_4sdp"
-            android:paddingLeft="@dimen/_2sdp"
-            android:gravity="center"
-            android:drawableLeft="@drawable/ic_arrow_drop"
             android:background="@drawable/view_map_bg"
+            android:drawableLeft="@drawable/ic_arrow_drop"
+            android:gravity="center"
+            android:paddingLeft="@dimen/_2sdp"
+            android:paddingRight="@dimen/_4sdp"
             android:singleLine="true"
             android:text="View on Map>"
             android:textColor="@color/text_grey_color"
@@ -217,14 +219,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/info_layout"
-        android:text="I tend to shy away from restaurant chains, but wherever I go, PF Chang&apos;s has solidly good food and, like Starbucks, they&apos;re reliable. We were staying in Boston for a week and after a long day and blah blah blah blah... "
-        android:textColor="@color/black"
-        android:gravity="start|center"
         android:layout_margin="@dimen/_5sdp"
-        android:textAlignment="textStart"
-        android:textSize="@dimen/text_size_12"
+        android:ellipsize="end"
+        android:gravity="start|center"
         android:maxLength="250"
-        android:ellipsize="end"/>
+        android:text="I tend to shy away from restaurant chains, but wherever I go, PF Chang&apos;s has solidly good food and, like Starbucks, they&apos;re reliable. We were staying in Boston for a week and after a long day and blah blah blah blah... "
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_12"
+        app:layout_constraintTop_toBottomOf="@id/info_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

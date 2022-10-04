@@ -12,7 +12,6 @@ import com.emproto.networklayer.request.chat.SendMessageBody
 import com.emproto.networklayer.request.refernow.ReferralRequest
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.chats.*
-import com.emproto.networklayer.response.chats.ChatDetailResponse
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.home.HomeResponse
@@ -47,14 +46,15 @@ class HomeViewModel(
 
     private var testimonial = MutableLiveData<TestimonialsResponse>()
     private var selectedlatestUpdates = MutableLiveData<Data>()
-    private var selectedInsights = MutableLiveData<com.emproto.networklayer.response.insights.Data>()
+    private var selectedInsights =
+        MutableLiveData<com.emproto.networklayer.response.insights.Data>()
     private var latestUpdates = MutableLiveData<List<Data>>()
     private var insights = MutableLiveData<List<com.emproto.networklayer.response.insights.Data>>()
 
     private var position = MutableLiveData<LatesUpdatesPosition>()
     private var latUpdPosition = MutableLiveData<LatesUpdatesPosition>()
-    private var notificationData= MutableLiveData<NotificationResponse>()
-    private var listData= MutableLiveData<Page>()
+    private var notificationData = MutableLiveData<NotificationResponse>()
+    private var listData = MutableLiveData<Page>()
     private var searchText = MutableLiveData<String>()
     private var investmentId = MutableLiveData<Int>()
 
@@ -105,7 +105,10 @@ class HomeViewModel(
         return mhomeRepository.getTermsCondition(pageType)
     }
 
-    fun getLatestUpdatesData(refresh: Boolean, byPrority: Boolean): LiveData<BaseResponse<LatestUpdatesResponse>> {
+    fun getLatestUpdatesData(
+        refresh: Boolean,
+        byPrority: Boolean
+    ): LiveData<BaseResponse<LatestUpdatesResponse>> {
         return homeRepository.getlatestUpdatesData(refresh, byPrority)
     }
 
@@ -121,11 +124,11 @@ class HomeViewModel(
         this.selectedlatestUpdates.postValue(selectedlatestUpdates)
     }
 
-    fun setHeaderAndList(listData:Page){
+    fun setHeaderAndList(listData: Page) {
         this.listData.postValue(listData)
     }
 
-    fun getHeaderAndList() :LiveData<Page> {
+    fun getHeaderAndList(): LiveData<Page> {
         return listData
     }
 
@@ -184,7 +187,10 @@ class HomeViewModel(
         return homeRepository.chatInitiate(chatInitiateRequest)
     }
 
-    fun getChatHistory(projectId: String, isInvested: Boolean): LiveData<BaseResponse<ChatHistoryResponse>> {
+    fun getChatHistory(
+        projectId: String,
+        isInvested: Boolean
+    ): LiveData<BaseResponse<ChatHistoryResponse>> {
         return homeRepository.getChatHistory(projectId, isInvested)
     }
 
@@ -216,15 +222,23 @@ class HomeViewModel(
         return homeRepository.downloadDocument(path)
     }
 
-    fun getNotification(size:Int, index:Int, refresh: Boolean):LiveData<BaseResponse<NotificationResponse>>{
-        return homeRepository.getNotificationList( size, index,refresh)
+    fun getNotification(
+        size: Int,
+        index: Int,
+        refresh: Boolean
+    ): LiveData<BaseResponse<NotificationResponse>> {
+        return homeRepository.getNotificationList(size, index, refresh)
     }
 
-    fun getNewNotification(size:Int, index:Int, refresh: Boolean):LiveData<BaseResponse<NotificationResponse>>{
-        return homeRepository.getNewNotificationList( size, index,refresh)
+    fun getNewNotification(
+        size: Int,
+        index: Int,
+        refresh: Boolean
+    ): LiveData<BaseResponse<NotificationResponse>> {
+        return homeRepository.getNewNotificationList(size, index, refresh)
     }
 
-    fun setReadStatus(id: Int):LiveData<BaseResponse<ReadNotificationReponse>>{
+    fun setReadStatus(id: Int): LiveData<BaseResponse<ReadNotificationReponse>> {
         return homeRepository.setReadStatus(id)
     }
 

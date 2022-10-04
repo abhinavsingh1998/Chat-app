@@ -1,7 +1,6 @@
 package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import android.os.CountDownTimer
 import android.text.SpannableStringBuilder
@@ -18,7 +17,6 @@ import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
-import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.model.YoutubeModel
 import com.emproto.hoabl.utils.ItemClickListener
@@ -323,14 +321,14 @@ class ProjectDetailAdapter(
                 val projectLocation = "${data.address.city}, ${data.address.state}"
                 tvProjectLocation.text = projectLocation
                 tvViewCount.text = data.fomoContent.noOfViews.toString()
-                tvPriceRange.text = Utility.formatAmount( data.priceStartingFrom.toDouble())
+                tvPriceRange.text = Utility.formatAmount(data.priceStartingFrom.toDouble())
                 val areaRange = "${data.areaStartingFrom} Sqft"
                 tvAreaRange.text = areaRange
                 tvProjectViewInfo.text = SpannableStringBuilder()
                     .bold { append("${data.fomoContent.noOfViews} People") }
                     .append(" saw this in ${data.fomoContent.days} days")
-                if(data.reraDetails.isReraDetailsActive){
-                    binding.tvRegistrationNumber.visibility=View.VISIBLE
+                if (data.reraDetails.isReraDetailsActive) {
+                    binding.tvRegistrationNumber.visibility = View.VISIBLE
                     ivRegInfo.visibility = View.VISIBLE
                     var regString = ""
                     for (item in data.reraDetails.reraNumbers) {
@@ -344,8 +342,8 @@ class ProjectDetailAdapter(
                         }
                     }
                     tvRegistrationNumber.text = regString
-                }else{
-                    binding.tvRegistrationNumber.visibility=View.GONE
+                } else {
+                    binding.tvRegistrationNumber.visibility = View.GONE
                     ivRegInfo.visibility = View.GONE
                 }
 
@@ -908,7 +906,8 @@ class ProjectDetailAdapter(
     fun setItemClickListener(clickListener: View.OnClickListener) {
         onItemClickListener = clickListener
     }
-    interface ShareAppInterFace{
+
+    interface ShareAppInterFace {
         fun shareApp()
     }
 

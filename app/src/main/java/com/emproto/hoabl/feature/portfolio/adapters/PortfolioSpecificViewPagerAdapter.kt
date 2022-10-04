@@ -23,7 +23,9 @@ class PortfolioSpecificViewPagerAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = imageList[position]
         holder.binding.pendingKyc.text = item.paymentMilestone
-        "Your payment is due. Please pay on time to maintain healthy relation.".also { holder.binding.uploadKycStatement.text = it }
+        "Your payment is due. Please pay on time to maintain healthy relation.".also {
+            holder.binding.uploadKycStatement.text = it
+        }
         holder.binding.actionNavigate.setOnClickListener {
             cardInterface.onclickCard()
         }

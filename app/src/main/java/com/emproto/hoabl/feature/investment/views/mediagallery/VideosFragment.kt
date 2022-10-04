@@ -20,17 +20,21 @@ import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import javax.inject.Inject
 
-class VideosFragment:BaseFragment() {
+class VideosFragment : BaseFragment() {
 
     @Inject
     lateinit var investmentFactory: InvestmentFactory
     lateinit var investmentViewModel: InvestmentViewModel
-    lateinit var binding:FragmentVideosBinding
+    lateinit var binding: FragmentVideosBinding
     private lateinit var mediaPhotosAdapter: MediaPhotosAdapter
 
     private var isYoutubeVideo = true
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentVideosBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -42,7 +46,8 @@ class VideosFragment:BaseFragment() {
     }
 
     private fun initObserver() {
-        val medialist = investmentViewModel.getMediaContent().filter { it.title == Constants.VIDEOS}
+        val medialist =
+            investmentViewModel.getMediaContent().filter { it.title == Constants.VIDEOS }
         val list = ArrayList<MediaGalleryItem>()
 //        list.add(MediaGalleryItem(1, "Videos"))
         list.add(MediaGalleryItem(2, Constants.VIDEOS))
@@ -61,7 +66,13 @@ class VideosFragment:BaseFragment() {
             }
         }
         mediaPhotosAdapter =
-            MediaPhotosAdapter(this.requireContext(), list, mediaItemClickListener, medialist,itemClickListener)
+            MediaPhotosAdapter(
+                this.requireContext(),
+                list,
+                mediaItemClickListener,
+                medialist,
+                itemClickListener
+            )
         binding.rvMainVideos.adapter = mediaPhotosAdapter
     }
 
@@ -74,7 +85,7 @@ class VideosFragment:BaseFragment() {
 
     }
 
-    private val mediaItemClickListener = object:MediaItemClickListener{
+    private val mediaItemClickListener = object : MediaItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: MediaViewItem) {
 
         }
@@ -83,11 +94,12 @@ class VideosFragment:BaseFragment() {
 
     private val itemClickListener = object : YoutubeItemClickListener {
         override fun onItemClicked(view: View, position: Int, url: String, title: String) {
-            when(isYoutubeVideo){
+            when (isYoutubeVideo) {
                 true -> {
-                    val intent = Intent(this@VideosFragment.requireActivity(),YoutubeActivity::class.java)
-                    intent.putExtra(Constants.YOUTUBE_VIDEO_ID,url)
-                    intent.putExtra(Constants.VIDEO_TITLE,title)
+                    val intent =
+                        Intent(this@VideosFragment.requireActivity(), YoutubeActivity::class.java)
+                    intent.putExtra(Constants.YOUTUBE_VIDEO_ID, url)
+                    intent.putExtra(Constants.VIDEO_TITLE, title)
                     startActivity(intent)
 //                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=${url}"))
 //                    startActivity(intent)

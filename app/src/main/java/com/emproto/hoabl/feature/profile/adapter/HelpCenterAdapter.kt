@@ -8,7 +8,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.*
+import com.emproto.hoabl.databinding.HelpCenterFooterBinding
+import com.emproto.hoabl.databinding.ItemHelpCenterBinding
 import com.emproto.hoabl.feature.profile.data.HelpModel
 import com.emproto.hoabl.utils.ItemClickListener
 
@@ -65,7 +66,7 @@ class HelpCenterAdapter(
                 headerHolder.binding.tvTitle.text = item.title
                 headerHolder.binding.tvDescirption.text = item.description
                 headerHolder.binding.hoabelView.setOnClickListener {
-                    itemInterface.onItemClicked(it,position,item.title)
+                    itemInterface.onItemClicked(it, position, item.title)
                 }
 
             }
@@ -96,7 +97,8 @@ class HelpCenterAdapter(
 
     interface FooterInterface {
         fun onChatClick(position: Int)
-//        fun onPhoneNumberClick(position: Int)
+
+        //        fun onPhoneNumberClick(position: Int)
         fun onEmailClick(position: Int)
 
     }

@@ -57,7 +57,7 @@ class LatestUpdatesFragment : BaseFragment() {
         return mBinding.root
     }
 
-    private fun initView(){
+    private fun initView() {
         homeViewModel.getHeaderAndList().observe(viewLifecycleOwner) {
             updatesListCount = it.totalUpdatesOnListView
             latestHeading = it.latestUpdates.heading
@@ -67,9 +67,10 @@ class LatestUpdatesFragment : BaseFragment() {
     }
 
     private fun initObserver(refresh: Boolean) {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             homeViewModel.getLatestUpdatesData(refresh, true)
-                .observe(viewLifecycleOwner
+                .observe(
+                    viewLifecycleOwner
                 ) { it ->
                     when (it?.status) {
                         Status.LOADING -> {
@@ -97,13 +98,13 @@ class LatestUpdatesFragment : BaseFragment() {
                         else -> {}
                     }
                 }
-        } else{
+        } else {
             noInternetState()
         }
 
     }
 
-    private fun initAdapter(it: LatestUpdatesResponse){
+    private fun initAdapter(it: LatestUpdatesResponse) {
 
         it?.data.let {
             if (it != null) {
@@ -146,7 +147,7 @@ class LatestUpdatesFragment : BaseFragment() {
 
     }
 
-    private fun noInternetState(){
+    private fun noInternetState() {
         mBinding.refressLayout.isRefreshing = false
         mBinding.loader.hide()
         mBinding.parentScroll.hide()

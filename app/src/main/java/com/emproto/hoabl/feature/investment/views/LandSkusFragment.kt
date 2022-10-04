@@ -24,7 +24,7 @@ import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.investment.Inventory
 import javax.inject.Inject
 
-class LandSkusFragment:BaseFragment() {
+class LandSkusFragment : BaseFragment() {
 
     @Inject
     lateinit var investmentFactory: InvestmentFactory
@@ -39,7 +39,11 @@ class LandSkusFragment:BaseFragment() {
     private var title = ""
     private var subtitle = ""
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View{
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentLandSkusBinding.inflate(layoutInflater)
         arguments?.let {
             projectId = it.getInt(Constants.PROJECT_ID, 0)
@@ -95,8 +99,10 @@ class LandSkusFragment:BaseFragment() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         investmentViewModel =
             ViewModelProvider(requireActivity(), investmentFactory)[InvestmentViewModel::class.java]
-        (activity as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility = View.GONE
-        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility = View.VISIBLE
+        (activity as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.visibility =
+            View.GONE
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.imageBack.visibility =
+            View.VISIBLE
         (requireActivity() as HomeActivity).hideBottomNavigation()
         (requireActivity() as HomeActivity).showHeader()
         binding.slSwipeRefresh.setOnRefreshListener {
@@ -114,19 +120,29 @@ class LandSkusFragment:BaseFragment() {
         }
         list.add(RecyclerViewItem(3))
         landSkusAdapter =
-            LandSkusAdapter(this, list, appliedList, notAppliedList, itemClickListener,title,subtitle)
+            LandSkusAdapter(
+                this,
+                list,
+                appliedList,
+                notAppliedList,
+                itemClickListener,
+                title,
+                subtitle
+            )
         binding.rvLandSkus.adapter = landSkusAdapter
         landSkusAdapter.setItemClickListener(onLandSkusItemClickListener)
     }
 
     private val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
-            when(item){
+            when (item) {
                 "Yes" -> {
-                    investmentViewModel.addInventory(AddInventoryBody(
-                        inventoryBucketId = position,
-                        launchPhaseId = projectId
-                    )).observe(viewLifecycleOwner) {
+                    investmentViewModel.addInventory(
+                        AddInventoryBody(
+                            inventoryBucketId = position,
+                            launchPhaseId = projectId
+                        )
+                    ).observe(viewLifecycleOwner) {
                         when (it.status) {
                             Status.LOADING -> {
                                 binding.progressBar.show()
@@ -155,7 +171,7 @@ class LandSkusFragment:BaseFragment() {
                     }
                 }
             }
-            when(view.id){
+            when (view.id) {
                 R.id.btn_apply_now -> {
                     openDialog()
                 }
@@ -164,16 +180,18 @@ class LandSkusFragment:BaseFragment() {
     }
 
     private fun openDialog() {
-        val confirmationDialog = ConfirmationDialog(investmentViewModel,itemClickListener)
-        confirmationDialog.show(this.parentFragmentManager,"ConfirmationDialog")
+        val confirmationDialog = ConfirmationDialog(investmentViewModel, itemClickListener)
+        confirmationDialog.show(this.parentFragmentManager, "ConfirmationDialog")
     }
 
     private fun callVideoCallApi() {
         investmentViewModel.scheduleVideoCall(
-            VideoCallBody(caseType = "1004",
-            description = "",
-            issueType = "Schedule a video call",
-            projectId= projectId)
+            VideoCallBody(
+                caseType = "1004",
+                description = "",
+                issueType = "Schedule a video call",
+                projectId = projectId
+            )
         ).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
@@ -207,8 +225,9 @@ class LandSkusFragment:BaseFragment() {
         View.OnClickListener { view ->
             when (view.id) {
                 R.id.btn_apply_now -> {
-                    val confirmationDialog = ConfirmationDialog(investmentViewModel,itemClickListener)
-                    confirmationDialog.show(this.parentFragmentManager,"ConfirmationDialog")
+                    val confirmationDialog =
+                        ConfirmationDialog(investmentViewModel, itemClickListener)
+                    confirmationDialog.show(this.parentFragmentManager, "ConfirmationDialog")
                 }
                 R.id.cl_not_convinced -> {
                     callVideoCallApi()

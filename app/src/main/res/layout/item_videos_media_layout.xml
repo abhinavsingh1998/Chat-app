@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="@dimen/margin_size_4"
-    >
+    android:layout_marginVertical="@dimen/margin_size_4">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_media_video"
@@ -22,8 +21,7 @@
             app:cardCornerRadius="@dimen/margin_size_8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            >
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -33,37 +31,35 @@
                     android:id="@+id/iv_media_video"
                     android:layout_width="match_parent"
                     android:layout_height="207dp"
-                    android:src="@drawable/item_promises_bg"
                     android:scaleType="centerCrop"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/item_promises_bg"
                     app:layout_constraintEnd_toEndOf="parent"
-                    />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/iv_play_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_play_video"
-                    app:layout_constraintStart_toStartOf="@id/iv_media_video"
-                    app:layout_constraintTop_toTopOf="@id/iv_media_video"
-                    app:layout_constraintEnd_toEndOf="@id/iv_media_video"
                     app:layout_constraintBottom_toBottomOf="@id/iv_media_video"
-                    />
+                    app:layout_constraintEnd_toEndOf="@id/iv_media_video"
+                    app:layout_constraintStart_toStartOf="@id/iv_media_video"
+                    app:layout_constraintTop_toTopOf="@id/iv_media_video" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_video_name"
                     style="@style/text_style_white_14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black"
                     android:alpha="0.75"
                     android:background="@drawable/bottom_corner_radius_bg"
+                    android:backgroundTint="@color/black"
                     android:fontFamily="@font/jost_regular"
-                    android:paddingVertical="@dimen/margin_size_6"
                     android:paddingHorizontal="@dimen/margin_size_12"
-                    android:textAlignment="textStart"
+                    android:paddingVertical="@dimen/margin_size_6"
                     android:text="Navi Mumbai Airport"
+                    android:textAlignment="textStart"
                     app:layout_constraintBottom_toBottomOf="@id/iv_media_video"
                     app:layout_constraintEnd_toEndOf="@id/iv_media_video"
                     app:layout_constraintStart_toStartOf="@id/iv_media_video" />

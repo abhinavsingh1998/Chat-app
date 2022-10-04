@@ -6,118 +6,118 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/margin_size_5">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-            <com.emproto.core.textviews.CustomTextView
-                android:id="@+id/registration_complete_header"
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/registration_complete_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_75"
+            android:layout_marginTop="@dimen/margin_size_36"
+            android:layout_marginEnd="@dimen/margin_size_75"
+            android:fontFamily="@font/jost_medium"
+            android:text="@string/registration_complete"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_21"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_38"
+            android:layout_marginEnd="@dimen/margin_size_12"
+            android:src="@drawable/party_left"
+            app:layout_constraintEnd_toStartOf="@id/registration_complete_header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/registration_complete_header" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_12"
+            android:layout_marginEnd="@dimen/margin_size_38"
+            android:rotationY="180"
+            android:src="@drawable/party_left"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/registration_complete_header"
+            app:layout_constraintTop_toTopOf="@+id/registration_complete_header" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/welcome_card"
+            android:layout_width="0dp"
+            android:layout_height="108dp"
+            android:layout_marginHorizontal="@dimen/margin_size_21"
+            android:background="@drawable/greeting_card_layout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <ImageView
+                android:id="@+id/aciton_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_size_75"
-                android:layout_marginTop="@dimen/margin_size_36"
-                android:layout_marginEnd="@dimen/margin_size_75"
-                android:fontFamily="@font/jost_medium"
-                android:text="@string/registration_complete"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_21"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginLeft="@dimen/margin_size_29"
+                android:src="@drawable/ic_logo_plain"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_size_38"
-                android:layout_marginEnd="@dimen/margin_size_12"
-                android:src="@drawable/party_left"
-                app:layout_constraintEnd_toStartOf="@id/registration_complete_header"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/registration_complete_header" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_size_12"
-                android:layout_marginEnd="@dimen/margin_size_38"
-                android:rotationY="180"
-                android:src="@drawable/party_left"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/registration_complete_header"
-                app:layout_constraintTop_toTopOf="@+id/registration_complete_header" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/welcome_card"
+            <TextView
+                android:id="@+id/name_tag"
+                style="@style/text_greting_style_16"
                 android:layout_width="0dp"
-                android:layout_height="108dp"
-                android:background="@drawable/greeting_card_layout"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_30"
+                android:fontFamily="@font/jost_italic"
+                android:text=""
+                android:textColor="@color/greeting_txt_color"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginHorizontal="@dimen/margin_size_21"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-
-                <ImageView
-                    android:id="@+id/aciton_close"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_size_29"
-                    android:src="@drawable/ic_logo_plain"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/name_tag"
-                    style="@style/text_greting_style_16"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_size_30"
-                    android:fontFamily="@font/jost_italic"
-                    android:text=""
-                    android:textColor="@color/greeting_txt_color"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/customTextView2"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.emproto.core.textviews.CustomTextView
-                    android:id="@+id/customTextView2"
-                    style="@style/text_greting_style_16"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/margin_size_10"
-                    android:layout_marginTop="@dimen/margin_size_6"
-                    android:fontFamily="@font/jost_italic"
-                    android:text="Welcome to our family"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/greeting_txt_color"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/aciton_close"
-                    app:layout_constraintTop_toBottomOf="@id/name_tag" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
+                app:layout_constraintStart_toStartOf="@+id/customTextView2"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.emproto.core.textviews.CustomTextView
-                android:id="@+id/continue_btn"
-                android:layout_width="wrap_content"
+                android:id="@+id/customTextView2"
+                style="@style/text_greting_style_16"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                style="@style/text_style_text_color_16"
-                android:layout_marginLeft="@dimen/margin_size_42"
-                android:layout_marginTop="@dimen/margin_size_33"
-                android:layout_marginRight="@dimen/margin_size_42"
-                android:layout_marginBottom="@dimen/margin_size_24"
-                android:fontFamily="@font/jost_medium"
-                android:drawablePadding="@dimen/margin_size_2"
-                android:drawableRight="@drawable/combined_shape"
-                android:drawableTint="#000000"
-                android:text="@string/continue_txt"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginHorizontal="@dimen/margin_size_10"
+                android:layout_marginTop="@dimen/margin_size_6"
+                android:fontFamily="@font/jost_italic"
+                android:text="Welcome to our family"
+                android:textAlignment="viewStart"
+                android:textColor="@color/greeting_txt_color"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/welcome_card" />
-
+                app:layout_constraintStart_toEndOf="@+id/aciton_close"
+                app:layout_constraintTop_toBottomOf="@id/name_tag" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <com.emproto.core.textviews.CustomTextView
+            android:id="@+id/continue_btn"
+            style="@style/text_style_text_color_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_size_42"
+            android:layout_marginTop="@dimen/margin_size_33"
+            android:layout_marginRight="@dimen/margin_size_42"
+            android:layout_marginBottom="@dimen/margin_size_24"
+            android:drawableRight="@drawable/combined_shape"
+            android:drawablePadding="@dimen/margin_size_2"
+            android:drawableTint="#000000"
+            android:fontFamily="@font/jost_medium"
+            android:text="@string/continue_txt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/welcome_card" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <fragment
-        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:id="@+id/map_fragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -14,24 +14,24 @@
         android:id="@+id/cv_back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:elevation="@dimen/margin_size_4"
-        android:layout_marginTop="@dimen/margin_size_30"
         android:layout_marginStart="@dimen/margin_size_10"
+        android:layout_marginTop="@dimen/margin_size_30"
+        android:elevation="@dimen/margin_size_4"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/iv_back_button"
-            android:src="@drawable/path_copy"
-            android:scaleType="fitXY"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_size_10"
-            android:layout_marginBottom="@dimen/margin_size_9"
+            android:layout_gravity="center"
             android:layout_marginStart="@dimen/margin_size_9"
-            android:layout_marginEnd="@dimen/margin_size_10"/>
+            android:layout_marginTop="@dimen/margin_size_10"
+            android:layout_marginEnd="@dimen/margin_size_10"
+            android:layout_marginBottom="@dimen/margin_size_9"
+            android:scaleType="fitXY"
+            android:src="@drawable/path_copy" />
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -39,14 +39,14 @@
         android:id="@+id/cv_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_size_10"
+        android:layout_marginTop="@dimen/margin_size_30"
+        android:outlineSpotShadowColor="#ababab"
         android:visibility="gone"
         app:cardElevation="@dimen/margin_size_2"
-        android:outlineSpotShadowColor="#ababab"
-        android:layout_marginTop="@dimen/margin_size_30"
-        android:layout_marginHorizontal="@dimen/margin_size_10"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -56,23 +56,22 @@
                 android:id="@+id/iv_back_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/path_copy"
                 android:layout_marginStart="@dimen/margin_size_13"
+                android:src="@drawable/path_copy"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <View
                 android:id="@+id/view_vertical_line"
                 android:layout_width="@dimen/margin_size_1"
                 android:layout_height="@dimen/margin_size_30"
-                android:layout_marginStart="@dimen/margin_size_11"
                 android:layout_marginVertical="@dimen/margin_size_8"
+                android:layout_marginStart="@dimen/margin_size_11"
                 android:background="@color/map_vertical_line"
-                app:layout_constraintStart_toEndOf="@id/iv_back_image"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                />
+                app:layout_constraintStart_toEndOf="@id/iv_back_image"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/et_search"
@@ -83,13 +82,13 @@
                 android:background="@android:color/transparent"
                 android:drawableStart="@drawable/ic_shape_search"
                 android:drawablePadding="@dimen/margin_size_8"
-                android:singleLine="true"
                 android:fontFamily="@font/jost_regular"
                 android:hint="@string/see_distance"
+                android:singleLine="true"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/view_vertical_line"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -101,8 +100,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

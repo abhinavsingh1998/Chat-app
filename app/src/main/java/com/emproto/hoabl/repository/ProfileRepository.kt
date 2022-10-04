@@ -1,26 +1,26 @@
 package com.emproto.hoabl.repository
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
 import com.emproto.networklayer.feature.HomeDataSource
 import com.emproto.networklayer.feature.PortfolioDataSource
 import com.emproto.networklayer.feature.ProfileDataSource
-import com.emproto.networklayer.request.profile.*
+import com.emproto.networklayer.request.profile.EditUserNameRequest
+import com.emproto.networklayer.request.profile.FeedBackRequest
+import com.emproto.networklayer.request.profile.ReportSecurityRequest
+import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.fm.FmUploadResponse
 import com.emproto.networklayer.response.investment.FaqDetailResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
-import com.emproto.networklayer.response.profile.CitiesResponse
 import com.emproto.networklayer.response.profile.*
 import com.emproto.networklayer.response.resourceManagment.ProflieResponse
 import com.emproto.networklayer.response.terms.TermsConditionResponse
 import kotlinx.coroutines.*
-
 import java.io.File
 import javax.inject.Inject
 
@@ -714,7 +714,11 @@ class ProfileRepository @Inject constructor(application: Application) :
         return mDocumentsResponse
     }
 
-    fun uploadFm(type:String,pageName:String,image:File): LiveData<BaseResponse<FmUploadResponse>> {
+    fun uploadFm(
+        type: String,
+        pageName: String,
+        image: File
+    ): LiveData<BaseResponse<FmUploadResponse>> {
         val mUploadFmResponse = MutableLiveData<BaseResponse<FmUploadResponse>>()
         mUploadFmResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {

@@ -20,7 +20,7 @@ import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import javax.inject.Inject
 
-class ThreeSixtyFragment:BaseFragment() {
+class ThreeSixtyFragment : BaseFragment() {
 
     @Inject
     lateinit var investmentFactory: InvestmentFactory
@@ -67,12 +67,12 @@ class ThreeSixtyFragment:BaseFragment() {
         list.add(MediaGalleryItem(2, Constants.PHOTOS))
 
         val imageList = arrayListOf<String>()
-        Log.d("listMedia",list1.toString())
+        Log.d("listMedia", list1.toString())
         imageList.clear()
-        for(item in list1){
+        for (item in list1) {
             imageList.add(item.media)
         }
-        for(item in list1){
+        for (item in list1) {
             allImageList.add(item)
         }
 
@@ -102,7 +102,7 @@ class ThreeSixtyFragment:BaseFragment() {
         binding.rvMainPhotos.adapter = mediaPhotosAdapter
     }
 
-    val youtubeItemClickListener = object: YoutubeItemClickListener {
+    val youtubeItemClickListener = object : YoutubeItemClickListener {
         override fun onItemClicked(view: View, position: Int, url: String, title: String) {
 
         }
@@ -114,8 +114,8 @@ class ThreeSixtyFragment:BaseFragment() {
             val mediaViewFragment = MediaViewFragment()
             val bundle = Bundle()
             bundle.putSerializable(Constants.DATA, item)
-            bundle.putSerializable("mediaList",allImageList)
-            bundle.putInt(Constants.IMAGE_POSITION,position)
+            bundle.putSerializable("mediaList", allImageList)
+            bundle.putInt(Constants.IMAGE_POSITION, position)
             mediaViewFragment.arguments = bundle
             (requireActivity() as HomeActivity).addFragment(mediaViewFragment, true)
         }

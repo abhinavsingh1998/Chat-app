@@ -29,7 +29,6 @@ import com.emproto.networklayer.response.terms.TermsConditionResponse
 import com.emproto.networklayer.response.testimonials.TestimonialsResponse
 import kotlinx.coroutines.*
 import javax.inject.Inject
-import kotlin.Exception
 
 class HomeRepository @Inject constructor(application: Application) : BaseRepository(application) {
 
@@ -44,22 +43,24 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
     val mActionItem = MutableLiveData<BaseResponse<HomeActionItemResponse>>()
 
 
-
-
     /**
      * Get all promises
      *
      * @param pageType for promises it #5003
      * @return
      */
-    fun getPromises(pageType: Int, refresh: Boolean= false): LiveData<BaseResponse<PromisesResponse>> {
+    fun getPromises(
+        pageType: Int,
+        refresh: Boolean = false
+    ): LiveData<BaseResponse<PromisesResponse>> {
         if (mPromisesResponse.value == null || refresh) {
             mPromisesResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
-                    coroutineScope{
-                        val request = async { HomeDataSource(application).getPromisesData(pageType)}
-                        val promisesResponse= request.await()
+                    coroutineScope {
+                        val request =
+                            async { HomeDataSource(application).getPromisesData(pageType) }
+                        val promisesResponse = request.await()
                         if (promisesResponse.isSuccessful) {
                             if (promisesResponse.body()!!.data != null)
                                 mPromisesResponse.postValue(BaseResponse.success(promisesResponse.body()!!))
@@ -77,8 +78,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
 
                     }
 
-                }
-                catch (e: Exception) {
+                } catch (e: Exception) {
                     mPromisesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
                 }
             }
@@ -103,17 +103,19 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
             coroutineScope.launch {
                 try {
 
-                    coroutineScope{
+                    coroutineScope {
 
-                        val dasboard = async { HomeDataSource(application).getDashboardData(pageType)}
-                        val actionItem= async { HomeDataSource(application).getActionItem() }
+                        val dasboard =
+                            async { HomeDataSource(application).getDashboardData(pageType) }
+                        val actionItem = async { HomeDataSource(application).getActionItem() }
 
-                        val dashBoardResponse= dasboard.await()
-                        val actionItemResponse= actionItem.await()
+                        val dashBoardResponse = dasboard.await()
+                        val actionItemResponse = actionItem.await()
                         if (dashBoardResponse.isSuccessful) {
-                            if (dashBoardResponse.body()!!.data != null){
-                                if(actionItemResponse.isSuccessful){
-                                    dashBoardResponse.body()!!.data.actionItem = actionItemResponse.body()!!.data
+                            if (dashBoardResponse.body()!!.data != null) {
+                                if (actionItemResponse.isSuccessful) {
+                                    dashBoardResponse.body()!!.data.actionItem =
+                                        actionItemResponse.body()!!.data
                                 }
                                 mHomeResponse.postValue(BaseResponse.success(dashBoardResponse.body()!!))
                             } else
@@ -138,7 +140,8 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         return mHomeResponse
     }
 
-    fun getlatestUpdatesData(refresh: Boolean = false,
+    fun getlatestUpdatesData(
+        refresh: Boolean = false,
         byPrority: Boolean
     ): LiveData<BaseResponse<LatestUpdatesResponse>> {
 
@@ -398,7 +401,10 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         return mChatDetailResponse
     }
 
-    fun getChatHistory(projectId: String, isInvested:Boolean): LiveData<BaseResponse<ChatHistoryResponse>> {
+    fun getChatHistory(
+        projectId: String,
+        isInvested: Boolean
+    ): LiveData<BaseResponse<ChatHistoryResponse>> {
         val mChatHistoryResponse = MutableLiveData<BaseResponse<ChatHistoryResponse>>()
         mChatHistoryResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
@@ -486,17 +492,17 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         }
         return mAccountsResponse
     }
+
     fun getSearchResult(searchWord: String): LiveData<BaseResponse<SearchResponse>> {
         val mSearchResponse = MutableLiveData<BaseResponse<SearchResponse>>()
         mSearchResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val search =   HomeDataSource(application).getSearchResults(searchWord)
+                val search = HomeDataSource(application).getSearchResults(searchWord)
                 if (search.isSuccessful) {
-                    if (search.body()!!.data != null){
+                    if (search.body()!!.data != null) {
                         mSearchResponse.postValue(BaseResponse.success(search.body()!!))
-                    }
-                    else
+                    } else
                         mSearchResponse.postValue(BaseResponse.Companion.error("No data found"))
                 } else {
                     mSearchResponse.postValue(
@@ -519,15 +525,14 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         mSearchDocResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val docs = when(searchWord){
+                val docs = when (searchWord) {
                     "" -> HomeDataSource(application).getSearchDocResults()
                     else -> HomeDataSource(application).getSearchDocResultsQuery(searchWord)
                 }
                 if (docs.isSuccessful) {
-                    if (docs.body()!!.data != null){
+                    if (docs.body()!!.data != null) {
                         mSearchDocResponse.postValue(BaseResponse.success(docs.body()!!))
-                    }
-                    else
+                    } else
                         mSearchDocResponse.postValue(BaseResponse.Companion.error("No data found"))
                 } else {
                     mSearchDocResponse.postValue(
@@ -632,11 +637,14 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
 //    }
 
 
-
-    fun getNewNotificationList(size:Int, index:Int, refresh: Boolean = false): LiveData<BaseResponse<NotificationResponse>> {
+    fun getNewNotificationList(
+        size: Int,
+        index: Int,
+        refresh: Boolean = false
+    ): LiveData<BaseResponse<NotificationResponse>> {
 
         val mNewNotificationResponse = MutableLiveData<BaseResponse<NotificationResponse>>()
-        if (mNewNotificationResponse.value==null || refresh){
+        if (mNewNotificationResponse.value == null || refresh) {
             mNewNotificationResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
@@ -665,11 +673,16 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
 
         return mNewNotificationResponse
     }
-    fun getNotificationList(size:Int, index:Int, refresh: Boolean = false): LiveData<BaseResponse<NotificationResponse>> {
+
+    fun getNotificationList(
+        size: Int,
+        index: Int,
+        refresh: Boolean = false
+    ): LiveData<BaseResponse<NotificationResponse>> {
 
         val mNotificationResponse = MutableLiveData<BaseResponse<NotificationResponse>>()
 
-        if (mNotificationResponse.value==null || refresh){
+        if (mNotificationResponse.value == null || refresh) {
             mNotificationResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
@@ -727,7 +740,6 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         }
         return mNotificationResponse
     }
-
 
 
 }

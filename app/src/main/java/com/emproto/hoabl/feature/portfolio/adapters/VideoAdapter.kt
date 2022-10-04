@@ -31,7 +31,7 @@ class VideoAdapter(
             .load(element.media)
             .into(holder.binding.ivLatestImage)
         holder.binding.ivLatestImage.setOnClickListener {
-            ivInterface.onClickImage(element,position)
+            ivInterface.onClickImage(element, position)
         }
     }
 

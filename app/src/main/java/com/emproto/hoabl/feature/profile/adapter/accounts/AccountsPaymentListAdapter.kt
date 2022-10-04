@@ -14,13 +14,12 @@ import com.emproto.hoabl.databinding.AccNoDataBinding
 import com.emproto.hoabl.databinding.ItemAccountsPaymentBinding
 import com.emproto.networklayer.response.profile.AccountsResponse
 import java.text.SimpleDateFormat
-import java.util.*
 
 class AccountsPaymentListAdapter(
     private var mContext: Context?,
     private var accountsPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>,
     private var mListener: OnPaymentItemClickListener,
-    private  var type: String
+    private var type: String
 
 ) : RecyclerView.Adapter<AccountsPaymentListAdapter.BaseViewHolder>() {
 
@@ -31,7 +30,11 @@ class AccountsPaymentListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         if (viewType == R.layout.item_accounts_payment) {
             binding =
-                ItemAccountsPaymentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                ItemAccountsPaymentBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
             return NotEmptyList(binding.root)
         } else {
             bindingEmpty =
@@ -45,14 +48,15 @@ class AccountsPaymentListAdapter(
         }
 
     }
+
     override fun getItemViewType(position: Int): Int {
         if (type == "not") {
             return R.layout.item_accounts_payment
-        }
-        else {
+        } else {
             return R.layout.acc_no_data
         }
     }
+
     class NotEmptyList(ItemView: View) : AccountsPaymentListAdapter.BaseViewHolder(ItemView) {
         val tvProjectName: TextView = itemView.findViewById(R.id.tvProjectName)
         val tvPaidAmount: TextView = itemView.findViewById(R.id.tvPaidAmount)
@@ -66,6 +70,7 @@ class AccountsPaymentListAdapter(
         var ivIcon = itemView.findViewById<ImageView>(R.id.ivIcon)
 
     }
+
     abstract class BaseViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {}
 
     interface OnPaymentItemClickListener {
@@ -77,31 +82,39 @@ class AccountsPaymentListAdapter(
             path: String,
         )
     }
+
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        if(holder is NotEmptyList) {
+        if (holder is NotEmptyList) {
             if (!accountsPaymentList[position].paidAmount.toString().isNullOrEmpty()) {
-                "₹${accountsPaymentList[position].paidAmount}".also { holder.tvPaidAmount.text = it }
+                "₹${accountsPaymentList[position].paidAmount}".also {
+                    holder.tvPaidAmount.text = it
+                }
             }
 
             if (!accountsPaymentList[position].launchName.isNullOrEmpty()) {
                 holder.tvProjectName.text = accountsPaymentList[position].launchName
             }
             if (accountsPaymentList[position].crmInventory != null) {
-                "Land id:${accountsPaymentList[position].crmInventory}".also { holder.tvLandId.text = it }
+                "Land id:${accountsPaymentList[position].crmInventory}".also {
+                    holder.tvLandId.text = it
+                }
             }
 
             if (!accountsPaymentList[position].paymentDate.isNullOrEmpty()) {
                 val paymentDate = Utility.dateInWords(accountsPaymentList[position].paymentDate)
                 holder.tvPaymentDate.text = paymentDate
-            }
-            else{
+            } else {
                 holder.tvPaymentDate.text = ""
             }
 
 
             holder.tvSeeReceipt.setOnClickListener {
                 if (accountsPaymentList[position].document == null) {
-                    Toast.makeText(mContext, "Connect with your relationship manager\nfor the receipt", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        mContext,
+                        "Connect with your relationship manager\nfor the receipt",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     mListener.onAccountsPaymentItemClick(
                         accountsPaymentList,
@@ -114,8 +127,10 @@ class AccountsPaymentListAdapter(
                 }
 
             }
-        }else if(holder is EmptyList){
-            "No Payment is done yet,See your payment history after making your first payment.".also { holder.tvMsg.text = it }
+        } else if (holder is EmptyList) {
+            "No Payment is done yet,See your payment history after making your first payment.".also {
+                holder.tvMsg.text = it
+            }
             holder.ivIcon.setImageResource(R.drawable.payment)
 
         }

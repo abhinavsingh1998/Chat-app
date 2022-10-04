@@ -36,7 +36,6 @@ import com.example.portfolioui.models.BookingModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 
 private const val ARG_PARAM1 = "param1"
@@ -202,17 +201,23 @@ class BookingJourneyFragment : BaseFragment() {
                     }
 
                     override fun onClickPendingCardDetails(payment: Payment) {
-                        "₹ ${Utility.convertTo(payment.pendingAmount)}".also { dialogPendingPayment.tvPendingAmount.text = it }
+                        "₹ ${Utility.convertTo(payment.pendingAmount)}".also {
+                            dialogPendingPayment.tvPendingAmount.text = it
+                        }
 
                         if (payment.pendingAmount == 0.0) {
                             dialogPendingPayment.tvPaidAmount.visibility = View.GONE
                             dialogPendingPayment.textView14.visibility = View.GONE
                         } else {
-                            "₹ ${Utility.convertTo(payment.paidAmount)}".also { dialogPendingPayment.tvPaidAmount.text = it }
+                            "₹ ${Utility.convertTo(payment.paidAmount)}".also {
+                                dialogPendingPayment.tvPaidAmount.text = it
+                            }
                         }
                         dialogPendingPayment.tvMilestoneName.text = payment.paymentMilestone
                         if (payment.targetDate != null)
-                            "Due date: ${Utility.parseDateFromUtc(payment.targetDate)}".also { dialogPendingPayment.tvDueDate.text = it }
+                            "Due date: ${Utility.parseDateFromUtc(payment.targetDate)}".also {
+                                dialogPendingPayment.tvDueDate.text = it
+                            }
                         pendingPaymentDialog.show()
 
                     }
@@ -331,7 +336,8 @@ class BookingJourneyFragment : BaseFragment() {
 
     fun getDocumentData(path: String) {
         portfolioViewModel.downloadDocument(path)
-            .observe(viewLifecycleOwner
+            .observe(
+                viewLifecycleOwner
             ) {
                 when (it.status) {
                     Status.LOADING -> {

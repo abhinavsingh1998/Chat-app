@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_color">
@@ -33,18 +32,18 @@
         android:id="@+id/tm_txt"
         android:layout_width="@dimen/margin_size_20"
         android:layout_height="@dimen/margin_size_20"
-        android:src="@drawable/logo_r"
-        app:layout_constraintTop_toBottomOf="@id/progress_baar"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/margin_size_37"
-        android:layout_marginRight="@dimen/margin_size_23"/>
+        android:layout_marginRight="@dimen/margin_size_23"
+        android:src="@drawable/logo_r"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/progress_baar" />
 
     <ImageView
         android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
         android:contentDescription="@null"
         android:src="@drawable/ic_intro_third"
@@ -87,7 +86,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:text="@string/get_skip"/>
+        app:text="@string/get_skip" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

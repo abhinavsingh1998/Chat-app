@@ -59,7 +59,7 @@ class DocViewerFragment : BaseFragment() {
         (requireActivity() as HomeActivity).hideHeader()
         (requireActivity() as HomeActivity).hideBottomNavigation()
         initView()
-        Log.d("tete",imageUrl.toString())
+        Log.d("tete", imageUrl.toString())
         if (fromPath) {
             initObserver()
         } else {
@@ -82,7 +82,8 @@ class DocViewerFragment : BaseFragment() {
 
     private fun initObserver() {
         portfolioViewModel.downloadDocument(imageUrl!!)
-            .observe(viewLifecycleOwner
+            .observe(
+                viewLifecycleOwner
             ) {
                 when (it.status) {
                     Status.LOADING -> {

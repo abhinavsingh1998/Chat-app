@@ -19,10 +19,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
-import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentPortfolioBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.home.views.fragments.ReferralDialog
 import com.emproto.hoabl.feature.investment.views.CategoryListFragment
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
@@ -102,7 +102,8 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 isReadPermissionGranted =
-                    permissions[Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissionGranted
+                    permissions[Manifest.permission.READ_EXTERNAL_STORAGE]
+                        ?: isReadPermissionGranted
             }
 
         initViews()

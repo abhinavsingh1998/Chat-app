@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_color">
@@ -53,9 +52,9 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_size_8"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/margin_size_8"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/back_action"
@@ -90,10 +89,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_size_22"
                     android:layout_marginEnd="@dimen/margin_size_23"
-                    android:textColor="#3f416d"
-                    android:textSize="14sp"
                     android:fontFamily="@font/jost_light"
                     android:text="@string/checkbox_desc"
+                    android:textColor="#3f416d"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@id/tv_heading" />
 
@@ -116,12 +115,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_size_14"
-                    android:singleLine="true"
-                    android:textColor="#9192a0"
-                    android:fontFamily="@font/jost_regular"
-                    android:textSize="14sp"
-                    android:text="@string/home_checkbox"
                     android:buttonTint="@color/black"
+                    android:fontFamily="@font/jost_regular"
+                    android:singleLine="true"
+                    android:text="@string/home_checkbox"
+                    android:textColor="#9192a0"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
@@ -129,12 +128,12 @@
                     android:id="@+id/checkbox_invest"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    android:fontFamily="@font/jost_regular"
                     android:singleLine="true"
                     android:text="@string/invest_checkbox"
                     android:textColor="#9192a0"
-                    android:fontFamily="@font/jost_regular"
                     android:textSize="14sp"
-                    android:buttonTint="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@+id/home_checkbox" />
 
@@ -142,11 +141,11 @@
                     android:id="@+id/checkbox_promises"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    android:fontFamily="@font/jost_regular"
                     android:text="@string/promises"
                     android:textColor="#9192a0"
-                    android:fontFamily="@font/jost_regular"
                     android:textSize="14sp"
-                    android:buttonTint="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@+id/checkbox_invest" />
 
@@ -155,10 +154,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_size_272"
-                    android:text="@string/portfolio"
                     android:buttonTint="@color/black"
-                    android:textColor="#9192a0"
                     android:fontFamily="@font/jost_regular"
+                    android:text="@string/portfolio"
+                    android:textColor="#9192a0"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@+id/checkbox_promises" />
@@ -167,11 +166,11 @@
                     android:id="@+id/checkbox_profile"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    android:fontFamily="@font/jost_regular"
                     android:singleLine="true"
                     android:text="@string/profile"
-                    android:buttonTint="@color/black"
                     android:textColor="#9192a0"
-                    android:fontFamily="@font/jost_regular"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@+id/checkbox_portfolio" />
@@ -180,11 +179,11 @@
                     android:id="@+id/checkbox_other"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    android:fontFamily="@font/jost_regular"
                     android:singleLine="true"
                     android:text="@string/other"
-                    android:buttonTint="@color/black"
                     android:textColor="#9192a0"
-                    android:fontFamily="@font/jost_regular"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@+id/tv_heading"
                     app:layout_constraintTop_toBottomOf="@+id/checkbox_profile" />
@@ -317,6 +316,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/feedback_view" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_issues_layout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -331,33 +331,36 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/checkbox_other">
-                <EditText
-                    android:id="@+id/experience_tv"
-                    style="@style/text_style_text_light_black_color_14"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/jost_regular"
-                    android:gravity="top|start"
-                    android:hint="Describe your experience here"
-                    android:inputType="textMultiLine"
-                    android:padding="10dp"
-                    android:maxLength="250"
-                    android:digits="0 ,1 ,2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,ABCDEFGHIJKLMNOPQRSTUVWXYZ qwertzuiopasdfghjklyxcvbnm ,_ ,/ ,: ,( ,) ,. ,, , ,' ,&amp; ,[ ,] ,{ ,} "
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/tv_heading"
-                    app:layout_constraintTop_toBottomOf="@id/checkbox_other" />
+
+                    <EditText
+                        android:id="@+id/experience_tv"
+                        style="@style/text_style_text_light_black_color_14"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:digits="0 ,1 ,2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,ABCDEFGHIJKLMNOPQRSTUVWXYZ qwertzuiopasdfghjklyxcvbnm ,_ ,/ ,: ,( ,) ,. ,, , ,' ,&amp; ,[ ,] ,{ ,} "
+                        android:fontFamily="@font/jost_regular"
+                        android:gravity="top|start"
+                        android:hint="Describe your experience here"
+                        android:inputType="textMultiLine"
+                        android:maxLength="250"
+                        android:padding="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/tv_heading"
+                        app:layout_constraintTop_toBottomOf="@id/checkbox_other" />
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <TextView
                     android:id="@+id/max_desc"
+                    style="@style/text_style_light_grey_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/text_style_light_grey_12"
-                    android:text="0/250 Characters"
-                    android:fontFamily="@font/jost_regular"
                     android:layout_marginTop="@dimen/margin_size_4"
                     android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/jost_regular"
+                    android:text="0/250 Characters"
                     app:layout_constraintEnd_toEndOf="@id/edit_issues_layout"
-                 app:layout_constraintTop_toBottomOf="@id/edit_issues_layout" />
+                    app:layout_constraintTop_toBottomOf="@id/edit_issues_layout" />
+
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/txtcount"
                     style="@style/text_style_red_color_14"
@@ -382,6 +385,7 @@
                     android:background="@drawable/btnshape"
                     android:drawableRight="@drawable/arrow_right_"
                     android:drawablePadding="@dimen/margin_size_8"
+                    android:elevation="0dp"
                     android:fontFamily="@font/jostmedium"
                     android:paddingStart="@dimen/margin_size_80"
                     android:paddingTop="@dimen/margin_size_12"
@@ -389,7 +393,6 @@
                     android:paddingBottom="@dimen/margin_size_12"
                     android:text="@string/share_your_feedback"
                     android:textAllCaps="false"
-                    android:elevation="0dp"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

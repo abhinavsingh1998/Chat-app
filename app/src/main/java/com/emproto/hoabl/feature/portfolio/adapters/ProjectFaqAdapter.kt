@@ -34,7 +34,12 @@ class ProjectFaqAdapter(
         holder.binding.tvFaqQuestion.text = faqItem.frequentlyAskedQuestion.faqQuestion.question
         holder.binding.tvFaqAnswer.text = faqItem.frequentlyAskedQuestion.faqAnswer.answer
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            holder.binding.ivArrowDown.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.rightarrow))
+            holder.binding.ivArrowDown.setImageDrawable(
+                ContextCompat.getDrawable(
+                    context,
+                    R.drawable.rightarrow
+                )
+            )
         }
         holder.binding.cvFaqCard.setOnClickListener {
             ivInterface.readAllFaq(position, faqItem.faqId)

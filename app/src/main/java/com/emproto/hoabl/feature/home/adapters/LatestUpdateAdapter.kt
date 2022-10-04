@@ -79,7 +79,7 @@ class LatestUpdateAdapter(
     inner class MyViewHolder(val binding: ItemLatestUpdatesBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-     fun showHTMLText(message: String?): Spanned {
+    fun showHTMLText(message: String?): Spanned {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
         } else {

@@ -7,7 +7,7 @@ import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.common.api.Status
 
-class SmsBroadcastReceiver: BroadcastReceiver() {
+class SmsBroadcastReceiver : BroadcastReceiver() {
 
     lateinit var smsBroadcastReceiverListener: SmsBroadcastReceiverListener
 

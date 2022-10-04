@@ -149,8 +149,8 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="127dp"
-                    android:layout_marginTop="@dimen/margin_size_15"
                     android:layout_marginHorizontal="@dimen/margin_size_28"
+                    android:layout_marginTop="@dimen/margin_size_15"
                     app:boxStrokeColor="@color/app_color"
                     app:boxStrokeWidthFocused="0.8dp"
                     app:hintEnabled="false"
@@ -163,28 +163,30 @@
                         style="@style/text_size_14"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:digits="0 ,1 ,2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,ABCDEFGHIJKLMNOPQRSTUVWXYZ qwertzuiopasdfghjklyxcvbnm ,_ ,/ ,: ,( ,) ,. ,, , ,' ,&amp; ,[ ,] ,{ ,} "
                         android:fontFamily="@font/jost_medium"
                         android:gravity="left"
                         android:hint="@string/describe_your_issue_in_few_words"
                         android:inputType="text|textMultiLine|textCapSentences"
                         android:maxLength="250"
-                        android:digits="0 ,1 ,2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,ABCDEFGHIJKLMNOPQRSTUVWXYZ qwertzuiopasdfghjklyxcvbnm ,_ ,/ ,: ,( ,) ,. ,, , ,' ,&amp; ,[ ,] ,{ ,} "
                         android:paddingHorizontal="@dimen/margin_size_16"
                         android:paddingTop="10dp"
                         android:textAlignment="viewStart" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <TextView
                     android:id="@+id/max_desc"
+                    style="@style/text_style_light_grey_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/text_style_light_grey_12"
-                    android:text="0/250 Characters"
-                    android:fontFamily="@font/jost_regular"
                     android:layout_marginTop="@dimen/margin_size_4"
                     android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/jost_regular"
+                    android:text="0/250 Characters"
                     app:layout_constraintEnd_toEndOf="@id/edit_issues_layout"
                     app:layout_constraintTop_toBottomOf="@id/edit_issues_layout" />
+
                 <com.emproto.core.textviews.CustomTextView
                     android:id="@+id/txtcount"
                     style="@style/text_style_red_color_14"

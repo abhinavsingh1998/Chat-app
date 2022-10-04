@@ -80,7 +80,8 @@ class HoablPromiseAdapter(
             }
             TYPE_LIST -> {
                 val listHolder = holder as HoablPromiseViewHolder
-                listHolder.binding.textView9.text = dataList[position].headerData?.promiseSectionHeading.toString()
+                listHolder.binding.textView9.text =
+                    dataList[position].headerData?.promiseSectionHeading.toString()
                 listHolder.binding.promisesItems.layoutManager = GridLayoutManager(context, 2)
                 listHolder.binding.promisesItems.adapter =
                     PromisesListAdapter(context, dataList[position].data, itemInterface)

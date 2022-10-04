@@ -31,7 +31,7 @@ class FaqDetailAdapter(
     private val projectName: String,
     private val fromInvestment: Boolean,
     private val handler: Handler,
-    private var runnable: Runnable?=null
+    private var runnable: Runnable? = null
 
 
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -87,6 +87,7 @@ class FaqDetailAdapter(
         val close: ImageView = itemView.findViewById(R.id.iv_close_image)
         val title: MaterialTextView = itemView.findViewById(R.id.tv_faq_title)
         val imageArrow: ImageView = itemView.findViewById(R.id.imgArrow)
+
         @RequiresApi(Build.VERSION_CODES.M)
         fun bind(position: Int) {
             //Binding data
@@ -111,7 +112,7 @@ class FaqDetailAdapter(
 
             val list = arrayListOf<String>()
             for (item in faqData) {
-                if(item.numberOfFaqs!=null){
+                if (item.numberOfFaqs != null) {
                     list.add(item.name)
                 }
             }
@@ -146,8 +147,14 @@ class FaqDetailAdapter(
                         close.visibility = View.VISIBLE
                     }
                     if (s.toString().isEmpty() || s.toString() == "") {
-                        runnable = Runnable {itemClickListener.onItemClicked(search, position, s.toString()) }
-                        runnable.let { it1 -> it1?.let { handler.postDelayed(it,500) } }
+                        runnable = Runnable {
+                            itemClickListener.onItemClicked(
+                                search,
+                                position,
+                                s.toString()
+                            )
+                        }
+                        runnable.let { it1 -> it1?.let { handler.postDelayed(it, 500) } }
 //                        Handler().postDelayed({
 //                            itemClickListener.onItemClicked(search, position, s.toString())
 //                        }, 500)
@@ -160,14 +167,20 @@ class FaqDetailAdapter(
                 itemClickListener.onItemClicked(imageArrow, position, "")
             }
             title.setOnClickListener {
-                itemClickListener.onItemClicked(imageArrow,position,"")
+                itemClickListener.onItemClicked(imageArrow, position, "")
             }
 
             //Tick button handled from keyboard
             search.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    runnable = Runnable {  itemClickListener.onItemClicked(search, position, search.text.toString()) }
-                    runnable.let { it1 -> it1?.let { handler.postDelayed(it,500) } }
+                    runnable = Runnable {
+                        itemClickListener.onItemClicked(
+                            search,
+                            position,
+                            search.text.toString()
+                        )
+                    }
+                    runnable.let { it1 -> it1?.let { handler.postDelayed(it, 500) } }
                     fragment.hideKeyboard()
                     true
                 }
@@ -183,18 +196,18 @@ class FaqDetailAdapter(
     }
 
     inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tvCategoryTitle: MaterialTextView = itemView.findViewById(R.id.tv_category_title)
+        private val tvCategoryTitle: MaterialTextView =
+            itemView.findViewById(R.id.tv_category_title)
         private val rvFaq: RecyclerView = itemView.findViewById(R.id.rv_faq)
         fun bind(data: CgData) {
-            if(data.numberOfFaqs!=null){
-                tvCategoryTitle.visibility=View.VISIBLE
+            if (data.numberOfFaqs != null) {
+                tvCategoryTitle.visibility = View.VISIBLE
                 tvCategoryTitle.text = data.name
                 val sortedList = data.faqs.sortedBy { it.priority }
                 faqAdapter = FaqAdapter(sortedList, faqId, itemClickListener)
                 rvFaq.adapter = faqAdapter
-            }
-            else{
-                tvCategoryTitle.visibility=View.GONE
+            } else {
+                tvCategoryTitle.visibility = View.GONE
             }
 
         }

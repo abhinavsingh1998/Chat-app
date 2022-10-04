@@ -18,15 +18,15 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_trending_projects_title"
+            style="@style/text_style_text_light_black_color_18"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_size_12"
             android:layout_marginTop="15dp"
-            android:fontFamily="@font/jost_medium"
-            android:text="Trending Projects"
-            android:maxLines="1"
             android:ellipsize="end"
-            style="@style/text_style_text_light_black_color_18"
+            android:fontFamily="@font/jost_medium"
+            android:maxLines="1"
+            android:text="Trending Projects"
             app:layout_constraintEnd_toStartOf="@id/tv_trending_projects_see_all"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -38,12 +38,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_size_6"
             android:layout_marginEnd="@dimen/margin_size_12"
-            android:textAlignment="textStart"
-            android:maxLines="1"
             android:ellipsize="end"
             android:fontFamily="@font/jost_regular"
-            app:layout_constraintEnd_toStartOf="@id/tv_trending_projects_see_all"
+            android:maxLines="1"
             android:text="Handpicked projects recommended just for you!"
+            android:textAlignment="textStart"
+            app:layout_constraintEnd_toStartOf="@id/tv_trending_projects_see_all"
             app:layout_constraintStart_toStartOf="@id/tv_trending_projects_title"
             app:layout_constraintTop_toBottomOf="@id/tv_trending_projects_title" />
 
@@ -58,9 +58,10 @@
             android:singleLine="true"
             android:text="@string/see_all"
             app:fontName="@string/jost_regular"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@+id/tv_trending_projects_title"
-            app:layout_constraintTop_toTopOf="@+id/tv_trending_projects_title"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_trending_projects_title" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_trending_projects"
             android:layout_width="match_parent"

@@ -6,7 +6,8 @@
         android:left="@dimen/_2sdp"
         android:right="@dimen/_2sdp">
 
-        <rotate android:fromDegrees="45"
+        <rotate
+            android:fromDegrees="45"
             android:pivotX="1">
 
 

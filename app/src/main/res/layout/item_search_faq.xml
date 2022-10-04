@@ -13,8 +13,8 @@
         android:layout_marginTop="@dimen/margin_size_10"
         android:layout_marginBottom="6dp"
         android:background="@drawable/card_bg"
-        app:cardCornerRadius="@dimen/margin_size_6"
         android:outlineSpotShadowColor="#ababab"
+        app:cardCornerRadius="@dimen/margin_size_6"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,28 +45,27 @@
                 android:id="@+id/ivArrowDown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_20"
+                android:layout_marginTop="@dimen/margin_size_13"
+                android:layout_marginEnd="@dimen/margin_size_17"
                 android:src="@drawable/ic_arrow_down"
                 android:visibility="visible"
-                android:layout_marginTop="@dimen/margin_size_13"
                 app:layout_constraintBottom_toBottomOf="@id/tvFaqQuestion"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tvFaqQuestion"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginStart="@dimen/margin_size_20"
-                android:layout_marginEnd="@dimen/margin_size_17"
-            />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/ivArrowUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_size_20"
-                android:layout_marginEnd="@dimen/margin_size_17"
                 android:layout_marginTop="@dimen/margin_size_9"
+                android:layout_marginEnd="@dimen/margin_size_17"
                 android:src="@drawable/ic_arrow_upward"
                 android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/viewLine"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tvFaqQuestion"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="visible" />
@@ -78,26 +77,24 @@
                 android:layout_marginTop="@dimen/margin_size_14"
                 android:background="#eeeeee"
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/tvFaqQuestion"
-           />
+                app:layout_constraintTop_toBottomOf="@id/tvFaqQuestion" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvFaqAnswer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_size_12"
+                android:layout_marginEnd="@dimen/margin_size_60"
                 android:layout_marginBottom="@dimen/margin_size_15"
                 android:fontFamily="@font/jost_light"
                 android:text="This place doesnt include expenses which are coming under maintenance, electricity"
                 android:textColor="@color/doc_label_black_color"
                 android:textSize="@dimen/text_size_14"
-                android:layout_marginEnd="@dimen/margin_size_60"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tvFaqQuestion"
-                app:layout_constraintTop_toBottomOf="@id/tvFaqQuestion"
-            />
+                app:layout_constraintTop_toBottomOf="@id/tvFaqQuestion" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

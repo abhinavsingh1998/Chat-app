@@ -11,16 +11,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
+        android:fontFamily="@font/jost_regular"
         android:gravity="end"
         android:letterSpacing="-0.02"
-        tools:text="9:11 PM"
         android:textColor="#17171c"
-        android:visibility="gone"
         android:textSize="12sp"
         android:textStyle="normal"
-        android:fontFamily="@font/jost_regular"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="9:11 PM" />
 
     <TextView
         android:id="@+id/tvMessage"
@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@drawable/chat_blue_card"
+        android:fontFamily="@font/jost_regular"
         android:gravity="center_vertical"
         android:letterSpacing="-0.02"
         android:paddingHorizontal="12dp"
@@ -36,7 +37,6 @@
         android:textColor="#494a67"
         android:textSize="14sp"
         android:textStyle="normal"
-        android:fontFamily="@font/jost_regular"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvChatTime" />
 

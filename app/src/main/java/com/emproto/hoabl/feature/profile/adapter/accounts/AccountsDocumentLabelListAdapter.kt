@@ -27,7 +27,11 @@ class AccountsDocumentLabelListAdapter(
         when (viewType) {
             R.layout.item_accounts_kyc_doc -> {
                 binding =
-                    ItemAccountsKycDocBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                    ItemAccountsKycDocBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
                 return NotEmptyList(binding.root)
             }
             else -> {
@@ -45,11 +49,11 @@ class AccountsDocumentLabelListAdapter(
     override fun getItemViewType(position: Int): Int {
         if (type == "not") {
             return R.layout.item_accounts_kyc_doc
-        }
-        else {
+        } else {
             return R.layout.acc_no_data
         }
     }
+
     class NotEmptyList(ItemView: View) : AccountsDocumentLabelListAdapter.BaseViewHolder(ItemView) {
         val tvDocName: TextView = itemView.findViewById(R.id.tvDocName)
         val tvViewDoc: TextView = itemView.findViewById(R.id.tvViewDoc)
@@ -70,6 +74,7 @@ class AccountsDocumentLabelListAdapter(
             path: String?
         )
     }
+
     override fun getItemCount(): Int {
         return if (accountsDocumentList.size < 2) {
             accountsDocumentList.size
@@ -79,10 +84,10 @@ class AccountsDocumentLabelListAdapter(
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        if(holder is NotEmptyList){
+        if (holder is NotEmptyList) {
             holder.tvDocName.text = accountsDocumentList[position].name
             holder.tvViewDoc.setOnClickListener {
-                if (accountsDocumentList[position].path==null) {
+                if (accountsDocumentList[position].path == null) {
                     Toast.makeText(mContext, "No Document available", Toast.LENGTH_SHORT).show()
                 } else {
                     mListener.onAccountsDocumentLabelItemClick(
@@ -94,8 +99,10 @@ class AccountsDocumentLabelListAdapter(
                     )
                 }
             }
-        }else if(holder is EmptyList){
-            "The Uploaded Documents will be shown here.You can view them after uploading.".also { holder.tvMsg.text = it }
+        } else if (holder is EmptyList) {
+            "The Uploaded Documents will be shown here.You can view them after uploading.".also {
+                holder.tvMsg.text = it
+            }
         }
     }
 }

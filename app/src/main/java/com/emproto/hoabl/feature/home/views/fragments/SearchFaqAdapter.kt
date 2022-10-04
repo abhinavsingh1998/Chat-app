@@ -1,13 +1,10 @@
 package com.emproto.hoabl.feature.home.views.fragments
 
 import android.content.Context
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.emproto.hoabl.R
-import com.emproto.hoabl.databinding.ItemFaqBinding
 import com.emproto.hoabl.databinding.ItemSearchFaqBinding
 import com.emproto.hoabl.feature.portfolio.adapters.PortfolioSpecificViewAdapter
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectContentsAndFaq
@@ -18,7 +15,8 @@ class SearchFaqAdapter(
     val ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface
 ) :
     RecyclerView.Adapter<SearchFaqAdapter.FaqViewHolder>() {
-    inner class FaqViewHolder(var binding: ItemSearchFaqBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class FaqViewHolder(var binding: ItemSearchFaqBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FaqViewHolder {
         val view = ItemSearchFaqBinding.inflate(LayoutInflater.from(parent.context), parent, false)

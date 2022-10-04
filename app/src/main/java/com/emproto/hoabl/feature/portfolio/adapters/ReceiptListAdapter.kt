@@ -38,10 +38,11 @@ class ReceiptListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.apply {
             tvPaidAmount.text = "₹${Utility.convertTo(accountsPaymentList[position].paidAmount)}"
-            if (!accountsPaymentList[position].paymentDate.isNullOrEmpty()){
-                tvPaymentDate.text = Utility.parseDateFromUtc(accountsPaymentList[position].paymentDate)
-            }else{
-                tvPaymentDate.text=""
+            if (!accountsPaymentList[position].paymentDate.isNullOrEmpty()) {
+                tvPaymentDate.text =
+                    Utility.parseDateFromUtc(accountsPaymentList[position].paymentDate)
+            } else {
+                tvPaymentDate.text = ""
             }
 
             tvSeeReceipt.text = showHTMLText(

@@ -3,12 +3,11 @@
     <item
         android:id="@android:id/progress"
         android:gravity="center">
-        <shape
-            android:shape="rectangle">
+        <shape android:shape="rectangle">
             <corners android:radius="4dp" />
             <size
                 android:width="@dimen/margin_size_11"
-                android:height="6dp"/>
+                android:height="6dp" />
             <solid android:color="@color/viewpager_dot_color" />
         </shape>
     </item>

@@ -5,7 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.emproto.hoabl.databinding.*
+import com.emproto.hoabl.databinding.ItemTestimonialsBinding
 import com.emproto.networklayer.response.home.Data
 import com.emproto.networklayer.response.home.PageManagementsOrTestimonial
 

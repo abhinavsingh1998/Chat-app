@@ -3,9 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/margin_size_10"
     android:layout_marginVertical="@dimen/margin_size_4"
-    >
+    android:layout_marginStart="@dimen/margin_size_10">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_media_photo"
@@ -21,8 +20,7 @@
             app:cardCornerRadius="@dimen/margin_size_4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            >
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -32,11 +30,10 @@
                     android:id="@+id/iv_media_photo"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/margin_size_100"
-                    android:src="@drawable/item_promises_bg"
                     android:scaleType="fitXY"
+                    android:src="@drawable/item_promises_bg"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_image_name"
@@ -44,13 +41,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:alpha="0.75"
-                    android:backgroundTint="@color/black"
                     android:background="@drawable/bottom_corner_radius_bg"
+                    android:backgroundTint="@color/black"
                     android:fontFamily="@font/jost_regular"
-                    android:paddingVertical="@dimen/margin_size_6"
                     android:paddingHorizontal="@dimen/margin_size_12"
-                    android:textAlignment="textStart"
+                    android:paddingVertical="@dimen/margin_size_6"
                     android:text="Navi Mumbai Airport"
+                    android:textAlignment="textStart"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/iv_media_photo"
                     app:layout_constraintStart_toStartOf="@id/iv_media_photo" />

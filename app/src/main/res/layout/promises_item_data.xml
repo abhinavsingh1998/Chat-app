@@ -12,10 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="50dp"
-        android:textSize="18sp"
         android:fontFamily="@font/jost_regular"
         android:text="Promises"
         android:textColor="#16161c"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -29,9 +29,9 @@
             android:id="@+id/cvProfileImage"
             android:layout_width="96dp"
             android:layout_height="96dp"
+            android:visibility="gone"
             app:cardBackgroundColor="@color/app_color"
             app:cardCornerRadius="48dp"
-            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -57,8 +57,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:gravity="center"
-                      />
+                        android:gravity="center" />
                 </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
         </androidx.cardview.widget.CardView>
@@ -103,6 +102,7 @@
                 </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
         </androidx.cardview.widget.CardView>
+
         <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/progress_baar"
             style="?android:attr/progressBarStyleSmall"
@@ -179,40 +179,41 @@
         android:id="@+id/profile_options_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/Logoutbtn"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider_line"
         tools:listitem="@layout/profile_option_view" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/Logoutbtn"
         style="@style/text_regular_text_color_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
         android:background="@drawable/btnshape"
         android:fontFamily="@font/jost_medium"
         android:maxWidth="@dimen/margin_size_100"
         android:minWidth="@dimen/margin_size_120"
         android:text="@string/logout_text"
         android:textAllCaps="false"
-        android:layout_marginBottom="18dp"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/version"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintBottom_toTopOf="@+id/version" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/version"
         style="@style/text_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="20dp"
         android:fontFamily="@font/jost_regular"
         android:gravity="center_horizontal"
         android:text="@string/app_version_v0_22"
         android:textStyle="normal"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

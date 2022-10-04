@@ -33,7 +33,7 @@ import com.example.portfolioui.databinding.LogoutAllConfirmationBinding
 import javax.inject.Inject
 
 
-class SecurityFragment : BaseFragment(){
+class SecurityFragment : BaseFragment() {
     @Inject
     lateinit var profileFactory: ProfileFactory
     private lateinit var profileViewModel: ProfileViewModel
@@ -47,11 +47,11 @@ class SecurityFragment : BaseFragment(){
 
     val bundle = Bundle()
 
-     private var isWhatsappEnabled = false
+    private var isWhatsappEnabled = false
     private var showPushNotifications = false
     private var isSecurityTipsActive = false
 
-    companion object{
+    companion object {
         const val SPEECH_REQUEST_CODE = 1001
     }
 
@@ -77,7 +77,7 @@ class SecurityFragment : BaseFragment(){
         val dataList: ArrayList<RecyclerViewItem> = ArrayList<RecyclerViewItem>()
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_REPORT))
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_WHATSAPP_COMMUNICATION))
-        when(isSecurityTipsActive){
+        when (isSecurityTipsActive) {
             true -> {
                 dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_TIPS))
             }
@@ -90,7 +90,13 @@ class SecurityFragment : BaseFragment(){
         logoutDialog.setCancelable(false)
         logoutDialog.setContentView(logoutDialogLayout.root)
 
-        val adapter = SecurityAdapter(this.requireContext(), dataList, itemClickListener, isWhatsappEnabled, showPushNotifications)
+        val adapter = SecurityAdapter(
+            this.requireContext(),
+            dataList,
+            itemClickListener,
+            isWhatsappEnabled,
+            showPushNotifications
+        )
         binding.rvHelpCenter.adapter = adapter
 
         binding.arrowimage.setOnClickListener {
@@ -109,24 +115,27 @@ class SecurityFragment : BaseFragment(){
 
     val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
-            when(view.id){
+            when (view.id) {
                 R.id.switch1 -> {
-                    when(item){
-                      Constants.TRUE -> {
+                    when (item) {
+                        Constants.TRUE -> {
                             isWhatsappEnabled = true
-                            callWhatsAppConsentApi(isWhatsappEnabled,showPushNotifications)
+                            callWhatsAppConsentApi(isWhatsappEnabled, showPushNotifications)
                         }
-                      Constants.FALSE -> {
+                        Constants.FALSE -> {
                             isWhatsappEnabled = false
-                            callWhatsAppConsentApi(isWhatsappEnabled,showPushNotifications)
+                            callWhatsAppConsentApi(isWhatsappEnabled, showPushNotifications)
                         }
                     }
                 }
                 R.id.cl_security_tips -> {
-                    when(item){
-                       Constants.SECURITY_TIPS -> {
+                    when (item) {
+                        Constants.SECURITY_TIPS -> {
                             val securityTipsFragment = SecurityTipsFragment()
-                            (requireActivity() as HomeActivity).addFragment(securityTipsFragment,false)
+                            (requireActivity() as HomeActivity).addFragment(
+                                securityTipsFragment,
+                                false
+                            )
                         }
                         Constants.SIGN_OUT_FROM_ALL_DEVICES -> {
                             logoutDialog.show()
@@ -142,45 +151,51 @@ class SecurityFragment : BaseFragment(){
 //                    } catch (s: SecurityException) {
 //                        Toast.makeText(context, "An error occurred", Toast.LENGTH_LONG).show()
 //                    }
-                    profileViewModel.submitTroubleCase(ReportSecurityRequest(
-                        caseType = "1005",
-                        description = Constants.I_WANT_TO_RAISE_A_SECURITY_EMERGENCY)).observe(viewLifecycleOwner, Observer {
-                            when(it.status){
-                                Status.LOADING -> {
-                                    binding.progressBar.show()
-                                }
-                                Status.SUCCESS -> {
-                                    binding.progressBar.hide()
-                                    if (it.data != null) {
-                                        it.data?.let {
-                                            val applicationSubmitDialog = ApplicationSubmitDialog(
-                                                Constants.APPLICATION_SUBMIT_DIALOG_TITLE,
-                                                Constants.APPLICATION_SUBMIT_DIALOG_DESCRIPTION,
-                                                false
-                                            )
-                                            applicationSubmitDialog.show(parentFragmentManager, Constants.APPLICATION_SUBMIT_DIALOG)
-                                        }
+                    profileViewModel.submitTroubleCase(
+                        ReportSecurityRequest(
+                            caseType = "1005",
+                            description = Constants.I_WANT_TO_RAISE_A_SECURITY_EMERGENCY
+                        )
+                    ).observe(viewLifecycleOwner, Observer {
+                        when (it.status) {
+                            Status.LOADING -> {
+                                binding.progressBar.show()
+                            }
+                            Status.SUCCESS -> {
+                                binding.progressBar.hide()
+                                if (it.data != null) {
+                                    it.data?.let {
+                                        val applicationSubmitDialog = ApplicationSubmitDialog(
+                                            Constants.APPLICATION_SUBMIT_DIALOG_TITLE,
+                                            Constants.APPLICATION_SUBMIT_DIALOG_DESCRIPTION,
+                                            false
+                                        )
+                                        applicationSubmitDialog.show(
+                                            parentFragmentManager,
+                                            Constants.APPLICATION_SUBMIT_DIALOG
+                                        )
                                     }
                                 }
-                                Status.ERROR -> {
-                                    binding.progressBar.hide()
-                                    it.data
-                                    (requireActivity() as HomeActivity).showErrorToast(
-                                        it.message!!
-                                    )
-                                }
                             }
+                            Status.ERROR -> {
+                                binding.progressBar.hide()
+                                it.data
+                                (requireActivity() as HomeActivity).showErrorToast(
+                                    it.message!!
+                                )
+                            }
+                        }
                     })
                 }
                 R.id.setting_switch -> {
-                    when(item){
+                    when (item) {
                         Constants.TRUE -> {
                             showPushNotifications = true
-                            callWhatsAppConsentApi(isWhatsappEnabled,showPushNotifications)
+                            callWhatsAppConsentApi(isWhatsappEnabled, showPushNotifications)
                         }
-                       Constants.FALSE -> {
+                        Constants.FALSE -> {
                             showPushNotifications = false
-                            callWhatsAppConsentApi(isWhatsappEnabled,showPushNotifications)
+                            callWhatsAppConsentApi(isWhatsappEnabled, showPushNotifications)
                         }
                         "Voice Command" -> {
 //                            displaySpeechRecognizer()
@@ -193,8 +208,8 @@ class SecurityFragment : BaseFragment(){
 
 
     private fun logOutFromAllDevices() {
-        profileViewModel.logOutFromAll().observe(viewLifecycleOwner,Observer{
-            when(it.status){
+        profileViewModel.logOutFromAll().observe(viewLifecycleOwner, Observer {
+            when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
                 }
@@ -222,15 +237,23 @@ class SecurityFragment : BaseFragment(){
 
     private fun displaySpeechRecognizer() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
-            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(
+                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+            )
         }
         // This starts the activity and populates the intent with the speech text.
         startActivityForResult(intent, SPEECH_REQUEST_CODE)
     }
 
-    private fun callWhatsAppConsentApi(status: Boolean,showPushNotifications:Boolean) {
-        profileViewModel.putWhatsappconsent(WhatsappConsentBody(whatsappConsent = status,showPushNotifications=showPushNotifications)).observe(viewLifecycleOwner,Observer{
-            when(it.status){
+    private fun callWhatsAppConsentApi(status: Boolean, showPushNotifications: Boolean) {
+        profileViewModel.putWhatsappconsent(
+            WhatsappConsentBody(
+                whatsappConsent = status,
+                showPushNotifications = showPushNotifications
+            )
+        ).observe(viewLifecycleOwner, Observer {
+            when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
                 }
@@ -263,7 +286,7 @@ class SecurityFragment : BaseFragment(){
                 }
             // Do something with spokenText.
             Toast.makeText(this.requireContext(), spokenText.toString(), Toast.LENGTH_SHORT).show()
-            when{
+            when {
                 spokenText.toString().contains(Constants.INVESTMENT, ignoreCase = true) -> {
                     (requireActivity() as HomeActivity).navigate(R.id.navigation_investment)
                 }

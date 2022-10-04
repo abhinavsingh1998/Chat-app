@@ -1,64 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
     android:layout_marginTop="10dp"
     android:layout_marginEnd="6dp"
     android:layout_marginBottom="10dp"
-    app:cardCornerRadius="6dp"
     android:outlineSpotShadowColor="#ababab"
+    app:cardCornerRadius="6dp"
     app:cardElevation="@dimen/margin_size_8">
+
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="260dp"
-            android:layout_height="200dp"
-            >
+        android:layout_width="260dp"
+        android:layout_height="200dp">
 
-            <ImageView
-                android:id="@+id/ivImage"
-                android:layout_width="@dimen/margin_size_37"
-                android:layout_height="@dimen/margin_size_35"
-                android:layout_marginStart="@dimen/margin_size_29"
-                android:layout_marginTop="12dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/management"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.025"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="@dimen/margin_size_37"
+            android:layout_height="@dimen/margin_size_35"
+            android:layout_marginStart="@dimen/margin_size_29"
+            android:layout_marginTop="12dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/management"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.025"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_Piece_of_land"
-                style="@style/text_style_text_color_14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="@dimen/margin_size_12"
-                android:fontFamily="@font/jost_medium"
-                android:text="Peace of Land"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivImage" />
+        <TextView
+            android:id="@+id/tv_Piece_of_land"
+            style="@style/text_style_text_color_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_12"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/jost_medium"
+            android:text="Peace of Land"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivImage" />
 
-            <TextView
-                android:id="@+id/full_desc_tv"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:textSize="13sp"
-                android:layout_marginBottom="12dp"
-                android:textColor="#17171c"
-                android:layout_marginStart="@dimen/margin_size_12"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="@dimen/margin_size_19"
-                android:maxLines="4"
-                android:fontFamily="@font/jost_light"
-                android:paddingBottom="12dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/tv_Piece_of_land"
-                app:layout_constraintTop_toBottomOf="@+id/tv_Piece_of_land" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/full_desc_tv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_size_12"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="@dimen/margin_size_19"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/jost_light"
+            android:maxLines="4"
+            android:paddingBottom="12dp"
+            android:textColor="#17171c"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_Piece_of_land"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Piece_of_land" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.cardview.widget.CardView>

@@ -13,7 +13,6 @@ import com.emproto.networklayer.response.bookingjourney.PaymentHistory
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
-import com.emproto.networklayer.response.portfolio.dashboard.Address
 import com.emproto.networklayer.response.portfolio.dashboard.InvestmentHeadingDetails
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
@@ -104,11 +103,17 @@ class PortfolioViewModel(
         return portfolioRepository.getProjectTimeline(id)
     }
 
-    fun getProjectTimelineMedia(category: String,projectContentId:String): LiveData<BaseResponse<MediaResponse>> {
+    fun getProjectTimelineMedia(
+        category: String,
+        projectContentId: String
+    ): LiveData<BaseResponse<MediaResponse>> {
         return portfolioRepository.getProjectTimelineMedia(category, projectContentId)
     }
 
-    fun getFacilityManagment(plotId: String?=null, crmId: String?=null): LiveData<BaseResponse<FMResponse>> {
+    fun getFacilityManagment(
+        plotId: String? = null,
+        crmId: String? = null
+    ): LiveData<BaseResponse<FMResponse>> {
         return portfolioRepository.getFacilitymanagment(plotId, crmId)
     }
 

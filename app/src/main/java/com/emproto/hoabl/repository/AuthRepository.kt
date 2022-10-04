@@ -34,7 +34,7 @@ class AuthRepository @Inject constructor(application: Application) : BaseReposit
      * @return OtpResponse
      */
     fun getOtpOnMobile(otpRequest: OtpRequest): LiveData<BaseResponse<OtpResponse>> {
-         val loginResponse = MutableLiveData<BaseResponse<OtpResponse>>()
+        val loginResponse = MutableLiveData<BaseResponse<OtpResponse>>()
         loginResponse.postValue(BaseResponse.loading());
         coroutineScope.launch {
             try {

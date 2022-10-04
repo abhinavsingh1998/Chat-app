@@ -1,7 +1,10 @@
 package com.emproto.hoabl
 
 import android.app.Application
-import com.emproto.hoabl.di.*
+import com.emproto.hoabl.di.DaggerHomeComponent
+import com.emproto.hoabl.di.HomeAppModule
+import com.emproto.hoabl.di.HomeComponent
+import com.emproto.hoabl.di.HomeComponentProvider
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 
 class HoablApplication : Application(), HomeComponentProvider {

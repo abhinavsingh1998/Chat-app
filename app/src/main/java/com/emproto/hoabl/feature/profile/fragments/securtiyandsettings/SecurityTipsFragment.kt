@@ -63,11 +63,12 @@ class SecurityTipsFragment : BaseFragment() {
                     binding.progressBar.hide()
                     binding.nestedScrollView.visibility = View.VISIBLE
                     it.data?.let { data ->
-                        binding.tvPageHeading.text = data.data.page.securityTips.sectionHeading.replaceFirstChar {
-                            if (it.isLowerCase()) it.titlecase(
-                                Locale.ROOT
-                            ) else it.toString()
-                        }
+                        binding.tvPageHeading.text =
+                            data.data.page.securityTips.sectionHeading.replaceFirstChar {
+                                if (it.isLowerCase()) it.titlecase(
+                                    Locale.ROOT
+                                ) else it.toString()
+                            }
                         val stAdapter = SecurityTipsAdapter(
                             requireContext(),
                             data.data.page.securityTips.detailedInformation

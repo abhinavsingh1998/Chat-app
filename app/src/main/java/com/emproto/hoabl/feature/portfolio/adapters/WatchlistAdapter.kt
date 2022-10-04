@@ -32,7 +32,9 @@ class WatchlistAdapter(
         holder.binding.apply {
             if (element.project != null) {
                 tvItemLocationName.text = element.project.launchName
-                (element.project.address.city + " " + element.project.address.state).also { tvItemLocation.text = it }
+                (element.project.address.city + " " + element.project.address.state).also {
+                    tvItemLocation.text = it
+                }
                 val amount = element.project.priceStartingFrom.toDouble() / 100000
                 val convertedAmount = String.format("%.0f", amount)
                 tvItemAmount.text = SpannableStringBuilder()
@@ -43,7 +45,9 @@ class WatchlistAdapter(
                     .append(Constants.ONWARDS)
                 tvNoViews.text = element.project.fomoContent.noOfViews.toString()
                 tvItemLocationInfo.text = element.project.shortDescription
-                "${Utility.convertTo(element.project.estimatedAppreciation)}%".also { tvRating.text = it }
+                "${Utility.convertTo(element.project.estimatedAppreciation)}%".also {
+                    tvRating.text = it
+                }
 
                 holder.binding.timerView.visibility =
                     if (element.project.fomoContent.isTargetTimeActive) {

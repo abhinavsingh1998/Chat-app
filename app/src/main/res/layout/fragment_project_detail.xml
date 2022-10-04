@@ -458,8 +458,6 @@
 
                     <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/tv_video_drone_see_all"
-                        android:textColor="@color/text_blue_color"
-                        android:textSize="@dimen/text_size_11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/margin_size_14"
@@ -467,10 +465,12 @@
                         android:drawablePadding="@dimen/margin_size_6"
                         android:singleLine="true"
                         android:text="@string/see_all"
+                        android:textColor="@color/text_blue_color"
+                        android:textSize="@dimen/text_size_11"
                         app:fontName="@string/jost_regular"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_video_title"
-                        app:layout_constraintTop_toTopOf="@+id/tv_video_title"/>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_video_title" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_video_drone"
@@ -526,10 +526,9 @@
                         app:layout_constraintEnd_toStartOf="@id/tv_skus_see_all"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
                     <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/tv_skus_see_all"
-                        android:textColor="@color/text_blue_color"
-                        android:textSize="@dimen/text_size_11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/margin_size_14"
@@ -537,11 +536,12 @@
                         android:drawablePadding="@dimen/margin_size_6"
                         android:singleLine="true"
                         android:text="@string/see_all"
+                        android:textColor="@color/text_blue_color"
+                        android:textSize="@dimen/text_size_11"
                         app:fontName="@string/jost_regular"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_choose_skus_apply_title"
-                        app:layout_constraintTop_toTopOf="@+id/tv_choose_skus_apply_title"/>
-
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_choose_skus_apply_title" />
 
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -573,8 +573,6 @@
 
                     <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/tv_project_amenities_all"
-                        android:textColor="@color/text_blue_color"
-                        android:textSize="@dimen/text_size_11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/margin_size_14"
@@ -582,10 +580,12 @@
                         android:drawablePadding="@dimen/margin_size_6"
                         android:singleLine="true"
                         android:text="@string/see_all"
+                        android:textColor="@color/text_blue_color"
+                        android:textSize="@dimen/text_size_11"
                         app:fontName="@string/jost_regular"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_project_amenities_title"
-                        app:layout_constraintTop_toTopOf="@+id/tv_project_amenities_title"/>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_project_amenities_title" />
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cv_pa_first_card"
@@ -805,8 +805,6 @@
 
                     <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/tv_location_infrastructure_all"
-                        android:textColor="@color/text_blue_color"
-                        android:textSize="@dimen/text_size_11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/margin_size_14"
@@ -814,10 +812,12 @@
                         android:drawablePadding="@dimen/margin_size_6"
                         android:singleLine="true"
                         android:text="@string/see_all"
+                        android:textColor="@color/text_blue_color"
+                        android:textSize="@dimen/text_size_11"
                         app:fontName="@string/jost_regular"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_location_infrastructure_title"
-                        app:layout_constraintTop_toTopOf="@+id/tv_location_infrastructure_title"/>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_location_infrastructure_title" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_location_infrastructure"
@@ -871,8 +871,6 @@
 
                     <com.emproto.core.textviews.CustomTextView
                         android:id="@+id/tv_promises_see_all"
-                        android:textColor="@color/text_blue_color"
-                        android:textSize="@dimen/text_size_11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/margin_size_14"
@@ -880,10 +878,12 @@
                         android:drawablePadding="@dimen/margin_size_6"
                         android:singleLine="true"
                         android:text="@string/see_all"
+                        android:textColor="@color/text_blue_color"
+                        android:textSize="@dimen/text_size_11"
                         app:fontName="@string/jost_regular"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_promises_title"
-                        app:layout_constraintTop_toTopOf="@+id/tv_promises_title"/>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_promises_title" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_promises"
@@ -919,48 +919,48 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_size_12"
                         android:layout_marginEnd="@dimen/margin_size_15"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         android:orientation="vertical"
-                        tools:listitem="@layout/item_faq_category"
-                        tools:itemCount="5"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_faq_title"/>
-                    
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_faq_title"
+                        tools:itemCount="5"
+                        tools:listitem="@layout/item_faq_category" />
+
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/bn_ask_here"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:backgroundTint="@color/black"
-                        android:textAllCaps="false"
-                        android:fontFamily="@font/jost_medium"
-                        android:textSize="@dimen/text_size_10"
-                        android:text="Have any questions? Ask Here"
-                        android:layout_marginTop="@dimen/margin_size_20"
                         android:layout_marginHorizontal="@dimen/margin_size_52"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="@dimen/margin_size_20"
+                        android:backgroundTint="@color/black"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="Have any questions? Ask Here"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_10"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/rv_faq"/>
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/rv_faq" />
 
                     <include
                         android:id="@+id/testimonials_card"
                         layout="@layout/new_investment_testimonials_card"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/bn_ask_here"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        app:layout_constraintTop_toBottomOf="@+id/bn_ask_here" />
 
                     <include
                         android:id="@+id/similar_investment_card"
                         layout="@layout/similar_investments_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/testimonials_card"/>
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/testimonials_card" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
