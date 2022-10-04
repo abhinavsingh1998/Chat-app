@@ -13,13 +13,10 @@ class ChatOptionAdapter(
     private var option: ArrayList<Option>,
     private var conversationId: Int,
     private var optionListener: OnOptionClickListener,
-    private var selectedItemPos: Int = -1
 
 ) : RecyclerView.Adapter<ChatOptionAdapter.ViewHolder>() {
 
     lateinit var binding: ItemOptionBinding
-    var buttonbackground = -1
-
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -32,24 +29,10 @@ class ChatOptionAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvOption.text = option[position].text
 
-//        if (position == selectedItemPos) {
-//            holder.tvOption.setTextColor(Color.parseColor("#676ac0"))
-//        }else{
-//            holder.tvOption.setTextColor(Color.parseColor("#494a67"))
-//        }
 
         holder.tvOption.setOnClickListener {
-//            buttonbackground = selectedItemPos
-//            selectedItemPos = holder.adapterPosition
-//            buttonbackground = if (buttonbackground == -1)
-//                selectedItemPos
-//            else {
-//                notifyItemChanged(buttonbackground)
-//                selectedItemPos
-//            }
-//            notifyItemChanged(selectedItemPos)
+
             optionListener.onOptionClick(option[position], it, position, conversationId)
-            //buttonbackground=2
 
         }
     }
