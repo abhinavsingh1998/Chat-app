@@ -32,6 +32,8 @@
                 android:layout_marginTop="@dimen/margin_size_11"
                 android:fontFamily="@font/jost_medium"
                 android:text="Marina"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
