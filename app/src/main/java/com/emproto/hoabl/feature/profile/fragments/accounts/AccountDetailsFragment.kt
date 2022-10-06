@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
@@ -17,6 +18,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -48,6 +50,7 @@ import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.AccountsResponse
 import com.emproto.networklayer.response.profile.KycUpload
+import com.example.portfolioui.databinding.DeniedLayoutBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -98,10 +101,16 @@ class AccountDetailsFragment : Fragment(),
 
     private var isReadPermissionGranted: Boolean = false
     private var isWritePermissionGranted: Boolean = false
+    private var isReadStorageGranted = false
+    private var isWriteStorageGranted = false
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
+    private lateinit var permissionLauncherStorage: ActivityResultLauncher<Array<String>>
+
     private val permissionRequest: MutableList<String> = ArrayList()
     private var base64Data: String = ""
     var status = ""
+    private var removeDeniedPermissionDialog: Dialog? = null
+
 
 
     override fun onCreateView(
@@ -134,6 +143,19 @@ class AccountDetailsFragment : Fragment(),
     }
 
     private fun initView() {
+        permissionLauncherStorage =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+                isReadStorageGranted = permissions[Manifest.permission.READ_EXTERNAL_STORAGE]
+                    ?: isReadStorageGranted
+                isWriteStorageGranted =
+                    permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE]
+                        ?: isWriteStorageGranted
+                if (isReadStorageGranted && isWriteStorageGranted) {
+                    selectImage()
+                } else {
+                    showPermissionDeniedDialog()
+                }
+            }
         documentBinding = DocumentsBottomSheetBinding.inflate(layoutInflater)
         docsBottomSheet = BottomSheetDialog(this.requireContext(), R.style.BottomSheetDialogTheme)
         docsBottomSheet.setContentView(documentBinding.root)
@@ -145,6 +167,14 @@ class AccountDetailsFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        isReadStorageGranted = ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+        isWriteStorageGranted = ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
         profileViewModel.getAccountsList().observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
@@ -180,7 +210,22 @@ class AccountDetailsFragment : Fragment(),
             }
         }
     }
+    private fun showPermissionDeniedDialog() {
+        val removeDialogLayout = DeniedLayoutBinding.inflate(layoutInflater)
+        removeDeniedPermissionDialog = Dialog(requireContext())
+        removeDeniedPermissionDialog?.setCancelable(true)
+        removeDeniedPermissionDialog?.setContentView(removeDialogLayout.root)
+        removeDialogLayout.actionYes.setOnClickListener {
+            val intent = Intent()
+            intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+            val uri = Uri.fromParts("package", context?.packageName, null)
+            intent.data = uri
+            startActivityForResult(intent, PICK_GALLERY_IMAGE)
+            removeDeniedPermissionDialog?.dismiss()
+        }
+        removeDeniedPermissionDialog?.show()
 
+    }
     private fun setAllPaymentList() {
         if (allPaymentList.isNullOrEmpty()) {
             binding.tvPaymentHistory.visibility = View.VISIBLE
@@ -549,8 +594,22 @@ class AccountDetailsFragment : Fragment(),
     }
 
     override fun onUploadClick(kycUploadList: ArrayList<KycUpload>, view: View, documentType: Int) {
-        selectImage()
-        selectedDocumentType = documentType
+        if (!isReadStorageGranted && !isWriteStorageGranted) {
+            requestStoragePermission()
+        } else if (isReadStorageGranted && isWriteStorageGranted) {
+            selectImage()
+            selectedDocumentType = documentType        }
+
+    }
+
+    private fun requestStoragePermission() {
+        if (!isReadStorageGranted && !isWriteStorageGranted) {
+            permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
+            permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+        if (permissionRequest.isNotEmpty()) {
+            permissionLauncherStorage.launch(permissionRequest.toTypedArray())
+        }
     }
 
     private fun selectImage() {
