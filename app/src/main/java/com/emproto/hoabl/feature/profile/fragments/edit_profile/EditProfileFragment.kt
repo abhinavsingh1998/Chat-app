@@ -382,10 +382,6 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun initView() {
-        binding.emailTv.setText("")
-        binding.completeAddress.setText("")
-        binding.houseNo.setText("")
-        binding.pincodeEditText.setText("")
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 isReadStorageGranted = permissions[Manifest.permission.READ_EXTERNAL_STORAGE]
@@ -394,14 +390,16 @@ class EditProfileFragment : BaseFragment() {
                     permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE]
                         ?: isWriteStorageGranted
 
-                Log.d("permission3", "$isReadStorageGranted $isWriteStorageGranted")
-
                 if (isReadStorageGranted && isWriteStorageGranted) {
                     selectImage()
                 } else {
                     showPermissionDeniedDialog()
                 }
             }
+        binding.emailTv.setText("")
+        binding.completeAddress.setText("")
+        binding.houseNo.setText("")
+        binding.pincodeEditText.setText("")
 
         "${data.firstName} ${data.lastName}".also { binding.textviewEnterName.text = it }
         "${data.countryCode} ${data.phoneNumber}".also {
@@ -466,9 +464,7 @@ class EditProfileFragment : BaseFragment() {
 
             } else {
                 binding.pincodeEditText.setText(data.pincode.toString())
-
             }
-
         } else {
             binding.pincodeEditText.setText("")
         }
@@ -803,10 +799,10 @@ class EditProfileFragment : BaseFragment() {
             permissionRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
             permissionRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         }
-
         if (permissionRequest.isNotEmpty()) {
             permissionLauncher.launch(permissionRequest.toTypedArray())
         }
+
     }
 
     private fun onCaptureImageResult() {
