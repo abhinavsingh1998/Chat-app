@@ -26,7 +26,8 @@ data class Inventory(
     val priceRange: PriceRange?=null,
     val projectContentId: Int?=null,
     val shortDescription: String?=null,
-    val updatedAt: String?=null
+    val updatedAt: String?=null,
+    val isSoldOut:Boolean
 )
 
 data class OtherSectionHeadings(

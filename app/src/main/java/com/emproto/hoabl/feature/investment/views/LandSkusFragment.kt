@@ -121,7 +121,8 @@ class LandSkusFragment : BaseFragment() {
         list.add(RecyclerViewItem(3))
         landSkusAdapter =
             LandSkusAdapter(
-                this,
+                context,
+                this@LandSkusFragment,
                 list,
                 appliedList,
                 notAppliedList,

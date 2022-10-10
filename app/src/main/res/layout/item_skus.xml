@@ -20,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clBase"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -90,7 +91,7 @@
                 android:text="@string/apply_now"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_12"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

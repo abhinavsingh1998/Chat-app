@@ -725,7 +725,7 @@ class ProjectDetailAdapter(
         fun bind() {
             binding.tvChooseSkusApplyTitle.text =
                 data.otherSectionHeadings.inventoryBucketContents.sectionHeading
-            skuAdapter = SkuAdapter(
+            skuAdapter = SkuAdapter(context,
                 data.inventoriesList.projectContent.inventoryBucketContents,
                 itemClickListener,
                 investmentViewModel
