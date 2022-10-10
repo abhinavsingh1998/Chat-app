@@ -207,11 +207,13 @@ class AuthActivity : BaseActivity() {
                     signingInIssueBiding.editIssuesLayout.boxStrokeColor =
                         resources.getColor(R.color.text_red_color)
                     signingInIssueBiding.txtcount.isVisible = true
+                    signingInIssueBiding.txtcount.text= "You have reached maximum limit"
                     signingInIssueBiding.maxDesc.isVisible = false
                     signingInIssueBiding.editIssues.setTextColor(resources.getColorStateList(R.color.text_red_color))
                 } else {
                     signingInIssueBiding.editIssuesLayout.boxStrokeColor =
                         resources.getColor(R.color.app_color)
+                    signingInIssueBiding.editIssuesLayout.isErrorEnabled = false
                     signingInIssueBiding.txtcount.isVisible = false
                     signingInIssueBiding.maxDesc.isVisible = true
                     signingInIssueBiding.maxDesc.text = "${issueDetail.length}/250" + " Characters"
@@ -262,7 +264,10 @@ class AuthActivity : BaseActivity() {
 
             if (signingInIssueBiding.issueSeven.isChecked) {
                 if (issueDetail.isNullOrEmpty() || issueDetail.trim().isEmpty()) {
-                    signingInIssueBiding.editIssues.error = "Please Describe The Issue"
+                    signingInIssueBiding.editIssuesLayout.error = "Please Describe The Issue"
+                    signingInIssueBiding.txtcount.text="Please Describe The Issue"
+                    signingInIssueBiding.txtcount.isVisible=true
+                    signingInIssueBiding.maxDesc.isVisible=false
                     Toast.makeText(this, "Please Describe The Issue", Toast.LENGTH_SHORT).show()
                     return@OnClickListener
                 }
