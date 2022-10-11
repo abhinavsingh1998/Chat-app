@@ -32,24 +32,47 @@ class SkuAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val element = list!![position]
         holder.binding.apply {
-            if(element.isSoldOut){
+            if(element.isApplied && (element.isSoldOut || !element.isSoldOut)){
+                    tvApply.visibility = View.GONE
+                    tvApplied.visibility = View.VISIBLE
+                    ivTick.visibility = View.VISIBLE
+            }
+            else if((!element.isApplied ||element.isApplied)&& element.isSoldOut){
+                tvApply.visibility = View.VISIBLE
+                tvApplied.visibility = View.GONE
+                ivTick.visibility = View.GONE
                 tvApply.isClickable=false
                 tvApply.isEnabled=false
-              tvApply.text="Sold Out"
+                tvApply.text="Sold Out"
                 tvProjectName.setTextColor(Color.parseColor("#ffffff"))
                 tvStartingAt.setTextColor(Color.parseColor("#ffffff"))
                 tvAreaSkus.setTextColor(Color.parseColor("#ffffff"))
                 tvApply.setTextColor(Color.parseColor("#000000"))
                 clBase.setBackgroundColor(Color.parseColor("#8b8b8b"))
-
             }
             else{
-                tvApply.isClickable=true
-                tvApply.isEnabled=true
-                tvApply.text="Apply now"
-                clBase.setBackgroundColor(Color.parseColor("#ffffff"))
-
+                tvApply.visibility = View.VISIBLE
+                    tvApplied.visibility = View.GONE
+                    ivTick.visibility = View.GONE
             }
+//            if(element.isSoldOut){
+//                tvApply.isClickable=false
+//                tvApply.isEnabled=false
+//                tvApply.text="Sold Out"
+//                tvProjectName.setTextColor(Color.parseColor("#ffffff"))
+//                tvStartingAt.setTextColor(Color.parseColor("#ffffff"))
+//                tvAreaSkus.setTextColor(Color.parseColor("#ffffff"))
+//                tvApply.setTextColor(Color.parseColor("#000000"))
+//                clBase.setBackgroundColor(Color.parseColor("#8b8b8b"))
+//
+//            }
+//            else{
+//                tvApply.isClickable=true
+//                tvApply.isEnabled=true
+//                tvApply.text="Apply now"
+//                clBase.setBackgroundColor(Color.parseColor("#ffffff"))
+//
+//            }
             tvProjectName.text = element.name
             val amount = element.priceRange?.from!!.toDouble() / 100000
             val convertedAmount = String.format("%.0f", amount)
@@ -59,20 +82,22 @@ class SkuAdapter(
             val areaSkus = "${element.areaRange?.from} - ${element.areaRange?.to} Sqft"
             tvAreaSkus.text = areaSkus
             //Changing UI corresponding to application
-            when (element.isApplied) {
-                true -> {
-                    tvApply.visibility = View.GONE
-                    tvApplied.visibility = View.VISIBLE
-                    ivTick.visibility = View.VISIBLE
-                }
-                false -> {
-                    tvApply.visibility = View.VISIBLE
-                    tvApplied.visibility = View.GONE
-                    ivTick.visibility = View.GONE
-                }
-                else -> {}
-            }
+//            when (element.isApplied) {
+//                true -> {
+//                    tvApply.visibility = View.GONE
+//                    tvApplied.visibility = View.VISIBLE
+//                    ivTick.visibility = View.VISIBLE
+//                }
+//                false -> {
+//                    tvApply.visibility = View.VISIBLE
+//                    tvApplied.visibility = View.GONE
+//                    ivTick.visibility = View.GONE
+//                }
+//                else -> {}
+//            }
         }
+
+
 
         holder.binding.tvApply.setOnClickListener {
             investmentViewModel.setSku(element)

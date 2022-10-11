@@ -21,13 +21,13 @@ data class Inventory(
     val createdAt: String?=null,
     val crmInventoryBucketId: Int?=null,
     val id: Int?=null,
-    val isApplied: Boolean?=null,
+    var isApplied: Boolean,
     val name: String?=null,
     val priceRange: PriceRange?=null,
     val projectContentId: Int?=null,
     val shortDescription: String?=null,
     val updatedAt: String?=null,
-    val isSoldOut:Boolean
+    var isSoldOut:Boolean
 )
 
 data class OtherSectionHeadings(

@@ -46,7 +46,6 @@ class SkusListAdapter(
                 clBase.setBackgroundColor(Color.parseColor("#8b8b8b"))
             }
             else{
-                btnApplyNow.text="Apply Now"
                 btnApplyNow.isClickable=true
                 btnApplyNow.isEnabled=true
                 tvItemLandSkusName.setTextColor(Color.parseColor("#000000"))

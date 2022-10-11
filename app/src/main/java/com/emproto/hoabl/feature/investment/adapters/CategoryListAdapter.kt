@@ -51,27 +51,30 @@ class CategoryListAdapter(
                     }
 
                     binding.apply {
-                        tvProjectName.text = element.launchName
-                        val amount = element.priceStartingFrom.toDouble() / 100000
-                        val convertedAmount = amount.toString().replace(".0", "")
-                        val priceAmount = "₹${convertedAmount} L" + Constants.ONWARDS
-                        val areaPrice = element.areaStartingFrom + Constants.SQFT_ONWARDS
-                        val locationName = element.address.city + "\n" + element.address.state
-                        val rating = "${
-                            String.format(
-                                "%.0f",
-                                element.generalInfoEscalationGraph.estimatedAppreciation
-                            )
-                        }%"
-                        tvCategoryPrice.text = priceAmount
-                        tvCategoryArea.text = areaPrice
-                        tvCategoryItemInfo.text = element.shortDescription
-                        tvProjectLocation.text = locationName
-                        Glide.with(context)
-                            .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
-                            .into(ivCategoryImage)
-                        tvRating.text = rating
+                        if (element != null) {
+                            tvProjectName.text = element.launchName
+                            val amount = element.priceStartingFrom.toDouble() / 100000
+                            val convertedAmount = amount.toString().replace(".0", "")
+                            val priceAmount = "₹${convertedAmount} L" + Constants.ONWARDS
+                            val areaPrice = element.areaStartingFrom + Constants.SQFT_ONWARDS
+                            val locationName = element.address.city + "\n" + element.address.state
+                            val rating = "${
+                                String.format(
+                                    "%.0f",
+                                    element.generalInfoEscalationGraph.estimatedAppreciation
+                                )
+                            }%"
+                            tvCategoryPrice.text = priceAmount
+                            tvCategoryArea.text = areaPrice
+                            tvCategoryItemInfo.text = element.shortDescription
+                            tvProjectLocation.text = locationName
+                            Glide.with(context)
+                                .load(element.projectCoverImages.collectionListViewPageMedia.value.url)
+                                .into(ivCategoryImage)
+                            tvRating.text = rating
+                        }
                     }
+
                 }
                 TYPE_FEW_PLOTS -> {
                     val element = list[position] as PageManagementsOrCollectionOneModel

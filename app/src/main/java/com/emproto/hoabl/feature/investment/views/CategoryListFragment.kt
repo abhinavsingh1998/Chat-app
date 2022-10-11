@@ -113,7 +113,7 @@ class CategoryListFragment : BaseFragment() {
     }
 
     private fun setUpCategoryAdapter(list: List<Any>, type: Int) {
-        if (list.isNotEmpty()) {
+        if (!list.isNullOrEmpty()) {
             categoryListAdapter =
                 CategoryListAdapter(this.requireContext(), list, itemClickListener, type)
             binding.rvCategoryList.adapter = categoryListAdapter
