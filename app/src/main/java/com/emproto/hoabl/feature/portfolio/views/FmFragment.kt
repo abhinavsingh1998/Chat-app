@@ -24,6 +24,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.JavascriptInterface
+import android.webkit.MimeTypeMap
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ProgressBar
@@ -48,10 +49,7 @@ import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.webview.ShareObjectModel
 import com.google.gson.Gson
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileNotFoundException
+import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -590,11 +588,12 @@ class FmFragment : BaseFragment() {
         val selectedImage = data.data
         val inputStream =
             requireContext().contentResolver.openInputStream(selectedImage!!)
-        if (selectedImage.path!!.contains(".pdf")) {
+        if (uploadObject.type=="doc") {
             try {
-                val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
-                Log.d("filepath", filePath.toString())
-                destinationFile = filePath?.let { File(it) }!!
+//                val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
+//                Log.d("filepath", filePath.toString())
+                //destinationFile = filePath?.let { File(it) }!!
+                destinationFile = fileFromContentUri(this.requireContext(),selectedImage)
 
                 callUploadApi(destinationFile)
 
@@ -755,4 +754,42 @@ class FmFragment : BaseFragment() {
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
+    fun fileFromContentUri(context: Context, contentUri: Uri): File {
+        // Preparing Temp file name
+        val fileExtension = getFileExtension(context, contentUri)
+        val fileName = "temp_file" + if (fileExtension != null) ".$fileExtension" else ""
+
+        // Creating Temp file
+        val tempFile = File(context.cacheDir, fileName)
+        tempFile.createNewFile()
+
+        try {
+            val oStream = FileOutputStream(tempFile)
+            val inputStream = context.contentResolver.openInputStream(contentUri)
+
+            inputStream?.let {
+                copy(inputStream, oStream)
+            }
+
+            oStream.flush()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return tempFile
+    }
+
+    private fun getFileExtension(context: Context, uri: Uri): String? {
+        val fileType: String? = context.contentResolver.getType(uri)
+        return MimeTypeMap.getSingleton().getExtensionFromMimeType(fileType)
+    }
+
+    @Throws(IOException::class)
+    private fun copy(source: InputStream, target: OutputStream) {
+        val buf = ByteArray(8192)
+        var length: Int
+        while (source.read(buf).also { length = it } > 0) {
+            target.write(buf, 0, length)
+        }
+    }
 }
