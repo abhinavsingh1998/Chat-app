@@ -18,6 +18,7 @@ import android.os.Environment
 import android.provider.ContactsContract
 import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.provider.OpenableColumns
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
@@ -50,9 +51,12 @@ import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.webview.ShareObjectModel
 import com.google.gson.Gson
 import java.io.*
+import java.net.URISyntaxException
+import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -586,15 +590,13 @@ class FmFragment : BaseFragment() {
 
     private fun onSelectFromGalleryResult(data: Intent) {
         val selectedImage = data.data
+        Log.e("pdfFile", selectedImage.toString())
         val inputStream =
             requireContext().contentResolver.openInputStream(selectedImage!!)
-        if (uploadObject.type=="doc") {
+        if (uploadObject.type.equals("doc")) {
             try {
-//                val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
-//                Log.d("filepath", filePath.toString())
-                //destinationFile = filePath?.let { File(it) }!!
-                destinationFile = fileFromContentUri(this.requireContext(),selectedImage)
-
+                Log.d("filepath",selectedImage.toString())
+                destinationFile = fileFromContentUri(requireContext(), selectedImage)
                 callUploadApi(destinationFile)
 
             } catch (e: Exception) {
@@ -610,7 +612,6 @@ class FmFragment : BaseFragment() {
                     val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
                     Log.d("filepath", filePath.toString())
                     destinationFile = File(filePath)
-
                     callUploadApi(destinationFile)
 
                 } catch (e: Exception) {
@@ -618,10 +619,12 @@ class FmFragment : BaseFragment() {
                 }
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
+
             }
         }
 
     }
+
 
     @SuppressLint("NewApi")
     fun getRealPathFromURI_API19(context: Context, uri: Uri): String? {
@@ -753,6 +756,26 @@ class FmFragment : BaseFragment() {
         //Base64.de
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
+
+//    @SuppressLint("Range")
+//    private fun getPdfPath(context:Context, uri:Uri):String?{
+//        val uriString: String = uri.path.toString()
+//        var pdfName: String? = null
+//
+//        if (uriString.startsWith("content://")) {
+//            var myCursor: Cursor? = null
+//            try {
+//                myCursor = context.contentResolver.query(uri, null, null, null, null)
+//                if (myCursor != null && myCursor.moveToFirst()) {
+//                    pdfName =
+//                        myCursor.getString(myCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+//                }
+//            } finally {
+//                myCursor?.close()
+//            }
+//        }
+//        return pdfName
+//    }
 
     fun fileFromContentUri(context: Context, contentUri: Uri): File {
         // Preparing Temp file name

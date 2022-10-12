@@ -130,10 +130,6 @@ class OTPVerificationFragment : BaseFragment() {
         super.onPause()
         dismissSnackBar()
     }
-//    private fun startUserConsent() {
-//        val client = SmsRetriever.getClient(requireContext())
-//        client.startSmsUserConsent(null)
-//    }
 
     private fun initView() {
         permissionLauncher =
@@ -141,7 +137,7 @@ class OTPVerificationFragment : BaseFragment() {
                 isReadSMSGranted = permissions[Manifest.permission.READ_SMS] ?: isReadSMSGranted
             }
 
-//        requestPermission()
+
         mBinding.tvMobileNumber.text = "$countryCode-$mobileno"
         mBinding.tvMobileNumber.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         mBinding.loginEdittext.hint = hint_txt
