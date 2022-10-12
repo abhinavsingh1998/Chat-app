@@ -11,6 +11,7 @@ import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
+import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.login.TroubleSigningResponse
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
 import com.emproto.networklayer.response.portfolio.fm.FMResponse
@@ -45,7 +46,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
      */
 
     fun getPortfolioDashboard(refresh: Boolean = false): LiveData<BaseResponse<PortfolioData>> {
-        if (mPromisesResponse.value == null || refresh) {
+        if ((mPromisesResponse.value == null || mPromisesResponse.value!!.status == Status.ERROR) || refresh) {
             mPromisesResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
