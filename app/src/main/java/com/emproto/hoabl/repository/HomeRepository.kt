@@ -282,7 +282,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                 }
 
             } catch (e: Exception) {
-                mAddUsernameResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mAddUsernameResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mAddUsernameResponse
