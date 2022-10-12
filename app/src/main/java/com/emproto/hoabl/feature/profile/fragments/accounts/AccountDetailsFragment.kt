@@ -586,7 +586,7 @@ class AccountDetailsFragment : Fragment(),
             try {
                 startActivity(intent)
             } catch (e: Exception) {
-                Log.e(Constants.ERROR_OPEN_PDF, e.localizedMessage)
+                Log.e(Constants.ERROR_OPEN_PDF, Constants.SOMETHING_WENT_WRONG)
             }
         } else {
             (requireActivity() as HomeActivity).showErrorToast(Constants.SOMETHING_WENT_WRONG)
@@ -765,7 +765,7 @@ class AccountDetailsFragment : Fragment(),
                     )
                 }
             } catch (e: Exception) {
-                Log.e("Error", "onSelectFromGalleryResult: " + e.localizedMessage)
+                Log.e("Error", "onSelectFromGalleryResult: " + Constants.SOMETHING_WENT_WRONG)
             }
 
 

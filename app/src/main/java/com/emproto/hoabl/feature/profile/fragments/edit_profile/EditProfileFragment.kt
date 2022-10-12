@@ -843,7 +843,7 @@ class EditProfileFragment : BaseFragment() {
                 destinationFile = File(filePath)
                 type = Constants.GALLERY_CLICK
             } catch (e: Exception) {
-                Log.e("Error", "onSelectFromGalleryResult: " + e.localizedMessage)
+                Log.e("Error", "onSelectFromGalleryResult: " + Constants.SOMETHING_WENT_WRONG)
             }
 
             binding.cvProfileImage.visibility = View.VISIBLE

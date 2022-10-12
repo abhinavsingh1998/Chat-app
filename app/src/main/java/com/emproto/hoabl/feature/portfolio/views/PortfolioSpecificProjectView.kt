@@ -635,7 +635,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
             try {
                 startActivity(intent)
             } catch (e: Exception) {
-                e.localizedMessage?.let { Log.e(Constants.ERROR_OPEN_PDF, it) }
+                Constants.SOMETHING_WENT_WRONG?.let { Log.e(Constants.ERROR_OPEN_PDF, it) }
             }
         } else {
             (requireActivity() as HomeActivity).showErrorToast(Constants.SOMETHING_WENT_WRONG)

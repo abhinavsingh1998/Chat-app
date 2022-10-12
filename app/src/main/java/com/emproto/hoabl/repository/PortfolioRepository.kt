@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
+import com.emproto.core.Constants
 import com.emproto.networklayer.feature.PortfolioDataSource
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.request.login.TroubleSigningRequest
@@ -76,7 +77,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                         }
                     }
                 } catch (e: Exception) {
-                    mPromisesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                    mPromisesResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
                 }
             }
         }
@@ -125,7 +126,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                         )
                     }
                 } catch (e: Exception) {
-                    mPromisesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                    mPromisesResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
                 }
             }
         }
@@ -153,7 +154,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mDocumentsResponse
@@ -180,7 +181,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mDocumentsResponse
@@ -207,7 +208,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mDocumentsResponse
@@ -235,7 +236,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                         )
                     }
                 } catch (e: Exception) {
-                    mDocumentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                    mDocumentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
                 }
             }
         }
@@ -269,7 +270,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mTimelineMediaResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mTimelineMediaResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mTimelineMediaResponse
@@ -296,7 +297,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mDocumentsResponse
@@ -323,7 +324,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mDocumentsResponse
@@ -350,7 +351,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mDocumentsResponse

@@ -5,6 +5,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
+import com.emproto.core.Constants
 import com.emproto.networklayer.feature.HomeDataSource
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.request.chat.SendMessageBody
@@ -79,7 +80,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                     }
 
                 } catch (e: Exception) {
-                    mPromisesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                    mPromisesResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
                 }
             }
         }
@@ -132,7 +133,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                     }
 
                 } catch (e: Exception) {
-                    mHomeResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                    mHomeResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
                 }
             }
 
@@ -165,7 +166,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                         )
                     }
                 } catch (e: Exception) {
-                    mLatestUpdates.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                    mLatestUpdates.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
                 }
             }
 
@@ -198,7 +199,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                         )
                     }
                 } catch (e: Exception) {
-                    mInsights.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                    mInsights.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
                 }
             }
 
@@ -228,7 +229,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                         )
                     }
                 } catch (e: Exception) {
-                    mTestimonials.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                    mTestimonials.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
                 }
             }
 
@@ -308,7 +309,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                     )
                 }
             } catch (e: Exception) {
-                mAllInvestmentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mAllInvestmentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mAllInvestmentsResponse
@@ -335,7 +336,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mDocumentsResponse
@@ -364,7 +365,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                 }
             } catch (e: Exception) {
 
-                mChatResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mChatResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mChatResponse
@@ -395,7 +396,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                 }
             } catch (e: Exception) {
 
-                mChatDetailResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mChatDetailResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mChatDetailResponse
@@ -428,7 +429,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                 }
             } catch (e: Exception) {
 
-                mChatHistoryResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mChatHistoryResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mChatHistoryResponse
@@ -458,7 +459,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                 }
             } catch (e: Exception) {
 
-                msendMessageResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                msendMessageResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return msendMessageResponse
@@ -487,7 +488,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                 }
             } catch (e: Exception) {
 
-                mAccountsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mAccountsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mAccountsResponse
@@ -514,7 +515,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                     )
                 }
             } catch (e: Exception) {
-                mSearchResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mSearchResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mSearchResponse
@@ -544,7 +545,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                     )
                 }
             } catch (e: Exception) {
-                mSearchDocResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mSearchDocResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mSearchDocResponse
@@ -571,7 +572,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mDocumentsResponse
@@ -666,7 +667,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                     }
                 } catch (e: Exception) {
 
-                    mNewNotificationResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                    mNewNotificationResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
                 }
             }
         }
@@ -704,7 +705,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                     }
                 } catch (e: Exception) {
 
-                    mNotificationResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                    mNotificationResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
                 }
             }
         }
@@ -735,7 +736,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                 }
             } catch (e: Exception) {
 
-                mNotificationResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mNotificationResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mNotificationResponse

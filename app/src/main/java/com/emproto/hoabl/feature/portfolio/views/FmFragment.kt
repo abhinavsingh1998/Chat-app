@@ -599,7 +599,7 @@ class FmFragment : BaseFragment() {
                 callUploadApi(destinationFile)
 
             } catch (e: Exception) {
-                Log.e("Error", "onSelectFromGalleryResult: " + e.localizedMessage)
+                Log.e("Error", "onSelectFromGalleryResult: " + Constants.SOMETHING_WENT_WRONG)
             }
         } else {
             try {
@@ -615,7 +615,7 @@ class FmFragment : BaseFragment() {
                     callUploadApi(destinationFile)
 
                 } catch (e: Exception) {
-                    Log.e("Error", "onSelectFromGalleryResult: " + e.localizedMessage)
+                    Log.e("Error", "onSelectFromGalleryResult: " + Constants.SOMETHING_WENT_WRONG)
                 }
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
