@@ -29,7 +29,6 @@ class BookingStepsAdapter(
         const val TYPE_INSTART = 0
         const val TYPE_INPROGRESS = 1
         const val TYPE_COMPLETED = 2
-
         const val SECTION_PAYMENT = 0
         const val SECTION_DOCUMENTATION = 1
 
@@ -114,6 +113,19 @@ class BookingStepsAdapter(
                     }
                 } else {
                     type1Holder.binding.tvLink.isClickable = false
+                    type1Holder.binding.ivProgressIcon.setImageDrawable(context.getDrawable(R.drawable.ic_inprogress_bg))
+                    type1Holder.binding.tvTitle.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.disable_text
+                        )
+                    );
+                    type1Holder.binding.tvDescription.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.disable_text
+                        )
+                    );
                     type1Holder.binding.tvLink.setTextColor(
                         ContextCompat.getColor(
                             context,
