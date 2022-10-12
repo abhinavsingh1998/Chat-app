@@ -15,6 +15,7 @@ import com.emproto.networklayer.response.HomeActionItemResponse
 import com.emproto.networklayer.response.chats.*
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
+import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.home.HomeResponse
 import com.emproto.networklayer.response.insights.InsightsResponse
 import com.emproto.networklayer.response.investment.AllProjectsResponse
@@ -54,7 +55,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         pageType: Int,
         refresh: Boolean = false
     ): LiveData<BaseResponse<PromisesResponse>> {
-        if (mPromisesResponse.value == null || refresh) {
+        if ((mPromisesResponse.value == null || mPromisesResponse.value!!.status == Status.ERROR) || refresh) {
             mPromisesResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
@@ -99,7 +100,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         refresh: Boolean = false,
     ): LiveData<BaseResponse<HomeResponse>> {
 
-        if (mHomeResponse.value == null || refresh) {
+        if ((mHomeResponse.value == null || mHomeResponse.value!!.status == Status.ERROR) || refresh) {
             mHomeResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
@@ -146,7 +147,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         byPrority: Boolean
     ): LiveData<BaseResponse<LatestUpdatesResponse>> {
 
-        if (mLatestUpdates.value == null || refresh) {
+        if ((mLatestUpdates.value == null || mLatestUpdates.value!!.status == Status.ERROR)  || refresh) {
             mLatestUpdates.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
@@ -179,7 +180,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
         byPrority: Boolean
     ): LiveData<BaseResponse<InsightsResponse>> {
 
-        if (mInsights.value == null || refresh) {
+        if ((mInsights.value == null || mInsights.value!!.status == Status.ERROR) || refresh ) {
             mInsights.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
@@ -209,7 +210,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
 
     fun getTestimonialsData(refresh: Boolean = false): LiveData<BaseResponse<TestimonialsResponse>> {
 
-        if (mTestimonials.value == null || refresh) {
+        if ((mTestimonials.value == null || mTestimonials.value!!.status == Status.ERROR) || refresh) {
             mLatestUpdates.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
@@ -282,7 +283,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                 }
 
             } catch (e: Exception) {
-                mAddUsernameResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mAddUsernameResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mAddUsernameResponse
@@ -645,7 +646,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
     ): LiveData<BaseResponse<NotificationResponse>> {
 
         val mNewNotificationResponse = MutableLiveData<BaseResponse<NotificationResponse>>()
-        if (mNewNotificationResponse.value == null || refresh) {
+        if ((mNewNotificationResponse.value == null || mNewNotificationResponse.value!!.status == Status.ERROR) || refresh) {
             mNewNotificationResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {

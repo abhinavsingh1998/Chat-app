@@ -173,7 +173,9 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     true -> {
                                         isMessagesEnabled = true
                                     }
-                                    else -> {}
+                                    else -> {
+                                        isMessagesEnabled = false
+                                    }
                                 }
                             } else {
                                 binding.clButtonStart.visibility = View.VISIBLE
