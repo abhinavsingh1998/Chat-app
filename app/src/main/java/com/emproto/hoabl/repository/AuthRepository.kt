@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
 import com.emproto.core.Constants
+import com.emproto.networklayer.ApiConstants
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
@@ -52,7 +53,7 @@ class AuthRepository @Inject constructor(application: Application) : BaseReposit
                     )
                 }
             } catch (e: Exception) {
-                loginResponse.postValue(BaseResponse.error(Constants.SOMETHING_WENT_WRONG))
+                loginResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return loginResponse;
@@ -166,7 +167,11 @@ class AuthRepository @Inject constructor(application: Application) : BaseReposit
                 }
 
             } catch (e: Exception) {
-                mAddUsernameResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                if (e.localizedMessage == ApiConstants.NO_INTERNET) {
+                    mAddUsernameResponse.postValue(BaseResponse.error(ApiConstants.NO_INTERNET))
+                } else {
+                    mAddUsernameResponse.postValue(BaseResponse.error(Constants.SOMETHING_WENT_WRONG))
+                }
             }
         }
         return mAddUsernameResponse
