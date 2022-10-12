@@ -28,7 +28,7 @@ class AllLatestUpdatesAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val item = list.get(holder.adapterPosition)
+        val item = list[holder.adapterPosition]
         holder.binding.title.text = item.displayTitle
         if (!item.subTitle.isNullOrEmpty()) {
             holder.binding.placeName.text = item.subTitle
@@ -36,9 +36,7 @@ class AllLatestUpdatesAdapter(
             holder.binding.placeName.isVisible = false
         }
 
-
         if (item.detailedInfo[0].media != null) {
-
             if (!item.detailedInfo[0].media.value.url.isNullOrEmpty()) {
                 holder.binding.imageCard.isVisible = true
                 Glide.with(context).load(item.detailedInfo[0].media.value.url)
@@ -46,7 +44,6 @@ class AllLatestUpdatesAdapter(
             } else {
                 holder.binding.imageCard.isVisible = false
             }
-
 
             if (!item.detailedInfo[0].description.isNullOrEmpty()) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -57,15 +54,10 @@ class AllLatestUpdatesAdapter(
                         2
                     )
                 }
-
-
             } else {
                 holder.binding.btnReadMore.isVisible = false
-
             }
-
         }
-
         holder.binding.rootView.setOnClickListener {
             itemInterface.onClickItem(holder.adapterPosition)
         }
@@ -88,7 +80,7 @@ class AllLatestUpdatesAdapter(
         fun onClickItem(position: Int)
     }
 
-    public fun showHTMLText(message: String?): Spanned {
+    fun showHTMLText(message: String?): Spanned {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
         } else {

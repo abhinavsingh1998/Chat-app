@@ -1,5 +1,6 @@
 package com.emproto.hoabl.feature.investment.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.Inventory
 
 class LandSkusAdapter(
+    val context:Context?,
     private val fragment: LandSkusFragment,
     val list: ArrayList<RecyclerViewItem>,
     val appliedList: List<Inventory>,
@@ -84,7 +86,7 @@ class LandSkusAdapter(
             val landSkus = "$title (${notAppliedList.size})"
             binding.tvLandSkusTitle.text = landSkus
             binding.tvLandSkusSubtitle.text = subtitle
-            skusListAdapter = SkusListAdapter(fragment, notAppliedList, itemClickListener)
+            skusListAdapter = SkusListAdapter(context!!,fragment, notAppliedList, itemClickListener)
             binding.rvLandSkusItems.adapter = skusListAdapter
             skusListAdapter.setSkusListItemClickListener(fragment.onLandSkusItemClickListener)
         }

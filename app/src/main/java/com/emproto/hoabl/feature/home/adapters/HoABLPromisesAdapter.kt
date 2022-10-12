@@ -22,8 +22,7 @@ class HoABLPromisesAdapter(
     lateinit var binding: ItemHoablPromisesBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        binding =
-            ItemHoablPromisesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding = ItemHoablPromisesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
     }
 

@@ -70,13 +70,13 @@ public interface ApiService {
     suspend fun getPromises(@Query("pageType") pageType: Int): Response<PromisesResponse>
 
     @GET(ApiConstants.INVESTMENT)
-    suspend fun getInvestments(@Query("pageType") pageType: Int): Response<InvestmentResponse>
+    suspend fun getInvestments(@Query("pageType") pageType: Int, @Query("status") status:Int=1001): Response<InvestmentResponse>
 
     @GET(ApiConstants.PROJECT_MEDIA_GALLERIES)
     suspend fun getProjectMediaGalleries(@Path("projectContentId") projectContentId: Int): Response<ProjectMediaGalleryResponse>
 
     @GET(ApiConstants.HOME)
-    suspend fun getDashboardData(@Query("pageType") pageType: Int): Response<HomeResponse>
+    suspend fun getDashboardData(@Query("pageType") pageType: Int,@Query("status") status:Int=1001): Response<HomeResponse>
 
     @GET(ApiConstants.LatestUpdates)
     suspend fun getLatestUpdates(@Query("byPrority") priority: Boolean = true): Response<LatestUpdatesResponse>
@@ -91,7 +91,7 @@ public interface ApiService {
     suspend fun getInvestmentsProjectDetails(@Path("id") id: Int, @Query("shouldSortSimilarInvestments") shouldSortSimilarInvestments: Boolean): Response<ProjectDetailResponse>
 
     @GET(ApiConstants.INVESTMENT_ALL_PROJECT)
-    suspend fun getAllInvestmentProjects(): Response<com.emproto.networklayer.response.investment.AllProjectsResponse>
+    suspend fun getAllInvestmentProjects(@Query("status") status:Int=1001): Response<com.emproto.networklayer.response.investment.AllProjectsResponse>
 
     @GET(ApiConstants.PORTFOLIO_DASHBOARD)
     suspend fun getPortfolioDashboard(): Response<PortfolioData>
