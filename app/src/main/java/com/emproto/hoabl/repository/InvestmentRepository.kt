@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
+import com.emproto.core.Constants
 import com.emproto.networklayer.feature.InvestmentDataSource
 import com.emproto.networklayer.request.investment.AddInventoryBody
 import com.emproto.networklayer.request.investment.VideoCallBody
@@ -52,7 +53,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                         )
                     }
                 } catch (e: Exception) {
-                    mInvestmentResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                    mInvestmentResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
                 }
             }
         }
@@ -81,7 +82,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mInvestmentResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mInvestmentResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mInvestmentResponse
@@ -132,7 +133,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mInvestmentDetailResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mInvestmentDetailResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mInvestmentDetailResponse
@@ -159,7 +160,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mAllInvestmentsResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mAllInvestmentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mAllInvestmentsResponse
@@ -187,7 +188,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mInvestmentPromisesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mInvestmentPromisesResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mInvestmentPromisesResponse
@@ -214,7 +215,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mInvestmentFaqResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mInvestmentFaqResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mInvestmentFaqResponse
@@ -238,7 +239,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mWatchListResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mWatchListResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mWatchListResponse
@@ -265,7 +266,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mDeleteWatchListResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mDeleteWatchListResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mDeleteWatchListResponse
@@ -292,7 +293,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mgetAllInventoriesResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mgetAllInventoriesResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mgetAllInventoriesResponse
@@ -316,7 +317,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mAddInventoryResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mAddInventoryResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mAddInventoryResponse
@@ -340,7 +341,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mVideoCallResponse.postValue(BaseResponse.Companion.error(e.localizedMessage))
+                mVideoCallResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return mVideoCallResponse

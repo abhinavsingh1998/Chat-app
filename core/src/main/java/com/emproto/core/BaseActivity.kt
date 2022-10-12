@@ -155,6 +155,7 @@ abstract class BaseActivity : AppCompatActivity() {
             } else {
             }
         } catch (e: Exception) {
+
         }
     }
 

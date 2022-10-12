@@ -189,7 +189,7 @@ class AllPaymentHistoryFragment : Fragment(),
             try {
                 startActivity(intent)
             } catch (e: Exception) {
-                Log.e(Constants.ERROR_OPEN_PDF, e.localizedMessage)
+                Log.e(Constants.ERROR_OPEN_PDF, Constants.SOMETHING_WENT_WRONG)
             }
         } else {
             (requireActivity() as HomeActivity).showErrorToast(Constants.SOMETHING_WENT_WRONG)

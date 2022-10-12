@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
+import com.emproto.core.Constants
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.request.login.AddNameRequest
 import com.emproto.networklayer.request.login.OtpRequest
@@ -51,7 +52,7 @@ class AuthRepository @Inject constructor(application: Application) : BaseReposit
                     )
                 }
             } catch (e: Exception) {
-                loginResponse.postValue(BaseResponse.error(e.localizedMessage))
+                loginResponse.postValue(BaseResponse.error(Constants.SOMETHING_WENT_WRONG))
             }
         }
         return loginResponse;
