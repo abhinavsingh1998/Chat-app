@@ -10,6 +10,7 @@ import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.bookingjourney.BJHeader
 import com.emproto.networklayer.response.bookingjourney.BookingJourneyResponse
 import com.emproto.networklayer.response.bookingjourney.PaymentHistory
+import com.emproto.networklayer.response.bookingjourney.PaymentReceipt
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
 import com.emproto.networklayer.response.documents.DocumentsResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
@@ -21,12 +22,15 @@ import com.emproto.networklayer.response.portfolio.ivdetails.InvestmentInformati
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
 import com.emproto.networklayer.response.portfolio.prtimeline.MediaResponse
 import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineResponse
+import com.emproto.networklayer.response.profile.AccountsResponse
 import com.emproto.networklayer.response.profile.ProfileResponse
 import com.emproto.networklayer.response.watchlist.WatchlistData
 
 class PortfolioViewModel(
     private var mapplication: Application,
-    private var portfolioRepository: PortfolioRepository
+    private var portfolioRepository: PortfolioRepository,
+    private var paymentReceipt: ArrayList<PaymentReceipt> = ArrayList<PaymentReceipt>()
+
 ) : ViewModel() {
 
     private var portfolioData = MutableLiveData<PortfolioData>()
@@ -108,6 +112,12 @@ class PortfolioViewModel(
         projectContentId: String
     ): LiveData<BaseResponse<MediaResponse>> {
         return portfolioRepository.getProjectTimelineMedia(category, projectContentId)
+    }
+    fun getAllPaymentReceipt(): ArrayList<PaymentReceipt>{
+        return paymentReceipt
+    }
+    fun savePaymentHistory(payment: ArrayList<PaymentReceipt>) {
+        paymentReceipt.addAll(payment)
     }
 
     fun getFacilityManagment(

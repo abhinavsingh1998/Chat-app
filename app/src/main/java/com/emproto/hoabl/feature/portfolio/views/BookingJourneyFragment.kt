@@ -14,10 +14,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
+import com.emproto.hoabl.databinding.DocumentsBottomSheetBinding
 import com.emproto.hoabl.databinding.FragmentReceiptBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
@@ -26,6 +28,7 @@ import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.response.bookingjourney.Data
 import com.emproto.networklayer.response.bookingjourney.Payment
+import com.emproto.networklayer.response.bookingjourney.PaymentReceipt
 import com.emproto.networklayer.response.enums.Status
 import com.example.portfolioui.adapters.BookingJourneyAdapter
 import com.example.portfolioui.databinding.DialogHandoverDetailsBinding
@@ -43,6 +46,7 @@ private const val ARG_PARAM2 = "param2"
 
 class BookingJourneyFragment : BaseFragment() {
 
+    lateinit var allPaymentReceiptList: ArrayList<PaymentReceipt>
     private var param1: Int = 0
     private var param2: String? = null
     lateinit var mBinding: FragmentBookingjourneyBinding
@@ -55,6 +59,8 @@ class BookingJourneyFragment : BaseFragment() {
 
     lateinit var dialogRegistrationDetailsBinding: DialogRegistrationDetailsBinding
     lateinit var registrationDialog: CustomDialog
+    private lateinit var documentBinding: DocumentsBottomSheetBinding
+    private lateinit var docsBottomSheet: BottomSheetDialog
 
     lateinit var dialogPendingPayment: DialogPendingPaymentBinding
     lateinit var pendingPaymentDialog: CustomDialog
@@ -83,12 +89,17 @@ class BookingJourneyFragment : BaseFragment() {
     ): View {
         mBinding = FragmentBookingjourneyBinding.inflate(inflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
-        portfolioViewModel = ViewModelProvider(
-            requireActivity(),
-            portfolioFactory
-        )[PortfolioViewModel::class.java]
+        portfolioViewModel = ViewModelProvider(requireActivity(), portfolioFactory)[PortfolioViewModel::class.java]
         (requireActivity() as HomeActivity).showBackArrow()
         (requireActivity() as HomeActivity).hideBottomNavigation()
+        allPaymentReceiptList = portfolioViewModel.getAllPaymentReceipt()
+
+        documentBinding = DocumentsBottomSheetBinding.inflate(layoutInflater)
+        docsBottomSheet = BottomSheetDialog(this.requireContext(), R.style.BottomSheetDialogTheme)
+        docsBottomSheet.setContentView(documentBinding.root)
+        documentBinding.ivDocsClose.setOnClickListener {
+            docsBottomSheet.dismiss()
+        }
         initView()
         getBookingJourneyData(param1)
         return mBinding.root
@@ -143,6 +154,11 @@ class BookingJourneyFragment : BaseFragment() {
             bottomSheetDialog.dismiss()
         }
         allReceiptDialog.tvViewAllReceipts.setOnClickListener {
+            docsBottomSheet.show()
+            documentBinding.rvDocsItemRecycler.layoutManager =
+                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+//            documentBinding.rvDocsItemRecycler.adapter =
+//                AllPaymentReceiptAdapter(context, allPaymentReceiptList, this)
             
         }
     }
