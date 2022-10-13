@@ -116,7 +116,7 @@ class PortfolioViewModel(
     fun getAllPaymentReceipt(): ArrayList<PaymentReceipt>{
         return paymentReceipt
     }
-    fun savePaymentHistory(payment: ArrayList<PaymentReceipt>) {
+    fun savePaymentReceipt(payment: ArrayList<PaymentReceipt>) {
         paymentReceipt.addAll(payment)
     }
 

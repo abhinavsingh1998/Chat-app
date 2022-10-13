@@ -32,6 +32,7 @@ import com.emproto.networklayer.response.bookingjourney.Data
 import com.emproto.networklayer.response.bookingjourney.Payment
 import com.emproto.networklayer.response.bookingjourney.PaymentReceipt
 import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.profile.AccountsResponse
 import com.example.portfolioui.adapters.BookingJourneyAdapter
 import com.example.portfolioui.databinding.DialogHandoverDetailsBinding
 import com.example.portfolioui.databinding.DialogPendingPaymentBinding
@@ -95,6 +96,8 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
         portfolioViewModel = ViewModelProvider(requireActivity(), portfolioFactory)[PortfolioViewModel::class.java]
         (requireActivity() as HomeActivity).showBackArrow()
         (requireActivity() as HomeActivity).hideBottomNavigation()
+
+
         allPaymentReceiptList = portfolioViewModel.getAllPaymentReceipt()
 
         documentBinding = DocumentsBottomSheetBinding.inflate(layoutInflater)
@@ -157,6 +160,7 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
             bottomSheetDialog.dismiss()
         }
         allReceiptDialog.tvViewAllReceipts.setOnClickListener {
+            portfolioViewModel.savePaymentReceipt(allPaymentReceiptList)
             docsBottomSheet.show()
             documentBinding.rvDocsItemRecycler.layoutManager =
                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
@@ -176,6 +180,9 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
                     Status.SUCCESS -> {
                         mBinding.loader.hide()
                         loadBookingJourneyData(it.data!!.data)
+                        getPaymentReceiptData(it.data!!.data)
+
+//
                     }
                     Status.ERROR -> {
                         mBinding.loader.hide()
@@ -185,6 +192,15 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
                     }
                 }
             }
+    }
+
+    private fun getPaymentReceiptData(data: Data) {
+        if (data.bookingJourney.paymentReceipt != null && data.bookingJourney.paymentReceipt is List<PaymentReceipt>) {
+            allPaymentReceiptList =
+                data.bookingJourney.paymentReceipt as java.util.ArrayList<PaymentReceipt>
+                    portfolioViewModel.savePaymentReceipt(allPaymentReceiptList)
+        }
+
     }
 
     private fun loadBookingJourneyData(data1: Data) {
