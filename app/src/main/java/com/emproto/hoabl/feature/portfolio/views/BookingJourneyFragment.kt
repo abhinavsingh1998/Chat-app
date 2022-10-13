@@ -98,7 +98,6 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
         (requireActivity() as HomeActivity).hideBottomNavigation()
 
 
-        allPaymentReceiptList = portfolioViewModel.getAllPaymentReceipt()
 
         documentBinding = DocumentsBottomSheetBinding.inflate(layoutInflater)
         docsBottomSheet = BottomSheetDialog(this.requireContext(), R.style.BottomSheetDialogTheme)
@@ -109,6 +108,12 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
         initView()
         getBookingJourneyData(param1)
         return mBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        allPaymentReceiptList = portfolioViewModel.getAllPaymentReceipt()
+
     }
 
     private fun initView() {
@@ -161,6 +166,8 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
         }
         allReceiptDialog.tvViewAllReceipts.setOnClickListener {
             portfolioViewModel.savePaymentReceipt(allPaymentReceiptList)
+
+            portfolioViewModel.savePaymentReceipt(allPaymentReceiptList)
             docsBottomSheet.show()
             documentBinding.rvDocsItemRecycler.layoutManager =
                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
@@ -180,7 +187,11 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
                     Status.SUCCESS -> {
                         mBinding.loader.hide()
                         loadBookingJourneyData(it.data!!.data)
-                        getPaymentReceiptData(it.data!!.data)
+//                        getPaymentReceiptData(it.data!!.data)
+                        if (it.data!!.data.bookingJourney.paymentReceipt != null && it.data!!.data.bookingJourney.paymentReceipt is List<PaymentReceipt>) {
+                            allPaymentReceiptList =
+                                it.data!!.data.bookingJourney.paymentReceipt as java.util.ArrayList<PaymentReceipt>
+                        }
 
 //
                     }
