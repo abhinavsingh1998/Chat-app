@@ -81,7 +81,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                     }
 
                 } catch (e: Exception) {
-                    mPromisesResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                    mPromisesResponse.postValue(BaseResponse.Companion.error(e.message!!))
                 }
             }
         }
@@ -134,7 +134,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                     }
 
                 } catch (e: Exception) {
-                    mHomeResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                    mHomeResponse.postValue(BaseResponse.Companion.error(e.message!!))
                 }
             }
 
@@ -283,7 +283,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                 }
 
             } catch (e: Exception) {
-                mAddUsernameResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mAddUsernameResponse.postValue(BaseResponse.Companion.error(e.message!!))
             }
         }
         return mAddUsernameResponse
@@ -310,7 +310,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                     )
                 }
             } catch (e: Exception) {
-                mAllInvestmentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mAllInvestmentsResponse.postValue(BaseResponse.Companion.error(e.message!!))
             }
         }
         return mAllInvestmentsResponse
@@ -337,7 +337,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.message!!))
             }
         }
         return mDocumentsResponse
@@ -366,7 +366,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                 }
             } catch (e: Exception) {
 
-                mChatResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mChatResponse.postValue(BaseResponse.Companion.error(e.message!!))
             }
         }
         return mChatResponse
@@ -397,7 +397,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                 }
             } catch (e: Exception) {
 
-                mChatDetailResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mChatDetailResponse.postValue(BaseResponse.Companion.error(e.message!!))
             }
         }
         return mChatDetailResponse
@@ -430,7 +430,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                 }
             } catch (e: Exception) {
 
-                mChatHistoryResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mChatHistoryResponse.postValue(BaseResponse.Companion.error(e.message!!))
             }
         }
         return mChatHistoryResponse
@@ -460,7 +460,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                 }
             } catch (e: Exception) {
 
-                msendMessageResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                msendMessageResponse.postValue(BaseResponse.Companion.error(e.message!!))
             }
         }
         return msendMessageResponse
@@ -489,7 +489,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                 }
             } catch (e: Exception) {
 
-                mAccountsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mAccountsResponse.postValue(BaseResponse.Companion.error(e.message!!))
             }
         }
         return mAccountsResponse
@@ -516,7 +516,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                     )
                 }
             } catch (e: Exception) {
-                mSearchResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mSearchResponse.postValue(BaseResponse.Companion.error(e.message!!))
             }
         }
         return mSearchResponse
@@ -546,7 +546,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                     )
                 }
             } catch (e: Exception) {
-                mSearchDocResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mSearchDocResponse.postValue(BaseResponse.Companion.error(e.message!!))
             }
         }
         return mSearchDocResponse
@@ -573,7 +573,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.message!!))
             }
         }
         return mDocumentsResponse
@@ -668,7 +668,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                     }
                 } catch (e: Exception) {
 
-                    mNewNotificationResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                    mNewNotificationResponse.postValue(BaseResponse.Companion.error(e.message!!))
                 }
             }
         }
@@ -706,7 +706,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                     }
                 } catch (e: Exception) {
 
-                    mNotificationResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                    mNotificationResponse.postValue(BaseResponse.Companion.error(e.message!!))
                 }
             }
         }
@@ -737,7 +737,7 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
                 }
             } catch (e: Exception) {
 
-                mNotificationResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mNotificationResponse.postValue(BaseResponse.Companion.error(e.message!!))
             }
         }
         return mNotificationResponse

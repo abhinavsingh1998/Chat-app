@@ -78,7 +78,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                         }
                     }
                 } catch (e: Exception) {
-                    mPromisesResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                    mPromisesResponse.postValue(BaseResponse.Companion.error(e.message!!))
                 }
             }
         }
@@ -127,7 +127,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                         )
                     }
                 } catch (e: Exception) {
-                    mPromisesResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                    mPromisesResponse.postValue(BaseResponse.Companion.error(e.message!!))
                 }
             }
         }
@@ -155,7 +155,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.message!!))
             }
         }
         return mDocumentsResponse
@@ -182,7 +182,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.message!!))
             }
         }
         return mDocumentsResponse
@@ -209,7 +209,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.message!!))
             }
         }
         return mDocumentsResponse
@@ -237,7 +237,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                         )
                     }
                 } catch (e: Exception) {
-                    mDocumentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                    mDocumentsResponse.postValue(BaseResponse.Companion.error(e.message!!))
                 }
             }
         }
@@ -271,7 +271,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mTimelineMediaResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mTimelineMediaResponse.postValue(BaseResponse.Companion.error(e.message!!))
             }
         }
         return mTimelineMediaResponse
@@ -298,7 +298,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.message!!))
             }
         }
         return mDocumentsResponse
@@ -325,7 +325,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.message!!))
             }
         }
         return mDocumentsResponse
@@ -352,7 +352,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.message!!))
             }
         }
         return mDocumentsResponse

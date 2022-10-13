@@ -16,7 +16,7 @@ abstract class BaseRepository(val application: Application) {
         return if (e.message == ApiConstants.NO_INTERNET) {
             e.message!!
         } else {
-            e.message!!
+            Constants.SOMETHING_WENT_WRONG
         }
     }
 }
