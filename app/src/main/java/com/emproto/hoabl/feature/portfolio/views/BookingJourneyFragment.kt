@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -23,6 +24,7 @@ import com.emproto.hoabl.databinding.DocumentsBottomSheetBinding
 import com.emproto.hoabl.databinding.FragmentReceiptBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.portfolio.adapters.AllReceiptsBookingJourneyAdapter
 import com.emproto.hoabl.feature.portfolio.adapters.ReceiptListAdapter
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
@@ -44,9 +46,10 @@ import javax.inject.Inject
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class BookingJourneyFragment : BaseFragment() {
+class BookingJourneyFragment : BaseFragment(),
+AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
 
-    lateinit var allPaymentReceiptList: ArrayList<PaymentReceipt>
+    private lateinit var allPaymentReceiptList: ArrayList<PaymentReceipt>
     private var param1: Int = 0
     private var param2: String? = null
     lateinit var mBinding: FragmentBookingjourneyBinding
@@ -157,8 +160,8 @@ class BookingJourneyFragment : BaseFragment() {
             docsBottomSheet.show()
             documentBinding.rvDocsItemRecycler.layoutManager =
                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-//            documentBinding.rvDocsItemRecycler.adapter =
-//                AllPaymentReceiptAdapter(context, allPaymentReceiptList, this)
+            documentBinding.rvDocsItemRecycler.adapter =
+                AllReceiptsBookingJourneyAdapter(context, allPaymentReceiptList, this)
             
         }
     }
@@ -378,4 +381,38 @@ class BookingJourneyFragment : BaseFragment() {
     fun manageMyLand() {
         (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
     }
+
+    override fun onViewClick(
+        paymentReceiptList: ArrayList<PaymentReceipt>,
+        view: View,
+        position: Int,
+        name: String,
+        path: String?
+    ) {
+        docsBottomSheet.dismiss()
+        openDocumentScreen(name, path.toString())
+    }
+
+    private fun openDocumentScreen(name: String, path: String) {
+        val strings = name.split(".")
+        if (strings.size > 1) {
+            if (strings[1] == Constants.PNG_SMALL || strings[1] == Constants.JPG_SMALL) {
+                //open image loading screen
+                openDocument(name, path)
+            } else if (strings[1] == Constants.PDF) {
+                getDocumentData(path)
+            } else {
+                Toast.makeText(context, Constants.INVALID_FORMAT, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
+    private fun openDocument(name: String, path: String) {
+        (requireActivity() as HomeActivity).addFragment(
+            DocViewerFragment.newInstance(true, name, path),
+            true
+        )
+    }
+
 }
