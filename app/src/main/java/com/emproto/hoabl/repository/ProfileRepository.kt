@@ -52,7 +52,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mEditProfileResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mEditProfileResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mEditProfileResponse
@@ -80,7 +80,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mUploadProfilePicture.postValue(BaseResponse.Companion.error(e.message!!))
+                mUploadProfilePicture.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mUploadProfilePicture
@@ -111,7 +111,7 @@ class ProfileRepository @Inject constructor(application: Application) :
 
 
             } catch (e: Exception) {
-                mUploadKycDocument.postValue(BaseResponse.Companion.error(e.message!!))
+                mUploadKycDocument.postValue(BaseResponse.error(getErrorMessage(e)))
 
             }
         }
@@ -137,7 +137,7 @@ class ProfileRepository @Inject constructor(application: Application) :
 
 
             } catch (e: Exception) {
-                presignedUrlResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                presignedUrlResponse.postValue(BaseResponse.error(getErrorMessage(e)))
 
             }
         }
@@ -165,7 +165,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mCountriesResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mCountriesResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mCountriesResponse
@@ -194,7 +194,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                         )
                     }
                 } catch (e: Exception) {
-                    mCountryResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                    mCountryResponse.postValue(BaseResponse.error(getErrorMessage(e)))
                 }
             }
         }
@@ -227,7 +227,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                         )
                     }
                 } catch (e: Exception) {
-                    mStatesResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                    mStatesResponse.postValue(BaseResponse.error(getErrorMessage(e)))
                 }
             }
         }
@@ -266,7 +266,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                         )
                     }
                 } catch (e: Exception) {
-                    mCitiesResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                    mCitiesResponse.postValue(BaseResponse.error(getErrorMessage(e)))
                 }
             }
         }
@@ -292,7 +292,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mDocumentsResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mDocumentsResponse
@@ -321,7 +321,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                deleteResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                deleteResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return deleteResponse
@@ -350,7 +350,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                deleteResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                deleteResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return deleteResponse
@@ -371,7 +371,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                 }
 
             } catch (e: Exception) {
-                mCaseResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mCaseResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mCaseResponse
@@ -395,7 +395,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                 }
 
             } catch (e: Exception) {
-                termsConditionResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                termsConditionResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return termsConditionResponse
@@ -419,7 +419,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                 }
 
             } catch (e: Exception) {
-                aboutusResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                aboutusResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return aboutusResponse
@@ -449,7 +449,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                 }
             } catch (e: Exception) {
 
-                faqResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                faqResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return faqResponse
@@ -474,7 +474,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                 }
 
             } catch (e: Exception) {
-                wcResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                wcResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return wcResponse
@@ -502,7 +502,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                         )
                     }
                 } catch (e: Exception) {
-                    allprojects.postValue(BaseResponse.Companion.error(e.message!!))
+                    allprojects.postValue(BaseResponse.error(getErrorMessage(e)))
                 }
             }
         }
@@ -528,7 +528,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                 }
 
             } catch (e: Exception) {
-                stResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                stResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return stResponse
@@ -553,7 +553,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                 }
 
             } catch (e: Exception) {
-                stResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                stResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return stResponse
@@ -573,7 +573,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                 }
 
             } catch (e: Exception) {
-                mCaseResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mCaseResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mCaseResponse
@@ -600,7 +600,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mDocumentsResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mDocumentsResponse
@@ -627,7 +627,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mLogoutFromCurrentResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mLogoutFromCurrentResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mLogoutFromCurrentResponse
@@ -654,7 +654,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mLogOutFromAllResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mLogOutFromAllResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mLogOutFromAllResponse
@@ -683,7 +683,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                 }
             } catch (e: Exception) {
 
-                mAccountsResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mAccountsResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mAccountsResponse
@@ -710,7 +710,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mDocumentsResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mDocumentsResponse
@@ -741,7 +741,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mUploadFmResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mUploadFmResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mUploadFmResponse

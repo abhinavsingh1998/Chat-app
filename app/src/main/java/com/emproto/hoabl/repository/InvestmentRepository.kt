@@ -54,7 +54,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                         )
                     }
                 } catch (e: Exception) {
-                    mInvestmentResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                    mInvestmentResponse.postValue(BaseResponse.error(getErrorMessage(e)))
                 }
             }
         }
@@ -83,7 +83,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mInvestmentResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mInvestmentResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mInvestmentResponse
@@ -134,7 +134,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mInvestmentDetailResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mInvestmentDetailResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mInvestmentDetailResponse
@@ -161,7 +161,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mAllInvestmentsResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mAllInvestmentsResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mAllInvestmentsResponse
@@ -189,7 +189,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mInvestmentPromisesResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mInvestmentPromisesResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mInvestmentPromisesResponse
@@ -216,7 +216,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mInvestmentFaqResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mInvestmentFaqResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mInvestmentFaqResponse
@@ -240,7 +240,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mWatchListResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mWatchListResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mWatchListResponse
@@ -267,7 +267,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mDeleteWatchListResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mDeleteWatchListResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mDeleteWatchListResponse
@@ -294,7 +294,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mgetAllInventoriesResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mgetAllInventoriesResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mgetAllInventoriesResponse
@@ -318,7 +318,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mAddInventoryResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mAddInventoryResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mAddInventoryResponse
@@ -342,7 +342,7 @@ class InvestmentRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mVideoCallResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mVideoCallResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mVideoCallResponse
