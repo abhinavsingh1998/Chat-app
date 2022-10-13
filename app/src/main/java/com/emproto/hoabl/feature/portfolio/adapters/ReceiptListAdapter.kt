@@ -45,18 +45,18 @@ class ReceiptListAdapter(
                 tvPaymentDate.text = ""
             }
 
-            tvSeeReceipt.text = showHTMLText(
-                String.format(
-                    mContext.getString(R.string.tv_receipt),
-                    "See Receipt"
-                )
-            )
-            tvSeeReceipt.setOnClickListener {
-                if (accountsPaymentList[position].document != null &&
-                    accountsPaymentList[position].document.path != null
-                )
-                    mListener.onAccountsPaymentItemClick(accountsPaymentList[position].document.path)
-            }
+//            tvSeeReceipt.text = showHTMLText(
+//                String.format(
+//                    mContext.getString(R.string.tv_receipt),
+//                    "See Receipt"
+//                )
+//            )
+//            tvSeeReceipt.setOnClickListener {
+//                if (accountsPaymentList[position].document != null &&
+//                    accountsPaymentList[position].document.path != null
+//                )
+//                    mListener.onAccountsPaymentItemClick(accountsPaymentList[position].document.path)
+//            }
         }
     }
 
@@ -69,7 +69,7 @@ class ReceiptListAdapter(
         val tvPaidAmount: TextView = itemView.findViewById(R.id.tvPaidAmount)
         val tvPaymentMilestone: TextView = itemView.findViewById(R.id.tvPaymentMilestone)
         val tvPaymentDate: TextView = itemView.findViewById(R.id.tvPaymentDate)
-        val tvSeeReceipt: TextView = itemView.findViewById(R.id.tvSeeReceipt)
+//        val tvSeeReceipt: TextView = itemView.findViewById(R.id.tvSeeReceipt)
 
     }
 

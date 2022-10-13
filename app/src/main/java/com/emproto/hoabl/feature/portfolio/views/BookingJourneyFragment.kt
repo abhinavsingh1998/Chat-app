@@ -142,6 +142,9 @@ class BookingJourneyFragment : BaseFragment() {
         allReceiptDialog.actionClose.setOnClickListener {
             bottomSheetDialog.dismiss()
         }
+        allReceiptDialog.tvViewAllReceipts.setOnClickListener {
+            
+        }
     }
 
     private fun getBookingJourneyData(investedId: Int) {
