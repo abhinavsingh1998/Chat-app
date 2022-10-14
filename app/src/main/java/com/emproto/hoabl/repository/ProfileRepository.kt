@@ -14,6 +14,7 @@ import com.emproto.networklayer.request.profile.ReportSecurityRequest
 import com.emproto.networklayer.request.profile.WhatsappConsentBody
 import com.emproto.networklayer.response.BaseResponse
 import com.emproto.networklayer.response.ddocument.DDocumentResponse
+import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.fm.FmUploadResponse
 import com.emproto.networklayer.response.investment.FaqDetailResponse
 import com.emproto.networklayer.response.login.TroubleSigningResponse
@@ -51,7 +52,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mEditProfileResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mEditProfileResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mEditProfileResponse
@@ -79,7 +80,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mUploadProfilePicture.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mUploadProfilePicture.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mUploadProfilePicture
@@ -110,7 +111,7 @@ class ProfileRepository @Inject constructor(application: Application) :
 
 
             } catch (e: Exception) {
-                mUploadKycDocument.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mUploadKycDocument.postValue(BaseResponse.error(getErrorMessage(e)))
 
             }
         }
@@ -136,7 +137,7 @@ class ProfileRepository @Inject constructor(application: Application) :
 
 
             } catch (e: Exception) {
-                presignedUrlResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                presignedUrlResponse.postValue(BaseResponse.error(getErrorMessage(e)))
 
             }
         }
@@ -164,7 +165,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mCountriesResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mCountriesResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mCountriesResponse
@@ -172,7 +173,7 @@ class ProfileRepository @Inject constructor(application: Application) :
 
     fun getCountries(refresh: Boolean = false): LiveData<BaseResponse<CountryResponse>> {
         val mCountryResponse = MutableLiveData<BaseResponse<CountryResponse>>()
-        if (mCountryResponse.value == null || refresh) {
+        if ((mCountryResponse.value == null || mCountryResponse.value!!.status == Status.ERROR) || refresh) {
             mCountryResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
@@ -193,7 +194,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                         )
                     }
                 } catch (e: Exception) {
-                    mCountryResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                    mCountryResponse.postValue(BaseResponse.error(getErrorMessage(e)))
                 }
             }
         }
@@ -205,7 +206,7 @@ class ProfileRepository @Inject constructor(application: Application) :
         refresh: Boolean
     ): LiveData<BaseResponse<StatesResponse>> {
         val mStatesResponse = MutableLiveData<BaseResponse<StatesResponse>>()
-        if (mStatesResponse.value == null || refresh) {
+        if ((mStatesResponse.value == null || mStatesResponse.value!!.status == Status.ERROR) || refresh) {
             mStatesResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
@@ -226,7 +227,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                         )
                     }
                 } catch (e: Exception) {
-                    mStatesResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                    mStatesResponse.postValue(BaseResponse.error(getErrorMessage(e)))
                 }
             }
         }
@@ -239,7 +240,7 @@ class ProfileRepository @Inject constructor(application: Application) :
         countryIsoCode: String, refresh: Boolean
     ): LiveData<BaseResponse<CitiesResponse>> {
         val mCitiesResponse = MutableLiveData<BaseResponse<CitiesResponse>>()
-        if (mCitiesResponse.value == null || refresh) {
+        if ((mCitiesResponse.value == null || mCitiesResponse.value!!.status == Status.ERROR) || refresh) {
             mCitiesResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
@@ -265,7 +266,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                         )
                     }
                 } catch (e: Exception) {
-                    mCitiesResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                    mCitiesResponse.postValue(BaseResponse.error(getErrorMessage(e)))
                 }
             }
         }
@@ -291,7 +292,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mDocumentsResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mDocumentsResponse
@@ -320,7 +321,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                deleteResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                deleteResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return deleteResponse
@@ -349,7 +350,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                deleteResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                deleteResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return deleteResponse
@@ -370,7 +371,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                 }
 
             } catch (e: Exception) {
-                mCaseResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mCaseResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mCaseResponse
@@ -394,7 +395,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                 }
 
             } catch (e: Exception) {
-                termsConditionResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                termsConditionResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return termsConditionResponse
@@ -418,7 +419,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                 }
 
             } catch (e: Exception) {
-                aboutusResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                aboutusResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return aboutusResponse
@@ -448,7 +449,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                 }
             } catch (e: Exception) {
 
-                faqResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                faqResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return faqResponse
@@ -473,7 +474,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                 }
 
             } catch (e: Exception) {
-                wcResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                wcResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return wcResponse
@@ -481,7 +482,7 @@ class ProfileRepository @Inject constructor(application: Application) :
 
     // get All Projects
     fun getAllProjects(refresh: Boolean): LiveData<BaseResponse<AllProjectsResponse>> {
-        if (allprojects.value == null || refresh) {
+        if ((allprojects.value == null || allprojects.value!!.status== Status.ERROR) || refresh) {
             allprojects.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
@@ -501,7 +502,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                         )
                     }
                 } catch (e: Exception) {
-                    allprojects.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                    allprojects.postValue(BaseResponse.error(getErrorMessage(e)))
                 }
             }
         }
@@ -527,7 +528,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                 }
 
             } catch (e: Exception) {
-                stResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                stResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return stResponse
@@ -552,7 +553,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                 }
 
             } catch (e: Exception) {
-                stResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                stResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return stResponse
@@ -572,7 +573,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                 }
 
             } catch (e: Exception) {
-                mCaseResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mCaseResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mCaseResponse
@@ -599,7 +600,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mDocumentsResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mDocumentsResponse
@@ -626,7 +627,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mLogoutFromCurrentResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mLogoutFromCurrentResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mLogoutFromCurrentResponse
@@ -653,7 +654,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mLogOutFromAllResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mLogOutFromAllResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mLogOutFromAllResponse
@@ -682,7 +683,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                 }
             } catch (e: Exception) {
 
-                mAccountsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mAccountsResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mAccountsResponse
@@ -709,7 +710,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mDocumentsResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mDocumentsResponse
@@ -740,7 +741,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                     )
                 }
             } catch (e: Exception) {
-                mUploadFmResponse.postValue(BaseResponse.Companion.error(Constants.SOMETHING_WENT_WRONG))
+                mUploadFmResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mUploadFmResponse

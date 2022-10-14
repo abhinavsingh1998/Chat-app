@@ -84,7 +84,7 @@ class AuthRepository @Inject constructor(application: Application) : BaseReposit
                     )
                 }
             } catch (e: Exception) {
-                mVerifyOtpResponse.postValue(BaseResponse.error(e.message!!))
+                mVerifyOtpResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
 
@@ -116,7 +116,7 @@ class AuthRepository @Inject constructor(application: Application) : BaseReposit
                 }
 
             } catch (e: Exception) {
-                mAddUsernameResponse.postValue(BaseResponse.Companion.error(e.message!!))
+                mAddUsernameResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mAddUsernameResponse
@@ -165,16 +165,14 @@ class AuthRepository @Inject constructor(application: Application) : BaseReposit
                         )
                     )
                 }
-
             } catch (e: Exception) {
                 if (e.localizedMessage == ApiConstants.NO_INTERNET) {
                     mAddUsernameResponse.postValue(BaseResponse.error(ApiConstants.NO_INTERNET))
                 } else {
-                    mAddUsernameResponse.postValue(BaseResponse.error(Constants.SOMETHING_WENT_WRONG))
+                    mAddUsernameResponse.postValue(BaseResponse.Companion.error(e.message!!))
                 }
             }
         }
-        return mAddUsernameResponse
+         return mAddUsernameResponse
     }
-
 }
