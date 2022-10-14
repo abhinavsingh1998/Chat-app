@@ -141,8 +141,11 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     private fun trackEvent() {
-        val mixpanelAPI = MixpanelAPI.getInstance(this, getString(R.string.MIXPANEL_KEY))
-        mixpanelAPI.identify(appPreference.getMobilenum())
+//        val mixpanelAPI = MixpanelAPI.getInstance(this, getString(R.string.MIXPANEL_KEY))
+//        mixpanelAPI.identify(appPreference.getMobilenum())
+//        mixpanelAPI.track("Home")
+
+        Mixpanel(this).identifyFunction(appPreference.getMobilenum(),"Mast Head")
     }
 
     @SuppressLint("NewApi")
@@ -507,6 +510,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     fun share_app() {
+
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         shareIntent.type = "text/plain"

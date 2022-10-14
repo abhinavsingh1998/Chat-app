@@ -34,6 +34,7 @@ import com.emproto.hoabl.feature.home.adapters.AllInsightsAdapter
 import com.emproto.hoabl.feature.home.adapters.AllLatestUpdatesAdapter
 import com.emproto.hoabl.feature.home.data.LatesUpdatesPosition
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.investment.adapters.CategoryListAdapter
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
@@ -46,6 +47,7 @@ import com.emproto.hoabl.utils.Extensions.hideKeyboard
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.documents.Data
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.investment.ApData
@@ -73,6 +75,8 @@ class SearchResultFragment : BaseFragment() {
     private val permissionRequest: MutableList<String> = ArrayList()
     lateinit var handler: Handler
     private var runnable: Runnable? = null
+    @Inject
+    lateinit var appPreference: AppPreference
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -131,6 +135,7 @@ class SearchResultFragment : BaseFragment() {
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     val p0 = fragmentSearchResultBinding.searchLayout.search.text.toString()
+                    MixpanelSearch();
                     if (p0.toString() != "" && p0.toString().length > 1) {
                         fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility =
                             View.VISIBLE
@@ -146,6 +151,10 @@ class SearchResultFragment : BaseFragment() {
             }
 
         })
+    }
+
+    private fun MixpanelSearch() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),"Search")
     }
 
     private fun initObserver() {

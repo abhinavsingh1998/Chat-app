@@ -10,8 +10,10 @@ import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentPrivacyBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
 import javax.inject.Inject
 
@@ -22,7 +24,8 @@ class PrivacyFragment : BaseFragment() {
     @Inject
     lateinit var factory: ProfileFactory
     lateinit var profileViewModel: ProfileViewModel
-
+    @Inject
+    lateinit var appPreference: AppPreference
 
     val bundle = Bundle()
 
@@ -39,8 +42,13 @@ class PrivacyFragment : BaseFragment() {
             ViewModelProvider(requireActivity(), factory)[ProfileViewModel::class.java]
 
         initObserver()
+        trackEvent()
         initClickListener()
         return binding.root
+    }
+
+    private fun trackEvent() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),"Privacy Policy")
     }
 
 
