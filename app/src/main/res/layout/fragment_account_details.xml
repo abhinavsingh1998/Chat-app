@@ -146,6 +146,21 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rvDocuments" />
+                <TextView
+                    android:id="@+id/tvViewAllReceipts"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_size_16"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/jost_regular"
+                    android:lineSpacingExtra="0sp"
+                    android:singleLine="true"
+                    android:text="View All Receipts"
+                    android:textColor="@color/app_color"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="@id/tvSeeAllPayment"
+                    app:layout_constraintTop_toBottomOf="@+id/tvSeeAllPayment" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvNoPayment"
@@ -188,7 +203,7 @@
                     android:layout_marginTop="14dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvPaymentHistory"
+                    app:layout_constraintTop_toBottomOf="@+id/tvViewAllReceipts"
                     tools:itemCount="3"
                     tools:listitem="@layout/item_accounts_payment" />
             </androidx.constraintlayout.widget.ConstraintLayout>

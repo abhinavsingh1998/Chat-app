@@ -8,25 +8,31 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
+import com.emproto.hoabl.databinding.DocumentsBottomSheetBinding
 import com.emproto.hoabl.databinding.FragmentReceiptBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.portfolio.adapters.AllReceiptsBookingJourneyAdapter
 import com.emproto.hoabl.feature.portfolio.adapters.ReceiptListAdapter
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.response.bookingjourney.Data
 import com.emproto.networklayer.response.bookingjourney.Payment
+import com.emproto.networklayer.response.bookingjourney.PaymentReceipt
 import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.profile.AccountsResponse
 import com.example.portfolioui.adapters.BookingJourneyAdapter
 import com.example.portfolioui.databinding.DialogHandoverDetailsBinding
 import com.example.portfolioui.databinding.DialogPendingPaymentBinding
@@ -41,8 +47,10 @@ import javax.inject.Inject
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class BookingJourneyFragment : BaseFragment() {
+class BookingJourneyFragment : BaseFragment(),
+AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
 
+    private lateinit var allPaymentReceiptList: ArrayList<PaymentReceipt>
     private var param1: Int = 0
     private var param2: String? = null
     lateinit var mBinding: FragmentBookingjourneyBinding
@@ -55,6 +63,8 @@ class BookingJourneyFragment : BaseFragment() {
 
     lateinit var dialogRegistrationDetailsBinding: DialogRegistrationDetailsBinding
     lateinit var registrationDialog: CustomDialog
+    private lateinit var documentBinding: DocumentsBottomSheetBinding
+    private lateinit var docsBottomSheet: BottomSheetDialog
 
     lateinit var dialogPendingPayment: DialogPendingPaymentBinding
     lateinit var pendingPaymentDialog: CustomDialog
@@ -83,15 +93,27 @@ class BookingJourneyFragment : BaseFragment() {
     ): View {
         mBinding = FragmentBookingjourneyBinding.inflate(inflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
-        portfolioViewModel = ViewModelProvider(
-            requireActivity(),
-            portfolioFactory
-        )[PortfolioViewModel::class.java]
+        portfolioViewModel = ViewModelProvider(requireActivity(), portfolioFactory)[PortfolioViewModel::class.java]
         (requireActivity() as HomeActivity).showBackArrow()
         (requireActivity() as HomeActivity).hideBottomNavigation()
+
+
+
+        documentBinding = DocumentsBottomSheetBinding.inflate(layoutInflater)
+        docsBottomSheet = BottomSheetDialog(this.requireContext(), R.style.BottomSheetDialogTheme)
+        docsBottomSheet.setContentView(documentBinding.root)
+        documentBinding.ivDocsClose.setOnClickListener {
+            docsBottomSheet.dismiss()
+        }
         initView()
         getBookingJourneyData(param1)
         return mBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        allPaymentReceiptList = portfolioViewModel.getAllPaymentReceipt()
+
     }
 
     private fun initView() {
@@ -142,6 +164,17 @@ class BookingJourneyFragment : BaseFragment() {
         allReceiptDialog.actionClose.setOnClickListener {
             bottomSheetDialog.dismiss()
         }
+        allReceiptDialog.tvViewAllReceipts.setOnClickListener {
+            portfolioViewModel.savePaymentReceipt(allPaymentReceiptList)
+
+            portfolioViewModel.savePaymentReceipt(allPaymentReceiptList)
+            docsBottomSheet.show()
+            documentBinding.rvDocsItemRecycler.layoutManager =
+                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+            documentBinding.rvDocsItemRecycler.adapter =
+                AllReceiptsBookingJourneyAdapter(context, allPaymentReceiptList, this)
+            
+        }
     }
 
     private fun getBookingJourneyData(investedId: Int) {
@@ -154,6 +187,13 @@ class BookingJourneyFragment : BaseFragment() {
                     Status.SUCCESS -> {
                         mBinding.loader.hide()
                         loadBookingJourneyData(it.data!!.data)
+//                        getPaymentReceiptData(it.data!!.data)
+                        if (it.data!!.data.bookingJourney.paymentReceipts != null && it.data!!.data.bookingJourney.paymentReceipts is List<PaymentReceipt>) {
+                            allPaymentReceiptList =
+                                it.data!!.data.bookingJourney.paymentReceipts as java.util.ArrayList<PaymentReceipt>
+                        }
+
+//
                     }
                     Status.ERROR -> {
                         mBinding.loader.hide()
@@ -163,6 +203,15 @@ class BookingJourneyFragment : BaseFragment() {
                     }
                 }
             }
+    }
+
+    private fun getPaymentReceiptData(data: Data) {
+        if (data.bookingJourney.paymentReceipts != null && data.bookingJourney.paymentReceipts is List<PaymentReceipt>) {
+            allPaymentReceiptList =
+                data.bookingJourney.paymentReceipts as java.util.ArrayList<PaymentReceipt>
+                    portfolioViewModel.savePaymentReceipt(allPaymentReceiptList)
+        }
+
     }
 
     private fun loadBookingJourneyData(data1: Data) {
@@ -359,4 +408,38 @@ class BookingJourneyFragment : BaseFragment() {
     fun manageMyLand() {
         (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
     }
+
+    override fun onViewClick(
+        paymentReceiptList: ArrayList<PaymentReceipt>,
+        view: View,
+        position: Int,
+        name: String,
+        path: String?
+    ) {
+        docsBottomSheet.dismiss()
+        openDocumentScreen(name, path.toString())
+    }
+
+    private fun openDocumentScreen(name: String, path: String) {
+        val strings = name.split(".")
+        if (strings.size > 1) {
+            if (strings[1] == Constants.PNG_SMALL || strings[1] == Constants.JPG_SMALL) {
+                //open image loading screen
+                openDocument(name, path)
+            } else if (strings[1] == Constants.PDF) {
+                getDocumentData(path)
+            } else {
+                Toast.makeText(context, Constants.INVALID_FORMAT, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
+    private fun openDocument(name: String, path: String) {
+        (requireActivity() as HomeActivity).addFragment(
+            DocViewerFragment.newInstance(true, name, path),
+            true
+        )
+    }
+
 }

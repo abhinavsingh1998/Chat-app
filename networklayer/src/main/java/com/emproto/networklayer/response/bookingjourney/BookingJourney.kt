@@ -7,5 +7,7 @@ data class BookingJourney(
     val payments: List<Payment>,
     val possession: Possession,
     val transaction: Transaction,
-    val paymentHistory: List<PaymentHistory>
+    val paymentHistory: List<PaymentHistory>,
+    val paymentReceipts: ArrayList<PaymentReceipt>
+
 )

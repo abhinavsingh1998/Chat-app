@@ -36,6 +36,7 @@ object Utility {
     const val END_DATE = "enddate"
     const val FILTER_SELECTED = "filter"
 
+
     fun dateInWords(time: String): String? {
         val inputPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         val inputFormat = SimpleDateFormat(inputPattern)
@@ -517,6 +518,10 @@ object Utility {
     }
 
 
+
+    fun clickEventTrack(mag:String){
+
+    }
 
 }
 
