@@ -75,11 +75,8 @@ class AccountsPaymentListAdapter(
 
     interface OnPaymentItemClickListener {
         fun onAccountsPaymentItemClick(
-            accountsPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>,
             view: View,
-            position: Int,
-            name: String,
-            path: String,
+            bookingId: String
         )
     }
 
@@ -109,23 +106,10 @@ class AccountsPaymentListAdapter(
 
 
             holder.tvSeeReceipt.setOnClickListener {
-                if (accountsPaymentList[position].document == null) {
-                    Toast.makeText(
-                        mContext,
-                        "Connect with your relationship manager\nfor the receipt",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
                     mListener.onAccountsPaymentItemClick(
-                        accountsPaymentList,
                         it,
-                        position,
-                        accountsPaymentList[position].document?.name.toString(),
-                        accountsPaymentList[position].document?.path.toString()
+                        accountsPaymentList[position].crmBookingId
                     )
-
-                }
-
             }
         } else if (holder is EmptyList) {
             "No Payment is done yet,See your payment history after making your first payment.".also {

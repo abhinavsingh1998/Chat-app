@@ -8,31 +8,38 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.Constants
 import com.emproto.core.Utility
+import com.emproto.hoabl.R
+import com.emproto.hoabl.databinding.DocumentsBottomSheetBinding
 import com.emproto.hoabl.databinding.FragmentPaymentHistoryBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.portfolio.views.DocViewerFragment
 import com.emproto.hoabl.feature.profile.adapter.accounts.AllPaymentHistoryAdapter
+import com.emproto.hoabl.feature.profile.adapter.accounts.AllReceiptsList
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.AccountsResponse
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import javax.inject.Inject
 
 class AllPaymentHistoryFragment : Fragment(),
-    AllPaymentHistoryAdapter.OnAllPaymentItemClickListener {
+    AllPaymentHistoryAdapter.OnAllPaymentItemClickListener,
+    AllReceiptsList.OnAllDocumentLabelClickListener {
 
     @Inject
     lateinit var portfolioFactory: PortfolioFactory
@@ -48,6 +55,12 @@ class AllPaymentHistoryFragment : Fragment(),
     private var isWritePermissionGranted: Boolean = false
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private val permissionRequest: MutableList<String> = ArrayList()
+    var recieptsList = ArrayList<AccountsResponse.Data.PaymentReceipt>()
+    var paymentreciepts = ArrayList<AccountsResponse.Data.PaymentReceipt>()
+    private lateinit var documentBinding: DocumentsBottomSheetBinding
+    private lateinit var docsBottomSheet: BottomSheetDialog
+
+
     var base64Data: String = ""
     val bundle = Bundle()
     override fun onCreateView(
@@ -92,21 +105,25 @@ class AllPaymentHistoryFragment : Fragment(),
             context,
             allPaymentList, this
         )
+        initview()
     }
 
     private fun initClickListener() {
         binding.backAction.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
     }
 
-    override fun onAccountsAllPaymentItemClick(
-        accountsPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>,
-        view: View,
-        position: Int,
-        name: String,
-        path: String
-    ) {
-        openDocumentScreen(name, path)
+    private fun initview() {
+        profileViewModel.getAllPaymentReceipts().observe(viewLifecycleOwner, Observer {
+            paymentreciepts = it as ArrayList<AccountsResponse.Data.PaymentReceipt>
+        })
 
+        documentBinding = DocumentsBottomSheetBinding.inflate(layoutInflater)
+        docsBottomSheet = BottomSheetDialog(this.requireContext(), R.style.BottomSheetDialogTheme)
+        docsBottomSheet.setContentView(documentBinding.root)
+        paymentreciepts.clear()
+        documentBinding.ivDocsClose.setOnClickListener {
+            docsBottomSheet.dismiss()
+        }
     }
 
     private fun openDocument(name: String, path: String) {
@@ -194,9 +211,40 @@ class AllPaymentHistoryFragment : Fragment(),
         } else {
             (requireActivity() as HomeActivity).showErrorToast(Constants.SOMETHING_WENT_WRONG)
         }
-
-
     }
 
+    override fun onAccountsAllPaymentItemClick(view: View, bookingId: String) {
 
+        recieptsList.clear()
+        for (i in 0 until paymentreciepts!!.size) {
+            if (bookingId.equals(paymentreciepts[i].crmBookingId)) {
+                recieptsList.add(paymentreciepts[i])
+            }
+        }
+        if (recieptsList.size == 0) {
+            Toast.makeText(
+                requireContext(),
+                "Connect with your relationship manager\nfor the receipt",
+                Toast.LENGTH_SHORT
+            ).show()
+
+        } else {
+            docsBottomSheet.show()
+            documentBinding.rvDocsItemRecycler.layoutManager =
+                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+            documentBinding.rvDocsItemRecycler.adapter =
+                AllReceiptsList(context, recieptsList, this)
+        }
+    }
+
+    override fun onViewClick(
+        paymentReceiptList: ArrayList<AccountsResponse.Data.PaymentReceipt>,
+        view: View,
+        position: Int,
+        name: String,
+        path: String?
+    ) {
+        docsBottomSheet.dismiss()
+        openDocumentScreen(name, path.toString())
+    }
 }

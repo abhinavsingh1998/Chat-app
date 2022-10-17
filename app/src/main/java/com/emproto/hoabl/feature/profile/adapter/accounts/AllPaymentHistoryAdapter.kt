@@ -18,8 +18,6 @@ class AllPaymentHistoryAdapter(
     private var mContext: Context?,
     private var accountsPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>,
     private var mListener: OnAllPaymentItemClickListener
-
-
 ) : RecyclerView.Adapter<AllPaymentHistoryAdapter.ViewHolder>() {
 
     lateinit var outputFormat: SimpleDateFormat
@@ -33,11 +31,8 @@ class AllPaymentHistoryAdapter(
 
     interface OnAllPaymentItemClickListener {
         fun onAccountsAllPaymentItemClick(
-            accountsPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>,
             view: View,
-            position: Int,
-            name: String,
-            path: String,
+            bookingId: String
         )
     }
 
@@ -60,22 +55,10 @@ class AllPaymentHistoryAdapter(
             holder.tvPaymentDate.text = ""
         }
         holder.tvSeeReceipt.setOnClickListener {
-            if (accountsPaymentList[position].document == null) {
-                Toast.makeText(
-                    mContext,
-                    "Connect with your relationship manager\nfor the receipt",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
                 mListener.onAccountsAllPaymentItemClick(
-                    accountsPaymentList,
                     it,
-                    position,
-                    accountsPaymentList[position].document.name,
-                    accountsPaymentList[position].document.path
+                    accountsPaymentList[position].crmBookingId
                 )
-            }
-
         }
 
     }
@@ -90,7 +73,5 @@ class AllPaymentHistoryAdapter(
         val tvPaymentDate: TextView = itemView.findViewById(R.id.tvPaymentDate)
         val tvSeeReceipt: TextView = itemView.findViewById(R.id.tvSeeReceipt)
         val tvLandId: TextView = itemView.findViewById(R.id.tvLandId)
-
-
     }
 }

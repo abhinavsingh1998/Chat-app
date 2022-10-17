@@ -2,6 +2,7 @@ package com.emproto.hoabl.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.emproto.hoabl.repository.ProfileRepository
 import com.emproto.networklayer.request.profile.EditUserNameRequest
@@ -28,6 +29,7 @@ class ProfileViewModel(
     private var application: Application = mapplication
     private var profileRepository: ProfileRepository = mprofileRepository
     private var paymentHistory = ArrayList<AccountsResponse.Data.PaymentHistory>()
+    private var paymentsReciepts= MutableLiveData<List<AccountsResponse.Data.PaymentReceipt>>()
 
     fun editUserNameProfile(editUserNameRequest: EditUserNameRequest): LiveData<BaseResponse<EditProfileResponse>> {
         return profileRepository.editUserNameProfile(editUserNameRequest)
@@ -161,6 +163,14 @@ class ProfileViewModel(
         image: File
     ): LiveData<BaseResponse<FmUploadResponse>> {
         return profileRepository.uploadFm(type, pageName, image)
+    }
+
+    fun setAllPaymentReceipts(paymentsReciepts:List<AccountsResponse.Data.PaymentReceipt>){
+        this.paymentsReciepts.postValue(paymentsReciepts)
+    }
+
+    fun getAllPaymentReceipts():MutableLiveData<List<AccountsResponse.Data.PaymentReceipt>>{
+        return paymentsReciepts
     }
 }
 

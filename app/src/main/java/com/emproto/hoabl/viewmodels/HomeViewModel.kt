@@ -144,14 +144,6 @@ class HomeViewModel(
         return position
     }
 
-    fun setSearchLuPosition(position: LatesUpdatesPosition) {
-        this.latUpdPosition.postValue(position)
-    }
-
-    fun getSearchLuPosition(): LiveData<LatesUpdatesPosition> {
-        return latUpdPosition
-    }
-
     fun getInsightsData(
         refresh: Boolean,
         byPrority: Boolean
@@ -196,10 +188,6 @@ class HomeViewModel(
 
     fun sendMessage(sendMessageBody: SendMessageBody): LiveData<BaseResponse<SendMessageResponse>> {
         return homeRepository.sendMessage(sendMessageBody)
-    }
-
-    fun getAccountsList(): LiveData<BaseResponse<AccountsResponse>> {
-        return homeRepository.getAccountsList()
     }
 
     fun getReferNow(referralRequest: ReferralRequest): LiveData<BaseResponse<ReferalResponse>> {
