@@ -188,9 +188,9 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
                         mBinding.loader.hide()
                         loadBookingJourneyData(it.data!!.data)
 //                        getPaymentReceiptData(it.data!!.data)
-                        if (it.data!!.data.bookingJourney.paymentReceipt != null && it.data!!.data.bookingJourney.paymentReceipt is List<PaymentReceipt>) {
+                        if (it.data!!.data.bookingJourney.paymentReceipts != null && it.data!!.data.bookingJourney.paymentReceipts is List<PaymentReceipt>) {
                             allPaymentReceiptList =
-                                it.data!!.data.bookingJourney.paymentReceipt as java.util.ArrayList<PaymentReceipt>
+                                it.data!!.data.bookingJourney.paymentReceipts as java.util.ArrayList<PaymentReceipt>
                         }
 
 //
@@ -206,9 +206,9 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
     }
 
     private fun getPaymentReceiptData(data: Data) {
-        if (data.bookingJourney.paymentReceipt != null && data.bookingJourney.paymentReceipt is List<PaymentReceipt>) {
+        if (data.bookingJourney.paymentReceipts != null && data.bookingJourney.paymentReceipts is List<PaymentReceipt>) {
             allPaymentReceiptList =
-                data.bookingJourney.paymentReceipt as java.util.ArrayList<PaymentReceipt>
+                data.bookingJourney.paymentReceipts as java.util.ArrayList<PaymentReceipt>
                     portfolioViewModel.savePaymentReceipt(allPaymentReceiptList)
         }
 

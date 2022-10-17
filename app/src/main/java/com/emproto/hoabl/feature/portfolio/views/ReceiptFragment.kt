@@ -47,7 +47,7 @@ class ReceiptFragment : BaseFragment() {
             requireActivity(),
             portfolioFactory
         )[PortfolioViewModel::class.java]
-        initView()
+//        initView()
         initObserver()
 
         return fragmentReceiptBinding.root
@@ -57,26 +57,26 @@ class ReceiptFragment : BaseFragment() {
 
     }
 
-    private fun initView() {
-        fragmentReceiptBinding.actionClose.setOnClickListener {
-            (requireActivity() as HomeActivity).onBackPressed()
-        }
-
-        val paymentHistory = portfolioViewModel.getPaymentHistory()
-
-        fragmentReceiptBinding.receiptList.layoutManager = LinearLayoutManager(requireContext())
-        fragmentReceiptBinding.receiptList.adapter = ReceiptListAdapter(
-            requireContext(),
-            paymentHistory,
-            object : ReceiptListAdapter.OnPaymentItemClickListener {
-                override fun onAccountsPaymentItemClick(
-                    path: String
-                ) {
-                    //download the receipt
-                }
-
-            })
-    }
+//    private fun initView() {
+//        fragmentReceiptBinding.actionClose.setOnClickListener {
+//            (requireActivity() as HomeActivity).onBackPressed()
+//        }
+//
+//        val paymentHistory = portfolioViewModel.getPaymentHistory()
+//
+//        fragmentReceiptBinding.receiptList.layoutManager = LinearLayoutManager(requireContext())
+//        fragmentReceiptBinding.receiptList.adapter = ReceiptListAdapter(
+//            requireContext(),
+//            paymentHistory,
+//            object : ReceiptListAdapter.OnPaymentItemClickListener {
+//                override fun onAccountsPaymentItemClick(
+//                    path: String
+//                ) {
+//                    //download the receipt
+//                }
+//
+//            })
+//    }
 
     companion object {
         /**

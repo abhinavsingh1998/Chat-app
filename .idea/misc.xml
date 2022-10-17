@@ -17,9 +17,11 @@
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/complete_payment_card.xml" value="0.1" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/completed_investments_layout.xml" value="0.11979166666666667" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/custom_toolbar.xml" value="0.16666666666666666" />
+        <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/documents_bottom_sheet.xml" value="0.11979166666666667" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/financial_summary_card_1.xml" value="0.14666666666666667" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/financial_summary_card_2.xml" value="0.10211748633879782" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/fragment_about_us.xml" value="0.11979166666666667" />
+        <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/fragment_account_details.xml" value="0.14666666666666667" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/fragment_chats_detail.xml" value="0.11979166666666667" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/fragment_home.xml" value="0.11979166666666667" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/fragment_notification_bottom_sheet.xml" value="0.11979166666666667" />
@@ -29,6 +31,7 @@
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/home_portfolio_card.xml" value="0.11979166666666667" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/home_testimonials_layout.xml" value="0.11979166666666667" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/insights_list_item.xml" value="0.11979166666666667" />
+        <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/item_accounts_payment.xml" value="0.11979166666666667" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/item_chat_detail.xml" value="0.11979166666666667" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/item_completed_investments.xml" value="0.16666666666666666" />
         <entry key="..\:/Android Projects/Office Projects/app/src/main/res/layout/item_faq_question.xml" value="0.11979166666666667" />

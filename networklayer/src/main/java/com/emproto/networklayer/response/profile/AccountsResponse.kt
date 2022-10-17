@@ -16,7 +16,10 @@ data class AccountsResponse(
         @SerializedName("documents")
         val documents: List<Document>,
         @SerializedName("paymentHistory")
-        val paymentHistory: List<PaymentHistory>
+        val paymentHistory: List<PaymentHistory>,
+        @SerializedName("paymentReceipts")
+        val paymentReceipts:List<PaymentReceipt>
+
     ):Serializable {
         data class Document(
             @SerializedName("createdAt")
@@ -95,6 +98,32 @@ data class AccountsResponse(
                 @SerializedName("userId")
                 val userId: String
             ):Serializable
-        }
+            }
+        
+        data class PaymentReceipt(
+            @SerializedName("applicationId")
+            val applicationId: Any,
+            @SerializedName("crmBookingId")
+            val crmBookingId: String,
+            @SerializedName("crmCustomerPaymentId")
+            val crmCustomerPaymentId: String,
+            @SerializedName("crmLaunchPhaseId")
+            val crmLaunchPhaseId: String,
+            @SerializedName("documentCategory")
+            val documentCategory: Int,
+            @SerializedName("documentType")
+            val documentType: Int,
+            @SerializedName("id")
+            val id: Int,
+            @SerializedName("itemInternalId")
+            val itemInternalId: Any,
+            @SerializedName("name")
+            val name: String,
+            @SerializedName("path")
+            val path: String,
+            @SerializedName("userId")
+            val userId: String
+        ):Serializable
+
     }
 }

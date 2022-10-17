@@ -8,6 +8,6 @@ data class BookingJourney(
     val possession: Possession,
     val transaction: Transaction,
     val paymentHistory: List<PaymentHistory>,
-    val paymentReceipt: ArrayList<PaymentReceipt>
+    val paymentReceipts: ArrayList<PaymentReceipt>
 
 )

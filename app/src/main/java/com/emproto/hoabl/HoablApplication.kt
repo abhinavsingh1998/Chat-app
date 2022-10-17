@@ -20,6 +20,4 @@ class HoablApplication : Application(), HomeComponentProvider {
             .homeAppModule(HomeAppModule(this, applicationContext))
             .build()
     }
-
-
 }

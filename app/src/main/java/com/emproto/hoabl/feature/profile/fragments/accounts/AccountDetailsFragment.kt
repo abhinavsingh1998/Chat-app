@@ -57,6 +57,7 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
@@ -201,6 +202,13 @@ class AccountDetailsFragment : Fragment(),
                         allPaymentList =
                             it.data!!.data.paymentHistory as ArrayList<AccountsResponse.Data.PaymentHistory>
                         setAllPaymentList()
+                    }
+
+                    var recieptLsit= ArrayList<AccountsResponse.Data.PaymentReceipt>()
+
+
+                    for(i in 0 until it?.data?.data?.paymentReceipts!!.size){
+                        recieptLsit.add(it?.data?.data?.paymentReceipts!![i])
                     }
                 }
                 Status.ERROR -> {
