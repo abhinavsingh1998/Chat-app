@@ -113,7 +113,6 @@ class AccountDetailsFragment : Fragment(),
     private var removeDeniedPermissionDialog: Dialog? = null
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -204,10 +203,10 @@ class AccountDetailsFragment : Fragment(),
                         setAllPaymentList()
                     }
 
-                    var recieptLsit= ArrayList<AccountsResponse.Data.PaymentReceipt>()
+                    var recieptLsit = ArrayList<AccountsResponse.Data.PaymentReceipt>()
 
 
-                    for(i in 0 until it?.data?.data?.paymentReceipts!!.size){
+                    for (i in 0 until it?.data?.data?.paymentReceipts!!.size) {
                         recieptLsit.add(it?.data?.data?.paymentReceipts!![i])
                     }
                 }
@@ -218,6 +217,7 @@ class AccountDetailsFragment : Fragment(),
             }
         }
     }
+
     private fun showPermissionDeniedDialog() {
         val removeDialogLayout = DeniedLayoutBinding.inflate(layoutInflater)
         removeDeniedPermissionDialog = Dialog(requireContext())
@@ -234,6 +234,7 @@ class AccountDetailsFragment : Fragment(),
         removeDeniedPermissionDialog?.show()
 
     }
+
     private fun setAllPaymentList() {
         if (allPaymentList.isNullOrEmpty()) {
             binding.tvPaymentHistory.visibility = View.VISIBLE
@@ -606,7 +607,8 @@ class AccountDetailsFragment : Fragment(),
             requestStoragePermission()
         } else if (isReadStorageGranted && isWriteStorageGranted) {
             selectImage()
-            selectedDocumentType = documentType        }
+            selectedDocumentType = documentType
+        }
 
     }
 

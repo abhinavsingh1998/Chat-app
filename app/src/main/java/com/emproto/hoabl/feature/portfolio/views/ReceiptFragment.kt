@@ -57,27 +57,6 @@ class ReceiptFragment : BaseFragment() {
 
     }
 
-//    private fun initView() {
-//        fragmentReceiptBinding.actionClose.setOnClickListener {
-//            (requireActivity() as HomeActivity).onBackPressed()
-//        }
-//
-//        val paymentHistory = portfolioViewModel.getPaymentHistory()
-//
-//        fragmentReceiptBinding.receiptList.layoutManager = LinearLayoutManager(requireContext())
-//        fragmentReceiptBinding.receiptList.adapter = ReceiptListAdapter(
-//            requireContext(),
-//            paymentHistory,
-//            object : ReceiptListAdapter.OnPaymentItemClickListener {
-//                override fun onAccountsPaymentItemClick(
-//                    path: String
-//                ) {
-//                    //download the receipt
-//                }
-//
-//            })
-//    }
-
     companion object {
         /**
          * Use this factory method to create a new instance of
