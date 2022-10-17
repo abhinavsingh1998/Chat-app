@@ -41,10 +41,7 @@ import com.emproto.hoabl.databinding.FragmentAccountDetailsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.portfolio.views.DocViewerFragment
-import com.emproto.hoabl.feature.profile.adapter.accounts.AccountKycUploadAdapter
-import com.emproto.hoabl.feature.profile.adapter.accounts.AccountsDocumentLabelListAdapter
-import com.emproto.hoabl.feature.profile.adapter.accounts.AccountsPaymentListAdapter
-import com.emproto.hoabl.feature.profile.adapter.accounts.AllDocumentAdapter
+import com.emproto.hoabl.feature.profile.adapter.accounts.*
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.response.enums.Status
@@ -65,7 +62,8 @@ class AccountDetailsFragment : Fragment(),
     AccountsPaymentListAdapter.OnPaymentItemClickListener,
     AccountKycUploadAdapter.OnKycItemUploadClickListener,
     AllDocumentAdapter.OnAllDocumentLabelClickListener,
-    AccountsDocumentLabelListAdapter.OnDocumentLabelItemClickListener {
+    AccountsDocumentLabelListAdapter.OnDocumentLabelItemClickListener,
+    AllReceiptsList.OnAllDocumentLabelClickListener {
 
     companion object {
         const val DOC_CATEGORY_KYC = 100100
@@ -111,6 +109,8 @@ class AccountDetailsFragment : Fragment(),
     private var base64Data: String = ""
     var status = ""
     private var removeDeniedPermissionDialog: Dialog? = null
+    var paymentreciepts = ArrayList<AccountsResponse.Data.PaymentReceipt>()
+    var recieptsList = ArrayList<AccountsResponse.Data.PaymentReceipt>()
 
 
     override fun onCreateView(
@@ -159,6 +159,7 @@ class AccountDetailsFragment : Fragment(),
         documentBinding = DocumentsBottomSheetBinding.inflate(layoutInflater)
         docsBottomSheet = BottomSheetDialog(this.requireContext(), R.style.BottomSheetDialogTheme)
         docsBottomSheet.setContentView(documentBinding.root)
+        paymentreciepts.clear()
         documentBinding.ivDocsClose.setOnClickListener {
             docsBottomSheet.dismiss()
         }
@@ -197,18 +198,18 @@ class AccountDetailsFragment : Fragment(),
                         setKycList()
                         setDocumentList()
                     }
+
+                        paymentreciepts.addAll(it?.data?.data?.paymentReceipts!!)
+
+                    profileViewModel.setAllPaymentReceipts(paymentreciepts)
+
                     if (it.data?.data!!.paymentHistory != null && it.data!!.data.paymentHistory is List<AccountsResponse.Data.PaymentHistory>) {
                         allPaymentList =
                             it.data!!.data.paymentHistory as ArrayList<AccountsResponse.Data.PaymentHistory>
                         setAllPaymentList()
                     }
 
-                    var recieptLsit = ArrayList<AccountsResponse.Data.PaymentReceipt>()
 
-
-                    for (i in 0 until it?.data?.data?.paymentReceipts!!.size) {
-                        recieptLsit.add(it?.data?.data?.paymentReceipts!![i])
-                    }
                 }
                 Status.ERROR -> {
                     binding.progressBar.hide()
@@ -479,16 +480,6 @@ class AccountDetailsFragment : Fragment(),
             documentBinding.rvDocsItemRecycler.adapter =
                 AllDocumentAdapter(context, documentList, this)
         }
-    }
-
-    override fun onAccountsPaymentItemClick(
-        accountsPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>,
-        view: View,
-        position: Int,
-        name: String,
-        path: String
-    ) {
-        openDocumentScreen(name, path)
     }
 
     override fun onAllDocumentLabelClick(
@@ -911,5 +902,39 @@ class AccountDetailsFragment : Fragment(),
         return null
     }
 
+    override fun onAccountsPaymentItemClick(view: View, bookingId: String) {
 
+        recieptsList.clear()
+        for (i in 0 until paymentreciepts!!.size) {
+            if (bookingId.equals(paymentreciepts[i].crmBookingId)) {
+                recieptsList.add(paymentreciepts[i])
+            }
+        }
+
+        if (recieptsList.size == 0) {
+            Toast.makeText(
+                requireContext(),
+                "Connect with your relationship manager\nfor the receipt",
+                Toast.LENGTH_SHORT
+            ).show()
+
+        } else {
+            docsBottomSheet.show()
+            documentBinding.rvDocsItemRecycler.layoutManager =
+                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+            documentBinding.rvDocsItemRecycler.adapter =
+                AllReceiptsList(context, recieptsList, this)
+        }
+    }
+
+    override fun onViewClick(
+        paymentReceiptList: ArrayList<AccountsResponse.Data.PaymentReceipt>,
+        view: View,
+        position: Int,
+        name: String,
+        path: String?
+    ) {
+        docsBottomSheet.dismiss()
+        openDocumentScreen(name, path.toString())
+    }
 }
