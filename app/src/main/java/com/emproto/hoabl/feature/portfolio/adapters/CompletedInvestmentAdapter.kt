@@ -1,11 +1,15 @@
 package com.emproto.hoabl.feature.portfolio.adapters
 
+import android.R.attr.button
 import android.content.Context
 import android.os.Build
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -26,6 +30,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import kotlin.math.abs
+
 
 class CompletedInvestmentAdapter(
     val context: Context,
@@ -87,6 +92,12 @@ class CompletedInvestmentAdapter(
                 Utility.convertTo(project.investment.crmInventory.areaSqFt)
 
             if(!project.project.isEscalationGraphActive){
+                val params = holder.binding.llDetails.layoutParams as ConstraintLayout.LayoutParams
+                params.startToStart= holder.binding.viewLightBg.id
+                params.topToTop = holder.binding.viewLightBg.id
+                params.bottomToBottom = holder.binding.viewLightBg.id
+                params.endToEnd=holder.binding.viewDarkBg.id
+                holder.binding.llDetails.requestLayout()
                 holder.binding.ivCompletedInvestmentGraphImage.visibility= View.GONE
                 holder.binding.clGraphCard.visibility= View.GONE
             } else{
@@ -107,8 +118,10 @@ class CompletedInvestmentAdapter(
             }
 
             holder.binding.tvInventoryId.text = "${project.investment.crmInventory.name}"
-            holder.binding.tvEstimatedAppreciationRating.text =
-                "" + project.project.generalInfoEscalationGraph.estimatedAppreciation + "%"
+            if(project.project.generalInfoEscalationGraph.estimatedAppreciation!=0.0) {
+                holder.binding.tvEstimatedAppreciationRating.text =
+                    "" + project.project.generalInfoEscalationGraph.estimatedAppreciation + "%"
+            }
 
             setFirstGraph(
                 holder.binding.ivCompletedInvestmentGraphImage,

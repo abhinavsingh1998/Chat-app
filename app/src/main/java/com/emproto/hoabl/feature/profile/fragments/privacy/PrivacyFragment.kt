@@ -53,12 +53,12 @@ class PrivacyFragment : BaseFragment() {
     }
 
     private fun initObserver() {
-        profileViewModel.getPrivacyAndPolicy(5005).observe(viewLifecycleOwner, Observer {
-            when (it.status) {
+        profileViewModel.getPrivacyAndPolicy(5005).observe(viewLifecycleOwner, Observer { baseResponse ->
+            when (baseResponse.status) {
                 Status.SUCCESS -> {
                     binding.rootView.show()
                     binding.loader.hide()
-                    it.data?.let {
+                    baseResponse.data?.let {
                         binding.tvHeading.text =
                             showHTMLText(it.data.page.termsAndConditions.displayName)
                         binding.tvDescription.text =
@@ -69,7 +69,7 @@ class PrivacyFragment : BaseFragment() {
                     binding.rootView.hide()
                     binding.loader.show()
                     (requireActivity() as HomeActivity).showErrorToast(
-                        it.message!!
+                        baseResponse.message!!
                     )
                 }
                 Status.LOADING -> {

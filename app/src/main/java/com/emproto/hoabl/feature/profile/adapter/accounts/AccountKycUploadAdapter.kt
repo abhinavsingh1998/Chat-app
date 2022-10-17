@@ -74,13 +74,13 @@ class AccountKycUploadAdapter(
                         newList[position].path
                     )
                 }
-                holder.tvReupload.setOnClickListener {
-                    if (newList[position].documentName == "Address Proof") {
-                        mListener.onUploadClick(newList, it, 200110)
-                    } else if (newList[position].documentName == "PAN Card") {
-                        mListener.onUploadClick(newList, it, 200109)
-                    }
-                }
+//                holder.tvReupload.setOnClickListener {
+//                    if (newList[position].documentName == "Address Proof") {
+//                        mListener.onUploadClick(newList, it, 200110)
+//                    } else if (newList[position].documentName == "PAN Card") {
+//                        mListener.onUploadClick(newList, it, 200109)
+//                    }
+//                }
             }
         }
         holder.tvUploadDoc.setOnClickListener {

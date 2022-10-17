@@ -261,6 +261,7 @@ class BookingJourneyAdapter(
                 var anyInProgress = false
                 val listHolder = holder as OwnershipHolder
                 val list = dataList[listHolder.adapterPosition].data as Possession
+                listHolder.binding.textHeader2.text="Handover"
                 listHolder.binding.textHeader.text = "Possession"
                 listHolder.binding.tvFirst.text = "Handover Completed"
                 listHolder.binding.tvSecond.text = "Customer Guidelines"

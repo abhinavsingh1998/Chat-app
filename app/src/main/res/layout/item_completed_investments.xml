@@ -143,6 +143,7 @@
 
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/llDetails"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:orientation="horizontal"

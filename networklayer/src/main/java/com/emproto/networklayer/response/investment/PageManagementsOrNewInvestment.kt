@@ -1,5 +1,6 @@
 package com.emproto.networklayer.response.investment
 
+import com.emproto.networklayer.response.home.PageManagementAndNewInvestments
 import java.io.Serializable
 
 data class PageManagementsOrNewInvestment(
