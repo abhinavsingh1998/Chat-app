@@ -53,7 +53,12 @@ class Mixpanel @Inject constructor(val context: Context) {
         val INVESTEMENTSEEALLPROMISES="Investment See All ( Promises )"
         val FAQCARDDETAILEDPAGE="FAQ Card -Detailed page"
         val FAQCARD="FAQ Card"
-
+        val HAVEANYQUESTIONCARD="Have Any Question ? Card"
+        val STILLNOTCONVINCED="Still Not Convinced"
+        val SEEALLTESTIMONIALS="See All ( Testimonials )"
+        val MAPSEARCHDISTANCEFROM ="Map ( Search Distance from )"
+        val SIMILARINVESTMENTSCARD="Similar Investments Card"
+        val SIMILARINVESTMENTSCARDAPPLYNOW="Similar Investments Card Apply Now"
 
 
 

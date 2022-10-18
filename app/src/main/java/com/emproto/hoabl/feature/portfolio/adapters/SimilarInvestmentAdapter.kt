@@ -12,8 +12,11 @@ import com.bumptech.glide.Glide
 import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
+import com.emproto.hoabl.feature.home.views.Mixpanel
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.portfolio.ivdetails.SimilarInvestment
 import java.text.DecimalFormat
+import javax.inject.Inject
 
 class SimilarInvestmentAdapter(
     val context: Context,
@@ -22,6 +25,8 @@ class SimilarInvestmentAdapter(
     private val toShow: Int
 ) :
     RecyclerView.Adapter<SimilarInvestmentAdapter.MyViewHolder>() {
+    @Inject
+    lateinit var appPreference: AppPreference
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = ItemSmartDealsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -88,12 +93,17 @@ class SimilarInvestmentAdapter(
             timeCounter.start()
 
             cvMainOuterCard.setOnClickListener {
+                eventTrackingSimilarInvestmentsCard()
                 ivInterface.onClickSimilarInvestment(element.id)
             }
             tvApplyNow.setOnClickListener {
                 ivInterface.onApplyInvestment(element.id)
             }
         }
+    }
+
+    private fun eventTrackingSimilarInvestmentsCard() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.SIMILARINVESTMENTSCARD)
     }
 
     override fun getItemCount(): Int {

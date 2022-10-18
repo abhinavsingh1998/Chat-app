@@ -143,6 +143,7 @@ class ProjectDetailAdapter(
                 )
             }
             VIEW_TYPE_DONT_MISS -> {
+                eventTrackingDntMissOut()
                 ProjectDontMissViewHolder(
                     DontMissLayoutPdBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -197,6 +198,7 @@ class ProjectDetailAdapter(
                 )
             }
             VIEW_TYPE_TESTIMONIALS -> {
+                eventTrackingTestimonials()
                 ProjectTestimonialsViewHolder(
                     NewInvestmentTestimonialsCardBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -224,6 +226,15 @@ class ProjectDetailAdapter(
                 )
             }
         }
+    }
+
+    private fun eventTrackingTestimonials() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(),Mixpanel.SEEALLTESTIMONIALS)
+    }
+
+    private fun eventTrackingDntMissOut() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(),Mixpanel.INVESTMENTDONTMISSOUT1)
+
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -828,11 +839,11 @@ class ProjectDetailAdapter(
                 itemList.size > 2 -> {
                     for (i in 0..1) {
                         list.add(projectContentsAndFaqs[i])
-                        faqAdapter = FaqQuestionAdapter(list, itemClickListener)
+                        faqAdapter = FaqQuestionAdapter(context,list, itemClickListener)
                     }
                 }
                 else -> {
-                    faqAdapter = FaqQuestionAdapter(itemList, itemClickListener)
+                    faqAdapter = FaqQuestionAdapter(context,itemList, itemClickListener)
                 }
             }
             binding.rvFaq.adapter = faqAdapter
@@ -880,10 +891,16 @@ class ProjectDetailAdapter(
                 ) { _, _ ->
                 }.attach()
                 tvHearSpeakSeeAll.setOnClickListener {
+
+                    eventTrackingSeeAllTestimonials()
                     itemClickListener.onItemClicked(it, position, list.size.toString())
                 }
             }
         }
+    }
+
+    private fun eventTrackingSeeAllTestimonials() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(),Mixpanel.SEEALLTESTIMONIALS)
     }
 
     private inner class ProjectNotConvincedViewHolder(binding: NotConvincedLayoutBinding) :

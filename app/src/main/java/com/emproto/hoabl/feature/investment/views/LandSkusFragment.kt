@@ -11,6 +11,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentLandSkusBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.investment.adapters.LandSkusAdapter
 import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
 import com.emproto.hoabl.feature.investment.dialogs.ConfirmationDialog
@@ -18,6 +19,7 @@ import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.investment.AddInventoryBody
 import com.emproto.networklayer.request.investment.VideoCallBody
 import com.emproto.networklayer.response.enums.Status
@@ -32,7 +34,8 @@ class LandSkusFragment : BaseFragment() {
 
     private lateinit var binding: FragmentLandSkusBinding
     private lateinit var landSkusAdapter: LandSkusAdapter
-
+    @Inject
+    lateinit var appPreference: AppPreference
     private var projectId = 0
     private var appliedList = ArrayList<Inventory>()
     private var notAppliedList = ArrayList<Inventory>()
@@ -231,8 +234,13 @@ class LandSkusFragment : BaseFragment() {
                     confirmationDialog.show(this.parentFragmentManager, "ConfirmationDialog")
                 }
                 R.id.cl_not_convinced -> {
+                    eventTrackingStillNotConvinced()
                     callVideoCallApi()
                 }
             }
         }
+
+    private fun eventTrackingStillNotConvinced() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.STILLNOTCONVINCED)
+    }
 }

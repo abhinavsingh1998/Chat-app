@@ -322,6 +322,7 @@ class ProjectDetailFragment : BaseFragment() {
         View.OnClickListener { view ->
             when (view.id) {
                 R.id.bn_ask_here -> {
+                    eventTrackingHaveAnyQuestionCard()
                     val bundle = Bundle()
                     val chatsFragment = ChatsFragment()
                     chatsFragment.arguments = bundle
@@ -365,6 +366,7 @@ class ProjectDetailFragment : BaseFragment() {
                     navigateToFaqDetail()
                 }
                 R.id.tv_faq_read_all -> {
+                    eventTrackingFaqReadAll()
                     navigateToFaqDetail()
                 }
                 R.id.cv_why_invest_card -> {
@@ -448,6 +450,14 @@ class ProjectDetailFragment : BaseFragment() {
                 }
             }
         }
+
+    private fun eventTrackingFaqReadAll() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SEEALLIMAGESVIDEOS)
+    }
+
+    private fun eventTrackingHaveAnyQuestionCard() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.HAVEANYQUESTIONCARD)
+    }
 
     private fun eventTrackingSeeAllVideoImage() {
         Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SEEALLVIDEOIMAGE)
