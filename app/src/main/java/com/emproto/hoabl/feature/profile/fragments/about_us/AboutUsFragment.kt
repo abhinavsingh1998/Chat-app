@@ -23,9 +23,11 @@ import com.emproto.hoabl.databinding.FragmentAboutUsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.profile.adapter.*
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.resourceManagment.AboutUs
 import com.github.mikephil.charting.components.AxisBase
@@ -53,6 +55,9 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
     private var selectedItemPos = 0
     private val snapHelper = LinearSnapHelper()
 
+    @Inject
+    lateinit var appPreference: AppPreference
+
     private var graphType = ""
     private var xAxisList = ArrayList<String>()
 
@@ -72,7 +77,12 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
         initView()
         initObserver(refresh = false)
         initClickListener()
+        trackHomeHeader()
         return binding.root
+    }
+
+    private fun trackHomeHeader() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.MASTHEAD)
     }
 
     private fun initView() {

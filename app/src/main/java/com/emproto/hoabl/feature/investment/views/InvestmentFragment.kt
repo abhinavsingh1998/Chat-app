@@ -11,11 +11,13 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentInvestmentLayoutBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.investment.adapters.NewInvestmentAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.investment.*
 import java.io.Serializable
@@ -32,7 +34,8 @@ class InvestmentFragment : BaseFragment() {
     private lateinit var trendingProjectsList: List<PageManagementsOrCollectionTwoModel>
     private lateinit var newInvestmentsList: List<PageManagementsOrNewInvestment>
     private var projectId = 0
-
+    @Inject
+    lateinit var appPreference: AppPreference
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -255,9 +258,11 @@ class InvestmentFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).addFragment(list, true)
                 }
                 R.id.cl_place_info -> {
+                    eventTrackingNewLaunchCard()
                     navigateToDetailScreen(newInvestmentsList[0].id)
                 }
                 R.id.tv_apply_now -> {
+                    eventTrackingApplyNow()
                     investmentViewModel.setProjectId(newInvestmentsList[0].id)
                     navigateToSkuScreen(newInvestmentsList[0].id)
                 }
@@ -265,9 +270,22 @@ class InvestmentFragment : BaseFragment() {
                     callProjectContentAPi()
                 }
                 R.id.iv_dont_miss_image -> {
+                    eventTrackingDontMissOut()
                     navigateToDetailScreen(projectId)
                 }
             }
         }
+
+    private fun eventTrackingDontMissOut() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.INVESTMENTAPPLYNOW)
+    }
+
+    private fun eventTrackingApplyNow() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.INVESTMENTAPPLYNOW)
+    }
+
+    private fun eventTrackingNewLaunchCard() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.NEWLAUNCHCARD)
+    }
 
 }

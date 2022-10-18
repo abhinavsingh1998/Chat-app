@@ -154,7 +154,7 @@ class SearchResultFragment : BaseFragment() {
     }
 
     private fun MixpanelSearch() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),"Search")
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.SEARCH)
     }
 
     private fun initObserver() {

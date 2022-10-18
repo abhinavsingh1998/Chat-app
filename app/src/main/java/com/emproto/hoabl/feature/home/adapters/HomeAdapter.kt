@@ -11,12 +11,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.*
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.home.Data
 import com.google.android.material.tabs.TabLayoutMediator
 import java.text.NumberFormat
 import java.util.*
+import javax.inject.Inject
 
 @Suppress("DEPRECATION")
 class HomeAdapter(
@@ -38,6 +41,8 @@ class HomeAdapter(
         const val SHARE_APP = 9
     }
 
+    @Inject
+    lateinit var appPreference: AppPreference
     private lateinit var investmentAdapter: InvestmentCardAdapter
     private lateinit var pendingPaymentsAdapter: PendingPaymentsAdapter
     private lateinit var latestUpdateAdapter: LatestUpdateAdapter
@@ -234,6 +239,8 @@ class HomeAdapter(
 
 
             binding.tvViewallInvestments.setOnClickListener {
+
+                eventTrackingViewAllInvestments()
                 itemClickListener.onItemClicked(it, position, "")
             }
 
@@ -248,6 +255,10 @@ class HomeAdapter(
             binding.investmentList.setItemViewCacheSize(10)
             binding.investmentList.isDrawingCacheEnabled = true
         }
+    }
+
+    private fun eventTrackingViewAllInvestments() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(),Mixpanel.VIEWALLPROPERTIES)
     }
 
     private inner class IncompleteKycViewHolder(private val binding: PaymentPendingLayoutBinding) :
@@ -279,6 +290,7 @@ class HomeAdapter(
             )
 
             binding.tvSeeAllUpdate.setOnClickListener {
+                eventTrackingSeeAllUpdates()
                 itemClickListener.onItemClicked(it, position, "")
             }
 
@@ -301,6 +313,10 @@ class HomeAdapter(
         }
     }
 
+    private fun eventTrackingSeeAllUpdates() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.SEEALLUPDATES)
+    }
+
     private inner class PromisesViewHolder(private val binding: HomePromisesLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
@@ -314,6 +330,8 @@ class HomeAdapter(
 
             binding.textview4.text = data.page.promisesHeading
             binding.tvSeeallPromise.setOnClickListener {
+
+                eventTrackingSeeAllPromises()
                 itemClickListener.onItemClicked(it, position, "")
             }
 
@@ -333,6 +351,10 @@ class HomeAdapter(
             binding.hoablPromisesRecyclerview.adapter = projectPromisesAdapter
 
         }
+    }
+
+    private fun eventTrackingSeeAllPromises() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(),Mixpanel.SEEALLPROMISES)
     }
 
     private inner class FacilityManagementViewHolder(private val binding: HomeFmCardLayoutBinding) :
@@ -373,6 +395,7 @@ class HomeAdapter(
                 itemClickListener
             )
             binding.tvSeeallInsights.setOnClickListener {
+                eventTrackingInsightsCard()
                 itemClickListener.onItemClicked(it, position, "")
             }
             binding.textview5.text = data.page.insightsHeading
@@ -395,6 +418,10 @@ class HomeAdapter(
         }
     }
 
+    private fun eventTrackingInsightsCard() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(),Mixpanel.SEEALLINSIGHTS)
+    }
+
     private inner class TestimonialsViewHolder(private val binding: HomeTestimonialsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
@@ -407,6 +434,7 @@ class HomeAdapter(
             binding.textview6.text = data.page.testimonialsHeading
 
             binding.tvSeeallTestimonial.setOnClickListener {
+                eventTrackingseealltestimonial()
                 itemClickListener.onItemClicked(it, position, "")
             }
 
@@ -422,6 +450,10 @@ class HomeAdapter(
             ) { _, _ ->
             }.attach()
         }
+    }
+
+    private fun eventTrackingseealltestimonial() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(),Mixpanel.TESTIMONIALSEEALL)
     }
 
     private inner class ShareAppViewHolder(private val binding: PortfolioReferLayoutBinding) :

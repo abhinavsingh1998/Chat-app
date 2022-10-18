@@ -16,9 +16,11 @@ import com.emproto.hoabl.databinding.ReferralDialogBinding
 import com.emproto.hoabl.databinding.ReferralSuccessDialogBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.portfolio.views.CustomDialog
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.refernow.ReferralRequest
 import com.emproto.networklayer.response.enums.Status
 import java.util.regex.Pattern
@@ -40,6 +42,9 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
     @Inject
     lateinit var factory: HomeFactory
     lateinit var homeViewModel: HomeViewModel
+
+    @Inject
+    lateinit var appPreference: AppPreference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -132,7 +137,7 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
 
     private fun referalClick() {
         mBinding.referBtn.setOnClickListener {
-
+            eventTrackingReferYourFriend()
             val referRequest = ReferralRequest(name, mobileNo)
 
             if (mobileNo.length != 10 || !mobileNo.ValidNO()) {
@@ -144,7 +149,6 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
             homeViewModel.getReferNow(referRequest).observe(viewLifecycleOwner) {
                 when (it.status) {
                     Status.SUCCESS -> {
-
                         mBinding.referBtn.isVisible = true
                         mBinding.progressBar.isVisible = false
                         val referralDialoglayout =
@@ -174,6 +178,10 @@ class ReferralDialog : DialogFragment(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    private fun eventTrackingReferYourFriend() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.REFERYOURFRIEND)
     }
 
     private fun CharSequence?.ValidNO() =

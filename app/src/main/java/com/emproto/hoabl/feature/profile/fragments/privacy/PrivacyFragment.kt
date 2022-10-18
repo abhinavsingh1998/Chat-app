@@ -48,7 +48,7 @@ class PrivacyFragment : BaseFragment() {
     }
 
     private fun trackEvent() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),"Privacy Policy")
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.PRIVACYPOLICY)
     }
 
 

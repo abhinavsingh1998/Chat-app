@@ -11,6 +11,7 @@ import com.emproto.core.Constants
 import com.emproto.hoabl.databinding.FragmentPhotosBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.investment.adapters.MediaPhotosAdapter
 import com.emproto.hoabl.model.MediaGalleryItem
 import com.emproto.hoabl.model.MediaViewItem
@@ -18,6 +19,7 @@ import com.emproto.hoabl.utils.MediaItemClickListener
 import com.emproto.hoabl.utils.YoutubeItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
+import com.emproto.networklayer.preferences.AppPreference
 import javax.inject.Inject
 
 class ThreeSixtyFragment : BaseFragment() {
@@ -25,6 +27,7 @@ class ThreeSixtyFragment : BaseFragment() {
     @Inject
     lateinit var investmentFactory: InvestmentFactory
     lateinit var investmentViewModel: InvestmentViewModel
+    lateinit var appPreference: AppPreference
     lateinit var binding: FragmentPhotosBinding
     private lateinit var mediaPhotosAdapter: MediaPhotosAdapter
 
@@ -43,6 +46,11 @@ class ThreeSixtyFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
         initObserver()
+        eventTrackingMediaSection()
+    }
+
+    private fun eventTrackingMediaSection() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.MEDIAGALLERYSECTIONSELECTION)
     }
 
     private fun initViewModel() {

@@ -141,11 +141,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     private fun trackEvent() {
-//        val mixpanelAPI = MixpanelAPI.getInstance(this, getString(R.string.MIXPANEL_KEY))
-//        mixpanelAPI.identify(appPreference.getMobilenum())
-//        mixpanelAPI.track("Home")
-
-        Mixpanel(this).identifyFunction(appPreference.getMobilenum(),"Mast Head")
+        Mixpanel(this).identifyFunction(appPreference.getMobilenum(),Mixpanel.HOME)
     }
 
     @SuppressLint("NewApi")

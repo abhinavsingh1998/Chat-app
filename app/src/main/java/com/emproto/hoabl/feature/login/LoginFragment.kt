@@ -20,6 +20,7 @@ import com.emproto.core.databinding.TermsConditionDialogBinding
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentLoginBinding
 import com.emproto.hoabl.di.HomeComponentProvider
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.viewmodels.AuthViewmodel
 import com.emproto.hoabl.viewmodels.factory.AuthFactory
 import com.emproto.networklayer.preferences.AppPreference
@@ -101,6 +102,7 @@ class LoginFragment : BaseFragment() {
 
         mBinding.textTerms.makeLinks(
             Pair("Terms and Conditions & Privacy Policy", View.OnClickListener {
+                eventTrackingTerms()
                 termsConditionDialogBinding.tvHeading.text = getString(R.string.termscondition)
                 bottomSheetDialog.show()
             }),
@@ -109,6 +111,10 @@ class LoginFragment : BaseFragment() {
         termsConditionDialogBinding.acitonClose.setOnClickListener {
             bottomSheetDialog.dismiss()
         }
+    }
+
+    private fun eventTrackingTerms() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.LOGINTERMSANDCONDITIONS)
     }
 
 
@@ -149,7 +155,9 @@ class LoginFragment : BaseFragment() {
         })
 
         mBinding.switchWhatspp.setOnCheckedChangeListener { p0, p1 ->
+
             if (p1) {
+                eventTrackingWhatsapp()
                 val face = ResourcesCompat.getFont(requireContext(), R.font.jost_medium)
                 mBinding.tvSwitch.typeface = face
                 mBinding.tvSwitch.setTextColor(resources.getColor(R.color.black))
@@ -217,6 +225,10 @@ class LoginFragment : BaseFragment() {
                 }
             })
         }
+    }
+
+    private fun eventTrackingWhatsapp() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.WHATSAPPCOMMUNICATION)
     }
 
     fun CharSequence?.isNumber() =

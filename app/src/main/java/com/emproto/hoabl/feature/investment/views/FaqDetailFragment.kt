@@ -14,6 +14,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FaqDetailFragmentBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.investment.adapters.FaqDetailAdapter
 import com.emproto.hoabl.model.RecyclerViewFaqItem
 import com.emproto.hoabl.utils.Extensions.hideKeyboard
@@ -22,6 +23,7 @@ import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.investment.CgData
 import javax.inject.Inject
@@ -36,6 +38,10 @@ class FaqDetailFragment : BaseFragment() {
     @Inject
     lateinit var factory: ProfileFactory
     lateinit var profileViewModel: ProfileViewModel
+
+
+    @Inject
+    lateinit var appPreference: AppPreference
 
     private lateinit var adapter: FaqDetailAdapter
     private lateinit var allFaqList: List<CgData>
@@ -67,6 +73,12 @@ class FaqDetailFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpInitialization()
         callApi()
+        eventTrackFaqDetail()
+    }
+
+    private fun eventTrackFaqDetail() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.FAQCARDDETAILEDPAGE)
+
     }
 
     private fun setUpInitialization() {
