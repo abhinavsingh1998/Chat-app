@@ -119,8 +119,12 @@ class CompletedInvestmentAdapter(
 
             holder.binding.tvInventoryId.text = "${project.investment.crmInventory.name}"
             if(project.project.generalInfoEscalationGraph.estimatedAppreciation!=0.0) {
+                holder.binding.cvEstimatedAppreciation.visibility=View.VISIBLE
                 holder.binding.tvEstimatedAppreciationRating.text =
                     "" + project.project.generalInfoEscalationGraph.estimatedAppreciation + "%"
+            }
+            else{
+                holder.binding.cvEstimatedAppreciation.visibility=View.GONE
             }
 
             setFirstGraph(
@@ -152,9 +156,15 @@ class CompletedInvestmentAdapter(
                 "${project.investment.projectIea} ".also {
                     holder.binding.tvCompletedInvestmentRating.text = it
                 }
-                holder.binding.cvInvesterAppreciation.visibility = View.VISIBLE
-                "${project.investment.projectIea} ".also {
-                    holder.binding.tvInvestorAppreciationRating.text = it
+                if(project.investment.projectIea!="0.0") {
+                    holder.binding.cvInvesterAppreciation.visibility = View.VISIBLE
+                    "${project.investment.projectIea} ".also {
+                        holder.binding.cvInvesterAppreciation.visibility=View.VISIBLE
+                        holder.binding.tvInvestorAppreciationRating.text = it
+                    }
+                }
+                else{
+                    holder.binding.cvInvesterAppreciation.visibility=View.GONE
                 }
 
             }
