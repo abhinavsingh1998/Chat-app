@@ -11,7 +11,6 @@ data class PageManagementsOrNewInvestment(
     val id: Int,
     val isEscalationGraphActive: Boolean,
     val launchName: String,
-    val pageManagementAndNewInvestments: PageManagementAndNewInvestments,
     val priceStartingFrom: String,
     val projectCoverImages: ProjectCoverImages,
     val shortDescription: String,
