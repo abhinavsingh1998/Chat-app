@@ -306,12 +306,21 @@ class PortfolioSpecificViewAdapter(
                         )
                     }
 
-                    binding.registrationNo.text = reraNumber
+                    if(reraNumber!="-") {
+                        binding.registrationNo.visibility=View.GONE
+                    }else{
+                        binding.registrationNo.visibility=View.VISIBLE
+                        binding.registrationNo.text = reraNumber
+                    }
                     binding.tvLatitude.text = data.projectInformation.crmProject.lattitude
                     binding.tvLongitude.text = data.projectInformation.crmProject.longitude
                     binding.tvAltitude.text =
-                        if (data.projectInformation.crmProject.altitude != null) "${data.projectInformation.crmProject.altitude}m"
-                        else "-"
+                        if (data.projectInformation.crmProject.altitude != null) {
+                            "${data.projectInformation.crmProject.altitude}m"
+                        }
+                        else {
+                            "-"
+                        }
                     binding.ownersName.text = data.investmentInformation.owners[0]
                     Glide.with(context).load(data.projectExtraDetails.projectIco.value.url)
                         .into(binding.ivProjectImage)

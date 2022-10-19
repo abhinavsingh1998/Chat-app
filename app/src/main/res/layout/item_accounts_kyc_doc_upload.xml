@@ -117,6 +117,7 @@
                 android:layout_marginEnd="14dp"
                 android:fontFamily="@font/jostregular"
                 android:text="@string/re_upload"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/textStatus"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -130,7 +131,7 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/tvReupload"
                 app:layout_constraintTop_toBottomOf="@+id/tvReupload"
-                tools:visibility="visible" />
+                tools:visibility="gone" />
 
             <TextView
                 android:id="@+id/tvPreview"
@@ -140,9 +141,8 @@
                 android:layout_marginEnd="14dp"
                 android:fontFamily="@font/jostregular"
                 android:text="@string/preview"
-                app:layout_constraintBottom_toBottomOf="@id/tvReupload"
-                app:layout_constraintEnd_toStartOf="@id/tvReupload"
-                app:layout_constraintTop_toTopOf="@id/tvReupload" />
+                app:layout_constraintBottom_toBottomOf="@id/textStatus"
+                app:layout_constraintEnd_toEndOf="parent" />
 
 
             <View
