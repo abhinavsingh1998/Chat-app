@@ -35,7 +35,7 @@ class BookingStepsAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return dataList[position].type
+        return dataList[position].type!!
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

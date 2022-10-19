@@ -1,8 +1,10 @@
 package com.emproto.hoabl.feature.notification.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -46,12 +48,9 @@ class NotificationAdapter(
         if (item.readStatus == true) {
             holder.binding.cardView.cardElevation = 0f
             holder.binding.tvNew.isVisible = false
-            holder.binding.tvChatTime.setTextColor(
-                ContextCompat.getColor(
-                    mContext,
-                    R.color.text_grey_color
-                )
-            )
+            readStatus(holder.binding.tvChatTime)
+            readStatus(holder.binding.tvChatDesc)
+            readStatus(holder.binding.tvTopic)
 
         } else {
             holder.binding.cardView.cardElevation = 25f
@@ -62,6 +61,14 @@ class NotificationAdapter(
                     R.color.text_orange_color
                 )
             )
+            holder.binding.tvChatDesc.setTextColor(ContextCompat.getColor(
+                mContext,
+                R.color.black
+            ))
+            holder.binding.tvTopic.setTextColor(ContextCompat.getColor(
+                mContext,
+                R.color.app_color
+            ))
         }
 
         holder.binding.cardView.setOnClickListener {
@@ -81,4 +88,12 @@ class NotificationAdapter(
         fun onClickItem(id: Int, position: Int)
     }
 
+    fun readStatus(textView:TextView){
+        textView.setTextColor(
+            ContextCompat.getColor(
+                mContext,
+                R.color.text_grey_color
+            )
+        )
+    }
 }

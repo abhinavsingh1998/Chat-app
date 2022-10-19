@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,7 +40,9 @@ import com.emproto.networklayer.response.bookingjourney.BJHeader
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
 import com.emproto.networklayer.response.marketingUpdates.Data
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 
 class HomeFragment : BaseFragment() {
@@ -66,6 +70,7 @@ class HomeFragment : BaseFragment() {
     lateinit var testimonialsHeading: String
     lateinit var testimonialsSubHeading: String
     private var actionItemType = ArrayList<com.emproto.networklayer.response.actionItem.Data>()
+    private final var state=IntArray(1)
 
     @Inject
     lateinit var portfolioFactory: PortfolioFactory
@@ -502,7 +507,6 @@ class HomeFragment : BaseFragment() {
         (requireActivity() as HomeActivity).showBottomNavigation()
 
     }
-
     private fun referNow() {
         val dialog = ReferralDialog()
         dialog.isCancelable = true
@@ -522,4 +526,6 @@ class HomeFragment : BaseFragment() {
         super.onResume()
         hideSoftKeyboard()
     }
+
+
 }
