@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.investment.dialogs
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +37,14 @@ class ConfirmationDialog(
         investmentViewModel.getSku().observe(viewLifecycleOwner) {
             it.let { data ->
                 binding.apply {
+
+                    if (data.name?.length!! >10){
+                        tvItemLandSkusName.setEms(5)
+                        tvItemLandSkusName.ellipsize= TextUtils.TruncateAt.END
+                    }else{
+                    }
                     tvItemLandSkusName.text = data.name
+
                     val amount = it.priceRange?.from!!.toDouble() / 100000
                     val convertedFromAmount = String.format("%.0f", amount)
                     val amountTo = it.priceRange?.to!!.toDouble() / 100000
