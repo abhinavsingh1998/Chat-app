@@ -5,6 +5,8 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.view.marginEnd
 import androidx.fragment.app.DialogFragment
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ApplyConfirmationDialogBinding
@@ -17,6 +19,7 @@ class ConfirmationDialog(
 ) : DialogFragment(), View.OnClickListener {
 
     lateinit var binding: ApplyConfirmationDialogBinding
+    private var constraint= ConstraintSet()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +44,7 @@ class ConfirmationDialog(
                     if (data.name?.length!! >10){
                         tvItemLandSkusName.setEms(5)
                         tvItemLandSkusName.ellipsize= TextUtils.TruncateAt.END
+
                     }else{
                     }
                     tvItemLandSkusName.text = data.name

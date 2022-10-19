@@ -47,8 +47,7 @@
                 android:text="Marina"
                 android:maxLines="1"
                 android:textColor="@color/black"
-                android:textSize="@dimen/text_size_16"
-                app:layout_constraintEnd_toStartOf="@id/tv_item_land_skus_area"
+                android:textSize="@dimen/text_size_14"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,11 +56,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_size_10"
+                android:layout_marginEnd="@dimen/margin_size_30"
                 android:fontFamily="@font/jost_medium"
                 android:text="2500 - 2650 Sqft"
                 android:textColor="@color/text_violet_dark_color"
                 android:textSize="@dimen/text_size_14"
                 app:layout_constraintBottom_toBottomOf="@id/tv_item_land_skus_name"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_item_land_skus_name"
                 app:layout_constraintTop_toTopOf="@id/tv_item_land_skus_name" />
 

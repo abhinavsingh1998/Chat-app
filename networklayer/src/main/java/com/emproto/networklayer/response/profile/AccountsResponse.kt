@@ -14,11 +14,11 @@ data class AccountsResponse(
 ) {
     data class Data(
         @SerializedName("documents")
-        val documents: List<Document>,
+        val documents: List<Document>?,
         @SerializedName("paymentHistory")
-        val paymentHistory: List<PaymentHistory>,
+        val paymentHistory: List<PaymentHistory>?,
         @SerializedName("paymentReceipts")
-        val paymentReceipts:List<PaymentReceipt>
+        val paymentReceipts:List<PaymentReceipt>?
 
     ):Serializable {
         data class Document(
@@ -102,27 +102,27 @@ data class AccountsResponse(
         
         data class PaymentReceipt(
             @SerializedName("applicationId")
-            val applicationId: Any,
+            val applicationId: Any?,
             @SerializedName("crmBookingId")
-            val crmBookingId: String,
+            val crmBookingId: String?,
             @SerializedName("crmCustomerPaymentId")
-            val crmCustomerPaymentId: String,
+            val crmCustomerPaymentId: String?,
             @SerializedName("crmLaunchPhaseId")
-            val crmLaunchPhaseId: String,
+            val crmLaunchPhaseId: String?,
             @SerializedName("documentCategory")
-            val documentCategory: Int,
+            val documentCategory: Int?,
             @SerializedName("documentType")
-            val documentType: Int,
+            val documentType: Int?,
             @SerializedName("id")
-            val id: Int,
+            val id: Int?,
             @SerializedName("itemInternalId")
-            val itemInternalId: Any,
+            val itemInternalId: Any?,
             @SerializedName("name")
-            val name: String,
+            val name: String?,
             @SerializedName("path")
-            val path: String,
+            val path: String?,
             @SerializedName("userId")
-            val userId: String
+            val userId: String?
         ):Serializable
 
     }

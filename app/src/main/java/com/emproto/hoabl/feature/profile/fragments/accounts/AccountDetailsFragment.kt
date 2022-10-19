@@ -109,7 +109,7 @@ class AccountDetailsFragment : Fragment(),
     private var base64Data: String = ""
     var status = ""
     private var removeDeniedPermissionDialog: Dialog? = null
-    var paymentreciepts = ArrayList<AccountsResponse.Data.PaymentReceipt>()
+    var paymentreciepts:ArrayList<AccountsResponse.Data.PaymentReceipt>? = ArrayList<AccountsResponse.Data.PaymentReceipt>()
     var recieptsList = ArrayList<AccountsResponse.Data.PaymentReceipt>()
 
 
@@ -159,7 +159,7 @@ class AccountDetailsFragment : Fragment(),
         documentBinding = DocumentsBottomSheetBinding.inflate(layoutInflater)
         docsBottomSheet = BottomSheetDialog(this.requireContext(), R.style.BottomSheetDialogTheme)
         docsBottomSheet.setContentView(documentBinding.root)
-        paymentreciepts.clear()
+        paymentreciepts?.clear()
         documentBinding.ivDocsClose.setOnClickListener {
             docsBottomSheet.dismiss()
         }
@@ -199,17 +199,16 @@ class AccountDetailsFragment : Fragment(),
                         setDocumentList()
                     }
 
-                        paymentreciepts.addAll(it?.data?.data?.paymentReceipts!!)
-
-                    profileViewModel.setAllPaymentReceipts(paymentreciepts)
+                    if (it!!.data!!.data!!.paymentReceipts!=null){
+                        paymentreciepts!!.addAll(it!!.data!!.data!!.paymentReceipts!!)
+                    }
+                    profileViewModel?.setAllPaymentReceipts(paymentreciepts!!)
 
                     if (it.data?.data!!.paymentHistory != null && it.data!!.data.paymentHistory is List<AccountsResponse.Data.PaymentHistory>) {
                         allPaymentList =
                             it.data!!.data.paymentHistory as ArrayList<AccountsResponse.Data.PaymentHistory>
                         setAllPaymentList()
                     }
-
-
                 }
                 Status.ERROR -> {
                     binding.progressBar.hide()
@@ -906,8 +905,8 @@ class AccountDetailsFragment : Fragment(),
 
         recieptsList.clear()
         for (i in 0 until paymentreciepts!!.size) {
-            if (bookingId.equals(paymentreciepts[i].crmBookingId)) {
-                recieptsList.add(paymentreciepts[i])
+            if (bookingId.equals(paymentreciepts!![i].crmBookingId)) {
+                recieptsList.add(paymentreciepts!![i])
             }
         }
 
