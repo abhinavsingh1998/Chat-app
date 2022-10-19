@@ -59,6 +59,7 @@ class Mixpanel @Inject constructor(val context: Context) {
         val MAPSEARCHDISTANCEFROM ="Map ( Search Distance from )"
         val SIMILARINVESTMENTSCARD="Similar Investments Card"
         val SIMILARINVESTMENTSCARDAPPLYNOW="Similar Investments Card Apply Now"
+        val LANDSKUAPPLYNOW="Land SKU - Apply Now"
 
 
 

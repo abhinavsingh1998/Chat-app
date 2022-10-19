@@ -177,10 +177,15 @@ class LandSkusFragment : BaseFragment() {
             }
             when (view.id) {
                 R.id.btn_apply_now -> {
+                    eventTrackingLandSKUApplyNow()
                     openDialog()
                 }
             }
         }
+    }
+
+    private fun eventTrackingLandSKUApplyNow() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.LANDSKUAPPLYNOW)
     }
 
     private fun openDialog() {
