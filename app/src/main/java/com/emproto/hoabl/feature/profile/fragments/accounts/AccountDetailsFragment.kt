@@ -468,6 +468,7 @@ class AccountDetailsFragment : Fragment(),
         }
 
         binding.tvSeeAllPayment.setOnClickListener {
+
             profileViewModel.savePaymentHistory(allPaymentList)
             val allPaymentHistoryFragment = AllPaymentHistoryFragment()
             (requireActivity() as HomeActivity).addFragment(allPaymentHistoryFragment, true)

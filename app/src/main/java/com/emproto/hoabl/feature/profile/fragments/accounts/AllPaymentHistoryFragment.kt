@@ -25,6 +25,7 @@ import com.emproto.hoabl.databinding.DocumentsBottomSheetBinding
 import com.emproto.hoabl.databinding.FragmentPaymentHistoryBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.portfolio.views.DocViewerFragment
 import com.emproto.hoabl.feature.profile.adapter.accounts.AllPaymentHistoryAdapter
 import com.emproto.hoabl.feature.profile.adapter.accounts.AllReceiptsList
@@ -32,6 +33,7 @@ import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.profile.AccountsResponse
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -48,6 +50,8 @@ class AllPaymentHistoryFragment : Fragment(),
 
     @Inject
     lateinit var profileFactory: ProfileFactory
+    @Inject
+    lateinit var appPreference: AppPreference
 
 
     lateinit var binding: FragmentPaymentHistoryBinding
@@ -78,7 +82,12 @@ class AllPaymentHistoryFragment : Fragment(),
         initClickListener()
         (requireActivity() as HomeActivity).hideBottomNavigation()
         callPermissionLauncher()
+        eventTrackingPaymentHistorySeeAll()
         return binding.root
+    }
+
+    private fun eventTrackingPaymentHistorySeeAll() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.PAYMENTHISTORYSEEALL)
     }
 
     private fun callPermissionLauncher() {

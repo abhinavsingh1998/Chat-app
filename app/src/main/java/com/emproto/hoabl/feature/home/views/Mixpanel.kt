@@ -60,7 +60,19 @@ class Mixpanel @Inject constructor(val context: Context) {
         val SIMILARINVESTMENTSCARD="Similar Investments Card"
         val SIMILARINVESTMENTSCARDAPPLYNOW="Similar Investments Card Apply Now"
         val LANDSKUAPPLYNOW="Land SKU - Apply Now"
-
+        val FACILITYMANAGEMENT="Facility Management"
+        val MYACCOUNT="My Account"
+        val PAYMENTHISTORYSEEALL="Payment History ( See All ) "
+        val SECURITYANDSETTINGS="Security & Settings"
+        val SENDPUSHNOTIFICATIONS="Send Push Notifications"
+        val READSECURITYTIPS="Read Security Tips"
+        val HELPCENTER="Help Center"
+        val FAQS="FAQs"
+        val PROFILEPRIVACYPOLICY="Privacy Policy"
+        val PROFILEABOUTUS="About Us"
+        val FEEDBACK="Feedback"
+        val RATEUS="Rate Us"
+        val EXPLORENEWINVESTMENT="Explore New investment"
 
 
     }
