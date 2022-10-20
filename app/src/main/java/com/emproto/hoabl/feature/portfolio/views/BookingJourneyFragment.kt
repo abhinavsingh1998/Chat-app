@@ -187,7 +187,6 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
                     Status.SUCCESS -> {
                         mBinding.loader.hide()
                         loadBookingJourneyData(it.data!!.data)
-//                        getPaymentReceiptData(it.data!!.data)
                         if (it.data!!.data.bookingJourney.paymentReceipts != null && it.data!!.data.bookingJourney.paymentReceipts is List<PaymentReceipt>) {
                             allPaymentReceiptList =
                                 it.data!!.data.bookingJourney.paymentReceipts as java.util.ArrayList<PaymentReceipt>
@@ -270,7 +269,6 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
                         pendingPaymentDialog.show()
 
                     }
-
                     override fun onClickViewDocument(path: String) {
                         getDocumentData(path)
                     }

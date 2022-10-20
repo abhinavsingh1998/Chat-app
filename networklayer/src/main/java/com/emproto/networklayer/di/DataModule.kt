@@ -41,7 +41,9 @@ class DataModule(private val application: Application) {
                         .addHeader("jwt", getAppPreference().getToken()).addHeader("apptype", "app")
                         .build()
                     chain.proceed(request)
-                }).addInterceptor(loggingInterceptor).build()
+                }).addInterceptor(loggingInterceptor).callTimeout(60,TimeUnit.SECONDS).connectTimeout(60,TimeUnit.SECONDS)
+                .writeTimeout(60,TimeUnit.SECONDS).readTimeout(60,TimeUnit.SECONDS)
+                .build()
 
 
         return Retrofit.Builder()
