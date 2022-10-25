@@ -330,7 +330,6 @@ class HomeAdapter(
 
             binding.textview4.text = data.page.promisesHeading
             binding.tvSeeallPromise.setOnClickListener {
-
                 eventTrackingSeeAllPromises()
                 itemClickListener.onItemClicked(it, position, "")
             }

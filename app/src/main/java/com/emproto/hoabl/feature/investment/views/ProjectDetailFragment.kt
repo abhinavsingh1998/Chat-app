@@ -391,6 +391,7 @@ class ProjectDetailFragment : BaseFragment() {
                     navigateToMediaGallery(true)
                 }
                 R.id.tv_project_amenities_all -> {
+                    eventTrackingSeeAllProjectAmenitites()
                     navigateToOppDoc()
                 }
                 R.id.iv_share_icon -> {
@@ -428,6 +429,7 @@ class ProjectDetailFragment : BaseFragment() {
                 }
                 R.id.tv_location_infrastructure_all -> {
                     if (isNetworkAvailable()) {
+                        eventTrackingLocationInfraSeeAll()
                         val fragment = MapFragment()
                         val bundle = Bundle()
                         val projectLocation =
@@ -450,6 +452,14 @@ class ProjectDetailFragment : BaseFragment() {
                 }
             }
         }
+
+    private fun eventTrackingLocationInfraSeeAll() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.LOCATIONINFRASEEALL)
+    }
+
+    private fun eventTrackingSeeAllProjectAmenitites() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.PROJECTAMENITITIESSEEALL)
+    }
 
     private fun eventTrackingFaqReadAll() {
         Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SEEALLIMAGESVIDEOS)

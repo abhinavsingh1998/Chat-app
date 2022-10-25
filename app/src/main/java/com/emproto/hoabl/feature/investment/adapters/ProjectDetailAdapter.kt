@@ -162,6 +162,7 @@ class ProjectDetailAdapter(
                 )
             }
             VIEW_TYPE_AMENITIES -> {
+
                 ProjectAmenitiesViewHolder(
                     ProjectAmenitiesLayoutBinding.inflate(
                         LayoutInflater.from(
@@ -752,7 +753,8 @@ class ProjectDetailAdapter(
         fun bind() {
             binding.tvChooseSkusApplyTitle.text =
                 data.otherSectionHeadings.inventoryBucketContents.sectionHeading
-            skuAdapter = SkuAdapter(context,
+            skuAdapter = SkuAdapter(
+                context,
                 data.inventoriesList.projectContent.inventoryBucketContents,
                 itemClickListener,
                 investmentViewModel

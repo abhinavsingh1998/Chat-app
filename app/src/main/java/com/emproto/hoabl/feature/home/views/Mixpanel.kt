@@ -73,6 +73,16 @@ class Mixpanel @Inject constructor(val context: Context) {
         val FEEDBACK="Feedback"
         val RATEUS="Rate Us"
         val EXPLORENEWINVESTMENT="Explore New investment"
+        val MANAGEINVESTMENT="Manage Investment"
+        val VIEWBOOKINGJOURNEY ="View Booking Journey"
+        val VIEWTIMELINE="View Timeline"
+        val LATESTMEDIAGALLERY="Latest Media Gallery"
+        val PORTFOLIOFAQS="Portfolio FAQs"
+        val SKUCARD="SKU Card"
+        val PROJECTAMENITITIESSEEALL="See All ( Project Amenitites )"
+        val PROJECTAMENITOTIESCARD="Project Amenitites Card"
+        val LOCATIONINFRASEEALL="Location Infra See All"
+        val LOCATIONINFRA="Location Infra"
 
 
     }

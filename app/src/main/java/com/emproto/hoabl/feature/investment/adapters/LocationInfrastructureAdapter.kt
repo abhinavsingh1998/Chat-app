@@ -31,6 +31,7 @@ class LocationInfrastructureAdapter(
 
     inner class MyViewHolder(var binding: ItemLocationInfrastructureBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(
             position: Int
         ) {
@@ -46,6 +47,7 @@ class LocationInfrastructureAdapter(
             }
 
             binding.apply {
+                eventTrackingMapSearchDistancefrom()
                 tvLocationName.text = element.name
                 val locationDuration = "${element.minutes}mins"
                 val tvlocationDuration = "${element.hours}hr ${element.minutes}mins"
@@ -68,7 +70,8 @@ class LocationInfrastructureAdapter(
                 }
             }
             binding.cvLocationInfrastructureCard.setOnClickListener {
-                eventTrackingMapSearchDistancefrom()
+//                eventTrackingMapSearchDistancefrom()
+                eventTrackingLocationInfra()
                 lastItemSelectedPos = selectedItemPos
                 selectedItemPos = adapterPosition
                 lastItemSelectedPos = if (lastItemSelectedPos == -1)
@@ -81,6 +84,10 @@ class LocationInfrastructureAdapter(
                 itemClickListener.onItemClicked(it, position, element.latitude, element.longitude)
             }
         }
+    }
+
+    private fun eventTrackingLocationInfra() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.LOCATIONINFRA)
     }
 
     private fun eventTrackingMapSearchDistancefrom() {
