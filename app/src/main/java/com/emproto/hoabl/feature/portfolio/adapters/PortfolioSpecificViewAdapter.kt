@@ -16,8 +16,10 @@ import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.home.adapters.HoABLPromisesAdapter
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.model.RecyclerViewItem
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.documents.Data
 import com.emproto.networklayer.response.portfolio.dashboard.GeneralInfoEscalationGraph
 import com.emproto.networklayer.response.portfolio.dashboard.InvestmentHeadingDetails
@@ -34,6 +36,7 @@ import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.BalloonSizeSpec
 import com.skydoves.balloon.createBalloon
 import java.math.BigDecimal
+import javax.inject.Inject
 import kotlin.math.abs
 
 
@@ -45,6 +48,8 @@ class PortfolioSpecificViewAdapter(
     private val headingDetails: InvestmentHeadingDetails
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    @Inject
+    lateinit var appPreference: AppPreference
 
     companion object {
         const val PORTFOLIO_TOP_SECTION = 1
@@ -432,6 +437,7 @@ class PortfolioSpecificViewAdapter(
                 })
             binding.vpAttention.adapter = specificViewPagerAdapter
             binding.tvSeeallAttention.setOnClickListener {
+
                 ivInterface.seeBookingJourney(investmentId)
             }
 
@@ -554,9 +560,14 @@ class PortfolioSpecificViewAdapter(
                 Utility.parseDateFromUtc(imagesData.updatedAt, null)
 
             binding.tvSeeAll.setOnClickListener {
+                eventTrackingLatestMediaGallery()
                 ivInterface.seeAllImages(allMediasList)
             }
         }
+    }
+
+    private fun eventTrackingLatestMediaGallery() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.LATESTMEDIAGALLERY)
     }
 
     private inner class ApplicablePromisesViewHolder(private val binding: PortfolioApplicablePromisesBinding) :
@@ -703,12 +714,17 @@ class PortfolioSpecificViewAdapter(
             binding.rvFaq.adapter = faqAdapter
             binding.tvFaqReadAll.visibility = View.VISIBLE
             binding.tvFaqReadAll.setOnClickListener {
+                eventTrackingFAQS()
                 ivInterface.readAllFaq(-1, 0)
             }
             binding.bnAskHere.setOnClickListener {
                 ivInterface.onClickAsk()
             }
         }
+    }
+
+    private fun eventTrackingFAQS() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(),Mixpanel.PORTFOLIOFAQS)
     }
 
     private inner class SimilarInvestmentsViewHolder(private val binding: TrendingProjectsLayoutBinding) :

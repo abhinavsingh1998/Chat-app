@@ -10,6 +10,7 @@ import com.emproto.core.Constants
 import com.emproto.hoabl.databinding.FragmentPhotosBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.investment.adapters.MediaPhotosAdapter
 import com.emproto.hoabl.model.MediaGalleryItem
 import com.emproto.hoabl.model.MediaViewItem
@@ -17,6 +18,7 @@ import com.emproto.hoabl.utils.MediaItemClickListener
 import com.emproto.hoabl.utils.YoutubeItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
+import com.emproto.networklayer.preferences.AppPreference
 import javax.inject.Inject
 
 class PhotosFragment : BaseFragment() {
@@ -26,7 +28,8 @@ class PhotosFragment : BaseFragment() {
     lateinit var investmentViewModel: InvestmentViewModel
     lateinit var binding: FragmentPhotosBinding
     private lateinit var mediaPhotosAdapter: MediaPhotosAdapter
-
+    @Inject
+    lateinit var appPreference: AppPreference
     private var allImageList = ArrayList<MediaViewItem>()
 
     override fun onCreateView(
@@ -41,7 +44,12 @@ class PhotosFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
+        eventTrackingMediaGallerySectionSelection()
         initObserver()
+    }
+
+    private fun eventTrackingMediaGallerySectionSelection() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.MEDIAGALLERYSECTIONSELECTION)
     }
 
     private fun initViewModel() {

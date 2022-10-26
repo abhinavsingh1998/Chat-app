@@ -9,8 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemLocationInfrastructureBinding
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.utils.MapItemClickListener
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.investment.ValueXXX
+import javax.inject.Inject
 
 class LocationInfrastructureAdapter(
     private val context: Context,
@@ -21,10 +24,14 @@ class LocationInfrastructureAdapter(
     private var selectedItemPos: Int = -1
 ) : RecyclerView.Adapter<LocationInfrastructureAdapter.MyViewHolder>() {
 
+    @Inject
+    lateinit var appPreference: AppPreference
+
     var lastItemSelectedPos = -1
 
     inner class MyViewHolder(var binding: ItemLocationInfrastructureBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(
             position: Int
         ) {
@@ -40,6 +47,7 @@ class LocationInfrastructureAdapter(
             }
 
             binding.apply {
+                eventTrackingMapSearchDistancefrom()
                 tvLocationName.text = element.name
                 val locationDuration = "${element.minutes}mins"
                 val tvlocationDuration = "${element.hours}hr ${element.minutes}mins"
@@ -62,6 +70,8 @@ class LocationInfrastructureAdapter(
                 }
             }
             binding.cvLocationInfrastructureCard.setOnClickListener {
+//                eventTrackingMapSearchDistancefrom()
+                eventTrackingLocationInfra()
                 lastItemSelectedPos = selectedItemPos
                 selectedItemPos = adapterPosition
                 lastItemSelectedPos = if (lastItemSelectedPos == -1)
@@ -74,6 +84,14 @@ class LocationInfrastructureAdapter(
                 itemClickListener.onItemClicked(it, position, element.latitude, element.longitude)
             }
         }
+    }
+
+    private fun eventTrackingLocationInfra() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.LOCATIONINFRA)
+    }
+
+    private fun eventTrackingMapSearchDistancefrom() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.MAPSEARCHDISTANCEFROM)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

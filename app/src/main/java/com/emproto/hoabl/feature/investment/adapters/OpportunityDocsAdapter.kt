@@ -11,8 +11,10 @@ import com.bumptech.glide.Glide
 import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.Extensions.showHTMLText
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.investment.OpportunityDoc
 import com.emproto.networklayer.response.investment.ProjectAminity
 import com.emproto.networklayer.response.investment.Story
@@ -22,6 +24,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import javax.inject.Inject
 
 class OpportunityDocsAdapter(
     private val context: Context,
@@ -40,6 +43,9 @@ class OpportunityDocsAdapter(
         const val OPP_DOCS_VIEW_TYPE_SEVEN = 7
         const val OPP_DOCS_VIEW_TYPE_EIGHT = 8
     }
+
+    @Inject
+    lateinit var appPreference: AppPreference
 
     private lateinit var destinationAdapter: DestinationAdapter
     private lateinit var currentInfraStoryAdapter: CurrentInfraStoryAdapter
@@ -312,6 +318,7 @@ class OpportunityDocsAdapter(
             binding.tvViewMore.setOnClickListener {
                 when (isClicked) {
                     true -> {
+                        eventTrackingOppTourismViewMore()
                         Glide
                             .with(context)
                             .load(R.drawable.path_3)
@@ -366,6 +373,10 @@ class OpportunityDocsAdapter(
 
             }
         }
+    }
+
+    private fun eventTrackingOppTourismViewMore() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.OppDoc)
     }
 
     private inner class AboutProjectViewHolder(private val binding: AboutProjectLayoutBinding) :
@@ -437,7 +448,8 @@ class OpportunityDocsAdapter(
                 binding.tvViewMore.setOnClickListener {
                     when (isClicked) {
                         true -> {
-                            Glide
+                            eventTrackingProjectAmenititesViewMore()
+                                    Glide
                                 .with(context)
                                 .load(R.drawable.path_3)
                                 .into(binding.ivViewMoreArrow)
@@ -494,6 +506,10 @@ class OpportunityDocsAdapter(
         }
     }
 
+    private fun eventTrackingProjectAmenititesViewMore() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(),Mixpanel.OPPDOCPROJECTAMENITITIES)
+    }
+
     private inner class ApplyViewHolder(private val binding: ApplyLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
@@ -506,7 +522,6 @@ class OpportunityDocsAdapter(
                     binding.tvBookingStarts.visibility = View.VISIBLE
                 }
             }
-
             binding.tvApplyNow.setOnClickListener(onItemClickListener)
         }
     }

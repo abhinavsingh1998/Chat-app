@@ -25,9 +25,11 @@ import com.emproto.hoabl.databinding.FragmentReceiptBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.portfolio.adapters.AllReceiptsBookingJourneyAdapter
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.portfolio.adapters.ReceiptListAdapter
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.bookingjourney.Data
 import com.emproto.networklayer.response.bookingjourney.Payment
 import com.emproto.networklayer.response.bookingjourney.PaymentReceipt
@@ -78,6 +80,8 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
     @Inject
     lateinit var portfolioFactory: PortfolioFactory
     lateinit var portfolioViewModel: PortfolioViewModel
+    @Inject
+    lateinit var appPreference: AppPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,6 +110,7 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
             docsBottomSheet.dismiss()
         }
         initView()
+        eventTrackingViewBookingJourney()
         getBookingJourneyData(param1)
         return mBinding.root
     }
@@ -114,6 +119,10 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
         super.onViewCreated(view, savedInstanceState)
         allPaymentReceiptList = portfolioViewModel.getAllPaymentReceipt()
 
+    }
+
+    private fun eventTrackingViewBookingJourney() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.VIEWBOOKINGJOURNEY)
     }
 
     private fun initView() {
@@ -173,7 +182,7 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
             documentBinding.rvDocsItemRecycler.adapter =
                 AllReceiptsBookingJourneyAdapter(context, allPaymentReceiptList, this)
-            
+
         }
     }
 

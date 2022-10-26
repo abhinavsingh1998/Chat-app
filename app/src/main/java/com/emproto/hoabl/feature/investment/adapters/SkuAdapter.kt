@@ -1,7 +1,7 @@
 package com.emproto.hoabl.feature.investment.adapters
 
-import android.content.Context
 import android.graphics.Color
+import android.content.Context
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
@@ -11,23 +11,35 @@ import androidx.core.text.bold
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemSkusBinding
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.investment.Inventory
+import javax.inject.Inject
 
 class SkuAdapter(
+//    var context: Context,
     val context: Context,
     private val list: List<Inventory>?,
     private val itemClickListener: ItemClickListener,
     private val investmentViewModel: InvestmentViewModel
 ) : RecyclerView.Adapter<SkuAdapter.MyViewHolder>() {
+    @Inject
+    lateinit var appPreference: AppPreference
 
     inner class MyViewHolder(var binding: ItemSkusBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = ItemSkusBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(view)
+        eventTrackingSKUCard()
     }
+
+    private fun eventTrackingSKUCard() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.SKUCARD)
+    }
+
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val element = list!![position]

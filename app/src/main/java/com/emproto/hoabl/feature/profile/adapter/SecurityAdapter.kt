@@ -8,9 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.profile.data.SettingsData
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.networklayer.preferences.AppPreference
+import javax.inject.Inject
 
 class SecurityAdapter(
     private val context: Context,
@@ -20,7 +23,8 @@ class SecurityAdapter(
     private val showPushNotifications: Boolean
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
+    @Inject
+    lateinit var appPreference: AppPreference
     companion object {
         const val VIEW_REPORT = 0
         const val VIEW_SECURITY_AUTHENTICATE = 1
@@ -115,6 +119,7 @@ class SecurityAdapter(
     }
 
     private fun initData(): ArrayList<SettingsData> {
+
         val newsList: ArrayList<SettingsData> = ArrayList()
         newsList.add(SettingsData("Send Push Notifications", "Control location access here"))
 
@@ -172,9 +177,14 @@ class SecurityAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             binding.clSecurityTips.setOnClickListener {
+                eventTrackingSecurityTips()
                 itemClickListener.onItemClicked(binding.clSecurityTips, position, "Security Tips")
             }
         }
+    }
+
+    private fun eventTrackingSecurityTips() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.READSECURITYTIPS)
     }
 
     private inner class SignOutAllViewHolder(private val binding: SecurityView3Binding) :

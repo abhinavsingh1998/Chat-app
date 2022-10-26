@@ -25,6 +25,7 @@ import com.emproto.hoabl.databinding.FacilitymanagerBinding
 import com.emproto.hoabl.databinding.FragmentProfileMainBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.hoabl.feature.portfolio.views.CustomDialog
 import com.emproto.hoabl.feature.portfolio.views.PortfolioFragment
@@ -310,10 +311,15 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun facilityManagerDialogBox() {
+        eventTrackingFacilityManagement()
         facilityDialog.show()
         facilityManagerDialog.actionOk.setOnClickListener {
             facilityDialog.dismiss()
         }
+    }
+
+    private fun eventTrackingFacilityManagement() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.FACILITYMANAGEMENT)
     }
 
     private fun initClickListener() {
@@ -493,8 +499,13 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun openMyAccount() {
+        eventTrackingMyAccount()
         val myAccount = AccountDetailsFragment()
         (requireActivity() as HomeActivity).addFragment(myAccount, true)
+    }
+
+    private fun eventTrackingMyAccount() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.MYACCOUNT)
     }
 
     override fun onPause() {

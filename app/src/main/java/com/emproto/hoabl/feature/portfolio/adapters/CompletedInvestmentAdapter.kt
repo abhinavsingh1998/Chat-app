@@ -17,6 +17,8 @@ import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemCompletedInvestmentsBinding
+import com.emproto.hoabl.feature.home.views.Mixpanel
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.portfolio.dashboard.InvestmentHeadingDetails
 import com.emproto.networklayer.response.portfolio.dashboard.Point
 import com.emproto.networklayer.response.portfolio.dashboard.Project
@@ -29,6 +31,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import javax.inject.Inject
 import kotlin.math.abs
 
 
@@ -40,6 +43,8 @@ class CompletedInvestmentAdapter(
 ) :
     RecyclerView.Adapter<CompletedInvestmentAdapter.MyViewHolder>() {
 
+    @Inject
+    lateinit var appPreference: AppPreference
     private val COMPLETED = 0
     private val ONGOING = 1
 
@@ -66,6 +71,7 @@ class CompletedInvestmentAdapter(
         val project = list[position]
 
         holder.binding.tvManageProjects.setOnClickListener {
+            eventTrackingManageInvestment()
             manageInvestmentDetails(project)
         }
         holder.binding.tvCompletedInvestmentName.setOnClickListener {
@@ -174,6 +180,10 @@ class CompletedInvestmentAdapter(
 
         }
 
+    }
+
+    private fun eventTrackingManageInvestment() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.MANAGEINVESTMENT)
     }
 
     private fun manageInvestmentDetails(project: Project) {

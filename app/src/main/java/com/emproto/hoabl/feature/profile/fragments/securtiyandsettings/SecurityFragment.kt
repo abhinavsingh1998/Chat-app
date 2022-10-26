@@ -17,6 +17,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentSecurityBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
 import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.hoabl.feature.profile.adapter.SecurityAdapter
@@ -69,7 +70,12 @@ class SecurityFragment : BaseFragment() {
             isSecurityTipsActive = it.getBoolean(Constants.IS_SECURITY_TIPS_ACTIVE) as Boolean
         }
         return binding.root
+        eventTrackingSecuritySettings()
 
+    }
+
+    private fun eventTrackingSecuritySettings() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SECURITYANDSETTINGS)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

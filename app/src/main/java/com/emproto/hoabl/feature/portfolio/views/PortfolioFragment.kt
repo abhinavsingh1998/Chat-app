@@ -23,6 +23,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentPortfolioBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.home.views.fragments.ReferralDialog
 import com.emproto.hoabl.feature.investment.views.CategoryListFragment
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
@@ -320,6 +321,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                                 if (it.data.isInvestor)
                                     observePortFolioData(it)
                                 else {
+                                    eventTrackingExploreNewinvestment()
                                     binding.noUserView.show()
                                     binding.portfolioTopImg.visibility = View.VISIBLE
                                     binding.addYouProject.visibility = View.VISIBLE
@@ -349,6 +351,10 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                 fetchUserPortfolio(true)
             }
         }
+    }
+
+    private fun eventTrackingExploreNewinvestment() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.EXPLORENEWINVESTMENT)
     }
 
     private fun observePortFolioData(portfolioData: PortfolioData) {

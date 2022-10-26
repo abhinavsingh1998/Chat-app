@@ -11,10 +11,12 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentOpportunityDocsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.investment.adapters.OpportunityDocsAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
+import com.emproto.networklayer.preferences.AppPreference
 import javax.inject.Inject
 
 class OpportunityDocsFragment : BaseFragment() {
@@ -27,6 +29,8 @@ class OpportunityDocsFragment : BaseFragment() {
     private var title = ""
     private var projectId = 0
     private var isFromProjectAmenities = false
+    @Inject
+    lateinit var appPreference:AppPreference
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -130,6 +134,7 @@ class OpportunityDocsFragment : BaseFragment() {
         View.OnClickListener { view ->
             when (view.id) {
                 R.id.tv_apply_now -> {
+                    eventTrackingOppDocApplyNow()
                     val fragment = LandSkusFragment()
                     val bundle = Bundle()
                     bundle.putInt(Constants.PROJECT_ID, projectId)
@@ -138,5 +143,9 @@ class OpportunityDocsFragment : BaseFragment() {
                 }
             }
         }
+
+    private fun eventTrackingOppDocApplyNow() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.OPPDOCAPPLYNOW)
+    }
 
 }

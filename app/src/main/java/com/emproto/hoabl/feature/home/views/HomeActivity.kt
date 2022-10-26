@@ -141,8 +141,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     private fun trackEvent() {
-        val mixpanelAPI = MixpanelAPI.getInstance(this, getString(R.string.MIXPANEL_KEY))
-        mixpanelAPI.identify(appPreference.getMobilenum())
+        Mixpanel(this).identifyFunction(appPreference.getMobilenum(),Mixpanel.HOME)
     }
 
     @SuppressLint("NewApi")
@@ -230,6 +229,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 replaceFragment(homeFragment.javaClass, "", true, bundle, null, 0, true)
             }
             ScreenInvestment -> {
+
                 val favouriteFragment = InvestmentFragment()
 //                val favouriteFragment = Testimonials()
                 favouriteFragment.arguments = bundle
@@ -507,6 +507,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     fun share_app() {
+
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         shareIntent.type = "text/plain"

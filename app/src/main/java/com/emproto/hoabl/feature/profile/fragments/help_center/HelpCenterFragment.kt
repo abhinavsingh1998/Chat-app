@@ -15,6 +15,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentHelpCenterBinding
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.investment.views.FaqDetailFragment
 import com.emproto.hoabl.feature.profile.adapter.HelpCenterAdapter
 import com.emproto.hoabl.feature.profile.data.DataHealthCenter
@@ -23,6 +24,7 @@ import com.emproto.hoabl.feature.profile.fragments.about_us.AboutUsFragment
 import com.emproto.hoabl.feature.profile.fragments.feedback.FeedbackFragment
 import com.emproto.hoabl.feature.profile.fragments.privacy.PrivacyFragment
 import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.networklayer.preferences.AppPreference
 import javax.inject.Inject
 
 
@@ -30,6 +32,8 @@ class HelpCenterFragment : BaseFragment() {
 
     @Inject
     lateinit var binding: FragmentHelpCenterBinding
+    @Inject
+    lateinit var appPreference: AppPreference
     lateinit var recyclerView: RecyclerView
     val bundle = Bundle()
 
@@ -48,7 +52,12 @@ class HelpCenterFragment : BaseFragment() {
 
         }
         initView()
+        eventTrackingHelpCenter()
         return binding.root
+    }
+
+    private fun eventTrackingHelpCenter() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.HELPCENTER)
     }
 
     private fun initView() {
@@ -113,6 +122,7 @@ class HelpCenterFragment : BaseFragment() {
                 override fun onItemClicked(view: View, position: Int, item: String) {
                     when (item) {
                         Constants.FAQ_TITLE -> {
+                            eventTrackingFAQS()
                             val fragment = FaqDetailFragment()
                             val bundle = Bundle()
                             bundle.putBoolean(Constants.IS_FROM_INVESTMENT, false)
@@ -124,12 +134,14 @@ class HelpCenterFragment : BaseFragment() {
                             )
                         }
                         Constants.ABOUT_US_TITLE -> {
+                            eventTrackingAboutUs()
                             (requireActivity() as HomeActivity).addFragment(
                                 AboutUsFragment(),
                                 true
                             )
                         }
                         Constants.PRIVACY_POLICY_TITLE -> {
+                            eventTrackingPrivacyPolicy()
                             (requireActivity() as HomeActivity).addFragment(
                                 PrivacyFragment(),
                                 true
@@ -142,6 +154,7 @@ class HelpCenterFragment : BaseFragment() {
                             )
                         }
                         Constants.RATE_US_TITLE -> {
+                            eventTrackingRateUs()
                             val intent = Intent(Intent.ACTION_VIEW)
                             val uri = Uri.parse(Constants.PLAY_STORE)
                             intent.data = uri
@@ -192,6 +205,22 @@ class HelpCenterFragment : BaseFragment() {
         binding.backAction.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
+    }
+
+    private fun eventTrackingRateUs() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.RATEUS)
+    }
+
+    private fun eventTrackingAboutUs() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.PROFILEABOUTUS)
+    }
+
+    private fun eventTrackingPrivacyPolicy() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.PROFILEPRIVACYPOLICY)
+    }
+
+    private fun eventTrackingFAQS() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.FAQS)
     }
 
 
