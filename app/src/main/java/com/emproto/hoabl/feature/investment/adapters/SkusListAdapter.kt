@@ -15,7 +15,7 @@ import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.Inventory
 
 class SkusListAdapter(
-    var context: Context,
+    val context: Context,
     private val fragment: LandSkusFragment,
     private val list: List<Inventory>,
     val itemClickListener: ItemClickListener

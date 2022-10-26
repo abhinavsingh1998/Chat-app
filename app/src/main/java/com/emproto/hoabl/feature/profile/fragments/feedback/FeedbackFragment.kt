@@ -20,8 +20,10 @@ import com.emproto.hoabl.databinding.FragmentFeedbackBinding
 import com.emproto.hoabl.databinding.FragmentFeedbackBinding.inflate
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.profile.FeedBackRequest
 import com.emproto.networklayer.response.enums.Status
 import javax.inject.Inject
@@ -34,6 +36,9 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
 
     @Inject
     lateinit var factory: ProfileFactory
+    @Inject
+    lateinit var appPreference:AppPreference
+
     lateinit var profileViewModel: ProfileViewModel
     private lateinit var feedBackRequest: FeedBackRequest
     lateinit var description: String
@@ -55,6 +60,10 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
         initClickListener()
         categories()
         return binding.root
+    }
+
+    private fun eventTrackingFeedback() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.FEEDBACK)
     }
 
     private fun initClickListener() {
@@ -366,6 +375,7 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
                 selected5()
             }
             R.id.share_your_feedback -> {
+                eventTrackingFeedback()
                 if (ratings != 0 || (description.isNotEmpty() && description.trim()
                         .isNotEmpty()) || list.isNotEmpty()
                 ) {

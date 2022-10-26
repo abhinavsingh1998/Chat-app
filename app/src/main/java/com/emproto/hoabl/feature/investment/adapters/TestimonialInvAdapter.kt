@@ -17,6 +17,7 @@ class TestimonialInvAdapter(val context: Context, val list: List<PageManagements
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+
         val item = list[holder.adapterPosition]
 
         val tvName = item.firstName + " " + item.lastName

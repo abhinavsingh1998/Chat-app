@@ -129,6 +129,7 @@ class InsightsFragment : BaseFragment() {
 
         mBinding.appShareBtn.setOnClickListener {
             shareApp()
+
         }
 
         mBinding.refressLayout.setOnRefreshListener {

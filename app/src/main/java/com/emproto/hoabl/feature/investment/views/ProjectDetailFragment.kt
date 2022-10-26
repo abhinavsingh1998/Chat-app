@@ -14,6 +14,7 @@ import com.emproto.hoabl.databinding.ProjectDetailLayoutBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.home.views.fragments.Testimonials
 import com.emproto.hoabl.feature.investment.adapters.ProjectDetailAdapter
 import com.emproto.hoabl.feature.investment.dialogs.ApplicationSubmitDialog
@@ -224,6 +225,10 @@ class ProjectDetailFragment : BaseFragment() {
             }
     }
 
+    private fun eventTrackingWishlist() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.WISHLIST)
+    }
+
     private fun setUpRecyclerView(
         data: PdData,
         promisesData: List<PmData>,
@@ -317,6 +322,7 @@ class ProjectDetailFragment : BaseFragment() {
         View.OnClickListener { view ->
             when (view.id) {
                 R.id.bn_ask_here -> {
+                    eventTrackingHaveAnyQuestionCard()
                     val bundle = Bundle()
                     val chatsFragment = ChatsFragment()
                     chatsFragment.arguments = bundle
@@ -328,10 +334,12 @@ class ProjectDetailFragment : BaseFragment() {
                     navigateToCategory()
                 }
                 R.id.iv_share_icon -> {
+                    eventTrackingShare()
                     (requireActivity() as HomeActivity).share_app()
                 }
                 R.id.btn_view_on_map -> {
                     if (isNetworkAvailable()) {
+                        eventTrackingViewOnMap()
                         val fragment = MapFragment()
                         val bundle = Bundle()
                         val projectLocation =
@@ -358,9 +366,11 @@ class ProjectDetailFragment : BaseFragment() {
                     navigateToFaqDetail()
                 }
                 R.id.tv_faq_read_all -> {
+                    eventTrackingFaqReadAll()
                     navigateToFaqDetail()
                 }
                 R.id.cv_why_invest_card -> {
+                    eventTrackingWhyInvestCard()
                     investmentViewModel.setOpportunityDoc(oppDocData)
                     investmentViewModel.setSkus(landSkusData)
                     val fragment = OpportunityDocsFragment()
@@ -377,9 +387,11 @@ class ProjectDetailFragment : BaseFragment() {
                     navigateToSkuScreen()
                 }
                 R.id.tv_video_drone_see_all -> {
+                    eventTrackingSeeAllVideoImage()
                     navigateToMediaGallery(true)
                 }
                 R.id.tv_project_amenities_all -> {
+                    eventTrackingSeeAllProjectAmenitites()
                     navigateToOppDoc()
                 }
                 R.id.iv_share_icon -> {
@@ -417,6 +429,7 @@ class ProjectDetailFragment : BaseFragment() {
                 }
                 R.id.tv_location_infrastructure_all -> {
                     if (isNetworkAvailable()) {
+                        eventTrackingLocationInfraSeeAll()
                         val fragment = MapFragment()
                         val bundle = Bundle()
                         val projectLocation =
@@ -439,6 +452,39 @@ class ProjectDetailFragment : BaseFragment() {
                 }
             }
         }
+
+    private fun eventTrackingLocationInfraSeeAll() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.LOCATIONINFRASEEALL)
+    }
+
+    private fun eventTrackingSeeAllProjectAmenitites() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.PROJECTAMENITITIESSEEALL)
+    }
+
+    private fun eventTrackingFaqReadAll() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.FAQREADALL)
+    }
+
+    private fun eventTrackingHaveAnyQuestionCard() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.HAVEANYQUESTIONCARD)
+    }
+
+    private fun eventTrackingSeeAllVideoImage() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SEEALLVIDEOIMAGE)
+    }
+
+    private fun eventTrackingWhyInvestCard() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.WHYINVESTCARD)
+    }
+
+    private fun eventTrackingShare() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.INVESTMENTSHARE)
+    }
+
+    private fun eventTrackingViewOnMap() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.VIEWONMAP)
+
+    }
 
     private fun navigateToCategory() {
         val list = CategoryListFragment()
@@ -693,6 +739,7 @@ class ProjectDetailFragment : BaseFragment() {
                     }
                 }
                 R.id.cv_faq_card -> {
+                    eventTrackingFaqCard()
                     val fragment = FaqDetailFragment()
                     val bundle = Bundle()
                     bundle.putInt(Constants.PROJECT_ID, projectId)
@@ -745,10 +792,16 @@ class ProjectDetailFragment : BaseFragment() {
         }
     }
 
+    private fun eventTrackingFaqCard() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.FAQCARD)
+    }
+
+
     private val videoItemClickListener = object : YoutubeItemClickListener {
         override fun onItemClicked(view: View, position: Int, url: String, title: String) {
             when (view.id) {
                 R.id.iv_latest_image -> {
+                    eventTrackingVideoImageCard()
                     val intent = Intent(
                         this@ProjectDetailFragment.requireActivity(),
                         YoutubeActivity::class.java
@@ -761,12 +814,21 @@ class ProjectDetailFragment : BaseFragment() {
         }
     }
 
+    private fun eventTrackingVideoImageCard() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.VIDEOIMAGECARD)
+    }
+
     private fun navigateToSkuScreen() {
+        eventTrackingApply()
         val fragment = LandSkusFragment()
         val bundle = Bundle()
         bundle.putInt(Constants.PROJECT_ID, projectId)
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(fragment, true)
+    }
+
+    private fun eventTrackingApply() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.INVESTMENTNEWLAUNCHAPPLYNOW)
     }
 
     private fun openDialog() {

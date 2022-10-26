@@ -12,10 +12,12 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentCategoryListBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.investment.adapters.CategoryListAdapter
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.investment.*
 import com.emproto.networklayer.response.portfolio.ivdetails.SimilarInvestment
 import javax.inject.Inject
@@ -29,7 +31,8 @@ class CategoryListFragment : BaseFragment() {
     private lateinit var binding: FragmentCategoryListBinding
     private lateinit var categoryListAdapter: CategoryListAdapter
     private var type: String? = ""
-
+    @Inject
+    lateinit var appPreference: AppPreference
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,6 +48,12 @@ class CategoryListFragment : BaseFragment() {
         type = arguments?.getString("Category")
         setUpViewModel()
         initObserver()
+
+        eventTrackingSimilarInvestmentApplyNow()
+    }
+
+    private fun eventTrackingSimilarInvestmentApplyNow() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SIMILARINVESTMENTSCARDAPPLYNOW)
     }
 
     private fun setUpViewModel() {

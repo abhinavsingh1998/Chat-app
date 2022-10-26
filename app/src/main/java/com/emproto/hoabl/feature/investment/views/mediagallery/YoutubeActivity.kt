@@ -7,9 +7,11 @@ import com.emproto.core.Constants
 import com.emproto.hoabl.databinding.ActivityYoutubeBinding
 import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.networklayer.NetworkUtil
+import com.emproto.networklayer.preferences.AppPreference
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
+import javax.inject.Inject
 
 class YoutubeActivity : YouTubeBaseActivity() {
 
@@ -38,6 +40,8 @@ class YoutubeActivity : YouTubeBaseActivity() {
             }
         }
     }
+
+
 
     private fun initData() {
         videoId = intent.getStringExtra(Constants.YOUTUBE_VIDEO_ID).toString()

@@ -11,10 +11,12 @@ import com.emproto.core.Constants
 import com.emproto.hoabl.databinding.FragmentMediaGalleryBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.investment.adapters.MediaViewPagerAdapter
 import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.google.android.material.tabs.TabLayoutMediator
 import javax.inject.Inject
 
@@ -25,6 +27,8 @@ class MediaGalleryFragment : BaseFragment() {
     lateinit var investmentViewModel: InvestmentViewModel
     lateinit var binding: FragmentMediaGalleryBinding
     private lateinit var mediaViewPagerAdapter: MediaViewPagerAdapter
+    @Inject
+    lateinit var appPreference: AppPreference
     val list = ArrayList<MediaViewItem>()
 
     private val tabList = arrayListOf(
@@ -51,8 +55,9 @@ class MediaGalleryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
-        setUpTabLayoutViewPager()
+                setUpTabLayoutViewPager()
     }
+
 
     private fun initViewModel() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
@@ -74,6 +79,7 @@ class MediaGalleryFragment : BaseFragment() {
 
         when (investmentViewModel.isVideoSeeAllClicked) {
             true -> {
+
                 binding.vpMediaGallery.setCurrentItem(1, false)
                 mediaViewPagerAdapter = MediaViewPagerAdapter(childFragmentManager, lifecycle)
                 mediaViewPagerAdapter.notifyDataSetChanged()

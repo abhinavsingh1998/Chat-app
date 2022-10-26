@@ -21,7 +21,10 @@ class MediaViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecyc
     }
 
     override fun createFragment(position: Int): Fragment {
+
+
         return when (position) {
+
             0 -> PhotosFragment()
             1 -> VideosFragment()
             2 -> DroneFragment()

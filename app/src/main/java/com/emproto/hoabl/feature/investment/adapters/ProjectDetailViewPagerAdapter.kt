@@ -7,8 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.CustomViewpagerImageLayoutBinding
 import com.emproto.hoabl.databinding.SeeAllLayoutBinding
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.networklayer.preferences.AppPreference
+import javax.inject.Inject
 
 class ProjectDetailViewPagerAdapter(
     private val context: Context,
@@ -16,6 +19,9 @@ class ProjectDetailViewPagerAdapter(
     private val imageList: List<String>,
     private val itemClickListener: ItemClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    @Inject
+    lateinit var appPreference: AppPreference
 
     companion object {
         const val IMAGE = 1
@@ -49,9 +55,16 @@ class ProjectDetailViewPagerAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             binding.clSeeAll.setOnClickListener {
+                eventTrackingSeeAllImagesVideo()
                 itemClickListener.onItemClicked(it, position, position.toString())
             }
         }
+    }
+
+    private fun eventTrackingSeeAllImagesVideo() {
+       // Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.VIEWALLPROPERTIES)
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.SEEALLIMAGESVIDEOS)
+
     }
 
     private inner class ImageViewHolder(private val binding: CustomViewpagerImageLayoutBinding) :

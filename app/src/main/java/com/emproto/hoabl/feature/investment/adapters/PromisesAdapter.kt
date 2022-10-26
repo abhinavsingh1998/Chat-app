@@ -6,8 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ItemPromisesBinding
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.utils.ItemClickListener
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.investment.PmData
+import javax.inject.Inject
 
 class PromisesAdapter(
     private val list: List<PmData>,
@@ -15,7 +18,8 @@ class PromisesAdapter(
     private val context: Context,
     val count: Int = 0
 ) : RecyclerView.Adapter<PromisesAdapter.MyViewHolder>() {
-
+    @Inject
+    lateinit var appPreference: AppPreference
     inner class MyViewHolder(var binding: ItemPromisesBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -36,8 +40,13 @@ class PromisesAdapter(
 
         }
         holder.binding.itemCard.setOnClickListener {
+            eventTrackingPromisesCard()
             itemClickListener.onItemClicked(it, position, element.id.toString())
         }
+    }
+
+    private fun eventTrackingPromisesCard() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.INVESTEMENTPROMISESCARD)
     }
 
     override fun getItemCount(): Int {

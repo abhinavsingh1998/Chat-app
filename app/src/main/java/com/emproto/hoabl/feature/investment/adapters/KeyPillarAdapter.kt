@@ -6,11 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ItemKeyPillarBinding
+import com.emproto.hoabl.feature.home.views.Mixpanel
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.investment.ValueX
+import javax.inject.Inject
 
 class KeyPillarAdapter(val context: Context, private val list: List<ValueX>) :
     RecyclerView.Adapter<KeyPillarAdapter.MyViewHolder>() {
-
+    @Inject
+    lateinit var appPreference: AppPreference
     inner class MyViewHolder(var binding: ItemKeyPillarBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -22,13 +26,17 @@ class KeyPillarAdapter(val context: Context, private val list: List<ValueX>) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val element = list[position]
         holder.binding.tvPremiumLocation.text = element.name
-
+        eventTrackKeyPillarsCard()
         if (element.points.isNotEmpty())
             holder.binding.tvPointOne.text = element.points[0]
         Glide
             .with(context)
             .load(element.icon.value.url)
             .into(holder.binding.ivPremiumLocation)
+    }
+
+    private fun eventTrackKeyPillarsCard() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.KEYPILLARSCARD)
     }
 
     override fun getItemCount(): Int = list.size

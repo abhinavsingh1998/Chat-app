@@ -20,6 +20,7 @@ import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.adapters.HomeAdapter
 import com.emproto.hoabl.feature.home.data.LatesUpdatesPosition
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.portfolio.views.BookingJourneyFragment
@@ -377,6 +378,7 @@ class HomeFragment : BaseFragment() {
                     )
                 }
                 R.id.dont_miss_out_card -> {
+                    eventTrackingDontMiss()
                     val bundle = Bundle()
                     bundle.putInt(Constants.PROJECT_ID, projectId)
                     val fragment = ProjectDetailFragment()
@@ -420,9 +422,11 @@ class HomeFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).navigate(R.id.navigation_investment)
                 }
                 R.id.btn_refer_now -> {
+                    eventTrackingReferNow()
                     referNow()
                 }
                 R.id.app_share_view -> {
+                    eventTrackingShare()
                     shareApp()
                 }
 
@@ -462,6 +466,21 @@ class HomeFragment : BaseFragment() {
             }
 
         }
+    }
+
+    private fun eventTrackingDontMiss() {
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.DONTMISSOUT
+        )
+    }
+
+    private fun eventTrackingShare() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SHARE)
+    }
+
+    private fun eventTrackingReferNow() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.REFERNOW)
     }
 
     private fun setParentRecycler(

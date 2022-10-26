@@ -11,8 +11,10 @@ import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
 import com.example.portfolioui.adapters.TimelineAdapter
 import com.example.portfolioui.databinding.FragmentProjectTimelineBinding
@@ -28,6 +30,8 @@ class ProjectTimelineFragment : BaseFragment() {
     private var param2: String? = null
     lateinit var mBinding: FragmentProjectTimelineBinding
 
+    @Inject
+    lateinit var appPreference: AppPreference
     @Inject
     lateinit var portfolioFactory: PortfolioFactory
     lateinit var portfolioViewModel: PortfolioViewModel
@@ -53,7 +57,12 @@ class ProjectTimelineFragment : BaseFragment() {
         )[PortfolioViewModel::class.java]
         initView()
         initObserver()
+        eventTrackingViewTimeline()
         return mBinding.root
+    }
+
+    private fun eventTrackingViewTimeline() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.VIEWTIMELINE)
     }
 
     private fun initObserver() {

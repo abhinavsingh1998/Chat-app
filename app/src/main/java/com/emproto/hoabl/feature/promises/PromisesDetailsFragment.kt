@@ -16,9 +16,11 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentPromiseDetailsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.promises.adapter.PromiseDetailsAdapter
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import javax.inject.Inject
 
@@ -38,6 +40,8 @@ class PromisesDetailsFragment : BaseFragment() {
     lateinit var bottomSheetDialog: BottomSheetDialog
     private lateinit var termsConditionDialogBinding: TermsConditionDialogBinding
 
+    @Inject
+    lateinit var appPreference: AppPreference
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,15 +73,27 @@ class PromisesDetailsFragment : BaseFragment() {
 
         binding.getPortfolioButton.setOnClickListener {
             //open 3 rd tab portfolio
+            eventTrackingPorfolio()
             (requireActivity() as HomeActivity).navigate(R.id.navigation_portfolio)
         }
         binding.textViewTAndC.setOnClickListener {
+            eventTrackingTermsAndConditions()
             bottomSheetDialog.show()
         }
 
         termsConditionDialogBinding.acitonClose.setOnClickListener {
             bottomSheetDialog.dismiss()
         }
+    }
+
+    private fun eventTrackingTermsAndConditions() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.PROMISESTERMSANDCONDITIONS
+        )
+    }
+
+    private fun eventTrackingPorfolio() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.PORTFOLIO
+        )
     }
 
     private fun initObserver() {

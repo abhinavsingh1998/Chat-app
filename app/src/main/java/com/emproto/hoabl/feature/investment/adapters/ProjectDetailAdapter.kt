@@ -17,6 +17,7 @@ import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.model.YoutubeModel
 import com.emproto.hoabl.utils.ItemClickListener
@@ -24,6 +25,7 @@ import com.emproto.hoabl.utils.MapItemClickListener
 import com.emproto.hoabl.utils.SimilarInvItemClickListener
 import com.emproto.hoabl.utils.YoutubeItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.home.PageManagementsOrTestimonial
 import com.emproto.networklayer.response.investment.*
 import com.github.mikephil.charting.components.AxisBase
@@ -38,6 +40,7 @@ import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.createBalloon
 import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 
 class ProjectDetailAdapter(
@@ -89,6 +92,8 @@ class ProjectDetailAdapter(
     private var isReadMoreClicked = true
     private var graphType = ""
     private var xaxisList = ArrayList<String>()
+    @Inject
+    lateinit var appPreference: AppPreference
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -138,6 +143,7 @@ class ProjectDetailAdapter(
                 )
             }
             VIEW_TYPE_DONT_MISS -> {
+                eventTrackingDntMissOut()
                 ProjectDontMissViewHolder(
                     DontMissLayoutPdBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -156,6 +162,7 @@ class ProjectDetailAdapter(
                 )
             }
             VIEW_TYPE_AMENITIES -> {
+
                 ProjectAmenitiesViewHolder(
                     ProjectAmenitiesLayoutBinding.inflate(
                         LayoutInflater.from(
@@ -192,6 +199,7 @@ class ProjectDetailAdapter(
                 )
             }
             VIEW_TYPE_TESTIMONIALS -> {
+                eventTrackingTestimonials()
                 ProjectTestimonialsViewHolder(
                     NewInvestmentTestimonialsCardBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -219,6 +227,15 @@ class ProjectDetailAdapter(
                 )
             }
         }
+    }
+
+    private fun eventTrackingTestimonials() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(),Mixpanel.SEEALLTESTIMONIALS)
+    }
+
+    private fun eventTrackingDntMissOut() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(),Mixpanel.INVESTMENTDONTMISSOUT1)
+
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -418,6 +435,7 @@ class ProjectDetailAdapter(
                 balloon.getContentView().findViewById<MaterialTextView>(R.id.tv_tooltip_info).text =
                     data.reraDetails.companyNameAndAddress
                 ivRegInfo.setOnClickListener {
+                    eventTrackingRera()
                     balloon.showAlignBottom(ivRegInfo)
                 }
                 binding.ivShareIcon.setOnClickListener(onItemClickListener)
@@ -434,6 +452,7 @@ class ProjectDetailAdapter(
                 binding.ivBookmarkIcon.setOnClickListener {
                     isClicked = when (isClicked) {
                         true -> {
+                            eventTrackingWishlist()
                             ivBookmarkIcon.setImageResource(R.drawable.heart_5_filled)
                             itemClickListener.onItemClicked(it, position, isClicked.toString())
                             false
@@ -514,6 +533,14 @@ class ProjectDetailAdapter(
                 }
             }
         }
+    }
+
+    private fun eventTrackingRera() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.RERA)
+    }
+
+    private fun eventTrackingWishlist() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.WISHLIST)
     }
 
     private inner class ProjectMapViewHolder(private val binding: ViewMapLayoutBinding) :
@@ -683,6 +710,7 @@ class ProjectDetailAdapter(
     private inner class ProjectKeyPillarsViewHolder(private val binding: KeyPillarsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
+
             binding.tvKeyPillarsTitle.text = data.keyPillars.heading
             keyPillarAdapter = KeyPillarAdapter(context, data.keyPillars.values)
             binding.rvKeyPillars.adapter = keyPillarAdapter
@@ -725,7 +753,8 @@ class ProjectDetailAdapter(
         fun bind() {
             binding.tvChooseSkusApplyTitle.text =
                 data.otherSectionHeadings.inventoryBucketContents.sectionHeading
-            skuAdapter = SkuAdapter(context,
+            skuAdapter = SkuAdapter(
+                context,
                 data.inventoriesList.projectContent.inventoryBucketContents,
                 itemClickListener,
                 investmentViewModel
@@ -812,11 +841,11 @@ class ProjectDetailAdapter(
                 itemList.size > 2 -> {
                     for (i in 0..1) {
                         list.add(projectContentsAndFaqs[i])
-                        faqAdapter = FaqQuestionAdapter(list, itemClickListener)
+                        faqAdapter = FaqQuestionAdapter(context,list, itemClickListener)
                     }
                 }
                 else -> {
-                    faqAdapter = FaqQuestionAdapter(itemList, itemClickListener)
+                    faqAdapter = FaqQuestionAdapter(context,itemList, itemClickListener)
                 }
             }
             binding.rvFaq.adapter = faqAdapter
@@ -864,10 +893,16 @@ class ProjectDetailAdapter(
                 ) { _, _ ->
                 }.attach()
                 tvHearSpeakSeeAll.setOnClickListener {
+
+                    eventTrackingSeeAllTestimonials()
                     itemClickListener.onItemClicked(it, position, list.size.toString())
                 }
             }
         }
+    }
+
+    private fun eventTrackingSeeAllTestimonials() {
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(),Mixpanel.SEEALLTESTIMONIALS)
     }
 
     private inner class ProjectNotConvincedViewHolder(binding: NotConvincedLayoutBinding) :
