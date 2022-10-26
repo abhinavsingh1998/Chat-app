@@ -78,7 +78,6 @@ class FaqDetailFragment : BaseFragment() {
 
     private fun eventTrackFaqDetail() {
         Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.FAQCARDDETAILEDPAGE)
-
     }
 
     private fun setUpInitialization() {

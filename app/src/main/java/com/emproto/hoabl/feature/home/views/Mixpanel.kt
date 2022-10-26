@@ -83,6 +83,10 @@ class Mixpanel @Inject constructor(val context: Context) {
         val PROJECTAMENITOTIESCARD="Project Amenitites Card"
         val LOCATIONINFRASEEALL="Location Infra See All"
         val LOCATIONINFRA="Location Infra"
+        val OppDoc="Opp Doc - Tourism Around View More"
+        val OPPDOCPROJECTAMENITITIES="Opp Doc - Project Amenitites - View More"
+        val OPPDOCAPPLYNOW="Opp Doc - Apply Now"
+        val FAQREADALL="Sea All ( FAQ ) "
 
 
     }

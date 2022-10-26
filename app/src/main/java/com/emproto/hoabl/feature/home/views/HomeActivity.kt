@@ -229,6 +229,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 replaceFragment(homeFragment.javaClass, "", true, bundle, null, 0, true)
             }
             ScreenInvestment -> {
+
                 val favouriteFragment = InvestmentFragment()
 //                val favouriteFragment = Testimonials()
                 favouriteFragment.arguments = bundle

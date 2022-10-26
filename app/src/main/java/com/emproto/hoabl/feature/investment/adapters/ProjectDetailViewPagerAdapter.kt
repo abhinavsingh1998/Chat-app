@@ -62,7 +62,9 @@ class ProjectDetailViewPagerAdapter(
     }
 
     private fun eventTrackingSeeAllImagesVideo() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.VIEWALLPROPERTIES)
+       // Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.VIEWALLPROPERTIES)
+        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.SEEALLIMAGESVIDEOS)
+
     }
 
     private inner class ImageViewHolder(private val binding: CustomViewpagerImageLayoutBinding) :

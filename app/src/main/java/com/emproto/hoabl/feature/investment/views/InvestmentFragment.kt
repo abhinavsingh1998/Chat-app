@@ -49,7 +49,12 @@ class InvestmentFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpViewModel()
         setUpUI()
+        eventTrackingInvestment()
         callApi(false)
+    }
+
+    private fun eventTrackingInvestment() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.INVESTMENT)
     }
 
     private fun setUpViewModel() {
@@ -277,7 +282,7 @@ class InvestmentFragment : BaseFragment() {
         }
 
     private fun eventTrackingDontMissOut() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.INVESTMENTAPPLYNOW)
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.INVESTMENTDONTMISSOUT2)
     }
 
     private fun eventTrackingApplyNow() {

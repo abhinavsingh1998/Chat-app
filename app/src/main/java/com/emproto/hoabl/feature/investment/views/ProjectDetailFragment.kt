@@ -462,7 +462,7 @@ class ProjectDetailFragment : BaseFragment() {
     }
 
     private fun eventTrackingFaqReadAll() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SEEALLIMAGESVIDEOS)
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.FAQREADALL)
     }
 
     private fun eventTrackingHaveAnyQuestionCard() {
