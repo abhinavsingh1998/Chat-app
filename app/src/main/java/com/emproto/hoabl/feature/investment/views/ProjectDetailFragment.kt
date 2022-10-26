@@ -310,7 +310,8 @@ class ProjectDetailFragment : BaseFragment() {
                 pageManagementContent
             )
         binding.rvProjectDetail.adapter = adapter
-        adapter.setItemClickListener(onItemClickListener)
+        adapter.
+        setItemClickListener(onItemClickListener)
     }
 
     val onItemClickListener =

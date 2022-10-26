@@ -219,6 +219,9 @@ class OTPVerificationFragment : BaseFragment() {
                                             mBinding.loginEdittext.setHint("Enter OTP (0 attempts left)")
                                             block_for_one_hour(it.message.toString())
                                         }
+                                        else{
+                                            Toast.makeText(context, "We weren't able to log you in. Please contact our support executive to access the app.", Toast.LENGTH_SHORT).show()
+                                        }
 
                                     }
                                     Status.SUCCESS -> {

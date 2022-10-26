@@ -7,6 +7,7 @@ data class Project(
     val areaStartingFrom: String,
     val fomoContent: FomoContent,
     val id: Int,
+    val isSoldOut:Boolean,
     val launchName: String,
     val priceStartingFrom: String,
     val projectIcon: ProjectIcon,

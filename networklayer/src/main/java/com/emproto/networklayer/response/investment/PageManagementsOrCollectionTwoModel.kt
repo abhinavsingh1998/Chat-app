@@ -9,6 +9,7 @@ data class PageManagementsOrCollectionTwoModel(
     val fomoContent: FomoContent,
     val generalInfoEscalationGraph: GeneralInfoEscalationGraph,
     val id: Int,
+    val isSoldOut:Boolean,
     val isEscalationGraphActive: Boolean,
     val isInventoryBucketActive: Boolean,
     val isKeyPillarsActive: Boolean,

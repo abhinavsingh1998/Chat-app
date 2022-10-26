@@ -55,24 +55,7 @@ class SkuAdapter(
                     tvApplied.visibility = View.GONE
                     ivTick.visibility = View.GONE
             }
-//            if(element.isSoldOut){
-//                tvApply.isClickable=false
-//                tvApply.isEnabled=false
-//                tvApply.text="Sold Out"
-//                tvProjectName.setTextColor(Color.parseColor("#ffffff"))
-//                tvStartingAt.setTextColor(Color.parseColor("#ffffff"))
-//                tvAreaSkus.setTextColor(Color.parseColor("#ffffff"))
-//                tvApply.setTextColor(Color.parseColor("#000000"))
-//                clBase.setBackgroundColor(Color.parseColor("#8b8b8b"))
-//
-//            }
-//            else{
-//                tvApply.isClickable=true
-//                tvApply.isEnabled=true
-//                tvApply.text="Apply now"
-//                clBase.setBackgroundColor(Color.parseColor("#ffffff"))
-//
-//            }
+
             tvProjectName.text = element.name
             val amount = element.priceRange?.from!!.toDouble() / 100000
             val convertedAmount = String.format("%.0f", amount)
