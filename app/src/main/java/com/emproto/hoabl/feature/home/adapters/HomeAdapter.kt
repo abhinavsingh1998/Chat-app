@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @Suppress("DEPRECATION")
 class HomeAdapter(
-    var context: Context,
+    val context: Context,
     val data: Data,
     val list: List<RecyclerViewItem>,
     val itemClickListener: ItemClickListener
