@@ -20,6 +20,7 @@
     app:layout_constraintTop_toTopOf="parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clOuterCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_size_4">
@@ -37,6 +38,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clTopImageView"
+                    android:layout_width="@dimen/margin_size_250"
+                    android:layout_height="0dp"
+                    android:elevation="2dp"
+                    app:layout_constraintBottom_toTopOf="@id/cl_location_view"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
                 <ImageView
                     android:id="@+id/iv_item_image"
                     android:layout_width="@dimen/margin_size_250"

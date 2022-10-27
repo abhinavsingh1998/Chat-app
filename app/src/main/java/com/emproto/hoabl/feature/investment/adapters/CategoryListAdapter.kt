@@ -59,7 +59,6 @@ class CategoryListAdapter(
                     binding.apply {
                         if (element != null) {
                             if(element.isSoldOut){
-
                                 isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating)
                             }
                             cvCategoryOuterCard.setOnClickListener {

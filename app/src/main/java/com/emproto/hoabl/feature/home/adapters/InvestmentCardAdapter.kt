@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.home.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
@@ -43,6 +44,14 @@ class InvestmentCardAdapter(
         val item = list[holder.adapterPosition]
 
         if (item != null) {
+            if(item.isSoldOut){
+                holder.binding.cvMainOuterCard.setCardBackgroundColor(Color.parseColor("#8b8b8b"))
+                holder.binding.clTopImageView.setBackgroundColor(Color.parseColor("#99000000"))
+                holder.binding.tvItemLocationInfo.setTextColor(Color.parseColor("#ffffff"))
+                holder.binding.tvApplyNow.text="Sold Out"
+                holder.binding.tvApplyNow.setTextColor(Color.parseColor("#ffffff"))
+                holder.binding.ivBottomOuterArrow.visibility=View.GONE
+            }
             holder.binding!!.tvItemLocationName.text = item.launchName
             holder.binding.tvItemLocation.text = item.address.city + "," + item.address.state
             holder.binding.tvRating.text =

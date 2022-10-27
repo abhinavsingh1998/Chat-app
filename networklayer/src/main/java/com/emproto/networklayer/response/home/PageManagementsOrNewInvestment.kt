@@ -8,6 +8,7 @@ data class PageManagementsOrNewInvestment(
     val fomoContent: FomoContent,
     val generalInfoEscalationGraph: GeneralInfoEscalationGraph,
     val id: Int,
+    val isSoldOut:Boolean,
     val isEscalationGraphActive: Boolean,
     val launchName: String,
     val pageManagementAndNewInvestments: PageManagementAndNewInvestments,

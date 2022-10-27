@@ -8,6 +8,7 @@ data class SimilarInvestment(
     val estimatedAppreciation: Double,
     val fomoContent: FomoContent,
     val id: Int,
+    val isSoldOut:Boolean,
     val launchName: String,
     val priceStartingFrom: String,
     val projectIcon: ProjectIcon,

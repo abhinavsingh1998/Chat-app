@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.os.CountDownTimer
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
@@ -30,6 +31,14 @@ class TrendingProjectsAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val element = list[position]
         holder.binding.apply {
+            if(element.isSoldOut){
+                cvMainOuterCard.setCardBackgroundColor(Color.parseColor("#8b8b8b"))
+                clTopImageView.setBackgroundColor(Color.parseColor("#99000000"))
+                tvItemLocationInfo.setTextColor(Color.parseColor("#ffffff"))
+                tvApplyNow.text="Sold Out"
+                tvApplyNow.setTextColor(Color.parseColor("#ffffff"))
+                ivBottomOuterArrow.visibility=View.GONE
+            }
             tvItemLocationName.text = element.launchName
             tvItemLocationInfo.text = element.shortDescription
             tvNoViews.text = element.fomoContent.noOfViews.toString()
