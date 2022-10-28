@@ -39,12 +39,13 @@ class CompletedInvestmentAdapter(
     val context: Context,
     val list: List<Project>,
     private val onCLickInterface: ExistingUsersPortfolioAdapter.ExistingUserInterface,
-    val type: Int
+    val type: Int,
+    private val appPreference: AppPreference
 ) :
     RecyclerView.Adapter<CompletedInvestmentAdapter.MyViewHolder>() {
 
-    @Inject
-    lateinit var appPreference: AppPreference
+//    @Inject
+//    lateinit var appPreference: AppPreference
     private val COMPLETED = 0
     private val ONGOING = 1
 

@@ -14,6 +14,7 @@ import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.portfolio.dashboard.*
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
 import com.emproto.networklayer.response.watchlist.Data
@@ -27,7 +28,8 @@ import java.util.*
 class ExistingUsersPortfolioAdapter(
     private val context: Context,
     private val list: List<PortfolioModel>,
-    val onItemClickListener: ExistingUserInterface
+    val onItemClickListener: ExistingUserInterface,
+    private val appPreference: AppPreference
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -260,7 +262,7 @@ class ExistingUsersPortfolioAdapter(
                 }
             } else {
                 completedInvestmentAdapter =
-                    CompletedInvestmentAdapter(context, projectList, onItemClickListener, 0)
+                    CompletedInvestmentAdapter(context, projectList, onItemClickListener, 0,appPreference)
                 binding.rvCompletedInvestment.adapter = completedInvestmentAdapter
             }
         }
@@ -278,7 +280,13 @@ class ExistingUsersPortfolioAdapter(
                 }
             } else {
                 completedInvestmentAdapter =
-                    CompletedInvestmentAdapter(context, projectList, onItemClickListener, 1)
+                    CompletedInvestmentAdapter(
+                        context,
+                        projectList,
+                        onItemClickListener,
+                        1,
+                        appPreference
+                    )
                 binding.rvOngoingInvestment.adapter = completedInvestmentAdapter
             }
         }
