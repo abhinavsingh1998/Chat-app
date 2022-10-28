@@ -1,12 +1,17 @@
 package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.core.Constants
+import com.emproto.core.textviews.CustomTextView
 import com.emproto.hoabl.databinding.ItemCategoryListBinding
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.ApData
@@ -15,6 +20,7 @@ import com.emproto.networklayer.response.investment.PageManagementsOrCollectionT
 import com.emproto.networklayer.response.investment.PageManagementsOrNewInvestment
 import com.emproto.networklayer.response.portfolio.ivdetails.SimilarInvestment
 import com.emproto.networklayer.response.watchlist.Data
+import com.google.android.material.textview.MaterialTextView
 
 class CategoryListAdapter(
     private val context: Context,
@@ -52,6 +58,9 @@ class CategoryListAdapter(
 
                     binding.apply {
                         if (element != null) {
+                            if(element.isSoldOut){
+                                isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating)
+                            }
                             cvCategoryOuterCard.setOnClickListener {
                                 clickListener.onItemClicked(view, 0, element.id.toString())
                             }
@@ -92,6 +101,19 @@ class CategoryListAdapter(
 //                    }
                     binding.apply {
                         if (element != null) {
+                            if(element.isSoldOut){
+                                isSoldUI(
+                                    tvApplyNowCategory,
+                                    tvSoldOut,
+                                    clCardLayout,
+                                    categoryBottomViewBg,
+                                    clCategoryImage,
+                                    tvProjectName,
+                                    tvProjectLocation,
+                                    tvCategoryItemInfo,
+                                    tvRating
+                                )
+                            }
                             cvCategoryOuterCard.setOnClickListener {
                                 clickListener.onItemClicked(view, 0, element.id.toString())}
                                 tvApplyNowCategory.setOnClickListener {
@@ -133,6 +155,9 @@ class CategoryListAdapter(
 
                             binding.apply {
                                 if (element != null) {
+                                    if(element.isSoldOut){
+                                        isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating)
+                                    }
                                     cvCategoryOuterCard.setOnClickListener {
                                         clickListener.onItemClicked(view, 0, element.id.toString())
                                     }
@@ -177,6 +202,9 @@ class CategoryListAdapter(
 
                             binding.apply {
                                 if (element != null) {
+                                    if(element.isSoldOut){
+                                        isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating)
+                                    }
                                     cvCategoryOuterCard.setOnClickListener {
                                         clickListener.onItemClicked(view, 0, element.id.toString())
                                     }
@@ -221,6 +249,10 @@ class CategoryListAdapter(
 
                             binding.apply {
                                 if (element != null) {
+                                    if(element.project.isSoldOut){
+                                        isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating)
+                                    }
+
                                     cvCategoryOuterCard.setOnClickListener {
                                         clickListener.onItemClicked(view, 0, element.project.id.toString())
                                     }
@@ -259,6 +291,9 @@ class CategoryListAdapter(
 
                             binding.apply {
                                 if (element != null) {
+                                    if(element.isSoldOut){
+                                        isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating)
+                                    }
                                     cvCategoryOuterCard.setOnClickListener {
                                         clickListener.onItemClicked(view, 0, element.id.toString())
                                     }
@@ -305,6 +340,9 @@ class CategoryListAdapter(
 
                             binding.apply {
                                 if (element != null) {
+                                    if(element.isSoldOut){
+                                        isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating)
+                                    }
                                     cvCategoryOuterCard.setOnClickListener {
                                         clickListener.onItemClicked(view, 0, element.id.toString())
                                     }
@@ -378,6 +416,30 @@ class CategoryListAdapter(
                         }
                     }
             }
+        }
+
+        private fun isSoldUI(
+            tvApplyNowCategory: CustomTextView,
+            tvSoldOut: TextView,
+            clCardLayout: ConstraintLayout,
+            categoryBottomViewBg: ImageView,
+            clCategoryImage: ConstraintLayout,
+            tvProjectName: MaterialTextView,
+            tvProjectLocation: MaterialTextView,
+            tvCategoryItemInfo: MaterialTextView,
+            tvRating: MaterialTextView
+        ) {
+            tvApplyNowCategory.visibility=View.INVISIBLE
+            tvSoldOut.visibility=View.VISIBLE
+            clCardLayout.setBackgroundColor(Color.parseColor("#8b8b8b"))
+            categoryBottomViewBg.setBackgroundColor(Color.parseColor("#8b8b8b"))
+            clCategoryImage.setBackgroundColor(Color.parseColor("#99000000"))
+
+            tvProjectName.setTextColor(Color.parseColor("#ffffff"))
+            tvProjectLocation.setTextColor(Color.parseColor("#ffffff"))
+            tvCategoryItemInfo.setTextColor(Color.parseColor("#ffffff"))
+            tvRating.setTextColor(Color.parseColor("#C6E8CF"))
+
         }
     }
 

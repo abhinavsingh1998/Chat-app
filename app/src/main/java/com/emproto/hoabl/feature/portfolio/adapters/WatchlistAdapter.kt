@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.portfolio.adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.os.CountDownTimer
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
@@ -30,11 +31,20 @@ class WatchlistAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val element = list[position]
         holder.binding.apply {
+            if(element.project.isSoldOut){
+                cvMainOuterCard.setCardBackgroundColor(Color.parseColor("#8b8b8b"))
+                clTopImageView.setBackgroundColor(Color.parseColor("#99000000"))
+                tvItemLocationInfo.setTextColor(Color.parseColor("#ffffff"))
+                tvApplyNow.text="Sold Out"
+                tvApplyNow.setTextColor(Color.parseColor("#ffffff"))
+                ivBottomOuterArrow.visibility=View.GONE
+            }
             if (element.project != null) {
                 tvItemLocationName.text = element.project.launchName
                 (element.project.address.city + " " + element.project.address.state).also {
                     tvItemLocation.text = it
                 }
+
                 val amount = element.project.priceStartingFrom.toDouble() / 100000
                 val convertedAmount = String.format("%.0f", amount)
                 tvItemAmount.text = SpannableStringBuilder()

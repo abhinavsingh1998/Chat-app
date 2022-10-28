@@ -7,6 +7,7 @@ data class SimilarInvestment(
     val fomoContent: FomoContentX,
     val generalInfoEscalationGraph: GeneralInfoEscalationGraph,
     val id: Int,
+    val isSoldOut:Boolean,
     val isEscalationGraphActive: Boolean,
     val isInventoryBucketActive: Boolean,
     val isKeyPillarsActive: Boolean,
