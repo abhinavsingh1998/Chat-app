@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.databinding.ItemHoablPromisesBinding
-import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.home.Data

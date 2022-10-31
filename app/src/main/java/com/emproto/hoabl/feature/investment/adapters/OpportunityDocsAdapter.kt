@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide
 import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
-import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.Extensions.showHTMLText
 import com.emproto.networklayer.preferences.AppPreference
@@ -318,7 +317,6 @@ class OpportunityDocsAdapter(
             binding.tvViewMore.setOnClickListener {
                 when (isClicked) {
                     true -> {
-                      //  eventTrackingOppTourismViewMore()
                         Glide
                             .with(context)
                             .load(R.drawable.path_3)
@@ -375,9 +373,6 @@ class OpportunityDocsAdapter(
         }
     }
 
-    private fun eventTrackingOppTourismViewMore() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.OppDoc)
-    }
 
     private inner class AboutProjectViewHolder(private val binding: AboutProjectLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -448,7 +443,6 @@ class OpportunityDocsAdapter(
                 binding.tvViewMore.setOnClickListener {
                     when (isClicked) {
                         true -> {
-                          //  eventTrackingProjectAmenititesViewMore()
                                     Glide
                                 .with(context)
                                 .load(R.drawable.path_3)
@@ -506,9 +500,7 @@ class OpportunityDocsAdapter(
         }
     }
 
-    private fun eventTrackingProjectAmenititesViewMore() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(),Mixpanel.OPPDOCPROJECTAMENITITIES)
-    }
+
 
     private inner class ApplyViewHolder(private val binding: ApplyLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
