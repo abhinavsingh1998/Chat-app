@@ -50,13 +50,6 @@ class CategoryListAdapter(
             when (type) {
                 TYPE_NEW_LAUNCH -> {
                     val element = list[position] as PageManagementsOrNewInvestment
-//                    binding.cvCategoryOuterCard.setOnClickListener {
-//                        clickListener.onItemClicked(view, 0, element.id.toString())
-//                    }
-//                    binding.tvApplyNowCategory.setOnClickListener {
-//                        clickListener.onItemClicked(view, 1, element.id.toString())
-//                    }
-
                     binding.apply {
                         if (element != null) {
                             if(element.isSoldOut){
@@ -167,9 +160,9 @@ class CategoryListAdapter(
                                         clickListener.onItemClicked(view, 1, element.id.toString())
                                     }
                                     tvProjectName.text = element.launchName
-                                    val amount = element.priceStartingFrom.toDouble() / 100000
-                                    val convertedAmount = amount.toString().replace(".0", "")
-                                    val categoryPrice = "₹${convertedAmount} L" + Constants.ONWARDS
+                                    val price =element.priceStartingFrom.toDouble()
+                                    val value = Utility.currencyConversion(price)
+                                    val categoryPrice = value + Constants.ONWARDS
                                     val categoryArea =
                                         element.areaStartingFrom + Constants.SQFT_ONWARDS
                                     val locationName =
@@ -214,9 +207,11 @@ class CategoryListAdapter(
                                         clickListener.onItemClicked(view, 1, element.id.toString())
                                     }
                                     tvProjectName.text = element.launchName
-                                    val amount = element.priceStartingFrom.toDouble() / 100000
-                                    val convertedAmount = amount.toString().replace(".0", "")
-                                    val categoryPrice = "₹${convertedAmount} L" + Constants.ONWARDS
+
+                                    val price = element.priceStartingFrom.toDouble()
+                                    val value = Utility.currencyConversion(price)
+
+                                    val categoryPrice = value + Constants.ONWARDS
                                     val categoryIemInfo =
                                         element.areaStartingFrom + Constants.SQFT_ONWARDS
                                     val locationName =
@@ -262,10 +257,10 @@ class CategoryListAdapter(
                                         clickListener.onItemClicked(view, 1, element.project.id.toString())
                                     }
                                     tvProjectName.text = element.project.launchName
-                                    val amount =
-                                        element.project.priceStartingFrom.toDouble() / 100000
-                                    val convertedAmount = amount.toString().replace(".0", "")
-                                    val categoryPrice = "₹${convertedAmount} L" + Constants.ONWARDS
+
+                                    val price = element.project.priceStartingFrom.toDouble()
+                                    val value = Utility.currencyConversion(price)
+                                    val categoryPrice = value+ Constants.ONWARDS
                                     val categoryArea =
                                         element.project.areaStartingFrom + Constants.SQFT_ONWARDS
                                     val locationName =
@@ -304,9 +299,9 @@ class CategoryListAdapter(
                                     }
 
                                     tvProjectName.text = element.launchName
-                                    val amount = element.priceStartingFrom.toDouble() / 100000
-                                    val convertedAmount = amount.toString().replace(".0", "")
-                                    val categoryPrice = "₹${convertedAmount} L" + Constants.ONWARDS
+                                    val price = element.priceStartingFrom.toDouble()
+                                    val value = Utility.currencyConversion(price)
+                                    val categoryPrice = value + Constants.ONWARDS
                                     val categoryArea =
                                         element.areaStartingFrom + Constants.SQFT_ONWARDS
                                     val locationName =
@@ -352,9 +347,9 @@ class CategoryListAdapter(
                                         clickListener.onItemClicked(view, 1, element.id.toString())
                                     }
                                     tvProjectName.text = element.launchName
-                                    val amount = element.priceStartingFrom!!.toDouble() / 100000
-                                    val convertedAmount = amount.toString().replace(".0", "")
-                                    val categoryPrice = "₹${convertedAmount} L" + Constants.ONWARDS
+                                    val price = element.priceStartingFrom.toDouble()
+                                    val value = Utility.currencyConversion(price)
+                                    val categoryPrice = value+ Constants.ONWARDS
                                     val locationName =
                                         element.address.city + "\n" + element.address.state
 
@@ -395,9 +390,10 @@ class CategoryListAdapter(
                                     clickListener.onItemClicked(view, 1, element.id.toString())
                                 }
                                 tvProjectName.text = element.launchName
-                                val amount = element.priceStartingFrom.toDouble() / 100000
-                                val convertedAmount = amount.toString().replace(".0", "")
-                                val categoryPrice = "₹${convertedAmount} L" + Constants.ONWARDS
+
+                                val price = element.priceStartingFrom.toDouble()
+                                val value = Utility.currencyConversion(price)
+                                val categoryPrice = value + Constants.ONWARDS
                                 val categoryArea = element.areaStartingFrom + " Sqft Onwards"
                                 val rating =
                                     "${String.format("%.0f", element.estimatedAppreciation)}%"
@@ -433,6 +429,9 @@ class CategoryListAdapter(
         ) {
             tvApplyNowCategory.visibility=View.INVISIBLE
             tvSoldOut.visibility=View.VISIBLE
+            tvSoldOut.isClickable=false
+            tvSoldOut.isEnabled=false
+
             clCardLayout.setBackgroundColor(Color.parseColor("#8b8b8b"))
             categoryBottomViewBg.setBackgroundColor(Color.parseColor("#8b8b8b"))
             clCategoryImage.setBackgroundColor(Color.parseColor("#99000000"))

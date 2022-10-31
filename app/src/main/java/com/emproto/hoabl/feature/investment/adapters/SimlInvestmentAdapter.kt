@@ -35,10 +35,11 @@ class SimlInvestmentAdapter(
             tvItemLocationName.text = element.launchName
             val itemLocation = "${element.address?.city}, ${element.address?.state}"
             tvItemLocation.text = itemLocation
-            val amount = element.priceStartingFrom!!.toDouble() / 100000
-            val convertedAmount = amount.toString().replace(".0", "")
+
+            val price = element.priceStartingFrom.toDouble()
+            val value = Utility.currencyConversion(price)
             tvItemAmount.text = SpannableStringBuilder()
-                .bold { append("₹${convertedAmount} L") }
+                .bold { append(value) }
                 .append(Constants.ONWARDS)
             tvItemArea.text = SpannableStringBuilder()
                 .bold { append("${element.areaStartingFrom} Sqft") }

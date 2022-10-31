@@ -43,6 +43,8 @@ class SimilarInvestmentAdapter(
                 tvApplyNow.text="Sold Out"
                 tvApplyNow.setTextColor(Color.parseColor("#ffffff"))
                 ivBottomOuterArrow.visibility=View.GONE
+                tvApplyNow.isClickable=false
+                tvApplyNow.isEnabled=false
             }
             if (element.projectIcon != null) {
                 Glide.with(context)
@@ -52,10 +54,10 @@ class SimilarInvestmentAdapter(
             tvItemLocationName.text = element.launchName
             "${element.address.city},${element.address.state}".also { tvItemLocation.text = it }
 
-            val amount = element.priceStartingFrom.toDouble() / 100000
-            val convertedAmount = amount.toString().replace(".0", "")
+            val price = element.priceStartingFrom.toDouble()
+            val value = Utility.currencyConversion(price)
             tvItemAmount.text = SpannableStringBuilder()
-                .bold { append("₹${convertedAmount} L") }
+                .bold { append(value) }
                 .append(Constants.ONWARDS)
             tvItemArea.text = SpannableStringBuilder()
                 .bold { append("${element.areaStartingFrom} Sqft") }

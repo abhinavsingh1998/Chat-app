@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
 import android.os.CountDownTimer
@@ -8,8 +9,10 @@ import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.core.text.bold
 import androidx.core.text.color
+import androidx.core.view.ViewCompat.setBackgroundTintList
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -229,6 +232,7 @@ class ProjectDetailAdapter(
 
 
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (list[position].viewType) {
             VIEW_TYPE_PROJECT_DETAIL -> {
@@ -284,6 +288,7 @@ class ProjectDetailAdapter(
 
     private inner class ProjectTopCardViewHolder(val binding: ProjectDetailTopLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         fun bind(position: Int) {
             val list = ArrayList<RecyclerViewItem>()
             val listViews = ArrayList<String>()
@@ -325,6 +330,28 @@ class ProjectDetailAdapter(
             itemView.tag = this
 
             binding.apply {
+                if(data.isSoldOut){
+                    tvApplyNow.isEnabled=false
+                    tvApplyNow.isClickable=false
+                    tvApplyNow.text="Sold Out"
+                    tvApplyNow.setTextColor(Color.parseColor("#ffffff"))
+                    tvApplyNow.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#8b8b8b"))
+                    tvApplyNow.isEnabled=false
+                    tvApplyNow.isClickable=false
+                    tvApplyNow.text="Sold Out"
+                    tvApplyNow.setTextColor(Color.parseColor("#ffffff"))
+                    tvApplyNow.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#8b8b8b"))
+                    tvFullApplyNow.isEnabled=false
+                    tvFullApplyNow.isClickable=false
+                    tvFullApplyNow.text="Sold Out"
+                    tvFullApplyNow.setTextColor(Color.parseColor("#ffffff"))
+                    tvFullApplyNow.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#8b8b8b"))
+                    tvFullApplyNow.isEnabled=false
+                    tvFullApplyNow.isClickable=false
+                    tvFullApplyNow.text="Sold Out"
+                    tvFullApplyNow.setTextColor(Color.parseColor("#ffffff"))
+                    tvFullApplyNow.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#8b8b8b"))
+                }
                 tvProjectName.text = data.launchName
                 val projectLocation = "${data.address.city}, ${data.address.state}"
                 tvProjectLocation.text = projectLocation
@@ -355,14 +382,6 @@ class ProjectDetailAdapter(
                     ivRegInfo.visibility = View.GONE
                 }
 
-//                when {
-//                    data.reraDetails.reraNumbers.isEmpty()&&data.reraDetails.reraNumbers.size==0 -> {
-//                        ivRegInfo.visibility = View.GONE
-//                    }
-//                    else -> {
-//                        ivRegInfo.visibility = View.VISIBLE
-//                    }
-//                }
                 if (data.opportunityDoc != null) {
                     Glide.with(context)
                         .load(data.opportunityDoc.whyToInvestMedia.value.url)

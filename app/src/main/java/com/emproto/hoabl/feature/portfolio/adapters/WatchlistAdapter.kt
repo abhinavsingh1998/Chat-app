@@ -36,6 +36,8 @@ class WatchlistAdapter(
                 clTopImageView.setBackgroundColor(Color.parseColor("#99000000"))
                 tvItemLocationInfo.setTextColor(Color.parseColor("#ffffff"))
                 tvApplyNow.text="Sold Out"
+                tvApplyNow.isClickable=false
+                tvApplyNow.isEnabled=false
                 tvApplyNow.setTextColor(Color.parseColor("#ffffff"))
                 ivBottomOuterArrow.visibility=View.GONE
             }
@@ -45,10 +47,10 @@ class WatchlistAdapter(
                     tvItemLocation.text = it
                 }
 
-                val amount = element.project.priceStartingFrom.toDouble() / 100000
-                val convertedAmount = String.format("%.0f", amount)
+                val price = element.project.priceStartingFrom.toDouble()
+                val value = Utility.currencyConversion(price)
                 tvItemAmount.text = SpannableStringBuilder()
-                    .bold { append("₹${convertedAmount} L") }
+                    .bold { append(value) }
                     .append(Constants.ONWARDS)
                 tvItemArea.text = SpannableStringBuilder()
                     .bold { append("${element.project.areaStartingFrom} Sqft") }

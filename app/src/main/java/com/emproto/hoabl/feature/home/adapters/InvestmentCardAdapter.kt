@@ -50,6 +50,8 @@ class InvestmentCardAdapter(
                 holder.binding.tvApplyNow.text = "Sold Out"
                 holder.binding.tvApplyNow.setTextColor(Color.parseColor("#ffffff"))
                 holder.binding.ivBottomOuterArrow.visibility = View.GONE
+                holder.binding.tvApplyNow.isClickable=false
+                holder.binding.tvApplyNow.isEnabled=false
             }
             holder.binding!!.tvItemLocationName.text = item.launchName
             holder.binding.tvItemLocation.text = item.address.city + "," + item.address.state
@@ -58,29 +60,6 @@ class InvestmentCardAdapter(
             val price = item.priceStartingFrom.toDouble()
             val value = Utility.currencyConversion(price)
             holder.binding.tvItemAmount.text = value.toString()+Constants.ONWARDS
-
-
-//            if (price >= 100000 && price < 1000000) {
-//                val amount = (price / 100000)
-//                val df = DecimalFormat("#.##")
-//                df.roundingMode = RoundingMode.CEILING
-//                holder.binding.tvItemAmount.text = "₹${df.format(amount)} L Onwards"
-//            } else if (price >= 1000000 && price < 10000000) {
-//                val amount = price / 100000
-//                val df = DecimalFormat("#.##")
-//                df.roundingMode = RoundingMode.CEILING
-//                holder.binding.tvItemAmount.text = "₹${df.format(amount)} L Onwards"
-//            } else if (price >= 10000000 && price < 100000000) {
-//                val amount = price / 10000000
-//                val df = DecimalFormat("#.##")
-//                df.roundingMode = RoundingMode.CEILING
-//                holder.binding.tvItemAmount.text = "₹${df.format(amount)} Cr Onwards"
-//            } else if (price >= 100000000 && price < 1000000000) {
-//                val amount = price / 10000000
-//                val df = DecimalFormat("#.##")
-//                df.roundingMode = RoundingMode.CEILING
-//                holder.binding.tvItemAmount.text = "₹${df.format(amount)} Cr Onwards"
-//            }
 
             holder.binding.tvItemArea.text = item.areaStartingFrom + Constants.SQFT_ONWARDS
             holder.binding.tvItemLocationInfo.text = item.shortDescription

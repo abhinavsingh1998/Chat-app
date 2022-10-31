@@ -9,6 +9,7 @@ import androidx.core.text.bold
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.LastFewPlotsLayoutBinding
 import com.emproto.hoabl.databinding.NewInvestmentTopLayoutBinding
 import com.emproto.hoabl.databinding.TrendingProjectsLayoutBinding
@@ -104,11 +105,11 @@ class NewInvestmentAdapter(
 
             binding.tvInvestmentProjectName.text =
                 data.pageManagementsOrNewInvestments[0].launchName
-            val amount =
-                data.pageManagementsOrNewInvestments[0].priceStartingFrom.toDouble() / 100000.0
-            val convertedAmount = amount.toString().replace(".0", "")
+
+            val price =  data.pageManagementsOrNewInvestments[0].priceStartingFrom.toDouble()
+            val value = Utility.currencyConversion(price)
             binding.tvAmount.text = SpannableStringBuilder()
-                .append("₹${convertedAmount}L")
+                .append(value)
             binding.tvArea.text = SpannableStringBuilder()
                 .append("${data.pageManagementsOrNewInvestments[0].areaStartingFrom} Sqft")
             binding.tvBackgroundGrey.text = data.pageManagementsOrNewInvestments[0].shortDescription

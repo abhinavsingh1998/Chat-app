@@ -32,6 +32,8 @@ class TrendingProjectsAdapter(
         val element = list[position]
         holder.binding.apply {
             if(element.isSoldOut){
+                tvApplyNow.isClickable=false
+                tvApplyNow.isEnabled=false
                 cvMainOuterCard.setCardBackgroundColor(Color.parseColor("#8b8b8b"))
                 clTopImageView.setBackgroundColor(Color.parseColor("#99000000"))
                 tvItemLocationInfo.setTextColor(Color.parseColor("#ffffff"))
@@ -42,10 +44,10 @@ class TrendingProjectsAdapter(
             tvItemLocationName.text = element.launchName
             tvItemLocationInfo.text = element.shortDescription
             tvNoViews.text = element.fomoContent.noOfViews.toString()
-            val amount = element.priceStartingFrom.toDouble() / 100000
-            val convertedAmount = String.format("%.0f", amount)
+            val price = element.priceStartingFrom.toDouble()
+            val value = Utility.currencyConversion(price)
             tvItemAmount.text = SpannableStringBuilder()
-                .bold { append("₹${convertedAmount} L") }
+                .bold { append(value) }
                 .append(Constants.ONWARDS)
             val rating = "${
                 String.format(
