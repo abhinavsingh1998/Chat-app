@@ -354,6 +354,7 @@ class HomeFragment : BaseFragment() {
                     )
                 }
                 R.id.home_promises_item -> {
+                    eventTrackingPromisesCard()
                     val data = homeData?.homePagesOrPromises[position].toHomePagesOrPromise()
                     homeViewModel.setSelectedPromise(data)
                     (requireActivity() as HomeActivity).addFragment(
@@ -512,6 +513,10 @@ class HomeFragment : BaseFragment() {
 
     private fun trackApplyNow() {
         Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.APPLYNOW)
+    }
+
+    private fun eventTrackingPromisesCard() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.PROMISESCARD)
     }
 
 

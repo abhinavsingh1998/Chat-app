@@ -34,7 +34,6 @@ class HoABLPromisesAdapter1(
         holder.binding.title.text = item.name
         holder.binding.desc.text = item.shortDescription
         holder.binding.homePromisesItem.setOnClickListener {
-            eventTrackingPromisesCard()
             itemInterface.onItemClicked(it, position, item.id.toString())
         }
         if (item.displayMedia != null) {
@@ -43,10 +42,6 @@ class HoABLPromisesAdapter1(
                 .dontAnimate()
                 .into(holder.binding.image)
         }
-    }
-
-    private fun eventTrackingPromisesCard() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.PROMISESCARD)
     }
 
     override fun getItemCount(): Int {
