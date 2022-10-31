@@ -13,7 +13,6 @@ import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemSkusBinding
-import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.networklayer.preferences.AppPreference
@@ -35,12 +34,9 @@ class SkuAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = ItemSkusBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(view)
-        eventTrackingSKUCard()
     }
 
-    private fun eventTrackingSKUCard() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.SKUCARD)
-    }
+
 
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {

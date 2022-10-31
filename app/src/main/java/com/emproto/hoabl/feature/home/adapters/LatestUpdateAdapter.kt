@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ItemLatestUpdatesBinding
-import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.home.Data
@@ -67,16 +66,11 @@ class LatestUpdateAdapter(
         }
 
         holder.binding.homeLatestUpdateCard.setOnClickListener {
-            eventTrackinghomelatestupdatecard()
             itemIntrface.onItemClicked(it, position, holder.itemId.toString())
         }
-
-
     }
 
-    private fun eventTrackinghomelatestupdatecard() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.LATESTUPDATECARD)
-    }
+
 
     override fun getItemCount(): Int {
         val itemList = if (itemCount.page.totalUpdatesOnHomeScreen < list.size) {

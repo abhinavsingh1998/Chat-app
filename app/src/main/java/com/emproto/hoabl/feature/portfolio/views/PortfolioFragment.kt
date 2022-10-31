@@ -30,6 +30,8 @@ import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.portfolio.adapters.ExistingUsersPortfolioAdapter
 import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
+import com.emproto.hoabl.utils.Extensions.hideKeyboard
+import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.preferences.AppPreference
@@ -553,5 +555,18 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             fragment, true
         )
     }
+    val itemClickListener = object : ItemClickListener {
+        override fun onItemClicked(view: View, position: Int, item: String) {
+            when (view.id) {
 
+                R.id.tv_manage_projects -> {
+                    eventTrackingManageInvestment()
+                }
+            }
+        }
+    }
+
+    private fun eventTrackingManageInvestment() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.MANAGEINVESTMENT)
+    }
 }

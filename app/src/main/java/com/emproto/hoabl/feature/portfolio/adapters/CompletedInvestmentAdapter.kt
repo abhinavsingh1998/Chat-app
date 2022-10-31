@@ -17,7 +17,6 @@ import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemCompletedInvestmentsBinding
-import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.portfolio.dashboard.InvestmentHeadingDetails
 import com.emproto.networklayer.response.portfolio.dashboard.Point
@@ -70,7 +69,6 @@ class CompletedInvestmentAdapter(
         val project = list[position]
 
         holder.binding.tvManageProjects.setOnClickListener {
-            eventTrackingManageInvestment()
             manageInvestmentDetails(project)
         }
         holder.binding.tvCompletedInvestmentName.setOnClickListener {
@@ -181,9 +179,7 @@ class CompletedInvestmentAdapter(
 
     }
 
-    private fun eventTrackingManageInvestment() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.MANAGEINVESTMENT)
-    }
+
 
     private fun manageInvestmentDetails(project: Project) {
         val projectExtraDetails =

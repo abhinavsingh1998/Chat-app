@@ -13,6 +13,7 @@ import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentHelpCenterBinding
+import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.home.views.Mixpanel
@@ -30,15 +31,20 @@ import javax.inject.Inject
 
 class HelpCenterFragment : BaseFragment() {
 
+
     @Inject
-    lateinit var binding: FragmentHelpCenterBinding
-    @Inject
-    lateinit var appPreference: AppPreference
+     lateinit var appPreference: AppPreference
+
+
     lateinit var recyclerView: RecyclerView
+    lateinit var binding: FragmentHelpCenterBinding
+
     val bundle = Bundle()
 
     private var isAboutUsActive = false
     private var isTermsActive = false
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +52,7 @@ class HelpCenterFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHelpCenterBinding.inflate(inflater, container, false)
+        (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         arguments.let {
             isAboutUsActive = it?.getBoolean(Constants.IS_ABOUT_US_ACTIVE, false) as Boolean
             isTermsActive = it.getBoolean(Constants.IS_TERM_ACTIVE, false)

@@ -16,7 +16,6 @@ import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
 import com.emproto.hoabl.feature.home.adapters.HoABLPromisesAdapter
-import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.model.MediaViewItem
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.networklayer.preferences.AppPreference
@@ -560,15 +559,12 @@ class PortfolioSpecificViewAdapter(
                 Utility.parseDateFromUtc(imagesData.updatedAt, null)
 
             binding.tvSeeAll.setOnClickListener {
-                eventTrackingLatestMediaGallery()
                 ivInterface.seeAllImages(allMediasList)
             }
         }
     }
 
-    private fun eventTrackingLatestMediaGallery() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.LATESTMEDIAGALLERY)
-    }
+
 
     private inner class ApplicablePromisesViewHolder(private val binding: PortfolioApplicablePromisesBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -714,17 +710,12 @@ class PortfolioSpecificViewAdapter(
             binding.rvFaq.adapter = faqAdapter
             binding.tvFaqReadAll.visibility = View.VISIBLE
             binding.tvFaqReadAll.setOnClickListener {
-                eventTrackingFAQS()
                 ivInterface.readAllFaq(-1, 0)
             }
             binding.bnAskHere.setOnClickListener {
                 ivInterface.onClickAsk()
             }
         }
-    }
-
-    private fun eventTrackingFAQS() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(),Mixpanel.PORTFOLIOFAQS)
     }
 
     private inner class SimilarInvestmentsViewHolder(private val binding: TrendingProjectsLayoutBinding) :

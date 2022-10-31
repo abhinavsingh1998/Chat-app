@@ -25,13 +25,18 @@ import javax.inject.Inject
 class DroneFragment : BaseFragment() {
 
     @Inject
-    lateinit var investmentFactory: InvestmentFactory
-    lateinit var investmentViewModel: InvestmentViewModel
     lateinit var appPreference: AppPreference
+    @Inject
+    lateinit var investmentFactory: InvestmentFactory
     lateinit var binding: FragmentVideosBinding
+    lateinit var investmentViewModel: InvestmentViewModel
     private lateinit var mediaPhotosAdapter: MediaPhotosAdapter
 
     private var isYoutubeVideo = true
+
+
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

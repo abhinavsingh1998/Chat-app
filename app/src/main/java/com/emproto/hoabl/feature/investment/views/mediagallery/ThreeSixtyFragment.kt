@@ -23,11 +23,12 @@ import com.emproto.networklayer.preferences.AppPreference
 import javax.inject.Inject
 
 class ThreeSixtyFragment : BaseFragment() {
+    @Inject
+    lateinit var appPreference: AppPreference
 
     @Inject
     lateinit var investmentFactory: InvestmentFactory
     lateinit var investmentViewModel: InvestmentViewModel
-    lateinit var appPreference: AppPreference
     lateinit var binding: FragmentPhotosBinding
     private lateinit var mediaPhotosAdapter: MediaPhotosAdapter
 

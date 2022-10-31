@@ -10,6 +10,7 @@ import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentHoabelPromisesBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.promises.adapter.HoablPromiseAdapter
 import com.emproto.hoabl.feature.promises.data.PromisesData
 import com.emproto.hoabl.viewmodels.HomeViewModel
@@ -88,6 +89,8 @@ class HoablPromises : BaseFragment() {
 
     private fun showPromises(promisesData: Data) {
         val list = ArrayList<PromisesData>()
+        eventTrackingPromiseCard()
+
         list.add(
             PromisesData(
                 HoablPromiseAdapter.TYPE_HEADER,
@@ -131,6 +134,10 @@ class HoablPromises : BaseFragment() {
         binding.listPromises.setHasFixedSize(true)
         binding.listPromises.setItemViewCacheSize(10)
         binding.listPromises.isNestedScrollingEnabled = false
+    }
+
+    private fun eventTrackingPromiseCard() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.PROMISECARD)
     }
 
     private fun initViews() {
