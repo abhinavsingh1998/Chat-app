@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide
 import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
-import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.home.Data
@@ -29,8 +28,7 @@ class InvestmentCardAdapter(
 ) :
     RecyclerView.Adapter<InvestmentCardAdapter.MyViewHolder>() {
 
-    @Inject
-    lateinit var appPreference: AppPreference
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = ItemSmartDealsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -100,11 +98,9 @@ class InvestmentCardAdapter(
             timeCounter.start()
 
             holder.binding.cvTopView.setOnClickListener {
-                eventTrackingProjectCard()
                 itemInterface.onItemClicked(it, position, item.id.toString())
             }
             holder.binding.tvApplyNow.setOnClickListener {
-                eventTrackingApplyNow()
                 itemInterface.onItemClicked(it, position, item.id.toString())
             }
             holder.binding.tvItemLocationInfo.setOnClickListener {
@@ -120,13 +116,8 @@ class InvestmentCardAdapter(
 
     }
 
-    private fun eventTrackingApplyNow() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.APPLYNOW)
-    }
 
-    private fun eventTrackingProjectCard() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.PROJECTCARD)
-    }
+
 
     override fun getItemCount(): Int {
         val itemList = if (itemCount.page.totalProjectsOnHomeScreen < list.size) {

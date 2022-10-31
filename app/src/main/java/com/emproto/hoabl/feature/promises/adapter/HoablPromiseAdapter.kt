@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.databinding.PromisesItemDataBinding
 import com.emproto.hoabl.databinding.PromisesItemDisclaimerBinding
 import com.emproto.hoabl.databinding.PromisesItemHeaderBinding
-import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.promises.data.PromisesData
 import com.emproto.networklayer.preferences.AppPreference
 import javax.inject.Inject
@@ -85,7 +84,6 @@ class HoablPromiseAdapter(
                     dataList[holder.layoutPosition].headerData!!.aboutPromises.subDescription
             }
             TYPE_LIST -> {
-                eventTrackingPromiseCard()
                 val listHolder = holder as HoablPromiseViewHolder
                 listHolder.binding.textView9.text =
                     dataList[position].headerData?.promiseSectionHeading.toString()
@@ -103,9 +101,7 @@ class HoablPromiseAdapter(
         }
     }
 
-    private fun eventTrackingPromiseCard() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.PROMISECARD)
-    }
+
 
     override fun getItemCount() = dataList.size
 

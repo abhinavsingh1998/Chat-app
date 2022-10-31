@@ -22,6 +22,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentMapBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
+import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.investment.adapters.LocationInfrastructureAdapter
 import com.emproto.hoabl.model.MapLocationModel
 import com.emproto.hoabl.model.ProjectLocation
@@ -29,6 +30,7 @@ import com.emproto.hoabl.utils.MapItemClickListener
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
 import com.emproto.networklayer.NetworkUtil
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.MapData
 import com.emproto.networklayer.response.investment.ValueXXX
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -52,6 +54,9 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     lateinit var investmentViewModel: InvestmentViewModel
     lateinit var binding: FragmentMapBinding
 
+    @Inject
+    lateinit var appPreference:AppPreference
+
     private lateinit var mMap: GoogleMap
     private var data: MapLocationModel? = null
     private lateinit var adapter: LocationInfrastructureAdapter
@@ -74,6 +79,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 R.id.cv_location_infrastructure_card -> {
                     try {
                         if (isNetworkAvailable()) {
+                            eventTrackingLocationInfra()
+                            eventTrackingMapSearchDistancefrom()
                             initMarkerLocation(dummyLatitude, dummyLongitude, latitude, longitude)
                         } else {
                             Toast.makeText(
@@ -94,6 +101,15 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 }
             }
         }
+    }
+
+    private fun eventTrackingMapSearchDistancefrom() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.MAPSEARCHDISTANCEFROM)
+
+    }
+
+    private fun eventTrackingLocationInfra() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.LOCATIONINFRA)
     }
 
     override fun onCreateView(

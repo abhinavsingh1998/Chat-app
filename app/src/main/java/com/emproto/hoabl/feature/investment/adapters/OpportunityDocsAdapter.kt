@@ -318,7 +318,7 @@ class OpportunityDocsAdapter(
             binding.tvViewMore.setOnClickListener {
                 when (isClicked) {
                     true -> {
-                        eventTrackingOppTourismViewMore()
+                      //  eventTrackingOppTourismViewMore()
                         Glide
                             .with(context)
                             .load(R.drawable.path_3)
@@ -448,7 +448,7 @@ class OpportunityDocsAdapter(
                 binding.tvViewMore.setOnClickListener {
                     when (isClicked) {
                         true -> {
-                            eventTrackingProjectAmenititesViewMore()
+                          //  eventTrackingProjectAmenititesViewMore()
                                     Glide
                                 .with(context)
                                 .load(R.drawable.path_3)

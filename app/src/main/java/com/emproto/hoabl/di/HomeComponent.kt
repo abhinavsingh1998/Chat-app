@@ -19,6 +19,7 @@ import com.emproto.hoabl.feature.profile.fragments.accounts.AllPaymentHistoryFra
 import com.emproto.hoabl.feature.profile.fragments.edit_profile.EditProfileFragment
 import com.emproto.hoabl.feature.profile.fragments.faq.ProfileFaqFragment
 import com.emproto.hoabl.feature.profile.fragments.feedback.FeedbackFragment
+import com.emproto.hoabl.feature.profile.fragments.help_center.HelpCenterFragment
 import com.emproto.hoabl.feature.profile.fragments.privacy.PrivacyFragment
 import com.emproto.hoabl.feature.profile.fragments.profile.ProfileFragment
 import com.emproto.hoabl.feature.profile.fragments.securtiyandsettings.SecurityFragment
@@ -82,4 +83,6 @@ interface HomeComponent {
     fun inject(fragment: SecurityFragment)
     fun inject(fragment: SecurityTipsFragment)
     fun inject(fragment: FmFragment)
+    fun inject(fragment: HelpCenterFragment)
+
 }

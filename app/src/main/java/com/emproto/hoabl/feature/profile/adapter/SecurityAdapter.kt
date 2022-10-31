@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
-import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.profile.data.SettingsData
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
@@ -177,14 +176,9 @@ class SecurityAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             binding.clSecurityTips.setOnClickListener {
-                eventTrackingSecurityTips()
                 itemClickListener.onItemClicked(binding.clSecurityTips, position, "Security Tips")
             }
         }
-    }
-
-    private fun eventTrackingSecurityTips() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.READSECURITYTIPS)
     }
 
     private inner class SignOutAllViewHolder(private val binding: SecurityView3Binding) :

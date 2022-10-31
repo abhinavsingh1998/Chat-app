@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemLocationInfrastructureBinding
-import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.utils.MapItemClickListener
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.investment.ValueXXX
@@ -47,7 +46,7 @@ class LocationInfrastructureAdapter(
             }
 
             binding.apply {
-                eventTrackingMapSearchDistancefrom()
+//                eventTrackingMapSearchDistancefrom()
                 tvLocationName.text = element.name
                 val locationDuration = "${element.minutes}mins"
                 val tvlocationDuration = "${element.hours}hr ${element.minutes}mins"
@@ -70,8 +69,6 @@ class LocationInfrastructureAdapter(
                 }
             }
             binding.cvLocationInfrastructureCard.setOnClickListener {
-//                eventTrackingMapSearchDistancefrom()
-                eventTrackingLocationInfra()
                 lastItemSelectedPos = selectedItemPos
                 selectedItemPos = adapterPosition
                 lastItemSelectedPos = if (lastItemSelectedPos == -1)
@@ -86,13 +83,7 @@ class LocationInfrastructureAdapter(
         }
     }
 
-    private fun eventTrackingLocationInfra() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.LOCATIONINFRA)
-    }
 
-    private fun eventTrackingMapSearchDistancefrom() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.MAPSEARCHDISTANCEFROM)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = ItemLocationInfrastructureBinding.inflate(

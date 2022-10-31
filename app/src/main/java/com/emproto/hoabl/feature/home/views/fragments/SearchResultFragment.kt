@@ -600,8 +600,30 @@ class SearchResultFragment : BaseFragment() {
                     fragmentSearchResultBinding.searchLayout.search.setText("")
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
+
+                R.id.tv_see_all->{
+                    eventTrackingLatestMediaGallery()
+                }
+                R.id.tv_faq_read_all->{
+                    eventTrackingFAQS()
+                }
+                R.id.cv_main_outer_card->{
+                    eventTrackingSimilarInvestmentsCard()
+                }
             }
         }
+    }
+
+    private fun eventTrackingSimilarInvestmentsCard() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SIMILARINVESTMENTSCARD)
+    }
+
+    private fun eventTrackingFAQS() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.PORTFOLIOFAQS)
+    }
+
+    private fun eventTrackingLatestMediaGallery() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.LATESTMEDIAGALLERY)
     }
 
     val ivinterface = object : DocumentInterface {
@@ -728,6 +750,7 @@ class SearchResultFragment : BaseFragment() {
         }
     }
 
+
     val investmentScreenInterface =
         object : PortfolioSpecificViewAdapter.InvestmentScreenInterface {
             override fun onClickFacilityCard() {
@@ -792,4 +815,6 @@ class SearchResultFragment : BaseFragment() {
         super.onDestroy()
         runnable?.let { handler.removeCallbacks(it) }
     }
+
+
 }
