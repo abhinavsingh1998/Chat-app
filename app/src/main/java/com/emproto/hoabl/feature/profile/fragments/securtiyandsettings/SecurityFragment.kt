@@ -23,6 +23,7 @@ import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.hoabl.feature.profile.adapter.SecurityAdapter
 import com.emproto.hoabl.feature.profile.adapter.SettingsAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
+import com.emproto.hoabl.utils.Extensions.hideKeyboard
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
@@ -135,6 +136,8 @@ class SecurityFragment : BaseFragment() {
                     }
                 }
                 R.id.cl_security_tips -> {
+
+                    eventTrackingSecurityTips()
                     when (item) {
                         Constants.SECURITY_TIPS -> {
                             val securityTipsFragment = SecurityTipsFragment()
@@ -148,6 +151,9 @@ class SecurityFragment : BaseFragment() {
                         }
                     }
 
+                }
+                R.id.setting_switch->{
+                    eventTrackingSendPushNotifications()
                 }
                 R.id.button_view -> {
 //                    val u = Uri.parse("tel:" + "8939122576")
@@ -210,6 +216,14 @@ class SecurityFragment : BaseFragment() {
                 }
             }
         }
+    }
+
+    private fun eventTrackingSendPushNotifications() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SENDPUSHNOTIFICATIONS)
+    }
+
+    private fun eventTrackingSecurityTips() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.READSECURITYTIPS)
     }
 
 
@@ -312,5 +326,5 @@ class SecurityFragment : BaseFragment() {
         }
     }
 
-}
+    }
 

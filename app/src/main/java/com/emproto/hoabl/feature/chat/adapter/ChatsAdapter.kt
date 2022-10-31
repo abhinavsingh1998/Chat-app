@@ -30,22 +30,35 @@ class ChatsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        binding.tvChatTitle.text = chatList[position].project.projectContent.launchName
-        if (chatList[position].lastMessage != null) {
-            binding.tvChatDesc.text = chatList[position].lastMessage.message
-            binding.tvChatTime.text =
-                Utility.convertUTCtoTime(chatList[position].lastMessage.createdAt)
-        } else {
+        if(chatList[position].project !=null){
+            binding.tvChatTitle.text = chatList[position].project.projectContent.launchName
+
+            if (chatList[position].lastMessage != null) {
+                binding.tvChatDesc.text = chatList[position].lastMessage.message
+                binding.tvChatTime.text =
+                    Utility.convertUTCtoTime(chatList[position].lastMessage.createdAt)
+            } else {
+                binding.tvChatDesc.text = ""
+                binding.tvChatTime.text = ""
+            }
+        }else{
             binding.tvChatDesc.text = ""
             binding.tvChatTime.text = ""
         }
+
         binding.clChat.setOnClickListener {
             mListener.onChatItemClick(chatList, it, position)
         }
-        Glide.with(mContext)
-            .load(chatList[position].project.projectContent.projectCoverImages.chatListViewPageMedia.value.url)
-            .placeholder(R.drawable.ic_baseline_image_24)
-            .into(binding.ivChatThumb)
+
+        if(chatList[position].project !=null){
+            Glide.with(mContext)
+                .load(chatList[position].project.projectContent.projectCoverImages.chatListViewPageMedia.value.url)
+                .placeholder(R.drawable.ic_baseline_image_24)
+                .into(binding.ivChatThumb)
+        }else{
+
+        }
+
     }
 
     override fun getItemCount(): Int {

@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
-import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.profile.data.SettingsData
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.preferences.AppPreference
@@ -43,7 +42,6 @@ class SettingsAdapter(
             holder.switch.setOnCheckedChangeListener { _, isChecked ->
                 when (isChecked) {
                     true -> {
-                        eventTrackingSendPushNotifications()
                         itemClickListener.onItemClicked(
                             holder.switch,
                             position,
@@ -78,9 +76,6 @@ class SettingsAdapter(
         }
     }
 
-    private fun eventTrackingSendPushNotifications() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.SENDPUSHNOTIFICATIONS)
-    }
 
     override fun getItemCount(): Int {
         return settingsList.size

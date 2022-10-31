@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide
 import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
-import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.portfolio.ivdetails.SimilarInvestment
 import java.text.DecimalFormat
@@ -102,7 +101,6 @@ class SimilarInvestmentAdapter(
             timeCounter.start()
 
             cvMainOuterCard.setOnClickListener {
-                eventTrackingSimilarInvestmentsCard()
                 ivInterface.onClickSimilarInvestment(element.id)
             }
             tvApplyNow.setOnClickListener {
@@ -111,9 +109,7 @@ class SimilarInvestmentAdapter(
         }
     }
 
-    private fun eventTrackingSimilarInvestmentsCard() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.SIMILARINVESTMENTSCARD)
-    }
+
 
     override fun getItemCount(): Int {
         return if (list.size < toShow)
