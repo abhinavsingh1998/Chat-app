@@ -141,8 +141,22 @@ class OpportunityDocsFragment : BaseFragment() {
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
+                R.id.tv_view_more->{
+                    eventTrackingOppTourismViewMore()
+                    eventTrackingviewmore()
+                }
+
+
             }
         }
+
+    private fun eventTrackingviewmore() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.OPPDOCPROJECTAMENITITIES)
+    }
+
+    private fun eventTrackingOppTourismViewMore() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.OppDoc)
+    }
 
     private fun eventTrackingOppDocApplyNow() {
         Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.OPPDOCAPPLYNOW)
